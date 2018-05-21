@@ -1,5 +1,5 @@
 import TakeNotes from './take_notes.jsx';
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import React from 'react';
 import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
@@ -139,7 +139,7 @@ NotesDetails.propTypes = {
     onClickNoteType: React.PropTypes.func.isRequired,
     onChangeAttachmentUrl: React.PropTypes.func.isRequired,
   }),
-  feed: PropTypes.feed.isRequired,
+  feed: InsightsPropTypes.feed.isRequired,
   requests: React.PropTypes.object.isRequired,
 
   noteInProgressText: React.PropTypes.string.isRequired,

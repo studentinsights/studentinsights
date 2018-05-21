@@ -30,6 +30,7 @@ module Devise
       # Create a Net::LDAP instance, `bind` to it and close.
       # Return true or false if they're authorized.
       def is_authorized_by_ldap?(login, password)
+        return false if password.nil? || password == ''
         options = ldap_options_for(login, password)
         ldap = Net::LDAP.new(options)
         is_authorized = ldap.bind

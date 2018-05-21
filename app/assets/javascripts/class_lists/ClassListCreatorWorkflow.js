@@ -1,19 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
-import {gradeText} from '../helpers/gradeText';
-import Loading from '../components/Loading';
-import CreateYourLists from './CreateYourLists';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import {gradeText} from '../helpers/gradeText';
+import Loading from '../components/Loading';
+import IntroCopy from './IntroCopy';
+import CreateYourLists from './CreateYourLists';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
 
-
-const text = `Over the last few years, I’ve been hearing from teachers and principals about how complex and time-consuming the class assignment process is.  It’s so hard to juggle and keep track of all the various factors, like gender, ELL status, disabilities, academics, and discipline.  And in a diverse city as ours, we want as much as possible for the classrooms at each grade level to reflect the diversity of your school community.    In the past year, people who have seen our Student Insights system have asked if there might be a way to use technology to make the process a little more streamlined.
-
-With our new grant from the Boston Foundation to expand the functionality of Insights, we are happy to announce that we have created a tool for you to use.   Over the past few months, we have talked to a bunch of teachers and principals to see what would help, prototyped different models, and piloted this tool with several teams to get feedback.
-
--Uri`;
 
 
 // This is the UI component for grade-level teaching teams to go through the process
@@ -23,13 +18,24 @@ With our new grant from the Boston Foundation to expand the functionality of Ins
 export default class ClassListCreatorWorkflow extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      isExpandedVertically: false
+    };
     this.renderStepContents = this.renderStepContents.bind(this);
+    this.onExpandVerticallyToggled = this.onExpandVerticallyToggled.bind(this);
+  }
+
+  onExpandVerticallyToggled() {
+    const {isExpandedVertically} = this.state;
+    this.setState({isExpandedVertically: !isExpandedVertically});
   }
 
   render() {
     const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
-
+    const {isExpandedVertically} = this.state;
+    const expandedOrCollapsedStyles = (isExpandedVertically)
+      ? styles.horizontalStepperExpanded 
+      : styles.horizontalStepperCollapsed;
     return (
       <div className="ClassListCreatorView" style={styles.root}>
         <HorizontalStepper
@@ -39,7 +45,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
-          style={styles.horizontalStepper}
+          style={{...styles.horizontalStepper, ...expandedOrCollapsedStyles}}
           contentStyle={styles.horizontalStepperContent} />
       </div>
     );
@@ -63,17 +69,13 @@ export default class ClassListCreatorWorkflow extends React.Component {
       onSchoolIdChanged,
       onGradeLevelNextYearChanged
     } = this.props;
-    const videoUrl = null;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
     return (
       <div style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Why are we doing this?</div>
-          <div style={styles.introCopy}>
-            {text}
-          </div>
-          {videoUrl && <a href={videoUrl} target="_blank" style={styles.videoLink}>Watch the full video</a>}
+          <IntroCopy />
         </div>
         <div>
           <div>
@@ -166,12 +168,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
             Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
           </div>
-          <textarea
-            style={styles.textarea}
-            disabled={!isEditable}
-            rows={12}
-            value={planText}
-            onChange={event => onPlanTextChanged(event.target.value)} />
+          <div>
+            <textarea
+              style={styles.textarea}
+              disabled={!isEditable}
+              rows={8}
+              value={planText}
+              onChange={event => onPlanTextChanged(event.target.value)} />
+          </div>
         </div>
       </div>
     );
@@ -187,6 +191,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       studentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
+    const {isExpandedVertically} = this.state;
 
     if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
@@ -197,6 +202,8 @@ export default class ClassListCreatorWorkflow extends React.Component {
         studentIdsByRoom={studentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         isEditable={isEditable}
+        isExpandedVertically={isExpandedVertically}
+        onExpandVerticallyToggled={this.onExpandVerticallyToggled}
         onClassListsChanged={onClassListsChanged}/>
     );
   }
@@ -263,7 +270,8 @@ ClassListCreatorWorkflow.propTypes = {
 
 const styles = {
   root: {
-    fontSize: 14
+    fontSize: 14,
+    width: '100%'
   },
   heading: {
     marginTop: 20
@@ -272,12 +280,6 @@ const styles = {
     display: 'inline-block',
     margin: 5,
     cursor: 'pointer'
-  },
-  introCopy: {
-    // fontSize: 12,
-    padding: 10,
-    paddingLeft: 5,
-    whiteSpace: 'pre-wrap'
   },
   incrementButton: {
     display: 'inline-block',
@@ -292,10 +294,17 @@ const styles = {
   videoLink: {
     display: 'inline-block',
     marginLeft: 5,
-    // fontSize: 12
   },
   horizontalStepper: {
     paddingTop: 15
+  },
+  horizontalStepperCollapsed: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  horizontalStepperExpanded: {
+    
   },
   horizontalStepperContent: {
     borderTop: '1px solid #ccc',

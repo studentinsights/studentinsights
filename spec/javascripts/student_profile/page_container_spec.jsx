@@ -1,7 +1,7 @@
 import {nowMoment, studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import ReactTestUtils from 'react-addons-test-utils';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
+
 
 describe('PageContainer', function() {
   const ReactDOM = window.ReactDOM;
@@ -37,7 +37,7 @@ describe('PageContainer', function() {
     },
 
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         nowMomentFn: function() { return nowMoment; },
         serializedData: studentProfile,
         queryParams: {},
@@ -46,7 +46,8 @@ describe('PageContainer', function() {
         api: helpers.createSpyApi(),
         noteInProgressText: '',
         noteInProgressType: null,
-      });
+        ...props
+      };
       return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     },
 

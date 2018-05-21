@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import SimpleStudentCard from './SimpleStudentCard';
+import {AutoSizer} from 'react-virtualized';
+import StudentCard from './StudentCard';
 import ClassroomStats from './ClassroomStats';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
@@ -19,7 +20,11 @@ export default class CreateYourListsView extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      highlightKey: null
+    };
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.onCategorySelected = this.onCategorySelected.bind(this);
   }
 
   onDragEnd(dragEndResult) {
@@ -28,60 +33,85 @@ export default class CreateYourListsView extends React.Component {
     onClassListsChanged(updatedStudentIdsByRoom);
   }
 
+  onCategorySelected(highlightKey) {
+    this.setState({highlightKey});
+  }
+
   render() {
     const {
-      isEditable,
       students,
       classroomsCount,
       studentIdsByRoom,
-      gradeLevelNextYear
+      gradeLevelNextYear,
+      isExpandedVertically,
+      onExpandVerticallyToggled
     } = this.props;
+    const {highlightKey} = this.state;
     const rooms = createRooms(classroomsCount);
 
     return (
       <div className="CreateYourListsView" style={styles.root}>
+        <div style={styles.expandLink} onClick={onExpandVerticallyToggled}>
+          {isExpandedVertically ? '▴ Collapse ▴' : '▾ Expand ▾'}
+        </div>
         <ClassroomStats
           students={students}
           gradeLevelNextYear={gradeLevelNextYear}
           rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
-          studentIdsByRoom={studentIdsByRoom} />
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <div style={styles.listsContainer}>
-            {rooms.map(room => {
-              const {roomKey, roomName} = room;
-              const classroomStudents = studentsInRoom(students, studentIdsByRoom, roomKey);
-              return (
-                <div key={roomKey} style={styles.classroomListColumn}>
-                  <div>
-                    <div style={styles.roomTitle}>
-                      <span style={{fontWeight: 'bold'}}>{roomName}</span>
-                      <span style={styles.roomStudentCount}>({classroomStudents.length})</span>
-                    </div>
-                  </div>
-                  <Droppable
-                    droppableId={roomKey}
-                    type="CLASSROOM_LIST"
-                    isDropDisabled={!isEditable}>
-                    {(provided, snapshot) => (
-                      <div ref={provided.innerRef} style={styles.droppable}>
-                        <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
-                        <div>{provided.placeholder}</div>
-                      </div>
-                    )}
-                  </Droppable>
-                </div>
-              );
-            })}
-          </div>
-        </DragDropContext>
+          studentIdsByRoom={studentIdsByRoom}
+          highlightKey={highlightKey}
+          onCategorySelected={this.onCategorySelected}/>
+        {this.renderLists(rooms)}
       </div>
+    );
+  }
+
+  renderLists(rooms) {
+    const {isEditable, students, studentIdsByRoom, isExpandedVertically} = this.props;
+    const expandedStyles = isExpandedVertically ? { height: '90em' } : { flex: 1 }; // estimating 30 students with 3em per card
+    return (
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <div style={{...styles.listsContainer, ...expandedStyles}}>
+          {rooms.map(room => {
+            const {roomKey, roomName} = room;
+            const classroomStudents = studentsInRoom(students, studentIdsByRoom, roomKey);
+            return (
+              <div key={roomKey} style={styles.classroomListColumn}>
+                <div>
+                  <div style={styles.roomTitle}>
+                    <span style={{fontWeight: 'bold'}}>{roomName}</span>
+                    <span style={styles.roomStudentCount}>({classroomStudents.length})</span>
+                  </div>
+                </div>
+                <div style={{flex: 1}}>
+                  <AutoSizer disableWidth>{({height}) => (
+                    <Droppable
+                      droppableId={roomKey}
+                      type="CLASSROOM_LIST"
+                      isDropDisabled={!isEditable}>
+                      {(provided, snapshot) => (
+                        <div ref={provided.innerRef} style={{...styles.droppable, height}}>
+                          <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
+                          <div>{provided.placeholder}</div>
+                        </div>
+                      )}
+                    </Droppable>
+                  )}</AutoSizer>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </DragDropContext>
     );
   }
 
   renderStudentCard(student, index) {
     const {fetchProfile, isEditable} = this.props;
-    return <SimpleStudentCard
+    const {highlightKey} = this.state;
+    return <StudentCard
       key={student.id}
+      highlightKey={highlightKey}
       student={student}
       index={index}
       fetchProfile={fetchProfile}
@@ -90,12 +120,14 @@ export default class CreateYourListsView extends React.Component {
 }
 CreateYourListsView.propTypes = {
   isEditable: React.PropTypes.bool.isRequired,
+  isExpandedVertically: React.PropTypes.bool.isRequired,
   classroomsCount: React.PropTypes.number.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   students: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
-  onClassListsChanged: React.PropTypes.func.isRequired
+  onClassListsChanged: React.PropTypes.func.isRequired,
+  onExpandVerticallyToggled: React.PropTypes.func.isRequired,
 };
 
 
@@ -108,7 +140,7 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
   const sourceStudentIds = studentIdsByRoom[source.droppableId];
   const destinationStudentIds = studentIdsByRoom[destination.droppableId];
-  const draggableStudentId = _.find(sourceStudentIds, studentId => `SimpleStudentCard:${studentId}` === draggableId);
+  const draggableStudentId = _.find(sourceStudentIds, studentId => `StudentCard:${studentId}` === draggableId);
 
   // Moving within the same list
   if (source.droppableId === destination.droppableId) {
@@ -132,7 +164,11 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 const styles = {
   root: {
     userSelect: 'none',
-    msUserSelect: 'none'
+    msUserSelect: 'none',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    position: 'relative' // for expandLink
   },
   listsContainer: {
     display: 'flex'
@@ -152,7 +188,8 @@ const styles = {
     borderRadius: 3,
     paddingTop: 10,
     paddingBottom: 10,
-    minHeight: 150
+    minHeight: 150,
+    overflowY: 'scroll'
   },
   roomTitle: {
     border: '1px solid #aaa',
@@ -169,5 +206,14 @@ const styles = {
     float: 'right',
     color: '#666',
     fontSize: 12
+  },
+  expandLink: {
+    position: 'absolute',
+    padding: 10,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    bottom: -20,
+    cursor: 'pointer'
   }
 };

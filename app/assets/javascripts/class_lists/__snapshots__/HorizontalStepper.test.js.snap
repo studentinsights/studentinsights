@@ -223,6 +223,7 @@ exports[`snapshots 1`] = `
     style={
       Object {
         "borderTop": "1px solid #ccc",
+        "flex": 1,
         "marginTop": 10,
       }
     }
@@ -541,6 +542,7 @@ exports[`snapshots when readonly 1`] = `
     style={
       Object {
         "borderTop": "1px solid #ccc",
+        "flex": 1,
         "marginTop": 10,
       }
     }

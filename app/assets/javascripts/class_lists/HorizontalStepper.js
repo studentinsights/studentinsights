@@ -114,7 +114,8 @@ const styles = {
   },
   content: {
     borderTop: '1px solid #ccc',
-    marginTop: 10
+    marginTop: 10,
+    flex: 1
   },
   bannerContainer: {
     display: 'flex',

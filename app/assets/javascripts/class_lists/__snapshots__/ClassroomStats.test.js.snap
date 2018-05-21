@@ -3,945 +3,370 @@
 exports[`snapshots 1`] = `
 <div
   className="ClassroomStats"
+  onKeyPress={[Function]}
   style={
     Object {
       "borderBottom": "1px solid #eee",
       "fontSize": 14,
       "padding": 20,
-      "paddingBottom": 15,
+      "paddingBottom": 10,
+      "paddingTop": 10,
     }
   }
 >
-  <table
+  <div
     style={
       Object {
-        "borderCollapse": "collapse",
-        "tableLayout": "fixed",
-        "textAlign": "left",
-        "width": "100%",
+        "overflow": "hidden",
+        "paddingBottom": 5,
+        "paddingTop": 10,
       }
     }
   >
-    <thead>
-      <tr>
-        <th
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        />
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="Students who have an IEP or 504 plan"
-        >
-          IEP or 504
-        </th>
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="Students receiving English Learning Services or who have in the past (FLEP)"
-        >
-          Limited or FLEP
-        </th>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="Students broken down by whether they identify their gender as male, female or nonbinary."
-        >
-          Gender
-        </th>
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="Students whose are enrolled in the free or reduced lunch program"
-        >
-          Low income
-        </th>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile."
-        >
-          Discipline, 3+
-        </th>
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score."
-        >
-          STAR Math
-        </th>
-        <th
-          style={
-            Object {
-              "cursor": "help",
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "paddingBottom": 10,
-              "textAlign": "left",
-              "textDecoration": "dashed #ccc underline",
-              "verticalAlign": "top",
-            }
-          }
-          title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score."
-        >
-          STAR Reading
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Not placed
-        </td>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+    <table
+      style={
+        Object {
+          "borderCollapse": "collapse",
+          "tableLayout": "fixed",
+          "textAlign": "left",
+          "width": "100%",
+        }
+      }
+    >
+      <thead>
+        <tr>
+          <th
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
               }
             }
+          />
+          <th
+            onClick={[Function]}
+            style={
+              Object {
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
+                "position": "relative",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
+              }
+            }
+            title="Students who have an IEP or 504 plan."
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
             >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
                     "position": "absolute",
-                    "width": "0%",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
               />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+            IEP or 504
+          </th>
+          <th
+            onClick={[Function]}
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
                 "position": "relative",
-                "width": "100%",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
               }
             }
+            title="Students receiving English Learning Services or who have in the past (FLEP)."
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
             >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
                     "position": "absolute",
-                    "width": "0%",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
               />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            className="GenderBreakdownBar"
+            Limited or FLEP
+          </th>
+          <th
+            onClick={[Function]}
             style={
               Object {
-                "height": 5,
-                "paddingRight": 10,
-                "paddingTop": 4,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "height": 5,
-                  "position": "relative",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
                 "position": "relative",
-                "width": "100%",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
               }
             }
+            title="Students broken down by whether they identify their gender as male, female or nonbinary."
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
             >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
                     "position": "absolute",
-                    "width": "0%",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
               />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+            Gender identity
+          </th>
+          <th
+            onClick={[Function]}
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
                 "position": "relative",
-                "width": "100%",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
               }
             }
+            title="Students whose are enrolled in the free or reduced lunch program."
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
             >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
                     "position": "absolute",
-                    "width": "0%",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
               />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div />
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div />
-        </td>
-      </tr>
-      <tr>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Room A
-        </td>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+            Low income
+          </th>
+          <th
+            onClick={[Function]}
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
                 "position": "relative",
-                "width": "100%",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
               }
             }
+            title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile."
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
             >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
                     "position": "absolute",
-                    "width": "12%",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
               />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "12%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  2
-                </span>
-              </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+            Discipline, 3+
+          </th>
+          <th
+            onClick={[Function]}
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
                 "position": "relative",
-                "width": "100%",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
               }
             }
+            title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile."
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
             >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
                     "position": "absolute",
-                    "width": "23%",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
               />
+            </div>
+            STAR Math
+          </th>
+          <th
+            onClick={[Function]}
+            style={
+              Object {
+                "cursor": "help",
+                "fontWeight": "normal",
+                "overflow": "visible",
+                "paddingBottom": 10,
+                "position": "relative",
+                "textAlign": "left",
+                "textDecoration": "dashed #ccc underline",
+                "verticalAlign": "top",
+              }
+            }
+            title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile."
+          >
+            <div
+              className="Hover"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={undefined}
+            >
               <div
                 style={
                   Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "23%",
+                    "borderRadius": 3,
+                    "bottom": "-10em",
+                    "left": -5,
+                    "position": "absolute",
+                    "top": -10,
+                    "width": "100%",
+                    "zIndex": 10,
                   }
                 }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  4
-                </span>
-              </div>
+              />
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            className="GenderBreakdownBar"
+            STAR Reading
+          </th>
+          <th
             style={
               Object {
-                "height": 5,
-                "paddingRight": 10,
-                "paddingTop": 4,
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+                "width": 50,
+              }
+            }
+          >
+            Total
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Not placed
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
               }
             }
           >
             <div
               style={
                 Object {
-                  "height": 5,
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
                   "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#299fc5",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "63%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#299fc5",
-                      "fontSize": 12,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "63%",
-                    }
-                  }
-                >
-                  5
-                </div>
-              </div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#e06378",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "63%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "38%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#e06378",
-                      "fontSize": 12,
-                      "left": "63%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "38%",
-                    }
-                  }
-                >
-                  3
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "29%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "29%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  5
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "0%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <div
-              className="BoxAndWhisker"
-              style={
-                Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
-                }
-              }
-              title="{\\"min\\":3,\\"p25\\":5,\\"p50\\":15,\\"p75\\":41,\\"max\\":100}"
-            >
-              <div
-                style={
-                  Object {
-                    "height": "100%",
-                    "position": "relative",
                     "width": "100%",
                   }
                 }
@@ -949,606 +374,61 @@ exports[`snapshots 1`] = `
                 <div
                   style={
                     Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "3%",
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
                       "position": "absolute",
-                      "top": 5,
-                      "width": "97%",
+                      "width": "0%",
                     }
                   }
-                >
-                   
-                </div>
+                />
                 <div
                   style={
                     Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "5%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "10%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "15%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "26%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
+                      "alignItems": "flex-end",
+                      "display": "flex",
                       "fontSize": 12,
-                      "left": "-10%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
                     }
                   }
                 >
-                  15
+                   
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <div
-              className="BoxAndWhisker"
-              style={
-                Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
-                }
-              }
-              title="{\\"min\\":14,\\"p25\\":17,\\"p50\\":49,\\"p75\\":68,\\"max\\":91}"
-            >
-              <div
-                style={
-                  Object {
-                    "height": "100%",
-                    "position": "relative",
-                    "width": "100%",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "14%",
-                      "position": "absolute",
-                      "top": 5,
-                      "width": "77%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "17%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "32%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "49%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "19%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
-                      "fontSize": 12,
-                      "left": "24%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
-                    }
-                  }
-                >
-                  49
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Room B
-        </td>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+          </td>
+          <td
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
               }
             }
           >
             <div
               style={
                 Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "18%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "18%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  3
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "58%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "58%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  10
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            className="GenderBreakdownBar"
-            style={
-              Object {
-                "height": 5,
-                "paddingRight": 10,
-                "paddingTop": 4,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "height": 5,
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
                   "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#299fc5",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "43%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#299fc5",
-                      "fontSize": 12,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "43%",
-                    }
-                  }
-                >
-                  6
-                </div>
-              </div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#e06378",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "43%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "58%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#e06378",
-                      "fontSize": 12,
-                      "left": "43%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "58%",
-                    }
-                  }
-                >
-                  8
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "47%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "47%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  8
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "0%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <div
-              className="BoxAndWhisker"
-              style={
-                Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
-                }
-              }
-              title="{\\"min\\":1,\\"p25\\":16,\\"p50\\":50,\\"p75\\":77,\\"max\\":96}"
-            >
-              <div
-                style={
-                  Object {
-                    "height": "100%",
-                    "position": "relative",
                     "width": "100%",
                   }
                 }
@@ -1556,606 +436,92 @@ exports[`snapshots 1`] = `
                 <div
                   style={
                     Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "1%",
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
                       "position": "absolute",
-                      "top": 5,
-                      "width": "95%",
+                      "width": "0%",
                     }
                   }
-                >
-                   
-                </div>
+                />
                 <div
                   style={
                     Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "16%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "34%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "50%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "27%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
+                      "alignItems": "flex-end",
+                      "display": "flex",
                       "fontSize": 12,
-                      "left": "25%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
-                    }
-                  }
-                >
-                  50
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <div
-              className="BoxAndWhisker"
-              style={
-                Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
-                }
-              }
-              title="{\\"min\\":12,\\"p25\\":26,\\"p50\\":40,\\"p75\\":66,\\"max\\":77}"
-            >
-              <div
-                style={
-                  Object {
-                    "height": "100%",
-                    "position": "relative",
-                    "width": "100%",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "12%",
-                      "position": "absolute",
-                      "top": 5,
-                      "width": "65%",
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
                     }
                   }
                 >
                    
                 </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "26%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "14%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "40%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "26%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
-                      "fontSize": 12,
-                      "left": "15%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
-                    }
-                  }
-                >
-                  40
-                </div>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Room C
-        </td>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+          </td>
+          <td
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
               }
             }
           >
             <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "18%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "18%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  3
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "29%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "29%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  5
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            className="GenderBreakdownBar"
-            style={
-              Object {
-                "height": 5,
-                "paddingRight": 10,
-                "paddingTop": 4,
-              }
-            }
-          >
-            <div
+              className="BreakdownBar"
               style={
                 Object {
                   "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
                   "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#299fc5",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "67%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#299fc5",
-                      "fontSize": 12,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "67%",
-                    }
-                  }
-                >
-                  6
-                </div>
-              </div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#e06378",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "67%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "34%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#e06378",
-                      "fontSize": 12,
-                      "left": "67%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "34%",
-                    }
-                  }
-                >
-                  3
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "41%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "41%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  7
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "0%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <div
-              className="BoxAndWhisker"
-              style={
-                Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
-                }
-              }
-              title="{\\"min\\":11,\\"p25\\":29,\\"p50\\":52,\\"p75\\":95,\\"max\\":95}"
-            >
-              <div
-                style={
-                  Object {
-                    "height": "100%",
-                    "position": "relative",
                     "width": "100%",
                   }
                 }
@@ -2163,606 +529,445 @@ exports[`snapshots 1`] = `
                 <div
                   style={
                     Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "11%",
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
                       "position": "absolute",
-                      "top": 5,
-                      "width": "84%",
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
                     }
                   }
                 >
                    
                 </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
                 <div
                   style={
                     Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "29%",
-                      "paddingLeft": 3,
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
                       "position": "absolute",
-                      "top": 1.5,
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
+                    }
+                  }
+                >
+                   
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          />
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room A
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "12%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "12%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    2
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "23%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
                       "width": "23%",
                     }
                   }
                 >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "52%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "43%",
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
                     }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
-                      "fontSize": 12,
-                      "left": "27%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
-                    }
-                  }
-                >
-                  52
+                  >
+                    4
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
             }
-          }
-        >
-          <div>
+          >
             <div
-              className="BoxAndWhisker"
+              className="BreakdownBar"
               style={
                 Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
                 }
               }
-              title="{\\"min\\":19,\\"p25\\":28,\\"p50\\":69,\\"p75\\":79,\\"max\\":90}"
             >
               <div
                 style={
                   Object {
-                    "height": "100%",
+                    "height": 5,
                     "position": "relative",
                     "width": "100%",
                   }
                 }
               >
-                <div
-                  style={
-                    Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "19%",
-                      "position": "absolute",
-                      "top": 5,
-                      "width": "71%",
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "63%",
+                      }
                     }
-                  }
-                >
-                   
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "63%",
+                      }
+                    }
+                  >
+                    5
+                  </div>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "28%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "41%",
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "63%",
+                        "position": "absolute",
+                        "width": "38%",
+                      }
                     }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "69%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "10%",
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "left": "63%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "38%",
+                      }
                     }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
-                      "fontSize": 12,
-                      "left": "44%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
-                    }
-                  }
-                >
-                  69
+                  >
+                    3
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Room D
-        </td>
-        <th
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
+          </td>
+          <td
             style={
               Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
               }
             }
           >
             <div
               style={
                 Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "18%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "18%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  3
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "58%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "58%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  10
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            className="GenderBreakdownBar"
-            style={
-              Object {
-                "height": 5,
-                "paddingRight": 10,
-                "paddingTop": 4,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "height": 5,
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
                   "position": "relative",
                   "width": "100%",
                 }
               }
             >
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#299fc5",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "47%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#299fc5",
-                      "fontSize": 12,
-                      "left": "0%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "47%",
-                    }
-                  }
-                >
-                  7
-                </div>
-              </div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "background": "#e06378",
-                      "fontSize": 12,
-                      "height": 5,
-                      "left": "47%",
-                      "opacity": 0.5,
-                      "position": "absolute",
-                      "width": "54%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#e06378",
-                      "fontSize": 12,
-                      "left": "47%",
-                      "opacity": 0.5,
-                      "paddingRight": 1,
-                      "position": "absolute",
-                      "textAlign": "right",
-                      "top": 5,
-                      "width": "54%",
-                    }
-                  }
-                >
-                  8
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
               <div
                 style={
                   Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "41%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "41%",
-                  }
-                }
-              >
-                <span
-                  style={
-                    Object {
-                      "color": "#333",
-                    }
-                  }
-                >
-                  7
-                </span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "width": 1,
-            }
-          }
-        />
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "color": "black",
-                "cursor": "default",
-                "display": "inline-block",
-                "height": 20,
-                "marginBottom": 1,
-                "paddingTop": 5,
-                "position": "relative",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "backgroundColor": "rgb(137, 175, 202)",
-                    "height": 3,
-                    "left": "0%",
-                    "position": "absolute",
-                    "width": "0%",
-                  }
-                }
-              />
-              <div
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "display": "flex",
-                    "fontSize": 12,
-                    "height": "100%",
-                    "justifyContent": "flex-end",
-                    "left": 13,
-                    "position": "relative",
-                    "top": -6,
-                    "width": "0%",
-                  }
-                }
-              >
-                 
-              </div>
-            </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <div
-              className="BoxAndWhisker"
-              style={
-                Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
-                }
-              }
-              title="{\\"min\\":2,\\"p25\\":14,\\"p50\\":68,\\"p75\\":82,\\"max\\":90}"
-            >
-              <div
-                style={
-                  Object {
-                    "height": "100%",
-                    "position": "relative",
                     "width": "100%",
                   }
                 }
@@ -2770,99 +975,69 @@ exports[`snapshots 1`] = `
                 <div
                   style={
                     Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "2%",
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
                       "position": "absolute",
-                      "top": 5,
-                      "width": "88%",
+                      "width": "29%",
                     }
                   }
-                >
-                   
-                </div>
+                />
                 <div
                   style={
                     Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "14%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "54%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "68%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "14%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
+                      "alignItems": "flex-end",
+                      "display": "flex",
                       "fontSize": 12,
-                      "left": "43%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "29%",
                     }
                   }
                 >
-                  68
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    5
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "fontWeight": "normal",
-              "overflow": "hidden",
-              "textAlign": "left",
-              "verticalAlign": "top",
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
             }
-          }
-        >
-          <div>
+          >
             <div
-              className="BoxAndWhisker"
               style={
                 Object {
-                  "height": 18,
-                  "marginLeft": "auto",
-                  "marginRight": "auto",
-                  "width": 100,
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
                 }
               }
-              title="{\\"min\\":4,\\"p25\\":47,\\"p50\\":57,\\"p75\\":90,\\"max\\":100}"
             >
               <div
                 style={
                   Object {
-                    "height": "100%",
-                    "position": "relative",
                     "width": "100%",
                   }
                 }
@@ -2870,73 +1045,2299 @@ exports[`snapshots 1`] = `
                 <div
                   style={
                     Object {
-                      "backgroundColor": "#999",
-                      "height": 1,
-                      "left": "4%",
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
                       "position": "absolute",
-                      "top": 5,
-                      "width": "96%",
+                      "width": "0%",
                     }
                   }
-                >
-                   
-                </div>
+                />
                 <div
                   style={
                     Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "borderRight": 0,
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "47%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "10%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "1px solid #999",
-                      "fontSize": 10,
-                      "height": 7,
-                      "left": "57%",
-                      "paddingLeft": 3,
-                      "position": "absolute",
-                      "top": 1.5,
-                      "width": "33%",
-                    }
-                  }
-                >
-                   
-                </div>
-                <div
-                  style={
-                    Object {
-                      "color": "#333",
+                      "alignItems": "flex-end",
+                      "display": "flex",
                       "fontSize": 12,
-                      "left": "32%",
-                      "position": "absolute",
-                      "textAlign": "center",
-                      "top": 8.5,
-                      "width": "50%",
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
                     }
                   }
                 >
-                  57
+                   
                 </div>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "13%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "13%",
+                      }
+                    }
+                  >
+                    1
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "13%",
+                        "position": "absolute",
+                        "width": "25%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "13%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "25%",
+                      }
+                    }
+                  >
+                    2
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "38%",
+                        "position": "absolute",
+                        "width": "63%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "38%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "63%",
+                      }
+                    }
+                  >
+                    5
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "25%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "25%",
+                      }
+                    }
+                  >
+                    2
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "25%",
+                        "position": "absolute",
+                        "width": "38%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "25%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "38%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "63%",
+                        "position": "absolute",
+                        "width": "38%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "63%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "38%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#999",
+                  "float": "right",
+                  "fontSize": 12,
+                  "paddingRight": 20,
+                }
+              }
+            >
+              8
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room B
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "18%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "18%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    3
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "58%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "58%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    10
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "43%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "43%",
+                      }
+                    }
+                  >
+                    6
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "43%",
+                        "position": "absolute",
+                        "width": "58%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "left": "43%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "58%",
+                      }
+                    }
+                  >
+                    8
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "47%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "47%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    8
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
+                    }
+                  }
+                >
+                   
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "42%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "42%",
+                      }
+                    }
+                  >
+                    5
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "42%",
+                        "position": "absolute",
+                        "width": "25%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "42%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "25%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "67%",
+                        "position": "absolute",
+                        "width": "34%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "67%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "34%",
+                      }
+                    }
+                  >
+                    4
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "19%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "19%",
+                      }
+                    }
+                  >
+                    2
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "19%",
+                        "position": "absolute",
+                        "width": "55%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "19%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "55%",
+                      }
+                    }
+                  >
+                    6
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "73%",
+                        "position": "absolute",
+                        "width": "28%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "73%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "28%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#999",
+                  "float": "right",
+                  "fontSize": 12,
+                  "paddingRight": 20,
+                }
+              }
+            >
+              14
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room C
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "18%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "18%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    3
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "29%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "29%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    5
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "67%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "67%",
+                      }
+                    }
+                  >
+                    6
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "67%",
+                        "position": "absolute",
+                        "width": "34%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "left": "67%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "34%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "41%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "41%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    7
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
+                    }
+                  }
+                >
+                   
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "34%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "34%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "34%",
+                        "position": "absolute",
+                        "width": "34%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "34%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "34%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "67%",
+                        "position": "absolute",
+                        "width": "34%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "67%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "34%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "45%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "45%",
+                      }
+                    }
+                  >
+                    4
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "45%",
+                        "position": "absolute",
+                        "width": "23%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "45%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "23%",
+                      }
+                    }
+                  >
+                    2
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "67%",
+                        "position": "absolute",
+                        "width": "34%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "67%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "34%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#999",
+                  "float": "right",
+                  "fontSize": 12,
+                  "paddingRight": 20,
+                }
+              }
+            >
+              9
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room D
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "18%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "18%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    3
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "58%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "58%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    10
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "47%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(41, 159, 197, 0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "47%",
+                      }
+                    }
+                  >
+                    7
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "47%",
+                        "position": "absolute",
+                        "width": "54%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "left": "47%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "54%",
+                      }
+                    }
+                  >
+                    8
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "41%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "41%",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#333",
+                      }
+                    }
+                  >
+                    7
+                  </span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
+                    }
+                  }
+                >
+                   
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "46%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "46%",
+                      }
+                    }
+                  >
+                    5
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "46%",
+                        "position": "absolute",
+                        "width": "28%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "46%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "28%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "73%",
+                        "position": "absolute",
+                        "width": "28%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "73%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "28%",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "0%",
+                        "position": "absolute",
+                        "width": "46%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(0,128,0,0.5)",
+                        "fontSize": 12,
+                        "left": "0%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "46%",
+                      }
+                    }
+                  >
+                    5
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "46%",
+                        "position": "absolute",
+                        "width": "37%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,165,0,0.5)",
+                        "fontSize": 12,
+                        "left": "46%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "37%",
+                      }
+                    }
+                  >
+                    4
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "82%",
+                        "position": "absolute",
+                        "width": "19%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(255,0,0,0.5)",
+                        "fontSize": 12,
+                        "left": "82%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "19%",
+                      }
+                    }
+                  >
+                    2
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#999",
+                  "float": "right",
+                  "fontSize": 12,
+                  "paddingRight": 20,
+                }
+              }
+            >
+              15
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 `;

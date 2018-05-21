@@ -10,12 +10,14 @@ beforeEach(() => mockWithFixtures());
 export function testProps(props = {}) {
   return {
     isEditable: true,
+    isExpandedVertically: false,
     classroomsCount: 3,
     gradeLevelNextYear: '2',
     students: students_for_grade_level_next_year_json.students,
     studentIdsByRoom: {},
     fetchProfile(studentId) { return Promise.resolve(profile_json); },
     onClassListsChanged: jest.fn(),
+    onExpandVerticallyToggled: jest.fn(),
     ...props
   };
 }
@@ -32,7 +34,7 @@ describe('studentIdsByRoomAfterDrag', () => {
       "room:unplaced": [93,95,96,97,98,99]
     };
     const dragEndResult = {
-      "draggableId": "SimpleStudentCard:97",
+      "draggableId": "StudentCard:97",
       "type": "CLASSROOM_LIST",
       "source": {
         "droppableId": "room:unplaced",

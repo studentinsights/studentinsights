@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
   # classroom list creator
+  get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
   get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
   get '/api/class_lists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
   post '/api/class_lists/:workspace_id/update_class_list_json' => 'class_lists#update_class_list_json'
@@ -81,6 +82,7 @@ Rails.application.routes.draw do
   resource :classlists, only: [] do
     member do
       get '' => 'ui#ui'
+      get '/new' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
     end
   end

@@ -28,6 +28,14 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def enabled_class_lists?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
+    else
+      false
+    end
+  end
+
   def include_incident_cards?
     EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
   end

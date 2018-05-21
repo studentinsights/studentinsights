@@ -23,7 +23,7 @@ class DashRangeButtons extends React.Component {
           <DashButton
             onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
             isSelected={this.state.selectedButton === 'schoolYear'}
-            buttonText='This School Year' />
+            buttonText='School Year' />
           <DashButton
               onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
               isSelected={this.state.selectedButton === 'ninetyDays'}

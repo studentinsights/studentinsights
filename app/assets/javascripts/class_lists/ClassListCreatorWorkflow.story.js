@@ -24,7 +24,7 @@ function render(props) {
   return storybookFrame(<ClassListCreatorWorkflow {...props} />);
 }
 
-storiesOf('equity/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
+storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
   .add('choose your grade', () => render(withStoryProps(chooseYourGradeProps())))
   .add('choose your grade, readonly', () => render(withStoryProps(chooseYourGradeProps({ isEditable: false }))))
   .add('make a plan', () => render(withStoryProps(makeAPlanProps())))

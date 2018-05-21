@@ -18,7 +18,7 @@ RSpec.describe School do
       before { FactoryBot.create(:student, school: healey) }
       before { FactoryBot.create(:student, school: brown) }
       it 'returns all schools' do
-        expect(subject).to eq [healey, brown]
+        expect(subject).to contain_exactly(healey, brown)
       end
     end
 
@@ -27,7 +27,7 @@ RSpec.describe School do
       let!(:brown) { FactoryBot.create(:brown) }
       before { FactoryBot.create(:student, school: healey) }
       it 'returns the correct schools' do
-        expect(subject).to eq [healey]
+        expect(subject).to eq([healey])
       end
     end
   end
