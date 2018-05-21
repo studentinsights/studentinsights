@@ -8,6 +8,12 @@
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+  .Select-menu-outer {
+    max-height: 1000px;
+  }
+  .Select-menu {
+    max-height: 998px;
+  }
 }
 
 .DashboardRosterColumn {
