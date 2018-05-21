@@ -130,6 +130,7 @@ class SchoolDisciplineDashboard extends React.Component {
                 onChange={this.selectChart}
                 options={chartOptions}
                 style={styles.dropdown}
+                clearable={false}
               />
             </div>
            {this.renderDisciplineChart(selectedChart)}
