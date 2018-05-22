@@ -4,45 +4,39 @@
 
   <% if links.has_key?(:classlists) %>
     <%= link_to 'Class lists', links[:classlists] %>
-    &nbsp; &nbsp;
+    <span class="navbar-spacer"></span>
   <% end %>
 
   <% if links.has_key?(:district) %>
     <%= link_to 'District', links[:district] %>
-    &nbsp; &nbsp;
+    <span class="navbar-spacer"></span>
   <% end %>
 
   <% if links.has_key?(:school) %>
     <%= link_to 'Roster', links[:school] %>
-    &nbsp;
   <% end %>
   <% if links.has_key?(:absences) %>
     <%= link_to "Absences", links[:absences] %>
   <% end %>
   <% if links.has_key?(:tardies) %>
     <%= link_to "Tardies", links[:tardies] %>
-    &nbsp;
-    &nbsp; &nbsp;
+    <span class="navbar-spacer"></span>
   <% end %>
 
   <% if links.has_key?(:section) %>
     <%= link_to 'Sections', links[:section] %>
-    &nbsp;
   <% end %>
 
   <% if links.has_key?(:homeroom) %>
   <%= link_to 'Homeroom', links[:homeroom] %>
-    &nbsp;
   <% end %>
 
   <% # Everyone has these %>
   <%= link_to "My notes", educators_notes_feed_path %>
-  &nbsp;
   <%= link_to "Home", home_path %>
-  &nbsp;
-  &nbsp; &nbsp;
+  <span class="navbar-spacer"></span>
   <p class="search-label">Search for student:</p>
   <input class="student-searchbar" />
-  &nbsp; &nbsp;
+  <span class="navbar-spacer"></span>
   <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
 </div>

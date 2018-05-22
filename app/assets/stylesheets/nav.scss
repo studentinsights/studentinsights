@@ -8,6 +8,7 @@
   .nav-options {
     flex: 1;
     display: flex;
+    display: -webkit-flex;
     justify-content: flex-end;
     align-items: center;
 
@@ -35,12 +36,21 @@
 
   .student-searchbar {
     font-size: 14px;
-    
+    padding: 3px 5px;
+    margin-top: 1px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .navbar-spacer {
+    display: inline-block;
+    width: 15px;
   }
 
   .navwrap {
-    margin: 5px 10px 5px 10px;
+    padding: 5px 20px 5px 20px;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -71,9 +81,8 @@
     color: white;
     text-align: center;
     padding: 10px;
-    position: relative;
-    top: -10px;
     display: none;
+
     a {
       color: white;
       text-decoration: underline;
@@ -83,8 +92,8 @@
 
   .flash {
     position: absolute;
-    right: 40px;
-    top: 62px;
+    right: 20px;
+    top: 65px; /* just below bar */
   }
 
   /* SIGN IN FLOW & MESSAGES */
@@ -101,9 +110,6 @@
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
-    height: 35px;
-    padding-top: 15px;
-    margin-right: 20px;
 
     .sign-in-item {
       display: inline-block;
@@ -113,6 +119,10 @@
     .sign-in-text {
       width: 20em;
       border: 3px inset #4a90e2
+    }
+
+    label {
+      margin-bottom: 0;
     }
   }
 

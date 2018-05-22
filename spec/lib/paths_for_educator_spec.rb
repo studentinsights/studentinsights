@@ -7,22 +7,20 @@ RSpec.describe PathsForEducator do
     PathsForEducator.new(educator).navbar_links
   end
 
-  def mock_enabled_class_lists!(return_value)
-    mock_per_district = instance_double(PerDistrict, district_key: 'demo')
-    allow(mock_per_district).to receive(:enabled_class_lists?) { return_value }
-    nil
-  end
-
   describe '#navbar_links' do
+    before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
+    after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
+
     it 'respects PerDistrict for /classlists' do
-      mock_enabled_class_lists!(false)
+      ENV['ENABLE_CLASS_LISTS'] = 'false'
+
       expect(navbar_links(pals.uri)).to eq({
         district: '/educators/districtwide'
       })
     end
 
     it 'works across educators, with classlists enabled' do
-      mock_enabled_class_lists!(true)
+      ENV['ENABLE_CLASS_LISTS'] = 'true'
 
       expect(navbar_links(pals.uri)).to eq({
         classlists: '/classlists',
