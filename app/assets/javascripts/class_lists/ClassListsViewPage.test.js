@@ -9,6 +9,7 @@ beforeEach(() => mockWithFixtures());
 
 export function testProps(props = {}) {
   return {
+    currentEducatorId: 999999,
     ...props
   };
 }
@@ -21,9 +22,9 @@ it('renders without crashing', () => {
 
 
 it('snapshots view', () => {
-  const json = workspaces_json;
+  const props = testProps({...workspaces_json});
   const tree = renderer
-    .create(<ClassListsViewPageView {...json} />)
+    .create(<ClassListsViewPageView {...props} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

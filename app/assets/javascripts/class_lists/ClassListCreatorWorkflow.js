@@ -5,6 +5,7 @@ import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
 import {SeriousButton} from '../components/Button';
+import SuccessLabel from '../components/SuccessLabel';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
 import HorizontalStepper from './HorizontalStepper';
@@ -250,7 +251,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
             {isSubmitted
-              ? <div style={styles.submittedLabel}>Your class list is submitted!</div>
+              ? <SuccessLabel text="Your class list is submitted" />
               : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
             }
           </div>
@@ -359,14 +360,6 @@ const styles = {
   },
   marginBetweenSections: {
     marginTop: 20
-  },
-  submittedLabel: {
-    fontWeight: 'bold',
-    backgroundColor: 'rgb(209, 231, 210)',
-    color: 'green',
-    padding: 8,
-    border: '1px solid green',
-    borderRadius: 3
   }
 };
 

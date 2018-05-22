@@ -142,7 +142,7 @@ exports[`snapshots view 1`] = `
               }
             }
           >
-            Workspace
+            Status
           </th>
           <th
             style={
@@ -203,7 +203,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -241,13 +245,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              6305
-              -
-              345
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -309,7 +307,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -347,13 +349,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              fda9
-              -
-              328
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -453,13 +449,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              06d3
-              -
-              319
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -521,7 +511,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -559,13 +553,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              8893
-              -
-              293
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -627,7 +615,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -665,13 +657,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              191c
-              -
-              289
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -771,13 +757,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              a0f1
-              -
-              282
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -839,7 +819,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -878,11 +862,21 @@ exports[`snapshots view 1`] = `
               }
             }
           >
-            <pre>
-              1ffe
-              -
-              279
-            </pre>
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid green",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "fontWeight": "bold",
+                  "padding": 5,
+                }
+              }
+            >
+              submitted
+            </span>
           </td>
           <td
             style={
@@ -945,7 +939,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -984,11 +982,21 @@ exports[`snapshots view 1`] = `
               }
             }
           >
-            <pre>
-              9115
-              -
-              272
-            </pre>
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid green",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "fontWeight": "bold",
+                  "padding": 5,
+                }
+              }
+            >
+              submitted
+            </span>
           </td>
           <td
             style={
@@ -1051,7 +1059,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -1089,13 +1101,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            <pre>
-              294f
-              -
-              266
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
