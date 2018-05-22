@@ -76,7 +76,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     return (
       <div style={styles.stepContent}>
         <div>
-          <div style={styles.heading}>Class List Maker Tool</div>
+          <div style={styles.titleHeading}>Class List Creator</div>
           <IntroCopy />
         </div>
         <div>
@@ -313,6 +313,12 @@ const styles = {
   },
   heading: {
     marginTop: 20
+  },
+  titleHeading: {
+    fontSize: 20,
+    fontWeight: 300,
+    marginTop: 20,
+    marginBottom: 10
   },
   button: {
     display: 'inline-block',

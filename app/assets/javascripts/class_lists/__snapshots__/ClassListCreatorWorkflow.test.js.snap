@@ -251,16 +251,19 @@ exports[`chooseYourGradeProps 1`] = `
           <div
             style={
               Object {
+                "fontSize": 20,
+                "fontWeight": 300,
+                "marginBottom": 10,
                 "marginTop": 20,
               }
             }
           >
-            Class List Maker Tool
+            Class List Creator
           </div>
           <div
             style={
               Object {
-                "fontSize": 12,
+                "fontSize": 14,
                 "padding": 10,
                 "paddingLeft": 0,
                 "whiteSpace": "pre-wrap",
@@ -270,6 +273,29 @@ exports[`chooseYourGradeProps 1`] = `
             Over the last few years, we've been hearing from teachers and principals and how complex and time-consuming the class assignment process is, including the moving of sticky notes, looking up information and lists of tally marks.
 
 When Student Insights was being developed, some teachers started asking whether we could use it to make the class list creation process easier and more efficient.
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              This 
+              <a
+                href="https://drive.google.com/file/d/1OmsB-9K1cgo1g6l21rnu0xL8H4KDyVAk/view"
+                target="_blank"
+              >
+                Video Walkthrough
+              </a>
+               and a 
+              <a
+                href="https://drive.google.com/file/d/1NHztne6tGz16qbIIeoeL8aNvTLQ0UTHj/view"
+                target="_blank"
+              >
+                Quick Guide
+              </a>
+               show the steps to use this tool.
+            </div>
           </div>
         </div>
         <div>
@@ -835,16 +861,19 @@ exports[`chooseYourGradeProps 2`] = `
           <div
             style={
               Object {
+                "fontSize": 20,
+                "fontWeight": 300,
+                "marginBottom": 10,
                 "marginTop": 20,
               }
             }
           >
-            Class List Maker Tool
+            Class List Creator
           </div>
           <div
             style={
               Object {
-                "fontSize": 12,
+                "fontSize": 14,
                 "padding": 10,
                 "paddingLeft": 0,
                 "whiteSpace": "pre-wrap",
@@ -854,6 +883,29 @@ exports[`chooseYourGradeProps 2`] = `
             Over the last few years, we've been hearing from teachers and principals and how complex and time-consuming the class assignment process is, including the moving of sticky notes, looking up information and lists of tally marks.
 
 When Student Insights was being developed, some teachers started asking whether we could use it to make the class list creation process easier and more efficient.
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              This 
+              <a
+                href="https://drive.google.com/file/d/1OmsB-9K1cgo1g6l21rnu0xL8H4KDyVAk/view"
+                target="_blank"
+              >
+                Video Walkthrough
+              </a>
+               and a 
+              <a
+                href="https://drive.google.com/file/d/1NHztne6tGz16qbIIeoeL8aNvTLQ0UTHj/view"
+                target="_blank"
+              >
+                Quick Guide
+              </a>
+               show the steps to use this tool.
+            </div>
           </div>
         </div>
         <div>
