@@ -15,7 +15,9 @@ function withStoryProps(props = {}) {
     onClassroomsCountIncremented: action('onClassroomsCountIncremented'),
     onPlanTextChanged: action('onPlanTextChanged'),
     onClassListsChanged: action('onClassListsChanged'),
-    onPrincipalNoteChanged: action('onPrincipalNoteChanged')
+    onPrincipalNoteChanged: action('onPrincipalNoteChanged'),
+    onFeedbackTextChanged: action('onFeedbackTextChanged'),
+    onSubmitClicked: action('onSubmitClicked')
   };
 }
 
