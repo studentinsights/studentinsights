@@ -213,6 +213,7 @@ class ClassListsController < ApplicationController
       :created_by_educator_id,
       :school_id,
       :grade_level_next_year,
+      :submitted,
       :json
     ])
   end

@@ -4,7 +4,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
-import Button from '../components/Button';
+import {SeriousButton} from '../components/Button';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
 import HorizontalStepper from './HorizontalStepper';
@@ -212,6 +212,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   renderNotesToPrincipal() {
     const {
       isEditable,
+      isSubmitted,
       onPrincipalNoteChanged,
       principalNoteText,
       onFeedbackTextChanged,
@@ -229,10 +230,10 @@ export default class ClassListCreatorWorkflow extends React.Component {
             value={principalNoteText}
             disabled={!isEditable}
             onChange={event => onPrincipalNoteChanged(event.target.value)}
-            rows={12} 
+            rows={5} 
             style={styles.textarea} />
         </div>
-        <div>
+        <div style={styles.marginBetweenSections}>
           <div>Any feedback?</div>
           <div style={styles.descriptionText}>
             Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
@@ -241,12 +242,18 @@ export default class ClassListCreatorWorkflow extends React.Component {
             value={feedbackText}
             disabled={!isEditable}
             onChange={event => onFeedbackTextChanged(event.target.value)}
-            rows={6} 
+            rows={2} 
             style={styles.textarea} />
         </div>
-        <div>
-          <div style={{marginTop: 40}}>After you submit your class list, the principal will be the only one who can make changes.</div>
-          <Button onClick={onSubmitClicked} style={{marginTop: 10}}>Submit to principal</Button>
+        <div style={styles.marginBetweenSections}>
+          <div>Submit</div>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
+            {isSubmitted
+              ? <div style={styles.submittedLabel}>Your class list is submitted!</div>
+              : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
+            }
+          </div>
         </div>
       </div>
     );
@@ -255,7 +262,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   renderShareWithPrincipal() {
     return (
       <div style={styles.stepContent}>
-        <div>todo</div>
+        <div>After teachers submit their lists, principals can revise and export the lists as spreadsheets for sending letters home and entering into Aspen.  This will open the week of 6/4 and talk with Uri if you have any questions!</div>
       </div>
     );
   }
@@ -271,6 +278,7 @@ ClassListCreatorWorkflow.propTypes = {
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   isEditable: React.PropTypes.bool.isRequired,
+  isSubmitted: React.PropTypes.bool.isRequired,
 
   // state
   stepIndex: React.PropTypes.number.isRequired,
@@ -345,9 +353,20 @@ const styles = {
   },
   descriptionText: {
     paddingTop: 5,
+    padding: 10,
     paddingLeft: 0,
-    padding: 10, 
     fontSize: 12
+  },
+  marginBetweenSections: {
+    marginTop: 20
+  },
+  submittedLabel: {
+    fontWeight: 'bold',
+    backgroundColor: 'rgb(209, 231, 210)',
+    color: 'green',
+    padding: 8,
+    border: '1px solid green',
+    borderRadius: 3
   }
 };
 

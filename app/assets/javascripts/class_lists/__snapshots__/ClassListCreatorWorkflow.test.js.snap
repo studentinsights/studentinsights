@@ -188,7 +188,7 @@ exports[`chooseYourGradeProps 1`] = `
               }
             }
           >
-            Notes to principal
+            Share with principal
           </span>
         </span>
         <span
@@ -226,7 +226,7 @@ exports[`chooseYourGradeProps 1`] = `
               }
             }
           >
-            Submit to principal
+            Principal finalizes
           </span>
         </span>
       </div>
@@ -757,7 +757,7 @@ exports[`chooseYourGradeProps 2`] = `
               }
             }
           >
-            Notes to principal
+            Share with principal
           </span>
         </span>
         <span
@@ -795,7 +795,7 @@ exports[`chooseYourGradeProps 2`] = `
               }
             }
           >
-            Submit to principal
+            Principal finalizes
           </span>
         </span>
       </div>
@@ -1250,7 +1250,7 @@ exports[`makeAPlanProps 1`] = `
               }
             }
           >
-            Notes to principal
+            Share with principal
           </span>
         </span>
         <span
@@ -1288,7 +1288,7 @@ exports[`makeAPlanProps 1`] = `
               }
             }
           >
-            Submit to principal
+            Principal finalizes
           </span>
         </span>
       </div>
@@ -1823,7 +1823,7 @@ exports[`makeAPlanProps 2`] = `
               }
             }
           >
-            Notes to principal
+            Share with principal
           </span>
         </span>
         <span
@@ -1861,7 +1861,7 @@ exports[`makeAPlanProps 2`] = `
               }
             }
           >
-            Submit to principal
+            Principal finalizes
           </span>
         </span>
       </div>

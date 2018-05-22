@@ -20,7 +20,7 @@ export const STEPS = [
   'Make a plan',
   'Create your classrooms',
   'Share with principal',
-  'Submit to principal'
+  'Principal finalizes'
 ];
 
 
@@ -35,6 +35,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.state = {
       stepIndex: 0,
       isEditable: true,
+      isSubmitted: false,
 
       // tracking in-flight server requests
       hasFetchedStudents: false,
@@ -58,7 +59,7 @@ export default class ClassListCreatorPage extends React.Component {
       feedbackText: ''
     };
 
-    this.doSaveChanges = _.throttle(this.doSaveChanges, 5000);
+    this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, 5000);
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
     this.fetchClassList = this.fetchClassList.bind(this);
@@ -85,12 +86,12 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   componentDidUpdate() {
-    this.doSaveChanges();
+    this.doAutoSaveChanges();
     this.triggerEffects();
   }
 
   componentWillUnmount() {
-    if (this.doSaveChanges.flush) this.doSaveChanges.flush(); // flush any queued changes
+    if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
   }
 
@@ -105,7 +106,7 @@ export default class ClassListCreatorPage extends React.Component {
 
     return (schoolId === null || gradeLevelNextYear === null)
       ? [0]
-      : [0, 1, 2, 3, 4];
+      : [0, 1, 2, 3];
   }
 
   // This is a debug hook for iterating on particular production data sets locally
@@ -207,19 +208,13 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // This method is throttled.
-  doSaveChanges() {
+  doAutoSaveChanges() {
     const {
       isEditable,
-      isSubmitted,
       workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
-      authors,
-      classroomsCount,
-      planText,
-      studentIdsByRoom,
-      principalNoteText
     } = this.state;
 
     // View-only
@@ -228,8 +223,14 @@ export default class ClassListCreatorPage extends React.Component {
     // Don't save until they choose a grade level and school
     if (!workspaceId || stepIndex === 0 || !schoolId || !gradeLevelNextYear) return;
     
-    const payload = {
+    this.doSave();
+  }
+
+  // Make the save request without any guards. fire-and-forget
+  doSave() {
+    const {
       workspaceId,
+      isSubmitted,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
@@ -238,7 +239,18 @@ export default class ClassListCreatorPage extends React.Component {
       planText,
       studentIdsByRoom,
       principalNoteText,
+    } = this.state;
+    const payload = {
+      workspaceId,
       isSubmitted,
+      stepIndex,
+      schoolId,
+      gradeLevelNextYear,
+      authors,
+      classroomsCount,
+      planText,
+      studentIdsByRoom,
+      principalNoteText,
       clientNowMs: moment.utc().unix()
     };
     postClassList(payload);
@@ -295,6 +307,7 @@ export default class ClassListCreatorPage extends React.Component {
     const workspaceId = classList.workspace_id;
     const schoolId = classList.school_id;
     const gradeLevelNextYear = classList.grade_level_next_year;
+    const isSubmitted = classList.submitted;
     const {
       authors,
       classroomsCount,
@@ -305,6 +318,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({
       workspaceId,
       isEditable,
+      isSubmitted,
       schoolId,
       gradeLevelNextYear,
       authors,
@@ -362,10 +376,13 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   onSubmitClicked() {
-    this.setState({
-      isEditable: false,
-      isSubmitted: true
-    });
+    const confirmMessage = "Are you sure?  You won't be able to make any changes after submitting.";
+    if (!window.confirm(confirmMessage)) return;
+
+    // This updates the UI locally to disable editing and mark as submitted.
+    // When that state change is done, we also force saving, since
+    // the normal autosave doesn't save anything marked as readonly.
+    this.setState({isSubmitted: true, isEditable: false}, () => this.doSave());
   }
 
   render() {

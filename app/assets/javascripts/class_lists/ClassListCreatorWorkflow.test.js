@@ -19,6 +19,7 @@ export function testProps(props = {}) {
     steps: STEPS,
     availableSteps: STEPS.map((step, index) => index),
     isEditable: true,
+    isSubmitted: false,
 
     // state
     stepIndex: 0,
@@ -30,6 +31,7 @@ export function testProps(props = {}) {
     planText: '',
     studentIdsByRoom: null,
     principalNoteText: '',
+    feedbackText: '',
 
     // callbacks
     onStepChanged: jest.fn(),
@@ -40,6 +42,8 @@ export function testProps(props = {}) {
     onPlanTextChanged: jest.fn(),
     onClassListsChanged: jest.fn(),
     onPrincipalNoteChanged: jest.fn(),
+    onFeedbackTextChanged: jest.fn(),
+    onSubmitClicked: jest.fn(),
     ...props
   };
 }
