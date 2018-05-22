@@ -127,6 +127,14 @@ RSpec.describe ClassListQueries do
       })
       expect(ClassListQueries.new(pals.healey_sarah_teacher).is_authorized_for_writes?('foo-workspace-id')).to eq false
     end
+
+    it 'does not allow principals to write to submitted workspaces yet' do
+      create_class_list_from(pals.healey_laura_principal, {
+        grade_level_next_year: '6',
+        submitted: true
+      })
+      expect(ClassListQueries.new(pals.healey_laura_principal).is_authorized_for_writes?('foo-workspace-id')).to eq false
+    end
   end
 
   describe 'is_authorized_for_grade_level_now?' do
