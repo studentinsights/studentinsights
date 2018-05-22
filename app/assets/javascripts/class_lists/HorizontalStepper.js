@@ -170,6 +170,7 @@ const styles = {
     borderRadius: 3
   },
   dirty: {
-    color: 'orange'
+    color: 'orange',
+    display: 'none' // hidden
   }
 };

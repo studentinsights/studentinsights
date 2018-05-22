@@ -20,6 +20,7 @@ export function testProps(props = {}) {
     availableSteps: STEPS.map((step, index) => index),
     isEditable: true,
     isSubmitted: false,
+    isDirty: false,
 
     // state
     stepIndex: 0,
