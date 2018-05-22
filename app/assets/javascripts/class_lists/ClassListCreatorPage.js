@@ -77,6 +77,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
     this.onFeedbackTextChanged = this.onFeedbackTextChanged.bind(this);
     this.onSubmitClicked = this.onSubmitClicked.bind(this);
+    this.onBeforeUnload = this.onBeforeUnload.bind(this);
   }
 
   componentDidMount() {
@@ -262,24 +263,21 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   onPostDone(snapshotForSaving) {
-    console.log('onPostDone');
     this.setState({lastSavedSnapshot: snapshotForSaving});
   }
 
   onPostError(snapshotForSaving, error) {
-    console.log('onPostError');
-    if (window.localStorage && window.localStorage.setItem){
-      window.localStorage.setItem('classListPostErrorSnapshotForSaving', JSON.stringify(snapshotForSaving));
-    }
     window.Rollbar.error('ClassListCreatorPage#onPostError', error);
-    // this.setState({lastSnapshotError: null});
   }
 
-  // TODO(kr) check this on IE and on Chrome
   onBeforeUnload(event) {
-    return (this.isDirty())
-      ? 'You have unsaved changes.'
-      : undefined;
+    if (!this.isDirty()) return;
+
+    // Chrome expects the event property to be mutated, other browsers
+    // expect the function to return a value;
+    const warningMessage = 'You have unsaved changes.';
+    event.returnValue = warningMessage; 
+    return warningMessage;
   }
 
   onForceDebug(nextState) {

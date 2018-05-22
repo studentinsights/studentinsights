@@ -34,6 +34,7 @@ export default class HorizontalStepper extends React.Component {
       steps,
       availableSteps,
       isEditable,
+      isDirty,
       renderFn,
       style,
       contentStyle
@@ -59,6 +60,7 @@ export default class HorizontalStepper extends React.Component {
             })}
           </div>
           {!isEditable && <div style={styles.readonly}>readonly</div>}
+          {isDirty && <div style={styles.dirty}>●</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
           {renderFn(currentStepIndex, steps[currentStepIndex])}
@@ -110,6 +112,7 @@ HorizontalStepper.propTypes = {
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
   isEditable: React.PropTypes.bool.isRequired,
+  isDirty: React.PropTypes.bool.isRequired,
   renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
   contentStyle: React.PropTypes.object
@@ -165,5 +168,8 @@ const styles = {
     background: '#666',
     color: '#eee',
     borderRadius: 3
+  },
+  dirty: {
+    color: 'orange'
   }
 };
