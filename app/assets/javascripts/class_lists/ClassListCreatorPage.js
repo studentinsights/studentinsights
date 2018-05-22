@@ -210,6 +210,7 @@ export default class ClassListCreatorPage extends React.Component {
   doSaveChanges() {
     const {
       isEditable,
+      isSubmitted,
       workspaceId,
       stepIndex,
       schoolId,
@@ -237,6 +238,7 @@ export default class ClassListCreatorPage extends React.Component {
       planText,
       studentIdsByRoom,
       principalNoteText,
+      isSubmitted,
       clientNowMs: moment.utc().unix()
     };
     postClassList(payload);
@@ -357,6 +359,13 @@ export default class ClassListCreatorPage extends React.Component {
 
   onFeedbackTextChanged(feedbackText) {
     this.setState({feedbackText});
+  }
+
+  onSubmitClicked() {
+    this.setState({
+      isEditable: false,
+      isSubmitted: true
+    });
   }
 
   render() {

@@ -38,7 +38,7 @@ class Educator < ActiveRecord::Base
   end
 
   def is_principal?
-    staff_type.lowercase == 'principal'
+    staff_type.try(:downcase) == 'principal'
   end
 
   def is_authorized_for_student(student)

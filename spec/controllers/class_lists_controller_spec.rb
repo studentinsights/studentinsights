@@ -32,6 +32,7 @@ describe ClassListsController, :type => :controller do
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
         grade_level_next_year: '6',
+        submitted: false,
         json: { foo: 'bazzzzz' }
       }
       expect(response.status).to eq 403
@@ -327,6 +328,7 @@ describe ClassListsController, :type => :controller do
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
         grade_level_next_year: '6',
+        submitted: false,
         json: { foo: 'bazzzzz' }
       }
       json = JSON.parse(response.body)

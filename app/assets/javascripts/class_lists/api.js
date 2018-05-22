@@ -35,6 +35,7 @@ export function fetchClassListJson(workspaceId) {
 export function postClassList(options = {}) {
   const {
     workspaceId,
+    isSubmitted,
     stepIndex,
     schoolId,
     gradeLevelNextYear,
@@ -51,6 +52,7 @@ export function postClassList(options = {}) {
     workspace_id: workspaceId,
     school_id: schoolId,
     grade_level_next_year: gradeLevelNextYear,
+    submitted: isSubmitted,
     json: {
       stepIndex,
       authors,

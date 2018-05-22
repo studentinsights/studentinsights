@@ -8,14 +8,8 @@ class ClassList < ActiveRecord::Base
   validate :validate_consistent_workspace_grade_school
   validate :validate_single_writer_in_workspace
 
-  # A workspace is owned by one educator, or no one yet (nil)
-  def self.workspace_owner(workspace_id)
-    ClassList.all
-      .where(workspace_id: workspace_id)
-      .map(&:created_by_educator)
-      .first
-  end
-
+  # Within a `workspace_id`, there are multiple ClassList records
+  # holding states over time.  This grabs the latest.
   def self.latest_class_list_for_workspace(workspace_id)
     ClassList.all
       .where(workspace_id: workspace_id)
@@ -46,9 +40,11 @@ class ClassList < ActiveRecord::Base
   # Only one writer can write to a workspace
   def validate_single_writer_in_workspace
     latest_class_list = ClassList.latest_class_list_for_workspace(workspace_id)
-    owner = latest_class_list.created_by_educator
-    if owner.present? && owner.id != created_by_educator_id
-      errors.add(:created_by_educator_id, "cannot add record with different created_by_educator_id for existing workspace_id")
+    if latest_class_list.present?
+      owner = latest_class_list.created_by_educator
+      if owner.present? && owner.id != created_by_educator_id
+        errors.add(:created_by_educator_id, "cannot add record with different created_by_educator_id for existing workspace_id")
+      end
     end
   end
 end

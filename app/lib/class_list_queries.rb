@@ -65,8 +65,8 @@ class ClassListQueries
     # Educators can't write to workspaces they didn't create.
     return false if class_list.created_by_educator_id != @educator.id
 
-    # Teachers can't write to workspaces that have already been submitted.
-    return false if class_list.submitted? && @educator.is_principal?
+    # If the workspace has been submitted, only principals can write.
+    return false if class_list.submitted? && !@educator.is_principal?
 
     true
   end
