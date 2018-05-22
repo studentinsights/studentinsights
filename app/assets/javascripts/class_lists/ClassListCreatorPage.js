@@ -21,7 +21,7 @@ export const STEPS = [
   'Create your classrooms',
   'Notes to principal',
   'Principal finalizes',
-  'Secretary enters'
+  'Export spreadsheet'
 ];
 
 

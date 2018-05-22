@@ -1,10 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import DownloadCsvLink from '../components/DownloadCsvLink';
+import Button from '../components/Button';
 import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
-import {UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
-
+import {
+  UNPLACED_ROOM_KEY,
+  createRooms
+} from './studentIdsByRoomFunctions';
 
 export default class SecretaryEnters extends React.Component {
   mapToRows() {
@@ -26,10 +29,33 @@ export default class SecretaryEnters extends React.Component {
   }
 
   render() {
+    const {studentIdsByRoom} = this.props;
     const rows = this.mapToRows();
+    const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1);
 
     return (
       <div className="SecretaryEnters">
+        <table style={tableStyles.table}>
+          <thead>
+            <tr>
+              <th style={tableStyles.headerCell}>Student</th>
+              <th style={tableStyles.headerCell}>LASID</th>
+              <th style={tableStyles.headerCell}>Grade next year</th>
+              <th style={tableStyles.headerCell}>Classroom next year</th>
+            </tr>
+          </thead>
+          <tbody>{rooms.map(room => {
+            const roomTeacher = this.roomTeachers[room.roomKey] || '';
+            return (
+              <tr key={room.roomKey}>
+                <td style={tableStyles.cell}>{room.roomName}</td>
+                <td style={tableStyles.cell}><input type="text" onChange={this.onRoomTeacherChanged.bind(this, roomKey)} value={roomTeacher} /></td>
+                <td style={tableStyles.cell}>{gradeLevelNextYear}</td>
+                <td style={tableStyles.cell}>{roomName}</td>
+              </tr>
+            );
+          })}</tbody>
+        </table>
         {this.renderTable(rows)}
         {this.renderDownloadListsLink(rows)}
       </div>
@@ -70,12 +96,14 @@ export default class SecretaryEnters extends React.Component {
     const header = 'Student name,LASID,Room next year';
     const csvText = [header].concat(rows).join('\n');
     return (
-      <DownloadCsvLink
-        filename={filename}
-        csvText={csvText}
-        style={{paddingLeft: 20}}>
-        Download for Excel
-      </DownloadCsvLink>
+      <Button>
+        <DownloadCsvLink
+          filename={filename}
+          csvText={csvText}
+          style={{paddingLeft: 20}}>
+          Download for Excel
+        </DownloadCsvLink>
+      </Button>
     );
   }
 }
