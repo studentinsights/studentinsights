@@ -38,8 +38,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       stepIndex,
       availableSteps,
       onStepChanged,
-      isEditable,
-      isDirty
+      isEditable
     } = this.props;
     const {isExpandedVertically} = this.state;
     const expandedOrCollapsedStyles = (isExpandedVertically)
@@ -51,7 +50,6 @@ export default class ClassListCreatorWorkflow extends React.Component {
           steps={steps}
           availableSteps={availableSteps}
           isEditable={isEditable}
-          isDirty={isDirty}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
