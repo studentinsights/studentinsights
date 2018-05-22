@@ -19,7 +19,7 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      Class lists
+      Class List Maker Tool
     </h4>
   </div>
   <div>
@@ -40,7 +40,7 @@ exports[`snapshots view 1`] = `
             "cursor": "pointer",
             "display": "block",
             "fontSize": 14,
-            "margin": 10,
+            "marginTop": 10,
             "padding": "8px 25px",
             "textDecoration": "none",
           }

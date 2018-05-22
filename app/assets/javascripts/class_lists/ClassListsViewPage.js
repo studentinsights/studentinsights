@@ -53,7 +53,7 @@ export class ClassListsViewPageView extends React.Component {
   render() {
     return (
       <div>
-        <SectionHeading>Class lists</SectionHeading>
+        <SectionHeading>Class List Maker Tool</SectionHeading>
         {this.renderTable()}
       </div>
     );
@@ -144,7 +144,7 @@ const styles = {
   },
   newButton: {
     display: 'block',
-    margin: 10
+    marginTop: 10
   },
   overview: {
     margin: 10
