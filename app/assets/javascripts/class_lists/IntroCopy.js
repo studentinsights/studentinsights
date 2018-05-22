@@ -4,16 +4,19 @@ When Student Insights was being developed, some teachers started asking whether 
 
 
 export default function IntroCopy() {
+  const videoUrl = 'https://drive.google.com/file/d/1OmsB-9K1cgo1g6l21rnu0xL8H4KDyVAk/view';
+  const onePageGuideUrl = 'https://drive.google.com/file/d/1NHztne6tGz16qbIIeoeL8aNvTLQ0UTHj/view';
   return (
     <div style={styles.introCopy}>
       {text}
+      <div style={{marginTop: 20}}>This <a href={videoUrl} target="_blank">Video Walkthrough</a> and a <a href={onePageGuideUrl} target="_blank">Quick Guide</a> show the steps to use this tool.</div>
     </div>
   );
 }
 
 const styles = {
   introCopy: {
-    fontSize: 12,
+    fontSize: 14,
     padding: 10,
     paddingLeft: 0,
     whiteSpace: 'pre-wrap'

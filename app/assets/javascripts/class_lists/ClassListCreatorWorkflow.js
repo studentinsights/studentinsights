@@ -76,7 +76,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     return (
       <div style={styles.stepContent}>
         <div>
-          <div style={styles.heading}>Class List Maker Tool</div>
+          <div style={{...styles.heading, fontWeight: 'bold'}}>Class List Maker Tool</div>
           <IntroCopy />
         </div>
         <div>
