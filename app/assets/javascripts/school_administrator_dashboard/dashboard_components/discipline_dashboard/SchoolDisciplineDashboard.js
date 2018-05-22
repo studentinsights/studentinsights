@@ -21,17 +21,11 @@ class SchoolDisciplineDashboard extends React.Component {
       selectedChart: 'location',
       selectedCategory: null
     };
-    this.setDate = this.setDate.bind(this);
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
     this.selectChart = this.selectChart.bind(this);
   }
 
-  setDate(range) {
-    this.setState({
-      startDate: moment.unix(range[0]).format("YYYY-MM-DD")
-    });
-  }
   setStudentList(highchartsEvent) {
     this.setState({selectedCategory: highchartsEvent.point.category});
   }
@@ -42,8 +36,8 @@ class SchoolDisciplineDashboard extends React.Component {
     this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
-  filterIncidentDates(incidents) {
-    return incidents.filter((incident) => {
+  filterIncidentDates(incidentsArray) {
+    return incidentsArray.filter((incident) => {
       return moment.utc(incident.occurred_at).isSameOrAfter(moment.utc(this.state.startDate));
     });
   }
@@ -60,9 +54,10 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   getChartData(selectedChart) {
+    const filteredEvents = this.filterIncidentDates(this.props.schoolDisciplineEvents);
     return {
       type: selectedChart,
-      disciplineIncidents: _.groupBy(this.props.schoolDisciplineEvents, selectedChart),
+      disciplineIncidents: _.groupBy(filteredEvents, selectedChart),
       title: "Incidents by " + selectedChart};
   }
 
@@ -91,7 +86,6 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortedGrades(chartKeys) {
     return chartKeys.sort((a,b) => sortByGrade(a,b));
-
   }
 
   sortedClassrooms(chartKeys) {
