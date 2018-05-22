@@ -7,7 +7,7 @@ import {testProps} from './ClassListsViewPage.test';
 
 
 storiesOf('classlists/ClassListsViewPage', module) // eslint-disable-line no-undef
-  .add('none yet', () => widthFrame(<ClassListsViewPageView workspaces={[]} />))
+  .add('none yet', () => widthFrame(<ClassListsViewPageView {...testProps({ workspaces: [] })} />))
   .add('normal', () => {
     mockWithFixtures();
     return widthFrame(<ClassListsViewPage {...testProps()} />);

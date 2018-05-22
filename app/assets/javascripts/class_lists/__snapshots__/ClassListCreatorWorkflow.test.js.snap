@@ -2957,7 +2957,8 @@ exports[`notesToPrincipalProps 2`] = `
             >
               After you submit your class list, the principal will be the only one who can make changes.
             </div>
-            <div
+            <span
+              className="SuccessLabel"
               style={
                 Object {
                   "backgroundColor": "rgb(209, 231, 210)",
@@ -2969,8 +2970,8 @@ exports[`notesToPrincipalProps 2`] = `
                 }
               }
             >
-              Your class list is submitted!
-            </div>
+              Your class list is submitted
+            </span>
           </div>
         </div>
       </div>
