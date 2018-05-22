@@ -60,7 +60,7 @@ export default class ClassListCreatorPage extends React.Component {
       feedbackText: ''
     };
 
-    this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, 5000);
+    this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
     this.fetchClassList = this.fetchClassList.bind(this);
@@ -78,6 +78,9 @@ export default class ClassListCreatorPage extends React.Component {
     this.onFeedbackTextChanged = this.onFeedbackTextChanged.bind(this);
     this.onSubmitClicked = this.onSubmitClicked.bind(this);
     this.onBeforeUnload = this.onBeforeUnload.bind(this);
+    this.onFetchedClassListError = this.onFetchedClassListError.bind(this);
+    this.onFetchStudentsError = this.onFetchStudentsError.bind(this);
+    this.onFetchedGradeLevelsError = this.onFetchedGradeLevelsError.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +98,11 @@ export default class ClassListCreatorPage extends React.Component {
   componentWillUnmount() {
     if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
+  }
+
+  rollbarError(message, params) {
+    console.error(message, params);
+    window.Rollbar.error(message, params);
   }
 
   // Are there any local changes that we think haven't been synced?
@@ -211,21 +219,27 @@ export default class ClassListCreatorPage extends React.Component {
     const {hasFetchedGradeLevels, workspaceId} = this.state;
     if (hasFetchedGradeLevels) return;
     this.setState({hasFetchedGradeLevels: true});
-    return fetchGradeLevelsJson(workspaceId).then(this.onFetchedGradeLevels);
+    return fetchGradeLevelsJson(workspaceId)
+      .then(this.onFetchedGradeLevels)
+      .catch(this.onFetchedGradeLevelsError);
   }
 
   fetchStudents() {
     const {hasFetchedStudents, workspaceId, gradeLevelNextYear, schoolId} = this.state;
     if (hasFetchedStudents) return;
     this.setState({hasFetchedStudents: true});
-    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId}).then(this.onFetchedStudents);
+    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId})
+      .then(this.onFetchedStudents)
+      .catch(this.onFetchStudentsError);
   }
 
   fetchClassList() {
     const {hasFetchedClassList, workspaceId} = this.state;
     if (hasFetchedClassList) return;
     this.setState({hasFetchedClassList: true});
-    return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
+    return fetchClassListJson(workspaceId)
+      .then(this.onFetchedClassList)
+      .catch(this.onFetchedClassListError);
   }
 
   doReplaceState() {
@@ -251,7 +265,6 @@ export default class ClassListCreatorPage extends React.Component {
 
   // Make the save request without any guards. fire-and-forget
   doSave() {
-    console.log('doSave');
     const snapshotForSaving = snapshotStateForSaving(this.state);
     const payload = {
       ...snapshotForSaving,
@@ -267,7 +280,19 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   onPostError(snapshotForSaving, error) {
-    window.Rollbar.error('ClassListCreatorPage#onPostError', error);
+    this.rollbarError('ClassListCreatorPage#onPostError', error);
+  }
+
+  onFetchedGradeLevelsError(error) {
+    this.rollbarError('ClassListCreatorPage#onFetchedGradeLevelsError', error);
+  }
+
+  onFetchStudentsError(error) {
+    this.rollbarError('ClassListCreatorPage#onFetchStudentsError', error);
+  }
+
+  onFetchedClassListError(error) {
+    this.rollbarError('ClassListCreatorPage#onFetchedClassListError', error);
   }
 
   onBeforeUnload(event) {
@@ -434,7 +459,11 @@ export default class ClassListCreatorPage extends React.Component {
 ClassListCreatorPage.propTypes = {
   defaultWorkspaceId: React.PropTypes.string,
   disableHistory: React.PropTypes.bool,
-  disableSizing: React.PropTypes.bool
+  disableSizing: React.PropTypes.bool,
+  autoSaveIntervalMs: React.PropTypes.number
+};
+ClassListCreatorPage.defaultProps = {
+  autoSaveIntervalMs: 5000
 };
 
 
@@ -449,7 +478,8 @@ function snapshotStateForSaving(state) {
     classroomsCount,
     planText,
     studentIdsByRoom,
-    principalNoteText,
+    feedbackText,
+    principalNoteText
   } = state;
   return {
     workspaceId,
@@ -460,6 +490,7 @@ function snapshotStateForSaving(state) {
     classroomsCount,
     planText,
     studentIdsByRoom,
+    feedbackText,
     principalNoteText
   };
 }
