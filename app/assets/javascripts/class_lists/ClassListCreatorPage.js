@@ -41,6 +41,7 @@ export default class ClassListCreatorPage extends React.Component {
       hasFetchedStudents: false,
       hasFetchedGradeLevels: false,
       hasFetchedClassList: false,
+      lastSavedSnapshot: null,
 
       // choosing school and grade
       schools: null, // from server
@@ -93,6 +94,27 @@ export default class ClassListCreatorPage extends React.Component {
   componentWillUnmount() {
     if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
+  }
+
+  // Are there any local changes that we think haven't been synced?
+  isDirty() {
+    const {lastSavedSnapshot} = this.state;
+    if (!this.isSaveable()) return false;
+    return !_.isEqual(lastSavedSnapshot, snapshotStateForSaving(this.state));
+  }
+
+  // Has the user gotten past initial loading to where there is
+  // something worth saving?
+  isSaveable() {
+    const {
+      workspaceId,
+      stepIndex,
+      schoolId,
+      gradeLevelNextYear
+    } = this.state;
+
+    // Don't save until they choose a grade level and school
+    return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null);
   }
 
   // Describes which steps are available to be navigated to,
@@ -198,6 +220,13 @@ export default class ClassListCreatorPage extends React.Component {
     return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId}).then(this.onFetchedStudents);
   }
 
+  fetchClassList() {
+    const {hasFetchedClassList, workspaceId} = this.state;
+    if (hasFetchedClassList) return;
+    this.setState({hasFetchedClassList: true});
+    return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
+  }
+
   doReplaceState() {
     const {disableHistory} = this.props;
     const {workspaceId} = this.state;
@@ -208,65 +237,47 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // This method is throttled.
+  // Autosave unless it's readonly, the user is still at the initial 
+  // steps or unless nothing has changed.
   doAutoSaveChanges() {
-    const {
-      isEditable,
-      workspaceId,
-      stepIndex,
-      schoolId,
-      gradeLevelNextYear,
-    } = this.state;
-
-    // View-only
+    const {isEditable} = this.state;
     if (!isEditable) return;
+    if (!this.isSaveable()) return;
+    if (!this.isDirty()) return;
 
-    // Don't save until they choose a grade level and school
-    if (!workspaceId || stepIndex === 0 || !schoolId || !gradeLevelNextYear) return;
-    
     this.doSave();
   }
 
   // Make the save request without any guards. fire-and-forget
   doSave() {
-    const {
-      workspaceId,
-      isSubmitted,
-      stepIndex,
-      schoolId,
-      gradeLevelNextYear,
-      authors,
-      classroomsCount,
-      planText,
-      studentIdsByRoom,
-      principalNoteText,
-    } = this.state;
+    console.log('doSave');
+    const snapshotForSaving = snapshotStateForSaving(this.state);
     const payload = {
-      workspaceId,
-      isSubmitted,
-      stepIndex,
-      schoolId,
-      gradeLevelNextYear,
-      authors,
-      classroomsCount,
-      planText,
-      studentIdsByRoom,
-      principalNoteText,
+      ...snapshotForSaving,
       clientNowMs: moment.utc().unix()
     };
-    postClassList(payload);
+    postClassList(payload)
+      .then(this.onPostDone.bind(this, snapshotForSaving))
+      .catch(this.onPostError.bind(this, snapshotForSaving));
   }
 
-  fetchClassList() {
-    const {hasFetchedClassList, workspaceId} = this.state;
-    if (hasFetchedClassList) return;
-    this.setState({hasFetchedClassList: true});
-    return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
+  onPostDone(snapshotForSaving) {
+    console.log('onPostDone');
+    this.setState({lastSavedSnapshot: snapshotForSaving});
   }
 
-  // TODO(kr) check this on IE
+  onPostError(snapshotForSaving, error) {
+    console.log('onPostError');
+    if (window.localStorage && window.localStorage.setItem){
+      window.localStorage.setItem('classListPostErrorSnapshotForSaving', JSON.stringify(snapshotForSaving));
+    }
+    window.Rollbar.error('ClassListCreatorPage#onPostError', error);
+    // this.setState({lastSnapshotError: null});
+  }
+
+  // TODO(kr) check this on IE and on Chrome
   onBeforeUnload(event) {
-    const isDirty = true;
-    return (isDirty)
+    return (this.isDirty())
       ? 'You have unsaved changes.'
       : undefined;
   }
@@ -315,7 +326,8 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText
     } = classList.json;
-    this.setState({
+
+    const stateChange = {
       workspaceId,
       isEditable,
       isSubmitted,
@@ -327,6 +339,16 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       stepIndex: 0, // Ignore last `stepIndex`
+    };
+
+    // Also record that the server knows about this state.
+    const lastSavedSnapshot = snapshotStateForSaving({
+      ...this.state,
+      ...stateChange
+    });
+    this.setState({
+      ...stateChange,
+      lastSavedSnapshot
     });
   }
 
@@ -390,9 +412,11 @@ export default class ClassListCreatorPage extends React.Component {
     if (!workspaceId) return <Loading />;
 
     const availableSteps = this.availableSteps();
+    const isDirty = this.isDirty();
     return (
       <ClassListCreatorWorkflow
         {...this.state}
+        isDirty={isDirty}
         steps={STEPS}
         availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
@@ -416,3 +440,28 @@ ClassListCreatorPage.propTypes = {
 };
 
 
+
+function snapshotStateForSaving(state) {
+  const {
+    workspaceId,
+    isSubmitted,
+    schoolId,
+    gradeLevelNextYear,
+    authors,
+    classroomsCount,
+    planText,
+    studentIdsByRoom,
+    principalNoteText,
+  } = state;
+  return {
+    workspaceId,
+    isSubmitted,
+    schoolId,
+    gradeLevelNextYear,
+    authors,
+    classroomsCount,
+    planText,
+    studentIdsByRoom,
+    principalNoteText
+  };
+}
