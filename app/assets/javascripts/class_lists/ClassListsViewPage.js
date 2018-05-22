@@ -65,7 +65,7 @@ export class ClassListsViewPageView extends React.Component {
 
     return (
       <div>
-        {this.renderNewButton()}
+        <div style={{marginLeft: 10}}>{this.renderNewButton()}</div>
         <table style={tableStyles.table}>
           <thead>
             <tr>

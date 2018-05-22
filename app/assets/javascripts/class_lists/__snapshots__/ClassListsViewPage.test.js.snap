@@ -24,30 +24,38 @@ exports[`snapshots view 1`] = `
   </div>
   <div>
     <div
-      className="Hover"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      style={undefined}
-    >
-      <button
-        onClick={[Function]}
-        style={
-          Object {
-            "background": "#4A90E2",
-            "border": "none",
-            "borderRadius": 28,
-            "color": "white",
-            "cursor": "pointer",
-            "display": "block",
-            "fontSize": 14,
-            "marginTop": 10,
-            "padding": "8px 25px",
-            "textDecoration": "none",
-          }
+      style={
+        Object {
+          "marginLeft": 10,
         }
+      }
+    >
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
       >
-        New list
-      </button>
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "display": "block",
+              "fontSize": 14,
+              "marginTop": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          New list
+        </button>
+      </div>
     </div>
     <table
       style={
