@@ -2,9 +2,14 @@
   <% # Show different links based on role and access %>
   <% links = PathsForEducator.new(educator).navbar_links %>
 
+  <% if links.has_key?(:classlists) %>
+    <%= link_to 'Class lists', links[:classlists] %>
+    &nbsp; &nbsp;
+  <% end %>
+
   <% if links.has_key?(:district) %>
     <%= link_to 'District', links[:district] %>
-    &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp;
   <% end %>
 
   <% if links.has_key?(:school) %>
@@ -17,7 +22,7 @@
   <% if links.has_key?(:tardies) %>
     <%= link_to "Tardies", links[:tardies] %>
     &nbsp;
-    &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp;
   <% end %>
 
   <% if links.has_key?(:section) %>
@@ -38,6 +43,6 @@
   &nbsp; &nbsp;
   <p class="search-label">Search for student:</p>
   <input class="student-searchbar" />
-  &nbsp; &nbsp; &nbsp;
+  &nbsp; &nbsp;
   <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
 </div>

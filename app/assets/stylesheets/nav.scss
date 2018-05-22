@@ -9,6 +9,7 @@
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 
     > * {
       padding-left: 5px;
@@ -18,10 +19,9 @@
 
   .logo {
     display: inline-block;
-    width: 210px;
-    height: 60px;
-    position: relative;
-    top: 10px;
+    width: 135px;
+    height: 40px;
+    margin-top: 5px;
     background: url(asset-path("student-insights-logo-small.png")) no-repeat;
   }
 
@@ -33,18 +33,17 @@
     display: inline-block;
   }
 
-  #student-searchbar {
-    margin: 0 30px 10px 0;
+  .student-searchbar {
+    font-size: 14px;
+    
   }
 
   .navwrap {
-    margin: 0 20px;
-    padding-bottom: 20px;
-    position: relative;
-    bottom: 1px;
+    margin: 5px 10px 5px 10px;
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 
     nav {
       float: right;

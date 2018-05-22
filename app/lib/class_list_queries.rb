@@ -9,6 +9,19 @@ class ClassListQueries
     @educator = educator
   end
 
+  # Is this feature relevant for them at all?
+  def is_relevant_for_educator?
+    grade_levels_next_year = supported_grade_levels_next_year
+    schools = supported_schools
+    grade_levels_next_year.each do |grade_level_next_year|
+      grade_level_now = GradeLevels.new.previous(grade_level_next_year)
+      schools.each do |school|
+        return true if is_authorized_for_grade_level_now?(school.id, grade_level_now)
+      end
+    end
+    false
+  end
+
   # What grade levels do we want to support creating class lists for?
   def supported_grade_levels_next_year
     ['1','2','3','4','5','6']
