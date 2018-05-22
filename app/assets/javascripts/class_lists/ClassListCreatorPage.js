@@ -19,7 +19,7 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Notes to principal',
+  'Share with principal',
   'Submit to principal'
 ];
 
@@ -54,7 +54,8 @@ export default class ClassListCreatorPage extends React.Component {
       authors: [],
       planText: '',
       studentIdsByRoom: null,
-      principalNoteText: ''
+      principalNoteText: '',
+      feedbackText: ''
     };
 
     this.doSaveChanges = _.throttle(this.doSaveChanges, 5000);
@@ -72,6 +73,8 @@ export default class ClassListCreatorPage extends React.Component {
     this.onAuthorsChanged = this.onAuthorsChanged.bind(this);
     this.onClassListsChanged = this.onClassListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
+    this.onFeedbackTextChanged = this.onFeedbackTextChanged.bind(this);
+    this.onSubmitClicked = this.onSubmitClicked.bind(this);
   }
 
   componentDidMount() {
@@ -352,6 +355,10 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({principalNoteText});
   }
 
+  onFeedbackTextChanged(feedbackText) {
+    this.setState({feedbackText});
+  }
+
   render() {
     const {workspaceId} = this.state;
     if (!workspaceId) return <Loading />;
@@ -370,6 +377,8 @@ export default class ClassListCreatorPage extends React.Component {
         onPlanTextChanged={this.onPlanTextChanged}
         onClassListsChanged={this.onClassListsChanged}
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
+        onFeedbackTextChanged={this.onFeedbackTextChanged}
+        onSubmitClicked={this.onSubmitClicked}
       />
     );
   }

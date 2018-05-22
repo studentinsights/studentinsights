@@ -4,6 +4,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
+import Button from '../components/Button';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
 import HorizontalStepper from './HorizontalStepper';
@@ -55,7 +56,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 0) return this.renderChooseYourGrade();
     if (stepIndex === 1) return this.renderMakeAPlan();
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
-    if (stepIndex === 3) return this.renderReviewAndShareNotes();
+    if (stepIndex === 3) return this.renderNotesToPrincipal();
     if (stepIndex === 4) return this.renderShareWithPrincipal();
   }
 
@@ -208,20 +209,45 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderReviewAndShareNotes() {
-    const {isEditable, onPrincipalNoteChanged, principalNoteText} = this.props;
+  renderNotesToPrincipal() {
+    const {
+      isEditable,
+      onPrincipalNoteChanged,
+      principalNoteText,
+      onFeedbackTextChanged,
+      feedbackText,
+      onSubmitClicked
+    } = this.props;
     return (
       <div style={styles.stepContent}>
-        <div>What else should your principal know?</div>
-        <div style={{paddingTop: 5, paddingLeft: 0, padding: 10, fontSize: 12}}>
-          Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+        <div>
+          <div>What else should your principal know?</div>
+          <div style={styles.descriptionText}>
+            Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+          </div>
+          <textarea
+            value={principalNoteText}
+            disabled={!isEditable}
+            onChange={event => onPrincipalNoteChanged(event.target.value)}
+            rows={12} 
+            style={styles.textarea} />
         </div>
-        <textarea
-          value={principalNoteText}
-          disabled={!isEditable}
-          onChange={event => onPrincipalNoteChanged(event.target.value)}
-          rows={12} 
-          style={styles.textarea} />
+        <div>
+          <div>Any feedback?</div>
+          <div style={styles.descriptionText}>
+            Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+          </div>
+          <textarea
+            value={feedbackText}
+            disabled={!isEditable}
+            onChange={event => onFeedbackTextChanged(event.target.value)}
+            rows={6} 
+            style={styles.textarea} />
+        </div>
+        <div>
+          <div style={{marginTop: 40}}>After you submit your class list, the principal will be the only one who can make changes.</div>
+          <Button onClick={onSubmitClicked} style={{marginTop: 10}}>Submit to principal</Button>
+        </div>
       </div>
     );
   }
@@ -229,7 +255,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   renderShareWithPrincipal() {
     return (
       <div style={styles.stepContent}>
-        <div>Ready to submit?</div>
+        <div>todo</div>
       </div>
     );
   }
@@ -256,6 +282,7 @@ ClassListCreatorWorkflow.propTypes = {
   planText: React.PropTypes.string.isRequired,
   studentIdsByRoom: React.PropTypes.object,
   principalNoteText: React.PropTypes.string.isRequired,
+  feedbackText: React.PropTypes.string.isRequired,
 
   // callbacks
   onStepChanged: React.PropTypes.func.isRequired,
@@ -265,7 +292,9 @@ ClassListCreatorWorkflow.propTypes = {
   onClassroomsCountIncremented: React.PropTypes.func.isRequired,
   onPlanTextChanged: React.PropTypes.func.isRequired,
   onClassListsChanged: React.PropTypes.func.isRequired,
-  onPrincipalNoteChanged: React.PropTypes.func.isRequired
+  onPrincipalNoteChanged: React.PropTypes.func.isRequired,
+  onFeedbackTextChanged: React.PropTypes.func.isRequired,
+  onSubmitClicked: React.PropTypes.func.isRequired
 };
 
 const styles = {
@@ -313,6 +342,12 @@ const styles = {
   textarea: {
     border: '1px solid #ccc',
     width: '100%'
+  },
+  descriptionText: {
+    paddingTop: 5,
+    paddingLeft: 0,
+    padding: 10, 
+    fontSize: 12
   }
 };
 
