@@ -149,7 +149,7 @@ class IsServiceWorking extends React.Component {
     const chartData = json.chart_data;
     const sortedData = _.sortBy(chartData, datum => {
       return (datum.services.length > 0)
-        ? datum.services[0].date_started
+        ? _.map(datum.services, 'date_started').sort()[0]
         : 0;
     });
 
