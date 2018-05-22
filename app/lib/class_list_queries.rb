@@ -62,10 +62,10 @@ class ClassListQueries
     class_list = ClassList.latest_class_list_for_workspace(workspace_id)
     return true if class_list.nil?
 
-    # Educators can't write to workspaces they didn't create (not even principals yet).
+    # Educators can't write to workspaces they didn't create (not principals yet).
     return false if class_list.created_by_educator_id != @educator.id
 
-    # If the workspace has been submitted (principals can't write yet either).
+    # If the workspace has been submitted no one can write (not principals yet).
     return false if class_list.submitted?
 
     true
