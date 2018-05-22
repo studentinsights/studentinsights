@@ -61,12 +61,11 @@ class IsServiceWorking extends React.Component {
         </SectionHeading>
         <p style={{padding: '10px 0 0 10px'}}>
           Every student is different.
-          Some students might respond well to a service, while others
-          respond poorly to the same service.
+          One student might respond well to a service, while another might respond poorly.
         </p>
         <p style={{padding: '10px 0 10px 10px'}}>
           Use the buttons below to explore how students may have responded to
-          services assigned to them over the course of the past school year.
+          services assigned to them over the past school year.
         </p>
         {this.renderButtons()}
         {this.renderCharts()}
