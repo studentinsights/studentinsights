@@ -19,6 +19,7 @@ export function testProps(props = {}) {
     steps: STEPS,
     availableSteps: STEPS.map((step, index) => index),
     isEditable: true,
+    isSubmitted: false,
 
     // state
     stepIndex: 0,
@@ -30,6 +31,7 @@ export function testProps(props = {}) {
     planText: '',
     studentIdsByRoom: null,
     principalNoteText: '',
+    feedbackText: '',
 
     // callbacks
     onStepChanged: jest.fn(),
@@ -40,6 +42,8 @@ export function testProps(props = {}) {
     onPlanTextChanged: jest.fn(),
     onClassListsChanged: jest.fn(),
     onPrincipalNoteChanged: jest.fn(),
+    onFeedbackTextChanged: jest.fn(),
+    onSubmitClicked: jest.fn(),
     ...props
   };
 }
@@ -68,6 +72,16 @@ export function makeAPlanProps(props = {}) {
   };
 }
 
+export function notesToPrincipalProps(props = {}) {
+  return {
+    ...testProps(),
+    stepIndex: 3,
+    principalNoteText: 'We think that placing these two students together is really important because of X.',
+    feedbackText: 'This is pretty okay!',
+    ...props
+  };
+}
+
 function snapshotRender(props) {
   return renderer
     .create(<ClassListCreatorWorkflow {...props} />)
@@ -88,4 +102,9 @@ it('chooseYourGradeProps', () => {
 it('makeAPlanProps', () => {
   expect(snapshotRender(makeAPlanProps())).toMatchSnapshot();
   expect(snapshotRender(makeAPlanProps({ isEditable: false }))).toMatchSnapshot();
+});
+
+it('notesToPrincipalProps', () => {
+  expect(snapshotRender(notesToPrincipalProps())).toMatchSnapshot();
+  expect(snapshotRender(notesToPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
 });

@@ -176,7 +176,7 @@ exports[`snapshots 1`] = `
             }
           }
         >
-          Notes to principal
+          Share with principal
         </span>
       </span>
       <span
@@ -214,7 +214,7 @@ exports[`snapshots 1`] = `
             }
           }
         >
-          Submit to principal
+          Principal finalizes
         </span>
       </span>
     </div>
@@ -479,7 +479,7 @@ exports[`snapshots when readonly 1`] = `
             }
           }
         >
-          Notes to principal
+          Share with principal
         </span>
       </span>
       <span
@@ -517,7 +517,7 @@ exports[`snapshots when readonly 1`] = `
             }
           }
         >
-          Submit to principal
+          Principal finalizes
         </span>
       </span>
     </div>

@@ -19,8 +19,8 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Notes to principal',
-  'Submit to principal'
+  'Share with principal',
+  'Principal finalizes'
 ];
 
 
@@ -35,6 +35,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.state = {
       stepIndex: 0,
       isEditable: true,
+      isSubmitted: false,
 
       // tracking in-flight server requests
       hasFetchedStudents: false,
@@ -54,10 +55,11 @@ export default class ClassListCreatorPage extends React.Component {
       authors: [],
       planText: '',
       studentIdsByRoom: null,
-      principalNoteText: ''
+      principalNoteText: '',
+      feedbackText: ''
     };
 
-    this.doSaveChanges = _.throttle(this.doSaveChanges, 5000);
+    this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, 5000);
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
     this.fetchClassList = this.fetchClassList.bind(this);
@@ -72,6 +74,8 @@ export default class ClassListCreatorPage extends React.Component {
     this.onAuthorsChanged = this.onAuthorsChanged.bind(this);
     this.onClassListsChanged = this.onClassListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
+    this.onFeedbackTextChanged = this.onFeedbackTextChanged.bind(this);
+    this.onSubmitClicked = this.onSubmitClicked.bind(this);
   }
 
   componentDidMount() {
@@ -82,12 +86,12 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   componentDidUpdate() {
-    this.doSaveChanges();
+    this.doAutoSaveChanges();
     this.triggerEffects();
   }
 
   componentWillUnmount() {
-    if (this.doSaveChanges.flush) this.doSaveChanges.flush(); // flush any queued changes
+    if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
   }
 
@@ -102,7 +106,7 @@ export default class ClassListCreatorPage extends React.Component {
 
     return (schoolId === null || gradeLevelNextYear === null)
       ? [0]
-      : [0, 1, 2, 3, 4];
+      : [0, 1, 2, 3];
   }
 
   // This is a debug hook for iterating on particular production data sets locally
@@ -204,18 +208,13 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // This method is throttled.
-  doSaveChanges() {
+  doAutoSaveChanges() {
     const {
       isEditable,
       workspaceId,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
-      authors,
-      classroomsCount,
-      planText,
-      studentIdsByRoom,
-      principalNoteText
     } = this.state;
 
     // View-only
@@ -224,8 +223,26 @@ export default class ClassListCreatorPage extends React.Component {
     // Don't save until they choose a grade level and school
     if (!workspaceId || stepIndex === 0 || !schoolId || !gradeLevelNextYear) return;
     
+    this.doSave();
+  }
+
+  // Make the save request without any guards. fire-and-forget
+  doSave() {
+    const {
+      workspaceId,
+      isSubmitted,
+      stepIndex,
+      schoolId,
+      gradeLevelNextYear,
+      authors,
+      classroomsCount,
+      planText,
+      studentIdsByRoom,
+      principalNoteText,
+    } = this.state;
     const payload = {
       workspaceId,
+      isSubmitted,
       stepIndex,
       schoolId,
       gradeLevelNextYear,
@@ -290,6 +307,7 @@ export default class ClassListCreatorPage extends React.Component {
     const workspaceId = classList.workspace_id;
     const schoolId = classList.school_id;
     const gradeLevelNextYear = classList.grade_level_next_year;
+    const isSubmitted = classList.submitted;
     const {
       authors,
       classroomsCount,
@@ -300,6 +318,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({
       workspaceId,
       isEditable,
+      isSubmitted,
       schoolId,
       gradeLevelNextYear,
       authors,
@@ -352,6 +371,20 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({principalNoteText});
   }
 
+  onFeedbackTextChanged(feedbackText) {
+    this.setState({feedbackText});
+  }
+
+  onSubmitClicked() {
+    const confirmMessage = "Are you sure?  You won't be able to make any changes after submitting.";
+    if (!window.confirm(confirmMessage)) return;
+
+    // This updates the UI locally to disable editing and mark as submitted.
+    // When that state change is done, we also force saving, since
+    // the normal autosave doesn't save anything marked as readonly.
+    this.setState({isSubmitted: true, isEditable: false}, () => this.doSave());
+  }
+
   render() {
     const {workspaceId} = this.state;
     if (!workspaceId) return <Loading />;
@@ -370,6 +403,8 @@ export default class ClassListCreatorPage extends React.Component {
         onPlanTextChanged={this.onPlanTextChanged}
         onClassListsChanged={this.onClassListsChanged}
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
+        onFeedbackTextChanged={this.onFeedbackTextChanged}
+        onSubmitClicked={this.onSubmitClicked}
       />
     );
   }

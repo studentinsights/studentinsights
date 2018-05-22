@@ -195,7 +195,7 @@ exports[`snapshots 1`] = `
                 }
               />
             </div>
-            Low income
+            Reduced lunch
           </th>
           <th
             onClick={[Function]}

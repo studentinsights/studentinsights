@@ -44,7 +44,7 @@ export default class InlineStudentProfile extends React.Component {
               <Card style={styles.card}>
                 <div style={styles.header}>Home</div>
                 <div>Home language: {student.home_language}</div>
-                {student.free_reduced_lunch && <div>Free reduced lunch: {student.free_reduced_lunch}</div>}
+                {student.free_reduced_lunch && <div>Free or reduced lunch: {student.free_reduced_lunch}</div>}
               </Card>
             </div>
             <div style={{display: 'flex'}}>

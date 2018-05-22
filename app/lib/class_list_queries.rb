@@ -56,12 +56,19 @@ class ClassListQueries
     end
   end
 
-  # Educators can only write to workspaces they created, or to unowned workspaces.
+  # Can the user write to this workspace?
   def is_authorized_for_writes?(workspace_id)
-    owner = ClassList.workspace_owner(workspace_id)
-    return true if owner.nil?
-    return true if owner.id == @educator.id
-    false
+    # If this workspace_id hasn't been used yet, anyone can create it.
+    class_list = ClassList.latest_class_list_for_workspace(workspace_id)
+    return true if class_list.nil?
+
+    # Educators can't write to workspaces they didn't create (not principals yet).
+    return false if class_list.created_by_educator_id != @educator.id
+
+    # If the workspace has been submitted no one can write (not principals yet).
+    return false if class_list.submitted?
+
+    true
   end
 
   # This is intended only for use in this controller, and allows more people
