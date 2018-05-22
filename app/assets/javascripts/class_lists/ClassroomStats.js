@@ -78,7 +78,7 @@ export default class ClassroomStats extends React.Component {
                   title: 'Students broken down by whether they identify their gender as male, female or nonbinary.'
                 })}
                 {this.renderHeaderCell({
-                  label: 'Low income',
+                  label: 'Reduced lunch',
                   columnHighlightKey: HighlightKeys.LOW_INCOME,
                   title: 'Students whose are enrolled in the free or reduced lunch program.'
                 })}
