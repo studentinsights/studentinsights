@@ -28,16 +28,12 @@ exports[`chooseYourGradeProps 1`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -622,16 +618,12 @@ exports[`chooseYourGradeProps 2`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -1386,7 +1378,7 @@ exports[`makeAPlanProps 1`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-2--value"
+                id="react-select-6--value"
               >
                 <div
                   className="Select-value"
@@ -1406,7 +1398,7 @@ exports[`makeAPlanProps 1`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-2--value-0"
+                    id="react-select-6--value-0"
                     role="option"
                   >
                     Districtwide, Rich
@@ -1426,7 +1418,7 @@ exports[`makeAPlanProps 1`] = `
                   }
                 >
                   <input
-                    aria-activedescendant="react-select-2--value"
+                    aria-activedescendant="react-select-6--value"
                     aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -1971,7 +1963,7 @@ exports[`makeAPlanProps 2`] = `
             >
               <span
                 className="Select-multi-value-wrapper"
-                id="react-select-3--value"
+                id="react-select-7--value"
               >
                 <div
                   className="Select-value"
@@ -1981,7 +1973,7 @@ exports[`makeAPlanProps 2`] = `
                   <span
                     aria-selected="true"
                     className="Select-value-label"
-                    id="react-select-3--value-0"
+                    id="react-select-7--value-0"
                     role="option"
                   >
                     Districtwide, Rich
@@ -1993,7 +1985,7 @@ exports[`makeAPlanProps 2`] = `
                   </span>
                 </div>
                 <div
-                  aria-activedescendant="react-select-3--value"
+                  aria-activedescendant="react-select-7--value"
                   aria-disabled="true"
                   aria-expanded={false}
                   aria-label={undefined}
@@ -2998,7 +2990,7 @@ exports[`notesToPrincipalProps 2`] = `
               style={
                 Object {
                   "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid green",
+                  "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
                   "color": "green",
                   "fontWeight": "bold",

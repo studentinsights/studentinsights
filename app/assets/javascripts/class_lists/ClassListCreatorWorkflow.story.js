@@ -36,6 +36,13 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
   .add('Make a plan', () => render(withStoryProps(makeAPlanProps())))
   .add('Make a plan, readonly', () => render(withStoryProps(makeAPlanProps({ isEditable: false }))))
   .add('Notes to principal', () => render(withStoryProps(notesToPrincipalProps())))
+  .add('Notes to principal, saving', () => {
+    return render(withStoryProps(notesToPrincipalProps({
+      isEditable: false,
+      isSubmitted: true,
+      isDirty: true,
+    })));
+  })
   .add('Notes to principal, readonly', () => {
     return render(withStoryProps(notesToPrincipalProps({
       isEditable: false,

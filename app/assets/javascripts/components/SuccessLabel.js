@@ -20,7 +20,7 @@ const styles = {
     backgroundColor: 'rgb(209, 231, 210)',
     color: 'green',
     padding: 8,
-    border: '1px solid green',
+    border: '1px solid rgb(149, 198, 150)',
     borderRadius: 3
   }
 };
