@@ -237,7 +237,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         <div style={styles.marginBetweenSections}>
           <div>Any feedback?</div>
           <div style={styles.descriptionText}>
-            Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+            Let us know any feedback you have so we can improve this for next year.
           </div>
           <textarea
             value={feedbackText}
