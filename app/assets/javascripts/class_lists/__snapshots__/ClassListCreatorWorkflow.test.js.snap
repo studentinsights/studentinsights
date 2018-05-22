@@ -251,12 +251,14 @@ exports[`chooseYourGradeProps 1`] = `
           <div
             style={
               Object {
-                "fontWeight": "bold",
+                "fontSize": 20,
+                "fontWeight": 300,
+                "marginBottom": 10,
                 "marginTop": 20,
               }
             }
           >
-            Class List Maker Tool
+            Class List Creator
           </div>
           <div
             style={
@@ -859,12 +861,14 @@ exports[`chooseYourGradeProps 2`] = `
           <div
             style={
               Object {
-                "fontWeight": "bold",
+                "fontSize": 20,
+                "fontWeight": 300,
+                "marginBottom": 10,
                 "marginTop": 20,
               }
             }
           >
-            Class List Maker Tool
+            Class List Creator
           </div>
           <div
             style={

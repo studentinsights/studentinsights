@@ -53,7 +53,7 @@ export class ClassListsViewPageView extends React.Component {
   render() {
     return (
       <div>
-        <SectionHeading>Class List Maker Tool</SectionHeading>
+        <SectionHeading>Class List Creator</SectionHeading>
         {this.renderTable()}
       </div>
     );
