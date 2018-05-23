@@ -51,7 +51,6 @@ Rails.application.routes.draw do
   get '/home' => 'ui#ui'
 
   # Static Rails pages
-  get 'no_default_page' => 'static_rails_pages#no_default_page'
   get 'not_authorized' => 'static_rails_pages#not_authorized'
   get 'unsupported_browser' => 'static_rails_pages#unsupported_browser'
 
