@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /*
 Functions for transforming the feed data structure that holds
 all notes and services for a student.
