@@ -29,6 +29,8 @@ export function dibelsLevel(dibels) {
   const performanceLevel = dibels.performance_level.toLowerCase();
   if (performanceLevel.indexOf('core') !== -1) return 'core';
   if (performanceLevel.indexOf('strategic') !== -1) return 'strategic';
+  if (performanceLevel.indexOf('strg') !== -1) return 'strategic';
   if (performanceLevel.indexOf('intensive') !== -1) return 'intensive';
+  if (performanceLevel.indexOf('int') !== -1) return 'intensive';
   return null;
 }
