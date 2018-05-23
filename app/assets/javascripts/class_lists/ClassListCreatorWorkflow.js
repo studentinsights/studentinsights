@@ -77,10 +77,12 @@ export default class ClassListCreatorWorkflow extends React.Component {
       schoolId,
       gradeLevelNextYear,
       onSchoolIdChanged,
+      canChangeSchoolOrGrade,
       onGradeLevelNextYearChanged
     } = this.props;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
+
     return (
       <div style={styles.stepContent}>
         <div>
@@ -94,7 +96,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 name="select-school-name"
                 value={schoolId}
                 onChange={item => onSchoolIdChanged(item.value)}
-                disabled={!isEditable}
+                disabled={!isEditable || !canChangeSchoolOrGrade}
                 options={_.sortBy(schools, s => s.name).map(school => {
                   return {
                     value: school.id,
@@ -109,7 +111,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 name="select-grade-level"
                 value={gradeLevelNextYear}
                 onChange={item => onGradeLevelNextYearChanged(item.value)}
-                disabled={!isEditable}
+                disabled={!isEditable || !canChangeSchoolOrGrade}
                 options={gradeLevelsNextYear.map(gradeLevelNextYear => {
                   return {
                     value: gradeLevelNextYear,
@@ -118,6 +120,9 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 })}
               />
           </div>
+          {!canChangeSchoolOrGrade &&
+            <div style={{marginTop: 20}}>You can't change the school or grade level once you've moved forward.  If you need to change this, <a href="/classlists">create a new class list</a> instead.</div>
+          }
         </div>
       </div>
     );
@@ -293,6 +298,7 @@ ClassListCreatorWorkflow.propTypes = {
 
   // state
   isDirty: React.PropTypes.bool.isRequired,
+  canChangeSchoolOrGrade: React.PropTypes.bool.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   workspaceId: React.PropTypes.string.isRequired,
   schoolId: React.PropTypes.number,

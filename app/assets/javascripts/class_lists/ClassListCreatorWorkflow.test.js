@@ -21,6 +21,7 @@ export function testProps(props = {}) {
     isEditable: true,
     isSubmitted: false,
     isDirty: false,
+    canChangeSchoolOrGrade: true,
 
     // state
     stepIndex: 0,
