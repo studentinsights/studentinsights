@@ -52,7 +52,7 @@ export default class ClassListCreatorPage extends React.Component {
       // workspace
       educators: null, // from server
       students: null, // from server
-      classroomsCount: 4,
+      classroomsCount: 2,
       authors: [],
       planText: '',
       studentIdsByRoom: null,
@@ -137,6 +137,13 @@ export default class ClassListCreatorPage extends React.Component {
     return (schoolId === null || gradeLevelNextYear === null)
       ? [0]
       : [0, 1, 2, 3];
+  }
+
+  canChangeSchoolOrGrade() {
+    const {studentIdsByRoom, students, hasFetchedStudents, hasFetchedClassList} = this.state;
+    if (students !== null || hasFetchedStudents) return false;
+    if (studentIdsByRoom !== null || hasFetchedClassList) return false;
+    return true;
   }
 
   // This is a debug hook for iterating on particular production data sets locally
@@ -437,11 +444,13 @@ export default class ClassListCreatorPage extends React.Component {
 
     const availableSteps = this.availableSteps();
     const isDirty = this.isDirty();
+    const canChangeSchoolOrGrade = this.canChangeSchoolOrGrade();
     return (
       <ClassListCreatorWorkflow
         {...this.state}
         isDirty={isDirty}
         steps={STEPS}
+        canChangeSchoolOrGrade={canChangeSchoolOrGrade}
         availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
         onSchoolIdChanged={this.onSchoolIdChanged}

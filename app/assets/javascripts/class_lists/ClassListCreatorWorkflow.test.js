@@ -21,6 +21,7 @@ export function testProps(props = {}) {
     isEditable: true,
     isSubmitted: false,
     isDirty: false,
+    canChangeSchoolOrGrade: true,
 
     // state
     stepIndex: 0,
@@ -98,6 +99,7 @@ it('renders without crashing', () => {
 it('chooseYourGradeProps', () => {
   expect(snapshotRender(chooseYourGradeProps())).toMatchSnapshot();
   expect(snapshotRender(chooseYourGradeProps({ isEditable: false }))).toMatchSnapshot();
+  expect(snapshotRender(chooseYourGradeProps({ canChangeSchoolOrGrade: false }))).toMatchSnapshot();
 });
 
 it('makeAPlanProps', () => {

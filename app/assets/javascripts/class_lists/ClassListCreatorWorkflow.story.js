@@ -32,6 +32,7 @@ function render(props) {
 
 storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
   .add('Choose your grade', () => render(withStoryProps(chooseYourGradeProps())))
+  .add('Choose your grade, already done', () => render(withStoryProps(chooseYourGradeProps({ canChangeSchoolOrGrade: false }))))
   .add('Choose your grade, readonly', () => render(withStoryProps(chooseYourGradeProps({ isEditable: false }))))
   .add('Make a plan', () => render(withStoryProps(makeAPlanProps())))
   .add('Make a plan, readonly', () => render(withStoryProps(makeAPlanProps({ isEditable: false }))))

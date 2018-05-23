@@ -41,10 +41,11 @@ it('integration test for state changes, server requests and autosave', done => {
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
   wrapper.instance().onStepChanged(2);
+  wrapper.instance().onClassroomsCountIncremented(2);
 
   // This should update component state, but also trigger server
   // requests and other state changes too.
-  setTimeout(() => {    
+  setTimeout(() => { 
     expect(wrapper.state().schoolId).toEqual(4);
     expect(wrapper.state().gradeLevelNextYear).toEqual('6');
     expect(wrapper.state().stepIndex).toEqual(2);
