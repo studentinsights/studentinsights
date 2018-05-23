@@ -101,7 +101,6 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   rollbarError(message, params) {
-    console.error(message, params);
     window.Rollbar.error(message, params);
   }
 
