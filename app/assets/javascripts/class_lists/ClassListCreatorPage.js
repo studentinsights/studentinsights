@@ -310,30 +310,16 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   onFetchedGradeLevels(json) {
-    console.log('onFetchedGradeLevels');
-    const {schoolId, gradeLevelNextYear} = this.state;
     const gradeLevelsNextYear = json.grade_levels_next_year.sort(sortByGrade);
     const {schools} = json;
 
-    // If there's only one choice for a school or grade,
-    // and there isn't one selected already, select it.
-    const defaultSchoolId = (schoolId === null && schools.length === 1)
-      ? schools[0].id
-      : null;
-    const defaulGradeLevelNextYear = (gradeLevelNextYear === null && gradeLevelsNextYear.length === 1)
-      ? gradeLevelsNextYear[0]
-      : null;
-
     this.setState({
       schools,
-      gradeLevelsNextYear,
-      schoolId: defaultSchoolId,
-      gradeLevelNextYear: defaulGradeLevelNextYear
+      gradeLevelsNextYear
     });
   }
 
   onFetchedStudents(json) {
-    console.log('onFetchedStudents');
     const {isEditable, authors} = this.state;
     const {educators, students} = json;
 
@@ -349,7 +335,6 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   onFetchedClassList(responseJson) {
-    console.log('onFetchedClassList');
     const isEditable = responseJson.is_editable;
     const classList = responseJson.class_list;
     const workspaceId = classList.workspace_id;
