@@ -62,8 +62,6 @@ export class ClassListsViewPageView extends React.Component {
   }
 
   renderTable() {
-    const {nowFn} = this.context;
-    const now = nowFn();
     const {workspaces, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
@@ -135,9 +133,6 @@ export class ClassListsViewPageView extends React.Component {
     );
   }
 }
-ClassListsViewPageView.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
-};
 ClassListsViewPageView.propTypes = {
   currentEducatorId: React.PropTypes.number.isRequired,
   workspaces: React.PropTypes.arrayOf(React.PropTypes.shape({
