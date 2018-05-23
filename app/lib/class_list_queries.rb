@@ -12,7 +12,7 @@ class ClassListQueries
   # Is this feature relevant for them at all?
   def is_relevant_for_educator?
     supported_schools.each do |school|
-      return true if authorized_grade_levels(school_id).size > 0
+      return true if authorized_grade_levels(school.id).size > 0
     end
     false
   end
