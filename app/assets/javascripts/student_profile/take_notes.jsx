@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import {eventNoteTypeText} from '../components/eventNoteType';
 
 window.shared || (window.shared = {});
 
@@ -124,7 +125,7 @@ export default React.createClass({
   },
 
   render: function() {
-    const {noteInProgressText} = this.props;
+    const {noteInProgressText, currentEducator} = this.props;
 
     return (
       <div className="TakeNotes" style={styles.dialog}>
@@ -150,6 +151,7 @@ export default React.createClass({
           <div style={{ flex: 1 }}>
             {this.renderNoteButton(306)}
             {this.renderNoteButton(302)}
+            {currentEducator.is_counselor && this.renderNoteButton(307)}
             {this.renderNoteButton(304)}
           </div>
         </div>
@@ -201,11 +203,8 @@ export default React.createClass({
   renderNoteButton: function(eventNoteTypeId) {
     const {
       onClickNoteType,
-      eventNoteTypesIndex,
       noteInProgressType
     } = this.props;
-
-    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
 
     return (
       <button
@@ -221,7 +220,7 @@ export default React.createClass({
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         }}>
-        {eventNoteType.name}
+        {eventNoteTypeText(eventNoteTypeId)}
       </button>
     );
   },
