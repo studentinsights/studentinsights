@@ -193,4 +193,18 @@ RSpec.describe ClassListQueries do
       expect(is_authorized_for_school_id?(pals.west_marcus_teacher, pals.west)).to eq true
     end
   end
+
+  describe 'student_and_homeroom_grade_levels' do
+    def student_and_homeroom_grade_levels_now(educator, school_id)
+      ClassListQueries.new(educator).student_and_homeroom_grade_levels_now(school_id)
+    end
+    it 'works across normal roles' do
+      expect(student_and_homeroom_grade_levels_now(pals.uri, pals.healey.id)).to eq []
+      expect(student_and_homeroom_grade_levels_now(pals.healey_vivian_teacher, pals.healey.id)).to eq ['KF']
+      expect(student_and_homeroom_grade_levels_now(pals.healey_sarah_teacher, pals.healey.id)).to eq ['5']
+      expect(student_and_homeroom_grade_levels_now(pals.healey_laura_principal, pals.healey.id)).to eq []
+      expect(student_and_homeroom_grade_levels_now(pals.west_marcus_teacher, pals.healey.id)).to eq ['5']
+      expect(student_and_homeroom_grade_levels_now(pals.shs_jodi, pals.healey.id)).to eq ['9']
+    end
+  end
 end

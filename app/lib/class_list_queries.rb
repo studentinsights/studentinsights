@@ -95,9 +95,31 @@ class ClassListQueries
     return true if @educator.districtwide_access?
     return true if @educator.admin?
     return true if @educator.schoolwide_access?
-    return true if grade_level_now == @educator.homeroom.try(:grade)
+    return true if grade_level_now.in?(student_and_homeroom_grade_levels_now(school_id))
 
     false
+  end
+
+  # Since there are teachers with mixed grade level rooms, allow them
+  # to make class lists for any grade they have students for (active students only).
+  def student_and_homeroom_grade_levels_now(school_id)
+    return [] if @educator.homeroom.nil?
+    homeroom_grade = @educator.homeroom.grade
+    student_grades = @educator.homeroom.students
+      .where(school_id: school_id)
+      .active
+      .map(&:grade)
+
+    puts "\n\n--student_and_homeroom_grade_levels_now--"
+    puts "  educator: #{@educator}"
+    puts "  homeroom: #{@educator.homeroom}"
+    puts "  @educator.homeroom.students.map(&:id): #{@educator.homeroom.students.map(&:id)}"
+    puts "  @educator.homeroom.students.map(&:first_name): #{@educator.homeroom.students.map(&:first_name)}"
+    puts "  @educator.homeroom.students.map(&:last_name): #{@educator.homeroom.students.map(&:last_name)}"
+    puts "  homeroom_grade: #{homeroom_grade}"
+    puts "  student_grades: #{student_grades.uniq}"
+    puts "  student_and_homeroom_grade_levels_now: #{([homeroom_grade] + student_grades).uniq}"
+    ([homeroom_grade] + student_grades).uniq
   end
 
   # Is the user assigned to that school? (ie, this isn't the same as "do they
