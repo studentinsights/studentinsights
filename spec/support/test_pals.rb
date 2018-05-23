@@ -183,7 +183,8 @@ class TestPals
       full_name: 'Counselor, Sofia',
       password: 'demo-password',
       school: @shs,
-      grade_level_access: ['9']
+      grade_level_access: ['9'],
+      is_counselor: true
     )
     @shs_sophomore_homeroom = Homeroom.create!(name: "SHS ALL", grade: "10", school: @shs)
 
