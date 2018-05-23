@@ -40,20 +40,21 @@ class ClassListsController < ApplicationController
     params.require(:workspace_id)
 
     # schools
-    default_school_id = current_educator.school_id
-    school_ids = queries.supported_schools.map(&:id)
+    school_ids = queries.supported_schools.map(&:id).select do |school_id|
+      queries.is_authorized_for_school_id?(school_id)
+    end
     schools_json = School.find(school_ids).as_json(only: [:id, :name])
 
-    # grade levels
-    supported_grade_levels_next_year = queries.supported_grade_levels_next_year
+    # grade levels (include if any of their schools would allow it)
+    grade_levels_next_year = queries.supported_grade_levels_next_year.select do |grade_level_next_year|
+      grade_level_now = GradeLevels.new.previous(grade_level_next_year)
+      school_ids.any? {|school_id| queries.is_authorized_for_grade_level_now?(school_id, grade_level_now) }
+    end
     current_grade_level = current_educator.homeroom.try(:grade) || 'KF'
-    default_grade_level_next_year = GradeLevels.new.next(current_grade_level)
 
     render json: {
-      default_school_id: default_school_id,
       schools: schools_json,
-      default_grade_level_next_year: default_grade_level_next_year,
-      grade_levels_next_year: supported_grade_levels_next_year
+      grade_levels_next_year: grade_levels_next_year
     }
   end
 

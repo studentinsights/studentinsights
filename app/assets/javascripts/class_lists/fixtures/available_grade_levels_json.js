@@ -1,5 +1,4 @@
 export default {
-  "default_school_id": 4,
   "schools": [
     {
       "id": 1,
@@ -34,7 +33,6 @@ export default {
       "name": "Arthur D. Healey School"
     }
   ],
-  "default_grade_level_next_year": "1",
   "grade_levels_next_year": [
     "1",
     "2",

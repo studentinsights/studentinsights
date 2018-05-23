@@ -140,22 +140,37 @@ describe ClassListsController, :type => :controller do
       end
     end
 
+    it 'works for Vivian' do
+      request_available_grade_levels_json(pals.healey_vivian_teacher)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json["grade_levels_next_year"]).to eq(["1"])
+      expect(json["schools"].length).to eq 1
+      expect(json["schools"][0]["id"]).to eq pals.healey.id
+    end
+
     it 'works for Sarah' do
       request_available_grade_levels_json(pals.healey_sarah_teacher)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json["default_grade_level_next_year"]).to eq('6')
+      expect(json["grade_levels_next_year"]).to eq(["6"])
+      expect(json["schools"].length).to eq 1
+      expect(json["schools"][0]["id"]).to eq pals.healey.id
+    end
+
+    it 'works for Laura' do
+      request_available_grade_levels_json(pals.healey_laura_principal)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
       expect(json["grade_levels_next_year"]).to eq(["1", "2", "3", "4", "5", "6"])
-      expect(json["default_school_id"]).to eq(pals.healey.id)
-      expect(json["schools"].length).to eq 8
+      expect(json["schools"].length).to eq 1
+      expect(json["schools"][0]["id"]).to eq pals.healey.id
     end
 
     it 'works for Uri' do
       request_available_grade_levels_json(pals.uri)
       json = JSON.parse(response.body)
-      expect(json["default_grade_level_next_year"]).to eq('1')
       expect(json["grade_levels_next_year"]).to eq(["1", "2", "3", "4", "5", "6"])
-      expect(json["default_school_id"]).to eq(pals.healey.id)
       expect(json["schools"].length).to eq 8
     end
   end

@@ -432,15 +432,9 @@ When Student Insights was being developed, some teachers started asking whether 
               What grade level are you creating?
             </div>
             <div
-              className="Select has-value is-clearable is-searchable Select--single"
+              className="Select is-clearable is-searchable Select--single"
               style={undefined}
             >
-              <input
-                disabled={false}
-                name="select-grade-level"
-                type="hidden"
-                value="1"
-              />
               <div
                 className="Select-control"
                 onKeyDown={[Function]}
@@ -455,18 +449,9 @@ When Student Insights was being developed, some teachers started asking whether 
                   id="react-select-3--value"
                 >
                   <div
-                    className="Select-value"
-                    style={undefined}
-                    title={undefined}
+                    className="Select-placeholder"
                   >
-                    <span
-                      aria-selected="true"
-                      className="Select-value-label"
-                      id="react-select-3--value-item"
-                      role="option"
-                    >
-                      Next year's 1st grade 
-                    </span>
+                    Select...
                   </div>
                   <div
                     className="Select-input"
@@ -516,24 +501,6 @@ When Student Insights was being developed, some teachers started asking whether 
                       
                     </div>
                   </div>
-                </span>
-                <span
-                  aria-label="Clear value"
-                  className="Select-clear-zone"
-                  onMouseDown={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  title="Clear value"
-                >
-                  <span
-                    className="Select-clear"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "&times;",
-                      }
-                    }
-                  />
                 </span>
                 <span
                   className="Select-arrow-zone"
@@ -992,15 +959,9 @@ When Student Insights was being developed, some teachers started asking whether 
               What grade level are you creating?
             </div>
             <div
-              className="Select has-value is-clearable is-disabled is-searchable Select--single"
+              className="Select is-clearable is-disabled is-searchable Select--single"
               style={undefined}
             >
-              <input
-                disabled={true}
-                name="select-grade-level"
-                type="hidden"
-                value="1"
-              />
               <div
                 className="Select-control"
                 onKeyDown={[Function]}
@@ -1015,18 +976,9 @@ When Student Insights was being developed, some teachers started asking whether 
                   id="react-select-5--value"
                 >
                   <div
-                    className="Select-value"
-                    style={undefined}
-                    title={undefined}
+                    className="Select-placeholder"
                   >
-                    <span
-                      aria-selected="true"
-                      className="Select-value-label"
-                      id="react-select-5--value-item"
-                      role="option"
-                    >
-                      Next year's 1st grade 
-                    </span>
+                    Select...
                   </div>
                   <div
                     aria-activedescendant="react-select-5--value"
