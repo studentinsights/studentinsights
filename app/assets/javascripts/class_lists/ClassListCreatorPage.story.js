@@ -10,7 +10,7 @@ storiesOf('classlists/ClassListCreatorPage', module) // eslint-disable-line no-u
     mockWithFixtures();
     return storybookFrame(
       <MemoryRouter initialEntries={['/classlists']}>
-        <ClassListCreatorPage disableHistory={true} />
+        <ClassListCreatorPage disableHistory={true} disableSizing={true} />
       </MemoryRouter>
     );
   });

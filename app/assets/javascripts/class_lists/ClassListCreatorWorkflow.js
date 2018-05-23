@@ -33,7 +33,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
   }
 
   render() {
-    const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
+    const {
+      steps,
+      stepIndex,
+      availableSteps,
+      onStepChanged,
+      isEditable,
+      isDirty
+    } = this.props;
     const {isExpandedVertically} = this.state;
     const expandedOrCollapsedStyles = (isExpandedVertically)
       ? styles.horizontalStepperExpanded 
@@ -44,6 +51,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           steps={steps}
           availableSteps={availableSteps}
           isEditable={isEditable}
+          isDirty={isDirty}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
@@ -214,12 +222,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const {
       isEditable,
       isSubmitted,
+      isDirty,
       onPrincipalNoteChanged,
       principalNoteText,
       onFeedbackTextChanged,
       feedbackText,
       onSubmitClicked
     } = this.props;
+
     return (
       <div style={styles.stepContent}>
         <div>
@@ -251,7 +261,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
             {isSubmitted
-              ? <SuccessLabel text="Your class list is submitted" />
+              ? (isDirty) ? <span>Saving...</span> : <SuccessLabel text="Your class list is submitted" />
               : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
             }
           </div>
@@ -282,6 +292,7 @@ ClassListCreatorWorkflow.propTypes = {
   isSubmitted: React.PropTypes.bool.isRequired,
 
   // state
+  isDirty: React.PropTypes.bool.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   workspaceId: React.PropTypes.string.isRequired,
   schoolId: React.PropTypes.number,
@@ -368,5 +379,3 @@ const styles = {
     marginTop: 20
   }
 };
-
-

@@ -28,16 +28,12 @@ exports[`chooseYourGradeProps 1`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -622,16 +618,12 @@ exports[`chooseYourGradeProps 2`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -1140,16 +1132,12 @@ exports[`makeAPlanProps 1`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -1713,16 +1701,12 @@ exports[`makeAPlanProps 2`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -2246,16 +2230,12 @@ exports[`notesToPrincipalProps 1`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -2680,16 +2660,12 @@ exports[`notesToPrincipalProps 2`] = `
           "display": "flex",
           "fontSize": 12,
           "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
         }
       }
     >
-      <div
-        style={
-          Object {
-            "paddingLeft": 15,
-          }
-        }
-      >
+      <div>
         <span
           onClick={[Function]}
           style={
@@ -3014,7 +2990,7 @@ exports[`notesToPrincipalProps 2`] = `
               style={
                 Object {
                   "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid green",
+                  "border": "1px solid rgb(149, 198, 150)",
                   "borderRadius": 3,
                   "color": "green",
                   "fontWeight": "bold",
