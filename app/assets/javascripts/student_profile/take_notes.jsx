@@ -118,6 +118,10 @@ What is this student's involvement in the school community like?
 ——————————
 
 
+How does this student relate to their peers?
+——————————
+
+
 Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
 ——————————
 
