@@ -99,6 +99,7 @@ it('renders without crashing', () => {
 it('chooseYourGradeProps', () => {
   expect(snapshotRender(chooseYourGradeProps())).toMatchSnapshot();
   expect(snapshotRender(chooseYourGradeProps({ isEditable: false }))).toMatchSnapshot();
+  expect(snapshotRender(chooseYourGradeProps({ canChangeSchoolOrGrade: false }))).toMatchSnapshot();
 });
 
 it('makeAPlanProps', () => {
