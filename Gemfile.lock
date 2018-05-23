@@ -369,6 +369,7 @@ DEPENDENCIES
   thor
   timecop
   uglifier (>= 1.3.0)
+  useragent
   wicked_pdf
   wkhtmltopdf-binary
 

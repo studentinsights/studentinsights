@@ -50,8 +50,10 @@ Rails.application.routes.draw do
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
   get '/home' => 'ui#ui'
 
-  get 'no_default_page' => 'pages#no_default_page'
-  get 'not_authorized' => 'pages#not_authorized'
+  # Static Rails pages
+  get 'no_default_page' => 'static_rails_pages#no_default_page'
+  get 'not_authorized' => 'static_rails_pages#not_authorized'
+  get 'unsupported_browser' => 'static_rails_pages#unsupported_browser'
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'

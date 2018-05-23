@@ -32,6 +32,7 @@ gem 'selenium-webdriver'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
+gem 'useragent'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
