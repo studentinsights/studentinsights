@@ -36,7 +36,7 @@ it('renders without crashing with balanceId', () => {
 });
 
 it('integration test for state changes, server requests and autosave', done => {
-  const props = testProps({ autoSaveIntervalMs: 200 }); // just for making tests run faster
+  const props = testProps({ autoSaveIntervalMs: 200 });
   const wrapper = mount(<ClassListCreatorPage {...props} />);
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
@@ -69,5 +69,37 @@ it('integration test for state changes, server requests and autosave', done => {
       expect(wrapper.state().lastSavedSnapshot.feedbackText).toEqual('my feedback');
       done();
     }, 300); // delay for autosave interval
+  }, 10); // delay a tick for fetch requests
+});
+
+it('integration test for loading existing workspace', done => {
+  const props = testProps({
+    defaultWorkspaceId: 'foo-workspace-id',
+    autoSaveIntervalMs: 200
+  });
+  const wrapper = mount(<ClassListCreatorPage {...props} />);
+
+  // Waiting for data to load
+  setTimeout(() => {
+    expect(wrapper.state().lastSavedSnapshot).not.toEqual(null);
+    expect(wrapper.instance().isDirty()).toEqual(false);
+    expect(wrapper.state().schoolId).toEqual(2);
+    expect(wrapper.state().gradeLevelNextYear).toEqual('3');
+    expect(wrapper.state().stepIndex).toEqual(0);
+    expect(wrapper.state().students.length).toEqual(57);
+    expect(Object.keys(wrapper.state().studentIdsByRoom)).toEqual([
+      'room:unplaced',
+      'room:0',
+      'room:1'
+    ]);
+    expect(wrapper.state().feedbackText).toEqual('feedback!');
+    expect(wrapper.state().principalNoteText).toEqual('principal!');
+    expect(wrapper.state().planText).toEqual('plan!');
+    
+    // Type other feedback values
+    wrapper.instance().onFeedbackTextChanged('other feedback');
+    expect(wrapper.state().feedbackText).toEqual('other feedback');
+    
+    done();
   }, 10); // delay a tick for fetch requests
 });

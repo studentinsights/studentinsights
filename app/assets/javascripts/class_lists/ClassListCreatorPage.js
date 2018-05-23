@@ -346,7 +346,8 @@ export default class ClassListCreatorPage extends React.Component {
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNoteText
+      principalNoteText,
+      feedbackText
     } = classList.json;
 
     const stateChange = {
@@ -360,6 +361,7 @@ export default class ClassListCreatorPage extends React.Component {
       planText,
       studentIdsByRoom,
       principalNoteText,
+      feedbackText,
       stepIndex: 0, // Ignore last `stepIndex`
     };
 
