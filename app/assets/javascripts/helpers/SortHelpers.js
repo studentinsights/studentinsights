@@ -83,3 +83,7 @@ const ORDERED_GRADES = {
 export function sortByGrade(gradeA, gradeB) {
   return ORDERED_GRADES[gradeA] - ORDERED_GRADES[gradeB];
 }
+
+export function rankedByGradeLevel(gradeLevel) {
+  return ORDERED_GRADES[gradeLevel];
+}

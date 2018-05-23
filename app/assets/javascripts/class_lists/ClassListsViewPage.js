@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
 import Button from '../components/Button';
 import School from '../components/School';
@@ -9,6 +10,7 @@ import SuccessLabel from '../components/SuccessLabel';
 import tableStyles from '../components/tableStyles';
 import {toMomentFromTime} from '../helpers/toMoment';
 import {gradeText} from '../helpers/gradeText';
+import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import IntroCopy from './IntroCopy';
 import {fetchAllWorkspaces} from './api';
 
@@ -63,6 +65,15 @@ export class ClassListsViewPageView extends React.Component {
     const {workspaces, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
+    const sortedWorkspaces = _.sortByOrder(workspaces, workspace => {
+      const classList = workspace.class_list;
+      return [
+        classList.school.name,
+        rankedByGradeLevel(classList.grade_level_next_year),
+        classList.submitted
+      ];
+    });
+
     return (
       <div>
         <div style={{marginLeft: 10}}>{this.renderNewButton()}</div>
@@ -72,31 +83,34 @@ export class ClassListsViewPageView extends React.Component {
               <th style={tableStyles.headerCell}>School</th>
               <th style={tableStyles.headerCell}>Grade next year</th>
               <th style={tableStyles.headerCell}>Owner</th>
-              <th style={tableStyles.headerCell}>Created on</th>
-              <th style={tableStyles.headerCell}>Revisions</th>
+              <th style={tableStyles.headerCell}>Last updated</th>
               <th style={tableStyles.headerCell}>Status</th>
               <th style={tableStyles.headerCell} />
             </tr>
           </thead>
-          <tbody>{workspaces.map(workspace => {
+          <tbody>{sortedWorkspaces.map(workspace => {
             const classList = workspace.class_list;
+            const createdAtMoment = toMomentFromTime(classList.created_at);
             const educatorStyle = (classList.created_by_educator.id === currentEducatorId)
               ? { fontWeight: 'bold' }
               : {};
             return (
               <tr key={workspace.workspace_id}>
                 <td style={tableStyles.cell}><School {...classList.school} /></td>
-                <td style={tableStyles.cell}>{gradeText(classList.grade_level_next_year)}</td>
+                <td style={tableStyles.cell}>
+                  {gradeText(classList.grade_level_next_year)}
+                </td>
                 <td style={tableStyles.cell}>
                   <Educator educator={classList.created_by_educator} style={educatorStyle} />
                 </td>
-                <td style={tableStyles.cell}>{toMomentFromTime(classList.created_at).format('dddd M/D')}</td>
-                <td style={tableStyles.cell}>{workspace.revisions_count}</td>
+                <td style={tableStyles.cell} title={`Revisions: ${workspace.revisions_count}`}>
+                  {createdAtMoment.format('dddd M/D, h:mma')}
+                </td>
                 <td style={tableStyles.cell}>
                   {classList.submitted && <SuccessLabel style={{padding: 5}} text="submitted" />}
                 </td>
                 <td style={tableStyles.cell}>
-                  <a href={`/classlists/${classList.workspace_id}`}>open</a>
+                  <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}`}>open</a>
                 </td>
               </tr>
             );
