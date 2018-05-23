@@ -22,7 +22,7 @@ export function apiFetchJson(url, options = {}) {
 
 // This relies on a Rails CSRF token being rendered on the page
 export function apiPostJson(url, body, options = {}) {
-  const csrfToken = $('meta[name="csrf-token"]').attr('content');
+  const csrfToken = options.csrfToken || $('meta[name="csrf-token"]').attr('content');
   return apiFetch(url, {
     method: 'POST',
     body: JSON.stringify(body),
