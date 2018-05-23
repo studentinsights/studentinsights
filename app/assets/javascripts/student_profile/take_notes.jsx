@@ -98,6 +98,41 @@ export default React.createClass({
     return (noteInProgressType === null || !this.isValidAttachmentUrls());
   },
 
+  noteText() {
+    // In most cases, display the text the user has entered into the controlled
+    // text input, passed in as props. When the user is a counselor entering a
+    // High School Transition Note, show an initial prompt.
+
+    const {noteInProgressText, noteInProgressType} = this.props;
+
+    if (noteInProgressType !== 307) return noteInProgressText;
+
+    if (noteInProgressText !== '') return noteInProgressText;
+
+    // Prompt for High School Transition Note
+    return `What are this student's strengths?
+——————————
+
+
+What is this student's involvement in the school community like?
+——————————
+
+
+Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
+——————————
+
+
+Is this student receiving mental health supports?
+——————————
+
+
+Any additional comments or good things to know about this student?
+——————————
+
+
+    `;
+  },
+
   isValidAttachmentUrls: function () {
     const {noteInProgressAttachmentUrls} = this.props;
 
@@ -125,7 +160,7 @@ export default React.createClass({
   },
 
   render: function() {
-    const {noteInProgressText, currentEducator} = this.props;
+    const {currentEducator} = this.props;
 
     return (
       <div className="TakeNotes" style={styles.dialog}>
@@ -137,7 +172,7 @@ export default React.createClass({
           rows={10}
           style={styles.textarea}
           ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-          value={noteInProgressText}
+          value={this.noteText()}
           onChange={this.props.onChangeNoteInProgressText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
