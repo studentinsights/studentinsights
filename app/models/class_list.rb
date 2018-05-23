@@ -22,49 +22,51 @@ class ClassList < ActiveRecord::Base
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.
   def validate_consistent_workspace_grade_school
-    # Optimized SQL group by for many workspace_id records
-    groups_by_school_and_grade = ClassList
-      .where(workspace_id: workspace_id)
-      .group(:school_id, :grade_level_next_year)
-      .count
-
-    # There already is a validation violation, abort
-    if groups_by_school_and_grade.keys.size > 1
-      errors.add(:grade_level_next_year, "preexisting violation, different grade_level_next_year values for same workspace_id")
-      errors.add(:school_id, "preexisting violation, different school_id values for same workspace_id")
-    end
-
-    # We're trying to write something different that what is already there
-    school_id, grade_level_next_year = groups_by_school_and_grade.values
-    if school_id != self.school_id
-      errors.add(:school_id, "cannot add different school_id to existing workspace_id")
-    end
-    if grade_level_next_year != self.grade_level_next_year
-      errors.add(:grade_level_next_year, "cannot add different grade_level_next_year to existing workspace_id")
-    end
+    validatate_consistent_values_within_workspace(:school_id, :grade_level_next_year)
   end
 
   # Only one writer can write to a workspace
   def validate_single_writer_in_workspace
-    puts '  validate_single_writer_in_workspace'
-    # Optimized SQL group by for many workspace_id records
-    groups_by_created_by_educator_id = ClassList
+    validatate_consistent_values_within_workspace(:created_by_educator_id)
+  end
+
+  # This checks that particular values are consistent across all records
+  # within a `workspace_id`. It's a different check than a uniqueness
+  # constraint because having multiple records is okay, they just have to have
+  # the same value for particular fields.
+  #
+  # This complexity arises from having a single endpoint for the client to write
+  # updates, and storing those different states of the workspace denormalized
+  # in a single table.
+  def validatate_consistent_values_within_workspace(*grouping_fields)
+    # SQL group is optimized for many workspace_id records
+    grouped_by_fields = ClassList
       .where(workspace_id: workspace_id)
-      .group(:created_by_educator_id)
+      .group(*grouping_fields)
       .count
 
-    puts "  ClassList.all.as_json: #{ClassList.all.as_json}"
-    puts "  groups_by_created_by_educator_id: #{groups_by_created_by_educator_id}"
-    puts "  groups_by_created_by_educator_id.values: #{groups_by_created_by_educator_id.values}"
-    # There already is a violation
-    if groups_by_created_by_educator_id.keys.size > 1
-      errors.add(:created_by_educator_id, "preexisting violation, different created_by_educator_id for existing workspace_id")
+    # No other records for the workspace
+    return if grouped_by_fields.keys.size == 0
+
+    # There already is a validation violation in the database, abort.
+    if grouped_by_fields.keys.size != 1
+      grouping_fields.each do |grouping_field|
+        errors.add(grouping_field, "preexisting violation, different (#{grouping_fields.join(',')}) pair in existing workspace_id")
+      end
+      return
     end
 
-    # We are about to violate
-    other_educator_id = groups_by_created_by_educator_id.values.first
-    if other_educator_id.present? && other_educator_id != self.created_by_educator_id
-      errors.add(:created_by_educator_id, "cannot add record with different created_by_educator_id for existing workspace_id")
+    # We're trying to write something that would be a violation
+    # Rails' `group` method will return one shape if it's one field (key => count),
+    # a different shape if it's multiple fields ([key] => count).  This
+    # normalizes both.
+    existing_values = [grouped_by_fields.keys.first].flatten
+    existing_values.each_with_index do |existing_value, index|
+      grouping_field = grouping_fields[index]
+      proposed_value = self.send(grouping_field)
+      if proposed_value.present? && proposed_value != existing_value
+        errors.add(grouping_field, "cannot add different #{grouping_field} to existing workspace_id")
+      end
     end
   end
 end
