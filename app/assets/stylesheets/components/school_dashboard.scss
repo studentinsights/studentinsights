@@ -8,6 +8,14 @@
   display: flex;
   flex-direction: column;
   padding: 0 20px;
+  // This overrides the default react-select styles imported in the app to make sure our lists
+  // are not cut off. See: https://github.com/JedWatson/react-select/blob/master/less/menu.less
+  .Select-menu-outer {
+    max-height: 1000px;
+  }
+  .Select-menu {
+    max-height: 998px;
+  }
 }
 
 .DashboardRosterColumn {
