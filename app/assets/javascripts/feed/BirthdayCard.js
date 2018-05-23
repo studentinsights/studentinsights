@@ -8,7 +8,17 @@ class BirthdayCard extends React.Component {
   render() {
     const now = this.context.nowFn();
     const {studentBirthdayCard, style = {}} = this.props;
-    const thisYearBirthdateMoment = toMomentFromTime(studentBirthdayCard.date_of_birth).year(now.year());
+    const birthdateMoment = toMomentFromTime(studentBirthdayCard.date_of_birth).utc().startOf('day').local();
+    const thisYearBirthdateMoment = birthdateMoment.year(now.year());
+    console.log('BirthdayCard....');
+    console.log(thisYearBirthdateMoment.unix(), now.clone().startOf('day').unix());
+    console.log(thisYearBirthdateMoment.format('MM/DD/YY hh:mm:ss.SSSa Z'), now.clone().startOf('day').format('MM/DD/YY hh:mm:ss.SSSa Z'));
+
+    console.log('isBefore', thisYearBirthdateMoment.isBefore(now.clone().startOf('day')));
+    console.log('isAfter', thisYearBirthdateMoment.isAfter(now.clone().startOf('day')));
+    console.log('isSame', thisYearBirthdateMoment.isSame(now.clone().startOf('day')));
+    console.log('diff', thisYearBirthdateMoment.clone().diff(now.clone().startOf('day')));
+
     const isWas = (thisYearBirthdateMoment.isBefore(now.clone().startOf('day'))) ? 'was' : 'is';
     return (
       <Card key={studentBirthdayCard.id} className="BirthdayCard" style={style}>

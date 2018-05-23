@@ -1,6 +1,6 @@
 import React from 'react';
 import {merge} from '../helpers/merge';
-import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as Theme from '../helpers/Theme';
 
 

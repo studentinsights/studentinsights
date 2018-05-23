@@ -1,6 +1,6 @@
 import Datepicker from './Datepicker.js';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
-import {toMoment} from '../helpers/toMoment.js';
+import {toMomentFromUserInput} from '../helpers/toMoment.js';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
 import {
@@ -88,7 +88,7 @@ import {
     // If the date is not valid, an error will be raised.
     formatDateTextForRails(dateText) {
       if (dateText === '') return null;
-      const moment = toMoment(dateText);
+      const moment = toMomentFromUserInput(dateText);
       if (!moment.isValid()) throw new Error('invalid date: ' + dateText);
       return moment.format('YYYY-MM-DD');
     },
@@ -103,8 +103,8 @@ import {
     // Both dates need to be valid, but an empty end date is allowed.
     areDatesValid() {
       const {dateStartedText, estimatedEndDateText} = this.state;
-      if (!toMoment(dateStartedText).isValid()) return false;
-      if (estimatedEndDateText !== '' && !toMoment(estimatedEndDateText).isValid()) return false;
+      if (!toMomentFromUserInput(dateStartedText).isValid()) return false;
+      if (estimatedEndDateText !== '' && !toMomentFromUserInput(estimatedEndDateText).isValid()) return false;
       return true;
     },
 
