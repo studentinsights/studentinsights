@@ -22,12 +22,12 @@ class ClassList < ActiveRecord::Base
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.
   def validate_consistent_workspace_grade_school
-    validatate_consistent_values_within_workspace(:school_id, :grade_level_next_year)
+    validate_consistent_values_within_workspace(:school_id, :grade_level_next_year)
   end
 
   # Only one writer can write to a workspace
   def validate_single_writer_in_workspace
-    validatate_consistent_values_within_workspace(:created_by_educator_id)
+    validate_consistent_values_within_workspace(:created_by_educator_id)
   end
 
   # This checks that particular values are consistent across all records
@@ -38,7 +38,7 @@ class ClassList < ActiveRecord::Base
   # This complexity arises from having a single endpoint for the client to write
   # updates, and storing those different states of the workspace denormalized
   # in a single table.
-  def validatate_consistent_values_within_workspace(*grouping_fields)
+  def validate_consistent_values_within_workspace(*grouping_fields)
     # SQL group is optimized for many workspace_id records
     grouped_by_fields = ClassList
       .where(workspace_id: workspace_id)
