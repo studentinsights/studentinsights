@@ -24,7 +24,7 @@ class FakeEventNoteGenerator
     return {
       student_id: @student.id,
       educator_id: educator.id,
-      event_note_type_id: EventNoteType.all.sample.id,
+      event_note_type_id: [300, 301, 302, 304, 305, 306].sample,
       recorded_at: @date,
       text: sample_text,
       is_restricted: false
