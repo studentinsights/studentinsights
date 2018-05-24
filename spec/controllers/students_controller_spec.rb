@@ -84,7 +84,7 @@ describe StudentsController, :type => :controller do
           })
 
           expect(serialized_data[:event_note_types_index].keys).to match_array([
-            300, 301, 302, 304, 305, 306
+            300, 301, 302, 304, 305, 306, 307
           ])
 
           expect(serialized_data[:event_note_types_index].values).to match_array([
