@@ -14,7 +14,7 @@ module Devise
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
         email = authentication_hash[:email]
-        should_use_mock_ldap = ::EnvironmentVariable.is_true('USE_TEST_PALS_LDAP')
+        should_use_mock_ldap = ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
         ldap_class = should_use_mock_ldap ? MockLDAP : Net::LDAP
 
         begin

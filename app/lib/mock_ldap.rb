@@ -19,7 +19,7 @@ class MockLDAP
   end
 
   def bind
-    raise 'LDAP error' unless ::EnvironmentVariable.is_true('USE_TEST_PALS_LDAP')
+    raise 'Mock LDAP called when ENV flag not set' unless ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
 
     return false unless email_present?
 
@@ -53,6 +53,6 @@ class MockLDAP
   end
 
   def password_correct?
-    ENV.fetch('TEST_PALS_LDAP_PASSWORD') == @password
+    ENV.fetch('MOCK_LDAP_PASSWORD') == @password
   end
 end

@@ -1,4 +1,4 @@
-should_use_mock_ldap = ::EnvironmentVariable.is_true('USE_TEST_PALS_LDAP')
+should_use_mock_ldap = ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
 
 env_is_production = Rails.env.production?
 
@@ -12,8 +12,8 @@ end
 
 # Guard to make sure that if we're using the fake demo accounts for auth,
 # we also have demo passwords set in ENV:
-if should_use_mock_ldap && env_is_production && ENV['TEST_PALS_LDAP_PASSWORD'].nil?
+if should_use_mock_ldap && env_is_production && ENV['MOCK_LDAP_PASSWORD'].nil?
   raise 'Missing mock LDAP password'
 else
-  ENV['TEST_PALS_LDAP_PASSWORD'] = 'demo-password'
+  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
 end
