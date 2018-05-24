@@ -11,6 +11,8 @@ Rails.application.configure do
 
   ENV['USE_MOCK_LDAP'] = 'true'
 
+  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
+
   config.cache_classes = false
 
   # Do not eager load code on boot.

@@ -5,6 +5,8 @@ Rails.application.configure do
 
   ENV['USE_MOCK_LDAP'] = 'true'
 
+  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
+
   ENV['AWS_REGION'] = 'us-west-2'
 
   # The test environment is used exclusively to run your application's

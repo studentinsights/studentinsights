@@ -14,6 +14,4 @@ end
 # we also have demo passwords set in ENV:
 if should_use_mock_ldap && env_is_production && ENV['MOCK_LDAP_PASSWORD'].nil?
   raise 'Missing mock LDAP password'
-else
-  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
 end
