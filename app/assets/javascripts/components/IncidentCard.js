@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -50,11 +51,11 @@ class IncidentCard extends React.Component {
   }
 }
 IncidentCard.propTypes = {
-  incident: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    incident_code: React.PropTypes.string.isRequired,
-    incident_location: React.PropTypes.string.isRequired,
-    incident_description: React.PropTypes.string.isRequired
+  incident: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    incident_code: PropTypes.string.isRequired,
+    incident_location: PropTypes.string.isRequired,
+    incident_description: PropTypes.string.isRequired
   })
 };
 

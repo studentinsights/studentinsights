@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class SummaryList extends React.Component {
@@ -24,8 +25,8 @@ class SummaryList extends React.Component {
 }
 
 SummaryList.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  elements: React.PropTypes.arrayOf(React.PropTypes.node).isRequired
+  title: PropTypes.string.isRequired,
+  elements: PropTypes.arrayOf(PropTypes.node).isRequired
 };
 
 export default SummaryList;

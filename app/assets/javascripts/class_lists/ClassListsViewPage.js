@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
@@ -37,7 +38,7 @@ export default class ClassListsViewPage extends React.Component {
   }
 }
 ClassListsViewPage.propTypes = {
-  currentEducatorId: React.PropTypes.number.isRequired
+  currentEducatorId: PropTypes.number.isRequired
 };
 
 // View component
@@ -134,19 +135,19 @@ export class ClassListsViewPageView extends React.Component {
   }
 }
 ClassListsViewPageView.propTypes = {
-  currentEducatorId: React.PropTypes.number.isRequired,
-  workspaces: React.PropTypes.arrayOf(React.PropTypes.shape({
-    workspace_id: React.PropTypes.string.isRequired,
-    revisions_count: React.PropTypes.number.isRequired,
-    class_list: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      workspace_id: React.PropTypes.string.isRequired,
-      grade_level_next_year: React.PropTypes.string.isRequired,
-      created_at: React.PropTypes.string.isRequired,
-      updated_at: React.PropTypes.string.isRequired,
-      submitted: React.PropTypes.bool.isRequired,
-      created_by_educator: React.PropTypes.object.isRequired,
-      school: React.PropTypes.object.isRequired,
+  currentEducatorId: PropTypes.number.isRequired,
+  workspaces: PropTypes.arrayOf(PropTypes.shape({
+    workspace_id: PropTypes.string.isRequired,
+    revisions_count: PropTypes.number.isRequired,
+    class_list: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      workspace_id: PropTypes.string.isRequired,
+      grade_level_next_year: PropTypes.string.isRequired,
+      created_at: PropTypes.string.isRequired,
+      updated_at: PropTypes.string.isRequired,
+      submitted: PropTypes.bool.isRequired,
+      created_by_educator: PropTypes.object.isRequired,
+      school: PropTypes.object.isRequired,
     }).isRequired
   })).isRequired
 };

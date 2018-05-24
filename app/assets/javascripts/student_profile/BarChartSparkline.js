@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toDate} from './QuadConverter';
 
@@ -85,12 +87,12 @@ class BarChartSparkline extends React.Component {
 }
 
 BarChartSparkline.propTypes = {
-  height: React.PropTypes.number.isRequired,
-  width: React.PropTypes.number.isRequired,
-  quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)).isRequired,
-  dateRange: React.PropTypes.array.isRequired,
-  valueRange: React.PropTypes.array.isRequired,
-  thresholdValue: React.PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  quads: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  dateRange: PropTypes.array.isRequired,
+  valueRange: PropTypes.array.isRequired,
+  thresholdValue: PropTypes.number.isRequired,
 };
 
 export default BarChartSparkline;

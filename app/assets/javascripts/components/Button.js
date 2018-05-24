@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Hover from './Hover';
 
@@ -20,10 +21,10 @@ export default function Button({children, onClick, style = {}, hoverStyle = {}})
   );
 }
 const propTypes = Button.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object,
-  hoverStyle: React.PropTypes.object
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  style: PropTypes.object,
+  hoverStyle: PropTypes.object
 };
 
 const styles = {

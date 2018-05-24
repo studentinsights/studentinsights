@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import RiskBubble from '../student_profile/RiskBubble.js';
 import ModalSmall from '../student_profile/ModalSmall.js';
 import * as Routes from '../helpers/Routes';
@@ -35,11 +38,11 @@ import * as Routes from '../helpers/Routes';
   This pure UI component renders top-line information like the student's name, school and
   classroom.
   */
-  window.shared.StudentProfileHeader = React.createClass({
+  window.shared.StudentProfileHeader = createClass({
     displayName: 'StudentProfileHeader',
 
     propTypes: {
-      student: React.PropTypes.object.isRequired
+      student: PropTypes.object.isRequired
     },
 
     render: function() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
@@ -42,7 +43,7 @@ class SchoolCoursesPage extends React.Component {
   }
 }
 SchoolCoursesPage.propTypes = {
-  schoolId: React.PropTypes.string.isRequired
+  schoolId: PropTypes.string.isRequired
 };
 
 
@@ -111,30 +112,30 @@ export class SchoolCoursesPagePure extends React.Component {
   }
 }
 SchoolCoursesPagePure.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 SchoolCoursesPagePure.propTypes = {
-  courses: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    course_number: React.PropTypes.string.isRequired,
-    course_description: React.PropTypes.string.isRequired,
-    sections: React.PropTypes.arrayOf(React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      section_number: React.PropTypes.string.isRequired,
-      students: React.PropTypes.arrayOf(React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        grade: React.PropTypes.string.isRequired,
-        date_of_birth: React.PropTypes.string.isRequired,
-        school: React.PropTypes.shape({
-          id: React.PropTypes.number.isRequired,
-          name: React.PropTypes.string.isRequired
+  courses: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    course_number: PropTypes.string.isRequired,
+    course_description: PropTypes.string.isRequired,
+    sections: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      section_number: PropTypes.string.isRequired,
+      students: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        grade: PropTypes.string.isRequired,
+        date_of_birth: PropTypes.string.isRequired,
+        school: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
         }).isRequired
       })).isRequired
     })).isRequired
   })).isRequired,
-  school: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired
+  school: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
   }).isRequired
 };
 

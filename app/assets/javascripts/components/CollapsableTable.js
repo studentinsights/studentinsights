@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
@@ -57,11 +58,11 @@ class CollapsableTable extends React.Component {
   }
 }
 CollapsableTable.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  items: React.PropTypes.array.isRequired,
-  filters: React.PropTypes.array.isRequired,
-  onFilterToggled: React.PropTypes.func.isRequired,
-  limit: React.PropTypes.number
+  title: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired,
+  filters: PropTypes.array.isRequired,
+  onFilterToggled: PropTypes.func.isRequired,
+  limit: PropTypes.number
 };
 
 CollapsableTable.defaultProps = {

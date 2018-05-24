@@ -1,43 +1,47 @@
+import PropTypes from 'prop-types';
+
+
+// UI actions, stepping stone to Flux
+
 import React from 'react';
 
 
-  // UI actions, stepping stone to Flux
-export const actions = React.PropTypes.shape({
-  onColumnClicked: React.PropTypes.func,
-  onClickSaveNotes: React.PropTypes.func,
-  onClickSaveService: React.PropTypes.func,
-  onClickDiscontinueService: React.PropTypes.func,
-  onChangeNoteInProgressText: React.PropTypes.func,
-  onClickNoteType: React.PropTypes.func,
-  onChangeAttachmentUrl: React.PropTypes.func,
+export const actions = PropTypes.shape({
+  onColumnClicked: PropTypes.func,
+  onClickSaveNotes: PropTypes.func,
+  onClickSaveService: PropTypes.func,
+  onClickDiscontinueService: PropTypes.func,
+  onChangeNoteInProgressText: PropTypes.func,
+  onClickNoteType: PropTypes.func,
+  onChangeAttachmentUrl: PropTypes.func,
 });
 
-export const requests = React.PropTypes.shape({
-  saveNote: React.PropTypes.string,
-  discontinueService: React.PropTypes.object
+export const requests = PropTypes.shape({
+  saveNote: PropTypes.string,
+  discontinueService: PropTypes.object
 });
 
-export const api = React.PropTypes.shape({
-  saveNotes: React.PropTypes.func.isRequired
+export const api = PropTypes.shape({
+  saveNotes: PropTypes.func.isRequired
 });
 
 
 // The feed of all notes and data entered in Student Insights for
 // a student.
-export const feed = React.PropTypes.shape({
-  event_notes: React.PropTypes.array.isRequired,
-  services: React.PropTypes.shape({
-    active: React.PropTypes.array.isRequired,
-    discontinued: React.PropTypes.array.isRequired
+export const feed = PropTypes.shape({
+  event_notes: PropTypes.array.isRequired,
+  services: PropTypes.shape({
+    active: PropTypes.array.isRequired,
+    discontinued: PropTypes.array.isRequired
   }),
-  deprecated: React.PropTypes.shape({
-    interventions: React.PropTypes.array.isRequired
+  deprecated: PropTypes.shape({
+    interventions: PropTypes.array.isRequired
   })
 });
 
-export const history = React.PropTypes.shape({
-  pushState: React.PropTypes.func.isRequired,
-  replaceState: React.PropTypes.func.isRequired
+export const history = PropTypes.shape({
+  pushState: PropTypes.func.isRequired,
+  replaceState: PropTypes.func.isRequired
 });
 
 

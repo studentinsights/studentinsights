@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import Sanitize from '../helpers/Sanitize';
@@ -151,10 +152,10 @@ class EditableTextComponent extends React.Component {
   }
 }
 EditableTextComponent.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  onBlurText: React.PropTypes.func.isRequired,
-  className: React.PropTypes.string,
-  style: React.PropTypes.object
+  text: PropTypes.string.isRequired,
+  onBlurText: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 EditableTextComponent.defaultProps = {

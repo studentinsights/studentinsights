@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import ProfileChart from '../student_profile/ProfileChart';
 import {merge} from '../helpers/merge';
 
@@ -228,13 +230,13 @@ class ElaDetails extends React.Component {
 }
 
 ElaDetails.propTypes = {
-  chartData: React.PropTypes.shape({
-    star_series_reading_percentile: React.PropTypes.array.isRequired,
-    mcas_series_ela_scaled: React.PropTypes.array,
-    next_gen_mcas_ela_scaled: React.PropTypes.array,
-    mcas_series_ela_growth: React.PropTypes.array.isRequired
+  chartData: PropTypes.shape({
+    star_series_reading_percentile: PropTypes.array.isRequired,
+    mcas_series_ela_scaled: PropTypes.array,
+    next_gen_mcas_ela_scaled: PropTypes.array,
+    mcas_series_ela_growth: PropTypes.array.isRequired
   }).isRequired,
-  student: React.PropTypes.object.isRequired
+  student: PropTypes.object.isRequired
 };
 
 export default ElaDetails;

@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import serviceColor from '../helpers/serviceColor';
@@ -41,15 +44,15 @@ import serviceColor from '../helpers/serviceColor';
   /*
   Renders the list of services.
   */
-  window.shared.ServicesList = React.createClass({
+  window.shared.ServicesList = createClass({
     displayName: 'ServicesList',
 
     propTypes: {
-      servicesFeed: React.PropTypes.object.isRequired,
-      serviceTypesIndex: React.PropTypes.object.isRequired,
-      educatorsIndex: React.PropTypes.object.isRequired,
-      discontinueServiceRequests: React.PropTypes.object.isRequired,
-      onClickDiscontinueService: React.PropTypes.func.isRequired
+      servicesFeed: PropTypes.object.isRequired,
+      serviceTypesIndex: PropTypes.object.isRequired,
+      educatorsIndex: PropTypes.object.isRequired,
+      discontinueServiceRequests: PropTypes.object.isRequired,
+      onClickDiscontinueService: PropTypes.func.isRequired
     },
 
     getInitialState: function() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
@@ -467,10 +468,10 @@ export default class ClassListCreatorPage extends React.Component {
   }
 }
 ClassListCreatorPage.propTypes = {
-  defaultWorkspaceId: React.PropTypes.string,
-  disableHistory: React.PropTypes.bool,
-  disableSizing: React.PropTypes.bool,
-  autoSaveIntervalMs: React.PropTypes.number
+  defaultWorkspaceId: PropTypes.string,
+  disableHistory: PropTypes.bool,
+  disableSizing: PropTypes.bool,
+  autoSaveIntervalMs: PropTypes.number
 };
 ClassListCreatorPage.defaultProps = {
   autoSaveIntervalMs: 5000

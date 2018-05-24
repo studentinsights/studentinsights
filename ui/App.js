@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Switch,
@@ -143,15 +144,15 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
-  nowFn: React.PropTypes.func
+  nowFn: PropTypes.func
 };
 
 App.propTypes = {
-  currentEducator: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    admin: React.PropTypes.bool.isRequired,
-    school_id: React.PropTypes.number,
-    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    admin: PropTypes.bool.isRequired,
+    school_id: PropTypes.number,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 };
 

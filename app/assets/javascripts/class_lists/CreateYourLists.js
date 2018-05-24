@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {AutoSizer} from 'react-virtualized';
@@ -119,15 +120,15 @@ export default class CreateYourListsView extends React.Component {
   }
 }
 CreateYourListsView.propTypes = {
-  isEditable: React.PropTypes.bool.isRequired,
-  isExpandedVertically: React.PropTypes.bool.isRequired,
-  classroomsCount: React.PropTypes.number.isRequired,
-  gradeLevelNextYear: React.PropTypes.string.isRequired,
-  students: React.PropTypes.array.isRequired,
-  studentIdsByRoom: React.PropTypes.object.isRequired,
-  fetchProfile: React.PropTypes.func.isRequired,
-  onClassListsChanged: React.PropTypes.func.isRequired,
-  onExpandVerticallyToggled: React.PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  isExpandedVertically: PropTypes.bool.isRequired,
+  classroomsCount: PropTypes.number.isRequired,
+  gradeLevelNextYear: PropTypes.string.isRequired,
+  students: PropTypes.array.isRequired,
+  studentIdsByRoom: PropTypes.object.isRequired,
+  fetchProfile: PropTypes.func.isRequired,
+  onClassListsChanged: PropTypes.func.isRequired,
+  onExpandVerticallyToggled: PropTypes.func.isRequired,
 };
 
 

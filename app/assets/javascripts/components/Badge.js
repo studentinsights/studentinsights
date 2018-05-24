@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -12,9 +13,9 @@ function Badge({text, backgroundColor, style}) {
   return <span className="Badge" style={mergedStyle}>{text}</span>;
 }
 Badge.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  backgroundColor: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  text: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 const styles = {

@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {merge} from '../helpers/merge';
 import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
@@ -177,19 +180,19 @@ class ProfileChart extends React.Component {
 }
 
 ProfileChart.propTypes = {
-  showGradeLevelEquivalent: React.PropTypes.bool,
-  quadSeries: React.PropTypes.arrayOf( // you can plot multiple series on the same graph
-    React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired, // e.g. 'Scaled score'
-      data: React.PropTypes.array.isRequired // [year, month, date, value] quads
+  showGradeLevelEquivalent: PropTypes.bool,
+  quadSeries: PropTypes.arrayOf( // you can plot multiple series on the same graph
+    PropTypes.shape({
+      name: PropTypes.string.isRequired, // e.g. 'Scaled score'
+      data: PropTypes.array.isRequired // [year, month, date, value] quads
     })
   ),
-  titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
-  yAxis: React.PropTypes.object.isRequired, // options for rendering the y-axis
-  student: React.PropTypes.object.isRequired,
-  timestampRange: React.PropTypes.shape({
-    min: React.PropTypes.number,
-    max: React.PropTypes.number
+  titleText: PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
+  yAxis: PropTypes.object.isRequired, // options for rendering the y-axis
+  student: PropTypes.object.isRequired,
+  timestampRange: PropTypes.shape({
+    min: PropTypes.number,
+    max: PropTypes.number
   })
 };
 

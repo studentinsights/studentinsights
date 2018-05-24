@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {baseSortByString, sortByNumber} from '../helpers/SortHelpers';
 import FlexibleRoster from '../components/FlexibleRoster';
@@ -11,12 +14,12 @@ import * as Routes from '../helpers/Routes';
   Renders the table of sections.
   */
   
-  window.shared.StudentSectionsRoster = React.createClass({
+  window.shared.StudentSectionsRoster = createClass({
     displayName: 'StudentSectionsRoster',
 
     propTypes: {
-      sections: React.PropTypes.array,            // Array of sections to display
-      linkableSections: React.PropTypes.array     // Array of section ids to render as links
+      sections: PropTypes.array,            // Array of sections to display
+      linkableSections: PropTypes.array     // Array of section ids to render as links
     },
 
     formatEducatorNames: function(educators) {

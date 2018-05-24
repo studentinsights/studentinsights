@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import ProfileChart from '../student_profile/ProfileChart.js';
 import {merge} from '../helpers/merge';
 
@@ -228,13 +230,13 @@ class MathDetails extends React.Component {
 }
 
 MathDetails.propTypes = {
-  chartData: React.PropTypes.shape({
-    star_series_math_percentile: React.PropTypes.array.isRequired,
-    mcas_series_math_scaled: React.PropTypes.array,
-    next_gen_mcas_mathematics_scaled: React.PropTypes.array,
-    mcas_series_math_growth: React.PropTypes.array.isRequired
+  chartData: PropTypes.shape({
+    star_series_math_percentile: PropTypes.array.isRequired,
+    mcas_series_math_scaled: PropTypes.array,
+    next_gen_mcas_mathematics_scaled: PropTypes.array,
+    mcas_series_math_growth: PropTypes.array.isRequired
   }).isRequired,
-  student: React.PropTypes.object.isRequired
+  student: PropTypes.object.isRequired
 };
 
 export default MathDetails;

@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import Datepicker from './Datepicker.js';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
 import {toMoment} from '../helpers/toMoment.js';
@@ -50,21 +53,21 @@ import {
   Pure UI form for recording that a student is receiving a service.
   Tracks its own local state and submits values to prop callbacks.
   */
-  window.shared.RecordService = React.createClass({
+  window.shared.RecordService = createClass({
     displayName: 'RecordService',
 
     propTypes: {
-      studentFirstName: React.PropTypes.string.isRequired,
-      studentId: React.PropTypes.number.isRequired,
-      onSave: React.PropTypes.func.isRequired,
-      onCancel: React.PropTypes.func.isRequired,
-      requestState: React.PropTypes.string, // or null
+      studentFirstName: PropTypes.string.isRequired,
+      studentId: PropTypes.number.isRequired,
+      onSave: PropTypes.func.isRequired,
+      onCancel: PropTypes.func.isRequired,
+      requestState: PropTypes.string, // or null
 
       // context
-      nowMoment: React.PropTypes.object.isRequired,
-      serviceTypesIndex: React.PropTypes.object.isRequired,
-      educatorsIndex: React.PropTypes.object.isRequired,
-      currentEducator: React.PropTypes.object.isRequired
+      nowMoment: PropTypes.object.isRequired,
+      serviceTypesIndex: PropTypes.object.isRequired,
+      educatorsIndex: PropTypes.object.isRequired,
+      currentEducator: PropTypes.object.isRequired
     },
 
     getInitialState: function() {

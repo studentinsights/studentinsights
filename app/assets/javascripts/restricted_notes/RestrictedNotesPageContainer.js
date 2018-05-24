@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
+import PropTypes from 'prop-types';
 import React from 'react';
 import NotesDetails from '../student_profile/NotesDetails.js';
 import Api from '../student_profile/Api.js';
@@ -174,11 +175,11 @@ class RestrictedNotesPageContainer extends React.Component {
 }
 
 RestrictedNotesPageContainer.propTypes = {
-  nowMomentFn: React.PropTypes.func.isRequired,
-  serializedData: React.PropTypes.object.isRequired,
+  nowMomentFn: PropTypes.func.isRequired,
+  serializedData: PropTypes.object.isRequired,
 
-  actions: React.PropTypes.shape({
-    onClickSaveNotes: React.PropTypes.func
+  actions: PropTypes.shape({
+    onClickSaveNotes: PropTypes.func
   }),
   api: InsightsPropTypes.api
 };

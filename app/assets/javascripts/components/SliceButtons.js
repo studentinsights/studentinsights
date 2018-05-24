@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {styles, colors} from '../helpers/Theme';
 
@@ -64,10 +65,10 @@ class SliceButtons extends React.Component {
   }
 }
 SliceButtons.propTypes = {
-  students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  filtersHash: React.PropTypes.string.isRequired,
-  clearFilters: React.PropTypes.func.isRequired
+  students: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filters: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filtersHash: PropTypes.string.isRequired,
+  clearFilters: PropTypes.func.isRequired
 };
 
 export default SliceButtons;

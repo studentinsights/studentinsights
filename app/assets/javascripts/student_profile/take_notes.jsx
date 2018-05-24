@@ -1,5 +1,8 @@
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import React from 'react';
+import createClass from 'create-react-class';
+
 
 window.shared || (window.shared = {});
 
@@ -52,26 +55,26 @@ const styles = {
 Pure UI form for taking notes about an event, tracking its own local state
 and submitting it to prop callbacks.
 */
-export default React.createClass({
+export default createClass({
   displayName: 'TakeNotes',
 
   propTypes: {
-    nowMoment: React.PropTypes.object.isRequired,
-    eventNoteTypesIndex: React.PropTypes.object.isRequired,
-    onSave: React.PropTypes.func.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    currentEducator: React.PropTypes.object.isRequired,
-    requestState: React.PropTypes.string, // or null
+    nowMoment: PropTypes.object.isRequired,
+    eventNoteTypesIndex: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    currentEducator: PropTypes.object.isRequired,
+    requestState: PropTypes.string, // or null
 
-    noteInProgressText: React.PropTypes.string.isRequired,
-    noteInProgressType: React.PropTypes.number,
-    noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
-      React.PropTypes.string
+    noteInProgressText: PropTypes.string.isRequired,
+    noteInProgressType: PropTypes.number,
+    noteInProgressAttachmentUrls: PropTypes.arrayOf(
+      PropTypes.string
     ).isRequired,
 
-    onClickNoteType: React.PropTypes.func.isRequired,
-    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-    onChangeAttachmentUrl: React.PropTypes.func.isRequired,
+    onClickNoteType: PropTypes.func.isRequired,
+    onChangeNoteInProgressText: PropTypes.func.isRequired,
+    onChangeAttachmentUrl: PropTypes.func.isRequired,
   },
 
   // Focus on note-taking text area when it first appears.

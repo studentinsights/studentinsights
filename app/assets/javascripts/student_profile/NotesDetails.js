@@ -1,8 +1,11 @@
 import TakeNotes from './take_notes.jsx';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import PropTypes from 'prop-types';
 import React from 'react';
 import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
+import NotesList from './NotesList';
+
 
 const styles = {
   notesContainer: {
@@ -50,7 +53,6 @@ class NotesDetails extends React.Component {
 
   render() {
     const { student, title } = this.props;
-    const NotesList = window.shared.NotesList;
 
     return (
       <div className="NotesDetails" style={styles.notesContainer}>
@@ -127,31 +129,31 @@ class NotesDetails extends React.Component {
 }
 
 NotesDetails.propTypes = {
-  student: React.PropTypes.object.isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  educatorsIndex: React.PropTypes.object.isRequired,
-  currentEducator: React.PropTypes.object.isRequired,
-  actions: React.PropTypes.shape({
-    onClickSaveNotes: React.PropTypes.func.isRequired,
-    onEventNoteAttachmentDeleted: React.PropTypes.func,
-    onDeleteEventNoteAttachment: React.PropTypes.func,
-    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-    onClickNoteType: React.PropTypes.func.isRequired,
-    onChangeAttachmentUrl: React.PropTypes.func.isRequired,
+  student: PropTypes.object.isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  educatorsIndex: PropTypes.object.isRequired,
+  currentEducator: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    onClickSaveNotes: PropTypes.func.isRequired,
+    onEventNoteAttachmentDeleted: PropTypes.func,
+    onDeleteEventNoteAttachment: PropTypes.func,
+    onChangeNoteInProgressText: PropTypes.func.isRequired,
+    onClickNoteType: PropTypes.func.isRequired,
+    onChangeAttachmentUrl: PropTypes.func.isRequired,
   }),
   feed: InsightsPropTypes.feed.isRequired,
-  requests: React.PropTypes.object.isRequired,
+  requests: PropTypes.object.isRequired,
 
-  noteInProgressText: React.PropTypes.string.isRequired,
-  noteInProgressType: React.PropTypes.number,
-  noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
-    React.PropTypes.string
+  noteInProgressText: PropTypes.string.isRequired,
+  noteInProgressType: PropTypes.number,
+  noteInProgressAttachmentUrls: PropTypes.arrayOf(
+    PropTypes.string
   ).isRequired,
 
-  showingRestrictedNotes: React.PropTypes.bool.isRequired,
-  title: React.PropTypes.string.isRequired,
-  helpContent: React.PropTypes.node.isRequired,
-  helpTitle: React.PropTypes.string.isRequired,
+  showingRestrictedNotes: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  helpContent: PropTypes.node.isRequired,
+  helpTitle: PropTypes.string.isRequired,
 };
 
 export default NotesDetails;

@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import ProfileBarChart from './ProfileBarChart';
 import IncidentCard from '../components/IncidentCard';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
@@ -162,12 +164,12 @@ class AttendanceDetails extends React.Component {
 }
 
 AttendanceDetails.propTypes = {
-  absences: React.PropTypes.array.isRequired,
-  tardies: React.PropTypes.array.isRequired,
-  disciplineIncidents: React.PropTypes.array.isRequired,
-  student: React.PropTypes.object.isRequired,
+  absences: PropTypes.array.isRequired,
+  tardies: PropTypes.array.isRequired,
+  disciplineIncidents: PropTypes.array.isRequired,
+  student: PropTypes.object.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
-  serviceTypesIndex: React.PropTypes.object.isRequired
+  serviceTypesIndex: PropTypes.object.isRequired
 };
 
 export default AttendanceDetails;

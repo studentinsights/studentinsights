@@ -4,6 +4,7 @@ import StudentsTable from '../components/StudentsTable';
 import SlicePanels from '../components/SlicePanels';
 import SliceButtons from '../components/SliceButtons';
 import {styles} from '../helpers/Theme';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class SchoolOverviewPage extends React.Component {
@@ -211,12 +212,12 @@ class SchoolOverviewPage extends React.Component {
 }
 
 SchoolOverviewPage.propTypes = {
-  districtKey: React.PropTypes.string.isRequired,
-  school: React.PropTypes.object.isRequired,
-  allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  serviceTypesIndex: React.PropTypes.object.isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  initialFilters: React.PropTypes.arrayOf(React.PropTypes.object)
+  districtKey: PropTypes.string.isRequired,
+  school: PropTypes.object.isRequired,
+  allStudents: PropTypes.arrayOf(PropTypes.object).isRequired,
+  serviceTypesIndex: PropTypes.object.isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  initialFilters: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default SchoolOverviewPage;

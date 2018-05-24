@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // This must be read lazily, since these options require the DOM
@@ -68,14 +69,14 @@ class Datepicker extends React.Component {
 }
 
 Datepicker.propTypes = {
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func.isRequired,
-  styles: React.PropTypes.shape({
-    datepicker: React.PropTypes.object,
-    input: React.PropTypes.object
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  styles: PropTypes.shape({
+    datepicker: PropTypes.object,
+    input: PropTypes.object
   }),
-  datepickerOptions: React.PropTypes.object,
-  dynamicUpdate: React.PropTypes.bool
+  datepickerOptions: PropTypes.object,
+  dynamicUpdate: PropTypes.bool
 };
 
 Datepicker.defaultProps = {

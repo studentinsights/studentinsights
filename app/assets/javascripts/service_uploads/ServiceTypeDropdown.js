@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class ServiceTypeDropdown extends React.Component {
@@ -58,9 +59,9 @@ class ServiceTypeDropdown extends React.Component {
 }
 
 ServiceTypeDropdown.propTypes = {
-  onUserTypingServiceType: React.PropTypes.func.isRequired,
-  onUserSelectServiceType: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string.isRequired
+  onUserTypingServiceType: PropTypes.func.isRequired,
+  onUserSelectServiceType: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default ServiceTypeDropdown;

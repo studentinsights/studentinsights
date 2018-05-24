@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Api from './Api.js';
 import NotesFeedPage from './NotesFeedPage.js';
@@ -54,10 +55,10 @@ class PageContainer extends React.Component {
 }
 
 PageContainer.propTypes = {
-  educatorsIndex: React.PropTypes.object.isRequired,
-  eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  totalNotesCount: React.PropTypes.number.isRequired
+  educatorsIndex: PropTypes.object.isRequired,
+  eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  totalNotesCount: PropTypes.number.isRequired
 };
 
 export default PageContainer;

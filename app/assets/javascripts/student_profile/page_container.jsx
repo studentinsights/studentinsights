@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
@@ -18,13 +21,13 @@ function fromPair(key, value) {
   /*
   Holds page state, makes API calls to manipulate it.
   */
-  window.shared.PageContainer = React.createClass({
+  window.shared.PageContainer = createClass({
     displayName: 'PageContainer',
 
     propTypes: {
-      nowMomentFn: React.PropTypes.func.isRequired,
-      serializedData: React.PropTypes.object.isRequired,
-      queryParams: React.PropTypes.object.isRequired,
+      nowMomentFn: PropTypes.func.isRequired,
+      serializedData: PropTypes.object.isRequired,
+      queryParams: PropTypes.object.isRequired,
       history: InsightsPropTypes.history.isRequired,
 
       // for testing

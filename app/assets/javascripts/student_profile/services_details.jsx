@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
@@ -22,12 +25,12 @@ import SectionHeading from '../components/SectionHeading';
   they are receiving, and allowing users to enter new information about
   these as well.
   */
-  window.shared.ServicesDetails = React.createClass({
+  window.shared.ServicesDetails = createClass({
     propTypes: {
-      student: React.PropTypes.object.isRequired,
-      serviceTypesIndex: React.PropTypes.object.isRequired,
-      educatorsIndex: React.PropTypes.object.isRequired,
-      currentEducator: React.PropTypes.object.isRequired,
+      student: PropTypes.object.isRequired,
+      serviceTypesIndex: PropTypes.object.isRequired,
+      educatorsIndex: PropTypes.object.isRequired,
+      currentEducator: PropTypes.object.isRequired,
       actions: InsightsPropTypes.actions.isRequired,
       feed: InsightsPropTypes.feed.isRequired,
       requests: InsightsPropTypes.requests.isRequired

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import CollapsableTable from './CollapsableTable';
@@ -356,14 +357,14 @@ class SlicePanels extends React.Component {
   }
 }
 SlicePanels.propTypes = {
-  districtKey: React.PropTypes.string.isRequired,
-  filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  school: React.PropTypes.object.isRequired,
-  serviceTypesIndex: React.PropTypes.object.isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onFilterToggled: React.PropTypes.func.isRequired
+  districtKey: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(PropTypes.object).isRequired,
+  students: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allStudents: PropTypes.arrayOf(PropTypes.object).isRequired,
+  school: PropTypes.object.isRequired,
+  serviceTypesIndex: PropTypes.object.isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  onFilterToggled: PropTypes.func.isRequired
 };
 
 export default SlicePanels;

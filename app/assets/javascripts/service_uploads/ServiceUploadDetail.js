@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {merge} from '../helpers/merge';
 import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
@@ -168,24 +169,24 @@ class ServiceUploadDetail extends React.Component {
 }
 
 ServiceUploadDetail.propTypes = {
-  data: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    file_name: React.PropTypes.string.isRequired,
-    created_at: React.PropTypes.string.isRequired,
-    services: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        service_type: React.PropTypes.shape({
-          name: React.PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    file_name: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+    services: PropTypes.arrayOf(
+      PropTypes.shape({
+        service_type: PropTypes.shape({
+          name: PropTypes.string.isRequired,
         }).isRequired,
-        student: React.PropTypes.shape({
-          id: React.PropTypes.number.isRequired,
-          first_name: React.PropTypes.string.isRequired,
-          last_name: React.PropTypes.string.isRequired,
+        student: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          first_name: PropTypes.string.isRequired,
+          last_name: PropTypes.string.isRequired,
         }).isRequired
       })
     )
   }).isRequired,
-  onClickDeleteServiceUpload: React.PropTypes.func.isRequired
+  onClickDeleteServiceUpload: PropTypes.func.isRequired
 };
 
 export default ServiceUploadDetail;

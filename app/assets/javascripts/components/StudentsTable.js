@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   sortByString,
@@ -206,10 +207,10 @@ class StudentsTable extends React.Component {
   }
 }
 StudentsTable.propTypes = {
-  students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  school: React.PropTypes.shape({
-    local_id: React.PropTypes.string.isRequired,
-    school_type: React.PropTypes.string.isRequired
+  students: PropTypes.arrayOf(PropTypes.object).isRequired,
+  school: PropTypes.shape({
+    local_id: PropTypes.string.isRequired,
+    school_type: PropTypes.string.isRequired
   })
 };
 

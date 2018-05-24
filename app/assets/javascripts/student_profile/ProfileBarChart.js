@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import * as GraphHelpers from '../helpers/GraphHelpers';
@@ -137,14 +139,14 @@ class ProfileBarChart extends React.Component {
 }
 
 ProfileBarChart.propTypes = {
-  id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
-  events: React.PropTypes.array.isRequired, // array of JSON event objects.
-  monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
-  tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
-  titleText: React.PropTypes.string.isRequired,
-  nowMomentUTC: React.PropTypes.instanceOf(moment),
-  monthKeyFn: React.PropTypes.func,
-  phaselines: React.PropTypes.array
+  id: PropTypes.string.isRequired, // short string identifier for links to jump to
+  events: PropTypes.array.isRequired, // array of JSON event objects.
+  monthsBack: PropTypes.number.isRequired, // how many months in the past to display?
+  tooltipTemplateString: PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
+  titleText: PropTypes.string.isRequired,
+  nowMomentUTC: PropTypes.instanceOf(moment),
+  monthKeyFn: PropTypes.func,
+  phaselines: PropTypes.array
 };
 
 ProfileBarChart.defaultProps = {

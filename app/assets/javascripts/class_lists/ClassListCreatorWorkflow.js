@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import Select from 'react-select';
@@ -285,42 +286,42 @@ export default class ClassListCreatorWorkflow extends React.Component {
 }
 ClassListCreatorWorkflow.propTypes = {
   // server data
-  schools: React.PropTypes.array,
-  gradeLevelsNextYear: React.PropTypes.array,
-  students: React.PropTypes.array,
-  educators: React.PropTypes.array,
+  schools: PropTypes.array,
+  gradeLevelsNextYear: PropTypes.array,
+  students: PropTypes.array,
+  educators: PropTypes.array,
 
   // config
-  steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-  isEditable: React.PropTypes.bool.isRequired,
-  isSubmitted: React.PropTypes.bool.isRequired,
+  steps: PropTypes.arrayOf(PropTypes.string).isRequired,
+  availableSteps: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  isSubmitted: PropTypes.bool.isRequired,
 
   // state
-  isDirty: React.PropTypes.bool.isRequired,
-  canChangeSchoolOrGrade: React.PropTypes.bool.isRequired,
-  stepIndex: React.PropTypes.number.isRequired,
-  workspaceId: React.PropTypes.string.isRequired,
-  schoolId: React.PropTypes.number,
-  gradeLevelNextYear: React.PropTypes.string,
-  authors: React.PropTypes.array.isRequired,
-  classroomsCount: React.PropTypes.number.isRequired,
-  planText: React.PropTypes.string.isRequired,
-  studentIdsByRoom: React.PropTypes.object,
-  principalNoteText: React.PropTypes.string.isRequired,
-  feedbackText: React.PropTypes.string.isRequired,
+  isDirty: PropTypes.bool.isRequired,
+  canChangeSchoolOrGrade: PropTypes.bool.isRequired,
+  stepIndex: PropTypes.number.isRequired,
+  workspaceId: PropTypes.string.isRequired,
+  schoolId: PropTypes.number,
+  gradeLevelNextYear: PropTypes.string,
+  authors: PropTypes.array.isRequired,
+  classroomsCount: PropTypes.number.isRequired,
+  planText: PropTypes.string.isRequired,
+  studentIdsByRoom: PropTypes.object,
+  principalNoteText: PropTypes.string.isRequired,
+  feedbackText: PropTypes.string.isRequired,
 
   // callbacks
-  onStepChanged: React.PropTypes.func.isRequired,
-  onSchoolIdChanged: React.PropTypes.func.isRequired,
-  onGradeLevelNextYearChanged: React.PropTypes.func.isRequired,
-  onEducatorsChanged: React.PropTypes.func.isRequired,
-  onClassroomsCountIncremented: React.PropTypes.func.isRequired,
-  onPlanTextChanged: React.PropTypes.func.isRequired,
-  onClassListsChanged: React.PropTypes.func.isRequired,
-  onPrincipalNoteChanged: React.PropTypes.func.isRequired,
-  onFeedbackTextChanged: React.PropTypes.func.isRequired,
-  onSubmitClicked: React.PropTypes.func.isRequired
+  onStepChanged: PropTypes.func.isRequired,
+  onSchoolIdChanged: PropTypes.func.isRequired,
+  onGradeLevelNextYearChanged: PropTypes.func.isRequired,
+  onEducatorsChanged: PropTypes.func.isRequired,
+  onClassroomsCountIncremented: PropTypes.func.isRequired,
+  onPlanTextChanged: PropTypes.func.isRequired,
+  onClassListsChanged: PropTypes.func.isRequired,
+  onPrincipalNoteChanged: PropTypes.func.isRequired,
+  onFeedbackTextChanged: PropTypes.func.isRequired,
+  onSubmitClicked: PropTypes.func.isRequired
 };
 
 const styles = {

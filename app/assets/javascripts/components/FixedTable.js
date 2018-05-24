@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {colors, styles} from '../helpers/Theme';
@@ -100,11 +101,11 @@ class FixedTable extends React.Component {
   }
 }
 FixedTable.propTypes = {
-  onFilterToggled: React.PropTypes.func.isRequired,
-  filters: React.PropTypes.array.isRequired,
-  title: React.PropTypes.string.isRequired,
-  items: React.PropTypes.array.isRequired,
-  children: React.PropTypes.element
+  onFilterToggled: PropTypes.func.isRequired,
+  filters: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired,
+  children: PropTypes.element
 };
 
 export default FixedTable;

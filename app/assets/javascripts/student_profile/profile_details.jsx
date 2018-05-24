@@ -1,3 +1,6 @@
+import React from 'react';
+import createClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Datepicker from '../student_profile/Datepicker.js';
 import {merge} from '../helpers/merge';
@@ -16,21 +19,21 @@ import {
   const styles = ProfileDetailsStyle;
   const StudentSectionsRoster = window.shared.StudentSectionsRoster;
 
-  window.shared.ProfileDetails = React.createClass({
+  window.shared.ProfileDetails = createClass({
     displayName: 'ProfileDetails',
 
     propTypes: {
-      student: React.PropTypes.object,
-      feed: React.PropTypes.object,
-      access: React.PropTypes.object,
-      dibels: React.PropTypes.array,
-      chartData: React.PropTypes.object,
-      iepDocument: React.PropTypes.object,
-      sections: React.PropTypes.array,
-      currentEducatorAllowedSections: React.PropTypes.array,
-      attendanceData: React.PropTypes.object,
-      serviceTypesIndex: React.PropTypes.object,
-      currentEducator: React.PropTypes.object,
+      student: PropTypes.object,
+      feed: PropTypes.object,
+      access: PropTypes.object,
+      dibels: PropTypes.array,
+      chartData: PropTypes.object,
+      iepDocument: PropTypes.object,
+      sections: PropTypes.array,
+      currentEducatorAllowedSections: PropTypes.array,
+      attendanceData: PropTypes.object,
+      serviceTypesIndex: PropTypes.object,
+      currentEducator: PropTypes.object,
     },
 
     getInitialState: function() {

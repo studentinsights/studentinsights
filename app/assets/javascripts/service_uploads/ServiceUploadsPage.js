@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {merge} from '../helpers/merge';
@@ -256,7 +257,7 @@ class ServiceUploadsPage extends React.Component {
 }
 
 ServiceUploadsPage.propTypes = {
-  serializedData: React.PropTypes.object.isRequired,
+  serializedData: PropTypes.object.isRequired,
 };
 
 export default ServiceUploadsPage;

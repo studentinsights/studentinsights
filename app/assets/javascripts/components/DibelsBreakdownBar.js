@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import BreakdownBar from '../components/BreakdownBar';
 import {
@@ -22,11 +23,11 @@ export default class DibelsBreakdownBar extends React.Component {
 }
 
 DibelsBreakdownBar.propTypes = {
-  coreCount: React.PropTypes.number.isRequired,
-  strategicCount: React.PropTypes.number.isRequired,
-  intensiveCount: React.PropTypes.number.isRequired,
-  height: React.PropTypes.number.isRequired,
-  labelTop: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object,
-  innerStyle: React.PropTypes.object
+  coreCount: PropTypes.number.isRequired,
+  strategicCount: PropTypes.number.isRequired,
+  intensiveCount: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  labelTop: PropTypes.number.isRequired,
+  style: PropTypes.object,
+  innerStyle: PropTypes.object
 };

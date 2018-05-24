@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // A dropdown component that allows choosing a list of educator names, but also
@@ -105,9 +106,9 @@ class ProvidedByEducatorDropdown extends React.Component {
   }
 }
 ProvidedByEducatorDropdown.propTypes = {
-  onUserTyping: React.PropTypes.func.isRequired,
-  onUserDropdownSelect: React.PropTypes.func.isRequired,
-  studentId: React.PropTypes.number.isRequired
+  onUserTyping: PropTypes.func.isRequired,
+  onUserDropdownSelect: PropTypes.func.isRequired,
+  studentId: PropTypes.number.isRequired
 };
 
 export default ProvidedByEducatorDropdown;

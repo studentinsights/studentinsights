@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {toMomentFromTime} from '../../../app/assets/javascripts/helpers/toMoment';
 
 // A container for testing that allows passing in a `nowFn`
@@ -18,11 +19,11 @@ export default class NowContainer extends React.Component {
   }
 }
 NowContainer.childContextTypes = {
-  nowFn: React.PropTypes.func
+  nowFn: PropTypes.func
 };
 NowContainer.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  nowFn: React.PropTypes.func.isRequired
+  children: PropTypes.node.isRequired,
+  nowFn: PropTypes.func.isRequired
 };
 
 export const TEST_TIME_STRING = '2018-03-13T11:03:06.123Z';
