@@ -6,7 +6,6 @@ import './legacyVendor';
 // student profile page:
 import '../app/assets/javascripts/student_profile/profile_chart_settings.jsx';
 import '../app/assets/javascripts/student_profile/sparkline.jsx';
-import '../app/assets/javascripts/student_profile/take_notes.jsx';
 import '../app/assets/javascripts/student_profile/note_card.jsx';
 import '../app/assets/javascripts/student_profile/notes_list.jsx';
 import '../app/assets/javascripts/student_profile/services_list.jsx';

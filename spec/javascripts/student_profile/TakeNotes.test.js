@@ -4,7 +4,7 @@ import {
   currentEducator
 } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
-import TakeNotes from '../../../app/assets/javascripts/student_profile/take_notes.jsx';
+import TakeNotes from '../../../app/assets/javascripts/student_profile/TakeNotes';
 
 describe('TakeNotes', function() {
 
