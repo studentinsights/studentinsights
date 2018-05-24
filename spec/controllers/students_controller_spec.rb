@@ -94,6 +94,7 @@ describe StudentsController, :type => :controller do
             {:id=>304, :name=>"Something else"},
             {:id=>305, :name=>"9th Grade Experience"},
             {:id=>306, :name=>"10th Grade Experience"},
+            {:id=>307, :name=>"High School Transition Note"},
           ])
 
           expect(serialized_data[:educators_index]).to include({

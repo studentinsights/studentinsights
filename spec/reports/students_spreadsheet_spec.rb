@@ -80,6 +80,7 @@ RSpec.describe StudentsSpreadsheet do
            "Something else (last_event_note_recorded_at)",
            "X-Block (active_service_date_started)",
            "10th Grade Experience (last_event_note_recorded_at)",
+           "High School Transition Note (last_event_note_recorded_at)"
          ].sort
         )
       end
