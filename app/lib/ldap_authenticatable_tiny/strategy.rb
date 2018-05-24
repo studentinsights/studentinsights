@@ -15,7 +15,7 @@ module Devise
       def authenticate!
         email = authentication_hash[:email]
         should_use_mock_ldap = ::EnvironmentVariable.is_true('USE_TEST_PALS_LDAP')
-        ldap_class = should_use_mock_ldap ? TestPalsMockLDAP : Net::LDAP
+        ldap_class = should_use_mock_ldap ? MockLDAP : Net::LDAP
 
         begin
           educator = Educator.find_by_email(email.downcase)

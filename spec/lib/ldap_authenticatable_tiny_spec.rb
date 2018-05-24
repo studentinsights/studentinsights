@@ -49,7 +49,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(TestPalsMockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return false
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return false
 
       strategy.authenticate!
       expect(strategy.result).to eq :failure
@@ -61,7 +61,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'URI@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(TestPalsMockLDAP, 'URI@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'URI@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -73,7 +73,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(TestPalsMockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -114,7 +114,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
       args = [
         :is_authorized_by_ldap?,
-        TestPalsMockLDAP,
+        MockLDAP,
         'uri@demo.studentinsights.org',
         'bar'
       ]
@@ -127,7 +127,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
       args = [
         :is_authorized_by_ldap?,
-        TestPalsMockLDAP,
+        MockLDAP,
         'uri@demo.studentinsights.org',
         'demo-password'
       ]
@@ -140,7 +140,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
       args = [
         :is_authorized_by_ldap?,
-        TestPalsMockLDAP,
+        MockLDAP,
         'uri@demo.studentinsights.org',
         nil
       ]
@@ -153,7 +153,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
       args = [
         :is_authorized_by_ldap?,
-        TestPalsMockLDAP,
+        MockLDAP,
         'uri@demo.studentinsights.org',
         ''
       ]

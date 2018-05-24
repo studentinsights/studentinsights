@@ -10,7 +10,7 @@
 # instead of relying on a different auth mechanism locally and only exercising
 # LDAP-related code in production.
 
-class TestPalsMockLDAP
+class MockLDAP
 
   def initialize(options)
     @options = options
