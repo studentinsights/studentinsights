@@ -90,7 +90,7 @@ export class ClassListsViewPageView extends React.Component {
           </thead>
           <tbody>{sortedWorkspaces.map(workspace => {
             const classList = workspace.class_list;
-            const createdAtMoment = toMomentFromTime(classList.created_at);
+            const createdAtMoment = toMomentFromTime(classList.created_at).local();
             const educatorStyle = (classList.created_by_educator.id === currentEducatorId)
               ? { fontWeight: 'bold' }
               : {};
