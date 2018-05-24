@@ -2,7 +2,7 @@ should_use_mock_ldap = ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
 
 env_is_production = Rails.env.production?
 
-district_is_demo = (ENV.fetch('DISTRICT_KEY') == 'demo')
+district_is_demo = (PerDistrict.new.district_key == 'demo')
 
 # Guard to make sure that we're never using fake demo accounts and passwords
 # in production except on the demo Heroku site:
