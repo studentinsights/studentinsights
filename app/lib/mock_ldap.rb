@@ -19,7 +19,7 @@ class MockLDAP
   end
 
   def bind
-    raise 'Mock LDAP called when ENV flag not set' unless ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
+    raise 'Mock LDAP called but USE_MOCK_LDAP flag not set' unless ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
 
     return false unless email_present?
 
