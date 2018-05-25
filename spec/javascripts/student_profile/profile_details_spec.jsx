@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import SpecSugar from '../support/spec_sugar.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('ProfileDetails', function() {
   const ReactDOM = window.ReactDOM;
@@ -8,7 +7,7 @@ describe('ProfileDetails', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      const mergedProps = merge({
+      const mergedProps = {
         student: {
           first_name: 'Test'
         },
@@ -39,12 +38,13 @@ describe('ProfileDetails', function() {
         dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}],
         serviceTypesIndex: {
           "508": {name: "Math intervention", id: 508}
-        }
-      }, props || {});
+        },
+        ...props
+      };
       ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
     },
     renderHSInto: function(el, props) {
-      const mergedProps = merge({
+      const mergedProps = {
         student: {
           first_name: 'Test',
           last_name: 'HighSchool',
@@ -95,8 +95,9 @@ describe('ProfileDetails', function() {
         dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}],
         serviceTypesIndex: {
           "508": {name: "Math intervention", id: 508}
-        }
-      }, props || {});
+        },
+        ...props
+      };
       ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
     }
   };

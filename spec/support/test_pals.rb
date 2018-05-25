@@ -65,6 +65,7 @@ class TestPals
       email: 'uri@demo.studentinsights.org',
       full_name: 'Disney, Uri',
       password: 'demo-password',
+      staff_type: 'Administrator',
       can_set_districtwide_access: true,
       districtwide_access: true,
       admin: true,
@@ -82,6 +83,7 @@ class TestPals
       email: 'rich@demo.studentinsights.org',
       full_name: 'Districtwide, Rich',
       password: 'demo-password',
+      staff_type: 'Administrator',
       can_set_districtwide_access: false,
       districtwide_access: true,
       admin: true,
@@ -110,6 +112,7 @@ class TestPals
       email: 'vivian@demo.studentinsights.org',
       full_name: 'Teacher, Vivian',
       password: 'demo-password',
+      staff_type: nil,
       school: @healey,
       homeroom: @healey_kindergarten_homeroom
     )
@@ -133,6 +136,7 @@ class TestPals
       full_name: 'Principal, Laura',
       password: 'demo-password',
       school: @healey,
+      staff_type: 'Principal',
       admin: true,
       schoolwide_access: true,
       can_view_restricted_notes: true,

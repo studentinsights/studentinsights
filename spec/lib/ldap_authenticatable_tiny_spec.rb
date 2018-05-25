@@ -126,5 +126,23 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       expect(strategy.send(:is_authorized_by_ldap?, 'foo', 'bar')).to eq true
     end
+
+    it 'returns false for nil password regardless' do
+      mock_ldap = instance_double(Net::LDAP)
+
+      strategy = test_strategy
+      expect(mock_ldap).not_to receive(:bind)
+      expect(Net::LDAP).not_to receive(:new)
+      expect(strategy.send(:is_authorized_by_ldap?, 'foo', nil)).to eq false
+    end
+
+    it 'returns false for empty password regardless' do
+      mock_ldap = instance_double(Net::LDAP)
+
+      strategy = test_strategy
+      expect(mock_ldap).not_to receive(:bind)
+      expect(Net::LDAP).not_to receive(:new)
+      expect(strategy.send(:is_authorized_by_ldap?, 'foo', '')).to eq false
+    end
   end
 end

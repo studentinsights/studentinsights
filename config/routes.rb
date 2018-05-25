@@ -20,11 +20,12 @@ Rails.application.routes.draw do
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
   # classroom list creator
-  get '/api/balancing/:balance_id/available_grade_levels_json' => 'classroom_balancing#available_grade_levels_json'
-  get '/api/balancing/:balance_id/students_for_grade_level_next_year_json' => 'classroom_balancing#students_for_grade_level_next_year_json'
-  post '/api/balancing/:balance_id/update_classrooms_for_grade_json' => 'classroom_balancing#update_classrooms_for_grade_json'
-  get '/api/balancing/:balance_id/classrooms_for_grade_json' => 'classroom_balancing#classrooms_for_grade_json'
-  get '/api/balancing/:balance_id/students/:student_id/profile_json' => 'classroom_balancing#profile_json'
+  get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
+  get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
+  get '/api/class_lists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
+  post '/api/class_lists/:workspace_id/update_class_list_json' => 'class_lists#update_class_list_json'
+  get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
+  get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
@@ -52,10 +53,6 @@ Rails.application.routes.draw do
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
-  if ENV['LETS_ENCRYPT_ENDPOINT']
-    get ENV['LETS_ENCRYPT_ENDPOINT'] => 'pages#lets_encrypt_endpoint'
-  end
-
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
@@ -78,10 +75,11 @@ Rails.application.routes.draw do
   resources :sections, only: [:index, :show]
   resources :iep_documents, only: [:show]
 
-  resource :balancing, only: [] do
+  resource :classlists, only: [] do
     member do
       get '' => 'ui#ui'
-      get '/:balance_id' => 'ui#ui'
+      get '/new' => 'ui#ui'
+      get '/:workspace_id' => 'ui#ui'
     end
   end
 

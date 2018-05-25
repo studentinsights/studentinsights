@@ -149,7 +149,10 @@ exports[`FeedView pure component matches snapshot 1`] = `
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               12 days ago
                on 
               3/1
@@ -309,7 +312,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               12/2
@@ -481,7 +487,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               11/5
@@ -666,7 +675,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/28
@@ -824,7 +836,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/25
@@ -996,7 +1011,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/24
@@ -1181,7 +1199,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/16
@@ -1366,7 +1387,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/16
@@ -1537,7 +1561,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/4
@@ -1695,7 +1722,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/4
@@ -1880,7 +1910,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               10/3
@@ -2065,7 +2098,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               9/30
@@ -2250,7 +2286,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               9/23
@@ -2408,7 +2447,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               9/22
@@ -2580,7 +2622,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               9/22
@@ -2752,7 +2797,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               6 years ago
                on 
               9/17
@@ -2924,7 +2972,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               7 years ago
                on 
               9/11
@@ -3109,7 +3160,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               7 years ago
                on 
               9/9
@@ -3267,7 +3321,10 @@ Philis is meeting with parent next week and will present an attendance contract.
             </div>
           </div>
           <div>
-            <div>
+            <div
+              className="Timestamp"
+              style={Object {}}
+            >
               7 years ago
                on 
               9/8

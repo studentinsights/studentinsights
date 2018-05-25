@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 
 (function() {
@@ -30,7 +30,7 @@ import * as FeedHelpers from '../helpers/FeedHelpers';
     displayName: 'NotesList',
 
     propTypes: {
-      feed: PropTypes.feed.isRequired,
+      feed: InsightsPropTypes.feed.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       eventNoteTypesIndex: React.PropTypes.object.isRequired,
       onSaveNote: React.PropTypes.func,

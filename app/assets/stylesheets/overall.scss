@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+pre, code {
+  font-family: monospace !important;
+}
+
 .hidden {
   display: none;
 }

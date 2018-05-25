@@ -1,0 +1,294 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="InlineStudentProfile"
+  style={
+    Object {
+      "margin": 20,
+    }
+  }
+>
+  <h4>
+    <a
+      href="/students/153"
+      style={
+        Object {
+          "fontSize": 24,
+        }
+      }
+      target="_blank"
+    >
+      Winnie
+       
+      Pan
+    </a>
+  </h4>
+  <div
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  >
+    <div
+      style={Object {}}
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+          }
+        }
+      >
+        <div
+          className="Card "
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 3,
+              "flex": 1,
+              "margin": 5,
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginBottom": 5,
+              }
+            }
+          >
+            Special needs
+          </div>
+          <div>
+            Program: 
+            Reg Ed
+          </div>
+        </div>
+        <div
+          className="Card "
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 3,
+              "flex": 1,
+              "margin": 5,
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginBottom": 5,
+              }
+            }
+          >
+            Learning English
+          </div>
+          <div>
+            Learning English: 
+            Limited
+          </div>
+          <div>
+            ACCESS Composite: 
+            2
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+          }
+        }
+      >
+        <div
+          className="Card "
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 3,
+              "flex": 1,
+              "margin": 5,
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginBottom": 5,
+              }
+            }
+          >
+            Identity
+          </div>
+          <div>
+            Racial identity: 
+            White
+          </div>
+          <div>
+            Hispanic: 
+            Not hispanic
+          </div>
+          <div>
+            Gender: 
+            F
+          </div>
+        </div>
+        <div
+          className="Card "
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 3,
+              "flex": 1,
+              "margin": 5,
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginBottom": 5,
+              }
+            }
+          >
+            Home
+          </div>
+          <div>
+            Home language: 
+            Portuguese
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+          }
+        }
+      >
+        <div
+          className="Card "
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 3,
+              "flex": 1,
+              "margin": 5,
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginBottom": 5,
+              }
+            }
+          >
+            Standardized tests
+          </div>
+          <div>
+            DIBELS: 
+            Intensive
+          </div>
+          <div>
+            STAR Math percentile: 
+            1
+          </div>
+          <div>
+            STAR Reading percentile: 
+            34
+          </div>
+        </div>
+        <div
+          className="Card "
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "borderRadius": 3,
+              "flex": 1,
+              "margin": 5,
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "marginBottom": 5,
+              }
+            }
+          >
+            Behavior
+          </div>
+          <div>
+            Discipline incidents: 
+            0
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={Object {}}
+    >
+      <div
+        style={
+          Object {
+            "paddingTop": 20,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            Notes for 
+            Winnie
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

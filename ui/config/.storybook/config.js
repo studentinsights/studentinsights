@@ -13,6 +13,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/Circle.story.js');
   require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story.js');
   require('../../../app/assets/javascripts/components/ReactSelect.story.js');
+  require('../../../app/assets/javascripts/components/Stack.story.js');
 
   // home
   require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story.js');
@@ -20,12 +21,14 @@ function loadStories() {
   // student profile
   require('../../../app/assets/javascripts/student_profile/RiskBubble.story.js');
   
-  // equity
-  require('../../../app/assets/javascripts/equity/ClassroomListCreatorPage.story.js');
-  require('../../../app/assets/javascripts/equity/ClassroomListCreatorWorkflow.story.js');
-  require('../../../app/assets/javascripts/equity/CreateYourClassroomsView.story.js');
-  require('../../../app/assets/javascripts/equity/InlineStudentProfile.story.js');
-  require('../../../app/assets/javascripts/equity/HorizontalStepper.story.js');
+  // classlists
+  require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story.js');
+  require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story.js');
+  require('../../../app/assets/javascripts/class_lists/ClassListCreatorPage.story.js');
+  require('../../../app/assets/javascripts/class_lists/ClassListCreatorWorkflow.story.js');
+  require('../../../app/assets/javascripts/class_lists/CreateYourLists.story.js');
+  require('../../../app/assets/javascripts/class_lists/StudentCard.story.js');
+  require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story.js');
 
   // add more here!
 }
@@ -40,4 +43,7 @@ function mockJestFns() {
   global.describe = function() {}
   global.beforeEach = function() {}
   global.it = function() {}
+  global.jest = {
+    fn() {}
+  };
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503183141) do
+ActiveRecord::Schema.define(version: 20180523030653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,14 +35,16 @@ ActiveRecord::Schema.define(version: 20180503183141) do
     t.datetime "updated_at"
   end
 
-  create_table "classrooms_for_grades", force: :cascade do |t|
-    t.string "balance_id"
+  create_table "class_lists", force: :cascade do |t|
+    t.string "workspace_id"
     t.integer "created_by_educator_id"
     t.integer "school_id"
     t.string "grade_level_next_year"
     t.json "json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "submitted", default: false
+    t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
   end
 
   create_table "courses", id: :serial, force: :cascade do |t|
@@ -377,8 +379,8 @@ ActiveRecord::Schema.define(version: 20180503183141) do
   end
 
   add_foreign_key "absences", "students"
-  add_foreign_key "classrooms_for_grades", "educators", column: "created_by_educator_id", name: "classrooms_for_created_by_educator_id_fk"
-  add_foreign_key "classrooms_for_grades", "schools", name: "classrooms_for_grades_school_id_fk"
+  add_foreign_key "class_lists", "educators", column: "created_by_educator_id", name: "classrooms_for_created_by_educator_id_fk"
+  add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
   add_foreign_key "discipline_incidents", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"

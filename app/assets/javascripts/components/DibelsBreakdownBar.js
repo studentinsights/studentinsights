@@ -1,65 +1,32 @@
 import React from 'react';
+import BreakdownBar from '../components/BreakdownBar';
+import {
+  high,
+  medium,
+  low
+} from '../helpers/colors.js';
 
 // Visual component showing a horizontal bar broken down into three colors
 // showing percent of students at different DIBELS levels.
-export default function DibelsBreakdownBar(props) {
-  const {height, coreCount, strategicCount, intensiveCount, style = {}} = props;
-  const totalCount = coreCount + strategicCount + intensiveCount;
-  const opacity = 0.5;
-  const fontSize = 10;
-  const scale = (value) => `${Math.round(100 * value)}%`;
+export default class DibelsBreakdownBar extends React.Component {
+  render() {
+    const {coreCount, strategicCount, intensiveCount} = this.props;
+    const items = [
+      { left: 0, width: coreCount, color: high, key: 'core' },
+      { left: coreCount, width: strategicCount, color: medium, key: 'strategic' },
+      { left: coreCount + strategicCount, width: intensiveCount, color: low, key: 'intensive' }
+    ];
 
-  if (totalCount === 0) return null;
-  return (
-    <div className="DibelsBreakdownBar" style={{height, ...style}}>
-      <div style={{position: 'relative', width: '100%', height}}>
-        <div style={{
-          position: 'absolute',
-          background: 'green',
-          opacity,
-          fontSize,
-          left: scale(0),
-          width: scale(coreCount / totalCount),
-          height
-        }}>{'\u00A0'}</div>
-        <div style={{
-          position: 'absolute',
-          background: 'orange',
-          opacity,
-          fontSize,
-          left: scale(coreCount / totalCount),
-          width: scale(strategicCount / totalCount),
-          height
-        }}>{'\u00A0'}</div>
-        <div style={{
-          position: 'absolute',
-          background: 'red',
-          opacity,
-          fontSize,
-          left: scale((coreCount + strategicCount) / totalCount),
-          width: scale(intensiveCount / totalCount),
-          height
-        }}>{'\u00A0'}</div>
-
-        {coreCount > 0 && 
-          <div style={{
-            position: 'absolute',
-            textAlign: 'left',
-            opacity,
-            fontSize,
-            left: scale(0),
-            width: scale(coreCount / totalCount),
-            top: height/2  + 1, // padding
-            color: 'green'
-          }}>{Math.round(100 * coreCount / totalCount)}%</div>}
-      </div>
-    </div>
-  );
+    return <BreakdownBar items={items} {...this.props} />;
+  }
 }
+
 DibelsBreakdownBar.propTypes = {
   coreCount: React.PropTypes.number.isRequired,
   strategicCount: React.PropTypes.number.isRequired,
   intensiveCount: React.PropTypes.number.isRequired,
   height: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object
+  labelTop: React.PropTypes.number.isRequired,
+  style: React.PropTypes.object,
+  innerStyle: React.PropTypes.object
 };

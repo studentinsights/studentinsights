@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import {merge} from '../helpers/react_helpers.jsx';
 import React from 'react';
 
 window.shared || (window.shared = {});
@@ -115,10 +114,11 @@ export default React.createClass({
   onClickSave: function(event) {
     const {noteInProgressText, noteInProgressType} = this.props;
 
-    const params = merge({
+    const params = {
       eventNoteTypeId: noteInProgressType,
       text: noteInProgressText,
-    }, this.eventNoteUrlsForSave());
+      ...this.eventNoteUrlsForSave()
+    };
 
     this.props.onSave(params);
   },
@@ -213,13 +213,14 @@ export default React.createClass({
         onClick={onClickNoteType}
         tabIndex={-1}
         name={eventNoteTypeId}
-        style={merge(styles.serviceButton, {
+        style={{
+          ...styles.serviceButton,
           background: '#eee',
           outline: 0,
           border: (noteInProgressType === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
-        })}>
+        }}>
         {eventNoteType.name}
       </button>
     );

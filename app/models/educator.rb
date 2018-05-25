@@ -37,6 +37,10 @@ class Educator < ActiveRecord::Base
     super(options.merge({ except: [:student_searchbar_json] }))
   end
 
+  def is_principal?
+    staff_type.try(:downcase) == 'principal'
+  end
+
   def is_authorized_for_student(student)
     Authorizer.new(self).is_authorized_for_student?(student)
   end

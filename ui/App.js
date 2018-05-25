@@ -10,8 +10,9 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
-import ExploreSchoolEquityPage from '../app/assets/javascripts/equity/ExploreSchoolEquityPage';
-import ClassroomListCreatorPage from '../app/assets/javascripts/equity/ClassroomListCreatorPage';
+import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
+import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
+import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 
@@ -57,7 +58,9 @@ class App extends React.Component {
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
           <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-          <Route exact path="/balancing/:balance_id?" render={this.renderClassroomListCreator.bind(this)}/>
+          <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
+          <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
+          <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
@@ -80,10 +83,20 @@ class App extends React.Component {
     return <ExploreSchoolEquityPage schoolId={schoolId} />;
   }
 
-  renderClassroomListCreator(routeProps) {
-    const balanceId = routeProps.match.params.balance_id;
+  renderClassListsViewPage(routeProps) {
+    const {currentEducator} = this.props;
+    this.trackVisit(routeProps, 'CLASSROOM_LISTS_VIEW_PAGE');
+    return <ClassListsViewPage currentEducatorId={currentEducator.id} />;
+  }
+
+  renderClassListCreatorEdit(routeProps) {
+    const workspaceId = routeProps.match.params.workspace_id;
     this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
-    return <ClassroomListCreatorPage balanceId={balanceId} />;
+    return <ClassListCreatorPage defaultWorkspaceId={workspaceId} />;
+  }
+  renderClassListCreatorNew(routeProps) {
+    this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
+    return <ClassListCreatorPage />;
   }
 
   renderSchoolCoursesPage(routeProps) {

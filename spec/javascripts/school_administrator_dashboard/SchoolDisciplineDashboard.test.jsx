@@ -17,7 +17,7 @@ describe('SchoolDisciplineDashboard', () => {
     expect(dash.find('StudentsTable').length).toEqual(1);
   });
 
-  it('renders a date slider', () => {
-    expect(dash.find('DateSlider').length).toEqual(1);
+  it('renders a date range selector', () => {
+    expect(dash.find('DashRangeButtons').length).toEqual(1);
   });
 });

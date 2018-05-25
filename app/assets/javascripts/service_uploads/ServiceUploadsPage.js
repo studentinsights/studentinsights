@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import {merge} from '../helpers/react_helpers.jsx';
+import {merge} from '../helpers/merge';
 import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
 import NewServiceUpload from '../service_uploads/NewServiceUpload.js';
 import Api from './Api.js';

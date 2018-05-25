@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  unless Rails.env.development?
-    force_ssl except: [:lets_encrypt_endpoint]
-  end
+
+  force_ssl unless Rails.env.development?
 
   before_action :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers (in this app 'users' are 'educators')

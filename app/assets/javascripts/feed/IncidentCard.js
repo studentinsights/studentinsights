@@ -1,15 +1,13 @@
 import React from 'react';
-import {toMomentFromTime} from '../helpers/toMoment';
 import FeedCardFrame from './FeedCardFrame';
 import HouseBadge from '../components/HouseBadge';
 import Badge from '../components/Badge';
+import Timestamp from '../components/Timestamp';
 
 
 // Render a card in the feed for a discipline incident
 class IncidentCard extends React.Component {
   render() {
-    const {nowFn} = this.context;
-    const now = nowFn();
     const {style, incidentCard} = this.props;
     const {student} = incidentCard;
 
@@ -19,7 +17,7 @@ class IncidentCard extends React.Component {
           style={style}
           student={student}
           whereEl={<div>in {incidentCard.incident_location}</div>}
-          whenEl={<div>{toMomentFromTime(incidentCard.occurred_at).from(now)} on {toMomentFromTime(incidentCard.occurred_at).format('M/D')}</div>}
+          whenEl={<Timestamp railsTimestamp={incidentCard.occurred_at} />}
           badgesEl={<div>
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
             <Badge style={styles.footerBadge} text="Incident" backgroundColor="rgb(255, 140, 0)" />
@@ -31,9 +29,6 @@ class IncidentCard extends React.Component {
     );
   }
 }
-IncidentCard.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
-};
 IncidentCard.propTypes = {
   incidentCard: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {
   sortByString,
   sortByNumber,
-  sortByDate
+  sortByDate,
+  sortByGrade
 } from '../../helpers/SortHelpers';
 import * as Routes from '../../helpers/Routes';
-import {sortByGrade} from '../../helpers/SortHelpers';
-import SharedPropTypes from '../../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../../helpers/InsightsPropTypes';
 import DashResetButton from './DashResetButton';
 import {Column, Table, SortDirection} from 'react-virtualized';
 
@@ -120,8 +120,7 @@ class StudentsTable extends React.Component {
             dataKey='last_sst_date_text'
           />
         </Table>
-        <div>{'Total: '}</div>
-        <div>{this.renderTotalEvents()}</div>
+        <div>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
       </div>
     );
   }
@@ -168,7 +167,7 @@ StudentsTable.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     events: PropTypes.number.isRequired,
-    last_sst_date_text: SharedPropTypes.nullableWithKey(PropTypes.string)
+    last_sst_date_text: InsightsPropTypes.nullableWithKey(PropTypes.string)
   })).isRequired,
   selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
