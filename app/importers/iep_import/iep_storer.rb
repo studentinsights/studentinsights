@@ -21,6 +21,7 @@ class IepStorer
     store_object_in_database
   end
 
+  private
   def store_object_in_s3
     # Client is supplied with the proper creds via
     # ENV['AWS_ACCESS_KEY_ID'] and ENV['AWS_SECRET_ACCESS_KEY']

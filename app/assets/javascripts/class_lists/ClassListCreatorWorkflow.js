@@ -6,8 +6,11 @@ import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
 import {SeriousButton} from '../components/Button';
 import SuccessLabel from '../components/SuccessLabel';
+import Button from '../components/Button';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
+import PrincipalFinalizes from './PrincipalFinalizes';
+import SecretaryEnters from './SecretaryEnters';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
 
@@ -42,7 +45,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       isDirty
     } = this.props;
     const {isExpandedVertically} = this.state;
-    const expandedOrCollapsedStyles = (isExpandedVertically)
+    const expandedOrCollapsedStyles = (isExpandedVertically || stepIndex === 5) // TODO(kr) hacking
       ? styles.horizontalStepperExpanded 
       : styles.horizontalStepperCollapsed;
     return (
@@ -67,6 +70,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
     if (stepIndex === 3) return this.renderNotesToPrincipal();
     if (stepIndex === 4) return this.renderShareWithPrincipal();
+    if (stepIndex === 5) return this.renderSecretaryEnters();
   }
 
   renderChooseYourGrade() {
@@ -275,10 +279,45 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderShareWithPrincipal() {
+  renderPrincipalFinalizes() {
+    const {
+      workspaceId,
+      students,
+      classroomsCount,
+      studentIdsByRoom,
+      gradeLevelNextYear
+    } = this.props;
+    const {isExpandedVertically} = this.state;
+
+    if (students === null || studentIdsByRoom === null) return <Loading />;
+
+    // editable / principal / changes
+    const onClassListsChangedByPrincipal = () => null;
+    return (
+      <CreateYourLists
+        isPrincipal={true}
+        isEditable={true}
+        students={students}
+        classroomsCount={classroomsCount}
+        gradeLevelNextYear={gradeLevelNextYear}
+        studentIdsByRoom={studentIdsByRoom}
+        fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        isExpandedVertically={isExpandedVertically}
+        onExpandVerticallyToggled={this.onExpandVerticallyToggled}
+        onClassListsChanged={onClassListsChangedByPrincipal}/>
+    );
+  }
+
+  renderSecretaryEnters() {
+    const {gradeLevelNextYear, schoolId, schools, students, studentIdsByRoom} = this.props;
+    const school = _.find(schools, {id: schoolId});
     return (
       <div style={styles.stepContent}>
-        <div>After teachers submit their lists, principals can revise and export the lists as spreadsheets for sending letters home and entering into Aspen.  This will open the week of 6/4 and talk with Uri if you have any questions!</div>
+        <SecretaryEnters
+          school={school}
+          gradeLevelNextYear={gradeLevelNextYear}
+          studentIdsByRoom={studentIdsByRoom}
+          students={students} />
       </div>
     );
   }
