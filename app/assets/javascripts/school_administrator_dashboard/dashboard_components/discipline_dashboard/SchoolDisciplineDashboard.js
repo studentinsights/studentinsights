@@ -46,7 +46,7 @@ class SchoolDisciplineDashboard extends React.Component {
     let studentDisciplineIncidentCounts = {};
     const selectedChartData = this.getChartData(this.state.selectedChart);
     const incidents = incidentCategory ? selectedChartData.disciplineIncidents[incidentCategory] : this.props.schoolDisciplineEvents;
-    this.filterIncidentDates(incidents).forEach((incident) => {
+    incidents.forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
     });
@@ -54,6 +54,8 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   getChartData(selectedChart) {
+    //This chart data is filtered based on the date selection and passed to the
+    //student table and chart renders below
     const filteredEvents = this.filterIncidentDates(this.props.schoolDisciplineEvents);
     return {
       type: selectedChart,
