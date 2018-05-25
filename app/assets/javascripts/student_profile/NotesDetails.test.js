@@ -1,6 +1,6 @@
-import {studentProfile} from './fixtures.jsx';
-import SpecSugar from '../support/spec_sugar.jsx';
-import NotesDetails from '../../../app/assets/javascripts/student_profile/NotesDetails.js';
+import {studentProfile} from './fixtures';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import NotesDetails from './NotesDetails';
 
 describe('NotesDetails', function() {
   const ReactDOM = window.ReactDOM;

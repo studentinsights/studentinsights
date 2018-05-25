@@ -1,5 +1,5 @@
 import SpecSugar from '../support/spec_sugar.jsx';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import ServiceUploadsPage from '../../../app/assets/javascripts/service_uploads/ServiceUploadsPage.js';
 
 describe('ServiceUploadsPage', () => {

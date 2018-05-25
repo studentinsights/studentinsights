@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import SummaryList from '../../../app/assets/javascripts/student_profile/SummaryList';
+import SummaryList from './SummaryList';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

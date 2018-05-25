@@ -1,9 +1,9 @@
-import {studentProfile} from './fixtures.jsx';
-import SpecSugar from '../support/spec_sugar.jsx';
-import createSpyObj from '../support/createSpyObj.js';
-import RestrictedNotesPageContainer from '../../../app/assets/javascripts/restricted_notes/RestrictedNotesPageContainer.js';
-
-const ReactDOM = window.ReactDOM;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {studentProfile} from '../student_profile/fixtures';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import createSpyObj from '../../../../spec/javascripts/support/createSpyObj';
+import RestrictedNotesPageContainer from './RestrictedNotesPageContainer.js';
 
 const helpers = {
   renderInto: function(el, props) {

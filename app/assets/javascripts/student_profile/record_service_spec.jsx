@@ -1,10 +1,12 @@
+import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 import {
   studentProfile,
   nowMoment,
   currentEducator
-} from './fixtures.jsx';
-import SpecSugar from '../support/spec_sugar.jsx';
-import ReactTestUtils from 'react-addons-test-utils';
+} from './fixtures';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+
 
 
 describe('RecordService', function() {

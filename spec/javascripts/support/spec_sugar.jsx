@@ -1,5 +1,5 @@
 /* Sugar for common test setup and interactions */  
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 export default {
   withTestEl: function(description, testsFn) {
