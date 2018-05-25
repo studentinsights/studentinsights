@@ -30,12 +30,20 @@ export default class HorizontalStepper extends React.Component {
   }
 
   render() {
-    const {steps, availableSteps, isEditable, renderFn, style, contentStyle} = this.props;
+    const {
+      steps,
+      availableSteps,
+      isEditable,
+      isDirty,
+      renderFn,
+      style,
+      contentStyle
+    } = this.props;
     const currentStepIndex = this.props.stepIndex;
     return (
       <div className="HorizontalStepper" style={{...styles.root, ...style}}>
         <div style={styles.bannerContainer}>
-          <div style={styles.banner}>
+          <div>
             {steps.map((step, stepIndex) => {
               return (
                 <span
@@ -52,6 +60,7 @@ export default class HorizontalStepper extends React.Component {
             })}
           </div>
           {!isEditable && <div style={styles.readonly}>readonly</div>}
+          {isDirty && <div style={styles.dirty}>●</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
           {renderFn(currentStepIndex, steps[currentStepIndex])}
@@ -103,6 +112,7 @@ HorizontalStepper.propTypes = {
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
   isEditable: React.PropTypes.bool.isRequired,
+  isDirty: React.PropTypes.bool.isRequired,
   renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
   contentStyle: React.PropTypes.object
@@ -121,10 +131,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    fontSize: 12
-  },
-  banner:{
-    paddingLeft: 15
+    fontSize: 12,
+    marginLeft: 15,
+    marginRight: 15
   },
   bannerItem: {
     padding: 8,
@@ -159,5 +168,9 @@ const styles = {
     background: '#666',
     color: '#eee',
     borderRadius: 3
+  },
+  dirty: {
+    color: 'orange',
+    display: 'none' // hidden
   }
 };

@@ -31,7 +31,7 @@ RSpec.describe ClassList do
     it 'rejects new records in workspace with different writer' do
       expect(create_class_list_from(pals.healey_sarah_teacher).errors.details).to eq({})
       expect(create_class_list_from(pals.uri).errors.details).to eq({
-        created_by_educator_id: [{error: 'cannot add record with different created_by_educator_id for existing workspace_id'}]
+        created_by_educator_id: [{error: 'cannot add different created_by_educator_id to existing workspace_id'}]
       })
     end
   end

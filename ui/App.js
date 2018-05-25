@@ -84,8 +84,9 @@ class App extends React.Component {
   }
 
   renderClassListsViewPage(routeProps) {
+    const {currentEducator} = this.props;
     this.trackVisit(routeProps, 'CLASSROOM_LISTS_VIEW_PAGE');
-    return <ClassListsViewPage />;
+    return <ClassListsViewPage currentEducatorId={currentEducator.id} />;
   }
 
   renderClassListCreatorEdit(routeProps) {

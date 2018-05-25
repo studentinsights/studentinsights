@@ -52,6 +52,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'timecop'
+  gem 'brakeman'
 end
 
 group :development do

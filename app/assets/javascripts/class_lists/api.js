@@ -32,9 +32,10 @@ export function fetchClassListJson(workspaceId) {
 }
 
 // Post the state of the user's workspace
-export function postClassList(options = {}) {
+export function postClassList(params = {}, options = {}) {
   const {
     workspaceId,
+    isSubmitted,
     stepIndex,
     schoolId,
     gradeLevelNextYear,
@@ -43,14 +44,16 @@ export function postClassList(options = {}) {
     planText,
     studentIdsByRoom,
     principalNoteText,
+    feedbackText,
     clientNowMs
-  } = options;
+  } = params;
 
   const url = `/api/class_lists/${workspaceId}/update_class_list_json`;
   const body = {
     workspace_id: workspaceId,
     school_id: schoolId,
     grade_level_next_year: gradeLevelNextYear,
+    submitted: isSubmitted,
     json: {
       stepIndex,
       authors,
@@ -58,10 +61,11 @@ export function postClassList(options = {}) {
       planText,
       studentIdsByRoom,
       principalNoteText,
+      feedbackText,
       clientNowMs
     }
   };
-  return apiPostJson(url, body);
+  return apiPostJson(url, body, options);
 }
 
 export function fetchProfile(workspaceId, studentId) {

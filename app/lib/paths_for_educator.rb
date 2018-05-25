@@ -8,6 +8,10 @@ class PathsForEducator
   def navbar_links
     links = {}
 
+    if PerDistrict.new.enabled_class_lists? && ClassListQueries.new(@educator).is_relevant_for_educator?
+      links[:classlists] = '/classlists'
+    end
+
     if @educator.districtwide_access?
       links[:district] = url_helpers.educators_districtwide_path
     end

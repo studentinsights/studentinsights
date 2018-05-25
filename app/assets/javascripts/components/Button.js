@@ -19,7 +19,7 @@ export default function Button({children, onClick, style = {}, hoverStyle = {}})
     </Hover>
   );
 }
-Button.propTypes = {
+const propTypes = Button.propTypes = {
   children: React.PropTypes.node.isRequired,
   onClick: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
@@ -41,3 +41,22 @@ const styles = {
     background: '#2275d7',
   }
 };
+
+
+// Red for a serious kind of action (submit, delete).
+export function SeriousButton(props) {
+  const mergedProps = {
+    ...props,
+    style: {
+      ...(props.style || {}),
+      backgroundColor: '#E5370E'
+    },
+    hoverStyle: {
+      ...(props.hoverStyle || {}),
+      backgroundColor: '#b52b0b'
+    }
+  };
+
+  return <Button {...mergedProps} />;
+}
+SeriousButton.propTypes = propTypes;

@@ -1,6 +1,5 @@
 class ClassListsController < ApplicationController
-  # This entire feature is Somerville-specific
-  before_action :ensure_somerville_only!
+  before_action :ensure_feature_enabled_for_district!
 
   # For showing the list of all workspaces that the user can read
   def workspaces_json
@@ -41,20 +40,21 @@ class ClassListsController < ApplicationController
     params.require(:workspace_id)
 
     # schools
-    default_school_id = current_educator.school_id
-    school_ids = queries.supported_schools.map(&:id)
+    school_ids = queries.supported_schools.map(&:id).select do |school_id|
+      queries.is_authorized_for_school_id?(school_id)
+    end
     schools_json = School.find(school_ids).as_json(only: [:id, :name])
 
-    # grade levels
-    supported_grade_levels_next_year = queries.supported_grade_levels_next_year
+    # grade levels (include if any of their schools would allow it)
+    grade_levels_next_year = queries.supported_grade_levels_next_year.select do |grade_level_next_year|
+      grade_level_now = GradeLevels.new.previous(grade_level_next_year)
+      school_ids.any? {|school_id| queries.is_authorized_for_grade_level_now?(school_id, grade_level_now) }
+    end
     current_grade_level = current_educator.homeroom.try(:grade) || 'KF'
-    default_grade_level_next_year = GradeLevels.new.next(current_grade_level)
 
     render json: {
-      default_school_id: default_school_id,
       schools: schools_json,
-      default_grade_level_next_year: default_grade_level_next_year,
-      grade_levels_next_year: supported_grade_levels_next_year
+      grade_levels_next_year: grade_levels_next_year
     }
   end
 
@@ -131,16 +131,18 @@ class ClassListsController < ApplicationController
     params.require(:school_id)
     params.require(:grade_level_next_year)
     params.require(:json)
+    params.require(:submitted)
     workspace_id = params[:workspace_id]
     school_id = params[:school_id].to_i
     grade_level_next_year = params[:grade_level_next_year]
     json = params[:json]
+    submitted = ActiveModel::Type::Boolean.new.cast(params[:submitted])
 
     # Check that they are authorized for grade level
     grade_level_now = GradeLevels.new.previous(grade_level_next_year)
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(school_id, grade_level_now)
 
-    # Check that no one else has written to this workspace_id
+    # Check that they are authorized to write to this particular workspace (eg, not submitted yet).
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_writes?(workspace_id)
 
     # Write a new record
@@ -149,6 +151,7 @@ class ClassListsController < ApplicationController
       created_by_educator_id: current_educator.id,
       school_id: school_id,
       grade_level_next_year: grade_level_next_year,
+      submitted: submitted,
       json: json # left opaque for UI to iterate
     })
     class_list_json = serialize_class_list(class_list)
@@ -211,6 +214,7 @@ class ClassListsController < ApplicationController
       :created_by_educator_id,
       :school_id,
       :grade_level_next_year,
+      :submitted,
       :json
     ])
   end
@@ -224,8 +228,7 @@ class ClassListsController < ApplicationController
     end
   end
 
-  def ensure_somerville_only!
-    district_key = PerDistrict.new.district_key
-    raise Exceptions::EducatorNotAuthorized unless district_key == PerDistrict::SOMERVILLE
+  def ensure_feature_enabled_for_district!
+    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_class_lists?
   end
 end
