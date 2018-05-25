@@ -21,7 +21,7 @@ export const STEPS = [
   'Create your classrooms',
   'Share with principal',
   'Principal finalizes',
-  'Export spreadsheet'
+  'Export'
 ];
 
 
@@ -138,7 +138,7 @@ export default class ClassListCreatorPage extends React.Component {
 
     if (schoolId === null || gradeLevelNextYear === null) return [0];
     if (!isSubmitted) return [0, 1, 2, 3];
-    return [0, 1, 2, 3, 4, 5];
+    return [0, 1, 2, 3, 4, 5]; // TODO(kr) bug with null studentIdsByRoom
   }
 
   canChangeSchoolOrGrade() {

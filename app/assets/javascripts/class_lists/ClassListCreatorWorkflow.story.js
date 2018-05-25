@@ -6,7 +6,8 @@ import storybookFrame from './storybookFrame';
 import {
   chooseYourGradeProps,
   makeAPlanProps,
-  notesToPrincipalProps
+  shareWithPrincipalProps,
+  exportProps
 } from './ClassListCreatorWorkflow.test';
 
 function withStoryProps(props = {}) {
@@ -36,18 +37,19 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
   .add('Choose your grade, readonly', () => render(withStoryProps(chooseYourGradeProps({ isEditable: false }))))
   .add('Make a plan', () => render(withStoryProps(makeAPlanProps())))
   .add('Make a plan, readonly', () => render(withStoryProps(makeAPlanProps({ isEditable: false }))))
-  .add('Notes to principal', () => render(withStoryProps(notesToPrincipalProps())))
-  .add('Notes to principal, saving', () => {
-    return render(withStoryProps(notesToPrincipalProps({
+  .add('Share with principal', () => render(withStoryProps(shareWithPrincipalProps())))
+  .add('Share with principal, saving', () => {
+    return render(withStoryProps(shareWithPrincipalProps({
       isEditable: false,
       isSubmitted: true,
       isDirty: true,
     })));
   })
-  .add('Notes to principal, readonly', () => {
-    return render(withStoryProps(notesToPrincipalProps({
+  .add('Share with principal, readonly', () => {
+    return render(withStoryProps(shareWithPrincipalProps({
       isEditable: false,
       isSubmitted: true
     })));
-  });
+  })
+  .add('Export', () => render(withStoryProps(exportProps())));
 

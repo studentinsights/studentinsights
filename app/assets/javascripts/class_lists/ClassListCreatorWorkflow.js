@@ -6,7 +6,6 @@ import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
 import {SeriousButton} from '../components/Button';
 import SuccessLabel from '../components/SuccessLabel';
-import Button from '../components/Button';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
 import PrincipalFinalizes from './PrincipalFinalizes';
@@ -69,7 +68,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 1) return this.renderMakeAPlan();
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
     if (stepIndex === 3) return this.renderNotesToPrincipal();
-    if (stepIndex === 4) return this.renderShareWithPrincipal();
+    if (stepIndex === 4) return this.renderPrincipalFinalizes();
     if (stepIndex === 5) return this.renderSecretaryEnters();
   }
 
