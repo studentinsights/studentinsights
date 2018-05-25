@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe 'educator sign in using database_authenticatable not LDAP', type: :feature do
+describe 'educator sign in using Mock LDAP', type: :feature do
   let!(:pals) { TestPals.create! }
 
   context 'teacher signs in' do
