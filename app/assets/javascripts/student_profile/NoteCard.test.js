@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
+import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
 import {studentProfile} from './fixtures';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';

@@ -7,7 +7,7 @@ import 'raf/polyfill';
 
 // Enzyme support
 import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from 'enzyme-adapter-react-15.4';
 Enzyme.configure({ adapter: new Adapter() });
 
 // These are for MountTimer and measurePageLoad.

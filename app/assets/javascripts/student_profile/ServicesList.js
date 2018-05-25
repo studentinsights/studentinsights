@@ -72,7 +72,7 @@ export default class ServicesList extends React.Component {
       ? <div style={styles.noItems}>
       No services
     </div>
-      : this.sortedMergedServices(this.props.servicesFeed).map(this.renderService);
+      : this.sortedMergedServices(this.props.servicesFeed).map(this.renderService, this);
     return (
       <div className="ServicesList">
         {elements}
