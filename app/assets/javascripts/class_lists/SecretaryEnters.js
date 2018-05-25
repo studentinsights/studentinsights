@@ -2,10 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import Button from '../components/Button';
-import SectionHeading from '../components/SectionHeading';
+import SuccessLabel from '../components/SuccessLabel';
 import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
-import {toMomentFromTime} from '../helpers/toMoment';
 import {
   UNPLACED_ROOM_KEY,
   createRooms
@@ -31,7 +30,6 @@ export default class SecretaryEnters extends React.Component {
         return [
           gradeLevelNextYear,
           student.id, // TODO(kr) not real
-          toMomentFromTime(student.date_of_birth).format('M/D/YYYY'),
           `${student.first_name} ${student.last_name}`,
           teacherText
         ];
@@ -56,65 +54,68 @@ export default class SecretaryEnters extends React.Component {
 
     return (
       <div className="SecretaryEnters">
-        <SectionHeading>Next year's {gradeText(gradeLevelNextYear)}</SectionHeading>
+        {this.renderUnplaced()}
         {this.renderTeacherAssignment()}
-        {this.renderTable(rows)}
+        {/* {this.renderTable(rows)} */}
         {this.renderDownloadListsLink(rows)}
       </div>
     );
+  }
+
+  renderUnplaced() {
+    const {studentIdsByRoom} = this.props;
+    const unplacedCount = studentIdsByRoom[UNPLACED_ROOM_KEY].length;
+    if (unplacedCount === 0) return <SuccessLabel style={styles.placementMessage} text="All students have been placed." />;
+    if (unplacedCount === 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There is one student who has not been placed in a classroom.`} />;
+    if (unplacedCount > 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There are ${unplacedCount} students who have not been placed in a classroom.`} />;
   }
 
   renderTeacherAssignment() {
     const {studentIdsByRoom} = this.props;
     const {roomTeachers} = this.state;
     const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1).filter(room => {
-      return room.roomKey === UNPLACED_ROOM_KEY;
+      return room.roomKey !== UNPLACED_ROOM_KEY;
     });
 
     return (
-      <div>
-        UNPLACED!!!!!!!!!!!!!!!!
-        <table style={tableStyles.table}>
-          <thead>
-            <tr>
-              <th style={tableStyles.headerCell}>Room</th>
-              <th style={tableStyles.headerCell}>Teacher</th>
+      <table style={{...tableStyles.table, marginLeft: 0}}>
+        <thead>
+          <tr>
+            <th style={tableStyles.headerCell}>Room</th>
+            <th style={tableStyles.headerCell}>Teacher</th>
+          </tr>
+        </thead>
+        <tbody>{rooms.map(room => {
+          const teacherText = roomTeachers[room.roomKey] || '';
+          return (
+            <tr key={room.roomKey}>
+              <td style={tableStyles.cell}>{room.roomName}</td>
+              <td style={tableStyles.cell}>
+                <input style={styles.input} type="text" onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)} value={teacherText} />
+              </td>
             </tr>
-          </thead>
-          <tbody>{rooms.map(room => {
-            const teacherText = roomTeachers[room.roomKey] || '';
-            return (
-              <tr key={room.roomKey}>
-                <td style={tableStyles.cell}>{room.roomName}</td>
-                <td style={tableStyles.cell}>
-                  <input type="text" onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)} value={teacherText} />
-                </td>
-              </tr>
-            );
-          })}</tbody>
-        </table>
-      </div>
+          );
+        })}</tbody>
+      </table>
     );
   }
 
   renderTable(rows) {
     return (
-      <table style={tableStyles.table}>
+      <table style={{...tableStyles.table, marginLeft: 0}}>
         <thead>
           <tr>
             <th style={tableStyles.headerCell}>Grade next year</th>
             <th style={tableStyles.headerCell}>LASID</th>
-            <th style={tableStyles.headerCell}>Date of birth</th>
             <th style={tableStyles.headerCell}>Student name</th>
             <th style={tableStyles.headerCell}>Homeroom teacher next year</th>
           </tr>
         </thead>
         <tbody>{rows.map(row => {
-          const [gradeLevelNextYear, id, dateOfBirth, name, teacherText] = row;
+          const [gradeLevelNextYear, id, name, teacherText] = row;
           return (
             <tr key={id}>
               <td style={tableStyles.cell}>{gradeLevelNextYear}</td>
-              <td style={tableStyles.cell}>{dateOfBirth}</td>
               <td style={tableStyles.cell}>{id}</td>
               <td style={tableStyles.cell}>{name}</td>
               <td style={tableStyles.cell}>{teacherText}</td>
@@ -130,15 +131,18 @@ export default class SecretaryEnters extends React.Component {
     const gradeLevelText = gradeText(gradeLevelNextYear);
     const dateText = moment.utc().format('YYYY-MM-DD');
     const filename = `Class list: ${gradeLevelText} at ${school.name} ${dateText}.csv`;
-    const header = 'Student name,LASID,Room next year';
+    const header = 'Grade level next year,LASID,Student name,Room next year';
     const csvText = [header].concat(rows).join('\n');
+
+    // Button onClick does nothing, since DownloadCsvLink handles it,
+    // we're just using Button for the visual.
     return (
       <Button>
         <DownloadCsvLink
+          style={{textDecoration: 'none', color: 'white'}}
           filename={filename}
-          csvText={csvText}
-          style={{paddingLeft: 20}}>
-          Download for Excel
+          csvText={csvText}>
+          Download class lists spreadsheet
         </DownloadCsvLink>
       </Button>
     );
@@ -154,3 +158,18 @@ SecretaryEnters.propTypes = {
 };
 
 
+const styles = {
+  placementMessage: {
+    display: 'inline-block',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  placementWarning: {
+    backgroundColor: 'orange',
+    color: 'white',
+    borderColor: 'darkorange'
+  },
+  input: {
+    fontSize: 14
+  }
+};

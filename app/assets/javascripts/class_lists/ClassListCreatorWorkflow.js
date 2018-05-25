@@ -312,6 +312,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const school = _.find(schools, {id: schoolId});
     return (
       <div style={styles.stepContent}>
+        <div style={styles.titleHeading}>Export: Next year's {gradeText(gradeLevelNextYear)}</div>
         <SecretaryEnters
           school={school}
           gradeLevelNextYear={gradeLevelNextYear}
