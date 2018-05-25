@@ -1,9 +1,4 @@
 RSpec.describe 'LdapAuthenticatableTiny' do
-  def set_env
-    ENV['DISTRICT_LDAP_HOST'] = 'foo.com'
-    ENV['DISTRICT_LDAP_PORT'] = '12345'
-    ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON'] = test_tls_options_text
-  end
 
   def test_strategy
     warden_env = nil
@@ -83,7 +78,11 @@ RSpec.describe 'LdapAuthenticatableTiny' do
   end
 
   describe '#ldap_options_for' do
-    before { set_env }
+    before do
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_HOST').and_return('foo.com')
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_PORT').and_return('12345.com')
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON').and_return(test_tls_options_text)
+   end
 
     it 'respects environment variables' do
       strategy = test_strategy
