@@ -34,3 +34,15 @@ export function dibelsLevel(dibels) {
   if (performanceLevel.indexOf('int') !== -1) return 'intensive';
   return null;
 }
+
+// Bucket STAR percentiles into high/medium/low
+export const starBucketThresholds = [0, 0.30, 0.70, 1];
+export function starBucket(percentile) {
+  if (percentile == null) return null;
+
+  const lowThreshold = 100 * starBucketThresholds[1];
+  const highThreshold = 100 * starBucketThresholds[2];
+  if (percentile < lowThreshold) return 'low';
+  if (percentile > highThreshold) return 'high';
+  return 'medium';
+}
