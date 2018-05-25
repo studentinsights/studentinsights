@@ -2,7 +2,6 @@ namespace :gaps do
   desc 'Report on gaps in low grades across roles'
   task low_grades: :environment do
     time_now = Time.now
-    limit = 100
     time_threshold = time_now - 45.days
     grade_threshold = 69
 
@@ -36,7 +35,6 @@ namespace :gaps do
   desc 'Report on gaps in high absences across roles'
   task high_absences: :environment do
     time_now = Time.now
-    limit = 100
     time_threshold = time_now - 45.days
     absences_threshold = 4
 
@@ -64,13 +62,13 @@ namespace :gaps do
         top_names = students_with_high_absences_json.first(10).map do |s|
           "#{s[:student]['first_name']} #{s[:student]['last_name']}"
         end
-        [educator.email, students_with_high_absences_json.size].join(delim)
+        [educator.email, students_with_high_absences_json.size, top_names.first(3).join(delim)].join(delim)
       end
-      puts "High Absences at #{school.name} for #{time_now.strftime("%Y-%m-%d")} (#{educators.size} educators)"
+      puts "\n\nHigh Absences at #{school.name} for #{time_now.strftime("%Y-%m-%d")} (#{educators.size} educators)"
       puts "-------------------------------------"
       puts (["email#{delim}count#{delim}students"] + lines).join("\n")
-    end;nil
-
+      nil
+    end
     nil
   end
 end
