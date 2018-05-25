@@ -106,7 +106,6 @@ RSpec.describe 'LdapAuthenticatableTiny' do
   end
 
   describe '#is_authorized_by_ldap? calls Net::LDAP correctly' do
-    before { set_env }
     let!(:pals) { TestPals.create! }
 
     it 'returns false and locks for invalid credentials' do
