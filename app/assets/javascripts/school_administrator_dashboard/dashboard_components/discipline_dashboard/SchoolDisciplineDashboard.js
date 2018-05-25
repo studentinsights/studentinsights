@@ -137,7 +137,7 @@ class SchoolDisciplineDashboard extends React.Component {
     const categories = this.sortChartKeys(Object.keys(selectedChart.disciplineIncidents));
     const seriesData = categories.map((type) => {
       if (!selectedChart.disciplineIncidents[type]) return [];
-      const incidents = this.filterIncidentDates(selectedChart.disciplineIncidents[type]);
+      const incidents = selectedChart.disciplineIncidents[type];
       return [type, incidents.length];
     });
 
