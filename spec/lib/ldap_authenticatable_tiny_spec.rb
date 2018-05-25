@@ -1,9 +1,4 @@
 RSpec.describe 'LdapAuthenticatableTiny' do
-  def set_env
-    ENV['DISTRICT_LDAP_HOST'] = 'foo.com'
-    ENV['DISTRICT_LDAP_PORT'] = '12345'
-    ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON'] = test_tls_options_text
-  end
 
   def test_strategy
     warden_env = nil
@@ -49,7 +44,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'supersecure').and_return false
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return false
 
       strategy.authenticate!
       expect(strategy.result).to eq :failure
@@ -61,7 +56,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'URI@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('URI@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'URI@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -73,7 +68,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -83,7 +78,11 @@ RSpec.describe 'LdapAuthenticatableTiny' do
   end
 
   describe '#ldap_options_for' do
-    before { set_env }
+    before do
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_HOST').and_return('foo.com')
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_PORT').and_return('12345.com')
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON').and_return(test_tls_options_text)
+   end
 
     it 'respects environment variables' do
       strategy = test_strategy
@@ -106,43 +105,58 @@ RSpec.describe 'LdapAuthenticatableTiny' do
   end
 
   describe '#is_authorized_by_ldap? calls Net::LDAP correctly' do
-    before { set_env }
+    let!(:pals) { TestPals.create! }
 
     it 'returns false and locks for invalid credentials' do
-      mock_ldap = instance_double(Net::LDAP)
-      expect(mock_ldap).to receive(:bind) { false }
-      expect(mock_ldap).to receive(:get_operation_result) { 'result-error-message' }
-      expect(Net::LDAP).to receive(:new).and_return(mock_ldap)
-
       strategy = test_strategy
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', 'bar')).to eq false
+
+      args = [
+        :is_authorized_by_ldap?,
+        MockLDAP,
+        'uri@demo.studentinsights.org',
+        'bar'
+      ]
+
+      expect(strategy.send(*args)).to eq false
     end
 
     it 'returns true for valid credentials' do
-      mock_ldap = instance_double(Net::LDAP)
-      expect(mock_ldap).to receive(:bind) { true }
-      expect(Net::LDAP).to receive(:new).and_return(mock_ldap)
-
       strategy = test_strategy
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', 'bar')).to eq true
+
+      args = [
+        :is_authorized_by_ldap?,
+        MockLDAP,
+        'uri@demo.studentinsights.org',
+        'demo-password'
+      ]
+
+      expect(strategy.send(*args)).to eq true
     end
 
     it 'returns false for nil password regardless' do
-      mock_ldap = instance_double(Net::LDAP)
-
       strategy = test_strategy
-      expect(mock_ldap).not_to receive(:bind)
-      expect(Net::LDAP).not_to receive(:new)
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', nil)).to eq false
+
+      args = [
+        :is_authorized_by_ldap?,
+        MockLDAP,
+        'uri@demo.studentinsights.org',
+        nil
+      ]
+
+      expect(strategy.send(*args)).to eq false
     end
 
     it 'returns false for empty password regardless' do
-      mock_ldap = instance_double(Net::LDAP)
-
       strategy = test_strategy
-      expect(mock_ldap).not_to receive(:bind)
-      expect(Net::LDAP).not_to receive(:new)
-      expect(strategy.send(:is_authorized_by_ldap?, 'foo', '')).to eq false
+
+      args = [
+        :is_authorized_by_ldap?,
+        MockLDAP,
+        'uri@demo.studentinsights.org',
+        ''
+      ]
+
+      expect(strategy.send(*args)).to eq false
     end
   end
 end

@@ -6,7 +6,7 @@ describe 'educator sign in using database_authenticatable not LDAP', type: :feat
 
   context 'teacher signs in' do
     def expect_successful_sign_in_for(educator)
-      educator_sign_in(educator)
+      sign_in_attempt(educator.email, 'demo-password')
       expect(page).to have_content 'Search for student:'
     end
 
