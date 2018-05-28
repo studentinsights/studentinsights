@@ -188,7 +188,7 @@ import TransitionNotes from './TransitionNotes';
     },
 
     renderTransitionNote: function() {
-      const {currentEducator} = this.props;
+      const {currentEducator, actions} = this.props;
       const labels = currentEducator.labels;
 
       const isElemCounselor = _.includes(labels, 'k8_counselor');
@@ -197,7 +197,10 @@ import TransitionNotes from './TransitionNotes';
       if (!isElemCounselor && !isHouseMaster) return null;
 
       return (
-        <TransitionNotes readOnly={isHouseMaster} />
+        <TransitionNotes
+          readOnly={isHouseMaster}
+          onSave={actions.onClickSaveTransitionNote}
+        />
       );
     },
 

@@ -11,10 +11,10 @@ class Api {
 
   saveTransitionNote(studentId, noteParams) {
     if (noteParams.id) {
-      return this._updateTransitionNote(studentId, eventNoteParams);
+      return this._updateTransitionNote(studentId, noteParams);
     }
     else {
-      return this._createTransitionNote(studentId, eventNoteParams);
+      return this._createTransitionNote(studentId, noteParams);
     }
   }
 

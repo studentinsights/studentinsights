@@ -51,9 +51,11 @@ class TransitionNotes extends React.Component {
   }
 
   onClickSave() {
+    this.props.onSave({text: this.state.noteText});
   }
 
   onClickSaveRestricted() {
+    this.props.onSave({text: this.state.restrictedNoteText});
   }
 
   render() {
@@ -95,6 +97,7 @@ class TransitionNotes extends React.Component {
 
 TransitionNotes.propTypes = {
   readOnly: PropTypes.bool.isRequired,
+  onSave: PropTypes.func.isRequired,
 };
 
 export default TransitionNotes;
