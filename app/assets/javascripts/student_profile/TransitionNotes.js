@@ -38,7 +38,27 @@ Is this student receiving mental health supports?
 
 class TransitionNotes extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      noteText: notePrompts,
+      restrictedNoteText: restrictedNotePrompts,
+    };
+
+    this.onClickSave = this.onClickSave.bind(this);
+    this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
+  }
+
+  onClickSave() {
+  }
+
+  onClickSaveRestricted() {
+  }
+
   render() {
+    const {noteText, restrictedNoteText} = this.state;
+
     return (
       <div style={{display: 'flex'}}>
         <div style={{flex: 1, margin: 30}}>
@@ -48,8 +68,9 @@ class TransitionNotes extends React.Component {
           <textarea
             rows={10}
             style={styles.textarea}
-            value={notePrompts} />
-          <button className="btn save">
+            value={noteText}
+            onChange={(e) => this.setState({noteText: e.target.value})} />
+          <button onClick={this.onClickSave} className="btn save">
             Save note
           </button>
         </div>
@@ -60,8 +81,9 @@ class TransitionNotes extends React.Component {
           <textarea
             rows={10}
             style={styles.textarea}
-            value={restrictedNotePrompts} />
-          <button className="btn save">
+            value={restrictedNoteText}
+            onChange={(e) => this.setState({restrictedNoteText: e.target.value})}/>
+          <button onClick={this.onClickSaveRestricted} className="btn save">
             Save note
           </button>
         </div>
