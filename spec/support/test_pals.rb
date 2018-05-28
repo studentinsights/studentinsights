@@ -168,6 +168,17 @@ class TestPals
       homeroom: @west_fifth_homeroom,
       school: @west
     )
+    @west_counselor = Educator.create!(
+      email: "les@demo.studentinsights.org",
+      full_name: "Counselor, Les",
+      local_id: '551',
+      school: @west,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!(
+      educator: @west_counselor,
+      label_key: 'k8_counselor'
+    )
 
     # high school
     @shs = School.find_by_local_id!('SHS')
