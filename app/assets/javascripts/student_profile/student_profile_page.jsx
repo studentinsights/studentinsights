@@ -11,6 +11,7 @@ import Scales from '../student_profile/Scales';
 import SummaryList from '../student_profile/SummaryList';
 import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
 import {cumulativeByMonthFromEvents} from './QuadConverter';
+import TransitionNotes from './TransitionNotes';
 
 (function() {
   window.shared || (window.shared = {});
@@ -178,10 +179,25 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
             {this.renderAttendanceColumn()}
             {this.renderInterventionsColumn()}
           </div>
+          {this.renderTransitionNote()}
           <div style={styles.detailsContainer}>
             {this.renderSectionDetails()}
           </div>
         </div>
+      );
+    },
+
+    renderTransitionNote: function() {
+      const {currentEducator} = this.props;
+      const labels = currentEducator.labels;
+
+      const isElemCounselor = _.includes(labels, 'k8_counselor');
+      const isHouseMaster = _.includes(labels, 'high_school_house_master');
+
+      if (!isElemCounselor && !isHouseMaster) return null;
+
+      return (
+        <TransitionNotes readOnly={isHouseMaster} />
       );
     },
 
