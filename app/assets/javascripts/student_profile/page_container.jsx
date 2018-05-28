@@ -152,6 +152,10 @@ function fromPair(key, value) {
         .fail(this.onSaveNotesFail);
     },
 
+    onClickSaveTransitionNote: function(noteParams) {
+      this.api.saveTransitionNote(this.state.student.id, noteParams);
+    },
+
     onSaveNotesDone: function(response) {
       let updatedEventNotes;
       let foundEventNote = false;
@@ -290,6 +294,7 @@ function fromPair(key, value) {
               actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
+                onClickSaveTransitionNote: this.onClickSaveTransitionNote,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
                 onClickDiscontinueService: this.onClickDiscontinueService,

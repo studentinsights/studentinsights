@@ -9,6 +9,15 @@ class Api {
     }
   }
 
+  saveTransitionNote(studentId, noteParams) {
+    if (noteParams.id) {
+      return this._updateTransitionNote(studentId, eventNoteParams);
+    }
+    else {
+      return this._createTransitionNote(studentId, eventNoteParams);
+    }
+  }
+
   deleteEventNoteAttachment(id) {
     const url = '/event_note_attachments/' + id;
     return this._delete(url);
@@ -26,6 +35,16 @@ class Api {
     });
   }
 
+  _createTransitionNote(studentId, noteParams) {
+    return this._post('/students/' + studentId + '/transition_notes.json', {
+      transition_note: {
+        text: noteParams.text,
+        student_id: studentId,
+        is_restricted: noteParams.is_restricted || false,
+      }
+    });
+  }
+
   _updateNote(studentId, eventNoteParams) {
     const id = eventNoteParams.id;
 
@@ -34,6 +53,18 @@ class Api {
         id: eventNoteParams.id,
         event_note_type_id: eventNoteParams.eventNoteTypeId,
         text: eventNoteParams.text,
+        student_id: studentId
+      }
+    });
+  }
+
+  _updateTransitionNote(studentId, noteParams) {
+    const id = noteParams.id;
+
+    return this._put('/students/' + studentId + '/transition_notes/' + id + '.json', {
+      event_note: {
+        id: noteParams.id,
+        text: noteParams.text,
         student_id: studentId
       }
     });

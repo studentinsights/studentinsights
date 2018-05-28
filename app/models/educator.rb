@@ -9,6 +9,7 @@ class Educator < ActiveRecord::Base
   has_many    :section_students, source: :students, through: :sections
   has_many    :interventions
   has_many    :event_notes
+  has_many    :transition_notes
   has_many    :event_note_revisions
   has_many    :educator_labels
 
