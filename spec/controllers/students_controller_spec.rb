@@ -56,7 +56,8 @@ describe StudentsController, :type => :controller do
 
         it 'assigns the student\'s serialized data correctly' do
           make_request({ student_id: student.id, format: :html })
-          expect(serialized_data[:current_educator]).to eq educator
+          expect(serialized_data[:current_educator]['id']).to eq educator['id']
+          expect(serialized_data[:current_educator]['email']).to eq educator['email']
           expect(serialized_data[:student]["id"]).to eq student.id
           expect(serialized_data[:student]["restricted_notes_count"]).to eq 0
 
