@@ -10,6 +10,32 @@ const styles = {
   }
 };
 
+const notePrompts = `What are this student's strengths?
+——————————
+
+
+What is this student's involvement in the school community like?
+——————————
+
+
+How does this student relate to their peers?
+——————————
+
+
+Any additional comments or good things to know about this student?
+——————————
+
+
+`;
+
+const restrictedNotePrompts = `Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
+——————————
+
+
+Is this student receiving mental health supports?
+——————————
+  `;
+
 class TransitionNotes extends React.Component {
 
   render() {
@@ -22,8 +48,7 @@ class TransitionNotes extends React.Component {
           <textarea
             rows={10}
             style={styles.textarea}
-            ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-            value={''} />
+            value={notePrompts} />
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -32,8 +57,7 @@ class TransitionNotes extends React.Component {
           <textarea
             rows={10}
             style={styles.textarea}
-            ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-            value={''} />
+            value={restrictedNotePrompts} />
         </div>
       </div>
     );
