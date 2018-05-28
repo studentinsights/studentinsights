@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
-    resources :transition_note, only: [:create, :update]
+    resources :transition_notes, only: [:create, :update]
 
     member do
       get :student_report
