@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
     chart_data = StudentProfileChart.new(student).chart_data
 
     @serialized_data = {
-      current_educator: current_educator,
+      current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
