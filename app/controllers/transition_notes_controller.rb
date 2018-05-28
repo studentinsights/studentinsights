@@ -34,8 +34,8 @@ class TransitionNotesController < ApplicationController
 
   private
 
-    def event_note_params
-      params.require(:transition_note_params).permit(
+    def transition_note_params
+      params.require(:transition_note).permit(
         :student_id,
         :text,
         :is_restricted,
