@@ -49,6 +49,9 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={notePrompts} />
+          <button className="btn save">
+            Save note
+          </button>
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -58,6 +61,9 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={restrictedNotePrompts} />
+          <button className="btn save">
+            Save note
+          </button>
         </div>
       </div>
     );
