@@ -1,4 +1,4 @@
-import parseQueryString from '../../../app/assets/javascripts/student_profile/parse_query_string.js';
+import parseQueryString from './parseQueryString';
 
 describe('parseQueryString', () => {
   it('parses a string without crashing', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import parseQueryString from './parse_query_string';
+import parseQueryString from './parseQueryString';
 import PageContainer from './PageContainer';
 
 
