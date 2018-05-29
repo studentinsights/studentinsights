@@ -11,12 +11,7 @@ export default class ServicesList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      hoveringDiscontinueServiceId: null,
-      hoveringCancelServiceId: null,
-      discontinuingServiceId: null
-    };
-
+    this.state = initialState();
     this.onMouseLeaveCancel = this.onMouseLeaveCancel.bind(this);
     this.onMouseLeaveDiscontinue = this.onMouseLeaveDiscontinue.bind(this);
   }
@@ -37,18 +32,18 @@ export default class ServicesList extends React.Component {
   onClickDiscontinueService(serviceId) {
     if (this.state.discontinuingServiceId !== serviceId) {
       this.setState({
-        ...this.getInitialState(),
+        ...initialState(),
         discontinuingServiceId: serviceId
       });
       return;
     }
 
     this.props.onClickDiscontinueService(serviceId);
-    this.setState(this.getInitialState());
+    this.setState(initialState());
   }
 
   onClickCancelDiscontinue(serviceId) {
-    this.setState(this.getInitialState());
+    this.setState(initialState());
   }
 
   onMouseEnterDiscontinue(serviceId) {
@@ -271,6 +266,13 @@ ServicesList.propTypes = {
   onClickDiscontinueService: PropTypes.func.isRequired
 };
   
+function initialState() {
+  return {
+    hoveringDiscontinueServiceId: null,
+    hoveringCancelServiceId: null,
+    discontinuingServiceId: null
+  };
+}
 
 const styles = {
   noItems: {
