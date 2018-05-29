@@ -1,4 +1,4 @@
-import TakeNotes from './take_notes.jsx';
+import TakeNotes from './TakeNotes';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import React from 'react';
 import HelpBubble from '../components/HelpBubble';
