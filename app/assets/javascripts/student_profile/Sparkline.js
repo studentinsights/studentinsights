@@ -84,7 +84,7 @@ export default class Sparkline extends React.Component {
       );
     });
   }
-};
+}
 Sparkline.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,

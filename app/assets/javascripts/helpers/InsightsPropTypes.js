@@ -2,10 +2,6 @@ import PropTypes from 'prop-types';
 
 
 // UI actions, stepping stone to Flux
-
-import React from 'react';
-
-
 export const actions = PropTypes.shape({
   onColumnClicked: PropTypes.func,
   onClickSaveNotes: PropTypes.func,

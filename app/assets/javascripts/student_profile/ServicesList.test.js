@@ -65,9 +65,7 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
   it('asks for confirmation before discontinuing', function() {
     const el = container.testEl;
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
-    console.log('before', $(el).html());
     $(el).find('.btn').click();
-    console.log('after', $(el).html());
     expect($(el).text()).toContain('Confirm');
     expect($(el).text()).toContain('Cancel');
   });
