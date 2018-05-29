@@ -25,6 +25,17 @@ class IepPdfImportJob
     import_ieps!(remote_filenames)
   end
 
+  # Each ZIP file sent down from EasyIEP has a number at the end, the number
+  # indicates that the ZIP contains a set of changed IEPs from `n` days ago.
+  #
+  # If there are no IEPs on any given day, that number may be missing from the
+  # sequence.
+  #
+  # The most recent change set (student-documents-1.zip), is the only one we really
+  # need to import, but the rest are sent down in case the import job fails
+  # and we need to catch up on missed change sets.
+  #
+  # Order is important here.
   def nightly_import!
     remote_filenames = [
       'student-documents-6.zip',
