@@ -1,5 +1,4 @@
 import React from 'react';
-import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import HelpBubble from '../components/HelpBubble';
