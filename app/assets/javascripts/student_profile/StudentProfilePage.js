@@ -15,7 +15,7 @@ import {cumulativeByMonthFromEvents} from './QuadConverter';
 import Sparkline from './Sparkline';
 import StudentProfileHeader from './StudentProfileHeader';
 import ProfileDetails from './ProfileDetails';
-import ServicesDetails from './ServicesDetails';
+import ServiceDetails from './ServiceDetails';
 
 // This component has some Rails SCSS still.
 export default class StudentProfilePage extends React.Component {
@@ -157,7 +157,7 @@ export default class StudentProfilePage extends React.Component {
               noteInProgressText={this.props.noteInProgressText}
               noteInProgressType={this.props.noteInProgressType}
               noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls }/>
-            <ServicesDetails
+            <ServiceDetails
               student={this.props.student}
               serviceTypesIndex={this.props.serviceTypesIndex}
               educatorsIndex={this.props.educatorsIndex}

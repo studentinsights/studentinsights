@@ -1,5 +1,6 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
-import MathDetails from '../../../app/assets/javascripts/student_profile/MathDetails';
+import MathDetails from './MathDetails';
 
 describe('data', function () {
   it('renders without crashing', () => {

@@ -17,12 +17,12 @@ export default class NotesList extends React.Component {
       <div className="NotesList">
         {(mergedNotes.length === 0) ? <div style={styles.noItems}>
           No notes
-        </div> : mergedNotes.map(function(mergedNote) {
+        </div> : mergedNotes.map(mergedNote => {
           switch (mergedNote.type) {
           case 'event_notes': return this.renderEventNote(mergedNote);
           case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
           }
-        }, this)}
+        })}
       </div>
     );
   }
@@ -64,7 +64,7 @@ export default class NotesList extends React.Component {
       <NoteCard
         key={['deprecated_intervention', deprecatedIntervention.id].join()}
         noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp, 'MMMM-YY-DD')}
-        badge={React.createElement("span", { style: styles.badge }, 'Old intervention')}
+        badge={<span style={styles.badge}>Old intervention</span>}
         educatorId={deprecatedIntervention.educator_id}
         text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}
         educatorsIndex={this.props.educatorsIndex}

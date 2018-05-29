@@ -4,7 +4,6 @@ import {
   nowMoment,
   currentEducator
 } from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import TakeNotes from './TakeNotes';
 
 export function testProps(props = {}) {

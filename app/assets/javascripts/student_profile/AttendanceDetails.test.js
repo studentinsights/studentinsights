@@ -1,5 +1,6 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
-import AttendanceDetails from '../../../app/assets/javascripts/student_profile/AttendanceDetails';
+import AttendanceDetails from './AttendanceDetails';
 
 describe('all empty data', function () {
   it('renders without crashing', () => {

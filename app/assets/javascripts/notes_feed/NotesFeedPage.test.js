@@ -1,5 +1,5 @@
-import NotesFeedPage from '../../../app/assets/javascripts/notes_feed/NotesFeedPage.js';
-import SpecSugar from '../support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import NotesFeedPage from './NotesFeedPage';
 
 SpecSugar.withTestEl('high-level integration tests', function(container) {
   describe('NotesFeedPage', () => {

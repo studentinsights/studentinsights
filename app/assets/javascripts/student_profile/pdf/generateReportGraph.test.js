@@ -1,4 +1,4 @@
-import generateReportGraph from '../../../app/assets/javascripts/student_profile/pdf/GenerateReportGraph';
+import generateReportGraph from './generateReportGraph';
 
 describe('generateReportGraph', () => {
   it('generates graph without crashing', () => {

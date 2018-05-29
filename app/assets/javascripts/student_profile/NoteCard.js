@@ -7,7 +7,7 @@ import moment from 'moment';
 import * as Routes from '../helpers/Routes';
 
 
-  // This renders a single card for a Note of any type.
+// This renders a single card for a Note of any type.
 export default class NoteCard extends React.Component {
   constructor(props) {
     super(props);
@@ -71,7 +71,7 @@ export default class NoteCard extends React.Component {
   renderAttachmentUrls() {
     const attachments = this.props.attachments;
 
-    return attachments.map(function(attachment) {
+    return attachments.map(attachment => {
       return (
         <div key={attachment.id}>
           <p>
@@ -90,7 +90,7 @@ export default class NoteCard extends React.Component {
           </p>
         </div>
       );
-    }, this);
+    });
   }
 
   // Can only remove attachments if callback is provided
@@ -170,14 +170,14 @@ NoteCard.propTypes = {
   badge: PropTypes.element.isRequired,
   educatorId: PropTypes.number.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
+  noteMoment: PropTypes.instanceOf(moment).isRequired,
+  text: PropTypes.string.isRequired,
   eventNoteId: PropTypes.number,
   eventNoteTypeId: PropTypes.number,
-  noteMoment: PropTypes.instanceOf(moment).isRequired,
   numberOfRevisions: PropTypes.number,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
-  student: PropTypes.object,
-  text: PropTypes.string.isRequired
+  student: PropTypes.object
 };
 NoteCard.defaultProps = {
   numberOfRevisions: 0

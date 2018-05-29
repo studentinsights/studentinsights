@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SpecSugar from '../support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import ProfileBarChart from './ProfileBarChart';
 
 const helpers = {

@@ -1,4 +1,4 @@
-import Api from '../../../app/assets/javascripts/student_profile/Api.js';
+import Api from './Api';
 
 describe('Api', function() {
 

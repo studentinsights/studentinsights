@@ -32,7 +32,7 @@ const styles = {
   }
 };
 
-class ProfileBarChart extends React.Component {
+export default class ProfileBarChart extends React.Component {
   // Component for all charts in the profile page.
 
   // This returns a function, since HighCharts passes in the current element
@@ -160,5 +160,3 @@ ProfileBarChart.defaultProps = {
     return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
   }
 };
-
-export default ProfileBarChart;

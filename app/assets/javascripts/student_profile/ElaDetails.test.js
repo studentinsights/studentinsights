@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import ElaDetails from '../../../app/assets/javascripts/student_profile/ElaDetails';
+import ElaDetails from './ElaDetails';
 
 describe('data', function () {
   it('renders without crashing', () => {
