@@ -1,42 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProfileChart from '../student_profile/ProfileChart.js';
 import {merge} from '../helpers/merge';
+import ProfileChart from './ProfileChart';
+import ProfileChartSettings from './ProfileChartSettings';
 
-window.shared || (window.shared = {});
-const ProfileChartSettings = window.shared.ProfileChartSettings;
-
-
-
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
-  navBar: {
-    fontSize: 18
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
 
 /*
 This renders details about math performance and growth in the student profile page.
@@ -48,7 +15,7 @@ historical context though, so we'll keep all data points, even those outside of 
 range since interpolation lines will still be visible.
 */
 
-class MathDetails extends React.Component {
+export default class MathDetails extends React.Component {
 
   // TODO(er) factor out
   percentileYAxis() {
@@ -239,4 +206,32 @@ MathDetails.propTypes = {
   student: PropTypes.object.isRequired
 };
 
-export default MathDetails;
+const styles = {
+  title: {
+    color: 'black',
+    paddingBottom: 20,
+    fontSize: 24
+  },
+  container: {
+    width: '100%',
+    marginTop: 50,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '1px solid #ccc',
+    padding: '30px 30px 30px 30px',
+    position: 'relative'
+  },
+  secHead: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    position: 'relative',
+    bottom: 10
+  },
+  navBar: {
+    fontSize: 18
+  },
+  navTop: {
+    textAlign: 'right',
+    verticalAlign: 'text-top'
+  }
+};

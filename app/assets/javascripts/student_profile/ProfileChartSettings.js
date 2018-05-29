@@ -1,8 +1,7 @@
 import Highcharts from 'highcharts';
 
-window.shared || (window.shared = {});
-window.shared.ProfileChartSettings = {};
-const ProfileChartSettings = window.shared.ProfileChartSettings;
+const ProfileChartSettings = {};
+export default ProfileChartSettings;
 
 ProfileChartSettings.base_options = {
   chart: {

@@ -14,7 +14,8 @@ import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline'
 import {cumulativeByMonthFromEvents} from './QuadConverter';
 import Sparkline from './Sparkline';
 import StudentProfileHeader from './StudentProfileHeader';
-
+import ProfileDetails from './ProfileDetails';
+import ServicesDetails from './ServicesDetails';
 
 // This component has some Rails SCSS still.
 export default class StudentProfilePage extends React.Component {
@@ -110,10 +111,7 @@ export default class StudentProfilePage extends React.Component {
     );
   }
 
-  renderSectionDetails() {
-    const ProfileDetails = window.shared.ProfileDetails;
-    const ServicesDetails = window.shared.ServicesDetails;
-    
+  renderSectionDetails() {    
     switch (this.props.selectedColumnKey) {
     case 'profile': return (
         <ProfileDetails

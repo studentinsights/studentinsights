@@ -1,9 +1,9 @@
 import React from 'react';
-import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {merge} from '../helpers/merge';
-import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+import HighchartsWrapper from './HighchartsWrapper';
+import ProfileChartSettings from './ProfileChartSettings';
 import {
   schoolYearStartDates,
   toPair,
@@ -11,10 +11,8 @@ import {
 } from './QuadConverter';
 
 
-const ProfileChartSettings = window.shared.ProfileChartSettings;
-
 // Component for all charts in the profile page.
-class ProfileChart extends React.Component {
+export default class ProfileChart extends React.Component {
 
   constructor(props) {
     super(props); 
@@ -195,5 +193,3 @@ ProfileChart.propTypes = {
     max: PropTypes.number
   })
 };
-
-export default ProfileChart;

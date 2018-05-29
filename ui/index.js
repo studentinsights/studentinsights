@@ -8,8 +8,9 @@ import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
 
-// First, run side effects to inject code into window.shared
-import './legacy.js';
+// First, run side effects to vendor code as globals
+// (remove globals in .eslintrc as these are removed)
+import './legacyVendor';
 
 // Init datepicker
 if ($('body').hasClass('students')  ||
