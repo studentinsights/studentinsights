@@ -5,5 +5,3 @@ import './legacyVendor';
 
 // student profile page:
 import '../app/assets/javascripts/student_profile/profile_chart_settings.jsx';
-import '../app/assets/javascripts/student_profile/take_notes.jsx';
-  
