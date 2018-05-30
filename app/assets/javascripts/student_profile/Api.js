@@ -45,6 +45,18 @@ class Api {
     });
   }
 
+  _updateTransitionNote(studentId, noteParams) {
+    const id = noteParams.id;
+
+    return this._put('/students/' + studentId + '/transition_notes/' + id + '.json', {
+      transition_note: {
+        id: noteParams.id,
+        text: noteParams.text,
+        student_id: studentId
+      }
+    });
+  }
+
   _updateNote(studentId, eventNoteParams) {
     const id = eventNoteParams.id;
 
@@ -53,18 +65,6 @@ class Api {
         id: eventNoteParams.id,
         event_note_type_id: eventNoteParams.eventNoteTypeId,
         text: eventNoteParams.text,
-        student_id: studentId
-      }
-    });
-  }
-
-  _updateTransitionNote(studentId, noteParams) {
-    const id = noteParams.id;
-
-    return this._put('/students/' + studentId + '/transition_notes/' + id + '.json', {
-      event_note: {
-        id: noteParams.id,
-        text: noteParams.text,
         student_id: studentId
       }
     });

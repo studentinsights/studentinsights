@@ -53,7 +53,9 @@ class TransitionNotes extends React.Component {
 
     this.state = {
       noteText: (regularNote ? regularNote.text : notePrompts),
-      restrictedNoteText: (restrictedNote ? restrictedNote : restrictedNotePrompts)
+      restrictedNoteText: (restrictedNote ? restrictedNote : restrictedNotePrompts),
+      regularNoteId: (regularNote ? regularNote.id : null),
+      restrictedNoteId: (restrictedNote ? restrictedNote.id : null)
     };
 
     this.onClickSave = this.onClickSave.bind(this);
@@ -61,11 +63,23 @@ class TransitionNotes extends React.Component {
   }
 
   onClickSave() {
-    this.props.onSave({text: this.state.noteText});
+    const params = {text: this.state.noteText};
+
+    if (this.state.regularNoteId) {
+      _.merge(params, {id: this.state.regularNoteId})
+    }
+
+    this.props.onSave(params);
   }
 
   onClickSaveRestricted() {
-    this.props.onSave({text: this.state.restrictedNoteText});
+    const textParams = {text: this.state.restrictedNoteText};
+
+    if (this.state.restrictedNoteId) {
+      _.merge(params, {id: this.state.restrictedNoteId})
+    }
+
+    this.props.onSave(params);
   }
 
   render() {
