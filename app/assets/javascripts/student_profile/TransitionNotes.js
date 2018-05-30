@@ -122,9 +122,7 @@ class TransitionNotes extends React.Component {
             style={styles.textarea}
             value={noteText}
             onChange={(e) => this.setState({noteText: e.target.value})} />
-          <button onClick={this.onClickSave} className="btn save">
-            {this.buttonText()}
-          </button>
+          {this.renderButton(this.onClickSave, this.buttonText)}
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -135,11 +133,21 @@ class TransitionNotes extends React.Component {
             style={styles.textarea}
             value={restrictedNoteText}
             onChange={(e) => this.setState({restrictedNoteText: e.target.value})}/>
-          <button onClick={this.onClickSaveRestricted} className="btn save">
-            {this.buttonTextRestricted()}
-          </button>
+          {this.renderButton(this.onClickSaveRestricted, thisbuttonTextRestricted)}
         </div>
       </div>
+    );
+  }
+
+  renderButton(onClickFn, buttonTextFn) {
+    const {readOnly} = this.props;
+
+    if (readOnly) return null;
+
+    return (
+      <button onClick={onClickFn} className='btn save'>
+        {buttonTextFn()}
+      </button>
     );
   }
 
