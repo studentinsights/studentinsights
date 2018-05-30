@@ -3,6 +3,7 @@ class TransitionNotesController < ApplicationController
 
   def authorize!
     student = Student.find(params[:student_id])
+    raise 'Student IDs don\'t match' if params[:student_id].to_i != transition_note_params[:student_id].to_i
     educator = current_educator
     raise Exceptions::EducatorNotAuthorized unless educator && educator.is_authorized_for_student(student)
     raise Exceptions::EducatorNotAuthorized unless educator && educator.labels.include?('k8_counselor')
