@@ -7,8 +7,8 @@ const styles = {
   textarea: {
     marginTop: 20,
     fontSize: 14,
-    border: '1px solid #eee',
-    width: '100%' //overriding strange global CSS, should cleanup
+    border: '4px solid rgba(153,117,185, 0.4)',
+    width: '100%'
   }
 };
 
