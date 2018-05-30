@@ -60,6 +60,8 @@ class TransitionNotes extends React.Component {
 
     this.onClickSave = this.onClickSave.bind(this);
     this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
+    this.buttonText = this.buttonText.bind(this);
+    this.buttonTextRestricted = this.buttonTextRestricted.bind(this);
   }
 
   buttonText() {
@@ -133,7 +135,7 @@ class TransitionNotes extends React.Component {
             style={styles.textarea}
             value={restrictedNoteText}
             onChange={(e) => this.setState({restrictedNoteText: e.target.value})}/>
-          {this.renderButton(this.onClickSaveRestricted, thisbuttonTextRestricted)}
+          {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
         </div>
       </div>
     );
