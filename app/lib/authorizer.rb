@@ -153,8 +153,8 @@ class Authorizer
   end
 
   def is_authorized_to_see_transition_notes?
-    return true if labels.include?('k8_counselor')
-    return true if labels.include?('high_school_house_master')
+    return true if @educator.labels.include?('k8_counselor')
+    return true if @educator.labels.include?('high_school_house_master')
     return false
   end
 
