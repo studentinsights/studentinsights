@@ -98,7 +98,7 @@ class Authorizer
   def is_authorized_for_student?(student, options = {})
     begin
       return true if @educator.districtwide_access?
-      reture true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
+      return true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
 
       return false if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
       return false if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'

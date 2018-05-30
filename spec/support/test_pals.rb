@@ -19,6 +19,7 @@ class TestPals
   # students
   attr_reader :healey_kindergarten_student
   attr_reader :shs_freshman_mari
+  attr_reader :west_eigth_ryan
 
   # educators
   attr_reader :uri
@@ -325,6 +326,15 @@ class TestPals
       section: @shs_tuesday_biology_section,
       grade_numeric: 67,
       grade_letter: 'D'
+    )
+
+    @west_eigth_ryan = Student.create!(
+      first_name: 'Ryan',
+      last_name: 'Rodriguez',
+      school: @west,
+      grade: '8',
+      local_id: '333333333',
+      enrollment_status: 'Active'
     )
 
     reindex!
