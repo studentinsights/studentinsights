@@ -203,6 +203,7 @@ import TransitionNotes from './TransitionNotes';
           readOnly={isHouseMaster}
           onSave={actions.onClickSaveTransitionNote}
           requestState={requests['saveTransitionNote']}
+          requestStateRestricted={requests['saveRestrictedTransitionNote']}
         />
       );
     },

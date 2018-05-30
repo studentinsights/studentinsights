@@ -154,20 +154,30 @@ function fromPair(key, value) {
     },
 
     onClickSaveTransitionNote: function(noteParams) {
-      this.setState({ requests: merge(this.state.requests, { saveTransitionNote: 'pending' }) });
+      const requestState = (noteParams.is_restricted)
+        ? { saveRestrictedTransitionNote: 'pending' }
+        : { saveTransitionNote: 'pending' };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
       this.api.saveTransitionNote(this.state.student.id, noteParams)
         .done(this.onSaveTransitionNoteDone)
         .fail(this.onSaveTransitionNoteFail);
     },
 
     onSaveTransitionNoteDone: function(response) {
-      this.setState({
-        requests: merge(this.state.requests, { saveTransitionNote: null }),
-      });
+      const requestState = (response.is_restricted)
+        ? { saveRestrictedTransitionNote: null }
+        : { saveTransitionNote: null };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
     },
 
     onSaveTransitionNoteFail: function(request, status, message) {
-      this.setState({ requests: merge(this.state.requests, { saveTransitionNote: 'error' }) });
+      const requestState = (request.is_restricted)
+        ? { saveRestrictedTransitionNote: 'error' }
+        : { saveTransitionNote: 'error' };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
     },
 
     onSaveNotesDone: function(response) {
