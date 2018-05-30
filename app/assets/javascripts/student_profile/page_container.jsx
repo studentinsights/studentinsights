@@ -154,7 +154,20 @@ function fromPair(key, value) {
     },
 
     onClickSaveTransitionNote: function(noteParams) {
-      this.api.saveTransitionNote(this.state.student.id, noteParams);
+      this.setState({ requests: merge(this.state.requests, { saveTransitionNote: 'pending' }) });
+      this.api.saveTransitionNote(this.state.student.id, noteParams)
+        .done(this.onSaveTransitionNoteDone)
+        .fail(this.onSaveTransitionNoteFail);
+    },
+
+    onSaveTransitionNoteDone: function(response) {
+      this.setState({
+        requests: merge(this.state.requests, { saveTransitionNote: null }),
+      });
+    },
+
+    onSaveTransitionNoteFail: function(request, status, message) {
+      this.setState({ requests: merge(this.state.requests, { saveTransitionNote: 'error' }) });
     },
 
     onSaveNotesDone: function(response) {

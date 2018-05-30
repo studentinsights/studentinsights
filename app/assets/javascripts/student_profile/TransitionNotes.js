@@ -62,6 +62,16 @@ class TransitionNotes extends React.Component {
     this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
   }
 
+  buttonText() {
+    const {requestState} = this.props;
+
+    if (requestState === 'pending') return 'Saving ...';
+
+    if (requestState === 'error') return 'Error ...';
+
+    return 'Save Note';
+  }
+
   onClickSave() {
     const params = {
       is_restricted: false,
@@ -103,7 +113,7 @@ class TransitionNotes extends React.Component {
             value={noteText}
             onChange={(e) => this.setState({noteText: e.target.value})} />
           <button onClick={this.onClickSave} className="btn save">
-            Save note
+            {this.buttonText()}
           </button>
         </div>
         <div style={{flex: 1, margin: 30}}>
@@ -116,7 +126,7 @@ class TransitionNotes extends React.Component {
             value={restrictedNoteText}
             onChange={(e) => this.setState({restrictedNoteText: e.target.value})}/>
           <button onClick={this.onClickSaveRestricted} className="btn save">
-            Save note
+            {this.buttonText()}
           </button>
         </div>
       </div>
@@ -129,6 +139,7 @@ TransitionNotes.propTypes = {
   readOnly: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
   transitionNotes: PropTypes.array.isRequired,
+  requestState: PropTypes.string // can be null if no request
 };
 
 export default TransitionNotes;
