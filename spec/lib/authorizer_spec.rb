@@ -12,7 +12,7 @@ RSpec.describe Authorizer do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
     expect(Student.all.size).to eq 2
-    expect(Educator.all.size).to eq 14
+    expect(Educator.all.size).to eq 15
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
   end
