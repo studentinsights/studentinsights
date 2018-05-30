@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import {eventNoteTypeText} from '../components/eventNoteType';
 
 window.shared || (window.shared = {});
 
@@ -97,6 +98,45 @@ export default React.createClass({
     return (noteInProgressType === null || !this.isValidAttachmentUrls());
   },
 
+  noteText() {
+    // In most cases, display the text the user has entered into the controlled
+    // text input, passed in as props. When the user is a counselor entering a
+    // High School Transition Note, show an initial prompt.
+
+    const {noteInProgressText, noteInProgressType} = this.props;
+
+    if (noteInProgressType !== 307) return noteInProgressText;
+
+    if (noteInProgressText !== '') return noteInProgressText;
+
+    // Prompt for High School Transition Note
+    return `What are this student's strengths?
+——————————
+
+
+What is this student's involvement in the school community like?
+——————————
+
+
+How does this student relate to their peers?
+——————————
+
+
+Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
+——————————
+
+
+Is this student receiving mental health supports?
+——————————
+
+
+Any additional comments or good things to know about this student?
+——————————
+
+
+    `;
+  },
+
   isValidAttachmentUrls: function () {
     const {noteInProgressAttachmentUrls} = this.props;
 
@@ -124,7 +164,7 @@ export default React.createClass({
   },
 
   render: function() {
-    const {noteInProgressText} = this.props;
+    const {currentEducator} = this.props;
 
     return (
       <div className="TakeNotes" style={styles.dialog}>
@@ -136,7 +176,7 @@ export default React.createClass({
           rows={10}
           style={styles.textarea}
           ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-          value={noteInProgressText}
+          value={this.noteText()}
           onChange={this.props.onChangeNoteInProgressText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
@@ -150,6 +190,7 @@ export default React.createClass({
           <div style={{ flex: 1 }}>
             {this.renderNoteButton(306)}
             {this.renderNoteButton(302)}
+            {currentEducator.is_counselor && this.renderNoteButton(307)}
             {this.renderNoteButton(304)}
           </div>
         </div>
@@ -201,11 +242,8 @@ export default React.createClass({
   renderNoteButton: function(eventNoteTypeId) {
     const {
       onClickNoteType,
-      eventNoteTypesIndex,
       noteInProgressType
     } = this.props;
-
-    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
 
     return (
       <button
@@ -221,7 +259,7 @@ export default React.createClass({
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         }}>
-        {eventNoteType.name}
+        {eventNoteTypeText(eventNoteTypeId)}
       </button>
     );
   },

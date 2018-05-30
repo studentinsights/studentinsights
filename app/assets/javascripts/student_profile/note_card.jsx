@@ -68,6 +68,15 @@ import * as Routes from '../helpers/Routes';
       };
     },
 
+    noteStyle: function() {
+      const {eventNoteTypeId} = this.props;
+
+      if (eventNoteTypeId !== 307) return styles.note;
+
+      // Add yellow border highlight to High School Transition Notes
+      return {...styles.note, border: '5px solid #FFFF99'};
+    },
+
     // No feedback, fire and forget
     onDeleteAttachmentClicked: function(eventNoteAttachmentId) {
       this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
@@ -87,8 +96,9 @@ import * as Routes from '../helpers/Routes';
       return (
         <div className="wrapper" style={styles.wrapper}>
           {this.renderStudentCard()}
-          <div className="NoteCard" style={styles.note}>
+          <div className="NoteCard" style={this.noteStyle()}>
             <div>
+              {this.renderPinIcon()}
               <span className="date" style={styles.date}>
                 {this.props.noteMoment.format('MMMM D, YYYY')}
               </span>
@@ -100,12 +110,20 @@ import * as Routes from '../helpers/Routes';
             {this.renderText()}
             {this.renderAttachmentUrls()}
           </div>
-        </div>        
+        </div>
       );
     },
 
+    renderPinIcon() {
+      const {eventNoteTypeId} = this.props;
+
+      if (eventNoteTypeId !== 307) return null;
+
+      return (<span style={{marginRight: 5, fontSize: 25}}>📌</span>);
+    },
+
     // If an onSave callback is provided, the text is editable.
-    // This is for older interventions that are read-only 
+    // This is for older interventions that are read-only
     // because of changes to the server data model.
     renderText() {
       const {onSave, text, numberOfRevisions}= this.props;
@@ -117,8 +135,8 @@ import * as Routes from '../helpers/Routes';
             onBlurText={this.onBlurText} />
         );
       }
-      
-      return <NoteText text={text} />;        
+
+      return <NoteText text={text} />;
     },
 
     renderAttachmentUrls: function() {

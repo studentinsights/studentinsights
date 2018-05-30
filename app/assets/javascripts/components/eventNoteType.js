@@ -4,7 +4,8 @@ const textMap =  {
   302: 'Parent conversation',
   304: 'Something else',
   305: '9th Grade Experience',
-  306: '10th Grade Experience'
+  306: '10th Grade Experience',
+  307: 'High School Transition'
 };
 export function eventNoteTypeText(eventNoteTypeId) {
   return textMap[eventNoteTypeId] || 'Other';
