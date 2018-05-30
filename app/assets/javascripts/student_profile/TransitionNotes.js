@@ -111,7 +111,7 @@ class TransitionNotes extends React.Component {
   }
 
   render() {
-    const {noteText, restrictedNoteText} = this.state;
+    const {noteText, restrictedNoteText, readOnly} = this.state;
 
     return (
       <div style={{display: 'flex'}}>
@@ -123,7 +123,8 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={noteText}
-            onChange={(e) => this.setState({noteText: e.target.value})} />
+            onChange={(e) => this.setState({noteText: e.target.value})}
+            readOnly />
           {this.renderButton(this.onClickSave, this.buttonText)}
         </div>
         <div style={{flex: 1, margin: 30}}>
@@ -134,7 +135,8 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={restrictedNoteText}
-            onChange={(e) => this.setState({restrictedNoteText: e.target.value})}/>
+            onChange={(e) => this.setState({restrictedNoteText: e.target.value})}
+            readOnly />
           {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
         </div>
       </div>
