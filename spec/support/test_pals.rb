@@ -34,6 +34,7 @@ class TestPals
   attr_reader :shs_ninth_grade_counselor
   attr_reader :shs_hugo_art_teacher
   attr_reader :shs_fatima_science_teacher
+  attr_reader :shs_harry_housemaster
 
   # homerooms
   attr_reader :healey_kindergarten_homeroom
@@ -205,6 +206,17 @@ class TestPals
     EducatorLabel.create!({
       educator: @shs_jodi,
       label_key: 'shs_experience_team'
+    })
+
+    @shs_harry_housemaster = Educator.create!(
+      email: 'harry@demo.studentinsights.org',
+      full_name: 'Housemaster, Harry',
+      school: @shs,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!({
+      educator: @shs_harry_housemaster,
+      label_key: 'high_school_house_master'
     })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
