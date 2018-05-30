@@ -5,6 +5,7 @@ class TransitionNotesController < ApplicationController
     student = Student.find(params[:student_id])
     educator = current_educator
     raise Exceptions::EducatorNotAuthorized unless educator && educator.is_authorized_for_student(student)
+    raise Exceptions::EducatorNotAuthorized unless educator && educator.labels.include?('k8_counselor')
   end
 
   def create
