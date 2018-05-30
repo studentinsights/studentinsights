@@ -89,7 +89,7 @@ class TransitionNotes extends React.Component {
     };
 
     if (this.state.regularNoteId) {
-      _.merge(params, {id: this.state.regularNoteId})
+      _.merge(params, {id: this.state.regularNoteId});
     }
 
     this.props.onSave(params);
@@ -102,7 +102,7 @@ class TransitionNotes extends React.Component {
     };
 
     if (this.state.restrictedNoteId) {
-      _.merge(params, {id: this.state.restrictedNoteId})
+      _.merge(params, {id: this.state.restrictedNoteId});
     }
 
     this.props.onSave(params);
