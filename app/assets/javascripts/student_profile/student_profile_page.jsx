@@ -114,6 +114,7 @@ import TransitionNotes from './TransitionNotes';
       // data
       student: React.PropTypes.object.isRequired,
       feed: React.PropTypes.object.isRequired,
+      transitionNotes: React.PropTypes.array.isRequired,
       dibels: React.PropTypes.array.isRequired,
       chartData: React.PropTypes.shape({
         // ela
@@ -188,7 +189,7 @@ import TransitionNotes from './TransitionNotes';
     },
 
     renderTransitionNote: function() {
-      const {currentEducator, actions} = this.props;
+      const {currentEducator, actions, transitionNotes} = this.props;
       const labels = currentEducator.labels;
 
       const isElemCounselor = _.includes(labels, 'k8_counselor');
@@ -198,6 +199,7 @@ import TransitionNotes from './TransitionNotes';
 
       return (
         <TransitionNotes
+          transitionNotes={transitionNotes}
           readOnly={isHouseMaster}
           onSave={actions.onClickSaveTransitionNote}
         />

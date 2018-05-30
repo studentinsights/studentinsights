@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
+import _ from 'lodash';
+
 const styles = {
   textarea: {
     marginTop: 20,
@@ -45,9 +47,13 @@ class TransitionNotes extends React.Component {
   constructor(props) {
     super(props);
 
+    const transitionNotes = props.transitionNotes;
+    const regularNote = _.find(transitionNotes, {is_restricted: false});
+    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
+
     this.state = {
-      noteText: notePrompts,
-      restrictedNoteText: restrictedNotePrompts,
+      noteText: (regularNote ? regularNote.text : notePrompts),
+      restrictedNoteText: (restrictedNote ? restrictedNote : restrictedNotePrompts)
     };
 
     this.onClickSave = this.onClickSave.bind(this);
@@ -102,6 +108,7 @@ class TransitionNotes extends React.Component {
 TransitionNotes.propTypes = {
   readOnly: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
+  transitionNotes: PropTypes.array.isRequired,
 };
 
 export default TransitionNotes;

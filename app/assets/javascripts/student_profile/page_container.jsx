@@ -48,6 +48,7 @@ function fromPair(key, value) {
         // data
         student: serializedData.student,
         feed: serializedData.feed,
+        transitionNotes: serializedData.transitionNotes,
         chartData: serializedData.chartData,
         attendanceData: serializedData.attendanceData,
         access: serializedData.access,
@@ -277,6 +278,7 @@ function fromPair(key, value) {
               'eventNoteTypesIndex',
               'student',
               'feed',
+              'transitionNotes',
               'access',
               'chartData',
               'dibels',
