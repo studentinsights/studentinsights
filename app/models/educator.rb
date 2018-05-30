@@ -48,6 +48,10 @@ class Educator < ActiveRecord::Base
     Authorizer.new(self).is_authorized_for_section?(section)
   end
 
+  def is_authorized_to_see_transition_notes
+    Authorizer.new(self).is_authorized_to_see_transition_notes?
+  end
+
   def students_for_school_overview(*additional_includes)
     students = Authorizer.new(self).students_for_school_overview
 

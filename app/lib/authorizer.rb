@@ -152,6 +152,12 @@ class Authorizer
     true
   end
 
+  def is_authorized_to_see_transition_notes?
+    return true if labels.include?('k8_counselor')
+    return true if labels.include?('high_school_house_master')
+    return false
+  end
+
   # TODO(kr) remove implementation
   def students_for_school_overview
     return [] unless @educator.school.present?
