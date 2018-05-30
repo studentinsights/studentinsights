@@ -58,7 +58,7 @@ describe StudentsController, :type => :controller do
           make_request({ student_id: student.id, format: :html })
           expect(serialized_data[:current_educator]['id']).to eq educator['id']
           expect(serialized_data[:current_educator]['email']).to eq educator['email']
-          expect(serialized_data[:current_educator]['labels']).to eq ['k8_counselor']
+          expect(serialized_data[:current_educator]['labels']).to eq []
           expect(serialized_data[:student]["id"]).to eq student.id
           expect(serialized_data[:student]["restricted_notes_count"]).to eq 0
 
@@ -150,7 +150,7 @@ describe StudentsController, :type => :controller do
 
         it 'serializes the educator label correctly' do
           make_request({ student_id: student.id, format: :html })
-          expect(serialized_data[:current_educator]['labels']).to eq []
+          expect(serialized_data[:current_educator]['labels']).to eq ['k8_counselor']
         end
       end
 
