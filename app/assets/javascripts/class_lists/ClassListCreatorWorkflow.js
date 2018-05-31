@@ -11,7 +11,7 @@ import CreateYourLists, {styleStudentFn} from './CreateYourLists';
 import ExportList from './ExportList';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
-import {findMovedStudentIds} from './studentIdsByRoomFunctions';
+import {resolveDriftForStudents, findMovedStudentIds} from './studentIdsByRoomFunctions';
 
 
 
@@ -214,13 +214,17 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const {isExpandedVertically} = this.state;
 
     if (students === null || studentIdsByRoom === null) return <Loading />;
+
+        // Because students can change over time, there can be drift in what's referenced 
+    // in the class lists, and students who are later withdrawn, etc.
+    // Filter out any such students at load time.
     return (
       <CreateYourLists
         key="create-your-classrooms"
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={studentIdsByRoom}
+        studentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, students)}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         isEditable={isEditable}
         isExpandedVertically={isExpandedVertically}
@@ -304,7 +308,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={principalStudentIdsByRoom}
+        studentIdsByRoom={resolveDriftForStudents(principalStudentIdsByRoom, students)}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         styleStudentFn={student => styleStudentFn(movedStudentIds, student)}
         isExpandedVertically={isExpandedVertically}

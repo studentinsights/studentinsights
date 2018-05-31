@@ -127,3 +127,28 @@ export function findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIds
     });
   }));
 }
+
+
+// Because students can change over time, there can be drift in what's referenced 
+// in the class lists, and students who are later withdrawn, etc.
+// Filter out any such students at load time.
+export function resolveDriftForStudents(studentIdsByRoom, students) {
+  const studentIdsMap = {};
+  students.forEach(student => studentIdsMap[student.id] = true);
+  
+  // Remove placed who aren't in the `students` list anymore.
+  const resolvedStudentIdsByRoom = {};
+  Object.keys(studentIdsByRoom).forEach(roomKey => {
+    resolvedStudentIdsByRoom[roomKey] = studentIdsByRoom[roomKey].filter(studentId => {
+      return studentIdsMap[studentId] || false;
+    });
+  });
+
+  // Add in students at the front of the list who are new to `students` and not in `studentIdsByRoom`.
+  const placedStudentIds = _.flatten(_.values(studentIdsByRoom));
+  const unplacedStudents = students.filter(student => placedStudentIds.indexOf(student.id) === -1);
+  const unplacedStudentIds = unplacedStudents.map(student => student.id);
+  resolvedStudentIdsByRoom[UNPLACED_ROOM_KEY] = unplacedStudentIds.concat(resolvedStudentIdsByRoom[UNPLACED_ROOM_KEY]);
+
+  return resolvedStudentIdsByRoom;
+}

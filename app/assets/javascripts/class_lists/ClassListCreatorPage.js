@@ -361,6 +361,11 @@ export default class ClassListCreatorPage extends React.Component {
     });
   }
 
+  // Over time, there can be drift in the references within studentIdsByRoom 
+  // and the set of students that the server provides.  We filter this out or add this in
+  // at the view layer and don't proactively filter this.  So if the user looks at the
+  // lists, this will trigger as "dirty" and the document will be updated, but
+  // if they never look at it we preserve information about that inconsistency.
   onFetchedClassList(responseJson) {
     const isEditable = responseJson.is_editable;
     const classList = responseJson.class_list;
