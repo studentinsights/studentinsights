@@ -60,28 +60,6 @@ class TransitionNotes extends React.Component {
 
     this.onClickSave = this.onClickSave.bind(this);
     this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
-    this.buttonText = this.buttonText.bind(this);
-    this.buttonTextRestricted = this.buttonTextRestricted.bind(this);
-  }
-
-  buttonText() {
-    const {requestState} = this.props;
-
-    if (requestState === 'pending') return 'Saving ...';
-
-    if (requestState === 'error') return 'Error ...';
-
-    return 'Save Note';
-  }
-
-  buttonTextRestricted() {
-    const {requestStateRestricted} = this.props;
-
-    if (requestStateRestricted === 'pending') return 'Saving ...';
-
-    if (requestStateRestricted === 'error') return 'Error ...';
-
-    return 'Save Note';
   }
 
   onClickSave() {
@@ -125,7 +103,7 @@ class TransitionNotes extends React.Component {
             value={noteText}
             onChange={(e) => this.setState({noteText: e.target.value})}
             readOnly={readOnly} />
-          {this.renderButton(this.onClickSave, this.buttonText)}
+          <div style={{color: 'gray'}}>This note will autosave as you type.</div>
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -137,21 +115,9 @@ class TransitionNotes extends React.Component {
             value={restrictedNoteText}
             onChange={(e) => this.setState({restrictedNoteText: e.target.value})}
             readOnly={readOnly} />
-          {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
+          <div style={{color: 'gray'}}>This note will autosave as you type.</div>
         </div>
       </div>
-    );
-  }
-
-  renderButton(onClickFn, buttonTextFn) {
-    const {readOnly} = this.props;
-
-    if (readOnly) return null;
-
-    return (
-      <button onClick={onClickFn} className='btn save'>
-        {buttonTextFn()}
-      </button>
     );
   }
 
