@@ -34,6 +34,7 @@ export default class HorizontalStepper extends React.Component {
       steps,
       availableSteps,
       isEditable,
+      isRevisable,
       isDirty,
       renderFn,
       style,
@@ -59,7 +60,8 @@ export default class HorizontalStepper extends React.Component {
               );
             })}
           </div>
-          {!isEditable && <div style={styles.readonly}>readonly</div>}
+          {!isEditable && !isRevisable && <div style={{...styles.label, background: '#666', color: '#eee'}}>readonly</div>}
+          {!isEditable && isRevisable && <div style={{...styles.label, background: 'rgb(209, 231, 210)', color: 'green', fontWeight: 'bold'}}>principal</div>}
           {isDirty && <div style={styles.dirty}>●</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
@@ -112,6 +114,7 @@ HorizontalStepper.propTypes = {
   stepIndex: React.PropTypes.number.isRequired,
   onStepChanged: React.PropTypes.func.isRequired,
   isEditable: React.PropTypes.bool.isRequired,
+  isRevisable: React.PropTypes.bool.isRequired,
   isDirty: React.PropTypes.bool.isRequired,
   renderFn: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
@@ -159,14 +162,12 @@ const styles = {
     height: 1,
     borderTop: '1px solid #eee'
   },
-  readonly: {
+  label: {
     display: 'inline-block',
     padding: 6,
     paddingRight: 12,
     paddingLeft: 12,
     marginRight: 20,
-    background: '#666',
-    color: '#eee',
     borderRadius: 3
   },
   dirty: {

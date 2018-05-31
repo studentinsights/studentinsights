@@ -10,7 +10,7 @@ import SuccessLabel from '../components/SuccessLabel';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
 import PrincipalFinalizes from './PrincipalFinalizes';
-import SecretaryEnters from './SecretaryEnters';
+import ExportList from './ExportList';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
 
@@ -41,6 +41,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       stepIndex,
       availableSteps,
       onStepChanged,
+      isRevisable,
       isEditable,
       isDirty
     } = this.props;
@@ -54,6 +55,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           steps={steps}
           availableSteps={availableSteps}
           isEditable={isEditable}
+          isRevisable={isRevisable}
           isDirty={isDirty}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
@@ -70,7 +72,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
     if (stepIndex === 3) return this.renderSubmit();
     if (stepIndex === 4) return this.renderPrincipalFinalizes();
-    if (stepIndex === 5) return this.renderSecretaryEnters();
+    if (stepIndex === 5) return this.renderExportList();
   }
 
   renderChooseYourGrade() {
@@ -291,12 +293,11 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
     if (students === null || studentIdsByRoom === null) return <Loading />;
 
-    // editable / principal / changes
+    // TODO(kr) editable / principal / changes
     const onClassListsChangedByPrincipal = () => null;
     return (
       <CreateYourLists
-        isPrincipal={true}
-        isEditable={true}
+        isEditable={false}
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
@@ -308,16 +309,28 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderSecretaryEnters() {
-    const {gradeLevelNextYear, schoolId, schools, students, studentIdsByRoom} = this.props;
+  renderExportList() {
+    const {
+      gradeLevelNextYear,
+      schoolId,
+      schools,
+      students,
+      studentIdsByRoom,
+      principalTeacherNamesByRoom,
+      principalStudentIdsByRoom
+    } = this.props;
     const school = _.find(schools, {id: schoolId});
+
     return (
       <div style={styles.stepContent}>
-        <SecretaryEnters
+        <div style={styles.titleHeading}>Export: Next year's {gradeText(gradeLevelNextYear)}</div>
+        <ExportList
           school={school}
-          gradeLevelNextYear={gradeLevelNextYear}
-          studentIdsByRoom={studentIdsByRoom}
-          students={students} />
+          students={students} 
+          teacherStudentIdsByRoom={studentIdsByRoom}
+          principalStudentIdsByRoom={principalStudentIdsByRoom}
+          principalTeacherNamesByRoom={principalTeacherNamesByRoom}
+        />
         <div>After teachers submit their lists, principals can revise and export the lists as spreadsheets for sending letters home and entering into Aspen.  This will open the week of 6/4 and talk with Uri if you have any questions!</div>
       </div>
     );
@@ -335,8 +348,9 @@ ClassListCreatorWorkflow.propTypes = {
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   isEditable: React.PropTypes.bool.isRequired,
   isSubmitted: React.PropTypes.bool.isRequired,
+  isRevisable: React.PropTypes.bool.isRequired,
 
-  // state
+  // workspace
   isDirty: React.PropTypes.bool.isRequired,
   canChangeSchoolOrGrade: React.PropTypes.bool.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
@@ -349,6 +363,10 @@ ClassListCreatorWorkflow.propTypes = {
   studentIdsByRoom: React.PropTypes.object,
   principalNoteText: React.PropTypes.string.isRequired,
   feedbackText: React.PropTypes.string.isRequired,
+
+  // principal
+  principalTeacherNamesByRoom: React.PropTypes.object,
+  principalStudentIdsByRoom: React.PropTypes.object,
 
   // callbacks
   onStepChanged: React.PropTypes.func.isRequired,

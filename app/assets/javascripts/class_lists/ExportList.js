@@ -9,9 +9,9 @@ import {
   createRooms
 } from './studentIdsByRoomFunctions';
 
-export default class SecretaryEnters extends React.Component {
-  mapToRows() {
-    const {gradeLevelNextYear, students, studentIdsByRoom} = this.props;
+export default class ExportList extends React.Component {
+  mapToRows(studentIdsByRoom) {
+    const {gradeLevelNextYear, students} = this.props;
     return _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
       return studentIdsByRoom[roomKey].map(studentId => {
         const student = _.find(students, {id: studentId});
@@ -29,12 +29,13 @@ export default class SecretaryEnters extends React.Component {
   }
 
   render() {
-    const {studentIdsByRoom} = this.props;
-    const rows = this.mapToRows();
+    const {teacherStudentIdsByRoom, principalStudentIdsByRoom} = this.props;
+    const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom;
+    const rows = this.mapToRows(studentIdsByRoom);
     const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1);
 
     return (
-      <div className="SecretaryEnters">
+      <div className="ExportList">
         <table style={tableStyles.table}>
           <thead>
             <tr>
@@ -107,13 +108,13 @@ export default class SecretaryEnters extends React.Component {
     );
   }
 }
-SecretaryEnters.propTypes = {
+ExportList.propTypes = {
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   school: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired
   }),
   students: React.PropTypes.array.isRequired,
-  studentIdsByRoom: React.PropTypes.object.isRequired
+  teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
+  principalStudentIdsByRoom: React.PropTypes.object.isRequired,
+  principalTeacherNamesByRoom: React.PropTypes.object.isRequired
 };
-
-

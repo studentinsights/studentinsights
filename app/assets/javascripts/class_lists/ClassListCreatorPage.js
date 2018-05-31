@@ -50,7 +50,7 @@ export default class ClassListCreatorPage extends React.Component {
       schoolId: null,
       gradeLevelNextYear: null,
 
-      // workspace
+      // teacher workspace
       educators: null, // from server
       students: null, // from server
       classroomsCount: 2,
@@ -58,7 +58,11 @@ export default class ClassListCreatorPage extends React.Component {
       planText: '',
       studentIdsByRoom: null,
       principalNoteText: '',
-      feedbackText: ''
+      feedbackText: '',
+
+      // principal revisions
+      principalTeacherNamesByRoom: null,
+      principalStudentIdsByRoom: null
     };
 
     this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
@@ -455,16 +459,14 @@ export default class ClassListCreatorPage extends React.Component {
     const {workspaceId} = this.state;
     if (!workspaceId) return <Loading />;
 
-    const availableSteps = this.availableSteps();
-    const isDirty = this.isDirty();
-    const canChangeSchoolOrGrade = this.canChangeSchoolOrGrade();
     return (
       <ClassListCreatorWorkflow
         {...this.state}
-        isDirty={isDirty}
         steps={STEPS}
-        canChangeSchoolOrGrade={canChangeSchoolOrGrade}
-        availableSteps={availableSteps}
+        isDirty={this.isDirty()}
+        isRevisable={this.isRevisable()}
+        canChangeSchoolOrGrade={this.canChangeSchoolOrGrade()}
+        availableSteps={this.availableSteps()}
         onStepChanged={this.onStepChanged}
         onSchoolIdChanged={this.onSchoolIdChanged}
         onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
