@@ -224,7 +224,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, students)}
+        studentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         isEditable={isEditable}
         isExpandedVertically={isExpandedVertically}
@@ -300,6 +300,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const principalStudentIdsByRoom = this.props.principalStudentIdsByRoom || teacherStudentIdsByRoom;
     if (students === null || principalStudentIdsByRoom === null) return <Loading />;
 
+    // See which students have moved so we can style them differently.
     const movedStudentIds = findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIdsByRoom);
     return (
       <CreateYourLists
@@ -308,7 +309,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={resolveDriftForStudents(principalStudentIdsByRoom, students)}
+        studentIdsByRoom={resolveDriftForStudents(principalStudentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         styleStudentFn={student => styleStudentFn(movedStudentIds, student)}
         isExpandedVertically={isExpandedVertically}

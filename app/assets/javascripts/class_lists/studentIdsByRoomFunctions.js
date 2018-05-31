@@ -129,12 +129,12 @@ export function findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIds
 }
 
 
-// Because students can change over time, there can be drift in what's referenced 
-// in the class lists, and students who are later withdrawn, etc.
-// Filter out any such students at load time.
-export function resolveDriftForStudents(studentIdsByRoom, students) {
+// Because students can change over time (eg, withdrawals, new students), there can be drift
+// between that list and what's referenced in the class lists.
+// This resolves differences that come up from there being students removed or added.
+export function resolveDriftForStudents(studentIdsByRoom, studentIds) {
   const studentIdsMap = {};
-  students.forEach(student => studentIdsMap[student.id] = true);
+  studentIds.forEach(studentId => studentIdsMap[studentId] = true);
   
   // Remove placed who aren't in the `students` list anymore.
   const resolvedStudentIdsByRoom = {};
@@ -146,8 +146,7 @@ export function resolveDriftForStudents(studentIdsByRoom, students) {
 
   // Add in students at the front of the list who are new to `students` and not in `studentIdsByRoom`.
   const placedStudentIds = _.flatten(_.values(studentIdsByRoom));
-  const unplacedStudents = students.filter(student => placedStudentIds.indexOf(student.id) === -1);
-  const unplacedStudentIds = unplacedStudents.map(student => student.id);
+  const unplacedStudentIds = _.difference(studentIds, placedStudentIds);
   resolvedStudentIdsByRoom[UNPLACED_ROOM_KEY] = unplacedStudentIds.concat(resolvedStudentIdsByRoom[UNPLACED_ROOM_KEY]);
 
   return resolvedStudentIdsByRoom;
