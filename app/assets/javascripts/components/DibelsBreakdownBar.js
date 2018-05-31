@@ -13,8 +13,8 @@ export default class DibelsBreakdownBar extends React.Component {
     const {coreCount, strategicCount, intensiveCount} = this.props;
     const items = [
       { left: 0, width: coreCount, color: high, key: 'core' },
-      { left: coreCount, width: intensiveCount, color: medium, key: 'strategic' },
-      { left: coreCount + intensiveCount, width: strategicCount, color: low, key: 'intensive' }
+      { left: coreCount, width: strategicCount, color: medium, key: 'strategic' },
+      { left: coreCount + strategicCount, width: intensiveCount, color: low, key: 'intensive' }
     ];
 
     return <BreakdownBar items={items} {...this.props} />;

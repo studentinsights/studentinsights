@@ -19,35 +19,43 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      Class lists
+      Class List Creator
     </h4>
   </div>
   <div>
     <div
-      className="Hover"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      style={undefined}
-    >
-      <button
-        onClick={[Function]}
-        style={
-          Object {
-            "background": "#4A90E2",
-            "border": "none",
-            "borderRadius": 28,
-            "color": "white",
-            "cursor": "pointer",
-            "display": "block",
-            "fontSize": 14,
-            "margin": 10,
-            "padding": "8px 25px",
-            "textDecoration": "none",
-          }
+      style={
+        Object {
+          "marginLeft": 10,
         }
+      }
+    >
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={undefined}
       >
-        New list
-      </button>
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "display": "block",
+              "fontSize": 14,
+              "marginTop": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          New list
+        </button>
+      </div>
     </div>
     <table
       style={
@@ -114,7 +122,7 @@ exports[`snapshots view 1`] = `
               }
             }
           >
-            Created on
+            Last updated
           </th>
           <th
             style={
@@ -128,21 +136,7 @@ exports[`snapshots view 1`] = `
               }
             }
           >
-            Revisions
-          </th>
-          <th
-            style={
-              Object {
-                "backgroundColor": "#ccc",
-                "border": "1px solid #eee",
-                "fontWeight": "bold",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            Workspace
+            Status
           </th>
           <th
             style={
@@ -203,7 +197,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -217,8 +215,9 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
+            title="Revisions: 17"
           >
-            Wednesday 5/9
+            Wednesday 5/9, 8:03am
           </td>
           <td
             style={
@@ -229,25 +228,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            17
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              6305
-              -
-              345
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -260,6 +241,435 @@ exports[`snapshots view 1`] = `
           >
             <a
               href="/classlists/63055567-a2e1-49b3-a6da-655658445177"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
+            >
+              open
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="School"
+              href="/schools/2"
+              style={Object {}}
+            >
+              Arthur D Healey
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            3rd grade
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:uri@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Uri Disney
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+            title="Revisions: 7"
+          >
+            Tuesday 5/8, 11:26am
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          />
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              href="/classlists/191c6264-0352-453e-a495-481e93e19c80"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
+            >
+              open
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="School"
+              href="/schools/2"
+              style={Object {}}
+            >
+              Arthur D Healey
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            3rd grade
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:uri@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Uri Disney
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+            title="Revisions: 26"
+          >
+            Monday 5/7, 2:12pm
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          />
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              href="/classlists/294f6a1e-42db-4fbb-b283-0acd6c328f4b"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
+            >
+              open
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="School"
+              href="/schools/2"
+              style={Object {}}
+            >
+              Arthur D Healey
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            3rd grade
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:uri@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Uri Disney
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+            title="Revisions: 7"
+          >
+            Monday 5/7, 6:54pm
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "fontWeight": "bold",
+                  "padding": 5,
+                }
+              }
+            >
+              submitted
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              href="/classlists/1ffe068d-6c62-4e1f-81b6-180b334f6d93"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
+            >
+              open
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="School"
+              href="/schools/2"
+              style={Object {}}
+            >
+              Arthur D Healey
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            3rd grade
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:uri@demo.studentinsights.org"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Uri Disney
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+            title="Revisions: 6"
+          >
+            Monday 5/7, 2:20pm
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "fontWeight": "bold",
+                  "padding": 5,
+                }
+              }
+            >
+              submitted
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              href="/classlists/9115a670-b0dc-4b31-bdfd-64ef73bf34e1"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
             >
               open
             </a>
@@ -309,7 +719,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -323,8 +737,9 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
+            title="Revisions: 9"
           >
-            Tuesday 5/8
+            Tuesday 5/8, 12:33pm
           </td>
           <td
             style={
@@ -335,25 +750,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            9
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              fda9
-              -
-              328
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -366,6 +763,11 @@ exports[`snapshots view 1`] = `
           >
             <a
               href="/classlists/fda99ce2-99be-4f39-a56e-86c16a790caf"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
             >
               open
             </a>
@@ -429,8 +831,9 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
+            title="Revisions: 26"
           >
-            Tuesday 5/8
+            Tuesday 5/8, 12:08pm
           </td>
           <td
             style={
@@ -441,25 +844,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            26
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              06d3
-              -
-              319
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -472,6 +857,11 @@ exports[`snapshots view 1`] = `
           >
             <a
               href="/classlists/06d32485-77a5-4724-8780-d55df3aedebf"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
             >
               open
             </a>
@@ -521,7 +911,11 @@ exports[`snapshots view 1`] = `
             <a
               className="Educator"
               href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
             >
               Uri Disney
             </a>
@@ -535,8 +929,9 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
+            title="Revisions: 4"
           >
-            Tuesday 5/8
+            Tuesday 5/8, 11:26am
           </td>
           <td
             style={
@@ -547,25 +942,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            4
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              8893
-              -
-              293
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -578,112 +955,11 @@ exports[`snapshots view 1`] = `
           >
             <a
               href="/classlists/8893e4a1-b57c-47e6-89b6-1d767aef5d21"
-            >
-              open
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
+              style={
+                Object {
+                  "padding": 10,
+                }
               }
-            }
-          >
-            <a
-              className="School"
-              href="/schools/2"
-              style={Object {}}
-            >
-              Arthur D Healey
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            3rd grade
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
-            >
-              Uri Disney
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            Tuesday 5/8
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            7
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              191c
-              -
-              289
-            </pre>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              href="/classlists/191c6264-0352-453e-a495-481e93e19c80"
             >
               open
             </a>
@@ -747,8 +1023,9 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
+            title="Revisions: 3"
           >
-            Monday 5/7
+            Monday 5/7, 6:55pm
           </td>
           <td
             style={
@@ -759,25 +1036,7 @@ exports[`snapshots view 1`] = `
                 "verticalAlign": "top",
               }
             }
-          >
-            3
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              a0f1
-              -
-              282
-            </pre>
-          </td>
+          />
           <td
             style={
               Object {
@@ -790,324 +1049,11 @@ exports[`snapshots view 1`] = `
           >
             <a
               href="/classlists/a0f1dcb2-96f6-4b6f-bbf7-a21a0fa2225c"
-            >
-              open
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
+              style={
+                Object {
+                  "padding": 10,
+                }
               }
-            }
-          >
-            <a
-              className="School"
-              href="/schools/2"
-              style={Object {}}
-            >
-              Arthur D Healey
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            3rd grade
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
-            >
-              Uri Disney
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            Monday 5/7
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            7
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              1ffe
-              -
-              279
-            </pre>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              href="/classlists/1ffe068d-6c62-4e1f-81b6-180b334f6d93"
-            >
-              open
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              className="School"
-              href="/schools/2"
-              style={Object {}}
-            >
-              Arthur D Healey
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            3rd grade
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
-            >
-              Uri Disney
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            Monday 5/7
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            6
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              9115
-              -
-              272
-            </pre>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              href="/classlists/9115a670-b0dc-4b31-bdfd-64ef73bf34e1"
-            >
-              open
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              className="School"
-              href="/schools/2"
-              style={Object {}}
-            >
-              Arthur D Healey
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            3rd grade
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              className="Educator"
-              href="mailto:uri@demo.studentinsights.org"
-              style={Object {}}
-            >
-              Uri Disney
-            </a>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            Monday 5/7
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            26
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <pre>
-              294f
-              -
-              266
-            </pre>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <a
-              href="/classlists/294f6a1e-42db-4fbb-b283-0acd6c328f4b"
             >
               open
             </a>

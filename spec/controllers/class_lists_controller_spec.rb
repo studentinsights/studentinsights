@@ -32,6 +32,7 @@ describe ClassListsController, :type => :controller do
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
         grade_level_next_year: '6',
+        submitted: false,
         json: { foo: 'bazzzzz' }
       }
       expect(response.status).to eq 403
@@ -139,22 +140,37 @@ describe ClassListsController, :type => :controller do
       end
     end
 
+    it 'works for Vivian' do
+      request_available_grade_levels_json(pals.healey_vivian_teacher)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json["grade_levels_next_year"]).to eq(["1"])
+      expect(json["schools"].length).to eq 1
+      expect(json["schools"][0]["id"]).to eq pals.healey.id
+    end
+
     it 'works for Sarah' do
       request_available_grade_levels_json(pals.healey_sarah_teacher)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
-      expect(json["default_grade_level_next_year"]).to eq('6')
+      expect(json["grade_levels_next_year"]).to eq(["6"])
+      expect(json["schools"].length).to eq 1
+      expect(json["schools"][0]["id"]).to eq pals.healey.id
+    end
+
+    it 'works for Laura' do
+      request_available_grade_levels_json(pals.healey_laura_principal)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
       expect(json["grade_levels_next_year"]).to eq(["1", "2", "3", "4", "5", "6"])
-      expect(json["default_school_id"]).to eq(pals.healey.id)
-      expect(json["schools"].length).to eq 8
+      expect(json["schools"].length).to eq 1
+      expect(json["schools"][0]["id"]).to eq pals.healey.id
     end
 
     it 'works for Uri' do
       request_available_grade_levels_json(pals.uri)
       json = JSON.parse(response.body)
-      expect(json["default_grade_level_next_year"]).to eq('1')
       expect(json["grade_levels_next_year"]).to eq(["1", "2", "3", "4", "5", "6"])
-      expect(json["default_school_id"]).to eq(pals.healey.id)
       expect(json["schools"].length).to eq 8
     end
   end
@@ -175,7 +191,8 @@ describe ClassListsController, :type => :controller do
         grade = '2'
         homeroom = Homeroom.create!(name: "HR #{grade}-#{n}", grade: grade, school: pals.healey)
         1.times do
-          FactoryBot.create(:student, {
+          FactoryBot.create(:student_with_full_name, {
+            last_name: 'Fake',
             grade: grade,
             school: pals.healey,
             homeroom: homeroom
@@ -183,7 +200,8 @@ describe ClassListsController, :type => :controller do
         end
       end
       4.times do
-        FactoryBot.create(:student, {
+        FactoryBot.create(:student_with_full_name, {
+          last_name: 'Fake',
           grade: '5',
           school: pals.healey,
           homeroom: pals.healey_fifth_homeroom
@@ -223,7 +241,8 @@ describe ClassListsController, :type => :controller do
     end
 
     it 'filters out inactive students' do
-      inactive_student = FactoryBot.create(:student, {
+      inactive_student = FactoryBot.create(:student_with_full_name, {
+        last_name: 'Fake',
         grade: '5',
         enrollment_status: 'Transferred',
         school: pals.healey,
@@ -278,6 +297,7 @@ describe ClassListsController, :type => :controller do
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
+          "submitted"=>false,
           "json"=>{'foo'=>'bar'}
         }
       })
@@ -327,6 +347,7 @@ describe ClassListsController, :type => :controller do
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
         grade_level_next_year: '6',
+        submitted: false,
         json: { foo: 'bazzzzz' }
       }
       json = JSON.parse(response.body)
@@ -337,6 +358,7 @@ describe ClassListsController, :type => :controller do
           "created_by_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
+          "submitted"=>false,
           "json"=>{'foo'=>'bazzzzz'}
         }
       })
@@ -348,15 +370,15 @@ describe ClassListsController, :type => :controller do
 
   describe '#profile_json' do
     let!(:sarah_student) do
-      FactoryBot.create(:student, {
+      FactoryBot.create(:student_with_full_name, {
         grade: '5',
         school: pals.healey,
         homeroom: pals.healey_fifth_homeroom
       })
     end
     let!(:vivian_student) do
-      FactoryBot.create(:student, {
-        grade: '5',
+      FactoryBot.create(:student_with_full_name, {
+        grade: 'KF',
         school: pals.healey,
         homeroom: pals.healey_kindergarten_homeroom
       })
@@ -386,7 +408,7 @@ describe ClassListsController, :type => :controller do
       expect(json['feed_cards'].size).to eq 1
     end
 
-    it 'guards Vivian reading her student from Sarah\'s worksapce_id' do
+    it 'guards Vivian reading her student from Sarah\'s workspace_id' do
       class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_vivian_teacher)
       get :profile_json, params: {
@@ -400,7 +422,7 @@ describe ClassListsController, :type => :controller do
       expect(response.status).to eq 403
     end
 
-    it 'guards Vivian reading Sarah student from her own worksapce_id' do
+    it 'guards Vivian reading Sarah student from her own workspace_id' do
       class_list = create_class_list_from(pals.healey_vivian_teacher, grade_level_next_year: '1')
       sign_in(pals.healey_vivian_teacher)
       get :profile_json, params: {
@@ -414,7 +436,7 @@ describe ClassListsController, :type => :controller do
       expect(response.status).to eq 403
     end
 
-    it 'guards Vivian reading her own student from own other worksapce_id' do
+    it 'guards Vivian reading her own student from own other workspace_id' do
       class_list = create_class_list_from(pals.healey_vivian_teacher, grade_level_next_year: '3')
       sign_in(pals.healey_vivian_teacher)
       get :profile_json, params: {

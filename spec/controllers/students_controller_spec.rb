@@ -56,7 +56,9 @@ describe StudentsController, :type => :controller do
 
         it 'assigns the student\'s serialized data correctly' do
           make_request({ student_id: student.id, format: :html })
-          expect(serialized_data[:current_educator]).to eq educator
+          expect(serialized_data[:current_educator]['id']).to eq educator['id']
+          expect(serialized_data[:current_educator]['email']).to eq educator['email']
+          expect(serialized_data[:current_educator]['labels']).to eq []
           expect(serialized_data[:student]["id"]).to eq student.id
           expect(serialized_data[:student]["restricted_notes_count"]).to eq 0
 
@@ -138,6 +140,17 @@ describe StudentsController, :type => :controller do
             make_request({ student_id: student.id, format: :html })
             expect(discipline_incidents).to eq [more_recent_incident, less_recent_incident]
           end
+        end
+      end
+
+      context 'educator has an associated label' do
+        let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+        let!(:label) { EducatorLabel.create!(label_key: 'k8_counselor', educator: educator) }
+        let(:serialized_data) { assigns(:serialized_data) }
+
+        it 'serializes the educator label correctly' do
+          make_request({ student_id: student.id, format: :html })
+          expect(serialized_data[:current_educator]['labels']).to eq ['k8_counselor']
         end
       end
 

@@ -9,6 +9,22 @@ class ClassListQueries
     @educator = educator
   end
 
+  # Is this feature relevant for them at all?
+  def is_relevant_for_educator?
+    supported_schools.each do |school|
+      return true if authorized_grade_levels(school.id).size > 0
+    end
+    false
+  end
+
+  # At a school, what grade levels are they authorized for?
+  def authorized_grade_levels(school_id)
+    supported_grade_levels_next_year.select do |grade_level_next_year|
+      grade_level_now = GradeLevels.new.previous(grade_level_next_year)
+      is_authorized_for_grade_level_now?(school_id, grade_level_now)
+    end
+  end
+
   # What grade levels do we want to support creating class lists for?
   def supported_grade_levels_next_year
     ['1','2','3','4','5','6']
@@ -56,12 +72,19 @@ class ClassListQueries
     end
   end
 
-  # Educators can only write to workspaces they created, or to unowned workspaces.
+  # Can the user write to this workspace?
   def is_authorized_for_writes?(workspace_id)
-    owner = ClassList.workspace_owner(workspace_id)
-    return true if owner.nil?
-    return true if owner.id == @educator.id
-    false
+    # If this workspace_id hasn't been used yet, anyone can create it.
+    class_list = ClassList.latest_class_list_for_workspace(workspace_id)
+    return true if class_list.nil?
+
+    # Educators can't write to workspaces they didn't create (not principals yet).
+    return false if class_list.created_by_educator_id != @educator.id
+
+    # If the workspace has been submitted no one can write (not principals yet).
+    return false if class_list.submitted?
+
+    true
   end
 
   # This is intended only for use in this controller, and allows more people
@@ -75,9 +98,23 @@ class ClassListQueries
     return true if @educator.districtwide_access?
     return true if @educator.admin?
     return true if @educator.schoolwide_access?
-    return true if grade_level_now == @educator.homeroom.try(:grade)
+    return true if grade_level_now.in?(student_and_homeroom_grade_levels_now(school_id))
 
     false
+  end
+
+  # Since there are teachers with mixed grade level rooms, allow them
+  # to make class lists for any grade they have students for (active students only).
+  # This isn't intended to be used directly.
+  def student_and_homeroom_grade_levels_now(school_id)
+    return [] if @educator.homeroom.nil?
+    homeroom_grade = @educator.homeroom.grade
+    student_grades = @educator.homeroom.students
+      .where(school_id: school_id)
+      .active
+      .map(&:grade)
+
+    ([homeroom_grade] + student_grades).uniq
   end
 
   # Is the user assigned to that school? (ie, this isn't the same as "do they

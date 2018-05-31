@@ -10,6 +10,7 @@ export function testProps(props = {}) {
     steps: STEPS,
     stepIndex: 2,
     isEditable: true,
+    isDirty: false,
     onStepChanged: jest.fn(),
     renderFn(stepIndex, step) {
       return <div style={{border: '1px solid #eee', padding: 20}}>contents for {step}</div>;

@@ -19,7 +19,7 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Notes to principal',
+  'Share with principal',
   'Principal finalizes',
   'Export spreadsheet'
 ];
@@ -36,11 +36,13 @@ export default class ClassListCreatorPage extends React.Component {
     this.state = {
       stepIndex: 0,
       isEditable: true,
+      isSubmitted: false,
 
       // tracking in-flight server requests
       hasFetchedStudents: false,
       hasFetchedGradeLevels: false,
       hasFetchedClassList: false,
+      lastSavedSnapshot: null,
 
       // choosing school and grade
       schools: null, // from server
@@ -51,14 +53,15 @@ export default class ClassListCreatorPage extends React.Component {
       // workspace
       educators: null, // from server
       students: null, // from server
-      classroomsCount: 4,
+      classroomsCount: 2,
       authors: [],
       planText: '',
       studentIdsByRoom: null,
-      principalNoteText: ''
+      principalNoteText: '',
+      feedbackText: ''
     };
 
-    this.doSaveChanges = _.throttle(this.doSaveChanges, 5000);
+    this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
     this.fetchClassList = this.fetchClassList.bind(this);
@@ -73,6 +76,12 @@ export default class ClassListCreatorPage extends React.Component {
     this.onAuthorsChanged = this.onAuthorsChanged.bind(this);
     this.onClassListsChanged = this.onClassListsChanged.bind(this);
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
+    this.onFeedbackTextChanged = this.onFeedbackTextChanged.bind(this);
+    this.onSubmitClicked = this.onSubmitClicked.bind(this);
+    this.onBeforeUnload = this.onBeforeUnload.bind(this);
+    this.onFetchedClassListError = this.onFetchedClassListError.bind(this);
+    this.onFetchStudentsError = this.onFetchStudentsError.bind(this);
+    this.onFetchedGradeLevelsError = this.onFetchedGradeLevelsError.bind(this);
   }
 
   componentDidMount() {
@@ -83,13 +92,38 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   componentDidUpdate() {
-    this.doSaveChanges();
+    this.doAutoSaveChanges();
     this.triggerEffects();
   }
 
   componentWillUnmount() {
-    if (this.doSaveChanges.flush) this.doSaveChanges.flush(); // flush any queued changes
+    if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
     window.removeEventListener('beforeunload', this.onBeforeUnload);
+  }
+
+  rollbarError(message, params) {
+    window.Rollbar.error(message, params);
+  }
+
+  // Are there any local changes that we think haven't been synced?
+  isDirty() {
+    const {lastSavedSnapshot} = this.state;
+    if (!this.isSaveable()) return false;
+    return !_.isEqual(lastSavedSnapshot, snapshotStateForSaving(this.state));
+  }
+
+  // Has the user gotten past initial loading to where there is
+  // something worth saving?
+  isSaveable() {
+    const {
+      workspaceId,
+      stepIndex,
+      schoolId,
+      gradeLevelNextYear
+    } = this.state;
+
+    // Don't save until they choose a grade level and school
+    return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null);
   }
 
   // Describes which steps are available to be navigated to,
@@ -104,6 +138,13 @@ export default class ClassListCreatorPage extends React.Component {
     return (schoolId === null || gradeLevelNextYear === null)
       ? [0]
       : [0, 1, 2, 3, 4, 5];
+  }
+
+  canChangeSchoolOrGrade() {
+    const {studentIdsByRoom, students, hasFetchedStudents, hasFetchedClassList} = this.state;
+    if (students !== null || hasFetchedStudents) return false;
+    if (studentIdsByRoom !== null || hasFetchedClassList) return false;
+    return true;
   }
 
   // This is a debug hook for iterating on particular production data sets locally
@@ -185,14 +226,27 @@ export default class ClassListCreatorPage extends React.Component {
     const {hasFetchedGradeLevels, workspaceId} = this.state;
     if (hasFetchedGradeLevels) return;
     this.setState({hasFetchedGradeLevels: true});
-    return fetchGradeLevelsJson(workspaceId).then(this.onFetchedGradeLevels);
+    return fetchGradeLevelsJson(workspaceId)
+      .then(this.onFetchedGradeLevels)
+      .catch(this.onFetchedGradeLevelsError);
   }
 
   fetchStudents() {
     const {hasFetchedStudents, workspaceId, gradeLevelNextYear, schoolId} = this.state;
     if (hasFetchedStudents) return;
     this.setState({hasFetchedStudents: true});
-    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId}).then(this.onFetchedStudents);
+    return fetchStudentsJson({workspaceId, gradeLevelNextYear, schoolId})
+      .then(this.onFetchedStudents)
+      .catch(this.onFetchStudentsError);
+  }
+
+  fetchClassList() {
+    const {hasFetchedClassList, workspaceId} = this.state;
+    if (hasFetchedClassList) return;
+    this.setState({hasFetchedClassList: true});
+    return fetchClassListJson(workspaceId)
+      .then(this.onFetchedClassList)
+      .catch(this.onFetchedClassListError);
   }
 
   doReplaceState() {
@@ -205,54 +259,57 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // This method is throttled.
-  doSaveChanges() {
-    const {
-      isEditable,
-      workspaceId,
-      stepIndex,
-      schoolId,
-      gradeLevelNextYear,
-      authors,
-      classroomsCount,
-      planText,
-      studentIdsByRoom,
-      principalNoteText
-    } = this.state;
-
-    // View-only
+  // Autosave unless it's readonly, the user is still at the initial 
+  // steps or unless nothing has changed.
+  doAutoSaveChanges() {
+    const {isEditable} = this.state;
     if (!isEditable) return;
+    if (!this.isSaveable()) return;
+    if (!this.isDirty()) return;
 
-    // Don't save until they choose a grade level and school
-    if (!workspaceId || stepIndex === 0 || !schoolId || !gradeLevelNextYear) return;
-    
+    this.doSave();
+  }
+
+  // Make the save request without any guards. fire-and-forget
+  doSave() {
+    const snapshotForSaving = snapshotStateForSaving(this.state);
     const payload = {
-      workspaceId,
-      stepIndex,
-      schoolId,
-      gradeLevelNextYear,
-      authors,
-      classroomsCount,
-      planText,
-      studentIdsByRoom,
-      principalNoteText,
+      ...snapshotForSaving,
       clientNowMs: moment.utc().unix()
     };
-    postClassList(payload);
+    postClassList(payload)
+      .then(this.onPostDone.bind(this, snapshotForSaving))
+      .catch(this.onPostError.bind(this, snapshotForSaving));
   }
 
-  fetchClassList() {
-    const {hasFetchedClassList, workspaceId} = this.state;
-    if (hasFetchedClassList) return;
-    this.setState({hasFetchedClassList: true});
-    return fetchClassListJson(workspaceId).then(this.onFetchedClassList);
+  onPostDone(snapshotForSaving) {
+    this.setState({lastSavedSnapshot: snapshotForSaving});
   }
 
-  // TODO(kr) check this on IE
+  onPostError(snapshotForSaving, error) {
+    this.rollbarError('ClassListCreatorPage#onPostError', error);
+  }
+
+  onFetchedGradeLevelsError(error) {
+    this.rollbarError('ClassListCreatorPage#onFetchedGradeLevelsError', error);
+  }
+
+  onFetchStudentsError(error) {
+    this.rollbarError('ClassListCreatorPage#onFetchStudentsError', error);
+  }
+
+  onFetchedClassListError(error) {
+    this.rollbarError('ClassListCreatorPage#onFetchedClassListError', error);
+  }
+
   onBeforeUnload(event) {
-    const isDirty = true;
-    return (isDirty)
-      ? 'You have unsaved changes.'
-      : undefined;
+    if (!this.isDirty()) return;
+
+    // Chrome expects the event property to be mutated, other browsers
+    // expect the function to return a value;
+    const warningMessage = 'You have unsaved changes.';
+    event.returnValue = warningMessage; 
+    return warningMessage;
   }
 
   onForceDebug(nextState) {
@@ -291,16 +348,20 @@ export default class ClassListCreatorPage extends React.Component {
     const workspaceId = classList.workspace_id;
     const schoolId = classList.school_id;
     const gradeLevelNextYear = classList.grade_level_next_year;
+    const isSubmitted = classList.submitted;
     const {
       authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
-      principalNoteText
+      principalNoteText,
+      feedbackText
     } = classList.json;
-    this.setState({
+
+    const stateChange = {
       workspaceId,
       isEditable,
+      isSubmitted,
       schoolId,
       gradeLevelNextYear,
       authors,
@@ -308,7 +369,18 @@ export default class ClassListCreatorPage extends React.Component {
       planText,
       studentIdsByRoom,
       principalNoteText,
+      feedbackText,
       stepIndex: 0, // Ignore last `stepIndex`
+    };
+
+    // Also record that the server knows about this state.
+    const lastSavedSnapshot = snapshotStateForSaving({
+      ...this.state,
+      ...stateChange
+    });
+    this.setState({
+      ...stateChange,
+      lastSavedSnapshot
     });
   }
 
@@ -353,15 +425,33 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({principalNoteText});
   }
 
+  onFeedbackTextChanged(feedbackText) {
+    this.setState({feedbackText});
+  }
+
+  onSubmitClicked() {
+    const confirmMessage = "Are you sure?  You won't be able to make any changes after submitting.";
+    if (!window.confirm(confirmMessage)) return;
+
+    // This updates the UI locally to disable editing and mark as submitted.
+    // When that state change is done, we also force saving, since
+    // the normal autosave doesn't save anything marked as readonly.
+    this.setState({isSubmitted: true, isEditable: false}, () => this.doSave());
+  }
+
   render() {
     const {workspaceId} = this.state;
     if (!workspaceId) return <Loading />;
 
     const availableSteps = this.availableSteps();
+    const isDirty = this.isDirty();
+    const canChangeSchoolOrGrade = this.canChangeSchoolOrGrade();
     return (
       <ClassListCreatorWorkflow
         {...this.state}
+        isDirty={isDirty}
         steps={STEPS}
+        canChangeSchoolOrGrade={canChangeSchoolOrGrade}
         availableSteps={availableSteps}
         onStepChanged={this.onStepChanged}
         onSchoolIdChanged={this.onSchoolIdChanged}
@@ -371,6 +461,8 @@ export default class ClassListCreatorPage extends React.Component {
         onPlanTextChanged={this.onPlanTextChanged}
         onClassListsChanged={this.onClassListsChanged}
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
+        onFeedbackTextChanged={this.onFeedbackTextChanged}
+        onSubmitClicked={this.onSubmitClicked}
       />
     );
   }
@@ -378,7 +470,38 @@ export default class ClassListCreatorPage extends React.Component {
 ClassListCreatorPage.propTypes = {
   defaultWorkspaceId: React.PropTypes.string,
   disableHistory: React.PropTypes.bool,
-  disableSizing: React.PropTypes.bool
+  disableSizing: React.PropTypes.bool,
+  autoSaveIntervalMs: React.PropTypes.number
+};
+ClassListCreatorPage.defaultProps = {
+  autoSaveIntervalMs: 5000
 };
 
 
+
+function snapshotStateForSaving(state) {
+  const {
+    workspaceId,
+    isSubmitted,
+    schoolId,
+    gradeLevelNextYear,
+    authors,
+    classroomsCount,
+    planText,
+    studentIdsByRoom,
+    feedbackText,
+    principalNoteText
+  } = state;
+  return {
+    workspaceId,
+    isSubmitted,
+    schoolId,
+    gradeLevelNextYear,
+    authors,
+    classroomsCount,
+    planText,
+    studentIdsByRoom,
+    feedbackText,
+    principalNoteText
+  };
+}

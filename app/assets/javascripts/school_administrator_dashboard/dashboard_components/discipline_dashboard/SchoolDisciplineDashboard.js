@@ -71,8 +71,7 @@ class SchoolDisciplineDashboard extends React.Component {
     case 'time': return this.sortedTimes(chartKeys);
     case 'day': return this.sortedDays(chartKeys);
     case 'grade': return this.sortedGrades(chartKeys);
-    case 'classroom': return this.sortedClassrooms(chartKeys);
-    default: return chartKeys;
+    default: return this.sortedByIncidents(chartKeys);
     }
   }
 
@@ -91,10 +90,9 @@ class SchoolDisciplineDashboard extends React.Component {
 
   sortedGrades(chartKeys) {
     return chartKeys.sort((a,b) => sortByGrade(a,b));
-
   }
 
-  sortedClassrooms(chartKeys) {
+  sortedByIncidents(chartKeys) {
     const chart = this.getChartData(this.state.selectedChart);
     return chartKeys.sort((a,b) => {
       return chart.disciplineIncidents[b].length - chart.disciplineIncidents[a].length;
@@ -130,6 +128,7 @@ class SchoolDisciplineDashboard extends React.Component {
                 onChange={this.selectChart}
                 options={chartOptions}
                 style={styles.dropdown}
+                clearable={false}
               />
             </div>
            {this.renderDisciplineChart(selectedChart)}

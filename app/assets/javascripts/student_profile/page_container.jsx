@@ -48,6 +48,7 @@ function fromPair(key, value) {
         // data
         student: serializedData.student,
         feed: serializedData.feed,
+        transitionNotes: serializedData.transitionNotes,
         chartData: serializedData.chartData,
         attendanceData: serializedData.attendanceData,
         access: serializedData.access,
@@ -150,6 +151,33 @@ function fromPair(key, value) {
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
+    },
+
+    onClickSaveTransitionNote: function(noteParams) {
+      const requestState = (noteParams.is_restricted)
+        ? { saveRestrictedTransitionNote: 'pending' }
+        : { saveTransitionNote: 'pending' };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
+      this.api.saveTransitionNote(this.state.student.id, noteParams)
+        .done(this.onSaveTransitionNoteDone)
+        .fail(this.onSaveTransitionNoteFail);
+    },
+
+    onSaveTransitionNoteDone: function(response) {
+      const requestState = (response.is_restricted)
+        ? { saveRestrictedTransitionNote: null }
+        : { saveTransitionNote: null };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
+    },
+
+    onSaveTransitionNoteFail: function(request, status, message) {
+      const requestState = (request.is_restricted)
+        ? { saveRestrictedTransitionNote: 'error' }
+        : { saveTransitionNote: 'error' };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
     },
 
     onSaveNotesDone: function(response) {
@@ -273,6 +301,7 @@ function fromPair(key, value) {
               'eventNoteTypesIndex',
               'student',
               'feed',
+              'transitionNotes',
               'access',
               'chartData',
               'dibels',
@@ -290,6 +319,7 @@ function fromPair(key, value) {
               actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
+                onClickSaveTransitionNote: this.onClickSaveTransitionNote,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
                 onClickDiscontinueService: this.onClickDiscontinueService,

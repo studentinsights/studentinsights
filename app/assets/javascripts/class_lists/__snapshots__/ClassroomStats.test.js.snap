@@ -195,7 +195,7 @@ exports[`snapshots 1`] = `
                 }
               />
             </div>
-            Low income
+            Reduced lunch
           </th>
           <th
             onClick={[Function]}
@@ -1772,7 +1772,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "42%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -1788,7 +1788,7 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "42%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -1802,9 +1802,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "42%",
+                        "left": "39%",
                         "position": "absolute",
-                        "width": "25%",
+                        "width": "24%",
                       }
                     }
                   >
@@ -1815,12 +1815,12 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "42%",
+                        "left": "39%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "25%",
+                        "width": "24%",
                       }
                     }
                   >
@@ -1834,9 +1834,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "67%",
+                        "left": "62%",
                         "position": "absolute",
-                        "width": "34%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -1847,16 +1847,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "67%",
+                        "left": "62%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "34%",
+                        "width": "39%",
                       }
                     }
                   >
-                    4
+                    5
                   </div>
                 </div>
               </div>
@@ -1900,7 +1900,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "19%",
+                        "width": "16%",
                       }
                     }
                   >
@@ -1916,7 +1916,7 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "19%",
+                        "width": "16%",
                       }
                     }
                   >
@@ -1930,9 +1930,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "19%",
+                        "left": "16%",
                         "position": "absolute",
-                        "width": "55%",
+                        "width": "47%",
                       }
                     }
                   >
@@ -1943,12 +1943,12 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "19%",
+                        "left": "16%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "55%",
+                        "width": "47%",
                       }
                     }
                   >
@@ -1962,9 +1962,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "73%",
+                        "left": "62%",
                         "position": "absolute",
-                        "width": "28%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -1975,16 +1975,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "73%",
+                        "left": "62%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "28%",
+                        "width": "39%",
                       }
                     }
                   >
-                    3
+                    5
                   </div>
                 </div>
               </div>
@@ -3094,7 +3094,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "46%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -3110,7 +3110,7 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "46%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -3124,9 +3124,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "46%",
+                        "left": "39%",
                         "position": "absolute",
-                        "width": "28%",
+                        "width": "24%",
                       }
                     }
                   >
@@ -3137,12 +3137,12 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "46%",
+                        "left": "39%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "28%",
+                        "width": "24%",
                       }
                     }
                   >
@@ -3156,9 +3156,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "73%",
+                        "left": "62%",
                         "position": "absolute",
-                        "width": "28%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -3169,16 +3169,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "73%",
+                        "left": "62%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "28%",
+                        "width": "39%",
                       }
                     }
                   >
-                    3
+                    5
                   </div>
                 </div>
               </div>
@@ -3222,7 +3222,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "46%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -3238,7 +3238,7 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "46%",
+                        "width": "39%",
                       }
                     }
                   >
@@ -3252,9 +3252,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "46%",
+                        "left": "39%",
                         "position": "absolute",
-                        "width": "37%",
+                        "width": "31%",
                       }
                     }
                   >
@@ -3265,12 +3265,12 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "46%",
+                        "left": "39%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "37%",
+                        "width": "31%",
                       }
                     }
                   >
@@ -3284,9 +3284,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "82%",
+                        "left": "70%",
                         "position": "absolute",
-                        "width": "19%",
+                        "width": "31%",
                       }
                     }
                   >
@@ -3297,16 +3297,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "82%",
+                        "left": "70%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "19%",
+                        "width": "31%",
                       }
                     }
                   >
-                    2
+                    4
                   </div>
                 </div>
               </div>

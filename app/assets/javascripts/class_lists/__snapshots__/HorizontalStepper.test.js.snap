@@ -16,16 +16,12 @@ exports[`snapshots 1`] = `
         "display": "flex",
         "fontSize": 12,
         "justifyContent": "space-between",
+        "marginLeft": 15,
+        "marginRight": 15,
       }
     }
   >
-    <div
-      style={
-        Object {
-          "paddingLeft": 15,
-        }
-      }
-    >
+    <div>
       <span
         onClick={[Function]}
         style={
@@ -176,7 +172,7 @@ exports[`snapshots 1`] = `
             }
           }
         >
-          Notes to principal
+          Share with principal
         </span>
       </span>
       <span
@@ -214,7 +210,7 @@ exports[`snapshots 1`] = `
             }
           }
         >
-          Submit to principal
+          Principal finalizes
         </span>
       </span>
     </div>
@@ -319,16 +315,12 @@ exports[`snapshots when readonly 1`] = `
         "display": "flex",
         "fontSize": 12,
         "justifyContent": "space-between",
+        "marginLeft": 15,
+        "marginRight": 15,
       }
     }
   >
-    <div
-      style={
-        Object {
-          "paddingLeft": 15,
-        }
-      }
-    >
+    <div>
       <span
         onClick={[Function]}
         style={
@@ -479,7 +471,7 @@ exports[`snapshots when readonly 1`] = `
             }
           }
         >
-          Notes to principal
+          Share with principal
         </span>
       </span>
       <span
@@ -517,7 +509,7 @@ exports[`snapshots when readonly 1`] = `
             }
           }
         >
-          Submit to principal
+          Principal finalizes
         </span>
       </span>
     </div>

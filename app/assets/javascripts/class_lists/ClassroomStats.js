@@ -22,6 +22,7 @@ import {
   isLowIncome,
   isHighDiscipline,
   dibelsLevel,
+  starBucket,
   HighlightKeys
 } from './studentFilters';
 
@@ -78,7 +79,7 @@ export default class ClassroomStats extends React.Component {
                   title: 'Students broken down by whether they identify their gender as male, female or nonbinary.'
                 })}
                 {this.renderHeaderCell({
-                  label: 'Low income',
+                  label: 'Reduced lunch',
                   columnHighlightKey: HighlightKeys.LOW_INCOME,
                   title: 'Students whose are enrolled in the free or reduced lunch program.'
                 })}
@@ -249,18 +250,10 @@ export default class ClassroomStats extends React.Component {
 
   // Ignore students without scores
   renderStarWithBreakdown(studentsInRoom, accessor) {
-    const lowCount = studentsInRoom.filter(student => {
-      const percentile = accessor(student);
-      return (percentile && percentile < 30);
-    }).length;
-    const mediumCount = studentsInRoom.filter(student => {
-      const percentile = accessor(student);
-      return (percentile && percentile >= 30 && percentile <= 70);
-    }).length;
-    const highCount = studentsInRoom.filter(student => {
-      const percentile = accessor(student);
-      return (percentile && percentile > 70);
-    }).length;
+    const counts = _.countBy(studentsInRoom, student => starBucket(accessor(student)));
+    const lowCount = counts.low || 0;
+    const mediumCount = counts.medium || 0;
+    const highCount = counts.high || 0;
 
     const items = [
       { left: 0, width: highCount, color: high, key: 'high' },

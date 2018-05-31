@@ -5,6 +5,8 @@ import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
 import Button from '../components/Button';
+import {SeriousButton} from '../components/Button';
+import SuccessLabel from '../components/SuccessLabel';
 import IntroCopy from './IntroCopy';
 import CreateYourLists from './CreateYourLists';
 import PrincipalFinalizes from './PrincipalFinalizes';
@@ -34,7 +36,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
   }
 
   render() {
-    const {steps, stepIndex, availableSteps, onStepChanged, isEditable} = this.props;
+    const {
+      steps,
+      stepIndex,
+      availableSteps,
+      onStepChanged,
+      isEditable,
+      isDirty
+    } = this.props;
     const {isExpandedVertically} = this.state;
     const expandedOrCollapsedStyles = (isExpandedVertically || stepIndex === 5) // TODO(kr) hacking
       ? styles.horizontalStepperExpanded 
@@ -45,6 +54,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           steps={steps}
           availableSteps={availableSteps}
           isEditable={isEditable}
+          isDirty={isDirty}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
           renderFn={this.renderStepContents}
@@ -71,14 +81,16 @@ export default class ClassListCreatorWorkflow extends React.Component {
       schoolId,
       gradeLevelNextYear,
       onSchoolIdChanged,
+      canChangeSchoolOrGrade,
       onGradeLevelNextYearChanged
     } = this.props;
 
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
+
     return (
       <div style={styles.stepContent}>
         <div>
-          <div style={styles.heading}>Why are we doing this?</div>
+          <div style={styles.titleHeading}>Class List Creator</div>
           <IntroCopy />
         </div>
         <div>
@@ -88,7 +100,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 name="select-school-name"
                 value={schoolId}
                 onChange={item => onSchoolIdChanged(item.value)}
-                disabled={!isEditable}
+                disabled={!isEditable || !canChangeSchoolOrGrade}
                 options={_.sortBy(schools, s => s.name).map(school => {
                   return {
                     value: school.id,
@@ -103,7 +115,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 name="select-grade-level"
                 value={gradeLevelNextYear}
                 onChange={item => onGradeLevelNextYearChanged(item.value)}
-                disabled={!isEditable}
+                disabled={!isEditable || !canChangeSchoolOrGrade}
                 options={gradeLevelsNextYear.map(gradeLevelNextYear => {
                   return {
                     value: gradeLevelNextYear,
@@ -112,6 +124,9 @@ export default class ClassListCreatorWorkflow extends React.Component {
                 })}
               />
           </div>
+          {!canChangeSchoolOrGrade &&
+            <div style={{marginTop: 20}}>You can't change the school or grade level once you've moved forward.  If you need to change this, <a href="/classlists">create a new class list</a> instead.</div>
+          }
         </div>
       </div>
     );
@@ -212,13 +227,53 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderReviewAndShareNotes() {
-    const {isEditable, onPrincipalNoteChanged, principalNoteText} = this.props;
+  renderNotesToPrincipal() {
+    const {
+      isEditable,
+      isSubmitted,
+      isDirty,
+      onPrincipalNoteChanged,
+      principalNoteText,
+      onFeedbackTextChanged,
+      feedbackText,
+      onSubmitClicked
+    } = this.props;
+
     return (
       <div style={styles.stepContent}>
-        <div>What else should your principal know?</div>
-        <div style={{paddingTop: 5, paddingLeft: 0, padding: 10, fontSize: 12}}>
-          Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+        <div>
+          <div>What else should your principal know?</div>
+          <div style={styles.descriptionText}>
+            Putting in these notes will help your principal and other team members understand all the different factors that you considered besides what shows up in the graphs.  This is also crucial information for a principal to know in case they need to move any students around over the summer.
+          </div>
+          <textarea
+            value={principalNoteText}
+            disabled={!isEditable}
+            onChange={event => onPrincipalNoteChanged(event.target.value)}
+            rows={5} 
+            style={styles.textarea} />
+        </div>
+        <div style={styles.marginBetweenSections}>
+          <div>Any feedback?</div>
+          <div style={styles.descriptionText}>
+            Let us know any feedback you have so we can improve this for next year.
+          </div>
+          <textarea
+            value={feedbackText}
+            disabled={!isEditable}
+            onChange={event => onFeedbackTextChanged(event.target.value)}
+            rows={2} 
+            style={styles.textarea} />
+        </div>
+        <div style={styles.marginBetweenSections}>
+          <div>Submit</div>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
+            {isSubmitted
+              ? (isDirty) ? <span>Saving...</span> : <SuccessLabel text="Your class list is submitted" />
+              : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
+            }
+          </div>
         </div>
         <textarea
           value={principalNoteText}
@@ -272,6 +327,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           gradeLevelNextYear={gradeLevelNextYear}
           studentIdsByRoom={studentIdsByRoom}
           students={students} />
+        <div>After teachers submit their lists, principals can revise and export the lists as spreadsheets for sending letters home and entering into Aspen.  This will open the week of 6/4 and talk with Uri if you have any questions!</div>
       </div>
     );
   }
@@ -287,8 +343,11 @@ ClassListCreatorWorkflow.propTypes = {
   steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   isEditable: React.PropTypes.bool.isRequired,
+  isSubmitted: React.PropTypes.bool.isRequired,
 
   // state
+  isDirty: React.PropTypes.bool.isRequired,
+  canChangeSchoolOrGrade: React.PropTypes.bool.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   workspaceId: React.PropTypes.string.isRequired,
   schoolId: React.PropTypes.number,
@@ -298,6 +357,7 @@ ClassListCreatorWorkflow.propTypes = {
   planText: React.PropTypes.string.isRequired,
   studentIdsByRoom: React.PropTypes.object,
   principalNoteText: React.PropTypes.string.isRequired,
+  feedbackText: React.PropTypes.string.isRequired,
 
   // callbacks
   onStepChanged: React.PropTypes.func.isRequired,
@@ -307,7 +367,9 @@ ClassListCreatorWorkflow.propTypes = {
   onClassroomsCountIncremented: React.PropTypes.func.isRequired,
   onPlanTextChanged: React.PropTypes.func.isRequired,
   onClassListsChanged: React.PropTypes.func.isRequired,
-  onPrincipalNoteChanged: React.PropTypes.func.isRequired
+  onPrincipalNoteChanged: React.PropTypes.func.isRequired,
+  onFeedbackTextChanged: React.PropTypes.func.isRequired,
+  onSubmitClicked: React.PropTypes.func.isRequired
 };
 
 const styles = {
@@ -317,6 +379,12 @@ const styles = {
   },
   heading: {
     marginTop: 20
+  },
+  titleHeading: {
+    fontSize: 20,
+    fontWeight: 300,
+    marginTop: 20,
+    marginBottom: 10
   },
   button: {
     display: 'inline-block',
@@ -355,7 +423,14 @@ const styles = {
   textarea: {
     border: '1px solid #ccc',
     width: '100%'
+  },
+  descriptionText: {
+    paddingTop: 5,
+    padding: 10,
+    paddingLeft: 0,
+    fontSize: 12
+  },
+  marginBetweenSections: {
+    marginTop: 20
   }
 };
-
-

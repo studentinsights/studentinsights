@@ -5,7 +5,7 @@ describe 'educator sign in', type: :feature do
   let!(:pals) { TestPals.create! }
 
   def grants_access?(educator)
-    educator_sign_in(educator)
+    sign_in_attempt(educator.email, 'demo-password')
     visit admin_root_url
 
     checks = []

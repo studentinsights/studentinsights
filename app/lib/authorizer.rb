@@ -98,6 +98,7 @@ class Authorizer
   def is_authorized_for_student?(student, options = {})
     begin
       return true if @educator.districtwide_access?
+      return true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
 
       return false if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
       return false if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
@@ -150,6 +151,12 @@ class Authorizer
     return false unless is_authorized_for_student?(event_note.student)
     return false if event_note.is_restricted && !@educator.can_view_restricted_notes
     true
+  end
+
+  def is_authorized_to_see_transition_notes?
+    return true if @educator.labels.include?('k8_counselor')
+    return true if @educator.labels.include?('high_school_house_master')
+    return false
   end
 
   # TODO(kr) remove implementation
