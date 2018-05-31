@@ -11,6 +11,7 @@ export function testProps(props = {}) {
     stepIndex: 2,
     isEditable: true,
     isDirty: false,
+    isRevisable: false,
     onStepChanged: jest.fn(),
     renderFn(stepIndex, step) {
       return <div style={{border: '1px solid #eee', padding: 20}}>contents for {step}</div>;
@@ -35,6 +36,14 @@ it('snapshots', () => {
 
 it('snapshots when readonly', () => {
   const props = testProps({ isEditable: false });
+  const tree = renderer
+    .create(<HorizontalStepper {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots when isRevisable', () => {
+  const props = testProps({ isEditable: false, isRevisable: true });
   const tree = renderer
     .create(<HorizontalStepper {...props} />)
     .toJSON();

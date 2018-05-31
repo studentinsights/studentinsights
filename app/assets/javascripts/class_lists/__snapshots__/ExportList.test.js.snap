@@ -3846,3 +3846,304 @@ exports[`shareWithPrincipalProps 2`] = `
   </div>
 </div>
 `;
+
+exports[`snapshots 1`] = `
+<div
+  className="SecretaryEnters"
+>
+  <div
+    style={undefined}
+  >
+    Have all students been placed?
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 20,
+      }
+    }
+  >
+    <span
+      className="SuccessLabel"
+      style={
+        Object {
+          "backgroundColor": "rgb(209, 231, 210)",
+          "border": "1px solid rgb(149, 198, 150)",
+          "borderRadius": 3,
+          "color": "green",
+          "display": "inline-block",
+          "fontWeight": "bold",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 8,
+        }
+      }
+    >
+      All students have been placed.
+    </span>
+  </div>
+  <div
+    style={undefined}
+  >
+    Have you reviewed the teaching team's notes before making changes?
+  </div>
+  <div
+    style={undefined}
+  >
+    You can see their work in the 
+    <i>
+      Make a plan
+    </i>
+     and 
+    <i>
+      Share notes
+    </i>
+     sections.
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 20,
+      }
+    }
+  >
+    <span
+      className="SuccessLabel"
+      style={
+        Object {
+          "backgroundColor": "rgb(209, 231, 210)",
+          "border": "1px solid rgb(149, 198, 150)",
+          "borderRadius": 3,
+          "color": "green",
+          "display": "inline-block",
+          "fontWeight": "bold",
+          "marginBottom": 10,
+          "marginTop": 10,
+          "padding": 8,
+        }
+      }
+    >
+      No students were moved.
+    </span>
+  </div>
+  <div
+    style={undefined}
+  >
+    Who will teach each classroom?
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 20,
+      }
+    }
+  >
+    <table
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderCollapse": "collapse",
+          "margin": 10,
+          "marginLeft": 0,
+        }
+      }
+    >
+      <thead>
+        <tr>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Teacher
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room A
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <input
+              onChange={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                }
+              }
+              type="text"
+              value="Kevin"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room B
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <input
+              onChange={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                }
+              }
+              type="text"
+              value="Alex"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Room C
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <input
+              onChange={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                }
+              }
+              type="text"
+              value="Uri"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    style={
+      Object {
+        "marginBottom": 20,
+      }
+    }
+  >
+    <div>
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "display": "inline-block",
+              "fontSize": 14,
+              "marginTop": 20,
+              "padding": 0,
+              "textDecoration": "none",
+            }
+          }
+        >
+          <a
+            className="DownloadCsvLink"
+            download="Class list: 1st grade at Awesome school 2018-05-31.csv"
+            href="data:attachment/csv,Grade%20level%20next%20year%2CLASID%2CStudent%20name%2CRoom%20next%20year%0A1%2C%2CMowgli%20Disney%2CKevin%0A1%2C%2CChip%20Duck%2CKevin%0A1%2C%2CElsa%20Duck%2CKevin%0A1%2C%2CSnow%20Duck%2CKevin%0A1%2C%2CSnow%20Kenobi%2CKevin%0A1%2C%2CMinnie%20Mouse%2CKevin%0A1%2C%2CMinnie%20Mouse%2CKevin%0A1%2C%2CMowgli%20Mouse%2CKevin%0A1%2C%2CMickey%20Pan%2CKevin%0A1%2C%2CMowgli%20Pan%2CKevin%0A1%2C%2COlaf%20Pan%2CKevin%0A1%2C%2CDaisy%20Poppins%2CKevin%0A1%2C%2CElsa%20Poppins%2CKevin%0A1%2C%2CMowgli%20Skywalker%2CKevin%0A1%2C%2CRapunzel%20Skywalker%2CKevin%0A1%2C%2CElsa%20Disney%2CAlex%0A1%2C%2CMinnie%20Disney%2CAlex%0A1%2C%2CRapunzel%20Disney%2CAlex%0A1%2C%2CRapunzel%20Disney%2CAlex%0A1%2C%2CSnow%20Disney%2CAlex%0A1%2C%2CElsa%20Duck%2CAlex%0A1%2C%2CMinnie%20Duck%2CAlex%0A1%2C%2COlaf%20Duck%2CAlex%0A1%2C%2CSnow%20Duck%2CAlex%0A1%2C%2CDonald%20Kenobi%2CAlex%0A1%2C%2COlaf%20Kenobi%2CAlex%0A1%2C%2CRapunzel%20Kenobi%2CAlex%0A1%2C%2CWinnie%20Kenobi%2CAlex%0A1%2C%2CElsa%20Mouse%2CAlex%0A1%2C%2COlaf%20Mouse%2CAlex%0A1%2C%2CMinnie%20Pan%2CAlex%0A1%2C%2CWinnie%20Pan%2CAlex%0A1%2C%2CSnow%20Poppins%2CAlex%0A1%2C%2CChip%20Skywalker%2CAlex%0A1%2C%2CDaisy%20Skywalker%2CAlex%0A1%2C%2CMowgli%20Skywalker%2CAlex%0A1%2C%2CPocahontas%20Skywalker%2CAlex%0A1%2C%2CMowgli%20White%2CAlex%0A1%2C%2COlaf%20White%2CAlex%0A1%2C%2CPluto%20White%2CAlex%0A1%2C%2CRapunzel%20Disney%2CUri%0A1%2C%2CWinnie%20Duck%2CUri%0A1%2C%2CAladdin%20Kenobi%2CUri%0A1%2C%2CMickey%20Kenobi%2CUri%0A1%2C%2COlaf%20Kenobi%2CUri%0A1%2C%2CWinnie%20Kenobi%2CUri%0A1%2C%2CMickey%20Mouse%2CUri%0A1%2C%2CMinnie%20Mouse%2CUri%0A1%2C%2CChip%20Pan%2CUri%0A1%2C%2CChip%20Pan%2CUri%0A1%2C%2CWinnie%20Pan%2CUri%0A1%2C%2CElsa%20Poppins%2CUri%0A1%2C%2CMowgli%20Poppins%2CUri%0A1%2C%2CWinnie%20Skywalker%2CUri%0A1%2C%2CChip%20White%2CUri%0A1%2C%2CDaisy%20White%2CUri%0A1%2C%2COlaf%20White%2CUri"
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "white",
+                "display": "inline-block",
+                "padding": "8px 25px",
+                "textDecoration": "none",
+              }
+            }
+            target="_blank"
+          >
+            Download class lists spreadsheet
+          </a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

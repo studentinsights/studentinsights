@@ -48,8 +48,8 @@ class Container extends React.Component {
     super(props);
     const {classroomsCount, students, forceUnplaced} = props;
     const studentIdsByRoom = (forceUnplaced)
-      ? consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students)
-      : initialStudentIdsByRoom(classroomsCount, students);
+      ? initialStudentIdsByRoom(classroomsCount, students)
+      : consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students);
 
     this.state = {
       studentIdsByRoom

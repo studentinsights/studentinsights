@@ -193,9 +193,9 @@ ExportList.propTypes = {
   }),
   students: React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
+    local_id: React.PropTypes.string.isRequired,
     first_name: React.PropTypes.string.isRequired,
-    last_name: React.PropTypes.string.isRequired,
-    lasid: React.PropTypes.number.isRequired
+    last_name: React.PropTypes.string.isRequired
   })).isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,

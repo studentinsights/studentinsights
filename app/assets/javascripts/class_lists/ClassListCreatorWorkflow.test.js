@@ -171,7 +171,8 @@ it('shareWithPrincipalProps', () => {
   expect(snapshotRender(shareWithPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
 });
 
-it('exportProps', () => {
-  expect(snapshotRender(shareWithPrincipalProps())).toMatchSnapshot();
-  expect(snapshotRender(shareWithPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
+it('export', () => {
+  expect(snapshotRender(exportPropsWithAllPlaced())).toMatchSnapshot();
+  expect(snapshotRender(exportPropsWithMoves({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
+  expect(snapshotRender(exportPropsWithTeacherNames({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
 });
