@@ -19,9 +19,9 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Share with principal',
+  'Submit',
   'Principal finalizes',
-  'Export spreadsheet'
+  'Export'
 ];
 
 
@@ -126,18 +126,30 @@ export default class ClassListCreatorPage extends React.Component {
     return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null);
   }
 
+  // Only principals can make revisions, and only after it's been submitted.
+  isRevisable() {
+    const {isSubmitted, schoolId} = this.state;
+    const {currentEducator} = this.props;
+    const isPrincipal = currentEducator.labels.indexOf('class_list_maker_finalizer_principal') !== -1;
+    const schoolMatches = schoolId !== null && currentEducator.school_id === schoolId;
+
+    return (isSubmitted && isPrincipal && schoolMatches);
+  }
+
   // Describes which steps are available to be navigated to,
   // not which data has been loaded for.  Steps handle showing their own loading
   // states based on data.
   availableSteps() {
     const {
       schoolId,
-      gradeLevelNextYear
+      gradeLevelNextYear,
+      isSubmitted
     } = this.state;
 
-    return (schoolId === null || gradeLevelNextYear === null)
-      ? [0]
-      : [0, 1, 2, 3, 4, 5];
+    if (schoolId === null || gradeLevelNextYear === null) return [0];
+    return (isSubmitted && this.isRevisable())
+      ? [0, 1, 2, 3, 4, 5]
+      : [0, 1, 2, 3];
   }
 
   canChangeSchoolOrGrade() {
@@ -468,6 +480,12 @@ export default class ClassListCreatorPage extends React.Component {
   }
 }
 ClassListCreatorPage.propTypes = {
+  currentEducator: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    admin: React.PropTypes.bool.isRequired,
+    school_id: React.PropTypes.number,
+    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  }).isRequired,
   defaultWorkspaceId: React.PropTypes.string,
   disableHistory: React.PropTypes.bool,
   disableSizing: React.PropTypes.bool,

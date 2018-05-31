@@ -1,18 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {MemoryRouter} from 'react-router-dom';
-import {mount} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
+import {uri, sarah, laura} from '../../../../spec/javascripts/fixtures/currentEducator';
 
 beforeEach(() => mockWithFixtures());
 
 function testProps(props) {
   return {
+    currentEducator: sarah,
     disableHistory: true,
     disableSizing: true,
     ...props
   };
+}
+
+function isRevisableForEducator(currentEducator, state = {}) {
+  const props = testProps({currentEducator});
+  const wrapper = shallow(<ClassListCreatorPage {...props} />);
+  wrapper.instance().setState(state);
+  return wrapper.instance().isRevisable();
 }
 
 it('renders without crashing on entrypoint', () => {
@@ -34,6 +43,7 @@ it('renders without crashing with balanceId', () => {
     </MemoryRouter>
   , el);
 });
+
 
 it('integration test for state changes, server requests and autosave', done => {
   const props = testProps({ autoSaveIntervalMs: 200 });
@@ -103,4 +113,12 @@ it('integration test for loading existing workspace', done => {
     
     done();
   }, 10); // delay a tick for fetch requests
+});
+
+it('#isRevisable', () => {
+  expect(isRevisableForEducator(laura, {schoolId: 2, isSubmitted: true })).toEqual(true);
+  expect(isRevisableForEducator(laura, {schoolId: 4, isSubmitted: true })).toEqual(false);
+  expect(isRevisableForEducator(laura, {schoolId: 2, isSubmitted: false })).toEqual(false);
+  expect(isRevisableForEducator(sarah, {schoolId: 2, isSubmitted: true })).toEqual(false);
+  expect(isRevisableForEducator(uri, {schoolId: 2, isSubmitted: true })).toEqual(false);
 });

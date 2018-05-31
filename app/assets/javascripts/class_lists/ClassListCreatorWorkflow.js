@@ -68,7 +68,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 0) return this.renderChooseYourGrade();
     if (stepIndex === 1) return this.renderMakeAPlan();
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
-    if (stepIndex === 3) return this.renderReviewAndShareNotes();
+    if (stepIndex === 3) return this.renderSubmit();
     if (stepIndex === 4) return this.renderPrincipalFinalizes();
     if (stepIndex === 5) return this.renderSecretaryEnters();
   }
@@ -227,7 +227,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderNotesToPrincipal() {
+  renderSubmit() {
     const {
       isEditable,
       isSubmitted,
@@ -275,15 +275,6 @@ export default class ClassListCreatorWorkflow extends React.Component {
             }
           </div>
         </div>
-        <textarea
-          value={principalNoteText}
-          disabled={!isEditable}
-          onChange={event => onPrincipalNoteChanged(event.target.value)}
-          rows={12} 
-          style={styles.textarea} />
-
-        <div style={{marginTop: 40}}>After you submit your class list, the principal will be the only one who can make changes.</div>
-        <Button style={{marginTop: 10}}>Submit to principal</Button>
       </div>
     );
   }

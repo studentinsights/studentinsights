@@ -8,7 +8,10 @@ class EducatorLabel < ActiveRecord::Base
     uniqueness: { scope: [:label_key, :educator] },
     inclusion: {
       in: [
-        'shs_experience_team', 'k8_counselor', 'high_school_house_master'
+        'shs_experience_team',
+        'k8_counselor',
+        'high_school_house_master',
+        'class_list_maker_finalizer_principal'
       ]
     }
   }

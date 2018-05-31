@@ -184,7 +184,7 @@ exports[`chooseYourGradeProps 1`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -223,6 +223,44 @@ exports[`chooseYourGradeProps 1`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
@@ -741,7 +779,7 @@ exports[`chooseYourGradeProps 2`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -780,6 +818,44 @@ exports[`chooseYourGradeProps 2`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
@@ -1240,7 +1316,7 @@ exports[`chooseYourGradeProps 3`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -1279,6 +1355,44 @@ exports[`chooseYourGradeProps 3`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
@@ -1738,7 +1852,7 @@ exports[`makeAPlanProps 1`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -1777,6 +1891,44 @@ exports[`makeAPlanProps 1`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
@@ -2307,7 +2459,7 @@ exports[`makeAPlanProps 2`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -2346,6 +2498,44 @@ exports[`makeAPlanProps 2`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
@@ -2836,7 +3026,7 @@ exports[`notesToPrincipalProps 1`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -2875,6 +3065,44 @@ exports[`notesToPrincipalProps 1`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
@@ -3266,7 +3494,7 @@ exports[`notesToPrincipalProps 2`] = `
               }
             }
           >
-            Share with principal
+            Submit
           </span>
         </span>
         <span
@@ -3305,6 +3533,44 @@ exports[`notesToPrincipalProps 2`] = `
             }
           >
             Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 10,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
           </span>
         </span>
       </div>
