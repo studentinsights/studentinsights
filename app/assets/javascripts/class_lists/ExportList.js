@@ -67,8 +67,7 @@ export default class ExportList extends React.Component {
         <div style={headingStyle}>Have all students been placed?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
         
-        <div style={headingStyle}>Have you reviewed the teaching team's notes before making changes?</div>
-        <div style={descriptionStyle}>You can see their work in the <i>Make a plan</i> and <i>Share notes</i> sections.</div>
+        <div style={headingStyle}>Have you reviewed the teaching team's plan and notes before making changes?</div>
         <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
 
         <div style={headingStyle}>Who will teach each classroom?</div>
@@ -101,7 +100,7 @@ export default class ExportList extends React.Component {
   }
 
   renderTeacherAssignment(studentIdsByRoom) {
-    const {principalTeacherNamesByRoom} = this.props;
+    const {principalTeacherNamesByRoom, isRevisable} = this.props;
     const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1).filter(room => {
       return room.roomKey !== UNPLACED_ROOM_KEY;
     });
@@ -120,7 +119,13 @@ export default class ExportList extends React.Component {
             <tr key={room.roomKey}>
               <td style={tableStyles.cell}>{room.roomName}</td>
               <td style={tableStyles.cell}>
-                <input style={styles.input} type="text" onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)} value={teacherText} />
+                <input
+                  style={styles.input}
+                  disabled={!isRevisable}
+                  placeholder="Teacher name"
+                  type="text"
+                  onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)}
+                  value={teacherText} />
               </td>
             </tr>
           );
@@ -180,13 +185,14 @@ export default class ExportList extends React.Component {
           </DownloadCsvLink>
         </Button>
         {!isReadyToExport &&
-          <div style={styles.warnExport}>{this.renderWarning('Please assign teachers to each homeroom first')}</div>
+          <div style={styles.warnExport}>{this.renderWarning('Teachers need to be assigned to each homeroom first')}</div>
         }
       </div>
     );
   }
 }
 ExportList.propTypes = {
+  isRevisable: React.PropTypes.bool.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
   school: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired
@@ -201,7 +207,7 @@ ExportList.propTypes = {
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
-  onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func.isRequired,
+  onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func,
   headingStyle: React.PropTypes.object,
   descriptionStyle: React.PropTypes.object
 };
@@ -238,7 +244,7 @@ const styles = {
     padding: '8px 25px'
   },
   spaceBelow: {
-    marginBottom: 20
+    marginBottom: 10
   },
   warnExport: {
     display: 'inline-block',

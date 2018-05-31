@@ -289,6 +289,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const {
       workspaceId,
       students,
+      isRevisable,
       classroomsCount,
       gradeLevelNextYear,
       onClassListsChangedByPrincipal
@@ -305,7 +306,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     return (
       <CreateYourLists
         key="principal-finalizes"
-        isEditable={true}
+        isEditable={isRevisable}
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
@@ -321,6 +322,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
   renderExportList() {
     const {
       workspaceId,
+      isRevisable,
       gradeLevelNextYear,
       schoolId,
       schools,
@@ -337,6 +339,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       <div key="export" style={styles.stepContent}>
         <div style={styles.titleHeading}>Next year's {gradeText(gradeLevelNextYear)}</div>
         <ExportList
+          isRevisable={isRevisable}
           headingStyle={styles.heading}
           descriptionStyle={styles.descriptionText}
           school={school}
@@ -346,7 +349,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           teacherStudentIdsByRoom={studentIdsByRoom}
           principalStudentIdsByRoom={principalStudentIdsByRoom}
           principalTeacherNamesByRoom={principalTeacherNamesByRoom}
-          onPrincipalTeacherNamesByRoomChanged={onPrincipalTeacherNamesByRoomChanged}
+          onPrincipalTeacherNamesByRoomChanged={isRevisable ? onPrincipalTeacherNamesByRoomChanged : null}
         />
       </div>
     );

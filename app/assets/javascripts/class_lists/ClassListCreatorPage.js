@@ -168,7 +168,7 @@ export default class ClassListCreatorPage extends React.Component {
     } = this.state;
 
     if (schoolId === null || gradeLevelNextYear === null) return [0];
-    if (!isSubmitted || !this.isRevisable()) return [0, 1, 2, 3];
+    if (!isSubmitted) return [0, 1, 2, 3];
     return [0, 1, 2, 3, 4, 5];
   }
 
