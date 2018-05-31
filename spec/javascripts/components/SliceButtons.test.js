@@ -9,8 +9,7 @@ const helpers = {
       students: [],
       filters: [],
       filtersHash: '',
-      clearFilters: jest.fn(),
-      activeFiltersIdentifier: ''
+      clearFilters: jest.fn()
     };
     ReactDOM.render(<SliceButtons {...mergedProps} />, el);
   }
