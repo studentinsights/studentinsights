@@ -19,7 +19,7 @@ export default class ExportList extends React.Component {
     return _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
       return studentIdsByRoom[roomKey].map(studentId => {
         const student = _.find(students, {id: studentId});
-        const teacherText = principalTeacherNamesByRoom[roomKey];
+        const teacherText = principalTeacherNamesByRoom[roomKey] || 'Not placed';
         return [
           gradeLevelNextYear,
           student.local_id,
@@ -67,8 +67,8 @@ export default class ExportList extends React.Component {
         <div style={headingStyle}>Have all students been placed?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
         
-        <div style={headingStyle}>Have you considered the teaching team's intention and notes to you when making changes?</div>
-        <div style={descriptionStyle}>Make sure to check the teaching team's intentions in <i>Make a plan</i> and notes about particular placement decisions in <i>Share notes</i>.</div>
+        <div style={headingStyle}>Have you reviewed the teaching team's notes before making changes?</div>
+        <div style={descriptionStyle}>You can see their work in the <i>Make a plan</i> and <i>Share notes</i> sections.</div>
         <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
 
         <div style={headingStyle}>Who will teach each classroom?</div>
@@ -92,8 +92,8 @@ export default class ExportList extends React.Component {
     const movedStudentsCount = findMovedStudentIds(teacherStudentIdsByRoom, studentIdsByRoom).length;
 
     if (movedStudentsCount === 0) return <SuccessLabel style={styles.placementMessage} text="No students were moved." />;
-    if (movedStudentsCount === 1) return this.renderWarning(`You moved one student from the teaching team's original plan.`);
-    if (movedStudentsCount > 1) return this.renderWarning(`You moved ${movedStudentsCount} students from the teaching team's original plan.`);
+    if (movedStudentsCount === 1) return this.renderWarning(`You made one revision to the teaching team's original plan.`);
+    if (movedStudentsCount > 1) return this.renderWarning(`You made ${movedStudentsCount} revisions to the teaching team's original plan.`);
   }
 
   renderWarning(text) {
@@ -191,7 +191,12 @@ ExportList.propTypes = {
   school: React.PropTypes.shape({
     name: React.PropTypes.string.isRequired
   }),
-  students: React.PropTypes.array.isRequired,
+  students: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    first_name: React.PropTypes.string.isRequired,
+    last_name: React.PropTypes.string.isRequired,
+    lasid: React.PropTypes.number.isRequired
+  })).isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,

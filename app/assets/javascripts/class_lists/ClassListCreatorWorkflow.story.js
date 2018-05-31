@@ -7,9 +7,9 @@ import {
   chooseYourGradeProps,
   makeAPlanProps,
   shareWithPrincipalProps,
-  exportProps,
   exportPropsWithAllPlaced,
-  exportPropsWithMoves
+  exportPropsWithMoves,
+  exportPropsWithTeacherNames
 } from './ClassListCreatorWorkflow.test';
 
 function withStoryProps(props = {}) {
@@ -55,5 +55,6 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
       isSubmitted: true
     })));
   })
-  .add('Export, all placed', () => render(withStoryProps(exportPropsWithAllPlaced(props))))
-  .add('Export, with moves', () => render(withStoryProps(exportPropsWithMoves(props))));
+  .add('Export, all placed', () => render(withStoryProps(exportPropsWithAllPlaced())))
+  .add('Export, with moves', () => render(withStoryProps(exportPropsWithMoves())))
+  .add('Export, with teacher names', () => render(withStoryProps(exportPropsWithTeacherNames())));

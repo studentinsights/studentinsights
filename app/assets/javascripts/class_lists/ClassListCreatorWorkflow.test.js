@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import _ from 'lodash';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import {STEPS} from './ClassListCreatorPage';
 import available_grade_levels_json from './fixtures/available_grade_levels_json';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 import class_list_json from './fixtures/class_list_json';
-import {UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
+import {consistentlyPlacedInitialStudentIdsByRoom} from './studentIdsByRoomFunctions';
 
 export function testProps(props = {}) {
   return {
@@ -107,30 +108,39 @@ export function exportProps(props = {}) {
 
 export function exportPropsWithAllPlaced(props = {}) {
   const defaultExportProps = exportProps();
-  const {studentIdsByRoom} = defaultExportProps;
-  const updatedStudentIdsByRoom = {
-    ...studentIdsByRoom,
-    [UNPLACED_ROOM_KEY]: [],
-    ['room:0']: studentIdsByRoom['room:0'].concat(studentIdsByRoom[UNPLACED_ROOM_KEY])
-  };
+  const {classroomsCount, students} = defaultExportProps;
+  const studentIdsByRoom = consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students);
   return {
     ...defaultExportProps, 
-    studentIdsByRoom: updatedStudentIdsByRoom
+    studentIdsByRoom: _.clone(studentIdsByRoom),
+    principalStudentIdsByRoom: _.clone(studentIdsByRoom),
+    ...props
   };
 }
 
 export function exportPropsWithMoves(props = {}) {
-  const defaultExportProps = exportProps();
+  const defaultExportProps = exportPropsWithAllPlaced();
+  const {studentIdsByRoom} = defaultExportProps;
   return {
     ...defaultExportProps,
-    studentIdsByRoom: initialStudentIdsByRoom(defaultExportProps.classroomsCount, defaultExportProps.students, {
-      placementFn(studentIdsByRoom, student) {
-        return (forceUnplaced)
-          ? UNPLACED_ROOM_KEY
-          : roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
-      }
-    })
+    principalStudentIdsByRoom: {
+      ...studentIdsByRoom,
+      ['room:0']: studentIdsByRoom['room:0'].concat(studentIdsByRoom['room:1'].slice(0, 2)),
+      ['room:1']:studentIdsByRoom['room:1'].slice(2)
+    },
+    ...props
   };
+}
+
+export function exportPropsWithTeacherNames(props = {}) {
+  return exportPropsWithAllPlaced({
+    principalTeacherNamesByRoom: {
+      'room:0': 'Kevin',
+      'room:1': 'Alex',
+      'room:2': 'Uri'
+    },
+    ...props
+  });
 }
 
 function snapshotRender(props) {
