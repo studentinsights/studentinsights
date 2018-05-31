@@ -59,7 +59,6 @@ export default class ExportList extends React.Component {
   render() {
     const {
       headingStyle,
-      descriptionStyle,
       teacherStudentIdsByRoom,
       principalStudentIdsByRoom
     } = this.props;
@@ -211,8 +210,7 @@ ExportList.propTypes = {
   principalStudentIdsByRoom: React.PropTypes.object,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
   onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func,
-  headingStyle: React.PropTypes.object,
-  descriptionStyle: React.PropTypes.object
+  headingStyle: React.PropTypes.object
 };
 
 

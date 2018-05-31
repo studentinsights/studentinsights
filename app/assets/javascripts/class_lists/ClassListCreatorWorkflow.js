@@ -337,7 +337,6 @@ export default class ClassListCreatorWorkflow extends React.Component {
         <ExportList
           isRevisable={isRevisable}
           headingStyle={styles.heading}
-          descriptionStyle={styles.descriptionText}
           school={school}
           gradeLevelNextYear={gradeLevelNextYear}
           students={students} 
