@@ -331,7 +331,6 @@ export default class ClassListCreatorWorkflow extends React.Component {
           principalStudentIdsByRoom={principalStudentIdsByRoom}
           principalTeacherNamesByRoom={principalTeacherNamesByRoom}
         />
-        <div>After teachers submit their lists, principals can revise and export the lists as spreadsheets for sending letters home and entering into Aspen.  This will open the week of 6/4 and talk with Uri if you have any questions!</div>
       </div>
     );
   }

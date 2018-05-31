@@ -6,8 +6,10 @@ import storybookFrame from './storybookFrame';
 import {
   chooseYourGradeProps,
   makeAPlanProps,
-  notesToPrincipalProps
+  shareWithPrincipalProps,
+  exportProps
 } from './ClassListCreatorWorkflow.test';
+import {UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
 
 function withStoryProps(props = {}) {
   return {
@@ -36,18 +38,32 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
   .add('Choose your grade, readonly', () => render(withStoryProps(chooseYourGradeProps({ isEditable: false }))))
   .add('Make a plan', () => render(withStoryProps(makeAPlanProps())))
   .add('Make a plan, readonly', () => render(withStoryProps(makeAPlanProps({ isEditable: false }))))
-  .add('Notes to principal', () => render(withStoryProps(notesToPrincipalProps())))
-  .add('Notes to principal, saving', () => {
-    return render(withStoryProps(notesToPrincipalProps({
+  .add('Share with principal', () => render(withStoryProps(shareWithPrincipalProps())))
+  .add('Share with principal, saving', () => {
+    return render(withStoryProps(shareWithPrincipalProps({
       isEditable: false,
       isSubmitted: true,
       isDirty: true,
     })));
   })
-  .add('Notes to principal, readonly', () => {
-    return render(withStoryProps(notesToPrincipalProps({
+  .add('Share with principal, readonly', () => {
+    return render(withStoryProps(shareWithPrincipalProps({
       isEditable: false,
       isSubmitted: true
     })));
+  })
+  .add('Export', () => render(withStoryProps(exportProps())))
+  .add('Export, one unplaced', () => {
+    const defaultExportProps = exportProps();
+    const {studentIdsByRoom} = defaultExportProps;
+    const updatedStudentIdsByRoom = {
+      ...studentIdsByRoom,
+      [UNPLACED_ROOM_KEY]: studentIdsByRoom['room:0'].slice(0, 2),
+      ['room:0']: studentIdsByRoom['room:0'].slice(2)
+    };
+    const props = {
+      ...defaultExportProps, 
+      studentIdsByRoom: updatedStudentIdsByRoom
+    };
+    return render(withStoryProps(props));
   });
-

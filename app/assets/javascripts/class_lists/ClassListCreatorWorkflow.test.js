@@ -5,6 +5,7 @@ import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import {STEPS} from './ClassListCreatorPage';
 import available_grade_levels_json from './fixtures/available_grade_levels_json';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
+import class_list_json from './fixtures/class_list_json';
 
 
 export function testProps(props = {}) {
@@ -58,7 +59,7 @@ export function chooseYourGradeProps(props = {}) {
     schools: available_grade_levels_json.schools,
     schoolId: available_grade_levels_json.schools[2].id,
     gradeLevelsNextYear: available_grade_levels_json.grade_levels_next_year,
-    gradeLevelNextYear: available_grade_levels_json.default_grade_level_next_year,
+    gradeLevelNextYear: available_grade_levels_json.grade_levels_next_year[0],
     ...props
   };
 }
@@ -74,12 +75,25 @@ export function makeAPlanProps(props = {}) {
   };
 }
 
-export function notesToPrincipalProps(props = {}) {
+export function shareWithPrincipalProps(props = {}) {
   return {
     ...testProps(),
     stepIndex: 3,
     principalNoteText: 'We think that placing these two students together is really important because of X.',
     feedbackText: 'This is pretty okay!',
+    ...props
+  };
+}
+
+export function exportProps(props = {}) {
+  return {
+    ...testProps(),
+    stepIndex: 5,
+    schools: available_grade_levels_json.schools,
+    schoolId: available_grade_levels_json.schools[2].id,
+    gradeLevelNextYear: available_grade_levels_json.grade_levels_next_year[0],
+    students: students_for_grade_level_next_year_json.students,
+    studentIdsByRoom: class_list_json.class_list.json.studentIdsByRoom,
     ...props
   };
 }

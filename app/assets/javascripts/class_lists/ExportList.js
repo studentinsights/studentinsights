@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import Button from '../components/Button';
+import SuccessLabel from '../components/SuccessLabel';
 import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
 import {
@@ -9,79 +10,161 @@ import {
   createRooms
 } from './studentIdsByRoomFunctions';
 
+
 export default class ExportList extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      roomTeachers: {}
+    };
+  }
+
   mapToRows(studentIdsByRoom) {
     const {gradeLevelNextYear, students} = this.props;
+    const {roomTeachers} = this.state;
+
     return _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
       return studentIdsByRoom[roomKey].map(studentId => {
         const student = _.find(students, {id: studentId});
-        const roomName = roomKey === UNPLACED_ROOM_KEY
-          ? 'Not placed'
-          : roomKey.split(':')[1];
+        const teacherText = roomTeachers[roomKey];
         return [
-          `${student.first_name} ${student.last_name}`,
-          student.id, // TODO(kr) not real
           gradeLevelNextYear,
-          roomName
+          student.id, // TODO(kr) not real
+          `${student.first_name} ${student.last_name}`,
+          teacherText
         ];
       });
     })));
   }
 
+  onRoomTeacherChanged(roomKey, e) {
+    e.preventDefault();
+    const {roomTeachers} = this.state;
+    this.setState({
+      roomTeachers: {
+        ...roomTeachers,
+        [roomKey]: e.target.value
+      }
+    });
+  }
+
   render() {
-    const {teacherStudentIdsByRoom, principalStudentIdsByRoom} = this.props;
-    const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom;
-    const rows = this.mapToRows(studentIdsByRoom);
-    const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1);
+    const {gradeLevelNextYear} = this.props;
+    const rows = this.mapToRows();
 
     return (
-      <div className="ExportList">
-        <table style={tableStyles.table}>
-          <thead>
-            <tr>
-              <th style={tableStyles.headerCell}>Student</th>
-              <th style={tableStyles.headerCell}>LASID</th>
-              <th style={tableStyles.headerCell}>Grade next year</th>
-              <th style={tableStyles.headerCell}>Classroom next year</th>
-            </tr>
-          </thead>
-          <tbody>{rooms.map(room => {
-            const roomTeacher = this.roomTeachers[room.roomKey] || '';
-            return (
-              <tr key={room.roomKey}>
-                <td style={tableStyles.cell}>{room.roomName}</td>
-                <td style={tableStyles.cell}><input type="text" onChange={this.onRoomTeacherChanged.bind(this, roomKey)} value={roomTeacher} /></td>
-                <td style={tableStyles.cell}>{gradeLevelNextYear}</td>
-                <td style={tableStyles.cell}>{roomName}</td>
-              </tr>
-            );
-          })}</tbody>
-        </table>
-        {this.renderTable(rows)}
+      <div className="SecretaryEnters">
+        {this.renderUnplaced()}
+        {this.renderTeacherAssignment()}
+        {/* {this.renderTable(rows)} */}
         {this.renderDownloadListsLink(rows)}
       </div>
     );
   }
 
-  renderTable(rows) {
+// <<<<<<< HEAD:app/assets/javascripts/class_lists/ExportList.js
+//     const {teacherStudentIdsByRoom, principalStudentIdsByRoom} = this.props;
+//     const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom;
+//     const rows = this.mapToRows(studentIdsByRoom);
+//     const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1);
+
+//     return (
+//       <div className="ExportList">
+//         <table style={tableStyles.table}>
+//           <thead>
+//             <tr>
+//               <th style={tableStyles.headerCell}>Student</th>
+//               <th style={tableStyles.headerCell}>LASID</th>
+//               <th style={tableStyles.headerCell}>Grade next year</th>
+//               <th style={tableStyles.headerCell}>Classroom next year</th>
+//             </tr>
+//           </thead>
+//           <tbody>{rooms.map(room => {
+//             const roomTeacher = this.roomTeachers[room.roomKey] || '';
+//             return (
+//               <tr key={room.roomKey}>
+//                 <td style={tableStyles.cell}>{room.roomName}</td>
+//                 <td style={tableStyles.cell}><input type="text" onChange={this.onRoomTeacherChanged.bind(this, roomKey)} value={roomTeacher} /></td>
+//                 <td style={tableStyles.cell}>{gradeLevelNextYear}</td>
+//                 <td style={tableStyles.cell}>{roomName}</td>
+//               </tr>
+//             );
+//           })}</tbody>
+//         </table>
+//         {this.renderTable(rows)}
+// =======
+//     const {gradeLevelNextYear} = this.props;
+//     const rows = this.mapToRows();
+
+//     return (
+//       <div className="SecretaryEnters">
+//         {this.renderUnplaced()}
+//         {this.renderTeacherAssignment()}
+//         {/* {this.renderTable(rows)} */}
+// >>>>>>> ec90f03:app/assets/javascripts/class_lists/SecretaryEnters.js
+//         {this.renderDownloadListsLink(rows)}
+//       </div>
+//     );
+//   }
+
+  renderUnplaced() {
+    const {studentIdsByRoom} = this.props;
+    const unplacedCount = studentIdsByRoom[UNPLACED_ROOM_KEY].length;
+    if (unplacedCount === 0) return <SuccessLabel style={styles.placementMessage} text="All students have been placed." />;
+    if (unplacedCount === 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There is one student who has not been placed in a classroom.`} />;
+    if (unplacedCount > 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There are ${unplacedCount} students who have not been placed in a classroom.`} />;
+  }
+
+  renderTeacherAssignment() {
+    const {studentIdsByRoom} = this.props;
+    const {roomTeachers} = this.state;
+    const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1).filter(room => {
+      return room.roomKey !== UNPLACED_ROOM_KEY;
+    });
+
     return (
-      <table style={tableStyles.table}>
+      <table style={{...tableStyles.table, marginLeft: 0}}>
         <thead>
           <tr>
-            <th style={tableStyles.headerCell}>Student</th>
-            <th style={tableStyles.headerCell}>LASID</th>
+            <th style={tableStyles.headerCell}>Room</th>
+            <th style={tableStyles.headerCell}>Teacher</th>
+          </tr>
+        </thead>
+        <tbody>{rooms.map(room => {
+          const teacherText = roomTeachers[room.roomKey] || '';
+          return (
+            <tr key={room.roomKey}>
+              <td style={tableStyles.cell}>{room.roomName}</td>
+              <td style={tableStyles.cell}>
+                <input style={styles.input} type="text" onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)} value={teacherText} />
+              </td>
+            </tr>
+          );
+        })}</tbody>
+      </table>
+    );
+  }
+
+  renderTable(rows) {
+    return (
+      <table style={{...tableStyles.table, marginLeft: 0}}>
+        <thead>
+          <tr>
             <th style={tableStyles.headerCell}>Grade next year</th>
-            <th style={tableStyles.headerCell}>Classroom next year</th>
+            <th style={tableStyles.headerCell}>LASID</th>
+            <th style={tableStyles.headerCell}>Student name</th>
+            <th style={tableStyles.headerCell}>Homeroom teacher next year</th>
           </tr>
         </thead>
         <tbody>{rows.map(row => {
-          const [name, id, gradeLevelNextYear, roomName] = row;
+          const [gradeLevelNextYear, id, name, teacherText] = row;
           return (
             <tr key={id}>
-              <td style={tableStyles.cell}>{name}</td>
-              <td style={tableStyles.cell}>{id}</td>
               <td style={tableStyles.cell}>{gradeLevelNextYear}</td>
-              <td style={tableStyles.cell}>{roomName}</td>
+              <td style={tableStyles.cell}>{id}</td>
+              <td style={tableStyles.cell}>{name}</td>
+              <td style={tableStyles.cell}>{teacherText}</td>
             </tr>
           );
         })}</tbody>
@@ -94,15 +177,18 @@ export default class ExportList extends React.Component {
     const gradeLevelText = gradeText(gradeLevelNextYear);
     const dateText = moment.utc().format('YYYY-MM-DD');
     const filename = `Class list: ${gradeLevelText} at ${school.name} ${dateText}.csv`;
-    const header = 'Student name,LASID,Room next year';
+    const header = 'Grade level next year,LASID,Student name,Room next year';
     const csvText = [header].concat(rows).join('\n');
+
+    // Button onClick does nothing, since DownloadCsvLink handles it,
+    // we're just using Button for the visual.
     return (
       <Button>
         <DownloadCsvLink
+          style={{textDecoration: 'none', color: 'white'}}
           filename={filename}
-          csvText={csvText}
-          style={{paddingLeft: 20}}>
-          Download for Excel
+          csvText={csvText}>
+          Download class lists spreadsheet
         </DownloadCsvLink>
       </Button>
     );
@@ -117,4 +203,21 @@ ExportList.propTypes = {
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired
+};
+
+
+const styles = {
+  placementMessage: {
+    display: 'inline-block',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  placementWarning: {
+    backgroundColor: 'orange',
+    color: 'white',
+    borderColor: 'darkorange'
+  },
+  input: {
+    fontSize: 14
+  }
 };
