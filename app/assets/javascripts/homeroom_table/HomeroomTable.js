@@ -114,7 +114,7 @@ class HomeroomTable extends React.Component {
   }
 
   columnNames() {
-    return Object.values(this.columnKeysToNames());
+    return _.values(this.columnKeysToNames());
   }
 
   getInitialColumnsDisplayed() {

@@ -37,7 +37,7 @@ export default class ExportList extends React.Component {
   isReadyToExport(studentIdsByRoom) {
     const {principalTeacherNamesByRoom} = this.props;
     const isMissingTeacherNames = (Object.keys(principalTeacherNamesByRoom).length < Object.keys(studentIdsByRoom).length - 1);
-    const hasBlankTeacherName = _.any(Object.values(principalTeacherNamesByRoom), _.isEmpty);
+    const hasBlankTeacherName = _.any(_.values(principalTeacherNamesByRoom), _.isEmpty);
 
     return (!isMissingTeacherNames && !hasBlankTeacherName);
   }
