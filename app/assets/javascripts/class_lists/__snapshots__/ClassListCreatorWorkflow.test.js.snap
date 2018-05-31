@@ -2183,7 +2183,6 @@ exports[`export 1`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2220,7 +2219,6 @@ exports[`export 1`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2257,7 +2255,6 @@ exports[`export 1`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2865,7 +2862,6 @@ exports[`export 2`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2902,7 +2898,6 @@ exports[`export 2`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2939,7 +2934,6 @@ exports[`export 2`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -3545,7 +3539,6 @@ exports[`export 3`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -3582,7 +3575,6 @@ exports[`export 3`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -3619,7 +3611,6 @@ exports[`export 3`] = `
                     <input
                       disabled={true}
                       onChange={[Function]}
-                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,

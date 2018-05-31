@@ -38,10 +38,12 @@ The overall flow is that:
    For other teachers, or principals or district admin, it's readonly.
 2. That teacher submits the class list.
    For them, it changes to readonly.
-   For other teachers and district admin, it's still readonly.
-   For the principal of that school, it's "revisable."  The original teacher's work
-     is still readonly, but the principal can make revisions stored in new
-     fields, and can also export the class lists.
+   For other teachers and district admin, it's still readonly too.
+   For the principal of that school, it's "revisable."  The original teacher's
+   work is still readonly, but the principal can make revisions stored in new fields,
+   and can also export the class lists.
+3. For the teaching team and district admin, the principal's revisions are visible
+   but are readonly.
 */
 export default class ClassListCreatorPage extends React.Component {
   constructor(props) {

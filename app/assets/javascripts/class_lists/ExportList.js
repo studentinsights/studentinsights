@@ -122,7 +122,6 @@ export default class ExportList extends React.Component {
                 <input
                   style={styles.input}
                   disabled={!isRevisable}
-                  placeholder="Teacher name"
                   type="text"
                   onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)}
                   value={teacherText} />
