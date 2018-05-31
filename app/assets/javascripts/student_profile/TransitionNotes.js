@@ -58,11 +58,14 @@ class TransitionNotes extends React.Component {
       restrictedNoteId: (restrictedNote ? restrictedNote.id : null)
     };
 
-    this.onClickSave = this.onClickSave.bind(this);
-    this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
+    this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 5000);
+    this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 5000);
+
+    this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
+    this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
   }
 
-  onClickSave() {
+  autosaveRegularNote() {
     const params = {
       is_restricted: false,
       text: this.state.noteText
@@ -75,7 +78,7 @@ class TransitionNotes extends React.Component {
     this.props.onSave(params);
   }
 
-  onClickSaveRestricted() {
+  autosaveRestrictedNote() {
     const params = {
       is_restricted: true,
       text: this.state.restrictedNoteText
@@ -86,6 +89,15 @@ class TransitionNotes extends React.Component {
     }
 
     this.props.onSave(params);
+  }
+
+
+  onChangeRegularNote(e) {
+    this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote()});
+  }
+
+  onChangeRestrictedNote(e) {
+    this.setState({restrictedNoteText: e.target.value}, () => {this.autosaveRestrictedNote()});
   }
 
   render() {
@@ -101,7 +113,7 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={noteText}
-            onChange={(e) => this.setState({noteText: e.target.value})}
+            onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
           <div style={{color: 'gray'}}>This note will autosave as you type.</div>
         </div>
@@ -113,7 +125,7 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={restrictedNoteText}
-            onChange={(e) => this.setState({restrictedNoteText: e.target.value})}
+            onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
           <div style={{color: 'gray'}}>This note will autosave as you type.</div>
         </div>
