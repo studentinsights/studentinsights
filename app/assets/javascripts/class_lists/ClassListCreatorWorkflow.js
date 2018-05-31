@@ -4,15 +4,14 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
-import Button from '../components/Button';
 import {SeriousButton} from '../components/Button';
 import SuccessLabel from '../components/SuccessLabel';
 import IntroCopy from './IntroCopy';
-import CreateYourLists from './CreateYourLists';
-import PrincipalFinalizes from './PrincipalFinalizes';
+import CreateYourLists, {styleStudentFn} from './CreateYourLists';
 import ExportList from './ExportList';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
+import {findMovedStudentIds} from './studentIdsByRoomFunctions';
 
 
 
@@ -287,14 +286,17 @@ export default class ClassListCreatorWorkflow extends React.Component {
       workspaceId,
       students,
       classroomsCount,
-      studentIdsByRoom,
-      principalStudentIdsByRoom,
       gradeLevelNextYear,
       onClassListsChangedByPrincipal
     } = this.props;
     const {isExpandedVertically} = this.state;
 
-    if (students === null || studentIdsByRoom === null) return <Loading />;
+    // Default to teacher lists if no moves
+    const teacherStudentIdsByRoom = this.props.studentIdsByRoom;
+    const principalStudentIdsByRoom = this.props.principalStudentIdsByRoom || teacherStudentIdsByRoom;
+    if (students === null || principalStudentIdsByRoom === null) return <Loading />;
+
+    const movedStudentIds = findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIdsByRoom);
     return (
       <CreateYourLists
         key="principal-finalizes"
@@ -302,11 +304,12 @@ export default class ClassListCreatorWorkflow extends React.Component {
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={principalStudentIdsByRoom || studentIdsByRoom}
+        studentIdsByRoom={principalStudentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        styleStudentFn={student => styleStudentFn(movedStudentIds, student)}
         isExpandedVertically={isExpandedVertically}
         onExpandVerticallyToggled={this.onExpandVerticallyToggled}
-        onClassListsChanged={onClassListsChangedByPrincipal}/>
+        onClassListsChanged={onClassListsChangedByPrincipal} />
     );
   }
 

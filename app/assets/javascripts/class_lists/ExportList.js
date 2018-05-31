@@ -7,32 +7,22 @@ import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
 import {
   UNPLACED_ROOM_KEY,
-  createRooms
+  createRooms,
+  findMovedStudentIds
 } from './studentIdsByRoomFunctions';
-import ClassLists from './ClassLists';
 
 
 export default class ExportList extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    // TODO(kr) remove
-    this.state = {
-      roomTeachers: {}
-    };
-  }
-
   mapToRows(studentIdsByRoom) {
-    const {gradeLevelNextYear, students} = this.props;
-    const {roomTeachers} = this.state;
+    const {gradeLevelNextYear, students, principalTeacherNamesByRoom} = this.props;
 
     return _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
       return studentIdsByRoom[roomKey].map(studentId => {
         const student = _.find(students, {id: studentId});
-        const teacherText = roomTeachers[roomKey];
+        const teacherText = principalTeacherNamesByRoom[roomKey];
         return [
           gradeLevelNextYear,
-          student.id, // TODO(kr) not real
+          student.local_id,
           `${student.first_name} ${student.last_name}`,
           teacherText
         ];
@@ -40,14 +30,21 @@ export default class ExportList extends React.Component {
     })));
   }
 
+  isReadyToExport(studentIdsByRoom) {
+    const {principalTeacherNamesByRoom} = this.props;
+    const isMissingTeacherNames = (Object.keys(principalTeacherNamesByRoom).length < Object.keys(studentIdsByRoom).length - 1);
+    const hasBlankTeacherName = _.any(Object.values(principalTeacherNamesByRoom), _.isEmpty);
+
+    return (!isMissingTeacherNames && !hasBlankTeacherName);
+  }
+
   onRoomTeacherChanged(roomKey, e) {
     e.preventDefault();
-    const {roomTeachers} = this.state;
-    this.setState({
-      roomTeachers: {
-        ...roomTeachers,
-        [roomKey]: e.target.value
-      }
+
+    const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
+    onPrincipalTeacherNamesByRoomChanged({
+      ...principalTeacherNamesByRoom,
+      [roomKey]: e.target.value
     });
   }
 
@@ -67,16 +64,18 @@ export default class ExportList extends React.Component {
 
     return (
       <div className="SecretaryEnters">
-        <div style={headingStyle}>Do your changes consider the teachers' plan and notes to the principal?</div>
-        <div style={{...descriptionStyle, ...styles.spaceBelow}}>There may be good reasons to revise class lists, but check out the teaching team's intention in <i>Make a plan</i> and <i>Share notes</i> first.</div>
-        <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
+        <div style={headingStyle}>Have all students been placed?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
+        
+        <div style={headingStyle}>Have you considered the teaching team's intention and notes to you when making changes?</div>
+        <div style={descriptionStyle}>Make sure to check the teaching team's intentions in <i>Make a plan</i> and notes about particular placement decisions in <i>Share notes</i>.</div>
+        <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
 
         <div style={headingStyle}>Who will teach each classroom?</div>
         <div style={styles.spaceBelow}>{this.renderTeacherAssignment(studentIdsByRoom)}</div>
         
         {/* {this.renderTable(rows)} */}
-        <div style={styles.spaceBelow}>{this.renderDownloadListsLink(rows)}</div>
+        <div style={styles.spaceBelow}>{this.renderDownloadListsLink(studentIdsByRoom, rows)}</div>
       </div>
     );
   }
@@ -84,75 +83,25 @@ export default class ExportList extends React.Component {
   renderUnplaced(studentIdsByRoom) {
     const unplacedCount = studentIdsByRoom[UNPLACED_ROOM_KEY].length;
     if (unplacedCount === 0) return <SuccessLabel style={styles.placementMessage} text="All students have been placed." />;
-    if (unplacedCount === 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There is one student who has not been placed in a classroom.`} />;
-    if (unplacedCount > 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There are ${unplacedCount} students who have not been placed in a classroom.`} />;
+    if (unplacedCount === 1) return this.renderWarning(`There is one student who has not been placed in a classroom.`);
+    if (unplacedCount > 1) return this.renderWarning(`There are ${unplacedCount} students who have not been placed in a classroom.`);
   }
 
   renderMoved(studentIdsByRoom) {
-    const {teacherStudentIdsByRoom, students, fetchProfile} = this.props;
+    const {teacherStudentIdsByRoom} = this.props;
+    const movedStudentsCount = findMovedStudentIds(teacherStudentIdsByRoom, studentIdsByRoom).length;
 
-    // roomKeys for both teacher and principal lists should always be the same,
-    // but this is defensive
-    const roomKeys = _.uniq(Object.keys(teacherStudentIdsByRoom).concat(Object.keys(studentIdsByRoom)));
-    const movements = _.flatten(roomKeys.map(roomKey => {
-      const studentIds = studentIdsByRoom[roomKey];
-      const movedStudentIds = studentIds.filter(studentId => {
-        return teacherStudentIdsByRoom[roomKey].indexOf(studentId) === -1;
-      });
-      return movedStudentIds.map(studentId => {
-        const student = _.find(students, { id: studentId });
-        return {student, roomKey};
-      });
-    }));
+    if (movedStudentsCount === 0) return <SuccessLabel style={styles.placementMessage} text="No students were moved." />;
+    if (movedStudentsCount === 1) return this.renderWarning(`You moved one student from the teaching team's original plan.`);
+    if (movedStudentsCount > 1) return this.renderWarning(`You moved ${movedStudentsCount} students from the teaching team's original plan.`);
+  }
 
-    // Show rooms with moved students
-    const movedStudents = movements.map(movement => movement.student);
-    const movedStudentIdsByRoom = movements.reduce((map, movement) => {
-      return {
-        ...map,
-        [movement.roomKey]: (map[movement.roomKey] || []).concat(movement.student.id)
-      };
-    }, {});
-    const rooms = createRooms(roomKeys.length - 1);
-    return (
-      <ClassLists
-        students={movedStudents}
-        studentIdsByRoom={movedStudentIdsByRoom}
-        rooms={rooms}
-        fetchProfile={fetchProfile}
-
-        isEditable={false}
-        highlightKey={null}
-        isExpandedVertically={false}
-        // onRoomNameClicked={this.onRoomNameClicked
-        onDragEnd={function() {}}
-        onClassListsChanged={function() {}}
-        onExpandVerticallyToggled={function() {}}
-      />
-    );
-
-    // return (
-    //   <div>
-    //     {movements.map((movement, index) => {
-    //       const {student} = movement;
-    //       // return <li key={student.id}>{student.first_name} {student.last_name}</li>;
-    //       return (
-    //         <StudentCard
-    //           key={student.id}
-    //           style={{display: 'inline-block'}}
-    //           highlightKey={null}
-    //           student={student}
-    //           index={index}
-    //           fetchProfile={fetchProfile}
-    //           isEditable={false} />
-    //       );
-    //     })}
-    //   </div>
-    // );
+  renderWarning(text) {
+    return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={text} />;
   }
 
   renderTeacherAssignment(studentIdsByRoom) {
-    const {roomTeachers} = this.state;
+    const {principalTeacherNamesByRoom} = this.props;
     const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1).filter(room => {
       return room.roomKey !== UNPLACED_ROOM_KEY;
     });
@@ -166,7 +115,7 @@ export default class ExportList extends React.Component {
           </tr>
         </thead>
         <tbody>{rooms.map(room => {
-          const teacherText = roomTeachers[room.roomKey] || '';
+          const teacherText = principalTeacherNamesByRoom[room.roomKey] || '';
           return (
             <tr key={room.roomKey}>
               <td style={tableStyles.cell}>{room.roomName}</td>
@@ -206,7 +155,8 @@ export default class ExportList extends React.Component {
     );
   }
 
-  renderDownloadListsLink(rows) {
+  renderDownloadListsLink(studentIdsByRoom, rows) {
+    const isReadyToExport = this.isReadyToExport(studentIdsByRoom);
     const {gradeLevelNextYear, school} = this.props;
     const gradeLevelText = gradeText(gradeLevelNextYear);
     const dateText = moment.utc().format('YYYY-MM-DD');
@@ -215,14 +165,24 @@ export default class ExportList extends React.Component {
     const csvText = [header].concat(rows).join('\n');
 
     return (
-      <Button onClick={this.onDownloadButtonClicked} style={styles.button}>
-        <DownloadCsvLink
-          style={styles.download}
-          filename={filename}
-          csvText={csvText}>
-          Download class lists spreadsheet
-        </DownloadCsvLink>
-      </Button>
+      <div>
+        <Button
+          onClick={this.onDownloadButtonClicked}
+          containerStyle={{display: 'inline-block'}}
+          style={{...styles.button, ...(isReadyToExport ? {} : styles.buttonDisabled)}}
+          hoverStyle={isReadyToExport ? {} : styles.buttonDisabled}>
+          <DownloadCsvLink
+            disabled={!isReadyToExport}
+            style={{...styles.download, ...(isReadyToExport ? {} : { color: '#999' })}}
+            filename={filename}
+            csvText={csvText}>
+            Download class lists spreadsheet
+          </DownloadCsvLink>
+        </Button>
+        {!isReadyToExport &&
+          <div style={styles.warnExport}>{this.renderWarning('Please assign teachers to each homeroom first')}</div>
+        }
+      </div>
     );
   }
 }
@@ -236,6 +196,7 @@ ExportList.propTypes = {
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
+  onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func.isRequired,
   headingStyle: React.PropTypes.object,
   descriptionStyle: React.PropTypes.object
 };
@@ -248,7 +209,7 @@ const styles = {
     marginBottom: 10
   },
   placementWarning: {
-    backgroundColor: 'orange',
+    background: 'orange',
     color: 'white',
     borderColor: 'darkorange'
   },
@@ -256,8 +217,14 @@ const styles = {
     fontSize: 14
   },
   button: {
+    display: 'inline-block',
     padding: 0,
     marginTop: 20
+  },
+  buttonDisabled: {
+    background: '#ccc',
+    color: '#333',
+    cursor: 'default'
   },
   download: {
     display: 'inline-block',
@@ -267,5 +234,9 @@ const styles = {
   },
   spaceBelow: {
     marginBottom: 20
+  },
+  warnExport: {
+    display: 'inline-block',
+    marginLeft: 10
   }
 };

@@ -4,9 +4,9 @@ import Hover from './Hover';
 
 // A visual UI element for a button.  This is styled consistently with the `.btn` class
 // defined in the server-side CSS.
-export default function Button({children, onClick, style = {}, hoverStyle = {}}) {
+export default function Button({children, onClick, style = {}, hoverStyle = {}, containerStyle = {}}) {
   return (
-    <Hover>
+    <Hover style={containerStyle}>
       {isHovering => {
         const mergedStyle = {
           ...styles.button,
@@ -23,7 +23,8 @@ const propTypes = Button.propTypes = {
   children: React.PropTypes.node.isRequired,
   onClick: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
-  hoverStyle: React.PropTypes.object
+  hoverStyle: React.PropTypes.object,
+  containerStyle: React.PropTypes.object
 };
 
 const styles = {

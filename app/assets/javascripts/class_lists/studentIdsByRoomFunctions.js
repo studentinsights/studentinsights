@@ -108,3 +108,13 @@ export function studentsInRoom(students, studentIdsByRoom, roomKey) {
   const studentIds = studentIdsByRoom[roomKey] || [];
   return studentIds.map(studentId => _.find(students, { id: studentId }));
 }
+
+export function findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIdsByRoom) {
+  const roomKeys = _.uniq(Object.keys(teacherStudentIdsByRoom).concat(Object.keys(principalStudentIdsByRoom)));
+  return _.flatten(roomKeys.map(roomKey => {
+    const studentIds = principalStudentIdsByRoom[roomKey];
+    return studentIds.filter(studentId => {
+      return teacherStudentIdsByRoom[roomKey].indexOf(studentId) === -1;
+    });
+  }));
+}

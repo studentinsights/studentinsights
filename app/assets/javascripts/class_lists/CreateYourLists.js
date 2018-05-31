@@ -1,7 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+import {AutoSizer} from 'react-virtualized';
+import StudentCard from './StudentCard';
 import ClassroomStats from './ClassroomStats';
-import ClassLists from './ClassLists';
+import {studentsInRoom} from './studentIdsByRoomFunctions';
+import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 import {
   reordered,
   insertedInto,
@@ -64,30 +67,56 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderLists(rooms) {
-    const {
-      isEditable,
-      students,
-      studentIdsByRoom,
-      isExpandedVertically,
-      fetchProfile,
-      onClassListsChanged,
-      onExpandVerticallyToggled
-    } = this.props;
-    const {highlightKey} = this.state;
+    const {isEditable, students, studentIdsByRoom, isExpandedVertically} = this.props;
+    const expandedStyles = isExpandedVertically ? { height: '90em' } : { flex: 1 }; // estimating 30 students with 3em per card
     return (
-      <ClassLists
-        highlightKey={highlightKey}
-        isEditable={isEditable}
-        students={students}
-        studentIdsByRoom={studentIdsByRoom}
-        isExpandedVertically={isExpandedVertically}
-        rooms={rooms}
-        fetchProfile={fetchProfile}
-        onDragEnd={this.onDragEnd}
-        onClassListsChanged={onClassListsChanged}
-        onExpandVerticallyToggled={onExpandVerticallyToggled}
-      />
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <div style={{...styles.listsContainer, ...expandedStyles}}>
+          {rooms.map(room => {
+            const {roomKey, roomName} = room;
+            const classroomStudents = studentsInRoom(students, studentIdsByRoom, roomKey);
+            return (
+              <div key={roomKey} style={styles.classroomListColumn}>
+                <div>
+                  <div style={styles.roomTitle}>
+                    <span style={{fontWeight: 'bold'}}>{roomName}</span>
+                    <span style={styles.roomStudentCount}>({classroomStudents.length})</span>
+                  </div>
+                </div>
+                <div style={{flex: 1}}>
+                  <AutoSizer disableWidth>{({height}) => (
+                    <Droppable
+                      droppableId={roomKey}
+                      type="CLASSROOM_LIST"
+                      isDropDisabled={!isEditable}>
+                      {(provided, snapshot) => (
+                        <div ref={provided.innerRef} style={{...styles.droppable, height}}>
+                          <div>{classroomStudents.map(this.renderStudentCard, this)}</div>
+                          <div>{provided.placeholder}</div>
+                        </div>
+                      )}
+                    </Droppable>
+                  )}</AutoSizer>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </DragDropContext>
     );
+  }
+
+  renderStudentCard(student, index) {
+    const {fetchProfile, isEditable, styleStudentFn} = this.props;
+    const {highlightKey} = this.state;
+    return <StudentCard
+      key={student.id}
+      highlightKey={highlightKey}
+      style={styleStudentFn && styleStudentFn(student)}
+      student={student}
+      index={index}
+      fetchProfile={fetchProfile}
+      isEditable={isEditable} />;
   }
 }
 CreateYourListsView.propTypes = {
@@ -98,6 +127,7 @@ CreateYourListsView.propTypes = {
   students: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
+  styleStudentFn: React.PropTypes.func,
   onClassListsChanged: React.PropTypes.func.isRequired,
   onExpandVerticallyToggled: React.PropTypes.func.isRequired,
 };
@@ -189,3 +219,10 @@ const styles = {
     cursor: 'pointer'
   }
 };
+
+// Style changes based on whether the student has been moved from teacher to principal lists.
+export function styleStudentFn(movedStudentIds, student) {
+  return (movedStudentIds.indexOf(student.id) !== -1)
+    ? { fontWeight: 'bold', color: '#e5370e' }
+    : {};
+}

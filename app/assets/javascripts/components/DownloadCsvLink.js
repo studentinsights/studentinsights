@@ -12,21 +12,24 @@ export default class DownloadCsvLink extends React.Component {
   }
 
   render() {
-    const {filename, csvText, style, children} = this.props;
-    return (
-      <a
-        className="DownloadCsvLink"
-        href={`data:attachment/csv,${encodeURIComponent(csvText)}`}
-        onClick={this.onClickDownload.bind(this, csvText, filename)}
-        target="_blank"
-        download={filename}
-        style={style}>{children}</a>
-    );
+    const {disabled, filename, csvText, style, children} = this.props;
+    return (disabled)
+      ? <span
+          className="DownloadCsvLink DownloadCsvLink-disabled"
+          style={style}>{children}</span>
+      : <a
+          className="DownloadCsvLink"
+          href={`data:attachment/csv,${encodeURIComponent(csvText)}`}
+          onClick={this.onClickDownload.bind(this, csvText, filename)}
+          target="_blank"
+          download={filename}
+          style={style}>{children}</a>;
   }
 }
 DownloadCsvLink.propTypes = {
   filename: React.PropTypes.string.isRequired,
   csvText: React.PropTypes.string.isRequired,
   children: React.PropTypes.node.isRequired,
+  disabled: React.PropTypes.bool,
   style: React.PropTypes.object
 };
