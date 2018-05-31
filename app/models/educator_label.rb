@@ -6,6 +6,10 @@ class EducatorLabel < ActiveRecord::Base
   validates :label_key, {
     presence: true,
     uniqueness: { scope: [:label_key, :educator] },
-    inclusion: { in: ['shs_experience_team'] }
+    inclusion: {
+      in: [
+        'shs_experience_team', 'k8_counselor', 'high_school_house_master'
+      ]
+    }
   }
 end

@@ -9,6 +9,7 @@ class Educator < ActiveRecord::Base
   has_many    :section_students, source: :students, through: :sections
   has_many    :interventions
   has_many    :event_notes
+  has_many    :transition_notes
   has_many    :event_note_revisions
   has_many    :educator_labels
 
@@ -45,6 +46,10 @@ class Educator < ActiveRecord::Base
 
   def is_authorized_for_section(section)
     Authorizer.new(self).is_authorized_for_section?(section)
+  end
+
+  def is_authorized_to_see_transition_notes
+    Authorizer.new(self).is_authorized_to_see_transition_notes?
   end
 
   def students_for_school_overview(*additional_includes)

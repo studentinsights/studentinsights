@@ -19,6 +19,7 @@ class TestPals
   # students
   attr_reader :healey_kindergarten_student
   attr_reader :shs_freshman_mari
+  attr_reader :west_eigth_ryan
 
   # educators
   attr_reader :uri
@@ -34,6 +35,7 @@ class TestPals
   attr_reader :shs_ninth_grade_counselor
   attr_reader :shs_hugo_art_teacher
   attr_reader :shs_fatima_science_teacher
+  attr_reader :shs_harry_housemaster
 
   # homerooms
   attr_reader :healey_kindergarten_homeroom
@@ -168,6 +170,17 @@ class TestPals
       homeroom: @west_fifth_homeroom,
       school: @west
     )
+    @west_counselor = Educator.create!(
+      email: "les@demo.studentinsights.org",
+      full_name: "Counselor, Les",
+      local_id: '551',
+      school: @west,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!(
+      educator: @west_counselor,
+      label_key: 'k8_counselor'
+    )
 
     # high school
     @shs = School.find_by_local_id!('SHS')
@@ -194,6 +207,17 @@ class TestPals
     EducatorLabel.create!({
       educator: @shs_jodi,
       label_key: 'shs_experience_team'
+    })
+
+    @shs_harry_housemaster = Educator.create!(
+      email: 'harry@demo.studentinsights.org',
+      full_name: 'Housemaster, Harry',
+      school: @shs,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!({
+      educator: @shs_harry_housemaster,
+      label_key: 'high_school_house_master'
     })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
@@ -302,6 +326,15 @@ class TestPals
       section: @shs_tuesday_biology_section,
       grade_numeric: 67,
       grade_letter: 'D'
+    )
+
+    @west_eigth_ryan = Student.create!(
+      first_name: 'Ryan',
+      last_name: 'Rodriguez',
+      school: @west,
+      grade: '8',
+      local_id: '333333333',
+      enrollment_status: 'Active'
     )
 
     reindex!
