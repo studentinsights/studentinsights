@@ -91,6 +91,25 @@ class TransitionNotes extends React.Component {
     this.props.onSave(params);
   }
 
+  regularNoteAutosaveStatus() {
+    const {requestState} = this.props;
+
+    if (requestState === 'pending') return 'Autosaving ...';
+
+    if (requestState === 'error') return 'There was an error autosaving this note.';
+
+    return 'This note will autosave as you type.';
+  }
+
+  restrictedNoteAutosaveStatus() {
+    const {requestStateRestricted} = this.props;
+
+    if (requestStateRestricted === 'pending') return 'Autosaving ...';
+
+    if (requestStateRestricted === 'error') return 'There was an error autosaving this note.';
+
+    return 'This note will autosave as you type.';
+  }
 
   onChangeRegularNote(e) {
     this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote()});
@@ -115,7 +134,7 @@ class TransitionNotes extends React.Component {
             value={noteText}
             onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
-          <div style={{color: 'gray'}}>This note will autosave as you type.</div>
+          <div style={{color: 'gray'}}>{this.regularNoteAutosaveStatus()}</div>
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -127,7 +146,7 @@ class TransitionNotes extends React.Component {
             value={restrictedNoteText}
             onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
-          <div style={{color: 'gray'}}>This note will autosave as you type.</div>
+          <div style={{color: 'gray'}}>{this.restrictedNoteAutosaveStatus()}</div>
         </div>
       </div>
     );
