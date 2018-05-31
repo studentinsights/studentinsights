@@ -25,10 +25,24 @@ export const STEPS = [
 ];
 
 
-// Root page component.
-// This component manages state transitions and hands off requests to the server
-// and rendering to other components.  On state changes, it saves to the server
-// with some throttling to prevent too much server communication.
+/*
+Root page component.
+This component manages state transitions and hands off requests to the server
+and rendering to other components.  On state changes, it saves to the server
+with some throttling to prevent too much server communication.
+
+The overall flow is that:
+
+1. A teacher makes a new class list workspace.
+   For them, it's editable.
+   For other teachers, or principals or district admin, it's readonly.
+2. That teacher submits the class list.
+   For them, it changes to readonly.
+   For other teachers and district admin, it's still readonly.
+   For the principal of that school, it's "revisable."  The original teacher's work
+     is still readonly, but the principal can make revisions stored in new
+     fields, and can also export the class lists.
+*/
 export default class ClassListCreatorPage extends React.Component {
   constructor(props) {
     super(props);
@@ -133,7 +147,7 @@ export default class ClassListCreatorPage extends React.Component {
     return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null);
   }
 
-  // Only principals can make revisions, and only after it's been submitted.
+  // Only principals can make revisions, and only after it's been submitted.    
   isRevisable() {
     const {isSubmitted, schoolId} = this.state;
     const {currentEducator} = this.props;
