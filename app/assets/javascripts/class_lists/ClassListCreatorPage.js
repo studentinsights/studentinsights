@@ -19,7 +19,7 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Submit to principal',
+  'Submit',
   'Principal finalizes',
   'Export'
 ];
@@ -61,8 +61,8 @@ export default class ClassListCreatorPage extends React.Component {
       feedbackText: '',
 
       // principal revisions
-      principalTeacherNamesByRoom: null,
-      principalStudentIdsByRoom: null
+      principalStudentIdsByRoom: null,
+      principalTeacherNamesByRoom: {}
     };
 
     this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);

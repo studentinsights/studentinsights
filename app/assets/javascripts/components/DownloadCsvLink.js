@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Render a link that will download a CSV string as a file hen clicked.
+// Render a link that will download a CSV string as a file when clicked.
 export default class DownloadCsvLink extends React.Component {
   // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
   onClickDownload(csvText, filename, e) {

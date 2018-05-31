@@ -46,7 +46,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       isDirty
     } = this.props;
     const {isExpandedVertically} = this.state;
-    const expandedOrCollapsedStyles = (isExpandedVertically || stepIndex === 5) // TODO(kr) hacking
+    const expandedOrCollapsedStyles = (isExpandedVertically)
       ? styles.horizontalStepperExpanded 
       : styles.horizontalStepperCollapsed;
     return (
@@ -90,7 +90,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
 
     return (
-      <div style={styles.stepContent}>
+      <div key="choose-your-grade" style={styles.stepContent}>
         <div>
           <div style={styles.titleHeading}>Class List Creator</div>
           <IntroCopy />
@@ -150,7 +150,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
     if (educators === null || students === null) return <Loading />;
     return (
-      <div style={styles.stepContent}>
+      <div key="make-a-plan" style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
@@ -217,6 +217,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
       <CreateYourLists
+        key="create-your-classrooms"
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
@@ -242,7 +243,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     } = this.props;
 
     return (
-      <div style={styles.stepContent}>
+      <div key="submit" style={styles.stepContent}>
         <div>
           <div>What else should your principal know?</div>
           <div style={styles.descriptionText}>
@@ -297,6 +298,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const onClassListsChangedByPrincipal = () => null;
     return (
       <CreateYourLists
+        key="principal-finalizes"
         isEditable={false}
         students={students}
         classroomsCount={classroomsCount}
@@ -321,11 +323,14 @@ export default class ClassListCreatorWorkflow extends React.Component {
     } = this.props;
     const school = _.find(schools, {id: schoolId});
 
+    if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
-      <div style={styles.stepContent}>
-        <div style={styles.titleHeading}>Export: Next year's {gradeText(gradeLevelNextYear)}</div>
+      <div key="export" style={styles.stepContent}>
+        <div style={styles.titleHeading}>Next year's {gradeText(gradeLevelNextYear)}</div>
         <ExportList
+          headingStyle={styles.heading}
           school={school}
+          gradeLevelNextYear={gradeLevelNextYear}
           students={students} 
           teacherStudentIdsByRoom={studentIdsByRoom}
           principalStudentIdsByRoom={principalStudentIdsByRoom}
