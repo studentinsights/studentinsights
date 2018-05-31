@@ -6,7 +6,7 @@ import {STEPS} from './ClassListCreatorPage';
 import available_grade_levels_json from './fixtures/available_grade_levels_json';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 import class_list_json from './fixtures/class_list_json';
-
+import {UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
 
 export function testProps(props = {}) {
   return {
@@ -105,6 +105,34 @@ export function exportProps(props = {}) {
   };
 }
 
+export function exportPropsWithAllPlaced(props = {}) {
+  const defaultExportProps = exportProps();
+  const {studentIdsByRoom} = defaultExportProps;
+  const updatedStudentIdsByRoom = {
+    ...studentIdsByRoom,
+    [UNPLACED_ROOM_KEY]: [],
+    ['room:0']: studentIdsByRoom['room:0'].concat(studentIdsByRoom[UNPLACED_ROOM_KEY])
+  };
+  return {
+    ...defaultExportProps, 
+    studentIdsByRoom: updatedStudentIdsByRoom
+  };
+}
+
+export function exportPropsWithMoves(props = {}) {
+  const defaultExportProps = exportProps();
+  return {
+    ...defaultExportProps,
+    studentIdsByRoom: initialStudentIdsByRoom(defaultExportProps.classroomsCount, defaultExportProps.students, {
+      placementFn(studentIdsByRoom, student) {
+        return (forceUnplaced)
+          ? UNPLACED_ROOM_KEY
+          : roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
+      }
+    })
+  };
+}
+
 function snapshotRender(props) {
   return renderer
     .create(<ClassListCreatorWorkflow {...props} />)
@@ -128,7 +156,12 @@ it('makeAPlanProps', () => {
   expect(snapshotRender(makeAPlanProps({ isEditable: false }))).toMatchSnapshot();
 });
 
-it('notesToPrincipalProps', () => {
-  expect(snapshotRender(notesToPrincipalProps())).toMatchSnapshot();
-  expect(snapshotRender(notesToPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
+it('shareWithPrincipalProps', () => {
+  expect(snapshotRender(shareWithPrincipalProps())).toMatchSnapshot();
+  expect(snapshotRender(shareWithPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
+});
+
+it('exportProps', () => {
+  expect(snapshotRender(shareWithPrincipalProps())).toMatchSnapshot();
+  expect(snapshotRender(shareWithPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
 });

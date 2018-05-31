@@ -27,6 +27,15 @@ export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
   return studentIdsByRoom;
 }
 
+// For testing and stories
+export function consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students) {
+  return initialStudentIdsByRoom(classroomsCount, students, {
+    placementFn(studentIdsByRoom, student) {
+      return roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
+    }
+  });
+}
+
 // Respond after the classrooms count has changed, moving students in 
 // a room that was removed into `unplaced`.
 export function studentIdsByRoomAfterRoomsCountChanged(studentIdsByRoom, roomsCount) {

@@ -7,9 +7,10 @@ import {
   chooseYourGradeProps,
   makeAPlanProps,
   shareWithPrincipalProps,
-  exportProps
+  exportProps,
+  exportPropsWithAllPlaced,
+  exportPropsWithMoves
 } from './ClassListCreatorWorkflow.test';
-import {UNPLACED_ROOM_KEY} from './studentIdsByRoomFunctions';
 
 function withStoryProps(props = {}) {
   return {
@@ -54,31 +55,5 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
       isSubmitted: true
     })));
   })
-  .add('Export, all placed', () => {
-    const defaultExportProps = exportProps();
-    const {studentIdsByRoom} = defaultExportProps;
-    const updatedStudentIdsByRoom = {
-      ...studentIdsByRoom,
-      [UNPLACED_ROOM_KEY]: [],
-      ['room:0']: studentIdsByRoom['room:0'].concat(studentIdsByRoom[UNPLACED_ROOM_KEY])
-    };
-    const props = {
-      ...defaultExportProps, 
-      studentIdsByRoom: updatedStudentIdsByRoom
-    };
-    return render(withStoryProps(props));
-  })
-  .add('Export, one unplaced', () => {
-    const defaultExportProps = exportProps();
-    const {studentIdsByRoom} = defaultExportProps;
-    const updatedStudentIdsByRoom = {
-      ...studentIdsByRoom,
-      [UNPLACED_ROOM_KEY]: studentIdsByRoom['room:0'].slice(0, 2),
-      ['room:0']: studentIdsByRoom['room:0'].slice(2)
-    };
-    const props = {
-      ...defaultExportProps, 
-      studentIdsByRoom: updatedStudentIdsByRoom
-    };
-    return render(withStoryProps(props));
-  });
+  .add('Export, all placed', () => render(withStoryProps(exportPropsWithAllPlaced(props))))
+  .add('Export, with moves', () => render(withStoryProps(exportPropsWithMoves(props))));
