@@ -9,12 +9,14 @@ import {
   UNPLACED_ROOM_KEY,
   createRooms
 } from './studentIdsByRoomFunctions';
+import ClassLists from './ClassLists';
 
 
 export default class ExportList extends React.Component {
   constructor(props) {
     super(props);
     
+    // TODO(kr) remove
     this.state = {
       roomTeachers: {}
     };
@@ -51,24 +53,30 @@ export default class ExportList extends React.Component {
 
   // Button onClick does nothing, since DownloadCsvLink handles it,
   // we're just using Button for the visual.
-  onDownloadButtonClicked(e) {
-    console.log('onDownloadButtonClicked');
-    // e.preventDefault();
-  }
+  onDownloadButtonClicked(e) {}
 
   render() {
-    const {headingStyle, teacherStudentIdsByRoom, principalStudentIdsByRoom} = this.props;
+    const {
+      headingStyle,
+      descriptionStyle,
+      teacherStudentIdsByRoom,
+      principalStudentIdsByRoom
+    } = this.props;
     const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom; // TODO(kr)
     const rows = this.mapToRows(studentIdsByRoom);
 
     return (
       <div className="SecretaryEnters">
-        <div style={headingStyle}>Have all students been placed?</div>
-        <div style={{marginBottom: 20}}>{this.renderUnplaced(studentIdsByRoom)}</div>
-        <div style={headingStyle}>Which teachers will teach these classrooms?</div>
-        <div style={{marginBottom: 20}}>{this.renderTeacherAssignment(studentIdsByRoom)}</div>
+        <div style={headingStyle}>Do your changes consider the teachers' plan and notes to the principal?</div>
+        <div style={{...descriptionStyle, ...styles.spaceBelow}}>There may be good reasons to revise class lists, but check out the teaching team's intention in <i>Make a plan</i> and <i>Share notes</i> first.</div>
+        <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
+        <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
+
+        <div style={headingStyle}>Who will teach each classroom?</div>
+        <div style={styles.spaceBelow}>{this.renderTeacherAssignment(studentIdsByRoom)}</div>
+        
         {/* {this.renderTable(rows)} */}
-        <div style={{marginBottom: 20}}>{this.renderDownloadListsLink(rows)}</div>
+        <div style={styles.spaceBelow}>{this.renderDownloadListsLink(rows)}</div>
       </div>
     );
   }
@@ -78,6 +86,69 @@ export default class ExportList extends React.Component {
     if (unplacedCount === 0) return <SuccessLabel style={styles.placementMessage} text="All students have been placed." />;
     if (unplacedCount === 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There is one student who has not been placed in a classroom.`} />;
     if (unplacedCount > 1) return <SuccessLabel style={{...styles.placementMessage, ...styles.placementWarning}} text={`There are ${unplacedCount} students who have not been placed in a classroom.`} />;
+  }
+
+  renderMoved(studentIdsByRoom) {
+    const {teacherStudentIdsByRoom, students, fetchProfile} = this.props;
+
+    // roomKeys for both teacher and principal lists should always be the same,
+    // but this is defensive
+    const roomKeys = _.uniq(Object.keys(teacherStudentIdsByRoom).concat(Object.keys(studentIdsByRoom)));
+    const movements = _.flatten(roomKeys.map(roomKey => {
+      const studentIds = studentIdsByRoom[roomKey];
+      const movedStudentIds = studentIds.filter(studentId => {
+        return teacherStudentIdsByRoom[roomKey].indexOf(studentId) === -1;
+      });
+      return movedStudentIds.map(studentId => {
+        const student = _.find(students, { id: studentId });
+        return {student, roomKey};
+      });
+    }));
+
+    // Show rooms with moved students
+    const movedStudents = movements.map(movement => movement.student);
+    const movedStudentIdsByRoom = movements.reduce((map, movement) => {
+      return {
+        ...map,
+        [movement.roomKey]: (map[movement.roomKey] || []).concat(movement.student.id)
+      };
+    }, {});
+    const rooms = createRooms(roomKeys.length - 1);
+    return (
+      <ClassLists
+        students={movedStudents}
+        studentIdsByRoom={movedStudentIdsByRoom}
+        rooms={rooms}
+        fetchProfile={fetchProfile}
+
+        isEditable={false}
+        highlightKey={null}
+        isExpandedVertically={false}
+        // onRoomNameClicked={this.onRoomNameClicked
+        onDragEnd={function() {}}
+        onClassListsChanged={function() {}}
+        onExpandVerticallyToggled={function() {}}
+      />
+    );
+
+    // return (
+    //   <div>
+    //     {movements.map((movement, index) => {
+    //       const {student} = movement;
+    //       // return <li key={student.id}>{student.first_name} {student.last_name}</li>;
+    //       return (
+    //         <StudentCard
+    //           key={student.id}
+    //           style={{display: 'inline-block'}}
+    //           highlightKey={null}
+    //           student={student}
+    //           index={index}
+    //           fetchProfile={fetchProfile}
+    //           isEditable={false} />
+    //       );
+    //     })}
+    //   </div>
+    // );
   }
 
   renderTeacherAssignment(studentIdsByRoom) {
@@ -161,10 +232,12 @@ ExportList.propTypes = {
     name: React.PropTypes.string.isRequired
   }),
   students: React.PropTypes.array.isRequired,
+  fetchProfile: React.PropTypes.func.isRequired,
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
-  headingStyle: React.PropTypes.object
+  headingStyle: React.PropTypes.object,
+  descriptionStyle: React.PropTypes.object
 };
 
 
@@ -191,5 +264,8 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
     padding: '8px 25px'
+  },
+  spaceBelow: {
+    marginBottom: 20
   }
 };

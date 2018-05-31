@@ -288,22 +288,21 @@ export default class ClassListCreatorWorkflow extends React.Component {
       students,
       classroomsCount,
       studentIdsByRoom,
-      gradeLevelNextYear
+      principalStudentIdsByRoom,
+      gradeLevelNextYear,
+      onClassListsChangedByPrincipal
     } = this.props;
     const {isExpandedVertically} = this.state;
 
     if (students === null || studentIdsByRoom === null) return <Loading />;
-
-    // TODO(kr) editable / principal / changes
-    const onClassListsChangedByPrincipal = () => null;
     return (
       <CreateYourLists
         key="principal-finalizes"
-        isEditable={false}
+        isEditable={true}
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={studentIdsByRoom}
+        studentIdsByRoom={principalStudentIdsByRoom || studentIdsByRoom}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         isExpandedVertically={isExpandedVertically}
         onExpandVerticallyToggled={this.onExpandVerticallyToggled}
@@ -313,13 +312,15 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
   renderExportList() {
     const {
+      workspaceId,
       gradeLevelNextYear,
       schoolId,
       schools,
       students,
       studentIdsByRoom,
       principalTeacherNamesByRoom,
-      principalStudentIdsByRoom
+      principalStudentIdsByRoom,
+      onPrincipalTeacherNamesByRoomChanged
     } = this.props;
     const school = _.find(schools, {id: schoolId});
 
@@ -329,12 +330,15 @@ export default class ClassListCreatorWorkflow extends React.Component {
         <div style={styles.titleHeading}>Next year's {gradeText(gradeLevelNextYear)}</div>
         <ExportList
           headingStyle={styles.heading}
+          descriptionStyle={styles.descriptionText}
           school={school}
           gradeLevelNextYear={gradeLevelNextYear}
           students={students} 
+          fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
           teacherStudentIdsByRoom={studentIdsByRoom}
           principalStudentIdsByRoom={principalStudentIdsByRoom}
           principalTeacherNamesByRoom={principalTeacherNamesByRoom}
+          onPrincipalTeacherNamesByRoomChanged={onPrincipalTeacherNamesByRoomChanged}
         />
       </div>
     );
@@ -371,6 +375,8 @@ ClassListCreatorWorkflow.propTypes = {
   // principal
   principalTeacherNamesByRoom: React.PropTypes.object,
   principalStudentIdsByRoom: React.PropTypes.object,
+  onClassListsChangedByPrincipal: React.PropTypes.func.isRequired,
+  onPrincipalTeacherNamesByRoomChanged: React.PropTypes.func.isRequired,
 
   // callbacks
   onStepChanged: React.PropTypes.func.isRequired,

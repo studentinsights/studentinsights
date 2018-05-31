@@ -19,7 +19,7 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Submit',
+  'Share notes',
   'Principal finalizes',
   'Export'
 ];
@@ -86,6 +86,8 @@ export default class ClassListCreatorPage extends React.Component {
     this.onFetchedClassListError = this.onFetchedClassListError.bind(this);
     this.onFetchStudentsError = this.onFetchStudentsError.bind(this);
     this.onFetchedGradeLevelsError = this.onFetchedGradeLevelsError.bind(this);
+    this.onClassListsChangedByPrincipal = this.onClassListsChangedByPrincipal.bind(this);
+    this.onPrincipalTeacherNamesByRoomChanged = this.onPrincipalTeacherNamesByRoomChanged.bind(this);
   }
 
   componentDidMount() {
@@ -110,6 +112,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // Are there any local changes that we think haven't been synced?
+  // Includes both teacher and principal changes.
   isDirty() {
     const {lastSavedSnapshot} = this.state;
     if (!this.isSaveable()) return false;
@@ -117,7 +120,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // Has the user gotten past initial loading to where there is
-  // something worth saving?
+  // something worth saving?  Includes both teacher and principal changes.
   isSaveable() {
     const {
       workspaceId,
@@ -274,13 +277,14 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // This method is throttled.
-  // Autosave unless it's readonly, the user is still at the initial 
+  // Autosave unless the user is still at the initial 
   // steps or unless nothing has changed.
+  // This will autosave for teachers editing, or for principals revising.
   doAutoSaveChanges() {
     const {isEditable} = this.state;
-    if (!isEditable) return;
     if (!this.isSaveable()) return;
     if (!this.isDirty()) return;
+    if (!isEditable && !this.isRevisable()) return;
 
     this.doSave();
   }
@@ -454,6 +458,14 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({isSubmitted: true, isEditable: false}, () => this.doSave());
   }
 
+  onClassListsChangedByPrincipal(principalStudentIdsByRoom) {
+    this.setState({principalStudentIdsByRoom});
+  }
+
+  onPrincipalTeacherNamesByRoomChanged(principalTeacherNamesByRoom) {
+    this.setState({principalTeacherNamesByRoom});
+  }
+
   render() {
     const {workspaceId} = this.state;
     if (!workspaceId) return <Loading />;
@@ -476,6 +488,8 @@ export default class ClassListCreatorPage extends React.Component {
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
         onFeedbackTextChanged={this.onFeedbackTextChanged}
         onSubmitClicked={this.onSubmitClicked}
+        onClassListsChangedByPrincipal={this.onClassListsChangedByPrincipal}
+        onPrincipalTeacherNamesByRoomChanged={this.onPrincipalTeacherNamesByRoomChanged}
       />
     );
   }
@@ -493,11 +507,11 @@ ClassListCreatorPage.propTypes = {
   autoSaveIntervalMs: React.PropTypes.number
 };
 ClassListCreatorPage.defaultProps = {
-  autoSaveIntervalMs: 5000
+  autoSaveIntervalMs: 1000
 };
 
 
-
+// Always look at both teacher and principal bits
 function snapshotStateForSaving(state) {
   const {
     workspaceId,
@@ -509,7 +523,9 @@ function snapshotStateForSaving(state) {
     planText,
     studentIdsByRoom,
     feedbackText,
-    principalNoteText
+    principalNoteText,
+    principalStudentIdsByRoom,
+    principalTeacherNamesByRoom
   } = state;
   return {
     workspaceId,
@@ -521,6 +537,8 @@ function snapshotStateForSaving(state) {
     planText,
     studentIdsByRoom,
     feedbackText,
-    principalNoteText
+    principalNoteText,
+    principalStudentIdsByRoom,
+    principalTeacherNamesByRoom
   };
 }
