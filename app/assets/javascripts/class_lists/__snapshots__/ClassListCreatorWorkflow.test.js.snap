@@ -2040,7 +2040,7 @@ exports[`export 1`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2070,32 +2070,12 @@ exports[`export 1`] = `
               }
             }
           >
-            Have you reviewed the teaching team's notes before making changes?
+            Have you reviewed the teaching team's plan and notes before making changes?
           </div>
           <div
             style={
               Object {
-                "fontSize": 12,
-                "padding": 10,
-                "paddingLeft": 0,
-                "paddingTop": 5,
-              }
-            }
-          >
-            You can see their work in the 
-            <i>
-              Make a plan
-            </i>
-             and 
-            <i>
-              Share notes
-            </i>
-             sections.
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2130,7 +2110,7 @@ exports[`export 1`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2201,7 +2181,9 @@ exports[`export 1`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2236,7 +2218,9 @@ exports[`export 1`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2271,7 +2255,9 @@ exports[`export 1`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2288,7 +2274,7 @@ exports[`export 1`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2361,7 +2347,7 @@ exports[`export 1`] = `
                     }
                   }
                 >
-                  Please assign teachers to each homeroom first
+                  Teachers need to be assigned to each homeroom first
                 </span>
               </div>
             </div>
@@ -2734,7 +2720,7 @@ exports[`export 2`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2764,32 +2750,12 @@ exports[`export 2`] = `
               }
             }
           >
-            Have you reviewed the teaching team's notes before making changes?
+            Have you reviewed the teaching team's plan and notes before making changes?
           </div>
           <div
             style={
               Object {
-                "fontSize": 12,
-                "padding": 10,
-                "paddingLeft": 0,
-                "paddingTop": 5,
-              }
-            }
-          >
-            You can see their work in the 
-            <i>
-              Make a plan
-            </i>
-             and 
-            <i>
-              Share notes
-            </i>
-             sections.
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2826,7 +2792,7 @@ exports[`export 2`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -2897,7 +2863,9 @@ exports[`export 2`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2932,7 +2900,9 @@ exports[`export 2`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2967,7 +2937,9 @@ exports[`export 2`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -2984,7 +2956,7 @@ exports[`export 2`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -3057,7 +3029,7 @@ exports[`export 2`] = `
                     }
                   }
                 >
-                  Please assign teachers to each homeroom first
+                  Teachers need to be assigned to each homeroom first
                 </span>
               </div>
             </div>
@@ -3430,7 +3402,7 @@ exports[`export 3`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -3460,32 +3432,12 @@ exports[`export 3`] = `
               }
             }
           >
-            Have you reviewed the teaching team's notes before making changes?
+            Have you reviewed the teaching team's plan and notes before making changes?
           </div>
           <div
             style={
               Object {
-                "fontSize": 12,
-                "padding": 10,
-                "paddingLeft": 0,
-                "paddingTop": 5,
-              }
-            }
-          >
-            You can see their work in the 
-            <i>
-              Make a plan
-            </i>
-             and 
-            <i>
-              Share notes
-            </i>
-             sections.
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -3520,7 +3472,7 @@ exports[`export 3`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
@@ -3591,7 +3543,9 @@ exports[`export 3`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -3626,7 +3580,9 @@ exports[`export 3`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -3661,7 +3617,9 @@ exports[`export 3`] = `
                     }
                   >
                     <input
+                      disabled={true}
                       onChange={[Function]}
+                      placeholder="Teacher name"
                       style={
                         Object {
                           "fontSize": 14,
@@ -3678,7 +3636,7 @@ exports[`export 3`] = `
           <div
             style={
               Object {
-                "marginBottom": 20,
+                "marginBottom": 10,
               }
             }
           >
