@@ -23,7 +23,9 @@ function withStoryProps(props = {}) {
     onClassListsChanged: action('onClassListsChanged'),
     onPrincipalNoteChanged: action('onPrincipalNoteChanged'),
     onFeedbackTextChanged: action('onFeedbackTextChanged'),
-    onSubmitClicked: action('onSubmitClicked')
+    onSubmitClicked: action('onSubmitClicked'),
+    onClassListsChangedByPrincipal: action('onClassListsChangedByPrincipal'),
+    onPrincipalTeacherNamesByRoomChanged: action('onPrincipalTeacherNamesByRoomChanged')
   };
 }
 
@@ -52,7 +54,20 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
       isSubmitted: true
     })));
   })
-  .add('Export', () => render(withStoryProps(exportProps())))
+  .add('Export, all placed', () => {
+    const defaultExportProps = exportProps();
+    const {studentIdsByRoom} = defaultExportProps;
+    const updatedStudentIdsByRoom = {
+      ...studentIdsByRoom,
+      [UNPLACED_ROOM_KEY]: [],
+      ['room:0']: studentIdsByRoom['room:0'].concat(studentIdsByRoom[UNPLACED_ROOM_KEY])
+    };
+    const props = {
+      ...defaultExportProps, 
+      studentIdsByRoom: updatedStudentIdsByRoom
+    };
+    return render(withStoryProps(props));
+  })
   .add('Export, one unplaced', () => {
     const defaultExportProps = exportProps();
     const {studentIdsByRoom} = defaultExportProps;

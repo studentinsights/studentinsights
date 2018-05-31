@@ -21,10 +21,11 @@ export function testProps(props = {}) {
     availableSteps: STEPS.map((step, index) => index),
     isEditable: true,
     isSubmitted: false,
+    isRevisable: false,
     isDirty: false,
     canChangeSchoolOrGrade: true,
 
-    // state
+    // teacher workspace
     stepIndex: 0,
     workspaceId: 'foo-workspace-id',
     schoolId: null,
@@ -35,6 +36,12 @@ export function testProps(props = {}) {
     studentIdsByRoom: null,
     principalNoteText: '',
     feedbackText: '',
+
+    // principal revisions
+    principalStudentIdsByRoom: null,
+    principalTeacherNamesByRoom: {},
+    onClassListsChangedByPrincipal: jest.fn(),
+    onPrincipalTeacherNamesByRoomChanged: jest.fn(),
 
     // callbacks
     onStepChanged: jest.fn(),

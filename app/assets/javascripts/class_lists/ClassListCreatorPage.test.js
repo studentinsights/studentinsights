@@ -8,7 +8,7 @@ import {uri, sarah, laura} from '../../../../spec/javascripts/fixtures/currentEd
 
 beforeEach(() => mockWithFixtures());
 
-function testProps(props) {
+export function testProps(props) {
   return {
     currentEducator: sarah,
     disableHistory: true,
