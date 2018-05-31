@@ -214,10 +214,6 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const {isExpandedVertically} = this.state;
 
     if (students === null || studentIdsByRoom === null) return <Loading />;
-
-        // Because students can change over time, there can be drift in what's referenced 
-    // in the class lists, and students who are later withdrawn, etc.
-    // Filter out any such students at load time.
     return (
       <CreateYourLists
         key="create-your-classrooms"

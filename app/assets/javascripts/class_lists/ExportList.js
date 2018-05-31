@@ -12,6 +12,10 @@ import {
 } from './studentIdsByRoomFunctions';
 
 
+// Allows principals to set the names of teachers for each room, and export
+// to a spreadsheet.  Others can view but can't export if the principal hasn't
+// added names yet.
+// The CSV download is within the browser.
 export default class ExportList extends React.Component {
   mapToRows(studentIdsByRoom) {
     const {gradeLevelNextYear, students, principalTeacherNamesByRoom} = this.props;
