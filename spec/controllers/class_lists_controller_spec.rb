@@ -219,6 +219,7 @@ describe ClassListsController, :type => :controller do
       expect(json["students"].length).to eq 4
       expect(json["students"].first.keys).to contain_exactly *[
         "id",
+        "local_id",
         "first_name",
         "last_name",
         "date_of_birth",
