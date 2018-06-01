@@ -12,9 +12,6 @@ sudo: required
 services:
   - postgres
 
-addons:
-  postgresql: "10.3"
-
 branches:
   only:
     - master
@@ -30,11 +27,10 @@ install:
   - yarn install
 
 script:
-  - bundle exec rake db:environment:set RAILS_ENV=test
-  - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test RAILS_ENV=test
+  - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
   - bundle exec rake immigrant:check_keys
   - ./scripts/ci/detect_package_lock.sh
   - rubocop
   - bundle exec brakeman -z
-  - bundle exec rspec spec RAILS_ENV=test
+  - bundle exec rspec spec
   - yarn test-cli
