@@ -384,6 +384,8 @@ export default class ClassListCreatorPage extends React.Component {
     });
   }
 
+  // This loads both teacher changes and principal revisions.
+  //
   // Over time, there can be drift in the references within studentIdsByRoom 
   // and the set of students that the server provides.  We filter this out or add this in
   // at the view layer and don't proactively filter this.  So if the user looks at the
@@ -404,6 +406,10 @@ export default class ClassListCreatorPage extends React.Component {
       principalNoteText,
       feedbackText
     } = classList.json;
+    const {
+      principalStudentIdsByRoom,
+      principalTeacherNamesByRoom
+    } = classList.principal_revisions_json;
 
     const stateChange = {
       workspaceId,
@@ -417,6 +423,8 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText,
+      principalStudentIdsByRoom,
+      principalTeacherNamesByRoom,
       stepIndex: 0, // Ignore last `stepIndex`
     };
 

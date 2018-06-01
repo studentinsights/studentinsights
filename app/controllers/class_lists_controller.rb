@@ -179,7 +179,8 @@ class ClassListsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_to_revise?(latest_class_list)
 
     # Write a new record
-    class_list = latest_class_list.dup.update!(principal_revisions_json: principal_revisions_json)
+    class_list = latest_class_list.dup
+    class_list.update!(principal_revisions_json: principal_revisions_json)
     render json: {
       class_list: serialize_class_list(class_list)
     }
@@ -240,7 +241,8 @@ class ClassListsController < ApplicationController
       :school_id,
       :grade_level_next_year,
       :submitted,
-      :json
+      :json,
+      :principal_revisions_json
     ])
   end
 
