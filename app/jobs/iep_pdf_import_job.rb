@@ -10,10 +10,8 @@ class IepPdfImportJob
     'AWS_S3_IEP_BUCKET',
   ]
 
-  def initialize(options = {})
+  def initialize
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
-
-    @time_now = options[:time_now] || Time.now
   end
 
   # This imports all the IEP PDFs from a zip that
