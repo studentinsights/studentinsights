@@ -85,7 +85,7 @@ it('#postPrincipalRevisions', done => {
   const options = { csrfToken: 'explicit-csrf-token-for-test' };
 
   // Make request and verify HTTP call
-  postPrincipalRevisions(params, options).catch(e => console.log(e)).then(response => {
+  postPrincipalRevisions(params, options).then(response => {
     const calls = fetchMock.calls();
     expect(calls.length).toEqual(1);
     expect(calls[0][0]).toEqual('/api/class_lists/foo-workspace-id/principal_revised_class_list_json');
@@ -99,7 +99,6 @@ it('#postPrincipalRevisions', done => {
     expect(calls[0][1].body).toEqual(JSON.stringify({
       "workspace_id": "foo-workspace-id",
       "principal_revisions_json": {
-        "clientNowMs":TEST_TIME_MOMENT.unix(),
         "principalStudentIdsByRoom":{
           "room:unplaced":[],
           "room:0":[1, 2],
@@ -108,7 +107,8 @@ it('#postPrincipalRevisions', done => {
         "principalTeacherNamesByRoom":{
           "room:0":"Kevin",
           "room:1":"Alex",
-        }
+        },
+        "clientNowMs":TEST_TIME_MOMENT.unix()
       }
     }));
     done();
