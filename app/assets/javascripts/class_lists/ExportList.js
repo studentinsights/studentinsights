@@ -54,20 +54,21 @@ export default class ExportList extends React.Component {
     const {
       headingStyle,
       teacherStudentIdsByRoom,
-      principalStudentIdsByRoom
+      principalStudentIdsByRoom,
+      gradeLevelNextYear
     } = this.props;
     const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom; // TODO(kr)
     const rows = this.mapToRows(studentIdsByRoom);
 
     return (
       <div className="SecretaryEnters">
-        <div style={headingStyle}>Have all students been placed?</div>
+        <div style={headingStyle}>For next year's {gradeText(gradeLevelNextYear)}, have all students been placed?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
         
-        <div style={headingStyle}>Have you reviewed the teaching team's plan and notes before making changes?</div>
+        <div style={headingStyle}>Have you reviewed the team's plan and notes before making changes?</div>
         <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
 
-        <div style={headingStyle}>Who will teach each classroom?</div>
+        <div style={headingStyle}>Who will teach next year's {gradeText(gradeLevelNextYear)}?</div>
         <div>{this.renderTeacherAssignment(studentIdsByRoom)}</div>
         <div>{this.renderDownloadListsLink(studentIdsByRoom, rows)}</div>
       </div>
@@ -86,8 +87,8 @@ export default class ExportList extends React.Component {
     const movedStudentsCount = findMovedStudentIds(teacherStudentIdsByRoom, studentIdsByRoom).length;
 
     if (movedStudentsCount === 0) return <SuccessLabel style={styles.placementMessage} text="No students were moved." />;
-    if (movedStudentsCount === 1) return this.renderWarning(`You made one revision to the teaching team's original plan.`);
-    if (movedStudentsCount > 1) return this.renderWarning(`You made ${movedStudentsCount} revisions to the teaching team's original plan.`);
+    if (movedStudentsCount === 1) return this.renderWarning(`You made one revision to the team's original plan.`);
+    if (movedStudentsCount > 1) return this.renderWarning(`You made ${movedStudentsCount} revisions to the team's original plan.`);
   }
 
   renderWarning(text) {
@@ -111,10 +112,13 @@ export default class ExportList extends React.Component {
                 <Creatable
                   valueKey="full_name"
                   labelKey="full_name"
+                  placeholder="Select or type..."
                   style={styles.select}
                   options={educators}
                   disabled={!isRevisable}
+                  autosize={false} // IE11, see https://github.com/JedWatson/react-select/issues/733#issuecomment-237562382
                   multi={false}
+                  clearable={false}
                   value={teacherText}
                   onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)}
                   backspaceRemoves={true} />
@@ -192,7 +196,7 @@ const styles = {
     marginTop: 5
   },
   cell: {
-    padding: '2px 10px'
+    padding: '2px 8px'
   },
   download: {
     display: 'inline-block',
@@ -201,7 +205,7 @@ const styles = {
     marginTop: 20
   },
   spaceBelow: {
-    marginBottom: 10
+    //marginBottom: 10
   },
   warnExport: {
     display: 'inline-block',

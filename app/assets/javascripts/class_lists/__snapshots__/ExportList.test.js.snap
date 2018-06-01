@@ -4858,14 +4858,12 @@ exports[`snapshots 1`] = `
   <div
     style={undefined}
   >
-    Have all students been placed?
+    For next year's 
+    1st grade
+    , have all students been placed?
   </div>
   <div
-    style={
-      Object {
-        "marginBottom": 10,
-      }
-    }
+    style={Object {}}
   >
     <span
       className="SuccessLabel"
@@ -4889,14 +4887,10 @@ exports[`snapshots 1`] = `
   <div
     style={undefined}
   >
-    Have you reviewed the teaching team's plan and notes before making changes?
+    Have you reviewed the team's plan and notes before making changes?
   </div>
   <div
-    style={
-      Object {
-        "marginBottom": 10,
-      }
-    }
+    style={Object {}}
   >
     <span
       className="SuccessLabel"
@@ -4920,7 +4914,9 @@ exports[`snapshots 1`] = `
   <div
     style={undefined}
   >
-    Who will teach each classroom?
+    Who will teach next year's 
+    1st grade
+    ?
   </div>
   <div>
     <table
@@ -4936,7 +4932,7 @@ exports[`snapshots 1`] = `
           <td
             style={
               Object {
-                "padding": "2px 10px",
+                "padding": "2px 8px",
               }
             }
           >
@@ -4945,12 +4941,12 @@ exports[`snapshots 1`] = `
           <td
             style={
               Object {
-                "padding": "2px 10px",
+                "padding": "2px 8px",
               }
             }
           >
             <div
-              className="Select is-clearable is-disabled is-searchable Select--single"
+              className="Select is-disabled is-searchable Select--single"
               style={undefined}
             >
               <div
@@ -4973,7 +4969,7 @@ exports[`snapshots 1`] = `
                   <div
                     className="Select-placeholder"
                   >
-                    Select...
+                    Select or type...
                   </div>
                   <div
                     aria-activedescendant="react-select-13--value"
@@ -5013,7 +5009,7 @@ exports[`snapshots 1`] = `
           <td
             style={
               Object {
-                "padding": "2px 10px",
+                "padding": "2px 8px",
               }
             }
           >
@@ -5022,12 +5018,12 @@ exports[`snapshots 1`] = `
           <td
             style={
               Object {
-                "padding": "2px 10px",
+                "padding": "2px 8px",
               }
             }
           >
             <div
-              className="Select is-clearable is-disabled is-searchable Select--single"
+              className="Select is-disabled is-searchable Select--single"
               style={undefined}
             >
               <div
@@ -5050,7 +5046,7 @@ exports[`snapshots 1`] = `
                   <div
                     className="Select-placeholder"
                   >
-                    Select...
+                    Select or type...
                   </div>
                   <div
                     aria-activedescendant="react-select-14--value"
@@ -5090,7 +5086,7 @@ exports[`snapshots 1`] = `
           <td
             style={
               Object {
-                "padding": "2px 10px",
+                "padding": "2px 8px",
               }
             }
           >
@@ -5099,12 +5095,12 @@ exports[`snapshots 1`] = `
           <td
             style={
               Object {
-                "padding": "2px 10px",
+                "padding": "2px 8px",
               }
             }
           >
             <div
-              className="Select is-clearable is-disabled is-searchable Select--single"
+              className="Select is-disabled is-searchable Select--single"
               style={undefined}
             >
               <div
@@ -5127,7 +5123,7 @@ exports[`snapshots 1`] = `
                   <div
                     className="Select-placeholder"
                   >
-                    Select...
+                    Select or type...
                   </div>
                   <div
                     aria-activedescendant="react-select-15--value"

@@ -334,7 +334,6 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
     return (
       <div key="export" style={styles.stepContent}>
-        <div style={styles.titleHeading}>Next year's {gradeText(gradeLevelNextYear)}</div>
         <ExportList
           isRevisable={isRevisable}
           headingStyle={styles.heading}
