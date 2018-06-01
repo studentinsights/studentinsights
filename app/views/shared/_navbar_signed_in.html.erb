@@ -38,5 +38,13 @@
   <p class="search-label">Search for student:</p>
   <input class="student-searchbar" />
   <span class="navbar-spacer"></span>
-  <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+  <div>
+    <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+    <% if masquerade.can_set? %>
+      <%= link_to educator.email.split('@')[0], admin_authorization_url  %>
+      <% if masquerade.is_masquerading? %>
+        <%= link_to 'X', admin_masquerade_clear_url, method: :post %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
