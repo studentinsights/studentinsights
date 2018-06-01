@@ -47,7 +47,7 @@ export function postTeacherUpdates(params = {}, options = {}) {
     clientNowMs
   } = params;
 
-  const url = `/api/class_lists/${workspaceId}/update_class_list_json`;
+  const url = `/api/class_lists/${workspaceId}/teacher_updated_class_list_json`;
   const body = {
     workspace_id: workspaceId,
     school_id: schoolId,
@@ -74,7 +74,7 @@ export function postPrincipalRevisions(params = {}, options = {}) {
     principalTeacherNamesByRoom,
     clientNowMs
   } = params;
-  const url = `/api/class_lists/${workspaceId}/revise_class_list_json`;
+  const url = `/api/class_lists/${workspaceId}/principal_revised_class_list_json`;
   const body = {
     workspace_id: workspaceId,
     principal_revisions_json: {
