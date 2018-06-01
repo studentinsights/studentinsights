@@ -4,7 +4,7 @@ RSpec.describe ClassListQueries do
   def create_class_list_from(educator, params = {})
     ClassList.create!({
       workspace_id: 'foo-workspace-id',
-      created_by_educator_id: educator.id,
+      created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
       json: { foo: 'bar' }
     }.merge(params))

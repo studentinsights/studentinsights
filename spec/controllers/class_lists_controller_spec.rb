@@ -4,7 +4,7 @@ describe ClassListsController, :type => :controller do
   def create_class_list_from(educator, params = {})
     ClassList.create!({
       workspace_id: 'foo-workspace-id',
-      created_by_educator_id: educator.id,
+      created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
       json: { foo: 'bar' }
     }.merge(params))
@@ -78,7 +78,7 @@ describe ClassListsController, :type => :controller do
             "created_at"=>(time_now - 4.hours).as_json,
             "updated_at"=>(time_now - 4.hours).as_json,
             "submitted"=>false,
-            "created_by_educator"=>{
+            "created_by_teacher_educator"=>{
               "id"=>pals.healey_sarah_teacher.id,
               "email"=>"sarah@demo.studentinsights.org",
               "full_name"=>"Teacher, Sarah"
@@ -295,7 +295,8 @@ describe ClassListsController, :type => :controller do
         "is_editable"=>true,
         "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
-          "created_by_educator_id"=>pals.healey_sarah_teacher.id,
+          "created_by_teacher_educator_id"=>pals.healey_sarah_teacher.id,
+          "revised_by_principal_educator_id"=>nil,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
           "submitted"=>false,
@@ -356,12 +357,13 @@ describe ClassListsController, :type => :controller do
       expect(json).to eq({
         "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
-          "created_by_educator_id"=>pals.healey_sarah_teacher.id,
+          "created_by_teacher_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
           "submitted"=>false,
           "json"=>{'foo'=>'bazzzzz'},
-          "principal_revisions_json"=>nil
+          "principal_revisions_json"=>nil,
+          "revised_by_principal_educator_id"=>nil
         }
       })
       expect(ClassList.all.size).to eq(2)
@@ -406,7 +408,8 @@ describe ClassListsController, :type => :controller do
       expect(response.status).to eq 200
       expect(json['class_list'].keys).to contain_exactly(*[
         "workspace_id",
-        "created_by_educator_id",
+        "created_by_teacher_educator_id",
+        "revised_by_principal_educator_id",
         "school_id",
         "grade_level_next_year",
         "submitted",
