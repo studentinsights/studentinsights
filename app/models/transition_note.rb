@@ -5,7 +5,7 @@ class TransitionNote < ApplicationRecord
   validates :educator, presence: true
   validates :student, presence: true
 
-  validate :just_two_per_student
+  validate :just_two_per_student, on: :create
 
   def just_two_per_student
     if student.transition_notes.count > 1
