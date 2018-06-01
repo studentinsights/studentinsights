@@ -20,17 +20,19 @@ module Admin
     end
 
     def authorization
+      @all_educators = Educator.all
+
       @districtwide_educators = []
       @can_set_educators = []
       @admin_educators = []
       @restricted_notes_educators = []
-      Educator.all.each do |educator|
+
+      @all_educators.each do |educator|
         @districtwide_educators << educator if educator.districtwide_access
         @can_set_educators << educator if educator.can_set_districtwide_access
         @admin_educators << educator if educator.admin
         @restricted_notes_educators << educator if educator.can_view_restricted_notes
       end
-      @all_educators = Educator.all
       render layout: false
     end
 

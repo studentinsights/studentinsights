@@ -51,8 +51,11 @@
       </thead>
       <tbody>
         <%
+          @navbar_links_map = {}
           sorted_educators = @all_educators.sort_by do |educator|
-            PathsForEducator.new(educator).navbar_links.keys
+            navbar_links = PathsForEducator.new(educator).navbar_links
+            @navbar_links_map[educator.id] = navbar_links
+            navbar_links.keys
           end
         %>
         <% sorted_educators.map do |educator| %>
@@ -87,7 +90,7 @@
             <td style="padding: 5px;"><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
             <td style="padding: 5px;"><%= educator.school.try(:name) %></td>
             <td>
-              <% PathsForEducator.new(educator).navbar_links.map do |path, key| %>
+              <% @navbar_links_map[educator.id].map do |path, key| %>
                 <%= link_to path, key %>
               <% end %>
             </td>
