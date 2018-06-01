@@ -67,10 +67,22 @@ class TransitionNotes extends React.Component {
     this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
   }
 
+  // Note on componentWillReceiveProps:
   // This method will be deprecated in React 16.3. But we're still using
-  // React 15.4 and have some migration work to finish up til we can migrate to
-  // React 16. Just noting that this will eventually have to be refactored
-  // eventually.
+  // React 15.4 in Insights, and have some legacy-cleanup work to finish
+  // til we can migrate to 16. Noting that this func will have to be refactored.
+
+  // In my local environment, when I type into the Transition Note textarea,
+  // the server responds with "saved!" so fast that the status text is barely
+  // readable when it's supposed to say "Autosaving..."
+
+  // This code adds an artificial delay so that the text that says "Autosaving..."
+  // can hang for around 2 seconds to let the user read it.
+
+  // It occurred to me that the server might respond more slowly on the Heroku app,
+  // which would make this code unnecessary. So I'm going to try commenting it out,
+  // deploying up to the Heroku demo site, and seeing what the user experience
+  // is like.
   componentWillReceiveProps(newProps) {
     if (newProps.requestState !== this.props.requestState) {
       if (this.props.requestState === 'pending') {
