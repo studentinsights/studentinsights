@@ -72,36 +72,31 @@ class TransitionNotes extends React.Component {
   // React 15.4 in Insights, and have some legacy-cleanup work to finish
   // til we can migrate to 16. Noting that this func will have to be refactored.
 
-  // In my local environment, when I type into the Transition Note textarea,
-  // the server responds with "saved!" so fast that the status text is barely
-  // readable when it's supposed to say "Autosaving..."
+  // When the user types into the Transition Note textarea, the server
+  // handles autosaving very quickly. In fact, so fast that in the "pending" state,
+  // the status text is barely readable when it's supposed to say "Autosaving..."
 
-  // This code adds an artificial delay so that the text that says "Autosaving..."
-  // can hang for around 2 seconds to let the user read it.
-
-  // It occurred to me that the server might respond more slowly on the Heroku app,
-  // which would make this code unnecessary. So I'm going to try commenting it out,
-  // deploying up to the Heroku demo site, and seeing what the user experience
-  // is like.
+  // This code adds a delay so that the text that says "Autosaving..."
+  // can hang for  2 seconds to let the user read it.
   componentWillReceiveProps(newProps) {
     if (newProps.requestState !== this.props.requestState) {
-      this.setState({regularNoteAutosaveStatus: newProps.requestState});
-      // if (this.props.requestState === 'pending') {
-      //   setTimeout(() => {
-      //     this.setState({regularNoteAutosaveStatus: newProps.requestState})
-      //   }, 2000);
-      // } else {
-      // }
+      if (this.props.requestState === 'pending') {
+        setTimeout(() => {
+          this.setState({regularNoteAutosaveStatus: newProps.requestState})
+        }, 2000);
+      } else {
+        this.setState({regularNoteAutosaveStatus: newProps.requestState});
+      }
     }
 
     if (newProps.requestStateRestricted !== this.props.requestStateRestricted) {
-      this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
-      // if (this.props.requestStateRestricted == 'pending') {
-      //   setTimeout(() => {
-      //     this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted})
-      //   },2000);
-      // } else {
-      // }
+      if (this.props.requestStateRestricted == 'pending') {
+        setTimeout(() => {
+          this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted})
+        }, 2000);
+      } else {
+        this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
+      }
     }
   }
 
