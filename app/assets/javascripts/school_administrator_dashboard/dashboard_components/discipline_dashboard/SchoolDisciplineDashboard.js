@@ -21,17 +21,11 @@ class SchoolDisciplineDashboard extends React.Component {
       selectedChart: 'location',
       selectedCategory: null
     };
-    this.setDate = this.setDate.bind(this);
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
     this.selectChart = this.selectChart.bind(this);
   }
 
-  setDate(range) {
-    this.setState({
-      startDate: moment.unix(range[0]).format("YYYY-MM-DD")
-    });
-  }
   setStudentList(highchartsEvent) {
     this.setState({selectedCategory: highchartsEvent.point.category});
   }
@@ -42,8 +36,8 @@ class SchoolDisciplineDashboard extends React.Component {
     this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
-  filterIncidentDates(incidents) {
-    return incidents.filter((incident) => {
+  filterIncidentDates(incidentsArray) {
+    return incidentsArray.filter((incident) => {
       return moment.utc(incident.occurred_at).isSameOrAfter(moment.utc(this.state.startDate));
     });
   }
@@ -52,7 +46,7 @@ class SchoolDisciplineDashboard extends React.Component {
     let studentDisciplineIncidentCounts = {};
     const selectedChartData = this.getChartData(this.state.selectedChart);
     const incidents = incidentCategory ? selectedChartData.disciplineIncidents[incidentCategory] : this.props.schoolDisciplineEvents;
-    this.filterIncidentDates(incidents).forEach((incident) => {
+    incidents.forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
     });
@@ -60,9 +54,12 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   getChartData(selectedChart) {
+    //This chart data is filtered based on the date selection and passed to the
+    //student table and chart renders below
+    const filteredEvents = this.filterIncidentDates(this.props.schoolDisciplineEvents);
     return {
       type: selectedChart,
-      disciplineIncidents: _.groupBy(this.props.schoolDisciplineEvents, selectedChart),
+      disciplineIncidents: _.groupBy(filteredEvents, selectedChart),
       title: "Incidents by " + selectedChart};
   }
 
@@ -142,7 +139,7 @@ class SchoolDisciplineDashboard extends React.Component {
     const categories = this.sortChartKeys(Object.keys(selectedChart.disciplineIncidents));
     const seriesData = categories.map((type) => {
       if (!selectedChart.disciplineIncidents[type]) return [];
-      const incidents = this.filterIncidentDates(selectedChart.disciplineIncidents[type]);
+      const incidents = selectedChart.disciplineIncidents[type];
       return [type, incidents.length];
     });
 
