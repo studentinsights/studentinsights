@@ -44,7 +44,7 @@ exports[`chooseYourGradeProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -82,7 +82,7 @@ exports[`chooseYourGradeProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -120,7 +120,7 @@ exports[`chooseYourGradeProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -158,7 +158,7 @@ exports[`chooseYourGradeProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -196,7 +196,7 @@ exports[`chooseYourGradeProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -234,7 +234,7 @@ exports[`chooseYourGradeProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -672,7 +672,7 @@ exports[`chooseYourGradeProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -710,7 +710,7 @@ exports[`chooseYourGradeProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -748,7 +748,7 @@ exports[`chooseYourGradeProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -786,7 +786,7 @@ exports[`chooseYourGradeProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -824,7 +824,7 @@ exports[`chooseYourGradeProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -862,7 +862,7 @@ exports[`chooseYourGradeProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -899,7 +899,7 @@ exports[`chooseYourGradeProps 2`] = `
             "borderRadius": 3,
             "color": "#eee",
             "display": "inline-block",
-            "marginRight": 20,
+            "marginRight": 10,
             "padding": 6,
             "paddingLeft": 12,
             "paddingRight": 12,
@@ -1224,7 +1224,7 @@ exports[`chooseYourGradeProps 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1262,7 +1262,7 @@ exports[`chooseYourGradeProps 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1300,7 +1300,7 @@ exports[`chooseYourGradeProps 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1338,7 +1338,7 @@ exports[`chooseYourGradeProps 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1376,7 +1376,7 @@ exports[`chooseYourGradeProps 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1414,7 +1414,7 @@ exports[`chooseYourGradeProps 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1774,7 +1774,7 @@ exports[`export 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1812,7 +1812,7 @@ exports[`export 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1850,7 +1850,7 @@ exports[`export 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1888,7 +1888,7 @@ exports[`export 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1926,7 +1926,7 @@ exports[`export 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -1965,7 +1965,7 @@ exports[`export 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2008,348 +2008,11 @@ exports[`export 1`] = `
       <div
         style={
           Object {
-            "margin": 20,
+            "padding": 10,
           }
         }
       >
-        <div
-          style={
-            Object {
-              "fontSize": 20,
-              "fontWeight": 300,
-              "marginBottom": 10,
-              "marginTop": 20,
-            }
-          }
-        >
-          Next year's 
-          1st grade
-        </div>
-        <div
-          className="SecretaryEnters"
-        >
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Have all students been placed?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <span
-              className="SuccessLabel"
-              style={
-                Object {
-                  "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid rgb(149, 198, 150)",
-                  "borderRadius": 3,
-                  "color": "green",
-                  "display": "inline-block",
-                  "fontWeight": "bold",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "padding": 8,
-                }
-              }
-            >
-              All students have been placed.
-            </span>
-          </div>
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Have you reviewed the teaching team's plan and notes before making changes?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <span
-              className="SuccessLabel"
-              style={
-                Object {
-                  "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid rgb(149, 198, 150)",
-                  "borderRadius": 3,
-                  "color": "green",
-                  "display": "inline-block",
-                  "fontWeight": "bold",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "padding": 8,
-                }
-              }
-            >
-              No students were moved.
-            </span>
-          </div>
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Who will teach each classroom?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <table
-              style={
-                Object {
-                  "border": "1px solid #eee",
-                  "borderCollapse": "collapse",
-                  "margin": 10,
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={
-                      Object {
-                        "backgroundColor": "#ccc",
-                        "border": "1px solid #eee",
-                        "fontWeight": "bold",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room
-                  </th>
-                  <th
-                    style={
-                      Object {
-                        "backgroundColor": "#ccc",
-                        "border": "1px solid #eee",
-                        "fontWeight": "bold",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Teacher
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room A
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value=""
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room B
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value=""
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room C
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value=""
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <div>
-              <div
-                className="Hover"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <button
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "none",
-                      "borderRadius": 28,
-                      "color": "#333",
-                      "cursor": "default",
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "marginTop": 20,
-                      "padding": 0,
-                      "textDecoration": "none",
-                    }
-                  }
-                >
-                  <span
-                    className="DownloadCsvLink DownloadCsvLink-disabled"
-                    style={
-                      Object {
-                        "color": "#999",
-                        "display": "inline-block",
-                        "padding": "8px 25px",
-                        "textDecoration": "none",
-                      }
-                    }
-                  >
-                    Download class lists spreadsheet
-                  </span>
-                </button>
-              </div>
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <span
-                  className="SuccessLabel"
-                  style={
-                    Object {
-                      "background": "orange",
-                      "backgroundColor": "rgb(209, 231, 210)",
-                      "border": "1px solid rgb(149, 198, 150)",
-                      "borderColor": "darkorange",
-                      "borderRadius": 3,
-                      "color": "white",
-                      "display": "inline-block",
-                      "fontWeight": "bold",
-                      "marginBottom": 10,
-                      "marginTop": 10,
-                      "padding": 8,
-                    }
-                  }
-                >
-                  Teachers need to be assigned to each homeroom first
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        Loading...
       </div>
     </div>
     <div
@@ -2435,7 +2098,7 @@ exports[`export 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2473,7 +2136,7 @@ exports[`export 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2511,7 +2174,7 @@ exports[`export 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2549,7 +2212,7 @@ exports[`export 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2587,7 +2250,7 @@ exports[`export 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2626,7 +2289,7 @@ exports[`export 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -2663,7 +2326,7 @@ exports[`export 2`] = `
             "borderRadius": 3,
             "color": "#eee",
             "display": "inline-block",
-            "marginRight": 20,
+            "marginRight": 10,
             "padding": 6,
             "paddingLeft": 12,
             "paddingRight": 12,
@@ -2685,350 +2348,11 @@ exports[`export 2`] = `
       <div
         style={
           Object {
-            "margin": 20,
+            "padding": 10,
           }
         }
       >
-        <div
-          style={
-            Object {
-              "fontSize": 20,
-              "fontWeight": 300,
-              "marginBottom": 10,
-              "marginTop": 20,
-            }
-          }
-        >
-          Next year's 
-          1st grade
-        </div>
-        <div
-          className="SecretaryEnters"
-        >
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Have all students been placed?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <span
-              className="SuccessLabel"
-              style={
-                Object {
-                  "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid rgb(149, 198, 150)",
-                  "borderRadius": 3,
-                  "color": "green",
-                  "display": "inline-block",
-                  "fontWeight": "bold",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "padding": 8,
-                }
-              }
-            >
-              All students have been placed.
-            </span>
-          </div>
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Have you reviewed the teaching team's plan and notes before making changes?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <span
-              className="SuccessLabel"
-              style={
-                Object {
-                  "background": "orange",
-                  "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid rgb(149, 198, 150)",
-                  "borderColor": "darkorange",
-                  "borderRadius": 3,
-                  "color": "white",
-                  "display": "inline-block",
-                  "fontWeight": "bold",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "padding": 8,
-                }
-              }
-            >
-              You made 2 revisions to the teaching team's original plan.
-            </span>
-          </div>
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Who will teach each classroom?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <table
-              style={
-                Object {
-                  "border": "1px solid #eee",
-                  "borderCollapse": "collapse",
-                  "margin": 10,
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={
-                      Object {
-                        "backgroundColor": "#ccc",
-                        "border": "1px solid #eee",
-                        "fontWeight": "bold",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room
-                  </th>
-                  <th
-                    style={
-                      Object {
-                        "backgroundColor": "#ccc",
-                        "border": "1px solid #eee",
-                        "fontWeight": "bold",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Teacher
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room A
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value=""
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room B
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value=""
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room C
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value=""
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <div>
-              <div
-                className="Hover"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <button
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "background": "#ccc",
-                      "border": "none",
-                      "borderRadius": 28,
-                      "color": "#333",
-                      "cursor": "default",
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "marginTop": 20,
-                      "padding": 0,
-                      "textDecoration": "none",
-                    }
-                  }
-                >
-                  <span
-                    className="DownloadCsvLink DownloadCsvLink-disabled"
-                    style={
-                      Object {
-                        "color": "#999",
-                        "display": "inline-block",
-                        "padding": "8px 25px",
-                        "textDecoration": "none",
-                      }
-                    }
-                  >
-                    Download class lists spreadsheet
-                  </span>
-                </button>
-              </div>
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <span
-                  className="SuccessLabel"
-                  style={
-                    Object {
-                      "background": "orange",
-                      "backgroundColor": "rgb(209, 231, 210)",
-                      "border": "1px solid rgb(149, 198, 150)",
-                      "borderColor": "darkorange",
-                      "borderRadius": 3,
-                      "color": "white",
-                      "display": "inline-block",
-                      "fontWeight": "bold",
-                      "marginBottom": 10,
-                      "marginTop": 10,
-                      "padding": 8,
-                    }
-                  }
-                >
-                  Teachers need to be assigned to each homeroom first
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        Loading...
       </div>
     </div>
     <div
@@ -3114,7 +2438,7 @@ exports[`export 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3152,7 +2476,7 @@ exports[`export 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3190,7 +2514,7 @@ exports[`export 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3228,7 +2552,7 @@ exports[`export 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3266,7 +2590,7 @@ exports[`export 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3305,7 +2629,7 @@ exports[`export 3`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3342,7 +2666,7 @@ exports[`export 3`] = `
             "borderRadius": 3,
             "color": "#eee",
             "display": "inline-block",
-            "marginRight": 20,
+            "marginRight": 10,
             "padding": 6,
             "paddingLeft": 12,
             "paddingRight": 12,
@@ -3364,323 +2688,11 @@ exports[`export 3`] = `
       <div
         style={
           Object {
-            "margin": 20,
+            "padding": 10,
           }
         }
       >
-        <div
-          style={
-            Object {
-              "fontSize": 20,
-              "fontWeight": 300,
-              "marginBottom": 10,
-              "marginTop": 20,
-            }
-          }
-        >
-          Next year's 
-          1st grade
-        </div>
-        <div
-          className="SecretaryEnters"
-        >
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Have all students been placed?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <span
-              className="SuccessLabel"
-              style={
-                Object {
-                  "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid rgb(149, 198, 150)",
-                  "borderRadius": 3,
-                  "color": "green",
-                  "display": "inline-block",
-                  "fontWeight": "bold",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "padding": 8,
-                }
-              }
-            >
-              All students have been placed.
-            </span>
-          </div>
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Have you reviewed the teaching team's plan and notes before making changes?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <span
-              className="SuccessLabel"
-              style={
-                Object {
-                  "backgroundColor": "rgb(209, 231, 210)",
-                  "border": "1px solid rgb(149, 198, 150)",
-                  "borderRadius": 3,
-                  "color": "green",
-                  "display": "inline-block",
-                  "fontWeight": "bold",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "padding": 8,
-                }
-              }
-            >
-              No students were moved.
-            </span>
-          </div>
-          <div
-            style={
-              Object {
-                "marginTop": 20,
-              }
-            }
-          >
-            Who will teach each classroom?
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <table
-              style={
-                Object {
-                  "border": "1px solid #eee",
-                  "borderCollapse": "collapse",
-                  "margin": 10,
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={
-                      Object {
-                        "backgroundColor": "#ccc",
-                        "border": "1px solid #eee",
-                        "fontWeight": "bold",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room
-                  </th>
-                  <th
-                    style={
-                      Object {
-                        "backgroundColor": "#ccc",
-                        "border": "1px solid #eee",
-                        "fontWeight": "bold",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Teacher
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room A
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value="Kevin"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room B
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value="Alex"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    Room C
-                  </td>
-                  <td
-                    style={
-                      Object {
-                        "border": "1px solid #eee",
-                        "padding": 10,
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      style={
-                        Object {
-                          "fontSize": 14,
-                        }
-                      }
-                      type="text"
-                      value="Uri"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 10,
-              }
-            }
-          >
-            <div>
-              <div
-                className="Hover"
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <button
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "background": "#4A90E2",
-                      "border": "none",
-                      "borderRadius": 28,
-                      "color": "white",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "marginTop": 20,
-                      "padding": 0,
-                      "textDecoration": "none",
-                    }
-                  }
-                >
-                  <a
-                    className="DownloadCsvLink"
-                    download="Class list: 1st grade at E Somerville Community 2018-05-31.csv"
-                    href="data:attachment/csv,Grade%20level%20next%20year%2CLASID%2CStudent%20name%2CRoom%20next%20year%0A1%2C002147%2CElsa%20Disney%2CKevin%0A1%2C002107%2CMinnie%20Disney%2CKevin%0A1%2C002100%2CRapunzel%20Disney%2CKevin%0A1%2C002148%2CRapunzel%20Disney%2CKevin%0A1%2C002155%2CSnow%20Disney%2CKevin%0A1%2C002104%2CElsa%20Duck%2CKevin%0A1%2C002121%2CMinnie%20Duck%2CKevin%0A1%2C002135%2COlaf%20Duck%2CKevin%0A1%2C002116%2CSnow%20Duck%2CKevin%0A1%2C002096%2CDonald%20Kenobi%2CKevin%0A1%2C002093%2COlaf%20Kenobi%2CKevin%0A1%2C002124%2CRapunzel%20Kenobi%2CKevin%0A1%2C002130%2CWinnie%20Kenobi%2CKevin%0A1%2C002127%2CElsa%20Mouse%2CKevin%0A1%2C002103%2COlaf%20Mouse%2CKevin%0A1%2C002161%2CMinnie%20Pan%2CKevin%0A1%2C002164%2CWinnie%20Pan%2CKevin%0A1%2C002132%2CSnow%20Poppins%2CKevin%0A1%2C002109%2CChip%20Skywalker%2CKevin%0A1%2C002162%2CDaisy%20Skywalker%2CKevin%0A1%2C002115%2CMowgli%20Skywalker%2CKevin%0A1%2C002159%2CPocahontas%20Skywalker%2CKevin%0A1%2C002111%2CMowgli%20White%2CKevin%0A1%2C002099%2COlaf%20White%2CKevin%0A1%2C002120%2CPluto%20White%2CKevin%0A1%2C002102%2CRapunzel%20Disney%2CAlex%0A1%2C002094%2CWinnie%20Duck%2CAlex%0A1%2C002125%2CAladdin%20Kenobi%2CAlex%0A1%2C002126%2CMickey%20Kenobi%2CAlex%0A1%2C002122%2COlaf%20Kenobi%2CAlex%0A1%2C002158%2CWinnie%20Kenobi%2CAlex%0A1%2C002141%2CMickey%20Mouse%2CAlex%0A1%2C002114%2CMinnie%20Mouse%2CAlex%0A1%2C002101%2CChip%20Pan%2CAlex%0A1%2C002160%2CChip%20Pan%2CAlex%0A1%2C002153%2CWinnie%20Pan%2CAlex%0A1%2C002145%2CElsa%20Poppins%2CAlex%0A1%2C002117%2CMowgli%20Poppins%2CAlex%0A1%2C002142%2CWinnie%20Skywalker%2CAlex%0A1%2C002097%2CChip%20White%2CAlex%0A1%2C002136%2CDaisy%20White%2CAlex%0A1%2C002139%2COlaf%20White%2CAlex%0A1%2C002157%2CMowgli%20Disney%2CUri%0A1%2C002112%2CChip%20Duck%2CUri%0A1%2C002146%2CElsa%20Duck%2CUri%0A1%2C002150%2CSnow%20Duck%2CUri%0A1%2C002144%2CSnow%20Kenobi%2CUri%0A1%2C002098%2CMinnie%20Mouse%2CUri%0A1%2C002134%2CMinnie%20Mouse%2CUri%0A1%2C002138%2CMowgli%20Mouse%2CUri%0A1%2C002106%2CMickey%20Pan%2CUri%0A1%2C002118%2CMowgli%20Pan%2CUri%0A1%2C002149%2COlaf%20Pan%2CUri%0A1%2C002119%2CDaisy%20Poppins%2CUri%0A1%2C002152%2CElsa%20Poppins%2CUri%0A1%2C002154%2CMowgli%20Skywalker%2CUri%0A1%2C002133%2CRapunzel%20Skywalker%2CUri"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "color": "white",
-                        "display": "inline-block",
-                        "padding": "8px 25px",
-                        "textDecoration": "none",
-                      }
-                    }
-                    target="_blank"
-                  >
-                    Download class lists spreadsheet
-                  </a>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        Loading...
       </div>
     </div>
     <div
@@ -3766,7 +2778,7 @@ exports[`makeAPlanProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3805,7 +2817,7 @@ exports[`makeAPlanProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3843,7 +2855,7 @@ exports[`makeAPlanProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3881,7 +2893,7 @@ exports[`makeAPlanProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3919,7 +2931,7 @@ exports[`makeAPlanProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -3957,7 +2969,7 @@ exports[`makeAPlanProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4373,7 +3385,7 @@ exports[`makeAPlanProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4412,7 +3424,7 @@ exports[`makeAPlanProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4450,7 +3462,7 @@ exports[`makeAPlanProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4488,7 +3500,7 @@ exports[`makeAPlanProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4526,7 +3538,7 @@ exports[`makeAPlanProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4564,7 +3576,7 @@ exports[`makeAPlanProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4601,7 +3613,7 @@ exports[`makeAPlanProps 2`] = `
             "borderRadius": 3,
             "color": "#eee",
             "display": "inline-block",
-            "marginRight": 20,
+            "marginRight": 10,
             "padding": 6,
             "paddingLeft": 12,
             "paddingRight": 12,
@@ -4940,7 +3952,7 @@ exports[`shareWithPrincipalProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -4978,7 +3990,7 @@ exports[`shareWithPrincipalProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5016,7 +4028,7 @@ exports[`shareWithPrincipalProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5055,7 +4067,7 @@ exports[`shareWithPrincipalProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5093,7 +4105,7 @@ exports[`shareWithPrincipalProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5131,7 +4143,7 @@ exports[`shareWithPrincipalProps 1`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5408,7 +4420,7 @@ exports[`shareWithPrincipalProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5446,7 +4458,7 @@ exports[`shareWithPrincipalProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5484,7 +4496,7 @@ exports[`shareWithPrincipalProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5523,7 +4535,7 @@ exports[`shareWithPrincipalProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5561,7 +4573,7 @@ exports[`shareWithPrincipalProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5599,7 +4611,7 @@ exports[`shareWithPrincipalProps 2`] = `
               "borderRadius": 3,
               "cursor": "pointer",
               "marginLeft": 5,
-              "marginRight": 10,
+              "marginRight": 8,
               "padding": 8,
               "paddingRight": 10,
             }
@@ -5636,7 +4648,7 @@ exports[`shareWithPrincipalProps 2`] = `
             "borderRadius": 3,
             "color": "#eee",
             "display": "inline-block",
-            "marginRight": 20,
+            "marginRight": 10,
             "padding": 6,
             "paddingLeft": 12,
             "paddingRight": 12,

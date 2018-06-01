@@ -31,7 +31,7 @@ exports[`snapshots 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -69,7 +69,7 @@ exports[`snapshots 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -108,7 +108,7 @@ exports[`snapshots 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -146,7 +146,7 @@ exports[`snapshots 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -184,7 +184,7 @@ exports[`snapshots 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -222,7 +222,7 @@ exports[`snapshots 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -368,7 +368,7 @@ exports[`snapshots when isRevisable 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -406,7 +406,7 @@ exports[`snapshots when isRevisable 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -445,7 +445,7 @@ exports[`snapshots when isRevisable 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -483,7 +483,7 @@ exports[`snapshots when isRevisable 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -521,7 +521,7 @@ exports[`snapshots when isRevisable 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -559,7 +559,7 @@ exports[`snapshots when isRevisable 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -597,7 +597,7 @@ exports[`snapshots when isRevisable 1`] = `
           "color": "green",
           "display": "inline-block",
           "fontWeight": "bold",
-          "marginRight": 20,
+          "marginRight": 10,
           "padding": 6,
           "paddingLeft": 12,
           "paddingRight": 12,
@@ -722,7 +722,7 @@ exports[`snapshots when readonly 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -760,7 +760,7 @@ exports[`snapshots when readonly 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -799,7 +799,7 @@ exports[`snapshots when readonly 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -837,7 +837,7 @@ exports[`snapshots when readonly 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -875,7 +875,7 @@ exports[`snapshots when readonly 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -913,7 +913,7 @@ exports[`snapshots when readonly 1`] = `
             "borderRadius": 3,
             "cursor": "pointer",
             "marginLeft": 5,
-            "marginRight": 10,
+            "marginRight": 8,
             "padding": 8,
             "paddingRight": 10,
           }
@@ -950,7 +950,7 @@ exports[`snapshots when readonly 1`] = `
           "borderRadius": 3,
           "color": "#eee",
           "display": "inline-block",
-          "marginRight": 20,
+          "marginRight": 10,
           "padding": 6,
           "paddingLeft": 12,
           "paddingRight": 12,

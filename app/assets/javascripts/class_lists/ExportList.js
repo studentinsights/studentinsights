@@ -1,9 +1,9 @@
 import React from 'react';
+import {Creatable} from 'react-select';
+import 'react-select/dist/react-select.css';
 import _ from 'lodash';
 import DownloadCsvLink from '../components/DownloadCsvLink';
-import Button from '../components/Button';
 import SuccessLabel from '../components/SuccessLabel';
-import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
 import {
   UNPLACED_ROOM_KEY,
@@ -42,19 +42,13 @@ export default class ExportList extends React.Component {
     return (!isMissingTeacherNames && !hasBlankTeacherName);
   }
 
-  onRoomTeacherChanged(roomKey, e) {
-    e.preventDefault();
-
+  onRoomTeacherChanged(roomKey, option) {
     const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
     onPrincipalTeacherNamesByRoomChanged({
       ...principalTeacherNamesByRoom,
-      [roomKey]: e.target.value
+      [roomKey]: option.full_name
     });
   }
-
-  // Button onClick does nothing, since DownloadCsvLink handles it,
-  // we're just using Button for the visual.
-  onDownloadButtonClicked(e) {}
 
   render() {
     const {
@@ -74,10 +68,8 @@ export default class ExportList extends React.Component {
         <div style={styles.spaceBelow}>{this.renderMoved(studentIdsByRoom)}</div>
 
         <div style={headingStyle}>Who will teach each classroom?</div>
-        <div style={styles.spaceBelow}>{this.renderTeacherAssignment(studentIdsByRoom)}</div>
-        
-        {/* {this.renderTable(rows)} */}
-        <div style={styles.spaceBelow}>{this.renderDownloadListsLink(studentIdsByRoom, rows)}</div>
+        <div>{this.renderTeacherAssignment(studentIdsByRoom)}</div>
+        <div>{this.renderDownloadListsLink(studentIdsByRoom, rows)}</div>
       </div>
     );
   }
@@ -103,58 +95,30 @@ export default class ExportList extends React.Component {
   }
 
   renderTeacherAssignment(studentIdsByRoom) {
-    const {principalTeacherNamesByRoom, isRevisable} = this.props;
+    const {principalTeacherNamesByRoom, educators, isRevisable} = this.props;
     const rooms = createRooms(Object.keys(studentIdsByRoom).length - 1).filter(room => {
       return room.roomKey !== UNPLACED_ROOM_KEY;
     });
 
     return (
-      <table style={{...tableStyles.table, marginLeft: 0}}>
-        <thead>
-          <tr>
-            <th style={tableStyles.headerCell}>Room</th>
-            <th style={tableStyles.headerCell}>Teacher</th>
-          </tr>
-        </thead>
+      <table style={styles.table}>
         <tbody>{rooms.map(room => {
           const teacherText = principalTeacherNamesByRoom[room.roomKey] || '';
           return (
             <tr key={room.roomKey}>
-              <td style={tableStyles.cell}>{room.roomName}</td>
-              <td style={tableStyles.cell}>
-                <input
-                  style={styles.input}
+              <td style={styles.cell}>{room.roomName}</td>
+              <td style={styles.cell}>
+                <Creatable
+                  valueKey="full_name"
+                  labelKey="full_name"
+                  style={styles.select}
+                  options={educators}
                   disabled={!isRevisable}
-                  type="text"
+                  multi={false}
+                  value={teacherText}
                   onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)}
-                  value={teacherText} />
+                  backspaceRemoves={true} />
               </td>
-            </tr>
-          );
-        })}</tbody>
-      </table>
-    );
-  }
-
-  renderTable(rows) {
-    return (
-      <table style={{...tableStyles.table, marginLeft: 0}}>
-        <thead>
-          <tr>
-            <th style={tableStyles.headerCell}>Grade next year</th>
-            <th style={tableStyles.headerCell}>LASID</th>
-            <th style={tableStyles.headerCell}>Student name</th>
-            <th style={tableStyles.headerCell}>Homeroom teacher next year</th>
-          </tr>
-        </thead>
-        <tbody>{rows.map(row => {
-          const [gradeLevelNextYear, id, name, teacherText] = row;
-          return (
-            <tr key={id}>
-              <td style={tableStyles.cell}>{gradeLevelNextYear}</td>
-              <td style={tableStyles.cell}>{id}</td>
-              <td style={tableStyles.cell}>{name}</td>
-              <td style={tableStyles.cell}>{teacherText}</td>
             </tr>
           );
         })}</tbody>
@@ -173,19 +137,13 @@ export default class ExportList extends React.Component {
 
     return (
       <div>
-        <Button
-          onClick={this.onDownloadButtonClicked}
-          containerStyle={{display: 'inline-block'}}
-          style={{...styles.button, ...(isReadyToExport ? {} : styles.buttonDisabled)}}
-          hoverStyle={isReadyToExport ? {} : styles.buttonDisabled}>
-          <DownloadCsvLink
-            disabled={!isReadyToExport}
-            style={{...styles.download, ...(isReadyToExport ? {} : { color: '#999' })}}
-            filename={filename}
-            csvText={csvText}>
-            Download class lists spreadsheet
-          </DownloadCsvLink>
-        </Button>
+        <DownloadCsvLink
+          disabled={!isReadyToExport}
+          style={styles.download}
+          filename={filename}
+          csvText={csvText}>
+          Download class lists spreadsheet
+        </DownloadCsvLink>
         {!isReadyToExport &&
           <div style={styles.warnExport}>{this.renderWarning('Teachers need to be assigned to each homeroom first')}</div>
         }
@@ -208,6 +166,7 @@ ExportList.propTypes = {
   fetchProfile: React.PropTypes.func.isRequired,
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,
+  educators: React.PropTypes.array.isRequired,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
   onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func,
   headingStyle: React.PropTypes.object
@@ -225,24 +184,21 @@ const styles = {
     color: 'white',
     borderColor: 'darkorange'
   },
-  input: {
-    fontSize: 14
+  select: {
+    width: '20em'
   },
-  button: {
-    display: 'inline-block',
-    padding: 0,
-    marginTop: 20
+  table: {
+    borderCollapse: 'collapse',
+    marginTop: 5
   },
-  buttonDisabled: {
-    background: '#ccc',
-    color: '#333',
-    cursor: 'default'
+  cell: {
+    padding: '2px 10px'
   },
   download: {
     display: 'inline-block',
     textDecoration: 'none',
     color: 'white',
-    padding: '8px 25px'
+    marginTop: 20
   },
   spaceBelow: {
     marginBottom: 10

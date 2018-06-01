@@ -142,7 +142,7 @@ const styles = {
     padding: 8,
     paddingRight: 10,
     marginLeft: 5,
-    marginRight: 10,
+    marginRight: 8,
     cursor: 'pointer',
     border: '1px solid white',
     borderRadius: 3,
@@ -167,7 +167,7 @@ const styles = {
     padding: 6,
     paddingRight: 12,
     paddingLeft: 12,
-    marginRight: 20,
+    marginRight: 10,
     borderRadius: 3
   },
   dirty: {

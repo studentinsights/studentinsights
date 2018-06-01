@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import ExportList from './ExportList';
+import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 import {exportPropsWithTeacherNames} from './ClassListCreatorWorkflow.test';
 
 
@@ -13,6 +14,7 @@ export function testProps(props = {}) {
       name: 'Awesome school'
     },
     teacherStudentIdsByRoom: workflowProps.studentIdsByRoom,
+    educators: students_for_grade_level_next_year_json.educators,
     fetchProfile: function() {},
     ...props
   };

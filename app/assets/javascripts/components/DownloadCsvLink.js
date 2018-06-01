@@ -1,13 +1,15 @@
 import React from 'react';
 
 // Render a link that will download a CSV string as a file when clicked.
+// This relies on the global `btn` CSS style.
 export default class DownloadCsvLink extends React.Component {
   // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
   onClickDownload(csvText, filename, e) {
     if (!window.navigator.msSaveOrOpenBlob) return;
 
     e.preventDefault();
-    const blob = new Blob([csvText], {type: 'text/csv;charset=utf-8;'});
+    const csvTextWithWindowsNewlines = csvText.replace(/\n/g, "\r\n");
+    const blob = new Blob([csvTextWithWindowsNewlines], {type: 'text/csv;charset=utf-8;'});
     window.navigator.msSaveBlob(blob, filename);
   }
 
@@ -15,10 +17,10 @@ export default class DownloadCsvLink extends React.Component {
     const {disabled, filename, csvText, style, children} = this.props;
     return (disabled)
       ? <span
-          className="DownloadCsvLink DownloadCsvLink-disabled"
+          className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
           style={style}>{children}</span>
       : <a
-          className="DownloadCsvLink"
+          className="DownloadCsvLink btn"
           href={`data:attachment/csv,${encodeURIComponent(csvText)}`}
           onClick={this.onClickDownload.bind(this, csvText, filename)}
           target="_blank"

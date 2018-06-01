@@ -325,12 +325,13 @@ export default class ClassListCreatorWorkflow extends React.Component {
       students,
       studentIdsByRoom,
       principalTeacherNamesByRoom,
+      educators,
       principalStudentIdsByRoom,
       onPrincipalTeacherNamesByRoomChanged
     } = this.props;
     const school = _.find(schools, {id: schoolId});
 
-    if (students === null || studentIdsByRoom === null) return <Loading />;
+    if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
     return (
       <div key="export" style={styles.stepContent}>
         <div style={styles.titleHeading}>Next year's {gradeText(gradeLevelNextYear)}</div>
@@ -343,6 +344,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
           teacherStudentIdsByRoom={studentIdsByRoom}
           principalStudentIdsByRoom={principalStudentIdsByRoom}
+          educators={educators}
           principalTeacherNamesByRoom={principalTeacherNamesByRoom}
           onPrincipalTeacherNamesByRoomChanged={isRevisable ? onPrincipalTeacherNamesByRoomChanged : null}
         />
