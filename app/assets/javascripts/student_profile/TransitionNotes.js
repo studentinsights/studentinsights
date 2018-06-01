@@ -82,7 +82,7 @@ class TransitionNotes extends React.Component {
     if (newProps.requestState !== this.props.requestState) {
       if (this.props.requestState === 'pending') {
         setTimeout(() => {
-          this.setState({regularNoteAutosaveStatus: newProps.requestState})
+          this.setState({regularNoteAutosaveStatus: newProps.requestState});
         }, 2000);
       } else {
         this.setState({regularNoteAutosaveStatus: newProps.requestState});
@@ -92,7 +92,7 @@ class TransitionNotes extends React.Component {
     if (newProps.requestStateRestricted !== this.props.requestStateRestricted) {
       if (this.props.requestStateRestricted == 'pending') {
         setTimeout(() => {
-          this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted})
+          this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
         }, 2000);
       } else {
         this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
