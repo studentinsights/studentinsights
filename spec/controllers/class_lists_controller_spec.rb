@@ -26,8 +26,8 @@ describe ClassListsController, :type => :controller do
       sign_in(pals.healey_sarah_teacher)
     end
 
-    it 'guards writing to update_class_list_json' do
-      post :update_class_list_json, params: {
+    it 'guards writing to teacher_updated_class_list_json' do
+      post :teacher_updated_class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
@@ -339,11 +339,11 @@ describe ClassListsController, :type => :controller do
     end
   end
 
-  describe '#update_class_list_json' do
+  describe '#teacher_updated_class_list_json' do
     it 'works by creating a new record for each change' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_sarah_teacher)
-      post :update_class_list_json, params: {
+      post :teacher_updated_class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
@@ -370,10 +370,10 @@ describe ClassListsController, :type => :controller do
     end
   end
 
-  describe '#revise_class_list_json' do
-    def post_revise_class_list_json(educator, params = {})
+  describe '#principal_revised_class_list_json' do
+    def post_principal_revised_class_list_json(educator, params = {})
       sign_in(educator)
-      post :revise_class_list_json, params: {
+      post :principal_revised_class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id',
         principal_revisions_json: {
@@ -391,8 +391,8 @@ describe ClassListsController, :type => :controller do
       }.merge(params)
     end
 
-    def allows_post_revise_class_list_json?(class_list, educator, params = {})
-      post_revise_class_list_json(educator, workspace_id: class_list.workspace_id)
+    def allows_post_principal_revised_class_list_json?(class_list, educator, params = {})
+      post_principal_revised_class_list_json(educator, workspace_id: class_list.workspace_id)
       response.status != 403
     end
 
@@ -401,7 +401,7 @@ describe ClassListsController, :type => :controller do
         grade_level_next_year: '6',
         submitted: true
       })
-      post_revise_class_list_json(pals.healey_laura_principal, workspace_id: class_list.workspace_id)
+      post_principal_revised_class_list_json(pals.healey_laura_principal, workspace_id: class_list.workspace_id)
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json['class_list'].keys).to contain_exactly(*[
@@ -429,7 +429,7 @@ describe ClassListsController, :type => :controller do
         submitted: true,
         json: { 'legit'=>'value'}
       })
-      post_revise_class_list_json(pals.healey_laura_principal, {
+      post_principal_revised_class_list_json(pals.healey_laura_principal, {
         workspace_id: class_list.workspace_id,
         json: { 'sneaky'=>'user'}
       })
@@ -447,31 +447,31 @@ describe ClassListsController, :type => :controller do
       end
 
       it 'does not allow revisions from healey_sarah_teacher' do
-        expect(allows_post_revise_class_list_json?(class_list, pals.healey_sarah_teacher)).to eq false
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.healey_sarah_teacher)).to eq false
       end
 
       it 'does not allow revisions from uri' do
-        expect(allows_post_revise_class_list_json?(class_list, pals.uri)).to eq false
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.uri)).to eq false
       end
 
       it 'does not allow revisions from rich_districtwide' do
-        expect(allows_post_revise_class_list_json?(class_list, pals.rich_districtwide)).to eq false
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.rich_districtwide)).to eq false
       end
       it 'does not allow revisions from west_marcus_teacher' do
-        expect(allows_post_revise_class_list_json?(class_list, pals.west_marcus_teacher)).to eq false
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.west_marcus_teacher)).to eq false
       end
 
       it 'does not allow revisions from west_marcus_teacher' do
-        expect(allows_post_revise_class_list_json?(class_list, pals.west_marcus_teacher)).to eq false
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.west_marcus_teacher)).to eq false
       end
 
       it 'allows revisions from healey_laura_principal' do
-        expect(allows_post_revise_class_list_json?(class_list, pals.healey_laura_principal)).to eq true
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.healey_laura_principal)).to eq true
       end
 
       it 'does not allow revisions if not yet submitted' do
         class_list.update!(submitted: false)
-        expect(allows_post_revise_class_list_json?(class_list, pals.healey_laura_principal)).to eq false
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.healey_laura_principal)).to eq false
       end
     end
   end

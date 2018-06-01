@@ -126,7 +126,7 @@ class ClassListsController < ApplicationController
 
   # For saving progress on creating class lists.
   # This is a POST and we store all updates.
-  def update_class_list_json
+  def teacher_updated_class_list_json
     params.require(:workspace_id)
     params.require(:school_id)
     params.require(:grade_level_next_year)
@@ -161,7 +161,7 @@ class ClassListsController < ApplicationController
   end
 
   # This is a POST for storing all principal revisions.
-  def revise_class_list_json
+  def principal_revised_class_list_json
     params.require(:workspace_id)
     params.require(:principal_revisions_json)
     workspace_id = params[:workspace_id]
