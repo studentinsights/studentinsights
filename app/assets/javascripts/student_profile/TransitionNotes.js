@@ -146,15 +146,14 @@ class TransitionNotes extends React.Component {
   }
 
   onChangeRegularNote(e) {
-    this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote()});
+    this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote();});
   }
 
   onChangeRestrictedNote(e) {
-    this.setState({restrictedNoteText: e.target.value}, () => {this.autosaveRestrictedNote()});
+    this.setState({restrictedNoteText: e.target.value}, () => {this.autosaveRestrictedNote();});
   }
 
   render() {
-    console.log('this.props', this.props);
     const {noteText, restrictedNoteText, readOnly} = this.state;
 
     return (
