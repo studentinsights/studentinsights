@@ -55,14 +55,45 @@ class TransitionNotes extends React.Component {
       noteText: (regularNote ? regularNote.text : notePrompts),
       restrictedNoteText: (restrictedNote ? restrictedNote.text : restrictedNotePrompts),
       regularNoteId: (regularNote ? regularNote.id : null),
-      restrictedNoteId: (restrictedNote ? restrictedNote.id : null)
+      restrictedNoteId: (restrictedNote ? restrictedNote.id : null),
+      regularNoteAutosaveStatus: null,
+      restrictedNoteAutosaveStatus: null,
     };
 
-    this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 5000);
-    this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 5000);
+    const throttleOptions = {leading: true, trailing: false};
+
+    this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 3000, throttleOptions);
+    this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 3000, throttleOptions);
 
     this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
     this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
+  }
+
+
+  // This method will be deprecated in React 16.3. But we're still using
+  // React 15.4 and have some migration work to finish up til we can migrate to
+  // React 16. Just noting that this will eventually have to be refactored
+  // eventually.
+  componentWillReceiveProps(newProps) {
+    if (newProps.requestState !== this.props.requestState) {
+      if (this.props.requestState === 'pending') {
+        setTimeout(() => {
+          this.setState({regularNoteAutosaveStatus: newProps.requestState})
+        }, 2000);
+      } else {
+        this.setState({regularNoteAutosaveStatus: newProps.requestState});
+      }
+    }
+
+    if (newProps.requestStateRestricted !== this.props.requestStateRestricted) {
+      if (this.props.requestStateRestricted == 'pending') {
+        setTimeout(() => {
+          this.setState({restrictedNoteAutosaveStatus: newProps.requestState})
+        },2000);
+      } else {
+        this.setState({restrictedNoteAutosaveStatus: newProps.requestState});
+      }
+    }
   }
 
   autosaveRegularNote() {
@@ -91,22 +122,12 @@ class TransitionNotes extends React.Component {
     this.props.onSave(params);
   }
 
-  regularNoteAutosaveStatus() {
-    const {requestState} = this.props;
+  autosaveStatusText(status) {
+    if (status === 'saved') return 'Saved.';
 
-    if (requestState === 'pending') return 'Autosaving ...';
+    if (status === 'pending') return 'Autosaving ...';
 
-    if (requestState === 'error') return 'There was an error autosaving this note.';
-
-    return 'This note will autosave as you type.';
-  }
-
-  restrictedNoteAutosaveStatus() {
-    const {requestStateRestricted} = this.props;
-
-    if (requestStateRestricted === 'pending') return 'Autosaving ...';
-
-    if (requestStateRestricted === 'error') return 'There was an error autosaving this note.';
+    if (status === 'error') return 'There was an error autosaving this note.';
 
     return 'This note will autosave as you type.';
   }
@@ -134,7 +155,9 @@ class TransitionNotes extends React.Component {
             value={noteText}
             onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
-          <div style={{color: 'gray'}}>{this.regularNoteAutosaveStatus()}</div>
+          <div style={{color: 'gray'}}>
+            {this.autosaveStatusText(this.state.regularNoteAutosaveStatus)}
+          </div>
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -146,7 +169,9 @@ class TransitionNotes extends React.Component {
             value={restrictedNoteText}
             onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
-          <div style={{color: 'gray'}}>{this.restrictedNoteAutosaveStatus()}</div>
+          <div style={{color: 'gray'}}>
+            {this.autosaveStatusText(this.state.restrictedNoteAutosaveStatus)}
+          </div>
         </div>
       </div>
     );
