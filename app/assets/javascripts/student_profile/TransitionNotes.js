@@ -47,67 +47,105 @@ class TransitionNotes extends React.Component {
   constructor(props) {
     super(props);
 
-    const transitionNotes = props.transitionNotes;
+    const {transitionNotes} = props;
     const regularNote = _.find(transitionNotes, {is_restricted: false});
     const restrictedNote = _.find(transitionNotes, {is_restricted: true});
 
     this.state = {
       noteText: (regularNote ? regularNote.text : notePrompts),
       restrictedNoteText: (restrictedNote ? restrictedNote.text : restrictedNotePrompts),
-      regularNoteId: (regularNote ? regularNote.id : null),
-      restrictedNoteId: (restrictedNote ? restrictedNote.id : null)
+      regularNoteAutosaveStatus: null,
+      restrictedNoteAutosaveStatus: null,
     };
 
-    this.onClickSave = this.onClickSave.bind(this);
-    this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
-    this.buttonText = this.buttonText.bind(this);
-    this.buttonTextRestricted = this.buttonTextRestricted.bind(this);
+    const throttleOptions = {leading: true, trailing: true};
+
+    this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 3000, throttleOptions);
+    this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 3000, throttleOptions);
+
+    this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
+    this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
   }
 
-  buttonText() {
-    const {requestState} = this.props;
+  // Note on componentWillReceiveProps:
+  // This method will be deprecated in React 16.3. But we're still using
+  // React 15.4 in Insights, and have some legacy-cleanup work to finish
+  // til we can migrate to 16. Noting that this func will have to be refactored.
 
-    if (requestState === 'pending') return 'Saving ...';
+  // When the user types into the Transition Note textarea, the server
+  // handles autosaving very quickly. In fact, so fast that in the "pending" state,
+  // the status text is barely readable when it's supposed to say "Autosaving..."
 
-    if (requestState === 'error') return 'Error ...';
+  // This code adds a delay so that the text that says "Autosaving..."
+  // can hang for  2 seconds to let the user read it.
+  componentWillReceiveProps(newProps) {
+    if (newProps.requestState !== this.props.requestState) {
+      if (this.props.requestState === 'pending') {
+        setTimeout(() => {
+          this.setState({regularNoteAutosaveStatus: newProps.requestState});
+        }, 2000);
+      } else {
+        this.setState({regularNoteAutosaveStatus: newProps.requestState});
+      }
+    }
 
-    return 'Save Note';
+    if (newProps.requestStateRestricted !== this.props.requestStateRestricted) {
+      if (this.props.requestStateRestricted == 'pending') {
+        setTimeout(() => {
+          this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
+        }, 2000);
+      } else {
+        this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
+      }
+    }
   }
 
-  buttonTextRestricted() {
-    const {requestStateRestricted} = this.props;
+  autosaveRegularNote() {
+    const {transitionNotes} = this.props;
+    const regularNote = _.find(transitionNotes, {is_restricted: false});
+    const regularNoteId = (regularNote) ? regularNote.id : null;
 
-    if (requestStateRestricted === 'pending') return 'Saving ...';
-
-    if (requestStateRestricted === 'error') return 'Error ...';
-
-    return 'Save Note';
-  }
-
-  onClickSave() {
     const params = {
       is_restricted: false,
       text: this.state.noteText
     };
 
-    if (this.state.regularNoteId) {
-      _.merge(params, {id: this.state.regularNoteId});
-    }
+    if (regularNoteId) { _.merge(params, {id: regularNoteId}); }
 
     this.props.onSave(params);
   }
 
-  onClickSaveRestricted() {
+  autosaveRestrictedNote() {
+    const {transitionNotes} = this.props;
+    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
+    const restrictedNoteId = (restrictedNote) ? restrictedNote.id : null;
+
     const params = {
       is_restricted: true,
       text: this.state.restrictedNoteText
     };
 
-    if (this.state.restrictedNoteId) {
-      _.merge(params, {id: this.state.restrictedNoteId});
-    }
+    if (restrictedNoteId) { _.merge(params, {id: restrictedNoteId}); }
 
     this.props.onSave(params);
+  }
+
+  autosaveStatusText(status) {
+    if (status === 'saved') return 'Saved.';
+
+    if (status === 'pending') return 'Autosaving ...';
+
+    if (status === 'error') return 'There was an error autosaving this note.';
+
+    return 'This note will autosave as you type.';
+  }
+
+  onChangeRegularNote(e) {
+    this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote();});
+  }
+
+  onChangeRestrictedNote(e) {
+    this.setState({restrictedNoteText: e.target.value}, () => {this.autosaveRestrictedNote();});
   }
 
   render() {
@@ -123,9 +161,11 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={noteText}
-            onChange={(e) => this.setState({noteText: e.target.value})}
+            onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
-          {this.renderButton(this.onClickSave, this.buttonText)}
+          <div style={{color: 'gray'}}>
+            {this.autosaveStatusText(this.state.regularNoteAutosaveStatus)}
+          </div>
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -135,23 +175,13 @@ class TransitionNotes extends React.Component {
             rows={10}
             style={styles.textarea}
             value={restrictedNoteText}
-            onChange={(e) => this.setState({restrictedNoteText: e.target.value})}
+            onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
-          {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
+          <div style={{color: 'gray'}}>
+            {this.autosaveStatusText(this.state.restrictedNoteAutosaveStatus)}
+          </div>
         </div>
       </div>
-    );
-  }
-
-  renderButton(onClickFn, buttonTextFn) {
-    const {readOnly} = this.props;
-
-    if (readOnly) return null;
-
-    return (
-      <button onClick={onClickFn} className='btn save'>
-        {buttonTextFn()}
-      </button>
     );
   }
 

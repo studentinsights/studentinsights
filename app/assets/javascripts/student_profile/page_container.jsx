@@ -166,10 +166,13 @@ function fromPair(key, value) {
 
     onSaveTransitionNoteDone: function(response) {
       const requestState = (response.is_restricted)
-        ? { saveRestrictedTransitionNote: null }
-        : { saveTransitionNote: null };
+        ? { saveRestrictedTransitionNote: 'saved' }
+        : { saveTransitionNote: 'saved' };
 
-      this.setState({ requests: merge(this.state.requests, requestState) });
+      this.setState({
+        requests: merge(this.state.requests, requestState),
+        transitionNotes: response.transition_notes
+      });
     },
 
     onSaveTransitionNoteFail: function(request, status, message) {
