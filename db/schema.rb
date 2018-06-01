@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601194748) do
+ActiveRecord::Schema.define(version: 20180601200328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20180601194748) do
 
   create_table "class_lists", force: :cascade do |t|
     t.string "workspace_id"
-    t.integer "created_by_educator_id"
+    t.integer "created_by_teacher_educator_id"
     t.integer "school_id"
     t.string "grade_level_next_year"
     t.jsonb "json"
@@ -391,7 +391,7 @@ ActiveRecord::Schema.define(version: 20180601194748) do
   end
 
   add_foreign_key "absences", "students"
-  add_foreign_key "class_lists", "educators", column: "created_by_educator_id", name: "classrooms_for_created_by_educator_id_fk"
+  add_foreign_key "class_lists", "educators", column: "created_by_teacher_educator_id", name: "classrooms_for_created_by_educator_id_fk"
   add_foreign_key "class_lists", "educators", column: "revised_by_principal_educator_id", name: "class_lists_revised_by_principal_educator_id_fk"
   add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"

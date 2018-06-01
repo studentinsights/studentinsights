@@ -18,7 +18,10 @@ class ClassListsController < ApplicationController
             :submitted
           ],
           include: {
-            created_by_educator: {
+            created_by_teacher_educator: {
+              only: [:id, :email, :full_name]
+            },
+            revised_by_principal_educator: {
               only: [:id, :email, :full_name]
             },
             school: {
@@ -148,7 +151,7 @@ class ClassListsController < ApplicationController
     # Write a new record
     class_list = ClassList.create!({
       workspace_id: workspace_id,
-      created_by_educator_id: current_educator.id,
+      created_by_teacher_educator_id: current_educator.id,
       school_id: school_id,
       grade_level_next_year: grade_level_next_year,
       submitted: submitted,
@@ -240,12 +243,13 @@ class ClassListsController < ApplicationController
   def serialize_class_list(class_list)
     class_list.as_json(only: [
       :workspace_id,
-      :created_by_educator_id,
+      :created_by_teacher_educator_id,
       :school_id,
       :grade_level_next_year,
       :submitted,
       :json,
-      :principal_revisions_json
+      :principal_revisions_json,
+      :revised_by_principal_educator_id
     ])
   end
 
