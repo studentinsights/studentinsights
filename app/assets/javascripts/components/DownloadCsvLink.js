@@ -35,3 +35,8 @@ DownloadCsvLink.propTypes = {
   disabled: React.PropTypes.bool,
   style: React.PropTypes.object
 };
+
+// Escape quotes as double quotes, and quote every cell
+export function joinCsvRow(cells) {
+  return '"' + cells.map(cell => cell.replace(/"/g, '""')).join('","') + '"';
+}
