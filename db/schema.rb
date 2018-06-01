@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180528181001) do
+ActiveRecord::Schema.define(version: 20180601144531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20180528181001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "submitted", default: false
+    t.json "principal_revisions_json"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
   end
 
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 20180528181001) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
+    t.boolean "is_counselor", default: false
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 
@@ -294,6 +296,7 @@ ActiveRecord::Schema.define(version: 20180528181001) do
     t.decimal "instructional_reading_level"
     t.integer "assessment_id"
     t.string "grade_equivalent"
+    t.index ["date_taken"], name: "index_student_assessments_on_date_taken"
     t.index ["student_id"], name: "index_student_assessments_on_student_id"
   end
 
