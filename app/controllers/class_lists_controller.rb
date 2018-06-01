@@ -180,7 +180,10 @@ class ClassListsController < ApplicationController
 
     # Write a new record
     class_list = latest_class_list.dup
-    class_list.update!(principal_revisions_json: principal_revisions_json)
+    class_list.update!({
+      principal_revisions_json: principal_revisions_json,
+      revised_by_principal_educator_id: current_educator.id
+    })
     render json: {
       class_list: serialize_class_list(class_list)
     }

@@ -1,12 +1,21 @@
+# Within a `workspace_id`, there are multiple ClassList records
+# holding states over time.  There might be hundreds of ClassList records
+# within a single `workspace_id` if a teacher is making many revisions.
+#
+# These records are always restricted to a single teacher writing them.
+# When they submit, and a principal revises the list, each revisions is
+# a new ClassList record as well.  But the 
 class ClassList < ActiveRecord::Base
   belongs_to :school
   belongs_to :created_by_educator, class_name: 'Educator'
+  belongs_to :revised_by_principal_educator, class_name: 'Educator'
 
   validates :grade_level_next_year, presence: true
   validates :school_id, presence: true
   validates :created_by_educator_id, presence: true
   validate :validate_consistent_workspace_grade_school
   validate :validate_single_writer_in_workspace
+  validate :validate_single_revisor_in_workspace
 
   # Within a `workspace_id`, there are multiple ClassList records
   # holding states over time.  This grabs the latest.
@@ -22,12 +31,19 @@ class ClassList < ActiveRecord::Base
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.
   def validate_consistent_workspace_grade_school
-    validate_consistent_values_within_workspace(:school_id, :grade_level_next_year)
+    validate_consistent_values_within_workspace([:school_id, :grade_level_next_year])
   end
 
   # Only one writer can write to a workspace
   def validate_single_writer_in_workspace
-    validate_consistent_values_within_workspace(:created_by_educator_id)
+    validate_consistent_values_within_workspace([:created_by_educator_id])
+  end
+
+  # Only one reviser in a workspace
+  # This isn't quite this simple, since the rule is role-based, and those can change
+  # over time, and we'll have to migrate those manually.
+  def validate_single_revisor_in_workspace
+    validate_consistent_values_within_workspace([:revised_by_principal_educator_id], also_allow_nil: true)
   end
 
   # This checks that particular values are consistent across all records
@@ -38,9 +54,16 @@ class ClassList < ActiveRecord::Base
   # This complexity arises from having a single endpoint for the client to write
   # updates, and storing those different states of the workspace denormalized
   # in a single table.
-  def validate_consistent_values_within_workspace(*grouping_fields)
+  def validate_consistent_values_within_workspace(grouping_fields, options = {})
+    # Optionally filter nils to enforce only one non-nil value.
+    if options[:also_allow_nil] && grouping_fields.size == 1
+      relation = ClassList.where.not({ grouping_fields.first => nil})
+    else
+      relation = ClassList
+    end
+
     # SQL group is optimized for many workspace_id records
-    grouped_by_fields = ClassList
+    grouped_by_fields = relation
       .where(workspace_id: workspace_id)
       .group(*grouping_fields)
       .count
