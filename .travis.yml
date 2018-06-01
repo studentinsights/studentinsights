@@ -12,6 +12,9 @@ sudo: required
 services:
   - postgres
 
+addons:
+  postgresql: "10.3"
+
 branches:
   only:
     - master
