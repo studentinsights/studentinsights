@@ -62,7 +62,7 @@ export default class ExportList extends React.Component {
 
     return (
       <div className="SecretaryEnters">
-        <div style={headingStyle}>For next year's {gradeText(gradeLevelNextYear)}, have all students been placed?</div>
+        <div style={headingStyle}>Have all students been placed for next year's {gradeText(gradeLevelNextYear)}?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
         
         <div style={headingStyle}>Have you reviewed the team's plan and notes before making changes?</div>
