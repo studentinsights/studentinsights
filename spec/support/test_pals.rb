@@ -139,6 +139,10 @@ class TestPals
       can_view_restricted_notes: true,
       local_id: '350'
     )
+    EducatorLabel.create!(
+      educator: @healey_laura_principal,
+      label_key: 'class_list_maker_finalizer_principal'
+    )
     @healey_sarah_teacher = Educator.create!(
       email: "sarah@demo.studentinsights.org",
       full_name: 'Teacher, Sarah',

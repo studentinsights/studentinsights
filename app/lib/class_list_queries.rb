@@ -5,6 +5,45 @@
 # And it lets districtwide and schoolwide users work as expected, with no additional
 # cases for grade-level access, sped or ELL levels of access.
 class ClassListQueries
+  # Because students can change over time, there can be drift in what's referenced
+  # in the class lists, and students who are later withdrawn, etc.
+  # Print out what's going on for manual validation and debugging.
+  def self.drift(workspaces)
+    # Compute diffs for all workspaces
+    diffs = workspaces.map do |workspace|
+      { workspace_id: workspace.workspace_id }.merge(ClassListQueries.students_diff(workspace.class_list))
+    end
+
+    # Only show changes
+    diffs.select do |drift|
+      drift[:referenced_student_ids_size].size > 0 && drift[:diff].size > 0
+    end
+  end
+
+  # Describe the difference in reference student ids and what a user would fetch now.
+  # For manual validation and debugging
+  def self.students_diff(class_list)
+    # referenced students
+    referenced_student_ids = class_list.json['studentIdsByRoom'].try(:values).try(:flatten) || []
+
+    # students they'd fetch now
+    school_id = class_list.school_id
+    grade_level_next_year = class_list.grade_level_next_year
+    created_by_educator = class_list.created_by_educator
+    queries = ClassListQueries.new(created_by_educator)
+    authorized_student_ids_now = queries.authorized_students_for_next_year(school_id, grade_level_next_year).map(&:id)
+
+    # diff
+    added = authorized_student_ids_now - referenced_student_ids
+    removed = referenced_student_ids - authorized_student_ids_now
+    {
+      referenced_student_ids_size: referenced_student_ids.size,
+      added: added.size,
+      removed: removed.size,
+      diff: added + removed
+    }
+  end
+
   def initialize(educator)
     @educator = educator
   end
@@ -60,8 +99,8 @@ class ClassListQueries
     # Get latest by workspace_id
     all_class_lists = ClassList.order(created_at: :desc)
     workspaces = all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
-      class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
-      ClassListWorkspace.new(workspace_id, class_list, class_lists.size)
+      most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+      ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
     end
 
     # Authorization check

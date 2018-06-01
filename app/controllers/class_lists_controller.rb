@@ -75,6 +75,7 @@ class ClassListsController < ApplicationController
     students_json = students.as_json({
       only: [
         :id,
+        :local_id,
         :first_name,
         :last_name,
         :date_of_birth,

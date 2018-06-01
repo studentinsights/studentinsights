@@ -27,6 +27,15 @@ export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
   return studentIdsByRoom;
 }
 
+// For testing and stories
+export function consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students) {
+  return initialStudentIdsByRoom(classroomsCount, students, {
+    placementFn(studentIdsByRoom, student) {
+      return roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
+    }
+  });
+}
+
 // Respond after the classrooms count has changed, moving students in 
 // a room that was removed into `unplaced`.
 export function studentIdsByRoomAfterRoomsCountChanged(studentIdsByRoom, roomsCount) {
@@ -107,4 +116,38 @@ export function areAllStudentsPlaced(studentIdsByRoom) {
 export function studentsInRoom(students, studentIdsByRoom, roomKey) {
   const studentIds = studentIdsByRoom[roomKey] || [];
   return studentIds.map(studentId => _.find(students, { id: studentId }));
+}
+
+export function findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIdsByRoom) {
+  const roomKeys = _.uniq(Object.keys(teacherStudentIdsByRoom).concat(Object.keys(principalStudentIdsByRoom)));
+  return _.flatten(roomKeys.map(roomKey => {
+    const studentIds = principalStudentIdsByRoom[roomKey];
+    return studentIds.filter(studentId => {
+      return teacherStudentIdsByRoom[roomKey].indexOf(studentId) === -1;
+    });
+  }));
+}
+
+
+// Because students can change over time (eg, withdrawals, new students), there can be drift
+// between that list and what's referenced in the class lists.
+// This resolves differences that come up from there being students removed or added.
+export function resolveDriftForStudents(studentIdsByRoom, studentIds) {
+  const studentIdsMap = {};
+  studentIds.forEach(studentId => studentIdsMap[studentId] = true);
+  
+  // Remove placed who aren't in the `students` list anymore.
+  const resolvedStudentIdsByRoom = {};
+  Object.keys(studentIdsByRoom).forEach(roomKey => {
+    resolvedStudentIdsByRoom[roomKey] = studentIdsByRoom[roomKey].filter(studentId => {
+      return studentIdsMap[studentId] || false;
+    });
+  });
+
+  // Add in students at the front of the list who are new to `students` and not in `studentIdsByRoom`.
+  const placedStudentIds = _.flatten(_.values(studentIdsByRoom));
+  const unplacedStudentIds = _.difference(studentIds, placedStudentIds);
+  resolvedStudentIdsByRoom[UNPLACED_ROOM_KEY] = unplacedStudentIds.concat(resolvedStudentIdsByRoom[UNPLACED_ROOM_KEY]);
+
+  return resolvedStudentIdsByRoom;
 }

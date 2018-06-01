@@ -107,11 +107,12 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    const {fetchProfile, isEditable} = this.props;
+    const {fetchProfile, isEditable, styleStudentFn} = this.props;
     const {highlightKey} = this.state;
     return <StudentCard
       key={student.id}
       highlightKey={highlightKey}
+      style={styleStudentFn && styleStudentFn(student)}
       student={student}
       index={index}
       fetchProfile={fetchProfile}
@@ -126,6 +127,7 @@ CreateYourListsView.propTypes = {
   students: React.PropTypes.array.isRequired,
   studentIdsByRoom: React.PropTypes.object.isRequired,
   fetchProfile: React.PropTypes.func.isRequired,
+  styleStudentFn: React.PropTypes.func,
   onClassListsChanged: React.PropTypes.func.isRequired,
   onExpandVerticallyToggled: React.PropTypes.func.isRequired,
 };
@@ -217,3 +219,10 @@ const styles = {
     cursor: 'pointer'
   }
 };
+
+// Style changes based on whether the student has been moved from teacher to principal lists.
+export function styleStudentFn(movedStudentIds, student) {
+  return (movedStudentIds.indexOf(student.id) !== -1)
+    ? { fontWeight: 'bold', color: '#e5370e' }
+    : {};
+}

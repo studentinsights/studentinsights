@@ -5,6 +5,7 @@ import students_for_grade_level_next_year_json from './students_for_grade_level_
 import workspaces_json from './workspaces_json';
 
 export default function mockWithFixtures() {
+  fetchMock.reset();
   fetchMock.restore();
   fetchMock.get('express:/api/class_lists/workspaces_json', workspaces_json);
   fetchMock.get('express:/api/class_lists/:workspace_id/available_grade_levels_json', available_grade_levels_json);

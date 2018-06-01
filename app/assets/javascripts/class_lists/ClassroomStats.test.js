@@ -6,8 +6,7 @@ import ClassroomStats from './ClassroomStats';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 import {
   createRooms,
-  roomKeyFromIndex,
-  initialStudentIdsByRoom
+  consistentlyPlacedInitialStudentIdsByRoom
 } from './studentIdsByRoomFunctions';
 
 export function testProps(props = {}) {
@@ -17,12 +16,7 @@ export function testProps(props = {}) {
     rooms,
     students,
     gradeLevelNextYear: '5',
-    studentIdsByRoom: initialStudentIdsByRoom(rooms.length, students, {
-      placementFn(studentIdsByRoom, student) {
-        const roomIndex = JSON.stringify(student).length % rooms.length; // consistent hash
-        return roomKeyFromIndex(roomIndex);
-      }
-    }),
+    studentIdsByRoom: consistentlyPlacedInitialStudentIdsByRoom(rooms.length, students),
     onCategorySelected: jest.fn(),
     ...props
   };

@@ -5,8 +5,7 @@ import storybookFrame from './storybookFrame';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import CreateYourLists from './CreateYourLists';
 import {
-  UNPLACED_ROOM_KEY,
-  roomKeyFromIndex,
+  consistentlyPlacedInitialStudentIdsByRoom,
   initialStudentIdsByRoom
 } from './studentIdsByRoomFunctions';
 import {testProps} from './CreateYourLists.test';
@@ -48,13 +47,9 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     const {classroomsCount, students, forceUnplaced} = props;
-    const studentIdsByRoom = initialStudentIdsByRoom(classroomsCount, students, {
-      placementFn(studentIdsByRoom, student) {
-        return (forceUnplaced)
-          ? UNPLACED_ROOM_KEY
-          : roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
-      }
-    });
+    const studentIdsByRoom = (forceUnplaced)
+      ? initialStudentIdsByRoom(classroomsCount, students)
+      : consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students);
 
     this.state = {
       studentIdsByRoom
