@@ -36,6 +36,15 @@ function isRevisableForEducator(currentEducator, state = {}) {
   return wrapper.instance().isRevisable();
 }
 
+function modifiedPrincipalStudentIdsByRoom() {
+  const {studentIdsByRoom} = class_list_json.class_list.json;
+  return {
+    "room:unplaced": studentIdsByRoom['room:unplaced'].concat(studentIdsByRoom['room:0']),
+    "room:0":[],
+    "room:1":studentIdsByRoom['room:1']
+  };
+}
+
 it('renders without crashing on entrypoint', () => {
   const props = testProps();
   const el = document.createElement('div');
@@ -140,6 +149,10 @@ it('integration test for first-time principal revision', done => {
     }
   }, { overwriteRoutes: true });
 
+  // This is the modifications we'll make as principal
+  const principalStudentIdsByRoom = modifiedPrincipalStudentIdsByRoom();
+
+  // Start the test
   const props = testProps({
     currentEducator: laura,
     defaultWorkspaceId: 'foo-workspace-id',
@@ -152,39 +165,31 @@ it('integration test for first-time principal revision', done => {
     expect(wrapper.state().lastSavedSnapshot).not.toEqual(null);
     expect(wrapper.instance().isDirty()).toEqual(false);
 
-    // Make changes as a principal and verify they update state correctly
+    // Make changes to the list as a principal and verify they update state correctly
     wrapper.instance().onStepChanged(4);
+    wrapper.instance().onClassListsChangedByPrincipal(principalStudentIdsByRoom);
+    expect(wrapper.state().principalStudentIdsByRoom).toEqual(principalStudentIdsByRoom);
+
+    // Add teacher names
+    wrapper.instance().onStepChanged(5);
     wrapper.instance().onPrincipalTeacherNamesByRoomChanged({
       "room:0":"Uri",
       "room:1":"Ale..."
-    });
-    wrapper.instance().onClassListsChangedByPrincipal({
-      "room:unplaced":[],
-      "room:0":[2, 3],
-      "room:1":[1]
     });
     expect(wrapper.state().principalTeacherNamesByRoom).toEqual({
       "room:0":"Uri",
       "room:1":"Ale..."
     });
-    expect(wrapper.state().principalStudentIdsByRoom).toEqual({
-      "room:unplaced":[],
-      "room:0":[2, 3],
-      "room:1":[1]
-    });
-    expect(wrapper.instance().isDirty()).toEqual(true);
 
     // Verify that changes get autosaved
+    expect(wrapper.instance().isDirty()).toEqual(true);
     setTimeout(() => {
+      expect(wrapper.instance().isDirty()).toEqual(false);
       expect(wrapper.state().lastSavedSnapshot.principalTeacherNamesByRoom).toEqual({
         "room:0":"Uri",
         "room:1":"Ale..."
       });
-      expect(wrapper.state().lastSavedSnapshot.principalStudentIdsByRoom).toEqual({
-        "room:unplaced":[],
-        "room:0":[2, 3],
-        "room:1":[1]
-      });
+      expect(wrapper.state().lastSavedSnapshot.principalStudentIdsByRoom).toEqual(principalStudentIdsByRoom);
       expect(anyServerCallsIncludePath('teacher_updated_class_list_json')).toEqual(false);
       expect(anyServerCallsIncludePath('principal_revised_class_list_json')).toEqual(true);
       done();
@@ -202,17 +207,15 @@ it('#isRevisable', () => {
 
 it('#onFetchedClassList loads principal revisions', () => {
   const props = testProps();
+  const principalStudentIdsByRoom = modifiedPrincipalStudentIdsByRoom();
   const wrapper = mount(<ClassListCreatorPage {...props} />);
   wrapper.instance().onFetchedClassList({
     ...class_list_json,
     class_list: {
       ...class_list_json.class_list,
+      revised_by_principal_educator_id: laura.id,
       principal_revisions_json: {
-        "principalStudentIdsByRoom":{
-          "room:unplaced":[],
-          "room:0":[1, 2],
-          "room:1":[3]
-        },
+        principalStudentIdsByRoom,
         "principalTeacherNamesByRoom":{
           "room:0":"Kevin",
           "room:1":"Alex",
@@ -221,11 +224,7 @@ it('#onFetchedClassList loads principal revisions', () => {
       }
     }
   });
-  expect(wrapper.state().principalStudentIdsByRoom).toEqual({
-    "room:unplaced": [],
-    "room:0": [1, 2],
-    "room:1": [3]
-  });
+  expect(wrapper.state().principalStudentIdsByRoom).toEqual(principalStudentIdsByRoom);
   expect(wrapper.state().principalTeacherNamesByRoom).toEqual({
     "room:0":"Kevin",
     "room:1":"Alex"

@@ -392,6 +392,7 @@ export default class ClassListCreatorPage extends React.Component {
   // lists, this will trigger as "dirty" and the document will be updated, but
   // if they never look at it we preserve information about that inconsistency.
   onFetchedClassList(responseJson) {
+    // Teacher edits
     const isEditable = responseJson.is_editable;
     const classList = responseJson.class_list;
     const workspaceId = classList.workspace_id;
@@ -406,12 +407,7 @@ export default class ClassListCreatorPage extends React.Component {
       principalNoteText,
       feedbackText
     } = classList.json || {};
-    const {
-      principalStudentIdsByRoom,
-      principalTeacherNamesByRoom
-    } = classList.principal_revisions_json || {};
-
-    const nextState = {
+    const teacherState = {
       workspaceId,
       isEditable,
       isSubmitted,
@@ -423,9 +419,25 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText,
-      principalStudentIdsByRoom,
-      principalTeacherNamesByRoom,
       stepIndex: 0, // Ignore `stepIndex` if it was stored
+    };
+
+    // There may or may not be principal revisions yet.
+    var principalRevisionsState = {}; // eslint-disable-line no-var
+    if (classList.revised_by_principal_educator_id && classList.principal_revisions_json) {
+      const {
+        principalStudentIdsByRoom,
+        principalTeacherNamesByRoom
+      } = classList.principal_revisions_json;
+      principalRevisionsState = {
+        principalStudentIdsByRoom,
+        principalTeacherNamesByRoom
+      };
+    }
+
+    const nextState = {
+      ...teacherState,
+      ...principalRevisionsState
     };
 
     // Also record that the server knows about this state.
