@@ -47,15 +47,13 @@ class TransitionNotes extends React.Component {
   constructor(props) {
     super(props);
 
-    const transitionNotes = props.transitionNotes;
+    const {transitionNotes} = props;
     const regularNote = _.find(transitionNotes, {is_restricted: false});
     const restrictedNote = _.find(transitionNotes, {is_restricted: true});
 
     this.state = {
       noteText: (regularNote ? regularNote.text : notePrompts),
       restrictedNoteText: (restrictedNote ? restrictedNote.text : restrictedNotePrompts),
-      regularNoteId: (regularNote ? regularNote.id : null),
-      restrictedNoteId: (restrictedNote ? restrictedNote.id : null),
       regularNoteAutosaveStatus: null,
       restrictedNoteAutosaveStatus: null,
     };
@@ -68,7 +66,6 @@ class TransitionNotes extends React.Component {
     this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
     this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
   }
-
 
   // This method will be deprecated in React 16.3. But we're still using
   // React 15.4 and have some migration work to finish up til we can migrate to
@@ -88,36 +85,40 @@ class TransitionNotes extends React.Component {
     if (newProps.requestStateRestricted !== this.props.requestStateRestricted) {
       if (this.props.requestStateRestricted == 'pending') {
         setTimeout(() => {
-          this.setState({restrictedNoteAutosaveStatus: newProps.requestState})
+          this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted})
         },2000);
       } else {
-        this.setState({restrictedNoteAutosaveStatus: newProps.requestState});
+        this.setState({restrictedNoteAutosaveStatus: newProps.requestStateRestricted});
       }
     }
   }
 
   autosaveRegularNote() {
+    const {transitionNotes} = this.props;
+    const regularNote = _.find(transitionNotes, {is_restricted: false});
+    const regularNoteId = (regularNote) ? regularNote.id : null;
+
     const params = {
       is_restricted: false,
       text: this.state.noteText
     };
 
-    if (this.state.regularNoteId) {
-      _.merge(params, {id: this.state.regularNoteId});
-    }
+    if (regularNoteId) { _.merge(params, {id: regularNoteId}); }
 
     this.props.onSave(params);
   }
 
   autosaveRestrictedNote() {
+    const {transitionNotes} = this.props;
+    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
+    const restrictedNoteId = (restrictedNote) ? restrictedNote.id : null;
+
     const params = {
       is_restricted: true,
       text: this.state.restrictedNoteText
     };
 
-    if (this.state.restrictedNoteId) {
-      _.merge(params, {id: this.state.restrictedNoteId});
-    }
+    if (restrictedNoteId) { _.merge(params, {id: restrictedNoteId}); }
 
     this.props.onSave(params);
   }
@@ -141,6 +142,7 @@ class TransitionNotes extends React.Component {
   }
 
   render() {
+    console.log('this.props', this.props);
     const {noteText, restrictedNoteText, readOnly} = this.state;
 
     return (

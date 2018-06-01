@@ -16,7 +16,10 @@ class TransitionNotesController < ApplicationController
     }))
 
     if transition_note.save
-      render json: { result: 'ok', is_restricted: transition_note.is_restricted }
+      render json: {
+        is_restricted: transition_note.is_restricted,
+        transition_notes: transition_note.student.transition_notes,
+      }
     else
       render json: { errors: transition_note.errors.full_messages }, status: 422
     end
@@ -28,7 +31,10 @@ class TransitionNotesController < ApplicationController
     transition_note.text = transition_note_params[:text]
 
     if transition_note.save
-      render json: { result: 'ok', is_restricted: transition_note.is_restricted }
+      render json: {
+        is_restricted: transition_note.is_restricted,
+        transition_notes: transition_note.student.transition_notes,
+      }
     else
       render json: { errors: transition_note.errors.full_messages }, status: 422
     end
