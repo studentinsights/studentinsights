@@ -50,7 +50,6 @@ class ClassListsController < ApplicationController
       grade_level_now = GradeLevels.new.previous(grade_level_next_year)
       school_ids.any? {|school_id| queries.is_authorized_for_grade_level_now?(school_id, grade_level_now) }
     end
-    current_grade_level = current_educator.homeroom.try(:grade) || 'KF'
 
     render json: {
       schools: schools_json,
@@ -158,6 +157,31 @@ class ClassListsController < ApplicationController
     class_list_json = serialize_class_list(class_list)
     render json: {
       class_list: class_list_json
+    }
+  end
+
+  # This is a POST for storing all principal revisions.
+  def revise_class_list_json
+    params.require(:workspace_id)
+    params.require(:principal_revisions_json)
+    workspace_id = params[:workspace_id]
+    principal_revisions_json = params[:principal_revisions_json]
+
+    # The class list must be submitted already
+    latest_class_list = ClassList.latest_class_list_for_workspace(workspace_id)
+    raise Exceptions::EducatorNotAuthorized unless latest_class_list.submitted?
+
+    # They must be authorized to read it
+    grade_level_now = GradeLevels.new.previous(latest_class_list.grade_level_next_year)
+    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(latest_class_list.school_id, grade_level_now)
+
+    # They must be authorized to revise it
+    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_to_revise?(latest_class_list)
+
+    # Write a new record
+    class_list = latest_class_list.dup.update!(principal_revisions_json: principal_revisions_json)
+    render json: {
+      class_list: serialize_class_list(class_list)
     }
   end
 

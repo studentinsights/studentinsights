@@ -5,7 +5,8 @@ import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
   fetchClassListJson,
-  postClassList
+  postTeacherUpdates,
+  postPrincipalRevisions
 } from './api';
 import Loading from '../components/Loading';
 import {
@@ -312,7 +313,13 @@ export default class ClassListCreatorPage extends React.Component {
       ...snapshotForSaving,
       clientNowMs: moment.utc().unix()
     };
-    postClassList(payload)
+
+    // Post to different endpoints based on whether it's the teacher or principal working.
+    // This is split into two endpoints for better isolation between the
+    // two different operations on the server, but from the client's perspective
+    // this should be transparent outside of this method.
+    const postFn = (this.isRevisable()) ? postPrincipalRevisions : postTeacherUpdates;
+    postFn(payload)
       .then(this.onPostDone.bind(this, snapshotForSaving))
       .catch(this.onPostError.bind(this, snapshotForSaving));
   }

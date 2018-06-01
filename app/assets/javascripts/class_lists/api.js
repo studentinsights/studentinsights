@@ -31,12 +31,11 @@ export function fetchClassListJson(workspaceId) {
   return apiFetchJson(url);
 }
 
-// Post the state of the user's workspace
-export function postClassList(params = {}, options = {}) {
+// Post updates the teacher is making, up to submitting.
+export function postTeacherUpdates(params = {}, options = {}) {
   const {
     workspaceId,
     isSubmitted,
-    stepIndex,
     schoolId,
     gradeLevelNextYear,
     authors,
@@ -55,13 +54,32 @@ export function postClassList(params = {}, options = {}) {
     grade_level_next_year: gradeLevelNextYear,
     submitted: isSubmitted,
     json: {
-      stepIndex,
       authors,
       classroomsCount,
       planText,
       studentIdsByRoom,
       principalNoteText,
       feedbackText,
+      clientNowMs
+    }
+  };
+  return apiPostJson(url, body, options);
+}
+
+// Post revisions that the principal makes, after the teacher has submitted.
+export function postPrincipalRevisions(params = {}, options = {}) {
+  const {
+    workspaceId,
+    principalStudentIdsByRoom,
+    principalTeacherNamesByRoom,
+    clientNowMs
+  } = params;
+  const url = `/api/class_lists/${workspaceId}/revise_class_list_json`;
+  const body = {
+    workspace_id: workspaceId,
+    principal_revisions_json: {
+      principalStudentIdsByRoom,
+      principalTeacherNamesByRoom,
       clientNowMs
     }
   };
