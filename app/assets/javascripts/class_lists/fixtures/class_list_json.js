@@ -28,6 +28,7 @@ export default {
       "principalNoteText": "principal!",
       "feedbackText": "feedback!",
       "clientNowMs": 1525712009
-    }
+    },
+    "principal_revisions_json": null
   }
 };

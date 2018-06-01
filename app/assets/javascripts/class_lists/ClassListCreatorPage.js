@@ -137,7 +137,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // Has the user gotten past initial loading to where there is
-  // something worth saving?  Includes both teacher and principal changes.
+  // potentially anything worth saving?  Includes both teacher and principal changes.
   isSaveable() {
     const {
       workspaceId,
@@ -405,13 +405,13 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText
-    } = classList.json;
+    } = classList.json || {};
     const {
       principalStudentIdsByRoom,
       principalTeacherNamesByRoom
-    } = classList.principal_revisions_json;
+    } = classList.principal_revisions_json || {};
 
-    const stateChange = {
+    const nextState = {
       workspaceId,
       isEditable,
       isSubmitted,
@@ -425,16 +425,16 @@ export default class ClassListCreatorPage extends React.Component {
       feedbackText,
       principalStudentIdsByRoom,
       principalTeacherNamesByRoom,
-      stepIndex: 0, // Ignore last `stepIndex`
+      stepIndex: 0, // Ignore `stepIndex` if it was stored
     };
 
     // Also record that the server knows about this state.
     const lastSavedSnapshot = snapshotStateForSaving({
       ...this.state,
-      ...stateChange
+      ...nextState
     });
     this.setState({
-      ...stateChange,
+      ...nextState,
       lastSavedSnapshot
     });
   }
