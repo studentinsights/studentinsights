@@ -322,6 +322,6 @@ class Student < ActiveRecord::Base
   end
 
   def validate_grade
-    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
   end
 end
