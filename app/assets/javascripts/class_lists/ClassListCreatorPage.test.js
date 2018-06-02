@@ -4,6 +4,7 @@ import {MemoryRouter} from 'react-router-dom';
 import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
+import {testContext, withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import class_list_json from './fixtures/class_list_json';
@@ -31,7 +32,7 @@ function anyServerCallsIncludePath(string) {
 
 function isRevisableForEducator(currentEducator, state = {}) {
   const props = testProps({currentEducator});
-  const wrapper = shallow(<ClassListCreatorPage {...props} />);
+  const wrapper = shallow(<ClassListCreatorPage {...props} />, {context: testContext()});
   wrapper.instance().setState(state);
   return wrapper.instance().isRevisable();
 }
@@ -50,7 +51,7 @@ it('renders without crashing on entrypoint', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists']}>
-      <ClassListCreatorPage {...props} />
+      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
     </MemoryRouter>
   , el);
 });
@@ -60,14 +61,14 @@ it('renders without crashing with balanceId', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists/foo-id']}>
-      <ClassListCreatorPage {...props} />
+      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
     </MemoryRouter>
   , el);
 });
 
 it('integration test for state changes, server requests and autosave', done => {
   const props = testProps({ autoSaveIntervalMs: 200 });
-  const wrapper = mount(<ClassListCreatorPage {...props} />);
+  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
   wrapper.instance().onStepChanged(2);
@@ -75,7 +76,7 @@ it('integration test for state changes, server requests and autosave', done => {
 
   // This should update component state, but also trigger server
   // requests and other state changes too.
-  setTimeout(() => { 
+  setTimeout(() => {
     expect(wrapper.state().schoolId).toEqual(4);
     expect(wrapper.state().gradeLevelNextYear).toEqual('6');
     expect(wrapper.state().stepIndex).toEqual(2);
@@ -110,7 +111,7 @@ it('integration test for loading existing workspace', done => {
     defaultWorkspaceId: 'foo-workspace-id',
     autoSaveIntervalMs: 200
   });
-  const wrapper = mount(<ClassListCreatorPage {...props} />);
+  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
 
   // Waiting for data to load
   setTimeout(() => {
@@ -128,11 +129,11 @@ it('integration test for loading existing workspace', done => {
     expect(wrapper.state().feedbackText).toEqual('feedback!');
     expect(wrapper.state().principalNoteText).toEqual('principal!');
     expect(wrapper.state().planText).toEqual('plan!');
-    
+
     // Type other feedback values
     wrapper.instance().onFeedbackTextChanged('other feedback');
     expect(wrapper.state().feedbackText).toEqual('other feedback');
-    
+
     done();
   }, 10); // delay a tick for fetch requests
 });
