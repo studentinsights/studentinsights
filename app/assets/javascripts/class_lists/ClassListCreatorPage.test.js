@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {MemoryRouter} from 'react-router-dom';
 import {shallow, mount} from 'enzyme';
+import {testContext, withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import {uri, sarah, laura} from '../../../../spec/javascripts/fixtures/currentEducator';
@@ -19,7 +20,7 @@ export function testProps(props) {
 
 function isRevisableForEducator(currentEducator, state = {}) {
   const props = testProps({currentEducator});
-  const wrapper = shallow(<ClassListCreatorPage {...props} />);
+  const wrapper = shallow(<ClassListCreatorPage {...props} />, {context: testContext()});
   wrapper.instance().setState(state);
   return wrapper.instance().isRevisable();
 }
@@ -29,7 +30,7 @@ it('renders without crashing on entrypoint', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists']}>
-      <ClassListCreatorPage {...props} />
+      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
     </MemoryRouter>
   , el);
 });
@@ -39,7 +40,7 @@ it('renders without crashing with balanceId', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists/foo-id']}>
-      <ClassListCreatorPage {...props} />
+      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
     </MemoryRouter>
   , el);
 });
@@ -47,7 +48,7 @@ it('renders without crashing with balanceId', () => {
 
 it('integration test for state changes, server requests and autosave', done => {
   const props = testProps({ autoSaveIntervalMs: 200 });
-  const wrapper = mount(<ClassListCreatorPage {...props} />);
+  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
   wrapper.instance().onStepChanged(2);
@@ -88,7 +89,7 @@ it('integration test for loading existing workspace', done => {
     defaultWorkspaceId: 'foo-workspace-id',
     autoSaveIntervalMs: 200
   });
-  const wrapper = mount(<ClassListCreatorPage {...props} />);
+  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
 
   // Waiting for data to load
   setTimeout(() => {
