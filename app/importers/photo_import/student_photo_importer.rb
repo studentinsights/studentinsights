@@ -15,14 +15,23 @@ class StudentPhotoImporter
 
   def import
     FileUtils.mkdir_p('tmp/data_download/photos')
+
+    log('Downloading photos.zip from SFTP site...')
+
     photos_zip_file = client.download_file('photos.zip')
-    log("downloaded Photos ZIP file!")
+
+    log("Downloaded Photos ZIP file!")
+
+    unzipped_count = 0
 
     Zip::File.open(photos_zip_file) do |zip_file|
       zip_file.each do |entry|
-        puts entry.name
+        entry.extract("tmp/data_download/photos/#{entry.name}")
+        unzipped_count += 1
       end
     end
+
+    log("Unzipped #{unzipped_count} photos!")
   end
 
   def client
