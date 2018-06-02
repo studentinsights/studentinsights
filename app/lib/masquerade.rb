@@ -19,7 +19,7 @@ class Masquerade
   # - they don't have access
   # - if they're already masquerading as someone else (clear first)
   # - they are trying to masquerade as themselves (potential for confusion)
-  def set_educator_id!(masquerading_educator_id)
+  def become_educator_id!(masquerading_educator_id)
     raise Exceptions::EducatorNotAuthorized unless authorized?
     raise Exceptions::EducatorNotAuthorized if is_masquerading?
     raise Exceptions::EducatorNotAuthorized if masquerading_educator_id == underlying_current_educator.id

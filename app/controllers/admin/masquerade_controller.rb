@@ -5,7 +5,7 @@ module Admin
     # POST to masquerade as another user
     def become
       params.require(:masquerading_educator_id)
-      masquerade.set_educator_id!(params[:masquerading_educator_id].to_i)
+      masquerade.become_educator_id!(params[:masquerading_educator_id].to_i)
       redirect_to root_url
     end
 

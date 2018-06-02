@@ -47,7 +47,7 @@ RSpec.describe ApplicationController, :type => :controller do
     it 'returns the underlying Devise user when not masquerading' do
       sign_in(pals.uri)
       expect(controller.current_educator).to eq pals.uri
-      controller.masquerade.set_educator_id!(pals.shs_jodi.id)
+      controller.masquerade.become_educator_id!(pals.shs_jodi.id)
       expect(controller.current_educator).to eq pals.shs_jodi
       controller.masquerade.clear!
       expect(controller.current_educator).to eq pals.uri
@@ -56,7 +56,7 @@ RSpec.describe ApplicationController, :type => :controller do
     it 'allows calling into the superclass Devise method with super: true, even when masquerading' do
       sign_in(pals.uri)
       (Educator.all - [pals.uri]).each do |target_educator|
-        controller.masquerade.set_educator_id!(target_educator.id)
+        controller.masquerade.become_educator_id!(target_educator.id)
         expect(controller.current_educator).to eq target_educator
         expect(controller.current_educator(super: true)).to eq pals.uri
         controller.masquerade.clear!
@@ -67,7 +67,7 @@ RSpec.describe ApplicationController, :type => :controller do
     it 'allows returns the masquerading user when authorized and when masquerading' do
       sign_in(pals.uri)
       (Educator.all - [pals.uri]).each do |target_educator|
-        controller.masquerade.set_educator_id!(target_educator.id)
+        controller.masquerade.become_educator_id!(target_educator.id)
         expect(controller.current_educator).to eq target_educator
         controller.masquerade.clear!
       end
@@ -94,7 +94,7 @@ RSpec.describe ApplicationController, :type => :controller do
       (Educator.all - [pals.uri]).each do |not_authorized_educator|
         sign_in(not_authorized_educator)
         Educator.all.each do |target_educator|
-          expect { controller.masquerade.set_educator_id!(target_educator.id) }.to raise_error Exceptions::EducatorNotAuthorized
+          expect { controller.masquerade.become_educator_id!(target_educator.id) }.to raise_error Exceptions::EducatorNotAuthorized
         end
         sign_out(not_authorized_educator)
       end

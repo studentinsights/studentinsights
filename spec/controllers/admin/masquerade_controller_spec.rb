@@ -4,22 +4,18 @@ describe Admin::MasqueradeController, :type => :controller do
   before { request.env['HTTPS'] = 'on' }
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
-  let!(:not_allowed_educators) do
-    [
-      pals.rich_districtwide,
-      pals.healey_vivian_teacher,
-      pals.healey_ell_teacher,
-      pals.healey_sped_teacher,
-      pals.healey_laura_principal,
-      pals.healey_sarah_teacher,
-      pals.west_marcus_teacher,
-      pals.shs_jodi,
-      pals.shs_bill_nye,
-      pals.shs_ninth_grade_counselor,
-      pals.shs_hugo_art_teacher,
-      pals.shs_fatima_science_teacher,
-      pals.shs_harry_housemaster
-    ]
+  let!(:not_allowed_educators) { Educator.all - [pals.uri] }
+
+  def expect_successful_become(educator, masquerading_educator_id)
+    expect(controller.session['masquerade.masquerading_educator_id']).to eq masquerading_educator_id
+    expect(controller.session['warden.user.educator.key']).to eq [[educator.id], nil]
+    expect(response).to redirect_to('https://test.host/')
+  end
+
+  def expect_successful_clear(educator)
+    expect(controller.session.has_key?('masquerade.masquerading_educator_id')).to eq false
+    expect(controller.session['warden.user.educator.key']).to eq [[educator.id], nil]
+    expect(response).to redirect_to('https://test.host/')
   end
 
   describe '#become' do
@@ -31,14 +27,6 @@ describe Admin::MasqueradeController, :type => :controller do
 
     def expect_become_to_fail(educator, masquerading_educator_id)
       expect(attempt_become(educator, masquerading_educator_id)).to redirect_to('https://test.host/not_authorized')
-    end
-
-    def expect_become_to_succeed(educator, masquerading_educator_id)
-      response = attempt_become(educator, masquerading_educator_id)
-
-      expect(controller.session['masquerade.masquerading_educator_id']).to eq masquerading_educator_id
-      expect(controller.session['warden.user.educator.key']).to eq [[educator.id], nil]
-      expect(response).to redirect_to('https://test.host/')
     end
 
     it 'raises without masquerading_educator_id' do
@@ -55,24 +43,18 @@ describe Admin::MasqueradeController, :type => :controller do
       end
     end
 
-    it 'for Uri, sets and redirects for all educators' do
+    it 'for Uri, sets and redirects for all educators (with clearing in between)' do
+      sign_in(pals.uri)
       not_allowed_educators.each do |target_educator|
-        expect_become_to_succeed(pals.uri, target_educator.id)
-        sign_out(pals.uri)
+        post :become, params: { masquerading_educator_id: target_educator.id }
+        expect_successful_become(pals.uri, target_educator.id)
+        post :clear
+        expect_successful_clear(pals.uri)
       end
     end
   end
 
   describe '#clear' do
-    def expect_clear_to_succeed(educator)
-      sign_in(educator)
-      post :clear
-
-      expect(controller.session.has_key?('masquerade.masquerading_educator_id')).to eq false
-      expect(controller.session['warden.user.educator.key']).to eq [[educator.id], nil]
-      expect(response).to redirect_to('https://test.host/')
-    end
-
     # Serialize the session, but omit a tuple that tracks the last request
     # time, since we don't care about that for tests.
     def snapshot_session
@@ -97,9 +79,21 @@ describe Admin::MasqueradeController, :type => :controller do
       end
     end
 
-    it 'clears and redirects' do
+    it 'after become, clears and redirects' do
+      sign_in(pals.uri)
+      not_allowed_educators.each do |target_educator|
+        post :become, params: { masquerading_educator_id: target_educator.id }
+        expect_successful_become(pals.uri, target_educator.id)
+        post :clear
+        expect_successful_clear(pals.uri)
+      end
+    end
+
+    it 'works as expected internally and redirects' do
       controller.session['masquerade.masquerading_educator_id'] = pals.healey_laura_principal.id
-      expect_clear_to_succeed(pals.uri)
+      sign_in(pals.uri)
+      post :clear
+      expect_successful_clear(pals.uri)
     end
   end
 end

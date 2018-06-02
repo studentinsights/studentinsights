@@ -2,23 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Masquerade do
   let!(:pals) { TestPals.create! }
-  let!(:not_allowed_educators) do
-    [
-      pals.rich_districtwide,
-      pals.healey_vivian_teacher,
-      pals.healey_ell_teacher,
-      pals.healey_sped_teacher,
-      pals.healey_laura_principal,
-      pals.healey_sarah_teacher,
-      pals.west_marcus_teacher,
-      pals.shs_jodi,
-      pals.shs_bill_nye,
-      pals.shs_ninth_grade_counselor,
-      pals.shs_hugo_art_teacher,
-      pals.shs_fatima_science_teacher,
-      pals.shs_harry_housemaster
-    ]
-  end
+  let!(:not_allowed_educators) { Educator.all - [pals.uri] }
 
   # None of these methods should touch anything on the session other
   # than one particular key that this class owns, so this is for testing
@@ -52,7 +36,7 @@ RSpec.describe Masquerade do
   describe '#is_masquerading?' do
     it 'can tell when masquerading' do
       session, masquerade = create_masquerade(pals.uri)
-      masquerade.set_educator_id!(pals.shs_jodi.id)
+      masquerade.become_educator_id!(pals.shs_jodi.id)
       expect(masquerade.is_masquerading?).to eq true
     end
 
@@ -74,10 +58,10 @@ RSpec.describe Masquerade do
     end
   end
 
-  describe '#set_educator_id!' do
+  describe '#become_educator_id!' do
     def expect_masquerading_to_succeed(educator, target_educator)
       session, masquerade = create_masquerade(educator)
-      expect(masquerade.set_educator_id!(target_educator.id)).to eq nil
+      expect(masquerade.become_educator_id!(target_educator.id)).to eq nil
       expect(session['masquerade.masquerading_educator_id']).to eq target_educator.id
       expect(masquerade.is_masquerading?).to eq true
       expect(masquerade.current_educator).to eq target_educator
@@ -86,7 +70,7 @@ RSpec.describe Masquerade do
     def expect_masquerading_to_fail(educator, target_educator)
       session, masquerade = create_masquerade(educator)
       before_session = session.as_json
-      expect { masquerade.set_educator_id!(target_educator.id) }.to raise_error Exceptions::EducatorNotAuthorized
+      expect { masquerade.become_educator_id!(target_educator.id) }.to raise_error Exceptions::EducatorNotAuthorized
       expect(session.as_json).to eq(before_session)
     end
 
@@ -100,10 +84,10 @@ RSpec.describe Masquerade do
 
     it 'raise if already masquerading as someone else' do
       session, masquerade = create_masquerade(pals.uri)
-      masquerade.set_educator_id!(pals.shs_jodi.id)
+      masquerade.become_educator_id!(pals.shs_jodi.id)
       expect(session['masquerade.masquerading_educator_id']).to eq pals.shs_jodi.id
 
-      expect { masquerade.set_educator_id!(pals.healey_sarah_teacher.id) }.to raise_error Exceptions::EducatorNotAuthorized
+      expect { masquerade.become_educator_id!(pals.healey_sarah_teacher.id) }.to raise_error Exceptions::EducatorNotAuthorized
       expect(session['masquerade.masquerading_educator_id']).to eq pals.shs_jodi.id
     end
 
@@ -131,7 +115,7 @@ RSpec.describe Masquerade do
     it 'works as expected internally' do
       session, masquerade = create_masquerade(pals.uri)
       before_session = session.as_json
-      masquerade.set_educator_id!(pals.shs_jodi.id)
+      masquerade.become_educator_id!(pals.shs_jodi.id)
       expect(session['masquerade.masquerading_educator_id']).to eq pals.shs_jodi.id
 
       expect(masquerade.clear!).to eq nil
@@ -141,7 +125,7 @@ RSpec.describe Masquerade do
 
     it 'allows Uri to clear' do
       session, masquerade = create_masquerade(pals.uri)
-      masquerade.set_educator_id!(pals.shs_jodi.id)
+      masquerade.become_educator_id!(pals.shs_jodi.id)
       expect(session['masquerade.masquerading_educator_id']).to eq pals.shs_jodi.id
       expect(masquerade.clear!).to eq nil
       expect(masquerade.is_masquerading?).to eq false
@@ -167,7 +151,7 @@ RSpec.describe Masquerade do
     it 'allows Uri to be any educator' do
       not_allowed_educators.each do |target_educator|
         session, masquerade = create_masquerade(pals.uri)
-        masquerade.set_educator_id!(target_educator.id)
+        masquerade.become_educator_id!(target_educator.id)
         expect(masquerade.current_educator).to eq target_educator
       end
     end
