@@ -31,7 +31,7 @@
           </div>
         </a>
         <% if educator_signed_in? %>
-          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator } %>
+          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
         <% else %>
           <div class="sign-in-container">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

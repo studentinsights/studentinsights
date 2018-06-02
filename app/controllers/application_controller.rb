@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
   # Controls masquerading as another user
   helper_method :masquerade
   def masquerade
-    @masquerade ||= Masquerade.new(self)
+    @masquerade ||= Masquerade.new(session, -> { current_educator(super: true) })
   end
 
   private

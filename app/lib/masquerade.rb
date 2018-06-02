@@ -1,33 +1,47 @@
 class Masquerade
-  def initialize(controller)
-    @controller = controller
+  def initialize(session, underlying_current_educator_lambda)
+    @session = session
+    @underlying_current_educator_lambda = underlying_current_educator_lambda
     @session_key = 'masquerade.masquerading_educator_id'
   end
 
+  # Any user can check this
   def can_set?
-    actual_current_educator = @controller.current_educator(super: true)
-    actual_current_educator.present? && actual_current_educator.can_set_districtwide_access?
+    underlying_current_educator.present? && underlying_current_educator.can_set_districtwide_access?
   end
 
+  # Any user can check this
   def is_masquerading?
-    @controller.session.has_key?(@session_key)
+    @session.has_key?(@session_key)
   end
 
+  # Raise if:
+  # - they don't have access
+  # - if they're already masquerading as someone else (clear first)
+  # - they are trying to masquerade as themselves (potential for confusion)
   def set_educator_id!(masquerading_educator_id)
-    return unless can_set?
-    @controller.session[@session_key] = masquerading_educator_id
+    raise Exceptions::EducatorNotAuthorized unless can_set?
+    raise Exceptions::EducatorNotAuthorized if is_masquerading?
+    raise Exceptions::EducatorNotAuthorized if masquerading_educator_id == underlying_current_educator.id
+    @session[@session_key] = masquerading_educator_id
     nil
   end
 
+  # Safe to call if not masquerading
   def clear!
-    return unless can_set?
-    @controller.session.delete(@session_key)
+    raise Exceptions::EducatorNotAuthorized unless can_set?
+    @session.delete(@session_key)
     nil
   end
 
   def current_educator
-    return nil unless can_set?
-    return nil unless is_masquerading?
-    Educator.find(@controller.session[@session_key])
+    raise Exceptions::EducatorNotAuthorized unless can_set?
+    raise Exceptions::EducatorNotAuthorized unless is_masquerading?
+    Educator.find(@session[@session_key])
+  end
+
+  private
+  def underlying_current_educator
+    @underlying_current_educator_lambda.call
   end
 end

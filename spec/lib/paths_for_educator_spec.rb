@@ -20,8 +20,6 @@ RSpec.describe PathsForEducator do
     end
 
     it 'works across educators, with classlists enabled' do
-      ENV['ENABLE_CLASS_LISTS'] = 'true'
-
       expect(navbar_links(pals.uri)).to eq({
         classlists: '/classlists',
         district: '/educators/districtwide'
