@@ -131,10 +131,12 @@ export default class ExportList extends React.Component {
   }
 
   renderDownloadListsLink(studentIdsByRoom, rows) {
+    const {nowFn} = this.context;
+    const now = nowFn();
     const isReadyToExport = this.isReadyToExport(studentIdsByRoom);
     const {gradeLevelNextYear, school} = this.props;
     const gradeLevelText = gradeText(gradeLevelNextYear);
-    const dateText = moment.utc().format('YYYY-MM-DD');
+    const dateText = now.format('YYYY-MM-DD');
     const filename = `Class list: ${gradeLevelText} at ${school.name} ${dateText}.csv`;
     const header = joinCsvRow([
       'Grade level next year',
@@ -160,6 +162,9 @@ export default class ExportList extends React.Component {
     );
   }
 }
+ExportList.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 ExportList.propTypes = {
   isRevisable: React.PropTypes.bool.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,
