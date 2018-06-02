@@ -35,16 +35,16 @@ RSpec.describe Masquerade do
     [session, masquerade]
   end
 
-  describe '#can_set?' do
+  describe '#authorized?' do
     it 'allows Uri' do
       session, masquerade = create_masquerade(pals.uri)
-      expect(masquerade.can_set?).to eq true
+      expect(masquerade.authorized?).to eq true
     end
 
     it 'does not allow any other educators' do
       not_allowed_educators.each do |not_allowed_educator|
         session, masquerade = create_masquerade(not_allowed_educator)
-        expect(masquerade.can_set?).to eq false
+        expect(masquerade.authorized?).to eq false
       end
     end
   end

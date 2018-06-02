@@ -6,7 +6,7 @@ class Masquerade
   end
 
   # Any user can check this
-  def can_set?
+  def authorized?
     underlying_current_educator.present? && underlying_current_educator.can_set_districtwide_access?
   end
 
@@ -20,7 +20,7 @@ class Masquerade
   # - if they're already masquerading as someone else (clear first)
   # - they are trying to masquerade as themselves (potential for confusion)
   def set_educator_id!(masquerading_educator_id)
-    raise Exceptions::EducatorNotAuthorized unless can_set?
+    raise Exceptions::EducatorNotAuthorized unless authorized?
     raise Exceptions::EducatorNotAuthorized if is_masquerading?
     raise Exceptions::EducatorNotAuthorized if masquerading_educator_id == underlying_current_educator.id
     @session[@session_key] = masquerading_educator_id
@@ -29,13 +29,13 @@ class Masquerade
 
   # Safe to call if not masquerading
   def clear!
-    raise Exceptions::EducatorNotAuthorized unless can_set?
+    raise Exceptions::EducatorNotAuthorized unless authorized?
     @session.delete(@session_key)
     nil
   end
 
   def current_educator
-    raise Exceptions::EducatorNotAuthorized unless can_set?
+    raise Exceptions::EducatorNotAuthorized unless authorized?
     raise Exceptions::EducatorNotAuthorized unless is_masquerading?
     Educator.find(@session[@session_key])
   end

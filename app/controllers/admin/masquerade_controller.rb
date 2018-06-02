@@ -17,7 +17,7 @@ module Admin
 
     private
     def ensure_can_masquerade!
-      raise Exceptions::EducatorNotAuthorized unless masquerade.can_set?
+      raise Exceptions::EducatorNotAuthorized unless masquerade.authorized?
     end
   end
 end

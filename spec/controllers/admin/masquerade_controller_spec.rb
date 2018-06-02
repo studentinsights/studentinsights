@@ -47,7 +47,7 @@ describe Admin::MasqueradeController, :type => :controller do
     end
 
 
-    it 'for all combinations of educators, raises unless can_set?' do
+    it 'for all combinations of educators, raises unless authorized?' do
       not_allowed_educators.each do |as_educator|
         ([pals.uri] + not_allowed_educators).each do |target_educator|
           expect_become_to_fail(as_educator, target_educator.id)
@@ -58,6 +58,7 @@ describe Admin::MasqueradeController, :type => :controller do
     it 'for Uri, sets and redirects for all educators' do
       not_allowed_educators.each do |target_educator|
         expect_become_to_succeed(pals.uri, target_educator.id)
+        sign_out(pals.uri)
       end
     end
   end
@@ -90,7 +91,7 @@ describe Admin::MasqueradeController, :type => :controller do
       expect(response).to redirect_to('https://test.host/not_authorized')
     end
 
-    it 'for all combinations of educators, raises unless can_set?' do
+    it 'for all combinations of educators, raises unless authorized?' do
       not_allowed_educators.each do |as_educator|
         expect_clear_to_fail_and_not_change_session(as_educator)
       end
