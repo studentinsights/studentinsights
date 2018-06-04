@@ -97,7 +97,7 @@ it('renders edit classlist', () => {
   )).toEqual(true);
 });
 
-it.only('renders list of classlists', () => {
+it('renders list of classlists', () => {
   const wrapper = mount(renderPath('/classlists'));
   expect(wrapper.contains(
     <ClassListsViewPage currentEducatorId={9999} />
