@@ -75,6 +75,15 @@ export default class PageContainer extends React.Component {
     this.onChangeNoteInProgressText = this.onChangeNoteInProgressText.bind(this);
     this.onClickNoteType = this.onClickNoteType.bind(this);
     this.onChangeAttachmentUrl = this.onChangeAttachmentUrl.bind(this);
+    this.onClickSaveTransitionNote = this.onClickSaveTransitionNote.bind(this);
+    this.onSaveTransitionNoteDone = this.onSaveTransitionNoteDone.bind(this);
+    this.onSaveTransitionNoteFail = this.onSaveTransitionNoteFail.bind(this);
+    this.onSaveNotesDone = this.onSaveNotesDone.bind(this);
+    this.onSaveNotesFail = this.onSaveNotesFail.bind(this);
+    this.onSaveServiceDone = this.onSaveServiceDone.bind(this);
+    this.onSaveServiceFail = this.onSaveServiceFail.bind(this);
+    this.onDiscontinueServiceDone = this.onDiscontinueServiceDone.bind(this);
+    this.onDiscontinueServiceFail = this.onDiscontinueServiceFail.bind(this);
   }
 
   componentWillMount(props, state) {
