@@ -79,6 +79,7 @@ export default class TakeNotes extends React.Component {
           educatorEmail: currentEducator.email
         })}
         <textarea
+          className="TakeNotes-textarea"
           rows={10}
           style={styles.textarea}
           ref={function(ref) { this.textareaRef = ref; }.bind(this)}

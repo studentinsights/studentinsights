@@ -43,7 +43,7 @@ const helpers = {
     changeTextValue($(el).find('textarea').get(0), uiParams.text);
     ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
-  },
+  }
 };
 
 describe('high-level integration tests', () => {

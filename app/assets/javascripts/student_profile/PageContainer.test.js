@@ -54,9 +54,8 @@ const helpers = {
   },
 
   takeNotesAndSave: function(el, uiParams) {
-    console.log('takeNotesAndSave', $(el).html());
     ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
-    changeTextValue($(el).find('textarea'), uiParams.text);
+    changeTextValue($(el).find('textarea').get(0), uiParams.text);
     ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   },
@@ -182,7 +181,7 @@ describe('integration tests', () => {
   // });
 
   it('#mergedDiscontinueService', () => {
-    const {instance, el} = helpers.renderInto();
+    const {instance} = helpers.renderInto();
     const updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
     expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));
     expect(updatedState.requests.discontinueService).toEqual({ 312: 'foo' });
