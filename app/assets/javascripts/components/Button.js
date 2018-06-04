@@ -4,17 +4,28 @@ import Hover from './Hover';
 
 // A visual UI element for a button.  This is styled consistently with the `.btn` class
 // defined in the server-side CSS.
-export default function Button({children, onClick, style = {}, hoverStyle = {}, containerStyle = {}}) {
+export default function Button(props) {
+  const {
+    isDisabled,
+    children,
+    onClick,
+    containerStyle = {},
+    style = {},
+    hoverStyle = {},
+    disabledStyle = {}
+  } = props;
   return (
     <Hover style={containerStyle}>
       {isHovering => {
         const mergedStyle = {
           ...styles.button,
           ...style,
-          ...(isHovering ? styles.hover : {}),
-          ...(isHovering ? hoverStyle : {})
+          ...(isHovering && !isDisabled ? styles.hover : {}),
+          ...(isHovering && !isDisabled ? hoverStyle : {}),
+          ...(isDisabled ? styles.disabled : {}),
+          ...(isDisabled ? disabledStyle : {})
         };
-        return <button onClick={onClick} style={mergedStyle}>{children}</button>;
+        return <button onClick={isDisabled ? undefined : onClick} style={mergedStyle}>{children}</button>;
       }}
     </Hover>
   );
@@ -22,6 +33,7 @@ export default function Button({children, onClick, style = {}, hoverStyle = {}, 
 const propTypes = Button.propTypes = {
   children: React.PropTypes.node.isRequired,
   onClick: React.PropTypes.func.isRequired,
+  isDisabled: React.PropTypes.bool,
   style: React.PropTypes.object,
   hoverStyle: React.PropTypes.object,
   containerStyle: React.PropTypes.object
@@ -40,6 +52,11 @@ const styles = {
   },
   hover: {
     background: '#2275d7',
+  },
+  disabled: {
+    background: '#aaa',
+    color: '#eee',
+    cursor: 'default'
   }
 };
 
@@ -50,11 +67,11 @@ export function SeriousButton(props) {
     ...props,
     style: {
       ...(props.style || {}),
-      backgroundColor: '#E5370E'
+      background: '#E5370E'
     },
     hoverStyle: {
       ...(props.hoverStyle || {}),
-      backgroundColor: '#b52b0b'
+      background: '#b52b0b'
     }
   };
 
