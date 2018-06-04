@@ -5,7 +5,7 @@ import fetchMock from 'fetch-mock/es5/client';
 import CheckStudentsWithHighAbsences, {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import studentsWithHighAbsencesJson from '../../../../spec/javascripts/fixtures/home_students_with_high_absences_json';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 
 function renderIntoEl(element) {
   const el = document.createElement('div');

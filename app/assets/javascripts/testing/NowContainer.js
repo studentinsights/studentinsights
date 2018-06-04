@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {toMomentFromTime} from '../../../app/assets/javascripts/helpers/toMoment';
+import {toMomentFromTime} from '../helpers/toMoment';
 
 // A container for testing that allows passing in a `nowFn`
 // that will be shared with child components through context.

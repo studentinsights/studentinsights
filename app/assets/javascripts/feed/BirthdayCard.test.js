@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BirthdayCard from './BirthdayCard';
-import {
-  withNowContext,
-  withDefaultNowContext
-} from '../../../../spec/javascripts/support/NowContainer';
+import {withNowContext,withDefaultNowContext} from '../testing/NowContainer';
 
 it('renders without crashing', () => {
   const studentBirthdayCard = {

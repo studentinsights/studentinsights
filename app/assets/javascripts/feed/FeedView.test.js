@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import FeedView from './FeedView';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
 
 

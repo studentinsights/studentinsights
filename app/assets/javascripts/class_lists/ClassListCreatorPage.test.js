@@ -4,12 +4,11 @@ import {MemoryRouter} from 'react-router-dom';
 import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
-import {testContext, withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {TEST_TIME_MOMENT, testContext, withDefaultNowContext} from '../testing/NowContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import class_list_json from './fixtures/class_list_json';
 import {uri, sarah, laura} from '../../../../spec/javascripts/fixtures/currentEducator';
-import {TEST_TIME_MOMENT} from '../../../../spec/javascripts/support/NowContainer';
 
 
 beforeEach(() => mockWithFixtures());

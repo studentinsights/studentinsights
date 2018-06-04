@@ -5,7 +5,7 @@ import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
 import HomeFeed, {mergeCards} from './HomeFeed';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
 
 
