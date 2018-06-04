@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
 import Api from './Api';

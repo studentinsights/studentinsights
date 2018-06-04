@@ -1,7 +1,7 @@
 import { HashRouter } from 'react-router-dom';
 import measurePageLoad from '../helpers/measurePageLoad';
 import SchoolAdministratorDashboards from  './dashboard_components/SchoolAdministratorDashboards';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function renderSchoolAdminDashboardMain(el) {
   const serializedData = $('#serialized-data').data();

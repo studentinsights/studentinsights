@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import datepickerConfig from '../app/assets/javascripts/datepicker_config';
-import sessionTimeoutWarning from '../app/assets/javascripts/session_timeout_warning';
-import studentSearchbar from '../app/assets/javascripts/student_searchbar';
+import datepickerConfig from '../app/assets/javascripts/datepickerConfig';
+import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
+import studentSearchbar from '../app/assets/javascripts/studentSearchbar';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 

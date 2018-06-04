@@ -1,5 +1,5 @@
 import HomeroomTable from './HomeroomTable';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function homeroomMain() {
   const ReactDOM = window.ReactDOM;

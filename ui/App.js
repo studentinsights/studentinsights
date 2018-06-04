@@ -4,7 +4,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';

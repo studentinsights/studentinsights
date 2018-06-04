@@ -1,4 +1,4 @@
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 import SchoolOverviewPage from './SchoolOverviewPage';
 import {parseFiltersHash} from '../helpers/Filters';
 import {apiFetchJson} from '../helpers/apiFetchJson';
