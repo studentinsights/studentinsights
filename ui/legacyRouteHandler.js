@@ -1,4 +1,4 @@
-import renderStudentMain from '../app/assets/javascripts/student_profile/main.jsx';
+import renderStudentMain from '../app/assets/javascripts/student_profile/main';
 import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main.jsx';
 import homeroomMain from '../app/assets/javascripts/homeroom_table/main.jsx';
 import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main.jsx';
