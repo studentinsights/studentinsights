@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import {studentProfile, nowMoment} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
+import mockHistory from '../testing/mockHistory';
 import PageContainer from './PageContainer';
 
 
@@ -37,7 +37,7 @@ const helpers = {
       serializedData: serializedData,
       nowMomentFn: function() { return nowMoment; },
       queryParams: {},
-      history: SpecSugar.history()
+      history: mockHistory()
     };
     ReactDOM.render(<PageContainer {...mergedProps} />, el);
   }

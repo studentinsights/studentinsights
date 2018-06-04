@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import {nowMoment, studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
+import mockHistory from '../testing/mockHistory';
+import changeReactSelect from '../testing/changeReactSelect';
+import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
 
 const helpers = {
@@ -14,7 +16,7 @@ const helpers = {
     return $(el).find('.interventions-column .SummaryList').toArray();
   },
 
-  createSpyActions: function() {
+  createSpyActions: () => {
     return {
       // Just mock the functions that make server calls
       onColumnClicked: jest.fn(),
@@ -25,7 +27,7 @@ const helpers = {
     };
   },
 
-  createSpyApi: function() {
+  createSpyApi: () => {
     return {
       saveNotes: jest.fn(),
       deleteEventNoteAttachment: jest.fn(),
@@ -34,26 +36,29 @@ const helpers = {
     };
   },
 
-  renderInto: function(el, props) {
+  renderInto: function(props) {
     const mergedProps = {
-      nowMomentFn: function() { return nowMoment; },
+      nowMomentFn: () => { return nowMoment; },
       serializedData: studentProfile,
       queryParams: {},
-      history: SpecSugar.history(),
+      history: mockHistory(),
       actions: helpers.createSpyActions(),
       api: helpers.createSpyApi(),
       noteInProgressText: '',
       noteInProgressType: null,
       ...props
     };
-    return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
+    const el = document.createElement('div');
+    const instance = ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
+    return {el, instance};
   },
 
   takeNotesAndSave: function(el, uiParams) {
-    $(el).find('.btn.take-notes').click();
-    SpecSugar.changeTextValue($(el).find('textarea'), uiParams.text);
-    $(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').click();
-    $(el).find('.btn.save').click();
+    console.log('takeNotesAndSave', $(el).html());
+    ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
+    changeTextValue($(el).find('textarea'), uiParams.text);
+    ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
+    ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   },
 
   editNoteAndSave: function(el, uiParams) {
@@ -65,18 +70,17 @@ const helpers = {
   },
 
   recordServiceAndSave: function(el, uiParams) {
-    $(el).find('.btn.record-service').click();
-    $(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').click();
-    SpecSugar.changeReactSelect($(el).find('.Select'), uiParams.educatorText);
-    SpecSugar.changeTextValue($(el).find('.datepicker'), uiParams.dateStartedText);
-    $(el).find('.btn.save').click();
+    ReactTestUtils.Simulate.click($(el).find('.btn.record-service').get(0));
+    ReactTestUtils.Simulate.click($(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').get(0));
+    changeReactSelect($(el).find('.Select'), uiParams.educatorText);
+    changeTextValue($(el).find('.datepicker'), uiParams.dateStartedText);
+    ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   }
 };
 
-SpecSugar.withTestEl('integration tests', function(container) {
-  it('renders everything on the happy path', function() {
-    const el = container.testEl;
-    helpers.renderInto(el);
+describe('integration tests', () => {
+  it('renders everything on the happy path', () => {
+    const {el} = helpers.renderInto();
 
     expect($(el).text()).toContain('Daisy Poppins');
     expect(helpers.findColumns(el).length).toEqual(5);
@@ -91,73 +95,68 @@ SpecSugar.withTestEl('integration tests', function(container) {
     expect(interventionLists[1].innerHTML).toContain('Attendance Contract');
   });
 
-  it('opens dialog when clicking Take Notes button', function() {
-    const el = container.testEl;
-    helpers.renderInto(el);
+  it('opens dialog when clicking Take Notes button', () => {
+    const {el} = helpers.renderInto();
 
-    $(el).find('.btn.take-notes').click();
+    ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
     expect($(el).text()).toContain('What are these notes from?');
     expect($(el).text()).toContain('Save notes');
   });
 
-  it('opens dialog when clicking Record Service button', function() {
-    const el = container.testEl;
-    helpers.renderInto(el);
+  it('opens dialog when clicking Record Service button', () => {
+    const {el} = helpers.renderInto();
 
-    $(el).find('.btn.record-service').click();
+    ReactTestUtils.Simulate.click($(el).find('.btn.record-service').get(0));
     expect($(el).text()).toContain('Who is working with Daisy?');
     expect($(el).text()).toContain('Record service');
   });
 
-  it('can save notes for SST meetings, mocking the action handlers', function() {
-    const el = container.testEl;
-    const component = helpers.renderInto(el);
+  it('can save notes for SST meetings, mocking the action handlers', () => {
+    const {instance, el} = helpers.renderInto();
     helpers.takeNotesAndSave(el, {
       eventNoteTypeText: 'SST Meeting',
       text: 'hello!'
     });
 
-    expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+    expect(instance.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
       eventNoteTypeId: 300,
       text: 'hello!',
       eventNoteAttachments: []
     });
   });
 
-  it('can edit notes for SST meetings, mocking the action handlers', function() {
-    const el = container.testEl;
-    const component = helpers.renderInto(el);
+  it('can edit notes for SST meetings, mocking the action handlers', () => {
+    const {instance, el} = helpers.renderInto();
 
     helpers.editNoteAndSave(el, {
       eventNoteTypeText: 'SST Meeting',
       text: 'world!'
     });
 
-    expect(component.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+    expect(instance.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
       id: 3,
       eventNoteTypeId: 300,
       text: 'world!'
     });
   });
 
-  it('verifies that the educator name is in the correct format', function() {
-    const el = container.testEl;
-    const component = helpers.renderInto(el, {});
+  it('verifies that the educator name is in the correct format', () => {
+    const {instance, el} = helpers.renderInto();
 
     // Simulate that the server call is still pending
-    component.props.api.saveService.mockReturnValue($.Deferred());
-    component.onClickSaveService({
+    instance.props.api.saveService.mockReturnValue($.Deferred());
+    instance.onClickSaveService({
       providedByEducatorName: 'badinput'
     });
     expect($(el).text()).toContain('Please use the form Last Name, First Name');
 
-    component.onClickSaveService({
+    instance.onClickSaveService({
       providedByEducatorName: 'Teacher, Test'
     });
     expect($(el).text()).toContain('Saving...');
 
     // Name can also be blank
-    component.onClickSaveService({
+    instance.onClickSaveService({
       providedByEducatorName: ''
     });
     expect($(el).text()).toContain('Saving...');
@@ -165,16 +164,16 @@ SpecSugar.withTestEl('integration tests', function(container) {
 
   // TODO(kr) the spec helper here was reaching into the react-select internals,
   // which changed in 1.0.0, this needs to be updated.
-  // it('can save an Attendance Contract service, mocking the action handlers', function() {
+  // it('can save an Attendance Contract service, mocking the action handlers', () => {
   //   var el = container.testEl;
-  //   var component = helpers.renderInto(el);
+  //   var component = helpers.renderInto();
   //   helpers.recordServiceAndSave(el, {
   //     serviceText: 'Attendance Contract',
   //     educatorText: 'fake-fifth-grade',
   //     dateStartedText: '2/22/16'
   //   });
 
-  //   expect(component.props.actions.onClickSaveService).toHaveBeenCalledWith({
+  //   expect(instance.props.actions.onClickSaveService).toHaveBeenCalledWith({
   //     serviceTypeId: 503,
   //     providedByEducatorId: 2,
   //     dateStartedText: '2016-02-22',
@@ -182,9 +181,8 @@ SpecSugar.withTestEl('integration tests', function(container) {
   //   });
   // });
 
-  it('#mergedDiscontinueService', function() {
-    const el = container.testEl;
-    const instance = helpers.renderInto(el);
+  it('#mergedDiscontinueService', () => {
+    const {instance, el} = helpers.renderInto();
     const updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
     expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));
     expect(updatedState.requests.discontinueService).toEqual({ 312: 'foo' });

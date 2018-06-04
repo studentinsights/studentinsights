@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
 import {studentProfile} from '../student_profile/fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
+import changeTextValue from '../testing/changeTextValue';
+
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto: function(props) {
     const mergedProps = {
       nowMomentFn: moment.utc,
       serializedData: studentProfile,
       ...props
     };
+    const el = document.createElement('div');
     ReactDOM.render(<RestrictedNotesPageContainer {...mergedProps} />, el);
+    return {el};
   },
 
   createMockApi: function(){
@@ -35,18 +39,17 @@ const helpers = {
   },
 
   takeNotesAndSave: function(el, uiParams) {
-    $(el).find('.btn.take-notes').click();
-    SpecSugar.changeTextValue($(el).find('textarea'), uiParams.text);
-    $(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').click();
-    $(el).find('.btn.save').click();
+    ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
+    changeTextValue($(el).find('textarea').get(0), uiParams.text);
+    ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
+    ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   },
 };
 
-SpecSugar.withTestEl('high-level integration tests', function(container) {
+describe('high-level integration tests', () => {
   it('saves notes as restricted', function() {
-    const el = container.testEl;
     const mockApi = helpers.createMockApi();
-    helpers.renderInto(el, {api: mockApi});
+    const {el} = helpers.renderInto({api: mockApi});
 
     helpers.takeNotesAndSave(el, {
       text: "hi",
