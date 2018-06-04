@@ -36,6 +36,7 @@ export default class PageContainer extends React.Component {
       // data
       student: serializedData.student,
       feed: serializedData.feed,
+      transitionNotes: serializedData.transitionNotes,
       chartData: serializedData.chartData,
       attendanceData: serializedData.attendanceData,
       access: serializedData.access,
@@ -147,6 +148,36 @@ export default class PageContainer extends React.Component {
     this.api.saveNotes(this.state.student.id, eventNoteParams)
       .done(this.onSaveNotesDone)
       .fail(this.onSaveNotesFail);
+  }
+
+  onClickSaveTransitionNote(noteParams) {
+    const requestState = (noteParams.is_restricted)
+      ? { saveRestrictedTransitionNote: 'pending' }
+      : { saveTransitionNote: 'pending' };
+
+    this.setState({ requests: merge(this.state.requests, requestState) });
+    this.api.saveTransitionNote(this.state.student.id, noteParams)
+      .done(this.onSaveTransitionNoteDone)
+      .fail(this.onSaveTransitionNoteFail);
+  }
+
+  onSaveTransitionNoteDone(response) {
+    const requestState = (response.is_restricted)
+      ? { saveRestrictedTransitionNote: 'saved' }
+      : { saveTransitionNote: 'saved' };
+
+    this.setState({
+      requests: merge(this.state.requests, requestState),
+      transitionNotes: response.transition_notes
+    });
+  }
+
+  onSaveTransitionNoteFail(request, status, message) {
+    const requestState = (request.is_restricted)
+      ? { saveRestrictedTransitionNote: 'error' }
+      : { saveTransitionNote: 'error' };
+
+    this.setState({ requests: merge(this.state.requests, requestState) });
   }
 
   onSaveNotesDone(response) {
@@ -270,6 +301,7 @@ export default class PageContainer extends React.Component {
             'eventNoteTypesIndex',
             'student',
             'feed',
+            'transitionNotes',
             'access',
             'chartData',
             'dibels',
@@ -287,6 +319,7 @@ export default class PageContainer extends React.Component {
             actions: {
               onColumnClicked: this.onColumnClicked,
               onClickSaveNotes: this.onClickSaveNotes,
+              onClickSaveTransitionNote: this.onClickSaveTransitionNote,
               onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
               onClickSaveService: this.onClickSaveService,
               onClickDiscontinueService: this.onClickDiscontinueService,
@@ -299,11 +332,12 @@ export default class PageContainer extends React.Component {
       </div>
     );
   }
+
 }
 PageContainer.propTypes = {
-  nowMomentFn: PropTypes.func.isRequired,
-  serializedData: PropTypes.object.isRequired,
-  queryParams: PropTypes.object.isRequired,
+  nowMomentFn: React.PropTypes.func.isRequired,
+  serializedData: React.PropTypes.object.isRequired,
+  queryParams: React.PropTypes.object.isRequired,
   history: InsightsPropTypes.history.isRequired,
 
   // for testing
