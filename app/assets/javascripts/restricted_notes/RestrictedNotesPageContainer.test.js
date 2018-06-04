@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import {studentProfile} from '../student_profile/fixtures';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
-import createSpyObj from '../../../../spec/javascripts/support/createSpyObj';
 import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
 
 const helpers = {
@@ -17,7 +16,9 @@ const helpers = {
   },
 
   createMockApi: function(){
-    const mockApi = createSpyObj('api', ['saveNotes']);
+    const mockApi = {
+      saveNotes: jest.fn()
+    };
     mockApi.saveNotes.mockImplementation(() =>
       $.Deferred().resolve({
         id: 9999,
