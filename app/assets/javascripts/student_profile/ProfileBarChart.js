@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import * as GraphHelpers from '../helpers/GraphHelpers';
-import HighchartsWrapper from '../student_profile/HighchartsWrapper';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 
 const styles = {
   title: {

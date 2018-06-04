@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom';
-import MountTimer from '../../components/MountTimer';
+import MountTimer from '../components/MountTimer';
 import DashboardOverview from './DashboardOverview';
 import SchoolwideAbsences from './absences_dashboard/SchoolwideAbsences';
 import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies';

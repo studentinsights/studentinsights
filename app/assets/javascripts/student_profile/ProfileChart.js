@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import {merge} from '../helpers/merge';
-import HighchartsWrapper from './HighchartsWrapper';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 import ProfileChartSettings from './ProfileChartSettings';
 import {
   schoolYearStartDates,

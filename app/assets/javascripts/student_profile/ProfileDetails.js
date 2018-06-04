@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import {merge} from '../helpers/merge';
-import Datepicker from './Datepicker';
+import Datepicker from '../components/Datepicker';
 import {
   firstDayOfSchool,
   toSchoolYear,

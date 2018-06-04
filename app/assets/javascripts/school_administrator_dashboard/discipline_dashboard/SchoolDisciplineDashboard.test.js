@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import { shallow } from 'enzyme';
+import { createStudents } from '../DashboardTestData';
+import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
 
-import SchoolDisciplineDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/discipline_dashboard/SchoolDisciplineDashboard';
-import { createStudents } from './DashboardTestData';
 
 describe('SchoolDisciplineDashboard', () => {
   const dash = shallow(<SchoolDisciplineDashboard

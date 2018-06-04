@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Datepicker from './Datepicker';
-import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
+import Datepicker from '../components/Datepicker';
 import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
+import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
 import {
   toSchoolYear,
   lastDayOfSchool

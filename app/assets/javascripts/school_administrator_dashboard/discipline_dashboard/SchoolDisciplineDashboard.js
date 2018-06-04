@@ -4,14 +4,14 @@ import _ from 'lodash';
 import moment from 'moment';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
+import {latestNoteDateText} from '../../helpers/latestNoteDateText';
+import {sortByGrade} from '../../helpers/SortHelpers';
+import ExperimentalBanner from '../../components/ExperimentalBanner';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
-import {latestNoteDateText} from '../../../helpers/latestNoteDateText';
-import {sortByGrade} from '../../../helpers/SortHelpers';
-import ExperimentalBanner from '../../../components/ExperimentalBanner';
+
 
 class SchoolDisciplineDashboard extends React.Component {
 

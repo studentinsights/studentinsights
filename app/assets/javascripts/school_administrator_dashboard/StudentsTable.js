@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Column, Table, SortDirection} from 'react-virtualized';
 import {
   sortByString,
   sortByNumber,
   sortByDate,
   sortByGrade
-} from '../../helpers/SortHelpers';
-import * as Routes from '../../helpers/Routes';
-import * as InsightsPropTypes from '../../helpers/InsightsPropTypes';
+} from '../helpers/SortHelpers';
+import * as Routes from '../helpers/Routes';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import DashResetButton from './DashResetButton';
-import {Column, Table, SortDirection} from 'react-virtualized';
+
 
 class StudentsTable extends React.Component {
 

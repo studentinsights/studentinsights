@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
-import HighchartsWrapper from '../../student_profile/HighchartsWrapper';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 
 // Component for all charts in the dashboard page.
 class DashboardBarChart extends React.Component{

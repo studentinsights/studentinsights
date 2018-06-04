@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DashboardBarChart from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardBarChart';
-import HighchartsWrapper from '../../../app/assets/javascripts/student_profile/HighchartsWrapper';
+import DashboardBarChart from './DashboardBarChart';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 
 describe('DashboardBarChart', () => {
   const chart = shallow(<DashboardBarChart

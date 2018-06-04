@@ -11,9 +11,8 @@ const styles = {
 };
 
 /*
-React wrapper for jQuery datepicker.
+React wrapper for jQuery datepicker.  Relies on JS from Rails and on global config.
 */
-
 class Datepicker extends React.Component {
 
   constructor(props) {

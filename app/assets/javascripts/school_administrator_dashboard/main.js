@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter} from 'react-router-dom';
 import measurePageLoad from '../helpers/measurePageLoad';
-import SchoolAdministratorDashboards from  './dashboard_components/SchoolAdministratorDashboards';
+import SchoolAdministratorDashboards from  './SchoolAdministratorDashboards';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function renderSchoolAdminDashboardMain(el) {
