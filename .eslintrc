@@ -5,8 +5,7 @@
     "jest": true
   },
   "globals": {
-    "$": true,
-    "global": true
+    "$": true
   },
   "parserOptions": {
     "ecmaVersion": 6,
