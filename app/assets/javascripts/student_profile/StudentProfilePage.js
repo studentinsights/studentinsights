@@ -16,6 +16,7 @@ import Sparkline from './Sparkline';
 import StudentProfileHeader from './StudentProfileHeader';
 import ProfileDetails from './ProfileDetails';
 import ServiceDetails from './ServiceDetails';
+import TransitionNotes from './TransitionNotes';
 
 // This component has some Rails SCSS still.
 export default class StudentProfilePage extends React.Component {
@@ -47,10 +48,31 @@ export default class StudentProfilePage extends React.Component {
           {this.renderAttendanceColumn()}
           {this.renderInterventionsColumn()}
         </div>
+        {this.renderTransitionNote()}
         <div style={styles.detailsContainer}>
           {this.renderSectionDetails()}
         </div>
       </div>
+    );
+  }
+
+  renderTransitionNote() {
+    const {currentEducator, actions, transitionNotes, requests} = this.props;
+    const labels = currentEducator.labels;
+
+    const isElemCounselor = _.includes(labels, 'k8_counselor');
+    const isHouseMaster = _.includes(labels, 'high_school_house_master');
+
+    if (!isElemCounselor && !isHouseMaster) return null;
+
+    return (
+      <TransitionNotes
+        transitionNotes={transitionNotes}
+        readOnly={isHouseMaster}
+        onSave={actions.onClickSaveTransitionNote}
+        requestState={requests['saveTransitionNote']}
+        requestStateRestricted={requests['saveRestrictedTransitionNote']}
+      />
     );
   }
 
@@ -111,7 +133,7 @@ export default class StudentProfilePage extends React.Component {
     );
   }
 
-  renderSectionDetails() {    
+  renderSectionDetails() {
     switch (this.props.selectedColumnKey) {
     case 'profile': return (
         <ProfileDetails
@@ -569,60 +591,61 @@ export default class StudentProfilePage extends React.Component {
       </div>
     );
   }
+
 }
 StudentProfilePage.propTypes = {
   // UI
-  selectedColumnKey: PropTypes.string.isRequired,
+  selectedColumnKey: React.PropTypes.string.isRequired,
 
   // context
-  nowMomentFn: PropTypes.func.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  nowMomentFn: React.PropTypes.func.isRequired,
+  currentEducator: React.PropTypes.object.isRequired,
 
   // constants
-  educatorsIndex: PropTypes.object.isRequired,
-  serviceTypesIndex: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
+  educatorsIndex: React.PropTypes.object.isRequired,
+  serviceTypesIndex: React.PropTypes.object.isRequired,
+  eventNoteTypesIndex: React.PropTypes.object.isRequired,
 
   // data
-  student: PropTypes.object.isRequired,
-  feed: PropTypes.object.isRequired,
-  dibels: PropTypes.array.isRequired,
-  chartData: PropTypes.shape({
+  student: React.PropTypes.object.isRequired,
+  feed: React.PropTypes.object.isRequired,
+  transitionNotes: React.PropTypes.array.isRequired,
+  dibels: React.PropTypes.array.isRequired,
+  chartData: React.PropTypes.shape({
     // ela
-    most_recent_star_reading_percentile: PropTypes.number,
-    most_recent_mcas_ela_scaled: PropTypes.number,
-    most_recent_mcas_ela_growth: PropTypes.number,
-    star_series_reading_percentile: PropTypes.array,
-    mcas_series_ela_scaled: PropTypes.array,
-    mcas_series_ela_growth: PropTypes.array,
+    most_recent_star_reading_percentile: React.PropTypes.number,
+    most_recent_mcas_ela_scaled: React.PropTypes.number,
+    most_recent_mcas_ela_growth: React.PropTypes.number,
+    star_series_reading_percentile: React.PropTypes.array,
+    mcas_series_ela_scaled: React.PropTypes.array,
+    mcas_series_ela_growth: React.PropTypes.array,
     // math
-    most_recent_star_math_percentile: PropTypes.number,
-    most_recent_mcas_math_scaled: PropTypes.number,
-    most_recent_mcas_math_growth: PropTypes.number,
-    star_series_math_percentile: PropTypes.array,
-    mcas_series_math_scaled: PropTypes.array,
-    mcas_series_math_growth: PropTypes.array
+    most_recent_star_math_percentile: React.PropTypes.number,
+    most_recent_mcas_math_scaled: React.PropTypes.number,
+    most_recent_mcas_math_growth: React.PropTypes.number,
+    star_series_math_percentile: React.PropTypes.array,
+    mcas_series_math_scaled: React.PropTypes.array,
+    mcas_series_math_growth: React.PropTypes.array
   }),
-  attendanceData: PropTypes.shape({
-    discipline_incidents: PropTypes.array,
-    tardies: PropTypes.array,
-    absences: PropTypes.array
+  attendanceData: React.PropTypes.shape({
+    discipline_incidents: React.PropTypes.array,
+    tardies: React.PropTypes.array,
+    absences: React.PropTypes.array
   }),
-  noteInProgressText: PropTypes.string.isRequired,
-  noteInProgressType: PropTypes.number,
-  noteInProgressAttachmentUrls: PropTypes.arrayOf(
-    PropTypes.string
+  noteInProgressText: React.PropTypes.string.isRequired,
+  noteInProgressType: React.PropTypes.number,
+  noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+    React.PropTypes.string
   ).isRequired,
-  access: PropTypes.object,
-  iepDocument: PropTypes.object,
-  sections: PropTypes.array,
-  currentEducatorAllowedSections: PropTypes.array,
+  access: React.PropTypes.object,
+  iepDocument: React.PropTypes.object,
+  sections: React.PropTypes.array,
+  currentEducatorAllowedSections: React.PropTypes.array,
 
   // flux-y bits
   requests: InsightsPropTypes.requests,
   actions: InsightsPropTypes.actions
 };
-
 
 // define page component
 const styles = {
