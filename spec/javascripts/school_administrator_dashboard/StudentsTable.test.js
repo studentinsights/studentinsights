@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable.js';
-import {createStudents} from './DashboardTestData.js';
+import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable';
+import {createStudents} from './DashboardTestData';
 
 function testRender(options = {}) {
   const nowMoment = options.nowMoment || moment.utc();
