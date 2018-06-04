@@ -115,6 +115,7 @@ class TransitionNotes extends React.Component {
 
   render() {
     const {noteText, restrictedNoteText, readOnly} = this.state;
+    const {requestState, requestStateRestricted} = this.props;
 
     return (
       <div style={{display: 'flex'}}>
@@ -129,7 +130,7 @@ class TransitionNotes extends React.Component {
             onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
           <div style={{color: 'gray'}}>
-            {this.autosaveStatusText(this.props.requestState)}
+            {this.autosaveStatusText(requestState)}
           </div>
         </div>
         <div style={{flex: 1, margin: 30}}>
@@ -143,7 +144,7 @@ class TransitionNotes extends React.Component {
             onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
           <div style={{color: 'gray'}}>
-            {this.autosaveStatusText(this.props.requestStateRestricted)}
+            {this.autosaveStatusText(requestStateRestricted)}
           </div>
         </div>
       </div>
