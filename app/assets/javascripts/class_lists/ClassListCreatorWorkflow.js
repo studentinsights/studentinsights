@@ -332,6 +332,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const school = _.find(schools, {id: schoolId});
 
     if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
+
     return (
       <div key="export" style={styles.stepContent}>
         <ExportList

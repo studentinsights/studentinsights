@@ -61,7 +61,7 @@ export default class ExportList extends React.Component {
     const rows = this.mapToRows(studentIdsByRoom);
 
     return (
-      <div className="SecretaryEnters">
+      <div className="ExportList">
         <div style={headingStyle}>Have all students been placed for next year's {gradeText(gradeLevelNextYear)}?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
         
@@ -214,9 +214,7 @@ const styles = {
     color: 'white',
     marginTop: 20
   },
-  spaceBelow: {
-    //marginBottom: 10
-  },
+  spaceBelow: {},
   warnExport: {
     display: 'inline-block',
     marginLeft: 10
