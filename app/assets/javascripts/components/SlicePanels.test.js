@@ -1,5 +1,6 @@
-import _ from 'lodash';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import {serviceTypesIndex, eventNoteTypesIndex} from '../../../../spec/javascripts/fixtures/database_constants.jsx';
 import FixtureStudents from '../../../../spec/javascripts/fixtures/students.jsx';
 import SlicePanels from './SlicePanels';

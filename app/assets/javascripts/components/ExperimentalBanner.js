@@ -1,3 +1,5 @@
+import React from 'react';
+
 // Pure UI showing that the feature is experimental
 export default function ExperimentalBanner() {
   return (

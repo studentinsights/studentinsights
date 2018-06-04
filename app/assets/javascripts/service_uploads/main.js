@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 import ServiceUploadsPage from './ServiceUploadsPage';

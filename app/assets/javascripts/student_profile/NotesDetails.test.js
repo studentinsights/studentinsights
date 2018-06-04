@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {studentProfile} from './fixtures';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';

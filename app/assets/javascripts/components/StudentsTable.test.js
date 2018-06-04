@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import StudentsTable from './StudentsTable';
 import studentsFixture from '../../../../spec/javascripts/fixtures/schools_overview_students.jsx';

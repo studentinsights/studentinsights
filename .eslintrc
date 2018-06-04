@@ -7,7 +7,6 @@
   "globals": {
     "$": true,
     "moment": true,
-    "React": true,
     "d3": true,
     "spyOn": true,
     "global": true

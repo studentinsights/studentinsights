@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Filters from '../helpers/Filters';
 import CollapsableTable from './CollapsableTable';
