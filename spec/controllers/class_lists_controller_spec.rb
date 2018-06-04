@@ -191,7 +191,7 @@ describe ClassListsController, :type => :controller do
         grade = '2'
         homeroom = Homeroom.create!(name: "HR #{grade}-#{n}", grade: grade, school: pals.healey)
         1.times do
-          FactoryBot.create(:student_with_full_name, {
+          FactoryBot.create(:student, {
             last_name: 'Fake',
             grade: grade,
             school: pals.healey,
@@ -200,7 +200,7 @@ describe ClassListsController, :type => :controller do
         end
       end
       4.times do
-        FactoryBot.create(:student_with_full_name, {
+        FactoryBot.create(:student, {
           last_name: 'Fake',
           grade: '5',
           school: pals.healey,
@@ -242,7 +242,7 @@ describe ClassListsController, :type => :controller do
     end
 
     it 'filters out inactive students' do
-      inactive_student = FactoryBot.create(:student_with_full_name, {
+      inactive_student = FactoryBot.create(:student, {
         last_name: 'Fake',
         grade: '5',
         enrollment_status: 'Transferred',
@@ -481,14 +481,14 @@ describe ClassListsController, :type => :controller do
 
   describe '#profile_json' do
     let!(:sarah_student) do
-      FactoryBot.create(:student_with_full_name, {
+      FactoryBot.create(:student, {
         grade: '5',
         school: pals.healey,
         homeroom: pals.healey_fifth_homeroom
       })
     end
     let!(:vivian_student) do
-      FactoryBot.create(:student_with_full_name, {
+      FactoryBot.create(:student, {
         grade: 'KF',
         school: pals.healey,
         homeroom: pals.healey_kindergarten_homeroom
