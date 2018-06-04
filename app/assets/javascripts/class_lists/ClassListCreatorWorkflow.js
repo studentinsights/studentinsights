@@ -273,7 +273,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
             {isSubmitted
               ? (isDirty) ? <span>Saving...</span> : <SuccessLabel text="Your class list is submitted" />
-              : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
+              : <SeriousButton isDisabled={!isEditable} onClick={onSubmitClicked}>Submit to principal</SeriousButton>
             }
           </div>
         </div>
