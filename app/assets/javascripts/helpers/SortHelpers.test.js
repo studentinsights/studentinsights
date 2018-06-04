@@ -1,9 +1,6 @@
-import {
-  sortByCustomEnum,
-  sortByNumber
-} from '../../../app/assets/javascripts/helpers/SortHelpers';
+import {sortByCustomEnum, sortByNumber} from './SortHelpers';
 
-describe('#sortByCustomEnum', function() {
+describe('#sortByCustomEnum', () => {
   const customEnum = ['One', 'Two', 'Three', 'Four', 'Five'];
   const preSortData = [
     {testElement: 'Five'},
@@ -13,7 +10,7 @@ describe('#sortByCustomEnum', function() {
     {testElement: null}
   ];
   
-  it('correctly sorts', function() {
+  it('correctly sorts', () => {
     let sortData = preSortData.slice();
     
     let targetData = [
@@ -39,7 +36,7 @@ describe('#sortByCustomEnum', function() {
   });
 });
 
-describe('#sortByNumber', function() {
+describe('#sortByNumber', () => {
   const preSortData = [
     {testElement: 5},
     {testElement: 4},
@@ -53,7 +50,7 @@ describe('#sortByNumber', function() {
     {testElement: null}
   ];
   
-  it('correctly sorts', function() {
+  it('correctly sorts', () => {
     let sortData = preSortData.slice();
     
     let targetData = [
