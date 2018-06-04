@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
-import PastServiceUploads from '../../../app/assets/javascripts/service_uploads/PastServiceUploads';
+import PastServiceUploads from './PastServiceUploads';
 
-describe('with null past service upload data', function () {
+describe('with null past service upload data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 
@@ -13,7 +13,7 @@ describe('with null past service upload data', function () {
   });
 });
 
-describe('with valid past service upload data', function () {
+describe('with valid past service upload data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 

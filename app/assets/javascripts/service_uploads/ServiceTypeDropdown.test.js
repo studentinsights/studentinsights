@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import ServiceTypeDropdown from '../../../app/assets/javascripts/service_uploads/ServiceTypeDropdown';
+import ServiceTypeDropdown from './ServiceTypeDropdown';
 
 describe('data', function () {
   it('renders without crashing', () => {

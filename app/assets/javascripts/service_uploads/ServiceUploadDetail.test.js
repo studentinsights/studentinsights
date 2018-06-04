@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import ServiceUploadDetail from './ServiceUploadDetail.js';
+import ServiceUploadDetail from './ServiceUploadDetail';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
