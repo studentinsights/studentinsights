@@ -58,7 +58,7 @@ class TransitionNotes extends React.Component {
       restrictedNoteAutosaveStatus: null,
     };
 
-    const throttleOptions = {leading: true, trailing: true};
+    const throttleOptions = {leading: false, trailing: true};
 
     this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 3000, throttleOptions);
     this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 3000, throttleOptions);
