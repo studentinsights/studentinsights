@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import SectionHeader from '../../../app/assets/javascripts/section/SectionHeader';
+import SectionHeader from './SectionHeader';
 
 describe('data', function () {
   it('renders without crashing', () => {
