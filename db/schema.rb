@@ -40,11 +40,11 @@ ActiveRecord::Schema.define(version: 20180601200328) do
     t.integer "created_by_teacher_educator_id"
     t.integer "school_id"
     t.string "grade_level_next_year"
-    t.jsonb "json"
+    t.json "json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "submitted", default: false
-    t.jsonb "principal_revisions_json"
+    t.json "principal_revisions_json"
     t.integer "revised_by_principal_educator_id"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
   end
@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 20180601200328) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
-    t.boolean "is_counselor", default: false
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 
@@ -297,7 +296,6 @@ ActiveRecord::Schema.define(version: 20180601200328) do
     t.decimal "instructional_reading_level"
     t.integer "assessment_id"
     t.string "grade_equivalent"
-    t.index ["date_taken"], name: "index_student_assessments_on_date_taken"
     t.index ["student_id"], name: "index_student_assessments_on_student_id"
   end
 
