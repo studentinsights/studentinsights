@@ -71,3 +71,13 @@ export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
 
   return slugA.localeCompare(slugB);
 }
+
+// This only applies to Somerville HS.
+export function shouldDisplayHouse(school) {
+  return (school && school.local_id === 'SHS');
+}
+
+// This only applies to high schools.
+export function shouldDisplayCounselor(school) {
+  return (school && school.school_type === 'HS');
+}

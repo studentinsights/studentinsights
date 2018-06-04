@@ -5,7 +5,7 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
-import {shouldDisplay} from '../helpers/customization_helpers';
+import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
 
 
@@ -292,8 +292,8 @@ class SlicePanels extends React.Component {
     return (
       <div className="column grades-column pad-column-right">
         {this.renderGradeTable()}
-        {shouldDisplay('house',this.props.school) && this.renderSimpleTable('House', 'house', {})}
-        {shouldDisplay('counselor',this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
+        {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', {})}
+        {shouldDisplayCounselor(this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
         {this.renderYearsEnrolled()}
         {this.renderRiskLevel()}
       </div>

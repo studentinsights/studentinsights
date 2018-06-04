@@ -7,7 +7,7 @@ import {
   sortByCustomEnum,
   sortByActiveServices
 } from '../helpers/SortHelpers';
-import {shouldDisplay} from '../helpers/customization_helpers';
+import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
 import {latestNoteDateText} from '../helpers/latestNoteDateText';
 import * as Routes from '../helpers/Routes';
 
@@ -114,8 +114,8 @@ class StudentsTable extends React.Component {
               {school.school_type === 'HS' && this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
               {school.school_type === 'HS' && this.renderHeader('Last 10GE', 'latest10geDateText', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
-              {shouldDisplay('house', school) && this.renderHeader('House', 'house', 'string')}
-              {shouldDisplay('counselor', school) && this.renderHeader('Counselor', 'counselor', 'string')}
+              {shouldDisplayHouse(school) && this.renderHeader('House', 'house', 'string')}
+              {shouldDisplayCounselor(school) && this.renderHeader('Counselor', 'counselor', 'string')}
               {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
               {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
               {this.renderHeader('Low Income', 'free_reduced_lunch', 'free_reduced_lunch')}
@@ -145,8 +145,8 @@ class StudentsTable extends React.Component {
                   {school.school_type === 'HS' && <td>{student.latestNgeDateText}</td>}
                   {school.school_type === 'HS' && <td>{student.latest10geDateText}</td>}
                   <td>{student.grade}</td>
-                  {shouldDisplay('house', school) && (<td>{student.house}</td>)}
-                  {shouldDisplay('counselor', school) && (<td>{student.counselor}</td>)}
+                  {shouldDisplayHouse(school) && (<td>{student.house}</td>)}
+                  {shouldDisplayCounselor(school) && (<td>{student.counselor}</td>)}
                   <td>
                     <a href={Routes.homeroom(student.homeroom_id)}>{student.homeroom_name}</a>
                   </td>
