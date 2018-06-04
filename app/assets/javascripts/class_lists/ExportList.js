@@ -33,7 +33,8 @@ export default class ExportList extends React.Component {
       });
     })));
 
-    return _.sortBy(rows, row => row[2]);
+    // Sort by name for secretaries
+    return _.sortBy(rows, row => row[0]);
   }
 
   isReadyToExport(studentIdsByRoom) {
