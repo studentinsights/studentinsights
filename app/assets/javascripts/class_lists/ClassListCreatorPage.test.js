@@ -159,7 +159,7 @@ it('integration test for first-time principal revision', done => {
     defaultWorkspaceId: 'foo-workspace-id',
     autoSaveIntervalMs: 200
   });
-  const wrapper = mount(<ClassListCreatorPage {...props} />);
+  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
 
   // Waiting for data to load
   setTimeout(() => {
