@@ -84,16 +84,18 @@ it('renders district enrollment', () => {
 });
 
 it('renders new classlist', () => {
-  const wrapper = mount(renderPath('/classlists/new'));
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/classlists/new', {educator}));
   expect(wrapper.contains(
-    <ClassListCreatorPage />
+    <ClassListCreatorPage currentEducator={educator} />
   )).toEqual(true);
 });
 
 it('renders edit classlist', () => {
-  const wrapper = mount(renderPath('/classlists/foo-id'));
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/classlists/foo-id', {educator}));
   expect(wrapper.contains(
-    <ClassListCreatorPage defaultWorkspaceId="foo-id" />
+    <ClassListCreatorPage currentEducator={educator} defaultWorkspaceId="foo-id" />
   )).toEqual(true);
 });
 
