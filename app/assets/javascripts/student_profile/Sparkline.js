@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toDate} from './QuadConverter';
+import d3 from 'd3';
 
 /*
 Project quads outside of the date range, since interpolation will connect with previous data points.

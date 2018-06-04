@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
+import d3 from 'd3';
 import Bar from '../components/Bar';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import {colors} from '../helpers/Theme';
