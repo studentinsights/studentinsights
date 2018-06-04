@@ -4153,7 +4153,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                     }
                   >
                     <div
-                      className="Select is-disabled is-searchable Select--single"
+                      className="Select has-value is-disabled is-searchable Select--single"
                       style={undefined}
                     >
                       <div
@@ -4174,9 +4174,18 @@ exports[`exportProps snapshots with teachers 1`] = `
                           id="react-select-18--value"
                         >
                           <div
-                            className="Select-placeholder"
+                            className="Select-value"
+                            style={undefined}
+                            title={undefined}
                           >
-                            Select or type...
+                            <span
+                              aria-selected="true"
+                              className="Select-value-label"
+                              id="react-select-18--value-item"
+                              role="option"
+                            >
+                              Kevin
+                            </span>
                           </div>
                           <div
                             aria-activedescendant="react-select-18--value"
@@ -4230,7 +4239,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                     }
                   >
                     <div
-                      className="Select is-disabled is-searchable Select--single"
+                      className="Select has-value is-disabled is-searchable Select--single"
                       style={undefined}
                     >
                       <div
@@ -4251,9 +4260,18 @@ exports[`exportProps snapshots with teachers 1`] = `
                           id="react-select-19--value"
                         >
                           <div
-                            className="Select-placeholder"
+                            className="Select-value"
+                            style={undefined}
+                            title={undefined}
                           >
-                            Select or type...
+                            <span
+                              aria-selected="true"
+                              className="Select-value-label"
+                              id="react-select-19--value-item"
+                              role="option"
+                            >
+                              Alex
+                            </span>
                           </div>
                           <div
                             aria-activedescendant="react-select-19--value"
@@ -4307,7 +4325,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                     }
                   >
                     <div
-                      className="Select is-disabled is-searchable Select--single"
+                      className="Select has-value is-disabled is-searchable Select--single"
                       style={undefined}
                     >
                       <div
@@ -4328,9 +4346,18 @@ exports[`exportProps snapshots with teachers 1`] = `
                           id="react-select-20--value"
                         >
                           <div
-                            className="Select-placeholder"
+                            className="Select-value"
+                            style={undefined}
+                            title={undefined}
                           >
-                            Select or type...
+                            <span
+                              aria-selected="true"
+                              className="Select-value-label"
+                              id="react-select-20--value-item"
+                              role="option"
+                            >
+                              Uri
+                            </span>
                           </div>
                           <div
                             aria-activedescendant="react-select-20--value"

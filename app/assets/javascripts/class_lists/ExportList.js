@@ -44,11 +44,18 @@ export default class ExportList extends React.Component {
     return (!isMissingTeacherNames && !hasBlankTeacherName);
   }
 
+  // This overrides the default, which includes the comma key as well, which
+  // doesn't make sense with (lastname, firstname) here.
+  shouldKeyDownEventCreateNewOption(keyCode) {
+    if ((keyCode === 9) || (keyCode === 13)) return true;
+    return false;
+  }
+
   onRoomTeacherChanged(roomKey, option) {
     const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
     onPrincipalTeacherNamesByRoomChanged({
       ...principalTeacherNamesByRoom,
-      [roomKey]: option.full_name
+      [roomKey]: (option === null) ? '' : option.name
     });
   }
 
@@ -103,6 +110,12 @@ export default class ExportList extends React.Component {
       return room.roomKey !== UNPLACED_ROOM_KEY;
     });
 
+    // Include created names as options as well.
+    const createdNames = _.values(principalTeacherNamesByRoom);
+    const educatorNames = educators.map(educator => educator.full_name);
+    const uniqueSortedNames = _.sortBy(_.uniq(createdNames.concat(educatorNames)), educator => educator.toLowerCase());
+    const options = uniqueSortedNames.map(name => { return {name}; });
+
     return (
       <table style={styles.table}>
         <tbody>{rooms.map(room => {
@@ -112,16 +125,18 @@ export default class ExportList extends React.Component {
               <td style={styles.cell}>{room.roomName}</td>
               <td style={styles.cell}>
                 <Creatable
-                  valueKey="full_name"
-                  labelKey="full_name"
+                  valueKey="name"
+                  labelKey="name"
                   placeholder="Select or type..."
                   style={styles.select}
-                  options={educators}
+                  options={options}
                   disabled={!isRevisable}
                   autosize={false} // IE11, see https://github.com/JedWatson/react-select/issues/733#issuecomment-237562382
                   multi={false}
                   clearable={false}
                   value={teacherText}
+                  promptTextCreator={_.identity}
+                  shouldKeyDownEventCreateNewOption={this.shouldKeyDownEventCreateNewOption}
                   onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)}
                   backspaceRemoves={true} />
               </td>
@@ -182,7 +197,9 @@ ExportList.propTypes = {
   fetchProfile: React.PropTypes.func.isRequired,
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,
-  educators: React.PropTypes.array.isRequired,
+  educators: React.PropTypes.arrayOf(React.PropTypes.shape({
+    full_name: React.PropTypes.string.isRequired
+  })).isRequired,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
   onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func,
   headingStyle: React.PropTypes.object
