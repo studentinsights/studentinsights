@@ -308,10 +308,12 @@ export default class ClassListCreatorPage extends React.Component {
 
   // Make the save request without any guards. fire-and-forget
   doSave() {
+    const {nowFn} = this.context;
+    const now = nowFn();
     const snapshotForSaving = snapshotStateForSaving(this.state);
     const payload = {
       ...snapshotForSaving,
-      clientNowMs: moment.utc().unix()
+      clientNowMs: now.unix()
     };
 
     // Post to different endpoints based on whether it's the teacher or principal working.
@@ -542,6 +544,9 @@ export default class ClassListCreatorPage extends React.Component {
     );
   }
 }
+ClassListCreatorPage.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 ClassListCreatorPage.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,

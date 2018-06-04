@@ -285,4 +285,14 @@ RSpec.describe Student do
 
   end
 
+  describe '#validate_grade' do
+    it 'prevents and prints out invalid grades' do
+      student = FactoryBot.create(:student)
+      was_successful = student.update(grade: 'foo')
+      expect(was_successful).to eq false
+      expect(student.errors.details).to eq({
+        grade: [{:error=>"invalid grade: foo"}]
+      })
+    end
+  end
 end

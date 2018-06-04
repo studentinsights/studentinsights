@@ -50,10 +50,7 @@ class ClassListQueries
 
   # Is this feature relevant for them at all?
   def is_relevant_for_educator?
-    supported_schools.each do |school|
-      return true if authorized_grade_levels(school.id).size > 0
-    end
-    false
+    supported_schools.any? {|school| authorized_grade_levels(school.id).size > 0 }
   end
 
   # At a school, what grade levels are they authorized for?
@@ -71,7 +68,7 @@ class ClassListQueries
 
   # What schools are supported?
   def supported_schools
-    School.where(school_type: ['ESMS', 'ES', 'MS'])
+    @supported_schools ||= School.where(school_type: ['ESMS', 'ES', 'MS'])
   end
 
   # This is authorization-aware, and checks authorization for the grade level

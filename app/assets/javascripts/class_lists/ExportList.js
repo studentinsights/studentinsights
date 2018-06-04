@@ -2,7 +2,7 @@ import React from 'react';
 import {Creatable} from 'react-select';
 import 'react-select/dist/react-select.css';
 import _ from 'lodash';
-import DownloadCsvLink from '../components/DownloadCsvLink';
+import DownloadCsvLink, {joinCsvRow} from '../components/DownloadCsvLink';
 import SuccessLabel from '../components/SuccessLabel';
 import {gradeText} from '../helpers/gradeText';
 import {
@@ -131,13 +131,20 @@ export default class ExportList extends React.Component {
   }
 
   renderDownloadListsLink(studentIdsByRoom, rows) {
+    const {nowFn} = this.context;
+    const now = nowFn();
     const isReadyToExport = this.isReadyToExport(studentIdsByRoom);
     const {gradeLevelNextYear, school} = this.props;
     const gradeLevelText = gradeText(gradeLevelNextYear);
-    const dateText = moment.utc().format('YYYY-MM-DD');
+    const dateText = now.format('YYYY-MM-DD');
     const filename = `Class list: ${gradeLevelText} at ${school.name} ${dateText}.csv`;
-    const header = 'Grade level next year,LASID,Student name,Room next year';
-    const csvText = [header].concat(rows).join('\n');
+    const header = joinCsvRow([
+      'Grade level next year',
+      'LASID',
+      'Student name',
+      'Room next year'
+    ]);
+    const csvText = [header].concat(rows.map(joinCsvRow)).join('\n');
 
     return (
       <div>
@@ -155,6 +162,9 @@ export default class ExportList extends React.Component {
     );
   }
 }
+ExportList.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 ExportList.propTypes = {
   isRevisable: React.PropTypes.bool.isRequired,
   gradeLevelNextYear: React.PropTypes.string.isRequired,

@@ -1,6 +1,7 @@
 import React from 'react';
 import {MemoryRouter} from 'react-router-dom';
 import {storiesOf} from '@storybook/react';
+import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import storybookFrame from './storybookFrame';
@@ -12,7 +13,7 @@ storiesOf('classlists/ClassListCreatorPage', module) // eslint-disable-line no-u
     const props = testProps();
     return storybookFrame(
       <MemoryRouter initialEntries={['/classlists']}>
-        <ClassListCreatorPage {...props} />
+        {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
       </MemoryRouter>
     );
   });
