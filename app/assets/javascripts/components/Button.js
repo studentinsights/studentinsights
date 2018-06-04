@@ -36,6 +36,7 @@ const propTypes = Button.propTypes = {
   isDisabled: React.PropTypes.bool,
   style: React.PropTypes.object,
   hoverStyle: React.PropTypes.object,
+  disabledStyle: React.PropTypes.object,
   containerStyle: React.PropTypes.object
 };
 
