@@ -23,9 +23,10 @@ class StudentsController < ApplicationController
   def show
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
+    can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
 
     @serialized_data = {
-      current_educator: current_educator,
+      current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
@@ -34,6 +35,7 @@ class StudentsController < ApplicationController
       event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
+      transition_notes: (can_see_transition_notes ? student.transition_notes : []),
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),

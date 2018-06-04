@@ -113,6 +113,7 @@ export const studentProfile = {
   "serviceTypesIndex": serviceTypesIndex,
   "eventNoteTypesIndex": eventNoteTypesIndex,
   "dibels": [],
+  transitionNotes: [],
   "student": {
     "id": 23,
     "grade": "5",

@@ -1,12 +1,17 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
+import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import storybookFrame from './storybookFrame';
 import {
   chooseYourGradeProps,
   makeAPlanProps,
-  notesToPrincipalProps
+  shareWithPrincipalProps,
+  exportProps,
+  exportPropsWithAllPlaced,
+  exportPropsWithMoves,
+  exportPropsWithTeacherNames
 } from './ClassListCreatorWorkflow.test';
 
 function withStoryProps(props = {}) {
@@ -21,13 +26,15 @@ function withStoryProps(props = {}) {
     onClassListsChanged: action('onClassListsChanged'),
     onPrincipalNoteChanged: action('onPrincipalNoteChanged'),
     onFeedbackTextChanged: action('onFeedbackTextChanged'),
-    onSubmitClicked: action('onSubmitClicked')
+    onSubmitClicked: action('onSubmitClicked'),
+    onClassListsChangedByPrincipal: action('onClassListsChangedByPrincipal'),
+    onPrincipalTeacherNamesByRoomChanged: action('onPrincipalTeacherNamesByRoomChanged')
   };
 }
 
 
 function render(props) {
-  return storybookFrame(<ClassListCreatorWorkflow {...props} />);
+  return storybookFrame(withDefaultNowContext(<ClassListCreatorWorkflow {...props} />));
 }
 
 storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
@@ -36,18 +43,22 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
   .add('Choose your grade, readonly', () => render(withStoryProps(chooseYourGradeProps({ isEditable: false }))))
   .add('Make a plan', () => render(withStoryProps(makeAPlanProps())))
   .add('Make a plan, readonly', () => render(withStoryProps(makeAPlanProps({ isEditable: false }))))
-  .add('Notes to principal', () => render(withStoryProps(notesToPrincipalProps())))
-  .add('Notes to principal, saving', () => {
-    return render(withStoryProps(notesToPrincipalProps({
+  .add('Share with principal', () => render(withStoryProps(shareWithPrincipalProps())))
+  .add('Share with principal, saving', () => {
+    return render(withStoryProps(shareWithPrincipalProps({
       isEditable: false,
       isSubmitted: true,
       isDirty: true,
     })));
   })
-  .add('Notes to principal, readonly', () => {
-    return render(withStoryProps(notesToPrincipalProps({
+  .add('Share with principal, readonly', () => {
+    return render(withStoryProps(shareWithPrincipalProps({
       isEditable: false,
       isSubmitted: true
     })));
-  });
-
+  })
+  .add('Export, some unplaced', () => render(withStoryProps(exportProps())))
+  .add('Export, all placed', () => render(withStoryProps(exportPropsWithAllPlaced())))
+  .add('Export, with moves', () => render(withStoryProps(exportPropsWithMoves())))
+  .add('Export, with teacher names', () => render(withStoryProps(exportPropsWithTeacherNames())));
+  

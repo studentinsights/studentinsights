@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import Select from 'react-select';
@@ -8,9 +7,11 @@ import Loading from '../components/Loading';
 import {SeriousButton} from '../components/Button';
 import SuccessLabel from '../components/SuccessLabel';
 import IntroCopy from './IntroCopy';
-import CreateYourLists from './CreateYourLists';
+import CreateYourLists, {styleStudentFn} from './CreateYourLists';
+import ExportList from './ExportList';
 import HorizontalStepper from './HorizontalStepper';
 import {fetchProfile} from './api';
+import {resolveDriftForStudents, findMovedStudentIds} from './studentIdsByRoomFunctions';
 
 
 
@@ -39,6 +40,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
       stepIndex,
       availableSteps,
       onStepChanged,
+      isRevisable,
       isEditable,
       isDirty
     } = this.props;
@@ -52,6 +54,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
           steps={steps}
           availableSteps={availableSteps}
           isEditable={isEditable}
+          isRevisable={isRevisable}
           isDirty={isDirty}
           stepIndex={stepIndex}
           onStepChanged={onStepChanged}
@@ -66,8 +69,9 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (stepIndex === 0) return this.renderChooseYourGrade();
     if (stepIndex === 1) return this.renderMakeAPlan();
     if (stepIndex === 2) return this.renderCreateYourClassrooms();
-    if (stepIndex === 3) return this.renderNotesToPrincipal();
-    if (stepIndex === 4) return this.renderShareWithPrincipal();
+    if (stepIndex === 3) return this.renderSubmit();
+    if (stepIndex === 4) return this.renderPrincipalFinalizes();
+    if (stepIndex === 5) return this.renderExportList();
   }
 
   renderChooseYourGrade() {
@@ -85,7 +89,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (schools === null || gradeLevelsNextYear === null) return <Loading />;
 
     return (
-      <div style={styles.stepContent}>
+      <div key="choose-your-grade" style={styles.stepContent}>
         <div>
           <div style={styles.titleHeading}>Class List Creator</div>
           <IntroCopy />
@@ -145,7 +149,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
     if (educators === null || students === null) return <Loading />;
     return (
-      <div style={styles.stepContent}>
+      <div key="make-a-plan" style={styles.stepContent}>
         <div>
           <div style={styles.heading}>Who's the team creating these class lists?</div>
           <Select
@@ -212,10 +216,11 @@ export default class ClassListCreatorWorkflow extends React.Component {
     if (students === null || studentIdsByRoom === null) return <Loading />;
     return (
       <CreateYourLists
+        key="create-your-classrooms"
         students={students}
         classroomsCount={classroomsCount}
         gradeLevelNextYear={gradeLevelNextYear}
-        studentIdsByRoom={studentIdsByRoom}
+        studentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
         isEditable={isEditable}
         isExpandedVertically={isExpandedVertically}
@@ -224,7 +229,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderNotesToPrincipal() {
+  renderSubmit() {
     const {
       isEditable,
       isSubmitted,
@@ -237,7 +242,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     } = this.props;
 
     return (
-      <div style={styles.stepContent}>
+      <div key="submit" style={styles.stepContent}>
         <div>
           <div>What else should your principal know?</div>
           <div style={styles.descriptionText}>
@@ -268,7 +273,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
             {isSubmitted
               ? (isDirty) ? <span>Saving...</span> : <SuccessLabel text="Your class list is submitted" />
-              : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
+              : <SeriousButton isDisabled={!isEditable} onClick={onSubmitClicked}>Submit to principal</SeriousButton>
             }
           </div>
         </div>
@@ -276,52 +281,122 @@ export default class ClassListCreatorWorkflow extends React.Component {
     );
   }
 
-  renderShareWithPrincipal() {
+  renderPrincipalFinalizes() {
+    const {
+      workspaceId,
+      students,
+      isRevisable,
+      classroomsCount,
+      gradeLevelNextYear,
+      onClassListsChangedByPrincipal
+    } = this.props;
+    const {isExpandedVertically} = this.state;
+
+    // Default to teacher lists if no moves
+    const teacherStudentIdsByRoom = this.props.studentIdsByRoom;
+    const principalStudentIdsByRoom = this.props.principalStudentIdsByRoom || teacherStudentIdsByRoom;
+    if (students === null || principalStudentIdsByRoom === null) return <Loading />;
+
+    // See which students have moved so we can style them differently.
+    const movedStudentIds = findMovedStudentIds(teacherStudentIdsByRoom, principalStudentIdsByRoom);
     return (
-      <div style={styles.stepContent}>
-        <div>After teachers submit their lists, principals can revise and export the lists as spreadsheets for sending letters home and entering into Aspen.  This will open the week of 6/4 and talk with Uri if you have any questions!</div>
+      <CreateYourLists
+        key="principal-finalizes"
+        isEditable={isRevisable}
+        students={students}
+        classroomsCount={classroomsCount}
+        gradeLevelNextYear={gradeLevelNextYear}
+        studentIdsByRoom={resolveDriftForStudents(principalStudentIdsByRoom, _.map(students, 'id'))}
+        fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        styleStudentFn={student => styleStudentFn(movedStudentIds, student)}
+        isExpandedVertically={isExpandedVertically}
+        onExpandVerticallyToggled={this.onExpandVerticallyToggled}
+        onClassListsChanged={onClassListsChangedByPrincipal} />
+    );
+  }
+
+  renderExportList() {
+    const {
+      workspaceId,
+      isRevisable,
+      gradeLevelNextYear,
+      schoolId,
+      schools,
+      students,
+      studentIdsByRoom,
+      principalTeacherNamesByRoom,
+      educators,
+      principalStudentIdsByRoom,
+      onPrincipalTeacherNamesByRoomChanged
+    } = this.props;
+    const school = _.find(schools, {id: schoolId});
+
+    if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
+
+    return (
+      <div key="export" style={styles.stepContent}>
+        <ExportList
+          isRevisable={isRevisable}
+          headingStyle={styles.heading}
+          school={school}
+          gradeLevelNextYear={gradeLevelNextYear}
+          students={students} 
+          fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+          teacherStudentIdsByRoom={studentIdsByRoom}
+          principalStudentIdsByRoom={principalStudentIdsByRoom}
+          educators={educators}
+          principalTeacherNamesByRoom={principalTeacherNamesByRoom}
+          onPrincipalTeacherNamesByRoomChanged={isRevisable ? onPrincipalTeacherNamesByRoomChanged : null}
+        />
       </div>
     );
   }
 }
 ClassListCreatorWorkflow.propTypes = {
   // server data
-  schools: PropTypes.array,
-  gradeLevelsNextYear: PropTypes.array,
-  students: PropTypes.array,
-  educators: PropTypes.array,
+  schools: React.PropTypes.array,
+  gradeLevelsNextYear: React.PropTypes.array,
+  students: React.PropTypes.array,
+  educators: React.PropTypes.array,
 
   // config
-  steps: PropTypes.arrayOf(PropTypes.string).isRequired,
-  availableSteps: PropTypes.arrayOf(PropTypes.number).isRequired,
-  isEditable: PropTypes.bool.isRequired,
-  isSubmitted: PropTypes.bool.isRequired,
+  steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
+  isSubmitted: React.PropTypes.bool.isRequired,
+  isRevisable: React.PropTypes.bool.isRequired,
 
-  // state
-  isDirty: PropTypes.bool.isRequired,
-  canChangeSchoolOrGrade: PropTypes.bool.isRequired,
-  stepIndex: PropTypes.number.isRequired,
-  workspaceId: PropTypes.string.isRequired,
-  schoolId: PropTypes.number,
-  gradeLevelNextYear: PropTypes.string,
-  authors: PropTypes.array.isRequired,
-  classroomsCount: PropTypes.number.isRequired,
-  planText: PropTypes.string.isRequired,
-  studentIdsByRoom: PropTypes.object,
-  principalNoteText: PropTypes.string.isRequired,
-  feedbackText: PropTypes.string.isRequired,
+  // workspace
+  isDirty: React.PropTypes.bool.isRequired,
+  canChangeSchoolOrGrade: React.PropTypes.bool.isRequired,
+  stepIndex: React.PropTypes.number.isRequired,
+  workspaceId: React.PropTypes.string.isRequired,
+  schoolId: React.PropTypes.number,
+  gradeLevelNextYear: React.PropTypes.string,
+  authors: React.PropTypes.array.isRequired,
+  classroomsCount: React.PropTypes.number.isRequired,
+  planText: React.PropTypes.string.isRequired,
+  studentIdsByRoom: React.PropTypes.object,
+  principalNoteText: React.PropTypes.string.isRequired,
+  feedbackText: React.PropTypes.string.isRequired,
+
+  // principal
+  principalTeacherNamesByRoom: React.PropTypes.object,
+  principalStudentIdsByRoom: React.PropTypes.object,
+  onClassListsChangedByPrincipal: React.PropTypes.func.isRequired,
+  onPrincipalTeacherNamesByRoomChanged: React.PropTypes.func.isRequired,
 
   // callbacks
-  onStepChanged: PropTypes.func.isRequired,
-  onSchoolIdChanged: PropTypes.func.isRequired,
-  onGradeLevelNextYearChanged: PropTypes.func.isRequired,
-  onEducatorsChanged: PropTypes.func.isRequired,
-  onClassroomsCountIncremented: PropTypes.func.isRequired,
-  onPlanTextChanged: PropTypes.func.isRequired,
-  onClassListsChanged: PropTypes.func.isRequired,
-  onPrincipalNoteChanged: PropTypes.func.isRequired,
-  onFeedbackTextChanged: PropTypes.func.isRequired,
-  onSubmitClicked: PropTypes.func.isRequired
+  onStepChanged: React.PropTypes.func.isRequired,
+  onSchoolIdChanged: React.PropTypes.func.isRequired,
+  onGradeLevelNextYearChanged: React.PropTypes.func.isRequired,
+  onEducatorsChanged: React.PropTypes.func.isRequired,
+  onClassroomsCountIncremented: React.PropTypes.func.isRequired,
+  onPlanTextChanged: React.PropTypes.func.isRequired,
+  onClassListsChanged: React.PropTypes.func.isRequired,
+  onPrincipalNoteChanged: React.PropTypes.func.isRequired,
+  onFeedbackTextChanged: React.PropTypes.func.isRequired,
+  onSubmitClicked: React.PropTypes.func.isRequired
 };
 
 const styles = {

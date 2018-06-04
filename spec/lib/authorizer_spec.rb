@@ -11,8 +11,8 @@ RSpec.describe Authorizer do
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
-    expect(Student.all.size).to eq 2
-    expect(Educator.all.size).to eq 13
+    expect(Student.all.size).to eq 3
+    expect(Educator.all.size).to eq 15
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
   end
@@ -32,7 +32,8 @@ RSpec.describe Authorizer do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
       expect(authorized(pals.uri) { students }).to contain_exactly(*[
         pals.healey_kindergarten_student,
-        pals.shs_freshman_mari
+        pals.shs_freshman_mari,
+        pals.west_eigth_ryan,
       ])
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
       expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
@@ -92,7 +93,8 @@ RSpec.describe Authorizer do
       it 'limits access with Student.all' do
         expect(authorized(pals.uri) { Student.all }).to match_array [
           pals.healey_kindergarten_student,
-          pals.shs_freshman_mari
+          pals.shs_freshman_mari,
+          pals.west_eigth_ryan,
         ]
         expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
           pals.healey_kindergarten_student
@@ -127,7 +129,8 @@ RSpec.describe Authorizer do
         thin_relation = Student.select(:id, :local_id).all
         expect((authorized(pals.uri) { thin_relation }).map(&:id)).to match_array([
           pals.healey_kindergarten_student.id,
-          pals.shs_freshman_mari.id
+          pals.shs_freshman_mari.id,
+          pals.west_eigth_ryan.id
         ])
         expect((authorized(pals.healey_vivian_teacher) { thin_relation }).map(&:id)).to eq([
           pals.healey_kindergarten_student.id
@@ -208,6 +211,32 @@ RSpec.describe Authorizer do
   end
 
   describe '#is_authorized_for_student?' do
+    context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
+      before do
+        allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
+      end
+
+      it 'returns true' do
+        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eigth_ryan)).to eq true
+      end
+    end
+
+    context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 off' do
+      it 'returns true' do
+        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eigth_ryan)).to eq false
+      end
+    end
+
+    context 'HS house master, K student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
+      before do
+        allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
+      end
+
+      it 'returns false' do
+        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.healey_kindergarten_student)).to eq false
+      end
+    end
+
     it 'raises if `#select` was used on the `student` argument, and fields needed for authorization are missing' do
       thin_student = Student.select(:id, :local_id).find(pals.shs_freshman_mari.id)
       expect(Authorizer.new(pals.uri).is_authorized_for_student?(thin_student)).to eq true

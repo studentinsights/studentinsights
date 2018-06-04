@@ -30,6 +30,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/class_lists/CreateYourLists.story.js');
   require('../../../app/assets/javascripts/class_lists/StudentCard.story.js');
   require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story.js');
+  require('../../../app/assets/javascripts/class_lists/ExportList.story.js');
 
   // add more here!
 }

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import Circle from '../components/Circle';
 import Button from '../components/Button';
@@ -35,6 +34,7 @@ export default class HorizontalStepper extends React.Component {
       steps,
       availableSteps,
       isEditable,
+      isRevisable,
       isDirty,
       renderFn,
       style,
@@ -60,7 +60,8 @@ export default class HorizontalStepper extends React.Component {
               );
             })}
           </div>
-          {!isEditable && <div style={styles.readonly}>readonly</div>}
+          {!isEditable && !isRevisable && <div style={{...styles.label, background: '#666', color: '#eee'}}>readonly</div>}
+          {!isEditable && isRevisable && <div style={{...styles.label, background: 'rgb(209, 231, 210)', color: 'green', fontWeight: 'bold'}}>principal</div>}
           {isDirty && <div style={styles.dirty}>●</div>}
         </div>
         <div style={{...styles.content, ...contentStyle}}>
@@ -108,15 +109,16 @@ export default class HorizontalStepper extends React.Component {
   }
 }
 HorizontalStepper.propTypes = {
-  steps: PropTypes.arrayOf(PropTypes.string).isRequired,
-  availableSteps: PropTypes.arrayOf(PropTypes.number).isRequired,
-  stepIndex: PropTypes.number.isRequired,
-  onStepChanged: PropTypes.func.isRequired,
-  isEditable: PropTypes.bool.isRequired,
-  isDirty: PropTypes.bool.isRequired,
-  renderFn: PropTypes.func.isRequired,
-  style: PropTypes.object,
-  contentStyle: PropTypes.object
+  steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+  stepIndex: React.PropTypes.number.isRequired,
+  onStepChanged: React.PropTypes.func.isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
+  isRevisable: React.PropTypes.bool.isRequired,
+  isDirty: React.PropTypes.bool.isRequired,
+  renderFn: React.PropTypes.func.isRequired,
+  style: React.PropTypes.object,
+  contentStyle: React.PropTypes.object
 };
 
 const styles = {
@@ -140,7 +142,7 @@ const styles = {
     padding: 8,
     paddingRight: 10,
     marginLeft: 5,
-    marginRight: 10,
+    marginRight: 8,
     cursor: 'pointer',
     border: '1px solid white',
     borderRadius: 3,
@@ -160,14 +162,12 @@ const styles = {
     height: 1,
     borderTop: '1px solid #eee'
   },
-  readonly: {
+  label: {
     display: 'inline-block',
     padding: 6,
     paddingRight: 12,
     paddingLeft: 12,
-    marginRight: 20,
-    background: '#666',
-    color: '#eee',
+    marginRight: 10,
     borderRadius: 3
   },
   dirty: {

@@ -91,13 +91,15 @@ class App extends React.Component {
   }
 
   renderClassListCreatorEdit(routeProps) {
+    const {currentEducator} = this.props;
     const workspaceId = routeProps.match.params.workspace_id;
     this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
-    return <ClassListCreatorPage defaultWorkspaceId={workspaceId} />;
+    return <ClassListCreatorPage currentEducator={currentEducator} defaultWorkspaceId={workspaceId} />;
   }
   renderClassListCreatorNew(routeProps) {
+    const {currentEducator} = this.props;
     this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
-    return <ClassListCreatorPage />;
+    return <ClassListCreatorPage currentEducator={currentEducator} />;
   }
 
   renderSchoolCoursesPage(routeProps) {

@@ -1,4 +1,15 @@
 class PerfTest
+  # See ClassListQueries.  This was driven by the view in admin/authorization, running this
+  # across all educators.
+  def self.is_relevant_for_educator?(percentage, options = {})
+    timer = PerfTest.new.run(percentage) do |t, educator|
+      ClassListQueries.new(educator).is_relevant_for_educator?
+    end
+    pp timer.report
+    pp PerfTest::Reporter.new.report(timer.report.group_by {|tuple| tuple[0] })
+    timer
+  end
+
   # For testing the high absences insight
   def self.high_absences(percentage, options = {})
     timer = PerfTest.new.run(percentage) do |t, educator|

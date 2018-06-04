@@ -18,7 +18,10 @@ class ClassListsController < ApplicationController
             :submitted
           ],
           include: {
-            created_by_educator: {
+            created_by_teacher_educator: {
+              only: [:id, :email, :full_name]
+            },
+            revised_by_principal_educator: {
               only: [:id, :email, :full_name]
             },
             school: {
@@ -50,7 +53,6 @@ class ClassListsController < ApplicationController
       grade_level_now = GradeLevels.new.previous(grade_level_next_year)
       school_ids.any? {|school_id| queries.is_authorized_for_grade_level_now?(school_id, grade_level_now) }
     end
-    current_grade_level = current_educator.homeroom.try(:grade) || 'KF'
 
     render json: {
       schools: schools_json,
@@ -75,6 +77,7 @@ class ClassListsController < ApplicationController
     students_json = students.as_json({
       only: [
         :id,
+        :local_id,
         :first_name,
         :last_name,
         :date_of_birth,
@@ -126,7 +129,7 @@ class ClassListsController < ApplicationController
 
   # For saving progress on creating class lists.
   # This is a POST and we store all updates.
-  def update_class_list_json
+  def teacher_updated_class_list_json
     params.require(:workspace_id)
     params.require(:school_id)
     params.require(:grade_level_next_year)
@@ -148,7 +151,7 @@ class ClassListsController < ApplicationController
     # Write a new record
     class_list = ClassList.create!({
       workspace_id: workspace_id,
-      created_by_educator_id: current_educator.id,
+      created_by_teacher_educator_id: current_educator.id,
       school_id: school_id,
       grade_level_next_year: grade_level_next_year,
       submitted: submitted,
@@ -157,6 +160,35 @@ class ClassListsController < ApplicationController
     class_list_json = serialize_class_list(class_list)
     render json: {
       class_list: class_list_json
+    }
+  end
+
+  # This is a POST for storing all principal revisions.
+  def principal_revised_class_list_json
+    params.require(:workspace_id)
+    params.require(:principal_revisions_json)
+    workspace_id = params[:workspace_id]
+    principal_revisions_json = params[:principal_revisions_json]
+
+    # The class list must be submitted already
+    latest_class_list = ClassList.latest_class_list_for_workspace(workspace_id)
+    raise Exceptions::EducatorNotAuthorized unless latest_class_list.submitted?
+
+    # They must be authorized to read it
+    grade_level_now = GradeLevels.new.previous(latest_class_list.grade_level_next_year)
+    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(latest_class_list.school_id, grade_level_now)
+
+    # They must be authorized to revise it
+    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_to_revise?(latest_class_list)
+
+    # Write a new record
+    class_list = latest_class_list.dup
+    class_list.update!({
+      principal_revisions_json: principal_revisions_json,
+      revised_by_principal_educator_id: current_educator.id
+    })
+    render json: {
+      class_list: serialize_class_list(class_list)
     }
   end
 
@@ -211,11 +243,13 @@ class ClassListsController < ApplicationController
   def serialize_class_list(class_list)
     class_list.as_json(only: [
       :workspace_id,
-      :created_by_educator_id,
+      :created_by_teacher_educator_id,
       :school_id,
       :grade_level_next_year,
       :submitted,
-      :json
+      :json,
+      :principal_revisions_json,
+      :revised_by_principal_educator_id
     ])
   end
 

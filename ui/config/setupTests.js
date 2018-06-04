@@ -23,7 +23,12 @@ global.fetch = require('jest-fetch-mock'); // eslint-disable-line no-undef
 console.error = jest.fn(error => { throw new Error(error); }); //eslint-disable-line no-console
 console.warn = jest.fn(warn => { throw new Error(warn); }); //eslint-disable-line no-console
 
-// flag for GenericLoader
+// Make test fail if code is reporting errors to Rollbar
+window.Rollbar = {
+  error: jest.fn(error => { throw new Error(error); }) //eslint-disable-line no-console
+};
+
+// flag for GenericLoader to handle failure differently in test
 global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST = true;
 
 // Unhandled promise rejections should fail tests

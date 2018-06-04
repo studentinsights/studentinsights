@@ -30,9 +30,19 @@ describe DistrictController, :type => :controller do
             "school_type"=>"HS",
             "name"=>"Somerville High",
             "local_id"=>"SHS",
-            "slug"=>"shs"
+            "slug"=>"shs"}
+        }, {
+          "enrollment"=>1,
+          "grade"=>"8",
+          "school"=>
+           {"id"=>pals.west.id,
+            "school_type"=>"ESMS",
+            "name"=>"West Somerville Neighborhood",
+            "local_id"=>"WSNS",
+            "slug"=>"wsns"
+          }
         }
-      }])
+      ])
     end
 
     it 'guards authorization' do

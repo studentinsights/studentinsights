@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
   get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
   get '/api/class_lists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
-  post '/api/class_lists/:workspace_id/update_class_list_json' => 'class_lists#update_class_list_json'
+  post '/api/class_lists/:workspace_id/teacher_updated_class_list_json' => 'class_lists#teacher_updated_class_list_json'
+  post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
   get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
   get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
 
@@ -57,6 +58,8 @@ Rails.application.routes.draw do
   get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
+    resources :transition_notes, only: [:create, :update]
+
     member do
       get :student_report
       get :restricted_notes

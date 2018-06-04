@@ -1,10 +1,20 @@
+# Within a `workspace_id`, there are multiple ClassList records
+# holding states over time.  There might be hundreds of ClassList records
+# within a single `workspace_id` if a teacher is making many revisions.
+#
+# These records are always restricted to a single teacher writing them.
+# When that teachers submits, the school principal can then revise the list,
+# with each revision being a new ClassList record as well.  When the principal
+# is revising, this is stored in separate fields, and the principal can't change
+# what the teacher has already done.
 class ClassList < ActiveRecord::Base
   belongs_to :school
-  belongs_to :created_by_educator, class_name: 'Educator'
+  belongs_to :created_by_teacher_educator, class_name: 'Educator'
+  belongs_to :revised_by_principal_educator, class_name: 'Educator'
 
   validates :grade_level_next_year, presence: true
   validates :school_id, presence: true
-  validates :created_by_educator_id, presence: true
+  validates :created_by_teacher_educator_id, presence: true
   validate :validate_consistent_workspace_grade_school
   validate :validate_single_writer_in_workspace
 
@@ -22,12 +32,12 @@ class ClassList < ActiveRecord::Base
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.
   def validate_consistent_workspace_grade_school
-    validate_consistent_values_within_workspace(:school_id, :grade_level_next_year)
+    validate_consistent_values_within_workspace([:school_id, :grade_level_next_year])
   end
 
   # Only one writer can write to a workspace
   def validate_single_writer_in_workspace
-    validate_consistent_values_within_workspace(:created_by_educator_id)
+    validate_consistent_values_within_workspace([:created_by_teacher_educator_id])
   end
 
   # This checks that particular values are consistent across all records
@@ -38,7 +48,7 @@ class ClassList < ActiveRecord::Base
   # This complexity arises from having a single endpoint for the client to write
   # updates, and storing those different states of the workspace denormalized
   # in a single table.
-  def validate_consistent_values_within_workspace(*grouping_fields)
+  def validate_consistent_values_within_workspace(grouping_fields, options = {})
     # SQL group is optimized for many workspace_id records
     grouped_by_fields = ClassList
       .where(workspace_id: workspace_id)

@@ -34,7 +34,7 @@ exports[`snapshots view 1`] = `
         className="Hover"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
-        style={undefined}
+        style={Object {}}
       >
         <button
           onClick={[Function]}

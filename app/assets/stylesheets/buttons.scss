@@ -7,13 +7,21 @@
   border-radius: 28px;
   color: $white;
   font-size: 14px;
-  background: $blue;
   padding: 8px 25px;
   text-decoration: none;
   border: none;
-  cursor: pointer;
 
-  &:hover {
+  &:not(.btn-disabled) {
+    background: $blue;
+    cursor: pointer;
+  }
+
+  &.btn-disabled {
+    background: #aaa;
+    cursor: default;
+  }
+
+  &:hover:not(.btn-disabled) {
     background-color: darken($blue, 10%);
     text-decoration: none;
   }

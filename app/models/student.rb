@@ -12,6 +12,7 @@ class Student < ActiveRecord::Base
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
   has_many :event_notes, dependent: :destroy
+  has_many :transition_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_many :tardies, dependent: :destroy
   has_many :absences, dependent: :destroy
@@ -321,6 +322,6 @@ class Student < ActiveRecord::Base
   end
 
   def validate_grade
-    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
+    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
   end
 end

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
@@ -38,7 +37,7 @@ export default class ClassListsViewPage extends React.Component {
   }
 }
 ClassListsViewPage.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired
+  currentEducatorId: React.PropTypes.number.isRequired
 };
 
 // View component
@@ -92,7 +91,7 @@ export class ClassListsViewPageView extends React.Component {
           <tbody>{sortedWorkspaces.map(workspace => {
             const classList = workspace.class_list;
             const createdAtMoment = toMomentFromTime(classList.created_at).local();
-            const educatorStyle = (classList.created_by_educator.id === currentEducatorId)
+            const educatorStyle = (classList.created_by_teacher_educator.id === currentEducatorId)
               ? { fontWeight: 'bold' }
               : {};
             return (
@@ -102,7 +101,7 @@ export class ClassListsViewPageView extends React.Component {
                   {gradeText(classList.grade_level_next_year)}
                 </td>
                 <td style={tableStyles.cell}>
-                  <Educator educator={classList.created_by_educator} style={educatorStyle} />
+                  <Educator educator={classList.created_by_teacher_educator} style={educatorStyle} />
                 </td>
                 <td style={tableStyles.cell} title={`Revisions: ${workspace.revisions_count}`}>
                   {createdAtMoment.format('dddd M/D, h:mma')}
@@ -135,19 +134,19 @@ export class ClassListsViewPageView extends React.Component {
   }
 }
 ClassListsViewPageView.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired,
-  workspaces: PropTypes.arrayOf(PropTypes.shape({
-    workspace_id: PropTypes.string.isRequired,
-    revisions_count: PropTypes.number.isRequired,
-    class_list: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      workspace_id: PropTypes.string.isRequired,
-      grade_level_next_year: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired,
-      updated_at: PropTypes.string.isRequired,
-      submitted: PropTypes.bool.isRequired,
-      created_by_educator: PropTypes.object.isRequired,
-      school: PropTypes.object.isRequired,
+  currentEducatorId: React.PropTypes.number.isRequired,
+  workspaces: React.PropTypes.arrayOf(React.PropTypes.shape({
+    workspace_id: React.PropTypes.string.isRequired,
+    revisions_count: React.PropTypes.number.isRequired,
+    class_list: React.PropTypes.shape({
+      id: React.PropTypes.number.isRequired,
+      workspace_id: React.PropTypes.string.isRequired,
+      grade_level_next_year: React.PropTypes.string.isRequired,
+      created_at: React.PropTypes.string.isRequired,
+      updated_at: React.PropTypes.string.isRequired,
+      submitted: React.PropTypes.bool.isRequired,
+      created_by_teacher_educator: React.PropTypes.object.isRequired,
+      school: React.PropTypes.object.isRequired,
     }).isRequired
   })).isRequired
 };

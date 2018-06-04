@@ -14,10 +14,12 @@ module Devise
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
         email = authentication_hash[:email]
+        ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
+
         begin
           educator = Educator.find_by_email(email.downcase)
           fail!(:not_found_in_database) and return unless educator.present?
-          fail!(:invalid) and return unless is_authorized_by_ldap?(email, password)
+          fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, email, password)
           success!(educator) and return
         rescue => error
           logger.error "LdapAuthenticatableTiny, error: #{error}"
@@ -29,10 +31,10 @@ module Devise
       private
       # Create a Net::LDAP instance, `bind` to it and close.
       # Return true or false if they're authorized.
-      def is_authorized_by_ldap?(login, password)
+      def is_authorized_by_ldap?(ldap_class, login, password)
         return false if password.nil? || password == ''
         options = ldap_options_for(login, password)
-        ldap = Net::LDAP.new(options)
+        ldap = ldap_class.new(options)
         is_authorized = ldap.bind
 
         if !is_authorized

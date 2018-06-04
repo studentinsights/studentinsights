@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
@@ -6,7 +5,8 @@ import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
   fetchClassListJson,
-  postClassList
+  postTeacherUpdates,
+  postPrincipalRevisions
 } from './api';
 import Loading from '../components/Loading';
 import {
@@ -20,15 +20,32 @@ export const STEPS = [
   'Choose your grade',
   'Make a plan',
   'Create your classrooms',
-  'Share with principal',
-  'Principal finalizes'
+  'Share notes',
+  'Principal finalizes',
+  'Export'
 ];
 
 
-// Root page component.
-// This component manages state transitions and hands off requests to the server
-// and rendering to other components.  On state changes, it saves to the server
-// with some throttling to prevent too much server communication.
+/*
+Root page component.
+This component manages state transitions and hands off requests to the server
+and rendering to other components.  On state changes, it saves to the server
+with some throttling to prevent too much server communication.
+
+The overall flow is that:
+
+1. A teacher makes a new class list workspace.
+   For them, it's editable.
+   For other teachers, or principals or district admin, it's readonly.
+2. That teacher submits the class list.
+   For them, it changes to readonly.
+   For other teachers and district admin, it's still readonly too.
+   For the principal of that school, it's "revisable."  The original teacher's
+   work is still readonly, but the principal can make revisions stored in new fields,
+   and can also export the class lists.
+3. For the teaching team and district admin, the principal's revisions are visible
+   but are readonly.
+*/
 export default class ClassListCreatorPage extends React.Component {
   constructor(props) {
     super(props);
@@ -50,7 +67,7 @@ export default class ClassListCreatorPage extends React.Component {
       schoolId: null,
       gradeLevelNextYear: null,
 
-      // workspace
+      // teacher workspace
       educators: null, // from server
       students: null, // from server
       classroomsCount: 2,
@@ -58,7 +75,11 @@ export default class ClassListCreatorPage extends React.Component {
       planText: '',
       studentIdsByRoom: null,
       principalNoteText: '',
-      feedbackText: ''
+      feedbackText: '',
+
+      // principal revisions
+      principalStudentIdsByRoom: null,
+      principalTeacherNamesByRoom: {}
     };
 
     this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
@@ -82,6 +103,8 @@ export default class ClassListCreatorPage extends React.Component {
     this.onFetchedClassListError = this.onFetchedClassListError.bind(this);
     this.onFetchStudentsError = this.onFetchStudentsError.bind(this);
     this.onFetchedGradeLevelsError = this.onFetchedGradeLevelsError.bind(this);
+    this.onClassListsChangedByPrincipal = this.onClassListsChangedByPrincipal.bind(this);
+    this.onPrincipalTeacherNamesByRoomChanged = this.onPrincipalTeacherNamesByRoomChanged.bind(this);
   }
 
   componentDidMount() {
@@ -106,6 +129,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // Are there any local changes that we think haven't been synced?
+  // Includes both teacher and principal changes.
   isDirty() {
     const {lastSavedSnapshot} = this.state;
     if (!this.isSaveable()) return false;
@@ -113,7 +137,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // Has the user gotten past initial loading to where there is
-  // something worth saving?
+  // potentially anything worth saving?  Includes both teacher and principal changes.
   isSaveable() {
     const {
       workspaceId,
@@ -126,18 +150,29 @@ export default class ClassListCreatorPage extends React.Component {
     return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null);
   }
 
+  // Only principals can make revisions, and only after it's been submitted.    
+  isRevisable() {
+    const {isSubmitted, schoolId} = this.state;
+    const {currentEducator} = this.props;
+    const isPrincipal = currentEducator.labels.indexOf('class_list_maker_finalizer_principal') !== -1;
+    const schoolMatches = schoolId !== null && currentEducator.school_id === schoolId;
+
+    return (isSubmitted && isPrincipal && schoolMatches);
+  }
+
   // Describes which steps are available to be navigated to,
   // not which data has been loaded for.  Steps handle showing their own loading
   // states based on data.
   availableSteps() {
     const {
       schoolId,
-      gradeLevelNextYear
+      gradeLevelNextYear,
+      isSubmitted
     } = this.state;
 
-    return (schoolId === null || gradeLevelNextYear === null)
-      ? [0]
-      : [0, 1, 2, 3];
+    if (schoolId === null || gradeLevelNextYear === null) return [0];
+    if (!isSubmitted) return [0, 1, 2, 3];
+    return [0, 1, 2, 3, 4, 5];
   }
 
   canChangeSchoolOrGrade() {
@@ -259,25 +294,34 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // This method is throttled.
-  // Autosave unless it's readonly, the user is still at the initial 
+  // Autosave unless the user is still at the initial 
   // steps or unless nothing has changed.
+  // This will autosave for teachers editing, or for principals revising.
   doAutoSaveChanges() {
     const {isEditable} = this.state;
-    if (!isEditable) return;
     if (!this.isSaveable()) return;
     if (!this.isDirty()) return;
+    if (!isEditable && !this.isRevisable()) return;
 
     this.doSave();
   }
 
   // Make the save request without any guards. fire-and-forget
   doSave() {
+    const {nowFn} = this.context;
+    const now = nowFn();
     const snapshotForSaving = snapshotStateForSaving(this.state);
     const payload = {
       ...snapshotForSaving,
-      clientNowMs: moment.utc().unix()
+      clientNowMs: now.unix()
     };
-    postClassList(payload)
+
+    // Post to different endpoints based on whether it's the teacher or principal working.
+    // This is split into two endpoints for better isolation between the
+    // two different operations on the server, but from the client's perspective
+    // this should be transparent outside of this method.
+    const postFn = (this.isRevisable()) ? postPrincipalRevisions : postTeacherUpdates;
+    postFn(payload)
       .then(this.onPostDone.bind(this, snapshotForSaving))
       .catch(this.onPostError.bind(this, snapshotForSaving));
   }
@@ -342,7 +386,15 @@ export default class ClassListCreatorPage extends React.Component {
     });
   }
 
+  // This loads both teacher changes and principal revisions.
+  //
+  // Over time, there can be drift in the references within studentIdsByRoom 
+  // and the set of students that the server provides.  We filter this out or add this in
+  // at the view layer and don't proactively filter this.  So if the user looks at the
+  // lists, this will trigger as "dirty" and the document will be updated, but
+  // if they never look at it we preserve information about that inconsistency.
   onFetchedClassList(responseJson) {
+    // Teacher edits
     const isEditable = responseJson.is_editable;
     const classList = responseJson.class_list;
     const workspaceId = classList.workspace_id;
@@ -356,9 +408,8 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText
-    } = classList.json;
-
-    const stateChange = {
+    } = classList.json || {};
+    const teacherState = {
       workspaceId,
       isEditable,
       isSubmitted,
@@ -370,16 +421,34 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText,
-      stepIndex: 0, // Ignore last `stepIndex`
+      stepIndex: 0, // Ignore `stepIndex` if it was stored
+    };
+
+    // There may or may not be principal revisions yet.
+    var principalRevisionsState = {}; // eslint-disable-line no-var
+    if (classList.revised_by_principal_educator_id && classList.principal_revisions_json) {
+      const {
+        principalStudentIdsByRoom,
+        principalTeacherNamesByRoom
+      } = classList.principal_revisions_json;
+      principalRevisionsState = {
+        principalStudentIdsByRoom,
+        principalTeacherNamesByRoom
+      };
+    }
+
+    const nextState = {
+      ...teacherState,
+      ...principalRevisionsState
     };
 
     // Also record that the server knows about this state.
     const lastSavedSnapshot = snapshotStateForSaving({
       ...this.state,
-      ...stateChange
+      ...nextState
     });
     this.setState({
-      ...stateChange,
+      ...nextState,
       lastSavedSnapshot
     });
   }
@@ -439,20 +508,26 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({isSubmitted: true, isEditable: false}, () => this.doSave());
   }
 
+  onClassListsChangedByPrincipal(principalStudentIdsByRoom) {
+    this.setState({principalStudentIdsByRoom});
+  }
+
+  onPrincipalTeacherNamesByRoomChanged(principalTeacherNamesByRoom) {
+    this.setState({principalTeacherNamesByRoom});
+  }
+
   render() {
     const {workspaceId} = this.state;
     if (!workspaceId) return <Loading />;
 
-    const availableSteps = this.availableSteps();
-    const isDirty = this.isDirty();
-    const canChangeSchoolOrGrade = this.canChangeSchoolOrGrade();
     return (
       <ClassListCreatorWorkflow
         {...this.state}
-        isDirty={isDirty}
         steps={STEPS}
-        canChangeSchoolOrGrade={canChangeSchoolOrGrade}
-        availableSteps={availableSteps}
+        isDirty={this.isDirty()}
+        isRevisable={this.isRevisable()}
+        canChangeSchoolOrGrade={this.canChangeSchoolOrGrade()}
+        availableSteps={this.availableSteps()}
         onStepChanged={this.onStepChanged}
         onSchoolIdChanged={this.onSchoolIdChanged}
         onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
@@ -463,22 +538,33 @@ export default class ClassListCreatorPage extends React.Component {
         onPrincipalNoteChanged={this.onPrincipalNoteChanged}
         onFeedbackTextChanged={this.onFeedbackTextChanged}
         onSubmitClicked={this.onSubmitClicked}
+        onClassListsChangedByPrincipal={this.onClassListsChangedByPrincipal}
+        onPrincipalTeacherNamesByRoomChanged={this.onPrincipalTeacherNamesByRoomChanged}
       />
     );
   }
 }
+ClassListCreatorPage.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 ClassListCreatorPage.propTypes = {
-  defaultWorkspaceId: PropTypes.string,
-  disableHistory: PropTypes.bool,
-  disableSizing: PropTypes.bool,
-  autoSaveIntervalMs: PropTypes.number
+  currentEducator: React.PropTypes.shape({
+    id: React.PropTypes.number.isRequired,
+    admin: React.PropTypes.bool.isRequired,
+    school_id: React.PropTypes.number,
+    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  }).isRequired,
+  defaultWorkspaceId: React.PropTypes.string,
+  disableHistory: React.PropTypes.bool,
+  disableSizing: React.PropTypes.bool,
+  autoSaveIntervalMs: React.PropTypes.number
 };
 ClassListCreatorPage.defaultProps = {
-  autoSaveIntervalMs: 5000
+  autoSaveIntervalMs: 1000
 };
 
 
-
+// Always look at both teacher and principal bits
 function snapshotStateForSaving(state) {
   const {
     workspaceId,
@@ -490,7 +576,9 @@ function snapshotStateForSaving(state) {
     planText,
     studentIdsByRoom,
     feedbackText,
-    principalNoteText
+    principalNoteText,
+    principalStudentIdsByRoom,
+    principalTeacherNamesByRoom
   } = state;
   return {
     workspaceId,
@@ -502,6 +590,8 @@ function snapshotStateForSaving(state) {
     planText,
     studentIdsByRoom,
     feedbackText,
-    principalNoteText
+    principalNoteText,
+    principalStudentIdsByRoom,
+    principalTeacherNamesByRoom
   };
 }

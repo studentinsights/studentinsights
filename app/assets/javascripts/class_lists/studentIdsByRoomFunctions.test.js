@@ -2,6 +2,7 @@ import {
   reordered,
   studentsInRoom,
   studentIdsByRoomAfterRoomsCountChanged,
+  resolveDriftForStudents,
   UNPLACED_ROOM_KEY
 } from './studentIdsByRoomFunctions';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
@@ -51,6 +52,32 @@ describe('#studentIdsByRoomAfterRoomsCountChanged', () => {
       "room:2": [4, 5],
       "room:3": [],
       "room:4": []
+    });
+  });
+});
+
+describe('#resolveDriftForStudents', () => {
+  it('removes students who are no longer active', () => {
+    expect(resolveDriftForStudents({
+      [UNPLACED_ROOM_KEY]: [4],
+      "room:0": [1, 2],
+      "room:1": [3],
+    }, [1, 3, 4])).toEqual({
+      [UNPLACED_ROOM_KEY]: [4],
+      "room:0": [1],
+      "room:1": [3],
+    });
+  });
+
+  it('adds in new students as unplaced and puts them first in the list', () => {
+    expect(resolveDriftForStudents({
+      [UNPLACED_ROOM_KEY]: [4],
+      "room:0": [1, 2],
+      "room:1": [3],
+    }, [1, 2, 3, 4, 99])).toEqual({
+      [UNPLACED_ROOM_KEY]: [99, 4],
+      "room:0": [1, 2],
+      "room:1": [3],
     });
   });
 });

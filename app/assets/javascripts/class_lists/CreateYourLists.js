@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {AutoSizer} from 'react-virtualized';
@@ -108,11 +107,12 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    const {fetchProfile, isEditable} = this.props;
+    const {fetchProfile, isEditable, styleStudentFn} = this.props;
     const {highlightKey} = this.state;
     return <StudentCard
       key={student.id}
       highlightKey={highlightKey}
+      style={styleStudentFn && styleStudentFn(student)}
       student={student}
       index={index}
       fetchProfile={fetchProfile}
@@ -120,15 +120,16 @@ export default class CreateYourListsView extends React.Component {
   }
 }
 CreateYourListsView.propTypes = {
-  isEditable: PropTypes.bool.isRequired,
-  isExpandedVertically: PropTypes.bool.isRequired,
-  classroomsCount: PropTypes.number.isRequired,
-  gradeLevelNextYear: PropTypes.string.isRequired,
-  students: PropTypes.array.isRequired,
-  studentIdsByRoom: PropTypes.object.isRequired,
-  fetchProfile: PropTypes.func.isRequired,
-  onClassListsChanged: PropTypes.func.isRequired,
-  onExpandVerticallyToggled: PropTypes.func.isRequired,
+  isEditable: React.PropTypes.bool.isRequired,
+  isExpandedVertically: React.PropTypes.bool.isRequired,
+  classroomsCount: React.PropTypes.number.isRequired,
+  gradeLevelNextYear: React.PropTypes.string.isRequired,
+  students: React.PropTypes.array.isRequired,
+  studentIdsByRoom: React.PropTypes.object.isRequired,
+  fetchProfile: React.PropTypes.func.isRequired,
+  styleStudentFn: React.PropTypes.func,
+  onClassListsChanged: React.PropTypes.func.isRequired,
+  onExpandVerticallyToggled: React.PropTypes.func.isRequired,
 };
 
 
@@ -218,3 +219,10 @@ const styles = {
     cursor: 'pointer'
   }
 };
+
+// Style changes based on whether the student has been moved from teacher to principal lists.
+export function styleStudentFn(movedStudentIds, student) {
+  return (movedStudentIds.indexOf(student.id) !== -1)
+    ? { fontWeight: 'bold', color: '#e5370e' }
+    : {};
+}

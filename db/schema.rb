@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180523030653) do
+ActiveRecord::Schema.define(version: 20180601200328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,15 @@ ActiveRecord::Schema.define(version: 20180523030653) do
 
   create_table "class_lists", force: :cascade do |t|
     t.string "workspace_id"
-    t.integer "created_by_educator_id"
+    t.integer "created_by_teacher_educator_id"
     t.integer "school_id"
     t.string "grade_level_next_year"
     t.json "json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "submitted", default: false
+    t.json "principal_revisions_json"
+    t.integer "revised_by_principal_educator_id"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
   end
 
@@ -98,9 +100,6 @@ ActiveRecord::Schema.define(version: 20180523030653) do
 
   create_table "educators", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
@@ -125,7 +124,6 @@ ActiveRecord::Schema.define(version: 20180523030653) do
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
-    t.index ["reset_password_token"], name: "index_educators_on_reset_password_token", unique: true
   end
 
   create_table "event_note_attachments", id: :serial, force: :cascade do |t|
@@ -378,8 +376,21 @@ ActiveRecord::Schema.define(version: 20180523030653) do
     t.index ["student_id"], name: "index_tardies_on_student_id"
   end
 
+  create_table "transition_notes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "educator_id"
+    t.bigint "student_id"
+    t.text "text"
+    t.datetime "recorded_at"
+    t.boolean "is_restricted", default: false
+    t.index ["educator_id"], name: "index_transition_notes_on_educator_id"
+    t.index ["student_id"], name: "index_transition_notes_on_student_id"
+  end
+
   add_foreign_key "absences", "students"
-  add_foreign_key "class_lists", "educators", column: "created_by_educator_id", name: "classrooms_for_created_by_educator_id_fk"
+  add_foreign_key "class_lists", "educators", column: "created_by_teacher_educator_id", name: "classrooms_for_created_by_educator_id_fk"
+  add_foreign_key "class_lists", "educators", column: "revised_by_principal_educator_id", name: "class_lists_revised_by_principal_educator_id_fk"
   add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
   add_foreign_key "discipline_incidents", "students"
@@ -413,4 +424,6 @@ ActiveRecord::Schema.define(version: 20180523030653) do
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"
+  add_foreign_key "transition_notes", "educators"
+  add_foreign_key "transition_notes", "students"
 end

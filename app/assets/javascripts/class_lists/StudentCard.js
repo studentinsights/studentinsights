@@ -19,6 +19,7 @@ import {
   isLowIncome,
   isHighDiscipline,
   dibelsLevel,
+  starBucketThresholds,
   HighlightKeys
 } from './studentFilters';
 
@@ -113,6 +114,7 @@ export default class StudentCard extends React.Component {
           overlay: styles.modalOverlay,
           content: styles.modalContent
         }}
+        ariaHideApp={false}
         isOpen={modalIsOpen}
         onRequestClose={this.onClose}
         contentLabel="Modal"
@@ -179,7 +181,7 @@ const highlightFns = {
 // Perform color operation for STAR percentile scores, calling out high and low only
 // Missing scores aren't called out.
 function starStyles(maybePercentile) {
-  const starScale = chroma.scale([low, 'white', high]).classes([0, 0.3, 0.7, 1]);
+  const starScale = chroma.scale([low, medium, high]).classes(starBucketThresholds);
   const hasScore = _.isNumber(maybePercentile);
   if (!hasScore) return styles.none;
   const fraction = maybePercentile / 100;
