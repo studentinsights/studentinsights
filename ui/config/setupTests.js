@@ -1,6 +1,5 @@
 // This is a configuration file for Jest
 import './sprockets-shims';
-import '../legacyVendor';
 
 // See https://reactjs.org/docs/javascript-environment-requirements.html
 import 'raf/polyfill';

@@ -1,4 +1,6 @@
+import moment from 'moment';
 import {
+
   serviceTypesIndex,
   eventNoteTypesIndex
 } from '../../../../spec/javascripts/fixtures/database_constants.jsx';

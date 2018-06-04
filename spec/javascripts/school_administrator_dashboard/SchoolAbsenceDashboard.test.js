@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { shallow } from 'enzyme';
 
 import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolAbsenceDashboard';

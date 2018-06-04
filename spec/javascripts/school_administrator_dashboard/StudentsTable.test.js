@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {mount} from 'enzyme';
 import StudentsTable from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/StudentsTable';
 import {createStudents} from './DashboardTestData';

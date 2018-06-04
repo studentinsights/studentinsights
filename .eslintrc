@@ -6,7 +6,6 @@
   },
   "globals": {
     "$": true,
-    "moment": true,
     "spyOn": true,
     "global": true
   },

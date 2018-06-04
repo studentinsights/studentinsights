@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 /*
 Functions for transforming the feed data structure that holds

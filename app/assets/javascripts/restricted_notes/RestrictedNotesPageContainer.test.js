@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import {studentProfile} from '../student_profile/fixtures';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import createSpyObj from '../../../../spec/javascripts/support/createSpyObj';

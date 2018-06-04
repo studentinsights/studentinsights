@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
+import moment from 'moment';
 import Datepicker from '../../student_profile/Datepicker';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;

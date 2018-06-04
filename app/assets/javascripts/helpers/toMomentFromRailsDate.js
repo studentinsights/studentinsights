@@ -1,3 +1,6 @@
+import moment from 'moment';
+
+
 export function toMomentFromRailsDate(railsDateString) {
   // Parse moment from client-side serialized Rails timestamp.
   //

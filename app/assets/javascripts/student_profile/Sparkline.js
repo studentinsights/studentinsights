@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import {toDate} from './QuadConverter';
 import d3 from 'd3';
 

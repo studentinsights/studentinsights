@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import {merge} from '../helpers/merge';
 import HighchartsWrapper from './HighchartsWrapper';
 import ProfileChartSettings from './ProfileChartSettings';

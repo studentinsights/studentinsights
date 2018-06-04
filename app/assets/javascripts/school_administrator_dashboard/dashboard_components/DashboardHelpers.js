@@ -1,6 +1,6 @@
 // Functions used by Administrator Dasbhoard for grouping students and calculating attendance.
-
 import _ from 'lodash';
+import moment from 'moment';
 
 export default {
 

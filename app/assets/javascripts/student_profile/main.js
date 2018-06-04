@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 import parseQueryString from './parseQueryString';
 import PageContainer from './PageContainer';

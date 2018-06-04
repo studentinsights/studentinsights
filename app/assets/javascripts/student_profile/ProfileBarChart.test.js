@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import ProfileBarChart from './ProfileBarChart';
 

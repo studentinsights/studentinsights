@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';

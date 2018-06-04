@@ -8,10 +8,6 @@ import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
 
-// First, run side effects to vendor code as globals
-// (remove globals in .eslintrc as these are removed)
-import './legacyVendor';
-
 // Init datepicker
 if ($('body').hasClass('students')  ||
     $('body').hasClass('homerooms') ||
