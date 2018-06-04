@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
-import FixedTable from '../../../app/assets/javascripts/components/FixedTable';
-import * as Filters from '../../../app/assets/javascripts/helpers/Filters';
+import * as Filters from '../helpers/Filters';
+import FixedTable from './FixedTable';
+
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

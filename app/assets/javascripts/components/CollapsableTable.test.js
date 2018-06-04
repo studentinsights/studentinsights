@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
-import CollapsableTable from '../../../app/assets/javascripts/components/CollapsableTable';
-import * as Filters from '../../../app/assets/javascripts/helpers/Filters';
+import * as Filters from '../helpers/Filters';
+import CollapsableTable from './CollapsableTable';
+
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

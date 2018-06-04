@@ -1,35 +1,35 @@
 import ReactDOM from 'react-dom';
-import SpecSugar from '../support/spec_sugar.jsx';
-import StudentsTable from '../../../app/assets/javascripts/components/StudentsTable';
-import studentsFixture from '../../../spec/javascripts/fixtures/schools_overview_students.jsx';
+import StudentsTable from './StudentsTable';
+import studentsFixture from '../../../../spec/javascripts/fixtures/schools_overview_students.jsx';
 
-const helpers = {
-  testProps(props) {
-    return {
-      students: studentsFixture,
-      school: {
-        local_id: 'HEA',
-        school_type: 'ESMS'
-      },
-      ...props,
-    };
-  },
-  renderInto: function(el, props) {
-    ReactDOM.render(<StudentsTable {...props} />, el);
-  },
-  tableHeaderTexts(el) {
-    return $(el).find('.StudentsTable thead tr th').toArray().map(el => $(el).text().trim());
-  }
-};
+function testProps(props = {}) {
+  return {
+    students: studentsFixture,
+    school: {
+      local_id: 'HEA',
+      school_type: 'ESMS'
+    },
+    ...props,
+  };
+}
 
-SpecSugar.withTestEl('high-level integration test', function(container) {
-  it('happy path for K8', () => {
-    const props = helpers.testProps();
-    const el = container.testEl;
-    helpers.renderInto(el, props);
+function testRender(props) {
+  const el = document.createElement('div');
+  ReactDOM.render(<StudentsTable {...props} />, el);
+  return {el};
+}
+
+function tableHeaderTexts(el) {
+  return $(el).find('.StudentsTable thead tr th').toArray().map(el => $(el).text().trim());
+}
+
+describe('high-level integration test', () => {
+  it('happy path for K8', () => { 
+    const props = testProps();
+    const {el} = testRender(props);
 
     expect($(el).find('.StudentsTable tbody tr').length).toEqual(21);
-    expect(helpers.tableHeaderTexts(el)).toEqual([
+    expect(tableHeaderTexts(el)).toEqual([
       "Name",
       "LastSST",
       "LastMTSS",
@@ -51,17 +51,16 @@ SpecSugar.withTestEl('high-level integration test', function(container) {
   });
 
   it('happy path for HS', () => {
-    const props = helpers.testProps({
+    const props = testProps({
       school: {
         local_id: 'SHS',
         school_type: 'HS'
       }
     });
-    const el = container.testEl;
-    helpers.renderInto(el, props);
+    const {el} = testRender(props);
 
     expect($(el).find('.StudentsTable tbody tr').length).toEqual(21);
-    expect(helpers.tableHeaderTexts(el)).toEqual([
+    expect(tableHeaderTexts(el)).toEqual([
       "Name",
       "LastSST",
       "LastNGE", // also has NGE
@@ -87,7 +86,7 @@ SpecSugar.withTestEl('high-level integration test', function(container) {
 
 
   it('renders the right date', function() {
-    const props = helpers.testProps({
+    const props = testProps({
       students: [
         { event_notes:
         [
@@ -101,9 +100,7 @@ SpecSugar.withTestEl('high-level integration test', function(container) {
         }
       ],
     });
-
-    const el = container.testEl;
-    helpers.renderInto(el, props);
+    const {el} = testRender(props);
 
     expect(el.innerHTML).toContain('11/28/10');
     expect(el.innerHTML).not.toContain('11/30/10');

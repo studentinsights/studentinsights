@@ -1,28 +1,32 @@
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
-import SpecSugar from '../support/spec_sugar.jsx';
-import {serviceTypesIndex, eventNoteTypesIndex} from '../fixtures/database_constants.jsx';
-import FixtureStudents from '../fixtures/students.jsx';
-import SlicePanels from '../../../app/assets/javascripts/components/SlicePanels';
+import {serviceTypesIndex, eventNoteTypesIndex} from '../../../../spec/javascripts/fixtures/database_constants.jsx';
+import FixtureStudents from '../../../../spec/javascripts/fixtures/students.jsx';
+import SlicePanels from './SlicePanels';
+
+function testProps(props = {}) {
+  return {
+    districtKey: 'somerville',
+    filters: [],
+    serviceTypesIndex,
+    eventNoteTypesIndex,
+    school: {
+      school_type: 'ES'
+    },
+    students: [],
+    allStudents: [],
+    onFilterToggled: jest.fn(),
+    ...props
+  };
+}
+
+function testRender(props) {
+  const el = document.createElement('div');
+  ReactDOM.render(<SlicePanels {...props} />, el);
+  return {el};
+}
 
 const helpers = {
-  renderInto(el, props = {}) {
-    const mergedProps = {
-      districtKey: 'somerville',
-      filters: [],
-      serviceTypesIndex,
-      eventNoteTypesIndex,
-      school: {
-        school_type: 'ES'
-      },
-      students: [],
-      allStudents: [],
-      onFilterToggled: jest.fn(),
-      ...props
-    };
-    ReactDOM.render(<SlicePanels {...mergedProps} />, el);
-  },
-
   // Returns a matrix of the kinds of things that users can slice by in each
   // column (eg., disability, STAR reading quartile).
   columnTitlesMatrix(el) {
@@ -53,11 +57,10 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('high-level integration tests', (container) => {
+describe('high-level integration tests', () => {
   it(`renders everything on the happy path for elementary school with
       no student registration dates`, () => {
-    const el = container.testEl;
-    helpers.renderInto(el);
+    const {el} = testRender(testProps());
 
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
@@ -73,15 +76,15 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
 
   it(`renders everything on the happy path for elementary school with
        student registration dates`, () => {
-    const el = container.testEl;
+    
     const studentsWithRegistration = FixtureStudents.map((student) => {
       return _.merge(student, {registration_date: '2018-02-13T22:17:30.338Z'});
     });
 
-    helpers.renderInto(el, {
+    const {el} = testRender(testProps({
       students: studentsWithRegistration,
       allStudents: studentsWithRegistration
-    });
+    }));
 
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
@@ -96,16 +99,12 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
   });
 
   it('renders everything on the happy path for high school', () => {
-    const el = container.testEl;
-    helpers.renderInto(
-      el,
-      {
-        school: {
-          school_type: 'HS',
-          local_id: 'SHS'
-        }
+    const {el} = testRender(testProps({
+      school: {
+        school_type: 'HS',
+        local_id: 'SHS'
       }
-    );
+    }));
 
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
@@ -120,11 +119,10 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
   });
 
   it('renders attributes for slicing based on student data', () => {
-    const el = container.testEl;
-    helpers.renderInto(el, {
+    const {el} = testRender(testProps({
       students: FixtureStudents,
       allStudents: FixtureStudents
-    });
+    }));
 
     expect(helpers.rowsPerColumnMatrix(el)).toEqual([
       [ 5, 1, 1, 2, 3, 0 ],
@@ -138,12 +136,11 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
 
   describe('disability values vary by district', () => {
     it('renders values with None for Somerville', () => {
-      const el = container.testEl;
-      helpers.renderInto(el, {
+      const {el} = testRender(testProps({
         districtKey: 'somerville',
         students: FixtureStudents,
         allStudents: FixtureStudents
-      });
+      }));
       expect(helpers.disabilityFilters(el)).toEqual([
         "None",
         "Low < 2",
@@ -154,12 +151,11 @@ SpecSugar.withTestEl('high-level integration tests', (container) => {
     });
 
     it('renders explicit values only for New Bedford', () => {
-      const el = container.testEl;
-      helpers.renderInto(el, {
+      const {el} = testRender(testProps({
         districtKey: 'new_bedford',
         students: FixtureStudents,
         allStudents: FixtureStudents
-      });
+      }));
       expect(helpers.disabilityFilters(el)).toEqual([
         "Does Not Apply",
         "Low-Less Than 2hrs/week",
