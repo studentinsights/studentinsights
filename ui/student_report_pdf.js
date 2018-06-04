@@ -1,6 +1,5 @@
 import 'es5-shim'; // This has to be first, wkhtmltopdf uses QtWebKit
 import './config/sprockets-shims';
-import './legacy';
 import {load} from '../app/assets/javascripts/student_profile/pdf/studentProfilePdf';
 
 $(document).ready(() => {
