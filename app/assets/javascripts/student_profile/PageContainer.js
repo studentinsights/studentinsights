@@ -335,9 +335,9 @@ export default class PageContainer extends React.Component {
 
 }
 PageContainer.propTypes = {
-  nowMomentFn: React.PropTypes.func.isRequired,
-  serializedData: React.PropTypes.object.isRequired,
-  queryParams: React.PropTypes.object.isRequired,
+  nowMomentFn: PropTypes.func.isRequired,
+  serializedData: PropTypes.object.isRequired,
+  queryParams: PropTypes.object.isRequired,
   history: InsightsPropTypes.history.isRequired,
 
   // for testing

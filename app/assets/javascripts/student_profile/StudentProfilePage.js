@@ -595,52 +595,52 @@ export default class StudentProfilePage extends React.Component {
 }
 StudentProfilePage.propTypes = {
   // UI
-  selectedColumnKey: React.PropTypes.string.isRequired,
+  selectedColumnKey: PropTypes.string.isRequired,
 
   // context
-  nowMomentFn: React.PropTypes.func.isRequired,
-  currentEducator: React.PropTypes.object.isRequired,
+  nowMomentFn: PropTypes.func.isRequired,
+  currentEducator: PropTypes.object.isRequired,
 
   // constants
-  educatorsIndex: React.PropTypes.object.isRequired,
-  serviceTypesIndex: React.PropTypes.object.isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
+  educatorsIndex: PropTypes.object.isRequired,
+  serviceTypesIndex: PropTypes.object.isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
 
   // data
-  student: React.PropTypes.object.isRequired,
-  feed: React.PropTypes.object.isRequired,
-  transitionNotes: React.PropTypes.array.isRequired,
-  dibels: React.PropTypes.array.isRequired,
-  chartData: React.PropTypes.shape({
+  student: PropTypes.object.isRequired,
+  feed: PropTypes.object.isRequired,
+  transitionNotes: PropTypes.array.isRequired,
+  dibels: PropTypes.array.isRequired,
+  chartData: PropTypes.shape({
     // ela
-    most_recent_star_reading_percentile: React.PropTypes.number,
-    most_recent_mcas_ela_scaled: React.PropTypes.number,
-    most_recent_mcas_ela_growth: React.PropTypes.number,
-    star_series_reading_percentile: React.PropTypes.array,
-    mcas_series_ela_scaled: React.PropTypes.array,
-    mcas_series_ela_growth: React.PropTypes.array,
+    most_recent_star_reading_percentile: PropTypes.number,
+    most_recent_mcas_ela_scaled: PropTypes.number,
+    most_recent_mcas_ela_growth: PropTypes.number,
+    star_series_reading_percentile: PropTypes.array,
+    mcas_series_ela_scaled: PropTypes.array,
+    mcas_series_ela_growth: PropTypes.array,
     // math
-    most_recent_star_math_percentile: React.PropTypes.number,
-    most_recent_mcas_math_scaled: React.PropTypes.number,
-    most_recent_mcas_math_growth: React.PropTypes.number,
-    star_series_math_percentile: React.PropTypes.array,
-    mcas_series_math_scaled: React.PropTypes.array,
-    mcas_series_math_growth: React.PropTypes.array
+    most_recent_star_math_percentile: PropTypes.number,
+    most_recent_mcas_math_scaled: PropTypes.number,
+    most_recent_mcas_math_growth: PropTypes.number,
+    star_series_math_percentile: PropTypes.array,
+    mcas_series_math_scaled: PropTypes.array,
+    mcas_series_math_growth: PropTypes.array
   }),
-  attendanceData: React.PropTypes.shape({
-    discipline_incidents: React.PropTypes.array,
-    tardies: React.PropTypes.array,
-    absences: React.PropTypes.array
+  attendanceData: PropTypes.shape({
+    discipline_incidents: PropTypes.array,
+    tardies: PropTypes.array,
+    absences: PropTypes.array
   }),
-  noteInProgressText: React.PropTypes.string.isRequired,
-  noteInProgressType: React.PropTypes.number,
-  noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
-    React.PropTypes.string
+  noteInProgressText: PropTypes.string.isRequired,
+  noteInProgressType: PropTypes.number,
+  noteInProgressAttachmentUrls: PropTypes.arrayOf(
+    PropTypes.string
   ).isRequired,
-  access: React.PropTypes.object,
-  iepDocument: React.PropTypes.object,
-  sections: React.PropTypes.array,
-  currentEducatorAllowedSections: React.PropTypes.array,
+  access: PropTypes.object,
+  iepDocument: PropTypes.object,
+  sections: PropTypes.array,
+  currentEducatorAllowedSections: PropTypes.array,
 
   // flux-y bits
   requests: InsightsPropTypes.requests,
