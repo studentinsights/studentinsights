@@ -44,7 +44,7 @@ RSpec.describe Masquerade do
       session, masquerade = create_masquerade(pals.uri)
       expect(masquerade.is_masquerading?).to eq false
     end
-    
+
     it 'checks what is expected for various values' do
       session, masquerade = create_masquerade(pals.uri)
       session.delete('masquerade.masquerading_educator_id')
@@ -111,7 +111,7 @@ RSpec.describe Masquerade do
         expect(session).to eq before_session
       end
     end
-    
+
     it 'works as expected internally' do
       session, masquerade = create_masquerade(pals.uri)
       before_session = session.as_json

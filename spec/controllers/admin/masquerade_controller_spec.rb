@@ -34,7 +34,6 @@ describe Admin::MasqueradeController, :type => :controller do
       expect { post :become }.to raise_error ActionController::ParameterMissing
     end
 
-
     it 'for all combinations of educators, raises unless authorized?' do
       not_allowed_educators.each do |as_educator|
         ([pals.uri] + not_allowed_educators).each do |target_educator|
@@ -68,7 +67,7 @@ describe Admin::MasqueradeController, :type => :controller do
       before_session = snapshot_session
       post :clear
       after_session = snapshot_session
-      
+
       expect(before_session).to eq after_session
       expect(response).to redirect_to('https://test.host/not_authorized')
     end

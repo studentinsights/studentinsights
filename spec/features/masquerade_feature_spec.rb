@@ -40,7 +40,7 @@ describe 'masquerading', type: :feature do
 
   # This is all a manual workaround for not being able to click on links that use
   # jquery_ujs in RackTest (there's no JS running to interpret the click and translate it
-  # into a post request).  If we just used `visit` directly, it'd make a get request and 
+  # into a post request).  If we just used `visit` directly, it'd make a get request and
   # not work.
   #
   # This doesn't actually test the content of the link on the page.

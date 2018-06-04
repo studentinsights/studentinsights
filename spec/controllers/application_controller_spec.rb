@@ -63,7 +63,6 @@ RSpec.describe ApplicationController, :type => :controller do
       end
     end
 
-
     it 'allows returns the masquerading user when authorized and when masquerading' do
       sign_in(pals.uri)
       (Educator.all - [pals.uri]).each do |target_educator|
