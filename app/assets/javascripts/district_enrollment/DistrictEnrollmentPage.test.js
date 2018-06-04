@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import fetchMock from 'fetch-mock/es5/client';

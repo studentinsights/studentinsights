@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {mount} from 'enzyme';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';

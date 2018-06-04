@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import NotesFeedPage from './NotesFeedPage';
 
@@ -5,7 +6,7 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
   describe('NotesFeedPage', () => {
     it('displays notes with student cards without crashing', () => {
       const el = container.testEl;
-      window.ReactDOM.render(<NotesFeedPage
+      ReactDOM.render(<NotesFeedPage
         educatorsIndex={{}}
         eventNotes={[]}
         eventNoteTypesIndex={{}}

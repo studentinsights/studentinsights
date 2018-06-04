@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 import SectionPage from './SectionPage';
 
@@ -7,7 +8,7 @@ export default function renderSectionMain(el) {
   MixpanelUtils.registerUser(serializedData.currentEducator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'SECTION' });
 
-  window.ReactDOM.render(<SectionPage
+  ReactDOM.render(<SectionPage
         students={serializedData.students}
         section={serializedData.section}
         educators={serializedData.educators}

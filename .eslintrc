@@ -8,7 +8,6 @@
     "$": true,
     "moment": true,
     "React": true,
-    "ReactDOM": true,
     "d3": true,
     "spyOn": true,
     "global": true

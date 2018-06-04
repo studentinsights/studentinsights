@@ -1,8 +1,9 @@
+import ReactDOM from 'react-dom';
 import HomeroomTable from './HomeroomTable';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 
 export default function homeroomMain() {
-  const ReactDOM = window.ReactDOM;
+  
 
   // This adds behavior to code rendered server-side by the Rails view.
   // As a next step we could pull out a parent component named HomeroomPage...
