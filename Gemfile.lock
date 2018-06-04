@@ -112,8 +112,6 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
-    faker (1.8.7)
-      i18n (>= 0.7)
     ffi (1.9.23)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
@@ -331,7 +329,6 @@ DEPENDENCIES
   descriptive-statistics
   devise (~> 4.3.0)
   factory_bot_rails
-  faker
   friendly_id (~> 5.1.0)
   get_process_mem
   immigrant
