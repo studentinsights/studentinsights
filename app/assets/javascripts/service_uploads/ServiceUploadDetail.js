@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {merge} from '../helpers/merge';
-import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate.js';
+import {toMomentFromRailsDate} from '../helpers/toMomentFromRailsDate';
 import * as Theme from '../helpers/Theme';
 
 

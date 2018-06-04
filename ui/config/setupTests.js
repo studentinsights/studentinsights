@@ -1,6 +1,6 @@
 // This is a configuration file for Jest
-import './sprockets-shims.js';
-import '../legacyVendor.js';
+import './sprockets-shims';
+import '../legacyVendor';
 
 // See https://reactjs.org/docs/javascript-environment-requirements.html
 import 'raf/polyfill';
@@ -12,7 +12,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 // These are for MountTimer and measurePageLoad.
 // See https://gist.github.com/ShirtlessKirk/eb41720a797411defae6
-import './performance-timing-api.js';
+import './performance-timing-api';
 import {performance} from 'perf_hooks';
 global.performance = performance;
 

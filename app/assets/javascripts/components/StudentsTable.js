@@ -7,7 +7,7 @@ import {
   sortByCustomEnum,
   sortByActiveServices
 } from '../helpers/SortHelpers';
-import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {shouldDisplay} from '../helpers/customization_helpers';
 import {latestNoteDateText} from '../helpers/latestNoteDateText';
 import * as Routes from '../helpers/Routes';
 

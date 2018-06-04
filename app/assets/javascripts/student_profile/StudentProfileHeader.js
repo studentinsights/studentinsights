@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RiskBubble from '../student_profile/RiskBubble.js';
-import ModalSmall from '../student_profile/ModalSmall.js';
+import RiskBubble from '../student_profile/RiskBubble';
+import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
 
 

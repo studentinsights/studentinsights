@@ -1,36 +1,36 @@
 import {configure} from '@storybook/react';
-import '../sprockets-shims.js';
-import '../../legacy.js';
+import '../sprockets-shims';
+import '../../legacy';
 
 /* eslint-disable no-undef */
 function loadStories() {
   mockJestFns();
 
   // components
-  require('../../../app/assets/javascripts/components/Bar.story.js');
-  require('../../../app/assets/javascripts/components/BoxAndWhisker.story.js');
-  require('../../../app/assets/javascripts/components/Button.story.js');
-  require('../../../app/assets/javascripts/components/Circle.story.js');
-  require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story.js');
-  require('../../../app/assets/javascripts/components/ReactSelect.story.js');
-  require('../../../app/assets/javascripts/components/Stack.story.js');
+  require('../../../app/assets/javascripts/components/Bar.story');
+  require('../../../app/assets/javascripts/components/BoxAndWhisker.story');
+  require('../../../app/assets/javascripts/components/Button.story');
+  require('../../../app/assets/javascripts/components/Circle.story');
+  require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story');
+  require('../../../app/assets/javascripts/components/ReactSelect.story');
+  require('../../../app/assets/javascripts/components/Stack.story');
 
   // home
-  require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story.js');
+  require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story');
 
   // student profile
-  require('../../../app/assets/javascripts/student_profile/RiskBubble.story.js');
-  require('../../../app/assets/javascripts/student_profile/TakeNotes.story.js');
+  require('../../../app/assets/javascripts/student_profile/RiskBubble.story');
+  require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
   
   // classlists
-  require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story.js');
-  require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story.js');
-  require('../../../app/assets/javascripts/class_lists/ClassListCreatorPage.story.js');
-  require('../../../app/assets/javascripts/class_lists/ClassListCreatorWorkflow.story.js');
-  require('../../../app/assets/javascripts/class_lists/CreateYourLists.story.js');
-  require('../../../app/assets/javascripts/class_lists/StudentCard.story.js');
-  require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story.js');
-  require('../../../app/assets/javascripts/class_lists/ExportList.story.js');
+  require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');
+  require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story');
+  require('../../../app/assets/javascripts/class_lists/ClassListCreatorPage.story');
+  require('../../../app/assets/javascripts/class_lists/ClassListCreatorWorkflow.story');
+  require('../../../app/assets/javascripts/class_lists/CreateYourLists.story');
+  require('../../../app/assets/javascripts/class_lists/StudentCard.story');
+  require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story');
+  require('../../../app/assets/javascripts/class_lists/ExportList.story');
 
   // add more here!
 }

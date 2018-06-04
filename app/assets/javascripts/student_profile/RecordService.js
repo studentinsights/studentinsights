@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Datepicker from './Datepicker.js';
-import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
-import {toMoment} from '../helpers/toMoment.js';
+import Datepicker from './Datepicker';
+import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
+import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
 import {

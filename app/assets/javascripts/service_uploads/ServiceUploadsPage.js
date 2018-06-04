@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {merge} from '../helpers/merge';
-import PastServiceUploads from '../service_uploads/PastServiceUploads.js';
-import NewServiceUpload from '../service_uploads/NewServiceUpload.js';
-import Api from './Api.js';
+import PastServiceUploads from '../service_uploads/PastServiceUploads';
+import NewServiceUpload from '../service_uploads/NewServiceUpload';
+import Api from './Api';
 
 class ServiceUploadsPage extends React.Component {
 

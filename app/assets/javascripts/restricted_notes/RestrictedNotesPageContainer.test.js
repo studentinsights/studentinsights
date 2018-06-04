@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {studentProfile} from '../student_profile/fixtures';
 import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import createSpyObj from '../../../../spec/javascripts/support/createSpyObj';
-import RestrictedNotesPageContainer from './RestrictedNotesPageContainer.js';
+import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
 
 const helpers = {
   renderInto: function(el, props) {

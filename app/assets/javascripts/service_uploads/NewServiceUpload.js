@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Datepicker from '../student_profile/Datepicker.js';
-import ServiceTypeDropdown from './ServiceTypeDropdown.js';
+import Datepicker from '../student_profile/Datepicker';
+import ServiceTypeDropdown from './ServiceTypeDropdown';
 
 class NewServiceUpload extends React.Component {
 

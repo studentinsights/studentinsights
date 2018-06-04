@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import SchoolDisciplineDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/discipline_dashboard/SchoolDisciplineDashboard';
-import { createStudents } from './DashboardTestData.js';
+import { createStudents } from './DashboardTestData';
 
 describe('SchoolDisciplineDashboard', () => {
   const dash = shallow(<SchoolDisciplineDashboard

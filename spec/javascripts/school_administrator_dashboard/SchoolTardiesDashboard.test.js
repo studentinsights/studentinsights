@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SchoolTardiesDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/SchoolTardiesDashboard.js';
+import SchoolTardiesDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/tardies_dashboard/SchoolTardiesDashboard';
 import {
   createTestEvents,
   createStudents,
   createSchoolTardyEvents
-} from './DashboardTestData.js';
+} from './DashboardTestData';
 
 describe('SchoolTardiesDashboard', () => {
   const nowMoment = moment.utc();

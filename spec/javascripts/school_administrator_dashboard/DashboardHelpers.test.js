@@ -1,6 +1,6 @@
-import DashboardHelpers from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardHelpers.js';
+import DashboardHelpers from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardHelpers';
 
-import {createStudents} from './DashboardTestData.js';
+import {createStudents} from './DashboardTestData';
 
 
 describe('DashboardHelpers', () => {

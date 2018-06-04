@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolAbsenceDashboard.js';
+import SchoolAbsenceDashboard from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/absences_dashboard/SchoolAbsenceDashboard';
 import {
   createTestEvents,
   createStudents
-} from './DashboardTestData.js';
+} from './DashboardTestData';
 
 
 describe('SchoolAbsenceDashboard', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import DateSlider from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DateSlider.js';
+import DateSlider from '../../../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DateSlider';
 
 describe('Dashboard Date Slider', () => {
   const slider = shallow(<DateSlider

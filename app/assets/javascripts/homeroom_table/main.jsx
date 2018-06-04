@@ -1,4 +1,4 @@
-import HomeroomTable from './HomeroomTable.js';
+import HomeroomTable from './HomeroomTable';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
 
 export default function homeroomMain() {

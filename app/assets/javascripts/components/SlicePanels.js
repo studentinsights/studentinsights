@@ -5,7 +5,7 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
-import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {shouldDisplay} from '../helpers/customization_helpers';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
 
 
