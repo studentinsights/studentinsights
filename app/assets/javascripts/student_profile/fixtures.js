@@ -3,7 +3,7 @@ import {
 
   serviceTypesIndex,
   eventNoteTypesIndex
-} from '../../../../spec/javascripts/fixtures/database_constants.jsx';
+} from '../../../../spec/javascripts/fixtures/database_constants';
 
 // assuming static time for specs
 export const nowMoment = moment('2016-02-11T10:15:00');

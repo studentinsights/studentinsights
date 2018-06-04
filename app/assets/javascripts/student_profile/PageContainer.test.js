@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import {nowMoment, studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import PageContainer from './PageContainer';
 
 const helpers = {

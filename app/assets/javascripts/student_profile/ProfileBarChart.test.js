@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import ProfileBarChart from './ProfileBarChart';
 
 const helpers = {

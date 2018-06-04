@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import SchoolCoursesPage, {SchoolCoursesPagePure} from './SchoolCoursesPage';

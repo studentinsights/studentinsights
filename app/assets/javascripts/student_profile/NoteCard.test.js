@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
 import {studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import NoteCard from './NoteCard';
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import {studentProfile} from '../student_profile/fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import createSpyObj from '../../../../spec/javascripts/support/createSpyObj';
 import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
 

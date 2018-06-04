@@ -6,7 +6,7 @@ import {
   nowMoment,
   currentEducator
 } from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import RecordService from './RecordService';
 
 
