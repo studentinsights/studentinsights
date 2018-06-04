@@ -117,6 +117,6 @@ export function createFromIdentifier(identifier) {
 export function parseFiltersHash(hash) {
   const pieces = _.compact(hash.slice(1).split('&'));
   return _.compact(pieces.map(function(piece) {
-    return createFromIdentifier(window.decodeURIComponent(piece));
+    return createFromIdentifier(decodeURIComponent(piece));
   }));
 }

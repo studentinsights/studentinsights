@@ -2,7 +2,7 @@ export default function sessionTimeoutWarning(Env) {
   const SessionTimeoutWarning = function () {};
 
   SessionTimeoutWarning.prototype.count = function () {
-    window.setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
+    setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
   };
 
   SessionTimeoutWarning.prototype.show = function () {
