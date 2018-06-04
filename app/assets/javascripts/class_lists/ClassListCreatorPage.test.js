@@ -23,18 +23,15 @@ export function testProps(props) {
   };
 }
 
+function mountWithContext(props) {
+  return mount(<ClassListCreatorPage {...props} />, { context: testContext() });
+}
+
 function anyServerCallsIncludePath(string) {
   return _.any(fetchMock.calls(), call => {
     const path = call[0];
     return path.indexOf(string) !== -1;
   });
-}
-
-function isRevisableForEducator(currentEducator, state = {}) {
-  const props = testProps({currentEducator});
-  const wrapper = shallow(<ClassListCreatorPage {...props} />, {context: testContext()});
-  wrapper.instance().setState(state);
-  return wrapper.instance().isRevisable();
 }
 
 function modifiedPrincipalStudentIdsByRoom() {
@@ -68,7 +65,7 @@ it('renders without crashing with balanceId', () => {
 
 it('integration test for state changes, server requests and autosave', done => {
   const props = testProps({ autoSaveIntervalMs: 200 });
-  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
+  const wrapper = mountWithContext(props);
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
   wrapper.instance().onStepChanged(2);
@@ -111,7 +108,7 @@ it('integration test for loading existing workspace', done => {
     defaultWorkspaceId: 'foo-workspace-id',
     autoSaveIntervalMs: 200
   });
-  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
+  const wrapper = mountWithContext(props);
 
   // Waiting for data to load
   setTimeout(() => {
@@ -159,7 +156,7 @@ it('integration test for first-time principal revision', done => {
     defaultWorkspaceId: 'foo-workspace-id',
     autoSaveIntervalMs: 200
   });
-  const wrapper = mount(<ClassListCreatorPage {...props} />, {context: testContext()});
+  const wrapper = mountWithContext(props);
 
   // Waiting for data to load
   setTimeout(() => {
@@ -198,18 +195,11 @@ it('integration test for first-time principal revision', done => {
   }, 10); // delay a tick for fetch requests
 });
 
-it('#isRevisable', () => {
-  expect(isRevisableForEducator(laura, {schoolId: 2, isSubmitted: true })).toEqual(true);
-  expect(isRevisableForEducator(laura, {schoolId: 4, isSubmitted: true })).toEqual(false);
-  expect(isRevisableForEducator(laura, {schoolId: 2, isSubmitted: false })).toEqual(false);
-  expect(isRevisableForEducator(sarah, {schoolId: 2, isSubmitted: true })).toEqual(false);
-  expect(isRevisableForEducator(uri, {schoolId: 2, isSubmitted: true })).toEqual(false);
-});
 
 it('#onFetchedClassList loads principal revisions', () => {
   const props = testProps();
   const principalStudentIdsByRoom = modifiedPrincipalStudentIdsByRoom();
-  const wrapper = mount(<ClassListCreatorPage {...props} />);
+  const wrapper = mountWithContext(props);
   wrapper.instance().onFetchedClassList({
     ...class_list_json,
     class_list: {
@@ -230,4 +220,19 @@ it('#onFetchedClassList loads principal revisions', () => {
     "room:0":"Kevin",
     "room:1":"Alex"
   });
+});
+
+it('#isRevisable', () => {
+  function isRevisableForEducator(currentEducator, state = {}) {
+    const props = testProps({currentEducator});
+    const wrapper = shallow(<ClassListCreatorPage {...props} />, {context: testContext()});
+    wrapper.instance().setState(state);
+    return wrapper.instance().isRevisable();
+  }
+
+  expect(isRevisableForEducator(laura, {schoolId: 2, isSubmitted: true })).toEqual(true);
+  expect(isRevisableForEducator(laura, {schoolId: 4, isSubmitted: true })).toEqual(false);
+  expect(isRevisableForEducator(laura, {schoolId: 2, isSubmitted: false })).toEqual(false);
+  expect(isRevisableForEducator(sarah, {schoolId: 2, isSubmitted: true })).toEqual(false);
+  expect(isRevisableForEducator(uri, {schoolId: 2, isSubmitted: true })).toEqual(false);
 });
