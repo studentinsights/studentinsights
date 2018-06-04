@@ -113,6 +113,7 @@ export default class StudentCard extends React.Component {
           overlay: styles.modalOverlay,
           content: styles.modalContent
         }}
+        ariaHideApp={false}
         isOpen={modalIsOpen}
         onRequestClose={this.onClose}
         contentLabel="Modal"

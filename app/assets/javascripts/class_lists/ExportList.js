@@ -20,18 +20,20 @@ export default class ExportList extends React.Component {
   mapToRows(studentIdsByRoom) {
     const {gradeLevelNextYear, students, principalTeacherNamesByRoom} = this.props;
 
-    return _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
+    const rows = _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
       return studentIdsByRoom[roomKey].map(studentId => {
         const student = _.find(students, {id: studentId});
         const teacherText = principalTeacherNamesByRoom[roomKey] || 'Not placed';
         return [
-          gradeLevelNextYear,
+          `${student.last_name}, ${student.first_name}`,
           student.local_id,
-          `${student.first_name} ${student.last_name}`,
+          gradeLevelNextYear,
           teacherText
         ];
       });
     })));
+
+    return _.sortBy(rows, row => row[2]);
   }
 
   isReadyToExport(studentIdsByRoom) {
@@ -139,9 +141,9 @@ export default class ExportList extends React.Component {
     const dateText = now.format('YYYY-MM-DD');
     const filename = `Class list: ${gradeLevelText} at ${school.name} ${dateText}.csv`;
     const header = joinCsvRow([
-      'Grade level next year',
-      'LASID',
       'Student name',
+      'LASID',
+      'Grade level next year',
       'Room next year'
     ]);
     const csvText = [header].concat(rows.map(joinCsvRow)).join('\n');
