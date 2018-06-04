@@ -4,25 +4,33 @@ RSpec.describe ClassList do
   def create_class_list_from(educator, params = {})
     ClassList.create({
       workspace_id: 'foo-workspace-id',
-      created_by_educator_id: educator.id,
+      created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
       grade_level_next_year: '6',
       json: { foo: 'bar' }
     }.merge(params))
   end
 
+  def revise_class_list(class_list, educator, params = {})
+    revised_class_list = clas_list.dup
+    revised_class_list.update!({
+      revised_by_principal_educator_id: educator.id,
+    }.merge(params))
+    revised_class_list
+  end
+
   let!(:pals) { TestPals.create! }
 
   describe 'presence validations' do
-    it 'requires school_id, grade_level_next_year, created_by_educator_id' do
+    it 'requires school_id, grade_level_next_year, created_by_teacher_educator_id' do
       expect(create_class_list_from(pals.healey_sarah_teacher, {
         school_id: nil,
         grade_level_next_year: nil,
-        created_by_educator_id: nil
+        created_by_teacher_educator_id: nil
       }).errors.details).to eq({
         school_id: [{error: :blank}],
         grade_level_next_year: [{error: :blank}],
-        created_by_educator_id: [{error: :blank}]
+        created_by_teacher_educator_id: [{error: :blank}]
       })
     end
   end
@@ -31,7 +39,7 @@ RSpec.describe ClassList do
     it 'rejects new records in workspace with different writer' do
       expect(create_class_list_from(pals.healey_sarah_teacher).errors.details).to eq({})
       expect(create_class_list_from(pals.uri).errors.details).to eq({
-        created_by_educator_id: [{error: 'cannot add different created_by_educator_id to existing workspace_id'}]
+        created_by_teacher_educator_id: [{error: 'cannot add different created_by_teacher_educator_id to existing workspace_id'}]
       })
     end
   end

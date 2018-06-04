@@ -20,18 +20,20 @@ export default class ExportList extends React.Component {
   mapToRows(studentIdsByRoom) {
     const {gradeLevelNextYear, students, principalTeacherNamesByRoom} = this.props;
 
-    return _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
+    const rows = _.flatten(_.compact(Object.keys(studentIdsByRoom).map(roomKey => {
       return studentIdsByRoom[roomKey].map(studentId => {
         const student = _.find(students, {id: studentId});
         const teacherText = principalTeacherNamesByRoom[roomKey] || 'Not placed';
         return [
-          gradeLevelNextYear,
+          `${student.last_name}, ${student.first_name}`,
           student.local_id,
-          `${student.first_name} ${student.last_name}`,
+          gradeLevelNextYear,
           teacherText
         ];
       });
     })));
+
+    return _.sortBy(rows, row => row[2]);
   }
 
   isReadyToExport(studentIdsByRoom) {
@@ -42,11 +44,18 @@ export default class ExportList extends React.Component {
     return (!isMissingTeacherNames && !hasBlankTeacherName);
   }
 
+  // This overrides the default, which includes the comma key as well, which
+  // doesn't make sense with (lastname, firstname) here.
+  shouldKeyDownEventCreateNewOption(keyCode) {
+    if ((keyCode === 9) || (keyCode === 13)) return true;
+    return false;
+  }
+
   onRoomTeacherChanged(roomKey, option) {
     const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
     onPrincipalTeacherNamesByRoomChanged({
       ...principalTeacherNamesByRoom,
-      [roomKey]: option.full_name
+      [roomKey]: (option === null) ? '' : option.name
     });
   }
 
@@ -61,7 +70,7 @@ export default class ExportList extends React.Component {
     const rows = this.mapToRows(studentIdsByRoom);
 
     return (
-      <div className="SecretaryEnters">
+      <div className="ExportList">
         <div style={headingStyle}>Have all students been placed for next year's {gradeText(gradeLevelNextYear)}?</div>
         <div style={styles.spaceBelow}>{this.renderUnplaced(studentIdsByRoom)}</div>
         
@@ -101,6 +110,12 @@ export default class ExportList extends React.Component {
       return room.roomKey !== UNPLACED_ROOM_KEY;
     });
 
+    // Include created names as options as well.
+    const createdNames = _.values(principalTeacherNamesByRoom);
+    const educatorNames = educators.map(educator => educator.full_name);
+    const uniqueSortedNames = _.sortBy(_.uniq(createdNames.concat(educatorNames)), educator => educator.toLowerCase());
+    const options = uniqueSortedNames.map(name => { return {name}; });
+
     return (
       <table style={styles.table}>
         <tbody>{rooms.map(room => {
@@ -110,16 +125,18 @@ export default class ExportList extends React.Component {
               <td style={styles.cell}>{room.roomName}</td>
               <td style={styles.cell}>
                 <Creatable
-                  valueKey="full_name"
-                  labelKey="full_name"
+                  valueKey="name"
+                  labelKey="name"
                   placeholder="Select or type..."
                   style={styles.select}
-                  options={educators}
+                  options={options}
                   disabled={!isRevisable}
                   autosize={false} // IE11, see https://github.com/JedWatson/react-select/issues/733#issuecomment-237562382
                   multi={false}
                   clearable={false}
                   value={teacherText}
+                  promptTextCreator={_.identity}
+                  shouldKeyDownEventCreateNewOption={this.shouldKeyDownEventCreateNewOption}
                   onChange={this.onRoomTeacherChanged.bind(this, room.roomKey)}
                   backspaceRemoves={true} />
               </td>
@@ -139,9 +156,9 @@ export default class ExportList extends React.Component {
     const dateText = now.format('YYYY-MM-DD');
     const filename = `Class list: ${gradeLevelText} at ${school.name} ${dateText}.csv`;
     const header = joinCsvRow([
-      'Grade level next year',
-      'LASID',
       'Student name',
+      'LASID',
+      'Grade level next year',
       'Room next year'
     ]);
     const csvText = [header].concat(rows.map(joinCsvRow)).join('\n');
@@ -180,7 +197,9 @@ ExportList.propTypes = {
   fetchProfile: React.PropTypes.func.isRequired,
   teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
   principalStudentIdsByRoom: React.PropTypes.object,
-  educators: React.PropTypes.array.isRequired,
+  educators: React.PropTypes.arrayOf(React.PropTypes.shape({
+    full_name: React.PropTypes.string.isRequired
+  })).isRequired,
   principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
   onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func,
   headingStyle: React.PropTypes.object
@@ -214,9 +233,7 @@ const styles = {
     color: 'white',
     marginTop: 20
   },
-  spaceBelow: {
-    //marginBottom: 10
-  },
+  spaceBelow: {},
   warnExport: {
     display: 'inline-block',
     marginLeft: 10

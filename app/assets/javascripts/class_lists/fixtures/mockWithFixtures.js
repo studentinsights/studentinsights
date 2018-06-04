@@ -11,5 +11,6 @@ export default function mockWithFixtures() {
   fetchMock.get('express:/api/class_lists/:workspace_id/available_grade_levels_json', available_grade_levels_json);
   fetchMock.get('express:/api/class_lists/:workspace_id/students_for_grade_level_next_year_json?(.*)', students_for_grade_level_next_year_json);
   fetchMock.get('express:/api/class_lists/:workspace_id/class_list_json', class_list_json);
-  fetchMock.post('express:/api/class_lists/:workspace_id/update_class_list_json', {});
+  fetchMock.post('express:/api/class_lists/:workspace_id/teacher_updated_class_list_json', {});
+  fetchMock.post('express:/api/class_lists/:workspace_id/principal_revised_class_list_json', {});
 }
