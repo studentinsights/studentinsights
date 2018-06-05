@@ -189,21 +189,23 @@ import TransitionNotes from './TransitionNotes';
     },
 
     renderTransitionNote: function() {
-      const {currentEducator, actions, transitionNotes, requests} = this.props;
+      const {student, transitionNotes, currentEducator} = this.props;
+      
+      // Authorization
       const labels = currentEducator.labels;
-
       const isElemCounselor = _.includes(labels, 'k8_counselor');
       const isHouseMaster = _.includes(labels, 'high_school_house_master');
-
       if (!isElemCounselor && !isHouseMaster) return null;
 
+      // Server piping
+      const parseFn = (response => _.find(response.transition_notes, { is_restricted: false }));
+      const transitionNote = parseFn({ transition_notes: transitionNotes });
       return (
         <TransitionNotes
-          transitionNotes={transitionNotes}
           readOnly={isHouseMaster}
-          onSave={actions.onClickSaveTransitionNote}
-          requestState={requests['saveTransitionNote']}
-          requestStateRestricted={requests['saveRestrictedTransitionNote']}
+          studentId={student.id}
+          defaultTransitionNote={transitionNote}
+          parseResponse={parseFn}
         />
       );
     },

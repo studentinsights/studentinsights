@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
 import _ from 'lodash';
-import TransitionNoteTextbox from './TransitionNoteTextbox';
+import LoggerBox from './LoggerBox';
+import Api from './Api.js';
+
 
 const notePrompts = `What are this student's strengths?
 ——————————
@@ -26,88 +28,95 @@ Any additional comments or good things to know about this student?
 
 `;
 
-const restrictedNotePrompts = `Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
-——————————
 
 
-Is this student receiving mental health supports?
-——————————
-  `;
-
-class TransitionNotes extends React.Component {
+export default class TransitionNotes extends React.Component {
 
   constructor(props) {
     super(props);
 
-    const {transitionNotes} = props;
-    const regularNote = _.find(transitionNotes, {is_restricted: false});
-    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
-
+    const {defaultTransitionNote} = props;
     this.state = {
-      noteText: (regularNote ? regularNote.text : notePrompts),
-      restrictedNoteText: (restrictedNote ? restrictedNote.text : restrictedNotePrompts),
+      requestState: 'saved',
+      transitionNoteId: defaultTransitionNote.id || null,
+      transitionNoteText: defaultTransitionNote.text || ''
     };
 
-    const throttleOptions = {leading: false, trailing: true};
+    this.api = new Api();
+    this.loggerBox = new LoggerBox(document.body);
 
-    this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 1000, throttleOptions);
-    this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 1000, throttleOptions);
+    this.onTransitionNoteChange = this.onTransitionNoteChange.bind(this);
+    this.onSaveTransitionNoteDone = this.onSaveTransitionNoteDone.bind(this);
+    this.onSaveTransitionNoteFail = this.onSaveTransitionNoteFail.bind(this);
 
-    this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
-    this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
+    // const throttleOptions = {leading: false, trailing: true};
+    // this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 1000, throttleOptions);
+    // this.autosave = this.autosave.bind(this);
+    // this.doSave = _.throttle(this.doSave, 500);
   }
 
-  autosaveRegularNote() {
-    const {transitionNotes} = this.props;
-    const regularNote = _.find(transitionNotes, {is_restricted: false});
-    const regularNoteId = (regularNote) ? regularNote.id : null;
+  componentWillReceiveProps(nextProps) {
+    this.loggerBox.log('componentWillReceiveProps');
+    
+  }
 
-    const params = {
-      is_restricted: false,
-      text: this.state.noteText
+  componentDidUpdate(prevProps, prevState) {
+    this.loggerBox.log('   selectionStart', this.textareaEl.selectionStart);
+
+    const hasIdChanged = (prevState.transitionNoteId !== this.state.transitionNoteId);
+    const hasNoteChanged = (prevState.transitionNoteText !== this.state.transitionNoteText);
+    if (hasIdChanged || hasNoteChanged) {
+      this.loggerBox.log('isDirty', {hasNoteChanged, hasIdChanged});
+      this.setState({requestState: 'pending'});
+      this.doSave();
+    }
+  }
+
+  componentWillUnmount() {
+    this.loggerBox.destroy();
+  }
+
+  doSave() {
+    this.loggerBox.log('doSave');
+    this.loggerBox.log('   selectionStart', this.textareaEl.selectionStart);
+
+    const {transitionNoteId, transitionNoteText} = this.state;
+    const requestParams = {
+      id: transitionNoteId,
+      text: transitionNoteText,
+      is_restricted: false
     };
 
-    if (regularNoteId) { _.merge(params, {id: regularNoteId}); }
-
-    this.props.onSave(params);
+    const {studentId} = this.props;
+    this.api.saveTransitionNote(studentId, requestParams)
+      .done(this.onSaveTransitionNoteDone)
+      .fail(this.onSaveTransitionNoteFail);
   }
 
-  autosaveRestrictedNote() {
-    const {transitionNotes} = this.props;
-    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
-    const restrictedNoteId = (restrictedNote) ? restrictedNote.id : null;
-
-    const params = {
-      is_restricted: true,
-      text: this.state.restrictedNoteText
-    };
-
-    if (restrictedNoteId) { _.merge(params, {id: restrictedNoteId}); }
-
-    this.props.onSave(params);
+  onTransitionNoteChange(e) {
+    this.setState({transitionNoteText: e.target.value});
   }
 
-  autosaveStatusText(status) {
-    if (status === 'saved') return 'Saved.';
-
-    if (status === 'pending') return 'Saving...';
-
-    if (status === 'error') return 'There was an error autosaving this note.';
-
-    return 'This note will autosave as you type.';
+  onSaveTransitionNoteDone(response) {
+    this.loggerBox.log('onSaveTransitionNoteDone');
+    this.loggerBox.log('   selectionStart', this.textareaEl.selectionStart);
+    this.setState({requestState: 'saved'});
+    // const {parseResponse} = this.props;
+    // const transitionNote = parseResponse(response);
+    // this.setState({
+    //   transitionNoteId: transitionNote.id,
+    //   requestState: 'saved'
+    // });
   }
 
-  onChangeRegularNote(e) {
-    this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote();});
-  }
-
-  onChangeRestrictedNote(e) {
-    this.setState({restrictedNoteText: e.target.value}, () => {this.autosaveRestrictedNote();});
+  onSaveTransitionNoteFail(request, status, message) {
+    this.loggerBox.log('onSaveTransitionNoteFail');
+    this.setState({requestState: 'error'});
   }
 
   render() {
-    const {noteText, restrictedNoteText} = this.state;
-    const {requestState, requestStateRestricted, readOnly} = this.props;
+    const {requestState, transitionNoteText} = this.state;
+    const {readOnly} = this.props;
 
     return (
       <div style={{display: 'flex'}}>
@@ -115,41 +124,53 @@ class TransitionNotes extends React.Component {
           <SectionHeading>
             High School Transition Note
           </SectionHeading>
-          <TransitionNoteTextbox
-            value={noteText}
-            onChange={this.onChangeRegularNote}
+          <textarea
+            ref={el => this.textareaEl = el}
+            rows={10}
+            style={styles.textarea}
+            value={_.isEmpty(transitionNoteText) ? notePrompts : transitionNoteText}
+            onChange={this.onTransitionNoteChange}
             readOnly={readOnly}
           />
           <div style={{color: 'gray'}}>
-            {this.autosaveStatusText(requestState)}
-          </div>
-        </div>
-        <div style={{flex: 1, margin: 30}}>
-          <SectionHeading>
-            High School Transition Note (Restricted)
-          </SectionHeading>
-          <TransitionNoteTextbox
-            value={restrictedNoteText}
-            onChange={this.onChangeRestrictedNote}
-            readOnly={readOnly}
-          />
-          <div style={{color: 'gray'}}>
-            {this.autosaveStatusText(requestStateRestricted)}
+            {this.renderAutosaveStatusText(requestState)}
           </div>
         </div>
       </div>
     );
   }
 
+  renderAutosaveStatusText(status) {
+    if (status === 'saved') return 'Saved.';
+    if (status === 'pending') return 'Saving...';
+    if (status === 'error') return 'There was an error autosaving this note.';
+
+    return 'This note will autosave as you type.';
+  }
 }
 
 TransitionNotes.propTypes = {
+  studentId: PropTypes.number.isRequired,
+  defaultTransitionNote: PropTypes.object.isRequired,
   readOnly: PropTypes.bool.isRequired,
-  onSave: PropTypes.func.isRequired,
-  transitionNotes: PropTypes.array.isRequired,
-  requestState: PropTypes.string,              // can be null if no request
-  requestStateRestricted: PropTypes.string     // can be null if no request
+  parseResponse: PropTypes.func.isRequired
 };
 
-export default TransitionNotes;
 
+const styles = {
+  textarea: {
+    marginTop: 20,
+    fontSize: 14,
+    border: '4px solid rgba(153,117,185, 0.4)',
+    width: '100%'
+  }
+};
+
+
+
+//one [] four five six seven eight 
+/*
+two three four
+two three fou
+jump to end of selection
+*/
