@@ -9,7 +9,7 @@ RSpec.describe TransitionNotesController, type: :controller do
       sign_in(pals.west_counselor)
       post :update, params: {
         format: :json,
-        student_id: pals.west_eighth_ryan.id,
+        id: pals.west_eighth_ryan.id,
         text: 'foo',
         is_restricted: false
       }

@@ -58,12 +58,9 @@ Rails.application.routes.draw do
   get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
-
+    
     member do
       post 'update_transition_note' => 'transition_notes#update'
-    end
-
-    member do
       get :student_report
       get :restricted_notes
       post :service
