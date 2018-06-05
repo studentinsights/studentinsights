@@ -31,22 +31,22 @@ RSpec.describe ClassList do
       })
     end
 
-    it 'enforces only_one_restricted_note' do
-      expect(create_transition_note({
-        student_id: pals.west_eighth_ryan.id,
-        is_restricted: false,
-        text: 'foo'
-      }).errors.details).to eq({})
-      expect(create_transition_note({
-        student_id: pals.west_eighth_ryan.id,
-        is_restricted: false,
-        text: 'foo'
-      }).errors.details).to eq({foo: 'bar'})
-    end
-
     it 'enforces only_one_regular_note' do
       expect(create_transition_note({
         student_id: pals.west_eighth_ryan.id,
+        is_restricted: false,
+        text: 'foo'
+      }).errors.details).to eq({})
+      expect(create_transition_note({
+        student_id: pals.west_eighth_ryan.id,
+        is_restricted: false,
+        text: 'foo'
+      }).errors.details).to eq(:student => [{:error=>"cannot have more than one regular note"}])
+    end
+
+    it 'enforces only_one_restricted_note' do
+      expect(create_transition_note({
+        student_id: pals.west_eighth_ryan.id,
         is_restricted: true,
         text: 'foo'
       }).errors.details).to eq({})
@@ -54,10 +54,10 @@ RSpec.describe ClassList do
         student_id: pals.west_eighth_ryan.id,
         is_restricted: true,
         text: 'foo'
-      }).errors.details).to eq({foo: 'bar'})
+      }).errors.details).to eq(:student => [{:error=>"cannot have more than one restricted note"}])
     end
 
-    it 'allows only one of each' do
+    it 'allows one of each' do
       expect(create_transition_note({
         student_id: pals.west_eighth_ryan.id,
         is_restricted: true,
