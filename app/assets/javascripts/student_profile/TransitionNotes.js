@@ -124,7 +124,6 @@ class TransitionNotes extends React.Component {
 
   render() {
     const {noteText, restrictedNoteText, readOnly} = this.state;
-    const {requestState, requestStateRestricted} = this.props;
 
     return (
       <div style={{display: 'flex'}}>
