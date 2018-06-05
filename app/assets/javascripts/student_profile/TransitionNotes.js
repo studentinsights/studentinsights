@@ -56,16 +56,35 @@ class TransitionNotes extends React.Component {
       restrictedNoteText: (restrictedNote ? restrictedNote.text : restrictedNotePrompts),
     };
 
-    const throttleOptions = {leading: false, trailing: true};
-
-    this.autosaveRegularNote = _.throttle(this.autosaveRegularNote.bind(this), 1000, throttleOptions);
-    this.autosaveRestrictedNote = _.throttle(this.autosaveRestrictedNote.bind(this), 1000, throttleOptions);
-
+    this.onClickSave = this.onClickSave.bind(this);
+    this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
     this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
     this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
+    this.buttonText = this.buttonText.bind(this);
+    this.buttonTextRestricted = this.buttonTextRestricted.bind(this);
   }
 
-  autosaveRegularNote() {
+  buttonText() {
+    const {requestState} = this.props;
+
+    if (requestState === 'pending') return 'Saving ...';
+
+    if (requestState === 'error') return 'Error ...';
+
+    return 'Save Note';
+  }
+
+  buttonTextRestricted() {
+    const {requestStateRestricted} = this.props;
+
+    if (requestStateRestricted === 'pending') return 'Saving ...';
+
+    if (requestStateRestricted === 'error') return 'Error ...';
+
+    return 'Save Note';
+  }
+
+  onClickSave() {
     const {transitionNotes} = this.props;
     const regularNote = _.find(transitionNotes, {is_restricted: false});
     const regularNoteId = (regularNote) ? regularNote.id : null;
@@ -80,7 +99,7 @@ class TransitionNotes extends React.Component {
     this.props.onSave(params);
   }
 
-  autosaveRestrictedNote() {
+  onClickSaveRestricted() {
     const {transitionNotes} = this.props;
     const restrictedNote = _.find(transitionNotes, {is_restricted: true});
     const restrictedNoteId = (restrictedNote) ? restrictedNote.id : null;
@@ -95,27 +114,16 @@ class TransitionNotes extends React.Component {
     this.props.onSave(params);
   }
 
-  autosaveStatusText(status) {
-    if (status === 'saved') return 'Saved.';
-
-    if (status === 'pending') return 'Saving...';
-
-    if (status === 'error') return 'There was an error autosaving this note.';
-
-    return 'This note will autosave as you type.';
-  }
-
   onChangeRegularNote(e) {
-    this.setState({noteText: e.target.value}, () => {this.autosaveRegularNote();});
+    this.setState({noteText: e.target.value});
   }
 
   onChangeRestrictedNote(e) {
-    this.setState({restrictedNoteText: e.target.value}, () => {this.autosaveRestrictedNote();});
+    this.setState({restrictedNoteText: e.target.value});
   }
 
   render() {
     const {noteText, restrictedNoteText, readOnly} = this.state;
-    const {requestState, requestStateRestricted} = this.props;
 
     return (
       <div style={{display: 'flex'}}>
@@ -129,9 +137,7 @@ class TransitionNotes extends React.Component {
             value={noteText}
             onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
-          <div style={{color: 'gray'}}>
-            {this.autosaveStatusText(requestState)}
-          </div>
+          {this.renderButton(this.onClickSave, this.buttonText)}
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -143,11 +149,21 @@ class TransitionNotes extends React.Component {
             value={restrictedNoteText}
             onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
-          <div style={{color: 'gray'}}>
-            {this.autosaveStatusText(requestStateRestricted)}
-          </div>
+          {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
         </div>
       </div>
+    );
+  }
+
+  renderButton(onClickFn, buttonTextFn) {
+    const {readOnly} = this.props;
+
+    if (readOnly) return null;
+
+    return (
+      <button onClick={onClickFn} className='btn save'>
+        {buttonTextFn()}
+      </button>
     );
   }
 
