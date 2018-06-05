@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "flex": 1,
+        "margin": 30,
+      }
+    }
+  >
+    <div
+      className="SectionHeading"
+      style={
+        Object {
+          "borderBottom": "1px solid #333",
+          "padding": 10,
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "color": "black",
+            "display": "inline",
+          }
+        }
+      >
+        High School Transition Note
+      </h4>
+    </div>
+    <textarea
+      onChange={[Function]}
+      readOnly={undefined}
+      rows={10}
+      style={
+        Object {
+          "border": "4px solid rgba(153,117,185, 0.4)",
+          "fontSize": 14,
+          "marginTop": 20,
+          "width": "100%",
+        }
+      }
+      value="What are this student's strengths?
+——————————
+
+
+What is this student's involvement in the school community like?
+——————————
+
+
+How does this student relate to their peers?
+——————————
+
+
+Who is the student's primary guardian?
+——————————
+
+
+Any additional comments or good things to know about this student?
+——————————
+
+
+"
+    />
+    <button
+      className="btn save"
+      onClick={[Function]}
+    >
+      Save Note
+    </button>
+  </div>
+  <div
+    style={
+      Object {
+        "flex": 1,
+        "margin": 30,
+      }
+    }
+  >
+    <div
+      className="SectionHeading"
+      style={
+        Object {
+          "borderBottom": "1px solid #333",
+          "padding": 10,
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "color": "black",
+            "display": "inline",
+          }
+        }
+      >
+        High School Transition Note (Restricted)
+      </h4>
+    </div>
+    <textarea
+      onChange={[Function]}
+      readOnly={undefined}
+      rows={10}
+      style={
+        Object {
+          "border": "4px solid rgba(153,117,185, 0.4)",
+          "fontSize": 14,
+          "marginTop": 20,
+          "width": "100%",
+        }
+      }
+      value="Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
+——————————
+
+
+Is this student receiving mental health supports?
+——————————
+  "
+    />
+    <button
+      className="btn save"
+      onClick={[Function]}
+    >
+      Save Note
+    </button>
+  </div>
+</div>
+`;
