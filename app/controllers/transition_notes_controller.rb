@@ -9,32 +9,17 @@ class TransitionNotesController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless educator && educator.labels.include?('k8_counselor')
   end
 
-  def create
-    transition_note = TransitionNote.new(transition_note_params.merge({
-      educator_id: current_educator.id,
-      recorded_at: Time.now
-    }))
-
-    if transition_note.save
-      render json: {
-        is_restricted: transition_note.is_restricted,
-        transition_notes: transition_note.student.transition_notes,
-      }
-    else
-      render json: { errors: transition_note.errors.full_messages }, status: 422
-    end
-  end
-
   def update
-    transition_note = TransitionNote.find_by_id(params[:id])
+    is_restricted = transition_note_params[:is_restricted]
+    student_id = transition_note_params[:student_id]
 
-    transition_note.text = transition_note_params[:text]
+    transition_note = TransitionNote.find_or_initialize_by(
+      is_restricted: is_restricted,
+      student_id: student_id
+    )
 
-    if transition_note.save
-      render json: {
-        is_restricted: transition_note.is_restricted,
-        transition_notes: transition_note.student.transition_notes,
-      }
+    if transition_note.update(text: transition_note_params[:text])
+      render json: { result: 'ok' }
     else
       render json: { errors: transition_note.errors.full_messages }, status: 422
     end

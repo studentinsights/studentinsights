@@ -20,8 +20,8 @@ RSpec.describe ClassList do
 
   let!(:pals) { TestPals.create! }
 
-  describe 'presence validations' do
-    it 'requires educator, student' do
+  describe 'validations' do
+    it 'requires presence of educator, student' do
       expect(create_transition_note({
         educator_id: nil,
         student_id: nil
@@ -30,15 +30,8 @@ RSpec.describe ClassList do
         educator: [{error: :blank}]
       })
     end
-  end
 
-  describe 'just_two_per_student' do
-    it 'fails validation' do
-      expect(create_transition_note({
-        student_id: pals.west_eighth_ryan.id,
-        is_restricted: false,
-        text: 'foo'
-      }).errors.details).to eq({})
+    it 'enforces only_one_restricted_note' do
       expect(create_transition_note({
         student_id: pals.west_eighth_ryan.id,
         is_restricted: false,
@@ -49,6 +42,32 @@ RSpec.describe ClassList do
         is_restricted: false,
         text: 'foo'
       }).errors.details).to eq({foo: 'bar'})
+    end
+
+    it 'enforces only_one_regular_note' do
+      expect(create_transition_note({
+        student_id: pals.west_eighth_ryan.id,
+        is_restricted: true,
+        text: 'foo'
+      }).errors.details).to eq({})
+      expect(create_transition_note({
+        student_id: pals.west_eighth_ryan.id,
+        is_restricted: true,
+        text: 'foo'
+      }).errors.details).to eq({foo: 'bar'})
+    end
+
+    it 'allows only one of each' do
+      expect(create_transition_note({
+        student_id: pals.west_eighth_ryan.id,
+        is_restricted: true,
+        text: 'foo'
+      }).errors.details).to eq({})
+      expect(create_transition_note({
+        student_id: pals.west_eighth_ryan.id,
+        is_restricted: false,
+        text: 'foo'
+      }).errors.details).to eq({})
     end
   end
 
