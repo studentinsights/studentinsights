@@ -3,37 +3,30 @@ class TransitionNotesController < ApplicationController
 
   def authorize!
     student = Student.find(params[:student_id])
-    raise 'Student IDs don\'t match' if params[:student_id].to_i != transition_note_params[:student_id].to_i
     educator = current_educator
     raise Exceptions::EducatorNotAuthorized unless educator && educator.is_authorized_for_student(student)
     raise Exceptions::EducatorNotAuthorized unless educator && educator.labels.include?('k8_counselor')
   end
 
   def update
-    is_restricted = transition_note_params[:is_restricted]
-    student_id = transition_note_params[:student_id]
+    params.require(:is_restricted)
+    params.require(:student_id)
+    params.require(:text)
+
+    is_restricted = params[:is_restricted]
+    student_id = params[:student_id]
+    text = params[:text]
 
     transition_note = TransitionNote.find_or_initialize_by(
       is_restricted: is_restricted,
       student_id: student_id
     )
 
-    if transition_note.update(text: transition_note_params[:text])
+    if transition_note.update(text: text, educator_id: current_educator.id)
       render json: { result: 'ok' }
     else
       render json: { errors: transition_note.errors.full_messages }, status: 422
     end
   end
-
-  private
-
-    def transition_note_params
-      params.require(:transition_note).permit(
-        :student_id,
-        :text,
-        :is_restricted,
-        :id
-      )
-    end
 
 end
