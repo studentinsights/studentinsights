@@ -2,15 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
 import _ from 'lodash';
-
-const styles = {
-  textarea: {
-    marginTop: 20,
-    fontSize: 14,
-    border: '4px solid rgba(153,117,185, 0.4)',
-    width: '100%'
-  }
-};
+import TransitionNoteTextbox from './TransitionNoteTextbox';
 
 const notePrompts = `What are this student's strengths?
 ——————————
@@ -114,8 +106,8 @@ class TransitionNotes extends React.Component {
   }
 
   render() {
-    const {noteText, restrictedNoteText, readOnly} = this.state;
-    const {requestState, requestStateRestricted} = this.props;
+    const {noteText, restrictedNoteText} = this.state;
+    const {requestState, requestStateRestricted, readOnly} = this.props;
 
     return (
       <div style={{display: 'flex'}}>
@@ -123,12 +115,11 @@ class TransitionNotes extends React.Component {
           <SectionHeading>
             High School Transition Note
           </SectionHeading>
-          <textarea
-            rows={10}
-            style={styles.textarea}
+          <TransitionNoteTextbox
             value={noteText}
             onChange={this.onChangeRegularNote}
-            readOnly={readOnly} />
+            readOnly={readOnly}
+          />
           <div style={{color: 'gray'}}>
             {this.autosaveStatusText(requestState)}
           </div>
@@ -137,12 +128,11 @@ class TransitionNotes extends React.Component {
           <SectionHeading>
             High School Transition Note (Restricted)
           </SectionHeading>
-          <textarea
-            rows={10}
-            style={styles.textarea}
+          <TransitionNoteTextbox
             value={restrictedNoteText}
             onChange={this.onChangeRestrictedNote}
-            readOnly={readOnly} />
+            readOnly={readOnly}
+          />
           <div style={{color: 'gray'}}>
             {this.autosaveStatusText(requestStateRestricted)}
           </div>
