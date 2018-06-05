@@ -28,11 +28,10 @@ class TransitionNotesController < ApplicationController
   private
 
     def transition_note_params
-      params.require(:transition_note).permit(
+      params.require(:transition_note).require(
         :student_id,
         :text,
         :is_restricted,
-        :id
       )
     end
 
