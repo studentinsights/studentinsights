@@ -11,10 +11,8 @@ class Api {
 
   saveTransitionNote(studentId, noteParams) {
     return this._post('/students/' + studentId + '/update_transition_note', {
-      transition_note: {
-        text: noteParams.text,
-        is_restricted: noteParams.is_restricted,
-      }
+      text: noteParams.text,
+      is_restricted: noteParams.is_restricted,
     });
   }
 
