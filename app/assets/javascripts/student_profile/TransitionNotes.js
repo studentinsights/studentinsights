@@ -58,6 +58,8 @@ class TransitionNotes extends React.Component {
 
     this.onClickSave = this.onClickSave.bind(this);
     this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
+    this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
+    this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
     this.buttonText = this.buttonText.bind(this);
     this.buttonTextRestricted = this.buttonTextRestricted.bind(this);
   }
@@ -151,6 +153,18 @@ class TransitionNotes extends React.Component {
           {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
         </div>
       </div>
+    );
+  }
+
+  renderButton(onClickFn, buttonTextFn) {
+    const {readOnly} = this.props;
+
+    if (readOnly) return null;
+
+    return (
+      <button onClick={onClickFn} className='btn save'>
+        {buttonTextFn()}
+      </button>
     );
   }
 
