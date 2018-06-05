@@ -169,10 +169,7 @@ function fromPair(key, value) {
         ? { saveRestrictedTransitionNote: 'saved' }
         : { saveTransitionNote: 'saved' };
 
-      this.setState({
-        requests: merge(this.state.requests, requestState),
-        transitionNotes: response.transition_notes
-      });
+      this.setState({ requests: merge(this.state.requests, requestState) });
     },
 
     onSaveTransitionNoteFail: function(request, status, message) {

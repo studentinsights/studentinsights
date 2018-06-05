@@ -47,9 +47,9 @@ class TransitionNotes extends React.Component {
   constructor(props) {
     super(props);
 
-    const {transitionNotes} = props;
-    const regularNote = _.find(transitionNotes, {is_restricted: false});
-    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
+    const {defaultTransitionNotes} = props;
+    const regularNote = _.find(defaultTransitionNotes, {is_restricted: false});
+    const restrictedNote = _.find(defaultTransitionNotes, {is_restricted: true});
 
     this.state = {
       noteText: (regularNote ? regularNote.text : notePrompts),
@@ -85,31 +85,19 @@ class TransitionNotes extends React.Component {
   }
 
   onClickSave() {
-    const {transitionNotes} = this.props;
-    const regularNote = _.find(transitionNotes, {is_restricted: false});
-    const regularNoteId = (regularNote) ? regularNote.id : null;
-
     const params = {
       is_restricted: false,
       text: this.state.noteText
     };
 
-    if (regularNoteId) { _.merge(params, {id: regularNoteId}); }
-
     this.props.onSave(params);
   }
 
   onClickSaveRestricted() {
-    const {transitionNotes} = this.props;
-    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
-    const restrictedNoteId = (restrictedNote) ? restrictedNote.id : null;
-
     const params = {
       is_restricted: true,
       text: this.state.restrictedNoteText
     };
-
-    if (restrictedNoteId) { _.merge(params, {id: restrictedNoteId}); }
 
     this.props.onSave(params);
   }
@@ -172,7 +160,7 @@ class TransitionNotes extends React.Component {
 TransitionNotes.propTypes = {
   readOnly: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
-  transitionNotes: PropTypes.array.isRequired,
+  defaultTransitionNotes: PropTypes.array.isRequired,
   requestState: PropTypes.string,              // can be null if no request
   requestStateRestricted: PropTypes.string     // can be null if no request
 };
