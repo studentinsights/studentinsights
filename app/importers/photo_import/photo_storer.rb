@@ -29,7 +29,7 @@ class PhotoStorer
   end
 
   private
-  def photo_already_exists?(image_file_digest)
+  def photo_already_exists?
     StudentPhoto.find_by({
       file_digest: image_file_digest,
       file_size: file_size
