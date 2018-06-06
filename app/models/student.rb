@@ -20,6 +20,7 @@ class Student < ActiveRecord::Base
   has_one :iep_document, dependent: :destroy
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
+  belongs_to :student_photo
 
   has_many :dashboard_tardies, -> {
     where('occurred_at >= ?', 1.year.ago)
