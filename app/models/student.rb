@@ -8,6 +8,7 @@ class Student < ActiveRecord::Base
 
   belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
+  belongs_to :student_photo
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -20,7 +21,6 @@ class Student < ActiveRecord::Base
   has_one :iep_document, dependent: :destroy
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
-  belongs_to :student_photo
 
   has_many :dashboard_tardies, -> {
     where('occurred_at >= ?', 1.year.ago)
