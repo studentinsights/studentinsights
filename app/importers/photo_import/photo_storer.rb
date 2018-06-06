@@ -2,11 +2,13 @@ class PhotoStorer
   def initialize(path_to_file:,
                  local_id:,
                  s3_client:,
-                 logger:)
+                 logger:,
+                 time_now:)
     @path_to_file = path_to_file
     @local_id = local_id
     @s3_client = s3_client
     @logger = logger
+    @time_now = time_now
   end
 
   # On success, returns StudentPhoto.
@@ -38,7 +40,12 @@ class PhotoStorer
   def store_object_in_s3
     @logger.info("storing photo for student ##{@student.id} to s3...")
 
-    s3_filename = Digest::SHA256.hexdigest(@local_id)
+    # s3 filenames are sorted by (student / upload date / image)
+    s3_filename = [
+      Digest::SHA256.hexdigest(@local_id),
+      @time_now.strftime('%Y-%m-%d'),
+      image_file_digest
+    ].join('/')
     response = @client.put_object(
       bucket: ENV['AWS_S3_PHOTOS_BUCKET'],
       key: s3_filename,
