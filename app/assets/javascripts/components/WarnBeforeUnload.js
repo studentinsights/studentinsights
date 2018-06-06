@@ -18,6 +18,7 @@ export default class WarnBeforeUnload extends React.Component {
   onBeforeUnload(event) {
     const {messageFn} = this.props;
     const warningMessage = messageFn();
+    if (warningMessage === null || warningMessage === undefined) return undefined;
 
     // Chrome expects the event property to be mutated, other browsers
     // expect the function to return a value;

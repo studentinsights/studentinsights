@@ -153,33 +153,6 @@ function fromPair(key, value) {
         .fail(this.onSaveNotesFail);
     },
 
-    onClickSaveTransitionNote: function(noteParams) {
-      const requestState = (noteParams.is_restricted)
-        ? { saveRestrictedTransitionNote: 'pending' }
-        : { saveTransitionNote: 'pending' };
-
-      this.setState({ requests: merge(this.state.requests, requestState) });
-      this.api.saveTransitionNote(this.state.student.id, noteParams)
-        .done(this.onSaveTransitionNoteDone)
-        .fail(this.onSaveTransitionNoteFail);
-    },
-
-    onSaveTransitionNoteDone: function(response) {
-      const requestState = (response.is_restricted)
-        ? { saveRestrictedTransitionNote: 'saved' }
-        : { saveTransitionNote: 'saved' };
-
-      this.setState({ requests: merge(this.state.requests, requestState) });
-    },
-
-    onSaveTransitionNoteFail: function(request, status, message) {
-      const requestState = (request.is_restricted)
-        ? { saveRestrictedTransitionNote: 'error' }
-        : { saveTransitionNote: 'error' };
-
-      this.setState({ requests: merge(this.state.requests, requestState) });
-    },
-
     onSaveNotesDone: function(response) {
       let updatedEventNotes;
       let foundEventNote = false;
@@ -319,7 +292,6 @@ function fromPair(key, value) {
               actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
-                onClickSaveTransitionNote: this.onClickSaveTransitionNote,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
                 onClickDiscontinueService: this.onClickDiscontinueService,

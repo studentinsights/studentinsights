@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SectionHeading from '../components/SectionHeading';
 import _ from 'lodash';
+import SectionHeading from '../components/SectionHeading';
+import WarnBeforeUnload from '../components/WarnBeforeUnload';
+import Api from './Api.js';
+
 
 const styles = {
   textarea: {
@@ -51,21 +54,45 @@ class TransitionNotes extends React.Component {
     const regularNote = _.find(defaultTransitionNotes, {is_restricted: false});
     const restrictedNote = _.find(defaultTransitionNotes, {is_restricted: true});
 
+    const noteText = regularNote ? regularNote.text : notePrompts;
+    const restrictedNoteText = restrictedNote ? restrictedNote.text : restrictedNotePrompts;
     this.state = {
-      noteText: (regularNote ? regularNote.text : notePrompts),
-      restrictedNoteText: (restrictedNote ? restrictedNote.text : restrictedNotePrompts),
+      noteText,
+      restrictedNoteText,
+
+      requestState: null,
+      restrictedRequestState: null,
+
+      serverNoteText: noteText,
+      serverRestrictedNoteText: restrictedNoteText
     };
 
+    this.api = new Api();
     this.onClickSave = this.onClickSave.bind(this);
     this.onClickSaveRestricted = this.onClickSaveRestricted.bind(this);
     this.onChangeRegularNote = this.onChangeRegularNote.bind(this);
     this.onChangeRestrictedNote = this.onChangeRestrictedNote.bind(this);
+    this.onSaveTransitionNoteDone = this.onSaveTransitionNoteDone.bind(this);
+    this.onSaveTransitionNoteFail = this.onSaveTransitionNoteFail.bind(this);
     this.buttonText = this.buttonText.bind(this);
     this.buttonTextRestricted = this.buttonTextRestricted.bind(this);
   }
 
+  isDirty() {
+    const {noteText, serverNoteText, restrictedNoteText, serverRestrictedNoteText} = this.state;
+    if (noteText !== serverNoteText) return true;
+    if (restrictedNoteText !== serverRestrictedNoteText) return true;
+    return false;
+  }
+
+  warnBeforeUnloadMessage() {
+    return (this.isDirty())
+      ? 'You have unsaved changes.'
+      : undefined;
+  }
+
   buttonText() {
-    const {requestState} = this.props;
+    const {requestState} = this.state;
 
     if (requestState === 'pending') return 'Saving ...';
 
@@ -75,13 +102,25 @@ class TransitionNotes extends React.Component {
   }
 
   buttonTextRestricted() {
-    const {requestStateRestricted} = this.props;
+    const {restrictedRequestState} = this.state;
 
-    if (requestStateRestricted === 'pending') return 'Saving ...';
+    if (restrictedRequestState === 'pending') return 'Saving ...';
 
-    if (requestStateRestricted === 'error') return 'Error ...';
+    if (restrictedRequestState === 'error') return 'Error ...';
 
     return 'Save Note';
+  }
+
+  doSaveTransitionNote(noteParams) {
+    const {studentId} = this.props;
+    const nextState = (noteParams.is_restricted)
+      ? { restrictedRequestState: 'pending' }
+      : { requestState: 'pending' };
+
+    this.setState(nextState);
+    this.api.saveTransitionNote(studentId, noteParams)
+      .done(this.onSaveTransitionNoteDone.bind(this, noteParams))
+      .fail(this.onSaveTransitionNoteFail.bind(this, noteParams));
   }
 
   onClickSave() {
@@ -90,7 +129,7 @@ class TransitionNotes extends React.Component {
       text: this.state.noteText
     };
 
-    this.props.onSave(params);
+    this.doSaveTransitionNote(params);
   }
 
   onClickSaveRestricted() {
@@ -99,7 +138,7 @@ class TransitionNotes extends React.Component {
       text: this.state.restrictedNoteText
     };
 
-    this.props.onSave(params);
+    this.doSaveTransitionNote(params);
   }
 
   onChangeRegularNote(e) {
@@ -110,45 +149,71 @@ class TransitionNotes extends React.Component {
     this.setState({restrictedNoteText: e.target.value});
   }
 
+  onSaveTransitionNoteDone(noteParams) {
+    const nextStateForRequests = (noteParams.is_restricted)
+      ? { restrictedRequestState: 'saved' }
+      : { requestState: 'saved' };
+    const nextStateForServer = (noteParams.is_restricted)
+      ? { serverRestrictedNoteText: noteParams.text }
+      : { serverNoteText: noteParams.text };
+
+    this.setState({...nextStateForRequests, ...nextStateForServer});
+  }
+
+  onSaveTransitionNoteFail(noteParams, request, status, message) {
+    const nextState = (request.is_restricted)
+      ? { restrictedRequestState: 'error' }
+      : { requestState: 'error' };
+
+    this.setState(nextState);
+  }
+
   render() {
-    const {noteText, restrictedNoteText, readOnly} = this.state;
-    const {requestState, requestStateRestricted} = this.props;
+    const {
+      noteText,
+      requestState, 
+      restrictedNoteText,
+      restrictedRequestState,
+      readOnly
+    } = this.state;
 
     return (
-      <div style={{display: 'flex'}}>
-        <div style={{flex: 1, margin: 30}}>
-          <SectionHeading>
-            High School Transition Note
-          </SectionHeading>
-          <textarea
-            rows={10}
-            style={styles.textarea}
-            value={noteText}
-            onChange={this.onChangeRegularNote}
-            readOnly={readOnly} />
-          {this.renderButton(
-            this.onClickSave,
-            this.buttonText,
-            (requestState === 'pending' || requestState === 'error')
-          )}
+      <WarnBeforeUnload messageFn={this.warnBeforeUnloadMessage}>
+        <div style={{display: 'flex'}}>
+          <div style={{flex: 1, margin: 30}}>
+            <SectionHeading>
+              High School Transition Note
+            </SectionHeading>
+            <textarea
+              rows={10}
+              style={styles.textarea}
+              value={noteText}
+              onChange={this.onChangeRegularNote}
+              readOnly={readOnly} />
+            {this.renderButton(
+              this.onClickSave,
+              this.buttonText,
+              (requestState === 'pending' || requestState === 'error')
+            )}
+          </div>
+          <div style={{flex: 1, margin: 30}}>
+            <SectionHeading>
+              High School Transition Note (Restricted)
+            </SectionHeading>
+            <textarea
+              rows={10}
+              style={styles.textarea}
+              value={restrictedNoteText}
+              onChange={this.onChangeRestrictedNote}
+              readOnly={readOnly} />
+            {this.renderButton(
+              this.onClickSaveRestricted,
+              this.buttonTextRestricted,
+              (restrictedRequestState === 'pending' || restrictedRequestState === 'error')
+            )}
+          </div>
         </div>
-        <div style={{flex: 1, margin: 30}}>
-          <SectionHeading>
-            High School Transition Note (Restricted)
-          </SectionHeading>
-          <textarea
-            rows={10}
-            style={styles.textarea}
-            value={restrictedNoteText}
-            onChange={this.onChangeRestrictedNote}
-            readOnly={readOnly} />
-          {this.renderButton(
-            this.onClickSaveRestricted,
-            this.buttonTextRestricted,
-            (requestStateRestricted === 'pending' || requestStateRestricted === 'error')
-          )}
-        </div>
-      </div>
+      </WarnBeforeUnload>
     );
   }
 
@@ -156,6 +221,7 @@ class TransitionNotes extends React.Component {
     const {readOnly} = this.props;
 
     if (readOnly) return null;
+    if (!this.isDirty()) return <span>Saved.</span>;
 
     return (
       <button onClick={onClickFn}
@@ -169,11 +235,9 @@ class TransitionNotes extends React.Component {
 }
 
 TransitionNotes.propTypes = {
-  readOnly: PropTypes.bool.isRequired,
-  onSave: PropTypes.func.isRequired,
+  studentId: PropTypes.number.isRequired,
   defaultTransitionNotes: PropTypes.array.isRequired,
-  requestState: PropTypes.string,              // can be null if no request
-  requestStateRestricted: PropTypes.string     // can be null if no request
+  readOnly: PropTypes.bool.isRequired
 };
 
 export default TransitionNotes;

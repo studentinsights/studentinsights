@@ -189,7 +189,7 @@ import TransitionNotes from './TransitionNotes';
     },
 
     renderTransitionNote: function() {
-      const {currentEducator, actions, transitionNotes, requests} = this.props;
+      const {currentEducator, transitionNotes, student} = this.props;
       const labels = currentEducator.labels;
 
       const isElemCounselor = _.includes(labels, 'k8_counselor');
@@ -199,11 +199,9 @@ import TransitionNotes from './TransitionNotes';
 
       return (
         <TransitionNotes
+          studentId={student.id}
           defaultTransitionNotes={transitionNotes}
           readOnly={isHouseMaster}
-          onSave={actions.onClickSaveTransitionNote}
-          requestState={requests['saveTransitionNote']}
-          requestStateRestricted={requests['saveRestrictedTransitionNote']}
         />
       );
     },
