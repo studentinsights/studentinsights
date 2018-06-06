@@ -13,34 +13,18 @@ const styles = {
 };
 
 const notePrompts = `What are this student's strengths?
-——————————
-
 
 What is this student's involvement in the school community like?
-——————————
-
 
 How does this student relate to their peers?
-——————————
-
 
 Who is the student's primary guardian?
-——————————
 
-
-Any additional comments or good things to know about this student?
-——————————
-
-
-`;
+Any additional comments or good things to know about this student?`;
 
 const restrictedNotePrompts = `Is this student receiving Social Services and if so, what is the name and contact info of their social worker?
-——————————
 
-
-Is this student receiving mental health supports?
-——————————
-  `;
+Is this student receiving mental health supports?`;
 
 class TransitionNotes extends React.Component {
 
