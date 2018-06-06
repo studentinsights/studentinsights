@@ -4,7 +4,7 @@ RSpec.describe ClassListQueries do
   def create_class_list_from(educator, params = {})
     ClassList.create!({
       workspace_id: 'foo-workspace-id',
-      created_by_educator_id: educator.id,
+      created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
       json: { foo: 'bar' }
     }.merge(params))
@@ -128,12 +128,27 @@ RSpec.describe ClassListQueries do
       expect(ClassListQueries.new(pals.healey_sarah_teacher).is_authorized_for_writes?('foo-workspace-id')).to eq false
     end
 
-    it 'does not allow principals to write to submitted workspaces yet' do
+    it 'does not allow principals to write to submitted workspaces (they should use is_authorized_to_revise?)' do
       create_class_list_from(pals.healey_laura_principal, {
         grade_level_next_year: '6',
         submitted: true
       })
       expect(ClassListQueries.new(pals.healey_laura_principal).is_authorized_for_writes?('foo-workspace-id')).to eq false
+    end
+  end
+
+  describe 'is_authorized_to_revise?' do
+    it 'does not allow revising if not yet submitted' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6', submitted: false)
+      expect(ClassListQueries.new(pals.healey_laura_principal).is_authorized_to_revise?(class_list)).to eq false
+    end
+
+    it 'limits authorization to users with principal label matching the school' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6', submitted: true)
+      expect(ClassListQueries.new(pals.healey_laura_principal).is_authorized_to_revise?(class_list)).to eq true
+      expect(ClassListQueries.new(pals.healey_sarah_teacher).is_authorized_to_revise?(class_list)).to eq false
+      expect(ClassListQueries.new(pals.uri).is_authorized_to_revise?(class_list)).to eq false
+      expect(ClassListQueries.new(pals.west_marcus_teacher).is_authorized_to_revise?(class_list)).to eq false
     end
   end
 

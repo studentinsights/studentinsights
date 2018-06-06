@@ -1731,7 +1731,7 @@ When Student Insights was being developed, some teachers started asking whether 
 </div>
 `;
 
-exports[`export 1`] = `
+exports[`exportProps snapshots all placed 1`] = `
 <div
   className="ClassListCreatorView"
   style={
@@ -2008,11 +2008,379 @@ exports[`export 1`] = `
       <div
         style={
           Object {
-            "padding": 10,
+            "margin": 20,
           }
         }
       >
-        Loading...
+        <div
+          className="ExportList"
+        >
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have all students been placed for next year's 
+            1st grade
+            ?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              All students have been placed.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have you reviewed the team's plan and notes before making changes?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              No students were moved.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Who will teach next year's 
+            1st grade
+            ?
+          </div>
+          <div>
+            <table
+              style={
+                Object {
+                  "borderCollapse": "collapse",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <tbody>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room A
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-12--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-12--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room B
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-13--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-13--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room C
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-14--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-14--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div>
+              <span
+                className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
+                style={
+                  Object {
+                    "color": "white",
+                    "display": "inline-block",
+                    "marginTop": 20,
+                    "textDecoration": "none",
+                  }
+                }
+              >
+                Download class lists spreadsheet
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <span
+                  className="SuccessLabel"
+                  style={
+                    Object {
+                      "background": "orange",
+                      "backgroundColor": "rgb(209, 231, 210)",
+                      "border": "1px solid rgb(149, 198, 150)",
+                      "borderColor": "darkorange",
+                      "borderRadius": 3,
+                      "color": "white",
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "marginBottom": 10,
+                      "marginTop": 10,
+                      "padding": 8,
+                    }
+                  }
+                >
+                  Teachers need to be assigned to each homeroom first
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -2055,7 +2423,7 @@ exports[`export 1`] = `
 </div>
 `;
 
-exports[`export 2`] = `
+exports[`exportProps snapshots moves 1`] = `
 <div
   className="ClassListCreatorView"
   style={
@@ -2348,11 +2716,381 @@ exports[`export 2`] = `
       <div
         style={
           Object {
-            "padding": 10,
+            "margin": 20,
           }
         }
       >
-        Loading...
+        <div
+          className="ExportList"
+        >
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have all students been placed for next year's 
+            1st grade
+            ?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              All students have been placed.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have you reviewed the team's plan and notes before making changes?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "background": "orange",
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderColor": "darkorange",
+                  "borderRadius": 3,
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              You made 2 revisions to the team's original plan.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Who will teach next year's 
+            1st grade
+            ?
+          </div>
+          <div>
+            <table
+              style={
+                Object {
+                  "borderCollapse": "collapse",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <tbody>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room A
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-15--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-15--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room B
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-16--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-16--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room C
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-17--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-17--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div>
+              <span
+                className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
+                style={
+                  Object {
+                    "color": "white",
+                    "display": "inline-block",
+                    "marginTop": 20,
+                    "textDecoration": "none",
+                  }
+                }
+              >
+                Download class lists spreadsheet
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <span
+                  className="SuccessLabel"
+                  style={
+                    Object {
+                      "background": "orange",
+                      "backgroundColor": "rgb(209, 231, 210)",
+                      "border": "1px solid rgb(149, 198, 150)",
+                      "borderColor": "darkorange",
+                      "borderRadius": 3,
+                      "color": "white",
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "marginBottom": 10,
+                      "marginTop": 10,
+                      "padding": 8,
+                    }
+                  }
+                >
+                  Teachers need to be assigned to each homeroom first
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -2395,7 +3133,624 @@ exports[`export 2`] = `
 </div>
 `;
 
-exports[`export 3`] = `
+exports[`exportProps snapshots unplaced 1`] = `
+<div
+  className="ClassListCreatorView"
+  style={
+    Object {
+      "fontSize": 14,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="HorizontalStepper"
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
+        "paddingTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "fontSize": 12,
+          "justifyContent": "space-between",
+          "marginLeft": 15,
+          "marginRight": 15,
+        }
+      }
+    >
+      <div>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 8,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">1</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Choose your grade
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 8,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">2</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Make a plan
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 8,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">3</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Create your classrooms
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 8,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">4</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Share notes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "border": "1px solid white",
+              "borderColor": "white",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 8,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">5</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Principal finalizes
+          </span>
+        </span>
+        <span
+          onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": "rgba(49, 119, 201, 0.25)",
+              "border": "1px solid white",
+              "borderColor": "#3177c9",
+              "borderRadius": 3,
+              "cursor": "pointer",
+              "marginLeft": 5,
+              "marginRight": 8,
+              "padding": 8,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<svg viewBox=\\"0 0 24 24\\" style=\\"display: inline-block; color: #3177c9; fill: #3177c9; height: 24px; width: 24px; user-select: none; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; font-size: 24px;\\"><circle cx=\\"12\\" cy=\\"12\\" r=\\"10\\"></circle><text x=\\"12\\" y=\\"16\\" text-anchor=\\"middle\\" font-size=\\"12\\" fill=\\"#fff\\">6</text></svg>",
+              }
+            }
+            style={
+              Object {
+                "display": "inline-block",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+          <span
+            style={
+              Object {
+                "paddingLeft": 5,
+              }
+            }
+          >
+            Export
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "borderTop": "1px solid #ccc",
+          "flex": 1,
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "margin": 20,
+          }
+        }
+      >
+        <div
+          className="ExportList"
+        >
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have all students been placed for next year's 
+            1st grade
+            ?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "background": "orange",
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderColor": "darkorange",
+                  "borderRadius": 3,
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              There are 52 students who have not been placed in a classroom.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have you reviewed the team's plan and notes before making changes?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              No students were moved.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Who will teach next year's 
+            1st grade
+            ?
+          </div>
+          <div>
+            <table
+              style={
+                Object {
+                  "borderCollapse": "collapse",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <tbody>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room A
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-10--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-10--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room B
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-11--value"
+                        >
+                          <div
+                            className="Select-placeholder"
+                          >
+                            Select or type...
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-11--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div>
+              <span
+                className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
+                style={
+                  Object {
+                    "color": "white",
+                    "display": "inline-block",
+                    "marginTop": 20,
+                    "textDecoration": "none",
+                  }
+                }
+              >
+                Download class lists spreadsheet
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <span
+                  className="SuccessLabel"
+                  style={
+                    Object {
+                      "background": "orange",
+                      "backgroundColor": "rgb(209, 231, 210)",
+                      "border": "1px solid rgb(149, 198, 150)",
+                      "borderColor": "darkorange",
+                      "borderRadius": 3,
+                      "color": "white",
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "marginBottom": 10,
+                      "marginTop": 10,
+                      "padding": 8,
+                    }
+                  }
+                >
+                  Teachers need to be assigned to each homeroom first
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "margin": 10,
+        }
+      }
+    >
+      <div
+        className="Hover"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={Object {}}
+      >
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "#4A90E2",
+              "border": "none",
+              "borderRadius": 28,
+              "color": "white",
+              "cursor": "pointer",
+              "fontSize": 14,
+              "margin": 10,
+              "padding": "8px 25px",
+              "textDecoration": "none",
+            }
+          }
+        >
+          &lt; Back 
+        </button>
+      </div>
+      <div />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`exportProps snapshots with teachers 1`] = `
 <div
   className="ClassListCreatorView"
   style={
@@ -2688,11 +4043,381 @@ exports[`export 3`] = `
       <div
         style={
           Object {
-            "padding": 10,
+            "margin": 20,
           }
         }
       >
-        Loading...
+        <div
+          className="ExportList"
+        >
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have all students been placed for next year's 
+            1st grade
+            ?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              All students have been placed.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Have you reviewed the team's plan and notes before making changes?
+          </div>
+          <div
+            style={Object {}}
+          >
+            <span
+              className="SuccessLabel"
+              style={
+                Object {
+                  "backgroundColor": "rgb(209, 231, 210)",
+                  "border": "1px solid rgb(149, 198, 150)",
+                  "borderRadius": 3,
+                  "color": "green",
+                  "display": "inline-block",
+                  "fontWeight": "bold",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 8,
+                }
+              }
+            >
+              No students were moved.
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "marginTop": 20,
+              }
+            }
+          >
+            Who will teach next year's 
+            1st grade
+            ?
+          </div>
+          <div>
+            <table
+              style={
+                Object {
+                  "borderCollapse": "collapse",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <tbody>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room A
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select has-value is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-18--value"
+                        >
+                          <div
+                            className="Select-value"
+                            style={undefined}
+                            title={undefined}
+                          >
+                            <span
+                              aria-selected="true"
+                              className="Select-value-label"
+                              id="react-select-18--value-item"
+                              role="option"
+                            >
+                              Kevin
+                            </span>
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-18--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room B
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select has-value is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-19--value"
+                        >
+                          <div
+                            className="Select-value"
+                            style={undefined}
+                            title={undefined}
+                          >
+                            <span
+                              aria-selected="true"
+                              className="Select-value-label"
+                              id="react-select-19--value-item"
+                              role="option"
+                            >
+                              Alex
+                            </span>
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-19--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    Room C
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "padding": "2px 8px",
+                      }
+                    }
+                  >
+                    <div
+                      className="Select has-value is-disabled is-searchable Select--single"
+                      style={undefined}
+                    >
+                      <div
+                        className="Select-control"
+                        onKeyDown={[Function]}
+                        onMouseDown={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        style={
+                          Object {
+                            "width": "20em",
+                          }
+                        }
+                      >
+                        <span
+                          className="Select-multi-value-wrapper"
+                          id="react-select-20--value"
+                        >
+                          <div
+                            className="Select-value"
+                            style={undefined}
+                            title={undefined}
+                          >
+                            <span
+                              aria-selected="true"
+                              className="Select-value-label"
+                              id="react-select-20--value-item"
+                              role="option"
+                            >
+                              Uri
+                            </span>
+                          </div>
+                          <div
+                            aria-activedescendant="react-select-20--value"
+                            aria-disabled="true"
+                            aria-expanded={false}
+                            aria-label={undefined}
+                            aria-labelledby={undefined}
+                            aria-owns=""
+                            className="Select-input"
+                            onBlur={[Function]}
+                            onFocus={[Function]}
+                            role="combobox"
+                            style={
+                              Object {
+                                "border": 0,
+                                "display": "inline-block",
+                                "width": 1,
+                              }
+                            }
+                            tabIndex={0}
+                          />
+                        </span>
+                        <span
+                          className="Select-arrow-zone"
+                          onMouseDown={[Function]}
+                        >
+                          <span
+                            className="Select-arrow"
+                            onMouseDown={[Function]}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div>
+              <a
+                className="DownloadCsvLink btn"
+                download="Class list: 1st grade at E Somerville Community 2018-03-13.csv"
+                href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Elsa%22%2C%22002147%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Minnie%22%2C%22002107%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Mowgli%22%2C%22002157%22%2C%221%22%2C%22Uri%22%0A%22Disney%2C%20Rapunzel%22%2C%22002100%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Rapunzel%22%2C%22002148%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Rapunzel%22%2C%22002102%22%2C%221%22%2C%22Alex%22%0A%22Disney%2C%20Snow%22%2C%22002155%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Chip%22%2C%22002112%22%2C%221%22%2C%22Uri%22%0A%22Duck%2C%20Elsa%22%2C%22002104%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Elsa%22%2C%22002146%22%2C%221%22%2C%22Uri%22%0A%22Duck%2C%20Minnie%22%2C%22002121%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Olaf%22%2C%22002135%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Snow%22%2C%22002116%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Snow%22%2C%22002150%22%2C%221%22%2C%22Uri%22%0A%22Duck%2C%20Winnie%22%2C%22002094%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Aladdin%22%2C%22002125%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Donald%22%2C%22002096%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Mickey%22%2C%22002126%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Olaf%22%2C%22002093%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Olaf%22%2C%22002122%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Rapunzel%22%2C%22002124%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Snow%22%2C%22002144%22%2C%221%22%2C%22Uri%22%0A%22Kenobi%2C%20Winnie%22%2C%22002130%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Winnie%22%2C%22002158%22%2C%221%22%2C%22Alex%22%0A%22Mouse%2C%20Elsa%22%2C%22002127%22%2C%221%22%2C%22Kevin%22%0A%22Mouse%2C%20Mickey%22%2C%22002141%22%2C%221%22%2C%22Alex%22%0A%22Mouse%2C%20Minnie%22%2C%22002114%22%2C%221%22%2C%22Alex%22%0A%22Mouse%2C%20Minnie%22%2C%22002098%22%2C%221%22%2C%22Uri%22%0A%22Mouse%2C%20Minnie%22%2C%22002134%22%2C%221%22%2C%22Uri%22%0A%22Mouse%2C%20Mowgli%22%2C%22002138%22%2C%221%22%2C%22Uri%22%0A%22Mouse%2C%20Olaf%22%2C%22002103%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Chip%22%2C%22002101%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Chip%22%2C%22002160%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Mickey%22%2C%22002106%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Minnie%22%2C%22002161%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Mowgli%22%2C%22002118%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Olaf%22%2C%22002149%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Winnie%22%2C%22002164%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Winnie%22%2C%22002153%22%2C%221%22%2C%22Alex%22%0A%22Poppins%2C%20Daisy%22%2C%22002119%22%2C%221%22%2C%22Uri%22%0A%22Poppins%2C%20Elsa%22%2C%22002145%22%2C%221%22%2C%22Alex%22%0A%22Poppins%2C%20Elsa%22%2C%22002152%22%2C%221%22%2C%22Uri%22%0A%22Poppins%2C%20Mowgli%22%2C%22002117%22%2C%221%22%2C%22Alex%22%0A%22Poppins%2C%20Snow%22%2C%22002132%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Chip%22%2C%22002109%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Daisy%22%2C%22002162%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22002115%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22002154%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Pocahontas%22%2C%22002159%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Rapunzel%22%2C%22002133%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Winnie%22%2C%22002142%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Chip%22%2C%22002097%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Daisy%22%2C%22002136%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Mowgli%22%2C%22002111%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Olaf%22%2C%22002099%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Olaf%22%2C%22002139%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Pluto%22%2C%22002120%22%2C%221%22%2C%22Kevin%22"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "white",
+                    "display": "inline-block",
+                    "marginTop": 20,
+                    "textDecoration": "none",
+                  }
+                }
+                target="_blank"
+              >
+                Download class lists spreadsheet
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -4294,8 +6019,7 @@ exports[`shareWithPrincipalProps 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
-                    "background": "#4A90E2",
-                    "backgroundColor": "#E5370E",
+                    "background": "#E5370E",
                     "border": "none",
                     "borderRadius": 28,
                     "color": "white",
@@ -4853,7 +6577,7 @@ exports[`shareWithPrincipalProps 2`] = `
 
 exports[`snapshots 1`] = `
 <div
-  className="SecretaryEnters"
+  className="ExportList"
 >
   <div
     style={undefined}
@@ -4946,7 +6670,7 @@ exports[`snapshots 1`] = `
             }
           >
             <div
-              className="Select is-disabled is-searchable Select--single"
+              className="Select has-value is-disabled is-searchable Select--single"
               style={undefined}
             >
               <div
@@ -4964,15 +6688,24 @@ exports[`snapshots 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-13--value"
+                  id="react-select-24--value"
                 >
                   <div
-                    className="Select-placeholder"
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
                   >
-                    Select or type...
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-24--value-item"
+                      role="option"
+                    >
+                      Kevin
+                    </span>
                   </div>
                   <div
-                    aria-activedescendant="react-select-13--value"
+                    aria-activedescendant="react-select-24--value"
                     aria-disabled="true"
                     aria-expanded={false}
                     aria-label={undefined}
@@ -5023,7 +6756,7 @@ exports[`snapshots 1`] = `
             }
           >
             <div
-              className="Select is-disabled is-searchable Select--single"
+              className="Select has-value is-disabled is-searchable Select--single"
               style={undefined}
             >
               <div
@@ -5041,15 +6774,24 @@ exports[`snapshots 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-14--value"
+                  id="react-select-25--value"
                 >
                   <div
-                    className="Select-placeholder"
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
                   >
-                    Select or type...
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-25--value-item"
+                      role="option"
+                    >
+                      Alex
+                    </span>
                   </div>
                   <div
-                    aria-activedescendant="react-select-14--value"
+                    aria-activedescendant="react-select-25--value"
                     aria-disabled="true"
                     aria-expanded={false}
                     aria-label={undefined}
@@ -5100,7 +6842,7 @@ exports[`snapshots 1`] = `
             }
           >
             <div
-              className="Select is-disabled is-searchable Select--single"
+              className="Select has-value is-disabled is-searchable Select--single"
               style={undefined}
             >
               <div
@@ -5118,15 +6860,24 @@ exports[`snapshots 1`] = `
               >
                 <span
                   className="Select-multi-value-wrapper"
-                  id="react-select-15--value"
+                  id="react-select-26--value"
                 >
                   <div
-                    className="Select-placeholder"
+                    className="Select-value"
+                    style={undefined}
+                    title={undefined}
                   >
-                    Select or type...
+                    <span
+                      aria-selected="true"
+                      className="Select-value-label"
+                      id="react-select-26--value-item"
+                      role="option"
+                    >
+                      Uri
+                    </span>
                   </div>
                   <div
-                    aria-activedescendant="react-select-15--value"
+                    aria-activedescendant="react-select-26--value"
                     aria-disabled="true"
                     aria-expanded={false}
                     aria-label={undefined}
@@ -5166,8 +6917,8 @@ exports[`snapshots 1`] = `
     <div>
       <a
         className="DownloadCsvLink btn"
-        download="Class list: 1st grade at Awesome school 2018-06-01.csv"
-        href="data:attachment/csv,%22Grade%20level%20next%20year%22%2C%22LASID%22%2C%22Student%20name%22%2C%22Room%20next%20year%22%0A%221%22%2C%22002147%22%2C%22Elsa%20Disney%22%2C%22Kevin%22%0A%221%22%2C%22002107%22%2C%22Minnie%20Disney%22%2C%22Kevin%22%0A%221%22%2C%22002100%22%2C%22Rapunzel%20Disney%22%2C%22Kevin%22%0A%221%22%2C%22002148%22%2C%22Rapunzel%20Disney%22%2C%22Kevin%22%0A%221%22%2C%22002155%22%2C%22Snow%20Disney%22%2C%22Kevin%22%0A%221%22%2C%22002104%22%2C%22Elsa%20Duck%22%2C%22Kevin%22%0A%221%22%2C%22002121%22%2C%22Minnie%20Duck%22%2C%22Kevin%22%0A%221%22%2C%22002135%22%2C%22Olaf%20Duck%22%2C%22Kevin%22%0A%221%22%2C%22002116%22%2C%22Snow%20Duck%22%2C%22Kevin%22%0A%221%22%2C%22002096%22%2C%22Donald%20Kenobi%22%2C%22Kevin%22%0A%221%22%2C%22002093%22%2C%22Olaf%20Kenobi%22%2C%22Kevin%22%0A%221%22%2C%22002124%22%2C%22Rapunzel%20Kenobi%22%2C%22Kevin%22%0A%221%22%2C%22002130%22%2C%22Winnie%20Kenobi%22%2C%22Kevin%22%0A%221%22%2C%22002127%22%2C%22Elsa%20Mouse%22%2C%22Kevin%22%0A%221%22%2C%22002103%22%2C%22Olaf%20Mouse%22%2C%22Kevin%22%0A%221%22%2C%22002161%22%2C%22Minnie%20Pan%22%2C%22Kevin%22%0A%221%22%2C%22002164%22%2C%22Winnie%20Pan%22%2C%22Kevin%22%0A%221%22%2C%22002132%22%2C%22Snow%20Poppins%22%2C%22Kevin%22%0A%221%22%2C%22002109%22%2C%22Chip%20Skywalker%22%2C%22Kevin%22%0A%221%22%2C%22002162%22%2C%22Daisy%20Skywalker%22%2C%22Kevin%22%0A%221%22%2C%22002115%22%2C%22Mowgli%20Skywalker%22%2C%22Kevin%22%0A%221%22%2C%22002159%22%2C%22Pocahontas%20Skywalker%22%2C%22Kevin%22%0A%221%22%2C%22002111%22%2C%22Mowgli%20White%22%2C%22Kevin%22%0A%221%22%2C%22002099%22%2C%22Olaf%20White%22%2C%22Kevin%22%0A%221%22%2C%22002120%22%2C%22Pluto%20White%22%2C%22Kevin%22%0A%221%22%2C%22002102%22%2C%22Rapunzel%20Disney%22%2C%22Alex%22%0A%221%22%2C%22002094%22%2C%22Winnie%20Duck%22%2C%22Alex%22%0A%221%22%2C%22002125%22%2C%22Aladdin%20Kenobi%22%2C%22Alex%22%0A%221%22%2C%22002126%22%2C%22Mickey%20Kenobi%22%2C%22Alex%22%0A%221%22%2C%22002122%22%2C%22Olaf%20Kenobi%22%2C%22Alex%22%0A%221%22%2C%22002158%22%2C%22Winnie%20Kenobi%22%2C%22Alex%22%0A%221%22%2C%22002141%22%2C%22Mickey%20Mouse%22%2C%22Alex%22%0A%221%22%2C%22002114%22%2C%22Minnie%20Mouse%22%2C%22Alex%22%0A%221%22%2C%22002101%22%2C%22Chip%20Pan%22%2C%22Alex%22%0A%221%22%2C%22002160%22%2C%22Chip%20Pan%22%2C%22Alex%22%0A%221%22%2C%22002153%22%2C%22Winnie%20Pan%22%2C%22Alex%22%0A%221%22%2C%22002145%22%2C%22Elsa%20Poppins%22%2C%22Alex%22%0A%221%22%2C%22002117%22%2C%22Mowgli%20Poppins%22%2C%22Alex%22%0A%221%22%2C%22002142%22%2C%22Winnie%20Skywalker%22%2C%22Alex%22%0A%221%22%2C%22002097%22%2C%22Chip%20White%22%2C%22Alex%22%0A%221%22%2C%22002136%22%2C%22Daisy%20White%22%2C%22Alex%22%0A%221%22%2C%22002139%22%2C%22Olaf%20White%22%2C%22Alex%22%0A%221%22%2C%22002157%22%2C%22Mowgli%20Disney%22%2C%22Uri%22%0A%221%22%2C%22002112%22%2C%22Chip%20Duck%22%2C%22Uri%22%0A%221%22%2C%22002146%22%2C%22Elsa%20Duck%22%2C%22Uri%22%0A%221%22%2C%22002150%22%2C%22Snow%20Duck%22%2C%22Uri%22%0A%221%22%2C%22002144%22%2C%22Snow%20Kenobi%22%2C%22Uri%22%0A%221%22%2C%22002098%22%2C%22Minnie%20Mouse%22%2C%22Uri%22%0A%221%22%2C%22002134%22%2C%22Minnie%20Mouse%22%2C%22Uri%22%0A%221%22%2C%22002138%22%2C%22Mowgli%20Mouse%22%2C%22Uri%22%0A%221%22%2C%22002106%22%2C%22Mickey%20Pan%22%2C%22Uri%22%0A%221%22%2C%22002118%22%2C%22Mowgli%20Pan%22%2C%22Uri%22%0A%221%22%2C%22002149%22%2C%22Olaf%20Pan%22%2C%22Uri%22%0A%221%22%2C%22002119%22%2C%22Daisy%20Poppins%22%2C%22Uri%22%0A%221%22%2C%22002152%22%2C%22Elsa%20Poppins%22%2C%22Uri%22%0A%221%22%2C%22002154%22%2C%22Mowgli%20Skywalker%22%2C%22Uri%22%0A%221%22%2C%22002133%22%2C%22Rapunzel%20Skywalker%22%2C%22Uri%22"
+        download="Class list: 1st grade at Awesome school 2018-03-13.csv"
+        href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Elsa%22%2C%22002147%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Minnie%22%2C%22002107%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Mowgli%22%2C%22002157%22%2C%221%22%2C%22Uri%22%0A%22Disney%2C%20Rapunzel%22%2C%22002100%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Rapunzel%22%2C%22002148%22%2C%221%22%2C%22Kevin%22%0A%22Disney%2C%20Rapunzel%22%2C%22002102%22%2C%221%22%2C%22Alex%22%0A%22Disney%2C%20Snow%22%2C%22002155%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Chip%22%2C%22002112%22%2C%221%22%2C%22Uri%22%0A%22Duck%2C%20Elsa%22%2C%22002104%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Elsa%22%2C%22002146%22%2C%221%22%2C%22Uri%22%0A%22Duck%2C%20Minnie%22%2C%22002121%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Olaf%22%2C%22002135%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Snow%22%2C%22002116%22%2C%221%22%2C%22Kevin%22%0A%22Duck%2C%20Snow%22%2C%22002150%22%2C%221%22%2C%22Uri%22%0A%22Duck%2C%20Winnie%22%2C%22002094%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Aladdin%22%2C%22002125%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Donald%22%2C%22002096%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Mickey%22%2C%22002126%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Olaf%22%2C%22002093%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Olaf%22%2C%22002122%22%2C%221%22%2C%22Alex%22%0A%22Kenobi%2C%20Rapunzel%22%2C%22002124%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Snow%22%2C%22002144%22%2C%221%22%2C%22Uri%22%0A%22Kenobi%2C%20Winnie%22%2C%22002130%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Winnie%22%2C%22002158%22%2C%221%22%2C%22Alex%22%0A%22Mouse%2C%20Elsa%22%2C%22002127%22%2C%221%22%2C%22Kevin%22%0A%22Mouse%2C%20Mickey%22%2C%22002141%22%2C%221%22%2C%22Alex%22%0A%22Mouse%2C%20Minnie%22%2C%22002114%22%2C%221%22%2C%22Alex%22%0A%22Mouse%2C%20Minnie%22%2C%22002098%22%2C%221%22%2C%22Uri%22%0A%22Mouse%2C%20Minnie%22%2C%22002134%22%2C%221%22%2C%22Uri%22%0A%22Mouse%2C%20Mowgli%22%2C%22002138%22%2C%221%22%2C%22Uri%22%0A%22Mouse%2C%20Olaf%22%2C%22002103%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Chip%22%2C%22002101%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Chip%22%2C%22002160%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Mickey%22%2C%22002106%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Minnie%22%2C%22002161%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Mowgli%22%2C%22002118%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Olaf%22%2C%22002149%22%2C%221%22%2C%22Uri%22%0A%22Pan%2C%20Winnie%22%2C%22002164%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Winnie%22%2C%22002153%22%2C%221%22%2C%22Alex%22%0A%22Poppins%2C%20Daisy%22%2C%22002119%22%2C%221%22%2C%22Uri%22%0A%22Poppins%2C%20Elsa%22%2C%22002145%22%2C%221%22%2C%22Alex%22%0A%22Poppins%2C%20Elsa%22%2C%22002152%22%2C%221%22%2C%22Uri%22%0A%22Poppins%2C%20Mowgli%22%2C%22002117%22%2C%221%22%2C%22Alex%22%0A%22Poppins%2C%20Snow%22%2C%22002132%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Chip%22%2C%22002109%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Daisy%22%2C%22002162%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22002115%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22002154%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Pocahontas%22%2C%22002159%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Rapunzel%22%2C%22002133%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Winnie%22%2C%22002142%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Chip%22%2C%22002097%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Daisy%22%2C%22002136%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Mowgli%22%2C%22002111%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Olaf%22%2C%22002099%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Olaf%22%2C%22002139%22%2C%221%22%2C%22Alex%22%0A%22White%2C%20Pluto%22%2C%22002120%22%2C%221%22%2C%22Kevin%22"
         onClick={[Function]}
         style={
           Object {

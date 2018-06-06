@@ -5,7 +5,8 @@ import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
   fetchClassListJson,
-  postClassList
+  postTeacherUpdates,
+  postPrincipalRevisions
 } from './api';
 import Loading from '../components/Loading';
 import {
@@ -136,7 +137,7 @@ export default class ClassListCreatorPage extends React.Component {
   }
 
   // Has the user gotten past initial loading to where there is
-  // something worth saving?  Includes both teacher and principal changes.
+  // potentially anything worth saving?  Includes both teacher and principal changes.
   isSaveable() {
     const {
       workspaceId,
@@ -307,12 +308,20 @@ export default class ClassListCreatorPage extends React.Component {
 
   // Make the save request without any guards. fire-and-forget
   doSave() {
+    const {nowFn} = this.context;
+    const now = nowFn();
     const snapshotForSaving = snapshotStateForSaving(this.state);
     const payload = {
       ...snapshotForSaving,
-      clientNowMs: moment.utc().unix()
+      clientNowMs: now.unix()
     };
-    postClassList(payload)
+
+    // Post to different endpoints based on whether it's the teacher or principal working.
+    // This is split into two endpoints for better isolation between the
+    // two different operations on the server, but from the client's perspective
+    // this should be transparent outside of this method.
+    const postFn = (this.isRevisable()) ? postPrincipalRevisions : postTeacherUpdates;
+    postFn(payload)
       .then(this.onPostDone.bind(this, snapshotForSaving))
       .catch(this.onPostError.bind(this, snapshotForSaving));
   }
@@ -377,12 +386,15 @@ export default class ClassListCreatorPage extends React.Component {
     });
   }
 
+  // This loads both teacher changes and principal revisions.
+  //
   // Over time, there can be drift in the references within studentIdsByRoom 
   // and the set of students that the server provides.  We filter this out or add this in
   // at the view layer and don't proactively filter this.  So if the user looks at the
   // lists, this will trigger as "dirty" and the document will be updated, but
   // if they never look at it we preserve information about that inconsistency.
   onFetchedClassList(responseJson) {
+    // Teacher edits
     const isEditable = responseJson.is_editable;
     const classList = responseJson.class_list;
     const workspaceId = classList.workspace_id;
@@ -396,9 +408,8 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText
-    } = classList.json;
-
-    const stateChange = {
+    } = classList.json || {};
+    const teacherState = {
       workspaceId,
       isEditable,
       isSubmitted,
@@ -410,16 +421,34 @@ export default class ClassListCreatorPage extends React.Component {
       studentIdsByRoom,
       principalNoteText,
       feedbackText,
-      stepIndex: 0, // Ignore last `stepIndex`
+      stepIndex: 0, // Ignore `stepIndex` if it was stored
+    };
+
+    // There may or may not be principal revisions yet.
+    var principalRevisionsState = {}; // eslint-disable-line no-var
+    if (classList.revised_by_principal_educator_id && classList.principal_revisions_json) {
+      const {
+        principalStudentIdsByRoom,
+        principalTeacherNamesByRoom
+      } = classList.principal_revisions_json;
+      principalRevisionsState = {
+        principalStudentIdsByRoom,
+        principalTeacherNamesByRoom
+      };
+    }
+
+    const nextState = {
+      ...teacherState,
+      ...principalRevisionsState
     };
 
     // Also record that the server knows about this state.
     const lastSavedSnapshot = snapshotStateForSaving({
       ...this.state,
-      ...stateChange
+      ...nextState
     });
     this.setState({
-      ...stateChange,
+      ...nextState,
       lastSavedSnapshot
     });
   }
@@ -515,6 +544,9 @@ export default class ClassListCreatorPage extends React.Component {
     );
   }
 }
+ClassListCreatorPage.contextTypes = {
+  nowFn: React.PropTypes.func.isRequired
+};
 ClassListCreatorPage.propTypes = {
   currentEducator: React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,

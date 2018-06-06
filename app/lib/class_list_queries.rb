@@ -108,18 +108,29 @@ class ClassListQueries
     end
   end
 
-  # Can the user write to this workspace?
+  # Can the user write to this workspace as a teacher?  This is different than
+  # asking if a principal `is_authorized_to_revise?`
   def is_authorized_for_writes?(workspace_id)
     # If this workspace_id hasn't been used yet, anyone can create it.
     class_list = ClassList.latest_class_list_for_workspace(workspace_id)
     return true if class_list.nil?
 
-    # Educators can't write to workspaces they didn't create (not principals yet).
-    return false if class_list.created_by_educator_id != @educator.id
+    # Educators can't write to workspaces they didn't create.
+    return false if class_list.created_by_teacher_educator_id != @educator.id
 
-    # If the workspace has been submitted no one can write (not principals yet).
+    # If the workspace has been submitted no teacher can write.
     return false if class_list.submitted?
 
+    true
+  end
+
+  # Only principals of that school can revise.  The authorization is tightly scoped,
+  # as being marked a principal isn't done in a general way, so the intention here
+  # is that this lives just within this feature.
+  def is_authorized_to_revise?(class_list)
+    return false unless class_list.submitted?
+    return false unless @educator.labels.include?('class_list_maker_finalizer_principal')
+    return false unless class_list.school_id && class_list.school_id == @educator.school_id
     true
   end
 
