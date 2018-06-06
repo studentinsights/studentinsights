@@ -199,7 +199,7 @@ import TransitionNotes from './TransitionNotes';
 
       return (
         <TransitionNotes
-          transitionNotes={transitionNotes}
+          defaultTransitionNotes={transitionNotes}
           readOnly={isHouseMaster}
           onSave={actions.onClickSaveTransitionNote}
           requestState={requests['saveTransitionNote']}

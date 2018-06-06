@@ -47,9 +47,9 @@ class TransitionNotes extends React.Component {
   constructor(props) {
     super(props);
 
-    const {transitionNotes} = props;
-    const regularNote = _.find(transitionNotes, {is_restricted: false});
-    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
+    const {defaultTransitionNotes} = props;
+    const regularNote = _.find(defaultTransitionNotes, {is_restricted: false});
+    const restrictedNote = _.find(defaultTransitionNotes, {is_restricted: true});
 
     this.state = {
       noteText: (regularNote ? regularNote.text : notePrompts),
@@ -85,31 +85,19 @@ class TransitionNotes extends React.Component {
   }
 
   onClickSave() {
-    const {transitionNotes} = this.props;
-    const regularNote = _.find(transitionNotes, {is_restricted: false});
-    const regularNoteId = (regularNote) ? regularNote.id : null;
-
     const params = {
       is_restricted: false,
       text: this.state.noteText
     };
 
-    if (regularNoteId) { _.merge(params, {id: regularNoteId}); }
-
     this.props.onSave(params);
   }
 
   onClickSaveRestricted() {
-    const {transitionNotes} = this.props;
-    const restrictedNote = _.find(transitionNotes, {is_restricted: true});
-    const restrictedNoteId = (restrictedNote) ? restrictedNote.id : null;
-
     const params = {
       is_restricted: true,
       text: this.state.restrictedNoteText
     };
-
-    if (restrictedNoteId) { _.merge(params, {id: restrictedNoteId}); }
 
     this.props.onSave(params);
   }
@@ -124,6 +112,7 @@ class TransitionNotes extends React.Component {
 
   render() {
     const {noteText, restrictedNoteText, readOnly} = this.state;
+    const {requestState, requestStateRestricted} = this.props;
 
     return (
       <div style={{display: 'flex'}}>
@@ -137,7 +126,11 @@ class TransitionNotes extends React.Component {
             value={noteText}
             onChange={this.onChangeRegularNote}
             readOnly={readOnly} />
-          {this.renderButton(this.onClickSave, this.buttonText)}
+          {this.renderButton(
+            this.onClickSave,
+            this.buttonText,
+            (requestState === 'pending' || requestState === 'error')
+          )}
         </div>
         <div style={{flex: 1, margin: 30}}>
           <SectionHeading>
@@ -149,19 +142,25 @@ class TransitionNotes extends React.Component {
             value={restrictedNoteText}
             onChange={this.onChangeRestrictedNote}
             readOnly={readOnly} />
-          {this.renderButton(this.onClickSaveRestricted, this.buttonTextRestricted)}
+          {this.renderButton(
+            this.onClickSaveRestricted,
+            this.buttonTextRestricted,
+            (requestStateRestricted === 'pending' || requestStateRestricted === 'error')
+          )}
         </div>
       </div>
     );
   }
 
-  renderButton(onClickFn, buttonTextFn) {
+  renderButton(onClickFn, buttonTextFn, isDisabled) {
     const {readOnly} = this.props;
 
     if (readOnly) return null;
 
     return (
-      <button onClick={onClickFn} className='btn save'>
+      <button onClick={onClickFn}
+              className={`btn save ${isDisabled ? 'btn-disabled' : ''}`}
+              disabled={isDisabled}>
         {buttonTextFn()}
       </button>
     );
@@ -172,7 +171,7 @@ class TransitionNotes extends React.Component {
 TransitionNotes.propTypes = {
   readOnly: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
-  transitionNotes: PropTypes.array.isRequired,
+  defaultTransitionNotes: PropTypes.array.isRequired,
   requestState: PropTypes.string,              // can be null if no request
   requestStateRestricted: PropTypes.string     // can be null if no request
 };

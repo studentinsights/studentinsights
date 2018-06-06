@@ -56,9 +56,10 @@ Rails.application.routes.draw do
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
+  post '/students/:student_id/update_transition_note' => 'transition_notes#update'
+
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
-    resources :transition_notes, only: [:create, :update]
 
     member do
       get :student_report
