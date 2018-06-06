@@ -7,6 +7,7 @@ class StudentPhotoImporter
   REQUIRED_KEYS = [
     'AWS_ACCESS_KEY_ID',
     'AWS_SECRET_ACCESS_KEY',
+    'AWS_S3_PHOTOS_BUCKET'
   ]
 
   def initialize
