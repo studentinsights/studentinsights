@@ -7,7 +7,7 @@ function testProps(props) {
   return {
     readOnly: false,
     onSave: jest.fn(),
-    transitionNotes: [],
+    defaultTransitionNotes: [],
     requestState: null,
     requestStateRestricted: null,
     ...props

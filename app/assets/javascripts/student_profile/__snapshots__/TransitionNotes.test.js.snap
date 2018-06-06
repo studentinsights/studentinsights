@@ -71,7 +71,8 @@ Any additional comments or good things to know about this student?
 "
     />
     <button
-      className="btn save"
+      className="btn save "
+      disabled={false}
       onClick={[Function]}
     >
       Save Note
@@ -126,7 +127,8 @@ Is this student receiving mental health supports?
   "
     />
     <button
-      className="btn save"
+      className="btn save "
+      disabled={false}
       onClick={[Function]}
     >
       Save Note
