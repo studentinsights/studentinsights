@@ -10,7 +10,8 @@ class StudentPhotoImporter
   ]
 
   def initialize
-    # raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
+    raise "import_student_photos? not enabled" unless PerDistrict.new.import_student_photos?
+    raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
   end
 
   def import
@@ -18,7 +19,7 @@ class StudentPhotoImporter
 
     log('Downloading photos.zip from SFTP site...')
 
-    photos_zip_file = client.download_file('photos.zip')
+    photos_zip_file = sftp_client.download_file('photos.zip')
 
     log("Downloaded Photos ZIP file!")
 
@@ -32,10 +33,30 @@ class StudentPhotoImporter
     end
 
     log("Unzipped #{unzipped_count} photos!")
+
+    log("Storing photo files...")
+    created_student_photos = []
+    photo_filenames = Dir["tmp/data_download/photos/*"]
+    photo_filenames.each do |path|
+      student_local_id = Pathname.new(path).basename.sub_ext('').to_s
+      student_photo = PhotoStorer.new(
+        path_to_file: path,
+        local_id: student_local_id,
+        s3_client: s3_client,
+        logger: logger
+      ).store_only_new
+      created_student_photos << if student_photo.present?
+    end
+    log("Created #{created_student_photos.size} StudentPhoto records")
+    log('Done.')
   end
 
-  def client
-    SftpClient.for_x2
+  def sftp_client
+    @sftp_client ||= SftpClient.for_x2
+  end
+
+  def s3_client
+    @s3_client ||= Aws::S3::Client.new(region: 'us-west-2')
   end
 
   def logger
@@ -45,5 +66,4 @@ class StudentPhotoImporter
   def log(msg)
     logger.info(msg)
   end
-
 end
