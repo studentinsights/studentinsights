@@ -111,7 +111,6 @@ export default class ClassListCreatorPage extends React.Component {
     this.doSizePage();
     window.addEventListener('beforeunload', this.onBeforeUnload);
     this.triggerEffects();
-    this.installDebugHook();
   }
 
   componentDidUpdate() {
@@ -180,12 +179,6 @@ export default class ClassListCreatorPage extends React.Component {
     if (students !== null || hasFetchedStudents) return false;
     if (studentIdsByRoom !== null || hasFetchedClassList) return false;
     return true;
-  }
-
-  // This is a debug hook for iterating on particular production data sets locally
-  // during development.
-  installDebugHook() {
-    window.forceDebug = this.onForceDebug.bind(this);
   }
 
   doSizePage() {
@@ -356,11 +349,6 @@ export default class ClassListCreatorPage extends React.Component {
     return warningMessage;
   }
 
-  onForceDebug(nextState) {
-    const {gradeLevelNextYear, students, studentIdsByRoom} = nextState;
-    this.setState({gradeLevelNextYear, students, studentIdsByRoom, stepIndex: 2});
-  }
-
   onFetchedGradeLevels(json) {
     const gradeLevelsNextYear = json.grade_levels_next_year.sort(sortByGrade);
     const {schools} = json;
@@ -457,12 +445,10 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({stepIndex});
   }
 
-  // TODO(kr) warn about resetting students?
   onSchoolIdChanged(schoolId) {
     this.setState({schoolId});
   }
 
-  // TODO(kr) warn about resetting students?
   onGradeLevelNextYearChanged(gradeLevelNextYear) {
     this.setState({gradeLevelNextYear});
   }
@@ -471,7 +457,6 @@ export default class ClassListCreatorPage extends React.Component {
     this.setState({authors}); 
   }
 
-  // TODO(kr) warn about resetting students?
   onClassroomsCountIncremented(delta) {
     const classroomsCount = this.state.classroomsCount + delta;
     if (this.state.studentIdsByRoom === null) {
