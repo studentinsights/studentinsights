@@ -46,7 +46,7 @@ describe StudentsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
-        let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+        let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
         let(:serialized_data) { assigns(:serialized_data) }
 
         it 'is successful' do
@@ -99,7 +99,7 @@ describe StudentsController, :type => :controller do
           ])
 
           expect(serialized_data[:educators_index]).to include({
-            educator.id => {:id=>educator.id, :email=>educator.email, :full_name=>nil}
+            educator.id => {:id=>educator.id, :email=>educator.email, :full_name=> 'Teacher, Karen'}
           })
 
           expect(serialized_data[:attendance_data].keys).to eq [

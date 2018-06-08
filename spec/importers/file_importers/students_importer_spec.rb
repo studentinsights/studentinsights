@@ -63,7 +63,13 @@ RSpec.describe StudentsImporter do
 
       context 'when an existing student in the database' do
         before do
-          student = Student.new(local_id: '100', school: healey, grade: '7')
+          student = Student.new({
+            first_name: 'Ryan',
+            last_name: 'Rodriguez',
+            local_id: '100',
+            school: healey,
+            grade: '7'
+          })
           student.save!
           student.create_student_risk_level!
         end
@@ -87,7 +93,7 @@ RSpec.describe StudentsImporter do
 
       context 'student in database who has since graduated on to high school' do
         let!(:graduating_student) {
-          Student.create!(local_id: '101', school: healey, grade: '8')   # Old data
+          FactoryBot.create(:student, local_id: '101', school: healey, grade: '8')   # Old data
         }
 
         it 'imports students' do
