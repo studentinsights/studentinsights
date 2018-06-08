@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Switch,
   Route
@@ -13,8 +14,8 @@ import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/Explo
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
+import DistrictNotesPage from '../app/assets/javascripts/district_notes/DistrictNotesPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
-import NotesHeatmapPage from './district/NotesHeatmapPage';
 
 
 // This is the top-level component, only handling routing.
@@ -52,8 +53,6 @@ export default class App extends React.Component {
       <MountTimer>
         <Switch>
           <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
-          <Route exact path="/admin/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-          <Route exact path="/admin/district/notes" render={this.renderNotesHeatmap.bind(this)}/>
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
@@ -64,6 +63,8 @@ export default class App extends React.Component {
           <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
           <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
           <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
+          <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
+          <Route exact path="/district/notes" render={this.renderDistrictNotesPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -137,16 +138,16 @@ export default class App extends React.Component {
     return <DistrictEnrollmentPage />;
   }
 
+  renderDistrictNotesPage() {
+    return <DistrictNotesPage />;
+  }
+  
   // Ignore this, since we're hybrid client/server and perhaps the
   // server has rendered something and the client-side app just doesn't
   // know about it.
   renderNotFound() {
     console.warn('App: 404'); // eslint-disable-line no-console
     return null;
-  }
-
-  renderNotesHeatmap() {
-    return <NotesHeatmapPage />;
   }
 }
 

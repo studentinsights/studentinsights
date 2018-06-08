@@ -1,5 +1,5 @@
 class DistrictController < ApplicationController
-  before :ensure_districtwide_access!
+  before_action :ensure_districtwide_access!
 
   def enrollment_json
     # students, grouped by school and grade
@@ -29,38 +29,37 @@ class DistrictController < ApplicationController
     }
   end
 
-  def notes_heatmap_json    
-    render json: {
-      notes: serialized_heatmap_notes
-    }
+  def notes_heatmap_json
+    render json: heatmap_json
   end
 
   def restricted_notes_heatmap_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_view_restricted_notes?
-    render json: {
-      notes: serialized_heatmap_notes(is_restricted: true)
-    }
+    render json: heatmap_json(is_restricted: true)
   end
 
   private
-  def serialized_heatmap_notes(options = {})
+  def heatmap_json(options = {})
     is_restricted = options[:is_restricted] == true
     notes = EventNote
       .where(is_restricted: is_restricted)
       .includes(:student)
 
     # Limit the fields we send down, but include the
-    # student's grade.
-    notes.map do |note|
-      note.as_json.slice(
-        'id',
-        'recorded_at',
-        'student_id',
-        'event_note_type_id'
-      ).merge({
-        grade: note.student.grade
-      })
-    end
+    # student's grade and school_id.
+    notes_json = notes.as_json({
+      only: [:id, :recorded_at, :event_note_type_id],
+      include: {
+        student: {
+          only: [:id, :grade, :school_id]
+        }
+      }
+    })
+
+    {
+      notes: notes_json,
+      schools: School.all.as_json(only: [:id, :name])
+    }
   end
 
   def ensure_districtwide_access!

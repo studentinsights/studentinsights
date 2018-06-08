@@ -1,29 +1,40 @@
 import React from 'react';
 import _ from 'lodash';
-import CalendarHeatmap from '../components/CalendarHeatmap';
 import Select from 'react-select';
-import isDarkColor from '../util/isDarkColor';
+import CalendarHeatmap from '../components/CalendarHeatmap';
+import isDarkColor from '../helpers/isDarkColor';
+
 
 // This is included already in application.js
 // import 'css-loader?react-select/dist/react-select.css';
 
 // This renders a summary of when users are recording notes, and lets
 // folks break it down by grade as well.
-class NotesHeatmapPage extends React.Component {
+export default class NotesHeatmap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isExpanded: false,
+      schoolId: _.first(props.schools).id,
       year: _.first(yearsForSelect(props.heatmapNotes))
     };
+
     this.onExpandClicked = this.onExpandClicked.bind(this);
     this.onYearChanged = this.onYearChanged.bind(this);
+    this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
   }
 
+  currentSchoolName() {
+    const {schools} = this.props;
+    const {schoolId} = this.state;
+
+    if (schoolId === null) return null;
+    return _.find(schools, { id: schoolId }).name;
+  }
 
   orderedGrades() {
     const {heatmapNotes} = this.props;
-    return _.sortBy(_.uniq(heatmapNotes.map(note => note.grade)), grade => {
+    return _.sortBy(_.uniq(heatmapNotes.map(note => note.student.grade)), grade => {
       if (grade === 'PK') return 0.3;
       if (grade === 'KF') return 0.5;
       return parseInt(grade, 10);
@@ -75,13 +86,18 @@ class NotesHeatmapPage extends React.Component {
     this.setState({ year: parseInt(yearText, 10) });
   }
 
+  onSchoolIdChanged(schoolId) {
+    this.setState({schoolId});
+  }
+
   render() {
-    const {isExpanded} = this.state;
     const {heatmapNotes} = this.props;
+    const {isExpanded} = this.state;
+
     return (
-      <div className="NotesHeatmapPage">
+      <div className="NotesHeatmap">
         {this.renderTitleBar()}
-        {this.renderNotesCalendar('District', heatmapNotes)}
+        {this.renderNotesCalendar(this.currentSchoolName() || 'District', heatmapNotes)}
         {isExpanded 
           ? this.renderExpanded()
           : <div className="btn" style={{display: 'inline-block', margin: 10, marginLeft: 160}} onClick={this.onExpandClicked}>Show each grade</div>}
@@ -95,6 +111,7 @@ class NotesHeatmapPage extends React.Component {
         <h1>Notes over time</h1>
         <div style={{display: 'flex'}}>
           {this.renderColorLegend()}
+          {this.renderSchoolSelect()}
           {this.renderYearSelect()}
         </div>
       </div>
@@ -129,6 +146,25 @@ class NotesHeatmapPage extends React.Component {
     );
   }
 
+  renderSchoolSelect() {
+    const {schoolId} = this.state;
+    const {schools} = this.props;
+    const options = [{value: null, label: 'All'}].concat(schools.map(school => {
+      return { value: school.id, label: school.name };
+    }));
+
+    return (
+      <Select
+        style={{width: '12em', marginLeft: 20}}
+        simpleValue
+        clearable={false}
+        searchable={false}
+        value={schoolId}
+        onChange={this.onSchoolIdChanged}
+        options={options} />
+    );
+  }
+
   renderSwatch(colorScale, value) {
     const background = colorScale(value);
     const fontSize = (value.toString().length > 2) ? 10 : 12;
@@ -146,7 +182,7 @@ class NotesHeatmapPage extends React.Component {
     return (
       <div>
         {grades.map(grade => {
-          const filteredNotes = heatmapNotes.filter(note => note.grade === grade);
+          const filteredNotes = heatmapNotes.filter(note => note.student.grade === grade);
           return this.renderNotesCalendar(grade, filteredNotes);
         })}
       </div>
@@ -154,17 +190,23 @@ class NotesHeatmapPage extends React.Component {
   }
 
   renderNotesCalendar(label, notes) {
-    const data = this.dataForCalendar(notes);
-    const {year} = this.state;
+    const {year, schoolId} = this.state;
+    const filteredNotes = notes.filter(note => {
+      if (schoolId !== null && note.student.school_id !== schoolId) return false;
+      if (parseInt(moment.utc(note.recorded_at).format('YYYY'), 10) !== year) return false;
+      return true;
+    });
+    const data = this.dataForCalendar(filteredNotes);
+    
 
     return (
       <div key={label} style={{display: 'flex', alignItems: 'center', padding: 20}}>
         <div style={{width: 100, textAlign: 'right', paddingRight: 20}}>
           <h2 style={{marginBottom: 5}}>{label}</h2>
           <div style={{fontSize: 12}}>
-            <div>{notes.length} notes</div>
-            <div>SST: {this.percentOfType(notes, 300)}%</div>
-            <div>MTSS: {this.percentOfType(notes, 301)}%</div>
+            <div>{filteredNotes.length} notes</div>
+            <div>SST: {this.percentOfType(filteredNotes, 300)}%</div>
+            <div>MTSS: {this.percentOfType(filteredNotes, 301)}%</div>
           </div>
         </div>
         <CalendarHeatmap
@@ -175,10 +217,10 @@ class NotesHeatmapPage extends React.Component {
     );
   }
 }
-NotesHeatmapPage.propTypes = {
-  heatmapNotes: React.PropTypes.array.isRequired
+NotesHeatmap.propTypes = {
+  heatmapNotes: React.PropTypes.array.isRequired,
+  schools: React.PropTypes.array.isRequired
 };
-
 
 function yearsForSelect(heatmapNotes) {
   return _.sortBy(_.uniq(heatmapNotes.map(note => { 
@@ -212,5 +254,3 @@ const styles = {
     justifyContent: 'center'
   }
 };
-
-export default NotesHeatmapPage;

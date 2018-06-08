@@ -84,6 +84,7 @@ function drawCalendarHeatmap(el, data, options) {
     .selectAll("rect")
     .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
     .enter().append("rect")
+      .attr('title', function(d) { return d.getDay(); })
       .attr("width", cellSize)
       .attr("height", cellSize)
       .attr("x", function(d) { return d3.time.weekOfYear(d) * cellSize; })

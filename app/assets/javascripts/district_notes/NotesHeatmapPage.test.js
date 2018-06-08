@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NotesHeatmapPage from './NotesHeatmapPage';
+import NotesHeatmap from './NotesHeatmap';
 
 function testProps(props) {
   return {
@@ -16,7 +16,7 @@ function testProps(props) {
 
 it('renders UI elements', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<NotesHeatmapPage {...testProps()} />, div);
+  ReactDOM.render(<NotesHeatmap {...testProps()} />, div);
   const text = $(div).text();
   expect(text).toContain('Notes over time');
   expect(text).toContain('Legend');
