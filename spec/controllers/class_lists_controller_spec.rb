@@ -10,11 +10,6 @@ describe ClassListsController, :type => :controller do
     }.merge(params))
   end
 
-  # enable feature
-  before { @ENABLE_CLASS_LISTS = ENV['ENABLE_CLASS_LISTS'] }
-  before { ENV['ENABLE_CLASS_LISTS'] = 'true' }
-  after { ENV['ENABLE_CLASS_LISTS'] = @ENABLE_CLASS_LISTS }
-
   before { request.env['HTTPS'] = 'on' }
   before { request.env['HTTP_ACCEPT'] = 'application/json' }
   let!(:pals) { TestPals.create! }
@@ -22,9 +17,11 @@ describe ClassListsController, :type => :controller do
 
   describe 'env ENABLE_CLASS_LISTS can disable feature' do
     before do
+      @enable_class_lists = ENV['ENABLE_CLASS_LISTS']
       ENV['ENABLE_CLASS_LISTS'] = 'false'
       sign_in(pals.healey_sarah_teacher)
     end
+    after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
 
     it 'guards writing to teacher_updated_class_list_json' do
       post :teacher_updated_class_list_json, params: {
@@ -473,8 +470,12 @@ describe ClassListsController, :type => :controller do
       end
 
       it 'does not allow revisions if not yet submitted' do
-        class_list.update!(submitted: false)
-        expect(allows_post_principal_revised_class_list_json?(class_list, pals.healey_laura_principal)).to eq false
+        submitted_class_list = create_class_list_from(pals.healey_sarah_teacher, {
+          workspace_id: 'in-progress-workspace-id',
+          grade_level_next_year: '6',
+          submitted: false
+        })
+        expect(allows_post_principal_revised_class_list_json?(submitted_class_list, pals.healey_laura_principal)).to eq false
       end
     end
   end

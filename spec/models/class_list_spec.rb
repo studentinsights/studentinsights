@@ -55,4 +55,13 @@ RSpec.describe ClassList do
       })
     end
   end
+
+  describe 'validate_submitted_not_undone' do
+    it 'does not allow changing workspace back to submitted: false' do
+      expect(create_class_list_from(pals.uri, submitted: true).errors.details).to eq({})
+      expect(create_class_list_from(pals.uri, submitted: false).errors.details).to eq({
+        submitted: [{:error=>"cannot change submitted: true workspace foo-workspace-id to submitted: false"}]
+      })
+    end
+  end
 end

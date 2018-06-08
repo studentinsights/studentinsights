@@ -30,5 +30,4 @@ heroku logout
 echo
 
 echo "Resetting the database..."; echo
-rake db:drop
-rake db:create
+rake db:reset
