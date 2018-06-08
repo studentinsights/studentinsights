@@ -96,6 +96,15 @@ class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
+  //For grades and classrooms, the students table should only show the relevant students
+  groupStudents() {
+    if (this.state.selectedChart === 'grade' && this.state.selectedCategory) {
+      return this.props.dashboardStudents.filter(student => student.grade === this.state.selectedCategory);
+    } else if (this.state.selectedChart === 'classroom' && this.state.selectedCategory) {
+      return this.props.dashboardStudents.filter(student => student.homeroom_label === this.state.selectedCategory);
+    } else return this.props.dashboardStudents;
+  }
+
   render() {
     const selectedChart = this.getChartData(this.state.selectedChart);
     const chartOptions = [
@@ -158,7 +167,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderStudentDisciplineTable() {
-    const students = this.props.dashboardStudents;
+    const students = this.groupStudents();
     const studentDisciplineIncidentCounts = this.studentDisciplineIncidentCounts(this.state.selectedCategory);
     let rows =[];
     students.forEach((student) => {
