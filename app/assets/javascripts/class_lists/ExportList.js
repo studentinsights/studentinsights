@@ -71,7 +71,7 @@ export default class ExportList extends React.Component {
       principalStudentIdsByRoom,
       gradeLevelNextYear
     } = this.props;
-    const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom; // TODO(kr)
+    const studentIdsByRoom = principalStudentIdsByRoom || teacherStudentIdsByRoom;
     const rows = this.mapToRows(studentIdsByRoom);
 
     return (
