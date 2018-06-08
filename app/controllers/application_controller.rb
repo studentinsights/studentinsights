@@ -1,51 +1,38 @@
 class ApplicationController < ActionController::Base
 
-  rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
-    render text: exception, status: 500
-  end
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  unless Rails.env.development?
-    force_ssl except: [:lets_encrypt_endpoint]
-  end
+
+  force_ssl unless Rails.env.development?
 
   before_action :redirect_domain!
-  before_action :authenticate_educator!  # Devise method, applies to all controllers.
-                                         # In this app 'users' are 'educators'.
+  before_action :authenticate_educator!  # Devise method, applies to all controllers (in this app 'users' are 'educators')
 
-  # Return the homepage path, depending on the educator's role
-  def homepage_path_for_role(educator)
-    if educator.districtwide_access?
-      educators_districtwide_url
-    elsif educator.schoolwide_access? || educator.has_access_to_grade_levels?
-      school_url(educator.school)
-    elsif educator.school.school_type == 'HS'
-      default_section_path(educator)
+  rescue_from Exceptions::EducatorNotAuthorized do
+    if request.format.json?
+      render_unauthorized_json!
     else
-      default_homeroom_path(educator)
+      redirect_unauthorized!
     end
   end
 
-  def homepage_path_for_current_educator
-    homepage_path_for_role(current_educator)
+  def homepage_path_for_role(educator)
+    home_path # /home
   end
 
-  def default_homeroom_path(educator)
-    homeroom_path(educator.default_homeroom)
-  rescue Exceptions::NoAssignedHomeroom   # Thrown by educator without default homeroom
-    no_homeroom_path
-  rescue Exceptions::NoHomerooms
-    no_homerooms_path
+  # Wrap all database queries with this to enforce authorization
+  def authorized(&block)
+    authorizer.authorized(&block)
   end
 
-  def default_section_path(educator)
-    section_path(educator.default_section)
-  rescue Exceptions::NoAssignedSections   # Thrown by educator without any sections
-    no_section_path
-  rescue Exceptions::NoSections
-    no_sections_path
+  # Enforce authorization and raise if no authorized models
+  def authorized_or_raise!(&block)
+    return_value = authorizer.authorized(&block)
+    if return_value == nil || return_value == []
+      raise Exceptions::EducatorNotAuthorized
+    end
+    return_value
   end
 
   # Sugar for filters checking authorization
@@ -59,7 +46,7 @@ class ApplicationController < ActionController::Base
 
   # For redirecting requests directly from the Heroku domain to the canonical domain name
   def redirect_domain!
-    canonical_domain = EnvironmentVariable.value('CANONICAL_DOMAIN')
+    canonical_domain = LoadDistrictConfig.new.canonical_domain
     return if canonical_domain == nil
     return if request.host == canonical_domain
     redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently
@@ -68,7 +55,7 @@ class ApplicationController < ActionController::Base
   # Used to wrap a block with timing measurements and logging, returning the value of the
   # block.
   #
-  # Example: students = log_timing('load students') { Student.all }
+  # Example: students = log_timing('load students') { Student.active }
   # Outputs: log_timing:end [load students] 2998ms
   def log_timing(message)
     return_value = nil
@@ -78,5 +65,10 @@ class ApplicationController < ActionController::Base
     logger.info "log_timing:end [#{message}] #{timing_ms.round}ms"
 
     return_value
+  end
+
+  private
+  def authorizer
+    @authorizer ||= Authorizer.new(current_educator)
   end
 end

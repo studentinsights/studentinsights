@@ -1,5 +1,12 @@
 Rails.application.configure do
-  ENV['DISTRICT_NAME'] = 'Your Local(Host) District'
+  ENV['DISTRICT_KEY'] = 'somerville'
+
+  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
+
+  ENV['USE_MOCK_LDAP'] = 'true'
+
+  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
+
   ENV['AWS_REGION'] = 'us-west-2'
 
   # The test environment is used exclusively to run your application's

@@ -1,7 +1,7 @@
 class CleanupReport < Struct.new :log, :file_name, :pre_cleanup_size, :post_cleanup_size
 
   def print
-    log.write([extra_spacing, before_text, after_text, extra_spacing].join("\n"))
+    log.puts("CleanupReport:\n" + [extra_spacing, before_text, after_text, extra_spacing].join("\n"))
   end
 
   def extra_spacing

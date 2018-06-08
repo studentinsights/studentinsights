@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-module.exports = { 
+module.exports = {
   entry: {
     bundle: ['./ui/polyfills.js', './ui/index.js'], // force polyfills to be first
     student_report_pdf: './ui/student_report_pdf.js'
@@ -9,6 +9,7 @@ module.exports = {
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
+
         loader: require.resolve('babel-loader'),
         options: {
           // @remove-on-eject-begin
@@ -20,6 +21,10 @@ module.exports = {
           // directory for faster rebuilds.
           cacheDirectory: true,
         },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   }

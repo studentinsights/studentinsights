@@ -9,7 +9,9 @@
     "moment": true,
     "React": true,
     "ReactDOM": true,
-    "d3": true
+    "d3": true,
+    "spyOn": true,
+    "global": true
   },
   "parserOptions": {
     "ecmaVersion": 6,

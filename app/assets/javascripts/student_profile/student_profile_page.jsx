@@ -1,26 +1,24 @@
+import React from 'react';
 import _ from 'lodash';
-import PropTypes from '../helpers/prop_types.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
+import BarChartSparkline from '../student_profile/BarChartSparkline';
+import AttendanceDetails from '../student_profile/AttendanceDetails';
+import AcademicSummary from '../student_profile/AcademicSummary';
+import ElaDetails from '../student_profile/ElaDetails';
+import MathDetails from '../student_profile/MathDetails';
+import NotesDetails from '../student_profile/NotesDetails';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import Scales from '../student_profile/Scales';
+import SummaryList from '../student_profile/SummaryList';
+import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
+import {cumulativeByMonthFromEvents} from './QuadConverter';
+import TransitionNotes from './TransitionNotes';
 
 (function() {
   window.shared || (window.shared = {});
-
-  const BarChartSparkline = window.shared.BarChartSparkline;
   const Sparkline = window.shared.Sparkline;
-  const AcademicSummary = window.shared.AcademicSummary;
-  const SummaryWithoutSparkline = window.shared.SummaryWithoutSparkline;
-  const SummaryList = window.shared.SummaryList;
-  const QuadConverter = window.shared.QuadConverter;
-  const Scales = window.shared.Scales;
-
   const StudentProfileHeader = window.shared.StudentProfileHeader;
   const ProfileDetails = window.shared.ProfileDetails;
-  const ELADetails = window.shared.ELADetails;
-  const MathDetails = window.shared.MathDetails;
-  const AttendanceDetails = window.shared.AttendanceDetails;
   const ServicesDetails = window.shared.ServicesDetails;
-  const NotesDetails = window.shared.NotesDetails;
-
 
   // define page component
   const styles = {
@@ -116,6 +114,7 @@ import {merge} from '../helpers/react_helpers.jsx';
       // data
       student: React.PropTypes.object.isRequired,
       feed: React.PropTypes.object.isRequired,
+      transitionNotes: React.PropTypes.array.isRequired,
       dibels: React.PropTypes.array.isRequired,
       chartData: React.PropTypes.shape({
         // ela
@@ -138,15 +137,19 @@ import {merge} from '../helpers/react_helpers.jsx';
         tardies: React.PropTypes.array,
         absences: React.PropTypes.array
       }),
-
+      noteInProgressText: React.PropTypes.string.isRequired,
+      noteInProgressType: React.PropTypes.number,
+      noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+        React.PropTypes.string
+      ).isRequired,
       access: React.PropTypes.object,
       iepDocument: React.PropTypes.object,
       sections: React.PropTypes.array,
       currentEducatorAllowedSections: React.PropTypes.array,
 
       // flux-y bits
-      requests: PropTypes.requests,
-      actions: PropTypes.actions
+      requests: InsightsPropTypes.requests,
+      actions: InsightsPropTypes.actions
     },
 
     dateRange: function() {
@@ -177,10 +180,31 @@ import {merge} from '../helpers/react_helpers.jsx';
             {this.renderAttendanceColumn()}
             {this.renderInterventionsColumn()}
           </div>
+          {this.renderTransitionNote()}
           <div style={styles.detailsContainer}>
             {this.renderSectionDetails()}
           </div>
         </div>
+      );
+    },
+
+    renderTransitionNote: function() {
+      const {currentEducator, actions, transitionNotes, requests} = this.props;
+      const labels = currentEducator.labels;
+
+      const isElemCounselor = _.includes(labels, 'k8_counselor');
+      const isHouseMaster = _.includes(labels, 'high_school_house_master');
+
+      if (!isElemCounselor && !isHouseMaster) return null;
+
+      return (
+        <TransitionNotes
+          transitionNotes={transitionNotes}
+          readOnly={isHouseMaster}
+          onSave={actions.onClickSaveTransitionNote}
+          requestState={requests['saveTransitionNote']}
+          requestStateRestricted={requests['saveRestrictedTransitionNote']}
+        />
       );
     },
 
@@ -257,7 +281,7 @@ import {merge} from '../helpers/react_helpers.jsx';
             serviceTypesIndex={this.props.serviceTypesIndex}
             currentEducator={this.props.currentEducator}/>
       );
-      case 'ela': return <ELADetails chartData={this.props.chartData} student={this.props.student} />;
+      case 'ela': return <ElaDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'math': return <MathDetails chartData={this.props.chartData} student={this.props.student} />;
       case 'attendance':
         return (
@@ -283,7 +307,10 @@ import {merge} from '../helpers/react_helpers.jsx';
                 showingRestrictedNotes={false}
                 helpContent={this.renderNotesHelpContent()}
                 helpTitle="What is a Note?"
-                title="Notes" />
+                title="Notes"
+                noteInProgressText={this.props.noteInProgressText}
+                noteInProgressType={this.props.noteInProgressType}
+                noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls }/>
               <ServicesDetails
                 student={this.props.student}
                 serviceTypesIndex={this.props.serviceTypesIndex}
@@ -315,11 +342,16 @@ import {merge} from '../helpers/react_helpers.jsx';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Overview
           </div>
           <div
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey), styles.profileColumn)}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey),
+              ...styles.profileColumn
+            }}>
             {this.renderPaddedElements(styles.summaryWrapper, profileElements)}
           </div>
         </div>
@@ -334,12 +366,17 @@ import {merge} from '../helpers/react_helpers.jsx';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Interventions
           </div>
           <div
             className="interventions-column"
-            style={merge(styles.column, styles.academicColumn, styles.interventionsColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...styles.interventionsColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderPaddedElements(styles.summaryWrapper, [
               this.renderPlacement(student),
               this.renderServices(student),
@@ -364,8 +401,6 @@ import {merge} from '../helpers/react_helpers.jsx';
       return (
         <SummaryList title="Demographics" elements={demographicsElements} />
       );
-
-
     },
 
     renderSections: function(sections) {
@@ -477,12 +512,16 @@ import {merge} from '../helpers/react_helpers.jsx';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Reading
           </div>
           <div
             className="ela-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderWrappedSummary({
               caption: 'STAR Reading',
               value: student.most_recent_star_reading_percentile,
@@ -536,12 +575,16 @@ import {merge} from '../helpers/react_helpers.jsx';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Math
           </div>
           <div
             className="math-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderWrappedSummary({
               caption: 'STAR Math',
               value: student.most_recent_star_math_percentile,
@@ -574,12 +617,16 @@ import {merge} from '../helpers/react_helpers.jsx';
         <div
           style={styles.columnContainer}
           onClick={this.onColumnClicked.bind(this, columnKey)}>
-          <div style={merge(styles.tab, this.selectedTabStyles(columnKey))}>
+          <div style={{...styles.tab, ...this.selectedTabStyles(columnKey)}}>
             Attendance and Behavior
           </div>
           <div
             className="attendance-background"
-            style={merge(styles.column, styles.academicColumn, this.selectedColumnStyles(columnKey))}>
+            style={{
+              ...styles.column,
+              ...styles.academicColumn,
+              ...this.selectedColumnStyles(columnKey)
+            }}>
             {this.renderAttendanceEventsSummary(
               student.discipline_incidents_count,
               attendanceData.discipline_incidents,
@@ -610,36 +657,39 @@ import {merge} from '../helpers/react_helpers.jsx';
     },
 
     renderAttendanceEventsSummary: function(count, events, flexibleRangeFn, props) {
-      const cumulativeQuads = QuadConverter.cumulativeByMonthFromEvents(events);
+      const cumulativeQuads = cumulativeByMonthFromEvents(events);
       const valueRange = flexibleRangeFn(cumulativeQuads);
       const value = count;
 
-      return this.renderWrappedSummary(merge({
+      return this.renderWrappedSummary({
         title: props.title,
         value: value,
         sparkline: <BarChartSparkline
-          {...merge({
+          {...{
             height: styles.sparklineHeight,
             width: styles.sparklineWidth,
             valueRange: valueRange,
             quads: cumulativeQuads,
             dateRange: this.dateRange(),
-          }, props)} />,
-      }, props));
+            ...props
+          }} />,
+        ...props
+      });
     },
 
     // quads format is: [[year, month (Ruby), day, value]]
     renderSparkline: function(quads, props) {
       return (
         <Sparkline
-          {...merge({
+          {...{
             height: styles.sparklineHeight,
             width: styles.sparklineWidth,
             quads: quads,
             dateRange: this.dateRange(),
             valueRange: [0, 100],
-            thresholdValue: 50
-          }, props || {})} />
+            thresholdValue: 50,
+            ...props
+          }} />
       );
     },
 

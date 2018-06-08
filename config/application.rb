@@ -24,6 +24,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/filters",
         "#{config.root}/app/importers/rows",
         "#{config.root}/app/importers/sources",
+        "#{config.root}/app/importers/constants",
         "#{config.root}/app/importers/iep_import",
         "#{config.root}/app/importers/student_services",
         "#{config.root}/lib"

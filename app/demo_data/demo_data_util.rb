@@ -1,4 +1,12 @@
 class DemoDataUtil
+  FIVE_YEARS_OF_SECONDS = 157766400
+
+  def self.random_time(options = {})
+    time_now = options[:time_now] || DateTime.now
+    seconds_back = options[:seconds_back] || FIVE_YEARS_OF_SECONDS
+    Time.at(time_now.to_i - (rand * seconds_back))
+  end
+
   # Given a map of integers or ranges to weights, e.g
   #
   #     d = {

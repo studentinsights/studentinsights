@@ -4,7 +4,7 @@ RSpec.describe Educator do
 
   describe '#as_json' do
     it 'does not include student_searchbar_json' do
-      educator = FactoryGirl.build(:educator)
+      educator = FactoryBot.build(:educator)
       expect(educator.as_json.has_key?('student_searchbar_json')).to be false
     end
   end
@@ -12,7 +12,7 @@ RSpec.describe Educator do
     context 'no school assigned' do
       context 'has districtwide_access' do
         let(:educator) {
-          FactoryGirl.build(:educator, school: nil, districtwide_access: true)
+          FactoryBot.build(:educator, school: nil, districtwide_access: true)
         }
         it 'is valid' do
           expect(educator).to be_valid
@@ -21,7 +21,7 @@ RSpec.describe Educator do
 
       context 'does not have districtwide_access' do
         let(:educator) {
-          FactoryGirl.build(:educator, school: nil, districtwide_access: false)
+          FactoryBot.build(:educator, school: nil, districtwide_access: false)
         }
         it 'is not valid' do
           expect(educator).to be_invalid
@@ -32,13 +32,13 @@ RSpec.describe Educator do
 
   describe '#admin_gets_access_to_all_students' do
     context 'admin with access to all students' do
-      let(:admin) { FactoryGirl.build(:educator, :admin) }
+      let(:admin) { FactoryBot.build(:educator, :admin) }
       it 'is valid' do
         expect(admin).to be_valid
       end
     end
     context 'admin without access to all students' do
-      let(:admin) { FactoryGirl.build(:educator, :admin, restricted_to_sped_students: true) }
+      let(:admin) { FactoryBot.build(:educator, :admin, restricted_to_sped_students: true) }
       it 'is invalid' do
         expect(admin).to be_invalid
       end
@@ -47,13 +47,13 @@ RSpec.describe Educator do
 
   describe 'grade level access' do
     context 'mix of strings and not strings' do
-      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['3', 4]) }
+      let(:educator) { FactoryBot.create(:educator, grade_level_access: ['3', 4]) }
       it 'is coerced into an array of strings' do
         expect(educator.grade_level_access).to eq ["3", "4"]
       end
     end
     context 'only integers' do
-      let(:educator) { FactoryGirl.create(:educator, grade_level_access: [3, 4]) }
+      let(:educator) { FactoryBot.create(:educator, grade_level_access: [3, 4]) }
       it 'is coerced into an array of strings' do
         expect(educator.grade_level_access).to eq ["3", "4"]
       end
@@ -62,13 +62,13 @@ RSpec.describe Educator do
 
   describe '#is_authorized_for_student' do
     let(:authorized?) { educator.is_authorized_for_student(student) }
-    let(:healey) { FactoryGirl.create(:healey) }
-    let(:brown) { FactoryGirl.create(:brown) }
+    let(:healey) { FactoryBot.create(:healey) }
+    let(:brown) { FactoryBot.create(:brown) }
 
     context 'educator has districtwide access' do
-      let(:student) { FactoryGirl.create(:student, school: healey) }
+      let(:student) { FactoryBot.create(:student, school: healey) }
       let(:educator) {
-        FactoryGirl.create(:educator, school: brown, districtwide_access: true)
+        FactoryBot.create(:educator, school: brown, districtwide_access: true)
       }
 
       it 'grants access despite student being from different school' do
@@ -77,28 +77,28 @@ RSpec.describe Educator do
     end
 
     context 'student belongs to same school' do
-      let(:student) { FactoryGirl.create(:student, school: healey) }
+      let(:student) { FactoryBot.create(:student, school: healey) }
 
       context 'educator does not have schoolwide access' do
-        let(:educator) { FactoryGirl.create(:educator, school: healey) }
+        let(:educator) { FactoryBot.create(:educator, school: healey) }
         it 'is not authorized' do
           expect(authorized?).to be false
         end
       end
 
       context 'educator has schoolwide access' do
-        let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
+        let(:educator) { FactoryBot.create(:educator, school: healey, schoolwide_access: true) }
         it 'is authorized' do
           expect(authorized?).to be true
         end
       end
 
       context 'educator has student in a section' do
-        let!(:educator) { FactoryGirl.create(:educator, school: healey) }
-        let!(:course) { FactoryGirl.create(:course) }
-        let!(:section) { FactoryGirl.create(:section, course: course) }
-        let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: section) }
-        let!(:ssa) { FactoryGirl.create(:student_section_assignment, student: student, section: section) }
+        let!(:educator) { FactoryBot.create(:educator, school: healey) }
+        let!(:course) { FactoryBot.create(:course) }
+        let!(:section) { FactoryBot.create(:section, course: course) }
+        let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: section) }
+        let!(:ssa) { FactoryBot.create(:student_section_assignment, student: student, section: section) }
 
         it 'is authorized' do
           expect(authorized?).to be true
@@ -108,8 +108,8 @@ RSpec.describe Educator do
     end
 
     context 'student belongs to different school' do
-      let(:educator) { FactoryGirl.create(:educator, school: healey, schoolwide_access: true) }
-      let(:student) { FactoryGirl.create(:student, school: brown) }
+      let(:educator) { FactoryBot.create(:educator, school: healey, schoolwide_access: true) }
+      let(:student) { FactoryBot.create(:student, school: brown) }
 
       it 'is not authorized' do
         expect(authorized?).to be false
@@ -121,19 +121,19 @@ RSpec.describe Educator do
   describe '#local_email' do
     context 'no email' do
       it 'is invalid' do
-        expect(FactoryGirl.build(:educator, :without_email)).to be_invalid
+        expect(FactoryBot.build(:educator, :without_email)).to be_invalid
       end
     end
   end
 
   describe '#students_for_school_overview' do
-    let!(:school) { FactoryGirl.create(:school) }
+    let!(:school) { FactoryBot.create(:school) }
 
     context 'schoolwide_access' do
-      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
-      let!(:include_me) { FactoryGirl.create(:student, school: school) }
-      let!(:include_me_too) { FactoryGirl.create(:student, school: school) }
-      let!(:include_me_not) { FactoryGirl.create(:student) }
+      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
+      let!(:include_me) { FactoryBot.create(:student, school: school) }
+      let!(:include_me_too) { FactoryBot.create(:student, school: school) }
+      let!(:include_me_not) { FactoryBot.create(:student) }
 
       let(:students_for_school_overview) { educator.students_for_school_overview }
 
@@ -144,10 +144,10 @@ RSpec.describe Educator do
     end
 
     context 'has_access_to_grade_levels' do
-      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['2'], school: school) }
-      let!(:include_me) { FactoryGirl.create(:student, school: school, grade: '2') }
-      let!(:include_me_not) { FactoryGirl.create(:student, school: school, grade: '1') }
-      let!(:include_me_not) { FactoryGirl.create(:student, grade: '2') }
+      let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
+      let!(:include_me) { FactoryBot.create(:student, school: school, grade: '2') }
+      let!(:include_me_not) { FactoryBot.create(:student, school: school, grade: '1') }
+      let!(:include_me_not) { FactoryBot.create(:student, grade: '2') }
 
       it 'returns students at the appropriate grade levels' do
         expect(educator.students_for_school_overview).to include include_me
@@ -157,18 +157,9 @@ RSpec.describe Educator do
   end
 
   describe '#default_homeroom' do
-
-    context 'no homerooms' do
-      let(:educator) { FactoryGirl.create(:educator) }
-
-      it 'raises an error' do
-        expect { educator.default_homeroom }.to raise_error Exceptions::NoHomerooms
-      end
-    end
-
     context 'educator assigned a homeroom' do
-      let(:educator) { FactoryGirl.create(:educator) }
-      let!(:homeroom) { FactoryGirl.create(:homeroom, educator: educator) }
+      let(:educator) { FactoryBot.create(:educator) }
+      let!(:homeroom) { FactoryBot.create(:homeroom, educator: educator) }
 
       it 'raises an error' do
         expect(educator.default_homeroom).to eq homeroom
@@ -176,8 +167,8 @@ RSpec.describe Educator do
     end
 
     context 'educator not assigned a homeroom' do
-      let!(:homeroom) { FactoryGirl.create(:homeroom) }
-      let(:educator) { FactoryGirl.create(:educator) }
+      let!(:homeroom) { FactoryBot.create(:homeroom) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       it 'raises an error' do
         expect { educator.default_homeroom }.to raise_error Exceptions::NoAssignedHomeroom
@@ -187,14 +178,14 @@ RSpec.describe Educator do
   end
 
   describe '#allowed_homerooms' do
-    let!(:school) { FactoryGirl.create(:healey) }
-    let!(:other_school) { FactoryGirl.create(:brown) }
+    let!(:school) { FactoryBot.create(:healey) }
+    let!(:other_school) { FactoryBot.create(:brown) }
 
     context 'schoolwide_access' do
-      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, school: school) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, school: school) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
+      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, school: school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
 
       it 'returns all homerooms in the school' do
         expect(educator.allowed_homerooms.sort).to eq [
@@ -204,10 +195,10 @@ RSpec.describe Educator do
     end
 
     context 'districtwide_access' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true, school: school) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, school: school) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, school: other_school) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: other_school) }
+      let(:educator) { FactoryBot.create(:educator, districtwide_access: true, school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, school: other_school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
 
       it 'returns all homerooms in the school' do
         expect(educator.allowed_homerooms.sort).to eq [
@@ -217,11 +208,11 @@ RSpec.describe Educator do
     end
 
     context 'homeroom teacher' do
-      let(:educator) { FactoryGirl.create(:educator, school: school) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, grade: 'K', educator: educator, school: school) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, grade: 'K', school: school) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
-      let!(:homeroom_brn) { FactoryGirl.create(:homeroom, grade: '2', school: other_school) }
+      let(:educator) { FactoryBot.create(:educator, school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', educator: educator, school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
+      let!(:homeroom_brn) { FactoryBot.create(:homeroom, grade: '2', school: other_school) }
 
       it 'returns educator\'s homeroom plus other homerooms at same grade level in same school' do
         expect(educator.allowed_homerooms.sort).to eq [homeroom_101, homeroom_102].sort
@@ -229,10 +220,10 @@ RSpec.describe Educator do
     end
 
     context 'teacher with grade level access' do
-      let(:educator) { FactoryGirl.create(:educator, grade_level_access: ['2'], school: school) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, grade: 'K', school: school) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, grade: 'K', school: school) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, grade: '2', school: school) }
+      let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
+      let!(:homeroom_101) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_102) { FactoryBot.create(:homeroom, grade: 'K', school: school) }
+      let!(:homeroom_103) { FactoryBot.create(:homeroom, grade: '2', school: school) }
 
       it 'returns all homerooms that match the grade level access' do
         expect(educator.allowed_homerooms).to eq [homeroom_103]
@@ -241,26 +232,12 @@ RSpec.describe Educator do
 
   end
 
-  describe '#allowed_homerooms_by_name' do
-    context 'admin' do
-      let(:school) { FactoryGirl.create(:healey) }
-      let(:educator) { FactoryGirl.create(:educator, schoolwide_access: true, school: school) }
-      let!(:homeroom_101) { FactoryGirl.create(:homeroom, name: 'Muskrats', school: school) }
-      let!(:homeroom_102) { FactoryGirl.create(:homeroom, name: 'Hawks', school: school) }
-      let!(:homeroom_103) { FactoryGirl.create(:homeroom, name: 'Badgers', school: school) }
-
-      it 'returns all homerooms\', ordered alphabetically by name' do
-        expect(educator.allowed_homerooms_by_name).to eq [homeroom_103, homeroom_102, homeroom_101]
-      end
-    end
-  end
-
   describe '#save_student_searchbar_json' do
     context 'educator has permissions for a few students' do
-      let(:school) { FactoryGirl.create(:school, local_id: 'Big River High') }
-      let!(:betsy) { FactoryGirl.create(:student, first_name: 'Betsy', last_name: 'Ramirez', school: school, grade: '3') }
-      let!(:bettina) { FactoryGirl.create(:student, first_name: 'Bettina', last_name: 'Abbas', school: school, grade: '3') }
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      let(:school) { FactoryBot.create(:school, local_id: 'Big River High') }
+      let!(:betsy) { FactoryBot.create(:student, first_name: 'Betsy', last_name: 'Ramirez', school: school, grade: '3') }
+      let!(:bettina) { FactoryBot.create(:student, first_name: 'Bettina', last_name: 'Abbas', school: school, grade: '3') }
+      let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
       it 'saves the correct JSON' do
         educator.save_student_searchbar_json
@@ -270,7 +247,7 @@ RSpec.describe Educator do
       end
     end
     context 'educator has permissions for no students' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       it 'saves the correct JSON' do
         educator.save_student_searchbar_json
@@ -279,15 +256,15 @@ RSpec.describe Educator do
     end
   end
   describe '#allowed_sections' do
-    let!(:school) { FactoryGirl.create(:healey) }
-    let!(:other_school) { FactoryGirl.create(:brown) }
-    let!(:in_school_course) { FactoryGirl.create(:course, school: school) }
-    let!(:in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
-    let!(:out_of_school_course) { FactoryGirl.create(:course, school: other_school)}
-    let!(:out_of_school_section) { FactoryGirl.create(:section, course: out_of_school_course) }
+    let!(:school) { FactoryBot.create(:healey) }
+    let!(:other_school) { FactoryBot.create(:brown) }
+    let!(:in_school_course) { FactoryBot.create(:course, school: school) }
+    let!(:in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+    let!(:out_of_school_course) { FactoryBot.create(:course, school: other_school)}
+    let!(:out_of_school_section) { FactoryBot.create(:section, course: out_of_school_course) }
 
     context 'schoolwide_access' do
-      let(:schoolwide_educator) { FactoryGirl.create(:educator, school: school, schoolwide_access: true)}
+      let(:schoolwide_educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true)}
       it 'returns all sections in the school' do
         expect(schoolwide_educator.allowed_sections.sort).to eq [
           in_school_section
@@ -296,7 +273,7 @@ RSpec.describe Educator do
     end
 
     context 'districtwide_access' do
-      let(:districtwide_educator) { FactoryGirl.create(:educator, school: school, districtwide_access: true)}
+      let(:districtwide_educator) { FactoryBot.create(:educator, school: school, districtwide_access: true)}
       it 'returns all sections in the district' do
         expect(districtwide_educator.allowed_sections.sort).to eq [
           in_school_section, out_of_school_section
@@ -305,10 +282,10 @@ RSpec.describe Educator do
     end
 
     context 'regular teacher' do
-      let(:educator) { FactoryGirl.create(:educator, school: school) }
-      let!(:other_in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
-      let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: in_school_section) }
-      let!(:other_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: other_in_school_section) }
+      let(:educator) { FactoryBot.create(:educator, school: school) }
+      let!(:other_in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+      let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: in_school_section) }
+      let!(:other_esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: other_in_school_section) }
       it 'returns all sections assigned to the educator' do
         expect(educator.allowed_sections.sort).to eq [
           in_school_section, other_in_school_section
@@ -318,15 +295,15 @@ RSpec.describe Educator do
   end
 
   describe '#is_authorized_for_section' do
-    let!(:school) { FactoryGirl.create(:healey) }
-    let!(:other_school) { FactoryGirl.create(:brown) }
-    let!(:in_school_course) { FactoryGirl.create(:course, school: school) }
-    let!(:in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
-    let!(:out_of_school_course) { FactoryGirl.create(:course, school: other_school)}
-    let!(:out_of_school_section) { FactoryGirl.create(:section, course: out_of_school_course) }
+    let!(:school) { FactoryBot.create(:healey) }
+    let!(:other_school) { FactoryBot.create(:brown) }
+    let!(:in_school_course) { FactoryBot.create(:course, school: school) }
+    let!(:in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+    let!(:out_of_school_course) { FactoryBot.create(:course, school: other_school)}
+    let!(:out_of_school_section) { FactoryBot.create(:section, course: out_of_school_course) }
 
     context 'schoolwide_access' do
-      let(:schoolwide_educator) { FactoryGirl.create(:educator, school: school, schoolwide_access: true)}
+      let(:schoolwide_educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true)}
 
       it 'has access to a section in their school' do
         expect(schoolwide_educator.is_authorized_for_section(in_school_section)).to be true
@@ -338,7 +315,7 @@ RSpec.describe Educator do
     end
 
     context 'districtwide_access' do
-      let(:districtwide_educator) { FactoryGirl.create(:educator, school: school, districtwide_access: true)}
+      let(:districtwide_educator) { FactoryBot.create(:educator, school: school, districtwide_access: true)}
 
       it 'has access to a section outside their school' do
         expect(districtwide_educator.is_authorized_for_section(out_of_school_section)).to be true
@@ -346,9 +323,9 @@ RSpec.describe Educator do
     end
 
     context 'regular teacher' do
-      let(:educator) { FactoryGirl.create(:educator, school: school) }
-      let!(:other_in_school_section) { FactoryGirl.create(:section, course: in_school_course) }
-      let!(:esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: in_school_section) }
+      let(:educator) { FactoryBot.create(:educator, school: school) }
+      let!(:other_in_school_section) { FactoryBot.create(:section, course: in_school_course) }
+      let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: in_school_section) }
 
       it 'has access to a section assigned to that educator' do
         expect(educator.is_authorized_for_section(in_school_section)).to be true
@@ -361,4 +338,12 @@ RSpec.describe Educator do
     end
   end
 
+  describe '#labels' do
+    let!(:pals) { TestPals.create! }
+    it 'works' do
+      expect(pals.shs_bill_nye.labels).to eq ['shs_experience_team']
+      expect(pals.shs_jodi.labels).to eq ['shs_experience_team']
+      expect(pals.uri.labels).to eq []
+    end
+  end
 end

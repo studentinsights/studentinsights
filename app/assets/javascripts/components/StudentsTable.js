@@ -1,7 +1,13 @@
 import React from 'react';
-import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
-import { shouldDisplay } from '../helpers/customization_helpers.js';
+import {
+  sortByString,
+  sortByNumber,
+  sortByDate,
+  sortByCustomEnum,
+  sortByActiveServices
+} from '../helpers/SortHelpers';
+import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {latestNoteDateText} from '../helpers/latestNoteDateText';
 import * as Routes from '../helpers/Routes';
 
 
@@ -17,21 +23,20 @@ class StudentsTable extends React.Component {
     this.onClickHeader = this.onClickHeader.bind(this);
   }
 
-  mergeInDateOfLastSST(student) {
-    const eventNotes = student.event_notes;
-    const sstNotes = eventNotes.filter((note) => {
-      return note.event_note_type_id === 300; });
-
-    if (sstNotes.length === 0) return {...student, dateOfLastSST: null };
-
-    const sstNoteDates = sstNotes.map(note => moment.utc(note.recorded_at)).sort();
-    const latestSstDate = _.last(sstNoteDates).format('M/D/YY');
-
-    return {...student, dateOfLastSST: latestSstDate };
-  }
-
-  studentsWithDateOfLastSST() {
-    return this.props.students.map(student => this.mergeInDateOfLastSST(student));
+  studentsWithComputedFields() {
+    return this.props.students.map(student => {
+      const latestSstDateText = latestNoteDateText(300, student.event_notes);
+      const latestMtssDateText = latestNoteDateText(301, student.event_notes);
+      const latestNgeDateText = latestNoteDateText(305, student.event_notes);
+      const latest10geDateText = latestNoteDateText(306, student.event_notes);
+      return {
+        ...student,
+        latestSstDateText,
+        latestMtssDateText,
+        latestNgeDateText,
+        latest10geDateText
+      };
+    });
   }
 
   orderedStudents() {
@@ -43,34 +48,34 @@ class StudentsTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.studentsWithDateOfLastSST();
+    const students = this.studentsWithComputedFields();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
 
     switch(sortType) {
     case 'string':
-      return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      return students.sort((a, b) => sortByString(a, b, sortBy));
     case 'number':
-      return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+      return students.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
-      return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
+      return students.sort((a, b) => sortByDate(a, b, sortBy));
     case 'free_reduced_lunch':
-      return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      return students.sort((a, b) => sortByString(a, b, sortBy));
     case 'grade':
       customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'sped_level_of_need':
       customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'limited_english_proficiency':
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'program_assigned':
       customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'active_services':
-      return students.sort((a, b) => SortHelpers.sortByActiveServices(a, b));
+      return students.sort((a, b) => sortByActiveServices(a, b));
     default:
       return students;
     }
@@ -96,14 +101,21 @@ class StudentsTable extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     return (
       <div className='StudentsTable'>
         <table className='students-table' style={{ width: '100%' }}>
           <thead>
             <tr>
               {this.renderHeader('Name', 'last_name', 'string')}
-              {this.renderHeader('Last SST', 'dateOfLastSST', 'date')}
+              {this.renderHeader('Last SST', 'latestSstDateText', 'date')}
+              {school.school_type === 'ESMS' && this.renderHeader('Last MTSS', 'latestMtssDateText', 'date')}
+              {school.school_type === 'HS' && this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
+              {school.school_type === 'HS' && this.renderHeader('Last 10GE', 'latest10geDateText', 'date')}
               {this.renderHeader('Grade', 'grade', 'grade')}
+              {shouldDisplay('house', school) && this.renderHeader('House', 'house', 'string')}
+              {shouldDisplay('counselor', school) && this.renderHeader('Counselor', 'counselor', 'string')}
+              {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
               {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
               {this.renderHeader('Low Income', 'free_reduced_lunch', 'free_reduced_lunch')}
               {this.renderHeader('LEP', 'limited_english_proficiency', 'limited_english_proficiency')}
@@ -116,9 +128,6 @@ class StudentsTable extends React.Component {
               {this.renderHeader('Tardies', 'tardies_count', 'number')}
               {this.renderHeader('Services', 'active_services', 'active_services')}
               {this.renderHeader('Program', 'program_assigned', 'program_assigned')}
-              {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
-              {shouldDisplay('house',this.props.school) && this.renderHeader('House', 'house', 'string')}
-              {shouldDisplay('counselor',this.props.school) && this.renderHeader('Counselor', 'counselor', 'string')}
             </tr>
           </thead>
           <tbody>
@@ -130,8 +139,16 @@ class StudentsTable extends React.Component {
                       {student.last_name}, {student.first_name}
                     </a>
                   </td>
-                  <td>{student.dateOfLastSST}</td>
+                  <td>{student.latestSstDateText}</td>
+                  {school.school_type === 'ESMS' && <td>{student.latestMtssDateText}</td>}
+                  {school.school_type === 'HS' && <td>{student.latestNgeDateText}</td>}
+                  {school.school_type === 'HS' && <td>{student.latest10geDateText}</td>}
                   <td>{student.grade}</td>
+                  {shouldDisplay('house', school) && (<td>{student.house}</td>)}
+                  {shouldDisplay('counselor', school) && (<td>{student.counselor}</td>)}
+                  <td>
+                    <a href={Routes.homeroom(student.homeroom_id)}>{student.homeroom_name}</a>
+                  </td>
                   <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.free_reduced_lunch)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
@@ -146,13 +163,6 @@ class StudentsTable extends React.Component {
                   <td>
                     {this.renderUnless('Reg Ed', student.program_assigned)}
                   </td>
-                  <td>
-                    <a href={Routes.homeroom(student.homeroom_id)}>
-                      {student.homeroom_name}
-                    </a>
-                  </td>
-                  {shouldDisplay('house',this.props.school) && (<td>{student.house}</td>)}
-                  {shouldDisplay('counselor',this.props.school) && (<td>{student.counselor}</td>)}
                 </tr>
               );
             }, this)}
@@ -189,16 +199,18 @@ class StudentsTable extends React.Component {
     return (
       <th onClick={this.onClickHeader.bind(null, sortBy, sortType)}
           className={this.headerClassName(sortBy)}>
-        {pieces[0]}
-        <br/>
-        {pieces[1]}
+        <div>{pieces[0]}</div>
+        <div>{pieces[1]}</div>
       </th>
     );
   }
 }
 StudentsTable.propTypes = {
   students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  school: React.PropTypes.object.isRequired
+  school: React.PropTypes.shape({
+    local_id: React.PropTypes.string.isRequired,
+    school_type: React.PropTypes.string.isRequired
+  })
 };
 
 export default StudentsTable;

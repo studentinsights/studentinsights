@@ -3,31 +3,57 @@ require 'rails_helper'
 RSpec.describe CsvTransformer do
 
   describe '#transform' do
-    context 'with good data' do
-      context 'headers in csv' do
-        let!(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
-        let(:headers_symbols) {[:local_id,:school_local_id,:assessment_date,:assessment_scale_score,:assessment_performance_level,:assessment_growth,:assessment_name,:assessment_subject,:assessment_test]}
-        let(:transformer) { CsvTransformer.new }
-        let(:output) { transformer.transform(file) }
-        it 'returns a CSV' do
-          expect(output).to be_a_kind_of CSV::Table
-        end
-        it 'has the correct headers' do
-          expect(output.headers).to match_array(headers_symbols)
-        end
+    context 'tracks total and processed rows' do
+      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
+      let(:transformer) { CsvTransformer.new }
+
+      it '#size and #pre_cleanup_csv_size filter out row with bad date' do
+        output = transformer.transform(csv_string)
+        expect(transformer.pre_cleanup_csv_size).to eq 4
+        expect(output.size).to eq 3
       end
-      context 'headers not in csv' do
-        let!(:file) { File.open("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
-        let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
-        let(:headers_symbols) {[:section_number,:student_local_id,:school_local_id,:course_number,:term_local_id,:grade]}
-        let(:transformer) { CsvTransformer.new(headers:headers) }
-        let(:output) { transformer.transform(file) }
-        it 'returns a CSV' do
-          expect(output).to be_a_kind_of CSV::Table
-        end
-        it 'has the correct headers' do
-          expect(output.headers).to match_array(headers_symbols)
-        end
+    end
+
+    context 'headers in csv' do
+      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
+      let(:transformer) { CsvTransformer.new }
+      let(:output) { transformer.transform(csv_string) }
+
+      it '#each_with_index' do
+        rows = []
+        output.each_with_index {|row, index| rows << row }
+
+        expect(rows.size).to eq(3)
+        expect(rows.first.to_hash).to eq({
+          local_id: '10',
+          incident_code: 'Hitting',
+          event_date: Date.parse('2015-10-01'),
+          incident_time: '13:00:00',
+          incident_location: 'Classroom',
+          incident_description: 'Hit another student.',
+          school_local_id: 'SHS'
+        })
+        expect(rows.first.headers).to match_array([
+          :event_date, :incident_code, :incident_description, :incident_location, :incident_time, :local_id, :school_local_id
+        ])
+      end
+    end
+
+    context 'headers not in csv' do
+      let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
+      let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
+      let(:transformer) { CsvTransformer.new(headers: headers) }
+      let(:output) { transformer.transform(csv_string) }
+
+      it '#size' do
+        expect(output.size).to eq 6
+      end
+
+      it '#each_with_index' do
+        rows = []
+        output.each_with_index {|row, index| rows << row }
+        expect(rows.size).to eq(6)
+        expect(rows.first.headers).to match_array(headers.map(&:to_sym))
       end
     end
   end

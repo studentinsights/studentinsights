@@ -167,7 +167,7 @@ class MixpanelReport
   # Filter out developer users
   def where_no_developers
     [[:educator_id, '!=', 12],
-     [:educator_id, '!=', 509]]
+     [:educator_id, '!=', 1054]]
   end
 
   def where_string(where_clauses)

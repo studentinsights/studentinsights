@@ -15,7 +15,7 @@
   }
 
   #page-wrapper {
-    width: 80%;
+    width: 100%;
     margin: auto;
   }
 
@@ -23,16 +23,19 @@
     height: 60px;
     display: block;
     font-size: 20px;
-    width: 100%;
+    width: 80%;
+    margin: auto;
   }
 
   #lower-area-wrapper {
+    margin: auto;
+    width: 90%;
     margin-top: 120px;
+    display: flex;
   }
 
   .lower-area-column {
-    width: 50%;
-    float: left;
+    flex: 1;
   }
 
   .lower-area-column.only-column {
@@ -44,9 +47,10 @@
   }
 
   .column-title {
+    display: inline-block;
     color: black;
     font-size: 20px;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-bottom: 20px;
   }
 
@@ -73,8 +77,20 @@
     transform: rotate(50deg);
   }
 
+  #city-icon {
+    float: left;
+    position: relative;
+    top: -30px;
+  }
+
   .coming-soon {
     color: red;
     font-size: 16px;
+  }
+
+  .school-name {
+    font-size: 18px;
+    line-height: 30px;
+    color: black;
   }
 }

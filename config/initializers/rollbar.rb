@@ -4,7 +4,7 @@ Rollbar.configure do |config|
 
   config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
 
-  if Rails.env.test? || Rails.env.development? || (ENV["SHOULD_REPORT_ERRORS"] == false)
+  if Rails.env.test? || Rails.env.development? || !EnvironmentVariable.is_true('SHOULD_REPORT_ERRORS')
     config.enabled = false
   end
 
@@ -18,7 +18,12 @@ Rollbar.configure do |config|
 
   # If you want to attach custom data to all exception and message reports,
   # provide a lambda like the following. It should return a hash.
-  config.custom_data_method = lambda { { deployment_key: ENV["DEPLOYMENT_KEY"] } }
+  config.custom_data_method = lambda {
+    {
+      deployment_key: ENV["DEPLOYMENT_KEY"],
+      district_key: ENV["DISTRICT_KEY"],
+    }
+  }
 
   # Add exception class names to the exception_level_filters hash to
   # change the level that exception is reported at. Note that if an exception

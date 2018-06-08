@@ -2,7 +2,6 @@ import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import moment from 'moment';
 import ReactTestUtils from 'react-addons-test-utils';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('NoteCard', function() {
   const ReactDOM = window.ReactDOM;
@@ -10,7 +9,7 @@ describe('NoteCard', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         noteMoment: moment(),
         educatorId: 1,
         badge: <span>
@@ -20,14 +19,15 @@ describe('NoteCard', function() {
         eventNoteId: 1,
         eventNoteTypeId: 1,
         educatorsIndex: studentProfile.educatorsIndex,
-        attachments: []
-      });
+        attachments: [],
+        ...props
+      };
 
       return ReactDOM.render(<NoteCard {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     },
 
     editNoteAndSave: function(el, uiParams) {
-      const $text = $(el).find('.note-text');
+      const $text = $(el).find('.EditableTextComponent');
       $text.html(uiParams.html);
       ReactTestUtils.Simulate.input($text.get(0));
       ReactTestUtils.Simulate.blur($text.get(0));
@@ -35,7 +35,7 @@ describe('NoteCard', function() {
     },
 
     getNoteHTML: function(el) {
-      return $(el).find('.note-text').html();
+      return $(el).find('.EditableTextComponent').html();
     }
   };
 

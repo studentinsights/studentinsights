@@ -6,13 +6,21 @@ class AttendanceRow < Struct.new(:row)
   # :state_id, :local_id, :absence, :tardy, :event_date, :school_local_id
 
   class NullRelation
-    class NullEvent
-      def save!; end
-
-      def assign_attributes(_); end
+    class NullEventErrors
+      def messages; "Neither absence nor tardy" end
     end
 
-    def find_or_initialize_by(_)
+    class NullEvent
+      def save; end
+
+      def valid?; false end
+
+      def errors; NullEventErrors.new end
+
+      def assign_attributes(attributes); end
+    end
+
+    def self.find_or_initialize_by(_)
       NullEvent.new
     end
   end
@@ -23,8 +31,18 @@ class AttendanceRow < Struct.new(:row)
 
   def build
     attendance_event = attendance_event_class.find_or_initialize_by(
-      occurred_at: row[:event_date]
+      occurred_at: row[:event_date],
+      student_id: student.try(:id),
     )
+
+    if PerDistrict.new.import_detailed_attendance_fields?
+      attendance_event.assign_attributes(
+        dismissed: row[:dismissed],
+        excused: row[:excused],
+        reason: row[:reason],
+        comment: row[:comment],
+      )
+    end
 
     return attendance_event
   end
@@ -32,13 +50,13 @@ class AttendanceRow < Struct.new(:row)
   private
 
   def attendance_event_class
-    return student.absences if row[:absence].to_i == 1
-    return student.tardies if row[:tardy].to_i == 1
-    NullRelation.new
+    return Absence if row[:absence].to_i == 1
+    return Tardy if row[:tardy].to_i == 1
+    NullRelation
   end
 
   def student
-    Student.find_by_local_id!(row[:local_id])
+    Student.find_by_local_id(row[:local_id])
   end
 
 end

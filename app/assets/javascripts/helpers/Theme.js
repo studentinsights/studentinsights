@@ -1,7 +1,7 @@
-// colors, styles
-export const colors = {
-  selection: 'rgb(255, 204, 138)'
-};
+import {selection} from './colors';
+
+// legacy - import directly from colors now
+export const colors = {selection};
 
 export const styles = {
   fontSize: 12,

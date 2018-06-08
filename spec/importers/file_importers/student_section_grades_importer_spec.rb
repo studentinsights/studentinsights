@@ -1,14 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionGradesImporter do
+
+  let(:student_section_grades_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: LogHelper::Redirect.instance.file
+    })
+  }
+
   describe '#import_row' do
     let(:log) { LogHelper::Redirect.instance.file }
-    let!(:school) { FactoryGirl.create(:shs) }
-    let!(:course) { FactoryGirl.create(:course, school:school)}
-    let!(:section) { FactoryGirl.create(:section, course:course) }
-    let!(:student) { FactoryGirl.create(:student) }
+    let!(:school) { FactoryBot.create(:shs) }
+    let!(:course) { FactoryBot.create(:course, school:school)}
+    let!(:section) { FactoryBot.create(:section, course:course) }
+    let!(:student) { FactoryBot.create(:student) }
     let!(:ssa) do
-      FactoryGirl.create(:student_section_assignment,
+      FactoryBot.create(:student_section_assignment,
                          student: student,
                          section: section)
     end
@@ -24,7 +31,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        described_class.new.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'creates adds grade to student section assignment' do
@@ -45,7 +52,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        described_class.new.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'adds grade to student section assignment' do
@@ -66,7 +73,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        described_class.new.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'does not add grade to student section assignment' do
@@ -85,8 +92,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'does not create another student section assignment' do
@@ -103,8 +109,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'does not create another student section assignment' do
@@ -122,8 +127,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'does not create another student section assignment' do
@@ -141,8 +145,7 @@ RSpec.describe StudentSectionGradesImporter do
       end
 
       before do
-        importer = described_class.new(nil, nil, log, nil)
-        importer.import_row(row)
+        student_section_grades_importer.import_row(row)
       end
 
       it 'does not create another student section assignment' do

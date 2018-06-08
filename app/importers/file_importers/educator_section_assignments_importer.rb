@@ -1,25 +1,33 @@
-class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class EducatorSectionAssignmentsImporter
 
-  def initialize(*)
-    super
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
     @imported_assignments = []
   end
 
   def import
+    return unless remote_file_name
+
     @data = CsvDownloader.new(
-      log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
     @data.each.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
 
     delete_rows
   end
 
+  def client
+    SftpClient.for_x2
+  end
+
   def remote_file_name
-    'educator_section_assignment_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch(
+      'FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT', nil
+    )
   end
 
   def data_transformer
@@ -27,7 +35,7 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def delete_rows
@@ -35,7 +43,7 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
     #For the schools imported during this run of the importer
     EducatorSectionAssignment.joins(:section => {:course => :school})
                              .where.not(id: @imported_assignments)
-                             .where(:schools => {:local_id => school_scope}).delete_all
+                             .where(:schools => {:local_id => @school_scope}).delete_all
   end
 
   def import_row(row)
@@ -45,7 +53,7 @@ class EducatorSectionAssignmentsImporter < Struct.new :school_scope, :client, :l
       educator_section_assignment.save!
       @imported_assignments.push(educator_section_assignment.id)
     else
-      log.write("Educator Section Assignment Import invalid row: #{row}")
+      @log.puts("Educator Section Assignment Import invalid row")
     end
   end
 

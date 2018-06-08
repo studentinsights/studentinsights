@@ -13,6 +13,7 @@ class SchoolsController < ApplicationController
     render 'shared/serialized_data'
   end
 
+  # This is also used by the `ExploresSchoolEquityPage`.
   def overview_json
     render json: json_for_overview(@school)
   end
@@ -27,16 +28,67 @@ class SchoolsController < ApplicationController
     })
   end
 
-  def school_administrator_dashboard
-    unless current_educator.admin == true
-      redirect_to not_authorized_path and return #TodDo: determine whether there's a more appropriate action here
+  def absence_dashboard_data
+    student_absence_data = active_students(@school)
+      .includes([homeroom: :educator], :dashboard_absences, :sst_notes)
+    student_absence_data_json = student_absence_data.map do |student|
+      individual_student_absence_data(student)
     end
 
-    dashboard_students = students_for_dashboard(@school).includes(:homeroom, :dashboard_absences, :dashboard_tardies)
-                                                        .map { |student| individual_student_dashboard_data(student) }
+    render json: student_absence_data_json
+  end
 
-    @serialized_data = {students: dashboard_students.to_json}
-    render 'shared/serialized_data'
+  def tardies_dashboard_data
+    student_tardies_data = active_students(@school)
+      .includes([homeroom: :educator], :dashboard_tardies, :sst_notes)
+    student_tardies_data_json = student_tardies_data.map do |student|
+      individual_student_tardies_data(student)
+    end
+
+    render json: student_tardies_data_json
+  end
+
+  def discipline_dashboard_data
+    student_discipline_data = active_students(@school)
+      .includes([homeroom: :educator], :discipline_incidents, :sst_notes)
+      .where('occurred_at >= ?', 1.year.ago).references(:discipline_incidents)
+    student_discipline_data_json = student_discipline_data.map do |student|
+      individual_student_discipline_data(student)
+    end
+
+    render json: student_discipline_data_json
+  end
+
+  # This endpoint is internal-only for now, because of the authorization complexity.
+  def courses_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
+    courses = Course.all
+      .where(school_id: @school.id)
+      .includes(sections: :students)
+
+    courses_json = courses.as_json({
+      :only => [:id, :course_number, :course_description],
+      :include => {
+        :sections => {
+          :only => [:id, :section_number, :term_local_id, :schedule, :room_number],
+          :include => {
+            :students => {
+              :only => [:id, :grade, :date_of_birth],
+              :include => {
+                :school => {
+                  :only => [:id, :name]
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+
+    render json: {
+      courses: courses_json,
+      school: @school.as_json(only: [:id, :name])
+    }
   end
 
   private
@@ -97,19 +149,13 @@ class SchoolsController < ApplicationController
   end
 
   def authorize_for_school
-    unless current_educator.is_authorized_for_school(@school)
-      redirect_to(homepage_path_for_current_educator)
-    end
-
-    if current_educator.has_access_to_grade_levels?
-      grade_message = " Showing students in grades #{current_educator.grade_level_access.to_sentence}."
-      flash[:notice] << grade_message if flash[:notice]
+    unless authorizer.is_authorized_for_school?(@school)
+      return redirect_to homepage_path_for_role(current_educator)
     end
   end
 
   def set_school
     @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
-
     redirect_to root_url if @school.nil?
   end
 
@@ -121,25 +167,48 @@ class SchoolsController < ApplicationController
     end
   end
 
-  # Methods for Dashboard
-  def list_student_absences(student)
-    student.absences.map {|absence| absence.order(occurred_at: :desc)}
+  # Methods for Dashboards #
+  def shared_student_fields(student)
+    student.as_json(only: [
+      :first_name,
+      :last_name,
+      :grade,
+      :id
+    ]).merge({
+      homeroom_label: homeroom_label(student.homeroom),
+      sst_notes: student.sst_notes.as_json(only: [:event_note_type_id, :recorded_at])
+    })
   end
 
-  def individual_student_dashboard_data(student)
-    HashWithIndifferentAccess.new({
-      first_name: student.first_name,
-      last_name: student.last_name,
-      id: student.id,
-      homeroom: student.try(:homeroom).try(:name),
-      absences: student.dashboard_absences,
-      tardies: student.dashboard_tardies
-      }
-    )
+  def individual_student_absence_data(student)
+    shared_student_fields(student).merge({
+      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at])
+    })
   end
 
-  def students_for_dashboard(school)
+  def individual_student_tardies_data(student)
+    shared_student_fields(student).merge({
+      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at])
+    })
+  end
+
+  def individual_student_discipline_data(student)
+    shared_student_fields(student).merge({
+      discipline_incidents: student.discipline_incidents.as_json(only: [
+        :student_id,
+        :incident_code,
+        :incident_location,
+        :has_exact_time,
+        :occurred_at
+      ])
+    })
+  end
+
+  def active_students(school)
     school.students.active
   end
 
+  def homeroom_label(homeroom)
+    homeroom.try(:educator).try(:full_name) || homeroom.try(:name) || "No Homeroom"
+  end
 end

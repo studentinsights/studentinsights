@@ -1,4 +1,30 @@
 class FakeStudent
+  ATTENDANCE_EVENT_REASONS = %w[
+    Appointment
+    Bereavement
+    Holiday
+    Late
+    Legal
+    Medical
+    No Reason
+    Nurse
+    Parent
+    School
+    Sick
+    Suspended
+    Transportation
+    Truant
+    Vacation
+    Walked Out
+    Weather
+    Withdrawal
+  ]
+
+  ATTENDANCE_EVENT_COMMENTS = [
+    'Received doctor note.',
+    'Mom called, did not leave a reason.'
+  ]
+
   def initialize(school, homeroom)
     @school = school
     @homeroom = homeroom
@@ -64,8 +90,6 @@ class FakeStudent
     "WOODY", "BUZZ", "BO"
   ]
 
-  FIVE_YEARS_OF_SECONDS = 157766400
-
   def base_data
     {
       school: @school,
@@ -75,8 +99,8 @@ class FakeStudent
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
       local_id: unique_local_id,
-      limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
-      free_reduced_lunch: ["Free Lunch", "Not Eligible"].sample,
+      limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "Limited", "FLEP"].sample,
+      free_reduced_lunch: ["Free Lunch", "Not Eligible", "Reduced Lunch", nil].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample,
       race: ['Black', 'White', 'Asian'].sample,
       hispanic_latino: [true, false].sample,
@@ -160,7 +184,7 @@ class FakeStudent
   def add_student_assessments_from_x2
     create_x2_assessment_generators(@student).each do |assessment_generator|
       unless @newstudent
-        5.times do
+        4.times do
           StudentAssessment.new(assessment_generator.next).save
         end
       end
@@ -171,7 +195,7 @@ class FakeStudent
     unless @newstudent
       star_period_days = 90
       # Define semi-realistic date ranges for STAR assessments
-      start_date = DateTime.new(2010, 9, 1)
+      start_date = DateTime.new(2014, 9, 1)
       now = DateTime.now
       assessment_count = (now - start_date).to_i / star_period_days
       options = {
@@ -206,13 +230,30 @@ class FakeStudent
     }
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
+
     events_for_year.times do
       # Randomly determine when it occurred.
-      occurred_at = Time.at(DateTime.now.to_i - (rand * FIVE_YEARS_OF_SECONDS))
+      occurred_at = DemoDataUtil.random_time
 
       attendance_event = [Absence.new, Tardy.new].sample
       attendance_event.occurred_at = occurred_at
       attendance_event.student = student
+
+      # Frequencies for attendance event reasons/comments/dismissed/excused
+      # modeled on Somerville data, for queries see:
+      # https://github.com/studentinsights/studentinsights/pull/1653#issue-184358100
+      if attendance_event.class == Absence
+        attendance_event.dismissed = (rand < 0.006)
+        attendance_event.excused = (rand < 0.0627)
+        attendance_event.reason = ATTENDANCE_EVENT_REASONS.sample if rand < 0.29
+        attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.18
+
+      elsif attendance_event.class == Tardy
+        attendance_event.dismissed = (rand < 0.019)
+        attendance_event.excused = (rand < 0.027)
+        attendance_event.reason = ATTENDANCE_EVENT_REASONS.sample if rand < 0.1
+        attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.04
+      end
 
       attendance_event.save
     end
@@ -220,33 +261,24 @@ class FakeStudent
 
   def add_discipline_incidents
     d = {
-      0 => 0.83,
-      1 => 0.10,
-      2 => 0.03,
-      (3..5) => 0.03,
-      (6..15) => 0.01,
+      0 => 0.23,
+      1 => 0.30,
+      2 => 0.23,
+      (3..5) => 0.13,
+      (6..15) => 0.11,
     }
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      # Randomly determine when it occurred.
-      occurred_at = Time.at(DateTime.now.to_i - (rand * FIVE_YEARS_OF_SECONDS))
-
-      discipline_incident = DisciplineIncident.new(
-        FakeDisciplineIncident.data.merge({
-          occurred_at: occurred_at,
-          student: student
-        })
-      )
-
-      discipline_incident.save
+      discipline_incident = FactoryBot.create(:discipline_incident, student: student)
+      discipline_incident.save!
     end
   end
 
   def add_deprecated_interventions
     15.in(100) do
       generator = FakeInterventionGenerator.new(@student)
-      intervention_count = Rubystats::NormalDistribution.new(3, 6).rng.round
+      intervention_count = rand > 0.5 ? 0 : (1..6).to_a.sample
       intervention_count.times do
         intervention = Intervention.new(generator.next)
         intervention.save!

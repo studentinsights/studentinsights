@@ -2,39 +2,66 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :educators
+    get '/authorization' => 'educators#authorization'
     root to: "educators#index"
     get 'district/notes_heatmap' => 'district#notes_heatmap'
     get 'district/restricted_notes_heatmap' => 'district#restricted_notes_heatmap'
   end
 
+  scope '/admin' do
+    get 'import_records' => 'ui#ui'
+    get '/api/import_records' => 'import_records#import_records_json'
+  end
+
+  get '/api/educators/:id' => 'educators#show'
+  get '/api/schools/:id/courses' => 'schools#courses_json'
+
+  # school leader dashboards
+  get '/api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
+  get '/api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
+  get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
+
+  # classroom list creator
+  get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
+  get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
+  get '/api/class_lists/:workspace_id/students_for_grade_level_next_year_json' => 'class_lists#students_for_grade_level_next_year_json'
+  post '/api/class_lists/:workspace_id/teacher_updated_class_list_json' => 'class_lists#teacher_updated_class_list_json'
+  post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
+  get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
+  get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
+
+  # home feed
+  get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
+  get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
+  get '/api/home/feed_json' => 'home#feed_json'
+  get '/api/district/enrollment_json' => 'district#enrollment_json'
+
+
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
-  get '/educators/reset'=> 'educators#reset_session_clock'
-  get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
-  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
-
   devise_scope :educator do
     root to: "devise/sessions#new"
   end
 
-  get 'no_homeroom' => 'pages#no_homeroom'
-  get 'no_homerooms' => 'pages#no_homerooms'
+  get '/educators/view/:id' => 'ui#ui'
+  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  get '/educators/notes_feed'=> 'educators#notes_feed'
+  get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
+  get '/educators/reset'=> 'educators#reset_session_clock'
+  get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
+  get '/home' => 'ui#ui'
 
-  get 'no_section' => 'pages#no_section'
-  get 'no_sections' => 'pages#no_sections'
-
+  get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
-
-  if ENV['LETS_ENCRYPT_ENDPOINT']
-    get ENV['LETS_ENCRYPT_ENDPOINT'] => 'pages#lets_encrypt_endpoint'
-  end
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
+    resources :transition_notes, only: [:create, :update]
+
     member do
       get :student_report
       get :restricted_notes
@@ -44,18 +71,39 @@ Rails.application.routes.draw do
   resources :services, only: [:destroy]
   resources :service_types, only: [:index]
   resources :event_note_attachments, only: [:destroy]
-  resources :service_uploads, only: [:create, :index, :destroy]
+  resources :service_uploads, only: [:create, :index, :destroy] do
+    collection do
+      get :past
+    end
+  end
   resources :homerooms, only: [:show]
   resources :sections, only: [:index, :show]
-  resources :import_records, only: [:index]
   resources :iep_documents, only: [:show]
+
+  resource :classlists, only: [] do
+    member do
+      get '' => 'ui#ui'
+      get '/new' => 'ui#ui'
+      get '/:workspace_id' => 'ui#ui'
+    end
+  end
 
   resources :schools, only: [:show] do
     member do
       get :overview
-      get :school_administrator_dashboard
       get :overview_json
       get :csv
+      get 'absences' => 'ui#ui'
+      get 'tardies' => 'ui#ui'
+      get 'discipline' => 'ui#ui'
+      get 'courses' => 'ui#ui'
+      get 'equity/explore' => 'ui#ui'
+    end
+  end
+
+  resource :district, only: [] do
+    member do
+      get 'enrollment' => 'ui#ui'
     end
   end
 end

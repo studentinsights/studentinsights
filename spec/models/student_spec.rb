@@ -4,14 +4,14 @@ RSpec.describe Student do
 
   describe '#registration_date_cannot_be_in_future' do
     context 'no registration date' do
-      let(:student) { FactoryGirl.build(:student) }
+      let(:student) { FactoryBot.build(:student) }
       it 'is valid' do
         expect(student).to be_valid
       end
     end
     context 'future registration date' do
       let(:student) {
-        FactoryGirl.build(
+        FactoryBot.build(
           :student,
           registration_date: Time.now + 1.year,
           local_id: '2000',
@@ -26,7 +26,7 @@ RSpec.describe Student do
       end
     end
     context 'past registration date' do
-      let(:student) { FactoryGirl.build(:student, :registered_last_year) }
+      let(:student) { FactoryBot.build(:student, :registered_last_year) }
       it 'is valid' do
         expect(student).to be_valid
       end
@@ -34,7 +34,7 @@ RSpec.describe Student do
   end
 
   describe '#most_recent_school_year_absences_count' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
 
     context 'no absences ever' do
 
@@ -45,7 +45,7 @@ RSpec.describe Student do
 
     context 'no absences this school year, one last year' do
       let!(:absence) {
-        FactoryGirl.create(:absence,
+        FactoryBot.create(:absence,
           student: student,
           occurred_at: DateTime.new(2016, 9, 1)
         )
@@ -60,11 +60,11 @@ RSpec.describe Student do
 
     context 'two absences this school year (first half of year)' do
       before do
-        FactoryGirl.create(:absence,
+        FactoryBot.create(:absence,
           student: student,
           occurred_at: DateTime.new(2017, 9, 1)
         )
-        FactoryGirl.create(:absence,
+        FactoryBot.create(:absence,
           student: student,
           occurred_at: DateTime.new(2017, 9, 2)
         )
@@ -79,11 +79,11 @@ RSpec.describe Student do
 
     context 'two absences this school year (second half of year)' do
       before do
-        FactoryGirl.create(:absence,
+        FactoryBot.create(:absence,
           student: student,
           occurred_at: DateTime.new(2018, 5, 1)
         )
-        FactoryGirl.create(:absence,
+        FactoryBot.create(:absence,
           student: student,
           occurred_at: DateTime.new(2018, 5, 2)
         )
@@ -98,7 +98,7 @@ RSpec.describe Student do
   end
 
   describe '#latest_result_by_family_and_subject' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
     let(:assessment_family) { "MCAS" }
     let(:assessment_subject) { "Mathematics" }
     let(:assessment) { Assessment.create!(
@@ -152,7 +152,7 @@ RSpec.describe Student do
   end
 
   describe '#ordered_results_by_family_and_subject' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
     let!(:mcas_math) { Assessment.create!(family: "MCAS", subject: "Mathematics") }
     let(:result) { student.ordered_results_by_family_and_subject("MCAS", "Mathematics") }
 
@@ -207,7 +207,7 @@ RSpec.describe Student do
 
   describe '#update_recent_student_assessments' do
     context 'has student assessments' do
-      let(:student) { FactoryGirl.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
+      let(:student) { FactoryBot.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
       it 'sets correct attribute on the student' do
         student.update_recent_student_assessments
         expect(student.reload.most_recent_mcas_math_performance).to eq 'A'
@@ -218,7 +218,7 @@ RSpec.describe Student do
 
   describe '#update_risk_level!' do
     context 'when risk level record already exists' do
-      let(:student) { FactoryGirl.create(:student) }
+      let(:student) { FactoryBot.create(:student) }
       let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
       before do
         student.student_risk_level = student_risk_level
@@ -232,7 +232,7 @@ RSpec.describe Student do
 
     context 'no pre-existing risk level' do
       context 'non-ELL student with no test results' do
-        let(:student) { FactoryGirl.create(:student) }
+        let(:student) { FactoryBot.create(:student) }
         it 'creates a risk level' do
           expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 1
         end
@@ -244,7 +244,7 @@ RSpec.describe Student do
         end
       end
       context 'ELL student with no test results' do
-        let(:student) { FactoryGirl.build(:limited_english_student) }
+        let(:student) { FactoryBot.build(:limited_english_student) }
         it 'creates a risk level' do
           expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 1
         end
@@ -259,7 +259,7 @@ RSpec.describe Student do
   end
 
   describe '#latest_access_results' do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
 
     context 'student has no access results' do
       it 'returns nil' do
@@ -268,9 +268,9 @@ RSpec.describe Student do
     end
 
     context 'student has access results' do
-      let(:access) { FactoryGirl.create(:assessment, :access) }
+      let(:access) { FactoryBot.create(:assessment, :access) }
       before {
-        FactoryGirl.create(
+        FactoryBot.create(
           :student_assessment, student: student, assessment: access, performance_level: '3.0'
         )
       }
@@ -285,4 +285,14 @@ RSpec.describe Student do
 
   end
 
+  describe '#validate_grade' do
+    it 'prevents and prints out invalid grades' do
+      student = FactoryBot.create(:student)
+      was_successful = student.update(grade: 'foo')
+      expect(was_successful).to eq false
+      expect(student.errors.details).to eq({
+        grade: [{:error=>"invalid grade: foo"}]
+      })
+    end
+  end
 end

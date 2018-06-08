@@ -6,38 +6,48 @@ class Student < ActiveRecord::Base
   # Contrast with student_row.rb, which represents a row imported from X2,
   # (not necessarily in the database yet).
 
-  belongs_to :homeroom, counter_cache: true
+  belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
   has_many :event_notes, dependent: :destroy
+  has_many :transition_notes, dependent: :destroy
   has_many :services, dependent: :destroy
   has_many :tardies, dependent: :destroy
-  has_many :dashboard_tardies, -> { where('occurred_at >= ?', 3.months.ago) },
-    class_name: "Tardy"
   has_many :absences, dependent: :destroy
-  has_many :dashboard_absences, -> { where('occurred_at >= ?', 1.year.ago) },
-    class_name: "Absence"
   has_many :discipline_incidents, dependent: :destroy
   has_one :iep_document, dependent: :destroy
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
 
+  has_many :dashboard_tardies, -> {
+    where('occurred_at >= ?', 1.year.ago)
+  }, class_name: "Tardy"
+  has_many :dashboard_absences, -> {
+    where('occurred_at >= ?', 1.year.ago)
+  }, class_name: "Absence"
+
+  has_many :sst_notes, -> { where(event_note_type_id: 300) }, class_name: "EventNote"
+
   has_one :student_risk_level, dependent: :destroy
 
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
-  validate :valid_grade
+  validate :validate_grade
   validate :registration_date_cannot_be_in_future
+  validate :validate_free_reduced_lunch
 
   VALID_GRADES = [
-    'PK', 'KF', 'SP', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
+    'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
   ].freeze
 
-  def valid_grade
-    errors.add(:grade, "must be a valid grade") unless grade.in?(VALID_GRADES)
-  end
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ]
 
   def registration_date_in_future
     return false if registration_date.nil?
@@ -138,6 +148,10 @@ class Student < ActiveRecord::Base
 
   def dibels
     ordered_results_by_family("DIBELS")
+  end
+
+  def latest_dibels
+    ordered_results_by_family("DIBELS").last
   end
 
   def latest_access_results
@@ -277,27 +291,37 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def event_notes_without_restricted
+    event_notes.where(is_restricted: false)
+  end
+
   # Sections
   def sections_with_grades
     sections.select("sections.*, student_section_assignments.grade_numeric")
   end
 
   private
+  def this_year
+    DateTime.now.year
+  end
 
-    def this_year
-      DateTime.now.year
+  def august_of_this_year
+    DateTime.new(this_year, 8, 1)
+  end
+
+  def start_of_this_school_year
+    if august_of_this_year > DateTime.now
+      DateTime.new(this_year - 1, 8, 1)
+    else
+      august_of_this_year
     end
+  end
 
-    def august_of_this_year
-      DateTime.new(this_year, 8, 1)
-    end
+  def validate_free_reduced_lunch
+    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
+  end
 
-    def start_of_this_school_year
-      if august_of_this_year > DateTime.now
-        DateTime.new(this_year - 1, 8, 1)
-      else
-        august_of_this_year
-      end
-    end
-
+  def validate_grade
+    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
+  end
 end

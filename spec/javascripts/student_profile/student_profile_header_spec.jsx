@@ -1,7 +1,6 @@
 import {studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import ReactTestUtils from 'react-addons-test-utils';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('StudentProfileHeader', function() {
   const ReactDOM = window.ReactDOM;
@@ -9,7 +8,10 @@ describe('StudentProfileHeader', function() {
 
   const helpers = {
     renderActiveStudent: function(el, props) {
-      const mergedProps = merge(props || {}, { student: studentProfile.student });
+      const mergedProps = {
+        student: studentProfile.student,
+        ...props
+      };
       ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
     },
 
@@ -17,7 +19,10 @@ describe('StudentProfileHeader', function() {
       const this_student = studentProfile.student;
       this_student['enrollment_status'] = 'Transferred';
 
-      const mergedProps = merge(props || {}, { student: this_student });
+      const mergedProps = {
+        student: this_student,
+        ...props
+      };
       ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
     }
 

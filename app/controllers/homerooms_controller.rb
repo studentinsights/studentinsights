@@ -11,25 +11,27 @@ class HomeroomsController < ApplicationController
     @rows = eager_students().map {|student| fat_student_hash(student) }
 
     # Dropdown for homeroom navigation
-    @homerooms_by_name = current_educator.allowed_homerooms_by_name
+    @homerooms_by_name = current_educator.allowed_homerooms.order(:name)
 
     # For JSX Table:
     @serialized_data = {
+      school: @homeroom.school,
       show_star: @homeroom.show_star?,
       show_mcas: @homeroom.show_mcas?,
-      rows: @rows
+      rows: @rows.as_json
     }
   end
 
   private
 
   def initial_columns
-    return ['name', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
-    return ['name', 'risk', 'sped', 'interventions']
+    return ['name', 'supports', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'supports', 'risk', 'sped', 'interventions']
   end
 
   def eager_students(*additional_includes)
     @homeroom.students.active.includes([
+      :event_notes,
       :interventions,
       :student_risk_level,
       :homeroom,
@@ -41,6 +43,7 @@ class HomeroomsController < ApplicationController
   # This may be slow if you're doing it for many students without eager includes.
   def fat_student_hash(student)
     HashWithIndifferentAccess.new(student_hash_for_slicing(student).merge({
+      event_notes_without_restricted: student.event_notes_without_restricted,
       interventions: student.interventions,
       sped_data: student.sped_data,
       student_risk_level: student.student_risk_level.as_json_with_explanation

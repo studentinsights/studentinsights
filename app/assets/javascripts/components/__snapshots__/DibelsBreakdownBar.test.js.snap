@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="BreakdownBar"
+  style={
+    Object {
+      "height": 50,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 50,
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <div>
+      <div
+        style={
+          Object {
+            "background": "rgba(0,128,0,0.5)",
+            "height": 50,
+            "left": "0%",
+            "position": "absolute",
+            "width": "59%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "rgba(0,128,0,0.5)",
+            "left": "0%",
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "59%",
+          }
+        }
+      >
+        7
+      </div>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "background": "rgba(255,165,0,0.5)",
+            "height": 50,
+            "left": "59%",
+            "position": "absolute",
+            "width": "25%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "rgba(255,165,0,0.5)",
+            "left": "59%",
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "25%",
+          }
+        }
+      >
+        3
+      </div>
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "background": "rgba(255,0,0,0.5)",
+            "height": 50,
+            "left": "84%",
+            "position": "absolute",
+            "width": "17%",
+          }
+        }
+      >
+         
+      </div>
+      <div
+        style={
+          Object {
+            "color": "rgba(255,0,0,0.5)",
+            "left": "84%",
+            "paddingRight": 1,
+            "position": "absolute",
+            "textAlign": "right",
+            "top": 55,
+            "width": "17%",
+          }
+        }
+      >
+        2
+      </div>
+    </div>
+  </div>
+</div>
+`;

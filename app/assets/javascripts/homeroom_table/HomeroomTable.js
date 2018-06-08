@@ -1,15 +1,23 @@
 import React from 'react';
 import _ from 'lodash';
-import SortHelpers from '../helpers/sort_helpers.jsx';
+import {
+  sortByString,
+  sortByNumber,
+  sortByDate,
+  sortByCustomEnum,
+  sortByActiveServices
+} from '../helpers/SortHelpers';
 import Cookies from 'js-cookie';
+import {latestNoteDateText} from '../helpers/latestNoteDateText';
 
+
+// Shows a homeroom roster, for K8 and HS homerooms.
 class HomeroomTable extends React.Component {
 
   constructor(props) {
     super(props);
 
     const initialColumns = this.getInitialColumnsDisplayed();
-
     this.state = {
       columnsDisplayed: initialColumns,
       showColumnPicker: false,
@@ -33,32 +41,32 @@ class HomeroomTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.activeMergedStudentRows();
+    const students = this.mergedStudentRows();
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
 
     switch(sortType) {
     case 'string':
-      return students.sort((a, b) => SortHelpers.sortByString(a, b, sortBy));
+      return students.sort((a, b) => sortByString(a, b, sortBy));
     case 'number':
-      return students.sort((a, b) => SortHelpers.sortByNumber(a, b, sortBy));
+      return students.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
-      return students.sort((a, b) => SortHelpers.sortByDate(a, b, sortBy));
+      return students.sort((a, b) => sortByDate(a, b, sortBy));
     case 'grade':
       customEnum = ['PK', 'KF', '1', '2', '3', '4', '5', '6', '7', '8'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'sped_level_of_need':
       customEnum = ['—', 'Low < 2', 'Low >= 2', 'Moderate', 'High'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'limited_english_proficiency':
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'program_assigned':
       customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
-      return students.sort((a, b) => SortHelpers.sortByCustomEnum(a, b, sortBy, customEnum));
+      return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'active_services':
-      return students.sort((a, b) => SortHelpers.sortByActiveServices(a, b));
+      return students.sort((a, b) => sortByActiveServices(a, b));
     default:
       return students;
     }
@@ -92,6 +100,7 @@ class HomeroomTable extends React.Component {
   columnKeysToNames() {
     return {
       'risk': 'Risk',
+      'supports': 'Supports',
       'program': 'Program',
       'sped': 'SPED & Disability',
       'language': 'Language',
@@ -105,7 +114,7 @@ class HomeroomTable extends React.Component {
   }
 
   columnNames() {
-    return Object.values(this.columnKeysToNames());
+    return _.values(this.columnKeysToNames());
   }
 
   getInitialColumnsDisplayed() {
@@ -114,23 +123,30 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  activeStudentRowFilter(row) {
-    return row.enrollment_status === 'Active';
-  }
-
-  activeStudentRows() {
-    return this.props.rows.filter(this.activeStudentRowFilter);
-  }
-
   mergeInStudentRiskLevel(row) {
     let risk = { risk: row['student_risk_level']['level'] };
     let sped_level = { sped_level: row['sped_data']['sped_level'] };
 
     return { ...row, ...risk, ...sped_level };
   }
+  mergeInLatestMeetings(row) {
+    const latestSstDateText = latestNoteDateText(300, row.event_notes_without_restricted);
+    const latestMtssDateText = latestNoteDateText(301, row.event_notes_without_restricted);
+    const latestNgeDateText = latestNoteDateText(305, row.event_notes_without_restricted);
+    const latest10geDateText = latestNoteDateText(306, row.event_notes_without_restricted);
+    return {
+      ...row,
+      latestSstDateText,
+      latestMtssDateText,
+      latestNgeDateText,
+      latest10geDateText
+    };
+  }
 
-  activeMergedStudentRows() {
-    return this.activeStudentRows().map(this.mergeInStudentRiskLevel);
+  mergedStudentRows() {
+    return this.props.rows
+      .map(this.mergeInStudentRiskLevel)
+      .map(this.mergeInLatestMeetings);
   }
 
   warningBubbleClassName(row) {
@@ -159,6 +175,11 @@ class HomeroomTable extends React.Component {
     if (this.props.showMcas === true && mcasDisplayed === true) return true;
 
     return false;
+  }
+
+  isHighSchool() {
+    const {school} = this.props;
+    return (school.school_type === 'HS');
   }
 
   onClickHeader(sortBy, sortType) {
@@ -341,6 +362,10 @@ class HomeroomTable extends React.Component {
         {this.renderSubHeader(
           'risk', 'Risk', 'risk', 'number'
         )}
+        {this.renderSubHeader('supports', 'Last SST', 'latestSstDateText', 'date')}
+        {!this.isHighSchool() && this.renderSubHeader('supports', 'Last MTSS', 'latestMtssDateText', 'date')}
+        {this.isHighSchool() && this.renderSubHeader('supports', 'Last NGE', 'latestNgeDateText', 'date')}
+        {this.isHighSchool() && this.renderSubHeader('supports', 'Last 10GE', 'latest10geDateText', 'date')}
         {this.renderSubHeader(
           'program', 'Program Assigned', 'program_assigned', 'program_assigned'
         )}
@@ -366,12 +391,14 @@ class HomeroomTable extends React.Component {
   }
 
   renderHeaders() {
+    const supportColumnCount = this.isHighSchool() ? 3 : 2;
     return (
       <thead>
         <tr className="column-groups">
           {/*  TOP-LEVEL COLUMN GROUPS */}
           <td colSpan="1"></td>
           {this.renderSuperHeader('risk', '1')}
+          {this.renderSuperHeader('supports', supportColumnCount, 'Supports')}
           {this.renderSuperHeader('program', '1')}
           {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
           {this.renderSuperHeader('language', '2', 'Language')}
@@ -450,6 +477,10 @@ class HomeroomTable extends React.Component {
           style={style}>
         <td className="name">{fullName}</td>
         {this.renderDataCell('risk', this.renderWarningBubble(row))}
+        {this.renderDataCell('supports', row['latestSstDateText'])}
+        {!this.isHighSchool() && this.renderDataCell('supports', row['latestMtssDateText'])}
+        {this.isHighSchool() && this.renderDataCell('supports', row['latestNgeDateText'])}
+        {this.isHighSchool() && this.renderDataCell('supports', row['latest10geDateText'])}
         {this.renderDataCell('program', row['program_assigned'])}
         {this.renderDataCell('sped', row['disability'])}
         {this.renderDataCell('sped', this.renderDataWithSpedTooltip(row))}
@@ -555,7 +586,12 @@ class HomeroomTable extends React.Component {
 HomeroomTable.propTypes = {
   showStar: React.PropTypes.bool.isRequired,
   showMcas: React.PropTypes.bool.isRequired,
-  rows: React.PropTypes.array.isRequired
+  rows: React.PropTypes.arrayOf(React.PropTypes.shape({
+    event_notes_without_restricted: React.PropTypes.array.isRequired
+  })).isRequired,
+  school: React.PropTypes.shape({
+    school_type: React.PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default HomeroomTable;

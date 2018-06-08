@@ -21,19 +21,9 @@ namespace :report do
     end
   end
 
-  desc 'Weekly update for educators'
-  task email_weekly_update: :environment do
-    # Heroku scheduler can only trigger daily, so this only emails
-    # a report once a week.
-    if Date.today.sunday?
-      WeeklyUpdateMailer.weekly_update.deliver_now
-    end
-  end
-
   desc 'Print usage report from Mixpanel (for debugging purposes)'
   task mixpanel_usage: :environment do
     mixpanel_api_secret = ENV['MIXPANEL_API_SECRET']
     puts MixpanelReport.new(mixpanel_api_secret).run
   end
-
 end

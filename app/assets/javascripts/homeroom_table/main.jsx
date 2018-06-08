@@ -29,7 +29,8 @@ export default function homeroomMain() {
       showStar={serializedData.showStar}
       showMcas={serializedData.showMcas}
       rows={serializedData.rows}
+      school={serializedData.school}
     />,
-    document.getElementById('homeroom-table')
+    document.getElementById('main')
   );
 }

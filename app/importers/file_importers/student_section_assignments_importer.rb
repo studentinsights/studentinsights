@@ -1,24 +1,33 @@
-class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :log, :progress_bar
-  def initialize(*)
-    super
+class StudentSectionAssignmentsImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
     @imported_assignments = []
   end
 
   def import
+    return unless remote_file_name
+
     @data = CsvDownloader.new(
-      log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
     @data.each.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
 
     delete_rows
   end
 
+  def client
+    SftpClient.for_x2
+  end
+
   def remote_file_name
-    'student_section_assignment_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch(
+      'FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT', nil
+    )
   end
 
   def data_transformer
@@ -26,7 +35,11 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
+  end
+
+  def school_ids_dictionary
+    @dictionary ||= School.all.map { |school| [school.local_id, school.id] }.to_h
   end
 
   def delete_rows
@@ -34,17 +47,18 @@ class StudentSectionAssignmentsImporter < Struct.new :school_scope, :client, :lo
     #For the schools imported during this run of the importer
     StudentSectionAssignment.joins(:section => {:course => :school})
                             .where.not(id: @imported_assignments)
-                            .where(:schools => {:local_id => school_scope}).delete_all
+                            .where(:schools => {:local_id => @school_scope}).delete_all
 
   end
 
   def import_row(row)
-    student_section_assignment = StudentSectionAssignmentRow.new(row).build
-    if student_section_assignment
-      student_section_assignment.save!
-      @imported_assignments.push(student_section_assignment.id)
+    assignment = StudentSectionAssignmentRow.new(row, school_ids_dictionary).build
+
+    if assignment
+      assignment.save!
+      @imported_assignments.push(assignment.id)
     else
-      log.write("Student Section Assignment Import invalid row: #{row}")
+      @log.puts("Student Section Assignment Import invalid row")
     end
   end
 end

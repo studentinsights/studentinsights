@@ -9,12 +9,12 @@ class SectionsController < ApplicationController
   end
 
   def show
-
-    section_students = serialize_students(@current_section.students)
+    students = authorized { @current_section.students } # extra layer while transitioning K8 to use sections
+    students_json = serialize_students(students.map(&:id), @current_section)
     section = serialize_section(@current_section)
 
     @serialized_data = {
-      students: section_students,
+      students: students_json,
       educators: @current_section.educators,
       section: section,
       sections: current_educator.allowed_sections,
@@ -25,8 +25,11 @@ class SectionsController < ApplicationController
 
   private
   def authorize_and_assign_section
-    requested_section = Section.find(params[:id])
+    if !can_view_section_page? # Extra layer while transitioning K8 to use sections
+      return redirect_to homepage_path_for_role(current_educator)
+    end
 
+    requested_section = Section.find(params[:id])
     if current_educator.is_authorized_for_section(requested_section)
       @current_section = requested_section
     else
@@ -36,15 +39,33 @@ class SectionsController < ApplicationController
     redirect_to homepage_path_for_role(current_educator)
   end
 
+  def can_view_section_page?
+    current_educator.districtwide_access || current_educator.school.is_high_school?
+  end
+
   def authenticate_districtwide_access!
     unless current_educator.districtwide_access
       redirect_to not_authorized_path
     end
   end
 
-  def serialize_students(students)
-    students.select('students.*, student_section_assignments.grade_numeric')
-            .as_json(methods: [:most_recent_school_year_discipline_incidents_count, :most_recent_school_year_absences_count, :most_recent_school_year_tardies_count])
+  # Include grade for section as well
+  def serialize_students(student_ids, section)
+    students = Student
+      .where(id: student_ids)
+      .includes(:student_section_assignments)
+
+    students.map do |student|
+      grade_numeric = student.student_section_assignments.find_by_section_id(section.id).grade_numeric
+      student.as_json(methods: [
+        :event_notes_without_restricted,
+        :most_recent_school_year_discipline_incidents_count,
+        :most_recent_school_year_absences_count,
+        :most_recent_school_year_tardies_count
+      ]).merge({
+        grade_numeric: grade_numeric
+      })
+    end
   end
 
   def serialize_section(section)

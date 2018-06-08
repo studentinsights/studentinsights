@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Admin::EducatorsController do
+  let!(:pals) { TestPals.create! }
+
   describe '#index' do
     def make_request
       request.env['HTTPS'] = 'on'
@@ -15,7 +17,7 @@ describe Admin::EducatorsController do
     end
 
     context 'not admin' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { pals.healey_sarah_teacher }
       it 'fails' do
         sign_in(educator)
         make_request
@@ -24,18 +26,17 @@ describe Admin::EducatorsController do
     end
 
     context 'admin' do
-      let(:educator) { FactoryGirl.create(:educator, :admin) }
+      let(:educator) { pals.uri }
       it 'succeeds' do
         sign_in(educator)
         make_request
         expect(response.status).to eq 200
       end
     end
-
   end
 
   describe '#update' do
-    let(:admin) { FactoryGirl.create(:educator, :admin) }
+    let(:admin) { pals.uri }
 
     def make_request(params)
       request.env['HTTPS'] = 'on'
@@ -43,7 +44,7 @@ describe Admin::EducatorsController do
     end
 
     context 'educator data with grade level access data' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       let(:params) {
         {
@@ -70,7 +71,7 @@ describe Admin::EducatorsController do
     end
 
     context 'educator data no grade level access data' do
-      let(:educator) { FactoryGirl.create(:educator) }
+      let(:educator) { FactoryBot.create(:educator) }
 
       let(:params) {
         {
@@ -92,7 +93,37 @@ describe Admin::EducatorsController do
         expect(educator.grade_level_access).to eq([])
       end
     end
-
   end
 
+  describe '#authorization' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :authorization
+    end
+
+    context 'not logged in' do
+      it 'fails' do
+        make_request
+        expect(response.status).to eq 302
+      end
+    end
+
+    context 'teacher' do
+      let(:educator) { pals.healey_sarah_teacher }
+      it 'fails' do
+        sign_in(educator)
+        make_request
+        expect(response.status).to eq 302
+      end
+    end
+
+    context 'can set access' do
+      let(:educator) { pals.uri }
+      it 'succeeds' do
+        sign_in(educator)
+        make_request
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end

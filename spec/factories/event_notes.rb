@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :event_note do
     recorded_at DateTime.new(2016, 4, 9)

@@ -1,20 +1,32 @@
-
 require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
 
+  let(:base_behavior_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil, only_recent_attendance: false
+    })
+  }
+
+  let(:behavior_importer) {
+    base_behavior_importer.instance_variable_set(:@success_count, 0)
+    base_behavior_importer.instance_variable_set(:@error_list, [])
+    base_behavior_importer
+  }
+
   describe '#import_row' do
-    let(:importer) { described_class.new }
+
+    let(:importer) { behavior_importer }
     before { importer.import_row(row) }
     let(:incidents) { student.discipline_incidents }
     let(:incident) { incidents.last }
 
     context 'typical row' do
-      let(:student) { FactoryGirl.create(:student, local_id: '10') }
+      let(:student) { FactoryBot.create(:student, local_id: '10') }
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -27,7 +39,7 @@ RSpec.describe BehaviorImporter do
         expect(incidents.size).to eq 1
       end
       it 'assigns the incident code correctly' do
-        expect(incident.incident_code).to eq 'Hitting'
+        expect(incident.incident_code).to eq 'Bullying'
       end
       it 'sets has exact time to true' do
         expect(incident.has_exact_time).to eq true
@@ -38,13 +50,13 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'multiple rows' do
-      let(:student) { FactoryGirl.create(:student, local_id: '10') }
+      let(:student) { FactoryBot.create(:student, local_id: '10') }
       before { importer.import_row(row_two) }
 
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -55,7 +67,7 @@ RSpec.describe BehaviorImporter do
       let(:row_two) {
         {
           local_id: student.local_id,
-          incident_code: "Hitting",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 2),
           incident_location: "Classroom",
           incident_description: "Hit another student again.",
@@ -75,12 +87,12 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'very long incident description' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '11') }
+      let!(:student) { FactoryBot.create(:student, local_id: '11') }
       let(:big_block_of_text) { "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." }
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Lorem ipsuming",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 1),
           incident_time: "13:00:00",
           incident_location: "Classroom",
@@ -96,7 +108,7 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'time missing' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '13') }
+      let!(:student) { FactoryBot.create(:student, local_id: '13') }
       let(:row) {
         {
           local_id: student.local_id,
@@ -118,11 +130,11 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'description text has non UTF-8 byte sequence' do
-      let!(:student) { FactoryGirl.create(:student, local_id: '12') }
+      let!(:student) { FactoryBot.create(:student, local_id: '12') }
       let(:row) {
         {
           local_id: student.local_id,
-          incident_code: "Unauthorized pencil sharpening",
+          incident_code: "Bullying",
           event_date: Date.new(Time.now.year, 10, 2),
           incident_time: "13:00:00",
           incident_location: "Classroom",

@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckStudentsWithHighAbsencesView handles when limit reached 1`] = `
+<div
+  className="CheckStudentsWithHighAbsencesView"
+>
+  <div
+    style={
+      Object {
+        "backgroundColor": "#eee",
+        "borderBottom": "1px solid #ccc",
+        "color": "black",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "padding": 10,
+      }
+    }
+  >
+    Students missing school
+    <div
+      style={
+        Object {
+          "display": "inline",
+          "marginLeft": 10,
+        }
+      }
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+        style={
+          Object {
+            "fontSize": 12,
+            "outline": "none",
+          }
+        }
+      >
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+              "paddingRight": 5,
+            }
+          }
+        >
+          what does this mean?
+        </span>
+      </a>
+    </div>
+  </div>
+  <div
+    className="Card "
+    style={
+      Object {
+        "border": "none",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div>
+      There are 
+      <b>
+        129
+         students
+      </b>
+       missing school recently who 
+      haven't
+       been mentioned.  
+      <span>
+        Since 
+        January 27th
+        :
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "paddingBottom": 10,
+          "paddingTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/2?column=attendance#absences"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mari
+             
+            Kenobi
+          </a>
+           has missed 
+          4
+           days of school
+        </span>
+      </div>
+    </div>
+    <div>
+      There are 
+      129
+       students total.  Start with checking in on these first 
+      3
+       students.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CheckStudentsWithHighAbsencesView pure component matches snapshot 1`] = `
+<div
+  className="CheckStudentsWithHighAbsencesView"
+>
+  <div
+    style={
+      Object {
+        "backgroundColor": "#eee",
+        "borderBottom": "1px solid #ccc",
+        "color": "black",
+        "display": "flex",
+        "justifyContent": "space-between",
+        "padding": 10,
+      }
+    }
+  >
+    Students missing school
+    <div
+      style={
+        Object {
+          "display": "inline",
+          "marginLeft": 10,
+        }
+      }
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+        style={
+          Object {
+            "fontSize": 12,
+            "outline": "none",
+          }
+        }
+      >
+        <span
+          style={
+            Object {
+              "display": "inline-block",
+              "paddingLeft": 5,
+              "paddingRight": 5,
+            }
+          }
+        >
+          what does this mean?
+        </span>
+      </a>
+    </div>
+  </div>
+  <div
+    className="Card "
+    style={
+      Object {
+        "border": "none",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div>
+      There is 
+      <b>
+        one student
+      </b>
+       missing school recently who 
+      hasn't
+       been mentioned.  
+      <span>
+        Since 
+        January 27th
+        :
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "paddingBottom": 10,
+          "paddingTop": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "overflow": "hidden",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <span>
+          <a
+            href="/students/2?column=attendance#absences"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mari
+             
+            Kenobi
+          </a>
+           has missed 
+          4
+           days of school
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,31 +1,69 @@
-class AttendanceImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class AttendanceImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+    @only_recent_attendance = options.fetch(:only_recent_attendance)
+  end
 
   def import
+    return unless remote_file_name
+
     @data = CsvDownloader.new(
-      log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    @data.each.each_with_index do |row, index|
+    @success_count = 0
+    @error_list = []
+
+    @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
+      @log.puts("processed #{index} rows.") if index % 10000 == 0
     end
+
+    @log.puts("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
+    @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
+      memo[error] += 1
+    end
+    @log.puts("\n\nAttendanceImporter: Invalid rows summary: ")
+    @log.puts(@error_summary)
   end
 
   def remote_file_name
-    'attendance_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
+  end
+
+  def client
+    SftpClient.for_x2
   end
 
   def data_transformer
-    CsvTransformer.new
+    StreamingCsvTransformer.new
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
+  end
+
+  def recent_event?(row)
+    row[:event_date] > Time.current - 90.days
+  end
+
+  def old_event?(row)
+    !recent_event?(row)
   end
 
   def import_row(row)
-    return if Time.current - 90.days > row[:event_date]
+    return if (@only_recent_attendance && old_event?(row))
 
-    AttendanceRow.build(row).save!
+    attendance_event = AttendanceRow.build(row)
+
+    if attendance_event.valid?
+      attendance_event.save!
+      @success_count += 1
+    else
+      @error_list << attendance_event.errors.messages
+    end
   end
+
 end

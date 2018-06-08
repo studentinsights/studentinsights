@@ -1,7 +1,7 @@
 import {nowMoment, studentProfile} from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import ReactTestUtils from 'react-addons-test-utils';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
+
 
 describe('PageContainer', function() {
   const ReactDOM = window.ReactDOM;
@@ -18,6 +18,7 @@ describe('PageContainer', function() {
 
     createSpyActions: function() {
       return {
+        // Just mock the functions that make server calls
         onColumnClicked: jest.fn(),
         onClickSaveNotes: jest.fn(),
         onClickSaveService: jest.fn(),
@@ -36,14 +37,17 @@ describe('PageContainer', function() {
     },
 
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         nowMomentFn: function() { return nowMoment; },
         serializedData: studentProfile,
         queryParams: {},
         history: SpecSugar.history(),
         actions: helpers.createSpyActions(),
-        api: helpers.createSpyApi()
-      });
+        api: helpers.createSpyApi(),
+        noteInProgressText: '',
+        noteInProgressType: null,
+        ...props
+      };
       return ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     },
 
@@ -56,7 +60,7 @@ describe('PageContainer', function() {
 
     editNoteAndSave: function(el, uiParams) {
       const $noteCard = $(el).find('.NotesList .NoteCard').first();
-      const $text = $noteCard.find('.note-text');
+      const $text = $noteCard.find('.EditableTextComponent');
       $text.html(uiParams.text);
       ReactTestUtils.Simulate.input($text.get(0));
       ReactTestUtils.Simulate.blur($text.get(0));

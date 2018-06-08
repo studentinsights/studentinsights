@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe StarReadingImporter do
 
+  let(:star_reading_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
+
   describe '#import_row' do
 
     context 'reading file' do
@@ -9,12 +15,11 @@ RSpec.describe StarReadingImporter do
       let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_star_reading.csv") }
       let(:transformer) { StarReadingCsvTransformer.new }
       let(:csv) { transformer.transform(file) }
-      let(:reading_importer) { described_class.new }
-      let(:import) { csv.each { |row| reading_importer.import_row(row) } }
+      let(:import) { csv.each { |row| star_reading_importer.import_row(row) } }
 
       context 'with good data' do
         context 'existing student' do
-          let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
+          let!(:student) { FactoryBot.create(:student_we_want_to_update) }
           it 'creates a new student assessment' do
             expect { import }.to change { StudentAssessment.count }.by 1
           end
@@ -50,7 +55,7 @@ RSpec.describe StarReadingImporter do
         let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
         let(:transformer) { StarReadingCsvTransformer.new }
         let(:csv) { transformer.transform(file) }
-        let(:reading_importer) { StarReadingImporter.new }
+        let(:reading_importer) { star_reading_importer }
         it 'raises an error' do
           expect { import }.to raise_error NoMethodError
         end

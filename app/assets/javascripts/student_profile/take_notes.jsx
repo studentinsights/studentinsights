@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {merge} from '../helpers/react_helpers.jsx';
+import React from 'react';
 
 window.shared || (window.shared = {});
 
@@ -61,15 +61,17 @@ export default React.createClass({
     onSave: React.PropTypes.func.isRequired,
     onCancel: React.PropTypes.func.isRequired,
     currentEducator: React.PropTypes.object.isRequired,
-    requestState: React.PropTypes.string // or null
-  },
+    requestState: React.PropTypes.string, // or null
 
-  getInitialState: function() {
-    return {
-      eventNoteTypeId: null,
-      text: '',
-      attachmentUrls: []
-    };
+    noteInProgressText: React.PropTypes.string.isRequired,
+    noteInProgressType: React.PropTypes.number,
+    noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
+      React.PropTypes.string
+    ).isRequired,
+
+    onClickNoteType: React.PropTypes.func.isRequired,
+    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
+    onChangeAttachmentUrl: React.PropTypes.func.isRequired,
   },
 
   // Focus on note-taking text area when it first appears.
@@ -81,46 +83,28 @@ export default React.createClass({
     return { url: urlString };
   },
 
-  stringNotEmpty: function (urlString) {
-    return urlString.length !== 0;
-  },
-
   eventNoteUrlsForSave: function () {
-    const urlsToSave = this.state.attachmentUrls.map(this.wrapUrlInObject);
+    const {noteInProgressAttachmentUrls} = this.props;
+
+    const urlsToSave = noteInProgressAttachmentUrls.map(this.wrapUrlInObject);
+
     return { eventNoteAttachments: urlsToSave };
   },
 
   disabledSaveButton: function () {
-    return (
-      this.state.eventNoteTypeId === null || !this.isValidAttachmentUrls()
-    );
+    const {noteInProgressType} = this.props;
+
+    return (noteInProgressType === null || !this.isValidAttachmentUrls());
   },
 
   isValidAttachmentUrls: function () {
-    return _.all(this.state.attachmentUrls, function (url) {
+    const {noteInProgressAttachmentUrls} = this.props;
+
+    return _.all(noteInProgressAttachmentUrls, function (url) {
       return (url.slice(0, 7) === 'http://'  ||
               url.slice(0, 8) === 'https://' ||
               url.length      === 0);
     });
-  },
-
-  onChangeText: function(event) {
-    this.setState({ text: event.target.value });
-  },
-
-  onChangeAttachmentUrl: function(changedIndex, event) {
-    const newValue = event.target.value;
-    const updatedAttachmentUrls = (this.state.attachmentUrls.length === changedIndex)
-      ? this.state.attachmentUrls.concat(newValue)
-      : this.state.attachmentUrls.map(function(attachmentUrl, index) {
-        return (changedIndex === index) ? newValue : attachmentUrl;
-      });
-    const filteredAttachmentUrls = updatedAttachmentUrls.filter(this.stringNotEmpty);
-    this.setState({ attachmentUrls: filteredAttachmentUrls });
-  },
-
-  onClickNoteType: function(noteTypeId, event) {
-    this.setState({ eventNoteTypeId: noteTypeId });
   },
 
   onClickCancel: function(event) {
@@ -128,15 +112,20 @@ export default React.createClass({
   },
 
   onClickSave: function(event) {
-    const params = merge(
-      _.pick(this.state, 'eventNoteTypeId', 'text'),
-      this.eventNoteUrlsForSave()
-    );
+    const {noteInProgressText, noteInProgressType} = this.props;
+
+    const params = {
+      eventNoteTypeId: noteInProgressType,
+      text: noteInProgressText,
+      ...this.eventNoteUrlsForSave()
+    };
 
     this.props.onSave(params);
   },
 
   render: function() {
+    const {noteInProgressText} = this.props;
+
     return (
       <div className="TakeNotes" style={styles.dialog}>
         {this.renderNoteHeader({
@@ -147,8 +136,8 @@ export default React.createClass({
           rows={10}
           style={styles.textarea}
           ref={function(ref) { this.textareaRef = ref; }.bind(this)}
-          value={this.state.text}
-          onChange={this.onChangeText} />
+          value={noteInProgressText}
+          onChange={this.props.onChangeNoteInProgressText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
@@ -156,12 +145,10 @@ export default React.createClass({
           <div style={{ flex: 1 }}>
             {this.renderNoteButton(300)}
             {this.renderNoteButton(301)}
-          </div>
-          <div style={{ flex: 1 }}>
             {this.renderNoteButton(305)}
-            {this.renderNoteButton(306)}
           </div>
           <div style={{ flex: 1 }}>
+            {this.renderNoteButton(306)}
             {this.renderNoteButton(302)}
             {this.renderNoteButton(304)}
           </div>
@@ -212,33 +199,44 @@ export default React.createClass({
 
   // TODO(kr) extract button UI
   renderNoteButton: function(eventNoteTypeId) {
-    const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
+    const {
+      onClickNoteType,
+      eventNoteTypesIndex,
+      noteInProgressType
+    } = this.props;
+
+    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
+
     return (
       <button
         className="btn note-type"
-        onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
+        onClick={onClickNoteType}
         tabIndex={-1}
-        style={merge(styles.serviceButton, {
+        name={eventNoteTypeId}
+        style={{
+          ...styles.serviceButton,
           background: '#eee',
           outline: 0,
-          border: (this.state.eventNoteTypeId === eventNoteTypeId)
+          border: (noteInProgressType === eventNoteTypeId)
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
-        })}>
+        }}>
         {eventNoteType.name}
       </button>
     );
   },
 
   renderAttachmentLinkArea: function () {
+    const {noteInProgressAttachmentUrls} = this.props;
     const isValidUrls = this.isValidAttachmentUrls();
+
     const urls = (isValidUrls)
-      ? this.state.attachmentUrls.concat('')
-      : this.state.attachmentUrls;
+      ? noteInProgressAttachmentUrls.concat('')
+      : noteInProgressAttachmentUrls;
 
     return (
       <div>
-        {urls.map(function (url, index) {
+        {urls.map((url, index) => {
           return this.renderAttachmentLinkInput(url, index);
         }, this)}
         <div
@@ -253,11 +251,14 @@ export default React.createClass({
   },
 
   renderAttachmentLinkInput: function (value, index) {
+    const {onChangeAttachmentUrl} = this.props;
+
     return (
       <div key={index}>
         <input
           value={value}
-          onChange={this.onChangeAttachmentUrl.bind(this, index)}
+          name={index}
+          onChange={onChangeAttachmentUrl}
           placeholder="Please use the format https://www.example.com."
           style={{
             marginBottom: '20px',

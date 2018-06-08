@@ -5,6 +5,8 @@ import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
 import {shouldDisplay} from '../helpers/customization_helpers.js';
+import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
+
 
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different
@@ -97,7 +99,7 @@ class SlicePanels extends React.Component {
       this.createItem('Advanced', Filters.Range(key, [260, 281])),
     ];
 
-    const sortedScores = _.map(this.props.students, key).sort();
+    const sortedScores = _.compact(_.map(this.props.students, key)).sort();
     const medianScore = sortedScores[Math.floor(sortedScores.length / 2)];
 
     if (medianScore > 280) return nullItem.concat(nextGenMCASFilters, oldMCASFilters);
@@ -146,14 +148,13 @@ class SlicePanels extends React.Component {
     );
   }
 
+  // This is different based on the values in the data storage system within
+  // the district.
   renderDisabilityTable() {
-    const key = 'sped_level_of_need';
-    const items = ['Low < 2', 'Low >= 2', 'Moderate', 'High'].map(function(value) {
-      return this.createItem(value, Filters.Equal(key, value));
-    }, this);
-    return this.renderTable({
-      title: 'Disability',
-      items: [this.createItem('None', Filters.Null(key))].concat(items)
+    const {districtKey} = this.props;
+    return renderSlicePanelsDisabilityTable(districtKey, {
+      createItemFn: this.createItem.bind(this),
+      renderTableFn: this.renderTable.bind(this)
     });
   }
 
@@ -272,6 +273,8 @@ class SlicePanels extends React.Component {
       return this.createItem(value, Filters.Equal(key, value));
     }, this);
     const sortedItems = _.sortBy(items, function(item) {
+      if (item.caption === 'TK') return -40;
+      if (item.caption === 'PPK') return -30;
       if (item.caption === 'PK') return -20;
       if (item.caption === 'KF') return -10;
       return parseFloat(item.caption);
@@ -311,12 +314,19 @@ class SlicePanels extends React.Component {
   }
 
   renderYearsEnrolled() {
-    const uniqueValues = _.compact(_.unique(this.props.allStudents.map(function(student) {
-      return Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
-    })));
+    const {allStudents} = this.props;
+    const registrationDates = _.compact(allStudents.map(s => s.registration_date));
+
+    if (registrationDates.length === 0) return null;
+
+    const uniqueValues =_.unique(registrationDates.map((regDate) => {
+      return Math.floor((new Date() - new Date(regDate)) / (1000 * 60 * 60 * 24 * 365));
+    }));
+
     const items = uniqueValues.map(function(value) {
       return this.createItem(value, Filters.YearsEnrolled(value));
     }, this);
+
     const sortedItems = _.sortBy(items, function(item) { return parseFloat(item.caption); });
 
     return this.renderTable({
@@ -346,6 +356,7 @@ class SlicePanels extends React.Component {
   }
 }
 SlicePanels.propTypes = {
+  districtKey: React.PropTypes.string.isRequired,
   filters: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   students: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   allStudents: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,

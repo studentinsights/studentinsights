@@ -1,14 +1,20 @@
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import PropTypes from '../helpers/prop_types.jsx';
-import {fromPair} from '../helpers/from_pair.jsx';
-import {merge} from '../helpers/react_helpers.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import {merge} from '../helpers/merge';
+import Api from './Api.js';
+import * as Routes from '../helpers/Routes';
+
+
+// in place of updating lodash to v4
+function fromPair(key, value) {
+  const obj = {};
+  obj[key] = value;
+  return obj;
+}
 
 (function() {
-  window.shared || (window.shared = {});
-  const Routes = window.shared.Routes;
   const StudentProfilePage = window.shared.StudentProfilePage;
-  const Api = window.shared.Api;
   /*
   Holds page state, makes API calls to manipulate it.
   */
@@ -19,11 +25,11 @@ import {merge} from '../helpers/react_helpers.jsx';
       nowMomentFn: React.PropTypes.func.isRequired,
       serializedData: React.PropTypes.object.isRequired,
       queryParams: React.PropTypes.object.isRequired,
-      history: PropTypes.history.isRequired,
+      history: InsightsPropTypes.history.isRequired,
 
       // for testing
-      actions: PropTypes.actions,
-      api: PropTypes.api
+      actions: InsightsPropTypes.actions,
+      api: InsightsPropTypes.api
     },
 
     getInitialState: function() {
@@ -42,6 +48,7 @@ import {merge} from '../helpers/react_helpers.jsx';
         // data
         student: serializedData.student,
         feed: serializedData.feed,
+        transitionNotes: serializedData.transitionNotes,
         chartData: serializedData.chartData,
         attendanceData: serializedData.attendanceData,
         access: serializedData.access,
@@ -51,6 +58,9 @@ import {merge} from '../helpers/react_helpers.jsx';
         currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
 
         // ui
+        noteInProgressText: '',
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: [],
         selectedColumnKey: queryParams.column || 'interventions',
 
         // This map holds the state of network requests for various actions.  This allows UI components to branch on this
@@ -108,11 +118,69 @@ import {merge} from '../helpers/react_helpers.jsx';
       this.setState({ selectedColumnKey: columnKey });
     },
 
+    onClickNoteType: function(event) {
+      const noteInProgressType = parseInt(event.target.name);
+
+      this.setState({ noteInProgressType });
+    },
+
+    onChangeNoteInProgressText: function(event) {
+      this.setState({ noteInProgressText: event.target.value });
+    },
+
+    onChangeAttachmentUrl: function(event) {
+      const newValue = event.target.value;
+      const changedIndex = parseInt(event.target.name);
+      const {noteInProgressAttachmentUrls} = this.state;
+
+      const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
+        ? noteInProgressAttachmentUrls.concat(newValue)
+        : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
+          return (changedIndex === index) ? newValue : attachmentUrl;
+        });
+
+      const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
+        return urlString.length !== 0;
+      });
+
+      this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
+    },
+
     onClickSaveNotes: function(eventNoteParams) {
       this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
       this.api.saveNotes(this.state.student.id, eventNoteParams)
         .done(this.onSaveNotesDone)
         .fail(this.onSaveNotesFail);
+    },
+
+    onClickSaveTransitionNote: function(noteParams) {
+      const requestState = (noteParams.is_restricted)
+        ? { saveRestrictedTransitionNote: 'pending' }
+        : { saveTransitionNote: 'pending' };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
+      this.api.saveTransitionNote(this.state.student.id, noteParams)
+        .done(this.onSaveTransitionNoteDone)
+        .fail(this.onSaveTransitionNoteFail);
+    },
+
+    onSaveTransitionNoteDone: function(response) {
+      const requestState = (response.is_restricted)
+        ? { saveRestrictedTransitionNote: 'saved' }
+        : { saveTransitionNote: 'saved' };
+
+      this.setState({
+        requests: merge(this.state.requests, requestState),
+        transitionNotes: response.transition_notes
+      });
+    },
+
+    onSaveTransitionNoteFail: function(request, status, message) {
+      const requestState = (request.is_restricted)
+        ? { saveRestrictedTransitionNote: 'error' }
+        : { saveTransitionNote: 'error' };
+
+      this.setState({ requests: merge(this.state.requests, requestState) });
     },
 
     onSaveNotesDone: function(response) {
@@ -134,9 +202,13 @@ import {merge} from '../helpers/react_helpers.jsx';
       }
 
       const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
+
       this.setState({
         feed: updatedFeed,
-        requests: merge(this.state.requests, { saveNote: null })
+        requests: merge(this.state.requests, { saveNote: null }),
+        noteInProgressText: '',
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: []
       });
     },
 
@@ -232,6 +304,7 @@ import {merge} from '../helpers/react_helpers.jsx';
               'eventNoteTypesIndex',
               'student',
               'feed',
+              'transitionNotes',
               'access',
               'chartData',
               'dibels',
@@ -240,15 +313,23 @@ import {merge} from '../helpers/react_helpers.jsx';
               'iepDocument',
               'sections',
               'currentEducatorAllowedSections',
-              'requests'
+              'requests',
+              'noteInProgressText',
+              'noteInProgressType',
+              'noteInProgressAttachmentUrls'
             ), {
               nowMomentFn: this.props.nowMomentFn,
-              actions: this.props.actions || {
+              actions: {
                 onColumnClicked: this.onColumnClicked,
                 onClickSaveNotes: this.onClickSaveNotes,
+                onClickSaveTransitionNote: this.onClickSaveTransitionNote,
                 onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
                 onClickSaveService: this.onClickSaveService,
-                onClickDiscontinueService: this.onClickDiscontinueService
+                onClickDiscontinueService: this.onClickDiscontinueService,
+                onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+                onClickNoteType: this.onClickNoteType,
+                onChangeAttachmentUrl: this.onChangeAttachmentUrl,
+                ...this.props.actions,
               }
             })} />
         </div>

@@ -32,5 +32,5 @@ studentinsights.sublime-workspace
 public/build
 public/dev
 
-
-yarn-error.log
+# For qgsocksify
+socks.conf

@@ -5,20 +5,26 @@ import {
 } from './fixtures.jsx';
 import SpecSugar from '../support/spec_sugar.jsx';
 import TakeNotes from '../../../app/assets/javascripts/student_profile/take_notes.jsx';
-import {merge} from '../../../app/assets/javascripts/helpers/react_helpers.jsx';
 
 describe('TakeNotes', function() {
 
   const helpers = {
     renderInto: function(el, props) {
-      const mergedProps = merge(props || {}, {
+      const mergedProps = {
         nowMoment: nowMoment,
         eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
         currentEducator: currentEducator,
         onSave: jest.fn(),
         onCancel: jest.fn(),
-        requestState: null
-      });
+        onClickNoteType: jest.fn(),
+        onChangeNoteInProgressText: jest.fn(),
+        onChangeAttachmentUrl: jest.fn(),
+        requestState: null,
+        noteInProgressText: '',
+        noteInProgressType: null,
+        noteInProgressAttachmentUrls: [],
+        ...props
+      };
       window.ReactDOM.render(<TakeNotes {...mergedProps} />, el);
     }
   };

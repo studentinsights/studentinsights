@@ -1,18 +1,28 @@
-class CoursesSectionsImporter < Struct.new :school_scope, :client, :log, :progress_bar
+class CoursesSectionsImporter
+
+  def initialize(options:)
+    @school_scope = options.fetch(:school_scope)
+    @log = options.fetch(:log)
+  end
 
   def import
+    return unless remote_file_name
+
     @data = CsvDownloader.new(
-      log: log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
+      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
     @data.each.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      ProgressBar.new(log, remote_file_name, @data.size, index + 1).print if progress_bar
     end
   end
 
+  def client
+    SftpClient.for_x2
+  end
+
   def remote_file_name
-    'courses_sections_export.txt'
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_COURSE_SECTION_IMPORT', nil)
   end
 
   def data_transformer
@@ -20,7 +30,7 @@ class CoursesSectionsImporter < Struct.new :school_scope, :client, :log, :progre
   end
 
   def filter
-    SchoolFilter.new(school_scope)
+    SchoolFilter.new(@school_scope)
   end
 
   def school_ids_dictionary
@@ -34,10 +44,10 @@ class CoursesSectionsImporter < Struct.new :school_scope, :client, :log, :progre
         section = SectionRow.new(row, school_ids_dictionary, course.id).build
         section.save
       else
-        log.write("Course import invalid row: #{row}")
+        @log.puts("Course import invalid row")
       end
     else
-      log.write("Course import invalid row missing school_local_id: #{row}")
+      @log.puts("Course import invalid row missing school_local_id")
     end
   end
 

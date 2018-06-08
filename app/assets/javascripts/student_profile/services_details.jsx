@@ -1,11 +1,12 @@
-import PropTypes from '../helpers/prop_types.jsx';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import HelpBubble from '../components/HelpBubble';
+import SectionHeading from '../components/SectionHeading';
 
 (function() {
   window.shared || (window.shared = {});
 
   const ServicesList = window.shared.ServicesList;
   const RecordService = window.shared.RecordService;
-  const HelpBubble = window.shared.HelpBubble;
 
   const styles = {
     servicesContainer: {
@@ -27,9 +28,9 @@ import PropTypes from '../helpers/prop_types.jsx';
       serviceTypesIndex: React.PropTypes.object.isRequired,
       educatorsIndex: React.PropTypes.object.isRequired,
       currentEducator: React.PropTypes.object.isRequired,
-      actions: PropTypes.actions.isRequired,
-      feed: PropTypes.feed.isRequired,
-      requests: PropTypes.requests.isRequired
+      actions: InsightsPropTypes.actions.isRequired,
+      feed: InsightsPropTypes.feed.isRequired,
+      requests: InsightsPropTypes.requests.isRequired
     },
 
     getInitialState: function() {
@@ -58,15 +59,13 @@ import PropTypes from '../helpers/prop_types.jsx';
     render: function() {
       return (
         <div className="ServicesDetails" style={styles.servicesContainer}>
-          <div style={{borderBottom: '1px solid #333', padding: 10}}>
-            <h4 style={{display: 'inline', color: 'black'}}>
-              Services
-            </h4>
+          <SectionHeading>
+            <span>Services</span>
             <HelpBubble
+              teaser="(what is this?)"
               title="What is a Service?"
-              teaserText="(what is this?)"
               content={this.renderServicesHelpContent()} />
-          </div>
+          </SectionHeading>
           <div style={styles.addServiceContainer}>
             {this.renderRecordServiceSection()}
           </div>

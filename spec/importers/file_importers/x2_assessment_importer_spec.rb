@@ -2,21 +2,27 @@ require 'rails_helper'
 
 RSpec.describe X2AssessmentImporter do
 
+  let(:x2_assessment_importer) {
+    described_class.new(options: {
+      school_scope: nil, log: nil
+    })
+  }
+
   describe '#import' do
     context 'with good data and no Assessment records in the database' do
       before { Assessment.destroy_all }
       after { Assessment.seed_somerville_assessments }
 
-      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
+      let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
       let(:transformer) { CsvTransformer.new }
       let(:csv) { transformer.transform(file) }
 
       context 'for Healey school' do
 
-        let!(:student) { FactoryGirl.create(:student, local_id: '100') }
+        let!(:student) { FactoryBot.create(:student, local_id: '100') }
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
         let(:importer) { described_class.new }
-        before { csv.each { |row| importer.import_row(row) }}
+        before { csv.each { |row| x2_assessment_importer.import_row(row) }}
 
         it 'imports only white-listed assessments' do
           expect(StudentAssessment.count).to eq 6

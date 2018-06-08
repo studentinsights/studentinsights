@@ -1,5 +1,16 @@
 Rails.application.configure do
-  ENV['DISTRICT_NAME'] = 'Your Local(Host) District'
+  # Local env variables for dev
+  env_file = File.join(Rails.root, 'config', 'local_env.yml')
+  YAML.load(File.open(env_file)).each do |key, value|
+    ENV[key.to_s] = value
+  end if File.exists?(env_file)
+
+
+  ENV['DISTRICT_KEY'] = 'somerville'
+  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
+  ENV['USE_MOCK_LDAP'] = 'true'
+  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
+  ENV['ENABLE_CLASS_LISTS'] = 'true'
 
   config.cache_classes = false
 
@@ -58,10 +69,4 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :file
   config.action_mailer.file_settings = { :location => Rails.root.join('tmp/mail') }
   config.action_mailer.raise_delivery_errors = true
-
-  # Local env variables for dev
-  env_file = File.join(Rails.root, 'config', 'local_env.yml')
-  YAML.load(File.open(env_file)).each do |key, value|
-    ENV[key.to_s] = value
-  end if File.exists?(env_file)
 end

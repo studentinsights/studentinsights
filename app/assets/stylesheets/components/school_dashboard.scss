@@ -1,56 +1,69 @@
-.DashboardGrid {
-  width: auto;
-  padding: 20px 0 20px 20px;
+.DashboardContainer {
+  display: flex;
+  height: 85vh;
 }
 
 .DashboardChartsColumn {
-  display: inline-block;
-  vertical-align: top;
-  width: 66.66%;
-  padding-right: 20px;
+  flex: 2 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  // This overrides the default react-select styles imported in the app to make sure our lists
+  // are not cut off. See: https://github.com/JedWatson/react-select/blob/master/less/menu.less
+  .Select-menu-outer {
+    max-height: 1000px;
+  }
+  .Select-menu {
+    max-height: 998px;
+  }
 }
 
 .DashboardRosterColumn {
-  display: inline-block;
   vertical-align: top;
-  width: 33.33%;
-  padding-right: 20px;
+  padding-left: 20px;
 }
 
-.StudentsList {
-  height : 450px;
-  overflow:hidden;
-}
+.DashboardChart {
+  flex: 1;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px 10px 10px 10px;
 
-table.students-list {
-  margin: auto;
-  border: 1px solid #ccc;
-  width: 80%;
-
-  thead, tbody, tr, td, th { box-sizing: border-box; display: block; }
-
-  thead th, tfoot td {
-    height: 30px;
-    line-height: 30px;
-    text-align: left;
-  }
-
-  tfoot {
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-  }
-
-  tbody td, thead th, tfoot td {
-    float: left;
-  }
-
-  tbody {
-    height: 335px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+  div {
+    height: 100%;
   }
 }
 
+.DashboardDatePicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
 
+.DashRangeButtonWrapper {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+  margin: 20px;
+}
+
+.DashRangeButtons {
+  justify-content: space-between;
+  display: flex;
+  align-items: flex-end;
+  width: 400px;
+
+  .DashButton {
+    width: 25%;
+  }
+}
+
+.ui-datepicker-prev {
+  float: left;
+}
+
+.ui-datepicker-next {
+  float: right;
+}
