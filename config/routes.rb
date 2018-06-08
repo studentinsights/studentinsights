@@ -4,8 +4,6 @@ Rails.application.routes.draw do
     resources :educators
     get '/authorization' => 'educators#authorization'
     root to: "educators#index"
-    get 'district/notes_heatmap' => 'district#notes_heatmap'
-    get 'district/restricted_notes_heatmap' => 'district#restricted_notes_heatmap'
   end
 
   scope '/admin' do
@@ -34,7 +32,11 @@ Rails.application.routes.draw do
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
+
+  # districtwide
   get '/api/district/enrollment_json' => 'district#enrollment_json'
+  get '/api/district/notes_heatmap_json' => 'district#notes_heatmap_json'
+  get '/api/district/restricted_notes_heatmap_json' => 'district#restricted_notes_heatmap_json'
 
 
   devise_for :educators
@@ -104,6 +106,7 @@ Rails.application.routes.draw do
   resource :district, only: [] do
     member do
       get 'enrollment' => 'ui#ui'
+      get 'notes' => 'ui#ui'
     end
   end
 end

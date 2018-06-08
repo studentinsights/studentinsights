@@ -52,6 +52,8 @@ export default class App extends React.Component {
       <MountTimer>
         <Switch>
           <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
+          <Route exact path="/admin/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
+          <Route exact path="/admin/district/notes" render={this.renderNotesHeatmap.bind(this)}/>
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
@@ -62,8 +64,6 @@ export default class App extends React.Component {
           <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
           <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
           <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
-          <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-          <Route exact path="/district/notes" render={this.renderNotesHeatmap.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
