@@ -9,6 +9,7 @@ import {
   postPrincipalRevisions
 } from './api';
 import Loading from '../components/Loading';
+import WarnBeforeUnload from '../components/WarnBeforeUnload';
 import {
   initialStudentIdsByRoom,
   studentIdsByRoomAfterRoomsCountChanged
@@ -83,9 +84,11 @@ export default class ClassListCreatorPage extends React.Component {
     };
 
     this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
+    this.beforeUnloadMessage = this.beforeUnloadMessage.bind(this);
     this.fetchGradeLevels = this.fetchGradeLevels.bind(this);
     this.fetchStudents = this.fetchStudents.bind(this);
     this.fetchClassList = this.fetchClassList.bind(this);
+    
     this.onFetchedGradeLevels = this.onFetchedGradeLevels.bind(this);
     this.onFetchedStudents = this.onFetchedStudents.bind(this);
     this.onFetchedClassList = this.onFetchedClassList.bind(this);
@@ -99,7 +102,6 @@ export default class ClassListCreatorPage extends React.Component {
     this.onPrincipalNoteChanged = this.onPrincipalNoteChanged.bind(this);
     this.onFeedbackTextChanged = this.onFeedbackTextChanged.bind(this);
     this.onSubmitClicked = this.onSubmitClicked.bind(this);
-    this.onBeforeUnload = this.onBeforeUnload.bind(this);
     this.onFetchedClassListError = this.onFetchedClassListError.bind(this);
     this.onFetchStudentsError = this.onFetchStudentsError.bind(this);
     this.onFetchedGradeLevelsError = this.onFetchedGradeLevelsError.bind(this);
@@ -109,7 +111,6 @@ export default class ClassListCreatorPage extends React.Component {
 
   componentDidMount() {
     this.doSizePage();
-    window.addEventListener('beforeunload', this.onBeforeUnload);
     this.triggerEffects();
   }
 
@@ -120,11 +121,14 @@ export default class ClassListCreatorPage extends React.Component {
 
   componentWillUnmount() {
     if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
-    window.removeEventListener('beforeunload', this.onBeforeUnload);
   }
 
   rollbarError(message, params) {
     window.Rollbar.error(message, params);
+  }
+
+  beforeUnloadMessage() {
+    return this.isDirty() ? 'You have unsaved changes.' : undefined;
   }
 
   // Are there any local changes that we think haven't been synced?
@@ -339,16 +343,6 @@ export default class ClassListCreatorPage extends React.Component {
     this.rollbarError('ClassListCreatorPage#onFetchedClassListError', error);
   }
 
-  onBeforeUnload(event) {
-    if (!this.isDirty()) return;
-
-    // Chrome expects the event property to be mutated, other browsers
-    // expect the function to return a value;
-    const warningMessage = 'You have unsaved changes.';
-    event.returnValue = warningMessage; 
-    return warningMessage;
-  }
-
   onFetchedGradeLevels(json) {
     const gradeLevelsNextYear = json.grade_levels_next_year.sort(sortByGrade);
     const {schools} = json;
@@ -506,26 +500,28 @@ export default class ClassListCreatorPage extends React.Component {
     if (!workspaceId) return <Loading />;
 
     return (
-      <ClassListCreatorWorkflow
-        {...this.state}
-        steps={STEPS}
-        isDirty={this.isDirty()}
-        isRevisable={this.isRevisable()}
-        canChangeSchoolOrGrade={this.canChangeSchoolOrGrade()}
-        availableSteps={this.availableSteps()}
-        onStepChanged={this.onStepChanged}
-        onSchoolIdChanged={this.onSchoolIdChanged}
-        onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
-        onEducatorsChanged={this.onAuthorsChanged}
-        onClassroomsCountIncremented={this.onClassroomsCountIncremented}
-        onPlanTextChanged={this.onPlanTextChanged}
-        onClassListsChanged={this.onClassListsChanged}
-        onPrincipalNoteChanged={this.onPrincipalNoteChanged}
-        onFeedbackTextChanged={this.onFeedbackTextChanged}
-        onSubmitClicked={this.onSubmitClicked}
-        onClassListsChangedByPrincipal={this.onClassListsChangedByPrincipal}
-        onPrincipalTeacherNamesByRoomChanged={this.onPrincipalTeacherNamesByRoomChanged}
-      />
+      <WarnBeforeUnload messageFn={this.beforeUnloadMessage}>
+        <ClassListCreatorWorkflow
+          {...this.state}
+          steps={STEPS}
+          isDirty={this.isDirty()}
+          isRevisable={this.isRevisable()}
+          canChangeSchoolOrGrade={this.canChangeSchoolOrGrade()}
+          availableSteps={this.availableSteps()}
+          onStepChanged={this.onStepChanged}
+          onSchoolIdChanged={this.onSchoolIdChanged}
+          onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
+          onEducatorsChanged={this.onAuthorsChanged}
+          onClassroomsCountIncremented={this.onClassroomsCountIncremented}
+          onPlanTextChanged={this.onPlanTextChanged}
+          onClassListsChanged={this.onClassListsChanged}
+          onPrincipalNoteChanged={this.onPrincipalNoteChanged}
+          onFeedbackTextChanged={this.onFeedbackTextChanged}
+          onSubmitClicked={this.onSubmitClicked}
+          onClassListsChangedByPrincipal={this.onClassListsChangedByPrincipal}
+          onPrincipalTeacherNamesByRoomChanged={this.onPrincipalTeacherNamesByRoomChanged}
+        />
+      </WarnBeforeUnload>
     );
   }
 }
