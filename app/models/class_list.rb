@@ -17,6 +17,7 @@ class ClassList < ActiveRecord::Base
   validates :created_by_teacher_educator_id, presence: true
   validate :validate_consistent_workspace_grade_school
   validate :validate_single_writer_in_workspace
+  validate :validate_submitted_not_undone
 
   # Within a `workspace_id`, there are multiple ClassList records
   # holding states over time.  This grabs the latest.
@@ -38,6 +39,13 @@ class ClassList < ActiveRecord::Base
   # Only one writer can write to a workspace
   def validate_single_writer_in_workspace
     validate_consistent_values_within_workspace([:created_by_teacher_educator_id])
+  end
+
+  def validate_submitted_not_undone
+    latest_class_list = ClassList.latest_class_list_for_workspace(workspace_id)
+    if latest_class_list.present? && latest_class_list.submitted && !self.submitted
+      errors.add(:submitted, "cannot change submitted: true workspace #{workspace_id} to submitted: false")
+    end
   end
 
   # This checks that particular values are consistent across all records

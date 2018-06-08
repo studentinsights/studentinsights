@@ -54,9 +54,13 @@ export default class ExportList extends React.Component {
 
   onRoomTeacherChanged(roomKey, option) {
     const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
+    const teacherName = (option === null) ? '' : option.name;
+    if ((teacherName !== '') && _.include(principalTeacherNamesByRoom, teacherName)) {
+      return alert('Duplicate teacher name.');
+    }
     onPrincipalTeacherNamesByRoomChanged({
       ...principalTeacherNamesByRoom,
-      [roomKey]: (option === null) ? '' : option.name
+      [roomKey]: (option === null) ? '' : teacherName
     });
   }
 

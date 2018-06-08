@@ -222,7 +222,7 @@ export default class ClassListCreatorPage extends React.Component {
     } = this.state;
     
     // Update URL (no state change)
-    if (workspaceId && window.location.pathname !== `/classlists/${workspaceId}`) {
+    if (workspaceId && window.location.pathname !== `/classlists/${workspaceId}` && this.isSaveable()) {
       this.doReplaceState();
     }
 
