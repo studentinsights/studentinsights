@@ -46,7 +46,7 @@ class StudentPhotoImporter
         s3_client: s3_client,
         logger: logger
       ).store_only_new
-      created_student_photos << if student_photo.present?
+      created_student_photos << student_photo if student_photo.present?
     end
     log("Created #{created_student_photos.size} StudentPhoto records")
     log('Done.')
