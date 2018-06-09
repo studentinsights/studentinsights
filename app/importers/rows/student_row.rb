@@ -5,9 +5,6 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
   #
   # Contrast with student.rb, which is represents a student once they've entered the DB.
   #
-  # Not every student row enters the database. For example, as of 2016-05-14, a student row
-  # representing a high school student won't ever enter the database.
-  #
   # Expects the following headers:
   #
   #   :state_id, :local_id, :full_name, :home_language, :program_assigned,

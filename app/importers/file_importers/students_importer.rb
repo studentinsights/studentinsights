@@ -41,7 +41,12 @@ class StudentsImporter
     student = StudentRow.new(row, school_ids_dictionary).build
     return if student.registration_date_in_future
 
-    student.save!
+    did_save = student.save
+    if !did_save
+      @log.puts "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
+      return
+    end
+
     student.update_risk_level!
 
     if row[:homeroom].present?
