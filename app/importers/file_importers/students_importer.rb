@@ -44,7 +44,7 @@ class StudentsImporter
     did_save = student.save
     if !did_save
       @log.puts "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
-      return
+      return nil
     end
 
     student.update_risk_level!
@@ -52,6 +52,8 @@ class StudentsImporter
     if row[:homeroom].present?
       assign_student_to_homeroom(student, row[:homeroom])
     end
+
+    student
   end
 
   def assign_student_to_homeroom(student, homeroom_name)

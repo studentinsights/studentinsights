@@ -1,10 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe StudentsImporter do
+  class FakeLog
+    attr_reader :msgs
+
+    def initialize
+      @msgs = []
+    end
+
+    def puts(msg)
+      @msgs << msg
+    end
+  end
 
   let(:students_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil, log: FakeLog.new
     })
   }
 
@@ -112,14 +123,14 @@ RSpec.describe StudentsImporter do
 
     end
 
-    context 'bad data' do
-      let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
-      it 'raises an error' do
-        expect{
-          students_importer.import_row(row)
-        }.to raise_error(
-          ActiveRecord::RecordInvalid
-        )
+    context 'validation failure' do
+      let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '', homeroom: '101' } }
+      it 'logs an error and skips row' do
+        student = students_importer.import_row(row)
+        expect(student).to eq nil
+        expect(students_importer.instance_variable_get(:@log).msgs).to eq [
+          'StudentsImporter: could not save student record because of errors on [:local_id, :grade]'
+        ]
       end
     end
 
