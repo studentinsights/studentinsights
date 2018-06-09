@@ -29,8 +29,8 @@ class ClassListQueries
     # students they'd fetch now
     school_id = class_list.school_id
     grade_level_next_year = class_list.grade_level_next_year
-    created_by_educator = class_list.created_by_educator
-    queries = ClassListQueries.new(created_by_educator)
+    created_by_teacher_educator = class_list.created_by_teacher_educator
+    queries = ClassListQueries.new(created_by_teacher_educator)
     authorized_student_ids_now = queries.authorized_students_for_next_year(school_id, grade_level_next_year).map(&:id)
 
     # diff

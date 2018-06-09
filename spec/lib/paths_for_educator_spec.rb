@@ -8,20 +8,19 @@ RSpec.describe PathsForEducator do
   end
 
   describe '#navbar_links' do
-    before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
-    after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
+    context 'when env disabled' do
+      before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
+      before { ENV['ENABLE_CLASS_LISTS'] = 'false' }
+      after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
 
-    it 'respects PerDistrict for /classlists' do
-      ENV['ENABLE_CLASS_LISTS'] = 'false'
-
-      expect(navbar_links(pals.uri)).to eq({
-        district: '/educators/districtwide'
-      })
+      it 'respects PerDistrict for /classlists' do
+        expect(navbar_links(pals.uri)).to eq({
+          district: '/educators/districtwide'
+        })
+      end
     end
 
     it 'works across educators, with classlists enabled' do
-      ENV['ENABLE_CLASS_LISTS'] = 'true'
-
       expect(navbar_links(pals.uri)).to eq({
         classlists: '/classlists',
         district: '/educators/districtwide'

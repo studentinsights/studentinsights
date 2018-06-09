@@ -279,14 +279,18 @@ RSpec.describe ResearchMattersExporter do
       let(:event_data) { [] }
       let!(:another_educator) {
         FactoryBot.create(:educator,
-          :admin, school: school, email: 'noname@demo.studentinsights.org')
+          :admin,
+          school: school,
+          email: 'rchin@demo.studentinsights.org',
+          full_name: 'Chin, Renan'
+        )
       }
 
       it 'outputs the right file' do
         expect(exporter.teacher_file).to eq([
           "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
           "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,0,0",
-          "#{another_educator.id},noname@demo.studentinsights.org,,,HEA,0,0,0,0,0,0",
+          "#{another_educator.id},rchin@demo.studentinsights.org,Renan,Chin,HEA,0,0,0,0,0,0",
         ])
       end
     end

@@ -34,6 +34,8 @@ class Student < ActiveRecord::Base
 
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validate :validate_grade
   validate :registration_date_cannot_be_in_future
   validate :validate_free_reduced_lunch

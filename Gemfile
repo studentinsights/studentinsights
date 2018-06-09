@@ -37,7 +37,6 @@ gem 'wkhtmltopdf-binary'
 
 # used to seed demo data in production
 gem 'factory_bot_rails'
-gem 'faker'
 
 group :development, :test do
   gem 'bourbon', '~> 4.3.2'
