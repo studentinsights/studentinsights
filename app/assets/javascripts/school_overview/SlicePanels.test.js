@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import _ from 'lodash';
-import {serviceTypesIndex, eventNoteTypesIndex} from '../testing/fixtures/databaseConstants';
-import FixtureStudents from './schoolOverviewStudents';
+import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
+import eventNoteTypesIndex from '../testing/fixtures/eventNoteTypesIndex';
+import FixtureStudents from './schoolOverviewStudents.fixture';
 import SlicePanels from './SlicePanels';
 
 function testProps(props = {}) {
@@ -126,12 +128,12 @@ describe('high-level integration tests', () => {
     }));
 
     expect(helpers.rowsPerColumnMatrix(el)).toEqual([
-      [ 5, 1, 1, 2, 3, 0 ],
-      [ 1, 1, 5 ],
+      [ 5, 4, 3, 4, 3, 3 ],
+      [ 3, 1, 5 ],
       [ 5, 5, 5 ],
       [ 5, 5, 5 ],
       [ 5, 5, 5 ],
-      [ 4, 1, 4, 2, 1 ]
+      [ 4, 4, 4, 3, 3 ]
     ]);
   });
 
@@ -166,4 +168,15 @@ describe('high-level integration tests', () => {
       ]);
     });
   });
+});
+
+it('matches snapshot', () => {
+  const props = testProps({
+    students: FixtureStudents,
+    allStudents: FixtureStudents
+  });
+  const tree = renderer
+    .create(<SlicePanels {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
