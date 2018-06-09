@@ -8,7 +8,7 @@ import {TEST_TIME_MOMENT, testContext, withDefaultNowContext} from '../testing/N
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import class_list_json from './fixtures/class_list_json';
-import {uri, sarah, laura} from '../../../../spec/javascripts/fixtures/currentEducator';
+import {uri, sarah, laura} from '../testing/fixtures/currentEducator';
 
 
 beforeEach(() => mockWithFixtures());

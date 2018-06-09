@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
 import CheckStudentsWithLowGrades, {CheckStudentsWithLowGradesView} from './CheckStudentsWithLowGrades';
-import studentsWithLowGradesJson from '../../../../spec/javascripts/fixtures/home_students_with_low_grades_json';
+import studentsWithLowGradesJson from './home_students_with_low_grades_json';
 
 function renderIntoEl(element) {
   const el = document.createElement('div');

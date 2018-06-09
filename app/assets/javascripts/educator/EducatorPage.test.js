@@ -4,7 +4,7 @@ import {mount} from 'enzyme';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import EducatorPage from './EducatorPage';
-import educatorsViewJson from '../../../../spec/javascripts/fixtures/educatorsViewJson';
+import educatorsViewJson from './educatorsViewJson';
 import Section from '../components/Section';
 
 function testProps() {

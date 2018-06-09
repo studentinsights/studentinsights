@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import Cookies from 'js-cookie';
 import HomeroomTable from './HomeroomTable';
-import {students} from './HomeroomTable.fixtures';
-import {healey, shs} from '../../../../spec/javascripts/fixtures/schools';
+import {healey, shs, students} from './HomeroomTable.fixtures';
 
 
 function testProps(props = {}) {

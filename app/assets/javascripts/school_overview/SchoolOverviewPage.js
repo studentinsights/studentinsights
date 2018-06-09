@@ -1,11 +1,12 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import MixpanelUtils from '../helpers/MixpanelUtils';
-import StudentsTable from '../components/StudentsTable';
-import SlicePanels from '../components/SlicePanels';
-import SliceButtons from '../components/SliceButtons';
 import {styles} from '../helpers/Theme';
-import PropTypes from 'prop-types';
-import React from 'react';
+import SlicePanels from './SlicePanels';
+import SliceButtons from './SliceButtons';
+import StudentsTable from './StudentsTable';
+
 
 class SchoolOverviewPage extends React.Component {
 

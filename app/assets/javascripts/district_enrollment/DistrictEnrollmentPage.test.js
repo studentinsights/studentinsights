@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
 import DistrictEnrollmentPage, {DistrictEnrollmentPageView} from './DistrictEnrollmentPage';
-import districtEnrollmentJson from '../../../../spec/javascripts/fixtures/districtEnrollmentJson';
+import districtEnrollmentJson from './districtEnrollmentJson';
 
 function testProps(props = {}) {
   return {

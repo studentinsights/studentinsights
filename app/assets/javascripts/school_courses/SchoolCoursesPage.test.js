@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import SchoolCoursesPage, {SchoolCoursesPagePure} from './SchoolCoursesPage';
-import schoolCoursesJson from '../../../../spec/javascripts/fixtures/schoolCoursesJson';
+import schoolCoursesJson from './schoolCoursesJson';
 
 
 function testProps() {

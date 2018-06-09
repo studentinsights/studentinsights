@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StudentsTable from './StudentsTable';
-import studentsFixture from '../../../../spec/javascripts/fixtures/schools_overview_students';
+import studentsFixture from './schoolOverviewStudents.fixture';
 
 function testProps(props = {}) {
   return {
@@ -29,7 +29,7 @@ describe('high-level integration test', () => {
     const props = testProps();
     const {el} = testRender(props);
 
-    expect($(el).find('.StudentsTable tbody tr').length).toEqual(21);
+    expect($(el).find('.StudentsTable tbody tr').length).toEqual(25);
     expect(tableHeaderTexts(el)).toEqual([
       "Name",
       "LastSST",
@@ -60,7 +60,7 @@ describe('high-level integration test', () => {
     });
     const {el} = testRender(props);
 
-    expect($(el).find('.StudentsTable tbody tr').length).toEqual(21);
+    expect($(el).find('.StudentsTable tbody tr').length).toEqual(25);
     expect(tableHeaderTexts(el)).toEqual([
       "Name",
       "LastSST",
