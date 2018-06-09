@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SectionHeader from './SectionHeader';
 
-describe('data', function () {
+describe('data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 
@@ -22,7 +22,7 @@ describe('data', function () {
   });
 });
 
-describe('empty data', function () {
+describe('empty data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 

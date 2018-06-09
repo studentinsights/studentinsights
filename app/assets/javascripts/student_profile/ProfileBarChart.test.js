@@ -4,7 +4,7 @@ import moment from 'moment';
 import ProfileBarChart from './ProfileBarChart';
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       events: [],
       id: 'foo-id',
@@ -17,7 +17,7 @@ const helpers = {
   }
 };
 
-it('is wrapped in a div with the given id', function() {
+it('is wrapped in a div with the given id', () => {
   const el = document.createElement('div');
   helpers.renderInto(el, {id: 'foo'});
 

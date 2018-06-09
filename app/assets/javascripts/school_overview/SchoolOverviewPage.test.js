@@ -88,7 +88,7 @@ describe('with one initial filter', () => {
   });
 
   describe('#checkCache with empty cache', () => {
-    it('is undefined', function () {
+    it('is undefined', () => {
       expect(page.checkCache()).toEqual(undefined);
     });
   });

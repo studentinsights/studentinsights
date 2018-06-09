@@ -25,30 +25,30 @@ export function testProps(props) {
 }
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = testProps(props);
     return ReactDOM.render(<RecordService {...mergedProps} />, el); // eslint-disable-line
   },
 
-  serviceTypes: function(el) {
-    return $(el).find('.btn.service-type').toArray().map(function(el) {
+  serviceTypes(el) {
+    return $(el).find('.btn.service-type').toArray().map(el => {
       return $.trim(el.innerHTML);
     });
   },
 
-  findSaveButton: function(el) {
+  findSaveButton(el) {
     return $(el).find('.btn.save');
   },
 
-  findStartDateInput: function(el) {
+  findStartDateInput(el) {
     return $(el).find('.datepicker').get(0);
   },
 
-  findEndDateInput: function(el) {
+  findEndDateInput(el) {
     return $(el).find('.datepicker').get(1);
   },
 
-  isSaveButtonEnabled: function(el) {
+  isSaveButtonEnabled(el) {
     return helpers.findSaveButton(el).attr('disabled') !== 'disabled';
   },
 
@@ -60,17 +60,17 @@ const helpers = {
     ReactTestUtils.Simulate.click($(el).find(`.btn.service-type-${serviceTypeId}`).get(0));
   },
 
-  simulateStartDateChange: function(el, text) {
+  simulateStartDateChange(el, text) {
     const inputEl = helpers.findStartDateInput(el);
     return ReactTestUtils.Simulate.change(inputEl, {target: {value: text}});
   },
 
-  simulateEndDateChange: function(el, text) {
+  simulateEndDateChange(el, text) {
     const inputEl = helpers.findEndDateInput(el);
     return ReactTestUtils.Simulate.change(inputEl, {target: {value: text}});
   },
 
-  simulateEducatorChange: function(el, text) {
+  simulateEducatorChange(el, text) {
     const inputEl = $(el).find('.ProvidedByEducatorDropdown').get(0);
     ReactTestUtils.Simulate.change(inputEl, {target: {value: text}});
   },
@@ -85,7 +85,7 @@ const helpers = {
 };
 
 describe('integration tests', () => {
-  it('renders dialog for recording services', function() {
+  it('renders dialog for recording services', () => {
     const el = document.createElement('div');
     helpers.renderInto(el);
 
@@ -115,35 +115,35 @@ describe('integration tests', () => {
   });
 
   describe('validation', () => {
-    it('shows warning on invalid start date', function() {
+    it('shows warning on invalid start date', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateStartDateChange(el, 'fds 1/2/2/22 not a valid date');
       expect(helpers.isWarningMessageShown(el)).toEqual(true);
     });
 
-    it('shows warning on invalid end date', function() {
+    it('shows warning on invalid end date', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateEndDateChange(el, 'fds 1/2/2/22 not a valid date');
       expect(helpers.isWarningMessageShown(el)).toEqual(true);
     });
 
-    it('does not allow save on invalid start date', function() {
+    it('does not allow save on invalid start date', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateStartDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
-    it('does not allow save on invalid end date', function() {
+    it('does not allow save on invalid end date', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateEndDateChange(el, '1/2/2/22 not a valid date');
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
-    it('does not allow save on end date before start date', function() {
+    it('does not allow save on end date before start date', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateStartDateChange(el, '1/20/18');
@@ -151,7 +151,7 @@ describe('integration tests', () => {
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
-    it('does not allow save without educator', function() {
+    it('does not allow save without educator', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateClickOnService(el, 507);
@@ -160,7 +160,7 @@ describe('integration tests', () => {
       expect(helpers.isSaveButtonEnabled(el)).toEqual(false);
     });
 
-    it('requires service, educator and valid start date set in order to save and allows blank end date', function() {
+    it('requires service, educator and valid start date set in order to save and allows blank end date', () => {
       const el = document.createElement('div');
       helpers.renderInto(el);
       helpers.simulateClickOnService(el, 507);

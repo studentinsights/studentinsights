@@ -40,7 +40,7 @@ export default class TakeNotes extends React.Component {
   isValidAttachmentUrls() {
     const {noteInProgressAttachmentUrls} = this.props;
 
-    return _.all(noteInProgressAttachmentUrls, function (url) {
+    return _.all(noteInProgressAttachmentUrls, url => {
       return (url.slice(0, 7) === 'http://'  ||
               url.slice(0, 8) === 'https://' ||
               url.length      === 0);
@@ -82,7 +82,7 @@ export default class TakeNotes extends React.Component {
           className="TakeNotes-textarea"
           rows={10}
           style={styles.textarea}
-          ref={function(ref) { this.textareaRef = ref; }.bind(this)}
+          ref={ref => this.textareaRef = ref}
           value={noteInProgressText}
           onChange={onChangeNoteInProgressText} />
         <div style={{ marginBottom: 5, marginTop: 20 }}>
@@ -183,9 +183,7 @@ export default class TakeNotes extends React.Component {
 
     return (
       <div>
-        {urls.map((url, index) => {
-          return this.renderAttachmentLinkInput(url, index);
-        }, this)}
+        {urls.map((url, index) => this.renderAttachmentLinkInput(url, index))}
         <div
           style={{
             fontStyle: 'italic',

@@ -1,7 +1,7 @@
 // This module expects window.mixpanel to be set, and window.share.Env to be set.
 // To use it, call `registerUser` first, then `track`.
 export default {
-  registerUser: function(currentEducator) {
+  registerUser(currentEducator) {
     const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
 
     if (!enabled) return;
@@ -20,7 +20,7 @@ export default {
     }
   },
 
-  track: function(key, attrs) {
+  track(key, attrs) {
     const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
 
     if (!enabled) return;

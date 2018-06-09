@@ -4,7 +4,7 @@ import _ from 'lodash';
 export function Range(key, range) {
   return {
     identifier: ['range', key, range[0], range[1]].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       const value = student[key];
       return (_.isNumber(value) && value >= range[0] && value < range[1]);
     },
@@ -16,7 +16,7 @@ export function Range(key, range) {
 export function Equal(key, value) {
   return {
     identifier: ['equal', key, value].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       return (student[key] == value);
     },
     key: key
@@ -26,7 +26,7 @@ export function Equal(key, value) {
 export function Null(key) {
   return {
     identifier: ['none', key].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       const value = student[key];
       return (value === null || value === undefined) ? true : false;
     },
@@ -37,9 +37,9 @@ export function Null(key) {
 export function InterventionType(interventionTypeId) {
   return {
     identifier: ['intervention_type', interventionTypeId].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       if (interventionTypeId === null) return (student.interventions === undefined || student.interventions.length === 0);
-      return student.interventions.filter(function(intervention) {
+      return student.interventions.filter(intervention => {
         return intervention.intervention_type_id === interventionTypeId;
       }).length > 0;
     },
@@ -50,9 +50,9 @@ export function InterventionType(interventionTypeId) {
 export function ServiceType(serviceTypeId) {
   return {
     identifier: ['service_type', serviceTypeId].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       if (serviceTypeId === null) return (student.active_services === undefined || student.active_services.length === 0);
-      return student.active_services.filter(function(service) {
+      return student.active_services.filter(service => {
         return service.service_type_id === serviceTypeId;
       }).length > 0;
     },
@@ -63,9 +63,9 @@ export function ServiceType(serviceTypeId) {
 export function SummerServiceType(serviceTypeId) {
   return {
     identifier: ['summer_service_type', serviceTypeId].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       if (serviceTypeId === null) return (student.summer_services === undefined || student.summer_services.length === 0);
-      return student.summer_services.filter(function(service) {
+      return student.summer_services.filter(service => {
         return service.service_type_id === serviceTypeId;
       }).length > 0;
     },
@@ -77,9 +77,9 @@ export function SummerServiceType(serviceTypeId) {
 export function EventNoteType(eventNoteTypeId) {
   return {
     identifier: ['event_note_type', eventNoteTypeId].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       if (eventNoteTypeId === null) return (student.event_notes.length === 0);
-      return student.event_notes.filter(function(eventNote) {
+      return student.event_notes.filter(eventNote => {
         return (eventNote.event_note_type_id === eventNoteTypeId);
       }).length > 0;
     },
@@ -90,7 +90,7 @@ export function EventNoteType(eventNoteTypeId) {
 export function YearsEnrolled(value) {
   return {
     identifier: ['years_enrolled', value].join(':'),
-    filterFn: function(student) {
+    filterFn(student) {
       const yearsEnrolled = Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
       return (yearsEnrolled === value);
     },
@@ -116,7 +116,7 @@ export function createFromIdentifier(identifier) {
 // Returns a list of Filters
 export function parseFiltersHash(hash) {
   const pieces = _.compact(hash.slice(1).split('&'));
-  return _.compact(pieces.map(function(piece) {
+  return _.compact(pieces.map(piece => {
     return createFromIdentifier(decodeURIComponent(piece));
   }));
 }

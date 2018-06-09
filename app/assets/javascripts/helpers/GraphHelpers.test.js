@@ -14,7 +14,7 @@ const helpers = {
 };
 
 describe('#monthKeys', () => {
-  it('works looking back four years', function(){
+  it('works looking back four years', () => {
     const nowMomentUTC = moment.utc("20170211", "YYYYMMDD");
     const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
     expect(monthKeys.length).toEqual(48 + 1);
@@ -24,7 +24,7 @@ describe('#monthKeys', () => {
 });
 
 describe('#eventsToMonthBuckets', () => {
-  it('works on happy path', function(){
+  it('works on happy path', () => {
     const nowMomentUTC = moment.utc('2015-03-30');
     const namedEvents = helpers.namedEvents();
     const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 12);
@@ -40,12 +40,12 @@ describe('#eventsToMonthBuckets', () => {
 });
 
 describe('#yearCategories', () => {
-  it('works on simple case', function(){
+  it('works on simple case', () => {
     const categories = GraphHelpers.yearCategories(['20141101', '20141201', '20150101', '20150201']);
     expect(categories).toEqual({ 2: '2015'});
   });
 
-  it('works with default props', function(){
+  it('works with default props', () => {
     const nowMomentUTC = moment.utc('2017-02-02T13:23:15+00:00');
     const monthKeys = GraphHelpers.monthKeys(nowMomentUTC, 48);
     const categories = GraphHelpers.yearCategories(monthKeys);

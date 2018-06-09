@@ -16,7 +16,7 @@ export function testProps(props = {}) {
     },
     teacherStudentIdsByRoom: workflowProps.studentIdsByRoom,
     educators: students_for_grade_level_next_year_json.educators,
-    fetchProfile: function() {},
+    fetchProfile() {},
     ...props
   };
 }

@@ -148,7 +148,7 @@ class ServiceUploadDetail extends React.Component {
           </li>
         </div>
       );
-    }, this);
+    });
 
     return (
       <div>

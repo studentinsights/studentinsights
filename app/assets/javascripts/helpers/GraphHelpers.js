@@ -9,11 +9,11 @@ all notes and services for a student.
 // Returns a list of monthKeys that are within the time window for this chart.
 export function monthKeys(nowMomentUTC, monthsBack) {
   const lastMonthMomentUTC = nowMomentUTC.clone().date(1);
-  return _.range(monthsBack, -1, -1).map(function(monthsBack) {
+  return _.range(monthsBack, -1, -1).map(monthsBack => {
     const monthMomentUTC = lastMonthMomentUTC.clone().subtract(monthsBack, 'months');
     const monthKey = monthMomentUTC.format('YYYYMMDD');
     return monthKey;
-  }, this);
+  });
 }
 
 // A function that grabs a monthKey from an event that is passed in.  Should return
@@ -27,7 +27,7 @@ export function defaultMonthKey(event) {
 // that month.
 export function eventsToMonthBuckets(monthKeys, events) {
   const eventsByMonth = _.groupBy(events, defaultMonthKey);
-  return monthKeys.map(function(monthKey) {
+  return monthKeys.map(monthKey => {
     return eventsByMonth[monthKey] || [];
   });
 }
@@ -39,13 +39,13 @@ export function eventsToMonthBuckets(monthKeys, events) {
 export function yearCategories(monthKeys) {
   let categories = {};
 
-  monthKeys.forEach(function(monthKey, monthKeyIndex) {
+  monthKeys.forEach((monthKey, monthKeyIndex) => {
     const monthMomentUTC = moment.utc(monthKey);
     const isFirstMonthOfYear = (monthMomentUTC.date() === 1 && monthMomentUTC.month() === 0);
     if (isFirstMonthOfYear) {
       categories[monthKeyIndex] = yearAxisCaption(monthKey);
     }
-  }, this);
+  });
 
   return categories;
 }

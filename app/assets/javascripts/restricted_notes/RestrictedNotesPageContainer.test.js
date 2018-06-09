@@ -8,7 +8,7 @@ import changeTextValue from '../testing/changeTextValue';
 
 
 const helpers = {
-  renderInto: function(props) {
+  renderInto(props) {
     const mergedProps = {
       nowMomentFn: moment.utc,
       serializedData: studentProfile,
@@ -19,7 +19,7 @@ const helpers = {
     return {el};
   },
 
-  createMockApi: function(){
+  createMockApi() {
     const mockApi = {
       saveNotes: jest.fn()
     };
@@ -38,7 +38,7 @@ const helpers = {
     return mockApi;
   },
 
-  takeNotesAndSave: function(el, uiParams) {
+  takeNotesAndSave(el, uiParams) {
     ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
     changeTextValue($(el).find('textarea').get(0), uiParams.text);
     ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
@@ -47,7 +47,7 @@ const helpers = {
 };
 
 describe('high-level integration tests', () => {
-  it('saves notes as restricted', function() {
+  it('saves notes as restricted', () => {
     const mockApi = helpers.createMockApi();
     const {el} = helpers.renderInto({api: mockApi});
 

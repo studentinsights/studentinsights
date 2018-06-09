@@ -4,11 +4,11 @@ import moment from 'moment';
 
 export default {
 
-  groupByHomeroom: function(studentRecords) {
+  groupByHomeroom(studentRecords) {
     return _.groupBy(studentRecords, 'homeroom_label');
   },
 
-  averageDailyAttendance: function(absenceEventsByDay, size) {
+  averageDailyAttendance(absenceEventsByDay, size) {
     let averageDailyAttendance = {};
     Object.keys(absenceEventsByDay).forEach((day) => {
       const rawAvg = (size - absenceEventsByDay[day].length)/size*100;
@@ -17,44 +17,44 @@ export default {
     return averageDailyAttendance;
   },
 
-  absenceEventsByDay: function(studentRecordsArray) {
+  absenceEventsByDay(studentRecordsArray) {
     const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
       return student.absences;
     }));
     return this.eventsGroupedByDay(absenceEvents);
   },
 
-  tardyEventsByDay: function(studentRecordsArray) {
+  tardyEventsByDay(studentRecordsArray) {
     const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
       return student.tardies;
     }));
     return this.eventsGroupedByDay(absenceEvents);
   },
 
-  eventsGroupedByDay: function(events) {
+  eventsGroupedByDay(events) {
     return _.groupBy(events, (event) => {
       return moment.utc(event.occurred_at).format("YYYY-MM-DD");
     });
   },
 
-  schoolYearStart: function() {
+  schoolYearStart() {
     const today = moment.utc();
     return today.month() < 8 ? today.subtract(1, 'year').year() + "-08-15" : today.year() + "-08-15";
   },
 
   //slightly faster than Array.filter for getting a new date range
-  filterDates: function(dates, start_date, end_date) {
+  filterDates(dates, start_date, end_date) {
     return dates.sort().slice(this.getFirstDateIndex(dates, start_date), this.getLastDateIndex(dates, end_date));
   },
 
-  getFirstDateIndex: function(dates, start_date) {
+  getFirstDateIndex(dates, start_date) {
     for (let i = 0, max = dates.length; i < max; i++) {
       if (moment.utc(dates[i]).isSameOrAfter(start_date)) return i;
     }
     return dates.length;
   },
 
-  getLastDateIndex: function(dates, end_date) {
+  getLastDateIndex(dates, end_date) {
     const result = dates.length;
     if (moment.utc(dates[dates.length]).isSameOrBefore(end_date)) return result;
     for (let i = dates.length; i--;) {

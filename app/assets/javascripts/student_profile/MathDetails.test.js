@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MathDetails from './MathDetails';
 
-describe('data', function () {
+describe('data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 

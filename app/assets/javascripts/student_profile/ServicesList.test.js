@@ -5,18 +5,18 @@ import {studentProfile} from './fixtures';
 import ServicesList from './ServicesList';
 
 const helpers = {
-  emptyServicesFeed: function() {
+  emptyServicesFeed() {
     return { active: [], discontinued: [] };
   },
 
-  oneActiveServiceFeed: function() {
+  oneActiveServiceFeed() {
     return {
       active: [helpers.fixtureService()],
       discontinued: []
     };
   },
 
-  fixtureService: function() {
+  fixtureService() {
     return {
       id: 267,
       student_id: 3,
@@ -30,7 +30,7 @@ const helpers = {
     };
   },
 
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       servicesFeed: {
         active: [],
@@ -47,13 +47,13 @@ const helpers = {
 };
 
 describe('high-level integration tests', () => {
-  it('renders message when no services', function() {
+  it('renders message when no services', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.emptyServicesFeed() });
     expect($(el).text()).toContain('No services');
   });
 
-  it('renders everything on the happy path', function() {
+  it('renders everything on the happy path', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
     expect($(el).text()).toContain('Reading intervention');
@@ -62,7 +62,7 @@ describe('high-level integration tests', () => {
     expect($(el).text()).toContain('Discontinue');
   });
 
-  it('asks for confirmation before discontinuing', function() {
+  it('asks for confirmation before discontinuing', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
     ReactTestUtils.Simulate.click($(el).find('.btn').get(0));
@@ -70,7 +70,7 @@ describe('high-level integration tests', () => {
     expect($(el).text()).toContain('Cancel');
   });
 
-  it('shows a message when request in progress', function() {
+  it('shows a message when request in progress', () => {
     const el = document.createElement('div');
     const service = helpers.fixtureService();
     helpers.renderInto(el, {
@@ -82,7 +82,7 @@ describe('high-level integration tests', () => {
     expect($(el).find('.btn').text()).toEqual('Updating...');
   });
 
-  it('renders discontinued services correctly', function() {
+  it('renders discontinued services correctly', () => {
     const el = document.createElement('div');
     const discontinuedService = {
       ...helpers.fixtureService(),

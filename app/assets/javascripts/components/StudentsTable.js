@@ -166,7 +166,7 @@ class StudentsTable extends React.Component {
                   </td>
                 </tr>
               );
-            }, this)}
+            })}
           </tbody>
         </table>
       </div>

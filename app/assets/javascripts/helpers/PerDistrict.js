@@ -30,7 +30,7 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
   const key = 'sped_level_of_need';
   const itemsFromValues = orderedDisabilityValues(districtKey).map(value => {
     return createItemFn(value, Filters.Equal(key, value));
-  }, this);
+  });
 
   // Somerville uses a null value for no disability, while New Bedford
   // uses a separate value to describe that explicitly.

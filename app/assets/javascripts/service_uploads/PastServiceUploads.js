@@ -24,7 +24,7 @@ class PastServiceUploads extends React.Component {
               onClickDeleteServiceUpload={onClickDeleteServiceUpload}
               key={String(serviceUpload.id)} />
           );
-        }, this)}
+        })}
       </div>
     );
   }

@@ -8,11 +8,11 @@ import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
 
 const helpers = {
-  findColumns: function(el) {
+  findColumns(el) {
     return $(el).find('.summary-container > div');
   },
 
-  interventionSummaryLists: function(el) {
+  interventionSummaryLists(el) {
     return $(el).find('.interventions-column .SummaryList').toArray();
   },
 
@@ -36,7 +36,7 @@ const helpers = {
     };
   },
 
-  renderInto: function(props) {
+  renderInto(props) {
     const mergedProps = {
       nowMomentFn: () => { return nowMoment; },
       serializedData: studentProfile,
@@ -53,14 +53,14 @@ const helpers = {
     return {el, instance};
   },
 
-  takeNotesAndSave: function(el, uiParams) {
+  takeNotesAndSave(el, uiParams) {
     ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
     changeTextValue($(el).find('textarea').get(0), uiParams.text);
     ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   },
 
-  editNoteAndSave: function(el, uiParams) {
+  editNoteAndSave(el, uiParams) {
     const $noteCard = $(el).find('.NotesList .NoteCard').first();
     const $text = $noteCard.find('.EditableTextComponent');
     $text.html(uiParams.text);
@@ -68,7 +68,7 @@ const helpers = {
     ReactTestUtils.Simulate.blur($text.get(0));
   },
 
-  recordServiceAndSave: function(el, uiParams) {
+  recordServiceAndSave(el, uiParams) {
     ReactTestUtils.Simulate.click($(el).find('.btn.record-service').get(0));
     ReactTestUtils.Simulate.click($(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').get(0));
     changeReactSelect($(el).find('.Select'), uiParams.educatorText);

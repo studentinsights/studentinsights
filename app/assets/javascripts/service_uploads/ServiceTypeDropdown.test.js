@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ServiceTypeDropdown from './ServiceTypeDropdown';
 
-describe('data', function () {
+describe('data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 

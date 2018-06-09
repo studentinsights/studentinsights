@@ -234,7 +234,7 @@ class NewServiceUpload extends React.Component {
 
     const missingFormFieldNames = [];
 
-    formFields.map(function (formField) {
+    formFields.map(formField => {
       if (formData[formField] === undefined) {
         missingFormFieldNames.push(formFieldsToNames[formField]);
       }
@@ -263,13 +263,7 @@ class NewServiceUpload extends React.Component {
           <br />
           <br />
           <ul>
-            {this.props.incorrectLasids.map(function(lasid) {
-              return (
-                <li>
-                  {lasid}
-                </li>
-              );
-            }.bind(this))}
+            {this.props.incorrectLasids.map(lasid => <li>{lasid}</li>)}
           </ul>
         </div>
       );

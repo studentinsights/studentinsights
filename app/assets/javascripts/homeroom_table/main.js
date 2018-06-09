@@ -8,7 +8,7 @@ export default function homeroomMain() {
 
   // This adds behavior to code rendered server-side by the Rails view.
   // As a next step we could pull out a parent component named HomeroomPage...
-  $('#homeroom-select').bind('change', function() {
+  $('#homeroom-select').bind('change', () => {
     window.location.pathname = '/homerooms/' + $(this).val();
   });
 

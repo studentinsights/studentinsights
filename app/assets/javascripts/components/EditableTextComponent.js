@@ -141,7 +141,7 @@ class EditableTextComponent extends React.Component {
         contentEditable={true}
         className={this.props.className}
         style={this.props.style}
-        ref={function(ref) { this.contentEditableEl = ref; }.bind(this)}
+        ref={ref => this.contentEditableEl = ref}
         dangerouslySetInnerHTML={{ __html: textToSanitizedHTML(this.state.text) }}
         onInput={this.onModifyText}
         // For IE compatibility.

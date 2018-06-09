@@ -307,7 +307,7 @@ export default class StudentProfilePage extends React.Component {
 
     const limit = 3;
     const sortedServices = _.sortBy(activeServices, 'date_started').reverse();
-    let elements = sortedServices.slice(0, limit).map(function(service) {
+    let elements = sortedServices.slice(0, limit).map(service => {
       const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
       return (
         <span key={service.id}>
@@ -316,7 +316,7 @@ export default class StudentProfilePage extends React.Component {
           </span>
         </span>
       );
-    }, this);
+    });
     if (sortedServices.length > limit) elements.push(<div>
       {'+ ' + (sortedServices.length - limit) + ' more'}
     </div>);
@@ -328,7 +328,7 @@ export default class StudentProfilePage extends React.Component {
     const activeServices = this.props.feed.services.active;
     const educatorNamesFromServices = _.map(activeServices, 'provided_by_educator_name');
     const uniqueNames = _.unique(educatorNamesFromServices);
-    const nonEmptyNames = _.filter(uniqueNames, function(id) { return id !== "" && id !== null; });
+    const nonEmptyNames = _.filter(uniqueNames, id => id !== "" && id !== null);
     const educatorNames = _.isEmpty( nonEmptyNames ) ? ["No staff"] : nonEmptyNames;
 
     const limit = 3;
@@ -573,7 +573,7 @@ export default class StudentProfilePage extends React.Component {
   renderPaddedElements(style, elements) {
     return (
       <div>
-        {elements.map(function(element, index) {
+        {elements.map((element, index) => {
           return (
             <div key={index} style={style}>
               {element}

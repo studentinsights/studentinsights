@@ -4,7 +4,7 @@ import MixpanelUtils from './helpers/MixpanelUtils';
 function setupSearchBarAutocomplete (names) {
   $(".student-searchbar").autocomplete({
     source: names,
-    select: function(e, ui) {
+    select(e, ui) {
       MixpanelUtils.track('SEARCHBAR_SELECTED_STUDENT', {});
       window.location.pathname = '/students/' + ui.item.id;
     },
@@ -14,7 +14,7 @@ function setupSearchBarAutocomplete (names) {
 function downloadStudentNames () {
   $.get({
     url: '/students/names',
-    success: function (data) {
+    success(data) {
       setupSearchBarAutocomplete(data);
 
       if (window.sessionStorage) {

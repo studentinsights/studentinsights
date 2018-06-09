@@ -7,7 +7,7 @@ import NoteCard from './NoteCard';
 
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       noteMoment: moment(),
       educatorId: 1,
@@ -25,7 +25,7 @@ const helpers = {
     return ReactDOM.render(<NoteCard {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
   },
 
-  editNoteAndSave: function(el, uiParams) {
+  editNoteAndSave(el, uiParams) {
     const $text = $(el).find('.EditableTextComponent');
     $text.html(uiParams.html);
     ReactTestUtils.Simulate.input($text.get(0));
@@ -33,13 +33,13 @@ const helpers = {
     return $text.html();
   },
 
-  getNoteHTML: function(el) {
+  getNoteHTML(el) {
     return $(el).find('.EditableTextComponent').html();
   }
 };
 
 describe('render', () => {
-  it('renders simple text', function() {
+  it('renders simple text', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello'
@@ -48,7 +48,7 @@ describe('render', () => {
     expect(helpers.getNoteHTML(el)).toEqual('hello');
   });
 
-  it('renders number of revisions', function() {
+  it('renders number of revisions', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello',
@@ -58,7 +58,7 @@ describe('render', () => {
     expect($(el).text()).toContain('Revised 1 time');
   });
 
-  it('escapes HTML-meaningful characters in text', function() {
+  it('escapes HTML-meaningful characters in text', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello <script src="xss.js"></script>world'
@@ -67,7 +67,7 @@ describe('render', () => {
     expect(helpers.getNoteHTML(el)).toEqual('hello &lt;script src="xss.js"&gt;&lt;/script&gt;world');
   });
 
-  it('renders newlines as <br> tags', function() {
+  it('renders newlines as <br> tags', () => {
     const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello\nworld'
@@ -78,7 +78,7 @@ describe('render', () => {
 });
 
 describe('integration tests', () => {
-  it('replaces HTML with newlines in saved text', function() {
+  it('replaces HTML with newlines in saved text', () => {
     const el = document.createElement('div');
     const component = helpers.renderInto(el, {
       text: 'hello world'
@@ -95,7 +95,7 @@ describe('integration tests', () => {
     });
   });
 
-  it('sanitizes undesirable HTML', function() {
+  it('sanitizes undesirable HTML', () => {
     const el = document.createElement('div');
     const component = helpers.renderInto(el, {
       text: 'hello\nworld'

@@ -501,7 +501,7 @@ class HomeroomTable extends React.Component {
 
     return (
       <tbody>
-        {rows.map((row, index) => { return this.renderRow(row, index); }, this)}
+        {rows.map((row, index) => this.renderRow(row, index))}
       </tbody>
     );
   }

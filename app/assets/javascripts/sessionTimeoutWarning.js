@@ -1,21 +1,21 @@
 export default function sessionTimeoutWarning(Env) {
-  const SessionTimeoutWarning = function () {};
+  const SessionTimeoutWarning = function() {};
 
-  SessionTimeoutWarning.prototype.count = function () {
+  SessionTimeoutWarning.prototype.count = () => {
     setTimeout(this.show, Env.sessionTimeoutInSeconds * 1000);
   };
 
-  SessionTimeoutWarning.prototype.show = function () {
+  SessionTimeoutWarning.prototype.show = () => {
     $('#renew-session').slideDown();
   };
 
   const warning = new SessionTimeoutWarning;
   warning.count();
 
-  $("#renew-sesion-link").click(function () {
+  $("#renew-sesion-link").click(() => {
     $.ajax({
       url: '/educators/reset',
-      success: function () {
+      success() {
         $('#renew-session').slideUp();
         warning.count();   // Resent timeout count
       }

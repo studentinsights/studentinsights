@@ -42,7 +42,7 @@ class FixedTable extends React.Component {
         </div>
         <table>
           <tbody>
-            {items.map(function(item) {
+            {items.map(item => {
               const isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
               return (
                 <tr
@@ -69,7 +69,7 @@ class FixedTable extends React.Component {
                   </td>
                 </tr>
               );
-            }, this)}
+            })}
           </tbody>
         </table>
         <div style={{ paddingLeft: 5 }}>

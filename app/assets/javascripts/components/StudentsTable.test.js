@@ -86,7 +86,7 @@ describe('high-level integration test', () => {
   });
 
 
-  it('renders the right date', function() {
+  it('renders the right date', () => {
     const props = testProps({
       students: [
         { event_notes:

@@ -23,9 +23,9 @@ class SlicePanels extends React.Component {
   }
 
   createItemsFromValues(key, uniqueValues) {
-    const items = _.compact(uniqueValues).map(function(value) {
+    const items = _.compact(uniqueValues).map(value => {
       return this.createItem(value, Filters.Equal(key, value));
-    }, this);
+    });
     const itemsWithNull = (_.any(uniqueValues, _.isNull))
       ? items.concat(this.createItem('None', Filters.Null(key)))
       : items;
@@ -41,10 +41,10 @@ class SlicePanels extends React.Component {
     const activeServiceTypeIds = activeServices.map(service => parseInt(service.service_type_id, 10));
     const allServiceTypeIds = _.pull(_.unique(activeServiceTypeIds), 508); // Deprecated Math intervention service type
 
-    const serviceItems = allServiceTypeIds.map(function(serviceTypeId) {
+    const serviceItems = allServiceTypeIds.map(serviceTypeId => {
       const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
       return this.createItem(serviceName, Filters.ServiceType(serviceTypeId));
-    }, this);
+    });
     const sortedItems =  _.sortBy(serviceItems, function(item) {
       return -1 * students.filter(item.filter.filterFn).length;
     });
@@ -55,14 +55,14 @@ class SlicePanels extends React.Component {
   summerItems () {
     const students = this.props.allStudents;
     const summerServices = _.compact(_.flatten(_.map(students, 'summer_services')));
-    const allSummerServiceTypeIds = _.unique(summerServices.map(function(service) {
+    const allSummerServiceTypeIds = _.unique(summerServices.map(service => {
       return parseInt(service.service_type_id, 10);
     }));
 
-    const serviceItems = allSummerServiceTypeIds.map(function(serviceTypeId) {
+    const serviceItems = allSummerServiceTypeIds.map(serviceTypeId => {
       const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
       return this.createItem(serviceName, Filters.SummerServiceType(serviceTypeId));
-    }, this);
+    });
 
     return [this.createItem('None', Filters.SummerServiceType(null))].concat(serviceItems);
   }
@@ -71,13 +71,13 @@ class SlicePanels extends React.Component {
   mergedNoteItems() {
     const students = this.props.allStudents;
     const allEventNotes = _.compact(_.flatten(_.map(students, 'event_notes')));
-    const allEventNoteTypesIds = _.unique(allEventNotes.map(function(eventNote) {
+    const allEventNoteTypesIds = _.unique(allEventNotes.map(eventNote => {
       return parseInt(eventNote.event_note_type_id, 10);
     }));
-    const eventNoteItems = allEventNoteTypesIds.map(function(eventNoteTypeId) {
+    const eventNoteItems = allEventNoteTypesIds.map(eventNoteTypeId => {
       const eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
       return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
-    }, this);
+    });
     const sortedItems =  _.sortBy(eventNoteItems, function(item) {
       return -1 * students.filter(item.filter.filterFn).length;
     });
@@ -270,9 +270,9 @@ class SlicePanels extends React.Component {
   renderGradeTable() {
     const key = 'grade';
     const uniqueValues = _.compact(_.unique(_.map(this.props.allStudents, key)));
-    const items = uniqueValues.map(function(value) {
+    const items = uniqueValues.map(value => {
       return this.createItem(value, Filters.Equal(key, value));
-    }, this);
+    });
     const sortedItems = _.sortBy(items, function(item) {
       if (item.caption === 'TK') return -40;
       if (item.caption === 'PPK') return -30;
@@ -302,9 +302,9 @@ class SlicePanels extends React.Component {
 
   renderRiskLevel() {
     const key = 'risk_level';
-    const items = [0, 1, 2, 3].map(function(value) {
+    const items = [0, 1, 2, 3].map(value => {
       return this.createItem(value, Filters.Equal(key, value));
-    }, this);
+    });
 
     items.push(this.createItem('N/A', Filters.Null(key)));
 
@@ -320,13 +320,13 @@ class SlicePanels extends React.Component {
 
     if (registrationDates.length === 0) return null;
 
-    const uniqueValues =_.unique(registrationDates.map((regDate) => {
+    const uniqueValues =_.unique(registrationDates.map(regDate => {
       return Math.floor((new Date() - new Date(regDate)) / (1000 * 60 * 60 * 24 * 365));
     }));
 
-    const items = uniqueValues.map(function(value) {
+    const items = uniqueValues.map(value => {
       return this.createItem(value, Filters.YearsEnrolled(value));
-    }, this);
+    });
 
     const sortedItems = _.sortBy(items, function(item) { return parseFloat(item.caption); });
 

@@ -11,11 +11,11 @@ function testRenderWithEl(props) {
     noteInProgressType: null,
     noteInProgressAttachmentUrls: [],
     actions: {
-      onClickSaveNotes: function () {},
-      onEventNoteAttachmentDeleted: function () {},
-      onChangeNoteInProgressText: function () {},
-      onClickNoteType: function () {},
-      onChangeAttachmentUrl: function () {}
+      onClickSaveNotes: jest.fn(),
+      onEventNoteAttachmentDeleted: jest.fn(),
+      onChangeNoteInProgressText: jest.fn(),
+      onClickNoteType: jest.fn(),
+      onChangeAttachmentUrl: jest.fn()
     },
     feed: {
       event_notes: [],
@@ -39,8 +39,8 @@ function testRenderWithEl(props) {
   return {el};
 }
 
-describe('educator can view restricted notes', function() {
-  it('renders restricted notes button with zero notes', function() {
+describe('educator can view restricted notes', () => {
+  it('renders restricted notes button with zero notes', () => {
     const {el} = testRenderWithEl({
       currentEducator: { can_view_restricted_notes: true },
       student: { restricted_notes_count: 0 },
@@ -48,7 +48,7 @@ describe('educator can view restricted notes', function() {
     expect(el.innerHTML).toContain('Restricted (0)');
   });
 
-  it('renders restricted notes button with 7 notes', function() {
+  it('renders restricted notes button with 7 notes', () => {
     const {el} = testRenderWithEl({
       currentEducator: { can_view_restricted_notes: true },
       student: { restricted_notes_count: 7 },
@@ -57,8 +57,8 @@ describe('educator can view restricted notes', function() {
   });
 });
 
-describe('educator can not view restricted notes', function() {
-  it('does not render restricted notes button', function() {
+describe('educator can not view restricted notes', () => {
+  it('does not render restricted notes button', () => {
     const {el} = testRenderWithEl({
       currentEducator: { can_view_restricted_notes: false },
       student: { restricted_notes_count: 0 },

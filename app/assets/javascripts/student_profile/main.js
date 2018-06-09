@@ -13,7 +13,7 @@ export default function renderStudentMain(el) {
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
 
   ReactDOM.render(<PageContainer
-    nowMomentFn={function() { return moment.utc(); }}
+    nowMomentFn={() => moment.utc()}
     serializedData={serializedData}
     queryParams={parseQueryString(window.location.search)}
     history={window.history} />, el);

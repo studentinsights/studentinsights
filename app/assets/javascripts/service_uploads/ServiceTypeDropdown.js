@@ -17,7 +17,7 @@ class ServiceTypeDropdown extends React.Component {
       delay: 0,
       minLength: 0,
       autoFocus: true,
-      select: function(event, ui) {
+      select(event, ui) {
         self.props.onUserSelectServiceType(ui.item.value);
       }
     });
