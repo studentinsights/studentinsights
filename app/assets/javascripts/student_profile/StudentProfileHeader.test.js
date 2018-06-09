@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
 import {studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import StudentProfileHeader from './StudentProfileHeader';
 
 const helpers = {
-  renderActiveStudent: function(el, props) {
+  renderActiveStudent(el, props) {
     const mergedProps = {
       student: studentProfile.student,
       ...props
@@ -15,7 +14,7 @@ const helpers = {
     ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
   },
 
-  renderTransferredStudent: function(el, props) {
+  renderTransferredStudent(el, props) {
     const this_student = studentProfile.student;
     this_student['enrollment_status'] = 'Transferred';
 
@@ -28,9 +27,9 @@ const helpers = {
 
 };
 
-SpecSugar.withTestEl('active enrolled student', function(container) {
-  it('renders note-taking area with homeroom', function() {
-    const el = container.testEl;
+describe('active enrolled student', () => {
+  it('renders note-taking area with homeroom', () => {
+    const el = document.createElement('div');
     helpers.renderActiveStudent(el);
     const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                    // so we don't have to calculate this
@@ -51,9 +50,9 @@ SpecSugar.withTestEl('active enrolled student', function(container) {
   });
 });
 
-SpecSugar.withTestEl('non-active Transferred student', function(container) {
-  it('renders note-taking area with Transferred status', function() {
-    const el = container.testEl;
+describe('non-active Transferred student', () => {
+  it('renders note-taking area with Transferred status', () => {
+    const el = document.createElement('div');
     helpers.renderTransferredStudent(el);
 
     expect(el.innerHTML).toContain('Daisy Poppins');

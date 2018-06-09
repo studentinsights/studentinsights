@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
 import {studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import NoteCard from './NoteCard';
 
 
@@ -39,10 +38,9 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('render', function(container) {
+describe('render', () => {
   it('renders simple text', function() {
-    const el = container.testEl;
-
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello'
     });
@@ -51,8 +49,7 @@ SpecSugar.withTestEl('render', function(container) {
   });
 
   it('renders number of revisions', function() {
-    const el = container.testEl;
-
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello',
       numberOfRevisions: 1
@@ -62,8 +59,7 @@ SpecSugar.withTestEl('render', function(container) {
   });
 
   it('escapes HTML-meaningful characters in text', function() {
-    const el = container.testEl;
-
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello <script src="xss.js"></script>world'
     });
@@ -72,8 +68,7 @@ SpecSugar.withTestEl('render', function(container) {
   });
 
   it('renders newlines as <br> tags', function() {
-    const el = container.testEl;
-
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello\nworld'
     });
@@ -82,10 +77,9 @@ SpecSugar.withTestEl('render', function(container) {
   });
 });
 
-SpecSugar.withTestEl('integration tests', function(container) {
+describe('integration tests', () => {
   it('replaces HTML with newlines in saved text', function() {
-    const el = container.testEl;
-
+    const el = document.createElement('div');
     const component = helpers.renderInto(el, {
       text: 'hello world'
     });
@@ -102,8 +96,7 @@ SpecSugar.withTestEl('integration tests', function(container) {
   });
 
   it('sanitizes undesirable HTML', function() {
-    const el = container.testEl;
-
+    const el = document.createElement('div');
     const component = helpers.renderInto(el, {
       text: 'hello\nworld'
     });

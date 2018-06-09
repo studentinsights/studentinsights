@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import SchoolCoursesPage, {SchoolCoursesPagePure} from './SchoolCoursesPage';
@@ -14,6 +13,12 @@ function testProps() {
   };
 }
 
+function testRenderWithEl(props) {
+  const el = document.createElement('div');
+  ReactDOM.render(withDefaultNowContext(<SchoolCoursesPage {...props} />), el);
+  return {el};
+}
+
 
 beforeEach(() => {
   fetchMock.restore();
@@ -22,22 +27,18 @@ beforeEach(() => {
 
 it('renders without crashing', () => {
   const props = testProps();
-  const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<SchoolCoursesPage {...props} />), el);
+  testRenderWithEl(props);
 });
 
-SpecSugar.withTestEl('integration tests', container => {
-  it('renders everything after fetch', done => {
-    const props = testProps();
-    const el = container.testEl;
-    ReactDOM.render(withDefaultNowContext(<SchoolCoursesPage {...props} />), el);
-    expect(el.innerHTML).toContain('This is an experimental prototype page!');
+it('renders everything after fetch', done => {
+  const props = testProps();
+  const {el} = testRenderWithEl(props);
+  expect(el.innerHTML).toContain('This is an experimental prototype page!');
 
-    setTimeout(() => {
-      expect($(el).find('table tbody tr').length).toEqual(3);
-      done();
-    }, 0);
-  });
+  setTimeout(() => {
+    expect($(el).find('table tbody tr').length).toEqual(3);
+    done();
+  }, 0);
 });
 
 

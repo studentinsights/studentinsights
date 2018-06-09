@@ -1,6 +1,5 @@
 import {configure} from '@storybook/react';
 import '../sprockets-shims';
-import '../../legacy';
 
 /* eslint-disable no-undef */
 function loadStories() {
@@ -21,6 +20,7 @@ function loadStories() {
   // student profile
   require('../../../app/assets/javascripts/student_profile/RiskBubble.story');
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
+  require('../../../app/assets/javascripts/student_profile/RecordService.story');
   
   // classlists
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');

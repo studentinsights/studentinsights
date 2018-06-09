@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
 import CheckStudentsWithHighAbsences, {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import studentsWithHighAbsencesJson from '../../../../spec/javascripts/fixtures/home_students_with_high_absences_json';
 import {withDefaultNowContext} from '../testing/NowContainer';
 
@@ -38,17 +37,13 @@ describe('CheckStudentsWithHighAbsences', () => {
     renderIntoEl(<CheckStudentsWithHighAbsences {...props} />);
   });
 
-  SpecSugar.withTestEl('integration tests', container => {
-    it('renders everything after fetch', done => {
-      const props = testProps();
-      const el = container.testEl;
-      ReactDOM.render(withDefaultNowContext(<CheckStudentsWithHighAbsences {...props} />), el);
-      
-      setTimeout(() => {
-        expect($(el).text()).toContain('There is one student');
-        done();
-      }, 0);
-    });
+  it('renders everything after fetch', done => {
+    const props = testProps();
+    const el = renderIntoEl(<CheckStudentsWithHighAbsences {...props} />);    
+    setTimeout(() => {
+      expect($(el).text()).toContain('There is one student');
+      done();
+    }, 0);
   });
 });
 

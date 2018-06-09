@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-addons-test-utils';
 import {studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import ServicesList from './ServicesList';
 
 const helpers = {
@@ -46,15 +46,15 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('high-level integration tests', function(container) {
+describe('high-level integration tests', () => {
   it('renders message when no services', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.emptyServicesFeed() });
     expect($(el).text()).toContain('No services');
   });
 
   it('renders everything on the happy path', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
     expect($(el).text()).toContain('Reading intervention');
     expect($(el).text()).toContain('With');
@@ -63,15 +63,15 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
   });
 
   it('asks for confirmation before discontinuing', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
-    $(el).find('.btn').click();
+    ReactTestUtils.Simulate.click($(el).find('.btn').get(0));
     expect($(el).text()).toContain('Confirm');
     expect($(el).text()).toContain('Cancel');
   });
 
   it('shows a message when request in progress', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     const service = helpers.fixtureService();
     helpers.renderInto(el, {
       servicesFeed: helpers.oneActiveServiceFeed(),
@@ -83,7 +83,7 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
   });
 
   it('renders discontinued services correctly', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     const discontinuedService = {
       ...helpers.fixtureService(),
       discontinued_by_educator_id: 1,

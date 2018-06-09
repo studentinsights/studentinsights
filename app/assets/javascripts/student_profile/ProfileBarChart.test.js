@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import ProfileBarChart from './ProfileBarChart';
 
 const helpers = {
@@ -18,13 +17,10 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('integration tests', function(container) {
-  it('is wrapped in a div with the given id', function() {
-    const el = container.testEl;
-    helpers.renderInto(el, {id: 'foo'});
+it('is wrapped in a div with the given id', function() {
+  const el = document.createElement('div');
+  helpers.renderInto(el, {id: 'foo'});
 
-    const div = $(el).children().first();
-    expect(div.attr('id')).toEqual("foo");
-  });
-
+  const div = $(el).children().first();
+  expect(div.attr('id')).toEqual("foo");
 });

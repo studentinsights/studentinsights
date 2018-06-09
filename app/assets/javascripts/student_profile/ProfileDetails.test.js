@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar';
 import ProfileDetails from './ProfileDetails';
 
 const helpers = {
@@ -101,9 +100,9 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('', function(container) {
+describe('rendering', () => {
   it('renders everything in the right location', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     helpers.renderInto(el);
 
     // Is header here?
@@ -171,10 +170,9 @@ SpecSugar.withTestEl('', function(container) {
   });
 });
 
-SpecSugar.withTestEl('Sections', function(container) {
-
+describe('Sections', () => {
   it('renders the correct roster headers', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     const props = {
       currentEducatorAllowedSections: [1,2,3,4]
     };
@@ -188,7 +186,7 @@ SpecSugar.withTestEl('Sections', function(container) {
   });
 
   it('renders the correct roster data', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     const props = {
       currentEducatorAllowedSections: [1,2,3,4]
     };
@@ -205,7 +203,7 @@ SpecSugar.withTestEl('Sections', function(container) {
   });
 
   it('renders section number based on educator access', function() {
-    const el = container.testEl;
+    const el = document.createElement('div');
     const props = {
       currentEducatorAllowedSections: [2,3,4]
     };

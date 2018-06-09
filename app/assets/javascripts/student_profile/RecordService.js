@@ -146,7 +146,7 @@ export default class RecordService extends React.Component {
 
     return (
       <button
-        className="btn service-type"
+        className={`btn service-type service-type-${serviceTypeId}`}
         onClick={this.onServiceClicked.bind(this, serviceTypeId)}
         tabIndex={-1}
         style={merge(styles.serviceButton, styles.buttonWidth, {
