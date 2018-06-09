@@ -5,7 +5,7 @@ import {
   high,
   medium,
   low
-} from '../helpers/colors.js';
+} from '../helpers/colors';
 
 // Visual component showing a horizontal bar broken down into three colors
 // showing percent of students at different DIBELS levels.

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import * as GraphHelpers from '../helpers/GraphHelpers';
-import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 
 const styles = {
   title: {
@@ -53,7 +53,7 @@ export default class ProfileBarChart extends React.Component {
   }
 
   makePlotlines(monthKeys) {
-    return this.props.phaselines.map(function(phaseline) {
+    return this.props.phaselines.map(phaseline => {
       const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
       const monthIndex = monthKeys.indexOf(phaselineMonthKey);
 
@@ -153,7 +153,7 @@ ProfileBarChart.defaultProps = {
   tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
   phaselines: [],
   nowMomentUTC: moment.utc(),
-  monthKeyFn: function defaultMonthKeyFn(event) {
+  monthKeyFn(event) {
     // A function that grabs a monthKey from an event that is passed in.  Should return
     // a string in the format YYYYMMDD for the first day of the month.
     // Used for grouping events on the chart.

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
+import moment from 'moment';
 import ProfileBarChart from './ProfileBarChart';
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       events: [],
       id: 'foo-id',
@@ -17,13 +17,10 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('integration tests', function(container) {
-  it('is wrapped in a div with the given id', function() {
-    const el = container.testEl;
-    helpers.renderInto(el, {id: 'foo'});
+it('is wrapped in a div with the given id', () => {
+  const el = document.createElement('div');
+  helpers.renderInto(el, {id: 'foo'});
 
-    const div = $(el).children().first();
-    expect(div.attr('id')).toEqual("foo");
-  });
-
+  const div = $(el).children().first();
+  expect(div.attr('id')).toEqual("foo");
 });

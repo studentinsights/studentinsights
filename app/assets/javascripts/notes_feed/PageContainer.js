@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Api from './Api.js';
-import NotesFeedPage from './NotesFeedPage.js';
+import Api from './Api';
+import NotesFeedPage from './NotesFeedPage';
 
 class PageContainer extends React.Component {
 

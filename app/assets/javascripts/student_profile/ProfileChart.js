@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import {merge} from '../helpers/merge';
-import HighchartsWrapper from './HighchartsWrapper';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 import ProfileChartSettings from './ProfileChartSettings';
 import {
   schoolYearStartDates,
@@ -61,8 +62,8 @@ export default class ProfileChart extends React.Component {
     };
 
     return _.object(
-      startDates.map(function(date){ return date.valueOf(); }),
-      startDates.map(function(date, i){
+      startDates.map(date => date.valueOf()),
+      startDates.map((date, i) => {
         return create_label(
           date,
           (current_grade - startDates.length) + (i + 1) // (current_grade - n/12) to current_grade inclusive
@@ -149,7 +150,7 @@ export default class ProfileChart extends React.Component {
     return (
       <HighchartsWrapper
         {...merge(this.baseOptions(), {
-          series: this.props.quadSeries.map(function(obj){
+          series: this.props.quadSeries.map(obj => {
             return {
               name: obj.name,
               data: obj.data ? _.map(obj.data, toPair): []
@@ -164,7 +165,7 @@ export default class ProfileChart extends React.Component {
     return (
       <HighchartsWrapper
         {...merge(this.baseOptions(), {
-          series: this.props.quadSeries.map(function(obj){
+          series: this.props.quadSeries.map(obj => {
             return {
               name: obj.name,
               data: obj.data  ? _.map(obj.data, toStarObject): []

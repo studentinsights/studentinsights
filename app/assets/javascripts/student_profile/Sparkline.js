@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import {toDate} from './QuadConverter';
+import d3 from 'd3';
 
 /*
 Project quads outside of the date range, since interpolation will connect with previous data points.
 */
 export default class Sparkline extends React.Component {
   computeDelta(quads) {
-    const filteredQuadValues = _.compact(quads.map(function(quad) {
+    const filteredQuadValues = _.compact(quads.map(quad => {
       const date = toDate(quad);
       if (date > this.props.dateRange[0] && date < this.props.dateRange[1]) return null;
       return quad[3];
-    }, this));
+    }));
     if (filteredQuadValues.length < 2) return 0;
     return _.last(filteredQuadValues) - _.first(filteredQuadValues);
   }
@@ -32,8 +34,8 @@ export default class Sparkline extends React.Component {
       .domain(this.props.valueRange)
       .range([this.props.height - padding, padding]);
     const lineGenerator = d3.svg.line()
-      .x(function(d) { return x(toDate(d)); }.bind(this))
-      .y(function(d) { return y(d[3]); })
+      .x(d => x(toDate(d)))
+      .y(d => y(d[3]))
       .interpolate('linear');
 
     const lineColor = color(this.computeDelta(this.props.quads));
@@ -53,7 +55,7 @@ export default class Sparkline extends React.Component {
             stroke={lineColor}
             strokeWidth={3}
             fill="none" />
-          {(!this.props.shouldDrawCircles) ? null : this.props.quads.map(function(quad) {
+          {(!this.props.shouldDrawCircles) ? null : this.props.quads.map(quad => {
             return (
               <circle
                 key={quad.slice(0, 3).join(',')}
@@ -71,7 +73,7 @@ export default class Sparkline extends React.Component {
   // TODO(kr) check start of school year
   renderYearStarts(padding, x, y) {
     const years = _.range(this.props.dateRange[0].getFullYear(), this.props.dateRange[1].getFullYear());
-    return years.map(function(year) {
+    return years.map(year => {
       const yearStartDate = moment.utc([year, 8, 15].join('-'), 'YYYY-M-D').toDate();
       return (
         <line

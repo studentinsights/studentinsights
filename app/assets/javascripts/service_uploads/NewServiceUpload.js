@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Datepicker from '../student_profile/Datepicker.js';
-import ServiceTypeDropdown from './ServiceTypeDropdown.js';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import Datepicker from '../components/Datepicker';
+import ServiceTypeDropdown from './ServiceTypeDropdown';
 
 class NewServiceUpload extends React.Component {
 
@@ -233,7 +234,7 @@ class NewServiceUpload extends React.Component {
 
     const missingFormFieldNames = [];
 
-    formFields.map(function (formField) {
+    formFields.map(formField => {
       if (formData[formField] === undefined) {
         missingFormFieldNames.push(formFieldsToNames[formField]);
       }
@@ -262,13 +263,7 @@ class NewServiceUpload extends React.Component {
           <br />
           <br />
           <ul>
-            {this.props.incorrectLasids.map(function(lasid) {
-              return (
-                <li>
-                  {lasid}
-                </li>
-              );
-            }.bind(this))}
+            {this.props.incorrectLasids.map(lasid => <li>{lasid}</li>)}
           </ul>
         </div>
       );

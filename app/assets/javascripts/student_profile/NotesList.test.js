@@ -18,7 +18,7 @@ function testProps(props = {}) {
 }
 
 function readNoteTimestamps(el) {
-  return $(el).find('.NoteCard .date').toArray().map(function(dateEl) {
+  return $(el).find('.NoteCard .date').toArray().map(dateEl => {
     return moment.parseZone($(dateEl).text(), 'MMM DD, YYYY').toDate().getTime();
   });
 }

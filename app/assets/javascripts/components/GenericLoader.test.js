@@ -36,12 +36,12 @@ describe('when not GENERIC_LOADER_THROW_ON_REJECT_IN_TEST', () => {
   beforeEach(() => {
     consoleError = console.error; // eslint-disable-line no-console
     console.error = jest.fn(); // eslint-disable-line no-console
-    genericLoaderFlag = global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST;
-    delete global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST;
+    genericLoaderFlag = window.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST;
+    delete window.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST;
   });
   afterEach(() => {
     console.error = consoleError; // eslint-disable-line no-console
-    global.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST = genericLoaderFlag;
+    window.GENERIC_LOADER_THROW_ON_REJECT_IN_TEST = genericLoaderFlag;
   });
   
   it('renders error message on rejection', done => {

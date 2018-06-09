@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import InlineStudentProfile from './InlineStudentProfile';
 import {testProps} from './InlineStudentProfile.test';
 

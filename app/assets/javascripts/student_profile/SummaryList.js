@@ -10,7 +10,7 @@ class SummaryList extends React.Component {
           {this.props.title}
         </div>
         <ul>
-          {this.props.elements.map(function(element, index) {
+          {this.props.elements.map((element, index) => {
             return (
               <li key={index}>
                 {element}

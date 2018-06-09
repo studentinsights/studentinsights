@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
-import Api from './Api.js';
+import Api from './Api';
 import * as Routes from '../helpers/Routes';
 import StudentProfilePage from './StudentProfilePage';
 
@@ -193,7 +193,7 @@ export default class PageContainer extends React.Component {
     let updatedEventNotes;
     let foundEventNote = false;
 
-    updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+    updatedEventNotes = this.state.feed.event_notes.map(eventNote => {
       if (eventNote.id === response.id) {
         foundEventNote = true;
         return merge(eventNote, response);
@@ -229,10 +229,10 @@ export default class PageContainer extends React.Component {
     const eventNoteToUpdate = _.find(this.state.feed.event_notes, function(eventNote) {
       return _.findWhere(eventNote.attachments, { id: eventNoteAttachmentId });
     });
-    const updatedAttachments = eventNoteToUpdate.attachments.filter(function(attachment) {
+    const updatedAttachments = eventNoteToUpdate.attachments.filter(attachment => {
       return attachment.id !== eventNoteAttachmentId;
     });
-    const updatedEventNotes = this.state.feed.event_notes.map(function(eventNote) {
+    const updatedEventNotes = this.state.feed.event_notes.map(eventNote => {
       return (eventNote.id !== eventNoteToUpdate.id)
         ? eventNote
         : merge(eventNote, { attachments: updatedAttachments });
@@ -287,9 +287,7 @@ export default class PageContainer extends React.Component {
     const updatedFeed = merge(this.state.feed, {
       services: merge(this.state.feed.services, {
         discontinued: this.state.feed.services.discontinued.concat([response]),
-        active: this.state.feed.services.active.filter(function(service) {
-          return service.id !== serviceId;
-        }),
+        active: this.state.feed.services.active.filter(service => service.id !== serviceId)
       })
     });
     this.setState(merge(updatedStateOfRequests, { feed: updatedFeed }));

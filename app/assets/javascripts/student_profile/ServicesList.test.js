@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-addons-test-utils';
 import {studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import ServicesList from './ServicesList';
 
 const helpers = {
-  emptyServicesFeed: function() {
+  emptyServicesFeed() {
     return { active: [], discontinued: [] };
   },
 
-  oneActiveServiceFeed: function() {
+  oneActiveServiceFeed() {
     return {
       active: [helpers.fixtureService()],
       discontinued: []
     };
   },
 
-  fixtureService: function() {
+  fixtureService() {
     return {
       id: 267,
       student_id: 3,
@@ -30,7 +30,7 @@ const helpers = {
     };
   },
 
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       servicesFeed: {
         active: [],
@@ -46,15 +46,15 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('high-level integration tests', function(container) {
-  it('renders message when no services', function() {
-    const el = container.testEl;
+describe('high-level integration tests', () => {
+  it('renders message when no services', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.emptyServicesFeed() });
     expect($(el).text()).toContain('No services');
   });
 
-  it('renders everything on the happy path', function() {
-    const el = container.testEl;
+  it('renders everything on the happy path', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
     expect($(el).text()).toContain('Reading intervention');
     expect($(el).text()).toContain('With');
@@ -62,16 +62,16 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
     expect($(el).text()).toContain('Discontinue');
   });
 
-  it('asks for confirmation before discontinuing', function() {
-    const el = container.testEl;
+  it('asks for confirmation before discontinuing', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, { servicesFeed: helpers.oneActiveServiceFeed() });
-    $(el).find('.btn').click();
+    ReactTestUtils.Simulate.click($(el).find('.btn').get(0));
     expect($(el).text()).toContain('Confirm');
     expect($(el).text()).toContain('Cancel');
   });
 
-  it('shows a message when request in progress', function() {
-    const el = container.testEl;
+  it('shows a message when request in progress', () => {
+    const el = document.createElement('div');
     const service = helpers.fixtureService();
     helpers.renderInto(el, {
       servicesFeed: helpers.oneActiveServiceFeed(),
@@ -82,8 +82,8 @@ SpecSugar.withTestEl('high-level integration tests', function(container) {
     expect($(el).find('.btn').text()).toEqual('Updating...');
   });
 
-  it('renders discontinued services correctly', function() {
-    const el = container.testEl;
+  it('renders discontinued services correctly', () => {
+    const el = document.createElement('div');
     const discontinuedService = {
       ...helpers.fixtureService(),
       discontinued_by_educator_id: 1,

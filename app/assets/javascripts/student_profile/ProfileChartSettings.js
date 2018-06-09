@@ -77,7 +77,7 @@ ProfileChartSettings.star_chart_base_options = {
     dateTimeLabelFormats: {}
   },
   tooltip: {
-    formatter: function () {
+    formatter() {
       const date = Highcharts.dateFormat('%A, %b %e, %Y', new Date(this.x));
       const percentileRank = this.y;
       const gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;

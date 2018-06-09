@@ -1,10 +1,10 @@
 import renderStudentMain from '../app/assets/javascripts/student_profile/main';
-import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main.jsx';
-import homeroomMain from '../app/assets/javascripts/homeroom_table/main.jsx';
-import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main.jsx';
-import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main.jsx';
-import renderSectionMain from '../app/assets/javascripts/section/main.jsx';
-import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main.jsx';
+import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main';
+import homeroomMain from '../app/assets/javascripts/homeroom_table/main';
+import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
+import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main';
+import renderSectionMain from '../app/assets/javascripts/section/main';
+import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
+import moment from 'moment';
+import MixpanelUtils from '../helpers/MixpanelUtils';
 import parseQueryString from './parseQueryString';
 import PageContainer from './PageContainer';
 
@@ -12,7 +13,7 @@ export default function renderStudentMain(el) {
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
 
   ReactDOM.render(<PageContainer
-    nowMomentFn={function() { return moment.utc(); }}
+    nowMomentFn={() => moment.utc()}
     serializedData={serializedData}
     queryParams={parseQueryString(window.location.search)}
     history={window.history} />, el);

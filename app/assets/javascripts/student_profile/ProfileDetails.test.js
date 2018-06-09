@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import ProfileDetails from './ProfileDetails';
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       student: {
         first_name: 'Test'
@@ -42,7 +41,7 @@ const helpers = {
     };
     ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
   },
-  renderHSInto: function(el, props) {
+  renderHSInto(el, props) {
     const mergedProps = {
       student: {
         first_name: 'Test',
@@ -101,15 +100,15 @@ const helpers = {
   }
 };
 
-SpecSugar.withTestEl('', function(container) {
-  it('renders everything in the right location', function() {
-    const el = container.testEl;
+describe('rendering', () => {
+  it('renders everything in the right location', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el);
 
     // Is header here?
     expect($(el).find("#full-case-history").length).toEqual(1);
     // Are all the school years represented?
-    _.each([2009, 2010, 2011, 2012, 2013, 2014, 2015], function(year){
+    _.each([2009, 2010, 2011, 2012, 2013, 2014, 2015], year => {
       expect($(el).find("#school-year-starting-" + year).length).toEqual(1);
     });
 
@@ -171,10 +170,9 @@ SpecSugar.withTestEl('', function(container) {
   });
 });
 
-SpecSugar.withTestEl('Sections', function(container) {
-
-  it('renders the correct roster headers', function() {
-    const el = container.testEl;
+describe('Sections', () => {
+  it('renders the correct roster headers', () => {
+    const el = document.createElement('div');
     const props = {
       currentEducatorAllowedSections: [1,2,3,4]
     };
@@ -187,8 +185,8 @@ SpecSugar.withTestEl('Sections', function(container) {
     expect(headers[0].innerHTML).toEqual('Section Number');
   });
 
-  it('renders the correct roster data', function() {
-    const el = container.testEl;
+  it('renders the correct roster data', () => {
+    const el = document.createElement('div');
     const props = {
       currentEducatorAllowedSections: [1,2,3,4]
     };
@@ -204,8 +202,8 @@ SpecSugar.withTestEl('Sections', function(container) {
     expect($(firstDataRows[2]).text()).toEqual('75.8');
   });
 
-  it('renders section number based on educator access', function() {
-    const el = container.testEl;
+  it('renders section number based on educator access', () => {
+    const el = document.createElement('div');
     const props = {
       currentEducatorAllowedSections: [2,3,4]
     };

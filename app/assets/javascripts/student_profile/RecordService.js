@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Datepicker from './Datepicker.js';
-import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown.js';
-import {toMoment} from '../helpers/toMoment.js';
+import Datepicker from '../components/Datepicker';
+import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
+import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
 import {
   toSchoolYear,
   lastDayOfSchool
@@ -146,7 +146,7 @@ export default class RecordService extends React.Component {
 
     return (
       <button
-        className="btn service-type"
+        className={`btn service-type service-type-${serviceTypeId}`}
         onClick={this.onServiceClicked.bind(this, serviceTypeId)}
         tabIndex={-1}
         style={merge(styles.serviceButton, styles.buttonWidth, {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import ProfileBarChart from './ProfileBarChart';
 import IncidentCard from '../components/IncidentCard';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
@@ -41,18 +42,18 @@ class AttendanceDetails extends React.Component {
     const activeServices = this.props.feed.services.active;
 
     const attendanceServiceTypes = [502, 503, 504, 505, 506];
-    const attendanceServices = activeServices.filter(function (service) {
+    const attendanceServices = activeServices.filter(service => {
       return (attendanceServiceTypes.indexOf(service.service_type_id) > -1);
     });
 
-    return attendanceServices.map(function (service) {
+    return attendanceServices.map(service => {
       const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
 
       return {
         momentUTC: moment.utc(service.date_started),
         text: 'Started ' + serviceText
       };
-    }, this);
+    });
   }
 
   render() {

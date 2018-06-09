@@ -1,11 +1,12 @@
-import _ from 'lodash';
-import MixpanelUtils from '../helpers/mixpanel_utils.jsx';
-import StudentsTable from '../components/StudentsTable';
-import SlicePanels from '../components/SlicePanels';
-import SliceButtons from '../components/SliceButtons';
-import {styles} from '../helpers/Theme';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import MixpanelUtils from '../helpers/MixpanelUtils';
+import {styles} from '../helpers/Theme';
+import SlicePanels from './SlicePanels';
+import SliceButtons from './SliceButtons';
+import StudentsTable from './StudentsTable';
+
 
 class SchoolOverviewPage extends React.Component {
 
@@ -56,8 +57,8 @@ class SchoolOverviewPage extends React.Component {
     //   ]
 
     const allStudents = this.props.allStudents;
-    return filterGroups.map(function(filterGroup) {
-      return filterGroup.reduce(function(filteredStudents, filter) {
+    return filterGroups.map(filterGroup => {
+      return filterGroup.reduce((filteredStudents, filter) => {
         return _.uniq(filteredStudents.concat(allStudents.filter(filter.filterFn)));
       }, []);
     });
@@ -83,7 +84,7 @@ class SchoolOverviewPage extends React.Component {
   activeFiltersIdentifier() {
     // Something like this: 'equal:grade:5-equal:program_assigned:2Way English'
 
-    return this.state.filters.map(function(filter) { return filter.identifier; }).join('-');
+    return this.state.filters.map(filter => filter.identifier).join('-');
   }
 
   addToCache(students) {
@@ -131,13 +132,11 @@ class SchoolOverviewPage extends React.Component {
     if (activeFiltersByCategory.length === 1) return studentsOrFiltered[0];
 
     // Are there categories with more than one filter in them?
-    const maxFiltersPerCategory = _.max(activeFiltersByCategory.map(function(category) {
-      return category.length;
-    }));
+    const maxFiltersPerCategory = _.max(activeFiltersByCategory.map(category => category.length));
 
     // Case 4, multiple filters but all different categories:
     if (maxFiltersPerCategory === 1) {
-      return this.state.filters.reduce(function(filteredStudents, filter) {
+      return this.state.filters.reduce((filteredStudents, filter) => {
         return filteredStudents.filter(filter.filterFn);
       }, this.props.allStudents);
     }
@@ -151,9 +150,7 @@ class SchoolOverviewPage extends React.Component {
   }
 
   filtersHash() {
-    return '#' + this.state.filters.map(function(filter) {
-      return encodeURIComponent(filter.identifier);
-    }).join('&');
+    return '#' + this.state.filters.map(filter => encodeURIComponent(filter.identifier)).join('&');
   }
 
   onFilterToggled(toggledFilter) {
@@ -162,7 +159,7 @@ class SchoolOverviewPage extends React.Component {
       filter_identifier: toggledFilter.identifier
     });
 
-    const withoutToggledFilter = this.state.filters.filter(function(filter) {
+    const withoutToggledFilter = this.state.filters.filter(filter => {
       return filter.identifier !== toggledFilter.identifier;
     });
     const updatedFilters = (withoutToggledFilter.length === this.state.filters.length)

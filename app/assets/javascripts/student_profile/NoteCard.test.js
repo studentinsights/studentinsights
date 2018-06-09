@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
 import {studentProfile} from './fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import NoteCard from './NoteCard';
 
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(el, props) {
     const mergedProps = {
       noteMoment: moment(),
       educatorId: 1,
@@ -26,7 +25,7 @@ const helpers = {
     return ReactDOM.render(<NoteCard {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
   },
 
-  editNoteAndSave: function(el, uiParams) {
+  editNoteAndSave(el, uiParams) {
     const $text = $(el).find('.EditableTextComponent');
     $text.html(uiParams.html);
     ReactTestUtils.Simulate.input($text.get(0));
@@ -34,15 +33,14 @@ const helpers = {
     return $text.html();
   },
 
-  getNoteHTML: function(el) {
+  getNoteHTML(el) {
     return $(el).find('.EditableTextComponent').html();
   }
 };
 
-SpecSugar.withTestEl('render', function(container) {
-  it('renders simple text', function() {
-    const el = container.testEl;
-
+describe('render', () => {
+  it('renders simple text', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello'
     });
@@ -50,9 +48,8 @@ SpecSugar.withTestEl('render', function(container) {
     expect(helpers.getNoteHTML(el)).toEqual('hello');
   });
 
-  it('renders number of revisions', function() {
-    const el = container.testEl;
-
+  it('renders number of revisions', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello',
       numberOfRevisions: 1
@@ -61,9 +58,8 @@ SpecSugar.withTestEl('render', function(container) {
     expect($(el).text()).toContain('Revised 1 time');
   });
 
-  it('escapes HTML-meaningful characters in text', function() {
-    const el = container.testEl;
-
+  it('escapes HTML-meaningful characters in text', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello <script src="xss.js"></script>world'
     });
@@ -71,9 +67,8 @@ SpecSugar.withTestEl('render', function(container) {
     expect(helpers.getNoteHTML(el)).toEqual('hello &lt;script src="xss.js"&gt;&lt;/script&gt;world');
   });
 
-  it('renders newlines as <br> tags', function() {
-    const el = container.testEl;
-
+  it('renders newlines as <br> tags', () => {
+    const el = document.createElement('div');
     helpers.renderInto(el, {
       text: 'hello\nworld'
     });
@@ -82,10 +77,9 @@ SpecSugar.withTestEl('render', function(container) {
   });
 });
 
-SpecSugar.withTestEl('integration tests', function(container) {
-  it('replaces HTML with newlines in saved text', function() {
-    const el = container.testEl;
-
+describe('integration tests', () => {
+  it('replaces HTML with newlines in saved text', () => {
+    const el = document.createElement('div');
     const component = helpers.renderInto(el, {
       text: 'hello world'
     });
@@ -101,9 +95,8 @@ SpecSugar.withTestEl('integration tests', function(container) {
     });
   });
 
-  it('sanitizes undesirable HTML', function() {
-    const el = container.testEl;
-
+  it('sanitizes undesirable HTML', () => {
+    const el = document.createElement('div');
     const component = helpers.renderInto(el, {
       text: 'hello\nworld'
     });

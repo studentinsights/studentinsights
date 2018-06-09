@@ -3,8 +3,8 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
 import PropTypes from 'prop-types';
 import React from 'react';
-import NotesDetails from '../student_profile/NotesDetails.js';
-import Api from '../student_profile/Api.js';
+import NotesDetails from '../student_profile/NotesDetails';
+import Api from '../student_profile/Api';
 
 /*
 Holds page state, makes API calls to manipulate it.

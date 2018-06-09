@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 // Find the latest event note of a particular type, and return a string
 // of that date.

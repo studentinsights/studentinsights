@@ -1,22 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-addons-test-utils';
+import moment from 'moment';
 import {studentProfile} from '../student_profile/fixtures';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
-import createSpyObj from '../../../../spec/javascripts/support/createSpyObj';
-import RestrictedNotesPageContainer from './RestrictedNotesPageContainer.js';
+import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
+import changeTextValue from '../testing/changeTextValue';
+
 
 const helpers = {
-  renderInto: function(el, props) {
+  renderInto(props) {
     const mergedProps = {
       nowMomentFn: moment.utc,
       serializedData: studentProfile,
       ...props
     };
+    const el = document.createElement('div');
     ReactDOM.render(<RestrictedNotesPageContainer {...mergedProps} />, el);
+    return {el};
   },
 
-  createMockApi: function(){
-    const mockApi = createSpyObj('api', ['saveNotes']);
+  createMockApi() {
+    const mockApi = {
+      saveNotes: jest.fn()
+    };
     mockApi.saveNotes.mockImplementation(() =>
       $.Deferred().resolve({
         id: 9999,
@@ -32,19 +38,18 @@ const helpers = {
     return mockApi;
   },
 
-  takeNotesAndSave: function(el, uiParams) {
-    $(el).find('.btn.take-notes').click();
-    SpecSugar.changeTextValue($(el).find('textarea'), uiParams.text);
-    $(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').click();
-    $(el).find('.btn.save').click();
-  },
+  takeNotesAndSave(el, uiParams) {
+    ReactTestUtils.Simulate.click($(el).find('.btn.take-notes').get(0));
+    changeTextValue($(el).find('textarea').get(0), uiParams.text);
+    ReactTestUtils.Simulate.click($(el).find('.btn.note-type:contains(' + uiParams.eventNoteTypeText + ')').get(0));
+    ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
+  }
 };
 
-SpecSugar.withTestEl('high-level integration tests', function(container) {
-  it('saves notes as restricted', function() {
-    const el = container.testEl;
+describe('high-level integration tests', () => {
+  it('saves notes as restricted', () => {
     const mockApi = helpers.createMockApi();
-    helpers.renderInto(el, {api: mockApi});
+    const {el} = helpers.renderInto({api: mockApi});
 
     helpers.takeNotesAndSave(el, {
       text: "hi",

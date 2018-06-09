@@ -1,7 +1,8 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import ElaDetails from './ElaDetails';
 
-describe('data', function () {
+describe('data', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
 

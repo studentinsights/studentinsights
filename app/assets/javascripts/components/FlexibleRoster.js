@@ -104,7 +104,7 @@ class FlexibleRoster extends React.Component {
               {superHeader.label}
             </th>
           );
-        }, this)}
+        })}
       </tr>
     );
   }
@@ -119,7 +119,7 @@ class FlexibleRoster extends React.Component {
               {column.label}
             </th>
           );
-        }, this)}
+        })}
       </tr>
     );
   }
@@ -149,10 +149,10 @@ class FlexibleRoster extends React.Component {
                     {this.renderBodyValue(row, column)}
                   </td>
                 );
-              }, this)}
+              })}
             </tr>
           );
-        }, this)}
+        })}
       </tbody>
     );
   }

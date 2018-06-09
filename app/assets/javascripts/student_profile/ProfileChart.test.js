@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import ProfileChart from './ProfileChart';
 
 describe('#timeProps', () => {
@@ -6,8 +7,8 @@ describe('#timeProps', () => {
   expect(timestampRange.min).toBeLessThan(timestampRange.max);
 });
 
-describe('#getSchoolYearStartPositions', function(){
-  it('works when current grade is 5', function(){
+describe('#getSchoolYearStartPositions', () => {
+  it('works when current grade is 5', () => {
     expect(
           ProfileChart.prototype.getSchoolYearStartPositions(24, moment.utc("2016-09-10"), 5)
       ).toEqual(
@@ -19,7 +20,7 @@ describe('#getSchoolYearStartPositions', function(){
       );
   }),
 
-  it('works when current grade is 1', function() {
+  it('works when current grade is 1', () => {
     expect(
           ProfileChart.prototype.getSchoolYearStartPositions(24, moment.utc("2016-09-10"), 1)
       ).toEqual(

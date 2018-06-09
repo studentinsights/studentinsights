@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import {merge} from '../helpers/merge';
-import Datepicker from './Datepicker';
+import Datepicker from '../components/Datepicker';
 import {
   firstDayOfSchool,
   toSchoolYear,
@@ -48,7 +48,7 @@ export default class ProfileDetails extends React.Component {
     const name = this.props.student.first_name;
     const events = [];
 
-    _.each(this.props.attendanceData.tardies, function(obj){
+    _.each(this.props.attendanceData.tardies, obj => {
       events.push({
         type: 'Tardy',
         id: obj.id,
@@ -56,7 +56,7 @@ export default class ProfileDetails extends React.Component {
         date: new Date(obj.occurred_at)
       });
     });
-    _.each(this.props.attendanceData.absences, function(obj){
+    _.each(this.props.attendanceData.absences, obj => {
       events.push({
         type: 'Absence',
         id: obj.id,
@@ -64,7 +64,7 @@ export default class ProfileDetails extends React.Component {
         date: new Date(obj.occurred_at)
       });
     });
-    _.each(this.props.attendanceData.discipline_incidents, function(obj){
+    _.each(this.props.attendanceData.discipline_incidents, obj => {
       events.push({
         type: 'Incident',
         id: obj.id,
@@ -72,7 +72,7 @@ export default class ProfileDetails extends React.Component {
         date: new Date(obj.occurred_at)
       });
     });
-    _.each(this.props.chartData.mcas_series_ela_scaled, function(quad){
+    _.each(this.props.chartData.mcas_series_ela_scaled, quad => {
       // var score = quad[3];
       events.push({
         type: 'MCAS-ELA',
@@ -81,7 +81,7 @@ export default class ProfileDetails extends React.Component {
         date: toDate(quad)
       });
     });
-    _.each(this.props.chartData.mcas_series_math_scaled, function(quad){
+    _.each(this.props.chartData.mcas_series_math_scaled, quad => {
       // var score = quad[3];
       events.push({
         type: 'MCAS-Math',
@@ -90,7 +90,7 @@ export default class ProfileDetails extends React.Component {
         date: toDate(quad)
       });
     });
-    _.each(this.props.chartData.star_series_reading_percentile, function(quad){
+    _.each(this.props.chartData.star_series_reading_percentile, quad => {
       // var score = quad[3];
       events.push({
         type: 'STAR-Reading',
@@ -99,7 +99,7 @@ export default class ProfileDetails extends React.Component {
         date: toDate(quad)
       });
     });
-    _.each(this.props.chartData.star_series_math_percentile, function(quad){
+    _.each(this.props.chartData.star_series_math_percentile, quad => {
       // var score = quad[3];
       events.push({
         type: 'STAR-Math',
@@ -108,7 +108,7 @@ export default class ProfileDetails extends React.Component {
         date: toDate(quad)
       });
     });
-    _.each(this.props.feed.deprecated.interventions, function(obj){
+    _.each(this.props.feed.deprecated.interventions, obj => {
       events.push({
         type: 'Note',
         id: obj.id,
@@ -116,7 +116,7 @@ export default class ProfileDetails extends React.Component {
         date: moment(obj.start_date_timestamp, "YYYY-MM-DD").toDate()
       });
     });
-    _.each(this.props.feed.deprecated.notes, function(obj){
+    _.each(this.props.feed.deprecated.notes, obj => {
       events.push({
         type: 'Note',
         id: obj.id,
@@ -124,7 +124,7 @@ export default class ProfileDetails extends React.Component {
         date: moment(obj.created_at_timestamp).toDate()
       });
     });
-    _.each(this.props.feed.event_notes, function(obj){
+    _.each(this.props.feed.event_notes, obj => {
       events.push({
         type: 'Note',
         id: obj.id,
@@ -134,14 +134,14 @@ export default class ProfileDetails extends React.Component {
     });
 
     const services = this.props.feed.services.active.concat(this.props.feed.services.discontinued);
-    _.each(services, function(obj){
+    _.each(services, obj => {
       events.push({
         type: 'Service',
         id: obj.id,
         message: this.getMessageForServiceType(obj.service_type_id),
         date: moment(obj.date_started).toDate()
       });
-    }.bind(this));
+    });
 
     _.each(this.props.dibels, function(obj) {
       // TODO(kr) need to investigate further, whether this is local demo data or production
