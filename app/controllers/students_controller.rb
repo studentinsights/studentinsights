@@ -191,25 +191,25 @@ class StudentsController < ApplicationController
     @current_educator = current_educator
     @sections = (params[:sections] || "").split(",")
 
-    @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today
-    @filter_to_date = params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today
+    @filter_from_time = (params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today).start_of_day
+    @filter_to_time = (params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today).end_of_day
 
     # Load event notes that are NOT restricted for the student for the filtered dates
-    @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
+    @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_time..@filter_to_time)
 
     # Load services for the student for the filtered dates
-    @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')
+    @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_time, @filter_from_time).order('date_started, discontinued_at')
 
     # Load student school years for the filtered dates
-    @student_school_years = @student.events_by_student_school_years(@filter_from_date, @filter_to_date)
+    @student_school_years = @student.events_by_student_school_years(@filter_from_time, @filter_to_time)
 
     # Sort the discipline incidents by occurrance date
     @discipline_incidents = @student.discipline_incidents.sort_by(&:occurred_at).select do |hash|
-      hash[:occurred_at] >= @filter_from_date && hash[:occurred_at] <= @filter_to_date
+      hash[:occurred_at] >= @filter_from_time && hash[:occurred_at] <= @filter_to_time
     end
 
     # This is a hash with the test name as the key and an array of date-sorted student assessment objects as the value
-    student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment).where(date_taken: @filter_from_date..@filter_to_date)
+    student_assessments_by_date = @student.student_assessments.order_by_date_taken_asc.includes(:assessment).where(date_taken: @filter_from_time..@filter_to_time)
 
     @student_assessments = student_assessments_by_date.each_with_object({}) do |student_assessment, hash|
       test = student_assessment.assessment
@@ -233,8 +233,8 @@ class StudentsController < ApplicationController
 
     @serialized_data = {
       graph_date_range: {
-        filter_from_date: @filter_from_date,
-        filter_to_date: @filter_to_date
+        filter_from_date: @filter_from_time,
+        filter_to_date: @filter_to_time
       },
       attendance_data: {
         discipline_incidents: @student.discipline_incidents.order(occurred_at: :desc),
