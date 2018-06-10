@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
+import d3 from 'd3';
 import Bar from '../components/Bar';
 import BoxAndWhisker from '../components/BoxAndWhisker';
 import {colors} from '../helpers/Theme';
@@ -417,15 +419,15 @@ const styles = {
 };
 
 ExploreClassroomComparisons.propTypes = {
-  students: React.PropTypes.arrayOf(React.PropTypes.shape({
-    race: React.PropTypes.string,
-    disability: React.PropTypes.string,
-    limited_english_proficiency: React.PropTypes.string,
-    gender: React.PropTypes.string,
-    grade: React.PropTypes.string,
-    free_reduced_lunch: React.PropTypes.string,
-    hispanic_latino: React.PropTypes.bool,
-    homeroom_id: React.PropTypes.number,
-    homeroom_name: React.PropTypes.string
+  students: PropTypes.arrayOf(PropTypes.shape({
+    race: PropTypes.string,
+    disability: PropTypes.string,
+    limited_english_proficiency: PropTypes.string,
+    gender: PropTypes.string,
+    grade: PropTypes.string,
+    free_reduced_lunch: PropTypes.string,
+    hispanic_latino: PropTypes.bool,
+    homeroom_id: PropTypes.number,
+    homeroom_name: PropTypes.string
   })).isRequired
 };

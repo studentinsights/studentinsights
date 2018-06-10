@@ -2,7 +2,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
 import {pureTestPropsForN} from './CheckStudentsWithHighAbsences.test';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 
 
 storiesOf('home/CheckStudentsWithHighAbsences', module) // eslint-disable-line no-undef

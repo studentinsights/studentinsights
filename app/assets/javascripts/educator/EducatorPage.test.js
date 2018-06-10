@@ -1,9 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {mount} from 'enzyme';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import EducatorPage from './EducatorPage';
-import educatorsViewJson from '../../../../spec/javascripts/fixtures/educatorsViewJson';
+import educatorsViewJson from './educatorsViewJson';
 import Section from '../components/Section';
 
 function testProps() {

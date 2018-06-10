@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import SectionHeading from '../components/SectionHeading';
 import HomeFeed from './HomeFeed';
@@ -28,8 +29,8 @@ class HomePage extends React.Component {
   }
 }
 HomePage.propTypes = {
-  educatorId: React.PropTypes.number.isRequired,
-  educatorLabels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  educatorId: PropTypes.number.isRequired,
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 const styles = {

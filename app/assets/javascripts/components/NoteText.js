@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -22,8 +23,8 @@ function NoteText(props) {
 }
 
 NoteText.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  text: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 export default NoteText;

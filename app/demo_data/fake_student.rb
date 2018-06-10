@@ -28,7 +28,7 @@ class FakeStudent
   def initialize(school, homeroom)
     @school = school
     @homeroom = homeroom
-    @student = Student.create(data)
+    @student = Student.create!(data)
     @newstudent = rand > 0.95
     add_attendance_events
     add_discipline_incidents

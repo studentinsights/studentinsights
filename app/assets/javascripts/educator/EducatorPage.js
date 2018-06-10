@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
@@ -76,7 +77,7 @@ class EducatorPage extends React.Component {
   }
 }
 EducatorPage.propTypes = {
-  educatorId: React.PropTypes.number.isRequired
+  educatorId: PropTypes.number.isRequired
 };
 
 

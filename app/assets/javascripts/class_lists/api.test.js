@@ -1,6 +1,6 @@
 import {postTeacherUpdates, postPrincipalRevisions} from './api';
 import fetchMock from 'fetch-mock/es5/client';
-import {TEST_TIME_MOMENT} from '../../../../spec/javascripts/support/NowContainer';
+import {TEST_TIME_MOMENT} from '../testing/NowContainer';
 
 beforeEach(() => {
   fetchMock.restore();

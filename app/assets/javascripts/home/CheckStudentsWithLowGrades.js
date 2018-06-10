@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import qs from 'query-string';
 import Card from '../components/Card';
 import Section from '../components/Section';
@@ -42,8 +43,8 @@ class CheckStudentsWithLowGrades extends React.Component {
   }
 }
 CheckStudentsWithLowGrades.propTypes = {
-  educatorId: React.PropTypes.number.isRequired,
-  limit: React.PropTypes.number // limit the data returned, not the query itself
+  educatorId: PropTypes.number.isRequired,
+  limit: PropTypes.number // limit the data returned, not the query itself
 };
 CheckStudentsWithLowGrades.defaultProps = {
   limit: 100
@@ -145,24 +146,24 @@ export class CheckStudentsWithLowGradesView extends React.Component {
 }
 
 CheckStudentsWithLowGradesView.propTypes = {
-  limit: React.PropTypes.number.isRequired,
-  totalCount: React.PropTypes.number.isRequired,
-  studentsWithLowGrades: React.PropTypes.arrayOf(React.PropTypes.shape({
-    student: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      first_name: React.PropTypes.string.isRequired,
-      last_name: React.PropTypes.string.isRequired,
-      grade: React.PropTypes.string.isRequired,
-      house: React.PropTypes.string
+  limit: PropTypes.number.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  studentsWithLowGrades: PropTypes.arrayOf(PropTypes.shape({
+    student: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      grade: PropTypes.string.isRequired,
+      house: PropTypes.string
     }).isRequired,
-    assignments: React.PropTypes.arrayOf(React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      grade_letter: React.PropTypes.string.isRequired,
-      grade_numeric: React.PropTypes.string.isRequired,
-      section: React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        section_number: React.PropTypes.string.isRequired,
-        educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    assignments: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      grade_letter: PropTypes.string.isRequired,
+      grade_numeric: PropTypes.string.isRequired,
+      section: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        section_number: PropTypes.string.isRequired,
+        educators: PropTypes.arrayOf(PropTypes.object).isRequired
       }).isRequired
     }))
   })).isRequired

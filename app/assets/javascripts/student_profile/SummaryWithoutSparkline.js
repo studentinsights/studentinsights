@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import HelpBubble from '../components/HelpBubble';
 
 const  styles = {
@@ -503,8 +505,8 @@ class SummaryWithoutSparkline  extends React.Component {
 }
 
 SummaryWithoutSparkline.propTypes = {
-  caption: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string // or null
+  caption: PropTypes.string.isRequired,
+  value: PropTypes.string // or null
 };
 
 export default SummaryWithoutSparkline;

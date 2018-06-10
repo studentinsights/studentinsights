@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // Render a horizontal Stack that is filled in order, with each bar
@@ -53,11 +54,11 @@ export default class Stack extends React.Component {
 }
 
 Stack.propTypes = {
-  stacks: React.PropTypes.array.isRequired,
-  scaleFn: React.PropTypes.func.isRequired,
-  labelFn: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object,
-  barStyle: React.PropTypes.object,
-  labelStyle: React.PropTypes.object,
-  title: React.PropTypes.string
+  stacks: PropTypes.array.isRequired,
+  scaleFn: PropTypes.func.isRequired,
+  labelFn: PropTypes.func.isRequired,
+  style: PropTypes.object,
+  barStyle: PropTypes.object,
+  labelStyle: PropTypes.object,
+  title: PropTypes.string
 };
