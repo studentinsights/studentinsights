@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import FeedView from './FeedView';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
-import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
+import {withDefaultNowContext} from '../testing/NowContainer';
+import homeFeedJson from '../testing/fixtures/home_feed_json';
 
 
 describe('FeedView', () => {

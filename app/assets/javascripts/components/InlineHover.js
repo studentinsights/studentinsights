@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -34,6 +35,6 @@ export default class Hover extends React.Component {
   }
 }
 Hover.propTypes = {
-  children: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object
+  children: PropTypes.func.isRequired,
+  style: PropTypes.object
 };

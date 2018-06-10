@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Card from '../components/Card';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
@@ -32,8 +33,8 @@ class HomeInsights extends React.Component {
   }
 }
 HomeInsights.propTypes = {
-  educatorId: React.PropTypes.number.isRequired,
-  educatorLabels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  educatorId: PropTypes.number.isRequired,
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 const styles = {

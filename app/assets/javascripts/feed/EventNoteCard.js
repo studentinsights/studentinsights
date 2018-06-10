@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FeedCardFrame from './FeedCardFrame';
 import Educator from '../components/Educator';
@@ -41,25 +42,25 @@ class EventNoteCard extends React.Component {
   }
 }
 EventNoteCard.propTypes = {
-  eventNoteCardJson: React.PropTypes.shape({
-    recorded_at: React.PropTypes.string.isRequired,
-    event_note_type_id: React.PropTypes.number.isRequired,
-    text: React.PropTypes.string.isRequired,
-    educator: React.PropTypes.object.isRequired,
-    student: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      first_name: React.PropTypes.string.isRequired,
-      last_name: React.PropTypes.string.isRequired,
-      grade: React.PropTypes.string.isRequired,
-      house: React.PropTypes.string,
-      homeroom: React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        educator: React.PropTypes.object
+  eventNoteCardJson: PropTypes.shape({
+    recorded_at: PropTypes.string.isRequired,
+    event_note_type_id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    educator: PropTypes.object.isRequired,
+    student: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      grade: PropTypes.string.isRequired,
+      house: PropTypes.string,
+      homeroom: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        educator: PropTypes.object
       })
     })
   }).isRequired,
-  style: React.PropTypes.object
+  style: PropTypes.object
 };
 
 

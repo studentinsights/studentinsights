@@ -1,6 +1,8 @@
 import React from 'react';
-import Datepicker from '../student_profile/Datepicker.js';
-import ServiceTypeDropdown from './ServiceTypeDropdown.js';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import Datepicker from '../components/Datepicker';
+import ServiceTypeDropdown from './ServiceTypeDropdown';
 
 class NewServiceUpload extends React.Component {
 
@@ -232,7 +234,7 @@ class NewServiceUpload extends React.Component {
 
     const missingFormFieldNames = [];
 
-    formFields.map(function (formField) {
+    formFields.map(formField => {
       if (formData[formField] === undefined) {
         missingFormFieldNames.push(formFieldsToNames[formField]);
       }
@@ -261,13 +263,7 @@ class NewServiceUpload extends React.Component {
           <br />
           <br />
           <ul>
-            {this.props.incorrectLasids.map(function(lasid) {
-              return (
-                <li>
-                  {lasid}
-                </li>
-              );
-            }.bind(this))}
+            {this.props.incorrectLasids.map(lasid => <li>{lasid}</li>)}
           </ul>
         </div>
       );
@@ -309,25 +305,25 @@ class NewServiceUpload extends React.Component {
 
 NewServiceUpload.propTypes = {
   // Actions
-  onClickUploadButton: React.PropTypes.func.isRequired,
-  onSelectStartDate: React.PropTypes.func.isRequired,
-  onSelectEndDate: React.PropTypes.func.isRequired,
-  onSelectFile: React.PropTypes.func.isRequired,
-  onUserTypingServiceType: React.PropTypes.func.isRequired,
-  onUserSelectServiceType: React.PropTypes.func.isRequired,
+  onClickUploadButton: PropTypes.func.isRequired,
+  onSelectStartDate: PropTypes.func.isRequired,
+  onSelectEndDate: PropTypes.func.isRequired,
+  onSelectFile: PropTypes.func.isRequired,
+  onUserTypingServiceType: PropTypes.func.isRequired,
+  onUserSelectServiceType: PropTypes.func.isRequired,
 
   // Student LASID validation
-  lasidAuthorizationError: React.PropTypes.bool.isRequired,
-  studentLasidsReceivedFromBackend: React.PropTypes.bool.isRequired,
-  incorrectLasids: React.PropTypes.array.isRequired,
-  missingLasidHeader: React.PropTypes.bool.isRequired,
+  lasidAuthorizationError: PropTypes.bool.isRequired,
+  studentLasidsReceivedFromBackend: PropTypes.bool.isRequired,
+  incorrectLasids: PropTypes.array.isRequired,
+  missingLasidHeader: PropTypes.bool.isRequired,
 
   // Overall form validation
-  missingRequiredFields: React.PropTypes.bool.isRequired,
-  formData: React.PropTypes.object.isRequired,
-  serverSideErrors: React.PropTypes.array.isRequired,
-  uploadingInProgress: React.PropTypes.bool.isRequired,
-  serviceTypeNames: React.PropTypes.array.isRequired,
+  missingRequiredFields: PropTypes.bool.isRequired,
+  formData: PropTypes.object.isRequired,
+  serverSideErrors: PropTypes.array.isRequired,
+  uploadingInProgress: PropTypes.bool.isRequired,
+  serviceTypeNames: PropTypes.array.isRequired,
 };
 
 export default NewServiceUpload;

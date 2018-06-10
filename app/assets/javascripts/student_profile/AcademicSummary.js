@@ -1,3 +1,6 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 const  styles = {
   caption: {
     marginRight: 5
@@ -40,9 +43,9 @@ class AcademicSummary extends React.Component {
 }
 
 AcademicSummary.propTypes = {
-  caption: React.PropTypes.string.isRequired,
-  sparkline: React.PropTypes.element.isRequired,
-  value: React.PropTypes.number // value or null
+  caption: PropTypes.string.isRequired,
+  sparkline: PropTypes.element.isRequired,
+  value: PropTypes.number // value or null
 };
 
 

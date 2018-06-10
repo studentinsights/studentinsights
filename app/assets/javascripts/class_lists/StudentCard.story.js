@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import {widthFrame} from './storybookFrame';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import StudentCard from './StudentCard';
 import {HighlightKeys} from './studentFilters';
 import {testProps} from './StudentCard.test';

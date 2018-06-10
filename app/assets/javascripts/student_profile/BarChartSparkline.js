@@ -1,4 +1,8 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 import _ from 'lodash';
+import d3 from 'd3';
 import {toDate} from './QuadConverter';
 
 /*
@@ -28,7 +32,7 @@ class BarChartSparkline extends React.Component {
   }
 
   renderBars(quads, color, x, y) {
-    return quads.map(function(quad){
+    return quads.map(quad => {
       return (
         <rect
           // TODO: Unique enough? Will it cause namespace conflicts?
@@ -69,7 +73,7 @@ class BarChartSparkline extends React.Component {
   // TODO(kr) check start of school year
   renderYearStarts(x, y) {
     const years = _.range(this.props.dateRange[0].getFullYear(), this.props.dateRange[1].getFullYear());
-    return years.map(function(year) {
+    return years.map(year => {
       const yearStartDate = moment.utc([year, 8, 15].join('-'), 'YYYY-M-D').toDate();
       return (
         <line
@@ -85,12 +89,12 @@ class BarChartSparkline extends React.Component {
 }
 
 BarChartSparkline.propTypes = {
-  height: React.PropTypes.number.isRequired,
-  width: React.PropTypes.number.isRequired,
-  quads: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)).isRequired,
-  dateRange: React.PropTypes.array.isRequired,
-  valueRange: React.PropTypes.array.isRequired,
-  thresholdValue: React.PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  quads: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  dateRange: PropTypes.array.isRequired,
+  valueRange: PropTypes.array.isRequired,
+  thresholdValue: PropTypes.number.isRequired,
 };
 
 export default BarChartSparkline;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
@@ -85,8 +86,8 @@ export default class InlineStudentProfile extends React.Component {
   }
 }
 InlineStudentProfile.propTypes = {
-  fetchProfile: React.PropTypes.func.isRequired,
-  student: React.PropTypes.object.isRequired
+  fetchProfile: PropTypes.func.isRequired,
+  student: PropTypes.object.isRequired
 };
 
 const styles = {

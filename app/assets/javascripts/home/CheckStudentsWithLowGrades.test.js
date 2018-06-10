@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
 import CheckStudentsWithLowGrades, {CheckStudentsWithLowGradesView} from './CheckStudentsWithLowGrades';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
-import studentsWithLowGradesJson from '../../../../spec/javascripts/fixtures/home_students_with_low_grades_json';
+import studentsWithLowGradesJson from './home_students_with_low_grades_json';
 
 function renderIntoEl(element) {
   const el = document.createElement('div');
@@ -38,17 +37,16 @@ describe('CheckStudentsWithLowGrades', () => {
     ReactDOM.render(<CheckStudentsWithLowGrades {...props} />, el);
   });
 
-  SpecSugar.withTestEl('integration tests', container => {
-    it('renders everything after fetch', done => {
-      const props = testProps();
-      const el = container.testEl;
-      ReactDOM.render(<CheckStudentsWithLowGrades {...props} />, el);
-      
-      setTimeout(() => {
-        expect($(el).text()).toContain('There are 7 students in your classes');
-        done();
-      }, 0);
-    });
+
+  it('renders everything after fetch', done => {
+    const props = testProps();
+    const el = document.createElement('div');
+    ReactDOM.render(<CheckStudentsWithLowGrades {...props} />, el);
+    
+    setTimeout(() => {
+      expect($(el).text()).toContain('There are 7 students in your classes');
+      done();
+    }, 0);
   });
 });
 

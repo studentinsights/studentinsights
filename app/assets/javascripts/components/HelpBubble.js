@@ -1,4 +1,5 @@
 import ReactModal from 'react-modal';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class HelpBubble extends React.Component {
@@ -79,9 +80,9 @@ class HelpBubble extends React.Component {
 }
 
 HelpBubble.propTypes = {
-  title: React.PropTypes.string.isRequired, // e.g. 'What is a Note?'
-  content: React.PropTypes.node.isRequired, // React DOM objects which will be displayed in the modal text box.
-  teaser: React.PropTypes.node.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
+  title: PropTypes.string.isRequired, // e.g. 'What is a Note?'
+  content: PropTypes.node.isRequired, // React DOM objects which will be displayed in the modal text box.
+  teaser: PropTypes.node.isRequired // text displayed before the user clicks, e.g. 'Find out more.'
 };
 
 export default HelpBubble;
