@@ -1,44 +1,53 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
+import {mount} from 'enzyme';
+import {TEST_TIME_MOMENT} from '../testing/NowContainer';
 import ProfileDetails from './ProfileDetails';
+
+
+function testProps(props = {}) {
+  return {
+    nowMoment: TEST_TIME_MOMENT,
+    student: {
+      first_name: 'Test',
+      id: 42,
+    },
+    attendanceData: {
+      absences: [{id: 991, occurred_at: "2016-02-21T18:35:03.757Z"}],
+      tardies: [{id: 998, occurred_at: "2014-01-01T14:35:03.750Z"}],
+      discipline_incidents: [{id: 9912, occurred_at: "2012-01-10T14:35Z"}]
+    },
+    chartData: {
+      mcas_series_ela_scaled: [[2015, 2, 18, 63]],
+      mcas_series_math_scaled: [[2014, 9, 18, 23]],
+      star_series_reading_percentile: [[2016, 1, 18, 83]],
+      star_series_math_percentile: [[2012, 11, 18, 43]],
+    },
+    iepDocuments: [],
+    services: [],
+    feed: {
+      deprecated: {
+        interventions: [{id: 997, start_date_timestamp: "2010-10-1"}],
+        notes: [{id: 945, created_at_timestamp: "2013-02-11T14:41:52.857Z"}]
+      },
+      event_notes: [{id: 992, recorded_at: "2010-10-17T00:00:00.000Z"}],
+      services: {
+        active: [{id: 996, date_started: "2010-02-09", service_type_id: 508}],
+        discontinued: [{id: 945, date_started: "2010-10-08"}]
+      }
+    },
+    dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}],
+    serviceTypesIndex: {
+      "508": {name: "Math intervention", id: 508}
+    },
+    ...props
+  };
+}
 
 const helpers = {
   renderInto(el, props) {
-    const mergedProps = {
-      student: {
-        first_name: 'Test'
-      },
-      attendanceData: {
-        absences: [{id: 991, occurred_at: "2016-02-21T18:35:03.757Z"}],
-        tardies: [{id: 998, occurred_at: "2014-01-01T14:35:03.750Z"}],
-        discipline_incidents: [{id: 9912, occurred_at: "2012-01-10T14:35Z"}]
-      },
-      chartData: {
-        mcas_series_ela_scaled: [[2015, 2, 18, 63]],
-        mcas_series_math_scaled: [[2014, 9, 18, 23]],
-        star_series_reading_percentile: [[2016, 1, 18, 83]],
-        star_series_math_percentile: [[2012, 11, 18, 43]],
-      },
-      iepDocuments: [],
-      services: [],
-      feed: {
-        deprecated: {
-          interventions: [{id: 997, start_date_timestamp: "2010-10-1"}],
-          notes: [{id: 945, created_at_timestamp: "2013-02-11T14:41:52.857Z"}]
-        },
-        event_notes: [{id: 992, recorded_at: "2010-10-17T00:00:00.000Z"}],
-        services: {
-          active: [{id: 996, date_started: "2010-02-09", service_type_id: 508}],
-          discontinued: [{id: 945, date_started: "2010-10-08"}]
-        }
-      },
-      dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}],
-      serviceTypesIndex: {
-        "508": {name: "Math intervention", id: 508}
-      },
-      ...props
-    };
+    const mergedProps = testProps(props);
     ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
   },
   renderHSInto(el, props) {
@@ -216,5 +225,13 @@ describe('Sections', () => {
 
     const firstDataRows = dataElements.eq(0).find('td');
     expect($(firstDataRows[0]).text()).toEqual('SOM-A');
+  });
+});
+
+
+describe('PDF', () => {
+  it('creates download URL in correct format', () => {
+    const wrapper = mount(<ProfileDetails {...testProps()} />);
+    expect(wrapper.instance().studentReportURL()).toEqual('/students/42/student_report.pdf?sections=notes,services,attendance,discipline_incidents,assessments&from_date=08/15/2016&to_date=03/13/2018');
   });
 });

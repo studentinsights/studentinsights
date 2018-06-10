@@ -17,11 +17,13 @@ import StudentSectionsRoster from './StudentSectionsRoster';
 export default class ProfileDetails extends React.Component {
   constructor(props) {
     super(props);
+    const nowMoment = props.nowMoment || moment();
     this.state = {
-      filterFromDate: firstDayOfSchool(toSchoolYear(moment())-1),
-      filterToDate: moment()
+      filterFromDate: firstDayOfSchool(toSchoolYear(nowMoment)-1),
+      filterToDate: nowMoment
     };
 
+    this.checkboxContainerEl = null;
     this.onFilterFromDateChanged = this.onFilterFromDateChanged.bind(this);
     this.onFilterToDateChanged = this.onFilterToDateChanged.bind(this);
     this.onClickGenerateStudentReport = this.onClickGenerateStudentReport.bind(this);
@@ -177,9 +179,10 @@ export default class ProfileDetails extends React.Component {
     const id = this.props.student.id;
     const filterFromDateForQuery = this.filterFromDateForQuery();
     const filterToDateForQuery = this.filterToDateForQuery();
-    const sections = $('#section:checked').map(() => this.value).get().join(',');
+    const checkboxEls = $(this.checkboxContainerEl).find('.ProfileDetails-section').toArray();
+    const sections = checkboxEls.filter(el => el.checked).map(el => el.value).join(',');
 
-    return `${id}/student_report.pdf?sections=${sections}&from_date=${filterFromDateForQuery}&to_date=${filterToDateForQuery}`;
+    return `/students/${id}/student_report.pdf?sections=${sections}&from_date=${filterFromDateForQuery}&to_date=${filterToDateForQuery}`;
   }
 
   onFilterFromDateChanged(dateText) {
@@ -288,7 +291,13 @@ export default class ProfileDetails extends React.Component {
   renderStudentReportSectionOption(optionValue, optionName) {
     return (
       <div style={styles.option3Column}>
-        <input style={styles.optionCheckbox} type='checkbox' id='section' name={optionValue} defaultChecked value={optionValue} />
+        <input
+          style={styles.optionCheckbox}
+          type='checkbox'
+          className="ProfileDetails-section"
+          name={optionValue}
+          defaultChecked
+          value={optionValue} />
         <label style={styles.optionLabel}>{optionName}</label>
       </div>
     );
@@ -317,7 +326,7 @@ export default class ProfileDetails extends React.Component {
       <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
         <h4 style={styles.title}>Student Report</h4>
         <span style={styles.tableHeader}>Select sections to include in report:</span>
-        <div>
+        <div ref={el => this.checkboxContainerEl = el}>
           {this.renderStudentReportSectionOption('notes','Notes')}
           {this.renderStudentReportSectionOption('services','Services')}
           {this.renderStudentReportSectionOption('attendance','Attendance')}
@@ -450,6 +459,7 @@ ProfileDetails.propTypes = {
   attendanceData: PropTypes.object,
   serviceTypesIndex: PropTypes.object,
   currentEducator: PropTypes.object,
+  nowMoment: PropTypes.object
 };
 
 const styles = {
