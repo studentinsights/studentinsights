@@ -1,28 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe StudentsImporter do
-  class FakeLog
-    attr_reader :msgs
-
-    def initialize
-      @msgs = []
-    end
-
-    def puts(msg)
-      @msgs << msg
-    end
-  end
-
+  let(:log) { LogHelper::FakeLog.new }
   let(:students_importer) {
     described_class.new(options: {
-      school_scope: nil, log: FakeLog.new
+      school_scope: nil, log: log
     })
   }
 
   describe '#import_row' do
     context 'good data' do
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { CsvTransformer.new(log) }
       let(:csv) { transformer.transform(file) }
       let(:import) { csv.each { |row| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }

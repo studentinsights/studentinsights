@@ -14,7 +14,7 @@ RSpec.describe X2AssessmentImporter do
       after { Assessment.seed_somerville_assessments }
 
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { CsvTransformer.new(LogHelper::FakeLog.new) }
       let(:csv) { transformer.transform(file) }
 
       context 'for Healey school' do

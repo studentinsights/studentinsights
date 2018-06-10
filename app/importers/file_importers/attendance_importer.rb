@@ -38,7 +38,7 @@ class AttendanceImporter
   end
 
   def data_transformer
-    StreamingCsvTransformer.new
+    StreamingCsvTransformer.new(@log)
   end
 
   def filter
