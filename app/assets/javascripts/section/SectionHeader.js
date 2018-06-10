@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import * as Routes from '../helpers/Routes';
 
@@ -48,8 +49,8 @@ class SectionHeader extends React.Component {
 }
 
 SectionHeader.propTypes = {
-  section: React.PropTypes.object.isRequired,
-  sections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  section: PropTypes.object.isRequired,
+  sections: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default SectionHeader;

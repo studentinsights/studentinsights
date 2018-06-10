@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -10,8 +11,8 @@ export default function SuccessLabel({text, style}) {
   return <span className="SuccessLabel" style={mergedStyle}>{text}</span>;
 }
 SuccessLabel.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  text: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 const styles = {

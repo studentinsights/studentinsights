@@ -1,0 +1,6657 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="SlicePanels columns-container"
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "row",
+      "fontSize": 12,
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="column"
+  >
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Disability
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                88%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "44%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Low &lt; 2
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Low &gt;= 2
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Moderate
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  High
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Low Income
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Not Eligible
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Reduced Lunch
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                24%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "12%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Free Lunch
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          LEP
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  FLEP-Transitioning
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Limited
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  FLEP
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Race
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Asian
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                36%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "18%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Black
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  White
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="FixedTable panel "
+      style={
+        Object {
+          "display": "inline-block",
+          "paddingBottom": 5,
+          "paddingTop": 5,
+        }
+      }
+    >
+      <div
+        className="fixed-table-title"
+        style={
+          Object {
+            "fontWeight": "bold",
+            "height": "1em",
+            "marginBottom": 5,
+            "paddingLeft": 5,
+          }
+        }
+      >
+        Hispanic/Latino
+      </div>
+      <table>
+        <tbody>
+          <tr
+            className="clickable-row"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": null,
+                "cursor": "pointer",
+              }
+            }
+          >
+            <td
+              className="caption-cell"
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <a
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingLeft": 10,
+                  }
+                }
+              >
+                Yes
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "fontSize": 12,
+                  "paddingRight": 8,
+                  "textAlign": "right",
+                  "width": 48,
+                }
+              }
+            >
+              48%
+            </td>
+            <td
+              style={
+                Object {
+                  "fontSize": 12,
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="bar"
+                style={
+                  Object {
+                    "height": "1em",
+                    "width": "24%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+          <tr
+            className="clickable-row"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": null,
+                "cursor": "pointer",
+              }
+            }
+          >
+            <td
+              className="caption-cell"
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <a
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingLeft": 10,
+                  }
+                }
+              >
+                No
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "fontSize": 12,
+                  "paddingRight": 8,
+                  "textAlign": "right",
+                  "width": 48,
+                }
+              }
+            >
+              48%
+            </td>
+            <td
+              style={
+                Object {
+                  "fontSize": 12,
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="bar"
+                style={
+                  Object {
+                    "height": "1em",
+                    "width": "24%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+          <tr
+            className="clickable-row"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": null,
+                "cursor": "pointer",
+              }
+            }
+          >
+            <td
+              className="caption-cell"
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <a
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingLeft": 10,
+                  }
+                }
+              >
+                None
+              </a>
+            </td>
+            <td
+              style={
+                Object {
+                  "fontSize": 12,
+                  "paddingRight": 8,
+                  "textAlign": "right",
+                  "width": 48,
+                }
+              }
+            >
+              4%
+            </td>
+            <td
+              style={
+                Object {
+                  "fontSize": 12,
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="bar"
+                style={
+                  Object {
+                    "height": "1em",
+                    "width": "2%",
+                  }
+                }
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        style={
+          Object {
+            "paddingLeft": 5,
+          }
+        }
+      />
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Gender
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  M
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                56%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "28%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  F
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                40%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "20%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="column grades-column pad-column-right"
+  >
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Grade
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  KF
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                36%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "18%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  3
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  5
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Years enrolled
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                100%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "50%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Risk level
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  1
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                12%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "6%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  2
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                24%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "12%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  3
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                44%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "22%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  N/A
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="column ela-background"
+  >
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          STAR Reading
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &lt; 25th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  25th - 50th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  50th - 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                12%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "6%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &gt; 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          MCAS ELA Score
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Not Meeting Expectations
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                12%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "6%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Partially Meeting
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                24%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "12%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Meeting Expectations
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                24%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "12%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Exceeding Expectations
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          MCAS ELA SGP
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &lt; 25th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  25th - 50th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  50th - 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &gt; 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="column math-background"
+  >
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          STAR Math
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &lt; 25th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  25th - 50th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  50th - 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &gt; 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                40%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "20%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          MCAS Math Score
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Not Meeting Expectations
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                12%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "6%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Partially Meeting
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Meeting Expectations
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Exceeding Expectations
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          MCAS Math SGP
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &lt; 25th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  25th - 50th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                24%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "12%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  50th - 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                12%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "6%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &gt; 75th
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                36%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "18%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="column attendance-column attendance-background pad-column-right"
+  >
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Discipline incidents
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                76%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "38%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  1
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  2
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  3 - 5
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  6+
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Absences
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0 days
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                36%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "18%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &lt; 1 week
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                60%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "30%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  1 - 2 weeks
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  2 - 4 weeks
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &gt; 4 weeks
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Tardies
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0 days
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                40%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "20%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &lt; 1 week
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                56%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "28%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  1 - 2 weeks
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  2 - 4 weeks
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 0.15,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  &gt; 4 weeks
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="column interventions-column"
+  >
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Services
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                76%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "38%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  SomerSession
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Counseling, in-house
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                12%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "6%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Summer Program for English Language Learners
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Summer
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                76%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "38%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  SomerSession
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Summer Program for English Language Learners
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                8%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "4%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Freedom School
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Notes
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                16%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "8%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Parent conversation
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                60%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "30%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Something else
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                56%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "28%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  9th Grade Experience
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                52%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "26%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Program
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Reg Ed
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                40%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "20%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  2Way Spanish
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                24%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "12%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  2Way English
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Homeroom
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  HEA 003
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                36%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "18%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  HEA 500
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

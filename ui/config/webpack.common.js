@@ -8,7 +8,7 @@ module.exports = {
     rules: [
       // Process JS with Babel.
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/, // use .js instead of .jsx
 
         loader: require.resolve('babel-loader'),
         options: {

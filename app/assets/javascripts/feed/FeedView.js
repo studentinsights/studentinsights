@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
@@ -43,10 +44,10 @@ export class FeedView extends React.Component {
   }    
 }
 FeedView.propTypes = {
-  feedCards: React.PropTypes.arrayOf(React.PropTypes.shape({
-    type: React.PropTypes.string.isRequired,
-    timestamp: React.PropTypes.string.isRequired,
-    json: React.PropTypes.object.isRequired
+  feedCards: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    timestamp: PropTypes.string.isRequired,
+    json: PropTypes.object.isRequired
   })).isRequired
 };
 

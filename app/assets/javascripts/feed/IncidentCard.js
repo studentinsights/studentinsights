@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FeedCardFrame from './FeedCardFrame';
 import HouseBadge from '../components/HouseBadge';
@@ -30,27 +31,27 @@ class IncidentCard extends React.Component {
   }
 }
 IncidentCard.propTypes = {
-  incidentCard: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    incident_code: React.PropTypes.string.isRequired,
-    incident_location: React.PropTypes.string.isRequired,
-    incident_description: React.PropTypes.string.isRequired,
-    occurred_at: React.PropTypes.string.isRequired,
-    has_exact_time: React.PropTypes.bool.isRequired,
-    student: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      first_name: React.PropTypes.string.isRequired,
-      last_name: React.PropTypes.string.isRequired,
-      grade: React.PropTypes.string.isRequired,
-      house: React.PropTypes.string,
-      homeroom: React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        educator: React.PropTypes.object
+  incidentCard: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    incident_code: PropTypes.string.isRequired,
+    incident_location: PropTypes.string.isRequired,
+    incident_description: PropTypes.string.isRequired,
+    occurred_at: PropTypes.string.isRequired,
+    has_exact_time: PropTypes.bool.isRequired,
+    student: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      grade: PropTypes.string.isRequired,
+      house: PropTypes.string,
+      homeroom: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        educator: PropTypes.object
       })
     })
   }),
-  style: React.PropTypes.object
+  style: PropTypes.object
 };
 
 

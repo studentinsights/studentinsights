@@ -87,14 +87,14 @@ export function toSchoolYear(date) {
 // Returns an array of quads, each representing the first of the month, with a value equal to the number of
 // events that happened in that month.
 export function cumulativeByMonthFromEvents(attendanceEvents) {
-  const groupedByMonth = _.groupBy(attendanceEvents, function(event){
+  const groupedByMonth = _.groupBy(attendanceEvents, event => {
     return moment.utc(event.occurred_at).startOf('month').toISOString();
   });
 
   // result is an array of quads, one quad per month.
   let result = [];
 
-  _.each(groupedByMonth, function(value, key){
+  _.each(groupedByMonth, (value, key) => {
     result.push(fromMoment(moment.utc(key), value.length));
   });
 

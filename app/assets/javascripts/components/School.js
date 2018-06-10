@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // A visual UI element with canonical display of a school,
@@ -12,9 +13,9 @@ function School({id, name, style}) {
   );
 }
 School.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  name: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 export default School;

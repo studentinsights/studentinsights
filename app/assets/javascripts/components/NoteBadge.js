@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Badge from './Badge';
 import {
   eventNoteTypeText,
@@ -14,8 +14,8 @@ function NoteBadge({eventNoteTypeId, style}) {
   return Badge({text, backgroundColor, style});
 }
 NoteBadge.propTypes = {
-  eventNoteTypeId: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object
+  eventNoteTypeId: PropTypes.number.isRequired,
+  style: PropTypes.object
 };
 
 export default NoteBadge;

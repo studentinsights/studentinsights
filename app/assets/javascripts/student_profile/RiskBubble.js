@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const styles = {
@@ -48,7 +49,7 @@ class RiskBubble extends React.Component {
 }
 
 RiskBubble.propTypes = {
-  riskLevel: React.PropTypes.number
+  riskLevel: PropTypes.number
 };
 
 export default RiskBubble;

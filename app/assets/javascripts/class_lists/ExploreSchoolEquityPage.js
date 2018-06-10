@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
@@ -39,5 +40,5 @@ export default class ExploreSchoolEquityPage extends React.Component {
 }
 
 ExploreSchoolEquityPage.propTypes = {
-  schoolId: React.PropTypes.string.isRequired
+  schoolId: PropTypes.string.isRequired
 };

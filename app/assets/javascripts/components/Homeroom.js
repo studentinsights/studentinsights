@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Educator from './Educator';
 
@@ -20,13 +21,13 @@ function Homeroom({id, name, educator, style}) {
   );
 }
 Homeroom.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  name: React.PropTypes.string.isRequired,
-  educator: React.PropTypes.shape({
-    full_name: React.PropTypes.string, // or null
-    email: React.PropTypes.string.isRequired
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  educator: PropTypes.shape({
+    full_name: PropTypes.string, // or null
+    email: PropTypes.string.isRequired
   }),
-  style: React.PropTypes.object
+  style: PropTypes.object
 };
 
 export default Homeroom;

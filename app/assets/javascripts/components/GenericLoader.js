@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import PromiseLoader from './PromiseLoader';
 import Loading from './Loading';
@@ -44,9 +45,9 @@ class GenericLoader extends React.Component {
   }
 }
 GenericLoader.propTypes = {
-  promiseFn: React.PropTypes.func.isRequired,
-  render: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object
+  promiseFn: PropTypes.func.isRequired,
+  render: PropTypes.func.isRequired,
+  style: PropTypes.object
 };
 
 export default GenericLoader;

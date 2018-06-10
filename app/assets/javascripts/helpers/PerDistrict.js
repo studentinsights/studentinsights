@@ -30,7 +30,7 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
   const key = 'sped_level_of_need';
   const itemsFromValues = orderedDisabilityValues(districtKey).map(value => {
     return createItemFn(value, Filters.Equal(key, value));
-  }, this);
+  });
 
   // Somerville uses a null value for no disability, while New Bedford
   // uses a separate value to describe that explicitly.
@@ -70,4 +70,14 @@ export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
   }
 
   return slugA.localeCompare(slugB);
+}
+
+// This only applies to Somerville HS.
+export function shouldDisplayHouse(school) {
+  return (school && school.local_id === 'SHS');
+}
+
+// This only applies to high schools.
+export function shouldDisplayCounselor(school) {
+  return (school && school.school_type === 'HS');
 }

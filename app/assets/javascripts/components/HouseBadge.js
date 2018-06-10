@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -14,8 +15,8 @@ function HouseBadge({house, style}) {
   return <span className="HouseBadge" style={mergedStyle}>{`${house} house`}</span>;
 }
 HouseBadge.propTypes = {
-  house: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  house: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 const styles = {

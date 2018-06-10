@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -6,5 +7,5 @@ export default function Loading({style = {}}) {
   return <div style={{padding: 10, ...style}}>Loading...</div>;
 }
 Loading.propTypes = {
-  style: React.PropTypes.object
+  style: PropTypes.object
 };

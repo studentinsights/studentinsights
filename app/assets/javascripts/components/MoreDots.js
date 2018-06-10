@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // A visual UI element for horizontal dots indicating "more"
@@ -11,7 +12,7 @@ function MoreDots({color = '#ccc'}) {
   );
 }
 MoreDots.propTypes = {
-  color: React.PropTypes.string
+  color: PropTypes.string
 };
 
 export default MoreDots;

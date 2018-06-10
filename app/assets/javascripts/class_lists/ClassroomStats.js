@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import Hover from '../components/Hover';
@@ -309,12 +310,12 @@ export default class ClassroomStats extends React.Component {
   }
 }
 ClassroomStats.propTypes = {
-  students: React.PropTypes.array.isRequired,
-  gradeLevelNextYear: React.PropTypes.string.isRequired,
-  rooms: React.PropTypes.array.isRequired,
-  studentIdsByRoom: React.PropTypes.object.isRequired,
-  highlightKey: React.PropTypes.string,
-  onCategorySelected: React.PropTypes.func.isRequired
+  students: PropTypes.array.isRequired,
+  gradeLevelNextYear: PropTypes.string.isRequired,
+  rooms: PropTypes.array.isRequired,
+  studentIdsByRoom: PropTypes.object.isRequired,
+  highlightKey: PropTypes.string,
+  onCategorySelected: PropTypes.func.isRequired
 };
 
 const styles = {

@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import storybookFrame from './storybookFrame';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import CreateYourLists from './CreateYourLists';
 import {
   consistentlyPlacedInitialStudentIdsByRoom,
@@ -69,7 +70,7 @@ class Container extends React.Component {
   }
 }
 Container.propTypes = {
-  classroomsCount: React.PropTypes.number.isRequired,
-  students: React.PropTypes.array.isRequired,
-  forceUnplaced: React.PropTypes.bool
+  classroomsCount: PropTypes.number.isRequired,
+  students: PropTypes.array.isRequired,
+  forceUnplaced: PropTypes.bool
 };
