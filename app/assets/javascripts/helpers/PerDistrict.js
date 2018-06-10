@@ -15,29 +15,41 @@ const ORDERED_DISABILITY_VALUES_MAP = {
     'Low >= 2',
     'Moderate',
     'High'
-  ]
+  ],
+  'demo': [
+    // also include null
+    'Low < 2',
+    'Low >= 2',
+    'Moderate',
+    'High'
+  ],
+
 };
 
 export function orderedDisabilityValues(districtKey) {
   return ORDERED_DISABILITY_VALUES_MAP[districtKey] || [];
 }
 
-// Renders a table for `SlicePanels` that works differently for different
-// districts.
-export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
-  const {createItemFn, renderTableFn} = options;
-
+// The table for `SlicePanels` that works differently for different
+// districts because the data is stored differently, and this returns
+// [{value,filter}] describing which filters the UI should show.
+export function slicePanelsDisabilityItems(districtKey) {
   const key = 'sped_level_of_need';
   const itemsFromValues = orderedDisabilityValues(districtKey).map(value => {
+<<<<<<< Updated upstream
     return createItemFn(value, Filters.Equal(key, value));
   }, this);
+=======
+    const filter = Filters.Equal(key, value);
+    return {value, filter};
+  });
+>>>>>>> Stashed changes
 
   // Somerville uses a null value for no disability, while New Bedford
   // uses a separate value to describe that explicitly.
-  const items = (districtKey === 'somerville')
-    ? [createItemFn('None', Filters.Null(key))].concat(itemsFromValues)
+  return ((districtKey === 'somerville') || (districtKey === 'demo'))
+    ? [{value: 'None', filter: Filters.Null(key)}].concat(itemsFromValues)
     : itemsFromValues;
-  return renderTableFn({items, title: 'Disability'});
 }
 
 // Check educator labels to see if the educator belongs to

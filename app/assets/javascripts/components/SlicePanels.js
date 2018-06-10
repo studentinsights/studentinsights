@@ -4,8 +4,13 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
+<<<<<<< Updated upstream:app/assets/javascripts/components/SlicePanels.js
 import {shouldDisplay} from '../helpers/customization_helpers.js';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
+=======
+import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
+import {slicePanelsDisabilityItems} from '../helpers/PerDistrict';
+>>>>>>> Stashed changes:app/assets/javascripts/school_overview/SlicePanels.js
 
 
 // For showing a set of panels that let users see an overview
@@ -152,10 +157,10 @@ class SlicePanels extends React.Component {
   // the district.
   renderDisabilityTable() {
     const {districtKey} = this.props;
-    return renderSlicePanelsDisabilityTable(districtKey, {
-      createItemFn: this.createItem.bind(this),
-      renderTableFn: this.renderTable.bind(this)
-    });
+    const filterItems = slicePanelsDisabilityItems(districtKey);
+    // console.log(filterItems.map(item => item.value));
+    const renderedFilterItems = filterItems.map(item => this.createItem(item.value, item.filter));
+    return this.renderTable(renderedFilterItems, { title: 'Disability'});
   }
 
   renderELAColumn() {
@@ -352,6 +357,7 @@ class SlicePanels extends React.Component {
       filters: this.props.filters,
       onFilterToggled: this.props.onFilterToggled
     };
+    console.log('filters', this.props.filters);
     return <CollapsableTable {...props} />;
   }
 }
