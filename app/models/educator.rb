@@ -14,7 +14,6 @@ class Educator < ActiveRecord::Base
   has_many    :educator_labels
 
   validates :email, presence: true, uniqueness: true, case_sensitive: false
-  validates :full_name, presence: true, uniqueness: true, case_sensitive: false
 
   validate :validate_has_school_unless_districtwide,
            :validate_admin_gets_access_to_all_students,
