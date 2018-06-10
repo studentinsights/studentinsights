@@ -17,6 +17,22 @@ module LogHelper
       @file = File.new(log_path, 'w')
     end
   end
+
+  class FakeLog
+    attr_reader :msgs
+
+    def initialize
+      @msgs = []
+    end
+
+    def puts(msg)
+      @msgs << msg
+    end
+
+    def output
+      @msgs.join("\n")
+    end
+  end
 end
 
 RSpec.configure do |config|

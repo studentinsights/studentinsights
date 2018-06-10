@@ -5,7 +5,7 @@ RSpec.describe StreamingCsvTransformer do
   describe '#transform' do
     context 'tracks total and processed rows' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
-      let(:transformer) { StreamingCsvTransformer.new }
+      let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
       let(:output) { transformer.transform(csv_string) }
 
       it '#size and #pre_cleanup_csv_size (before iteration)' do
@@ -22,7 +22,7 @@ RSpec.describe StreamingCsvTransformer do
 
     context 'headers in csv' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
-      let(:transformer) { StreamingCsvTransformer.new }
+      let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
       let(:output) { transformer.transform(csv_string) }
 
       it '#each_with_index' do
@@ -48,7 +48,7 @@ RSpec.describe StreamingCsvTransformer do
     context 'headers not in csv' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
       let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
-      let(:transformer) { StreamingCsvTransformer.new(headers: headers) }
+      let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new, headers: headers) }
       let(:output) { transformer.transform(csv_string) }
 
       it '#size' do

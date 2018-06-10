@@ -11,7 +11,7 @@ class CsvTransformer
 
   # Performs whole-file transformations first
   def transform(csv_string)
-    cleaned_contents = ParseableCsvString.new(@log).parseable_string_from_string(csv_string)
+    cleaned_contents = ParseableCsvString.new(@log).from_string(csv_string)
 
     csv = CSV.parse(cleaned_contents, headers: @headers,
                           header_converters: :symbol,

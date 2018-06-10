@@ -9,11 +9,10 @@ class ParseableCsvString
   end
 
   def from_filename(filename)
-    parseable_string_from_string(read(filename))
+    from_string(read(filename))
   end
 
   def from_string(raw_file_contents)
-    raw_file_contents = read(filename)
     encoded_string = encode_as_utf8(raw_file_contents)
     string_without_quotes = convert_quotes(encoded_string)
     strip_inline_newlines(string_without_quotes)
