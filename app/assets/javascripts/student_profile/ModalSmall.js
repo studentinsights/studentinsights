@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactModal from 'react-modal';
 
@@ -87,9 +88,9 @@ class ModalSmall extends React.Component {
 }
 
 ModalSmall.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  content: React.PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
-  icon: React.PropTypes.object.isRequired, // React DOM object which will be clicked to open the modal.
+  title: PropTypes.string.isRequired,
+  content: PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
+  icon: PropTypes.object.isRequired, // React DOM object which will be clicked to open the modal.
 };
 
 export default ModalSmall;

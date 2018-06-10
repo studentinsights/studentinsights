@@ -4,7 +4,7 @@ import HomePage from './HomePage';
 import HomeFeed from './HomeFeed';
 import HomeInsights from './HomeInsights';
 import SectionHeading from '../components/SectionHeading';
-import {testContext} from '../../../../spec/javascripts/support/NowContainer';
+import {testContext} from '../testing/NowContainer';
 
 function testProps() {
   return {

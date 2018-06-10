@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import _ from 'lodash';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import {STEPS} from './ClassListCreatorPage';
 import available_grade_levels_json from './fixtures/available_grade_levels_json';
@@ -102,6 +103,7 @@ export function exportProps(props = {}) {
     gradeLevelNextYear: available_grade_levels_json.grade_levels_next_year[0],
     students: students_for_grade_level_next_year_json.students,
     studentIdsByRoom: class_list_json.class_list.json.studentIdsByRoom,
+    educators: students_for_grade_level_next_year_json.educators,
     ...props
   };
 }
@@ -145,14 +147,14 @@ export function exportPropsWithTeacherNames(props = {}) {
 
 function snapshotRender(props) {
   return renderer
-    .create(<ClassListCreatorWorkflow {...props} />)
+    .create(withDefaultNowContext(<ClassListCreatorWorkflow {...props} />))
     .toJSON();
 }
 
 it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
-  ReactDOM.render(<ClassListCreatorWorkflow {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<ClassListCreatorWorkflow {...props} />), el);
 });
 
 it('chooseYourGradeProps', () => {
@@ -171,8 +173,9 @@ it('shareWithPrincipalProps', () => {
   expect(snapshotRender(shareWithPrincipalProps({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
 });
 
-it('export', () => {
-  expect(snapshotRender(exportPropsWithAllPlaced())).toMatchSnapshot();
-  expect(snapshotRender(exportPropsWithMoves({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
-  expect(snapshotRender(exportPropsWithTeacherNames({ isEditable: false, isSubmitted: true }))).toMatchSnapshot();
+describe('exportProps snapshots', () => {
+  it('unplaced', () => expect(snapshotRender(exportProps())).toMatchSnapshot());
+  it('all placed', () => expect(snapshotRender(exportPropsWithAllPlaced())).toMatchSnapshot());
+  it('moves', () => expect(snapshotRender(exportPropsWithMoves({ isEditable: false, isSubmitted: true }))).toMatchSnapshot());
+  it('with teachers', () => expect(snapshotRender(exportPropsWithTeacherNames({ isEditable: false, isSubmitted: true }))).toMatchSnapshot());
 });

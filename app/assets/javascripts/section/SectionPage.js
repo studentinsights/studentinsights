@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FlexibleRoster from '../components/FlexibleRoster';
 import SectionHeader from './SectionHeader';
@@ -118,13 +119,13 @@ class SectionPage extends React.Component {
 }
 
 SectionPage.propTypes = {
-  students: React.PropTypes.arrayOf(React.PropTypes.shape({
-    event_notes_without_restricted: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  students: PropTypes.arrayOf(PropTypes.shape({
+    event_notes_without_restricted: PropTypes.arrayOf(PropTypes.object).isRequired
   })).isRequired,
-  educators: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  sections: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  section: React.PropTypes.object.isRequired,
-  currentEducator: React.PropTypes.object.isRequired
+  educators: PropTypes.arrayOf(PropTypes.object).isRequired,
+  sections: PropTypes.arrayOf(PropTypes.object).isRequired,
+  section: PropTypes.object.isRequired,
+  currentEducator: PropTypes.object.isRequired
 };
 
 export default SectionPage;

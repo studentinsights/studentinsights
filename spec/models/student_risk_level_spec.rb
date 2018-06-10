@@ -109,23 +109,23 @@ RSpec.describe StudentRiskLevel, type: :model do
 
     context 'missing MCAS and STAR results' do
       context 'not limited English' do
-        let(:student) { FactoryBot.create(:student) }
+        let(:student) { FactoryBot.create(:student, first_name: 'Deondre') }
         let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
         it 'has an explanation' do
           expect(student_risk_level.explanation).to eq({
-            intro: "This student is at Risk N/A because:",
+            intro: "Deondre is at Risk N/A because:",
             reasons: ["There is not enough information to tell."]
           })
         end
       end
 
       context 'limited english' do
-        let(:student) { FactoryBot.create(:limited_english_student) }
+        let(:student) { FactoryBot.create(:limited_english_student, first_name: 'Deondre') }
         let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
         it 'has a correct explanation' do
           expect(student_risk_level.explanation).to eq({
-            intro: "This student is at Risk 3 because:",
-            reasons: ["This student is limited English proficient."]
+            intro: "Deondre is at Risk 3 because:",
+            reasons: ["Deondre is limited English proficient."]
           })
         end
       end
@@ -134,12 +134,12 @@ RSpec.describe StudentRiskLevel, type: :model do
     context 'has MCAS results but not STAR' do
       context 'has MCAS math but not MCAS ela' do
         context 'has a W value for MCAS math' do
-          let(:student) { FactoryBot.create(:student_with_mcas_math_warning_assessment) }
+          let(:student) { FactoryBot.create(:student_with_mcas_math_warning_assessment, first_name: 'Deondre') }
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
             expect(student_risk_level.explanation).to eq({
-              intro: "This student is at Risk 3 because:",
-              reasons: ["This student's MCAS Math performance level is Warning or Not Meeting Expectations."]
+              intro: "Deondre is at Risk 3 because:",
+              reasons: ["Deondre's MCAS Math performance level is Warning or Not Meeting Expectations."]
             })
           end
         end
@@ -149,7 +149,7 @@ RSpec.describe StudentRiskLevel, type: :model do
     context 'has Next Gen MCAS and MCAS, not STAR' do
       context 'has Next Gen MCAS math and MCAS math' do
         context 'has a W value for MCAS math and an EE for Next Gen MCAS Math' do
-          let(:student) { FactoryBot.create(:student) }
+          let(:student) { FactoryBot.create(:student, first_name: 'Deondre') }
           let(:earlier_date) { DateTime.new(2016, 5, 10) }
           let(:later_date) { DateTime.new(2017, 4, 28) }
           let!(:next_gen_mcas_math_ee) {FactoryBot.create(:next_gen_mcas_math_exceeds_expectations_assessment, student: student, date_taken: later_date)}
@@ -157,8 +157,8 @@ RSpec.describe StudentRiskLevel, type: :model do
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
             expect(student_risk_level.explanation).to eq({
-              intro: "This student is at Risk 0 because:",
-              reasons: ["This student's MCAS Math performance level is Advanced or Exceeding Expectations."]
+              intro: "Deondre is at Risk 0 because:",
+              reasons: ["Deondre's MCAS Math performance level is Advanced or Exceeding Expectations."]
             })
           end
         end
@@ -168,12 +168,12 @@ RSpec.describe StudentRiskLevel, type: :model do
     context 'has STAR results but not MCAS' do
       context 'has STAR math but not STAR reading' do
         context 'STAR math is between 30 and 85' do
-          let(:student) { FactoryBot.create(:student_with_star_assessment_between_30_85) }
+          let(:student) { FactoryBot.create(:student_with_star_assessment_between_30_85, first_name: 'Deondre') }
           let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
           it 'has a correct explanation' do
             expect(student_risk_level.explanation).to eq({
-              intro: "This student is at Risk 1 because:",
-              reasons: ["This student's STAR Math performance is above 30."]
+              intro: "Deondre is at Risk 1 because:",
+              reasons: ["Deondre's STAR Math performance is above 30."]
             })
           end
         end
@@ -182,13 +182,13 @@ RSpec.describe StudentRiskLevel, type: :model do
 
     context 'has both MCAS and STAR results' do
       context 'MCAS is advanced but STAR is warning' do
-        let(:student) { FactoryBot.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments) }
+        let(:student) { FactoryBot.create(:student_with_mcas_math_advanced_and_star_math_warning_assessments, first_name: 'Deondre') }
         let!(:student_risk_level) { StudentRiskLevel.create!(student: student) }
         it 'has a correct explanation' do
           expect(student_risk_level.explanation).to eq({
-            intro: "This student is at Risk 3 because:",
+            intro: "Deondre is at Risk 3 because:",
             reasons: [
-              "This student's STAR Math performance is in the warning range (below 10)."
+              "Deondre's STAR Math performance is in the warning range (below 10)."
             ]
           })
         end

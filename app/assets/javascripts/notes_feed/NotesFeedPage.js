@@ -1,4 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import NotesList from '../student_profile/NotesList';
+
 
 const styles = {
   button: {
@@ -32,7 +35,6 @@ class NotesFeedPage extends React.Component {
   }
 
   render() {
-    const NotesList = window.shared.NotesList;
     const feed = {
       event_notes: this.props.eventNotes,
       deprecated: {
@@ -90,11 +92,11 @@ class NotesFeedPage extends React.Component {
 
 
 NotesFeedPage.propTypes = {
-  educatorsIndex: React.PropTypes.object.isRequired,
-  eventNotes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onClickLoadMoreNotes: React.PropTypes.func.isRequired,
-  totalNotesCount: React.PropTypes.number.isRequired
+  educatorsIndex: PropTypes.object.isRequired,
+  eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  onClickLoadMoreNotes: PropTypes.func.isRequired,
+  totalNotesCount: PropTypes.number.isRequired
 };
 
 export default NotesFeedPage;

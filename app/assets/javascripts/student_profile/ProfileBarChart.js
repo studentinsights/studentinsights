@@ -1,7 +1,9 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import * as GraphHelpers from '../helpers/GraphHelpers';
-import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+import HighchartsWrapper from '../components/HighchartsWrapper';
 
 const styles = {
   title: {
@@ -30,7 +32,7 @@ const styles = {
   }
 };
 
-class ProfileBarChart extends React.Component {
+export default class ProfileBarChart extends React.Component {
   // Component for all charts in the profile page.
 
   // This returns a function, since HighCharts passes in the current element
@@ -43,7 +45,7 @@ class ProfileBarChart extends React.Component {
 
       let htmlstring = "";
       _.each(events, function(e){
-        htmlstring += _.template(props.tooltipTemplateString)({e: e});
+        htmlstring += _.template(props.tooltipTemplateString)({e, moment});
         htmlstring += "<br>";
       });
       return htmlstring;
@@ -51,7 +53,7 @@ class ProfileBarChart extends React.Component {
   }
 
   makePlotlines(monthKeys) {
-    return this.props.phaselines.map(function(phaseline) {
+    return this.props.phaselines.map(phaseline => {
       const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
       const monthIndex = monthKeys.indexOf(phaselineMonthKey);
 
@@ -137,26 +139,24 @@ class ProfileBarChart extends React.Component {
 }
 
 ProfileBarChart.propTypes = {
-  id: React.PropTypes.string.isRequired, // short string identifier for links to jump to
-  events: React.PropTypes.array.isRequired, // array of JSON event objects.
-  monthsBack: React.PropTypes.number.isRequired, // how many months in the past to display?
-  tooltipTemplateString: React.PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
-  titleText: React.PropTypes.string.isRequired,
-  nowMomentUTC: React.PropTypes.instanceOf(moment),
-  monthKeyFn: React.PropTypes.func,
-  phaselines: React.PropTypes.array
+  id: PropTypes.string.isRequired, // short string identifier for links to jump to
+  events: PropTypes.array.isRequired, // array of JSON event objects.
+  monthsBack: PropTypes.number.isRequired, // how many months in the past to display?
+  tooltipTemplateString: PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
+  titleText: PropTypes.string.isRequired,
+  nowMomentUTC: PropTypes.instanceOf(moment),
+  monthKeyFn: PropTypes.func,
+  phaselines: PropTypes.array
 };
 
 ProfileBarChart.defaultProps = {
   tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
   phaselines: [],
   nowMomentUTC: moment.utc(),
-  monthKeyFn: function defaultMonthKeyFn(event) {
+  monthKeyFn(event) {
     // A function that grabs a monthKey from an event that is passed in.  Should return
     // a string in the format YYYYMMDD for the first day of the month.
     // Used for grouping events on the chart.
     return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
   }
 };
-
-export default ProfileBarChart;

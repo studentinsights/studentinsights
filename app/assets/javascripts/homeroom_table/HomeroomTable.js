@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -500,7 +501,7 @@ class HomeroomTable extends React.Component {
 
     return (
       <tbody>
-        {rows.map((row, index) => { return this.renderRow(row, index); }, this)}
+        {rows.map((row, index) => this.renderRow(row, index))}
       </tbody>
     );
   }
@@ -584,13 +585,13 @@ class HomeroomTable extends React.Component {
 }
 
 HomeroomTable.propTypes = {
-  showStar: React.PropTypes.bool.isRequired,
-  showMcas: React.PropTypes.bool.isRequired,
-  rows: React.PropTypes.arrayOf(React.PropTypes.shape({
-    event_notes_without_restricted: React.PropTypes.array.isRequired
+  showStar: PropTypes.bool.isRequired,
+  showMcas: PropTypes.bool.isRequired,
+  rows: PropTypes.arrayOf(PropTypes.shape({
+    event_notes_without_restricted: PropTypes.array.isRequired
   })).isRequired,
-  school: React.PropTypes.shape({
-    school_type: React.PropTypes.string.isRequired
+  school: PropTypes.shape({
+    school_type: PropTypes.string.isRequired
   }).isRequired
 };
 

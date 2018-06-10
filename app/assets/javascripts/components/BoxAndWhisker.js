@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import percentile from 'percentile';
 
@@ -71,9 +72,9 @@ export default function BoxAndWhisker({values, boxStyle, whiskerStyle, labelStyl
   );
 }
 BoxAndWhisker.propTypes = {
-  values: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-  style: React.PropTypes.object,
-  boxStyle: React.PropTypes.object,
-  whiskerStyle: React.PropTypes.object,
-  labelStyle: React.PropTypes.object
+  values: PropTypes.arrayOf(PropTypes.number).isRequired,
+  style: PropTypes.object,
+  boxStyle: PropTypes.object,
+  whiskerStyle: PropTypes.object,
+  labelStyle: PropTypes.object
 };

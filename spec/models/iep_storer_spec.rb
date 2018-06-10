@@ -14,7 +14,8 @@ RSpec.describe IepStorer, type: :model do
   end
 
   before do
-    allow(File).to receive(:open).and_return 'eeee'
+    allow(File).to receive(:open).and_call_original # ActiveSupport calls this for i8n translations
+    allow(File).to receive(:open).with('/path/to/file').and_return 'eeee'
   end
 
   subject {
@@ -29,9 +30,10 @@ RSpec.describe IepStorer, type: :model do
 
   context 'local id matches to student' do
     let!(:student) {
-      Student.create!(
-        local_id: 'abc_student_local_id', grade: 'KF'
-      )
+      FactoryBot.create(:student, {
+        local_id: 'abc_student_local_id',
+        grade: 'KF'
+      })
     }
 
     context 'no other document for that student' do

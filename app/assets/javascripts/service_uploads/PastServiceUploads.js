@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ServiceUploadDetail from './ServiceUploadDetail.js';
+import ServiceUploadDetail from './ServiceUploadDetail';
 
 class PastServiceUploads extends React.Component {
 
@@ -23,7 +24,7 @@ class PastServiceUploads extends React.Component {
               onClickDeleteServiceUpload={onClickDeleteServiceUpload}
               key={String(serviceUpload.id)} />
           );
-        }, this)}
+        })}
       </div>
     );
   }
@@ -37,8 +38,8 @@ class PastServiceUploads extends React.Component {
 }
 
 PastServiceUploads.propTypes = {
-  serviceUploads: React.PropTypes.array,  /* show loading spinner if null */
-  onClickDeleteServiceUpload: React.PropTypes.func.isRequired,
+  serviceUploads: PropTypes.array,  /* show loading spinner if null */
+  onClickDeleteServiceUpload: PropTypes.func.isRequired,
 };
 
 export default PastServiceUploads;

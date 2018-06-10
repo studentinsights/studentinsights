@@ -2,7 +2,7 @@ export default {
   "is_editable": true,
   "class_list": {
     "workspace_id": "8cd18ae4-08a0-4901-8678-b277971c5aff",
-    "created_by_educator_id": 999999,
+    "created_by_teacher_educator_id": 999999,
     "school_id": 2,
     "grade_level_next_year": "3",
     "submitted": false,
@@ -28,6 +28,8 @@ export default {
       "principalNoteText": "principal!",
       "feedbackText": "feedback!",
       "clientNowMs": 1525712009
-    }
+    },
+    "principal_revisions_json": null,
+    "revised_by_principal_educator_id": null
   }
 };

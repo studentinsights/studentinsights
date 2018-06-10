@@ -273,7 +273,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             <div style={styles.descriptionText}>After you submit your class list, the principal will be the only one who can make changes.</div>
             {isSubmitted
               ? (isDirty) ? <span>Saving...</span> : <SuccessLabel text="Your class list is submitted" />
-              : <SeriousButton onClick={onSubmitClicked}>Submit to principal</SeriousButton>
+              : <SeriousButton isDisabled={!isEditable} onClick={onSubmitClicked}>Submit to principal</SeriousButton>
             }
           </div>
         </div>
@@ -292,7 +292,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     } = this.props;
     const {isExpandedVertically} = this.state;
 
-    // Default to teacher lists if no moves
+    // Default to the lists the teacher made if there haven't been any principal revisions yet
     const teacherStudentIdsByRoom = this.props.studentIdsByRoom;
     const principalStudentIdsByRoom = this.props.principalStudentIdsByRoom || teacherStudentIdsByRoom;
     if (students === null || principalStudentIdsByRoom === null) return <Loading />;
@@ -332,6 +332,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
     const school = _.find(schools, {id: schoolId});
 
     if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
+
     return (
       <div key="export" style={styles.stepContent}>
         <ExportList

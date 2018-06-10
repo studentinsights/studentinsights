@@ -1,3 +1,5 @@
+import React from 'react';
+
 // For simulating page size, including height
 export default function storybookFrame(children) {
   return (

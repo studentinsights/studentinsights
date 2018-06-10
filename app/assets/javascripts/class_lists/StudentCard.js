@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {Draggable} from 'react-beautiful-dnd';
@@ -113,6 +114,7 @@ export default class StudentCard extends React.Component {
           overlay: styles.modalOverlay,
           content: styles.modalContent
         }}
+        ariaHideApp={false}
         isOpen={modalIsOpen}
         onRequestClose={this.onClose}
         contentLabel="Modal"
@@ -125,12 +127,12 @@ export default class StudentCard extends React.Component {
   }
 }
 StudentCard.propTypes = {
-  student: React.PropTypes.object.isRequired,
-  index: React.PropTypes.number.isRequired,
-  fetchProfile: React.PropTypes.func.isRequired,
-  isEditable: React.PropTypes.bool.isRequired,
-  highlightKey: React.PropTypes.string,
-  style: React.PropTypes.object
+  student: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  fetchProfile: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  highlightKey: PropTypes.string,
+  style: PropTypes.object
 };
 
 const styles = {

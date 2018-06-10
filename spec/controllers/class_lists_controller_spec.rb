@@ -4,16 +4,11 @@ describe ClassListsController, :type => :controller do
   def create_class_list_from(educator, params = {})
     ClassList.create!({
       workspace_id: 'foo-workspace-id',
-      created_by_educator_id: educator.id,
+      created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
       json: { foo: 'bar' }
     }.merge(params))
   end
-
-  # enable feature
-  before { @ENABLE_CLASS_LISTS = ENV['ENABLE_CLASS_LISTS'] }
-  before { ENV['ENABLE_CLASS_LISTS'] = 'true' }
-  after { ENV['ENABLE_CLASS_LISTS'] = @ENABLE_CLASS_LISTS }
 
   before { request.env['HTTPS'] = 'on' }
   before { request.env['HTTP_ACCEPT'] = 'application/json' }
@@ -22,12 +17,14 @@ describe ClassListsController, :type => :controller do
 
   describe 'env ENABLE_CLASS_LISTS can disable feature' do
     before do
+      @enable_class_lists = ENV['ENABLE_CLASS_LISTS']
       ENV['ENABLE_CLASS_LISTS'] = 'false'
       sign_in(pals.healey_sarah_teacher)
     end
+    after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
 
-    it 'guards writing to update_class_list_json' do
-      post :update_class_list_json, params: {
+    it 'guards writing to teacher_updated_class_list_json' do
+      post :teacher_updated_class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
@@ -78,7 +75,7 @@ describe ClassListsController, :type => :controller do
             "created_at"=>(time_now - 4.hours).as_json,
             "updated_at"=>(time_now - 4.hours).as_json,
             "submitted"=>false,
-            "created_by_educator"=>{
+            "created_by_teacher_educator"=>{
               "id"=>pals.healey_sarah_teacher.id,
               "email"=>"sarah@demo.studentinsights.org",
               "full_name"=>"Teacher, Sarah"
@@ -93,7 +90,7 @@ describe ClassListsController, :type => :controller do
     end
 
     it 'shows Uris Sarah\'s classlist' do
-      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.uri)
       get :workspaces_json, params: {
         format: :json
@@ -104,7 +101,7 @@ describe ClassListsController, :type => :controller do
     end
 
     it 'does not show Marcus Sarah\'s classlist' do
-      class_list = create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
+      create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.west_marcus_teacher)
       get :workspaces_json, params: {
         format: :json
@@ -191,7 +188,7 @@ describe ClassListsController, :type => :controller do
         grade = '2'
         homeroom = Homeroom.create!(name: "HR #{grade}-#{n}", grade: grade, school: pals.healey)
         1.times do
-          FactoryBot.create(:student_with_full_name, {
+          FactoryBot.create(:student, {
             last_name: 'Fake',
             grade: grade,
             school: pals.healey,
@@ -200,7 +197,7 @@ describe ClassListsController, :type => :controller do
         end
       end
       4.times do
-        FactoryBot.create(:student_with_full_name, {
+        FactoryBot.create(:student, {
           last_name: 'Fake',
           grade: '5',
           school: pals.healey,
@@ -217,7 +214,7 @@ describe ClassListsController, :type => :controller do
       expect(json["current_educator_id"]).to eq(pals.healey_sarah_teacher.id)
       expect(json["educators"].size).to eq 6
       expect(json["students"].length).to eq 4
-      expect(json["students"].first.keys).to contain_exactly *[
+      expect(json["students"].first.keys).to contain_exactly(*[
         "id",
         "local_id",
         "first_name",
@@ -238,11 +235,11 @@ describe ClassListsController, :type => :controller do
         "latest_access_results",
         "latest_dibels",
         "most_recent_school_year_discipline_incidents_count"
-      ]
+      ])
     end
 
     it 'filters out inactive students' do
-      inactive_student = FactoryBot.create(:student_with_full_name, {
+      inactive_student = FactoryBot.create(:student, {
         last_name: 'Fake',
         grade: '5',
         enrollment_status: 'Transferred',
@@ -295,11 +292,13 @@ describe ClassListsController, :type => :controller do
         "is_editable"=>true,
         "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
-          "created_by_educator_id"=>pals.healey_sarah_teacher.id,
+          "created_by_teacher_educator_id"=>pals.healey_sarah_teacher.id,
+          "revised_by_principal_educator_id"=>nil,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
           "submitted"=>false,
-          "json"=>{'foo'=>'bar'}
+          "json"=>{'foo'=>'bar'},
+          "principal_revisions_json"=>nil
         }
       })
     end
@@ -325,7 +324,6 @@ describe ClassListsController, :type => :controller do
     it 'does not allow fetching records outside of authorization' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       request_class_list_json(pals.west_marcus_teacher)
-      json = JSON.parse(response.body)
       expect(response.status).to eq 403
     end
 
@@ -339,11 +337,11 @@ describe ClassListsController, :type => :controller do
     end
   end
 
-  describe '#update_class_list_json' do
+  describe '#teacher_updated_class_list_json' do
     it 'works by creating a new record for each change' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.healey_sarah_teacher)
-      post :update_class_list_json, params: {
+      post :teacher_updated_class_list_json, params: {
         format: :json,
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
@@ -356,11 +354,13 @@ describe ClassListsController, :type => :controller do
       expect(json).to eq({
         "class_list"=>{
           "workspace_id"=>"foo-workspace-id",
-          "created_by_educator_id"=>pals.healey_sarah_teacher.id,
+          "created_by_teacher_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
           "submitted"=>false,
-          "json"=>{'foo'=>'bazzzzz'}
+          "json"=>{'foo'=>'bazzzzz'},
+          "principal_revisions_json"=>nil,
+          "revised_by_principal_educator_id"=>nil
         }
       })
       expect(ClassList.all.size).to eq(2)
@@ -369,16 +369,127 @@ describe ClassListsController, :type => :controller do
     end
   end
 
+  describe '#principal_revised_class_list_json' do
+    def post_principal_revised_class_list_json(educator, params = {})
+      sign_in(educator)
+      post :principal_revised_class_list_json, params: {
+        format: :json,
+        workspace_id: 'foo-workspace-id',
+        principal_revisions_json: {
+          "clientNowMs"=>"1527864543",
+          "principalStudentIdsByRoom"=>{
+            "room:unplaced"=>[],
+            "room:0"=>[1, 2],
+            "room:1"=>[3]
+          },
+          "principalTeacherNamesByRoom"=>{
+            "room:0"=>"Kevin",
+            "room:1"=>"Alex",
+          }
+        }
+      }.merge(params)
+    end
+
+    def allows_post_principal_revised_class_list_json?(class_list, educator, params = {})
+      post_principal_revised_class_list_json(educator, workspace_id: class_list.workspace_id)
+      response.status != 403
+    end
+
+    it 'works by creating a new record for each change' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        submitted: true
+      })
+      post_principal_revised_class_list_json(pals.healey_laura_principal, workspace_id: class_list.workspace_id)
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json['class_list'].keys).to contain_exactly(*[
+        "workspace_id",
+        "created_by_teacher_educator_id",
+        "revised_by_principal_educator_id",
+        "school_id",
+        "grade_level_next_year",
+        "submitted",
+        "json",
+        "principal_revisions_json"
+      ])
+      expect(ClassList.all.size).to eq(2)
+      expect(ClassList.last.workspace_id).to eq('foo-workspace-id')
+      expect(ClassList.last.json).to eq({'foo'=>'bar'})
+      expect(ClassList.last.principal_revisions_json.keys).to contain_exactly(*[
+        'principalStudentIdsByRoom',
+        'principalTeacherNamesByRoom',
+        'clientNowMs'
+      ])
+    end
+
+    it 'ignores other fields' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        submitted: true,
+        json: { 'legit'=>'value'}
+      })
+      post_principal_revised_class_list_json(pals.healey_laura_principal, {
+        workspace_id: class_list.workspace_id,
+        json: { 'sneaky'=>'user'}
+      })
+      json = JSON.parse(response.body)
+      expect(response.status).to eq 200
+      expect(json['class_list']['json']).to eq({'legit'=>'value'})
+    end
+
+    describe 'enforces authorization rules' do
+      let!(:class_list) do
+        create_class_list_from(pals.healey_sarah_teacher, {
+          grade_level_next_year: '6',
+          submitted: true
+        })
+      end
+
+      it 'does not allow revisions from healey_sarah_teacher' do
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.healey_sarah_teacher)).to eq false
+      end
+
+      it 'does not allow revisions from uri' do
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.uri)).to eq false
+      end
+
+      it 'does not allow revisions from rich_districtwide' do
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.rich_districtwide)).to eq false
+      end
+      it 'does not allow revisions from west_marcus_teacher' do
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.west_marcus_teacher)).to eq false
+      end
+
+      it 'does not allow revisions from west_marcus_teacher' do
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.west_marcus_teacher)).to eq false
+      end
+
+      it 'allows revisions from healey_laura_principal' do
+        expect(allows_post_principal_revised_class_list_json?(class_list, pals.healey_laura_principal)).to eq true
+      end
+
+      it 'does not allow revisions if not yet submitted' do
+        submitted_class_list = create_class_list_from(pals.healey_sarah_teacher, {
+          workspace_id: 'in-progress-workspace-id',
+          grade_level_next_year: '6',
+          submitted: false
+        })
+        expect(allows_post_principal_revised_class_list_json?(submitted_class_list, pals.healey_laura_principal)).to eq false
+      end
+    end
+  end
+
   describe '#profile_json' do
     let!(:sarah_student) do
-      FactoryBot.create(:student_with_full_name, {
+      FactoryBot.create(:student, {
         grade: '5',
         school: pals.healey,
         homeroom: pals.healey_fifth_homeroom
       })
     end
     let!(:vivian_student) do
-      FactoryBot.create(:student_with_full_name, {
+      FactoryBot.create(:student, {
         grade: 'KF',
         school: pals.healey,
         homeroom: pals.healey_kindergarten_homeroom
@@ -419,7 +530,6 @@ describe ClassListsController, :type => :controller do
         time_now: time_now.to_i,
         limit: 10
       }
-      json = JSON.parse(response.body)
       expect(response.status).to eq 403
     end
 
@@ -433,7 +543,6 @@ describe ClassListsController, :type => :controller do
         time_now: time_now.to_i,
         limit: 10
       }
-      json = JSON.parse(response.body)
       expect(response.status).to eq 403
     end
 
@@ -447,7 +556,6 @@ describe ClassListsController, :type => :controller do
         time_now: time_now.to_i,
         limit: 10
       }
-      json = JSON.parse(response.body)
       expect(response.status).to eq 403
     end
   end

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Timestamp from './Timestamp';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 
 it('renders without crashing', () => {
   const el = document.createElement('div');

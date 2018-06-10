@@ -1,3 +1,5 @@
+import React from 'react';
+
 // Let users know that we changed a page design recently
 export default function DesignChangesBanner() {
   return (

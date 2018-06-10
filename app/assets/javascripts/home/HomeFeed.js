@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import qs from 'query-string';
 import _ from 'lodash';
 import FeedView from '../feed/FeedView';
@@ -111,11 +112,11 @@ class HomeFeed extends React.Component {
   }
 }
 HomeFeed.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 HomeFeed.propTypes = {
-  educatorId: React.PropTypes.number.isRequired,
-  limit: React.PropTypes.number
+  educatorId: PropTypes.number.isRequired,
+  limit: PropTypes.number
 };
 HomeFeed.defaultProps = {
   limit: 10

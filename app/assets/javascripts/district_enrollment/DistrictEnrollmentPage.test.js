@@ -1,9 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
 import fetchMock from 'fetch-mock/es5/client';
 import DistrictEnrollmentPage, {DistrictEnrollmentPageView} from './DistrictEnrollmentPage';
-import districtEnrollmentJson from '../../../../spec/javascripts/fixtures/districtEnrollmentJson';
+import districtEnrollmentJson from './districtEnrollmentJson';
 
 function testProps(props = {}) {
   return {
@@ -22,17 +22,15 @@ it('renders without crashing', () => {
   ReactDOM.render(<DistrictEnrollmentPage {...props} />, el);
 });
 
-SpecSugar.withTestEl('integration tests', container => {
-  it('renders everything after fetch', done => {
-    const props = testProps();
-    const el = container.testEl;
-    ReactDOM.render(<DistrictEnrollmentPage {...props} />, el);
+it('renders everything after fetch', done => {
+  const props = testProps();
+  const el = document.createElement('div');
+  ReactDOM.render(<DistrictEnrollmentPage {...props} />, el);
 
-    setTimeout(() => {
-      expect($(el).find('table tbody tr').length).toEqual(6);
-      done();
-    }, 0);
-  });
+  setTimeout(() => {
+    expect($(el).find('table tbody tr').length).toEqual(6);
+    done();
+  }, 0);
 });
 
 describe('DistrictEnrollmentPageView', () => {

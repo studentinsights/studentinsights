@@ -1,4 +1,4 @@
-import {toMoment} from './toMoment.js';
+import {toMoment} from './toMoment';
 
 it('#toMoment and then back to text', () => {
   expect(toMoment('12/19/2018').format('YYYY-MM-DD')).toEqual('2018-12-19');

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import IncidentCard from './IncidentCard';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 
 
 function testProps(props = {}) {

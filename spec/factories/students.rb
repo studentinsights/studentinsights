@@ -6,6 +6,8 @@ FactoryBot.define do
 
   factory :student do
     local_id { generate(:student_local_id) }
+    first_name { FakeNames.deterministic_sample(FakeNames::FIRST_NAMES) }
+    last_name { FakeNames.deterministic_sample(FakeNames::LAST_NAMES) }
     grade { generate(:valid_grade_level) }
     association :homeroom
     association :school
@@ -103,10 +105,6 @@ FactoryBot.define do
     end
     factory :student_with_homeroom do
       association :homeroom, name: "601"
-    end
-    factory :student_with_full_name do
-      first_name Faker::Name.first_name
-      last_name Faker::Name.last_name
     end
     factory :sped_student do
       program_assigned "Sp Ed"

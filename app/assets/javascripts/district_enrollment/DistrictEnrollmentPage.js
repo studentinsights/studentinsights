@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
@@ -167,15 +168,15 @@ export class DistrictEnrollmentPageView extends React.Component {
   }
 }
 DistrictEnrollmentPageView.propTypes = {
-  districtKey: React.PropTypes.string.isRequired,
-  districtName: React.PropTypes.string.isRequired,
-  enrollments: React.PropTypes.arrayOf(React.PropTypes.shape({
-    enrollment: React.PropTypes.number.isRequired,
-    grade: React.PropTypes.string.isRequired,
-    school: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      slug: React.PropTypes.string.isRequired,
-      name: React.PropTypes.string.isRequired
+  districtKey: PropTypes.string.isRequired,
+  districtName: PropTypes.string.isRequired,
+  enrollments: PropTypes.arrayOf(PropTypes.shape({
+    enrollment: PropTypes.number.isRequired,
+    grade: PropTypes.string.isRequired,
+    school: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      slug: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
     }).isRequired,
   })).isRequired
 };

@@ -1,12 +1,14 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import ClassListCreatorWorkflow from './ClassListCreatorWorkflow';
 import storybookFrame from './storybookFrame';
 import {
   chooseYourGradeProps,
   makeAPlanProps,
   shareWithPrincipalProps,
+  exportProps,
   exportPropsWithAllPlaced,
   exportPropsWithMoves,
   exportPropsWithTeacherNames
@@ -32,7 +34,7 @@ function withStoryProps(props = {}) {
 
 
 function render(props) {
-  return storybookFrame(<ClassListCreatorWorkflow {...props} />);
+  return storybookFrame(withDefaultNowContext(<ClassListCreatorWorkflow {...props} />));
 }
 
 storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line no-undef
@@ -55,6 +57,8 @@ storiesOf('classlists/ClassListCreatorWorkflow', module) // eslint-disable-line 
       isSubmitted: true
     })));
   })
+  .add('Export, some unplaced', () => render(withStoryProps(exportProps())))
   .add('Export, all placed', () => render(withStoryProps(exportPropsWithAllPlaced())))
   .add('Export, with moves', () => render(withStoryProps(exportPropsWithMoves())))
   .add('Export, with teacher names', () => render(withStoryProps(exportPropsWithTeacherNames())));
+  

@@ -91,7 +91,7 @@ export class ClassListsViewPageView extends React.Component {
           <tbody>{sortedWorkspaces.map(workspace => {
             const classList = workspace.class_list;
             const createdAtMoment = toMomentFromTime(classList.created_at).local();
-            const educatorStyle = (classList.created_by_educator.id === currentEducatorId)
+            const educatorStyle = (classList.created_by_teacher_educator.id === currentEducatorId)
               ? { fontWeight: 'bold' }
               : {};
             return (
@@ -101,7 +101,7 @@ export class ClassListsViewPageView extends React.Component {
                   {gradeText(classList.grade_level_next_year)}
                 </td>
                 <td style={tableStyles.cell}>
-                  <Educator educator={classList.created_by_educator} style={educatorStyle} />
+                  <Educator educator={classList.created_by_teacher_educator} style={educatorStyle} />
                 </td>
                 <td style={tableStyles.cell} title={`Revisions: ${workspace.revisions_count}`}>
                   {createdAtMoment.format('dddd M/D, h:mma')}
@@ -145,7 +145,7 @@ ClassListsViewPageView.propTypes = {
       created_at: React.PropTypes.string.isRequired,
       updated_at: React.PropTypes.string.isRequired,
       submitted: React.PropTypes.bool.isRequired,
-      created_by_educator: React.PropTypes.object.isRequired,
+      created_by_teacher_educator: React.PropTypes.object.isRequired,
       school: React.PropTypes.object.isRequired,
     }).isRequired
   })).isRequired

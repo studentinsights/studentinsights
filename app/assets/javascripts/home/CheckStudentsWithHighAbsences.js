@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import qs from 'query-string';
 import Card from '../components/Card';
 import HelpBubble from '../components/HelpBubble';
@@ -43,8 +44,8 @@ class CheckStudentsWithHighAbsences extends React.Component {
   }
 }
 CheckStudentsWithHighAbsences.propTypes = {
-  educatorId: React.PropTypes.number.isRequired,
-  limit: React.PropTypes.number // limit the data returned, not the query itself
+  educatorId: PropTypes.number.isRequired,
+  limit: PropTypes.number // limit the data returned, not the query itself
 };
 CheckStudentsWithHighAbsences.defaultProps = {
   limit: 100
@@ -152,19 +153,19 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
   }
 }
 CheckStudentsWithHighAbsencesView.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 CheckStudentsWithHighAbsencesView.propTypes = {
-  limit: React.PropTypes.number.isRequired,
-  totalStudents: React.PropTypes.number.isRequired,
-  studentsWithHighAbsences: React.PropTypes.arrayOf(React.PropTypes.shape({
-    count: React.PropTypes.number.isRequired,
-    student: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      first_name: React.PropTypes.string.isRequired,
-      last_name: React.PropTypes.string.isRequired,
-      grade: React.PropTypes.string.isRequired,
-      house: React.PropTypes.string
+  limit: PropTypes.number.isRequired,
+  totalStudents: PropTypes.number.isRequired,
+  studentsWithHighAbsences: PropTypes.arrayOf(PropTypes.shape({
+    count: PropTypes.number.isRequired,
+    student: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      grade: PropTypes.string.isRequired,
+      house: PropTypes.string
     }).isRequired    
   })).isRequired
 };

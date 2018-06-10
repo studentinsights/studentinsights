@@ -109,7 +109,7 @@ class StudentRiskLevel < ActiveRecord::Base
   end
 
   def name
-    student.first_name || "This student"
+    student.first_name
   end
 
   def explanations_array
