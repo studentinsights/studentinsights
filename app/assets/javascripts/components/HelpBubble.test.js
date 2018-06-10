@@ -1,10 +1,11 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import HelpBubble from './HelpBubble';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
 
-  const getSparklyBubbleContent = function () {
+  const getSparklyBubbleContent = () => {
     return (
       <div>Sparkly bubble.</div>
     );

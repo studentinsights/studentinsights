@@ -4,7 +4,7 @@ import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
-import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
+import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
@@ -14,7 +14,7 @@ import {MemoryRouter} from 'react-router-dom';
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
-jest.mock('../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
@@ -84,20 +84,22 @@ it('renders district enrollment', () => {
 });
 
 it('renders new classlist', () => {
-  const wrapper = mount(renderPath('/classlists/new'));
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/classlists/new', {educator}));
   expect(wrapper.contains(
-    <ClassListCreatorPage />
+    <ClassListCreatorPage currentEducator={educator} />
   )).toEqual(true);
 });
 
 it('renders edit classlist', () => {
-  const wrapper = mount(renderPath('/classlists/foo-id'));
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/classlists/foo-id', {educator}));
   expect(wrapper.contains(
-    <ClassListCreatorPage defaultWorkspaceId="foo-id" />
+    <ClassListCreatorPage currentEducator={educator} defaultWorkspaceId="foo-id" />
   )).toEqual(true);
 });
 
-it.only('renders list of classlists', () => {
+it('renders list of classlists', () => {
   const wrapper = mount(renderPath('/classlists'));
   expect(wrapper.contains(
     <ClassListsViewPage currentEducatorId={9999} />

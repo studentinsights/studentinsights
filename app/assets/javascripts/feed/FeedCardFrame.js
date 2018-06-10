@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Card from '../components/Card';
 import Homeroom from '../components/Homeroom';
@@ -44,27 +45,27 @@ class FeedCardFrame extends React.Component {
   }
 }
 FeedCardFrame.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 FeedCardFrame.propTypes = {
-  student: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    first_name: React.PropTypes.string.isRequired,
-    last_name: React.PropTypes.string.isRequired,
-    grade: React.PropTypes.string.isRequired,
-    house: React.PropTypes.string,
-    homeroom: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      name: React.PropTypes.string.isRequired,
-      educator: React.PropTypes.object
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    grade: PropTypes.string.isRequired,
+    house: PropTypes.string,
+    homeroom: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      educator: PropTypes.object
     })
   }).isRequired,
-  children: React.PropTypes.node.isRequired,
-  byEl: React.PropTypes.node,
-  whereEl: React.PropTypes.node,
-  whenEl: React.PropTypes.node,
-  badgesEl: React.PropTypes.node,
-  style: React.PropTypes.object
+  children: PropTypes.node.isRequired,
+  byEl: PropTypes.node,
+  whereEl: PropTypes.node,
+  whenEl: PropTypes.node,
+  badgesEl: PropTypes.node,
+  style: PropTypes.object
 };
 
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // Visual component showing a horizontal bar broken down into a few colors
@@ -56,13 +57,13 @@ export default class BreakdownBar extends React.Component {
 }
 
 BreakdownBar.propTypes = {
-  items: React.PropTypes.arrayOf(React.PropTypes.shape({
-    left: React.PropTypes.number.isRequired,
-    width: React.PropTypes.number.isRequired,
-    color: React.PropTypes.string.isRequired
+  items: PropTypes.arrayOf(PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired
   })).isRequired,
-  height: React.PropTypes.number.isRequired,
-  labelTop: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object,
-  innerStyle: React.PropTypes.object
+  height: PropTypes.number.isRequired,
+  labelTop: PropTypes.number.isRequired,
+  style: PropTypes.object,
+  innerStyle: PropTypes.object
 };

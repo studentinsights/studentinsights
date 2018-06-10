@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {toMomentFromTime} from '../helpers/toMoment';
 
@@ -18,9 +19,9 @@ export default class Timestamp extends React.Component {
   }
 }
 Timestamp.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 Timestamp.propTypes = {
-  railsTimestamp: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  railsTimestamp: PropTypes.string.isRequired,
+  style: PropTypes.object
 };

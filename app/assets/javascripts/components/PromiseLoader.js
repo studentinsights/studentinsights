@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -53,8 +54,8 @@ class PromiseLoader extends React.Component {
   }
 }
 PromiseLoader.propTypes = {
-  promiseFn: React.PropTypes.func.isRequired,
-  children: React.PropTypes.func.isRequired
+  promiseFn: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired
 };
 
 export default PromiseLoader;

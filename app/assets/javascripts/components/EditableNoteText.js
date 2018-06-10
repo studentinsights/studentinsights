@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import EditableTextComponent from './EditableTextComponent';
 import {exportedNoteText} from './NoteText';
@@ -44,10 +45,10 @@ function EditableNoteText(props) {
 }
 
 EditableNoteText.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  numberOfRevisions: React.PropTypes.number.isRequired,
-  onBlurText: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object
+  text: PropTypes.string.isRequired,
+  numberOfRevisions: PropTypes.number.isRequired,
+  onBlurText: PropTypes.func.isRequired,
+  style: PropTypes.object
 };
 EditableNoteText.defaultProps = {
   style: {}

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Card from '../components/Card';
 import {toMomentFromTime} from '../helpers/toMoment';
@@ -20,16 +21,16 @@ class BirthdayCard extends React.Component {
   }
 }
 BirthdayCard.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 BirthdayCard.propTypes = {
-  studentBirthdayCard: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    first_name: React.PropTypes.string.isRequired,
-    last_name: React.PropTypes.string.isRequired,
-    date_of_birth: React.PropTypes.string.isRequired
+  studentBirthdayCard: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    date_of_birth: PropTypes.string.isRequired
   }).isRequired,
-  style: React.PropTypes.object
+  style: PropTypes.object
 };
 
 

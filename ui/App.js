@@ -1,12 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Switch,
   Route
 } from 'react-router-dom';
-import MixpanelUtils from '../app/assets/javascripts/helpers/mixpanel_utils.jsx';
+import moment from 'moment';
+import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
-import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/dashboard_components/DashboardLoader';
+import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
@@ -145,15 +147,15 @@ class App extends React.Component {
 }
 
 App.childContextTypes = {
-  nowFn: React.PropTypes.func
+  nowFn: PropTypes.func
 };
 
 App.propTypes = {
-  currentEducator: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    admin: React.PropTypes.bool.isRequired,
-    school_id: React.PropTypes.number,
-    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    admin: PropTypes.bool.isRequired,
+    school_id: PropTypes.number,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 };
 

@@ -1,40 +1,9 @@
-import ProfileChart from '../student_profile/ProfileChart.js';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {merge} from '../helpers/merge';
+import ProfileChart from './ProfileChart';
+import ProfileChartSettings from './ProfileChartSettings';
 
-window.shared || (window.shared = {});
-const ProfileChartSettings = window.shared.ProfileChartSettings;
-
-
-
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
-  navBar: {
-    fontSize: 18
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
 
 /*
 This renders details about math performance and growth in the student profile page.
@@ -46,7 +15,7 @@ historical context though, so we'll keep all data points, even those outside of 
 range since interpolation lines will still be visible.
 */
 
-class MathDetails extends React.Component {
+export default class MathDetails extends React.Component {
 
   // TODO(er) factor out
   percentileYAxis() {
@@ -228,13 +197,41 @@ class MathDetails extends React.Component {
 }
 
 MathDetails.propTypes = {
-  chartData: React.PropTypes.shape({
-    star_series_math_percentile: React.PropTypes.array.isRequired,
-    mcas_series_math_scaled: React.PropTypes.array,
-    next_gen_mcas_mathematics_scaled: React.PropTypes.array,
-    mcas_series_math_growth: React.PropTypes.array.isRequired
+  chartData: PropTypes.shape({
+    star_series_math_percentile: PropTypes.array.isRequired,
+    mcas_series_math_scaled: PropTypes.array,
+    next_gen_mcas_mathematics_scaled: PropTypes.array,
+    mcas_series_math_growth: PropTypes.array.isRequired
   }).isRequired,
-  student: React.PropTypes.object.isRequired
+  student: PropTypes.object.isRequired
 };
 
-export default MathDetails;
+const styles = {
+  title: {
+    color: 'black',
+    paddingBottom: 20,
+    fontSize: 24
+  },
+  container: {
+    width: '100%',
+    marginTop: 50,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '1px solid #ccc',
+    padding: '30px 30px 30px 30px',
+    position: 'relative'
+  },
+  secHead: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    position: 'relative',
+    bottom: 10
+  },
+  navBar: {
+    fontSize: 18
+  },
+  navTop: {
+    textAlign: 'right',
+    verticalAlign: 'text-top'
+  }
+};

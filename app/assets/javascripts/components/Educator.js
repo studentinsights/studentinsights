@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /*
@@ -29,11 +30,11 @@ class Educator extends React.Component {
 }
 
 Educator.propTypes = {
-  educator: React.PropTypes.shape({
-    full_name: React.PropTypes.string, // or null
-    email: React.PropTypes.string.isRequired
+  educator: PropTypes.shape({
+    full_name: PropTypes.string, // or null
+    email: PropTypes.string.isRequired
   }).isRequired,
-  style: React.PropTypes.object
+  style: PropTypes.object
 };
 
 export default Educator;

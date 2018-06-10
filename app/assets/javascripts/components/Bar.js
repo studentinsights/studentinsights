@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // Render a horizontal Bar that is filled with `color` and is a
@@ -33,9 +34,9 @@ export default class Bar extends React.Component {
 }
 
 Bar.propTypes = {
-  percent: React.PropTypes.number.isRequired,
-  threshold: React.PropTypes.number.isRequired,
-  style: React.PropTypes.object,
-  innerStyle: React.PropTypes.object,
-  title: React.PropTypes.string
+  percent: PropTypes.number.isRequired,
+  threshold: PropTypes.number.isRequired,
+  style: PropTypes.object,
+  innerStyle: PropTypes.object,
+  title: PropTypes.string
 };

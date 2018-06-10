@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import StudentCard from './StudentCard';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
 

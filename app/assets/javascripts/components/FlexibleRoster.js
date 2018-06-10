@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {sortByString} from '../helpers/SortHelpers';
 
@@ -103,7 +104,7 @@ class FlexibleRoster extends React.Component {
               {superHeader.label}
             </th>
           );
-        }, this)}
+        })}
       </tr>
     );
   }
@@ -118,7 +119,7 @@ class FlexibleRoster extends React.Component {
               {column.label}
             </th>
           );
-        }, this)}
+        })}
       </tr>
     );
   }
@@ -148,19 +149,19 @@ class FlexibleRoster extends React.Component {
                     {this.renderBodyValue(row, column)}
                   </td>
                 );
-              }, this)}
+              })}
             </tr>
           );
-        }, this)}
+        })}
       </tbody>
     );
   }
 }
 
 FlexibleRoster.propTypes = {
-  rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  columns: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  initialSortIndex: React.PropTypes.number
+  rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+  initialSortIndex: PropTypes.number
 };
 
 export default FlexibleRoster;

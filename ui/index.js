@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import datepickerConfig from '../app/assets/javascripts/datepicker_config.js';
-import sessionTimeoutWarning from '../app/assets/javascripts/session_timeout_warning.js';
-import studentSearchbar from '../app/assets/javascripts/student_searchbar.js';
+import datepickerConfig from '../app/assets/javascripts/datepickerConfig';
+import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
+import studentSearchbar from '../app/assets/javascripts/studentSearchbar';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
-
-// First, run side effects to inject code into window.shared
-import './legacy.js';
 
 // Init datepicker
 if ($('body').hasClass('students')  ||
