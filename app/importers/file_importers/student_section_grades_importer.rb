@@ -50,7 +50,7 @@ class StudentSectionGradesImporter
   end
 
   def data_transformer
-    CsvTransformer.new(headers: CSV_HEADERS)
+    CsvTransformer.new(@log, headers: CSV_HEADERS)
   end
 
   def filter
