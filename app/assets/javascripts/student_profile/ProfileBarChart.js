@@ -45,7 +45,7 @@ export default class ProfileBarChart extends React.Component {
 
       let htmlstring = "";
       _.each(events, function(e){
-        htmlstring += _.template(props.tooltipTemplateString)({e: e});
+        htmlstring += _.template(props.tooltipTemplateString)({e, moment});
         htmlstring += "<br>";
       });
       return htmlstring;
