@@ -96,6 +96,7 @@ class ImportTaskReport
   end
 
   def log(msg)
-    @log.puts "ImportTaskReport: #{msg}"
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "ImportTaskReport: #{text}"
   end
 end
