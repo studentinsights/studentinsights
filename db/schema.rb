@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180606173823) do
+ActiveRecord::Schema.define(version: 20180606164642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -300,12 +300,13 @@ ActiveRecord::Schema.define(version: 20180606173823) do
   end
 
   create_table "student_photos", force: :cascade do |t|
-    t.string "student_id"
+    t.bigint "student_id"
     t.integer "file_digest"
     t.integer "file_size"
     t.integer "s3_filename"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_student_photos_on_student_id"
   end
 
   create_table "student_risk_levels", id: :serial, force: :cascade do |t|
@@ -367,7 +368,6 @@ ActiveRecord::Schema.define(version: 20180606173823) do
     t.string "primary_email"
     t.text "house"
     t.text "counselor"
-    t.integer "student_photo_id"
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
     t.index ["local_id"], name: "index_students_on_local_id"
     t.index ["school_id"], name: "index_students_on_school_id"
@@ -428,6 +428,7 @@ ActiveRecord::Schema.define(version: 20180606173823) do
   add_foreign_key "services", "students", name: "services_student_id_fk"
   add_foreign_key "student_assessments", "assessments", name: "student_assessments_assessment_id_fk"
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
+  add_foreign_key "student_photos", "students"
   add_foreign_key "student_risk_levels", "students", name: "student_risk_levels_student_id_fk"
   add_foreign_key "student_section_assignments", "sections"
   add_foreign_key "student_section_assignments", "students"
