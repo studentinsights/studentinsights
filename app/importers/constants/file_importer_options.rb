@@ -1,9 +1,17 @@
 class FileImporterOptions
-  class ImporterDescription < Struct.new(:priority, :key, :importer_class, :source)
-    def initialize
-      if key != importer_class.name
-        raise 'ImporterDescription key should match importer_class.name'
-      end
+  class ImporterDescription
+    attr_reader :priority
+    attr_reader :key
+    attr_reader :importer_class
+    attr_reader :source
+
+    def initialize(priority, key, importer_class, source)
+      raise 'ImporterDescription key should match importer_class.name' unless key == importer_class.name
+
+      @priority = priority
+      @key = key
+      @importer_class = importer_class
+      @source = source
     end
   end
 

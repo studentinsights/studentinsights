@@ -1,4 +1,5 @@
 class ImportTask
+  # If passed invalid arguments, validete and fail in the constructor
   def initialize(options:)
     @options = options.symbolize_keys
 
