@@ -77,6 +77,16 @@ class PerDistrict
     raise_not_handled!
   end
 
+  # Student-level authorization is determined by a different rule set than normal, based on
+  # a mapping of the `counselor` field on the student and a specific `Educator`.
+  def enable_counselor_authorization?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
+    else
+      false
+    end
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

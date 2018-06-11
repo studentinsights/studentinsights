@@ -97,6 +97,9 @@ class Authorizer
   # access.
   def is_authorized_for_student?(student, options = {})
     begin
+      # Use counselor-specific authorization if that's enabled
+      return is_authorized_for_student_as_counselor?(student, options) if PerDistrict.new.enable_counselor_authorization?
+
       return true if @educator.districtwide_access?
       return true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
 
@@ -128,6 +131,10 @@ class Authorizer
       raise err
     end
     false
+  end
+
+  def is_authorized_for_student_as_counselor?(student, options)
+
   end
 
   def is_authorized_for_school?(school)

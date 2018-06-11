@@ -320,6 +320,7 @@ class TestPals
       school: @shs,
       homeroom: @shs_jodi_homeroom,
       house: 'Beacon',
+      counselor: 'SOFIA',
       grade: '9',
       date_of_birth: '2004-03-12',
       local_id: '2222222222',
@@ -340,6 +341,12 @@ class TestPals
       local_id: '333333333',
       enrollment_status: 'Active'
     )
+
+    # Manually add a CounselorNameMapping
+    CounselorNameMapping.create!({
+      name_text: 'SOFIA',
+      educator_id: @shs_ninth_grade_counselor
+    })
 
     reindex!
     self

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601200328) do
+ActiveRecord::Schema.define(version: 20180611184744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20180601200328) do
     t.json "principal_revisions_json"
     t.integer "revised_by_principal_educator_id"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
+  end
+
+  create_table "counselor_name_mappings", force: :cascade do |t|
+    t.text "counselor_field_text"
+    t.integer "educator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "courses", id: :serial, force: :cascade do |t|
