@@ -569,20 +569,20 @@ describe StudentsController, :type => :controller do
     let(:school) { FactoryBot.create(:school) }
     let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
 
-    def make_request(options = { student_id: nil, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017'})
+    def get_student_report_pdf(student_id, params = {})
       request.env['HTTPS'] = 'on'
       get :student_report, params: {
-        id: options[:student_id],
-        format: options[:format],
-        from_date: options[:from_date],
-        to_date: options[:to_date],
+        id: student_id,
+        format: :pdf,
+        from_date: '08/15/2015',
+        to_date: '03/16/2017',
         disable_js: true
-      }
+      }.merge(params)
     end
 
     context 'when educator is not logged in' do
       it 'does not render a student report' do
-        make_request({ student_id: student.id, format: :pdf })
+        get_student_report_pdf(student.id)
         expect(response.status).to eq 401
       end
     end
@@ -590,7 +590,7 @@ describe StudentsController, :type => :controller do
     context 'when educator is logged in' do
       before do
         sign_in(educator)
-        make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+        get_student_report_pdf(student.id)
       end
 
       context 'educator has schoolwide access' do
@@ -621,7 +621,7 @@ describe StudentsController, :type => :controller do
           incident = FactoryBot.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
           absence = FactoryBot.create(:absence, student: student, occurred_at: '2015-08-16')
           tardy = FactoryBot.create(:tardy, student: student, occurred_at: '2015-08-17')
-          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+          get_student_report_pdf(student.id)
 
           expect(assigns(:student_school_years)[0].discipline_incidents).to include(incident)
           expect(assigns(:student_school_years)[0].absences).to include(absence)
@@ -631,7 +631,7 @@ describe StudentsController, :type => :controller do
         it 'assigns the student\'s discipline incidents correctly' do
           incident = FactoryBot.create(:discipline_incident, student: student, occurred_at: '2015-08-15')
           old_incident = FactoryBot.create(:discipline_incident, student: student, occurred_at: '2015-08-14')
-          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+          get_student_report_pdf(student.id)
 
           expect(assigns(:discipline_incidents)).to include(incident)
           expect(assigns(:discipline_incidents)).not_to include(old_incident)
@@ -642,7 +642,7 @@ describe StudentsController, :type => :controller do
           student_assessment = FactoryBot.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
           assessment = FactoryBot.create(:assessment, :math, :star)
           student_assessment = FactoryBot.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
-          make_request({ student_id: student.id, format: :pdf, from_date: '08/15/2015', to_date: '03/16/2017' })
+          get_student_report_pdf(student.id)
 
           expect(assigns(:student_assessments)).to include("ACCESS Composite")
           expect(assigns(:student_assessments)["ACCESS Composite"]).to be_kind_of(Array)
@@ -660,14 +660,21 @@ describe StudentsController, :type => :controller do
         text: 'foobar',
         recorded_at: Time.parse('2017-03-16 11:12:00')
       })
-      make_request({
-        student_id: student.id,
-        format: :pdf,
-        from_date: '08/15/2015',
-        to_date: '03/16/2017'
-      })
+      get_student_report_pdf(student.id)
       expect(response).to be_success
       expect(assigns(:event_notes)).to include(event_note_today)
+    end
+
+    it 'does not raise when rendering the Rails view' do
+      sign_in(educator)
+      get_student_report_pdf(student.id)
+      expect(response).to be_success
+      expect(response.headers).to eq({
+        "Content-Type" => "application/pdf",
+        "Content-Disposition" => "inline; filename=\"student_report.pdf\"",
+        "Content-Transfer-Encoding" => "binary",
+        "Cache-Control" => "private"
+      })
     end
   end
 end
