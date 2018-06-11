@@ -9,11 +9,11 @@ describe StudentsController, :type => :controller do
     })
   end
 
-  def create_event_note(student, educator)
+  def create_event_note(student, educator, params = {})
     FactoryBot.create(:event_note, {
       student: student,
       educator: educator,
-    })
+    }.merge(params))
   end
 
   describe '#show' do
@@ -652,6 +652,22 @@ describe StudentsController, :type => :controller do
           expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to eq([["2017-02-16 00:00:00 UTC", nil]])
         end
       end
+    end
+
+    it 'includes notes from the current day' do
+      sign_in(educator)
+      event_note_today = create_event_note(student, educator, {
+        text: 'foobar',
+        recorded_at: Time.parse('2017-03-16 11:12:00')
+      })
+      make_request({
+        student_id: student.id,
+        format: :pdf,
+        from_date: '08/15/2015',
+        to_date: '03/16/2017'
+      })
+      expect(response).to be_success
+      expect(assigns(:event_notes)).to include(event_note_today)
     end
   end
 end
