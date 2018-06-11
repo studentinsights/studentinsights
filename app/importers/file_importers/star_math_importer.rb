@@ -70,6 +70,7 @@ class StarMathImporter
   end
 
   def log(msg)
-    @log.puts "StarMathImporter: #{msg}"
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "StarMathImporter: #{text}"
   end
 end

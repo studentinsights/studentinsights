@@ -30,6 +30,7 @@ class CsvDownloader
 
   private
   def log(msg)
-    @log.puts "CsvDownloader: #{msg}"
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "CsvDownloader: #{text}"
   end
 end
