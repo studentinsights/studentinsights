@@ -7,7 +7,7 @@ namespace :import do
     if options[:background]
       Delayed::Job.enqueue ImportJob.new(options: job_options)
     else
-      ImportTask.new(options: job_options).connect_transform_import
+      ImportTask.new(job_options).connect_transform_import
     end
   end
 end

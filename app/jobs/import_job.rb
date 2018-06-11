@@ -6,7 +6,7 @@ class ImportJob
   end
 
   def perform
-    ImportTask.new(options: @options).connect_transform_import
+    ImportTask.new(@options).connect_transform_import
   end
 
   def max_attempts

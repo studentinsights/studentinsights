@@ -1,6 +1,6 @@
 class ImportTask
   # If passed invalid arguments, validete and fail in the constructor
-  def initialize(options:)
+  def initialize(options = {})
     @options = options.symbolize_keys
 
     # which schools to include
@@ -10,11 +10,11 @@ class ImportTask
     @importer_descriptions = validate_importer_keys!(@options[:importer_keys])
 
     # only recent attendance data, or all of it
-    raise 'missing options[:only_recent_attendance]' unless @options.has_key?(:only_recent_attendance)
+    raise 'missing only_recent_attendance' unless @options.has_key?(:only_recent_attendance)
     @only_recent_attendance = @options[:only_recent_attendance]
 
-    # log differently
-    @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
+    # log differently based on env
+    @log = pick_log_based_on_env(options)
   end
 
   def connect_transform_import
@@ -72,12 +72,19 @@ class ImportTask
   def validate_importer_keys!(importer_keys)
     raise 'missing importer_keys' if importer_keys.nil? || importer_keys.size == 0
 
-    unexpected_importer_keys = (importer_keys - FileImporterOptions.importer_descriptions.map(&:key)).size
+    allowed_keys = FileImporterOptions.importer_descriptions.map(&:key)
+    unexpected_importer_keys = importer_keys - allowed_keys
     raise "unexpected_importer_keys: #{unexpected_importer_keys.join(', ')}" if unexpected_importer_keys.size > 0
 
     FileImporterOptions.importer_descriptions.select do |importer_description|
       importer_keys.include?(importer_description.key)
     end
+  end
+
+  def pick_log_based_on_env(options)
+    return options[:log] if options.has_key?(:log)
+    return LogHelper::Redirect.instance.file if Rails.env.test?
+    STDOUT
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
@@ -176,7 +183,11 @@ class ImportTask
     full_msg = "\n\n💾  ImportTask: #{msg}"
     @log.puts full_msg
     @log.flush # prevent buffering, this seems to be a problem in production jobs
-    @record.log += full_msg
-    @record.save
+
+    # Write to the database record as well, if it exists
+    if @record
+      @record.log += full_msg
+      @record.save
+    end
   end
 end

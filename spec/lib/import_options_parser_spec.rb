@@ -51,13 +51,13 @@ RSpec.describe ImportOptionsParser do
   end
 
   it 'works when called with arguments' do
-    command = 'import:run -- --background --only-recent-attendance --school-local-ids=hea,brn,kdy --importer-keys=AttendanceImporter'
+    command = 'import:run -- --background --only-recent-attendance --school-local-ids=HEA,BRN,KDY --importer-keys=AttendanceImporter'
     argv = command.split(' ')
     expect(ImportOptionsParser.new(argv).parsed_options).to eq({
       :background => true,
       :only_recent_attendance => true,
       :importer_keys => ["AttendanceImporter"],
-      :school_local_ids => ["hea", "brn", "kdy"]
+      :school_local_ids => ["HEA", "BRN", "KDY"]
     })
   end
 
