@@ -174,6 +174,7 @@ class ImportTask
   def log(msg)
     full_msg = "\n\n💾  ImportTask: #{msg}"
     @log.puts full_msg
+    @log.flush # prevent buffering, this seems to be a problem in production jobs
     @record.log += full_msg
     @record.save
   end
