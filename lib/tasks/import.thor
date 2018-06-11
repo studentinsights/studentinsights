@@ -5,13 +5,14 @@ class Import
   class Start < Thor::Group
     desc "Import data into your Student Insights instance"
 
-    class_option :school,
+    class_option :school_local_ids,
       type: :array,
-      desc: "Scope by school"
-    class_option :source,
+      default: all_school_local_ids,
+      desc: "Scope by school local_id (not Insights school.id)"
+    class_option :importer_keys,
       type: :array,
-      default: ['x2', 'star'],  # This runs all X2 and STAR importers
-      desc: "Import data from one of #{FileImporterOptions.keys}"
+      default: all_importer_keys,
+      desc: "Import data from one of #{all_importer_keys.join(', ')}"
     class_option :only_recent_attendance,
       type: :boolean,
       default: false,
@@ -29,6 +30,15 @@ class Import
       else
         ImportTask.new(options: job_options).connect_transform_import
       end
+    end
+
+    private
+    def all_school_local_ids
+      LoadDistrictConfig.new.schools.map { |school| school["local_id"] }
+    end
+
+    def all_importer_keys
+      FileImporterOptions.importer_descriptions.map(&:key)
     end
   end
 end
