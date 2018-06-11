@@ -1,6 +1,6 @@
 require 'optparse'
 
-# Parse command line options.  Does not validate them.
+# Parse command line options.  Does not validate the substance of them.
 class ImportOptionsParser
   def initialize(argv)
     @argv = argv
