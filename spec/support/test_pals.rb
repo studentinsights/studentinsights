@@ -19,7 +19,7 @@ class TestPals
   # students
   attr_reader :healey_kindergarten_student
   attr_reader :shs_freshman_mari
-  attr_reader :west_eigth_ryan
+  attr_reader :west_eighth_ryan
 
   # educators
   attr_reader :uri
@@ -30,6 +30,7 @@ class TestPals
   attr_reader :healey_laura_principal
   attr_reader :healey_sarah_teacher
   attr_reader :west_marcus_teacher
+  attr_reader :west_counselor
   attr_reader :shs_jodi
   attr_reader :shs_bill_nye
   attr_reader :shs_ninth_grade_counselor
@@ -332,7 +333,7 @@ class TestPals
       grade_letter: 'D'
     )
 
-    @west_eigth_ryan = Student.create!(
+    @west_eighth_ryan = Student.create!(
       first_name: 'Ryan',
       last_name: 'Rodriguez',
       school: @west,

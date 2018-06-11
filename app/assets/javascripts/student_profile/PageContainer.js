@@ -166,23 +166,20 @@ export default class PageContainer extends React.Component {
 
     this.setState({ requests: merge(this.state.requests, requestState) });
     this.api.saveTransitionNote(this.state.student.id, noteParams)
-      .done(this.onSaveTransitionNoteDone)
-      .fail(this.onSaveTransitionNoteFail);
+      .done(this.onSaveTransitionNoteDone.bind(this, noteParams))
+      .fail(this.onSaveTransitionNoteFail.bind(this, noteParams));
   }
 
-  onSaveTransitionNoteDone(response) {
-    const requestState = (response.is_restricted)
+  onSaveTransitionNoteDone(noteParams, response) {
+    const requestState = (noteParams.is_restricted)
       ? { saveRestrictedTransitionNote: 'saved' }
       : { saveTransitionNote: 'saved' };
 
-    this.setState({
-      requests: merge(this.state.requests, requestState),
-      transitionNotes: response.transition_notes
-    });
+    this.setState({ requests: merge(this.state.requests, requestState) });
   }
 
-  onSaveTransitionNoteFail(request, status, message) {
-    const requestState = (request.is_restricted)
+  onSaveTransitionNoteFail(noteParams, request, status, message) {
+    const requestState = (noteParams.is_restricted)
       ? { saveRestrictedTransitionNote: 'error' }
       : { saveTransitionNote: 'error' };
 

@@ -67,7 +67,7 @@ export default class StudentProfilePage extends React.Component {
 
     return (
       <TransitionNotes
-        transitionNotes={transitionNotes}
+        defaultTransitionNotes={transitionNotes}
         readOnly={isHouseMaster}
         onSave={actions.onClickSaveTransitionNote}
         requestState={requests['saveTransitionNote']}
