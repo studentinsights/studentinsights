@@ -5,7 +5,12 @@
   "alwaysNotifyForPaths": [
     {
       "name": "alexsoble",
-      "files": ["config/**/*.rb", "Procfile", ".eslintrc"],
+      "files": [
+        "config/**/*.rb",
+        "Procfile",
+        ".eslintrc",
+        "app/importers/constants/file_importer_options.rb"
+      ],
       "skipTeamPrs": false
     }
   ],

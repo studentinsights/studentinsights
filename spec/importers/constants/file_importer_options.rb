@@ -6,7 +6,7 @@ RSpec.describe FileImporterOptions do
 
     # This is literally just typing this twice, as an extra check on making changes here safely.
     it 'fails a test when a change is made without updating tests' do
-      expect(FileImporterOptions.new.importer_descriptions).to eq([
+      expect(FileImporterOptions.importer_descriptions).to eq([
         ImporterDescription.new(110, 'EducatorsImporter', EducatorsImporter, :x2),
         ImporterDescription.new(200, 'CoursesSectionsImporter', CoursesSectionsImporter, :x2),
         ImporterDescription.new(210, 'EducatorSectionAssignmentsImporter', EducatorSectionAssignmentsImporter, :x2),
