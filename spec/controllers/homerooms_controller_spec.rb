@@ -18,7 +18,7 @@ describe HomeroomsController, :type => :controller do
       it 'returns the right shape of data' do
         make_request(educator.homeroom.slug)
         expect(assigns(:rows).length).to eq 1
-        expect(assigns(:rows).first.keys).to eq([
+        expect(assigns(:rows).first.keys).to match_array([
           "id",
           "grade",
           "hispanic_latino",
