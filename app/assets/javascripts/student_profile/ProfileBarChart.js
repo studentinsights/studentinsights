@@ -172,8 +172,8 @@ ProfileBarChart.propTypes = {
   titleText: PropTypes.string.isRequired,
   nowMomentUTC: PropTypes.instanceOf(moment),
   monthKeyFn: PropTypes.func,
-  phaselines: PropTypes.array
-  phasebands: PropTypes.array,
+  phaselines: PropTypes.array,
+  phasebands: PropTypes.array
 };
 
 ProfileBarChart.defaultProps = {
