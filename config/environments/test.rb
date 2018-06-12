@@ -5,7 +5,7 @@ Rails.application.configure do
   ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
   ENV['AWS_REGION'] = 'us-west-2'
   ENV['ENABLE_CLASS_LISTS'] = 'true'
-  ENV['ENABLE_COUNSELOR_BASED_AUTHORIZATION'] = 'true'
+  ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

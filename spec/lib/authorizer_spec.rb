@@ -1,23 +1,11 @@
 require 'spec_helper'
 
+# This is just sugar, mirroring how this is used in controller code
+def authorized(educator, &block)
+  Authorizer.new(educator).authorized(&block)
+end
+
 RSpec.describe Authorizer do
-  # This is just sugar, mirroring how this is used in controller code
-  def authorized(educator, &block)
-    Authorizer.new(educator).authorized(&block)
-  end
-
-  def mock_per_district!(map)
-    default_map = {
-      housemasters_authorized_for_grade_eight?: false,
-      enable_counselor_based_authorization?: false
-    }
-    mock_per_district = instance_double(PerDistrict)
-    default_map.merge(map).each do |method_symbol, value|
-      allow(mock_per_district).to receive(method_symbol) { value }
-    end
-    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
-  end
-
   let!(:pals) { TestPals.create! }
 
   it 'sets up test context correctly' do
@@ -223,32 +211,9 @@ RSpec.describe Authorizer do
   end
 
   describe '#is_authorized_for_student?' do
-    context 'even with counselor-based authorization enabled for a housemaster' do
-      before do
-        mock_per_district!({
-          housemasters_authorized_for_grade_eight?: true,
-          enable_counselor_based_authorization?: true
-        })
-        EducatorLabel.create!({
-          educator: pals.shs_harry_housemaster,
-          label_key: 'use_counselor_based_authorization'
-        })
-        CounselorNameMapping.create!({
-          counselor_field_text: 'harry',
-          educator_id: pals.shs_harry_housemaster.id
-        })
-        pals.shs_freshman_mari.update!(counselor: 'HARRY')
-      end
-
-      it 'allows both accessing 8th grade students, and counselor-based authorization' do
-        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.shs_freshman_mari)).to eq true
-        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eigth_ryan)).to eq true
-      end
-    end
-
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
-        mock_per_district!(housemasters_authorized_for_grade_eight?: true)
+        allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       end
 
       it 'returns true' do
@@ -264,7 +229,7 @@ RSpec.describe Authorizer do
 
     context 'HS house master, K student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 on' do
       before do
-        mock_per_district!(housemasters_authorized_for_grade_eight?: true)
+        allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
       end
 
       it 'returns false' do
@@ -315,50 +280,6 @@ RSpec.describe Authorizer do
         expect(authorized_students_when_viewing_as(pals.shs_bill_nye, pals.uri)).to match_array [
           pals.shs_freshman_mari
         ]
-      end
-    end
-  end
-
-  describe '#is_authorized_for_student_as_counselor?' do
-    it 'does not allow anyone if mistakenly called when PerDistrict is disabled' do
-      mock_per_district!(enable_counselor_based_authorization?: false)
-      expect(Authorizer.new(pals.uri).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq false
-      expect(Authorizer.new(pals.shs_ninth_grade_counselor).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq false
-    end
-
-    it 'does not allow if educator does not have EducatorLabel flag set' do
-      mock_per_district!(enable_counselor_based_authorization?: true)
-      EducatorLabel.where(educator_id: pals.shs_ninth_grade_counselor.id).destroy_all
-      expect(EducatorLabel.has_label?(pals.shs_ninth_grade_counselor.id, 'use_counselor_based_authorization')).to eq false
-      expect(Authorizer.new(pals.uri).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq false
-    end
-
-    context 'when enabled globally and for educator' do
-      before do
-        mock_per_district!(enable_counselor_based_authorization?: true)
-      end
-
-      it 'does not allow Uri since CounselorNameMapping is not set' do
-        expect(CounselorNameMapping.where(educator_id: pals.uri.id).size).to eq 0
-        expect(Authorizer.new(pals.uri).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq false
-      end
-
-      it 'does not allow if student has no counselor set' do
-        pals.shs_freshman_mari.update!(counselor: nil)
-        expect(CounselorNameMapping.where(educator_id: pals.shs_ninth_grade_counselor.id).size).to eq 1
-        expect(Authorizer.new(pals.shs_ninth_grade_counselor).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq false
-      end
-
-      it 'does not allow when mapping is not set' do
-        expect(pals.shs_freshman_mari.counselor).not_to eq nil
-        CounselorNameMapping.where(educator_id: pals.shs_ninth_grade_counselor.id).destroy_all
-        expect(Authorizer.new(pals.shs_ninth_grade_counselor).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq false
-      end
-
-      it 'allow access if counselor name mapping exists for educator' do
-        expect(pals.shs_freshman_mari.counselor).to eq 'SOFIA'
-        expect(CounselorNameMapping.has_mapping?(pals.shs_ninth_grade_counselor.id, 'SOFIA')).to eq true
-        expect(Authorizer.new(pals.shs_ninth_grade_counselor).is_authorized_for_student_as_counselor?(pals.shs_freshman_mari)).to eq true
       end
     end
   end

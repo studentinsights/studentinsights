@@ -11,7 +11,7 @@ Rails.application.configure do
   ENV['USE_MOCK_LDAP'] = 'true'
   ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
   ENV['ENABLE_CLASS_LISTS'] = 'true'
-  ENV['ENABLE_COUNSELOR_BASED_AUTHORIZATION'] = 'true'
+  ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
 
   config.cache_classes = false
 

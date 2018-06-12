@@ -196,7 +196,7 @@ class TestPals
     )
     EducatorLabel.create!({
       educator: @shs_ninth_grade_counselor,
-      label_key: 'use_counselor_based_authorization'
+      label_key: 'use_counselor_based_feed'
     })
     CounselorNameMapping.create!({
       counselor_field_text: 'sofia',
