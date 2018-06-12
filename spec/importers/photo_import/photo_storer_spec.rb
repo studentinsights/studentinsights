@@ -113,8 +113,9 @@ RSpec.describe PhotoStorer do
         expect(QuietLogger).to receive(:info).with("storing photo for student ##{student.id} to s3...")
         expect(QuietLogger).to receive(:info).with("    successfully stored to s3!")
         expect(QuietLogger).to receive(:info).with("    encrypted with: AES256")
+        expect(QuietLogger).to receive(:info).with("    🚨  🚨  🚨  Error! Validation failed: File size can't be blank")
         expect(QuietLogger).to receive(:info).with("    could not create StudentPhoto record for student...")
-        expect(QuietLogger).to receive(:info).with("    errors on: [:file_size]")
+        expect(QuietLogger).to receive(:info).with("    orphan Photo up in S3: #{HASHED_STUDENT_LOCAL_ID}/2017-05-11/HashedImageFile")
 
         test_subject.store_only_new
       end

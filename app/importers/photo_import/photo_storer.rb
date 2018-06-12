@@ -70,12 +70,21 @@ class PhotoStorer
       s3_filename: s3_filename
     )
 
-    if student_photo.save
+    begin
+      student_photo.save!
       student_photo
-    else
+    rescue => error
+      @logger.info("    🚨  🚨  🚨  Error! #{error}")
       @logger.info("    could not create StudentPhoto record for student...")
-      @logger.info("    errors on: #{student_photo.errors.details.keys}")
-      nil
+      @logger.info("    orphan Photo up in S3: #{s3_filename}")
+
+      extra_info = {
+        "Student ID" => @student.id,
+        "StudentPhoto model errors" => student_photo.errors.try(:details).try(:keys),
+        "Orphan Photo up in S3" => s3_filename
+      }
+
+      ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
     end
   end
 
