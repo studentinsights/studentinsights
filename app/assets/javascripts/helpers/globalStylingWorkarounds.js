@@ -5,6 +5,8 @@
 // Reach outside component to change styles for page and conatiner, to take up
 // the entire vertical height.
 export function updateGlobalStylesToTakeFullHeight() {
+  if (window.process && window.process.env.NODE_ENV === 'test') return;
+
   window.document.documentElement.style.height = '100%';
   window.document.body.style.height = '100%';
   window.document.body.style.display = 'flex';

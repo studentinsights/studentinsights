@@ -4,15 +4,16 @@ import _ from 'lodash';
 import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
+import {maybeCapitalize} from '../helpers/pretty';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import FilterStudentsBar from '../components/FilterStudentsBar';
 import School from '../components/School';
 
 
 // Shows a list of students for the educator.  Intended as a directory
 // for navigation, showing everything that's in the student searchbar all at once.
-// 
 // This isn't for doing analysis or looking at data.
 export default class MyStudentsPage extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class MyStudentsPage extends React.Component {
   }
 
   componentDidMount() {
-    // updateGlobalStylesToTakeFullHeight();
+    updateGlobalStylesToTakeFullHeight();
   }
 
   fetchStudents() {
@@ -61,8 +62,7 @@ export class MyStudentsPageView extends React.Component {
     this.renderSchool = this.renderSchool.bind(this);
   }
 
-  orderedRows() {
-    const {students} = this.props;
+  orderedStudents(students) {
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
@@ -93,62 +93,74 @@ export class MyStudentsPageView extends React.Component {
   }
 
   render() {
-    const {sortDirection, sortBy} = this.state;
-    const sortedStudents = this.orderedRows();
+    const {students} = this.props;
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading>My students</SectionHeading>
-        <AutoSizer style={{margin: 10}}>
-          {({width, height}) => (
-            <Table
-              width={width}
-              height={height}
-              headerHeight={25}
-              headerStyle={{display: 'flex'}} // necessary for layout, not sure why
-              rowStyle={{display: 'flex'}} // necessary for layout, not sure why
-              style={{fontSize: 14}}
-              rowHeight={25}
-              rowCount={sortedStudents.length}
-              rowGetter={({index}) => sortedStudents[index]}
-              sort={this.onTableSort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              >
-              <Column
-                label='Name'
-                dataKey='name'
-                cellRenderer={this.renderName}
-                flexGrow={1}
-                width={150}
-              />
-              <Column
-                label='School'
-                dataKey='school'
-                cellRenderer={this.renderSchool}
-                width={250}
-              />
-              <Column
-                label='Grade'
-                dataKey='grade'
-                width={80}
-              />
-              <Column
-                label='House'
-                dataKey='house'
-                cellDataGetter={({cellData}) => maybeCapitalize(cellData)}
-                width={150}
-              />
-              <Column
-                label='Counselor'
-                dataKey='counselor'
-                cellDataGetter={({cellData}) => maybeCapitalize(cellData)}
-                width={150}
-              />
-            </Table>
-          )}
-        </AutoSizer>
+        <FilterStudentsBar students={students} style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}>
+          {filteredStudents => this.renderTable(filteredStudents)}
+        </FilterStudentsBar>
       </div>
+    );
+  }
+
+  renderTable(filteredStudents) {
+    const {sortDirection, sortBy} = this.state;
+    const sortedStudents = this.orderedStudents(filteredStudents);
+    
+    // In conjuction with the filtering, this can lead to a warning in development.
+    // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
+    return (
+      <AutoSizer style={{marginTop: 20}}>
+        {({width, height}) => (
+          <Table
+            width={width}
+            height={height}
+            headerHeight={25}
+            headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
+            rowStyle={{display: 'flex'}}
+            style={{fontSize: 14}}
+            rowHeight={25}
+            rowCount={sortedStudents.length}
+            rowGetter={({index}) => sortedStudents[index]}
+            sort={this.onTableSort}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            >
+            <Column
+              label='Name'
+              dataKey='name'
+              cellRenderer={this.renderName}
+              flexGrow={1}
+              width={150}
+            />
+            <Column
+              label='School'
+              dataKey='school'
+              cellRenderer={this.renderSchool}
+              width={250}
+            />
+            <Column
+              label='Grade'
+              dataKey='grade'
+              width={80}
+            />
+            <Column
+              label='House'
+              dataKey='house'
+              cellDataGetter={({cellData}) => maybeCapitalize(cellData)}
+              width={150}
+            />
+            <Column
+              label='Counselor'
+              dataKey='counselor'
+              cellDataGetter={({cellData}) => maybeCapitalize(cellData)}
+              width={150}
+            />
+          </Table>
+        )}
+      </AutoSizer>
     );
   }
 
@@ -185,11 +197,3 @@ const styles = {
     flexDirection: 'column'
   }
 };
-
-
-// Counselor names are stored as mixed case.  This makes them look nice either way.
-function maybeCapitalize(maybeValue) {
-  return (maybeValue === null || maybeValue === undefined || !_.isFunction(maybeValue.toLowerCase))
-    ? null
-    : _.capitalize(maybeValue.toLowerCase());
-}
