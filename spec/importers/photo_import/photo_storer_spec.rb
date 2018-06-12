@@ -10,7 +10,7 @@ RSpec.describe PhotoStorer do
   end
 
   class QuietLogger
-    def self.info(message); puts message end
+    def self.info(message); end
   end
 
   before do
@@ -39,8 +39,16 @@ RSpec.describe PhotoStorer do
     context 'student not in database' do
       let(:test_subject) { photo_storer(local_id: '2222229') }
 
-      it 'returns nil, does not call AWS' do
+      it 'returns nil' do
         expect(test_subject.store_only_new).to eq nil
+      end
+
+      it 'does not call AWS' do
+
+      end
+
+      it 'does not store a record to the database' do
+
       end
     end
 
