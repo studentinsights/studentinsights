@@ -7,6 +7,9 @@ import {maybeCapitalize} from '../helpers/pretty';
 import {gradeText} from '../helpers/gradeText';
 
 
+// Takes a list of students, uses them to find values to sort by,
+// and then renders a filtering bar for different dimensions, yielding
+// the sorted students to `children`.
 export default class FilterStudentsBar extends React.Component {
   constructor(props) {
     super(props);

@@ -9,8 +9,8 @@ import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkar
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import HouseBadge from '../components/HouseBadge';
-import FilterStudentsBar from '../components/FilterStudentsBar';
 import School from '../components/School';
+import FilterStudentsBar from './FilterStudentsBar';
 
 
 // Shows a list of students for the educator.  Intended as a directory
@@ -110,7 +110,7 @@ export class MyStudentsPageView extends React.Component {
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
     const rowHeight = 30;
-    
+
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
     return (
