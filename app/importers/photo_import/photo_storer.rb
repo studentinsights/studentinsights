@@ -98,6 +98,6 @@ class PhotoStorer
   end
 
   def file_size
-    @file_size ||= File.size(@path_to_file)
+    @file_size ||= File.size(@path_to_file)  # Returns size of the file in bytes.
   end
 end
