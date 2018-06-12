@@ -67,20 +67,21 @@ describe EducatorsController, :type => :controller do
     it 'works for Harry as an example, showing he is authorized for 8th graders' do
       response = get_my_students(pals.shs_harry_housemaster)
       expect(response).to be_success
+      puts response.body
       expect(included_student_ids(response)).to contain_exactly(*[
+        pals.west_eighth_ryan.id,
         pals.shs_freshman_mari.id,
-        pals.west_eighth_ryan.id
+        pals.shs_freshman_amir.id
       ])
     end
 
-    it 'includes 8th grade students for Harry when env is not set, even if he has label' do
+    it 'does not include 8th grade students for Harry when env is not set, even if he has label' do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return(nil)
 
       response = get_my_students(pals.shs_harry_housemaster)
       expect(response).to be_success
       expect(included_student_ids(response)).to contain_exactly(*[
-        pals.west_eighth_ryan.id,
         pals.shs_freshman_mari.id,
         pals.shs_freshman_amir.id
       ])
