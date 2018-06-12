@@ -13,6 +13,8 @@ class StudentPhotoImporter
   def initialize
     raise "import_student_photos? not enabled" unless PerDistrict.new.import_student_photos?
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
+
+    @time_now = Time.now
   end
 
   def import
@@ -46,7 +48,8 @@ class StudentPhotoImporter
         path_to_file: path,
         local_id: student_local_id,
         s3_client: s3_client,
-        logger: logger
+        logger: logger,
+        time_now: @time_now
       ).store_only_new
 
       created_student_photos << student_photo if student_photo.present?
