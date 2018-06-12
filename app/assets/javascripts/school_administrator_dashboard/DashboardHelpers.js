@@ -17,11 +17,15 @@ export default {
     return averageDailyAttendance;
   },
 
-  absenceEventsByDay(studentRecordsArray) {
-    const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
+  absenceEventsByDay(studentAbsenceArray) {
+    return this.eventsGroupedByDay(studentAbsenceArray);
+  },
+
+  //array of all student absence events that can be filtered based on absence flags
+  absenceEvents(studentRecordsArray) {
+    return  _.flattenDeep(studentRecordsArray.map((student) => {
       return student.absences;
     }));
-    return this.eventsGroupedByDay(absenceEvents);
   },
 
   tardyEventsByDay(studentRecordsArray) {

@@ -10,6 +10,11 @@ class SchoolwideAttendance extends React.Component {
     return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEvents, this.props.dashboardStudents.length);
   }
 
+  //A separate daily average excluding excused or dismissed absences
+  schoolAverageDailyAttendanceUnexcused() {
+    return DashboardHelpers.averageDailyAttendance(this.props.unexcusedSchoolAbsenceEvents, this.props.dashboardStudents.length);
+  }
+
   homeroomAverageDailyAttendance() {
     const studentRecords = this.props.dashboardStudents;
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
@@ -65,6 +70,7 @@ class SchoolwideAttendance extends React.Component {
 
 SchoolwideAttendance.propTypes = {
   schoolAbsenceEvents: PropTypes.object.isRequired,
+  unexcusedSchoolAbsenceEvents: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired
 };
 
