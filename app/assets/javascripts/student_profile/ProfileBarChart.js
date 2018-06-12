@@ -173,7 +173,9 @@ ProfileBarChart.propTypes = {
   nowMomentUTC: PropTypes.instanceOf(moment),
   monthKeyFn: PropTypes.func,
   phaselines: PropTypes.array,
-  phasebands: PropTypes.array
+  phasebands: PropTypes.array,
+  hideBackToTop: PropTypes.bool,
+  styles: PropTypes.object,
 };
 
 ProfileBarChart.defaultProps = {
