@@ -74,8 +74,7 @@ class PhotoStorer
       student_photo
     else
       @logger.info("    could not create StudentPhoto record for student...")
-      @logger.info("        Student Local ID=##{@student.id}.")
-      @logger.info("        Errors on: #{student_photo.errors.details.keys}")
+      @logger.info("    errors on: #{student_photo.errors.details.keys}")
       nil
     end
   end

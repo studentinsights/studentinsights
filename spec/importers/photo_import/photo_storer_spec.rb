@@ -101,5 +101,23 @@ RSpec.describe PhotoStorer do
         expect { test_subject.store_only_new }.to change { StudentPhoto.count }.by 1
       end
     end
+
+    context 'photo record is invalid because file size is nil' do
+      let(:test_subject) { photo_storer }
+
+      before do
+        allow(File).to receive(:size).with('/path/to/file').and_return nil
+      end
+
+      it 'logs the right error message an doesn\'t blow up' do
+        expect(QuietLogger).to receive(:info).with("storing photo for student ##{student.id} to s3...")
+        expect(QuietLogger).to receive(:info).with("    successfully stored to s3!")
+        expect(QuietLogger).to receive(:info).with("    encrypted with: AES256")
+        expect(QuietLogger).to receive(:info).with("    could not create StudentPhoto record for student...")
+        expect(QuietLogger).to receive(:info).with("    errors on: [:file_size]")
+
+        test_subject.store_only_new
+      end
+    end
   end
 end
