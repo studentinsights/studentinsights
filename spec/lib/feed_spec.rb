@@ -18,6 +18,23 @@ RSpec.describe Feed do
   before { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = 'true' }
   after { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = @FEED_INCLUDE_INCIDENT_CARDS }
 
+  describe '.students_for_feed' do
+    it 'can use counselor-based filter' do
+      students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
+      expect(students.map(&:id)).to contain_exactly(*[
+        pals.shs_freshman_mari.id
+      ])
+    end
+
+    it 'works when counselor-based filter is disabled' do
+      pending
+      # students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
+      # expect(students.map(&:id)).to contain_exactly(*[
+      #   pals.shs_freshman_mari.id
+      # ])
+    end
+  end
+
   describe '#merge_sort_and_limit_cards' do
     it 'works correctly' do
       card_sets = [

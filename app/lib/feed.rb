@@ -3,7 +3,7 @@ class Feed
   def self.students_for_feed(educator)
     # Start with all students they are authorized to view
     authorizer = Authorizer.new(educator)
-    authorized_students = authorizer.authorized { Student.active }
+    authorized_students = authorizer.authorized { Student.active.select(:counselor) }
 
     # Filter for HS counselors so that it shows only
     # students on their caseload.

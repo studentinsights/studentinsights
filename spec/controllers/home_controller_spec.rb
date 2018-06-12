@@ -40,31 +40,6 @@ describe HomeController, :type => :controller do
       expect(json['feed_cards'].length).to eq 0
     end
 
-    it 'can use counselor-based filter' do
-      create_event_note(time_now, {
-        student: pals.shs_freshman_mari,
-        event_note_type: EventNoteType.find(305)
-      })
-      create_event_note(time_now, {
-        student: pals.shs_freshman_amir,
-        event_note_type: EventNoteType.find(305)
-      })
-      mock_feed = instance_double(Feed)
-      expect(mock_feed).to receive(:all_cards) { [] }
-      expect(Feed).to receive(:new).with([pals.shs_freshman_mari]).and_call_original
-
-      sign_in(pals.shs_ninth_grade_counselor)
-      get :feed_json, params: {
-        time_now: time_now.to_i.to_s,
-        limit: 4
-      }
-      json = JSON.parse(response.body)
-      expect(response.status).to eq 200
-      expect(json.keys).to eq ['feed_cards']
-      expect(json['feed_cards'].length).to eq 0
-    end
-
-
     describe 'doppleganging' do
       def get_feed(as_educator, for_educator, time_now)
         sign_in(as_educator)
