@@ -247,6 +247,7 @@ export default class StudentProfilePage extends React.Component {
           }}>
           {this.renderPaddedElements(styles.summaryWrapper, [
             this.renderPlacement(student),
+            this.renderCounselor(student),
             this.renderServices(student),
             this.renderStaff(student),
             this.renderSped(student)
@@ -324,6 +325,16 @@ export default class StudentProfilePage extends React.Component {
     return <SummaryList title="Services" elements={elements} />;
   }
 
+  renderCounselor(student) {
+    const {counselor} = student;
+    if (counselor === null || counselor === undefined) return null;
+    return (
+      <SummaryList
+        title="Counselor"
+        elements={[<span>{counselor}</span>]} />
+    );
+  }
+
   renderStaff(student) {
     const activeServices = this.props.feed.services.active;
     const educatorNamesFromServices = _.map(activeServices, 'provided_by_educator_name');
@@ -343,7 +354,7 @@ export default class StudentProfilePage extends React.Component {
       elements.push(['None']);
     }
 
-    return <SummaryList title="Staff providing services" elements={educatorNames} />;
+    return <SummaryList title="Staff for services" elements={educatorNames} />;
   }
 
   renderSped(student) {
