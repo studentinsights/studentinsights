@@ -31,7 +31,6 @@ class StudentsSpreadsheet
         'student_address',
         'hispanic_latino',
         'race',
-        'student_photo_id'
       ])
     else
       student_fields = student.as_json.except(*[
@@ -42,7 +41,6 @@ class StudentsSpreadsheet
         'race',
         'counselor',
         'house',
-        'student_photo_id'
       ])
     end
 
