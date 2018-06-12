@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     get '/api/import_records' => 'import_records#import_records_json'
   end
 
-  get '/api/educators/:id' => 'educators#show'
-  get '/api/educators/my_students' => 'educators#my_students'
+  get '/api/educators/view/:id' => 'educators#show'
+  get '/api/educators/my_students_json' => 'educators#my_students_json'
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards
