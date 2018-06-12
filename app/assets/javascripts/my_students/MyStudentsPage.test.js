@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {mount} from 'enzyme';
-import {withDefaultNowContext} from '../testing/NowContainer';
 import fetchMock from 'fetch-mock/es5/client';
 import MyStudentsPage from './MyStudentsPage';
 import myStudentsJson from './myStudentsJson.fixture';
