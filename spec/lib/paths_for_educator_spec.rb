@@ -36,6 +36,12 @@ RSpec.describe PathsForEducator do
     end
 
     context 'with all feature switches enabled' do
+      before { @housemasters_authorized_for_grade_eight = ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] }
+      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'false' }
+      after { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = @housemasters_authorized_for_grade_eight }
+      before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
+      before { ENV['ENABLE_CLASS_LISTS'] = 'false' }
+      after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
 
       it 'works across educators, with classlists enabled' do
         expect(navbar_links(pals.uri)).to eq({
@@ -68,6 +74,9 @@ RSpec.describe PathsForEducator do
         })
 
         # high school (TestPals doesn't match actual production HS roles and permisssions)
+        expect(navbar_links(pals.shs_harry_housemaster)).to eq({
+          foo: 'bar'
+        })
         expect(navbar_links(pals.shs_jodi)).to eq({})
         expect(navbar_links(pals.shs_ninth_grade_counselor)).to eq({
           school: '/schools/shs'

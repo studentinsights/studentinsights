@@ -11,6 +11,7 @@ Rails.application.configure do
   ENV['USE_MOCK_LDAP'] = 'true'
   ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
   ENV['ENABLE_CLASS_LISTS'] = 'true'
+  ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
 
   config.cache_classes = false
 
