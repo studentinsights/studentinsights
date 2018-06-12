@@ -1,14 +1,9 @@
 /* eslint-disable no-undef */
-module.exports = { 
-  // Export two artifacts, one for the main app and one for running within
-  // the PDF export.
+module.exports = {
   entry: {
     bundle: ['./ui/polyfills.js', './ui/index.js'], // force polyfills to be first
     student_report_pdf: './ui/student_report_pdf.js'
   },
-  // node: {
-  //   fs: "empty"  // https://github.com/webpack-contrib/css-loader/issues/447
-  // },
   module: {
     rules: [
       // Process JS with Babel.
