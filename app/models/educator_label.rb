@@ -11,8 +11,13 @@ class EducatorLabel < ActiveRecord::Base
         'shs_experience_team',
         'k8_counselor',
         'high_school_house_master',
-        'class_list_maker_finalizer_principal'
+        'class_list_maker_finalizer_principal',
+        'use_counselor_based_authorization'
       ]
     }
   }
+
+  def self.has_label?(educator_id, label_key)
+    EducatorLabel.find_by(educator_id: educator_id, label_key: label_key).present?
+  end
 end

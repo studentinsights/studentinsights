@@ -194,6 +194,15 @@ class TestPals
       school: @shs,
       grade_level_access: ['9']
     )
+    EducatorLabel.create!({
+      educator: @shs_ninth_grade_counselor,
+      label_key: 'use_counselor_based_authorization'
+    })
+    CounselorNameMapping.create!({
+      counselor_field_text: 'sofia',
+      educator_id: @shs_ninth_grade_counselor.id
+    })
+
     @shs_sophomore_homeroom = Homeroom.create!(name: "SHS ALL", grade: "10", school: @shs)
 
     # Jodi has a homeroom period at the high school.
@@ -341,12 +350,6 @@ class TestPals
       local_id: '333333333',
       enrollment_status: 'Active'
     )
-
-    # Manually add a CounselorNameMapping
-    CounselorNameMapping.create!({
-      name_text: 'SOFIA',
-      educator_id: @shs_ninth_grade_counselor
-    })
 
     reindex!
     self

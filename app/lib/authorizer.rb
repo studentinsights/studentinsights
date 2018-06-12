@@ -97,11 +97,19 @@ class Authorizer
   # access.
   def is_authorized_for_student?(student, options = {})
     begin
-      # Use counselor-specific authorization if that's enabled
-      return is_authorized_for_student_as_counselor?(student, options) if PerDistrict.new.enable_counselor_authorization?
+      # A special case for transition meetings at the end of the school year
+      # Ordering is important here.
+      return true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && PerDistrict.new.housemasters_authorized_for_grade_eight?
 
+      # If it's enabled for this educator, use counselor-based authorization instead
+      # of normal authorization rules.
+      # Ordering is important here.
+      if use_counselor_based_authorization_for_students?
+        return is_authorized_for_student_as_counselor?(student)
+      end
+
+      # Core authorization rules star here
       return true if @educator.districtwide_access?
-      return true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
 
       return false if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
       return false if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
@@ -133,8 +141,19 @@ class Authorizer
     false
   end
 
-  def is_authorized_for_student_as_counselor?(student, options)
+  # Check global env flag, then per-educator flag.
+  def use_counselor_based_authorization_for_students?
+    return false unless PerDistrict.new.enable_counselor_based_authorization?
+    return false unless EducatorLabel.has_label?(@educator.id, 'use_counselor_based_authorization')
+    true
+  end
 
+  # If the student has the counselor field set, and there's a mapping from that
+  # field to this educator, they are authorized.
+  def is_authorized_for_student_as_counselor?(student)
+    return false unless use_counselor_based_authorization_for_students?
+    return false if student.counselor.nil?
+    CounselorNameMapping.has_mapping? @educator.id, student.counselor.downcase
   end
 
   def is_authorized_for_school?(school)

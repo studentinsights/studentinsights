@@ -77,11 +77,22 @@ class PerDistrict
     raise_not_handled!
   end
 
-  # Student-level authorization is determined by a different rule set than normal, based on
-  # a mapping of the `counselor` field on the student and a specific `Educator`.
-  def enable_counselor_authorization?
+  # If this is enabled, student-level authorization is determined by a different rule set
+  # than normal, based on a mapping of the `counselor` field on the student and a specific
+  # `Educator`.  It may be individually feature switched as well.
+  def enable_counselor_based_authorization?
     if @district_key == SOMERVILLE || @district_key == DEMO
-      EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
+      EnvironmentVariable.is_true('ENABLE_COUNSELOR_BASED_AUTHORIZATION')
+    else
+      false
+    end
+  end
+
+  # For transition meetings at the end of the school year, this allows 9th grade
+  # housemasters access to students in eighth grade.
+  def housemasters_authorized_for_grade_eight?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
     else
       false
     end
