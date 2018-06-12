@@ -16,44 +16,34 @@ class ExportNotesSample
       csv << []
       csv << [
         'event_note.id',
-        'event_note.text',
-        'event_note.recorded_at',
         'event_note.is_restricted',
-        'event_note.event_note_type_id',
         'event_note.event_note_type.name',
-        'event_note.educator_id',
-        'event_note.educator.full_name',
-        'event_note.educator.email',
-        'event_note.student.id',
-        'event_note.student.first_name',
-        'event_note.student.last_name',
-        'event_note.student.grade',
-        'event_note.student.school_id',
-        'event_note.student.school.name'
+        'event_note.text',
+        'hash(event_note.educator_id)',
+        'hash(event_note.student.id)',
+        'hash(event_note.student.school_id)',
+        'event_note.student.id'
       ]
       sampled_event_notes.each do |event_note|
         csv << [
           event_note.id,
-          event_note.text,
-          event_note.recorded_at,
           event_note.is_restricted,
-          event_note.event_note_type_id,
           event_note.event_note_type.name,
-          event_note.educator_id,
-          event_note.educator.full_name,
-          event_note.educator.email,
-          event_note.student.id,
-          event_note.student.first_name,
-          event_note.student.last_name,
-          event_note.student.grade,
-          event_note.student.school_id,
-          event_note.student.school.name
+          event_note.text.gsub(/\n/, ' '),
+          hash(event_note.educator_id),
+          hash(event_note.student.id),
+          hash(event_note.student.school_id),
+          event_note.student.id
         ]
       end
     end
   end
 
   private
+  def hash(value)
+    Digest::SHA256.hexdigest(value.to_s)
+  end
+
   def query(options = {})
     start_date = options[:start_date]
     end_date = options[:end_date]
