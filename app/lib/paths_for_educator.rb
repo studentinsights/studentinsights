@@ -8,7 +8,7 @@ class PathsForEducator
   def navbar_links
     links = {}
 
-    if ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] && @educator.labels.include?('high_school_house_master')
+    if EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8') && @educator.labels.include?('high_school_house_master')
       links[:my_students] = url_helpers.educators_my_students_path
     end
 

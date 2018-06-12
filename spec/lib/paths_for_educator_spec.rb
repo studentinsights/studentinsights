@@ -10,7 +10,7 @@ RSpec.describe PathsForEducator do
   describe '#navbar_links' do
     context 'when ENABLE_CLASS_LISTS disabled' do
       before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
-      before { ENV['ENABLE_CLASS_LISTS'] = 'false' }
+      before { ENV['ENABLE_CLASS_LISTS'] = nil }
       after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
 
       it 'respects PerDistrict for /classlists' do
@@ -22,25 +22,24 @@ RSpec.describe PathsForEducator do
 
     context 'when HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 disabled' do
       before { @housemasters_authorized_for_grade_eight = ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] }
-      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'false' }
+      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = nil }
       after { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = @housemasters_authorized_for_grade_eight }
 
       it 'respects PerDistrict for /educators/my_students' do
         expect(navbar_links(pals.shs_harry_housemaster)).to eq({
-          :my_students => "/educators/my_students",
-          :school => "/schools/shs",
-          :absences => "/schools/shs/absences",
-          :tardies => "/schools/shs/tardies",
+          school: '/schools/shs',
+          absences: '/schools/shs/absences',
+          tardies: '/schools/shs/tardies'
         })
       end
     end
 
     context 'with all feature switches enabled' do
       before { @housemasters_authorized_for_grade_eight = ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] }
-      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'false' }
+      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true' }
       after { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = @housemasters_authorized_for_grade_eight }
       before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
-      before { ENV['ENABLE_CLASS_LISTS'] = 'false' }
+      before { ENV['ENABLE_CLASS_LISTS'] = 'true' }
       after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
 
       it 'works across educators, with classlists enabled' do
@@ -75,7 +74,10 @@ RSpec.describe PathsForEducator do
 
         # high school (TestPals doesn't match actual production HS roles and permisssions)
         expect(navbar_links(pals.shs_harry_housemaster)).to eq({
-          foo: 'bar'
+          absences: '/schools/shs/absences',
+          my_students: '/educators/my_students',
+          school: '/schools/shs',
+          tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_jodi)).to eq({})
         expect(navbar_links(pals.shs_ninth_grade_counselor)).to eq({
