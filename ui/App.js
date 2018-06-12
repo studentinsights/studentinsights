@@ -17,6 +17,7 @@ import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassLis
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
+import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -55,6 +56,7 @@ class App extends React.Component {
           <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
           <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
           <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
+          <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
           <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
           <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
           <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
@@ -77,6 +79,11 @@ class App extends React.Component {
     return <HomePage
       educatorId={id}
       educatorLabels={labels} />;
+  }
+
+  renderMyStudentsPage(routeProps) {
+    this.trackVisit(routeProps, 'MY_STUDENTS_PAGE');
+    return <MyStudentsPage />;
   }
 
   renderExploreSchoolEquityPage(routeProps) {

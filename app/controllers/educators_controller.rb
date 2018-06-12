@@ -38,6 +38,22 @@ class EducatorsController < ApplicationController
     })
   end
 
+  def my_students_json
+    students = authorized { Student.active.to_a }
+    students_json = students.as_json({
+      only: [:id, :first_name, :last_name, :house, :counselor, :grade],
+      include: {
+        school: {
+          only: [:id, :name]
+        }
+      }
+
+    })
+    render json: {
+      students: students_json
+    }
+  end
+
   def districtwide_admin_homepage
     @schools = PerDistrict.new.ordered_schools_for_admin_page
   end
