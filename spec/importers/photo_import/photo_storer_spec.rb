@@ -57,7 +57,23 @@ RSpec.describe PhotoStorer do
     end
 
     context 'photo already exists' do
+      let(:test_subject) { photo_storer }
 
+      it 'returns nil' do
+        test_subject.store_only_new
+        expect(test_subject.store_only_new).to eq nil
+      end
+
+      it 'does not call AWS' do
+        test_subject.store_only_new
+        expect(FakeAwsClient).not_to receive(:put_object)
+        test_subject.store_only_new
+      end
+
+      it 'does not store a record to the database' do
+        test_subject.store_only_new
+        expect { test_subject.store_only_new }.to change { StudentPhoto.count }.by 0
+      end
     end
 
     context 'photo is new' do
