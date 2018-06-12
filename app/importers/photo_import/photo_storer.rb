@@ -30,10 +30,7 @@ class PhotoStorer
 
   private
   def photo_already_exists?
-    StudentPhoto.find_by({
-      file_digest: image_file_digest,
-      file_size: file_size
-    }).present?
+    StudentPhoto.find_by(file_digest: image_file_digest, student_id: student.id).present?
   end
 
   # Returns filename on success, nil on error
