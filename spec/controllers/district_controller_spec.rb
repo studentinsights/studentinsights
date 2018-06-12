@@ -11,7 +11,7 @@ describe DistrictController, :type => :controller do
       json = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(json.keys).to eq ['district_key', 'district_name', 'enrollments']
-      expect(json['enrollments']).to eq([
+      expect(json['enrollments']).to contain_exactly(*[
         {
           "enrollment"=>1,
           "grade"=>"KF",
@@ -23,7 +23,7 @@ describe DistrictController, :type => :controller do
             "slug"=>"hea"
           }
         }, {
-          "enrollment"=>1,
+          "enrollment"=>2,
           "grade"=>"9",
           "school"=>{
             "id"=>pals.shs.id,

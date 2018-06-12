@@ -67,7 +67,7 @@ describe EducatorsController, :type => :controller do
     it 'works for Harry as an example' do
       response = get_my_students(pals.shs_harry_housemaster)
       expect(response).to be_success
-      expect(included_student_ids(response)).to contain_exactly(pals.shs_freshman_mari.id)
+      expect(included_student_ids(response)).to contain_exactly(pals.shs_freshman_mari.id, pals.shs_freshman_amir.id)
     end
 
     it 'includes 8th grade students for Harry when env is set and he has label' do
@@ -77,8 +77,9 @@ describe EducatorsController, :type => :controller do
       response = get_my_students(pals.shs_harry_housemaster)
       expect(response).to be_success
       expect(included_student_ids(response)).to contain_exactly(*[
+        pals.west_eighth_ryan.id,
         pals.shs_freshman_mari.id,
-        pals.west_eighth_ryan.id
+        pals.shs_freshman_amir.id
       ])
     end
   end
