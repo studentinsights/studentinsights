@@ -15,7 +15,7 @@ RSpec.describe PhotoStorer do
 
   before do
     allow(Digest::SHA256).to receive(:file).with('/path/to/file').and_return('HASH.HASH.HASH')
-    allow(File).to receive(:size)c.with('/path/to/file').and_return 10
+    allow(File).to receive(:size).with('/path/to/file').and_return 10
     allow(File).to receive(:open).and_call_original # ActiveSupport calls this for i8n translations
     allow(File).to receive(:open).with('/path/to/file').and_return 'ImageData'
   end
