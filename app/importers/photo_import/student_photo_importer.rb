@@ -34,22 +34,26 @@ class StudentPhotoImporter
     end
 
     log("Unzipped #{unzipped_count} photos!")
-
     log("Storing photo files...")
+
     created_student_photos = []
     photo_filenames = Dir["tmp/data_download/photos/*"]
+
     photo_filenames.each do |path|
       student_local_id = Pathname.new(path).basename.sub_ext('').to_s
+
       student_photo = PhotoStorer.new(
         path_to_file: path,
         local_id: student_local_id,
         s3_client: s3_client,
         logger: logger
       ).store_only_new
+
       created_student_photos << student_photo if student_photo.present?
     end
+
     log("Created #{created_student_photos.size} StudentPhoto records")
-    log('Done.')
+    log("Done.")
   end
 
   def sftp_client
