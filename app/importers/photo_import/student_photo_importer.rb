@@ -28,7 +28,7 @@ class StudentPhotoImporter
 
     Zip::File.open(photos_zip_file) do |zip_file|
       zip_file.each do |entry|
-        entry.extract("tmp/data_download/photos/#{entry.name}")
+        entry.extract("tmp/data_download/photos/#{entry.name}") { true } # overwrite
         unzipped_count += 1
       end
     end
