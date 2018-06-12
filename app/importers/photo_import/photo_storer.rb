@@ -40,12 +40,14 @@ class PhotoStorer
   def store_object_in_s3
     @logger.info("storing photo for student ##{@student.id} to s3...")
 
-    # s3 filenames are sorted by (student / upload date / image)
+    # s3 filenames are sorted by student / upload date / image.
+    # Filename shape: {64-character hash} / {YYYY}-{MM}-{DD} / {64-character hash}.
     s3_filename = [
       Digest::SHA256.hexdigest(@local_id),
       @time_now.strftime('%Y-%m-%d'),
       image_file_digest
     ].join('/')
+
     response = @client.put_object(
       bucket: ENV['AWS_S3_PHOTOS_BUCKET'],
       key: s3_filename,
