@@ -12,20 +12,23 @@ export default class FilterStudentsBar extends React.Component {
     super(props);
     this.state = {
       grade: null,
-      house: null
+      house: null,
+      counselor: null
     };
 
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
+    this.onCounselorChanged = this.onCounselorChanged.bind(this);
   }
 
   filteredStudents() {
     const {students} = this.props;
-    const {grade, house} = this.state;
+    const {grade, house, counselor} = this.state;
 
     return students.filter(student => {
-      if (grade !== null && student.grade !== grade) return false;
-      if (house !== null && student.house !== house) return false;
+      if (shouldFilterOut(grade, student.grade)) return false;
+      if (shouldFilterOut(house, student.house)) return false;
+      if (shouldFilterOut(counselor, student.counselor)) return false;
       return true;
     });
   }
@@ -38,6 +41,10 @@ export default class FilterStudentsBar extends React.Component {
     this.setState({house});
   }
 
+  onCounselorChanged(counselor) {
+    this.setState({counselor});
+  }
+
   render() {
     const {children, style, barStyle} = this.props;
     const filteredStudents = this.filteredStudents();
@@ -48,6 +55,7 @@ export default class FilterStudentsBar extends React.Component {
           <span style={styles.label}>Filter by</span>
           {this.renderGradeSelect()}
           {this.renderHouseSelect()}
+          {this.renderCounselorSelect()}
         </div>
         {children(filteredStudents)}
       </div>
@@ -79,8 +87,9 @@ export default class FilterStudentsBar extends React.Component {
     const {students} = this.props;
     const {house} = this.state;
 
-    // Find all grade values in students
+    // Find all values in students
     const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
+    if (sortedHouses.length === 0) return;
     const houseOptions = [{value: null, label: 'All'}].concat(sortedHouses.map(house => {
       return { value: house, label: `${maybeCapitalize(house)} house` };
     }));
@@ -93,6 +102,28 @@ export default class FilterStudentsBar extends React.Component {
         value={house}
         onChange={this.onHouseChanged}
         options={houseOptions} />
+    );
+  }
+
+  renderCounselorSelect() {
+    const {students} = this.props;
+    const {counselor} = this.state;
+
+    // Find all values in students
+    const sortedCounselors = _.sortBy(_.uniq(_.compact(students.map(student => student.counselor))));
+    if (sortedCounselors.length === 0) return;
+    const counselorOptions = [{value: null, label: 'All'}].concat(sortedCounselors.map(counselor => {
+      return { value: counselor, label: maybeCapitalize(counselor) };
+    }));
+    return (
+      <Select
+        style={styles.select}
+        simpleValue
+        placeholder="Counselor..."
+        clearable={false}
+        value={counselor}
+        onChange={this.onCounselorChanged}
+        options={counselorOptions} />
     );
   }
 }
@@ -125,3 +156,9 @@ const styles = {
     marginRight: 10
   }
 };
+
+
+function shouldFilterOut(selectedValue, studentValue) {
+  if (selectedValue === null || selectedValue === undefined) return false; // no filter applied
+  return (studentValue !== selectedValue);
+}

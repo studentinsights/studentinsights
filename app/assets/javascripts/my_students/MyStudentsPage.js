@@ -8,6 +8,7 @@ import {maybeCapitalize} from '../helpers/pretty';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import HouseBadge from '../components/HouseBadge';
 import FilterStudentsBar from '../components/FilterStudentsBar';
 import School from '../components/School';
 
@@ -108,6 +109,7 @@ export class MyStudentsPageView extends React.Component {
   renderTable(filteredStudents) {
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
+    const rowHeight = 30;
     
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -117,11 +119,11 @@ export class MyStudentsPageView extends React.Component {
           <Table
             width={width}
             height={height}
-            headerHeight={25}
+            headerHeight={rowHeight}
             headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
             rowStyle={{display: 'flex'}}
             style={{fontSize: 14}}
-            rowHeight={25}
+            rowHeight={rowHeight}
             rowCount={sortedStudents.length}
             rowGetter={({index}) => sortedStudents[index]}
             sort={this.onTableSort}
@@ -149,13 +151,13 @@ export class MyStudentsPageView extends React.Component {
             <Column
               label='House'
               dataKey='house'
-              cellDataGetter={({cellData}) => maybeCapitalize(cellData)}
+              cellRenderer={this.renderHouse}
               width={150}
             />
             <Column
               label='Counselor'
               dataKey='counselor'
-              cellDataGetter={({cellData}) => maybeCapitalize(cellData)}
+              cellDataGetter={({rowData}) => maybeCapitalize(rowData.counselor)}
               width={150}
             />
           </Table>
@@ -172,6 +174,11 @@ export class MyStudentsPageView extends React.Component {
   renderSchool(cellProps) {
     const student = cellProps.rowData;
     return <School {...student.school} />;
+  }
+
+  renderHouse(cellProps) {
+    const student = cellProps.rowData;
+    return student.house && <HouseBadge house={student.house} />;
   }
 }
 MyStudentsPageView.propTypes = {
