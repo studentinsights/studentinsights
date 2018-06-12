@@ -19,19 +19,21 @@ RSpec.describe Feed do
   after { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = @FEED_INCLUDE_INCIDENT_CARDS }
 
   describe '.students_for_feed' do
-    it 'can use counselor-based filter' do
+    it 'can apply counselor-based filter' do
       students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
       expect(students.map(&:id)).to contain_exactly(*[
         pals.shs_freshman_mari.id
       ])
     end
 
-    it 'works when counselor-based filter is disabled' do
-      pending
-      # students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
-      # expect(students.map(&:id)).to contain_exactly(*[
-      #   pals.shs_freshman_mari.id
-      # ])
+    it 'does not filter when counselor-based feed switch is disabled globally' do
+      mock_per_district = instance_double(PerDistrict, enable_counselor_based_feed?: false)
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
+      expect(students.map(&:id)).to contain_exactly(*[
+        pals.shs_freshman_mari.id,
+        pals.shs_freshman_amir.id
+      ])
     end
   end
 
