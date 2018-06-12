@@ -2,7 +2,9 @@
 # of support that students should be receiving, to help
 # educators catch and verify that students are getting
 # the level of support and service they need.
-class SomervilleHighTiers
+#
+# This is at experimental prototype quality.
+class ExperimentalSomervilleHighTiers
   FAILING_GRADE = 65
 
   class Tier < Struct.new(:level, :triggers, :data)
@@ -19,7 +21,7 @@ class SomervilleHighTiers
         .where(school_id: school_ids)
         .includes(student_section_assignments: [section: :course])
         .includes(:event_notes)
-        .to_a # TODO(kr) authorizer select behavior is unexpected here, and silently leads to no first_name, last_name, etc.
+        .to_a # because of AuthorizedDispatcher#filter_relation
     end
 
     students.map do |student|
@@ -90,9 +92,6 @@ class SomervilleHighTiers
   end
 
   private
-  # TODO(kr) this could also be "days since last note"
-  # so that the alerting makes sense and that there's a natural
-  # "reminder" and less to parse information-wise
   def last_notes_json(student)
     last_sst_note = @authorizer.authorized do
       student.event_notes

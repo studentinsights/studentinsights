@@ -6,7 +6,7 @@ class TieringController < ApplicationController
     time_now = time_now_or_param(params[:time_now])
     school_id = params[:school_id]
 
-    tiers = SomervilleHighTiers.new(current_educator)
+    tiers = ExperimentalSomervilleHighTiers.new(current_educator)
     students_with_tiering_json = tiers.students_with_tiering_json([school_id], time_now)
     render json: {
       students_with_tiering: students_with_tiering_json
