@@ -89,16 +89,16 @@ class IsServiceWorking extends React.Component {
         <Button style={style.buttonStyle}
           onClick={() => {
             this.setState({serviceTypeSelected: null}, () => {
-              this.setState({serviceTypeSelected: attendanceOfficer})
-            })
+              this.setState({serviceTypeSelected: attendanceOfficer});
+            });
           }}>
           Attendance Officer
         </Button>
         <Button style={style.buttonStyle}
           onClick={() => {
             this.setState({serviceTypeSelected: null}, () => {
-              this.setState({serviceTypeSelected: attendanceContract})
-            })
+              this.setState({serviceTypeSelected: attendanceContract});
+            });
           }}>
           Attendance Contract
         </Button>
@@ -180,6 +180,6 @@ class IsServiceWorking extends React.Component {
 
 IsServiceWorking.propTypes = {
   serializedData: React.PropTypes.object.isRequired,
-}
+};
 
 export default IsServiceWorking;
