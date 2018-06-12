@@ -48,7 +48,7 @@ class PhotoStorer
       image_file_digest
     ].join('/')
 
-    response = @client.put_object(
+    response = @s3_client.put_object(
       bucket: ENV['AWS_S3_PHOTOS_BUCKET'],
       key: s3_filename,
       body: File.open(@path_to_file),
