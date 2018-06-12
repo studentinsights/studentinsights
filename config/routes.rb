@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   get '/home' => 'ui#ui'
 
   # tiering
-  get '/tiering/:school_id' => 'ui#ui'
+  get '/levels/:school_id' => 'ui#ui'
 
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'

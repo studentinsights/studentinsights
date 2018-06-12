@@ -77,6 +77,10 @@ class PerDistrict
     raise_not_handled!
   end
 
+  def enabled_high_school_tiering?
+    @district_key == SOMERVILLE || @district_key == DEMO
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

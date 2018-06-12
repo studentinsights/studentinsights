@@ -67,7 +67,7 @@ class App extends React.Component {
           <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
           <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-          <Route exact path="/tiering/:school_id" render={this.renderTieringPage.bind(this)}/>
+          <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
