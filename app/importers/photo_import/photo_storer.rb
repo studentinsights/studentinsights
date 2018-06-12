@@ -75,9 +75,6 @@ class PhotoStorer
     if !student_photo
       @logger.info('    could not create StudentPhoto record')
       nil
-    elsif !student.update(student_photo_id: student_photo.id)
-      @logger.info('    could not update Student record')
-      nil
     else
       student_photo
     end
