@@ -38,7 +38,7 @@ class StudentPhotoImporter
     log("Unzipped #{unzipped_count} photos!")
     log("Storing photo files...")
 
-    created_student_photos = []
+    created_student_photos_count = 0
     photo_filenames = Dir["tmp/data_download/photos/*"]
 
     photo_filenames.each do |path|
@@ -52,10 +52,10 @@ class StudentPhotoImporter
         time_now: @time_now
       ).store_only_new
 
-      created_student_photos << student_photo if student_photo.present?
+      created_student_photos_count += 1 if student_photo.present?
     end
 
-    log("Created #{created_student_photos.size} StudentPhoto records")
+    log("Created #{created_student_photos_count} StudentPhoto records")
     log("Done.")
   end
 
