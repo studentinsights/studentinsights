@@ -18,8 +18,9 @@ class TestPals
 
   # students
   attr_reader :healey_kindergarten_student
-  attr_reader :shs_freshman_mari
   attr_reader :west_eigth_ryan
+  attr_reader :shs_freshman_mari
+  attr_reader :shs_freshman_amir
 
   # educators
   attr_reader :uri
@@ -185,6 +186,14 @@ class TestPals
       educator: @west_counselor,
       label_key: 'k8_counselor'
     )
+    @west_eigth_ryan = Student.create!(
+      first_name: 'Ryan',
+      last_name: 'Rodriguez',
+      school: @west,
+      grade: '8',
+      local_id: '333333333',
+      enrollment_status: 'Active'
+    )
 
     # high school
     @shs = School.find_by_local_id!('SHS')
@@ -341,14 +350,23 @@ class TestPals
       grade_numeric: 67,
       grade_letter: 'D'
     )
-
-    @west_eigth_ryan = Student.create!(
-      first_name: 'Ryan',
-      last_name: 'Rodriguez',
-      school: @west,
-      grade: '8',
-      local_id: '333333333',
+    @shs_freshman_amir = Student.create!(
+      first_name: 'Amir',
+      last_name: 'Solo',
+      school: @shs,
+      homeroom: @shs_jodi_homeroom,
+      house: 'Elm',
+      counselor: 'FISHMAN',
+      grade: '9',
+      date_of_birth: '2003-02-07',
+      local_id: '2222222211',
       enrollment_status: 'Active'
+    )
+    StudentSectionAssignment.create!(
+      student: @shs_freshman_amir,
+      section: @shs_third_period_physics,
+      grade_numeric: 84,
+      grade_letter: 'B'
     )
 
     reindex!

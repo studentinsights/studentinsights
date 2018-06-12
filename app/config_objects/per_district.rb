@@ -88,16 +88,6 @@ class PerDistrict
     end
   end
 
-  # For transition meetings at the end of the school year, this allows 9th grade
-  # housemasters access to students in eighth grade.
-  def housemasters_authorized_for_grade_eight?
-    if @district_key == SOMERVILLE || @district_key == DEMO
-      ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8']
-    else
-      false
-    end
-  end
-
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
