@@ -102,7 +102,8 @@ RSpec.describe Authorizer do
           pals.healey_kindergarten_student
         ]
         expect(authorized(pals.shs_jodi) { Student.all }).to match_array [
-          pals.shs_freshman_mari
+          pals.shs_freshman_mari,
+          pals.shs_freshman_amir
         ]
         expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array [
           pals.shs_freshman_mari
