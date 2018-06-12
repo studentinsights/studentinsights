@@ -34,7 +34,8 @@ class Authorizer
       :program_assigned,
       :limited_english_proficiency,
       :school_id,
-      :grade
+      :grade,
+      :counselor
     ]
   end
 

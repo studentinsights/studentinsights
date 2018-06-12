@@ -1,4 +1,14 @@
 class PerfTest
+  # Critical path authorization code
+  def self.authorized(percentage, options = {})
+    timer = PerfTest.new.run(percentage) do |t, educator|
+      Authorizer.new(educator).authorized { Student.active }
+    end
+    pp timer.report
+    pp PerfTest::Reporter.new.report(timer.report.group_by {|tuple| tuple[0] })
+    timer
+  end
+
   # See ClassListQueries.  This was driven by the view in admin/authorization, running this
   # across all educators.
   def self.is_relevant_for_educator?(percentage, options = {})
