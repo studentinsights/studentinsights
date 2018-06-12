@@ -43,6 +43,46 @@ describe EducatorsController, :type => :controller do
     end
   end
 
+  describe '#my_students_json' do
+    def get_my_students(educator)
+      request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      get :my_students_json, params: { format: :json }
+      response
+    end
+
+    def included_student_ids(response)
+      body = JSON.parse!(response.body)
+      body['students'].map {|student| student['id'] }
+    end
+
+    let!(:pals) { TestPals.create! }
+
+    it 'works for Uri as an example' do
+      response = get_my_students(pals.uri)
+      expect(response).to be_success
+      expect(included_student_ids(response)).to contain_exactly(*Student.all.map(&:id))
+    end
+
+    it 'works for Harry as an example' do
+      response = get_my_students(pals.shs_harry_housemaster)
+      expect(response).to be_success
+      expect(included_student_ids(response)).to contain_exactly(pals.shs_freshman_mari.id)
+    end
+
+    it 'includes 8th grade students for Harry when env is set and he has label' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
+
+      response = get_my_students(pals.shs_harry_housemaster)
+      expect(response).to be_success
+      expect(included_student_ids(response)).to contain_exactly(*[
+        pals.shs_freshman_mari.id,
+        pals.west_eighth_ryan.id
+      ])
+    end
+  end
+
   describe '#names_for_dropdown' do
     def make_request(student)
       request.env['HTTPS'] = 'on'
