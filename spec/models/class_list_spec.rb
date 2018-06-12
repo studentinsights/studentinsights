@@ -91,6 +91,7 @@ RSpec.describe ClassList do
 
     it 'creates a new snapshot when student data has changed' do
       class_list = create_class_list_from(pals.healey_vivian_teacher, json: {
+        grade_level_next_year: '1',
         studentIdsByRoom: {
           'room:0': [pals.healey_kindergarten_student.id]
         }

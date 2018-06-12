@@ -1,13 +1,15 @@
 class ClassListSnapshot < ActiveRecord::Base
   belongs_to :class_list
 
-  # Returns a new ClassListSnapshot or nil if nothing has changed
-  def self.snapshot_all_workspaces(educator)
-    queries = ClassListQueries.new(educator)
-    workspaces = queries.all_authorized_workspaces
+  validates :class_list, presence: true
 
+  # Across all workspaces, creates new ClassListSnapshots for any student data
+  # that has changed.  This is to track changes as student data changes over time,
+  # while the student_ids in the class list record stay the same.
+  def self.snapshot_all_workspaces
     snapshots_taken = []
-    workspaces.each do |workspace|
+
+    ClassList.unsafe_all_workspaces_without_authorization_check.each do |workspace|
       snapshot = workspace.class_list.snapshot_if_changed
       if snapshot.present?
         snapshots_taken << {

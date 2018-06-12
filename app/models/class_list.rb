@@ -29,6 +29,16 @@ class ClassList < ActiveRecord::Base
       .first
   end
 
+  # Get latest by workspace_id.  See ClassListQueries#all_authorized_workspaces
+  # for authorization-aware method.
+  def self.unsafe_all_workspaces_without_authorization_check
+    all_class_lists = ClassList.order(created_at: :desc)
+    all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
+      most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+      ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
+    end
+  end
+
   # Check if anything has changed in students_json, and if so create a new
   # snapshot.  This is to check if the information that teachers had when making their
   # class lists is different than it is at a later query time.

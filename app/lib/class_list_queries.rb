@@ -93,12 +93,7 @@ class ClassListQueries
   end
 
   def all_authorized_workspaces
-    # Get latest by workspace_id
-    all_class_lists = ClassList.order(created_at: :desc)
-    workspaces = all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
-      most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
-      ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
-    end
+    workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
 
     # Authorization check
     workspaces.select do |workspace|
