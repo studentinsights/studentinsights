@@ -14,7 +14,8 @@ RSpec.describe PhotoStorer do
   end
 
   before do
-    allow(Digest::SHA256).to receive(:file).with('/path/to/file').and_return('HASH.HASH.HASH')
+    allow(ENV).to receive(:[]).with('AWS_S3_PHOTOS_BUCKET').and_return('mock-test-photo-bucket')
+    allow(Digest::SHA256).to receive(:file).with('/path/to/file').and_return('HashedImageFile')
     allow(File).to receive(:size).with('/path/to/file').and_return 10
     allow(File).to receive(:open).and_call_original # ActiveSupport calls this for i8n translations
     allow(File).to receive(:open).with('/path/to/file').and_return 'ImageData'
@@ -22,13 +23,15 @@ RSpec.describe PhotoStorer do
 
   let!(:student) { FactoryBot.create(:student, local_id: '111111111') }
 
+  HASHED_STUDENT_LOCAL_ID = '1a5376ad727d65213a79f3108541cf95012969a0d3064f108b5dd6e7f8c19b89'
+
   def photo_storer(attributes = {})
     default_attributes = {
       local_id: student.local_id,
       path_to_file: '/path/to/file',
       s3_client: FakeAwsClient,
       logger: QuietLogger,
-      time_now: Time.now
+      time_now: Time.new(2017, 5, 11)
     }
 
     PhotoStorer.new(default_attributes.merge(attributes))
@@ -44,11 +47,12 @@ RSpec.describe PhotoStorer do
       end
 
       it 'does not call AWS' do
-
+        expect(FakeAwsClient).not_to receive(:put_object)
+        test_subject.store_only_new
       end
 
       it 'does not store a record to the database' do
-
+        expect { test_subject.store_only_new }.to change { StudentPhoto.count }.by 0
       end
     end
 
@@ -59,8 +63,26 @@ RSpec.describe PhotoStorer do
     context 'photo is new' do
       let(:test_subject) { photo_storer }
 
-      it 'calls AWS correctly, stores a photo record' do
-        expect(test_subject.store_only_new).not_to eq nil
+      it 'returns a student photo object' do
+        photo_object = test_subject.store_only_new
+
+        expect(photo_object).not_to be_nil
+        expect(photo_object.class).to eq(StudentPhoto)
+      end
+
+      it 'does not call AWS' do
+        expect(FakeAwsClient).to receive(:put_object).with({
+          bucket: "mock-test-photo-bucket",
+          key: "#{HASHED_STUDENT_LOCAL_ID}/2017-05-11/HashedImageFile",
+          body: "ImageData",
+          server_side_encryption: "AES256"
+        })
+
+        test_subject.store_only_new
+      end
+
+      it 'does not store a record to the database' do
+        expect { test_subject.store_only_new }.to change { StudentPhoto.count }.by 1
       end
     end
   end
