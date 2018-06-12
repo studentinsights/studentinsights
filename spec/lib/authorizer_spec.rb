@@ -33,7 +33,7 @@ RSpec.describe Authorizer do
       expect(authorized(pals.uri) { students }).to contain_exactly(*[
         pals.healey_kindergarten_student,
         pals.shs_freshman_mari,
-        pals.west_eigth_ryan,
+        pals.west_eighth_ryan,
       ])
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
       expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
@@ -94,7 +94,7 @@ RSpec.describe Authorizer do
         expect(authorized(pals.uri) { Student.all }).to match_array [
           pals.healey_kindergarten_student,
           pals.shs_freshman_mari,
-          pals.west_eigth_ryan,
+          pals.west_eighth_ryan,
         ]
         expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
           pals.healey_kindergarten_student
@@ -130,7 +130,7 @@ RSpec.describe Authorizer do
         expect((authorized(pals.uri) { thin_relation }).map(&:id)).to match_array([
           pals.healey_kindergarten_student.id,
           pals.shs_freshman_mari.id,
-          pals.west_eigth_ryan.id
+          pals.west_eighth_ryan.id
         ])
         expect((authorized(pals.healey_vivian_teacher) { thin_relation }).map(&:id)).to eq([
           pals.healey_kindergarten_student.id
@@ -217,13 +217,13 @@ RSpec.describe Authorizer do
       end
 
       it 'returns true' do
-        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eigth_ryan)).to eq true
+        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eighth_ryan)).to eq true
       end
     end
 
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 off' do
       it 'returns true' do
-        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eigth_ryan)).to eq false
+        expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eighth_ryan)).to eq false
       end
     end
 

@@ -18,7 +18,7 @@ class TestPals
 
   # students
   attr_reader :healey_kindergarten_student
-  attr_reader :west_eigth_ryan
+  attr_reader :west_eighth_ryan
   attr_reader :shs_freshman_mari
   attr_reader :shs_freshman_amir
 
@@ -31,6 +31,7 @@ class TestPals
   attr_reader :healey_laura_principal
   attr_reader :healey_sarah_teacher
   attr_reader :west_marcus_teacher
+  attr_reader :west_counselor
   attr_reader :shs_jodi
   attr_reader :shs_bill_nye
   attr_reader :shs_ninth_grade_counselor
@@ -360,8 +361,6 @@ class TestPals
       grade: '9',
       date_of_birth: '2003-02-07',
       local_id: '2222222211',
-      enrollment_status: 'Active'
-    )
     StudentSectionAssignment.create!(
       student: @shs_freshman_amir,
       section: @shs_third_period_physics,

@@ -16,7 +16,7 @@ function testProps() {
 jest.mock('../home/HomePage', () => 'mocked-home-page');
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/api/educators/101', educatorsViewJson);
+  fetchMock.get('/api/educators/view/101', educatorsViewJson);
 });
 
 it('renders without crashing', () => {
