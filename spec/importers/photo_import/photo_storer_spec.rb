@@ -37,7 +37,6 @@ RSpec.describe PhotoStorer do
     PhotoStorer.new(default_attributes.merge(attributes))
   end
 
-
   describe '#store_only_new' do
     context 'student not in database' do
       let(:test_subject) { photo_storer(local_id: '2222229') }
