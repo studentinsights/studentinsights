@@ -53,6 +53,14 @@ class IsServiceWorking extends React.Component {
     this.renderPage = this.renderPage.bind(this);
   }
 
+  fetchIsServiceWorkingData() {
+    const {serviceTypeSelected} = this.state;
+
+    const url = `/api/is_service_working_json/${serviceTypeSelected.id}`;
+
+    return apiFetchJson(url);
+  }
+
   render() {
     return (
       <div className="IsServiceWorking">
@@ -117,14 +125,6 @@ class IsServiceWorking extends React.Component {
         promiseFn={this.fetchIsServiceWorkingData}
         render={this.renderPage} />
     );
-  }
-
-  fetchIsServiceWorkingData() {
-    const {serviceTypeSelected} = this.state;
-
-    const url = `/api/is_service_working_json/${serviceTypeSelected.id}`;
-
-    return apiFetchJson(url);
   }
 
   renderPage(json) {
