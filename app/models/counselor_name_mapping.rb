@@ -15,7 +15,7 @@ class CounselorNameMapping < ApplicationRecord
 
   private
   def validate_downcase_counselor_field_text
-    if counselor_field_text.downcase != counselor_field_text
+    if counselor_field_text.try(:downcase) != counselor_field_text
       errors.add(:counselor_field_text, 'must be lowercase')
     end
   end
