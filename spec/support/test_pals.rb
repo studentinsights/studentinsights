@@ -187,7 +187,7 @@ class TestPals
       educator: @west_counselor,
       label_key: 'k8_counselor'
     )
-    @west_eigth_ryan = Student.create!(
+    @west_eighth_ryan = Student.create!(
       first_name: 'Ryan',
       last_name: 'Rodriguez',
       school: @west,
@@ -361,6 +361,8 @@ class TestPals
       grade: '9',
       date_of_birth: '2003-02-07',
       local_id: '2222222211',
+      enrollment_status: 'Active'
+    )
     StudentSectionAssignment.create!(
       student: @shs_freshman_amir,
       section: @shs_third_period_physics,

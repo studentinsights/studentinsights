@@ -11,7 +11,7 @@ RSpec.describe Authorizer do
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
-    expect(Student.all.size).to eq 3
+    expect(Student.all.size).to eq 4
     expect(Educator.all.size).to eq 15
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
@@ -32,8 +32,9 @@ RSpec.describe Authorizer do
       students = Student.select(*Authorizer.student_fields_for_authorization).all
       expect(authorized(pals.uri) { students }).to contain_exactly(*[
         pals.healey_kindergarten_student,
-        pals.shs_freshman_mari,
         pals.west_eighth_ryan,
+        pals.shs_freshman_mari,
+        pals.shs_freshman_amir
       ])
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
       expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
@@ -93,8 +94,9 @@ RSpec.describe Authorizer do
       it 'limits access with Student.all' do
         expect(authorized(pals.uri) { Student.all }).to match_array [
           pals.healey_kindergarten_student,
-          pals.shs_freshman_mari,
           pals.west_eighth_ryan,
+          pals.shs_freshman_mari,
+          pals.shs_freshman_amir
         ]
         expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
           pals.healey_kindergarten_student
@@ -129,8 +131,9 @@ RSpec.describe Authorizer do
         thin_relation = Student.select(:id, :local_id).all
         expect((authorized(pals.uri) { thin_relation }).map(&:id)).to match_array([
           pals.healey_kindergarten_student.id,
+          pals.west_eighth_ryan.id,
           pals.shs_freshman_mari.id,
-          pals.west_eighth_ryan.id
+          pals.shs_freshman_amir.id
         ])
         expect((authorized(pals.healey_vivian_teacher) { thin_relation }).map(&:id)).to eq([
           pals.healey_kindergarten_student.id
@@ -260,7 +263,8 @@ RSpec.describe Authorizer do
           pals.healey_kindergarten_student
         ]
         expect(authorized_students_when_viewing_as(pals.uri, pals.shs_jodi)).to match_array [
-          pals.shs_freshman_mari
+          pals.shs_freshman_mari,
+          pals.shs_freshman_amir
         ]
         expect(authorized_students_when_viewing_as(pals.uri, pals.shs_bill_nye)).to match_array [
           pals.shs_freshman_mari
@@ -275,7 +279,8 @@ RSpec.describe Authorizer do
           pals.healey_kindergarten_student
         ]
         expect(authorized_students_when_viewing_as(pals.shs_jodi, pals.uri)).to match_array [
-          pals.shs_freshman_mari
+          pals.shs_freshman_mari,
+          pals.shs_freshman_amir
         ]
         expect(authorized_students_when_viewing_as(pals.shs_bill_nye, pals.uri)).to match_array [
           pals.shs_freshman_mari
