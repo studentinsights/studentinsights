@@ -3,21 +3,15 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Select from 'react-select';
 import Modal from 'react-modal';
-import {Table, Column, AutoSizer} from 'react-virtualized';
-import 'react-select/dist/react-select.css';
-import {toMomentFromTime} from '../helpers/toMoment';
 import {gradeText} from '../helpers/gradeText';
 import {
   labelAssignment,
   firstMatch,
-  ELA,
-  MATH,
-  HISTORY,
-  SCIENCE,
   CREDIT_RECOVERY,
   ACADEMIC_SUPPORT,
   REDIRECT
 } from './Courses';
+import StudentLevelsTable from './StudentLevelsTable';
 
 
 export default class TieringView extends React.Component {
@@ -32,6 +26,12 @@ export default class TieringView extends React.Component {
     this.onTriggerChanged = this.onTriggerChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onToggleModal = this.onToggleModal.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.searchInputEl) {
+      this.searchInputEl.focus();
+    }
   }
 
   filterStudents() {
@@ -109,6 +109,7 @@ export default class TieringView extends React.Component {
       <div style={styles.selectionBar}>
         <input
           style={styles.search}
+          ref={el => this.searchInputEl = el}
           placeholder={`Search ${studentsWithTiering.length} students...`}
           value={search}
           onChange={this.onSearchChanged} />
@@ -182,7 +183,7 @@ export default class TieringView extends React.Component {
   renderSummary(studentsWithTiering) {
     return (
       <div style={styles.summaryContainer}>
-        <div style={styles.column}>
+        <div style={styles.summaryColumn}>
           <h4 style={{marginBottom: 10}}>by levels</h4>
           {this.renderTierCount(studentsWithTiering, 0)}
           {this.renderTierCount(studentsWithTiering, 1)}
@@ -190,11 +191,11 @@ export default class TieringView extends React.Component {
           {this.renderTierCount(studentsWithTiering, 3)}
           {this.renderTierCount(studentsWithTiering, 4)}
         </div>
-        <div style={styles.column}>
+        <div style={styles.summaryColumn}>
           <h4 style={{marginBottom: 10}}>by triggers</h4>
           {this.renderTriggerCount(studentsWithTiering)}
         </div>
-        <div style={styles.column}>
+        <div style={styles.summaryColumn}>
           <h4 style={{marginBottom: 10}}>by supports</h4>
           {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
           {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
@@ -267,189 +268,13 @@ export default class TieringView extends React.Component {
       (s => s.first_name)
     ]);
 
-    const gradeCellWidth = 50;
-    const numericCellWidth = 70;
-    const cellWidth = 85;
     return (
       <div style={styles.tableContainer}>
-        <AutoSizer disableHeight>
-          {({width}) => (
-            <Table
-              width={width}
-              headerHeight={40}
-              height={450}
-              rowCount={sortedStudentsWithTiering.length}
-              rowGetter={({index}) => sortedStudentsWithTiering[index]}
-              rowHeight={40}
-              rowStyle={{display: 'flex', alignItems: 'center'}}
-              headerStyle={styles.tableHeaderStyle}
-            >
-              <Column
-                dataKey="student"
-                label={<span><br />Student</span>}
-                width={120}
-                flexGrow={1}
-                cellRenderer={this.renderStudent} />
-              <Column
-                dataKey="level"
-                label={<span><br />Level</span>}
-                width={gradeCellWidth}
-                cellRenderer={this.renderLevel} />
-              <Column
-                dataKey="absence"
-                label={<span>Absence<br/>Rate</span>}
-                width={numericCellWidth}
-                cellRenderer={this.renderAbsenceRate} />
-              <Column
-                dataKey="discipline"
-                label={<span>Discipline<br/>Incidents</span>}
-                width={numericCellWidth}
-                cellRenderer={this.renderDisciplineIncidents} />
-              <Column
-                dataKey="ela"
-                label={<span><br />ELA</span>}
-                width={gradeCellWidth}
-                cellRenderer={this.renderGradeFor.bind(this, ELA)} />
-              <Column
-                dataKey="history"
-                label={<span>Social<br/>Studies</span>}
-                width={gradeCellWidth}
-                cellRenderer={this.renderGradeFor.bind(this, HISTORY)} />
-              <Column
-                dataKey="math"
-                label={<span><br />Math</span>}
-                width={gradeCellWidth}
-                cellRenderer={this.renderGradeFor.bind(this, MATH)} />
-              <Column
-                dataKey="science"
-                label={<span><br />Science</span>}
-                width={gradeCellWidth}
-                cellRenderer={this.renderGradeFor.bind(this, SCIENCE)} />
-              <Column
-                dataKey="nge"
-                label={<span>Last NGE/<br/>10GE notes</span>}
-                width={cellWidth}
-                cellRenderer={this.renderNotes.bind(this, 'last_experience_note')} />
-              <Column
-                dataKey="sst"
-                label={<span>Last SST<br/>notes</span>}
-                width={cellWidth}
-                cellRenderer={this.renderNotes.bind(this, 'last_sst_note')} />
-              <Column
-                dataKey="support"
-                label={<span>Academic<br/>Support</span>}
-                width={cellWidth}
-                cellRenderer={this.renderIf.bind(this, ACADEMIC_SUPPORT, 'support')} />
-              <Column
-                dataKey="redirect"
-                label={<span><br/>Redirect</span>}
-                width={cellWidth}
-                cellRenderer={this.renderIf.bind(this, REDIRECT, 'redirect')} />
-              <Column
-                dataKey="recovery"
-                label={<span>Credit<br/>Recovery</span>}
-                width={cellWidth}
-                cellRenderer={this.renderIf.bind(this, CREDIT_RECOVERY, 'recovery')} />
-              <Column
-                dataKey="program_assigned"
-                label={<span>Program<br/>or SPED</span>}
-                width={cellWidth}
-                cellRenderer={this.renderProgram} />
-            </Table>
-          )}
-        </AutoSizer>
+        <StudentLevelsTable sortedStudentsWithTiering={sortedStudentsWithTiering} />
       </div>
     );
   }
-
-  renderStudent({rowData}) {
-    const student = rowData;
-    return <a style={styles.person} target="_blank" href={`https://somerville.studentinsights.org/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
-  }
-
-  renderLevel({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.tier.level}</span>;
-  }
-
-  renderDisciplineIncidents({rowData}) {
-    const {tier} = rowData;
-    const count = tier.data.recent_discipline_actions;
-    const style = (tier.triggers.indexOf('discipline') !== -1)
-      ? styles.warn
-      : styles.plain;
-    return <span style={style}>{count}</span>; 
-  }
-
-  renderAbsenceRate({rowData}) {
-    const {tier} = rowData;
-    const percentage = Math.round(tier.data.recent_absence_rate * 100);
-    const style = (tier.triggers.indexOf('absence') !== -1)
-      ? styles.warn
-      : styles.plain;
-    return <span style={style}>{percentage}%</span>; 
-  }
-
-  renderGradeFor(patterns, {rowData}) {
-    const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments, patterns);
-    return (assignment)
-      ? this.renderGrade(assignment.grade_letter)
-      : null;
-  }
-
-  renderIf(patterns, el, {rowData}) {
-    const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments, patterns);
-    return (assignment)
-      ? <span style={styles.support}>{el}</span>
-      : null;
-  }
-
-  renderTriggerIf(trigger, {rowData}) {
-    return (rowData.tier.triggers.indexOf(trigger) !== -1)
-      ? trigger
-      : null;
-  }
-
-  renderProgram({rowData}) {
-    const program = rowData.program_assigned;
-    const spedPlacement = rowData.sped_placement;
-    return (program && program !== 'Reg Ed')
-      ? <span style={{...styles.support, fontSize: 12}}>{program === 'Sp Ed' ? spedPlacement : program}</span>
-      : null;
-  }
-
-  renderGrade(gradeLetter) {
-    if (!gradeLetter) return null;
-
-    if (gradeLetter.indexOf('F') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
-    } else if (gradeLetter.indexOf('D') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
-    } else if (gradeLetter.indexOf('B') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
-    } else if (gradeLetter.indexOf('A') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
-    }
-    return <span style={styles.grade}>{gradeLetter}</span>;
-  }
-
-  renderNotes(key, {rowData}) {
-    const {nowFn} = this.context;
-    const now = nowFn();
-    const eventNote = rowData.notes[key];
-    if (eventNote === undefined) return null;
-    if (eventNote.recorded_at === undefined) return null;
-
-    const noteMoment = toMomentFromTime(eventNote.recorded_at);
-    const daysAgo = now.clone().diff(noteMoment, 'days');
-    if (daysAgo > 45) return null;
-    return <span style={{...styles.support, fontSize: 12}}>{daysAgo} days</span>;
-  }
 }
-TieringView.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
-};
 TieringView.propTypes = {
   studentsWithTiering: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -472,93 +297,45 @@ TieringView.propTypes = {
   })).isRequired
 };
 
-const warningColor = 'rgb(255, 222, 198)';
-const strengthColor = '#4d884d';
 const styles = {
   root: {
     fontSize: 14
-  },
-  person: {
-    fontWeight: 'bold',
-    fontSize: 14
-  },
-  section: {
-    margin: 10
-  },
-  summaryContainer: {
-    display: 'flex',
-    margin: 10
-  },
-  column: {
-    flex: 1,
-    margin: 10
-  },
-  table: {
-    marginTop: 30
-  },
-  cell: {
-    textAlign: 'left',
-    verticalAlign: 'top'
   },
   selectionBar: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
   },
+  search: {
+    display: 'inline-block',
+    padding: 8,
+    paddingLeft: 10,
+    borderRadius: 3,
+    border: '1px solid #ddd',
+    marginLeft: 20,
+    fontSize: 12,
+    width: 150
+  },
   select: {
     width: '10em',
     marginLeft: 20
+  },
+  summaryContainer: {
+    display: 'flex',
+    margin: 10
+  },
+  summaryColumn: {
+    flex: 1,
+    margin: 10
   },
   tieringInfo: {
     marginLeft: 20,
     fontSize: 12,
     color: '#666'
   },
-  support: {
-    display: 'inline-block',
-    textAlign: 'center',
-    padding: 4,
-    backgroundColor: '#3177c9',
-    color: 'white',
-    fontSize: 14,
-    width: '95%',
-    height: '95%'
-  },
-  grade:{
-    display: 'inline-block',
-    width: 35,
-    textAlign: 'center',
-    padding: 8
-  },
-  warn: {
-    display: 'inline-block',
-    backgroundColor: warningColor,
-    padding: 8
-  },
-  plain: {
-    display: 'inline-block',
-    padding: 8
-  },
-  search: {
-    display: 'inline-block',
-    padding: 4,
-    borderRadius: 3,
-    border: '1px solid #ddd',
-    marginLeft: 20,
-    width: 150
-  },
   tableContainer: {
     marginLeft: 10,
     marginTop: 20
-  },
-  tableHeaderStyle: {
-    display: 'flex',
-    fontSize: 12,
-    fontWeight: 'normal',
-    alignContent: 'flex-start',
-    borderBottom: '1px solid #aaa',
-    paddingBottom: 3,
-    height: '100%'
   },
   summary: {
     padding: 5,
