@@ -7,6 +7,7 @@ import Button from '../components/Button';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ProfileBarChart from '../student_profile/ProfileBarChart.js';
 import * as Routes from '../helpers/Routes';
+import moment from 'moment';
 
 const style = {
   container: {
