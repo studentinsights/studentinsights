@@ -5,7 +5,7 @@ class FeedFilter
 
   def by_counselor_caseload(students)
     if use_counselor_based_feed?
-      students.select {|student| is_counselor_for?(@educator, student) }
+      students.select {|student| is_counselor_for?(student) }
     else
       students
     end

@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     limit = params[:limit].to_i
 
     authorized_students = authorizer.authorized_when_viewing_as(view_as_educator) do
-      feed_students(view_as_educator)
+      Feed.students_for_feed(view_as_educator)
     end
     feed = Feed.new(authorized_students)
     feed_cards = feed.all_cards(time_now, limit)
@@ -52,17 +52,6 @@ class HomeController < ApplicationController
   end
 
   private
-  # Adapt the feed for HS counselors so that it shows only
-  # students on their caseload.
-  def feed_students(educator)
-    filter = FeedFilter.new(educator)
-    if filter.use_counselor_based_feed?
-      filter.by_counselor_caseload(Student.active)
-    else
-      Student.active
-    end
-  end
-
   # Use time from value or fall back to Time.now
   def time_now_or_param(params_time_now)
     if params_time_now.present?
