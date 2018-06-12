@@ -3,14 +3,6 @@ require "spec_helper"
 describe '_navbar_signed_in partial' do
   let!(:pals) { TestPals.create! }
 
-  def render_for(educator)
-    masquerade = Masquerade.new({}, -> { educator })
-    render partial: 'shared/navbar_signed_in', :locals => {
-      educator: educator,
-      masquerade: masquerade
-    }
-  end
-
   def expect_common_links(rendered)
     expect(rendered).to include('My notes')
     expect(rendered).to include('Home')
@@ -19,8 +11,7 @@ describe '_navbar_signed_in partial' do
   end
 
   it 'works for Uri' do
-    render_for(pals.uri)
-    expect(rendered).to include('Class lists')
+    render partial: 'shared/navbar_signed_in', :locals => { educator: pals.uri }
     expect(rendered).to include('District')
     expect(rendered).not_to include('Roster')
     expect(rendered).not_to include('Absences')
@@ -31,8 +22,7 @@ describe '_navbar_signed_in partial' do
   end
 
   it 'works for Vivian' do
-    render_for(pals.healey_vivian_teacher)
-    expect(rendered).to include('Class lists')
+    render partial: 'shared/navbar_signed_in', :locals => { educator: pals.healey_vivian_teacher }
     expect(rendered).not_to include('District')
     expect(rendered).not_to include('Roster')
     expect(rendered).not_to include('Absences')
@@ -43,8 +33,7 @@ describe '_navbar_signed_in partial' do
   end
 
   it 'works for Laura' do
-    render_for(pals.healey_laura_principal)
-    expect(rendered).to include('Class lists')
+    render partial: 'shared/navbar_signed_in', :locals => { educator: pals.healey_laura_principal }
     expect(rendered).not_to include('District')
     expect(rendered).to include('Roster')
     expect(rendered).to include('Absences')
@@ -55,8 +44,7 @@ describe '_navbar_signed_in partial' do
   end
 
   it 'works for Bill' do
-    render_for(pals.shs_bill_nye)
-    expect(rendered).not_to include('Class lists')
+    render partial: 'shared/navbar_signed_in', :locals => { educator: pals.shs_bill_nye }
     expect(rendered).not_to include('District')
     expect(rendered).not_to include('Roster')
     expect(rendered).not_to include('Absences')
