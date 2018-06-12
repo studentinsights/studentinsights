@@ -172,6 +172,35 @@ class ClassListQueries
     false
   end
 
+  def students_as_json(students)
+    students.as_json({
+      only: [
+        :id,
+        :local_id,
+        :first_name,
+        :last_name,
+        :date_of_birth,
+        :disability,
+        :program_assigned,
+        :limited_english_proficiency,
+        :plan_504,
+        :home_language,
+        :free_reduced_lunch,
+        :race,
+        :hispanic_latino,
+        :gender,
+        :most_recent_star_math_percentile,
+        :most_recent_star_reading_percentile
+      ],
+      methods: [
+        :iep_document,
+        :latest_access_results,
+        :latest_dibels,
+        :most_recent_school_year_discipline_incidents_count
+      ]
+    })
+  end
+
   private
   def authorized_class_list(workspace_id, options = {})
     class_lists = ClassList

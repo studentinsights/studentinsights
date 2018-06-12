@@ -29,6 +29,29 @@ class ClassList < ActiveRecord::Base
       .first
   end
 
+  # Check if anything has changed in students_json, and if so create a new
+  # snapshot.  This is to check if the information that teachers had when making their
+  # class lists is different than it is at a later query time.
+  def snapshot_if_changed
+    referenced_student_ids = self.json['studentIdsByRoom'].try(:values).try(:flatten) || []
+    students = Student.where(id: referenced_student_ids)
+    students_json = queries.students_as_json(students)
+
+    latest_snapshot = ClassListSnapshot
+      .where(class_list_id: self.id)
+      .order(created_at: :desc)
+      .first
+
+    if latest_snapshot.students_json == students_json
+      nil
+    else
+      ClassListSnapshot.create!({
+        class_list_id: self.id,
+        students_json: students_json
+      })
+    end
+  end
+
   private
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.
