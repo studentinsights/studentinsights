@@ -15,6 +15,7 @@ class SchoolAbsenceDashboard extends React.Component {
     super(props);
     this.state = {
       displayDates: this.props.dateRange,
+      showExcused: false,
       selectedHomeroom: null,
       selectedRange: 'This School Year'
     };
@@ -90,7 +91,8 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderMonthlyAbsenceChart() {
-    const monthlyAttendance = this.monthlySchoolAttendance(this.props.schoolAverageDailyAttendance);
+    const dailyAttendance = this.state.showExcused ? this.props.schoolAverageDailyAttendance : this.props.schoolAverageDailyAttendanceUnexcused;
+    const monthlyAttendance = this.monthlySchoolAttendance(dailyAttendance);
     const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
       const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
       return Math.round(rawAvg*10)/10;
@@ -195,6 +197,7 @@ class SchoolAbsenceDashboard extends React.Component {
 
 SchoolAbsenceDashboard.propTypes = {
   schoolAverageDailyAttendance: PropTypes.object.isRequired,
+  schoolAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
   homeroomAverageDailyAttendance: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired,
   schoolAbsenceEvents: PropTypes.object.isRequired,

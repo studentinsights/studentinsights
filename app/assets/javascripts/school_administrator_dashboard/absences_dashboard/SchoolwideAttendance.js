@@ -36,6 +36,19 @@ class SchoolwideAttendance extends React.Component {
     return homeroomAbsenceEventsByDay;
   }
 
+  homeroomAbsenceEventsByDayUnexcused(studentsGroupedByHomeroom) {
+    let homeroomAbsenceEventsByDay = {};
+    Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
+      const absenceEvents = DashboardHelpers.absenceEvents(studentsGroupedByHomeroom[homeroom]);
+      const unexcusedAbsenceEvents = absenceEvents.filter((event) => {
+        return !event.excused && !event.dismissed;
+      });
+      const daysWithAbsences = DashboardHelpers.eventsGroupedByDay(unexcusedAbsenceEvents);
+      homeroomAbsenceEventsByDay[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
+    });
+    return homeroomAbsenceEventsByDay;
+  }
+
   //Because homerooms often have no absences, merge their daily events with the list of school days
   addPerfectAttendanceDays(eventsGroupedByDay) {
     this.schoolDays().forEach((day) => {
@@ -61,7 +74,9 @@ class SchoolwideAttendance extends React.Component {
     return (
         <SchoolAbsenceDashboard
           schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
+          schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused()}
           homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance()}
+          homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendanceUnexcused()}
           schoolAbsenceEvents = {this.props.schoolAbsenceEvents}
           dashboardStudents = {this.props.dashboardStudents}
           dateRange = {this.schoolYearDateRange()}/>);
