@@ -23,11 +23,24 @@ describe SectionsController, :type => :controller do
         expect(assigns(:serialized_data)[:sections].size).to eq 2
         expect(assigns(:serialized_data)[:students].size).to eq 1
         expect(assigns(:serialized_data)[:students].first.keys).to include(
-          'event_notes',
+          'event_notes_without_restricted',
           'most_recent_school_year_absences_count',
           'most_recent_school_year_tardies_count',
           'most_recent_school_year_discipline_incidents_count'
         )
+      end
+
+      it 'does not include restricted notes' do
+        EventNote.create!({
+          educator: pals.uri,
+          student: pals.shs_freshman_mari,
+          text: 'something sensitive',
+          is_restricted: true,
+          event_note_type_id: 300,
+          recorded_at: Time.now
+        })
+        make_request(section.id)
+        expect(assigns(:serialized_data)[:students].first['event_notes_without_restricted']).to eq []
       end
     end
   end
@@ -35,13 +48,13 @@ describe SectionsController, :type => :controller do
   context 'with misassigned sections' do
     let!(:pals) { TestPals.create! }
     let!(:high_school) { pals.shs }
-    let!(:high_school_educator) { FactoryGirl.create(:educator, school: high_school) }
+    let!(:high_school_educator) { FactoryBot.create(:educator, school: high_school) }
     let!(:k8_school) { pals.healey }
-    let!(:course) { FactoryGirl.create(:course, school: high_school) }
-    let!(:first_section) { FactoryGirl.create(:section, course: course) }
-    let!(:first_student) { FactoryGirl.create(:student, :registered_last_year, grade: '3', school: k8_school) }
-    let!(:ssa1) { FactoryGirl.create(:student_section_assignment, student: first_student, section: first_section)}
-    let!(:first_esa) { FactoryGirl.create(:educator_section_assignment, educator: high_school_educator, section: first_section)}
+    let!(:course) { FactoryBot.create(:course, school: high_school) }
+    let!(:first_section) { FactoryBot.create(:section, course: course) }
+    let!(:first_student) { FactoryBot.create(:student, :registered_last_year, grade: '3', school: k8_school) }
+    let!(:ssa1) { FactoryBot.create(:student_section_assignment, student: first_student, section: first_section)}
+    let!(:first_esa) { FactoryBot.create(:educator_section_assignment, educator: high_school_educator, section: first_section)}
 
     describe '#show' do
       it 'does student-level authorization, beyond just section relation' do
@@ -61,27 +74,27 @@ describe SectionsController, :type => :controller do
   end
 
   context 'with controller-specific test setup' do
-    let!(:school) { FactoryGirl.create(:shs) }
-    let!(:course) { FactoryGirl.create(:course, school: school) }
-    let!(:first_section) { FactoryGirl.create(:section, course: course) }
-    let!(:second_section) { FactoryGirl.create(:section, course: course) }
-    let!(:third_section) { FactoryGirl.create(:section, course: course) }
-    let!(:first_student) { FactoryGirl.create(:student, :registered_last_year, grade: '9', school: school) }
-    let!(:ssa1) { FactoryGirl.create(:student_section_assignment, student: first_student, section: first_section)}
-    let!(:second_student) { FactoryGirl.create(:student, :registered_last_year, grade: '10', school: school) }
-    let!(:ssa2) { FactoryGirl.create(:student_section_assignment, student: second_student, section: first_section)}
-    let!(:third_student) { FactoryGirl.create(:student, :registered_last_year, grade: '9', school: school) }
-    let!(:ssa3) { FactoryGirl.create(:student_section_assignment, student: third_student, section: first_section)}
-    let(:other_school) { FactoryGirl.create(:school) }
-    let(:other_school_course) { FactoryGirl.create(:course, school: other_school) }
-    let(:other_school_section) { FactoryGirl.create(:section, course: other_school_course) }
+    let!(:school) { FactoryBot.create(:shs) }
+    let!(:course) { FactoryBot.create(:course, school: school) }
+    let!(:first_section) { FactoryBot.create(:section, course: course) }
+    let!(:second_section) { FactoryBot.create(:section, course: course) }
+    let!(:third_section) { FactoryBot.create(:section, course: course) }
+    let!(:first_student) { FactoryBot.create(:student, :registered_last_year, grade: '9', school: school) }
+    let!(:ssa1) { FactoryBot.create(:student_section_assignment, student: first_student, section: first_section)}
+    let!(:second_student) { FactoryBot.create(:student, :registered_last_year, grade: '10', school: school) }
+    let!(:ssa2) { FactoryBot.create(:student_section_assignment, student: second_student, section: first_section)}
+    let!(:third_student) { FactoryBot.create(:student, :registered_last_year, grade: '9', school: school) }
+    let!(:ssa3) { FactoryBot.create(:student_section_assignment, student: third_student, section: first_section)}
+    let(:other_school) { FactoryBot.create(:school) }
+    let(:other_school_course) { FactoryBot.create(:course, school: other_school) }
+    let(:other_school_section) { FactoryBot.create(:section, course: other_school_course) }
 
     describe '#show' do
 
       context 'educator with section logged in' do
-        let!(:educator) { FactoryGirl.create(:educator, school: school) }
-        let!(:first_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: first_section)}
-        let!(:second_esa) { FactoryGirl.create(:educator_section_assignment, educator: educator, section: second_section)}
+        let!(:educator) { FactoryBot.create(:educator, school: school) }
+        let!(:first_esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: first_section)}
+        let!(:second_esa) { FactoryBot.create(:educator_section_assignment, educator: educator, section: second_section)}
 
         before { sign_in(educator) }
 
@@ -91,9 +104,9 @@ describe SectionsController, :type => :controller do
             it 'does not raise an error' do
               expect { make_request('garbage section ids rule') }.not_to raise_error
             end
-            it 'redirects to educator\'s first section' do
+            it 'redirects' do
               make_request('garbage ids rule')
-              expect(response).to redirect_to(section_path(educator.sections[0]))
+              expect(response).to redirect_to(home_path)
             end
           end
 
@@ -128,7 +141,7 @@ describe SectionsController, :type => :controller do
           end
 
           context 'section not accessible to educator' do
-            let(:another_section) { FactoryGirl.create(:section) }
+            let(:another_section) { FactoryBot.create(:section) }
             it 'redirects' do
               make_request(another_section.id)
               expect(response.status).to eq 302
@@ -138,7 +151,7 @@ describe SectionsController, :type => :controller do
       end
 
       context 'admin educator logged in' do
-        let(:admin_educator) { FactoryGirl.create(:educator, :admin, school: school) }
+        let(:admin_educator) { FactoryBot.create(:educator, :admin, school: school) }
 
         before { sign_in(admin_educator) }
 
@@ -165,7 +178,7 @@ describe SectionsController, :type => :controller do
       end
 
       context 'districtwide educator logged in' do
-        let(:dw_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+        let(:dw_educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
         before { sign_in(dw_educator) }
 

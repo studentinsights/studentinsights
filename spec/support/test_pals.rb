@@ -19,20 +19,24 @@ class TestPals
   # students
   attr_reader :healey_kindergarten_student
   attr_reader :shs_freshman_mari
+  attr_reader :west_eighth_ryan
 
   # educators
   attr_reader :uri
+  attr_reader :rich_districtwide
   attr_reader :healey_vivian_teacher
   attr_reader :healey_ell_teacher
   attr_reader :healey_sped_teacher
   attr_reader :healey_laura_principal
   attr_reader :healey_sarah_teacher
   attr_reader :west_marcus_teacher
+  attr_reader :west_counselor
   attr_reader :shs_jodi
   attr_reader :shs_bill_nye
   attr_reader :shs_ninth_grade_counselor
   attr_reader :shs_hugo_art_teacher
   attr_reader :shs_fatima_science_teacher
+  attr_reader :shs_harry_housemaster
 
   # homerooms
   attr_reader :healey_kindergarten_homeroom
@@ -57,13 +61,13 @@ class TestPals
   def create!
     School.seed_somerville_schools
 
-    # Uri works in the central office, and is the admin for the entire
+    # Uri works in the central office, and is the admin for the
     # project at the district.
     @uri = Educator.create!(
       id: 999999,
       email: 'uri@demo.studentinsights.org',
       full_name: 'Disney, Uri',
-      password: 'demo-password',
+      staff_type: 'Administrator',
       can_set_districtwide_access: true,
       districtwide_access: true,
       admin: true,
@@ -73,6 +77,23 @@ class TestPals
       grade_level_access: [],
       can_view_restricted_notes: true,
       school: School.find_by_local_id('HEA')
+    )
+
+    # Rich works in the central office and has districwide access, but
+    # not project lead access.
+    @rich_districtwide = Educator.create!(
+      email: 'rich@demo.studentinsights.org',
+      full_name: 'Districtwide, Rich',
+      staff_type: 'Administrator',
+      can_set_districtwide_access: false,
+      districtwide_access: true,
+      admin: true,
+      schoolwide_access: true,
+      restricted_to_sped_students: false,
+      restricted_to_english_language_learners: false,
+      grade_level_access: [],
+      can_view_restricted_notes: true,
+      school: nil
     )
 
     # Healey is a K8 school.
@@ -92,6 +113,7 @@ class TestPals
       email: 'vivian@demo.studentinsights.org',
       full_name: 'Teacher, Vivian',
       password: 'demo-password',
+      staff_type: nil,
       school: @healey,
       homeroom: @healey_kindergarten_homeroom
     )
@@ -99,31 +121,32 @@ class TestPals
     @healey_ell_teacher = Educator.create!(
       email: 'alonso@demo.studentinsights.org',
       full_name: 'Teacher, Alonso',
-      password: 'demo-password',
       restricted_to_english_language_learners: true,
       school: @healey
     )
     @healey_sped_teacher = Educator.create!(
       email: 'silva@demo.studentinsights.org',
       full_name: 'Teacher, Silva',
-      password: 'demo-password',
       restricted_to_sped_students: true,
       school: @healey
     )
     @healey_laura_principal = Educator.create!(
       email: 'laura@demo.studentinsights.org',
       full_name: 'Principal, Laura',
-      password: 'demo-password',
       school: @healey,
+      staff_type: 'Principal',
       admin: true,
       schoolwide_access: true,
       can_view_restricted_notes: true,
       local_id: '350'
     )
+    EducatorLabel.create!(
+      educator: @healey_laura_principal,
+      label_key: 'class_list_maker_finalizer_principal'
+    )
     @healey_sarah_teacher = Educator.create!(
       email: "sarah@demo.studentinsights.org",
       full_name: 'Teacher, Sarah',
-      password: 'demo-password',
       homeroom: @healey_fifth_homeroom,
       school: @healey,
       local_id: '450'
@@ -148,10 +171,20 @@ class TestPals
     @west_marcus_teacher = Educator.create!(
       email: "marcus@demo.studentinsights.org",
       full_name: 'Teacher, Marcus',
-      password: 'demo-password',
       local_id: '550',
       homeroom: @west_fifth_homeroom,
       school: @west
+    )
+    @west_counselor = Educator.create!(
+      email: "les@demo.studentinsights.org",
+      full_name: "Counselor, Les",
+      local_id: '551',
+      school: @west,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!(
+      educator: @west_counselor,
+      label_key: 'k8_counselor'
     )
 
     # high school
@@ -159,7 +192,6 @@ class TestPals
     @shs_ninth_grade_counselor = Educator.create!(
       email: 'sofia@demo.studentinsights.org',
       full_name: 'Counselor, Sofia',
-      password: 'demo-password',
       school: @shs,
       grade_level_access: ['9']
     )
@@ -174,13 +206,27 @@ class TestPals
     @shs_jodi = Educator.create!(
       email: 'jodi@demo.studentinsights.org',
       full_name: 'Teacher, Jodi',
-      password: 'demo-password',
       school: @shs,
       homeroom: @shs_jodi_homeroom
     )
+    EducatorLabel.create!({
+      educator: @shs_jodi,
+      label_key: 'shs_experience_team'
+    })
+
+    @shs_harry_housemaster = Educator.create!(
+      email: 'harry@demo.studentinsights.org',
+      full_name: 'Housemaster, Harry',
+      school: @shs,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!({
+      educator: @shs_harry_housemaster,
+      label_key: 'high_school_house_master'
+    })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
-    # on Tuesday and Thursday and has a homeroom period.
+    # on Tuesday and Thursday and has a homeroom period.  And he's on the NGE team.
     @shs_bill_nye_homeroom = Homeroom.create!(
       name: 'SHS 917',
       grade: '9',
@@ -189,7 +235,6 @@ class TestPals
     @shs_bill_nye = Educator.create!(
       email: 'bill@demo.studentinsights.org',
       full_name: 'Teacher, Bill',
-      password: 'demo-password',
       school: @shs,
       homeroom: @shs_bill_nye_homeroom
     )
@@ -206,12 +251,15 @@ class TestPals
         course: @shs_biology_course, section_number: 'SHS-BIO-THUR'
       )
     ])
+    EducatorLabel.create!({
+      educator: @shs_bill_nye,
+      label_key: 'shs_experience_team'
+    })
 
     # Hugo teachers two sections of ceramics at the high school.
     @shs_hugo_art_teacher = Educator.create!(
       email: "hugo@demo.studentinsights.org",
       full_name: 'Teacher, Hugo',
-      password: 'demo-password',
       local_id: '650',
       school: @shs
     )
@@ -241,7 +289,6 @@ class TestPals
     @shs_fatima_science_teacher = Educator.create!(
       email: "fatima@demo.studentinsights.org",
       full_name: 'Teacher, Fatima',
-      password: 'demo-password',
       local_id: '750',
       school: @shs
     )
@@ -284,6 +331,15 @@ class TestPals
       section: @shs_tuesday_biology_section,
       grade_numeric: 67,
       grade_letter: 'D'
+    )
+
+    @west_eighth_ryan = Student.create!(
+      first_name: 'Ryan',
+      last_name: 'Rodriguez',
+      school: @west,
+      grade: '8',
+      local_id: '333333333',
+      enrollment_status: 'Active'
     )
 
     reindex!

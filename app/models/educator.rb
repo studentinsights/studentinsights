@@ -1,11 +1,5 @@
 class Educator < ActiveRecord::Base
-  devise :rememberable, :trackable, :timeoutable
-
-  if ::EnvironmentVariable.is_true('SHOULD_USE_LDAP')
-    devise :ldap_authenticatable_tiny
-  else
-    devise :database_authenticatable
-  end
+  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable
 
   belongs_to  :school
   has_one     :homeroom
@@ -15,9 +9,11 @@ class Educator < ActiveRecord::Base
   has_many    :section_students, source: :students, through: :sections
   has_many    :interventions
   has_many    :event_notes
+  has_many    :transition_notes
   has_many    :event_note_revisions
+  has_many    :educator_labels
 
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, case_sensitive: false
 
   validate :validate_has_school_unless_districtwide,
            :validate_admin_gets_access_to_all_students,
@@ -36,6 +32,10 @@ class Educator < ActiveRecord::Base
     super(options.merge({ except: [:student_searchbar_json] }))
   end
 
+  def is_principal?
+    staff_type.try(:downcase) == 'principal'
+  end
+
   def is_authorized_for_student(student)
     Authorizer.new(self).is_authorized_for_student?(student)
   end
@@ -46,6 +46,10 @@ class Educator < ActiveRecord::Base
 
   def is_authorized_for_section(section)
     Authorizer.new(self).is_authorized_for_section?(section)
+  end
+
+  def is_authorized_to_see_transition_notes
+    Authorizer.new(self).is_authorized_to_see_transition_notes?
   end
 
   def students_for_school_overview(*additional_includes)
@@ -59,6 +63,10 @@ class Educator < ActiveRecord::Base
     else
       students
     end
+  end
+
+  def labels
+    educator_labels.map(&:label_key)
   end
 
   def default_homeroom

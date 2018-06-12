@@ -19,7 +19,7 @@ RSpec.describe StarReadingImporter do
 
       context 'with good data' do
         context 'existing student' do
-          let!(:student) { FactoryGirl.create(:student_we_want_to_update) }
+          let!(:student) { FactoryBot.create(:student_we_want_to_update) }
           it 'creates a new student assessment' do
             expect { import }.to change { StudentAssessment.count }.by 1
           end

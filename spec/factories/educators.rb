@@ -1,12 +1,19 @@
-FactoryGirl.define do
+FactoryBot.define do
 
-  sequence(:email) { |n| "superteacher#{n}@somerville.edu" }
   sequence(:staff_local_id) { |n| "000#{n}" }
 
   factory :educator do
     password 'demo-password' # All the same for local development and the demo site
-    email { FactoryGirl.generate(:email) }
-    local_id { FactoryGirl.generate(:staff_local_id) }
+    full_name do
+      first_name = FakeNames.deterministic_sample(FakeNames::FIRST_NAMES)
+      last_name = FakeNames.deterministic_sample(FakeNames::LAST_NAMES)
+      "#{last_name}, #{first_name}"
+    end
+    email do
+      last_name, first_name = full_name.split(', ')
+      "#{first_name}.#{last_name}@demo.studentinsights.org"
+    end
+    local_id { FactoryBot.generate(:staff_local_id) }
     association :school
 
     trait :admin do

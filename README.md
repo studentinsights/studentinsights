@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
 [![Code Climate](https://codeclimate.com/github/studentinsights/studentinsights/badges/gpa.svg)](https://codeclimate.com/github/studentinsights/studentinsights)
 
-Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings focused on the most at-risk students.
+Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings.
 
 Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
 
@@ -54,7 +54,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
         - [Setting other ENV variables](#setting-other-env-variables)
         - [Creating a YAML config file](#creating-a-yaml-config-file)
         - [Running the import job](#running-the-import-job)
-    - [LDAP](#ldap)
     - [Heroku notes](#heroku-notes)
     - [Data differences between districts](#data-differences-between-districts)
     - [Feature differences between districts](#feature-differences-between-districts)
@@ -102,9 +101,6 @@ Student profiles also contain the full case history of demographic information, 
 
 ![Profile](docs/readme_images/profile-full-case-history-screenshot.png)
 
-We're working on some big improvements to the student profile page right now, check out [#5](https://github.com/studentinsights/studentinsights/issues/5) for more background.
-
-
 ### Capturing meeting notes and interventions
 It's one thing to have data, but acting on it to improve student outcomes is what really matters.  Schools with regular student support meetings for at-risk students can track interventions like additional tutoring hours, attendance contracts or social skills groups.  This is a building block to close the loop and monitor how effectively these interventions are serving students.
 
@@ -150,6 +146,8 @@ bundle exec rake db:create db:migrate db:seed
 ```
 
 This will create demo students with fake student information.  See the demo site above for the set of educators you can use (or look at `test_pals.rb`).
+
+If you are willing to run a longer (~10 minute) task that will generate ~600 students to more closely approximate one of our pilot schools, set `ENV["MORE_DEMO_STUDENTS"] = 'true'` before running the seed task.
 
 ## 3. Start the app
 Once you've created the data, start the app by running `yarn start` from the root of your project.  This runs two processes in parallel: the Rails server and a Webpack process that watches and rebuilds JavaScript files.  When the local server is up and running, visit http://localhost:3000/ and log in with your demo login information. You should see the roster view for your data.  You can stop both processes with `command+c` like normal, and look at `package.json` if you want to run them in individual terminals.
@@ -201,6 +199,9 @@ Useful tidbits:
 - Enable "Shared Clipboard" in the Devices menu
 - Disable the "Host Capture" key
 - Point to http://10.0.2.2:3000/ to access the host instance of Student Insights
+
+7. Use Storybook
+Running `yarn storybook` will start a storybook server on port 6006. You can use this to create "stories" iterate on UI features or components in particular states, separate from how they exist within the product.  To add new stories, write a new `.story.js` file and update `ui/config/.storybook/config.js`.
 
 # Browser/OS Targeting
 
@@ -330,15 +331,9 @@ This job has fairly verbose logging output that you can use to debug and tweak t
 
 If you see 🚨 🚨 🚨, that means that one of the remote files failed to import. The job will complete no matter how many file imports fail. That way it can show you aggregate information about the job.
 
-### LDAP
-
-The project is configured to use LDAP as its authentication strategy in production. To use database authentication (in a production demo site, for example) set the `SHOULD_USE_LDAP` environment variable. Authentication strategies are defined in `educator.rb`.
-
 ### Heroku notes
 
-[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with Somerville's LDAP server behind a firewall. This requires additional configuration to prevent Quotaguard Static from interfering with the connection between application and database.
-
-One way to accomplish this is to set a `QUOTAGUARDSTATIC_MASK` environment variable that routes only outbound traffic to certain IP subnets using the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
+[Quotaguard Static](https://www.quotaguard.com/static-ip), a Heroku add-on, provides the static IP addresses needed to connect with district LDAP servers which are firewalled.  The `QUOTAGUARDSTATIC_MASK` environment variable is a subnet mask for routing only certain outbound requests through the static IPs. [Read Quotaguard Static's documentation for more information.](https://devcenter.heroku.com/articles/quotaguardstatic#socks-proxy-setup)
 
 ### Data differences between districts
 

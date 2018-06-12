@@ -1,40 +1,120 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {mount} from 'enzyme';
 import App from './App';
+import HomePage from '../app/assets/javascripts/home/HomePage';
+import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
+import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
+import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
+import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
+import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
+import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import {MemoryRouter} from 'react-router-dom';
-import {createSerializedDataEducator} from '../spec/javascripts/fixtures/serializedDataEducator';
-
-
-function renderRoute(path) {
-  const currentEducator = createSerializedDataEducator();
-  const el = document.createElement('div');
-  ReactDOM.render(
-    <MemoryRouter initialEntries={[path]}>
-      <App currentEducator={currentEducator} />
-    </MemoryRouter>, el);
-}
-
 
 
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
+jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
+jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
+jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
+jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
+jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
+
+function renderPath(path, options = {}) {
+  const educator = options.educator || createSerializedDataEducator();
+  return (
+    <MemoryRouter initialEntries={[path]}>
+      <App currentEducator={educator} />
+    </MemoryRouter>
+  );
+}
+
+// For testing, which mirrors the output of ui_controller#ui on the
+// server.
+function createSerializedDataEducator(props = {}) {
+  return {
+    id: 9999,
+    admin: false,
+    school_id: 99,
+    labels: [],
+    ...props
+  };
+}
 
 
 it('renders HomePage without crashing', () => {
-  renderRoute('/home');
+  const wrapper = mount(renderPath('/home'));
+  expect(wrapper.contains(
+    <HomePage educatorId={9999} educatorLabels={[]} />
+  )).toEqual(true);
 });
 
-it('render EducatorPage without crashing', () => {
-  renderRoute('/educators/view/12');
+it('renders MyStudentsPage without crashing', () => {
+  const wrapper = mount(renderPath('/educators/my_students'));
+  expect(wrapper.contains(<MyStudentsPage />)).toEqual(true);
+});
+
+it('renders EducatorPage without crashing', () => {
+  const wrapper = mount(renderPath('/educators/view/12'));
+  expect(wrapper.contains(
+    <EducatorPage educatorId={12} />
+  )).toEqual(true);
 });
 
 it('render SchoolCoursesPage without crashing', () => {
-  renderRoute('/schools/hea/courses');
+  const wrapper = mount(renderPath('/schools/hea/courses'));
+  expect(wrapper.contains(
+    <SchoolCoursesPage schoolId="hea" />
+  )).toEqual(true);
+});
+
+it('renders Absences Dashboard without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/absences'));
+  expect(wrapper.contains(
+    <DashboardLoader schoolId="hea" dashboardTarget="absences"/>
+  )).toEqual(true);
+});
+
+it('renders Tardies Dashboard without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/tardies'));
+  expect(wrapper.contains(
+    <DashboardLoader schoolId="hea" dashboardTarget="tardies"/>
+  )).toEqual(true);
+});
+
+it('renders district enrollment', () => {
+  const wrapper = mount(renderPath('/district/enrollment'));
+  expect(wrapper.contains(
+    <DistrictEnrollmentPage />
+  )).toEqual(true);
+});
+
+it('renders new classlist', () => {
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/classlists/new', {educator}));
+  expect(wrapper.contains(
+    <ClassListCreatorPage currentEducator={educator} />
+  )).toEqual(true);
+});
+
+it('renders edit classlist', () => {
+  const educator = createSerializedDataEducator();
+  const wrapper = mount(renderPath('/classlists/foo-id', {educator}));
+  expect(wrapper.contains(
+    <ClassListCreatorPage currentEducator={educator} defaultWorkspaceId="foo-id" />
+  )).toEqual(true);
+});
+
+it('renders list of classlists', () => {
+  const wrapper = mount(renderPath('/classlists'));
+  expect(wrapper.contains(
+    <ClassListsViewPage currentEducatorId={9999} />
+  )).toEqual(true);
 });
 
 describe('unknown route', () => {
-  // This has to temporarily remove the Jest setup code 
+  // This has to temporarily remove the Jest setup code
   // that fails the test when console.warn is triggered.
   var consoleWarn = null; // eslint-disable-line no-var
   beforeEach(() => {
@@ -45,9 +125,9 @@ describe('unknown route', () => {
   afterEach(() => {
     console.warn = consoleWarn; // eslint-disable-line no-console
   });
-  
+
   it('calls console.warn', () => {
-    renderRoute('/fdsjfkdsjkflsdjfs');
+    mount(renderPath('/fdsjfkdsjkflsdjfs'));
     expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
   });
 });

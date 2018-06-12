@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {
@@ -114,7 +115,7 @@ class HomeroomTable extends React.Component {
   }
 
   columnNames() {
-    return Object.values(this.columnKeysToNames());
+    return _.values(this.columnKeysToNames());
   }
 
   getInitialColumnsDisplayed() {
@@ -130,10 +131,10 @@ class HomeroomTable extends React.Component {
     return { ...row, ...risk, ...sped_level };
   }
   mergeInLatestMeetings(row) {
-    const latestSstDateText = latestNoteDateText(300, row.event_notes);
-    const latestMtssDateText = latestNoteDateText(301, row.event_notes);
-    const latestNgeDateText = latestNoteDateText(305, row.event_notes);
-    const latest10geDateText = latestNoteDateText(306, row.event_notes);
+    const latestSstDateText = latestNoteDateText(300, row.event_notes_without_restricted);
+    const latestMtssDateText = latestNoteDateText(301, row.event_notes_without_restricted);
+    const latestNgeDateText = latestNoteDateText(305, row.event_notes_without_restricted);
+    const latest10geDateText = latestNoteDateText(306, row.event_notes_without_restricted);
     return {
       ...row,
       latestSstDateText,
@@ -500,7 +501,7 @@ class HomeroomTable extends React.Component {
 
     return (
       <tbody>
-        {rows.map((row, index) => { return this.renderRow(row, index); }, this)}
+        {rows.map((row, index) => this.renderRow(row, index))}
       </tbody>
     );
   }
@@ -584,11 +585,13 @@ class HomeroomTable extends React.Component {
 }
 
 HomeroomTable.propTypes = {
-  showStar: React.PropTypes.bool.isRequired,
-  showMcas: React.PropTypes.bool.isRequired,
-  rows: React.PropTypes.array.isRequired,
-  school: React.PropTypes.shape({
-    school_type: React.PropTypes.string.isRequired
+  showStar: PropTypes.bool.isRequired,
+  showMcas: PropTypes.bool.isRequired,
+  rows: PropTypes.arrayOf(PropTypes.shape({
+    event_notes_without_restricted: PropTypes.array.isRequired
+  })).isRequired,
+  school: PropTypes.shape({
+    school_type: PropTypes.string.isRequired
   }).isRequired
 };
 

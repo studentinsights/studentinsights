@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 
 export function baseSortByString(stringA, stringB) {
   if (!stringA && !stringB) return 0;
@@ -58,4 +59,32 @@ export function sortByActiveServices(a, b) {
   if (numA > numB) return 1;
   if (numB > numA) return -1;
   return 0;
+}
+
+const ORDERED_GRADES = {
+  'TK': 100,
+  'PPK': 120,
+  'PK': 120,
+  'KF': 130,
+  '1': 150,
+  '2': 160,
+  '3': 170,
+  '4': 180,
+  '5': 190,
+  '6': 200,
+  '7': 210,
+  '8': 220,
+  '9': 230,
+  '10': 240,
+  '11': 250,
+  '12': 260,
+  '13': 270,
+  'SP': 280
+};
+export function sortByGrade(gradeA, gradeB) {
+  return ORDERED_GRADES[gradeA] - ORDERED_GRADES[gradeB];
+}
+
+export function rankedByGradeLevel(gradeLevel) {
+  return ORDERED_GRADES[gradeLevel];
 }

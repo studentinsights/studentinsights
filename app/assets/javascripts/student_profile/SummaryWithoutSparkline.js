@@ -1,4 +1,6 @@
-import HelpBubble from './HelpBubble.js';
+import React from 'react';
+import PropTypes from 'prop-types';
+import HelpBubble from '../components/HelpBubble';
 
 const  styles = {
   caption: {
@@ -493,8 +495,8 @@ class SummaryWithoutSparkline  extends React.Component {
             {(this.props.value === undefined) ? 'none' : this.props.value}
           </span>
           <HelpBubble
+            teaser="(what is this?)"
             title="What do DIBELS levels mean?"
-            teaserText="(what is this?)"
             content={this.getDibelsHelpContent()} />
         </div>
       </div>
@@ -503,8 +505,8 @@ class SummaryWithoutSparkline  extends React.Component {
 }
 
 SummaryWithoutSparkline.propTypes = {
-  caption: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string // or null
+  caption: PropTypes.string.isRequired,
+  value: PropTypes.string // or null
 };
 
 export default SummaryWithoutSparkline;

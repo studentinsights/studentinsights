@@ -15,18 +15,17 @@ class BehaviorImporter
     @success_count = 0
     @error_list = []
 
-    @data.each.each_with_index do |row, index|
+    @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      @log.write(
-        "\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped"
-      )
+      @log.puts("processed #{index} rows.") if index % 10000 == 0
     end
 
+    @log.puts("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
     @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
       memo[error] += 1
     end
-    @log.write("\n\nBehaviorImporter: Invalid rows summary: ")
-    @log.write(@error_summary)
+    @log.puts("\n\nBehaviorImporter: Invalid rows summary: ")
+    @log.puts(@error_summary)
   end
 
   def client
@@ -38,7 +37,7 @@ class BehaviorImporter
   end
 
   def data_transformer
-    CsvTransformer.new
+    CsvTransformer.new(@log)
   end
 
   def filter

@@ -1,39 +1,9 @@
-import ProfileChart from '../student_profile/ProfileChart';
-import {merge} from '../helpers/react_helpers.jsx';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {merge} from '../helpers/merge';
+import ProfileChart from './ProfileChart';
+import ProfileChartSettings from './ProfileChartSettings';
 
-
-window.shared || (window.shared = {});
-const ProfileChartSettings = window.shared.ProfileChartSettings;
-
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
-  navBar: {
-    fontSize: 18
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
 
 /*
 This renders details about ELA performance and growth in the student profile page.
@@ -44,8 +14,7 @@ area, and Highcharts hovers look a little strange because of that.  It shows a b
 historical context though, so we'll keep all data points, even those outside of the visible
 range since interpolation lines will still be visible.
 */
-
-class ElaDetails extends React.Component {
+export default class ElaDetails extends React.Component {
 
   // TODO(er) factor out
   percentileYAxis() {
@@ -228,13 +197,41 @@ class ElaDetails extends React.Component {
 }
 
 ElaDetails.propTypes = {
-  chartData: React.PropTypes.shape({
-    star_series_reading_percentile: React.PropTypes.array.isRequired,
-    mcas_series_ela_scaled: React.PropTypes.array,
-    next_gen_mcas_ela_scaled: React.PropTypes.array,
-    mcas_series_ela_growth: React.PropTypes.array.isRequired
+  chartData: PropTypes.shape({
+    star_series_reading_percentile: PropTypes.array.isRequired,
+    mcas_series_ela_scaled: PropTypes.array,
+    next_gen_mcas_ela_scaled: PropTypes.array,
+    mcas_series_ela_growth: PropTypes.array.isRequired
   }).isRequired,
-  student: React.PropTypes.object.isRequired
+  student: PropTypes.object.isRequired
 };
 
-export default ElaDetails;
+const styles = {
+  title: {
+    color: 'black',
+    paddingBottom: 20,
+    fontSize: 24
+  },
+  container: {
+    width: '100%',
+    marginTop: 50,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '1px solid #ccc',
+    padding: '30px 30px 30px 30px',
+    position: 'relative'
+  },
+  secHead: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    position: 'relative',
+    bottom: 10
+  },
+  navBar: {
+    fontSize: 18
+  },
+  navTop: {
+    textAlign: 'right',
+    verticalAlign: 'text-top'
+  }
+};

@@ -1,10 +1,11 @@
 {
   "testMatch": [
-    "**/__tests__/**/*.js?(x)",
-    "**/?(*.)(spec|test).js?(x)",
-    "**/*_spec.js?(x)"
+    "**/?(*.)test.js"
   ],
   "setupFiles": [
     "./ui/config/setupTests.js"
-  ]
+  ],
+  "moduleNameMapper": {
+    "\\.css$": "<rootDir>/ui/config/styleMock.js"
+  }
 }

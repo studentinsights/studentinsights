@@ -1,19 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
-import renderer from 'react-test-renderer';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
-import HomeFeed, {mergeCards, HomeFeedPure} from './HomeFeed';
-import SpecSugar from '../../../../spec/javascripts/support/spec_sugar.jsx';
-import {withDefaultNowContext} from '../../../../spec/javascripts/support/NowContainer';
-import homeFeedJson from '../../../../spec/javascripts/fixtures/home_feed_json';
+import HomeFeed, {mergeCards} from './HomeFeed';
+import {withDefaultNowContext} from '../testing/NowContainer';
+import homeFeedJson from '../testing/fixtures/home_feed_json';
 
 
 function testProps() {
   return {
     educatorId: 9999
   };
+}
+
+function testRenderWithEl(props) {
+  const el = document.createElement('div');
+  ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
+  return {el};
 }
 
 // This is a note recorded a day before the last note in the 
@@ -63,66 +67,52 @@ function expectRenderedFeed(el, options = {}) {
 describe('HomeFeed', () => {
   beforeEach(() => {
     fetchMock.restore();
-    fetchMock.get('/home/feed_json?educator_id=9999&limit=10&time_now=1520938986', homeFeedJson);
-    fetchMock.get('/home/feed_json?educator_id=9999&limit=10&time_now=1315440000', moreCardsJson());
+    fetchMock.get('/api/home/feed_json?educator_id=9999&limit=10&time_now=1520938986', homeFeedJson);
+    fetchMock.get('/api/home/feed_json?educator_id=9999&limit=10&time_now=1315440000', moreCardsJson());
   });
 
   it('renders without crashing', () => {
     const props = testProps();
-    const el = document.createElement('div');
-    ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
+    testRenderWithEl(props);
   });
 
-  SpecSugar.withTestEl('integration tests', container => {
-    it('renders everything after fetch', done => {
-      const props = testProps();
-      const el = container.testEl;
-      ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
-      
+  it('renders everything after fetch', done => {
+    const props = testProps();
+    const {el} = testRenderWithEl(props);
+    
+    setTimeout(() => {
+      expectRenderedFeed(el, {
+        eventNoteCards: 19,
+        birthdayCards: 1,
+        seeMoreLinks: 1
+      });
+      done();
+    }, 0);
+  });
+
+  it('can load more data and render it', done => {
+    const props = testProps();
+    const {el} = testRenderWithEl(props);
+    
+    setTimeout(() => {
+      expectRenderedFeed(el, {
+        eventNoteCards: 19,
+        birthdayCards: 1,
+        seeMoreLinks: 1
+      });
+      ReactTestUtils.Simulate.click($(el).find('.HomeFeed-load-more').get(0));
+      expect($(el).html()).toContain('Loading more...');
       setTimeout(() => {
         expectRenderedFeed(el, {
-          eventNoteCards: 19,
+          eventNoteCards: 20,
           birthdayCards: 1,
           seeMoreLinks: 1
         });
         done();
       }, 0);
-    });
-
-    it('can load more data and render it', done => {
-      const props = testProps();
-      const el = container.testEl;
-      ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
-      
-      setTimeout(() => {
-        expectRenderedFeed(el, {
-          eventNoteCards: 19,
-          birthdayCards: 1,
-          seeMoreLinks: 1
-        });
-        ReactTestUtils.Simulate.click($(el).find('.HomeFeed-load-more').get(0));
-        setTimeout(() => {
-          expectRenderedFeed(el, {
-            eventNoteCards: 20,
-            birthdayCards: 1,
-            seeMoreLinks: 1
-          });
-          done();
-        }, 0);
-      }, 0);
-    });
+    }, 0);
   });
 });
-
-describe('HomeFeedPure', () => {
-  it('pure component matches snapshot', () => {
-    const tree = renderer
-      .create(withDefaultNowContext(<HomeFeedPure feedCards={homeFeedJson.feed_cards} />))
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
-
 
 describe('#mergeCards', () => {
   it('works', () => {

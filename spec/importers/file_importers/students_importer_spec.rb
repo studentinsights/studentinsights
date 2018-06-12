@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe StudentsImporter do
-
+  let(:log) { LogHelper::FakeLog.new }
   let(:students_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil, log: log
     })
   }
 
   describe '#import_row' do
     context 'good data' do
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { CsvTransformer.new(log) }
       let(:csv) { transformer.transform(file) }
       let(:import) { csv.each { |row| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }
@@ -63,7 +63,13 @@ RSpec.describe StudentsImporter do
 
       context 'when an existing student in the database' do
         before do
-          student = Student.new(local_id: '100', school: healey, grade: '7')
+          student = Student.new({
+            first_name: 'Ryan',
+            last_name: 'Rodriguez',
+            local_id: '100',
+            school: healey,
+            grade: '7'
+          })
           student.save!
           student.create_student_risk_level!
         end
@@ -87,7 +93,7 @@ RSpec.describe StudentsImporter do
 
       context 'student in database who has since graduated on to high school' do
         let!(:graduating_student) {
-          Student.create!(local_id: '101', school: healey, grade: '8')   # Old data
+          FactoryBot.create(:student, local_id: '101', school: healey, grade: '8')   # Old data
         }
 
         it 'imports students' do
@@ -106,14 +112,14 @@ RSpec.describe StudentsImporter do
 
     end
 
-    context 'bad data' do
-      let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '1', homeroom: '101' } }
-      it 'raises an error' do
-        expect{
-          students_importer.import_row(row)
-        }.to raise_error(
-          ActiveRecord::RecordInvalid
-        )
+    context 'validation failure' do
+      let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '', homeroom: '101' } }
+      it 'logs an error and skips row' do
+        student = students_importer.import_row(row)
+        expect(student).to eq nil
+        expect(students_importer.instance_variable_get(:@log).msgs).to eq [
+          'StudentsImporter: could not save student record because of errors on [:local_id, :grade]'
+        ]
       end
     end
 
@@ -122,9 +128,9 @@ RSpec.describe StudentsImporter do
   describe '#assign_student_to_homeroom' do
 
     context 'student already has a homeroom' do
-      let!(:school) { FactoryGirl.create(:school) }
-      let!(:student) { FactoryGirl.create(:student_with_homeroom, school: school) }
-      let!(:new_homeroom) { FactoryGirl.create(:homeroom, school: school) }
+      let!(:school) { FactoryBot.create(:school) }
+      let!(:student) { FactoryBot.create(:student_with_homeroom, school: school) }
+      let!(:new_homeroom) { FactoryBot.create(:homeroom, school: school) }
 
       it 'assigns the student to the homeroom' do
         students_importer.assign_student_to_homeroom(student, new_homeroom.name)
@@ -133,7 +139,7 @@ RSpec.describe StudentsImporter do
     end
 
     context 'student does not have a homeroom' do
-      let!(:student) { FactoryGirl.create(:student) }
+      let!(:student) { FactoryBot.create(:student) }
       let!(:new_homeroom_name) { '152I' }
       it 'creates a new homeroom' do
         expect {
@@ -148,7 +154,7 @@ RSpec.describe StudentsImporter do
     end
 
     context 'student is inactive' do
-      let!(:student) { FactoryGirl.create(:student, enrollment_status: 'Inactive') }
+      let!(:student) { FactoryBot.create(:student, enrollment_status: 'Inactive') }
       let!(:new_homeroom_name) { '152K' }
 
       it 'does not create a new homeroom' do

@@ -11,7 +11,7 @@ RSpec.describe CoursesSectionsImporter do
   }
 
   describe '#import_row' do
-    let!(:school) { FactoryGirl.create(:shs) }
+    let!(:school) { FactoryBot.create(:shs) }
 
     context 'happy path' do
       let(:row) { { course_number:'ART-205',

@@ -11,4 +11,16 @@ class EventNoteType < ActiveRecord::Base
       { id: 306, name: '10th Grade Experience' },
     ])
   end
+
+  def self.SST
+    EventNoteType.find(300)
+  end
+
+  def self.NGE
+    EventNoteType.find(305)
+  end
+
+  def self.TENGE
+    EventNoteType.find(306)
+  end
 end

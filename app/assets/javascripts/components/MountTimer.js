@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -23,7 +24,7 @@ class MountTimer extends React.Component {
 
     if (onTiming) {
       onTiming(diff);
-    } else {
+    } else if (process.env.NODE_ENV !== 'test') { // eslint-disable-line no-undef
       console.log('MountTimer: ', diff);  // eslint-disable-line no-console
     }
   }
@@ -34,8 +35,8 @@ class MountTimer extends React.Component {
   }
 }
 MountTimer.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  onTiming: React.PropTypes.func
+  children: PropTypes.node.isRequired,
+  onTiming: PropTypes.func
 };
 
 export default MountTimer;

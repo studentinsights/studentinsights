@@ -5,7 +5,7 @@ RSpec.describe CsvTransformer do
   describe '#transform' do
     context 'tracks total and processed rows' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { CsvTransformer.new(LogHelper::FakeLog.new) }
 
       it '#size and #pre_cleanup_csv_size filter out row with bad date' do
         output = transformer.transform(csv_string)
@@ -16,7 +16,7 @@ RSpec.describe CsvTransformer do
 
     context 'headers in csv' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { CsvTransformer.new(LogHelper::FakeLog.new) }
       let(:output) { transformer.transform(csv_string) }
 
       it '#each_with_index' do
@@ -42,7 +42,7 @@ RSpec.describe CsvTransformer do
     context 'headers not in csv' do
       let!(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_no_headers.csv") }
       let(:headers) {["section_number","student_local_id","school_local_id","course_number","term_local_id","grade"]}
-      let(:transformer) { CsvTransformer.new(headers: headers) }
+      let(:transformer) { CsvTransformer.new(LogHelper::FakeLog.new, headers: headers) }
       let(:output) { transformer.transform(csv_string) }
 
       it '#size' do

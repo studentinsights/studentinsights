@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
@@ -23,7 +24,7 @@ class EducatorPage extends React.Component {
 
   fetchEducator() {
     const {educatorId} = this.props;
-    const url = `/api/educators/${educatorId}`;
+    const url = `/api/educators/view/${educatorId}`;
     return apiFetchJson(url);
   }
 
@@ -68,13 +69,15 @@ class EducatorPage extends React.Component {
           </pre>
         </div>
         <SectionHeading>Home page</SectionHeading>
-        <HomePage educatorId={educator.id} />
+        <HomePage
+          educatorId={educator.id}
+          educatorLabels={educator.labels} />
       </div>
     );
   }
 }
 EducatorPage.propTypes = {
-  educatorId: React.PropTypes.number.isRequired
+  educatorId: PropTypes.number.isRequired
 };
 
 

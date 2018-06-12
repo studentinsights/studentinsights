@@ -26,7 +26,7 @@ class StudentsImporter
   end
 
   def data_transformer
-    CsvTransformer.new
+    CsvTransformer.new(@log)
   end
 
   def filter
@@ -41,12 +41,19 @@ class StudentsImporter
     student = StudentRow.new(row, school_ids_dictionary).build
     return if student.registration_date_in_future
 
-    student.save!
+    did_save = student.save
+    if !did_save
+      @log.puts "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
+      return nil
+    end
+
     student.update_risk_level!
 
     if row[:homeroom].present?
       assign_student_to_homeroom(student, row[:homeroom])
     end
+
+    student
   end
 
   def assign_student_to_homeroom(student, homeroom_name)

@@ -36,8 +36,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # used to seed demo data in production
-gem 'factory_girl_rails'
-gem 'faker'
+gem 'factory_bot_rails'
 
 group :development, :test do
   gem 'bourbon', '~> 4.3.2'
@@ -52,6 +51,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'timecop'
+  gem 'brakeman'
 end
 
 group :development do

@@ -20,7 +20,7 @@ describe EducatorsController, :type => :controller do
         "email"=>"uri@demo.studentinsights.org",
         "admin"=>true,
         "full_name"=>"Disney, Uri",
-        "staff_type"=>nil,
+        "staff_type"=>"Administrator",
         "schoolwide_access"=>true,
         "grade_level_access"=>[],
         "restricted_to_sped_students"=>false,
@@ -31,7 +31,8 @@ describe EducatorsController, :type => :controller do
           "id"=>pals.healey.id,
           "name"=>"Arthur D Healey"
         },
-        "sections"=>[]
+        "sections"=>[],
+        "labels"=>[]
       })
     end
 
@@ -42,100 +43,44 @@ describe EducatorsController, :type => :controller do
     end
   end
 
-  describe '#homepage' do
-    def make_request
+  describe '#my_students_json' do
+    def get_my_students(educator)
       request.env['HTTPS'] = 'on'
-      get :homepage
+      sign_in(educator)
+      get :my_students_json, params: { format: :json }
+      response
     end
 
-    before { sign_in(educator) }
-
-    context 'non admin' do
-
-      context 'with homeroom' do
-        let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-        it 'redirects to default homeroom' do
-          make_request
-          expect(response).to redirect_to(homeroom_path(educator.homeroom))
-        end
-      end
-
-      context 'without homeroom' do
-        let!(:educator) { FactoryGirl.create(:educator) }
-        let!(:homeroom) { FactoryGirl.create(:homeroom) }   # Not associated with educator
-        it 'redirects to no homeroom assigned page' do
-          make_request
-          expect(response).to redirect_to(no_default_page_path)
-        end
-      end
+    def included_student_ids(response)
+      body = JSON.parse!(response.body)
+      body['students'].map {|student| student['id'] }
     end
 
-    context 'schoolwide access' do
+    let!(:pals) { TestPals.create! }
 
-      context 'educator assigned to school' do
-        let!(:school) { FactoryGirl.create(:school) }
-        let(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-        it 'redirects to the correct school' do
-          make_request
-          expect(response).to redirect_to(school_url(school))
-        end
-      end
-
-      context 'educator not assigned to school' do
-        let(:educator) { FactoryGirl.create(:educator, :admin) }
-        let!(:school) { FactoryGirl.create(:school) }
-        before { FactoryGirl.create(:student, school: school) }
-        let!(:another_school) { FactoryGirl.create(:school) }
-        it 'redirects to first school page' do
-          make_request
-          expect(response).to redirect_to(school_url(School.first))
-        end
-      end
+    it 'works for Uri as an example' do
+      response = get_my_students(pals.uri)
+      expect(response).to be_success
+      expect(included_student_ids(response)).to contain_exactly(*Student.all.map(&:id))
     end
 
-    context 'districtwide access' do
-      let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-      it 'redirects to districtwide homepage' do
-        make_request
-        expect(response).to redirect_to(educators_districtwide_url)
-      end
-    end
-  end
-
-  describe '#districtwide_admin_homepage' do
-    def make_request
-      request.env['HTTPS'] = 'on'
-      get :districtwide_admin_homepage
+    it 'works for Harry as an example, showing he is authorized for 8th graders' do
+      response = get_my_students(pals.shs_harry_housemaster)
+      expect(response).to be_success
+      expect(included_student_ids(response)).to contain_exactly(*[
+        pals.shs_freshman_mari.id,
+        pals.west_eighth_ryan.id
+      ])
     end
 
-    context 'educator signed in' do
+    it 'includes 8th grade students for Harry when env is not set, even if he has label' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return(nil)
 
-      before { sign_in(educator) }
-
-      context 'educator w districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
-        it 'can access the page' do
-          make_request
-          expect(response).to be_success
-        end
-      end
-
-      context 'educator w/o districtwide access' do
-        let(:educator) { FactoryGirl.create(:educator) }
-        it 'cannot access the page; gets redirected' do
-          make_request
-          expect(response).to redirect_to(not_authorized_url)
-        end
-      end
+      response = get_my_students(pals.shs_harry_housemaster)
+      expect(response).to be_success
+      expect(included_student_ids(response)).to contain_exactly(pals.shs_freshman_mari.id)
     end
-
-    context 'not signed in' do
-      it 'redirects' do
-        make_request
-        expect(response).to redirect_to(new_educator_session_url)
-      end
-    end
-
   end
 
   describe '#names_for_dropdown' do
@@ -148,31 +93,31 @@ describe EducatorsController, :type => :controller do
       let(:json) { JSON.parse!(response.body) }
 
       before(:each) do
-        sign_in FactoryGirl.create(:educator)
+        sign_in FactoryBot.create(:educator)
         make_request(student)
       end
 
       context 'student has no school' do
-        let(:student) { FactoryGirl.create(:student) }
+        let(:student) { FactoryBot.create(:student) }
         it 'returns an empty array' do
           expect(json).to eq []
         end
       end
 
       context 'student has school' do
-        let(:student) { FactoryGirl.create(:student, school: school) }
+        let(:student) { FactoryBot.create(:student, school: school) }
 
         context 'educators at school' do
-          let(:school) { FactoryGirl.create(:healey, :with_educator) }
+          let(:school) { FactoryBot.create(:healey, :with_educator) }
           it 'returns array of their names' do
             expect(json).to eq ['Stephenson, Neal']
           end
         end
 
         context 'educators providing services' do
-          let(:school) { FactoryGirl.create(:healey) }
+          let(:school) { FactoryBot.create(:healey) }
           let!(:service) {
-            FactoryGirl.create(:service, provided_by_educator_name: 'Butler, Octavia')
+            FactoryBot.create(:service, provided_by_educator_name: 'Butler, Octavia')
           }
 
           it 'returns array of their names' do
@@ -182,9 +127,9 @@ describe EducatorsController, :type => :controller do
         end
 
         context 'educators at school and providing services' do
-          let(:school) { FactoryGirl.create(:healey, :with_educator) }
+          let(:school) { FactoryBot.create(:healey, :with_educator) }
           let!(:service) {
-            FactoryGirl.create(:service, provided_by_educator_name: 'Butler, Octavia')
+            FactoryBot.create(:service, provided_by_educator_name: 'Butler, Octavia')
           }
 
           it 'returns names of both, sorted alphabetically' do
@@ -209,7 +154,7 @@ describe EducatorsController, :type => :controller do
         end
 
         context 'no educators at school or providing services' do
-          let(:school) { FactoryGirl.create(:healey) }
+          let(:school) { FactoryBot.create(:healey) }
           it 'returns an empty array' do
             expect(json).to eq []
           end
@@ -220,7 +165,7 @@ describe EducatorsController, :type => :controller do
 
     context 'unauthorized' do
       it 'returns unauthorized' do
-        make_request(FactoryGirl.create(:student))
+        make_request(FactoryBot.create(:student))
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -242,7 +187,7 @@ describe EducatorsController, :type => :controller do
 
     context 'educator is logged in' do
       before(:each) do
-        sign_in FactoryGirl.create(:educator)
+        sign_in FactoryBot.create(:educator)
         make_request
       end
       it 'succeeds' do
@@ -264,8 +209,8 @@ describe EducatorsController, :type => :controller do
     end
 
     context 'educator with homeroom' do
-      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
-      let!(:event_note) { FactoryGirl.create(:event_note, { educator: educator, recorded_at: Date.today }) }
+      let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
+      let!(:event_note) { FactoryBot.create(:event_note, { educator: educator, recorded_at: Date.today }) }
 
       it 'is able to access the notes feed page' do
         sign_in(educator)

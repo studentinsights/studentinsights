@@ -31,7 +31,7 @@ class EducatorSectionAssignmentsImporter
   end
 
   def data_transformer
-    CsvTransformer.new
+    CsvTransformer.new(@log)
   end
 
   def filter
@@ -53,7 +53,7 @@ class EducatorSectionAssignmentsImporter
       educator_section_assignment.save!
       @imported_assignments.push(educator_section_assignment.id)
     else
-      @log.write("Educator Section Assignment Import invalid row: #{row}")
+      @log.puts("Educator Section Assignment Import invalid row")
     end
   end
 

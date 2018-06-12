@@ -1,8 +1,12 @@
-import TakeNotes from './take_notes.jsx';
-import PropTypes from '../helpers/prop_types.jsx';
 import React from 'react';
-import HelpBubble from './HelpBubble.js';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import HelpBubble from '../components/HelpBubble';
 import SectionHeading from '../components/SectionHeading';
+import NotesList from './NotesList';
+import TakeNotes from './TakeNotes';
+
 
 const styles = {
   notesContainer: {
@@ -50,15 +54,14 @@ class NotesDetails extends React.Component {
 
   render() {
     const { student, title } = this.props;
-    const NotesList = window.shared.NotesList;
 
     return (
       <div className="NotesDetails" style={styles.notesContainer}>
         <SectionHeading>
           <span>{title} for {student.first_name}</span>
           <HelpBubble
+            teaser="(what is this?)"
             title={this.props.helpTitle}
-            teaserText="(what is this?)"
             content={this.props.helpContent} />
           {this.renderRestrictedNotesButtonIfAppropriate()}
         </SectionHeading>
@@ -76,7 +79,8 @@ class NotesDetails extends React.Component {
   renderTakeNotesSection() {
     const showTakeNotes = this.state.isTakingNotes ||
                           this.props.requests.saveNote !== null ||
-                          this.props.noteInProgressText.length > 0;
+                          this.props.noteInProgressText.length > 0 ||
+                          this.props.noteInProgressAttachmentUrls.length > 0;
 
     if (showTakeNotes) {
       return (
@@ -90,8 +94,10 @@ class NotesDetails extends React.Component {
           requestState={this.props.requests.saveNote}
           noteInProgressText={this.props.noteInProgressText}
           noteInProgressType={this.props.noteInProgressType}
+          noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
           onClickNoteType={this.props.actions.onClickNoteType}
-          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText} />
+          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
+          onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
       );
     }
 
@@ -124,26 +130,31 @@ class NotesDetails extends React.Component {
 }
 
 NotesDetails.propTypes = {
-  student: React.PropTypes.object.isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  educatorsIndex: React.PropTypes.object.isRequired,
-  currentEducator: React.PropTypes.object.isRequired,
-  actions: React.PropTypes.shape({
-    onClickSaveNotes: React.PropTypes.func.isRequired,
-    onEventNoteAttachmentDeleted: React.PropTypes.func,
-    onDeleteEventNoteAttachment: React.PropTypes.func,
-    onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-    onClickNoteType: React.PropTypes.func.isRequired
+  student: PropTypes.object.isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  educatorsIndex: PropTypes.object.isRequired,
+  currentEducator: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    onClickSaveNotes: PropTypes.func.isRequired,
+    onEventNoteAttachmentDeleted: PropTypes.func,
+    onDeleteEventNoteAttachment: PropTypes.func,
+    onChangeNoteInProgressText: PropTypes.func.isRequired,
+    onClickNoteType: PropTypes.func.isRequired,
+    onChangeAttachmentUrl: PropTypes.func.isRequired,
   }),
-  feed: PropTypes.feed.isRequired,
-  requests: React.PropTypes.object.isRequired,
-  noteInProgressText: React.PropTypes.string.isRequired,
-  noteInProgressType: React.PropTypes.number,
+  feed: InsightsPropTypes.feed.isRequired,
+  requests: PropTypes.object.isRequired,
 
-  showingRestrictedNotes: React.PropTypes.bool.isRequired,
-  title: React.PropTypes.string.isRequired,
-  helpContent: React.PropTypes.object.isRequired,
-  helpTitle: React.PropTypes.string.isRequired,
+  noteInProgressText: PropTypes.string.isRequired,
+  noteInProgressType: PropTypes.number,
+  noteInProgressAttachmentUrls: PropTypes.arrayOf(
+    PropTypes.string
+  ).isRequired,
+
+  showingRestrictedNotes: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  helpContent: PropTypes.node.isRequired,
+  helpTitle: PropTypes.string.isRequired,
 };
 
 export default NotesDetails;

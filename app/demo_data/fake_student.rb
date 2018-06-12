@@ -1,8 +1,34 @@
 class FakeStudent
+  ATTENDANCE_EVENT_REASONS = %w[
+    Appointment
+    Bereavement
+    Holiday
+    Late
+    Legal
+    Medical
+    No Reason
+    Nurse
+    Parent
+    School
+    Sick
+    Suspended
+    Transportation
+    Truant
+    Vacation
+    Walked Out
+    Weather
+    Withdrawal
+  ]
+
+  ATTENDANCE_EVENT_COMMENTS = [
+    'Received doctor note.',
+    'Mom called, did not leave a reason.'
+  ]
+
   def initialize(school, homeroom)
     @school = school
     @homeroom = homeroom
-    @student = Student.create(data)
+    @student = Student.create!(data)
     @newstudent = rand > 0.95
     add_attendance_events
     add_discipline_incidents
@@ -73,7 +99,7 @@ class FakeStudent
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
       local_id: unique_local_id,
-      limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "FLEP"].sample,
+      limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "Limited", "FLEP"].sample,
       free_reduced_lunch: ["Free Lunch", "Not Eligible", "Reduced Lunch", nil].sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample,
       race: ['Black', 'White', 'Asian'].sample,
@@ -204,6 +230,7 @@ class FakeStudent
     }
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
+
     events_for_year.times do
       # Randomly determine when it occurred.
       occurred_at = DemoDataUtil.random_time
@@ -212,22 +239,38 @@ class FakeStudent
       attendance_event.occurred_at = occurred_at
       attendance_event.student = student
 
+      # Frequencies for attendance event reasons/comments/dismissed/excused
+      # modeled on Somerville data, for queries see:
+      # https://github.com/studentinsights/studentinsights/pull/1653#issue-184358100
+      if attendance_event.class == Absence
+        attendance_event.dismissed = (rand < 0.006)
+        attendance_event.excused = (rand < 0.0627)
+        attendance_event.reason = ATTENDANCE_EVENT_REASONS.sample if rand < 0.29
+        attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.18
+
+      elsif attendance_event.class == Tardy
+        attendance_event.dismissed = (rand < 0.019)
+        attendance_event.excused = (rand < 0.027)
+        attendance_event.reason = ATTENDANCE_EVENT_REASONS.sample if rand < 0.1
+        attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.04
+      end
+
       attendance_event.save
     end
   end
 
   def add_discipline_incidents
     d = {
-      0 => 0.83,
-      1 => 0.10,
-      2 => 0.03,
-      (3..5) => 0.03,
-      (6..15) => 0.01,
+      0 => 0.23,
+      1 => 0.30,
+      2 => 0.23,
+      (3..5) => 0.13,
+      (6..15) => 0.11,
     }
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      discipline_incident = FactoryGirl.create(:discipline_incident, student: student)
+      discipline_incident = FactoryBot.create(:discipline_incident, student: student)
       discipline_incident.save!
     end
   end

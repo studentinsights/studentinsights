@@ -31,11 +31,15 @@ class StudentSectionAssignmentsImporter
   end
 
   def data_transformer
-    CsvTransformer.new
+    CsvTransformer.new(@log)
   end
 
   def filter
     SchoolFilter.new(@school_scope)
+  end
+
+  def school_ids_dictionary
+    @dictionary ||= School.all.map { |school| [school.local_id, school.id] }.to_h
   end
 
   def delete_rows
@@ -48,12 +52,13 @@ class StudentSectionAssignmentsImporter
   end
 
   def import_row(row)
-    student_section_assignment = StudentSectionAssignmentRow.new(row).build
-    if student_section_assignment
-      student_section_assignment.save!
-      @imported_assignments.push(student_section_assignment.id)
+    assignment = StudentSectionAssignmentRow.new(row, school_ids_dictionary).build
+
+    if assignment
+      assignment.save!
+      @imported_assignments.push(assignment.id)
     else
-      @log.write("Student Section Assignment Import invalid row: #{row}")
+      @log.puts("Student Section Assignment Import invalid row")
     end
   end
 end

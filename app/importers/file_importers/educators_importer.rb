@@ -26,7 +26,7 @@ class EducatorsImporter
   end
 
   def data_transformer
-    CsvTransformer.new
+    CsvTransformer.new(@log)
   end
 
   def filter
@@ -46,7 +46,7 @@ class EducatorsImporter
       homeroom = Homeroom.find_by_name(row[:homeroom]) if row[:homeroom]
       homeroom.update(educator: educator) if homeroom.present?
     else
-      @log.write("EducatorsImporter: nil EducatorRow, skipping row: #{row}")
+      @log.puts("EducatorsImporter: nil EducatorRow, skipping row")
     end
   end
 

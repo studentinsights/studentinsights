@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 
@@ -12,7 +13,7 @@ function SectionHeading({children}) {
   );
 }
 SectionHeading.propTypes = {
-  children: React.PropTypes.node.isRequired
+  children: PropTypes.node.isRequired
 };
 
 const styles = {

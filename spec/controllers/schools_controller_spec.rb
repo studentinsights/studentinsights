@@ -10,7 +10,7 @@ describe SchoolsController, :type => :controller do
 
   describe '#overview' do
     before { School.seed_somerville_schools }
-    let!(:districtwide_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+    let!(:districtwide_educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
     it 'sets school slug' do
       sign_in(districtwide_educator)
@@ -24,7 +24,7 @@ describe SchoolsController, :type => :controller do
 
   describe '#overview_json' do
     before { School.seed_somerville_schools }
-    let!(:districtwide_educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+    let!(:districtwide_educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
     it 'is successful' do
       sign_in(districtwide_educator)
@@ -44,8 +44,8 @@ describe SchoolsController, :type => :controller do
   describe '#show' do
     context 'districtwide access' do
       before { School.seed_somerville_schools }
-      before { FactoryGirl.create(:homeroom) }
-      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      before { FactoryBot.create(:homeroom) }
+      let!(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
       it 'can access any school in the district' do
         sign_in(educator)
@@ -58,7 +58,7 @@ describe SchoolsController, :type => :controller do
       end
 
       before do
-        FactoryGirl.create(
+        FactoryBot.create(
           :student,
           :with_service_and_event_note_and_intervention,
           school: School.find_by_local_id('HEA')
@@ -75,10 +75,10 @@ describe SchoolsController, :type => :controller do
 
     context 'schoolwide access but no districtwide access' do
       before { School.seed_somerville_schools }
-      before { FactoryGirl.create(:homeroom) }
+      before { FactoryBot.create(:homeroom) }
       let(:hea) { School.find_by_local_id 'HEA' }
       let!(:educator) {
-        FactoryGirl.create(:educator, schoolwide_access: true, school: hea)
+        FactoryBot.create(:educator, schoolwide_access: true, school: hea)
       }
 
       it 'can only access assigned school' do
@@ -94,23 +94,23 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator is not an admin but does have a homeroom' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:school) { FactoryBot.create(:healey) }
+      let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
       let!(:homeroom) { educator.homeroom }
 
-      it 'redirects to homeroom page' do
+      it 'redirects' do
         sign_in(educator)
         get :show, params: { id: 'hea' }
-        expect(response).to redirect_to(homeroom_path(homeroom))
+        expect(response).to redirect_to(home_path)
       end
     end
 
     context 'educator is an admin with schoolwide access' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator, :admin, school: school) }
-      let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, school: school) }
-      let!(:include_me_too) { FactoryGirl.create(:student, :registered_last_year, school: school) }
-      let!(:include_me_not) { FactoryGirl.create(:student, :registered_last_year ) }
+      let!(:school) { FactoryBot.create(:healey) }
+      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:include_me) { FactoryBot.create(:student, :registered_last_year, school: school) }
+      let!(:include_me_too) { FactoryBot.create(:student, :registered_last_year, school: school) }
+      let!(:include_me_not) { FactoryBot.create(:student, :registered_last_year ) }
 
       before { school.reload }
 
@@ -129,12 +129,12 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator has grade-level access' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator, school: school, grade_level_access: ['4']) }
+      let!(:school) { FactoryBot.create(:healey) }
+      let!(:educator) { FactoryBot.create(:educator, school: school, grade_level_access: ['4']) }
 
-      let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
-      let!(:include_me_too) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
-      let!(:include_me_not) { FactoryGirl.create(:student, :registered_last_year, grade: '5', school: school) }
+      let!(:include_me) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
+      let!(:include_me_too) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
+      let!(:include_me_not) { FactoryBot.create(:student, :registered_last_year, grade: '5', school: school) }
 
       before { school.reload }
 
@@ -153,9 +153,9 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'not logged in' do
-      let!(:school) { FactoryGirl.create(:healey) }
+      let!(:school) { FactoryBot.create(:healey) }
 
-      let!(:include_me) { FactoryGirl.create(:student, :registered_last_year, grade: '4', school: school) }
+      let!(:include_me) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
 
       before { school.reload }
 
@@ -170,15 +170,15 @@ describe SchoolsController, :type => :controller do
 
   end
 
-  describe '#dashboard' do
+  describe '#absence_dashboard_data' do
     def make_request(school_id)
       request.env['HTTPS'] = 'on'
-      get :school_administrator_dashboard, params: { id: school_id }
+      get :absence_dashboard_data, params: { id: school_id }
     end
 
     context 'districtwide access' do
       before { School.seed_somerville_schools }
-      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true, admin: false, school: nil) }
+      let!(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: false, school: nil) }
 
       it 'can access any school in the district' do
         sign_in(educator)
@@ -193,10 +193,10 @@ describe SchoolsController, :type => :controller do
 
     context 'schoolwide access but no districtwide access' do
       before { School.seed_somerville_schools }
-      before { FactoryGirl.create(:homeroom) }
+      before { FactoryBot.create(:homeroom) }
       let(:hea) { School.find_by_local_id 'HEA' }
       let!(:educator) {
-        FactoryGirl.create(:educator, schoolwide_access: true, school: hea)
+        FactoryBot.create(:educator, schoolwide_access: true, school: hea)
       }
 
       it 'can only access assigned school' do
@@ -211,14 +211,14 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator has only homeroom access' do
-      let!(:school) { FactoryGirl.create(:healey) }
-      let!(:educator) { FactoryGirl.create(:educator_with_homeroom) }
+      let!(:school) { FactoryBot.create(:healey) }
+      let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
       let!(:homeroom) { educator.homeroom }
 
-      it 'redirects to homeroom page' do
+      it 'redirects' do
         sign_in(educator)
         make_request('hea')
-        expect(response).to redirect_to(homeroom_path(homeroom))
+        expect(response).to redirect_to(home_path)
       end
     end
   end
@@ -226,9 +226,9 @@ describe SchoolsController, :type => :controller do
   describe '#csv' do
     context 'with school-wide access' do
       before { School.seed_somerville_schools }
-      before { FactoryGirl.create(:homeroom) }
+      before { FactoryBot.create(:homeroom) }
       let!(:school) { School.find_by_local_id('HEA') }
-      let!(:educator) { FactoryGirl.create(:educator, districtwide_access: true) }
+      let!(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
       it 'succeeds without throwing' do
         sign_in(educator)
@@ -259,6 +259,64 @@ describe SchoolsController, :type => :controller do
       expect(json.keys).to eq(['courses', 'school'])
       expect(json['courses'].size).to eq(3)
       expect(json['courses'].first.keys).to eq(['id', 'course_number', 'course_description', 'sections'])
+    end
+  end
+
+  describe 'dashboard serialization' do
+    let!(:pals) { TestPals.create! }
+    let!(:student) { FactoryBot.create(:student, school: School.find_by_local_id('HEA'))}
+
+    it '#individual_student_absence_data has expected fields' do
+      sign_in(pals.healey_laura_principal)
+      json = controller.send(:individual_student_absence_data, student)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+        :absences,
+        :first_name,
+        :grade,
+        :id,
+        :last_name,
+        :homeroom_label,
+        :sst_notes
+      ])
+    end
+
+    it '#individual_student_tardies_data has expected fields' do
+      sign_in(pals.healey_laura_principal)
+      json = controller.send(:individual_student_tardies_data, student)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+        :tardies,
+        :first_name,
+        :grade,
+        :id,
+        :last_name,
+        :homeroom_label,
+        :sst_notes
+      ])
+    end
+
+    it '#individual_student_discipline_data has expected fields' do
+      DisciplineIncident.create!({
+        student_id: student.id,
+        occurred_at: Time.now
+      })
+      sign_in(pals.healey_laura_principal)
+      json = controller.send(:individual_student_discipline_data, student)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+        :discipline_incidents,
+        :first_name,
+        :grade,
+        :id,
+        :last_name,
+        :homeroom_label,
+        :sst_notes
+      ])
+      expect(json[:discipline_incidents].first.keys).to contain_exactly *[
+        "student_id",
+        "incident_code",
+        "incident_location",
+        "occurred_at",
+        "has_exact_time"
+      ]
     end
   end
 end

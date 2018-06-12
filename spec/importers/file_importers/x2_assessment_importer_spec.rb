@@ -14,12 +14,12 @@ RSpec.describe X2AssessmentImporter do
       after { Assessment.seed_somerville_assessments }
 
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
-      let(:transformer) { CsvTransformer.new }
+      let(:transformer) { CsvTransformer.new(LogHelper::FakeLog.new) }
       let(:csv) { transformer.transform(file) }
 
       context 'for Healey school' do
 
-        let!(:student) { FactoryGirl.create(:student, local_id: '100') }
+        let!(:student) { FactoryBot.create(:student, local_id: '100') }
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
         let(:importer) { described_class.new }
         before { csv.each { |row| x2_assessment_importer.import_row(row) }}

@@ -4,13 +4,13 @@ RSpec.describe Assessment, type: :model do
 
   context 'MCAS' do
     context 'valid subject' do
-      let(:assessment) { FactoryGirl.build(:assessment, family: 'MCAS', subject: 'Mathematics') }
+      let(:assessment) { FactoryBot.build(:assessment, family: 'MCAS', subject: 'Mathematics') }
       it 'is valid' do
         expect(assessment).to be_valid
       end
     end
     context 'invalid subject' do
-      let(:assessment) { FactoryGirl.build(:assessment, family: 'MCAS', subject: 'Math') }
+      let(:assessment) { FactoryBot.build(:assessment, family: 'MCAS', subject: 'Math') }
       it 'is invalid' do
         expect(assessment).to be_invalid
       end
@@ -19,13 +19,13 @@ RSpec.describe Assessment, type: :model do
 
   context 'STAR' do
     context 'valid subject' do
-      let(:assessment) { FactoryGirl.build(:assessment, family: 'STAR', subject: 'Mathematics') }
+      let(:assessment) { FactoryBot.build(:assessment, family: 'STAR', subject: 'Mathematics') }
       it 'is valid' do
         expect(assessment).to be_valid
       end
     end
     context 'invalid subject' do
-      let(:assessment) { FactoryGirl.build(:assessment, family: 'STAR', subject: 'Math') }
+      let(:assessment) { FactoryBot.build(:assessment, family: 'STAR', subject: 'Math') }
       it 'is invalid' do
         expect(assessment).to be_invalid
       end

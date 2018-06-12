@@ -6,23 +6,18 @@ require 'csv'
 class StreamingCsvTransformer
   NIL_CODE = '\N'
 
-  def initialize(options = {})
+  def initialize(log, options = {})
+    @log = log
     @headers = options.key?(:headers) ? options[:headers] : true
     @total_rows_count = nil
     @processed_rows_count = nil
   end
 
   # Performs whole-file transformations first
-  # Enforce UTF8 encoding and
-  # Replace \" within fields to just ", to satisfy the strict Ruby CSV parser
   # This method returns itself, satisfying the {each_with_index, size} inteface for
   # iterating over CSV rows.
   def transform(csv_string)
-    @csv_string = csv_string.encode('UTF-8', 'binary', {
-      invalid: :replace,
-      undef: :replace,
-      replace: ''
-    }).gsub("\\\"", "")
+    @csv_string = ParseableCsvString.new(@log).from_string(csv_string)
     self
   end
 
@@ -40,12 +35,12 @@ class StreamingCsvTransformer
     @total_rows_count = 0
     @processed_rows_count = 0
 
-    CSV.parse(@csv_string, {
+    CSV.new(@csv_string, {
       headers: @headers,
       header_converters: :symbol,
       encoding: 'binary:UTF-8',
       converters: lambda { |h| nil_converter(h) }
-    }) do |row, index|
+    }).each.with_index do |row, index|
       @total_rows_count = @total_rows_count + 1
       cleaner = CsvRowCleaner.new(row)
       next if cleaner.dirty_data?

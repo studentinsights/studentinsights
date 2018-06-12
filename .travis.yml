@@ -1,4 +1,9 @@
 language: ruby
+
+cache:
+  bundler: true
+  yarn: true
+
 rvm:
   - ruby-2.3.0
 
@@ -11,12 +16,13 @@ branches:
   only:
     - master
 
-cache: yarn
-
 before_install:
   - export TZ=America/New_York
 
 install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install --lts
+  - nvm use --lts
   - bundle install --retry=3
   - yarn install
 
@@ -25,5 +31,6 @@ script:
   - bundle exec rake immigrant:check_keys
   - ./scripts/ci/detect_package_lock.sh
   - rubocop
+  - bundle exec brakeman -z
   - bundle exec rspec spec
   - yarn test-cli

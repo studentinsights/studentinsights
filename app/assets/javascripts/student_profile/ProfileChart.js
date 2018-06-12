@@ -1,6 +1,10 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {merge} from '../helpers/react_helpers.jsx';
-import HighchartsWrapper from '../student_profile/HighchartsWrapper.js';
+import moment from 'moment';
+import {merge} from '../helpers/merge';
+import HighchartsWrapper from '../components/HighchartsWrapper';
+import ProfileChartSettings from './ProfileChartSettings';
 import {
   schoolYearStartDates,
   toPair,
@@ -8,10 +12,8 @@ import {
 } from './QuadConverter';
 
 
-const ProfileChartSettings = window.shared.ProfileChartSettings;
-
 // Component for all charts in the profile page.
-class ProfileChart extends React.Component {
+export default class ProfileChart extends React.Component {
 
   constructor(props) {
     super(props); 
@@ -60,8 +62,8 @@ class ProfileChart extends React.Component {
     };
 
     return _.object(
-      startDates.map(function(date){ return date.valueOf(); }),
-      startDates.map(function(date, i){
+      startDates.map(date => date.valueOf()),
+      startDates.map((date, i) => {
         return create_label(
           date,
           (current_grade - startDates.length) + (i + 1) // (current_grade - n/12) to current_grade inclusive
@@ -148,7 +150,7 @@ class ProfileChart extends React.Component {
     return (
       <HighchartsWrapper
         {...merge(this.baseOptions(), {
-          series: this.props.quadSeries.map(function(obj){
+          series: this.props.quadSeries.map(obj => {
             return {
               name: obj.name,
               data: obj.data ? _.map(obj.data, toPair): []
@@ -163,7 +165,7 @@ class ProfileChart extends React.Component {
     return (
       <HighchartsWrapper
         {...merge(this.baseOptions(), {
-          series: this.props.quadSeries.map(function(obj){
+          series: this.props.quadSeries.map(obj => {
             return {
               name: obj.name,
               data: obj.data  ? _.map(obj.data, toStarObject): []
@@ -177,20 +179,18 @@ class ProfileChart extends React.Component {
 }
 
 ProfileChart.propTypes = {
-  showGradeLevelEquivalent: React.PropTypes.bool,
-  quadSeries: React.PropTypes.arrayOf( // you can plot multiple series on the same graph
-    React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired, // e.g. 'Scaled score'
-      data: React.PropTypes.array.isRequired // [year, month, date, value] quads
+  showGradeLevelEquivalent: PropTypes.bool,
+  quadSeries: PropTypes.arrayOf( // you can plot multiple series on the same graph
+    PropTypes.shape({
+      name: PropTypes.string.isRequired, // e.g. 'Scaled score'
+      data: PropTypes.array.isRequired // [year, month, date, value] quads
     })
   ),
-  titleText: React.PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
-  yAxis: React.PropTypes.object.isRequired, // options for rendering the y-axis
-  student: React.PropTypes.object.isRequired,
-  timestampRange: React.PropTypes.shape({
-    min: React.PropTypes.number,
-    max: React.PropTypes.number
+  titleText: PropTypes.string.isRequired, // e.g. 'MCAS scores, last 4 years'
+  yAxis: PropTypes.object.isRequired, // options for rendering the y-axis
+  student: PropTypes.object.isRequired,
+  timestampRange: PropTypes.shape({
+    min: PropTypes.number,
+    max: PropTypes.number
   })
 };
-
-export default ProfileChart;

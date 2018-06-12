@@ -18,16 +18,15 @@ class AttendanceImporter
 
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      @log.write(
-        "\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped"
-      )
+      @log.puts("processed #{index} rows.") if index % 10000 == 0
     end
 
+    @log.puts("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
     @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
       memo[error] += 1
     end
-    @log.write("\n\nAttendanceImporter: Invalid rows summary: ")
-    @log.write(@error_summary)
+    @log.puts("\n\nAttendanceImporter: Invalid rows summary: ")
+    @log.puts(@error_summary)
   end
 
   def remote_file_name
@@ -39,7 +38,7 @@ class AttendanceImporter
   end
 
   def data_transformer
-    StreamingCsvTransformer.new
+    StreamingCsvTransformer.new(@log)
   end
 
   def filter

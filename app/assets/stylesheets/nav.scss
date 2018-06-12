@@ -8,7 +8,9 @@
   .nav-options {
     flex: 1;
     display: flex;
+    display: -webkit-flex;
     justify-content: flex-end;
+    align-items: center;
 
     > * {
       padding-left: 5px;
@@ -18,10 +20,9 @@
 
   .logo {
     display: inline-block;
-    width: 210px;
-    height: 60px;
-    position: relative;
-    top: 10px;
+    width: 135px;
+    height: 40px;
+    margin-top: 5px;
     background: url(asset-path("student-insights-logo-small.png")) no-repeat;
   }
 
@@ -33,17 +34,26 @@
     display: inline-block;
   }
 
-  #student-searchbar {
-    margin: 0 30px 10px 0;
+  .student-searchbar {
+    font-size: 14px;
+    padding: 3px 5px;
+    margin-top: 1px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .navbar-spacer {
+    display: inline-block;
+    width: 15px;
   }
 
   .navwrap {
-    margin: 0 20px;
-    position: relative;
-    bottom: 1px;
+    padding: 5px 20px 5px 20px;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 
     nav {
       float: right;
@@ -71,9 +81,8 @@
     color: white;
     text-align: center;
     padding: 10px;
-    position: relative;
-    top: -10px;
     display: none;
+
     a {
       color: white;
       text-decoration: underline;
@@ -82,15 +91,12 @@
   }
 
   .flash {
-    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 65px; /* just below bar */
   }
 
   /* SIGN IN FLOW & MESSAGES */
-
-  .notice {
-    color: $warning-green;
-    font-weight: 700;
-  }
 
   .alert {
     color: $warning-red;
@@ -104,9 +110,6 @@
     flex-direction: row;
     align-items: flex-end;
     justify-content: flex-end;
-    height: 35px;
-    padding-top: 15px;
-    margin-right: 20px;
 
     .sign-in-item {
       display: inline-block;
@@ -116,6 +119,10 @@
     .sign-in-text {
       width: 20em;
       border: 3px inset #4a90e2
+    }
+
+    label {
+      margin-bottom: 0;
     }
   }
 

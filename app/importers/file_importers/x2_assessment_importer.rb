@@ -28,7 +28,7 @@ class X2AssessmentImporter
   end
 
   def data_transformer
-    CsvTransformer.new
+    CsvTransformer.new(@log)
   end
 
   def filter

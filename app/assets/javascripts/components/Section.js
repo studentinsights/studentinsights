@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 // A visual UI element with canonical display of a section,
@@ -13,10 +14,10 @@ function Section({id, sectionNumber, courseDescription, style}) {
 }
 
 Section.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  sectionNumber: React.PropTypes.string.isRequired,
-  courseDescription: React.PropTypes.string.isRequired,
-  style: React.PropTypes.object
+  id: PropTypes.number.isRequired,
+  sectionNumber: PropTypes.string.isRequired,
+  courseDescription: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 export default Section;

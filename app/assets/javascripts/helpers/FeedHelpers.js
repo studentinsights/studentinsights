@@ -7,14 +7,14 @@ all notes and services for a student.
 
 // Merges data from event_notes and deprecated tables (notes, interventions).
 export function mergedNotes(feed) {
-  const deprecatedInterventions = feed.deprecated.interventions.map(function(intervention) {
+  const deprecatedInterventions = feed.deprecated.interventions.map(intervention => {
     return {
       ...intervention,
       type: 'deprecated_interventions',
       sort_timestamp: intervention.start_date_timestamp
     };
   });
-  const eventNotes = feed.event_notes.map(function(eventNote) {
+  const eventNotes = feed.event_notes.map(eventNote => {
     return {
       ...eventNote,
       type: 'event_notes',

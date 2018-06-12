@@ -6,28 +6,28 @@ RSpec.describe School do
     subject { School.with_students }
 
     context 'no schools have students' do
-      before { FactoryGirl.create(:school) }
+      before { FactoryBot.create(:school) }
       it 'returns empty array' do
         expect(subject).to eq []
       end
     end
 
     context 'all schools have students' do
-      let!(:healey) { FactoryGirl.create(:healey) }
-      let!(:brown) { FactoryGirl.create(:brown) }
-      before { FactoryGirl.create(:student, school: healey) }
-      before { FactoryGirl.create(:student, school: brown) }
+      let!(:healey) { FactoryBot.create(:healey) }
+      let!(:brown) { FactoryBot.create(:brown) }
+      before { FactoryBot.create(:student, school: healey) }
+      before { FactoryBot.create(:student, school: brown) }
       it 'returns all schools' do
-        expect(subject).to eq [healey, brown]
+        expect(subject).to contain_exactly(healey, brown)
       end
     end
 
     context 'some schools have students' do
-      let!(:healey) { FactoryGirl.create(:healey) }
-      let!(:brown) { FactoryGirl.create(:brown) }
-      before { FactoryGirl.create(:student, school: healey) }
+      let!(:healey) { FactoryBot.create(:healey) }
+      let!(:brown) { FactoryBot.create(:brown) }
+      before { FactoryBot.create(:student, school: healey) }
       it 'returns the correct schools' do
-        expect(subject).to eq [healey]
+        expect(subject).to eq([healey])
       end
     end
   end

@@ -5,9 +5,13 @@ Rails.application.configure do
     ENV[key.to_s] = value
   end if File.exists?(env_file)
 
-  ENV['DISTRICT_KEY'] = 'somerville'
 
+  ENV['DISTRICT_KEY'] = 'somerville'
   ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
+  ENV['USE_MOCK_LDAP'] = 'true'
+  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
+  ENV['ENABLE_CLASS_LISTS'] = 'true'
+  ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
 
   config.cache_classes = false
 

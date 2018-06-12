@@ -1,0 +1,45 @@
+<div class="nav-options">
+  <% # Show different links based on role and access %>
+  <% links = PathsForEducator.new(educator).navbar_links %>
+
+  <% if links.has_key?(:classlists) %>
+    <%= link_to 'Class lists', links[:classlists] %>
+    <span class="navbar-spacer"></span>
+  <% end %>
+
+  <% if links.has_key?(:district) %>
+    <%= link_to 'District', links[:district] %>
+    <span class="navbar-spacer"></span>
+  <% end %>
+
+  <% if links.has_key?(:school) %>
+    <%= link_to 'Roster', links[:school] %>
+  <% end %>
+  <% if links.has_key?(:absences) %>
+    <%= link_to "Absences", links[:absences] %>
+  <% end %>
+  <% if links.has_key?(:tardies) %>
+    <%= link_to "Tardies", links[:tardies] %>
+    <span class="navbar-spacer"></span>
+  <% end %>
+
+  <% if links.has_key?(:section) %>
+    <%= link_to 'Sections', links[:section] %>
+  <% end %>
+
+  <% if links.has_key?(:homeroom) %>
+  <%= link_to 'Homeroom', links[:homeroom] %>
+  <% end %>
+
+  <% # Everyone has these %>
+  <%= link_to "My notes", educators_notes_feed_path %>
+  <% if links.has_key?(:my_students) %>
+    <%= link_to 'My students', links[:my_students] %>
+  <% end %>
+  <%= link_to "Home", home_path %>
+  <span class="navbar-spacer"></span>
+  <p class="search-label">Search for student:</p>
+  <input class="student-searchbar" />
+  <span class="navbar-spacer"></span>
+  <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+</div>

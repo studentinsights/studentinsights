@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe StudentSchoolYearSorter, type: :model do
 
   describe "#sort" do
-    let(:student) { FactoryGirl.create(:student) }
+    let(:student) { FactoryBot.create(:student) }
 
     before do
       Absence.create!(student: student, occurred_at: DateTime.new(2016, 6, 1))

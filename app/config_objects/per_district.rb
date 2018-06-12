@@ -19,9 +19,21 @@ class PerDistrict
     raise_not_handled! unless VALID_DISTRICT_KEYS.include?(@district_key)
   end
 
+  def district_key
+    @district_key
+  end
+
   # User-facing text
   def district_name
     ENV['DISTRICT_NAME']
+  end
+
+  def enabled_class_lists?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
+    else
+      false
+    end
   end
 
   def include_incident_cards?
@@ -55,6 +67,17 @@ class PerDistrict
     end
   end
 
+  def import_detailed_attendance_fields?
+    return true if @district_key == SOMERVILLE
+
+    return false if  @district_key == NEW_BEDFORD
+
+    raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO
+
+    raise_not_handled!
+  end
+
+  private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
   end
