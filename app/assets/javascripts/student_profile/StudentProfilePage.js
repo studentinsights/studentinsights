@@ -57,12 +57,13 @@ export default class StudentProfilePage extends React.Component {
   }
 
   renderTransitionNote() {
-    const {currentEducator, actions, transitionNotes, requests} = this.props;
+    const {student, currentEducator, actions, transitionNotes, requests} = this.props;
     const labels = currentEducator.labels;
 
     const isElemCounselor = _.includes(labels, 'k8_counselor');
     const isHouseMaster = _.includes(labels, 'high_school_house_master');
 
+    if (student.grade !== '8') return null;
     if (!isElemCounselor && !isHouseMaster) return null;
 
     return (
