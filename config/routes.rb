@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   get '/api/educators/:id' => 'educators#show'
+  get '/api/educators/my_students' => 'educators#my_students'
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards
@@ -47,6 +48,7 @@ Rails.application.routes.draw do
 
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  get '/educators/my_students'=> 'ui#ui'
   get '/educators/notes_feed'=> 'educators#notes_feed'
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
   get '/educators/reset'=> 'educators#reset_session_clock'
