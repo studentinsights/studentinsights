@@ -33,16 +33,19 @@ class ClassList < ActiveRecord::Base
   # snapshot.  This is to check if the information that teachers had when making their
   # class lists is different than it is at a later query time.
   def snapshot_if_changed
+    # What would the student data be if we queried right now?
     referenced_student_ids = self.json['studentIdsByRoom'].try(:values).try(:flatten) || []
     students = Student.where(id: referenced_student_ids)
-    students_json = queries.students_as_json(students)
+    students_json = ClassListQueries.students_as_json(students)
 
+    # What's the last snapshot's student data?
     latest_snapshot = ClassListSnapshot
       .where(class_list_id: self.id)
       .order(created_at: :desc)
       .first
 
-    if latest_snapshot.students_json == students_json
+    # Make a new snapshot if they're different
+    if latest_snapshot.present? && latest_snapshot.students_json == students_json
       nil
     else
       ClassListSnapshot.create!({

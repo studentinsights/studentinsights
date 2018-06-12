@@ -172,7 +172,7 @@ class ClassListQueries
     false
   end
 
-  def students_as_json(students)
+  def self.students_as_json(students)
     students.as_json({
       only: [
         :id,
