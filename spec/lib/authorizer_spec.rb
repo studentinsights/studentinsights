@@ -226,6 +226,10 @@ RSpec.describe Authorizer do
     end
 
     context 'HS house master, 8th grade student, HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 off' do
+      before do
+        allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return(nil)
+      end
+
       it 'returns true' do
         expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_student?(pals.west_eighth_ryan)).to eq false
       end

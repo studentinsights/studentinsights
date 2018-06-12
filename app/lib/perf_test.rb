@@ -9,6 +9,24 @@ class PerfTest
     timer
   end
 
+  # See educators_controller#my_students_json
+  def self.my_students(percentage, options = {})
+    timer = PerfTest.new.run(percentage) do |t, educator|
+      students = Authorizer.new(educator).authorized { Student.active.includes(:school).to_a }
+      students.as_json({
+        only: [:id, :first_name, :last_name, :house, :counselor, :grade],
+        include: {
+          school: {
+            only: [:id, :name]
+          }
+        }
+      })
+    end
+    pp timer.report
+    pp PerfTest::Reporter.new.report(timer.report.group_by {|tuple| tuple[0] })
+    timer
+  end
+
   # See ClassListQueries.  This was driven by the view in admin/authorization, running this
   # across all educators.
   def self.is_relevant_for_educator?(percentage, options = {})

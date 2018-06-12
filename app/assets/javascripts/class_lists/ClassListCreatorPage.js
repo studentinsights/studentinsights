@@ -2,6 +2,10 @@ import React from 'react';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
 import {
+  updateGlobalStylesToTakeFullHeight,
+  updateGlobalStylesToRemoveHorizontalScrollbars
+} from '../helpers/globalStylingWorkarounds';
+import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
   fetchClassListJson,
@@ -188,18 +192,8 @@ export default class ClassListCreatorPage extends React.Component {
   doSizePage() {
     const {disableSizing} = this.props;
     if (disableSizing) return;
-    
-    // Reach outside component to change styles for page and conatiner, to take up
-    // the entire vertical height.
-    window.document.documentElement.style.height = '100%';
-    window.document.body.style.height = '100%';
-    window.document.body.style.display = 'flex';
-    window.document.body.style['flex-direction'] = 'column';
-    window.document.getElementById('main').style.flex = 1;
-    window.document.getElementById('main').style.display = 'flex';
-    
-    // Prevent horizontal scrollbar from showing.
-    window.document.body.style['min-width'] = '1000px';
+    updateGlobalStylesToTakeFullHeight();
+    updateGlobalStylesToRemoveHorizontalScrollbars();
   }
   
   // Trigger fetches and other initialization
