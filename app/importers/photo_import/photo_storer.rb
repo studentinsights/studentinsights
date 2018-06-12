@@ -63,17 +63,20 @@ class PhotoStorer
   end
 
   def create_student_photo_record(s3_filename)
-    student_photo = StudentPhoto.create({
+    student_photo = StudentPhoto.new(
       student_id: @student.id,
       file_digest: image_file_digest,
       file_size: file_size,
       s3_filename: s3_filename
-    })
-    if !student_photo
-      @logger.info('    could not create StudentPhoto record')
-      nil
-    else
+    )
+
+    if student_photo.save
       student_photo
+    else
+      @logger.info("    could not create StudentPhoto record for student...")
+      @logger.info("        Student Local ID=##{@student.id}.")
+      @logger.info("        Errors on: #{student_photo.errors.details.keys}")
+      nil
     end
   end
 
