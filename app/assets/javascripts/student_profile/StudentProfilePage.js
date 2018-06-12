@@ -611,7 +611,9 @@ StudentProfilePage.propTypes = {
 
   // context
   nowMomentFn: PropTypes.func.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  currentEducator: PropTypes.shape({
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired,
 
   // constants
   educatorsIndex: PropTypes.object.isRequired,
