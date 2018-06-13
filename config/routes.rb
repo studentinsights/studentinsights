@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   get '/api/district/enrollment_json' => 'district#enrollment_json'
 
   # HS tiers
-  get '/api/tiering/:school_id' => 'tiering#show_json'
+  get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
 
   devise_for :educators
   authenticated :educator do

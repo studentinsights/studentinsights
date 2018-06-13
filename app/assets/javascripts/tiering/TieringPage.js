@@ -16,7 +16,7 @@ export default class TieringPage extends React.Component {
 
   fetchTiering() {
     const {schoolId} = this.props;
-    const url = `/api/tiering/${schoolId}`;
+    const url = `/api/tiering/${schoolId}/show_json`;
     return apiFetchJson(url).then(json => json.students_with_tiering);
   }
 

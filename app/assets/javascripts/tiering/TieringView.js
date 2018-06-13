@@ -14,6 +14,7 @@ import {
 import StudentLevelsTable from './StudentLevelsTable';
 
 
+// Experimental UI for HS tiering prototype
 export default class TieringView extends React.Component {
   constructor(props) {
     super(props);

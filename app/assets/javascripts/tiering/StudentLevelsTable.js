@@ -29,7 +29,7 @@ export default class StudentLevelsTable extends React.Component {
     const cellWidth = 85;
 
     return (
-      <AutoSizer disableHeight>
+      <AutoSizer className="StudentLevelsTable" disableHeight>
         {({width}) => (
           <Table
             width={width}
