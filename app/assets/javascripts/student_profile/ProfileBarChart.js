@@ -105,9 +105,9 @@ export default class ProfileBarChart extends React.Component {
       <div id={this.props.id} style={propStyles ? propStyles.container : styles.container}>
         {this.renderHeader()}
         <HighchartsWrapper
-          chart={
-            { ...{ type: 'column' }, ...{ height: propStyles.chartHeight } }
-          }
+          chart={(propStyles)
+            ? { ...{ type: 'column' }, ...{ height: propStyles.chartHeight } }
+            : { type: 'column' }}
           credits={false}
           xAxis={[
             {
