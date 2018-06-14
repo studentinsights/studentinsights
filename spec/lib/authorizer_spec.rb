@@ -48,17 +48,14 @@ RSpec.describe Authorizer do
         some_fields = test_fields - [missing_field]
         students = Student.select(*some_fields).all.to_a
 
-        # Different educator permissions check different field.
+        # Different educator permissions check different fields.
         # When this particular required field is missing, the check for
         # one of these educators should raise an error about a missing
         # attribute.
         expect do
-          authorized(pals.uri) { students }
-          authorized(pals.healey_vivian_teacher) { students }
-          authorized(pals.healey_ell_teacher) { students }
-          authorized(pals.healey_sped_teacher) { students }
-          authorized(pals.shs_bill_nye) { students }
-          authorized(pals.shs_sofia_counselor) { students }
+          Educator.all.each do |educator|
+            authorized(educator) { students }
+          end
         end.to raise_error(ActiveModel::MissingAttributeError)
       end
     end
