@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
   namespace :admin do
+    # Rails pages
     resources :educators
-    get '/authorization' => 'educators#authorization'
+    get '/authorization_overview' => 'config#authorization_overview'
+    get '/counselor_name_mappings' => 'ui#ui'
     root to: "educators#index"
+
+    # endpoints
+    get '/api/counselor_name_mappings_json' => 'config#counselor_name_mappings_json'
   end
 
   scope '/admin' do
