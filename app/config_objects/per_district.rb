@@ -78,7 +78,6 @@ class PerDistrict
   end
 
   def import_student_house?
-    puts 'import_student_house?'
     @district_key == SOMERVILLE
   end
 
@@ -87,6 +86,10 @@ class PerDistrict
   end
 
   def import_student_sped_liason?
+    @district_key == SOMERVILLE
+  end
+
+  def import_student_photos?
     @district_key == SOMERVILLE
   end
 
