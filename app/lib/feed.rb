@@ -1,5 +1,7 @@
 class Feed
   # What students should be shown in an educator's feed?
+  # This isn't always exactly the same as "who is this educator authorized
+  # to view?"
   def self.students_for_feed(educator)
     # Start with all students they are authorized to view
     authorizer = Authorizer.new(educator)

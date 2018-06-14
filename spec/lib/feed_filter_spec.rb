@@ -19,9 +19,9 @@ RSpec.describe FeedFilter do
 
   context 'without mapping for educator' do
     it 'does not filter' do
-      unfiltered_students = Authorizer.new(educator).authorized { Student.active }
       (Educator.all - [pals.shs_ninth_grade_counselor]).each do |educator|
-        expect(FeedFilter.new(educator).filter_for_educator).to eq contain_exactly(*unfiltered_students)
+        unfiltered_students = Authorizer.new(educator).authorized { Student.active }
+        expect(FeedFilter.new(educator).filter_for_educator(unfiltered_students)).to contain_exactly(*unfiltered_students)
       end
     end
   end

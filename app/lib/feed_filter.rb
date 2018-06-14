@@ -5,9 +5,13 @@ class FeedFilter
 
   # Apply any student filters by role, if they are enabled.
   def filter_for_educator(students)
+    filtered_students = students
+
     if use_counselor_based_feed?
-      by_counselor_caseload(students)
+      filtered_students = by_counselor_caseload(filtered_students)
     end
+
+    filtered_students
   end
 
   private
