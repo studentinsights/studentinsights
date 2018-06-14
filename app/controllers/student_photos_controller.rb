@@ -19,7 +19,7 @@ class StudentPhotosController < ApplicationController
   def show
     @s3_filename = @student_photo.s3_filename
 
-    object = s3.get_object(key: @s3_filename, bucket: ENV['AWS_S3_IEP_BUCKET'])
+    object = s3.get_object(key: @s3_filename, bucket: ENV['AWS_S3_PHOTOS_BUCKET'])
 
     send_data object.body.read, filename: @s3_filename, type: 'image/jpeg'
   end
