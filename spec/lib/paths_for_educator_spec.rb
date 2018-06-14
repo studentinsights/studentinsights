@@ -74,14 +74,16 @@ RSpec.describe PathsForEducator do
 
         # high school (TestPals doesn't match actual production HS roles and permisssions)
         expect(navbar_links(pals.shs_harry_housemaster)).to eq({
-          absences: '/schools/shs/absences',
           my_students: '/educators/my_students',
           school: '/schools/shs',
+          absences: '/schools/shs/absences',
           tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_jodi)).to eq({})
         expect(navbar_links(pals.shs_sofia_counselor)).to eq({
-          school: '/schools/shs'
+          school: '/schools/shs',
+          absences: '/schools/shs/absences',
+          tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_bill_nye)).to eq({
           section: "/sections/#{pals.shs_tuesday_biology_section.id}"
