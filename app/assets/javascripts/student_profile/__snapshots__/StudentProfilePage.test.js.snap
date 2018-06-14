@@ -346,7 +346,7 @@ exports[`snapshots works for serializedDataForOlafWhite 1`] = `
                 </li>
                 <li>
                   <span>
-                    ACCESS Composite score: 
+                    ACCESS Composite: 
                     8
                   </span>
                 </li>
@@ -2950,14 +2950,7 @@ exports[`snapshots works for serializedDataForPlutoPoppins 1`] = `
               >
                 <li>
                   <span>
-                    Disability: 
                     Communication
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    Need: 
-                    Low &gt;= 2
                   </span>
                 </li>
               </ul>
@@ -3001,7 +2994,7 @@ exports[`snapshots works for serializedDataForPlutoPoppins 1`] = `
                 </li>
                 <li>
                   <span>
-                    ACCESS Composite score: 
+                    ACCESS Composite: 
                     9
                   </span>
                 </li>
