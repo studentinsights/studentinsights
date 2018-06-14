@@ -105,7 +105,8 @@ export const currentEducator = {
   "schoolwide_access": true,
   "grade_level_access": [],
   "restricted_to_sped_students": false,
-  "restricted_to_english_language_learners": false
+  "restricted_to_english_language_learners": false,
+  "labels": []
 };
 
 export const studentProfile = {

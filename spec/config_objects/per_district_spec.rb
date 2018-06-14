@@ -13,6 +13,11 @@ RSpec.describe PerDistrict do
     PerDistrict.new
   end
 
+  def for_demo
+    ENV['DISTRICT_KEY'] = PerDistrict::DEMO
+    PerDistrict.new
+  end
+
   describe '#initialize' do
     it 'raises if no district_key' do
       ENV['DISTRICT_KEY'] = ''
@@ -32,6 +37,14 @@ RSpec.describe PerDistrict do
       expect(for_somerville.from_import_login_name_to_email('foo')).to eq('foo@k12.somerville.ma.us')
       expect(for_new_bedford.from_import_login_name_to_email('foo')).to eq('foo@newbedfordschools.org')
       expect { PerDistrict.new(district_key: 'wat').from_import_login_name_to_email('foo') }.to raise_error Exceptions::DistrictKeyNotHandledError
+    end
+  end
+
+  describe '#import_student_photos?' do
+    it 'only works in Somerville' do
+      expect(for_somerville.import_student_photos?).to eq(true)
+      expect(for_new_bedford.import_student_photos?).to eq(false)
+      expect(for_demo.import_student_photos?).to eq(false)
     end
   end
 end

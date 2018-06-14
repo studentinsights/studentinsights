@@ -24,7 +24,7 @@ class EducatorPage extends React.Component {
 
   fetchEducator() {
     const {educatorId} = this.props;
-    const url = `/api/educators/${educatorId}`;
+    const url = `/api/educators/view/${educatorId}`;
     return apiFetchJson(url);
   }
 
