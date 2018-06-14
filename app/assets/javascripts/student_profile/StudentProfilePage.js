@@ -263,11 +263,18 @@ export default class StudentProfilePage extends React.Component {
   }
 
   renderDisability(student, access) {
-    return (
-      <SummaryList title="Disability" elements={[
+    const hasNoDisabilityInfo = (
+      (student.disability === 'None' || student.disability === null) &&
+      (student.sped_level_of_need === 'None' || student.sped_level_of_need === null)
+    );
+    const elements = (hasNoDisabilityInfo)
+      ? [<span>None</span>]
+      : [
         <span>Disability: {student.disability || 'None'}</span>,
         <span>Need: {student.sped_level_of_need || 'None'}</span>
-      ]} />
+      ];
+    return (
+      <SummaryList title="Disability" elements={elements} />
     );
   }
 
@@ -277,7 +284,7 @@ export default class StudentProfilePage extends React.Component {
       : <span>ACCESS Composite score: {access.composite}</span>;
     return (
       <SummaryList title="Language" elements={_.compact([
-        <span>Language: {student.limited_english_proficiency}</span>,
+        <span>{student.limited_english_proficiency}</span>,
         accessEl
       ])} />
     );

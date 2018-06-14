@@ -25,9 +25,40 @@ function storifyProps(props) {
 }
 
 function storyRender(props) {
-  return <StudentProfilePage {...storifyProps(props)} />;
+  return <ColumnSelectorContainer {...storifyProps(props)} />;
 }
 
 storiesOf('profile/StudentProfilePage', module) // eslint-disable-line no-undef
   .add('Olaf White', () => storyRender(testPropsForOlafWhite()))
   .add('Pluto Poppins', () => storyRender(testPropsForPlutoPoppins()));
+
+
+// Allow navigation within story
+class ColumnSelectorContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedColumnKey: 'interventions'
+    };
+    this.onColumnClicked = this.onColumnClicked.bind(this);
+  }
+
+  onColumnClicked(columnKey) {
+    this.setState({ selectedColumnKey: columnKey });
+  }
+
+  render() {
+    const {actions} = this.props;
+    const {selectedColumnKey} = this.state;
+    const mergedProps = {
+      ...this.props,
+      selectedColumnKey,
+      actions: {
+        ...actions,
+        onColumnClicked: this.onColumnClicked
+      }
+    };
+    return <StudentProfilePage {...mergedProps} />;
+  }
+}
+ColumnSelectorContainer.propTypes = StudentProfilePage.propTypes;
