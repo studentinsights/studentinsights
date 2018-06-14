@@ -88,6 +88,10 @@ class PerDistrict
     end
   end
 
+  def import_student_photos?
+    @district_key == SOMERVILLE
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

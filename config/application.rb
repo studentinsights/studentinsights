@@ -21,6 +21,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/clients",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
+        "#{config.root}/app/importers/photo_import",
         "#{config.root}/app/importers/filters",
         "#{config.root}/app/importers/rows",
         "#{config.root}/app/importers/sources",
