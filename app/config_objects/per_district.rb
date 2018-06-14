@@ -77,6 +77,19 @@ class PerDistrict
     raise_not_handled!
   end
 
+  def import_student_house?
+    puts 'import_student_house?'
+    @district_key == SOMERVILLE
+  end
+
+  def import_student_counselor?
+    @district_key == SOMERVILLE
+  end
+
+  def import_student_sped_liason?
+    @district_key == SOMERVILLE
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

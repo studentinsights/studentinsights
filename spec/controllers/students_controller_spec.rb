@@ -449,6 +449,7 @@ describe StudentsController, :type => :controller do
         'homeroom_name',
         'house',
         'counselor',
+        'sped_liason',
         'discipline_incidents_count'
       ])
     end

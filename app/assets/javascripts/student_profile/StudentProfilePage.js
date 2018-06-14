@@ -247,6 +247,7 @@ export default class StudentProfilePage extends React.Component {
           }}>
           {this.renderPaddedElements(styles.summaryWrapper, [
             this.renderPlacement(student),
+            this.renderSpecLiason(student),
             this.renderCounselor(student),
             this.renderServices(student),
             this.renderStaff(student),
@@ -332,6 +333,16 @@ export default class StudentProfilePage extends React.Component {
       <SummaryList
         title="Counselor"
         elements={[<span>{counselor}</span>]} />
+    );
+  }
+
+  renderSpedLiason(student) {
+    const spedLiason = student.sped_liason;
+    if (spedLiason === null || spedLiason === undefined) return null;
+    return (
+      <SummaryList
+        title="SPED Liason"
+        elements={[<span>{spedLiason}</span>]} />
     );
   }
 

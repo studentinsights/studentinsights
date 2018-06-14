@@ -136,15 +136,21 @@ class StudentsController < ApplicationController
   private
 
   def serialize_student_for_profile(student)
-    student.as_json.merge({
+    # These are serialized, even if importing these is disabled
+    # and the value is nil.
+    per_district_fields = {
+      house: student.house,
+      counselor: student.counselor,
+      sped_liason: student.sped_liason
+    }
+
+    student.as_json.merge(per_district_fields).merge({
       student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
       school_name: student.try(:school).try(:name),
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
-      house: student.house,
-      counselor: student.counselor,
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
       restricted_notes_count: student.event_notes.where(is_restricted: true).count,
     }).stringify_keys

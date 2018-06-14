@@ -24,7 +24,8 @@ SELECT
   'primary_phone',
   'primary_email',
   'house',
-  'counselor'
+  'counselor',
+  'sped_liason'
 UNION ALL
 SELECT
   STD_ID_STATE,
@@ -51,7 +52,8 @@ SELECT
   PSN_PHONE_01,
   PSN_EMAIL_01,
   STD_FIELDB_008, -- House - SHS
-  STD_FIELDB_027 -- Counselor - SHS
+  STD_FIELDB_027, -- Counselor, text of staff last name - SPS
+  STD_FIELDB_054 -- Special education liason, text of staff last name - SPS
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
