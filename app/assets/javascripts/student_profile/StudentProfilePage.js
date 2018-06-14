@@ -57,12 +57,13 @@ export default class StudentProfilePage extends React.Component {
   }
 
   renderTransitionNote() {
-    const {currentEducator, actions, transitionNotes, requests} = this.props;
+    const {student, currentEducator, actions, transitionNotes, requests} = this.props;
     const labels = currentEducator.labels;
 
     const isElemCounselor = _.includes(labels, 'k8_counselor');
     const isHouseMaster = _.includes(labels, 'high_school_house_master');
 
+    if (student.grade !== '8') return null;
     if (!isElemCounselor && !isHouseMaster) return null;
 
     return (
@@ -247,6 +248,7 @@ export default class StudentProfilePage extends React.Component {
           }}>
           {this.renderPaddedElements(styles.summaryWrapper, [
             this.renderPlacement(student),
+            this.renderCounselor(student),
             this.renderServices(student),
             this.renderStaff(student),
             this.renderSped(student)
@@ -324,6 +326,16 @@ export default class StudentProfilePage extends React.Component {
     return <SummaryList title="Services" elements={elements} />;
   }
 
+  renderCounselor(student) {
+    const {counselor} = student;
+    if (counselor === null || counselor === undefined) return null;
+    return (
+      <SummaryList
+        title="Counselor"
+        elements={[<span>{counselor}</span>]} />
+    );
+  }
+
   renderStaff(student) {
     const activeServices = this.props.feed.services.active;
     const educatorNamesFromServices = _.map(activeServices, 'provided_by_educator_name');
@@ -343,7 +355,7 @@ export default class StudentProfilePage extends React.Component {
       elements.push(['None']);
     }
 
-    return <SummaryList title="Staff providing services" elements={educatorNames} />;
+    return <SummaryList title="Staff for services" elements={educatorNames} />;
   }
 
   renderSped(student) {
@@ -599,7 +611,9 @@ StudentProfilePage.propTypes = {
 
   // context
   nowMomentFn: PropTypes.func.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  currentEducator: PropTypes.shape({
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired,
 
   // constants
   educatorsIndex: PropTypes.object.isRequired,

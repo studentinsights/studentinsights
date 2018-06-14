@@ -1,4 +1,14 @@
 class PerfTest
+  # Critical path authorization code
+  def self.authorized(percentage, options = {})
+    timer = PerfTest.new.run(percentage) do |t, educator|
+      Authorizer.new(educator).authorized { Student.active }
+    end
+    pp timer.report
+    pp PerfTest::Reporter.new.report(timer.report.group_by {|tuple| tuple[0] })
+    timer
+  end
+
   # See educators_controller#my_students_json
   def self.my_students(percentage, options = {})
     timer = PerfTest.new.run(percentage) do |t, educator|

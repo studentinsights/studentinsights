@@ -6,7 +6,9 @@ class HomeController < ApplicationController
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
 
-    authorized_students = authorizer.authorized_when_viewing_as(view_as_educator) { Student.active }
+    authorized_students = authorizer.authorized_when_viewing_as(view_as_educator) do
+      Feed.students_for_feed(view_as_educator)
+    end
     feed = Feed.new(authorized_students)
     feed_cards = feed.all_cards(time_now, limit)
     render json: {
