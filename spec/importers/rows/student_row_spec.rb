@@ -57,11 +57,11 @@ RSpec.describe StudentRow do
       end
     end
 
-    context 'sped_liason field' do
-      let(:row) { { sped_liason: 'MILNER', full_name: 'Martinez, Juan' } }
+    context 'sped_liaison field' do
+      let(:row) { { sped_liaison: 'MILNER', full_name: 'Martinez, Juan' } }
 
-      it 'correctly sets the sped_liason field' do
-        expect(student.sped_liason).to eq 'MILNER'
+      it 'correctly sets the sped_liaison field' do
+        expect(student.sped_liaison).to eq 'MILNER'
       end
     end
 
@@ -70,7 +70,7 @@ RSpec.describe StudentRow do
         mock_per_district = instance_double(PerDistrict)
         expect(mock_per_district).to receive(:import_student_house?).and_return(false)
         expect(mock_per_district).to receive(:import_student_counselor?).and_return(false)
-        expect(mock_per_district).to receive(:import_student_sped_liason?).and_return(false)
+        expect(mock_per_district).to receive(:import_student_sped_liaison?).and_return(false)
         expect(PerDistrict).to receive(:new).and_return(mock_per_district)
       end
 
@@ -80,7 +80,7 @@ RSpec.describe StudentRow do
         student = student_row.build
         expect(student.counselor).to eq nil
         expect(student.house).to eq nil
-        expect(student.sped_liason).to eq nil
+        expect(student.sped_liaison).to eq nil
       end
     end
   end

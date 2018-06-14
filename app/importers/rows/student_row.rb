@@ -96,8 +96,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       included_attributes.merge!(counselor: counselor_last_name)
     end
 
-    if per_district.import_student_sped_liason?
-      included_attributes.merge!(sped_liason: row[:sped_liason])
+    if per_district.import_student_sped_liaison?
+      included_attributes.merge!(sped_liaison: row[:sped_liaison])
     end
 
     included_attributes

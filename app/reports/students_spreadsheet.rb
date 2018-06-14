@@ -41,7 +41,7 @@ class StudentsSpreadsheet
         'race',
         'counselor',
         'house',
-        'sped_liason'
+        'sped_liaison'
       ])
     end
 

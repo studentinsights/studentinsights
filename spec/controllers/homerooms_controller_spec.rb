@@ -54,7 +54,7 @@ describe HomeroomsController, :type => :controller do
           "gender",
           "house",
           "counselor",
-          "sped_liason",
+          "sped_liaison",
           "discipline_incidents_count",
           "absences_count",
           "tardies_count",

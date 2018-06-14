@@ -85,7 +85,7 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def import_student_sped_liason?
+  def import_student_sped_liaison?
     @district_key == SOMERVILLE
   end
 
