@@ -5,14 +5,8 @@ class Feed
     authorizer = Authorizer.new(educator)
     authorized_students = authorizer.authorized { Student.active.select(:counselor) }
 
-    # Filter for HS counselors so that it shows only
-    # students on their caseload.
-    filter = FeedFilter.new(educator)
-    if filter.use_counselor_based_feed?
-      filter.by_counselor_caseload(authorized_students)
-    else
-      authorized_students
-    end
+    # Filter by role (eg, for HS counselors caseload)
+    FeedFilter.new(educator).filter_for_educator(authorized_students)
   end
 
   def initialize(authorized_students)

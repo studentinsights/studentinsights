@@ -3,12 +3,16 @@ class FeedFilter
     @educator = educator
   end
 
-  def by_counselor_caseload(students)
+  # Apply any student filters by role, if they are enabled.
+  def filter_for_educator(students)
     if use_counselor_based_feed?
-      students.select {|student| is_counselor_for?(student) }
-    else
-      students
+      by_counselor_caseload(students)
     end
+  end
+
+  private
+  def by_counselor_caseload(students)
+    students.select {|student| is_counselor_for?(student) }
   end
 
   # Check global env flag, then per-educator flag.
