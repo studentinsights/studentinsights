@@ -73,9 +73,10 @@ class DashboardQueries
   # Filter to match the students in their feed as well (eg, HS counselors
   # see just their caseload).
   def authorized_students_for_dashboard(school, &block)
+    puts " --- authorized_students_for_dashboard --- "
     @authorizer.authorized do
       students_with_includes = block.call(school.students.active)
-      FeedFilter.new(@educator).filter_for_educator(students_with_includes)
+      FeedFilter.new(@educator).filter_for_educator(students_with_includes).to_a # workaround for AuthorizeDispatcher#filter_relation
     end
   end
 

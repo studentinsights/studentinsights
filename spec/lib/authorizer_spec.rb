@@ -58,7 +58,7 @@ RSpec.describe Authorizer do
           authorized(pals.healey_ell_teacher) { students }
           authorized(pals.healey_sped_teacher) { students }
           authorized(pals.shs_bill_nye) { students }
-          authorized(pals.shs_ninth_grade_counselor) { students }
+          authorized(pals.shs_sofia_counselor) { students }
         end.to raise_error(ActiveModel::MissingAttributeError)
       end
     end
@@ -83,7 +83,7 @@ RSpec.describe Authorizer do
           authorized(Educator.select(*some_fields).find(pals.healey_ell_teacher.id)) { students }
           authorized(Educator.select(*some_fields).find(pals.healey_sped_teacher.id)) { students }
           authorized(Educator.select(*some_fields).find(pals.shs_bill_nye.id)) { students }
-          authorized(Educator.select(*some_fields).find(pals.shs_ninth_grade_counselor.id)) { students }
+          authorized(Educator.select(*some_fields).find(pals.shs_sofia_counselor.id)) { students }
         end.to raise_error(ActiveModel::MissingAttributeError)
       end
     end

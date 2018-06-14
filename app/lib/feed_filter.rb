@@ -8,6 +8,7 @@ class FeedFilter
     filtered_students = students
 
     if use_counselor_based_feed?
+      puts " --- filter_for_educator --- "
       filtered_students = by_counselor_caseload(filtered_students)
     end
 

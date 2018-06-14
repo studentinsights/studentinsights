@@ -80,7 +80,7 @@ RSpec.describe PathsForEducator do
           tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_jodi)).to eq({})
-        expect(navbar_links(pals.shs_ninth_grade_counselor)).to eq({
+        expect(navbar_links(pals.shs_sofia_counselor)).to eq({
           school: '/schools/shs'
         })
         expect(navbar_links(pals.shs_bill_nye)).to eq({
