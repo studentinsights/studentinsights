@@ -78,15 +78,15 @@ class PerDistrict
   end
 
   def import_student_house?
-    @district_key == SOMERVILLE
+    @district_key == SOMERVILLE || @district_key == DEMO
   end
 
   def import_student_counselor?
-    @district_key == SOMERVILLE
+    @district_key == SOMERVILLE || @district_key == DEMO
   end
 
   def import_student_sped_liaison?
-    @district_key == SOMERVILLE
+    @district_key == SOMERVILLE || @district_key == DEMO
   end
 
   def import_student_photos?

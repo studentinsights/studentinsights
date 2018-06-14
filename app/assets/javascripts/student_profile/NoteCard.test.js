@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
-import {studentProfile} from './fixtures';
+import {studentProfile} from './fixtures/fixtures';
 import NoteCard from './NoteCard';
 
 
