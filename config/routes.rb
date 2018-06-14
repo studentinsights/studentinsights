@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 
   resources :students, only: [:show] do
     resources :event_notes, only: [:create, :update]
+    resources :student_photos, only: [:show]
 
     member do
       get :student_report
