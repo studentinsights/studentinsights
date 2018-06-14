@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180612190829) do
+ActiveRecord::Schema.define(version: 20180613172551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,6 +313,16 @@ ActiveRecord::Schema.define(version: 20180612190829) do
     t.index ["student_id"], name: "index_student_assessments_on_student_id"
   end
 
+  create_table "student_photos", force: :cascade do |t|
+    t.bigint "student_id"
+    t.string "file_digest"
+    t.integer "file_size"
+    t.string "s3_filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_student_photos_on_student_id"
+  end
+
   create_table "student_risk_levels", id: :serial, force: :cascade do |t|
     t.integer "student_id"
     t.integer "level"
@@ -407,6 +417,7 @@ ActiveRecord::Schema.define(version: 20180612190829) do
   add_foreign_key "class_lists", "educators", column: "created_by_teacher_educator_id", name: "classrooms_for_created_by_educator_id_fk"
   add_foreign_key "class_lists", "educators", column: "revised_by_principal_educator_id", name: "class_lists_revised_by_principal_educator_id_fk"
   add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
+  add_foreign_key "counselor_name_mappings", "educators", name: "counselor_name_mappings_educator_id_fk"
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
   add_foreign_key "discipline_incidents", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
@@ -433,6 +444,7 @@ ActiveRecord::Schema.define(version: 20180612190829) do
   add_foreign_key "services", "students", name: "services_student_id_fk"
   add_foreign_key "student_assessments", "assessments", name: "student_assessments_assessment_id_fk"
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
+  add_foreign_key "student_photos", "students"
   add_foreign_key "student_risk_levels", "students", name: "student_risk_levels_student_id_fk"
   add_foreign_key "student_section_assignments", "sections"
   add_foreign_key "student_section_assignments", "students"

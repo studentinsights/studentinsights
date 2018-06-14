@@ -10,12 +10,10 @@ class Api {
   }
 
   saveTransitionNote(studentId, noteParams) {
-    if (noteParams.id) {
-      return this._updateTransitionNote(studentId, noteParams);
-    }
-    else {
-      return this._createTransitionNote(studentId, noteParams);
-    }
+    return this._post('/students/' + studentId + '/update_transition_note', {
+      text: noteParams.text,
+      is_restricted: noteParams.is_restricted,
+    });
   }
 
   deleteEventNoteAttachment(id) {
@@ -41,18 +39,6 @@ class Api {
         text: noteParams.text,
         student_id: studentId,
         is_restricted: noteParams.is_restricted || false,
-      }
-    });
-  }
-
-  _updateTransitionNote(studentId, noteParams) {
-    const id = noteParams.id;
-
-    return this._put('/students/' + studentId + '/transition_notes/' + id + '.json', {
-      transition_note: {
-        id: noteParams.id,
-        text: noteParams.text,
-        student_id: studentId
       }
     });
   }
