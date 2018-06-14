@@ -302,13 +302,6 @@ exports[`snapshots works for serializedDataForOlafWhite 1`] = `
               >
                 <li>
                   <span>
-                    Disability: 
-                    None
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    Need: 
                     None
                   </span>
                 </li>
@@ -348,7 +341,6 @@ exports[`snapshots works for serializedDataForOlafWhite 1`] = `
               >
                 <li>
                   <span>
-                    Language: 
                     FLEP-Transitioning
                   </span>
                 </li>
@@ -3004,7 +2996,6 @@ exports[`snapshots works for serializedDataForPlutoPoppins 1`] = `
               >
                 <li>
                   <span>
-                    Language: 
                     Limited
                   </span>
                 </li>
