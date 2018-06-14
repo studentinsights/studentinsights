@@ -248,7 +248,7 @@ export default class StudentProfilePage extends React.Component {
           }}>
           {this.renderPaddedElements(styles.summaryWrapper, [
             this.renderPlacement(student),
-            this.renderSpecLiason(student),
+            this.renderSpedLiason(student),
             this.renderCounselor(student),
             this.renderServices(student),
             this.renderStaff(student),

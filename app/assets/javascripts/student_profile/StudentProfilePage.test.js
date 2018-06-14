@@ -15,10 +15,15 @@ const helpers = {
       absencesCount,
       sectionsCount,
       schoolType,
-      educatorLabels
+      educatorLabels,
+      spedLiason
     } = params;
     const serializedData = _.cloneDeep(studentProfile);
 
+    if (spedLiason !== undefined) {
+      serializedData["student"]["sped_liason"] = spedLiason;
+    }
+    
     if (educatorLabels !== undefined) {
       serializedData["currentEducator"]["labels"] = educatorLabels;
     }
@@ -57,16 +62,16 @@ const helpers = {
   }
 };
 
-describe('transition notes', () => {
-  function renderedTextForParams(params) {
-    const el = document.createElement('div');
-    helpers.renderStudentProfilePage({
-      el,
-      ...params
-    });
-    return $(el).text();
-  }
+function renderedTextForParams(params) {
+  const el = document.createElement('div');
+  helpers.renderStudentProfilePage({
+    el,
+    ...params
+  });
+  return $(el).text();
+}
 
+describe('transition notes', () => {
   it('renders for k8_counselor', () => {
     expect(renderedTextForParams({
       grade: '8',
@@ -93,6 +98,14 @@ describe('transition notes', () => {
       grade: '9',
       educatorLabels: ['k8_counselor', 'high_school_house_master']
     })).not.toContain('High School Transition Note');
+  });
+});
+
+describe('SPED liason', () => {
+  it('renders when it is present', () => {
+    const text = renderedTextForParams({ spedLiason: 'MILNER' });
+    expect(text).toContain('SPED Liason');
+    expect(text).toContain('MILNER');
   });
 });
 
