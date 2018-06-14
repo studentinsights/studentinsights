@@ -40,6 +40,7 @@ RSpec.describe StudentPhotosController, type: :controller do
       it 'succeeds' do
         make_request(pals.healey_kindergarten_student.id, student_photo.id)
         expect(response).to be_success
+        expect(response.body).to eq 'eee'
       end
     end
 
