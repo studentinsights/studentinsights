@@ -270,8 +270,8 @@ export default class StudentProfilePage extends React.Component {
     const elements = (hasNoDisabilityInfo)
       ? [<span>None</span>]
       : [
-        <span>Disability: {student.disability || 'None'}</span>,
-        <span>Need: {student.sped_level_of_need || 'None'}</span>
+        <span>{student.disability || 'None'}</span>,
+        <span>Need {student.sped_level_of_need || 'None'}</span>
       ];
     return (
       <SummaryList title="Disability" elements={elements} />
