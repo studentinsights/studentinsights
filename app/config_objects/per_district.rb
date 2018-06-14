@@ -50,6 +50,17 @@ class PerDistrict
     end
   end
 
+  # If this is enabled, filter students on the home page feed
+  # based on a mapping of the `counselor` field on the student and a specific
+  # `Educator`.  It may be individually feature switched as well.
+  def enable_counselor_based_feed?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_COUNSELOR_BASED_FEED')
+    else
+      false
+    end
+  end
+
   # In the import process, we typically only get usernames
   # as the `login_name`, but we want our user account system
   # and our communication with district authentication systems
