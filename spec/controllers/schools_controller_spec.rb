@@ -172,53 +172,83 @@ describe SchoolsController, :type => :controller do
 
   describe '#absence_dashboard_data' do
     def make_request(school_id)
-      request.env['HTTPS'] = 'on'
       get :absence_dashboard_data, params: { id: school_id }
     end
 
-    context 'districtwide access' do
-      before { School.seed_somerville_schools }
-      let!(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: false, school: nil) }
+    let!(:pals) { TestPals.create! }
 
+    context 'districtwide access' do
       it 'can access any school in the district' do
-        sign_in(educator)
-        make_request('hea')
-        expect(response).to be_success
-        make_request('brn')
-        expect(response).to be_success
-        make_request('kdy')
-        expect(response).to be_success
+        sign_in(pals.uri)
+        School.all.each do |school|
+          make_request(school.slug)
+          expect(response).to be_success
+        end
       end
     end
 
     context 'schoolwide access but no districtwide access' do
-      before { School.seed_somerville_schools }
-      before { FactoryBot.create(:homeroom) }
-      let(:hea) { School.find_by_local_id 'HEA' }
-      let!(:educator) {
-        FactoryBot.create(:educator, schoolwide_access: true, school: hea)
-      }
-
       it 'can only access assigned school' do
-        sign_in(educator)
+        sign_in(pals.healey_laura_principal)
         make_request('hea')
         expect(response).to be_success
-        make_request('brn')
-        expect(response).not_to be_success
-        make_request('kdy')
-        expect(response).not_to be_success
+        (School.all - [School.find_by_slug('hea')]).each do |school|
+          make_request(school.slug)
+          expect(response).not_to be_success
+        end
       end
     end
 
-    context 'educator has only homeroom access' do
-      let!(:school) { FactoryBot.create(:healey) }
-      let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
-      let!(:homeroom) { educator.homeroom }
-
+    context 'other new_educator_session_path' do
       it 'redirects' do
-        sign_in(educator)
-        make_request('hea')
-        expect(response).to redirect_to(home_path)
+        authorized_educators = [pals.uri, pals.rich_districtwide, pals.healey_laura_principal]
+        (Educator.all - authorized_educators).each do |educator|
+          sign_in(educator)
+          make_request('hea')
+          expect(response).to redirect_to(home_path)
+        end
+      end
+    end
+  end
+
+  describe '#tardies_dashboard_data' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request(educator, school_slug)
+      sign_in(educator)
+      get :tardies_dashboard_data, params: { id: school_slug }
+      response
+    end
+
+    it 'works on happy path' do
+      expect(make_request(pals.uri, pals.healey.slug)).to be_success
+    end
+
+    it 'enforces authorization' do
+      authorized_educators = [pals.uri, pals.rich_districtwide, pals.healey_laura_principal]
+      (Educator.all - authorized_educators).each do |educator|
+        expect(make_request(educator, pals.healey.slug)).to redirect_to(home_path)
+      end
+    end
+  end
+
+  describe '#discipline_dashboard_data' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request(educator, school_slug)
+      sign_in(educator)
+      get :discipline_dashboard_data, params: { id: school_slug }
+      response
+    end
+
+    it 'works on happy path' do
+      expect(make_request(pals.uri, pals.healey.slug)).to be_success
+    end
+
+    it 'enforces authorization' do
+      authorized_educators = [pals.uri, pals.rich_districtwide, pals.healey_laura_principal]
+      (Educator.all - authorized_educators).each do |educator|
+        expect(make_request(educator, pals.healey.slug)).to redirect_to(home_path)
       end
     end
   end
@@ -241,7 +271,6 @@ describe SchoolsController, :type => :controller do
   describe '#courses_json' do
     let!(:pals) { TestPals.create! }
     def make_request(school_id)
-      request.env['HTTPS'] = 'on'
       get :courses_json, params: { format: :json, id: school_id }
     end
 
@@ -259,64 +288,6 @@ describe SchoolsController, :type => :controller do
       expect(json.keys).to eq(['courses', 'school'])
       expect(json['courses'].size).to eq(3)
       expect(json['courses'].first.keys).to eq(['id', 'course_number', 'course_description', 'sections'])
-    end
-  end
-
-  describe 'dashboard serialization' do
-    let!(:pals) { TestPals.create! }
-    let!(:student) { FactoryBot.create(:student, school: School.find_by_local_id('HEA'))}
-
-    it '#individual_student_absence_data has expected fields' do
-      sign_in(pals.healey_laura_principal)
-      json = controller.send(:individual_student_absence_data, student)
-      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
-        :absences,
-        :first_name,
-        :grade,
-        :id,
-        :last_name,
-        :homeroom_label,
-        :sst_notes
-      ])
-    end
-
-    it '#individual_student_tardies_data has expected fields' do
-      sign_in(pals.healey_laura_principal)
-      json = controller.send(:individual_student_tardies_data, student)
-      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
-        :tardies,
-        :first_name,
-        :grade,
-        :id,
-        :last_name,
-        :homeroom_label,
-        :sst_notes
-      ])
-    end
-
-    it '#individual_student_discipline_data has expected fields' do
-      DisciplineIncident.create!({
-        student_id: student.id,
-        occurred_at: Time.now
-      })
-      sign_in(pals.healey_laura_principal)
-      json = controller.send(:individual_student_discipline_data, student)
-      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
-        :discipline_incidents,
-        :first_name,
-        :grade,
-        :id,
-        :last_name,
-        :homeroom_label,
-        :sst_notes
-      ])
-      expect(json[:discipline_incidents].first.keys).to contain_exactly *[
-        "student_id",
-        "incident_code",
-        "incident_location",
-        "occurred_at",
-        "has_exact_time"
-      ]
     end
   end
 end

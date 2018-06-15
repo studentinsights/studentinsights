@@ -20,7 +20,7 @@ RSpec.describe Feed do
 
   describe '.students_for_feed' do
     it 'can apply counselor-based filter' do
-      students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
+      students = Feed.students_for_feed(pals.shs_sofia_counselor)
       expect(students.map(&:id)).to contain_exactly(*[
         pals.shs_freshman_mari.id
       ])
@@ -29,7 +29,7 @@ RSpec.describe Feed do
     it 'does not filter when counselor-based feed switch is disabled globally' do
       mock_per_district = instance_double(PerDistrict, enable_counselor_based_feed?: false)
       allow(PerDistrict).to receive(:new).and_return(mock_per_district)
-      students = Feed.students_for_feed(pals.shs_ninth_grade_counselor)
+      students = Feed.students_for_feed(pals.shs_sofia_counselor)
       expect(students.map(&:id)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
         pals.shs_freshman_amir.id

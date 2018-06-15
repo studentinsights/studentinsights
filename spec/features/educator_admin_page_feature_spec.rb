@@ -26,7 +26,7 @@ describe 'educator sign in', type: :feature do
     it 'west_marcus_teacher' do expect(grants_access?(pals.west_marcus_teacher)).to eq false end
     it 'shs_jodi' do expect(grants_access?(pals.shs_jodi)).to eq false end
     it 'shs_bill_nye' do expect(grants_access?(pals.shs_bill_nye)).to eq false end
-    it 'shs_ninth_grade_counselor' do expect(grants_access?(pals.shs_ninth_grade_counselor)).to eq false end
+    it 'shs_sofia_counselor' do expect(grants_access?(pals.shs_sofia_counselor)).to eq false end
     it 'shs_hugo_art_teacher' do expect(grants_access?(pals.shs_hugo_art_teacher)).to eq false end
     it 'shs_fatima_science_teacher' do expect(grants_access?(pals.shs_fatima_science_teacher)).to eq false end
   end
