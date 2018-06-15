@@ -34,7 +34,7 @@ class TestPals
   attr_reader :west_counselor
   attr_reader :shs_jodi
   attr_reader :shs_bill_nye
-  attr_reader :shs_ninth_grade_counselor
+  attr_reader :shs_sofia_counselor
   attr_reader :shs_hugo_art_teacher
   attr_reader :shs_fatima_science_teacher
   attr_reader :shs_harry_housemaster
@@ -198,19 +198,19 @@ class TestPals
 
     # high school
     @shs = School.find_by_local_id!('SHS')
-    @shs_ninth_grade_counselor = Educator.create!(
+    @shs_sofia_counselor = Educator.create!(
       email: 'sofia@demo.studentinsights.org',
       full_name: 'Counselor, Sofia',
       school: @shs,
-      grade_level_access: ['9']
+      schoolwide_access: true
     )
     EducatorLabel.create!({
-      educator: @shs_ninth_grade_counselor,
+      educator: @shs_sofia_counselor,
       label_key: 'use_counselor_based_feed'
     })
     CounselorNameMapping.create!({
       counselor_field_text: 'sofia',
-      educator_id: @shs_ninth_grade_counselor.id
+      educator_id: @shs_sofia_counselor.id
     })
 
     @shs_sophomore_homeroom = Homeroom.create!(name: "SHS ALL", grade: "10", school: @shs)
