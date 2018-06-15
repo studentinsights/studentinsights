@@ -7,7 +7,7 @@ class PathsForEducator
   # Links shown on the navbar, different depending on role
   def navbar_links
     links = {}
-    
+
     if PerDistrict.new.enabled_class_lists? && ClassListQueries.new(@educator).is_relevant_for_educator?
       links[:classlists] = '/classlists'
     end
