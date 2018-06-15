@@ -24,28 +24,43 @@ class ExperimentalSomervilleHighTiers
         .to_a # because of AuthorizedDispatcher#filter_relation
     end
 
-    students.map do |student|
-      tier_json = tier(student, time_now: time_now).as_json
-      notes_json = last_notes_json(student)
-      student_json = student.as_json({
-        only: [:id, :first_name, :last_name, :grade, :house, :sped_placement, :program_assigned],
-        include: {
-          student_section_assignments: {
-            :only => [:id, :grade_letter, :grade_numeric],
-            :include => {
-              :section => {
-                :only => [:id, :section_number],
-                :methods => [:course_description]
-              }
+    # Serialize student and section data
+    students_json = students.as_json({
+      only: [:id, :first_name, :last_name, :grade, :house, :sped_placement, :program_assigned],
+      include: {
+        student_section_assignments: {
+          :only => [:id, :grade_letter, :grade_numeric],
+          :include => {
+            :section => {
+              :only => [:id, :section_number],
+              :methods => [:course_description]
             }
           }
         }
-      })
-      student_json.merge({
-        tier: tier_json,
-        notes: notes_json
-      }.as_json)
+      }
+    })
+
+    # Compute tiers for each student
+    tiers_by_student_id = {}
+    students.each do |student|
+      tiers_by_student_id[student.id] = tier(student, time_now: time_now)
     end
+
+    # Optimized batch query for latest event_notes
+    notes_by_student_id = most_recent_event_notes_by_student_id(students, {
+      last_sst_note: [300],
+      last_experience_note: [305, 306]
+    })
+
+    # Merge it all back together
+    students_with_tiering = students_json.map do |student_json|
+      student_id = student_json['id']
+      student_json.merge({
+        tier: tiers_by_student_id[student_id],
+        notes: notes_by_student_id[student_id]
+      })
+    end
+    students_with_tiering.as_json
   end
 
   def tier(student, options = {})
@@ -95,39 +110,80 @@ class ExperimentalSomervilleHighTiers
   end
 
   private
-  def last_notes_json(student)
-    last_sst_note = @authorizer.authorized do
-      student.event_notes
-        .where(event_note_type_id: [300])
-        .where(is_restricted: false)
-        .order(recorded_at: :asc)
-        .last(1)
-    end.first
-    last_experience_note = @authorizer.authorized do
-      student.event_notes
-        .where(event_note_type_id: [305, 306])
-        .where(is_restricted: false)
-        .order(recorded_at: :asc)
-        .last(1)
-    end.first
-    last_other_note = @authorizer.authorized do
-      student.event_notes
-        .where.not(event_note_type_id: [300, 305, 306])
-        .where(is_restricted: false)
-        .order(recorded_at: :asc)
-        .last(1)
-    end.first
+  # query_map is {:result_key => [event_note_type_id]}
+  def most_recent_event_notes_by_student_id(students, query_map)
+    notes_by_student_id = {}
 
-    {
-      last_sst_note: serialize_note(last_sst_note || {}),
-      last_experience_note: serialize_note(last_experience_note || {}),
-      last_other_note: serialize_note(last_other_note || {})
-    }
+    # query across all students and note types
+    all_event_note_type_ids = query_map.values.flatten.uniq
+    partial_event_notes = EventNote
+      .where(is_restricted: false)
+      .where(event_note_type_id: all_event_note_type_ids)
+      .select('student_id, event_note_type_id, max(recorded_at) as most_recent_recorded_at')
+      .group(:student_id, :event_note_type_id)
+
+    # merge them together and serialize
+    sorted_partial_event_notes = partial_event_notes.sort_by(&:most_recent_recorded_at).reverse
+    students.each do |student|
+      notes_for_student = {}
+      query_map.each do |key, event_note_type_ids|
+        # find the most recent note for this kind, we can use find because the list is sorted
+        matching_partial_note = sorted_partial_event_notes.find do |partial_event_note|
+          matches_student_id = partial_event_note.student_id != student.id
+          matches_event_note_type_id = event_note_type_ids.include?(partial_event_note.event_note_type_id)
+          matches_student_id && matches_event_note_type_id
+        end
+
+        # serialize notes for a student
+        if matching_partial_note.nil?
+          notes_for_student[key] = {}
+        else
+          notes_for_student[key] = {
+            # TODO(kr) maybe need id here?
+            event_note_type_id: matching_partial_note.event_note_type_id,
+            recorded_at: matching_partial_note.most_recent_recorded_at
+          }
+        end
+      end
+      notes_for_student[:last_other_note] = {} # TODO(kr) remove
+      notes_by_student_id[student.id] = notes_for_student
+    end
+    notes_by_student_id
   end
 
-  def serialize_note(note)
-    note.as_json(only: [:id, :event_note_type_id, :recorded_at])
-  end
+  # def last_notes_json(student)
+  #   last_sst_note = @authorizer.authorized do
+  #     student.event_notes
+  #       .where(event_note_type_id: [300])
+  #       .where(is_restricted: false)
+  #       .order(recorded_at: :asc)
+  #       .last(1)
+  #   end.first
+  #   last_experience_note = @authorizer.authorized do
+  #     student.event_notes
+  #       .where(event_note_type_id: [305, 306])
+  #       .where(is_restricted: false)
+  #       .order(recorded_at: :asc)
+  #       .last(1)
+  #   end.first
+  #   last_other_note = @authorizer.authorized do
+  #     student.event_notes
+  #       .where.not(event_note_type_id: [300, 305, 306])
+  #       .where(is_restricted: false)
+  #       .order(recorded_at: :asc)
+  #       .last(1)
+  #   end.first
+
+  #   {
+  #     last_sst_note: serialize_note(last_sst_note || {}),
+  #     last_experience_note: serialize_note(last_experience_note || {}),
+  #     last_other_note: serialize_note(last_other_note || {})
+  #   }
+  # end
+
+  # def serialize_note(note)
+  #   note.as_json(only: [:id, :event_note_type_id, :recorded_at])
+  # end
 
   def course_failures(student, options = {})
     assignments = student.student_section_assignments.select do |assignment|
