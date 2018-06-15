@@ -27,11 +27,12 @@ describe TieringController, :type => :controller do
       it 'works on happy path' do
         response = get_show_json(pals.uri)
         expect(response.status).to eq 200
-
         json = JSON.parse(response.body)
+
+        # check shape of data
         expect(json.keys).to eq ['students_with_tiering']
-        expect(json['students_with_tiering'].size).to eq 1
-        expect(json['students_with_tiering'].first.keys).to eq([
+        expect(json['students_with_tiering'].size).to eq 2
+        expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to eq([
           "id",
           "grade",
           "first_name",
@@ -43,7 +44,26 @@ describe TieringController, :type => :controller do
           "tier",
           "notes"
         ])
+        expect(json['students_with_tiering'].map {|s| s['notes'].keys }.flatten.uniq).to eq([
+          "last_sst_note",
+          "last_experience_note",
+          "last_other_note"
+        ])
+
+        # amir
         expect(json['students_with_tiering'].first['tier']).to eq({
+          "level"=>0,
+          "triggers"=>[],
+          "data"=>{
+            "course_failures"=>0,
+            "course_ds"=>0,
+            "recent_absence_rate"=>1.0,
+            "recent_discipline_actions"=>0
+          }
+        })
+
+        # mari
+        expect(json['students_with_tiering'][1]['tier']).to eq({
           "level"=>0,
           "triggers"=>[],
           "data"=>{
@@ -53,11 +73,6 @@ describe TieringController, :type => :controller do
             "recent_discipline_actions"=>0
           }
         })
-        expect(json['students_with_tiering'].first['notes'].keys).to eq([
-          "last_sst_note",
-          "last_experience_note",
-          "last_other_note"
-        ])
       end
     end
   end
