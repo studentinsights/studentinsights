@@ -121,7 +121,7 @@ export default class StudentLevelsTable extends React.Component {
 
   renderStudent({rowData}) {
     const student = rowData;
-    return <a style={styles.person} target="_blank" href={`https://somerville.studentinsights.org/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
+    return <a style={styles.person} target="_blank" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
   }
 
   renderLevel({rowData}) {
