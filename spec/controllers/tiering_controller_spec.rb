@@ -50,8 +50,8 @@ describe TieringController, :type => :controller do
           "last_other_note"
         ])
 
-        # amir
-        expect(json['students_with_tiering'].first['tier']).to eq({
+        # data for amir and mari (one failure)
+        expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[{
           "level"=>0,
           "triggers"=>[],
           "data"=>{
@@ -60,10 +60,7 @@ describe TieringController, :type => :controller do
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }
-        })
-
-        # mari
-        expect(json['students_with_tiering'][1]['tier']).to eq({
+        }, {
           "level"=>0,
           "triggers"=>[],
           "data"=>{
@@ -72,7 +69,7 @@ describe TieringController, :type => :controller do
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }
-        })
+        }])
       end
     end
   end
