@@ -5,7 +5,7 @@ import {
   studentProfile,
   nowMoment,
   currentEducator
-} from './fixtures';
+} from './fixtures/fixtures';
 import RecordService from './RecordService';
 
 
