@@ -129,7 +129,7 @@ class ExperimentalSomervilleHighTiers
       query_map.each do |key, event_note_type_ids|
         # find the most recent note for this kind, we can use find because the list is sorted
         matching_partial_note = sorted_partial_event_notes.find do |partial_event_note|
-          matches_student_id = partial_event_note.student_id != student.id
+          matches_student_id = partial_event_note.student_id == student.id
           matches_event_note_type_id = event_note_type_ids.include?(partial_event_note.event_note_type_id)
           matches_student_id && matches_event_note_type_id
         end
