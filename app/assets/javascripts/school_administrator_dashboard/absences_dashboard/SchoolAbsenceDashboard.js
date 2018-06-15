@@ -64,7 +64,7 @@ class SchoolAbsenceDashboard extends React.Component {
   studentAbsenceCounts() {
     let studentAbsenceCounts = {};
     this.state.displayDates.forEach((day) => {
-      _.each(this.props.schoolAbsenceEvents[day], (absence) => {
+      _.each(this.props.schoolAbsenceEventsByDay[day], (absence) => {
         studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 0;
         studentAbsenceCounts[absence.student_id]++;
       });
@@ -199,8 +199,9 @@ SchoolAbsenceDashboard.propTypes = {
   schoolAverageDailyAttendance: PropTypes.object.isRequired,
   schoolAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
   homeroomAverageDailyAttendance: PropTypes.object.isRequired,
+  homeroomAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired,
-  schoolAbsenceEvents: PropTypes.object.isRequired,
+  schoolAbsenceEventsByDay: PropTypes.object.isRequired,
   dateRange: PropTypes.array.isRequired
 };
 

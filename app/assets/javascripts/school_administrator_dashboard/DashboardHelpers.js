@@ -17,8 +17,10 @@ export default {
     return averageDailyAttendance;
   },
 
-  absenceEventsByDay(studentAbsenceArray) {
-    return this.eventsGroupedByDay(studentAbsenceArray);
+  filterExcusedEvents(eventsArray) {
+    return eventsArray.filter((event) => {
+      return !event.excused && !event.dismissed;
+    });
   },
 
   //array of all student absence events that can be filtered based on absence flags
