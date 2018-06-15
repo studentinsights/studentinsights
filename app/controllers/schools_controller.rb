@@ -33,11 +33,11 @@ class SchoolsController < ApplicationController
   end
 
   def tardies_dashboard_data
-    render json: dashboard_queries.student_tardies_data(@school)
+    render json: dashboard_queries.tardies_dashboard_data(@school)
   end
 
   def discipline_dashboard_data
-    render json: dashboard_queries.student_discipline_data(@school)
+    render json: dashboard_queries.discipline_dashboard_data(@school)
   end
 
   # This endpoint is internal-only for now, because of the authorization complexity.
