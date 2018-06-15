@@ -58,6 +58,10 @@ class PerDistrict
     end
   end
 
+  def enabled_high_school_tiering?
+    @district_key == SOMERVILLE || @district_key == DEMO
+  end
+
   # If this is enabled, filter students on the home page feed
   # based on a mapping of the `counselor` field on the student and a specific
   # `Educator`.  It may be individually feature switched as well.
