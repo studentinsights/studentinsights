@@ -7,7 +7,7 @@ import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 class SchoolwideAttendance extends React.Component {
 
   schoolAverageDailyAttendance() {
-    return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEvents, this.props.dashboardStudents.length);
+    return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEventsByDay, this.props.dashboardStudents.length);
   }
 
   //A separate daily average excluding excused or dismissed absences
