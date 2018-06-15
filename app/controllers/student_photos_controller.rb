@@ -1,6 +1,6 @@
 class StudentPhotosController < ApplicationController
 
-  before_action :authorize!, :find_student_photo, :check_student_ids!
+  before_action :authorize!, :find_student_photo
 
   def authorize!
     @student = Student.find(params[:student_id])
@@ -9,11 +9,7 @@ class StudentPhotosController < ApplicationController
   end
 
   def find_student_photo
-    @student_photo = StudentPhoto.find(params[:id])
-  end
-
-  def check_student_ids!
-    raise Exceptions::StudentIdDoesNotMatch unless @student_photo.student_id == params[:student_id].to_i
+    @student_photo = @student.student_photos.order(created_at: :desc).first
   end
 
   def show
