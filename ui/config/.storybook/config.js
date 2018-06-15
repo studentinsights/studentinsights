@@ -21,6 +21,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/RiskBubble.story');
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
   require('../../../app/assets/javascripts/student_profile/RecordService.story');
+  require('../../../app/assets/javascripts/student_profile/StudentProfilePage.story');
   
   // classlists
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');

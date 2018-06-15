@@ -90,6 +90,10 @@ class FakeStudent
     "SOFIA", "WOODY", "BUZZ"
   ]
 
+  SPED_LIAISON_VALUES = [
+    "MILNER", "MORENO", "CONCEPCION"
+  ]
+
   def base_data
     {
       school: @school,
@@ -147,7 +151,7 @@ class FakeStudent
 
   def program_assigned_and_sped_disability
     if 20.in(100)
-      { program_assigned: "Sp Ed" }.merge(sped).merge(disability)
+      { program_assigned: "Sp Ed" }.merge(sped).merge(disability).merge(sped_liaison)
     else
       if 15.in(100)
         { program_assigned: ["Reg Ed", "2Way English", "2Way Spanish"].sample }.merge(disability)
@@ -168,6 +172,12 @@ class FakeStudent
     {
       disability: ["Specific LDs", "Emotional", "Communication", "Autism"].sample
     }
+  end
+
+  def sped_liaison
+    if PerDistrict.new.import_student_sped_liaison?
+      { sped_liaison: SPED_LIAISON_VALUES.sample }
+    end
   end
 
   def create_x2_assessment_generators(student)
