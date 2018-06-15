@@ -8,7 +8,6 @@ class FeedFilter
     filtered_students = students
 
     if use_counselor_based_feed?
-      puts " --- filter_for_educator --- "
       filtered_students = by_counselor_caseload(filtered_students)
     end
 
@@ -16,6 +15,7 @@ class FeedFilter
   end
 
   private
+  # For filtering base on the student's counselor field.
   def by_counselor_caseload(students)
     students.select {|student| is_counselor_for?(student) }
   end
