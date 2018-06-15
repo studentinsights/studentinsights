@@ -87,7 +87,7 @@ class FakeStudent
   ]
 
   COUNSELOR_VALUES = [
-    "WOODY", "BUZZ", "BO"
+    "SOFIA", "WOODY", "BUZZ"
   ]
 
   def base_data
