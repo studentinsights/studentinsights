@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer';
 import {studentProfile, nowMoment} from './fixtures/fixtures';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
+import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
 import {initialState} from './PageContainer';
 import StudentProfilePage from './StudentProfilePage';
 
@@ -15,6 +16,10 @@ export function testPropsForOlafWhite() {
 
 export function testPropsForPlutoPoppins() {
   return testPropsFromSerializedData(serializedDataForPlutoPoppins);
+}
+
+export function testPropsForAladdinMouse() {
+  return testPropsFromSerializedData(serializedDataForAladdinMouse);
 }
 
 function testSerializedData(patches) {
@@ -266,19 +271,14 @@ describe('renders MCAS/DIBELS correctly according to grade level', () => {
 
 
 describe('snapshots', () => {
-  it('works for serializedDataForOlafWhite', () => {
-    const props = testPropsForOlafWhite();
+  function expectSnapshot(props) {
     const tree = renderer
       .create(<StudentProfilePage {...props} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
-  });
+  }
 
-  it('works for serializedDataForPlutoPoppins', () => {
-    const props = testPropsForPlutoPoppins();
-    const tree = renderer
-      .create(<StudentProfilePage {...props} />)
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+  it('works for olaf', () => expectSnapshot(testPropsForOlafWhite()));
+  it('works for olaf', () => expectSnapshot(testPropsForPlutoPoppins()));
+  it('works for olaf', () => expectSnapshot(testPropsForAladdinMouse()));
 });

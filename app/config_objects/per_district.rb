@@ -28,6 +28,14 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def valid_plan_504_values
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      ["504", "Not 504", "NotIn504"]
+    elsif @district_key == NEW_BEDFORD
+      ["", "Active", "Exited", "NotIn504"]
+    end
+  end
+
   def enabled_class_lists?
     if @district_key == SOMERVILLE || @district_key == DEMO
       EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
