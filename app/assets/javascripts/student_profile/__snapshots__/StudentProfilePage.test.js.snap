@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots works for serializedDataForOlafWhite 1`] = `
+exports[`snapshots works for olaf 1`] = `
 <div
   className="StudentProfilePage"
 >
@@ -2648,7 +2648,7 @@ Increase how often the student is engaged in positive behaviors.
 </div>
 `;
 
-exports[`snapshots works for serializedDataForPlutoPoppins 1`] = `
+exports[`snapshots works for olaf 2`] = `
 <div
   className="StudentProfilePage"
 >
@@ -5490,6 +5490,2682 @@ exports[`snapshots works for serializedDataForPlutoPoppins 1`] = `
                 }
               }
             />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots works for olaf 3`] = `
+<div
+  className="StudentProfilePage"
+>
+  <div
+    className="StudentProfileHeader"
+    style={
+      Object {
+        "display": "flex",
+        "fontSize": 16,
+        "padding": 20,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "flex": "auto",
+        }
+      }
+    >
+      <a
+        href="/students/104"
+        style={
+          Object {
+            "fontSize": 28,
+            "fontWeight": "bold",
+            "marginRight": 5,
+          }
+        }
+      >
+        Aladdin Mouse
+      </a>
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <span
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          •
+        </span>
+        <a
+          href="/schools/9"
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          Somerville High
+        </a>
+        <span
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          •
+        </span>
+        <a
+          className="homeroom-link"
+          href="/homerooms/4"
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          Homeroom SHS ALL
+        </a>
+        <span
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          •
+        </span>
+        <span
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          Grade 10
+        </span>
+        <span>
+          <span
+            style={
+              Object {
+                "fontSize": 22,
+                "padding": 5,
+              }
+            }
+          >
+            •
+          </span>
+          <span
+            style={
+              Object {
+                "fontSize": 22,
+                "padding": 5,
+              }
+            }
+          >
+            5/14/2004
+             (14 years old)
+          </span>
+        </span>
+        <span
+          style={
+            Object {
+              "fontSize": 22,
+              "padding": 5,
+            }
+          }
+        >
+          •
+        </span>
+        <div
+          className="click-event-modal"
+          style={
+            Object {
+              "display": "inline",
+              "marginLeft": 10,
+            }
+          }
+        >
+          <a
+            href="#"
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 12,
+                "outline": "none",
+              }
+            }
+          >
+            <span
+              className="address-book-icon"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "width": "15em",
+        }
+      }
+    >
+      <span>
+        <span
+          style={
+            Object {
+              "fontSize": 25,
+              "marginTop": 3,
+              "padding": 5,
+            }
+          }
+        >
+          Risk Level
+        </span>
+        <span
+          style={
+            Object {
+              "backgroundColor": "#555555",
+              "borderRadius": 30,
+              "color": "white",
+              "display": "inline-block",
+              "fontSize": 20,
+              "height": 35,
+              "marginLeft": 5,
+              "marginRight": 5,
+              "marginTop": 10,
+              "paddingTop": 3,
+              "textAlign": "center",
+              "width": 35,
+            }
+          }
+        >
+          NA
+        </span>
+      </span>
+    </div>
+  </div>
+  <div
+    className="summary-container"
+    style={
+      Object {
+        "alignItems": "stretch",
+        "display": "flex",
+        "flexDirection": "row",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "width": "95%",
+      }
+    }
+  >
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": "5px 5px 5px 5px",
+          "display": "flex",
+          "flexDirection": "column",
+          "margin": "0 5px 0 0",
+          "width": "20%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "white",
+            "borderBottom": 0,
+            "borderRadius": "5px 5px 0 0",
+            "cursor": "pointer",
+            "fontWeight": "bold",
+            "height": 40,
+            "margin": 0,
+            "padding": "10px 5px 5px 5px",
+            "textAlign": "center",
+            "width": "100%",
+          }
+        }
+      >
+        Overview
+      </div>
+      <div
+        style={
+          Object {
+            "background": "#ededed",
+            "borderColor": "white",
+            "borderRadius": "0 0 5px 5px",
+            "borderTop": 0,
+            "cursor": "pointer",
+            "flexGrow": "1",
+            "flexShrink": "0",
+            "margin": 0,
+            "padding": "22px 26px 16px 26px",
+            "textAlign": "left",
+            "width": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Disability
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  <span>
+                    Emotional
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Language
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  <span>
+                    FLEP
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    ACCESS Composite: 
+                    6
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                504 plan
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  <span>
+                    504
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Sections
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  1 section
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": "5px 5px 5px 5px",
+          "display": "flex",
+          "flexDirection": "column",
+          "margin": "0 5px 0 0",
+          "width": "20%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "white",
+            "borderBottom": 0,
+            "borderRadius": "5px 5px 0 0",
+            "cursor": "pointer",
+            "fontWeight": "bold",
+            "height": 40,
+            "margin": 0,
+            "padding": "10px 5px 5px 5px",
+            "textAlign": "center",
+            "width": "100%",
+          }
+        }
+      >
+        Reading
+      </div>
+      <div
+        className="ela-background"
+        style={
+          Object {
+            "borderColor": "white",
+            "borderRadius": "0 0 5px 5px",
+            "borderTop": 0,
+            "cursor": "pointer",
+            "flexGrow": "1",
+            "flexShrink": "0",
+            "margin": 0,
+            "padding": "22px 26px 16px 26px",
+            "textAlign": "left",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                STAR Reading:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={3}
+                    x2={147}
+                    y1={25}
+                    y2={25}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={39.36780821917808}
+                    x2={39.36780821917808}
+                    y1={47}
+                    y2={3}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={111.36780821917809}
+                    x2={111.36780821917809}
+                    y1={47}
+                    y2={3}
+                  />
+                  <path
+                    d={null}
+                    fill="none"
+                    stroke="#666"
+                    strokeWidth={3}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                MCAS ELA Score:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={3}
+                    x2={147}
+                    y1={29.4}
+                    y2={29.4}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={39.36780821917808}
+                    x2={39.36780821917808}
+                    y1={47}
+                    y2={3}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={111.36780821917809}
+                    x2={111.36780821917809}
+                    y1={47}
+                    y2={3}
+                  />
+                  <path
+                    d={null}
+                    fill="none"
+                    stroke="#666"
+                    strokeWidth={3}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                MCAS ELA SGP:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={3}
+                    x2={147}
+                    y1={25}
+                    y2={25}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={39.36780821917808}
+                    x2={39.36780821917808}
+                    y1={47}
+                    y2={3}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={111.36780821917809}
+                    x2={111.36780821917809}
+                    y1={47}
+                    y2={3}
+                  />
+                  <path
+                    d={null}
+                    fill="none"
+                    stroke="#666"
+                    strokeWidth={3}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": "5px 5px 5px 5px",
+          "display": "flex",
+          "flexDirection": "column",
+          "margin": "0 5px 0 0",
+          "width": "20%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "white",
+            "borderBottom": 0,
+            "borderRadius": "5px 5px 0 0",
+            "cursor": "pointer",
+            "fontWeight": "bold",
+            "height": 40,
+            "margin": 0,
+            "padding": "10px 5px 5px 5px",
+            "textAlign": "center",
+            "width": "100%",
+          }
+        }
+      >
+        Math
+      </div>
+      <div
+        className="math-background"
+        style={
+          Object {
+            "borderColor": "white",
+            "borderRadius": "0 0 5px 5px",
+            "borderTop": 0,
+            "cursor": "pointer",
+            "flexGrow": "1",
+            "flexShrink": "0",
+            "margin": 0,
+            "padding": "22px 26px 16px 26px",
+            "textAlign": "left",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                STAR Math:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={3}
+                    x2={147}
+                    y1={25}
+                    y2={25}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={39.36780821917808}
+                    x2={39.36780821917808}
+                    y1={47}
+                    y2={3}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={111.36780821917809}
+                    x2={111.36780821917809}
+                    y1={47}
+                    y2={3}
+                  />
+                  <path
+                    d={null}
+                    fill="none"
+                    stroke="#666"
+                    strokeWidth={3}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                MCAS Math Score:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={3}
+                    x2={147}
+                    y1={29.4}
+                    y2={29.4}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={39.36780821917808}
+                    x2={39.36780821917808}
+                    y1={47}
+                    y2={3}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={111.36780821917809}
+                    x2={111.36780821917809}
+                    y1={47}
+                    y2={3}
+                  />
+                  <path
+                    d={null}
+                    fill="none"
+                    stroke="#666"
+                    strokeWidth={3}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                MCAS Math SGP:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={3}
+                    x2={147}
+                    y1={25}
+                    y2={25}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={39.36780821917808}
+                    x2={39.36780821917808}
+                    y1={47}
+                    y2={3}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={111.36780821917809}
+                    x2={111.36780821917809}
+                    y1={47}
+                    y2={3}
+                  />
+                  <path
+                    d={null}
+                    fill="none"
+                    stroke="#666"
+                    strokeWidth={3}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": "5px 5px 5px 5px",
+          "display": "flex",
+          "flexDirection": "column",
+          "margin": "0 5px 0 0",
+          "width": "20%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "white",
+            "borderBottom": 0,
+            "borderRadius": "5px 5px 0 0",
+            "cursor": "pointer",
+            "fontWeight": "bold",
+            "height": 40,
+            "margin": 0,
+            "padding": "10px 5px 5px 5px",
+            "textAlign": "center",
+            "width": "100%",
+          }
+        }
+      >
+        Attendance and Behavior
+      </div>
+      <div
+        className="attendance-background"
+        style={
+          Object {
+            "borderColor": "white",
+            "borderRadius": "0 0 5px 5px",
+            "borderTop": 0,
+            "cursor": "pointer",
+            "flexGrow": "1",
+            "flexShrink": "0",
+            "margin": 0,
+            "padding": "22px 26px 16px 26px",
+            "textAlign": "left",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                Discipline this school year:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                1
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={0}
+                    x2={150}
+                    y1={25}
+                    y2={25}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={37.88313356164384}
+                    x2={37.88313356164384}
+                    y1={50}
+                    y2={0}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={112.88313356164385}
+                    x2={112.88313356164385}
+                    y1={50}
+                    y2={0}
+                  />
+                  <rect
+                    fill="#666"
+                    height={8.333333333333329}
+                    width={5}
+                    x={178.84203767123287}
+                    y={41.66666666666667}
+                  />
+                  <rect
+                    fill="#666"
+                    height={8.333333333333329}
+                    width={5}
+                    x={260.2119006849315}
+                    y={41.66666666666667}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={0}
+                    x2={150}
+                    y1={50}
+                    y2={50}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                Absences this school year:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                4
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={0}
+                    x2={150}
+                    y1={37.5}
+                    y2={37.5}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={37.88313356164384}
+                    x2={37.88313356164384}
+                    y1={50}
+                    y2={0}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={112.88313356164385}
+                    x2={112.88313356164385}
+                    y1={50}
+                    y2={0}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={-46.363441780821915}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={16.102311643835616}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={78.56806506849315}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={91.1023116438356}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={116.37628424657534}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={122.54066780821918}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={241.30779109589042}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={266.58176369863014}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={291.65025684931504}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={298.0201198630137}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={303.77354452054794}
+                    y={47.5}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={0}
+                    x2={150}
+                    y1={50}
+                    y2={50}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "paddingBottom": 10,
+            }
+          }
+        >
+          <div
+            className="AcademicSummary"
+          >
+            <div
+              style={
+                Object {
+                  "paddingBottom": 5,
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              >
+                Tardies this school year:
+              </span>
+              <span
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                2
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingLeft": 15,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <div
+                className="Sparkline"
+                style={
+                  Object {
+                    "overflow": "hidden",
+                  }
+                }
+              >
+                <svg
+                  height={50}
+                  width={150}
+                >
+                  <line
+                    stroke="#ccc"
+                    strokeDasharray={5}
+                    x1={0}
+                    x2={150}
+                    y1={37.5}
+                    y2={37.5}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={37.88313356164384}
+                    x2={37.88313356164384}
+                    y1={50}
+                    y2={0}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={112.88313356164385}
+                    x2={112.88313356164385}
+                    y1={50}
+                    y2={0}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={-21.08946917808219}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={41.37628424657534}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={47.540667808219176}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={66.44477739726028}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={72.8146404109589}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={110.0064212328767}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={128.9105308219178}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={178.84203767123287}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={216.65025684931507}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={260.2119006849315}
+                    y={47.5}
+                  />
+                  <rect
+                    fill="#666"
+                    height={2.5}
+                    width={5}
+                    x={266.58176369863014}
+                    y={47.5}
+                  />
+                  <line
+                    stroke="#ccc"
+                    x1={0}
+                    x2={150}
+                    y1={50}
+                    y2={50}
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      onClick={[Function]}
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": "5px 5px 5px 5px",
+          "display": "flex",
+          "flexDirection": "column",
+          "margin": "0 5px 0 0",
+          "width": "20%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#3177c9",
+            "borderBottom": 0,
+            "borderRadius": "5px 5px 0 0",
+            "color": "white",
+            "cursor": "pointer",
+            "fontWeight": "bold",
+            "height": 40,
+            "margin": 0,
+            "padding": "10px 5px 5px 5px",
+            "textAlign": "center",
+            "width": "100%",
+          }
+        }
+      >
+        Interventions
+      </div>
+      <div
+        className="interventions-column"
+        style={
+          Object {
+            "background": "#ededed",
+            "borderColor": "#3177c9",
+            "borderRadius": "0 0 5px 5px",
+            "borderStyle": "solid",
+            "borderTop": 0,
+            "borderWidth": "0 5px 5px 5px",
+            "cursor": "pointer",
+            "flexGrow": "1",
+            "flexShrink": "0",
+            "margin": 0,
+            "padding": "22px 21px 11px 21px",
+            "textAlign": "left",
+            "width": "100%",
+          }
+        }
+      >
+        <div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Placement
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  Sp Ed
+                </li>
+                <li>
+                  Private Separate
+                </li>
+                <li>
+                  2-5 hours / week
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Counselor
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  <span>
+                    BUZZ
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Services
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  No services
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingBottom": 10,
+              }
+            }
+          >
+            <div
+              className="SummaryList"
+              style={
+                Object {
+                  "paddingBottom": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                Staff for services
+              </div>
+              <ul
+                style={
+                  Object {
+                    "paddingLeft": 20,
+                  }
+                }
+              >
+                <li>
+                  No staff
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "margin": 30,
+      }
+    }
+  >
+    <div
+      className="InterventionsDetails"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NotesDetails"
+        style={
+          Object {
+            "flex": 1,
+            "marginRight": 20,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            <span>
+              Notes
+               for 
+              Aladdin
+            </span>
+            <div
+              style={
+                Object {
+                  "display": "inline",
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "outline": "none",
+                  }
+                }
+              >
+                (what is this?)
+              </a>
+            </div>
+          </h4>
+        </div>
+        <div>
+          <button
+            className="btn take-notes"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "inline",
+                "marginTop": 10,
+              }
+            }
+          >
+            Take notes
+          </button>
+        </div>
+        <div
+          className="NotesList"
+        >
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  July 18, 2011
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  10th Grade Experience
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Philis is meeting with parent next week and will present an attendance contract.",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  May 23, 2011
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  MTSS Meeting
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  March 29, 2011
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  10th Grade Experience
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Meredith is setting up a family meeting to discuss absences and tardies, and to follow up on concerns about supporting morning routines at home.",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  February 23, 2011
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  9th Grade Experience
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Philis is meeting with parent next week and will present an attendance contract.",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  January 20, 2011
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  Something else
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Philis is meeting with parent next week and will present an attendance contract.",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  November 28, 2010
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  9th Grade Experience
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Aladdin will go through the special ed process for placement",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrapper"
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="NoteCard"
+              style={
+                Object {
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "padding": 15,
+                  "width": "100%",
+                }
+              }
+            >
+              <div>
+                <span
+                  className="date"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontWeight": "bold",
+                      "paddingRight": 10,
+                      "width": "11em",
+                    }
+                  }
+                >
+                  October 20, 2010
+                </span>
+                <span
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "display": "inline-block",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                      "outline": "3px solid #eee",
+                      "textAlign": "center",
+                      "width": "10em",
+                    }
+                  }
+                >
+                  MTSS Meeting
+                </span>
+                <span
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    className="Educator"
+                    href="mailto:rich@demo.studentinsights.org"
+                    style={Object {}}
+                  >
+                    Rich Districtwide
+                  </a>
+                </span>
+              </div>
+              <div
+                className="EditableNoteText"
+              >
+                <div
+                  className="EditableTextComponent EditableNoteText-with-hover"
+                  contentEditable={true}
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Philis is meeting with parent next week and will present an attendance contract.",
+                    }
+                  }
+                  onBlur={[Function]}
+                  onInput={[Function]}
+                  onKeyUp={[Function]}
+                  onPaste={[Function]}
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "padding": 0,
+                      "style": Object {},
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "color": "#aaa",
+                      "fontSize": 13,
+                      "marginTop": 13,
+                    }
+                  }
+                >
+                  Revised 0 times
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            <span>
+              Services
+            </span>
+            <div
+              style={
+                Object {
+                  "display": "inline",
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "outline": "none",
+                  }
+                }
+              >
+                (what is this?)
+              </a>
+            </div>
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <button
+            className="btn record-service"
+            onClick={[Function]}
+          >
+            Record service
+          </button>
+        </div>
+        <div
+          className="ServicesList"
+        >
+          <div
+            style={
+              Object {
+                "margin": 10,
+              }
+            }
+          >
+            No services
           </div>
         </div>
       </div>

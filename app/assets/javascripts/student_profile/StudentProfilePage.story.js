@@ -4,7 +4,8 @@ import {action} from '@storybook/addon-actions';
 import StudentProfilePage from './StudentProfilePage';
 import {
   testPropsForPlutoPoppins,
-  testPropsForOlafWhite
+  testPropsForOlafWhite,
+  testPropsForAladdinMouse
 } from './StudentProfilePage.test';
 
 function storifyProps(props) {
@@ -30,7 +31,8 @@ function storyRender(props) {
 
 storiesOf('profile/StudentProfilePage', module) // eslint-disable-line no-undef
   .add('Olaf White', () => storyRender(testPropsForOlafWhite()))
-  .add('Pluto Poppins', () => storyRender(testPropsForPlutoPoppins()));
+  .add('Pluto Poppins', () => storyRender(testPropsForPlutoPoppins()))
+  .add('Aladdin Mouse', () => storyRender(testPropsForAladdinMouse()));
 
 
 // Allow navigation within story

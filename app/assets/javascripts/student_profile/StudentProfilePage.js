@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import BarChartSparkline from '../student_profile/BarChartSparkline';
-import AttendanceDetails from '../student_profile/AttendanceDetails';
-import AcademicSummary from '../student_profile/AcademicSummary';
-import ElaDetails from '../student_profile/ElaDetails';
-import MathDetails from '../student_profile/MathDetails';
-import NotesDetails from '../student_profile/NotesDetails';
+import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
-import Scales from '../student_profile/Scales';
-import SummaryList from '../student_profile/SummaryList';
-import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
+import BarChartSparkline from './BarChartSparkline';
+import AttendanceDetails from './AttendanceDetails';
+import AcademicSummary from './AcademicSummary';
+import ElaDetails from './ElaDetails';
+import MathDetails from './MathDetails';
+import NotesDetails from './NotesDetails';
+import Scales from './Scales';
+import SummaryList from './SummaryList';
+import SummaryWithoutSparkline from './SummaryWithoutSparkline';
 import {cumulativeByMonthFromEvents} from './QuadConverter';
 import Sparkline from './Sparkline';
 import StudentProfileHeader from './StudentProfileHeader';
@@ -284,12 +285,12 @@ export default class StudentProfilePage extends React.Component {
   }
 
   render504(student) {
-    if (student.plan_504 === undefined || student.plan_504 === null) return null;
-    if (student.plan_504 === 'Not 504') return null;
+    const plan504 = student.plan_504;
+    if (!hasInfoAbout504Plan(plan504)) return null;
 
     return (
-      <SummaryList title="Language" elements={[
-        <span>504 plan: {student.student.plan_504}</span>
+      <SummaryList title="504 plan" elements={[
+        <span>{plan504}</span>
       ]} />
     );
   }
