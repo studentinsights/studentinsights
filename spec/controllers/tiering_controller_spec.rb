@@ -13,13 +13,19 @@ describe TieringController, :type => :controller do
         school_id: pals.shs.id,
         time_now: Time.now.to_i
       }
+      sign_out(educator)
       response
     end
 
-    it 'guard access' do
+    it 'allows everyone access, but only to authorized students in that school' do
       (Educator.all - [pals.uri]).each do |educator|
+        authorized_students = Authorizer.new(educator).authorized { Student.active.to_a }
         response = get_show_json(educator)
-        expect(response.status).to eq 403
+        expect(response.status).to eq 200
+
+        json = JSON.parse(response.body)
+        expect(json['students_with_tiering'].size).to be <= authorized_students.size
+        expect(authorized_students.map(&:id)).to include(*json['students_with_tiering'].map {|s| s['id'] })
       end
     end
 
