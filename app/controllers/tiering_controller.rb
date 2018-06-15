@@ -2,8 +2,10 @@ class TieringController < ApplicationController
   before_action :ensure_feature_enabled_for_district!
 
   def show_json
+    params.require(:school_id)
+    params.permit(:time_now)
+    school_id = (School.find_by_slug(params[:school_id]) || School.find_by_id(params[:school_id])).id
     time_now = time_now_or_param(params[:time_now])
-    school_id = params[:school_id]
 
     tiers = ExperimentalSomervilleHighTiers.new(current_educator)
     students_with_tiering_json = tiers.students_with_tiering_json([school_id], time_now)
