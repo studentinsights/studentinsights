@@ -41,7 +41,10 @@ class ExperimentalSomervilleHighTiers
           }
         }
       })
-      student_json.merge(tier: tier_json).merge(notes: notes_json)
+      student_json.merge({
+        tier: tier_json,
+        notes: notes_json
+      }.as_json)
     end
   end
 
