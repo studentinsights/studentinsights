@@ -7,6 +7,8 @@ import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 class SchoolwideAttendance extends React.Component {
 
   schoolAverageDailyAttendance() {
+    console.log(this.props.schoolAbsenceEventsByDay);
+    console.log(this.props.dashboardStudents);
     return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEventsByDay, this.props.dashboardStudents.length);
   }
 
