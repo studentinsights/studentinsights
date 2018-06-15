@@ -17,6 +17,7 @@ export default {
     return averageDailyAttendance;
   },
 
+  //For absences and tardies, removes those events that have been excused
   filterExcusedEvents(eventsArray) {
     return eventsArray.filter((event) => {
       return !event.excused && !event.dismissed;
