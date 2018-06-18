@@ -5,6 +5,7 @@ Rails.application.configure do
     ENV[key.to_s] = value
   end if File.exists?(env_file)
 
+
   ENV['DISTRICT_KEY'] = 'somerville'
   ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
   ENV['USE_MOCK_LDAP'] = 'true'
