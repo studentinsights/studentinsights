@@ -6,19 +6,16 @@ import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {maybeCapitalize} from '../helpers/pretty';
 import {gradeText} from '../helpers/gradeText';
 
-
 // Takes a list of students, uses them to find values to sort by,
 // and then renders a filtering bar for different dimensions, yielding
 // the sorted students to `children`.
 export default class FilterStudentsBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      grade: null,
-      house: null,
-      counselor: null
-    };
+    this.state = initialState();
 
+    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onCounselorChanged = this.onCounselorChanged.bind(this);
@@ -26,14 +23,23 @@ export default class FilterStudentsBar extends React.Component {
 
   filteredStudents() {
     const {students} = this.props;
-    const {grade, house, counselor} = this.state;
+    const {searchText, grade, house, counselor} = this.state;
 
     return students.filter(student => {
       if (shouldFilterOut(grade, student.grade)) return false;
       if (shouldFilterOut(house, student.house)) return false;
       if (shouldFilterOut(counselor, student.counselor)) return false;
+      if (!searchTextMatches(searchText, student)) return false;
       return true;
     });
+  }
+
+  onKeyUp(e) {
+    if (e.which === 27) this.setState(initialState());
+  }
+
+  onSearchChanged(e) {
+    this.setState({searchText: e.target.value});
   }
 
   onGradeChanged(grade) {
@@ -53,15 +59,28 @@ export default class FilterStudentsBar extends React.Component {
     const filteredStudents = this.filteredStudents();
 
     return (
-      <div className="FilterStudentsBar" style={style}>
+      <div className="FilterStudentsBar" style={style} onKeyUp={this.onKeyUp}>
         <div style={{...styles.bar, ...barStyle}}>
           <span style={styles.label}>Filter by</span>
+          {this.renderSearch(filteredStudents)}
           {this.renderGradeSelect()}
           {this.renderHouseSelect()}
           {this.renderCounselorSelect()}
         </div>
         {children(filteredStudents)}
       </div>
+    );
+  }
+
+  renderSearch(filteredStudents) {
+    const {searchText} = this.state;
+    return (
+      <input
+        style={styles.search}
+        ref={el => this.searchInputEl = el}
+        placeholder={`Search ${filteredStudents.length} students...`}
+        value={searchText}
+        onChange={this.onSearchChanged} />
     );
   }
 
@@ -135,8 +154,11 @@ FilterStudentsBar.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired,
+    program_assigned: PropTypes.string,
+    sped_placement: PropTypes.string,
     house: PropTypes.string,
     counselor: PropTypes.string,
+    sped_liaison: PropTypes.string
   })).isRequired,
   children: PropTypes.func.isRequired,
   style: PropTypes.object,
@@ -154,14 +176,51 @@ const styles = {
     marginRight: 10
   },
   select: {
-    display: 'inline-block',
     width: '10em',
     marginRight: 10
-  }
+  },
+
+  // Matching react-select
+  search: {
+    display: 'inline-block',
+    padding: '7px 7px 7px 12px',
+    borderRadius: 4,
+    border: '1px solid #ccc',
+    marginLeft: 20,
+    marginRight: 10,
+    fontSize: 14,
+    width: 220
+  },
 };
 
+
+function initialState() {
+  return {
+    searchText: '',
+    grade: null,
+    house: null,
+    counselor: null
+  };
+}
 
 function shouldFilterOut(selectedValue, studentValue) {
   if (selectedValue === null || selectedValue === undefined) return false; // no filter applied
   return (studentValue !== selectedValue);
+}
+
+function searchTextMatches(searchText, student) {
+  if (searchText === '') return true;
+  const tokens = searchText.toLowerCase().split(' ');
+  const studentText = _.compact([
+    student.first_name,
+    student.last_name,
+    student.grade,
+    student.house,
+    student.counselor,
+    student.sped_liaison,
+    student.school.name,
+    student.program_assigned,
+    student.sped_placement
+  ]).join(' ').toLowerCase();
+  return _.all(tokens, token => studentText.indexOf(token) !== -1);
 }
