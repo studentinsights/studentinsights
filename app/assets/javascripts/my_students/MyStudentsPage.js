@@ -110,7 +110,7 @@ export class MyStudentsPageView extends React.Component {
   renderTable(filteredStudents) {
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
-    const rowHeight = 30;
+    const rowHeight = 40; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -136,13 +136,13 @@ export class MyStudentsPageView extends React.Component {
               dataKey='name'
               cellRenderer={this.renderName}
               flexGrow={1}
-              width={150}
+              width={250}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={200}
+              width={100}
             />
             <Column
               label='Grade'
@@ -165,13 +165,13 @@ export class MyStudentsPageView extends React.Component {
               label='Counselor'
               dataKey='counselor'
               cellDataGetter={({rowData}) => maybeCapitalize(rowData.counselor)}
-              width={150}
+              width={100}
             />
             <Column
               label='SPED Liaison'
               dataKey='sped_liaison'
               cellDataGetter={({rowData}) => maybeCapitalize(rowData.sped_liaison)}
-              width={150}
+              width={100}
             />
           </Table>
         )}
