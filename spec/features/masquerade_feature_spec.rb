@@ -72,30 +72,18 @@ describe 'masquerading', type: :feature do
     expect_to_be_logged_out(page)
   end
 
-  describe 'blocks all other TestPals' do
-    it 'rich_districtwide' do expect_masquerading_to_fail(pals.rich_districtwide) end
-    it 'healey_vivian_teacher' do expect_masquerading_to_fail(pals.healey_vivian_teacher) end
-    it 'healey_ell_teacher' do expect_masquerading_to_fail(pals.healey_ell_teacher) end
-    it 'healey_sped_teacher' do expect_masquerading_to_fail(pals.healey_sped_teacher) end
-    it 'healey_laura_principal' do expect_masquerading_to_fail(pals.healey_laura_principal) end
-    it 'healey_sarah_teacher' do expect_masquerading_to_fail(pals.healey_sarah_teacher) end
-    it 'west_marcus_teacher' do expect_masquerading_to_fail(pals.west_marcus_teacher) end
-    it 'shs_jodi' do expect_masquerading_to_fail(pals.shs_jodi) end
-    it 'shs_bill_nye' do expect_masquerading_to_fail(pals.shs_bill_nye) end
-    it 'shs_ninth_grade_counselor' do expect_masquerading_to_fail(pals.shs_ninth_grade_counselor) end
-    it 'shs_hugo_art_teacher' do expect_masquerading_to_fail(pals.shs_hugo_art_teacher) end
-    it 'shs_fatima_science_teacher' do expect_masquerading_to_fail(pals.shs_fatima_science_teacher) end
+  it 'does not work for any other users to masquerade as Uri or anyone else' do
+    (Educator.all - [pals.uri]).each do |educator|
+      # We test trying to masquerade as Uri, and as one other user we sample
+      # (none of these should work, and we sample since it's slow to test every
+      # possible permutation).
+      ([pals.uri] + Educator.all.sample(1)).each do |target|
+        sign_in_as(educator)
+        simulate_clicking_become_link(page, target.id)
+        expect_not_to_be_masquerading(page)
+        sign_out
+        expect_to_be_logged_out(page)
+      end
+    end
   end
-
-  # it 'does not work for any other users to masquerade as anyone else' do
-  #   (Educator.all - [pals.uri]).each do |educator|
-  #     Educator.all.each do |target|
-  #       sign_in_as(educator)
-  #       simulate_clicking_become_link(page, target.id)
-  #       expect_not_to_be_masquerading(page)
-  #       sign_out
-  #       expect_to_be_logged_out(page)
-  #     end
-  #   end
-  # end
 end
