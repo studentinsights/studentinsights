@@ -35,13 +35,6 @@ ActiveRecord::Schema.define(version: 20180618170626) do
     t.datetime "updated_at"
   end
 
-  create_table "class_list_snapshots", force: :cascade do |t|
-    t.integer "class_list_id"
-    t.json "students_json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "class_lists", force: :cascade do |t|
     t.string "workspace_id"
     t.integer "created_by_teacher_educator_id"
@@ -415,7 +408,6 @@ ActiveRecord::Schema.define(version: 20180618170626) do
   end
 
   add_foreign_key "absences", "students"
-  add_foreign_key "class_list_snapshots", "class_lists"
   add_foreign_key "class_lists", "educators", column: "created_by_teacher_educator_id", name: "classrooms_for_created_by_educator_id_fk"
   add_foreign_key "class_lists", "educators", column: "revised_by_principal_educator_id", name: "class_lists_revised_by_principal_educator_id_fk"
   add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
