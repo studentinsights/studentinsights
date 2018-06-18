@@ -1,6 +1,6 @@
 import moment from 'moment';
-import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
-import eventNoteTypesIndex from '../testing/fixtures/eventNoteTypesIndex';
+import serviceTypesIndex from '../../testing/fixtures/serviceTypesIndex';
+import eventNoteTypesIndex from '../../testing/fixtures/eventNoteTypesIndex';
 
 // assuming static time for specs
 export const nowMoment = moment('2016-02-11T10:15:00');

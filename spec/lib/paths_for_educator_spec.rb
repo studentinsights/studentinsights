@@ -20,28 +20,7 @@ RSpec.describe PathsForEducator do
       end
     end
 
-    context 'when HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8 disabled' do
-      before { @housemasters_authorized_for_grade_eight = ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] }
-      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = nil }
-      after { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = @housemasters_authorized_for_grade_eight }
-
-      it 'respects PerDistrict for /educators/my_students' do
-        expect(navbar_links(pals.shs_harry_housemaster)).to eq({
-          school: '/schools/shs',
-          absences: '/schools/shs/absences',
-          tardies: '/schools/shs/tardies'
-        })
-      end
-    end
-
     context 'with all feature switches enabled' do
-      before { @housemasters_authorized_for_grade_eight = ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] }
-      before { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true' }
-      after { ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = @housemasters_authorized_for_grade_eight }
-      before { @enable_class_lists = ENV['ENABLE_CLASS_LISTS'] }
-      before { ENV['ENABLE_CLASS_LISTS'] = 'true' }
-      after { ENV['ENABLE_CLASS_LISTS'] = @enable_class_lists }
-
       it 'works across educators, with classlists enabled' do
         expect(navbar_links(pals.uri)).to eq({
           classlists: '/classlists',
@@ -74,14 +53,15 @@ RSpec.describe PathsForEducator do
 
         # high school (TestPals doesn't match actual production HS roles and permisssions)
         expect(navbar_links(pals.shs_harry_housemaster)).to eq({
-          absences: '/schools/shs/absences',
-          my_students: '/educators/my_students',
           school: '/schools/shs',
+          absences: '/schools/shs/absences',
           tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_jodi)).to eq({})
-        expect(navbar_links(pals.shs_ninth_grade_counselor)).to eq({
-          school: '/schools/shs'
+        expect(navbar_links(pals.shs_sofia_counselor)).to eq({
+          school: '/schools/shs',
+          absences: '/schools/shs/absences',
+          tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_bill_nye)).to eq({
           section: "/sections/#{pals.shs_tuesday_biology_section.id}"

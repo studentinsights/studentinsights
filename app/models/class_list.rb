@@ -29,6 +29,42 @@ class ClassList < ActiveRecord::Base
       .first
   end
 
+  # Get latest by workspace_id.  See ClassListQueries#all_authorized_workspaces
+  # for authorization-aware method.
+  def self.unsafe_all_workspaces_without_authorization_check
+    all_class_lists = ClassList.order(created_at: :desc)
+    all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
+      most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+      ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
+    end
+  end
+
+  # Check if anything has changed in students_json, and if so create a new
+  # snapshot.  This is to check if the information that teachers had when making their
+  # class lists is different than it is at a later query time.
+  def snapshot_if_changed
+    # What would the student data be if we queried right now?
+    referenced_student_ids = self.json['studentIdsByRoom'].try(:values).try(:flatten) || []
+    students = Student.where(id: referenced_student_ids)
+    students_json = ClassListQueries.students_as_json(students)
+
+    # What's the last snapshot's student data?
+    latest_snapshot = ClassListSnapshot
+      .where(class_list_id: self.id)
+      .order(created_at: :desc)
+      .first
+
+    # Make a new snapshot if they're different
+    if latest_snapshot.present? && latest_snapshot.students_json == students_json
+      nil
+    else
+      ClassListSnapshot.create!({
+        class_list_id: self.id,
+        students_json: students_json
+      })
+    end
+  end
+
   private
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.

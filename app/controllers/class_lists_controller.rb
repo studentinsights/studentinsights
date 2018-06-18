@@ -74,32 +74,7 @@ class ClassListsController < ApplicationController
 
     # Check authorization by grade level, differently than normal.
     students = queries.authorized_students_for_next_year(school_id, grade_level_next_year)
-    students_json = students.as_json({
-      only: [
-        :id,
-        :local_id,
-        :first_name,
-        :last_name,
-        :date_of_birth,
-        :disability,
-        :program_assigned,
-        :limited_english_proficiency,
-        :plan_504,
-        :home_language,
-        :free_reduced_lunch,
-        :race,
-        :hispanic_latino,
-        :gender,
-        :most_recent_star_math_percentile,
-        :most_recent_star_reading_percentile
-      ],
-      methods: [
-        :iep_document,
-        :latest_access_results,
-        :latest_dibels,
-        :most_recent_school_year_discipline_incidents_count
-      ]
-    })
+    students_json = ClassListQueries.students_as_json(students)
 
     # educator names
     educators_json = Educator.where(school_id: school_id).as_json(only: [:id, :full_name])

@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   get '/api/home/feed_json' => 'home#feed_json'
   get '/api/district/enrollment_json' => 'district#enrollment_json'
 
+  # HS tiers
+  get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
 
   devise_for :educators
   authenticated :educator do
@@ -53,7 +55,12 @@ Rails.application.routes.draw do
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
+
+  # home page
   get '/home' => 'ui#ui'
+
+  # tiering
+  get '/levels/:school_id' => 'ui#ui'
 
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
@@ -68,6 +75,7 @@ Rails.application.routes.draw do
     member do
       get :student_report
       get :restricted_notes
+      get :photo
       post :service
     end
   end

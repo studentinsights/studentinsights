@@ -22,6 +22,20 @@ export function orderedDisabilityValues(districtKey) {
   return ORDERED_DISABILITY_VALUES_MAP[districtKey] || [];
 }
 
+// Includes if they "exited" the 504
+export function hasInfoAbout504Plan(maybeStudent504Field) {
+  if (maybeStudent504Field === undefined) return false;
+  if (maybeStudent504Field === null) return false;
+  if (maybeStudent504Field === '') return false;
+  if (maybeStudent504Field === '504') return true; // Somerville
+  if (maybeStudent504Field === 'Not 504') return false; // Somerville
+  if (maybeStudent504Field === 'NotIn504') return false; // Somerville & New Bedford
+  if (maybeStudent504Field === 'Exited') return true; // New Bedford
+  if (maybeStudent504Field === 'Active') return true; // New Bedford
+
+  return true;
+}
+
 // Renders a table for `SlicePanels` that works differently for different
 // districts.
 export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
@@ -80,4 +94,12 @@ export function shouldDisplayHouse(school) {
 // This only applies to high schools.
 export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
+}
+
+// This returns user-facing text to describe their program and placement
+// in one label.
+export function prettyProgramText(programAssigned, spedPlacement) {
+  return (programAssigned && programAssigned !== 'Reg Ed')
+    ? programAssigned === 'Sp Ed' ? spedPlacement : programAssigned
+    : null;
 }

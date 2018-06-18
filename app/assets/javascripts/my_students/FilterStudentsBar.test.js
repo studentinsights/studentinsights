@@ -2,7 +2,7 @@ import React from 'react';
 import {mount} from 'enzyme';
 import renderer from 'react-test-renderer';
 import _ from 'lodash';
-import FilterStudentsBar from './FilterStudentsBar';
+import FilterStudentsBar, {searchTextMatches} from './FilterStudentsBar';
 import myStudentsJson from './myStudentsJson.fixture';
 
 function testProps(props = {}) {
@@ -69,4 +69,12 @@ it('snapshots', () => {
     .create(<FilterStudentsBar {...props} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
+});
+
+describe('searchTextMatches', () => {
+  describe('works', () => {
+    const matches = myStudentsJson.students.filter(student => searchTextMatches('PluTO WoODy', student));
+    expect(myStudentsJson.students.length).toEqual(74);
+    expect(matches.length).toEqual(3);
+  });
 });

@@ -24,48 +24,7 @@ export default class PageContainer extends React.Component {
     super(props);
 
     const {serializedData, queryParams} = props;
-    this.state = {
-      // context
-      currentEducator: serializedData.currentEducator,
-
-      // constants
-      educatorsIndex: serializedData.educatorsIndex,
-      serviceTypesIndex: serializedData.serviceTypesIndex,
-      eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
-
-      // data
-      student: serializedData.student,
-      feed: serializedData.feed,
-      transitionNotes: serializedData.transitionNotes,
-      chartData: serializedData.chartData,
-      attendanceData: serializedData.attendanceData,
-      access: serializedData.access,
-      dibels: serializedData.dibels,
-      iepDocument: serializedData.iepDocument,
-      sections: serializedData.sections,
-      currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
-
-      // ui
-      noteInProgressText: '',
-      noteInProgressType: null,
-      noteInProgressAttachmentUrls: [],
-      selectedColumnKey: queryParams.column || 'interventions',
-
-      // This map holds the state of network requests for various actions.  This allows UI components to branch on this
-      // and show waiting messages or error messages.
-      // The state of a network request is described with null (no requests in-flight),
-      // 'pending' (a request is currently in-flight),
-      // and 'error' or another value if the request failed.
-      // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
-      // state of requests related to a particular object.
-      // For example, `saveService` holds the state of that request, but `discontinueService` is a map that can track multiple active
-      // requests, using `serviceId` as a key.
-      requests: {
-        saveNote: null,
-        saveService: null,
-        discontinueService: {}
-      }
-    };
+    this.state = initialState(serializedData, queryParams);
 
     this.onColumnClicked = this.onColumnClicked.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
@@ -348,3 +307,49 @@ PageContainer.propTypes = {
   actions: InsightsPropTypes.actions,
   api: InsightsPropTypes.api
 };
+
+// Exported for test and story
+export function initialState(serializedData, queryParams) {
+  return {
+    // context
+    currentEducator: serializedData.currentEducator,
+
+    // constants
+    educatorsIndex: serializedData.educatorsIndex,
+    serviceTypesIndex: serializedData.serviceTypesIndex,
+    eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
+
+    // data
+    student: serializedData.student,
+    feed: serializedData.feed,
+    transitionNotes: serializedData.transitionNotes,
+    chartData: serializedData.chartData,
+    attendanceData: serializedData.attendanceData,
+    access: serializedData.access,
+    dibels: serializedData.dibels,
+    iepDocument: serializedData.iepDocument,
+    sections: serializedData.sections,
+    currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
+
+    // ui
+    noteInProgressText: '',
+    noteInProgressType: null,
+    noteInProgressAttachmentUrls: [],
+    selectedColumnKey: queryParams.column || 'interventions',
+
+    // This map holds the state of network requests for various actions.  This allows UI components to branch on this
+    // and show waiting messages or error messages.
+    // The state of a network request is described with null (no requests in-flight),
+    // 'pending' (a request is currently in-flight),
+    // and 'error' or another value if the request failed.
+    // The keys within `request` hold either a single value describing the state of the request, or a map that describes the
+    // state of requests related to a particular object.
+    // For example, `saveService` holds the state of that request, but `discontinueService` is a map that can track multiple active
+    // requests, using `serviceId` as a key.
+    requests: {
+      saveNote: null,
+      saveService: null,
+      discontinueService: {}
+    }
+  };
+}

@@ -41,7 +41,17 @@ class EducatorsController < ApplicationController
   def my_students_json
     students = authorized { Student.active.includes(:school).to_a }
     students_json = students.as_json({
-      only: [:id, :first_name, :last_name, :house, :counselor, :grade],
+      only: [
+        :id,
+        :first_name,
+        :last_name,
+        :grade,
+        :house,
+        :counselor,
+        :sped_liaison,
+        :program_assigned,
+        :sped_placement
+      ],
       include: {
         school: {
           only: [:id, :name]

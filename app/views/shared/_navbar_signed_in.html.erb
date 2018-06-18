@@ -34,10 +34,7 @@
 
   <% # Everyone has these %>
   <%= link_to "My notes", educators_notes_feed_path %>
-  <% if links.has_key?(:my_students) %>
-    <%= link_to 'My students', links[:my_students] %>
-  <% end %>
-  <%= link_to "Home", home_path %>
+  <%= link_to 'My students', educators_my_students_path %>
   <span class="navbar-spacer"></span>
   <p class="search-label">Search for student:</p>
   <input class="student-searchbar" />

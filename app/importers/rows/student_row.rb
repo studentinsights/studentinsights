@@ -5,12 +5,8 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
   #
   # Contrast with student.rb, which is represents a student once they've entered the DB.
   #
-  # Expects the following headers:
-  #
-  #   :state_id, :local_id, :full_name, :home_language, :program_assigned,
-  #   :limited_english_proficiency, :sped_placement, :disability,
-  #   sped_level_of_need: :plan_504, :student_address, :grade,
-  #   :registration_date, :free_reduced_lunch, :homeroom, :school_local_id
+  # The `row` CSV object passed quacks like a hash, and the keys are formed from matching the
+  # CSV headers.  This means that column order is ignored and all columns will be present as keys.
 
   def self.build(row)
     new(row).build
@@ -36,8 +32,10 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def attributes
-    demographic_attributes.merge(name_view_attributes)
-                          .merge(school_attribute)
+    demographic_attributes
+      .merge(name_view_attributes)
+      .merge(school_attributes)
+      .merge(per_district_attributes)
   end
 
   def demographic_attributes
@@ -60,13 +58,11 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
       hispanic_latino: row[:hispanic_latino],
       gender: row[:gender],
       primary_phone: row[:primary_phone],
-      primary_email: row[:primary_email],
-      house: row[:house],
-      counselor: counselor
+      primary_email: row[:primary_email]
     }
   end
 
-  def school_attribute
+  def school_attributes
     { school_id: school_rails_id }
   end
 
@@ -86,8 +82,24 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
     row[:grade].to_i.to_s
   end
 
-  def counselor
-    return row[:counselor].split(",")[0] if row[:counselor]
-  end
+  # These are different based on the district configuration and export
+  def per_district_attributes
+    included_attributes = {}
+    per_district = PerDistrict.new
 
+    if per_district.import_student_house?
+      included_attributes.merge!(house: row[:house])
+    end
+
+    if per_district.import_student_counselor?
+      counselor_last_name = if row[:counselor] then row[:counselor].split(",")[0] else nil end
+      included_attributes.merge!(counselor: counselor_last_name)
+    end
+
+    if per_district.import_student_sped_liaison?
+      included_attributes.merge!(sped_liaison: row[:sped_liaison])
+    end
+
+    included_attributes
+  end
 end

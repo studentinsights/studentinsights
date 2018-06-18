@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import BarChartSparkline from '../student_profile/BarChartSparkline';
-import AttendanceDetails from '../student_profile/AttendanceDetails';
-import AcademicSummary from '../student_profile/AcademicSummary';
-import ElaDetails from '../student_profile/ElaDetails';
-import MathDetails from '../student_profile/MathDetails';
-import NotesDetails from '../student_profile/NotesDetails';
+import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
-import Scales from '../student_profile/Scales';
-import SummaryList from '../student_profile/SummaryList';
-import SummaryWithoutSparkline from '../student_profile/SummaryWithoutSparkline';
+import BarChartSparkline from './BarChartSparkline';
+import AttendanceDetails from './AttendanceDetails';
+import AcademicSummary from './AcademicSummary';
+import ElaDetails from './ElaDetails';
+import MathDetails from './MathDetails';
+import NotesDetails from './NotesDetails';
+import Scales from './Scales';
+import SummaryList from './SummaryList';
+import SummaryWithoutSparkline from './SummaryWithoutSparkline';
 import {cumulativeByMonthFromEvents} from './QuadConverter';
 import Sparkline from './Sparkline';
 import StudentProfileHeader from './StudentProfileHeader';
@@ -200,7 +201,11 @@ export default class StudentProfilePage extends React.Component {
     const sections = this.props.sections;
     const columnKey = 'profile';
 
-    const profileElements = [this.renderDemographics(student, access)];
+    const profileElements = [
+      this.renderDisability(student),
+      this.renderLanguage(student, access),
+      this.render504(student),
+    ];
 
     if(student.school_type == 'HS') {
       profileElements.push(this.renderSections(sections));
@@ -248,28 +253,45 @@ export default class StudentProfilePage extends React.Component {
           }}>
           {this.renderPaddedElements(styles.summaryWrapper, [
             this.renderPlacement(student),
+            this.renderSpedLiaison(student),
             this.renderCounselor(student),
             this.renderServices(student),
-            this.renderStaff(student),
-            this.renderSped(student)
+            this.renderStaff(student)
           ])}
         </div>
       </div>
     );
   }
 
-  renderDemographics(student, access) {
-    const demographicsElements = [
-      'Disability: ' + (student.sped_level_of_need || 'None'),
-      'Language: ' + student.limited_english_proficiency
-    ];
+  renderDisability(student, access) {
+    const elements = (student.disability === 'None' || student.disability === null)
+      ? [<span>None</span>]
+      : [<span>{student.disability || 'None'}</span>];
+    return (
+      <SummaryList title="Disability" elements={elements} />
+    );
+  }
 
-    if (access) {
-      demographicsElements.push('ACCESS Composite score: ' + access.composite);
-    }
+  renderLanguage(student, access) {
+    const accessEl = (access === undefined || access === null)
+      ? null
+      : <span>ACCESS Composite: {access.composite}</span>;
+    return (
+      <SummaryList title="Language" elements={_.compact([
+        <span>{student.limited_english_proficiency}</span>,
+        accessEl
+      ])} />
+    );
+  }
+
+  render504(student) {
+    const plan504 = student.plan_504;
+    if (!hasInfoAbout504Plan(plan504)) return null;
 
     return (
-      <SummaryList title="Demographics" elements={demographicsElements} />
+      <SummaryList title="504 plan" elements={[
+        <span>{plan504}</span>
+      ]} />
     );
   }
 
@@ -283,22 +305,27 @@ export default class StudentProfilePage extends React.Component {
   }
 
   renderPlacement(student) {
-    const placement = (student.sped_placement !== null)
-      ? student.program_assigned + ', ' + student.sped_placement
-      : student.program_assigned;
-
-    const homeroom_name = student.homeroom_name;
-
-    const homeroom = (homeroom_name)
-      ? 'Homeroom ' + homeroom_name
-      : 'No homeroom';
-
+    const program = student.program_assigned;
+    const spedPlacement = student.sped_placement || null;
+    const spedHoursText = this.renderSpedHoursText(student);
+    
+    const elements = _.compact([program, spedPlacement, spedHoursText]);
     return (
       <SummaryList
         title="Placement"
-        elements={[ placement, homeroom ]}
+        elements={elements}
       />
     );
+  }
+
+  renderSpedHoursText(student) {
+    switch (student.sped_level_of_need) {
+    case "Low < 2": return "less than 2 hours / week";
+    case "Low >= 2": return "2-5 hours / week";
+    case "Moderate": return "6-14 hours / week";
+    case "High": return "15+ hours / week";
+    default: return null;
+    }
   }
 
   renderServices(student) {
@@ -336,6 +363,16 @@ export default class StudentProfilePage extends React.Component {
     );
   }
 
+  renderSpedLiaison(student) {
+    const spedLiaison = student.sped_liaison;
+    if (spedLiaison === null || spedLiaison === undefined) return null;
+    return (
+      <SummaryList
+        title="SPED Liaison"
+        elements={[<span>{spedLiaison}</span>]} />
+    );
+  }
+
   renderStaff(student) {
     const activeServices = this.props.feed.services.active;
     const educatorNamesFromServices = _.map(activeServices, 'provided_by_educator_name');
@@ -356,31 +393,6 @@ export default class StudentProfilePage extends React.Component {
     }
 
     return <SummaryList title="Staff for services" elements={educatorNames} />;
-  }
-
-  renderSped(student) {
-    return (
-      <div>
-        <span style={styles.spedTitle}>
-          SpEd services
-        </span>
-        <ul>
-          <li>
-            {this.renderSpedLevelText(student)}
-          </li>
-        </ul>
-      </div>
-    );
-  }
-
-  renderSpedLevelText(student) {
-    switch (student.sped_level_of_need) {
-    case "Low < 2": return "less than 2 hours / week";
-    case "Low >= 2": return "2-5 hours / week";
-    case "Moderate": return "6-14 hours / week";
-    case "High": return "15+ hours / week";
-    default: return "None";
-    }
   }
 
   renderELAColumn() {
@@ -585,7 +597,7 @@ export default class StudentProfilePage extends React.Component {
   renderPaddedElements(style, elements) {
     return (
       <div>
-        {elements.map((element, index) => {
+        {_.compact(elements).map((element, index) => {
           return (
             <div key={index} style={style}>
               {element}

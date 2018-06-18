@@ -40,7 +40,8 @@ class StudentsSpreadsheet
         'hispanic_latino',
         'race',
         'counselor',
-        'house'
+        'house',
+        'sped_liaison'
       ])
     end
 
