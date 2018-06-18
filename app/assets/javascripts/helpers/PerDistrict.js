@@ -95,3 +95,11 @@ export function shouldDisplayHouse(school) {
 export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
 }
+
+// This returns user-facing text to describe their program and placement
+// in one label.
+export function prettyProgramText(programAssigned, spedPlacement) {
+  return (programAssigned && programAssigned !== 'Reg Ed')
+    ? programAssigned === 'Sp Ed' ? spedPlacement : programAssigned
+    : null;
+}
