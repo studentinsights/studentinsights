@@ -33,7 +33,6 @@ module Admin
         @admin_educators << educator if educator.admin
         @restricted_notes_educators << educator if educator.can_view_restricted_notes
       end
-      render layout: false
     end
 
     def resource_params

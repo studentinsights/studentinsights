@@ -1,3 +1,11 @@
+# This class provides an API for interacting with Warden
+# sessions so that we can store values allowing users with elevated
+# permissions to masquerade as another user.
+#
+# This class is responsible for controlling this, and controller
+# code can read this, or use its methods to change states.  The other key
+# piece is `MasqueradeHelpers`, which is mixed into `ApplicationController`
+# to override the `current_educator` method.
 class Masquerade
   def initialize(session, underlying_current_educator_lambda)
     @session = session
@@ -41,6 +49,7 @@ class Masquerade
   end
 
   private
+  # Kill switch for disabling masquerading globally
   def allowed_by_env?
     EnvironmentVariable.is_true('ENABLE_MASQUERADING')
   end

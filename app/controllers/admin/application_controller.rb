@@ -9,7 +9,7 @@ module Admin
     before_action :authenticate_educator!, :authenticate_admin
 
     def authenticate_admin
-      redirect_to(new_educator_session_path) unless current_educator && current_educator.can_set_districtwide_access?
+      redirect_to(not_authorized_path) unless current_educator && current_educator.can_set_districtwide_access?
     end
 
     # This overrides `current_educator` to enable masquerading as other users.
