@@ -46,9 +46,7 @@ class SchoolDisciplineDashboard extends React.Component {
   studentDisciplineIncidentCounts(incidentCategory) {
     let studentDisciplineIncidentCounts = {};
     const selectedChartData = this.getChartData(this.state.selectedChart);
-    const incidents = incidentCategory ?
-                      selectedChartData.disciplineIncidents[incidentCategory] :
-                      this.filterIncidentDates(this.props.schoolDisciplineEvents);
+    const incidents = incidentCategory ? selectedChartData.disciplineIncidents[incidentCategory] : this.props.schoolDisciplineEvents;
     incidents.forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
