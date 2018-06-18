@@ -31,6 +31,13 @@ RSpec.describe Masquerade do
         expect(masquerade.authorized?).to eq false
       end
     end
+
+    it 'respects ENV kill switch' do
+      session, masquerade = create_masquerade(pals.uri)
+      expect(masquerade.authorized?).to eq true
+      allow(EnvironmentVariable).to receive(:is_true).with('ENABLE_MASQUERADING').and_return false
+      expect(masquerade.is_masquerading?).to eq false
+    end
   end
 
   describe '#is_masquerading?' do
@@ -55,6 +62,14 @@ RSpec.describe Masquerade do
       expect(masquerade.is_masquerading?).to eq(false)
       session['masquerade.masquerading_educator_id'] = 'whatever'
       expect(masquerade.is_masquerading?).to eq(true)
+    end
+
+    it 'respects ENV kill switch' do
+      session, masquerade = create_masquerade(pals.uri)
+      masquerade.become_educator_id!(pals.shs_jodi.id)
+      expect(masquerade.is_masquerading?).to eq true
+      allow(EnvironmentVariable).to receive(:is_true).with('ENABLE_MASQUERADING').and_return false
+      expect(masquerade.is_masquerading?).to eq(false)
     end
   end
 

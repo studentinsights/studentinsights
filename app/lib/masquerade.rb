@@ -7,12 +7,12 @@ class Masquerade
 
   # Any user can check this
   def authorized?
-    underlying_current_educator.present? && underlying_current_educator.can_set_districtwide_access?
+    allowed_by_env? && underlying_current_educator.present? && underlying_current_educator.can_set_districtwide_access?
   end
 
   # Any user can check this
   def is_masquerading?
-    @session.has_key?(@session_key)
+    allowed_by_env? && @session.has_key?(@session_key)
   end
 
   # Raise if:
@@ -41,6 +41,10 @@ class Masquerade
   end
 
   private
+  def allowed_by_env?
+    EnvironmentVariable.is_true('ENABLE_MASQUERADING')
+  end
+
   def underlying_current_educator
     @underlying_current_educator_lambda.call
   end
