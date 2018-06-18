@@ -38,7 +38,7 @@ class Student < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validate :validate_grade
-  validate :validate_registration_date_cannot_be_in_future
+  validate :registration_date_cannot_be_in_future
   validate :validate_free_reduced_lunch
 
   VALID_GRADES = [
@@ -51,6 +51,20 @@ class Student < ActiveRecord::Base
     "Reduced Lunch",
     nil
   ]
+
+  def registration_date_in_future
+    return false if registration_date.nil?
+
+    return false if DateTime.now > registration_date
+
+    return true
+  end
+
+  def registration_date_cannot_be_in_future
+    if registration_date_in_future
+      errors.add(:registration_date, "cannot be in future for student local id ##{local_id}")
+    end
+  end
 
   def self.with_school
     where.not(school: nil)
@@ -316,17 +330,5 @@ class Student < ActiveRecord::Base
 
   def validate_plan_504
     errors.add(:plan_504, "invalid plan_504: #{plan_504}") unless grade.in?(PerDistrict.new.valid_plan_504_values)
-  end
-
-  def is_registration_date_in_future?
-    return false if registration_date.nil?
-    return false if DateTime.now > registration_date
-    return true
-  end
-
-  def validate_registration_date_cannot_be_in_future
-    if is_registration_date_in_future?
-      errors.add(:registration_date, "cannot be in future for student local id ##{local_id}")
-    end
   end
 end
