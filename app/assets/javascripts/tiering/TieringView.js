@@ -29,12 +29,6 @@ export default class TieringView extends React.Component {
     this.onToggleModal = this.onToggleModal.bind(this);
   }
 
-  componentDidMount() {
-    if (this.searchInputEl) {
-      this.searchInputEl.focus();
-    }
-  }
-
   filterStudents() {
     const {studentsWithTiering} = this.props;
     const {grade, house, tier, trigger, search} = this.state;
@@ -91,7 +85,7 @@ export default class TieringView extends React.Component {
   render() {
     const students = this.filterStudents();
     return (
-      <div className="TieringView" style={styles.root} onKeyUp={this.onKeyUp}>
+      <div className="TieringView" style={{...styles.root, ...styles.flexVertical}} onKeyUp={this.onKeyUp}>
         {this.renderSelection(students)}
         {this.renderTable(students)}
       </div>
@@ -110,7 +104,6 @@ export default class TieringView extends React.Component {
       <div style={styles.selectionBar}>
         <input
           style={styles.search}
-          ref={el => this.searchInputEl = el}
           placeholder={`Search ${studentsWithTiering.length} students...`}
           value={search}
           onChange={this.onSearchChanged} />
@@ -270,7 +263,7 @@ export default class TieringView extends React.Component {
     ]);
 
     return (
-      <div style={styles.tableContainer}>
+      <div style={{...styles.tableContainer, ...styles.flexVertical}}>
         <StudentLevelsTable sortedStudentsWithTiering={sortedStudentsWithTiering} />
       </div>
     );
@@ -301,6 +294,11 @@ TieringView.propTypes = {
 const styles = {
   root: {
     fontSize: 14
+  },
+  flexVertical: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
   },
   selectionBar: {
     display: 'flex',

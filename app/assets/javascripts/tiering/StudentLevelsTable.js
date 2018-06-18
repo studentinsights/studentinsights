@@ -30,12 +30,12 @@ export default class StudentLevelsTable extends React.Component {
     const cellWidth = 85;
 
     return (
-      <AutoSizer className="StudentLevelsTable" disableHeight>
-        {({width}) => (
+      <AutoSizer className="StudentLevelsTable">
+        {({height, width}) => (
           <Table
             width={width}
             headerHeight={40}
-            height={450}
+            height={height}
             rowCount={sortedStudentsWithTiering.length}
             rowGetter={({index}) => sortedStudentsWithTiering[index]}
             rowHeight={40}
