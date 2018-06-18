@@ -107,7 +107,7 @@ Student.all.each do |student|
     student_id: student.id,
     file_digest: Digest::SHA256.hexdigest(student.local_id),
     file_size: 37010,
-    s3_filename: 'MissingAvatar.png'
+    s3_filename: 'PlanetAvatar.png'
   )
 end
 
