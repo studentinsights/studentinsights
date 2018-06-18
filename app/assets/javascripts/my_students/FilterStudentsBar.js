@@ -208,7 +208,7 @@ function shouldFilterOut(selectedValue, studentValue) {
   return (studentValue !== selectedValue);
 }
 
-function searchTextMatches(searchText, student) {
+export function searchTextMatches(searchText, student) {
   if (searchText === '') return true;
   const tokens = searchText.toLowerCase().split(' ');
   const studentText = _.compact([
