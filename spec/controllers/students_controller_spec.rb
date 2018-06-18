@@ -527,6 +527,80 @@ describe StudentsController, :type => :controller do
     end
   end
 
+  describe '#photo' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request(student_id)
+      request.env['HTTPS'] = 'on'
+      get :photo, params: { id: student_id }
+    end
+
+    def create_student_photo(params = {})
+      StudentPhoto.create({
+        student_id: pals.healey_kindergarten_student.id,
+        file_digest: SecureRandom.hex,
+        file_size: 1000 + SecureRandom.random_number(100000),
+        s3_filename: SecureRandom.hex
+      }.merge(params))
+    end
+
+    class FakeAwsResponse
+      def body; self end
+
+      def read; 'eee' end
+    end
+
+    before do
+      allow_any_instance_of(
+        Aws::S3::Client
+      ).to receive(
+        :get_object
+      ).and_return FakeAwsResponse.new
+    end
+
+    context 'educator authorized for student' do
+      before { sign_in(pals.healey_vivian_teacher) }
+      let!(:student_photo) { create_student_photo }
+
+      it 'succeeds and sends the right response body down' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).to be_success
+        expect(response.body).to eq 'eee'
+      end
+    end
+
+    context 'student has no photo' do
+      before { sign_in(pals.healey_vivian_teacher) }
+
+      it 'is not successful; sends an error' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).not_to be_success
+        expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
+      end
+    end
+
+    context 'educator not authorized for student (wrong school)' do
+      before { sign_in(pals.shs_jodi) }
+      let!(:student_photo) { create_student_photo }
+
+      it 'redirects' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).not_to be_success
+        expect(response).to redirect_to('/not_authorized')
+      end
+    end
+
+    context 'not signed in' do
+      let!(:student_photo) { create_student_photo }
+
+      it 'redirects' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).not_to be_success
+        expect(response).to redirect_to('/educators/sign_in')
+      end
+    end
+  end
+
   describe '#lasids' do
     def make_request
       request.env['HTTPS'] = 'on'
