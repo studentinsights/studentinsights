@@ -567,6 +567,16 @@ describe StudentsController, :type => :controller do
         expect(response).to be_success
         expect(response.body).to eq 'eee'
       end
+
+      context 'multiple photos' do
+        let!(:more_recent_student_photo) { create_student_photo }
+
+        it 'assigns the most recent photo' do
+          make_request(pals.healey_kindergarten_student.id)
+          expect(response).to be_success
+          expect(assigns(:student_photo)).to eq(more_recent_student_photo)
+        end
+      end
     end
 
     context 'student has no photo' do
