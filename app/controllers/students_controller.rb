@@ -261,7 +261,11 @@ class StudentsController < ApplicationController
   end
 
   def s3
-    @client ||= Aws::S3::Client.new(region: 'us-west-2')
+    if EnvironmentVariable.is_true('USE_PLACEHOLDER_STUDENT_PHOTO')
+      @client ||= FakeAwsPhotoClient.new
+    else
+      @client ||= Aws::S3::Client.new
+    end
   end
 
   # Add this as a helper method that the ERB template can call
