@@ -9,23 +9,23 @@ describe 'masquerading', type: :feature do
   end
 
   def expect_to_allow_masquerading(page)
+    expect(page).not_to have_css('.masquerade-is-masquerading-warning')
     expect(page).to have_content('Sign Out')
     expect(page).to have_css('.nav-options-masquerade-link-to-become-page')
-    expect(page).not_to have_css('.nav-options-is-masquerading')
     expect(page).not_to have_css('.nav-options-clear-masquerade')
   end
 
   def expect_to_be_masquerading_as(page, educator)
+    expect(page).to have_css('.masquerade-is-masquerading-warning')
     expect(page).to have_content('Sign Out')
     expect(page).to have_content("#{educator.email.split('@')[0]}@")
-    expect(page).to have_css('.nav-options-is-masquerading')
     expect(page).to have_css('.nav-options-clear-masquerade')
   end
 
   def expect_not_to_be_masquerading(page)
+    expect(page).not_to have_css('.masquerade-is-masquerading-warning')
     expect(current_path).to eq('/not_authorized')
     expect(page).to have_content('Sign Out')
-    expect(page).not_to have_css('.nav-options-is-masquerading')
     expect(page).not_to have_css('.nav-options-masquerade-link-to-become-page')
     expect(page).not_to have_css('.nav-options-clear-masquerade')
   end
