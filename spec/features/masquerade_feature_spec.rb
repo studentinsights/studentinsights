@@ -8,11 +8,17 @@ describe 'masquerading', type: :feature do
     sign_in_attempt(educator.email, 'demo-password')
   end
 
+  def expect_to_allow_masquerading(page)
+    expect(page).to have_content('Sign Out')
+    expect(page).to have_css('.nav-options-masquerade-link-to-become-page')
+    expect(page).not_to have_css('.nav-options-is-masquerading')
+    expect(page).not_to have_css('.nav-options-clear-masquerade')
+  end
+
   def expect_to_be_masquerading_as(page, educator)
     expect(page).to have_content('Sign Out')
-    expect(page).to have_content(educator.email.split('@')[0])
+    expect(page).to have_content("#{educator.email.split('@')[0]}@")
     expect(page).to have_css('.nav-options-is-masquerading')
-    expect(page).to have_css('.nav-options-masquerading-user')
     expect(page).to have_css('.nav-options-clear-masquerade')
   end
 
@@ -20,7 +26,7 @@ describe 'masquerading', type: :feature do
     expect(current_path).to eq('/not_authorized')
     expect(page).to have_content('Sign Out')
     expect(page).not_to have_css('.nav-options-is-masquerading')
-    expect(page).not_to have_css('.nav-options-masquerading-user')
+    expect(page).not_to have_css('.nav-options-masquerade-link-to-become-page')
     expect(page).not_to have_css('.nav-options-clear-masquerade')
   end
 
@@ -58,13 +64,14 @@ describe 'masquerading', type: :feature do
     visit page.driver.response.location
   end
 
-  it 'works for Uri to become any user' do
+  it 'works for Uri to become another user' do
     sign_in_as(pals.uri)
+    expect_to_allow_masquerading(page)
     simulate_clicking_become_link(page, pals.shs_jodi.id)
     expect_to_be_masquerading_as(page, pals.shs_jodi)
   end
 
-  it 'does not work for Jodi to become any user' do
+  it 'does not work for Jodi to become another user' do
     sign_in_as(pals.shs_jodi)
     simulate_clicking_become_link(page, pals.uri.id)
     expect_not_to_be_masquerading(page)

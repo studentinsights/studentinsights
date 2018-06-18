@@ -48,12 +48,15 @@
   <input class="student-searchbar" />
   <span class="navbar-spacer"></span>
   <div>
-    <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
     <% if masquerade.authorized? %>
-      <%= link_to educator.email.split('@')[0], admin_authorization_url, class: 'nav-options-masquerading-user' %>
+      <% username = "#{educator.email.split('@')[0]}@" %>
       <% if masquerade.is_masquerading? %>
-        <%= link_to 'X', admin_masquerade_clear_url, { method: :post, class: 'nav-options-clear-masquerade' } %>
+        <%= link_to username, admin_masquerade_clear_url, { method: :post, class: 'nav-options-clear-masquerade' } %>
+      <% else %>
+        <%= link_to username, admin_authorization_url, class: 'nav-options-masquerade-link-to-become-page' %>
       <% end %>
+      <br/>
     <% end %>
+    <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
   </div>
 </div>
