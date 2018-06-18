@@ -45,8 +45,8 @@ export default class StudentProfileHeader extends React.Component {
                onError={(e) => {
                 /* Make sure this URL resolves to a real photo, otherwise
                 you'll end up with an endless loop. */
-                e.target.src='/student-placeholder.png'
-              }}
+                 e.target.src='/student-placeholder.png';
+               }}
           />
         </div>
       </div>
