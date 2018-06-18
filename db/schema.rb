@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180618191125) do
+ActiveRecord::Schema.define(version: 20180618231412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,6 +238,14 @@ ActiveRecord::Schema.define(version: 20180618191125) do
     t.string "custom_intervention_name"
   end
 
+  create_table "masquerading_logs", force: :cascade do |t|
+    t.integer "educator_id"
+    t.integer "masquerading_as_educator_id"
+    t.text "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "precomputed_query_docs", id: :serial, force: :cascade do |t|
     t.text "key"
     t.text "json"
@@ -437,6 +445,8 @@ ActiveRecord::Schema.define(version: 20180618191125) do
   add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"
   add_foreign_key "interventions", "intervention_types", name: "interventions_intervention_type_id_fk"
   add_foreign_key "interventions", "students", name: "interventions_student_id_fk"
+  add_foreign_key "masquerading_logs", "educators"
+  add_foreign_key "masquerading_logs", "educators", column: "masquerading_as_educator_id"
   add_foreign_key "sections", "courses", name: "sections_course_id_fk"
   add_foreign_key "service_uploads", "educators", column: "uploaded_by_educator_id", name: "service_uploads_uploaded_by_educator_id_fk"
   add_foreign_key "services", "educators", column: "recorded_by_educator_id", name: "services_recorded_by_educator_id_fk"

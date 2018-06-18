@@ -31,6 +31,8 @@ class Masquerade
     raise Exceptions::EducatorNotAuthorized unless authorized?
     raise Exceptions::EducatorNotAuthorized if is_masquerading?
     raise Exceptions::EducatorNotAuthorized if masquerading_educator_id == underlying_current_educator.id
+
+    log_become_educator_id!(masquerading_educator_id)
     @session[@session_key] = masquerading_educator_id
     nil
   end
@@ -38,6 +40,9 @@ class Masquerade
   # Safe to call if not masquerading
   def clear!
     raise Exceptions::EducatorNotAuthorized unless authorized?
+    return unless is_masquerading?
+
+    log_clear!
     @session.delete(@session_key)
     nil
   end
@@ -56,5 +61,23 @@ class Masquerade
 
   def underlying_current_educator
     @underlying_current_educator_lambda.call
+  end
+
+  def log_clear!
+    MasqueradingLog.create!({
+      educator_id: underlying_current_educator.id,
+      masquerading_as_educator_id: current_educator.id,
+      action: 'clear'
+    })
+    nil
+  end
+
+  def log_become_educator_id!(masquerading_educator_id)
+    MasqueradingLog.create!({
+      educator_id: underlying_current_educator.id,
+      masquerading_as_educator_id: masquerading_educator_id,
+      action: 'become'
+    })
+    nil
   end
 end

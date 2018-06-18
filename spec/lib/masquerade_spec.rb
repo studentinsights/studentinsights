@@ -115,6 +115,17 @@ RSpec.describe Masquerade do
         expect_masquerading_to_succeed(pals.uri, target_educator)
       end
     end
+
+    it 'logs a record of the operation' do
+      expect(MasqueradingLog.all.size).to eq 0
+      expect_masquerading_to_succeed(pals.uri, pals.shs_jodi)
+      expect(MasqueradingLog.all.size).to eq 1
+      expect(MasqueradingLog.last.as_json.slice('action', 'educator_id', 'masquerading_as_educator_id')).to eq({
+        "action" => "become",
+        "educator_id" => pals.uri.id,
+        "masquerading_as_educator_id" => pals.shs_jodi.id,
+      })
+    end
   end
 
   describe '#clear!' do
@@ -145,6 +156,19 @@ RSpec.describe Masquerade do
       expect(masquerade.clear!).to eq nil
       expect(masquerade.is_masquerading?).to eq false
       expect { masquerade.current_educator }.to raise_error Exceptions::EducatorNotAuthorized
+    end
+
+    it 'logs a record of the operation' do
+      expect(MasqueradingLog.all.size).to eq 0
+      session, masquerade = create_masquerade(pals.uri)
+      masquerade.become_educator_id!(pals.shs_jodi.id)
+      masquerade.clear!
+      expect(MasqueradingLog.all.size).to eq 2
+      expect(MasqueradingLog.last.as_json.slice('action', 'educator_id', 'masquerading_as_educator_id')).to eq({
+        "action" => "clear",
+        "educator_id" => pals.uri.id,
+        "masquerading_as_educator_id" => pals.shs_jodi.id,
+      })
     end
   end
 
