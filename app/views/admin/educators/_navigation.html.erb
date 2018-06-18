@@ -10,6 +10,7 @@ as defined by the routes in the `admin/` namespace
 <% if action_name == "show" || action_name == "edit" %>
   <nav class="navigation" role="navigation">
     <% Administrate::Namespace.new(namespace).resources.each do |resource| %>
+      <% next unless resource.name == :educators %>
       <%= link_to(
         display_resource_name(resource),
         [namespace, resource.path],
