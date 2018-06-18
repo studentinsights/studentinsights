@@ -261,7 +261,7 @@ class StudentsController < ApplicationController
   end
 
   def s3
-    @client ||= Aws::S3::Client.new
+    @client ||= Aws::S3::Client.new(region: 'us-west-2')
   end
 
   # Add this as a helper method that the ERB template can call
