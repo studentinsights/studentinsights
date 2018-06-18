@@ -43,9 +43,8 @@ export default class StudentProfileHeader extends React.Component {
                src={`/students/${student.id}/photo`}
                alt={`Student photo for ${student.first_name} ${student.last_name}`}
                onError={(e) => {
-                /* Make sure this URL resolves to a real photo, otherwise
-                you'll end up with an endless loop. */
-                 e.target.src='/student-placeholder.png';
+                /* This renders a 1x1 white pixel. */
+                 e.target.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
                }}
           />
         </div>
