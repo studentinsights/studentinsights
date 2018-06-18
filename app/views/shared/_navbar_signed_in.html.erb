@@ -1,9 +1,4 @@
-<% if masquerade.is_masquerading? %>
-  <div class="nav-options nav-options-is-masquerading">
-    <div class="nav-options-masquerading-warning"></div>
-<% else %>
-  <div class="nav-options">
-<% end %>
+<div class="nav-options">
 
   <% # Show different links based on role and access %>
   <% links = PathsForEducator.new(educator).navbar_links %>
