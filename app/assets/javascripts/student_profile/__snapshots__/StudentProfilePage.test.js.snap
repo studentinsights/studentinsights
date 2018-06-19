@@ -17,7 +17,8 @@ exports[`snapshots works for olaf 1`] = `
     <div
       style={
         Object {
-          "flex": 5,
+          "display": "inline-block",
+          "flex": "auto",
         }
       }
     >
@@ -33,7 +34,13 @@ exports[`snapshots works for olaf 1`] = `
       >
         Olaf White
       </a>
-      <div>
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
         <a
           href="/schools/2"
           style={
@@ -140,19 +147,10 @@ exports[`snapshots works for olaf 1`] = `
             }
           >
             <span
-              style={
-                Object {
-                  "fontSize": 22,
-                  "padding": 5,
-                }
-              }
-            >
-              Contact
-            </span>
+              className="address-book-icon"
+            />
           </a>
         </div>
-      </div>
-      <div>
         <span>
           <span
             style={
@@ -191,12 +189,15 @@ exports[`snapshots works for olaf 1`] = `
     <div
       style={
         Object {
-          "flex": 1,
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "width": "15em",
         }
       }
     >
       <img
         alt="Student photo for Olaf White"
+        height={80}
         onError={[Function]}
         src="/students/16/photo"
         style={
@@ -2666,7 +2667,8 @@ exports[`snapshots works for olaf 2`] = `
     <div
       style={
         Object {
-          "flex": 5,
+          "display": "inline-block",
+          "flex": "auto",
         }
       }
     >
@@ -2682,7 +2684,13 @@ exports[`snapshots works for olaf 2`] = `
       >
         Pluto Poppins
       </a>
-      <div>
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
         <a
           href="/schools/2"
           style={
@@ -2789,19 +2797,10 @@ exports[`snapshots works for olaf 2`] = `
             }
           >
             <span
-              style={
-                Object {
-                  "fontSize": 22,
-                  "padding": 5,
-                }
-              }
-            >
-              Contact
-            </span>
+              className="address-book-icon"
+            />
           </a>
         </div>
-      </div>
-      <div>
         <span>
           <span
             style={
@@ -2840,12 +2839,15 @@ exports[`snapshots works for olaf 2`] = `
     <div
       style={
         Object {
-          "flex": 1,
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "width": "15em",
         }
       }
     >
       <img
         alt="Student photo for Pluto Poppins"
+        height={80}
         onError={[Function]}
         src="/students/8/photo"
         style={
@@ -5517,7 +5519,8 @@ exports[`snapshots works for olaf 3`] = `
     <div
       style={
         Object {
-          "flex": 5,
+          "display": "inline-block",
+          "flex": "auto",
         }
       }
     >
@@ -5533,7 +5536,13 @@ exports[`snapshots works for olaf 3`] = `
       >
         Aladdin Mouse
       </a>
-      <div>
+      <div
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
         <a
           href="/schools/9"
           style={
@@ -5640,19 +5649,10 @@ exports[`snapshots works for olaf 3`] = `
             }
           >
             <span
-              style={
-                Object {
-                  "fontSize": 22,
-                  "padding": 5,
-                }
-              }
-            >
-              Contact
-            </span>
+              className="address-book-icon"
+            />
           </a>
         </div>
-      </div>
-      <div>
         <span>
           <span
             style={
@@ -5691,12 +5691,15 @@ exports[`snapshots works for olaf 3`] = `
     <div
       style={
         Object {
-          "flex": 1,
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "width": "15em",
         }
       }
     >
       <img
         alt="Student photo for Aladdin Mouse"
+        height={80}
         onError={[Function]}
         src="/students/104/photo"
         style={
