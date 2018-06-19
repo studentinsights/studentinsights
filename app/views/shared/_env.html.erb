@@ -1,6 +1,4 @@
-<script type="application/json" id="env-for-js">
-  <%= EnvForJs.as_json.to_json %>
-</script>
+<%= json_div(id: "env-for-js", data: EnvForJs.new) %>
 <script type="script/javascript">
-  window.ENV_FOR_JS = JSON.parse(document.getElementById('env-for-js'));
+  window.ENV_FOR_JS = $('#env-for-js').data();
 </script>
