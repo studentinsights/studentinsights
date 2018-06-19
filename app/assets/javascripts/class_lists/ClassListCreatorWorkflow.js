@@ -402,7 +402,10 @@ ClassListCreatorWorkflow.propTypes = {
 const styles = {
   root: {
     fontSize: 14,
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
   },
   heading: {
     marginTop: 20
