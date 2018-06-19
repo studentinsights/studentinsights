@@ -43,12 +43,11 @@ class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
-  studentDisciplineIncidentCounts(incidentCategory) {
+  studentDisciplineIncidentCounts(incidents) {
     let studentDisciplineIncidentCounts = {};
-    const selectedChartData = this.getChartData(this.state.selectedChart);
-    const incidents = incidentCategory ?
-                      selectedChartData.disciplineIncidents[incidentCategory] :
-                      this.filterIncidentDates(this.props.schoolDisciplineEvents);
+
+    //if a user selects a category and then moves to a time range with no incidents within that category, return an empty object
+    if (!incidents) return studentDisciplineIncidentCounts;
     incidents.forEach((incident) => {
       studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
       studentDisciplineIncidentCounts[incident.student_id]++;
@@ -56,22 +55,13 @@ class SchoolDisciplineDashboard extends React.Component {
     return studentDisciplineIncidentCounts;
   }
 
-  getChartData(selectedChart) {
-    //This chart data is filtered based on the date selection and passed to the
-    //student table and chart renders below
-    const filteredEvents = this.filterIncidentDates(this.props.schoolDisciplineEvents);
-    return {
-      type: selectedChart,
-      disciplineIncidents: _.groupBy(filteredEvents, selectedChart),
-      title: "Incidents by " + selectedChart};
-  }
-
-  sortChartKeys(chartKeys) {
+  sortChartKeys(groupedIncidents) {
+    const chartKeys = Object.keys(groupedIncidents)
     switch(this.state.selectedChart) {
     case 'time': return this.sortedTimes(chartKeys);
     case 'day': return this.sortedDays(chartKeys);
     case 'grade': return this.sortedGrades(chartKeys);
-    default: return this.sortedByIncidents(chartKeys);
+    default: return this.sortedByIncidents(groupedIncidents); //because number of incidents in each category needed here
     }
   }
 
@@ -92,10 +82,10 @@ class SchoolDisciplineDashboard extends React.Component {
     return chartKeys.sort((a,b) => sortByGrade(a,b));
   }
 
-  sortedByIncidents(chartKeys) {
-    const chart = this.getChartData(this.state.selectedChart);
+  sortedByIncidents(groupedIncidents) {
+    const chartKeys = Object.keys(groupedIncidents);
     return chartKeys.sort((a,b) => {
-      return chart.disciplineIncidents[b].length - chart.disciplineIncidents[a].length;
+      return groupedIncidents[b].length - groupedIncidents[a].length;
     });
   }
 
@@ -109,7 +99,6 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
-    const selectedChart = this.getChartData(this.state.selectedChart);
     const chartOptions = [
       {value: 'location', label: 'Location'},
       {value: 'time', label: 'Time'},
@@ -118,6 +107,8 @@ class SchoolDisciplineDashboard extends React.Component {
       {value: 'day', label: 'Day'},
       {value: 'offense', label: 'Offense'},
     ];
+    const filteredIncidents = this.filterIncidentDates(this.props.schoolDisciplineEvents);
+    const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
 
     return(
       <div>
@@ -125,7 +116,7 @@ class SchoolDisciplineDashboard extends React.Component {
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
             {this.renderRangeSelector()}
-            {this.renderStudentDisciplineTable()}
+            {this.renderStudentDisciplineTable(filteredIncidents, groupedIncidents)}
           </div>
           <div className="DashboardChartsColumn">
             <div style={styles.graphTitle}>
@@ -140,19 +131,18 @@ class SchoolDisciplineDashboard extends React.Component {
                 clearable={false}
               />
             </div>
-           {this.renderDisciplineChart(selectedChart)}
+           {this.renderDisciplineChart(groupedIncidents)}
           </div>
         </div>
       </div>
     );
   }
 
-  renderDisciplineChart(selectedChart) {
-    const categories = this.sortChartKeys(Object.keys(selectedChart.disciplineIncidents));
+  renderDisciplineChart(incidents) {
+    const categories = this.sortChartKeys(incidents);
     const seriesData = categories.map((type) => {
-      if (!selectedChart.disciplineIncidents[type]) return [];
-      const incidents = selectedChart.disciplineIncidents[type];
-      return [type, incidents.length];
+      if (!incidents[type]) return [];
+      return [type, incidents[type].length];
     });
 
     return (
@@ -169,9 +159,11 @@ class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderStudentDisciplineTable() {
+  renderStudentDisciplineTable(allIncidents, groupedIncidents) {
     const students = this.groupStudents();
-    const studentDisciplineIncidentCounts = this.studentDisciplineIncidentCounts(this.state.selectedCategory);
+    const studentDisciplineIncidentCounts = this.state.selectedCategory ? //if the user is looking at a subgroup of incidents
+                                            this.studentDisciplineIncidentCounts(groupedIncidents[this.state.selectedCategory]) :
+                                            this.studentDisciplineIncidentCounts(allIncidents);
     let rows =[];
     students.forEach((student) => {
       rows.push({
