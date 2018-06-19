@@ -37,3 +37,7 @@ if (process.listeners('unhandledRejection').length === 0) { // eslint-disable-li
     throw error;
   });
 }
+
+// Fix the timezone to ET for test
+import moment from 'moment';
+moment.tz.setDefault('America/New_York');
