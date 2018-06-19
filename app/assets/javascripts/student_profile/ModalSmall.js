@@ -42,7 +42,7 @@ class ModalSmall extends React.Component {
 
   render() {
     return (
-      <div style={{display: 'inline'}} className='click-event-modal'>
+      <div style={{display: 'inline', marginLeft: 10}} className='click-event-modal'>
         <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none'}}>
           {this.props.icon}
         </a>
