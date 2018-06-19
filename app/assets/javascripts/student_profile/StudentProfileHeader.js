@@ -5,43 +5,44 @@ import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
 
+
 /*
-This pure UI component renders top-line information like the student's name,
-school, classroom, and photo.
+This pure UI component renders top-line information like the student's name, school,
+photo and classroom.
 */
 export default class StudentProfileHeader extends React.Component {
-
   render() {
-    const {student} = this.props;
-
+    const student =  this.props.student;
     return (
       <div className="StudentProfileHeader" style={styles.titleContainer}>
-        <div style={{flex: 5}}>
+        <div style={{ display: 'inline-block', flex: 'auto' }}>
           <a href={Routes.studentProfile(student.id)} style={styles.nameTitle}>
             {student.first_name + ' ' + student.last_name}
           </a>
-          {this.renderContactIcon()}
-          <div style={{margin: '5px 0'}}>
+          <div style={{ display: 'inline-block' }}>
             <a href={Routes.school(student.school_id)} style={styles.subtitleItem}>
               {student.school_name}
             </a>
             {this.renderBulletSpacer()}
             {this.renderHomeroomOrEnrollmentStatus()}
-          </div>
-          <div style={{margin: '5px 0'}}>
+            {this.renderBulletSpacer()}
             <span style={styles.subtitleItem}>
               {'Grade ' + student.grade}
             </span>
             {this.renderDateOfBirth()}
-          </div>
-          <div style={{margin: '5px 0'}}>
+            {this.renderContactIcon()}
             <RiskBubble riskLevel={student.student_risk_level.level} />
           </div>
         </div>
-        <div style={{flex: 1}}>
+        <div
+          style={{
+            width: '15em',
+            display: 'flex',
+            justifyContent: 'flex-end'
+          }}>
           <img style={{float: 'right', paddingRight: 44}}
                src={`/students/${student.id}/photo`}
-               height={180}
+               height={80}
                alt={`Student photo for ${student.first_name} ${student.last_name}`}
                onError={(e) => {
                 /* This renders a 1x1 white pixel. */
@@ -106,7 +107,7 @@ export default class StudentProfileHeader extends React.Component {
     return (
       <ModalSmall
         title='Contact Information'
-        icon={<span style={styles.subtitleItem}>(Contact)</span>}
+        icon={<span className='address-book-icon'></span>}
         content={this.renderContactInformation()} />
     );
   }
@@ -128,7 +129,6 @@ export default class StudentProfileHeader extends React.Component {
     );
   }
 }
-
 StudentProfileHeader.propTypes = {
   student: PropTypes.object.isRequired
 };
@@ -150,7 +150,7 @@ const styles = {
   },
   subtitleItem: {
     fontSize: 22,
-    marginRight: 5
+    padding: 5
   },
   contactItem: {
     fontSize: 15,
