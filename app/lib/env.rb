@@ -1,4 +1,8 @@
 class Env
+  # ENV setup that's shared across development and test modes.
+  #
+  # For config that applies to only one env, put those in
+  # development.rb and test.rb like normal.
   def self.set_for_development_and_test!
     return unless Rails.env.development? || Rails.env.test?
 
