@@ -20,21 +20,21 @@ export default class StudentProfileHeader extends React.Component {
           <a href={Routes.studentProfile(student.id)} style={styles.nameTitle}>
             {student.first_name + ' ' + student.last_name}
           </a>
-          <div>
+          {this.renderContactIcon()}
+          <div style={{margin: '5px 0'}}>
             <a href={Routes.school(student.school_id)} style={styles.subtitleItem}>
               {student.school_name}
             </a>
             {this.renderBulletSpacer()}
             {this.renderHomeroomOrEnrollmentStatus()}
-            {this.renderBulletSpacer()}
+          </div>
+          <div style={{margin: '5px 0'}}>
             <span style={styles.subtitleItem}>
               {'Grade ' + student.grade}
             </span>
             {this.renderDateOfBirth()}
-            {this.renderBulletSpacer()}
-            {this.renderContactIcon()}
           </div>
-          <div>
+          <div style={{margin: '5px 0'}}>
             <RiskBubble riskLevel={student.student_risk_level.level} />
           </div>
         </div>
@@ -105,7 +105,7 @@ export default class StudentProfileHeader extends React.Component {
     return (
       <ModalSmall
         title='Contact Information'
-        icon={<span style={styles.subtitleItem}>Contact</span>}
+        icon={<span style={styles.subtitleItem}>(Contact)</span>}
         content={this.renderContactInformation()} />
     );
   }
