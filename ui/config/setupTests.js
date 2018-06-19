@@ -37,3 +37,6 @@ if (process.listeners('unhandledRejection').length === 0) { // eslint-disable-li
     throw error;
   });
 }
+
+// Fix timezone in tests
+process.env.TZ = 'America/New_York'; // eslint-disable-line no-undef
