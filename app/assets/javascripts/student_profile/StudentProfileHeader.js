@@ -41,6 +41,7 @@ export default class StudentProfileHeader extends React.Component {
         <div style={{flex: 1}}>
           <img style={{float: 'right', paddingRight: 44}}
                src={`/students/${student.id}/photo`}
+               height={180}
                alt={`Student photo for ${student.first_name} ${student.last_name}`}
                onError={(e) => {
                 /* This renders a 1x1 white pixel. */
