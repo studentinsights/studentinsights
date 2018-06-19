@@ -29,6 +29,10 @@ module LogHelper
       @msgs << msg
     end
 
+    def flush
+      # noop
+    end
+
     def output
       @msgs.join("\n")
     end

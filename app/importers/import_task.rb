@@ -1,38 +1,45 @@
 class ImportTask
-  def initialize(options:)
-    @options = options
+  # If passed invalid arguments, validete and fail in the constructor
+  def initialize(options = {})
+    @options = options.symbolize_keys
 
-    # options["school"] is an optional filter; imports all schools if nil
-    @school = @options.fetch("school", nil)
+    # which schools to include
+    @school_local_ids = validate_school_local_ids!(@options[:school_local_ids])
 
-    # options["source"] describes which external data sources to import from
-    @source = @options.fetch("source", ["x2", "star"])
+    # which importers to run
+    @importer_descriptions = validate_importer_keys!(@options[:importer_keys])
 
-    # options["only_recent_attendance"]
-    @only_recent_attendance = @options.fetch("only_recent_attendance", false)
+    # only recent attendance data, or all of it
+    raise 'missing only_recent_attendance' unless @options.has_key?(:only_recent_attendance)
+    @only_recent_attendance = @options[:only_recent_attendance]
 
-    @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
+    # log differently based on env
+    @log = pick_log_based_on_env(options)
   end
 
   def connect_transform_import
     begin
+      log('Setting up logging...')
       @record = create_import_record
+      log('Done logging.')
+
+      log('Running inital report...')
       @report = create_report
-      log('Starting validation...')
-      validate_district_option
-      seed_schools_if_needed
-      validate_school_options
-      log('Done validation.')
+      @report.print_initial_counts_report
+      log('Done initial report.')
 
       log('Starting importing work...')
-      @report.print_initial_counts_report
       import_all_the_data
       log('Done importing work.')
 
-      log('Starting update tasks and final report...')
+      log('Starting update tasks...')
       run_update_tasks
+      log('Done update tasks.')
+
+      log('Running final report...')
       @report.print_final_counts_report
-      log('Done.')
+      log('Done final report.')
+      log('Done with everything.')
     rescue SignalException => e
       log("Encountered a SignalException!: #{e}")
 
@@ -52,35 +59,35 @@ class ImportTask
   private
 
   ## VALIDATE DEVELOPER INPUT ##
+  def validate_school_local_ids!(school_local_ids)
+    raise 'missing school_local_ids' if school_local_ids.nil? || school_local_ids.size == 0
 
-  def validate_district_option
-    # The LoadDistrictConfig class uses `fetch`, which will validate the
-    # district option for us
-    LoadDistrictConfig.new.load_yml
-  end
-
-  def seed_schools_if_needed
-    School.seed_schools_for_district if School.count == 0
-  end
-
-  def validate_school_options
     # If the developer is passing in a list of school IDs to filter by,
     # we check that the IDs are valid and the schools exist in the database.
-
-    # If there's no filtering by school, we take all the school IDs listed in
-    # the district config file and make sure those schools are in the database.
-
-    school_ids.each { |id| School.find_by!(local_id: id) }
+    school_local_ids.each {|local_id| School.find_by!(local_id: local_id) }
+    school_local_ids
   end
 
-  def school_ids
-    return @school if @school.present?
+  # Validate and return ImporterDescriptions
+  def validate_importer_keys!(importer_keys)
+    raise 'missing importer_keys' if importer_keys.nil? || importer_keys.size == 0
 
-    LoadDistrictConfig.new.schools.map { |school| school["local_id"] }
+    allowed_keys = FileImporterOptions.importer_descriptions.map(&:key)
+    unexpected_importer_keys = importer_keys - allowed_keys
+    raise "unexpected_importer_keys: #{unexpected_importer_keys.join(', ')}" if unexpected_importer_keys.size > 0
+
+    FileImporterOptions.importer_descriptions.select do |importer_description|
+      importer_keys.include?(importer_description.key)
+    end
+  end
+
+  def pick_log_based_on_env(options)
+    return options[:log] if options.has_key?(:log)
+    return LogHelper::Redirect.instance.file if Rails.env.test?
+    STDOUT
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
-
   def create_import_record
     ImportRecord.create(
       task_options_json: @options.to_json,
@@ -111,9 +118,10 @@ class ImportTask
 
   ## IMPORT ALL THE DATA ##
 
+  # This defines the shared interface between all importer classes.
   def options_for_file_importers
     {
-      school_scope: school_ids,
+      school_scope: @school_local_ids,
       log: @log,
       only_recent_attendance: @only_recent_attendance
     }
@@ -122,7 +130,7 @@ class ImportTask
   # This is the main method doing all the work
   def import_all_the_data
     log('Starting #import_all_the_data...')
-    file_import_classes = UnwrapFileImporterOptions.new(@source).sort_file_import_classes
+    file_import_classes = FileImporterOptions.ordered_by_priority(@importer_descriptions).map(&:importer_class)
     log("file_import_classes = [\n  #{file_import_classes.join("\n  ")}\n]")
     timing_log = []
 
@@ -175,7 +183,11 @@ class ImportTask
     full_msg = "\n\n💾  ImportTask: #{msg}"
     @log.puts full_msg
     @log.flush # prevent buffering, this seems to be a problem in production jobs
-    @record.log += full_msg
-    @record.save
+
+    # Write to the database record as well, if it exists
+    if @record
+      @record.log += full_msg
+      @record.save
+    end
   end
 end
