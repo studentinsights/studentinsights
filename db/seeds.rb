@@ -107,7 +107,10 @@ Student.all.each do |student|
     student_id: student.id,
     file_digest: Digest::SHA256.hexdigest(student.local_id),
     file_size: 37010,
-    s3_filename: 'student-placeholder.png'
+    s3_filename: [
+      'demo-student-photo-large-308x364.jpg',
+      'demo-student-photo-small-172x207.jpg',
+    ].sample
   )
 end
 
