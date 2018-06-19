@@ -7,7 +7,6 @@ Rails.application.configure do
   ENV['ENABLE_CLASS_LISTS'] = 'true'
   ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
   ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
-  ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
   ENV['AWS_REGION'] = 'us-west-2'
 
   # The test environment is used exclusively to run your application's
