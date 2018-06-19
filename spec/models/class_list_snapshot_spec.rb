@@ -16,13 +16,19 @@ RSpec.describe ClassListSnapshot do
           }
         }
       })
-      snapshots_taken = ClassListSnapshot.snapshot_all_workspaces
+      log = LogHelper::FakeLog.new
+      snapshots_taken = ClassListSnapshot.snapshot_all_workspaces(log: log)
 
       expect(snapshots_taken.size).to eq 1
       expect(snapshots_taken.first[:workspace_id]).to eq 'foo-workspace-id'
       expect(snapshots_taken.first[:class_list_id]).to eq class_list.id
       expect(snapshots_taken.first[:snapshot].students_json.first['id']).to eq pals.healey_kindergarten_student.id
       expect(ClassListSnapshot.all.size).to eq 1
+
+      expect(log.output).to include('ClassListSnapshot.snapshot_all_workspaces: starting...')
+      expect(log.output).to include('snapshot_all_workspaces: Found 1 workspaces.')
+      expect(log.output).to include('snapshot_all_workspaces: created snapshot.')
+      expect(log.output).to include('ClassListSnapshot.snapshot_all_workspaces: done.')
     end
   end
 end
