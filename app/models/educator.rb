@@ -1,7 +1,7 @@
 class Educator < ActiveRecord::Base
   devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable
 
-  belongs_to  :school
+  belongs_to  :school, optional: true
   has_one     :homeroom
   has_many    :students, through: :homeroom
   has_many    :educator_section_assignments
