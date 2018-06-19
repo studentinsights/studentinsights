@@ -87,6 +87,20 @@ class StudentsController < ApplicationController
     end
   end
 
+  def photo
+    student = Student.find(params[:id])
+
+    @student_photo = student.student_photos.order(created_at: :desc).first
+
+    return render json: { error: 'no photo' }, status: 404 if @student_photo.nil?
+
+    @s3_filename = @student_photo.s3_filename
+
+    object = s3.get_object(key: @s3_filename, bucket: ENV['AWS_S3_PHOTOS_BUCKET'])
+
+    send_data object.body.read, filename: @s3_filename, type: 'image/jpeg'
+  end
+
   # post
   def service
     clean_params = params.require(:service).permit(*[
@@ -250,6 +264,14 @@ class StudentsController < ApplicationController
         absences: @student.absences.order(occurred_at: :desc)
       }
     }
+  end
+
+  def s3
+    if EnvironmentVariable.is_true('USE_PLACEHOLDER_STUDENT_PHOTO')
+      @client ||= MockAwsS3.new
+    else
+      @client ||= Aws::S3::Client.new
+    end
   end
 
   # Add this as a helper method that the ERB template can call

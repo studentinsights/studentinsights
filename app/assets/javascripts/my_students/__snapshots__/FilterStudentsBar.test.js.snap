@@ -3,6 +3,7 @@
 exports[`snapshots 1`] = `
 <div
   className="FilterStudentsBar"
+  onKeyUp={[Function]}
   style={undefined}
 >
   <div
@@ -24,6 +25,23 @@ exports[`snapshots 1`] = `
     >
       Filter by
     </span>
+    <input
+      onChange={[Function]}
+      placeholder="Search 74 students..."
+      style={
+        Object {
+          "border": "1px solid #ccc",
+          "borderRadius": 4,
+          "display": "inline-block",
+          "fontSize": 14,
+          "marginLeft": 20,
+          "marginRight": 10,
+          "padding": "7px 7px 7px 12px",
+          "width": 220,
+        }
+      }
+      value=""
+    />
     <div
       className="Select is-searchable Select--single"
       style={undefined}
@@ -37,7 +55,6 @@ exports[`snapshots 1`] = `
         onTouchStart={[Function]}
         style={
           Object {
-            "display": "inline-block",
             "marginRight": 10,
             "width": "10em",
           }
@@ -125,7 +142,6 @@ exports[`snapshots 1`] = `
         onTouchStart={[Function]}
         style={
           Object {
-            "display": "inline-block",
             "marginRight": 10,
             "width": "10em",
           }
@@ -213,7 +229,6 @@ exports[`snapshots 1`] = `
         onTouchStart={[Function]}
         style={
           Object {
-            "display": "inline-block",
             "marginRight": 10,
             "width": "10em",
           }

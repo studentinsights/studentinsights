@@ -29,7 +29,46 @@ class ClassList < ActiveRecord::Base
       .first
   end
 
+  # Get latest by workspace_id.  See ClassListQueries#all_authorized_workspaces
+  # for authorization-aware method.
+  def self.unsafe_all_workspaces_without_authorization_check
+    all_class_lists = ClassList.order(created_at: :desc)
+    all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
+      most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
+      ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
+    end
+  end
+
+  # Check if anything has changed in students_json, and if so create a new
+  # snapshot.  This is to check if the information that teachers had when making their
+  # class lists is different than it is at a later query time.
+  def snapshot_if_changed
+    # What would the student data be if we queried right now?
+    referenced_student_ids = self.json['studentIdsByRoom'].try(:values).try(:flatten) || []
+    students = Student.where(id: referenced_student_ids)
+    students_json = ClassListQueries.students_as_json(students)
+
+    # What's the last snapshot's student data?
+    latest_snapshot = ClassListSnapshot.where(class_list_id: self.id).order(created_at: :desc).first
+
+    # Make a new snapshot if they're different
+    if latest_snapshot.present? && are_students_json_values_equal?(latest_snapshot.students_json, students_json)
+      nil
+    else
+      ClassListSnapshot.create!({
+        class_list_id: self.id,
+        students_json: students_json
+      })
+    end
+  end
+
   private
+  # Be slow and conservative by forcing them round trip through JSON serialization to wash
+  # out drift in internal Ruby date/time classes over time.
+  def are_students_json_values_equal?(snapshot_students_json, now_students_json)
+    JSON.parse(snapshot_students_json.to_json) == JSON.parse(now_students_json.to_json)
+  end
+
   # These shouldn't change over the life of a workspace, so if we find
   # any workspace_id records with different grade or school, fail the validation.
   def validate_consistent_workspace_grade_school

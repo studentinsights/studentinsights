@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     member do
       get :student_report
       get :restricted_notes
+      get :photo
       post :service
     end
   end

@@ -64,4 +64,48 @@ RSpec.describe ClassList do
       })
     end
   end
+
+  describe '#snapshot_if_changed' do
+    it 'creates a snapshot on first run' do
+      class_list = create_class_list_from(pals.healey_vivian_teacher, json: {
+        studentIdsByRoom: {
+          'room:0': [pals.healey_kindergarten_student.id]
+        }
+      })
+      snapshot = class_list.snapshot_if_changed
+      expect(snapshot.students_json.size).to eq 1
+      expect(snapshot.students_json.first['id']).to eq pals.healey_kindergarten_student.id
+      expect(ClassListSnapshot.all.size).to eq 1
+    end
+
+    it 'does nothing and returns nil when nothing has changed' do
+      class_list = create_class_list_from(pals.healey_vivian_teacher, json: {
+        studentIdsByRoom: {
+          'room:0': [pals.healey_kindergarten_student.id]
+        }
+      })
+      expect(class_list.snapshot_if_changed.class_list_id).to eq(class_list.id)
+      expect(class_list.snapshot_if_changed).to eq(nil)
+      expect(class_list.snapshot_if_changed).to eq(nil)
+    end
+
+    it 'creates a new snapshot when student data has changed' do
+      class_list = create_class_list_from(pals.healey_vivian_teacher, json: {
+        grade_level_next_year: '1',
+        studentIdsByRoom: {
+          'room:0': [pals.healey_kindergarten_student.id]
+        }
+      })
+      first_snapshot = class_list.snapshot_if_changed
+      expect(first_snapshot).not_to eq(nil)
+
+      pals.healey_kindergarten_student.update!(program_assigned: 'SEIP')
+      second_snapshot = class_list.snapshot_if_changed
+      expect(second_snapshot).not_to eq(nil)
+      expect(first_snapshot.students_json.first['program_assigned']).to eq(nil)
+      expect(second_snapshot.students_json.first['program_assigned']).to eq('SEIP')
+      expect(ClassListSnapshot.all.size).to eq 2
+    end
+
+  end
 end

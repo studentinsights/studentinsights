@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
 import {toMomentFromTime} from '../helpers/toMoment';
+import {prettyProgramText} from '../helpers/PerDistrict';
 import {
   firstMatch,
   ELA,
@@ -29,12 +30,12 @@ export default class StudentLevelsTable extends React.Component {
     const cellWidth = 85;
 
     return (
-      <AutoSizer className="StudentLevelsTable" disableHeight>
-        {({width}) => (
+      <AutoSizer className="StudentLevelsTable">
+        {({height, width}) => (
           <Table
             width={width}
             headerHeight={40}
-            height={450}
+            height={height}
             rowCount={sortedStudentsWithTiering.length}
             rowGetter={({index}) => sortedStudentsWithTiering[index]}
             rowHeight={40}
@@ -169,10 +170,12 @@ export default class StudentLevelsTable extends React.Component {
   }
 
   renderProgram({rowData}) {
-    const program = rowData.program_assigned;
+    const programAssigned = rowData.program_assigned;
     const spedPlacement = rowData.sped_placement;
-    return (program && program !== 'Reg Ed')
-      ? <span style={{...styles.support, fontSize: 12}}>{program === 'Sp Ed' ? spedPlacement : program}</span>
+    const programText = prettyProgramText(programAssigned, spedPlacement);
+
+    return (programText !== null)
+      ? <span style={{...styles.support, fontSize: 12}}>{programText}</span>
       : null;
   }
 

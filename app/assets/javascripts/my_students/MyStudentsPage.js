@@ -5,6 +5,7 @@ import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {maybeCapitalize} from '../helpers/pretty';
+import {prettyProgramText} from '../helpers/PerDistrict';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -109,7 +110,7 @@ export class MyStudentsPageView extends React.Component {
   renderTable(filteredStudents) {
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
-    const rowHeight = 30;
+    const rowHeight = 40; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -135,18 +136,24 @@ export class MyStudentsPageView extends React.Component {
               dataKey='name'
               cellRenderer={this.renderName}
               flexGrow={1}
-              width={150}
+              width={250}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={250}
+              width={100}
             />
             <Column
               label='Grade'
               dataKey='grade'
               width={80}
+            />
+            <Column
+             label='Program'
+             dataKey='program'
+             cellRenderer={this.renderProgram}
+             width={150}
             />
             <Column
               label='House'
@@ -158,7 +165,13 @@ export class MyStudentsPageView extends React.Component {
               label='Counselor'
               dataKey='counselor'
               cellDataGetter={({rowData}) => maybeCapitalize(rowData.counselor)}
-              width={150}
+              width={100}
+            />
+            <Column
+              label='SPED Liaison'
+              dataKey='sped_liaison'
+              cellDataGetter={({rowData}) => maybeCapitalize(rowData.sped_liaison)}
+              width={100}
             />
           </Table>
         )}
@@ -179,6 +192,11 @@ export class MyStudentsPageView extends React.Component {
   renderHouse(cellProps) {
     const student = cellProps.rowData;
     return student.house && <HouseBadge house={student.house} />;
+  }
+
+  renderProgram(cellProps) {
+    const student = cellProps.rowData;
+    return prettyProgramText(student.program_assigned, student.sped_placement);
   }
 }
 MyStudentsPageView.propTypes = {

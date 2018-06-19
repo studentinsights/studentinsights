@@ -93,12 +93,7 @@ class ClassListQueries
   end
 
   def all_authorized_workspaces
-    # Get latest by workspace_id
-    all_class_lists = ClassList.order(created_at: :desc)
-    workspaces = all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
-      most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
-      ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
-    end
+    workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
 
     # Authorization check
     workspaces.select do |workspace|
@@ -170,6 +165,35 @@ class ClassListQueries
     return true if @educator.districtwide_access?
     return true if @educator.school_id == school_id
     false
+  end
+
+  def self.students_as_json(students)
+    students.as_json({
+      only: [
+        :id,
+        :local_id,
+        :first_name,
+        :last_name,
+        :date_of_birth,
+        :disability,
+        :program_assigned,
+        :limited_english_proficiency,
+        :plan_504,
+        :home_language,
+        :free_reduced_lunch,
+        :race,
+        :hispanic_latino,
+        :gender,
+        :most_recent_star_math_percentile,
+        :most_recent_star_reading_percentile
+      ],
+      methods: [
+        :iep_document,
+        :latest_access_results,
+        :latest_dibels,
+        :most_recent_school_year_discipline_incidents_count
+      ]
+    })
   end
 
   private
