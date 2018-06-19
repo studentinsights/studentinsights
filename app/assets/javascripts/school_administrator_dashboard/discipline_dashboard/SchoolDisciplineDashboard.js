@@ -56,7 +56,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   sortChartKeys(groupedIncidents) {
-    const chartKeys = Object.keys(groupedIncidents)
+    const chartKeys = Object.keys(groupedIncidents);
     switch(this.state.selectedChart) {
     case 'time': return this.sortedTimes(chartKeys);
     case 'day': return this.sortedDays(chartKeys);
