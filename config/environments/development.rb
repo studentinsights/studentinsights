@@ -6,6 +6,7 @@ Rails.application.configure do
   end if File.exists?(env_file)
   
   Env.set_for_development_and_test!
+  ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
 
   config.cache_classes = false
 

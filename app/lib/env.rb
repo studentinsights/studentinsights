@@ -17,6 +17,5 @@ class Env
     ENV['ENABLE_CLASS_LISTS'] = 'true'
     ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
     ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
-    ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
   end
 end
