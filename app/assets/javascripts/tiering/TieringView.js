@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Select from 'react-select';
+import Select from '../components/Select';
 import Modal from 'react-modal';
 import {gradeText} from '../helpers/gradeText';
 import {

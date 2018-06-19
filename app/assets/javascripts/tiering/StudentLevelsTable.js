@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Table, Column, AutoSizer} from 'react-virtualized';
-import 'react-select/dist/react-select.css';
 import {toMomentFromTime} from '../helpers/toMoment';
 import {prettyProgramText} from '../helpers/PerDistrict';
 import {

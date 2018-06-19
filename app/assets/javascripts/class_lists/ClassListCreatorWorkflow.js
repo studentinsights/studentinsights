@@ -1,9 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import {gradeText} from '../helpers/gradeText';
 import Loading from '../components/Loading';
+import Select from '../components/Select';
 import {SeriousButton} from '../components/Button';
 import SuccessLabel from '../components/SuccessLabel';
 import IntroCopy from './IntroCopy';

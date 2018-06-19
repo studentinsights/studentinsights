@@ -130,13 +130,14 @@ export default class ExportList extends React.Component {
               <td style={styles.cell}>{room.roomName}</td>
               <td style={styles.cell}>
                 <Creatable
+                  autosize={false} // IE11, see https://github.com/JedWatson/react-select/issues/733#issuecomment-237562382
+                  injectStyles={false}
                   valueKey="name"
                   labelKey="name"
                   placeholder="Select or type..."
                   style={styles.select}
                   options={options}
                   disabled={!isRevisable}
-                  autosize={false} // IE11, see https://github.com/JedWatson/react-select/issues/733#issuecomment-237562382
                   multi={false}
                   clearable={false}
                   value={teacherText}

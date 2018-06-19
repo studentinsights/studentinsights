@@ -1,0 +1,5 @@
+/*
+This is for react-select in IE.
+see https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
+*/
+input::-ms-clear {display: none;}
