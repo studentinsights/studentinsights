@@ -6,17 +6,18 @@ class ClassListSnapshot < ActiveRecord::Base
   # Across all workspaces, creates new ClassListSnapshots for any student data
   # that has changed.  This is to track changes as student data changes over time,
   # while the student_ids in the class list record stay the same.
-  def self.snapshot_all_workspaces
+  def self.snapshot_all_workspaces(options = {})
+    log = options[:log] || STDOU
     snapshots_taken = []
 
-    puts "ClassListSnapshot.snapshot_all_workspaces: starting..."
+    log.puts "ClassListSnapshot.snapshot_all_workspaces: starting..."
     workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
-    puts "  snapshot_all_workspaces: Found #{workspaces.size} workspaces."
+    log.puts "  snapshot_all_workspaces: Found #{workspaces.size} workspaces."
     ClassList.unsafe_all_workspaces_without_authorization_check.each do |workspace|
-      puts "  snapshot_all_workspaces: Checking workspace #{workspace.workspace_id}..."
+      log.puts "  snapshot_all_workspaces: Checking workspace #{workspace.workspace_id}..."
       snapshot = workspace.class_list.snapshot_if_changed
       if snapshot.present?
-        puts "  snapshot_all_workspaces: created snapshot."
+        log.puts "  snapshot_all_workspaces: created snapshot."
         snapshots_taken << {
           snapshot: snapshot,
           workspace_id: workspace.workspace_id,
@@ -24,8 +25,8 @@ class ClassListSnapshot < ActiveRecord::Base
         }
       end
     end
-    puts "  snapshot_all_workspaces: created #{snapshots_taken} snapshots."
-    puts "ClassListSnapshot.snapshot_all_workspaces: done."
+    log.puts "  snapshot_all_workspaces: created #{snapshots_taken} snapshots."
+    log.puts "ClassListSnapshot.snapshot_all_workspaces: done."
 
     snapshots_taken
   end
