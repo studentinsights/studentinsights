@@ -51,18 +51,18 @@ class ClassListSnapshot < ActiveRecord::Base
       snapshot.class_list.workspace_id
     end
 
-    snapshots_by_workspace.map do |key, snapshots|
+    snapshots_by_workspace.flat_map do |key, snapshots|
       if snapshots.size < 2
-        nil
+        []
       else
         first = snapshots.first
         last = snapshots.last
-        {
+        [{
           workspace_id: first.class_list.workspace_id,
           first: first.id,
           last: last.id,
           diff: JsonDiff.diff(first.students_json, last.students_json)
-        }
+        }]
       end
     end
   end
