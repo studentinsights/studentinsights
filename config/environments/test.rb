@@ -1,12 +1,5 @@
 Rails.application.configure do
-  ENV['DISTRICT_KEY'] = 'somerville'
-  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
-  ENV['USE_MOCK_LDAP'] = 'true'
-  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
-  ENV['AWS_REGION'] = 'us-west-2'
-  ENV['ENABLE_CLASS_LISTS'] = 'true'
-  ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
-  ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
+  # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
@@ -22,7 +15,7 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=3600'
+    'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
   }
 
   # Show full error reports and disable caching.
