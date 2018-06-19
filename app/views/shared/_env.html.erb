@@ -1,0 +1,6 @@
+<script type="application/json" id="env-for-js">
+  <%= EnvForJs.as_json.to_json %>
+</script>
+<script type="script/javascript">
+  window.ENV_FOR_JS = JSON.parse(document.getElementById('env-for-js'));
+</script>

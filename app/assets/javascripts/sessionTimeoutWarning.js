@@ -6,15 +6,15 @@ function show() {
   $('#renew-session').slideDown();
 }
 
-export default function sessionTimeoutWarning(Env) {
-  count(Env.sessionTimeoutInSeconds);
+export default function sessionTimeoutWarning(sessionTimeoutInSeconds) {
+  count(sessionTimeoutInSeconds);
 
   $("#renew-sesion-link").click(() => {
     $.ajax({
       url: '/educators/reset',
       success() {
         $('#renew-session').slideUp();
-        count(Env.sessionTimeoutInSeconds);   // Resent timeout count
+        count(sessionTimeoutInSeconds);   // Resent timeout count
       }
     });
   });

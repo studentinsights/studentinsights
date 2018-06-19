@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MixpanelUtils from '../helpers/MixpanelUtils';
+import {readEnv} from '../helpers/envForJs';
 import SchoolOverviewPage from './SchoolOverviewPage';
 import {parseFiltersHash} from '../helpers/Filters';
 import {apiFetchJson} from '../helpers/apiFetchJson';
@@ -27,7 +28,7 @@ export default function renderSchoolOverviewMain(el, options = {}) {
 function render(el, json) {
   MixpanelUtils.registerUser(json.current_educator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'SCHOOL_OVERVIEW_DASHBOARD' });
-  const {districtKey} = window.shared.Env;
+  const {districtKey} = readEnv();
   ReactDOM.render(<SchoolOverviewPage
     districtKey={districtKey}
     allStudents={json.students}

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
+import {readEnv} from '../helpers/envForJs';
 import datepickerConfig from '../app/assets/javascripts/datepickerConfig';
 import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
 import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
@@ -19,7 +20,7 @@ if ($('body').hasClass('students')  ||
 
 // Session timeout
 if ($('body').hasClass('educator-signed-in')) {
-  sessionTimeoutWarning(window.shared.Env);
+  sessionTimeoutWarning(readEnv().sessionTimeoutInSeconds);
 } else {
   clearStorage(); // extra guard that there's no storage if not signed in
 }
