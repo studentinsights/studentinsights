@@ -26,7 +26,7 @@ function downloadStudentNames () {
   });
 }
 
-export default function studentSearchbar() {
+export function initSearchBar() {
   if (!(window.sessionStorage)) {
     downloadStudentNames();       // Query for names if we have no local storage
     throw 'no session storage';   // Let rollbar know we're not caching
@@ -38,4 +38,10 @@ export default function studentSearchbar() {
 
   return downloadStudentNames();  // Student names haven't cached yet,
                                   // so let's download and cache them
+}
+
+export function clearStorage() {
+  if (window.sessionStorage && window.sessionStorage.clear) {
+    window.sessionStorage.clear();
+  }
 }

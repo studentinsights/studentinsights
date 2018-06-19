@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import datepickerConfig from '../app/assets/javascripts/datepickerConfig';
 import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
-import studentSearchbar from '../app/assets/javascripts/studentSearchbar';
+import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
@@ -20,11 +20,14 @@ if ($('body').hasClass('students')  ||
 // Session timeout
 if ($('body').hasClass('educator-signed-in')) {
   sessionTimeoutWarning(window.shared.Env);
+} else {
+  clearStorage(); // extra guard that there's no storage if not signed in
 }
 
-// Student searchbar
+// Student searchbar, and clearing cache on sign out
 if ($('.student-searchbar').length > 0) {
-  studentSearchbar();
+  initSearchBar();
+  $('.navbar-sign-out').click(clearStorage);
 }
 
 // Routing
