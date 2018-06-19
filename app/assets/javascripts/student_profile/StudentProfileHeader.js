@@ -149,7 +149,7 @@ const styles = {
   },
   subtitleItem: {
     fontSize: 22,
-    padding: 5
+    marginRight: 5
   },
   contactItem: {
     fontSize: 15,

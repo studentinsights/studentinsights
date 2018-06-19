@@ -11,14 +11,13 @@ const styles = {
     paddingTop: 3,
     textAlign: 'center',
     marginTop: 10,
-    marginLeft: 5,
     marginRight: 5,
     display: 'inline-block'
   },
 
   riskItem: {
     fontSize: 25,
-    padding: 5,
+    paddingRight: 5,
     marginTop: 3
   }
 };
