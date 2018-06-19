@@ -49,7 +49,10 @@ class ClassList < ActiveRecord::Base
     students_json = ClassListQueries.students_as_json(students)
 
     # What's the last snapshot's student data?
-    latest_snapshot = ClassListSnapshot.where(class_list_id: self.id).order(created_at: :desc).first
+    latest_snapshot = ClassListSnapshot
+      .where(class_list_id: self.id)
+      .order(created_at: :desc)
+      .first
 
     # Make a new snapshot if they're different
     if latest_snapshot.present? && are_students_json_values_equal?(latest_snapshot.students_json, students_json)
