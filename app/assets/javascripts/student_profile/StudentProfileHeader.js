@@ -30,6 +30,7 @@ export default class StudentProfileHeader extends React.Component {
               {'Grade ' + student.grade}
             </span>
             {this.renderDateOfBirth()}
+            {this.renderBulletSpacer()}
             {this.renderContactIcon()}
             <RiskBubble riskLevel={student.student_risk_level.level} />
           </div>
