@@ -85,37 +85,16 @@ exports[`snapshots 1`] = `
               aria-label={undefined}
               aria-labelledby={undefined}
               aria-owns=""
-              className={undefined}
+              className="Select-input"
               id={undefined}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               required={false}
               role="combobox"
-              style={
-                Object {
-                  "boxSizing": "content-box",
-                  "width": "5px",
-                }
-              }
               tabIndex={undefined}
               value=""
             />
-            <div
-              style={
-                Object {
-                  "height": 0,
-                  "left": 0,
-                  "overflow": "scroll",
-                  "position": "absolute",
-                  "top": 0,
-                  "visibility": "hidden",
-                  "whiteSpace": "pre",
-                }
-              }
-            >
-              
-            </div>
           </div>
         </span>
         <span
@@ -172,37 +151,16 @@ exports[`snapshots 1`] = `
               aria-label={undefined}
               aria-labelledby={undefined}
               aria-owns=""
-              className={undefined}
+              className="Select-input"
               id={undefined}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               required={false}
               role="combobox"
-              style={
-                Object {
-                  "boxSizing": "content-box",
-                  "width": "5px",
-                }
-              }
               tabIndex={undefined}
               value=""
             />
-            <div
-              style={
-                Object {
-                  "height": 0,
-                  "left": 0,
-                  "overflow": "scroll",
-                  "position": "absolute",
-                  "top": 0,
-                  "visibility": "hidden",
-                  "whiteSpace": "pre",
-                }
-              }
-            >
-              
-            </div>
           </div>
         </span>
         <span
@@ -259,37 +217,16 @@ exports[`snapshots 1`] = `
               aria-label={undefined}
               aria-labelledby={undefined}
               aria-owns=""
-              className={undefined}
+              className="Select-input"
               id={undefined}
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               required={false}
               role="combobox"
-              style={
-                Object {
-                  "boxSizing": "content-box",
-                  "width": "5px",
-                }
-              }
               tabIndex={undefined}
               value=""
             />
-            <div
-              style={
-                Object {
-                  "height": 0,
-                  "left": 0,
-                  "overflow": "scroll",
-                  "position": "absolute",
-                  "top": 0,
-                  "visibility": "hidden",
-                  "whiteSpace": "pre",
-                }
-              }
-            >
-              
-            </div>
           </div>
         </span>
         <span
