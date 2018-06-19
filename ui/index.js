@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import {readEnv} from '../helpers/envForJs';
+import {readEnv} from '../app/assets/javascripts/envForJs';
 import datepickerConfig from '../app/assets/javascripts/datepickerConfig';
 import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
 import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';

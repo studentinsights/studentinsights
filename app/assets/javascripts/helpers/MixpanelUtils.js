@@ -1,4 +1,4 @@
-import {readEnv} from '../helpers/envForJs';
+import {readEnv} from '../envForJs';
 
 // This module expects window.mixpanel to be set, and window.share.Env to be set.
 // To use it, call `registerUser` first, then `track`.
