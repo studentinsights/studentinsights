@@ -278,6 +278,7 @@ export default class PageContainer extends React.Component {
             'noteInProgressType',
             'noteInProgressAttachmentUrls'
           ), {
+            districtKey: this.props.districtKey,
             nowMomentFn: this.props.nowMomentFn,
             actions: {
               onColumnClicked: this.onColumnClicked,
@@ -302,6 +303,7 @@ PageContainer.propTypes = {
   serializedData: PropTypes.object.isRequired,
   queryParams: PropTypes.object.isRequired,
   history: InsightsPropTypes.history.isRequired,
+  districtKey: PropTypes.string.isRequired,
 
   // for testing
   actions: InsightsPropTypes.actions,

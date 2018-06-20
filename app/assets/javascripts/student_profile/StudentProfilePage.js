@@ -39,9 +39,14 @@ export default class StudentProfilePage extends React.Component {
   }
 
   render() {
+    const {student, districtKey} = this.props;
+
     return (
       <div className="StudentProfilePage">
-        <StudentProfileHeader student={this.props.student} />
+        <StudentProfileHeader
+          student={student}
+          districtKey={districtKey}
+        />
         <div className="summary-container" style={styles.summaryContainer}>
           {this.renderProfileColumn()}
           {this.renderELAColumn()}
@@ -308,7 +313,7 @@ export default class StudentProfilePage extends React.Component {
     const program = student.program_assigned;
     const spedPlacement = student.sped_placement || null;
     const spedHoursText = this.renderSpedHoursText(student);
-    
+
     const elements = _.compact([program, spedPlacement, spedHoursText]);
     return (
       <SummaryList
@@ -626,6 +631,7 @@ StudentProfilePage.propTypes = {
   currentEducator: PropTypes.shape({
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
+  districtKey: PropTypes.string.isRequired,
 
   // constants
   educatorsIndex: PropTypes.object.isRequired,
