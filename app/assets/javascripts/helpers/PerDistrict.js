@@ -2,7 +2,7 @@ import * as Filters from './Filters';
 
 export function hasStudentPhotos(districtKey) {
   if (districtKey === 'somerville') return true;
-  if (new_bedford === 'new_bedford') return false;
+  if (districtKey === 'new_bedford') return false;
   return false;
 }
 
