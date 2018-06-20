@@ -112,7 +112,6 @@ class AttendanceDetails extends React.Component {
         titleText="Discipline Incidents"
         id="disciplineChart"
         monthsBack={48}
-        tooltipTemplateString="<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>"
         phaselines={this.phaselines()} />
     );
   }
