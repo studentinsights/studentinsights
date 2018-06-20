@@ -37,7 +37,3 @@ if (process.listeners('unhandledRejection').length === 0) { // eslint-disable-li
     throw error;
   });
 }
-
-// Fix the timezone for test
-import moment from 'moment-timezone';
-moment.tz.setDefault('America/New_York');
