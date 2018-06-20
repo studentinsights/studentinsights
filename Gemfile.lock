@@ -135,6 +135,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (2.1.0)
+    json-diff (0.4.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -334,6 +335,7 @@ DEPENDENCIES
   immigrant
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
+  json-diff
   launchy
   memory_profiler
   net-ldap

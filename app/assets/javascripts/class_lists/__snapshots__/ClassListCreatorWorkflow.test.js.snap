@@ -5,6 +5,9 @@ exports[`chooseYourGradeProps 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -633,6 +636,9 @@ exports[`chooseYourGradeProps 2`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -1185,6 +1191,9 @@ exports[`chooseYourGradeProps 3`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -1736,6 +1745,9 @@ exports[`exportProps snapshots all placed 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -2428,6 +2440,9 @@ exports[`exportProps snapshots moves 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -3138,6 +3153,9 @@ exports[`exportProps snapshots unplaced 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -3755,6 +3773,9 @@ exports[`exportProps snapshots with teachers 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -4465,6 +4486,9 @@ exports[`makeAPlanProps 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -5072,6 +5096,9 @@ exports[`makeAPlanProps 2`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -5639,6 +5666,9 @@ exports[`shareWithPrincipalProps 1`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }
@@ -6106,6 +6136,9 @@ exports[`shareWithPrincipalProps 2`] = `
   className="ClassListCreatorView"
   style={
     Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
       "fontSize": 14,
       "width": "100%",
     }

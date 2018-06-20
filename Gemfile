@@ -15,6 +15,7 @@ gem 'get_process_mem'
 gem 'immigrant'
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.3'
+gem 'json-diff'
 gem 'memory_profiler'       # Used in rake task so needs to be included in production
 gem 'net-sftp'
 gem 'net-ssh'
