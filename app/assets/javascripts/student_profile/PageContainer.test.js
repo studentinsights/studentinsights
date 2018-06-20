@@ -46,6 +46,7 @@ const helpers = {
       api: helpers.createSpyApi(),
       noteInProgressText: '',
       noteInProgressType: null,
+      districtKey: 'somerville',
       ...props
     };
     const el = document.createElement('div');
