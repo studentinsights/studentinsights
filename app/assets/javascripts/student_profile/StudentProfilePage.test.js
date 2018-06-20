@@ -280,6 +280,6 @@ describe('snapshots', () => {
   }
 
   it('works for olaf', () => expectSnapshot(testPropsForOlafWhite()));
-  it('works for olaf', () => expectSnapshot(testPropsForPlutoPoppins()));
-  it('works for olaf', () => expectSnapshot(testPropsForAladdinMouse()));
+  it('works for pluto', () => expectSnapshot(testPropsForPlutoPoppins()));
+  it('works for aladdin', () => expectSnapshot(testPropsForAladdinMouse()));
 });
