@@ -9,6 +9,7 @@ const helpers = {
   renderActiveStudent(el, props) {
     const mergedProps = {
       student: studentProfile.student,
+      districtKey: 'somerville',
       ...props
     };
     ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
@@ -20,6 +21,7 @@ const helpers = {
 
     const mergedProps = {
       student: this_student,
+      districtKey: 'somerville',
       ...props
     };
     ReactDOM.render(<StudentProfileHeader {...mergedProps} />, el);
@@ -30,7 +32,7 @@ const helpers = {
 describe('active enrolled student', () => {
   it('renders note-taking area with homeroom', () => {
     const el = document.createElement('div');
-    helpers.renderActiveStudent(el, {districtKey: 'somerville'});
+    helpers.renderActiveStudent(el);
     const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                    // so we don't have to calculate this
     expect(el.innerHTML).toContain('Daisy Poppins');
