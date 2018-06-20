@@ -86,7 +86,8 @@ function testPropsFromSerializedData(serializedData) {
       onChangeNoteInProgressText: jest.fn(),
       onClickNoteType: jest.fn(),
       onChangeAttachmentUrl: jest.fn()
-    }
+    },
+    districtKey: 'somerville'
   };
 }
 
