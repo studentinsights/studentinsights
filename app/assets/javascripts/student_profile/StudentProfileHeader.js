@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
-import {hasStudentPhotos} from '../helpers/PerDistrict'
+import {hasStudentPhotos} from '../helpers/PerDistrict';
 
 /*
 This pure UI component renders top-line information like the student's name, school,
