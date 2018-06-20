@@ -198,6 +198,7 @@ exports[`snapshots works for olaf 1`] = `
       <img
         alt="Student photo for Olaf White"
         height={80}
+        id="student-photo"
         onError={[Function]}
         src="/students/16/photo"
         style={
@@ -2848,6 +2849,7 @@ exports[`snapshots works for olaf 2`] = `
       <img
         alt="Student photo for Pluto Poppins"
         height={80}
+        id="student-photo"
         onError={[Function]}
         src="/students/8/photo"
         style={
@@ -5700,6 +5702,7 @@ exports[`snapshots works for olaf 3`] = `
       <img
         alt="Student photo for Aladdin Mouse"
         height={80}
+        id="student-photo"
         onError={[Function]}
         src="/students/104/photo"
         style={

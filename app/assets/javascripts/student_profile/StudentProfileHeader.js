@@ -19,7 +19,8 @@ export default class StudentProfileHeader extends React.Component {
 
     return (
       <div style={{ width: '15em', display: 'flex', justifyContent: 'flex-end'}}>
-        <img style={{float: 'right', paddingRight: 44}}
+        <img id='student-photo' /* Mostly for testing. */
+             style={{float: 'right', paddingRight: 44}}
              src={`/students/${student.id}/photo`}
              height={80}
              alt={`Student photo for ${student.first_name} ${student.last_name}`}

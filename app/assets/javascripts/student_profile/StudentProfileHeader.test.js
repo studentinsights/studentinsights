@@ -30,7 +30,7 @@ const helpers = {
 };
 
 describe('active enrolled student', () => {
-  it('renders note-taking area with homeroom', () => {
+  it('renders header with name, age, contact info modal, and student photo div', () => {
     const el = document.createElement('div');
     helpers.renderActiveStudent(el);
     const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
@@ -39,6 +39,7 @@ describe('active enrolled student', () => {
     expect(el.innerHTML).toContain('Arthur D Healey');
     expect(el.innerHTML).toContain('5/23/2008');
     expect(el.innerHTML).toContain('(' + yearsOld + ' years old)');
+    expect(el.innerHTML).toContain('student-photo');
     expect($(el).find('a.homeroom-link').text()).toContain('102');
 
     const modalIconEl = $(el).find('.click-event-modal').get(0);
@@ -49,6 +50,15 @@ describe('active enrolled student', () => {
       expect(modalText).toContain('999-999-9999 C-Mom');
       expect(modalText).toContain('parent@example.com');
     });
+  });
+});
+
+describe('active non-somerville student', () => {
+  it('does not render a student photo div', () => {
+    const el = document.createElement('div');
+    helpers.renderActiveStudent(el, {districtKey: 'some-other-district'});
+
+    expect(el.innerHTML).not.toContain('student-photo');
   });
 });
 
