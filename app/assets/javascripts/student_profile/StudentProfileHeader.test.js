@@ -30,7 +30,7 @@ const helpers = {
 describe('active enrolled student', () => {
   it('renders note-taking area with homeroom', () => {
     const el = document.createElement('div');
-    helpers.renderActiveStudent(el);
+    helpers.renderActiveStudent(el, {districtKey: 'somerville'});
     const yearsOld = moment().diff(studentProfile.student.date_of_birth, 'years'); // TODO (ARS): mock moment.utc() for spec
                                                                                    // so we don't have to calculate this
     expect(el.innerHTML).toContain('Daisy Poppins');

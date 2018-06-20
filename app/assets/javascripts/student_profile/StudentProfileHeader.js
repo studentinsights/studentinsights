@@ -12,6 +12,7 @@ photo and classroom.
 */
 export default class StudentProfileHeader extends React.Component {
   render() {
+    console.log('this.props.districtKey', this.props.districtKey);
     const student =  this.props.student;
     return (
       <div className="StudentProfileHeader" style={styles.titleContainer}>
@@ -130,8 +131,10 @@ export default class StudentProfileHeader extends React.Component {
     );
   }
 }
+
 StudentProfileHeader.propTypes = {
-  student: PropTypes.object.isRequired
+  student: PropTypes.object.isRequired,
+  districtKey: PropTypes.string.isRequired,
 };
 
 const styles = {
