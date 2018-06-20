@@ -4,16 +4,37 @@ import PropTypes from 'prop-types';
 import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
-
+import {hasStudentPhotos} from '../helpers/PerDistrict'
 
 /*
 This pure UI component renders top-line information like the student's name, school,
 photo and classroom.
 */
 export default class StudentProfileHeader extends React.Component {
+
+  conditionallyRenderStudentPhoto() {
+    const {student, districtKey} = this.props;
+    const shouldShowPhoto = hasStudentPhotos(districtKey);
+    if (!shouldShowPhoto) return null;
+
+    return (
+      <div style={{ width: '15em', display: 'flex', justifyContent: 'flex-end'}}>
+        <img style={{float: 'right', paddingRight: 44}}
+             src={`/students/${student.id}/photo`}
+             height={80}
+             alt={`Student photo for ${student.first_name} ${student.last_name}`}
+             onError={(e) => {
+              /* Renders a 1x1 white pixel. */
+               e.target.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+             }}
+        />
+      </div>
+    );
+  }
+
   render() {
-    console.log('this.props.districtKey', this.props.districtKey);
-    const student =  this.props.student;
+    const {student} = this.props;
+
     return (
       <div className="StudentProfileHeader" style={styles.titleContainer}>
         <div style={{ display: 'inline-block', flex: 'auto' }}>
@@ -36,22 +57,7 @@ export default class StudentProfileHeader extends React.Component {
             <RiskBubble riskLevel={student.student_risk_level.level} />
           </div>
         </div>
-        <div
-          style={{
-            width: '15em',
-            display: 'flex',
-            justifyContent: 'flex-end'
-          }}>
-          <img style={{float: 'right', paddingRight: 44}}
-               src={`/students/${student.id}/photo`}
-               height={80}
-               alt={`Student photo for ${student.first_name} ${student.last_name}`}
-               onError={(e) => {
-                /* This renders a 1x1 white pixel. */
-                 e.target.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-               }}
-          />
-        </div>
+        {this.conditionallyRenderStudentPhoto()}
       </div>
     );
   }
