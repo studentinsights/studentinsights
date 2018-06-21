@@ -59,6 +59,6 @@ SecureHeaders::Configuration.default do |config|
     config.csp_report_only = policy.merge(report_only_policy)
   else
     config.csp = policy
-    config.csp_report_only = report_only_policy
+    config.csp_report_only = policy.merge(report_only_policy)
   end
 end
