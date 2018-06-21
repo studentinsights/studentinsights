@@ -12,6 +12,37 @@ SecureHeaders::Configuration.default do |config|
   config.x_download_options = nil
 
   # Content security policy rules
+  # unsafe-inline comes primarily from react-select, highcharts, react-beautiful-dnd
+  style_shas = [
+    # react-select, all pages
+    # see https://github.com/JedWatson/react-select/issues/2030
+    # and https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
+    "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+    "'sha256-0nyLRBz+flfRx09c4cmwCuyAActw00JI7EotsctBGyE='",
+
+    # profile reading tab initial load, from highcharts
+    "'sha256-uriPziaB9m7s2kuEbUYSfZG/ZKx+e7Syll/tMzJ2y5A='",
+    "'sha256-xoNN63L9AAEOpg5YcXPLo/hZsa/ms6XGntW9P4Bv2J0='",
+    "'sha256-XTOOWbMsh6dXtrIPLf0Ophom1MWWbAY0gwI/5MOfdY0='",
+    "'sha256-wkY2X5hecQzbhnFCqvTpwrUJ1f4X8LH5WFjYUzv1wmU='",
+    "'sha256-udgQtB6hEsTIO6UAImy1cFAVzbYYw2YrVpiquOgu2/o='",
+    "'sha256-97o4u6NOOXKKCCQ/RV8J53F81vXBBOI8bZ5/3dfFuLs='",
+
+    # profile reading tab interactions, from highcharts
+    "'sha256-w5OABP7j65F1iI5Hng+mWsM0ky15yFPQoKQYGkvb9a8='",
+    "'sha256-pK/LYSGXm1ClC09hQOVqdn5VZhvogTihtYVcLGMlpG4='",
+    "'sha256-LW4oa6lbLzLbxjX78nPs07Cfh2l0e1/P1cjf6qF2rQY='",
+    "'sha256-FDBiBdM77urXZVlGGidDW7/i5glcDUz7ZKR7PxOGxZs='",
+
+    # profile discipline tab, from highcharts:
+    "'sha256-7wj/+4oyhC/Un8WKFeS81vcvueSVhV/Hk8Tuw/NlDC8='",
+
+    # class list
+    # see https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/style-marshal/style-marshal.js#L46
+    "'sha256-4EtUpXBBU3YUFlvo142ikz8GtQEMP031r72aTOS2hRA='",
+    "'sha256-0A52LJhsO5+DZbOwJT8O6MYgDV+bXVxvgzJm0x3jxnI='",
+    "'sha256-Ns85mrVfDtTI+AJP+HXSBWflADJ/6n0q5JKJC7KktSQ='"
+  ]
   report_uri = ENV['CSP_REPORT_URI']
   policy = {
     # core resources
@@ -21,12 +52,7 @@ SecureHeaders::Configuration.default do |config|
     connect_src: %w('self' https:),
     form_action: %w('self' https:),
     script_src: %w('unsafe-inline' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
-
-    # unsafe-inline comes primarily from react-select and react-beautiful-dnd
-    # see https://github.com/JedWatson/react-select/issues/2030
-    # and https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
-    # and https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/style-marshal/style-marshal.js#L46
-    style_src: %w('unsafe-inline' https: fonts.googleapis.com),
+    style_src: %w('unsafe-inline' https: data: fonts.googleapis.com) + style_shas,
     font_src: %w('self' https: data: fonts.gstatic.com),
     img_src: %w('self' https: data:),
     report_uri: [report_uri],
