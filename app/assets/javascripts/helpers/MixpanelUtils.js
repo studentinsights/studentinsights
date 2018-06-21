@@ -12,6 +12,7 @@ export default {
       window.mixpanel.identify(currentEducator.id);
       window.mixpanel.register({
         'deployment_key': readEnv().deploymentKey,
+        'district_key': readEnv().districtKey,
         'educator_id': currentEducator.id,
         'educator_is_admin': currentEducator.admin,
         'educator_school_id': currentEducator.school_id

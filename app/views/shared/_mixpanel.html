@@ -3,7 +3,7 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElemen
 </script><!-- end Mixpanel -->
 
 <script type="text/javascript">
-  if (!window.ENV_FOR_JS.mixpanelToken) {
+  if (window.ENV_FOR_JS.shouldReportAnalytics && window.ENV_FOR_JS.mixpanelToken) {
     window.mixpanel.init(window.ENV_FOR_JS.mixpanelToken);
     window.mixpanel.set_config({
       track_pageview: true,
