@@ -20,7 +20,7 @@ SecureHeaders::Configuration.default do |config|
     manifest_src: %w('self' https:),
     connect_src: %w('self' https:),
     form_action: %w('self' https:),
-    script_src: %w('unsafe-inline' https: api.mixpanel.com),
+    script_src: %w('self' https: api.mixpanel.com),
 
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd
     # see https://github.com/JedWatson/react-select/issues/2030
@@ -42,11 +42,11 @@ SecureHeaders::Configuration.default do |config|
     plugin_types: nil
   }
 
-  # collect additional report-only data on these violations, but don't enforce
-  report_only_policy = {
-    script_src: %w('self' https: api.mixpanel.com),
-    report_uri: [report_uri]
-  }
+  # To collect additional report-only data on particular violations before
+  # enforcing, merge them in here.
+  # For report-only, filter out some options that the browser will complain
+  # about.
+  report_only_policy = policy.except(:upgrade_insecure_requests)
 
   # Enforce CSP or report only
   # CSP and HTTPS cookies are not enforced locally or in test
@@ -56,9 +56,9 @@ SecureHeaders::Configuration.default do |config|
     config.csp_report_only = SecureHeaders::OPT_OUT
   elsif EnvironmentVariable.is_true('CSP_REPORT_ONLY_WITHOUT_ENFORCEMENT')
     config.csp = SecureHeaders::OPT_OUT
-    config.csp_report_only = policy.merge(report_only_policy)
+    config.csp_report_only = report_only_policy
   else
     config.csp = policy
-    config.csp_report_only = policy.merge(report_only_policy)
+    config.csp_report_only = report_only_policy
   end
 end
