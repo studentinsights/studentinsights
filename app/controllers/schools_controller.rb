@@ -148,57 +148,7 @@ class SchoolsController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
-  # Methods for Dashboards #
-  def shared_student_fields(student)
-    student.as_json(only: [
-      :first_name,
-      :last_name,
-      :grade,
-      :id
-    ]).merge({
-      homeroom_label: homeroom_label(student.homeroom),
-      sst_notes: student.sst_notes.as_json(only: [:event_note_type_id, :recorded_at])
-    })
-  end
-
-  def individual_student_absence_data(student)
-    shared_student_fields(student).merge({
-      absences: student.dashboard_absences.as_json(only: [:student_id,
-        :occurred_at,
-        :excused,
-        :dismissed,
-        :reason])
-    })
-  end
-
-  def individual_student_tardies_data(student)
-    shared_student_fields(student).merge({
-      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at])
-    })
-  end
-
-  def individual_student_discipline_data(student)
-    shared_student_fields(student).merge({
-      discipline_incidents: student.discipline_incidents.as_json(only: [
-        :student_id,
-        :incident_code,
-        :incident_location,
-        :has_exact_time,
-        :occurred_at
-      ])
-    })
-  end
-
-  def active_students(school)
-    school.students.active
-  end
-
-  def homeroom_label(homeroom)
-    homeroom.try(:educator).try(:full_name) || homeroom.try(:name) || "No Homeroom"
-=======
   def dashboard_queries
     DashboardQueries.new(current_educator)
->>>>>>> master
   end
 end
