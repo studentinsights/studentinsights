@@ -1,15 +1,18 @@
+import {readEnv} from '../envForJs';
+
 // This module expects window.mixpanel to be set, and window.share.Env to be set.
 // To use it, call `registerUser` first, then `track`.
 export default {
   registerUser(currentEducator) {
-    const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
+    const enabled = (window.mixpanel && readEnv().shouldReportAnalytics);
 
     if (!enabled) return;
 
     try {
       window.mixpanel.identify(currentEducator.id);
       window.mixpanel.register({
-        'deployment_key': window.shared.Env.deploymentKey,
+        'deployment_key': readEnv().deploymentKey,
+        'district_key': readEnv().districtKey,
         'educator_id': currentEducator.id,
         'educator_is_admin': currentEducator.admin,
         'educator_school_id': currentEducator.school_id
@@ -21,7 +24,7 @@ export default {
   },
 
   track(key, attrs) {
-    const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
+    const enabled = (window.mixpanel && readEnv().shouldReportAnalytics);
 
     if (!enabled) return;
 
