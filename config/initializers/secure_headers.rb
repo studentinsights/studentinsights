@@ -12,6 +12,7 @@ SecureHeaders::Configuration.default do |config|
   config.x_download_options = nil
 
   # Content security policy rules
+  report_uri = ENV['CSP_REPORT_URI']
   policy = {
     # core resources
     default_src: %w('self' https:),
@@ -28,7 +29,7 @@ SecureHeaders::Configuration.default do |config|
     style_src: %w('unsafe-inline' https: fonts.googleapis.com),
     font_src: %w('self' https: data: fonts.gstatic.com),
     img_src: %w('self' https: data:),
-    report_uri: %w(https://studentinsights-csp-logger.herokuapp.com/csp),
+    report_uri: [report_uri],
 
     # disable others
     block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
@@ -45,12 +46,19 @@ SecureHeaders::Configuration.default do |config|
   # Enforce CSP or report only
   # CSP and HTTPS cookies are not enforced locally or in test
   if Rails.env.test? || Rails.env.development?
-    config.cookies = SecureHeaders::OPT_OUT
     config.csp = SecureHeaders::OPT_OUT
+    config.cookies = SecureHeaders::OPT_OUT # no https locally
+    config.csp_report_only = SecureHeaders::OPT_OUT
   elsif EnvironmentVariable.is_true('CSP_REPORT_ONLY_WITHOUT_ENFORCEMENT')
-    config.csp_report_only = policy
     config.csp = SecureHeaders::OPT_OUT
+    config.csp_report_only = policy
   else
     config.csp = policy
+    # collect additional data on any violations here
+    config.csp_report_only = {
+      script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
+      style_src: %w('self' https: fonts.googleapis.com),
+      report_uri: [report_uri + '?report_only']
+    }
   end
 end
