@@ -42,6 +42,12 @@ SecureHeaders::Configuration.default do |config|
     plugin_types: nil
   }
 
+  # collect additional report-only data on these violations, but don't enforce
+  report_only_policy = {
+    script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
+    style_src: %w('self' https: fonts.googleapis.com),
+    report_uri: [report_uri + '?report_only']
+  }
 
   # Enforce CSP or report only
   # CSP and HTTPS cookies are not enforced locally or in test
@@ -51,14 +57,9 @@ SecureHeaders::Configuration.default do |config|
     config.csp_report_only = SecureHeaders::OPT_OUT
   elsif EnvironmentVariable.is_true('CSP_REPORT_ONLY_WITHOUT_ENFORCEMENT')
     config.csp = SecureHeaders::OPT_OUT
-    config.csp_report_only = policy
+    config.csp_report_only = policy.merge(report_only_policy)
   else
     config.csp = policy
-    # collect additional data on any violations here
-    config.csp_report_only = {
-      script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
-      style_src: %w('self' https: fonts.googleapis.com),
-      report_uri: [report_uri + '?report_only']
-    }
+    config.csp_report_only = report_only_policy
   end
 end
