@@ -45,7 +45,6 @@ SecureHeaders::Configuration.default do |config|
   # collect additional report-only data on these violations, but don't enforce
   report_only_policy = {
     script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
-    style_src: %w('self' https: fonts.googleapis.com),
     report_uri: [report_uri]
   }
 
