@@ -5,11 +5,9 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
     <link rel="apple-touch-icon" href="/icon.png"/>
     <%= render('shared/env_for_js') %>
-    <%= render('shared/rollbar') %>
+    <%= javascript_include_tag webpack_bundle('reporters.js') %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
-    <%= render('shared/mixpanel') if Rails.env.production? %>
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <div class="nav">
@@ -62,6 +60,7 @@
         # This tag is a helper for the UI, not a security feature.
 
         json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= javascript_include_tag webpack_bundle('bundle.js') %>
   </body>
 </html>
