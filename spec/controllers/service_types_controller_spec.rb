@@ -65,7 +65,9 @@ describe ServiceTypesController, :type => :controller do
         sign_in(pals.shs_bill_nye)
         make_request(502)
         expect(response).not_to be_success
-        expect(JSON.parse(response.body)).to eq({'error' => 'You don\'t have the correct authorization.'})
+        expect(JSON.parse(response.body)).to eq({
+          'error' => 'You don\'t have the correct authorization.'
+        })
       end
     end
 
@@ -73,7 +75,9 @@ describe ServiceTypesController, :type => :controller do
       it 'does not succeed' do
         make_request(502)
         expect(response).not_to be_success
-        expect(JSON.parse(response.body)).to eq({'error' => 'You need to sign in before continuing.'})
+        expect(JSON.parse(response.body)).to eq({
+          'error' => 'You need to sign in before continuing.'
+        })
       end
     end
   end
@@ -99,7 +103,9 @@ describe ServiceTypesController, :type => :controller do
         sign_in(pals.shs_bill_nye)
         make_request
         expect(response).not_to be_success
-        expect(response).to redirect_to('/not_authorized')
+        expect(JSON.parse(response.body)).to eq({
+          "error" => "You don't have the correct authorization."
+        })
       end
     end
 
