@@ -42,12 +42,6 @@ SecureHeaders::Configuration.default do |config|
     plugin_types: nil
   }
 
-  # To collect additional report-only data on particular violations before
-  # enforcing, merge them in here.
-  # For report-only, filter out some options that the browser will complain
-  # about.
-  report_only_policy = policy.except(:upgrade_insecure_requests)
-
   # Enforce CSP or report only
   # CSP and HTTPS cookies are not enforced locally or in test
   if Rails.env.test? || Rails.env.development?
@@ -56,9 +50,9 @@ SecureHeaders::Configuration.default do |config|
     config.csp_report_only = SecureHeaders::OPT_OUT
   elsif EnvironmentVariable.is_true('CSP_REPORT_ONLY_WITHOUT_ENFORCEMENT')
     config.csp = SecureHeaders::OPT_OUT
-    config.csp_report_only = report_only_policy
+    config.csp_report_only = policy.except(:upgrade_insecure_requests) # some browsers complain about this in report-only mode
   else
     config.csp = policy
-    config.csp_report_only = report_only_policy
+    config.csp_report_only = SecureHeaders::OPT_OUT
   end
 end
