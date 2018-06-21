@@ -20,7 +20,7 @@ SecureHeaders::Configuration.default do |config|
     manifest_src: %w('self' https:),
     connect_src: %w('self' https:),
     form_action: %w('self' https:),
-    script_src: %w('unsafe-inline' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
+    script_src: %w('unsafe-inline' https: api.mixpanel.com),
 
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd
     # see https://github.com/JedWatson/react-select/issues/2030
@@ -44,7 +44,7 @@ SecureHeaders::Configuration.default do |config|
 
   # collect additional report-only data on these violations, but don't enforce
   report_only_policy = {
-    script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
+    script_src: %w('self' https: api.mixpanel.com),
     report_uri: [report_uri]
   }
 
