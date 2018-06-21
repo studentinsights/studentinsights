@@ -46,7 +46,7 @@ SecureHeaders::Configuration.default do |config|
   report_only_policy = {
     script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
     style_src: %w('self' https: fonts.googleapis.com),
-    report_uri: [report_uri + '?report_only']
+    report_uri: [report_uri]
   }
 
   # Enforce CSP or report only
