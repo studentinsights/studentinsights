@@ -6,7 +6,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
     <link rel="apple-touch-icon" href="/icon.png"/>
     <%= json_div(id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
-    <%= javascript_include_tag webpack_bundle('reporters.js') %>
+    <%= javascript_include_tag webpack_bundle('rollbar.js') %>
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">

@@ -22,6 +22,19 @@ window.fetch = require('jest-fetch-mock'); // eslint-disable-line no-undef
 console.error = jest.fn(error => { throw new Error(error); }); //eslint-disable-line no-console
 console.warn = jest.fn(warn => { throw new Error(warn); }); //eslint-disable-line no-console
 
+// Set env for JS stub
+window.ENV_FOR_JS = {
+  railsEnvironment: 'production',
+  sessionTimeoutInSeconds: 21600,
+  districtKey: 'demo',
+  deploymentKey: 'demo',
+  isDemoSite: true,
+  shouldReportAnalytics: false,
+  shouldReportErrors: false,
+  mixpanelToken: null,
+  rollbarJsAccessToken: null
+};
+
 // Make test fail if code is reporting errors to Rollbar
 window.Rollbar = {
   error: jest.fn(error => { throw new Error(error); }) //eslint-disable-line no-console
