@@ -1,8 +1,18 @@
 SecureHeaders::Configuration.default do |config|
+  # Set these all explicitly on top of the defaults, starting from guidance in
+  # https://github.com/twitter/secure_headers/blob/5c47914f9c481d8c69fb7af141ed5a79b213bfa1/README.md#configuration
+  config.hsts = "max-age=#{1.week.to_i}"
+  config.x_frame_options = "DENY"
+  config.x_content_type_options = "nosniff"
+  config.x_xss_protection = "1; mode=block"
+  config.x_permitted_cross_domain_policies = "none"
+  config.referrer_policy = %w(origin-when-cross-origin strict-origin-when-cross-origin)
+
   # Unblock PDF downloading for student report and for IEP-at-a-glance
   config.x_download_options = nil
 
   # Content security policy rules
+  report_uri = ENV['CSP_REPORT_URI']
   policy = {
     # core resources
     default_src: %w('self' https:),
@@ -19,7 +29,7 @@ SecureHeaders::Configuration.default do |config|
     style_src: %w('unsafe-inline' https: fonts.googleapis.com),
     font_src: %w('self' https: data: fonts.gstatic.com),
     img_src: %w('self' https: data:),
-    report_uri: %w(https://studentinsights-csp-logger.herokuapp.com/csp),
+    report_uri: [report_uri],
 
     # disable others
     block_all_mixed_content: true, # see http://www.w3.org/TR/mixed-content/
@@ -29,19 +39,27 @@ SecureHeaders::Configuration.default do |config|
     media_src: %w('none'),
     object_src: %w('none'),
     worker_src: %w('none'),
-    plugin_types: nil,
+    plugin_types: nil
   }
 
+  # collect additional report-only data on these violations, but don't enforce
+  report_only_policy = {
+    script_src: %w('self' https: api.mixpanel.com cdn.mxpnl.com https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/),
+    style_src: %w('self' https: fonts.googleapis.com),
+    report_uri: [report_uri]
+  }
 
   # Enforce CSP or report only
   # CSP and HTTPS cookies are not enforced locally or in test
   if Rails.env.test? || Rails.env.development?
-    config.cookies = SecureHeaders::OPT_OUT
     config.csp = SecureHeaders::OPT_OUT
+    config.cookies = SecureHeaders::OPT_OUT # no https locally
+    config.csp_report_only = SecureHeaders::OPT_OUT
   elsif EnvironmentVariable.is_true('CSP_REPORT_ONLY_WITHOUT_ENFORCEMENT')
-    config.csp_report_only = policy
     config.csp = SecureHeaders::OPT_OUT
+    config.csp_report_only = policy.merge(report_only_policy)
   else
     config.csp = policy
+    config.csp_report_only = report_only_policy
   end
 end
