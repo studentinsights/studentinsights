@@ -37,18 +37,18 @@ export default class ProfileBarChart extends React.Component {
 
   // This returns a function, since HighCharts passes in the current element
   // as `this` instead of a parameter.
-  createUnsafeTooltipFormatter(monthBuckets, props){
+  createUnsafeTooltipFormatter(monthBuckets){
     return function() {
       const graphPointIndex = this.series.data.indexOf(this.point);
       const events = monthBuckets[graphPointIndex];
       if (events.length == 0) return false;
 
-      let htmlstring = "";
+      let unsafeHtmlString = '';
       _.each(events, function(e){
-        htmlstring += _.template(props.tooltipTemplateString)({e, moment});
-        htmlstring += "<br>";
+        unsafeHtmlString += `<span>${moment.utc(e.occurred_at).format('MMMM Do, YYYY')}</span>`;
+        unsafeHtmlString += '<br />';
       });
-      return htmlstring;
+      return unsafeHtmlString;
     };
   }
 
@@ -105,7 +105,7 @@ export default class ProfileBarChart extends React.Component {
             title: {text: this.props.titleText}
           }}
           tooltip={{
-            formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
+            formatter: this.createUnsafeTooltipFormatter(monthBuckets),
             useHTML: true
           }}
           series={[
@@ -142,7 +142,6 @@ ProfileBarChart.propTypes = {
   id: PropTypes.string.isRequired, // short string identifier for links to jump to
   events: PropTypes.array.isRequired, // array of JSON event objects.
   monthsBack: PropTypes.number.isRequired, // how many months in the past to display?
-  tooltipTemplateString: PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
   titleText: PropTypes.string.isRequired,
   nowMomentUTC: PropTypes.instanceOf(moment),
   monthKeyFn: PropTypes.func,
@@ -150,7 +149,6 @@ ProfileBarChart.propTypes = {
 };
 
 ProfileBarChart.defaultProps = {
-  tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
   phaselines: [],
   nowMomentUTC: moment.utc(),
   monthKeyFn(event) {
