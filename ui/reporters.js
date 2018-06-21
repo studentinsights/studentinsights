@@ -23,7 +23,8 @@ function loadMixpanel() {
   window.mixpanel.init(readEnv().mixpanelToken);
   window.mixpanel.set_config({
     track_pageview: true,
-    secure_cookie: true
+    secure_cookie: true,
+    cross_subdomain_cookie: false // https://help.mixpanel.com/hc/en-us/articles/115004507486-Track-Across-Hosted-Subdomains
   });
 }
   
