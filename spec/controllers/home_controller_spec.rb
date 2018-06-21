@@ -15,11 +15,11 @@ describe HomeController, :type => :controller do
     end
 
     it 'works end-to-end for event_note, incident and birthday' do
-      event_note = create_event_note(time_now, {
+      create_event_note(time_now, {
         student: pals.shs_freshman_mari,
         event_note_type: EventNoteType.find(305)
       })
-      incident = DisciplineIncident.create!({
+      DisciplineIncident.create!({
         incident_code: 'Bullying',
         occurred_at: time_now - 4.days,
         student: pals.shs_freshman_mari

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
-import {studentProfile} from '../student_profile/fixtures';
+import {studentProfile} from '../student_profile/fixtures/fixtures';
 import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
 import changeTextValue from '../testing/changeTextValue';
 

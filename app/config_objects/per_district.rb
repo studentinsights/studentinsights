@@ -28,6 +28,14 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def valid_plan_504_values
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      ["504", "Not 504", "NotIn504"]
+    elsif @district_key == NEW_BEDFORD
+      ["", "Active", "Exited", "NotIn504"]
+    end
+  end
+
   def enabled_class_lists?
     if @district_key == SOMERVILLE || @district_key == DEMO
       EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
@@ -47,6 +55,21 @@ class PerDistrict
       School.where(local_id: ['115', '123']) # parker and pulaski, the first pilot schools
     else
       School.all
+    end
+  end
+
+  def enabled_high_school_tiering?
+    @district_key == SOMERVILLE || @district_key == DEMO
+  end
+
+  # If this is enabled, filter students on the home page feed
+  # based on a mapping of the `counselor` field on the student and a specific
+  # `Educator`.  It may be individually feature switched as well.
+  def enable_counselor_based_feed?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_COUNSELOR_BASED_FEED')
+    else
+      false
     end
   end
 
@@ -75,6 +98,22 @@ class PerDistrict
     raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO
 
     raise_not_handled!
+  end
+
+  def import_student_house?
+    @district_key == SOMERVILLE || @district_key == DEMO
+  end
+
+  def import_student_counselor?
+    @district_key == SOMERVILLE || @district_key == DEMO
+  end
+
+  def import_student_sped_liaison?
+    @district_key == SOMERVILLE || @district_key == DEMO
+  end
+
+  def import_student_photos?
+    @district_key == SOMERVILLE
   end
 
   private

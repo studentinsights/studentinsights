@@ -11,8 +11,10 @@ export default function renderStudentMain(el) {
   const serializedData = $('#serialized-data').data();
   MixpanelUtils.registerUser(serializedData.currentEducator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
+  const {districtKey} = window.shared.Env;
 
   ReactDOM.render(<PageContainer
+    districtKey={districtKey}
     nowMomentFn={() => moment.utc()}
     serializedData={serializedData}
     queryParams={parseQueryString(window.location.search)}

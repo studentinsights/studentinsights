@@ -9,7 +9,7 @@ class SummaryList extends React.Component {
         <div style={{ fontWeight: 'bold' }}>
           {this.props.title}
         </div>
-        <ul>
+        <ul style={{paddingLeft: 20}}>
           {this.props.elements.map((element, index) => {
             return (
               <li key={index}>

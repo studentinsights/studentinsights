@@ -8,6 +8,7 @@ class Student < ActiveRecord::Base
 
   belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
+  has_many :student_photos
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -325,5 +326,9 @@ class Student < ActiveRecord::Base
 
   def validate_grade
     errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
+  end
+
+  def validate_plan_504
+    errors.add(:plan_504, "invalid plan_504: #{plan_504}") unless grade.in?(PerDistrict.new.valid_plan_504_values)
   end
 end

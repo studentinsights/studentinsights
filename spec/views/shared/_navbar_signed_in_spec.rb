@@ -5,7 +5,7 @@ describe '_navbar_signed_in partial' do
 
   def expect_common_links(rendered)
     expect(rendered).to include('My notes')
-    expect(rendered).to include('Home')
+    expect(rendered).to include('My students')
     expect(rendered).to include('Search for student:')
     expect(rendered).to include('Sign Out')
   end

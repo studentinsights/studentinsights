@@ -4,7 +4,7 @@ import {
   studentProfile,
   nowMoment,
   currentEducator
-} from './fixtures';
+} from './fixtures/fixtures';
 import TakeNotes from './TakeNotes';
 
 export function testProps(props = {}) {

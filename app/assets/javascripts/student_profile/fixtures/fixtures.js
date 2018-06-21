@@ -1,6 +1,6 @@
 import moment from 'moment';
-import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
-import eventNoteTypesIndex from '../testing/fixtures/eventNoteTypesIndex';
+import serviceTypesIndex from '../../testing/fixtures/serviceTypesIndex';
+import eventNoteTypesIndex from '../../testing/fixtures/eventNoteTypesIndex';
 
 // assuming static time for specs
 export const nowMoment = moment('2016-02-11T10:15:00');
@@ -105,7 +105,8 @@ export const currentEducator = {
   "schoolwide_access": true,
   "grade_level_access": [],
   "restricted_to_sped_students": false,
-  "restricted_to_english_language_learners": false
+  "restricted_to_english_language_learners": false,
+  "labels": []
 };
 
 export const studentProfile = {

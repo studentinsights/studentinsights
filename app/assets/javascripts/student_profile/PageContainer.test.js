@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
-import {nowMoment, studentProfile} from './fixtures';
+import {nowMoment, studentProfile} from './fixtures/fixtures';
 import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
@@ -46,6 +46,7 @@ const helpers = {
       api: helpers.createSpyApi(),
       noteInProgressText: '',
       noteInProgressType: null,
+      districtKey: 'somerville',
       ...props
     };
     const el = document.createElement('div');
@@ -89,7 +90,6 @@ describe('integration tests', () => {
     const interventionLists = helpers.interventionSummaryLists(el);
     expect(interventionLists.length).toEqual(3);
     expect(interventionLists[0].innerHTML).toContain('Reg Ed');
-    expect(interventionLists[0].innerHTML).toContain('Homeroom 102');
     expect(interventionLists[1].innerHTML).toContain('Counseling, outside');
     expect(interventionLists[1].innerHTML).toContain('Attendance Contract');
   });

@@ -56,6 +56,33 @@ RSpec.describe StudentRow do
         expect(student.counselor).to eq 'LASTNAME'
       end
     end
+
+    context 'sped_liaison field' do
+      let(:row) { { sped_liaison: 'MILNER', full_name: 'Martinez, Juan' } }
+
+      it 'correctly sets the sped_liaison field' do
+        expect(student.sped_liaison).to eq 'MILNER'
+      end
+    end
+
+    context 'when PerDistrict attributes are not exported' do
+      before do
+        mock_per_district = instance_double(PerDistrict)
+        expect(mock_per_district).to receive(:import_student_house?).and_return(false)
+        expect(mock_per_district).to receive(:import_student_counselor?).and_return(false)
+        expect(mock_per_district).to receive(:import_student_sped_liaison?).and_return(false)
+        expect(PerDistrict).to receive(:new).and_return(mock_per_district)
+      end
+
+      it 'does not try to read and leaves them as nil' do
+        row = { full_name: 'Martinez, Juan' }
+        student_row = StudentRow.new(row)
+        student = student_row.build
+        expect(student.counselor).to eq nil
+        expect(student.house).to eq nil
+        expect(student.sped_liaison).to eq nil
+      end
+    end
   end
 
 end

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import {studentProfile, feedForTestingNotes} from './fixtures';
+import {studentProfile, feedForTestingNotes} from './fixtures/fixtures';
 import moment from 'moment';
 import NotesList from './NotesList';
 

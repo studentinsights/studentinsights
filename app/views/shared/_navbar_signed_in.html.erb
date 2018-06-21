@@ -33,10 +33,10 @@
 
   <% # Everyone has these %>
   <%= link_to "My notes", educators_notes_feed_path %>
-  <%= link_to "Home", home_path %>
+  <%= link_to 'My students', educators_my_students_path %>
   <span class="navbar-spacer"></span>
   <p class="search-label">Search for student:</p>
   <input class="student-searchbar" />
   <span class="navbar-spacer"></span>
-  <%= link_to "Sign Out", destroy_educator_session_path, method: :delete %>
+  <%= link_to "Sign Out", destroy_educator_session_path, method: :delete, class: 'navbar-sign-out' %>
 </div>

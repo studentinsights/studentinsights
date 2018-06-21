@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {studentProfile} from './fixtures';
+import {studentProfile} from './fixtures/fixtures';
 import NotesDetails from './NotesDetails';
 
 function testRenderWithEl(props) {

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import {latestNoteDateText} from '../../helpers/latestNoteDateText';
-import DesignChangesBanner from '../../components/DesignChangesBanner';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
@@ -78,7 +77,6 @@ class SchoolAbsenceDashboard extends React.Component {
   render() {
     return (
       <div>
-        <DesignChangesBanner />
         {this.renderRangeSelector()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">

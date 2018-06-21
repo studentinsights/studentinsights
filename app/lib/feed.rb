@@ -1,9 +1,14 @@
 class Feed
-  # Shortcut for getting feed for all students an educator is authorized to view
-  def self.for(educator)
+  # What students should be shown in an educator's feed?
+  # This isn't always exactly the same as "who is this educator authorized
+  # to view?"
+  def self.students_for_feed(educator)
+    # Start with all students they are authorized to view
     authorizer = Authorizer.new(educator)
-    authorized_students = authorizer.authorized { Student.active }
-    self.new(authorized_students)
+    authorized_students = authorizer.authorized { Student.active.select(:counselor) }
+
+    # Filter by role (eg, for HS counselors caseload)
+    FeedFilter.new(educator).filter_for_educator(authorized_students)
   end
 
   def initialize(authorized_students)

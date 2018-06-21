@@ -14,9 +14,10 @@
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
-    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn run dev\"",
-    "test": "jest --config jest.json --watch",
-    "test-cli": "yarn run lint-cli && jest --config jest.json",
+    "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
+    "jest": "TZ='America/New_York' jest --config jest.json",
+    "test": "yarn jest --watch",
+    "test-cli": "yarn lint-cli && yarn jest",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
   "dependencies": {
@@ -45,7 +46,6 @@
     "react-modal": "^3.0.4",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
-    "react-swipeable-views": "^0.12.13",
     "react-test-renderer": "15.4.2",
     "react-virtualized": "^9.18.5",
     "uuid": "^3.2.1",
@@ -69,6 +69,7 @@
     "jest": "^21.2.1",
     "react-addons-test-utils": "15.4.2",
     "script-loader": "^0.7.2",
+    "style-loader": "^0.20.3",
     "webpack": "^3.8.1",
     "webpack-manifest-plugin": "^1.3.2",
     "webpack-merge": "^4.1.0"
