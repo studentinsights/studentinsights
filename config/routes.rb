@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
 
   # is service working?
-  get '/api/is_service_working_json/:service_type_id/' => 'service_types#is_service_working_json'
+  get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
   devise_for :educators
   authenticated :educator do
