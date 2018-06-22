@@ -6,9 +6,7 @@ export default function renderIsServiceWorking() {
   const serializedData = $('#serialized-data').data();
 
   ReactDOM.render(
-    <IsServiceWorking
-      serializedData={serializedData}
-    />,
+    <IsServiceWorking />,
     document.getElementById('main')
   );
 }

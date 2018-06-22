@@ -179,8 +179,4 @@ class IsServiceWorking extends React.Component {
 
 }
 
-IsServiceWorking.propTypes = {
-  serializedData: React.PropTypes.object.isRequired,
-};
-
 export default IsServiceWorking;
