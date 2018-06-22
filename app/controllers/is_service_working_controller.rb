@@ -9,8 +9,8 @@ class IsServiceWorkingController < ApplicationController
 
   def is_service_working_json
     service_type_id = params[:service_type_id]
-
     service_type = ServiceType.find(service_type_id)
+
     student_ids = service_type.services.where('date_started > ?', Time.current - 1.year).map(&:student_id)
 
     chart_data = Student.active.where(id: student_ids).map do |student|
