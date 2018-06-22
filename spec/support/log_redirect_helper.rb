@@ -5,11 +5,11 @@ module LogHelper
     attr_reader :file
 
     def log_directory
-      "#{Rails.root}/spec/logs"
+      "#{Rails.root}/log"
     end
 
     def log_path
-      "#{log_directory}/logs.txt"
+      "#{log_directory}/test_log_redirect.log"
     end
 
     def initialize
