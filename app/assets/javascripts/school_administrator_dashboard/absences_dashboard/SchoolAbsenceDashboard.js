@@ -85,7 +85,7 @@ class SchoolAbsenceDashboard extends React.Component {
           <DashButton
             buttonText={"Show Excused Absences"}
             onClick={() => this.setState({showExcused: !this.state.showExcused})}
-            isSelected={false}/>
+            isSelected={this.state.showExcused}/>
           <div className="DashboardChartsColumn">
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
@@ -124,7 +124,9 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderHomeroomAbsenceChart() {
-    const homeroomAverageDailyAttendance = this.state.showExcused ? this.props.homeroomAverageDailyAttendanceUnexcused : this.props.homeroomAverageDailyAttendance;
+    const homeroomAverageDailyAttendance =  this.state.showExcused ?
+                                            this.props.homeroomAverageDailyAttendance :
+                                            this.props.homeroomAverageDailyAttendanceUnexcused;
     const filteredHomeroomAttendance = this.filteredHomeroomAttendance(homeroomAverageDailyAttendance); //remove dates outside of selected range
     const monthlyHomeroomAttendance = this.monthlyHomeroomAttendance(filteredHomeroomAttendance); //Average homeroom attendance by month
     const homerooms = Object.keys(monthlyHomeroomAttendance).sort((a,b) => { //sort homerooms by attendance, low to high
