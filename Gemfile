@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.5.1'
 
 gem 'rails', '~> 5.1.1'
 gem 'pg'
@@ -23,6 +23,7 @@ gem 'net-ldap'
 gem 'nokogiri', '~> 1.8.1'  # Forcing patching version on transitive dependency
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'openssl'
 gem 'platform-api'
 gem 'probability'
 gem 'rollbar'

@@ -173,6 +173,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     oj (3.5.0)
     oj_mimic_json (1.0.1)
+    openssl (2.1.0)
     orm_adapter (0.5.0)
     parallel (1.12.1)
     parser (2.5.1.0)
@@ -344,6 +345,7 @@ DEPENDENCIES
   nokogiri (~> 1.8.1)
   oj
   oj_mimic_json
+  openssl
   pg
   pivotal_git_scripts
   platform-api
@@ -372,7 +374,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.3.0p0
+   ruby 2.5.1p57
 
 BUNDLED WITH
-   1.15.2
+   1.16.2
