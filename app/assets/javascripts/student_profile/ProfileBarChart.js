@@ -70,28 +70,6 @@ export default class ProfileBarChart extends React.Component {
     });
   }
 
-  makePlotbands(monthKeys) {
-    return this.props.phasebands.map(band => {
-      const bandMonthKeyStart = band.momentUTCstart.clone().date(1).format('YYYYMMDD');
-      const monthIndexStart = monthKeys.indexOf(bandMonthKeyStart);
-
-      const monthIndexEnd = (band.momentUTCend.isValid())
-        ? monthKeys.indexOf(band.momentUTCend.clone().date(1).format('YYYYMMDD'))
-        : monthKeys.length - 1;
-
-      return {
-        color: '#e8fce8',
-        opacity: 0.5,
-        from: monthIndexStart,
-        to: monthIndexEnd,
-        label: {
-          text: band.text,
-          align: 'left',
-        }
-      };
-    });
-  }
-
   // Compute the month range that's relevant for the current date and months back we're showing
   // on the chart.  Then map each month onto captions, and bucket the list of events into
   // each month.
@@ -99,21 +77,17 @@ export default class ProfileBarChart extends React.Component {
     const monthKeys = GraphHelpers.monthKeys(this.props.nowMomentUTC, this.props.monthsBack);
     const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
-    const propStyles = this.props.styles;
 
     return (
-      <div id={this.props.id} style={propStyles ? propStyles.container : styles.container}>
+      <div id={this.props.id} style={styles.container}>
         {this.renderHeader()}
         <HighchartsWrapper
-          chart={(propStyles)
-            ? { ...{ type: 'column' }, ...{ height: propStyles.chartHeight } }
-            : { type: 'column' }}
+          chart={{type: 'column'}}
           credits={false}
           xAxis={[
             {
               categories: monthKeys.map(GraphHelpers.monthAxisCaption),
-              plotLines: this.makePlotlines(monthKeys),
-              plotBands: this.makePlotbands(monthKeys)
+              plotLines: this.makePlotlines(monthKeys)
             },
             {
               offset: 35,
@@ -147,17 +121,16 @@ export default class ProfileBarChart extends React.Component {
   renderHeader() {
     const nYearsBack = Math.ceil(this.props.monthsBack / 12);
     const title = this.props.titleText + ', last ' + nYearsBack + ' years';
-    const propStyles = this.props.styles;
 
     return (
       <div style={styles.secHead}>
-        <h4 style={propStyles ? propStyles.title : styles.title}>
+        <h4 style={styles.title}>
           {title}
         </h4>
         <span style={styles.navTop}>
-          {!this.props.hideBackToTop && <a href="#">
+          <a href="#">
             Back to top
-          </a>}
+          </a>
         </span>
       </div>
     );
@@ -172,15 +145,11 @@ ProfileBarChart.propTypes = {
   titleText: PropTypes.string.isRequired,
   nowMomentUTC: PropTypes.instanceOf(moment),
   monthKeyFn: PropTypes.func,
-  phaselines: PropTypes.array,
-  phasebands: PropTypes.array,
-  hideBackToTop: PropTypes.bool,
-  styles: PropTypes.object,
+  phaselines: PropTypes.array
 };
 
 ProfileBarChart.defaultProps = {
   phaselines: [],
-  phasebands: [],
   nowMomentUTC: moment.utc(),
   monthKeyFn(event) {
     // A function that grabs a monthKey from an event that is passed in.  Should return
