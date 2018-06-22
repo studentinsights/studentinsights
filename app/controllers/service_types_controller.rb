@@ -35,8 +35,4 @@ class ServiceTypesController < ApplicationController
     render json: { chart_data: chart_data }
   end
 
-  def is_service_working
-    render 'shared/serialized_data'
-  end
-
 end

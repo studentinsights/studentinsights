@@ -82,40 +82,4 @@ describe ServiceTypesController, :type => :controller do
     end
   end
 
-  describe '#is_service_working' do
-    let!(:pals) { TestPals.create! }
-
-    def make_request
-      request.env['HTTPS'] = 'on'
-      get :is_service_working
-    end
-
-    context 'districtwide educator logged in' do
-      it 'succeeds' do
-        sign_in(pals.uri)
-        make_request
-        expect(response).to be_success
-      end
-    end
-
-    context 'classroom teacher logged in' do
-      it 'does not succeed' do
-        sign_in(pals.shs_bill_nye)
-        make_request
-        expect(response).not_to be_success
-        expect(JSON.parse(response.body)).to eq({
-          "error" => "You don't have the correct authorization."
-        })
-      end
-    end
-
-    context 'educator not logged in' do
-      it 'does not succeed' do
-        make_request
-        expect(response).not_to be_success
-        expect(response).to redirect_to('/educators/sign_in')
-      end
-    end
-  end
-
 end

@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   resources :services, only: [:destroy]
   resources :service_types, only: [:index] do
     collection do
-      get :is_service_working
+      get 'is_service_working' => 'ui#ui'
     end
   end
   resources :event_note_attachments, only: [:destroy]
