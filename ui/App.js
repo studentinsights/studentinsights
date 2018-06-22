@@ -19,6 +19,7 @@ import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassLists
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -68,6 +69,7 @@ class App extends React.Component {
           <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
           <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
           <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
+          <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
           <Route render={() => this.renderNotFound()} />
         </Switch>
       </MountTimer>
@@ -150,6 +152,10 @@ class App extends React.Component {
     const schoolId = routeProps.match.params.school_id;
     this.trackVisit(routeProps, 'TIERING_PAGE');
     return <TieringPage schoolId={schoolId} />;
+  }
+
+  renderIsServiceWorking(routeProps) {
+    return <IsServiceWorking />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

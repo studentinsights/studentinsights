@@ -6,7 +6,6 @@ import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_note
 import renderSectionMain from '../app/assets/javascripts/section/main';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main';
 import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
-import renderIsServiceWorking from '../app/assets/javascripts/service_types/main';
 
 // Placeholder routing (not fully client-side, just on page load).
 // Clicking links still reloads the whole page from the server.
@@ -56,11 +55,6 @@ export default function legacyRouteHandler(el) {
 
   if ($('body').hasClass('educators') && $('body').hasClass('notes_feed')) {
     renderNotesFeedMain(el);
-    return true;
-  }
-
-  if ($('body').hasClass('service_types') && $('body').hasClass('is_service_working')) {
-    renderIsServiceWorking(el);
     return true;
   }
 

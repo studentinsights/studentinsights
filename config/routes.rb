@@ -63,6 +63,9 @@ Rails.application.routes.draw do
   # tiering
   get '/levels/:school_id' => 'ui#ui'
 
+  # experimental "is service working?"
+  get '/is_service_working' => 'ui#ui'
+
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
@@ -81,11 +84,7 @@ Rails.application.routes.draw do
     end
   end
   resources :services, only: [:destroy]
-  resources :service_types, only: [:index] do
-    collection do
-      get 'is_service_working' => 'ui#ui'
-    end
-  end
+  resources :service_types, only: [:index]
   resources :event_note_attachments, only: [:destroy]
   resources :service_uploads, only: [:create, :index, :destroy] do
     collection do
