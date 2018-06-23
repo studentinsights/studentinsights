@@ -22,10 +22,8 @@
   display: flex;
   flex: 1;
   flex-wrap: wrap;
-  vertical-align: top;
+  align-content: flex-start;
   padding-left: 20px;
-  .DashButton {
-  }
 }
 
 .DashboardChart {
