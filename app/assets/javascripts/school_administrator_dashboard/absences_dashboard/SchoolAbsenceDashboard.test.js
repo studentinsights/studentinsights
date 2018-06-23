@@ -55,7 +55,7 @@ describe('SchoolAbsenceDashboard', () => {
     dash.setState({showExcused: true});
     expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([56.3,10]);
     expect(dash.find('DashboardBarChart').last().props().seriesData).toEqual([47,80]);
-  })
+  });
 
   it('filters dates outside the range for the school', () => {
     dash.setState({showExcused: false, displayDates:['2001-01-02', '2001-01-03', '2001-01-04']});

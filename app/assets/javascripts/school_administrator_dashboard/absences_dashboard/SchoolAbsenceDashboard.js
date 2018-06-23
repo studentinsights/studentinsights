@@ -7,7 +7,6 @@ import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
-import DashButton from '../DashButton';
 import Toggle from '../../components/Toggle';
 
 class SchoolAbsenceDashboard extends React.Component {
@@ -151,8 +150,8 @@ class SchoolAbsenceDashboard extends React.Component {
           text={"Showing Excused Absences"}
           onClick={() => this.setState({showExcused: !this.state.showExcused})}
           isSelected={this.state.showExcused}/>
-        </div>
-      )
+      </div>
+    );
   }
 
   renderMonthlyAbsenceChart() {
