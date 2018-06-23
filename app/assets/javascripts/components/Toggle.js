@@ -7,7 +7,7 @@ class Toggle extends React.Component {
   render() {
     const {text, onClick, isSelected} = this.props;
     return (
-      <div className="Toggle" style={{display: 'flex'}}>
+      <div className="Toggle" style={{display: 'flex', marginTop: '15px'}}>
         <a
           style={{
             backgroundColor: isSelected ? 'rgba(49, 119, 201, 0.75)' : '#eee',

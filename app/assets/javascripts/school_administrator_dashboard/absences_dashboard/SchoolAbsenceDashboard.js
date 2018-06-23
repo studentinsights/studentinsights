@@ -82,10 +82,7 @@ class SchoolAbsenceDashboard extends React.Component {
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
             {this.renderStudentAbsenceTable()}
-            <Toggle
-              text={"Showing Excused Absences"}
-              onClick={() => this.setState({showExcused: !this.state.showExcused})}
-              isSelected={this.state.showExcused}/>
+            {this.renderFilters()}
           </div>
           <div className="DashboardChartsColumn">
             {this.renderMonthlyAbsenceChart()}
@@ -94,6 +91,68 @@ class SchoolAbsenceDashboard extends React.Component {
         </div>
       </div>
     );
+  }
+
+  renderRangeSelector() {
+    const {dateRange} = this.props;
+    const today = moment.utc().format("YYYY-MM-DD");
+    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
+    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+    const schoolYearStart = DashboardHelpers.schoolYearStart();
+    return (
+      <div className="DashboardRangeButtons">
+        <DashRangeButtons
+          schoolYearFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
+            selectedRange: 'This School Year'})}
+          ninetyDayFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
+            selectedRange: 'Past 90 Days'})}
+          fortyFiveDayFilter={() => this.setState({
+            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
+            selectedRange: 'Past 45 Days'})}/>
+      </div>
+    );
+  }
+
+  renderStudentAbsenceTable() {
+    const studentAbsenceCounts = this.studentAbsenceCounts();
+    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
+    const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
+    let rows =[];
+    students.forEach((student) => {
+      rows.push({
+        id: student.id,
+        first_name: student.first_name,
+        last_name: student.last_name,
+        last_sst_date_text: latestNoteDateText(300, student.sst_notes),
+        events: studentAbsenceCounts[student.id] || 0,
+        grade: student.grade,
+      });
+    });
+
+    const {selectedRange} = this.state;
+
+    return (
+      <StudentsTable
+        rows={rows}
+        selectedCategory={this.state.selectedHomeroom}
+        incidentType='Absences'
+        incidentSubtitle={selectedRange}
+        resetFn={this.resetStudentList}/>
+    );
+  }
+
+  renderFilters() {
+    return(
+      <div>
+        Filters
+        <Toggle
+          text={"Showing Excused Absences"}
+          onClick={() => this.setState({showExcused: !this.state.showExcused})}
+          isSelected={this.state.showExcused}/>
+        </div>
+      )
   }
 
   renderMonthlyAbsenceChart() {
@@ -151,56 +210,6 @@ class SchoolAbsenceDashboard extends React.Component {
             valueSuffix: '%'}}
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
-    );
-  }
-
-  renderStudentAbsenceTable() {
-    const studentAbsenceCounts = this.studentAbsenceCounts();
-    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
-    const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
-    let rows =[];
-    students.forEach((student) => {
-      rows.push({
-        id: student.id,
-        first_name: student.first_name,
-        last_name: student.last_name,
-        last_sst_date_text: latestNoteDateText(300, student.sst_notes),
-        events: studentAbsenceCounts[student.id] || 0,
-        grade: student.grade,
-      });
-    });
-
-    const {selectedRange} = this.state;
-
-    return (
-      <StudentsTable
-        rows={rows}
-        selectedCategory={this.state.selectedHomeroom}
-        incidentType='Absences'
-        incidentSubtitle={selectedRange}
-        resetFn={this.resetStudentList}/>
-    );
-  }
-
-  renderRangeSelector() {
-    const {dateRange} = this.props;
-    const today = moment.utc().format("YYYY-MM-DD");
-    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
-    const schoolYearStart = DashboardHelpers.schoolYearStart();
-    return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-            selectedRange: 'This School Year'})}
-          ninetyDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-            selectedRange: 'Past 90 Days'})}
-          fortyFiveDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-            selectedRange: 'Past 45 Days'})}/>
-      </div>
     );
   }
 }
