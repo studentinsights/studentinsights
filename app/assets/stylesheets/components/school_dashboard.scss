@@ -19,8 +19,13 @@
 }
 
 .DashboardRosterColumn {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
   vertical-align: top;
   padding-left: 20px;
+  .DashButton {
+  }
 }
 
 .DashboardChart {

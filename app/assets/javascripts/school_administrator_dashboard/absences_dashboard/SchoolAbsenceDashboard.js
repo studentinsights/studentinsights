@@ -80,12 +80,14 @@ class SchoolAbsenceDashboard extends React.Component {
         {this.renderRangeSelector()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
-            {this.renderStudentAbsenceTable()}
+            <div>
+              {this.renderStudentAbsenceTable()}
+            </div>
+            <DashButton
+              buttonText={"Showing Excused Absences"}
+              onClick={() => this.setState({showExcused: !this.state.showExcused})}
+              isSelected={this.state.showExcused}/>
           </div>
-          <DashButton
-            buttonText={"Show Excused Absences"}
-            onClick={() => this.setState({showExcused: !this.state.showExcused})}
-            isSelected={this.state.showExcused}/>
           <div className="DashboardChartsColumn">
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
