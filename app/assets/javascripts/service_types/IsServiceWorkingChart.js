@@ -1,4 +1,4 @@
-import React from 'react';
+fimport React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
@@ -98,7 +98,7 @@ export default class IsServiceWorkingChart extends React.Component {
     const propStyles = this.props.styles;
 
     return (
-      <div id={this.props.id} style={propStyles.container}>
+      <div style={propStyles.container}>
         {this.renderHeader()}
         <HighchartsWrapper
           chart={{type: 'column', height: propStyles.chartHeight}}
