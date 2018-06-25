@@ -23,3 +23,7 @@ export function section(id) {
 export function newClassList() {
   return '/classlists/new';
 }
+
+export function studentPhoto(id) {
+  return `/students/${id}/photo`;
+}
