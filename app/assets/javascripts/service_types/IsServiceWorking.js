@@ -71,7 +71,7 @@ class IsServiceWorking extends React.Component {
         </SectionHeading>
         <p style={{padding: '10px 0 0 10px'}}>
           Every student is different.
-          One student might respond well to a service, while another might respond poorly.
+          One student might respond well to a service, another student might respond differently.
         </p>
         <p style={{padding: '10px 0 10px 10px'}}>
           Use the buttons below to explore how students may have responded to
