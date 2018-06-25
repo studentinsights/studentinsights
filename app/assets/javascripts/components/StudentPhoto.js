@@ -24,7 +24,7 @@ export default class StudentPhoto extends React.Component {
            style={style}
            src={Routes.studentPhoto(student.id)}
            height={height}
-           alt={this.altText}
+           alt={this.altText()}
            onError={this.onError}
         />
     );
