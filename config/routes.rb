@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   # HS tiers
   get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
 
+  # is service working?
+  get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
+
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
@@ -59,6 +62,9 @@ Rails.application.routes.draw do
 
   # tiering
   get '/levels/:school_id' => 'ui#ui'
+
+  # experimental "is service working?"
+  get '/is_service_working' => 'ui#ui'
 
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
