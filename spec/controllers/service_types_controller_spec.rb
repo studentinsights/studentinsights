@@ -39,6 +39,7 @@ describe ServiceTypesController, :type => :controller do
         expect(parsed_response).to eq({"error"=>"You need to sign in before continuing."})
       end
     end
+
   end
 
 end
