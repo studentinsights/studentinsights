@@ -7,13 +7,13 @@ const whitePixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALA
 // Pure UI component for displaying a student photo
 export default class StudentPhoto extends React.Component {
 
-  onError(e) {
-    e.target.src = whitePixel;
-  }
-
   altText() {
     const {student} = this.props;
     return `Student photo for ${student.first_name} ${student.last_name}`;
+  }
+
+  onError(e) {
+    e.target.src = whitePixel;
   }
 
   render() {
