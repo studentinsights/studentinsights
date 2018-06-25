@@ -9,11 +9,16 @@ class IsServiceWorkingController < ApplicationController
 
   def is_service_working_json
     service_type_id = params[:service_type_id]
-    service_type = ServiceType.find(service_type_id)
 
-    student_ids = service_type.services.where('date_started > ?', Time.current - 1.year).map(&:student_id)
+    students = authorized do
+      Student.active.select do |student|
+        student.services.where(service_type_id: service_type_id)
+                        .where('date_started > ?', Time.current - 1.year)
+                        .present?
+      end
+    end
 
-    chart_data = Student.active.where(id: student_ids).map do |student|
+    chart_data = students.map do |student|
       {
         student: student,
         school: student.school.local_id,
