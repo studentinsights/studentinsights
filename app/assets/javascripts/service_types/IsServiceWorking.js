@@ -5,7 +5,7 @@ import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import ProfileBarChart from '../student_profile/ProfileBarChart.js';
+import IsServiceWorkingChart from './IsServiceWorkingChart.js';
 import * as Routes from '../helpers/Routes';
 import moment from 'moment';
 
@@ -16,7 +16,7 @@ const style = {
   studentRow: {
     marginBottom: 30,
   },
-  profileBarChartStyles: {
+  chartStyles: {
     title: {
       fontSize: 20
     },
@@ -164,13 +164,12 @@ class IsServiceWorking extends React.Component {
             {student.first_name} {student.last_name}
           </a>
           <span style={{marginLeft: 5}}>({datum.school} Grade {student.grade})</span>
-          <ProfileBarChart
+          <IsServiceWorkingChart
             events={datum.absences}
             titleText="Absences"
             monthsBack={24}
             phasebands={phasebands}
-            hideBackToTop={true}
-            styles={style.profileBarChartStyles} />
+            styles={style.chartStyles} />
         </div>
       );
     }, this);
