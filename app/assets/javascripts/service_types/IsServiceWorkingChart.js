@@ -155,7 +155,6 @@ export default class IsServiceWorkingChart extends React.Component {
 }
 
 IsServiceWorkingChart.propTypes = {
-  id: PropTypes.string.isRequired, // short string identifier for links to jump to
   events: PropTypes.array.isRequired, // array of JSON event objects.
   monthsBack: PropTypes.number.isRequired, // how many months in the past to display?
   titleText: PropTypes.string.isRequired,

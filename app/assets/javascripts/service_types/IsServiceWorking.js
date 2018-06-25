@@ -8,6 +8,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import IsServiceWorkingChart from './IsServiceWorkingChart.js';
 import * as Routes from '../helpers/Routes';
 import moment from 'moment';
+import {toMomentFromTime} from '../helpers/toMoment';
 
 const style = {
   container: {
@@ -147,10 +148,12 @@ class IsServiceWorking extends React.Component {
 
   renderStudents(json) {
     const chartData = json.chart_data;
+
+    // Sort students by which had service start first
     const sortedData = _.sortBy(chartData, datum => {
-      return (datum.services.length > 0)
-        ? _.map(datum.services, 'date_started').sort()[0]
-        : 0;
+      if (datum.services.length === 0) return 0;
+
+      return datum.services.map(service => toMomentFromTime(service.date_started)).sort()[0];
     });
 
     return sortedData.map((datum) => {
