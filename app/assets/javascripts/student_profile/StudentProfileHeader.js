@@ -5,6 +5,7 @@ import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
 import {hasStudentPhotos} from '../helpers/PerDistrict';
+import StudentPhoto from '../components/StudentPhoto';
 
 /*
 This pure UI component renders top-line information like the student's name, school,
@@ -18,16 +19,11 @@ export default class StudentProfileHeader extends React.Component {
     if (!shouldShowPhoto) return null;
 
     return (
-      <div style={{ width: '15em', display: 'flex', justifyContent: 'flex-end'}}>
-        <img id='student-photo' /* Mostly for testing. */
-             style={{float: 'right', paddingRight: 44}}
-             src={`/students/${student.id}/photo`}
-             height={80}
-             alt={`Student photo for ${student.first_name} ${student.last_name}`}
-             onError={(e) => {
-              /* Renders a 1x1 white pixel. */
-               e.target.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-             }}
+      <div style={{width: '15em', display: 'flex', justifyContent: 'flex-end'}}>
+        <StudentPhoto
+           student={student}
+           style={{float: 'right', paddingRight: 44}}
+           height={90}
         />
       </div>
     );

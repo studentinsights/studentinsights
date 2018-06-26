@@ -197,7 +197,7 @@ exports[`snapshots works for aladdin 1`] = `
     >
       <img
         alt="Student photo for Aladdin Mouse"
-        height={80}
+        height={90}
         id="student-photo"
         onError={[Function]}
         src="/students/104/photo"
@@ -2876,7 +2876,7 @@ exports[`snapshots works for olaf 1`] = `
     >
       <img
         alt="Student photo for Olaf White"
-        height={80}
+        height={90}
         id="student-photo"
         onError={[Function]}
         src="/students/16/photo"
@@ -5527,7 +5527,7 @@ exports[`snapshots works for pluto 1`] = `
     >
       <img
         alt="Student photo for Pluto Poppins"
-        height={80}
+        height={90}
         id="student-photo"
         onError={[Function]}
         src="/students/8/photo"
@@ -7932,7 +7932,7 @@ exports[`snapshots works for pluto 1`] = `
                   March 11, 2018
                 </div>
                 <div>
-                  3 months
+                  4 months
                 </div>
               </div>
               <div>
