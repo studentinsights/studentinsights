@@ -32,7 +32,9 @@ export default class StudentPhoto extends React.Component {
 }
 
 StudentPhoto.propTypes = {
-  student: PropTypes.object.isRequired,
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired
+  }).isRequired,
   height: PropTypes.number.isRequired,
   style: PropTypes.object,
 };
