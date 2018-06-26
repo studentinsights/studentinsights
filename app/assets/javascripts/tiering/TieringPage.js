@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import GenericLoader from '../components/GenericLoader';
@@ -49,7 +50,7 @@ export default class TieringPage extends React.Component {
   }
 }
 TieringPage.propTypes = {
-  schoolId: React.PropTypes.string.isRequired
+  schoolId: PropTypes.string.isRequired
 };
 
 

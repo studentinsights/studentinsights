@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom';
 import moment from 'moment';
 import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
+import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
-import MountTimer from '../app/assets/javascripts/components/MountTimer';
 import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -25,16 +25,6 @@ import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceW
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 class App extends React.Component {
-  // This is mostly for testing, and provides a fn to read the time
-  // in any deeply nested component.
-  // Note that `context` should be avoided in general, and that the API
-  // is changing in upcoming React releases: https://reactjs.org/docs/context.html
-  getChildContext() {
-    return {
-      nowFn() { return moment.utc(); }
-    };
-  }
-
   componentDidMount() {
     measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
   }
@@ -49,30 +39,38 @@ class App extends React.Component {
     MixpanelUtils.track('PAGE_VISIT', { page_key: pageKey });
   }
 
-  // Expects serializedData and navbar, see `ui#ui` on the server
-  // side.
+  // `NowContainer` provides a fn to read the time
+  // in any deeply nested component.
   render() {
     return (
-      <MountTimer>
-        <Switch>
-          <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
-          <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
-          <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
-          <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
-          <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
-          <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
-          <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
-          <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
-          <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-          <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
-          <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
-          <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
-          <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-          <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
-          <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
-          <Route render={() => this.renderNotFound()} />
-        </Switch>
-      </MountTimer>
+      <NowContainer nowFn={() => moment.utc()}>
+        {this.renderRoutes()}
+      </NowContainer>
+    );
+  }
+
+  // Expects serializedData and navbar, see `ui#ui` on the server
+  // side.
+  renderRoutes() {
+    return (
+      <Switch>
+        <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
+        <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
+        <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
+        <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
+        <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+        <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
+        <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
+        <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
+        <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+        <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
+        <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
+        <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
+        <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
+        <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
+        <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
+        <Route render={() => this.renderNotFound()} />
+      </Switch>
     );
   }
 
@@ -166,11 +164,6 @@ class App extends React.Component {
     return null;
   }
 }
-
-App.childContextTypes = {
-  nowFn: PropTypes.func
-};
-
 App.propTypes = {
   currentEducator: PropTypes.shape({
     id: PropTypes.number.isRequired,

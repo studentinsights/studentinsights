@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {toMomentFromTime} from '../helpers/toMoment';
 
+
 // A container for testing that allows passing in a `nowFn`
 // that will be shared with child components through context.
+//
+// Note that `context` should be avoided in general, and that the API
+// is changing in upcoming React releases: https://reactjs.org/docs/context.html
 export default class NowContainer extends React.Component {
   getChildContext() {
     const {nowFn} = this.props;

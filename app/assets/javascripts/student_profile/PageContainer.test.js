@@ -2,10 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import {nowMoment, studentProfile} from './fixtures/fixtures';
+import {mount} from 'enzyme';
+import {withDefaultNowContext, testContext} from '../testing/NowContainer';
 import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
+
+function testProps(props = {}) {
+  return {
+    nowMomentFn: () => { return nowMoment; },
+    serializedData: studentProfile,
+    queryParams: {},
+    history: mockHistory(),
+    actions: helpers.createSpyActions(),
+    api: helpers.createSpyApi(),
+    noteInProgressText: '',
+    noteInProgressType: null,
+    districtKey: 'somerville',
+    ...props
+  };
+}
+
+function mountWithContext(props) {
+  return mount(<PageContainer {...props} />, { context: testContext() });
+}
 
 const helpers = {
   findColumns(el) {
@@ -37,20 +58,9 @@ const helpers = {
   },
 
   renderInto(props) {
-    const mergedProps = {
-      nowMomentFn: () => { return nowMoment; },
-      serializedData: studentProfile,
-      queryParams: {},
-      history: mockHistory(),
-      actions: helpers.createSpyActions(),
-      api: helpers.createSpyApi(),
-      noteInProgressText: '',
-      noteInProgressType: null,
-      districtKey: 'somerville',
-      ...props
-    };
+    const mergedProps = testProps(props);
     const el = document.createElement('div');
-    const instance = ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
+    const instance = ReactDOM.render(withDefaultNowContext(<PageContainer {...mergedProps} />), el); //eslint-disable-line react/no-render-return-value
     return {el, instance};
   },
 
@@ -111,13 +121,14 @@ describe('integration tests', () => {
   });
 
   it('can save notes for SST meetings, mocking the action handlers', () => {
-    const {instance, el} = helpers.renderInto();
+    const props = testProps();
+    const {el} = helpers.renderInto(props);
     helpers.takeNotesAndSave(el, {
       eventNoteTypeText: 'SST Meeting',
       text: 'hello!'
     });
 
-    expect(instance.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+    expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
       eventNoteTypeId: 300,
       text: 'hello!',
       eventNoteAttachments: []
@@ -125,14 +136,15 @@ describe('integration tests', () => {
   });
 
   it('can edit notes for SST meetings, mocking the action handlers', () => {
-    const {instance, el} = helpers.renderInto();
+    const props = testProps();
+    const {el} = helpers.renderInto(props);
 
     helpers.editNoteAndSave(el, {
       eventNoteTypeText: 'SST Meeting',
       text: 'world!'
     });
 
-    expect(instance.props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+    expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
       id: 3,
       eventNoteTypeId: 300,
       text: 'world!'
@@ -140,10 +152,11 @@ describe('integration tests', () => {
   });
 
   it('verifies that the educator name is in the correct format', () => {
-    const {instance, el} = helpers.renderInto();
+    const props = testProps();
+    const {instance, el} = helpers.renderInto(props);
 
     // Simulate that the server call is still pending
-    instance.props.api.saveService.mockReturnValue($.Deferred());
+    props.api.saveService.mockReturnValue($.Deferred());
     instance.onClickSaveService({
       providedByEducatorName: 'badinput'
     });
@@ -172,7 +185,7 @@ describe('integration tests', () => {
   //     dateStartedText: '2/22/16'
   //   });
 
-  //   expect(instance.props.actions.onClickSaveService).toHaveBeenCalledWith({
+  //   expect(props.actions.onClickSaveService).toHaveBeenCalledWith({
   //     serviceTypeId: 503,
   //     providedByEducatorId: 2,
   //     dateStartedText: '2016-02-22',
@@ -181,7 +194,9 @@ describe('integration tests', () => {
   // });
 
   it('#mergedDiscontinueService', () => {
-    const {instance} = helpers.renderInto();
+    const props = testProps();
+    const wrapper = mountWithContext(props);
+    const instance = wrapper.instance();
     const updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
     expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));
     expect(updatedState.requests.discontinueService).toEqual({ 312: 'foo' });

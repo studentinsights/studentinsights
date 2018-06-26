@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
 import {
@@ -520,19 +521,19 @@ export default class ClassListCreatorPage extends React.Component {
   }
 }
 ClassListCreatorPage.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 ClassListCreatorPage.propTypes = {
-  currentEducator: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    admin: React.PropTypes.bool.isRequired,
-    school_id: React.PropTypes.number,
-    labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  currentEducator: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    admin: PropTypes.bool.isRequired,
+    school_id: PropTypes.number,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
-  defaultWorkspaceId: React.PropTypes.string,
-  disableHistory: React.PropTypes.bool,
-  disableSizing: React.PropTypes.bool,
-  autoSaveIntervalMs: React.PropTypes.number
+  defaultWorkspaceId: PropTypes.string,
+  disableHistory: PropTypes.bool,
+  disableSizing: PropTypes.bool,
+  autoSaveIntervalMs: PropTypes.number
 };
 ClassListCreatorPage.defaultProps = {
   autoSaveIntervalMs: 1000
