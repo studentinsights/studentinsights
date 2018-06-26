@@ -5,7 +5,12 @@ import PropTypes from 'prop-types';
 class DashButton extends React.Component {
 
   render() {
-    const {isSelected} = this.props;
+    const {buttonText, buttonSelectedText, onClick, isSelected} = this.props;
+
+    //if the component has alternate text, we use that when the button is selected, otherwise
+    //we always show the required string
+    const variableText = isSelected ? buttonSelectedText : buttonText;
+    const displayText = buttonSelectedText ? variableText : buttonText;
     return (
       <div className="DashButton">
         <a
@@ -16,8 +21,8 @@ class DashButton extends React.Component {
             display: 'flex',
             justifyContent: 'center'
           }}
-          onClick={this.props.onClick}>
-          {this.props.buttonText}
+          onClick={onClick}>
+          {displayText}
         </a>
       </div>
     );
@@ -26,6 +31,7 @@ class DashButton extends React.Component {
 
 DashButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
+  buttonSelectedText: PropTypes.string, //optional text change when selected
   onClick: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired
 };

@@ -17,22 +17,20 @@ class DashRangeButtons extends React.Component {
 
   render() {
     return (
-      <div className="DashRangeButtonWrapper">
-        <div className="DashRangeButtons">
-          Filter:
-          <DashButton
-            onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
-            isSelected={this.state.selectedButton === 'schoolYear'}
-            buttonText='School Year' />
-          <DashButton
-              onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
-              isSelected={this.state.selectedButton === 'ninetyDays'}
-              buttonText='Past 90 Days' />
-          <DashButton
-              onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
-              isSelected={this.state.selectedButton === 'fortyFiveDays'}
-              buttonText='Past 45 Days' />
-        </div>
+      <div className="DashRangeButtons">
+        Filter:
+        <DashButton
+          onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
+          isSelected={this.state.selectedButton === 'schoolYear'}
+          buttonText='School Year' />
+        <DashButton
+            onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
+            isSelected={this.state.selectedButton === 'ninetyDays'}
+            buttonText='Past 90 Days' />
+        <DashButton
+            onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
+            isSelected={this.state.selectedButton === 'fortyFiveDays'}
+            buttonText='Past 45 Days' />
       </div>
     );
   }

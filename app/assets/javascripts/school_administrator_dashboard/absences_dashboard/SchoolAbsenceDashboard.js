@@ -7,7 +7,7 @@ import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
-import Toggle from '../../components/Toggle';
+import DashButton from '../DashButton';
 
 class SchoolAbsenceDashboard extends React.Component {
 
@@ -77,11 +77,13 @@ class SchoolAbsenceDashboard extends React.Component {
   render() {
     return (
       <div>
-        {this.renderRangeSelector()}
+        <div className="DashRangeButtonWrapper">
+          {this.renderRangeSelector()}
+          {this.renderFilters()}
+        </div>
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
             {this.renderStudentAbsenceTable()}
-            {this.renderFilters()}
           </div>
           <div className="DashboardChartsColumn">
             {this.renderMonthlyAbsenceChart()}
@@ -144,10 +146,10 @@ class SchoolAbsenceDashboard extends React.Component {
 
   renderFilters() {
     return(
-      <div>
-        Filters
-        <Toggle
-          text={"Showing Excused Absences"}
+      <div className="ExcusedFilter">
+        <DashButton
+          buttonText={"Showing Unexcused Absences"}
+          buttonSelectedText={"Including Excused Absences"}
           onClick={() => this.setState({showExcused: !this.state.showExcused})}
           isSelected={this.state.showExcused}/>
       </div>
