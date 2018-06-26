@@ -28,7 +28,7 @@ describe('filterExcusedEvents', () => {
   const students = createStudents(moment.utc());
   const events = DashboardHelpers.absenceEvents(students);
   const filteredEvents = DashboardHelpers.filterExcusedEvents(events);
-  expect(events.length).toEqual(10);
+  expect(filteredEvents.length).toEqual(3);
 });
 
 describe('tardyEventsByDay', () => {
@@ -43,8 +43,9 @@ describe('averageDailyAttendance', () => {
   it('returns the average number of events for each day', () => {
     const nowMoment = moment.utc();
     const students = createStudents(nowMoment);
-    const events = DashboardHelpers.absenceEventsByDay(students);
-    const averageDailyAttendance = DashboardHelpers.averageDailyAttendance(events, students.length);
+    const events = DashboardHelpers.absenceEvents(students);
+    const eventsByDay = DashboardHelpers.eventsGroupedByDay(events);
+    const averageDailyAttendance = DashboardHelpers.averageDailyAttendance(eventsByDay, students.length);
     const result = Object.keys(averageDailyAttendance).map(x => averageDailyAttendance[x]);
     expect(result.sort()).toEqual([16.7,33.3,66.7,83.3]);
   });
@@ -54,8 +55,9 @@ describe('filterDates', () => {
   it('removes dates outside the date range', () => {
     const nowMoment = moment.utc();
     const students = createStudents(nowMoment);
-    const events = DashboardHelpers.absenceEventsByDay(students);
-    const averageDailyAttendance = DashboardHelpers.averageDailyAttendance(events, students.length);
+    const events = DashboardHelpers.absenceEvents(students);
+    const eventsByDay = DashboardHelpers.eventsGroupedByDay(events);
+    const averageDailyAttendance = DashboardHelpers.averageDailyAttendance(eventsByDay, students.length);
     const range = Object.keys(averageDailyAttendance);
     const result = DashboardHelpers.filterDates(range, moment.utc().subtract(4, 'months'), moment.utc());
     expect(result.length).toEqual(3);
