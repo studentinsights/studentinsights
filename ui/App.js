@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Switch,
   Route
@@ -20,6 +20,8 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
+import StudentProfilePageContainer from '../app/assets/javascripts/student_profile/PageContainer';
+
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -54,21 +56,29 @@ class App extends React.Component {
   renderRoutes() {
     return (
       <Switch>
-        <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
-        <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
-        <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
-        <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+        <Route exact path="/students/:id" render={this.renderStudentProfile.bind(this)}/>
         <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
-        <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
-        <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+        <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
+        
+        {/* class lists */}
         <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
-        <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-        <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
+
+        {/* admin */}
+        <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
+        <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
+
+        {/* experimental */}
+        <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
+        <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
+        <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+        <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
+        <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
+
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -86,6 +96,18 @@ class App extends React.Component {
   renderMyStudentsPage(routeProps) {
     this.trackVisit(routeProps, 'MY_STUDENTS_PAGE');
     return <MyStudentsPage />;
+  }
+
+  renderStudentProfile(routeProps) {
+    // this.trackVisit(routeProps, 'STUDENT_PROFILE');
+    // return (
+    //   <StudentProfilePageContainer
+    //     districtKey={districtKey}
+    //     nowMomentFn={() => moment.utc()}
+    //     serializedData={serializedData}
+    //     queryParams={parseQueryString(window.location.search)}
+    //     history={window.history} />
+    // );
   }
 
   renderExploreSchoolEquityPage(routeProps) {
