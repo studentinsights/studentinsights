@@ -16,12 +16,19 @@ describe('GroupByHomeroom', () => {
   });
 });
 
-describe('absenceEventsByDay', () => {
-  it('returns a hash with distinct days as keys', () =>{
+describe('absenceEvents', () => {
+  it('returns an array of student absences', () =>{
     const students = createStudents(moment.utc());
-    const events = DashboardHelpers.absenceEventsByDay(students);
-    expect(Object.keys(events).length).toEqual(4);
+    const events = DashboardHelpers.absenceEvents(students);
+    expect(events.length).toEqual(12);
   });
+});
+
+describe('filterExcusedEvents', () => {
+  const students = createStudents(moment.utc());
+  const events = DashboardHelpers.absenceEvents(students);
+  const filteredEvents = DashboardHelpers.filterExcusedEvents(events);
+  expect(events.length).toEqual(10);
 });
 
 describe('tardyEventsByDay', () => {
