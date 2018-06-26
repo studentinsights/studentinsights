@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import {nowMoment, studentProfile} from './fixtures/fixtures';
 import {mount} from 'enzyme';
-import {withDefaultNowContext, testContext} from '../testing/NowContainer';
 import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
@@ -25,7 +24,7 @@ function testProps(props = {}) {
 }
 
 function mountWithContext(props) {
-  return mount(<PageContainer {...props} />, { context: testContext() });
+  return mount(<PageContainer {...props} />);
 }
 
 const helpers = {
@@ -60,7 +59,7 @@ const helpers = {
   renderInto(props) {
     const mergedProps = testProps(props);
     const el = document.createElement('div');
-    const instance = ReactDOM.render(withDefaultNowContext(<PageContainer {...mergedProps} />), el); //eslint-disable-line react/no-render-return-value
+    const instance = ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
     return {el, instance};
   },
 

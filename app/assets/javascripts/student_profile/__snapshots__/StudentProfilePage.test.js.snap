@@ -7043,14 +7043,14 @@ exports[`snapshots works for pluto 1`] = `
                 <li>
                   <span>
                     <span>
-                      Reading intervention
+                      X-Block
                     </span>
                   </span>
                 </li>
                 <li>
                   <span>
                     <span>
-                      X-Block
+                      Reading intervention
                     </span>
                   </span>
                 </li>
@@ -7818,80 +7818,6 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#ffe7d6",
-                "border": "1px solid #eee",
-                "marginBottom": 10,
-                "marginTop": 10,
-                "opacity": 1,
-                "padding": 15,
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "display": "flex",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "flex": 1,
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                    }
-                  }
-                >
-                  Reading intervention
-                </div>
-                <div>
-                  With Districtwide, Rich
-                </div>
-                <div>
-                  Started 
-                  April 20, 2018
-                </div>
-                <div>
-                  2 months
-                </div>
-              </div>
-              <div>
-                <button
-                  className="btn"
-                  onClick={[Function]}
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  style={
-                    Object {
-                      "background": "white",
-                      "border": "1px solid #ccc",
-                      "color": "#666",
-                      "opacity": 0.5,
-                    }
-                  }
-                >
-                  Discontinue
-                </button>
-              </div>
-            </div>
-            <div
-              style={
-                Object {
-                  "paddingTop": 15,
-                  "whiteSpace": "pre-wrap",
-                }
-              }
-            />
-          </div>
-          <div
-            style={
-              Object {
                 "background": null,
                 "border": "1px solid #eee",
                 "marginBottom": 10,
@@ -7932,7 +7858,81 @@ exports[`snapshots works for pluto 1`] = `
                   March 11, 2018
                 </div>
                 <div>
-                  4 months
+                  a day
+                </div>
+              </div>
+              <div>
+                <button
+                  className="btn"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  style={
+                    Object {
+                      "background": "white",
+                      "border": "1px solid #ccc",
+                      "color": "#666",
+                      "opacity": 0.5,
+                    }
+                  }
+                >
+                  Discontinue
+                </button>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "paddingTop": 15,
+                  "whiteSpace": "pre-wrap",
+                }
+              }
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "background": "#ffe7d6",
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "opacity": 1,
+                "padding": 15,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Reading intervention
+                </div>
+                <div>
+                  With Districtwide, Rich
+                </div>
+                <div>
+                  Started 
+                  February 20, 2018
+                </div>
+                <div>
+                  20 days
                 </div>
               </div>
               <div>
@@ -8003,7 +8003,7 @@ exports[`snapshots works for pluto 1`] = `
                   January 14, 2018
                 </div>
                 <div>
-                  5 months
+                  2 months
                 </div>
               </div>
               <div>
@@ -8074,7 +8074,7 @@ exports[`snapshots works for pluto 1`] = `
                   November 24, 2017
                 </div>
                 <div>
-                  7 months
+                  4 months
                 </div>
               </div>
               <div>
@@ -8145,7 +8145,7 @@ exports[`snapshots works for pluto 1`] = `
                   October 14, 2017
                 </div>
                 <div>
-                  8 months
+                  5 months
                 </div>
               </div>
               <div>
