@@ -5,16 +5,21 @@ import DashboardHelpers from '../DashboardHelpers';
 import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 
 class SchoolwideAttendance extends React.Component {
+//To make the absence dashboard more responsive, averages are calculated here and passed to the dashboard
 
   schoolAverageDailyAttendance() {
     return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEventsByDay, this.props.dashboardStudents.length);
   }
 
   //A separate daily average excluding excused or dismissed absences
-  schoolAverageDailyAttendanceUnexcused() {
-    const unexcusedSchoolAbsenceEvents = DashboardHelpers.filterExcusedEvents(this.props.schoolAbsenceEvents);
-    const unexcusedAbsencesByDay = DashboardHelpers.eventsGroupedByDay(unexcusedSchoolAbsenceEvents);
+  schoolAverageDailyAttendanceUnexcused(unexcusedAbsencesByDay) {
     return DashboardHelpers.averageDailyAttendance(unexcusedAbsencesByDay, this.props.dashboardStudents.length);
+  }
+
+  //used in the dashboard to get the total absence events for each student
+  schoolUnexcusedAbsenceEventsByDay() {
+    const unexcusedSchoolAbsenceEvents = DashboardHelpers.filterExcusedEvents(this.props.schoolAbsenceEvents);
+    return DashboardHelpers.eventsGroupedByDay(unexcusedSchoolAbsenceEvents);
   }
 
   homeroomAverageDailyAttendance(homeroomEventsByDay) {
@@ -74,13 +79,15 @@ class SchoolwideAttendance extends React.Component {
 
   render() {
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
+    const schoolUnexcusedAbsenceEventsByDay = this.schoolUnexcusedAbsenceEventsByDay();
     return (
         <SchoolAbsenceDashboard
           schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
-          schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused()}
+          schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
           homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
           homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
           schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
+          schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
           dashboardStudents = {this.props.dashboardStudents}
           dateRange = {this.schoolYearDateRange()}/>);
   }
