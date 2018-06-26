@@ -27,7 +27,10 @@ NowContainer.propTypes = {
 };
 
 export const TEST_TIME_STRING = '2018-03-13T11:03:06.123Z';
-export const TEST_TIME_MOMENT = toMomentFromTime(TEST_TIME_STRING);
+
+export function testTimeMoment() {
+  return toMomentFromTime(TEST_TIME_STRING);
+}
 
 // For use with Enzyme's shallow renderer
 export function testContext(options = {}) {
