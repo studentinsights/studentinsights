@@ -23,7 +23,7 @@ export default class StudentProfileHeader extends React.Component {
         <StudentPhoto
            student={student}
            style={{float: 'right', paddingRight: 44}}
-           height={80}
+           height={90}
         />
       </div>
     );
