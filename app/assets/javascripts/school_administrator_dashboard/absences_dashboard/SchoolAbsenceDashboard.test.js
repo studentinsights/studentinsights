@@ -24,6 +24,7 @@ describe('SchoolAbsenceDashboard', () => {
                        homeroomAverageDailyAttendanceUnexcused={homeroom}
                        dashboardStudents={students}
                        schoolAbsenceEventsByDay={events}
+                       schoolUnexcusedAbsenceEventsByDay={events}
                        dateRange={dateRange}/>);
 
   it('renders two bar charts', () => {
