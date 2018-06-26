@@ -1,3 +1,4 @@
+import renderStudentMain from '../app/assets/javascripts/student_profile/main';
 import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main';
 import homeroomMain from '../app/assets/javascripts/homeroom_table/main';
 import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
@@ -13,6 +14,11 @@ import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_adm
 // Returns true if it could handle a route, false if not (for newer code
 // using a client-side router).
 export default function legacyRouteHandler(el) {
+  if ($('body').hasClass('students') && $('body').hasClass('show')) {
+    renderStudentMain(el);
+    return true;
+  }
+
   if ($('body').hasClass('schools') && $('body').hasClass('show')) {
     renderSchoolOverviewMain(el);
     return true;
