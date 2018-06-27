@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Circle from '../components/Circle';
 import Button from '../components/Button';
 
@@ -109,16 +110,16 @@ export default class HorizontalStepper extends React.Component {
   }
 }
 HorizontalStepper.propTypes = {
-  steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-  stepIndex: React.PropTypes.number.isRequired,
-  onStepChanged: React.PropTypes.func.isRequired,
-  isEditable: React.PropTypes.bool.isRequired,
-  isRevisable: React.PropTypes.bool.isRequired,
-  isDirty: React.PropTypes.bool.isRequired,
-  renderFn: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object,
-  contentStyle: React.PropTypes.object
+  steps: PropTypes.arrayOf(PropTypes.string).isRequired,
+  availableSteps: PropTypes.arrayOf(PropTypes.number).isRequired,
+  stepIndex: PropTypes.number.isRequired,
+  onStepChanged: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  isRevisable: PropTypes.bool.isRequired,
+  isDirty: PropTypes.bool.isRequired,
+  renderFn: PropTypes.func.isRequired,
+  style: PropTypes.object,
+  contentStyle: PropTypes.object
 };
 
 const styles = {

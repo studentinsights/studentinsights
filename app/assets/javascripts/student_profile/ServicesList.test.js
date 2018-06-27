@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import {studentProfile} from './fixtures/fixtures';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import ServicesList from './ServicesList';
 
 const helpers = {
@@ -42,7 +43,7 @@ const helpers = {
       onClickDiscontinueService: jest.fn(),
       ...props
     };
-    ReactDOM.render(<ServicesList {...mergedProps} />, el);
+    ReactDOM.render(withDefaultNowContext(<ServicesList {...mergedProps} />), el);
   }
 };
 

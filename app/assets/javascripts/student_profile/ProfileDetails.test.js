@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import {mount} from 'enzyme';
-import {TEST_TIME_MOMENT} from '../testing/NowContainer';
+import {testTimeMoment} from '../testing/NowContainer';
 import ProfileDetails from './ProfileDetails';
 
 
 function testProps(props = {}) {
   return {
-    nowMoment: TEST_TIME_MOMENT,
+    nowMoment: testTimeMoment(),
     student: {
       first_name: 'Test',
       id: 42,
