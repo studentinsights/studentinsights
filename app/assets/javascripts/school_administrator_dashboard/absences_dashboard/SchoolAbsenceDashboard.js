@@ -149,9 +149,12 @@ class SchoolAbsenceDashboard extends React.Component {
     return(
       <div className="ExcusedFilter">
         <DashButton
-          buttonText={"Showing Unexcused Absences"}
-          buttonSelectedText={"Including Excused Absences"}
-          onClick={() => this.setState({showExcused: !this.state.showExcused})}
+            buttonText={"Unexcused Absences Only"}
+            onClick={() => this.setState({showExcused: false})}
+            isSelected={!this.state.showExcused}/>
+        <DashButton
+          buttonText={"All Absences"}
+          onClick={() => this.setState({showExcused: true})}
           isSelected={this.state.showExcused}/>
       </div>
     );
