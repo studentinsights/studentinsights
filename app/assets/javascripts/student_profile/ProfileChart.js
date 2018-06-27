@@ -44,7 +44,7 @@ export default class ProfileChart extends React.Component {
 
     const range = [now.clone().subtract(n, 'months'), now];
     const startDates = schoolYearStartDates(range);
-    const create_label = function(current, grade){
+    const create_label = function(grade){
       // Assumes that the student progressed grades in the usual fashion;
       // wasn't held back or skipped forward.
       // John Breslin says these events are very rare.
@@ -55,17 +55,13 @@ export default class ProfileChart extends React.Component {
       // No label for "negative" grades
       if (grade < 0) return '';
 
-      return _.template("<b>Grade <%=grade%><br>started</b>")({
-        year: current.year(),
-        grade: grade
-      });
+      return `<b>Grade ${grade}<br>started</b>`;
     };
 
     return _.object(
       startDates.map(date => date.valueOf()),
       startDates.map((date, i) => {
         return create_label(
-          date,
           (current_grade - startDates.length) + (i + 1) // (current_grade - n/12) to current_grade inclusive
         );
       })

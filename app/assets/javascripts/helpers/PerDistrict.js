@@ -1,5 +1,10 @@
 import * as Filters from './Filters';
 
+export function hasStudentPhotos(districtKey) {
+  if (districtKey === 'somerville') return true;
+  if (districtKey === 'new_bedford') return false;
+  return false;
+}
 
 const ORDERED_DISABILITY_VALUES_MAP = {
   'new_bedford': [

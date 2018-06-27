@@ -1,15 +1,22 @@
-// This module expects window.mixpanel to be set, and window.share.Env to be set.
+import mixpanel from 'mixpanel-browser';
+import {readEnv} from '../envForJs';
+
+
 // To use it, call `registerUser` first, then `track`.
 export default {
   registerUser(currentEducator) {
-    const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
-
-    if (!enabled) return;
-
     try {
-      window.mixpanel.identify(currentEducator.id);
-      window.mixpanel.register({
-        'deployment_key': window.shared.Env.deploymentKey,
+      if (!isEnabled()) return;
+      mixpanel.init(readEnv().mixpanelToken);
+      mixpanel.set_config({
+        track_pageview: true,
+        secure_cookie: true,
+        cross_subdomain_cookie: false // https://help.mixpanel.com/hc/en-us/articles/115004507486-Track-Across-Hosted-Subdomains
+      });
+      mixpanel.identify(currentEducator.id);
+      mixpanel.register({
+        'deployment_key': readEnv().deploymentKey,
+        'district_key': readEnv().districtKey,
         'educator_id': currentEducator.id,
         'educator_is_admin': currentEducator.admin,
         'educator_school_id': currentEducator.school_id
@@ -21,15 +28,17 @@ export default {
   },
 
   track(key, attrs) {
-    const enabled = (window.mixpanel && window.shared.Env.shouldReportAnalytics);
-
-    if (!enabled) return;
-
     try {
-      return window.mixpanel.track(key, attrs);
+      if (!isEnabled()) return;
+      return mixpanel.track(key, attrs);
     }
     catch (err) {
       console.error(err); // eslint-disable-line no-console
     }
   }
 };
+
+function isEnabled() {
+  const {shouldReportAnalytics, mixpanelToken} = readEnv();
+  return (shouldReportAnalytics && mixpanelToken);
+}

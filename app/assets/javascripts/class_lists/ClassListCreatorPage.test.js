@@ -4,7 +4,7 @@ import {MemoryRouter} from 'react-router-dom';
 import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
-import {TEST_TIME_MOMENT, testContext, withDefaultNowContext} from '../testing/NowContainer';
+import {testTimeMoment, testContext, withDefaultNowContext} from '../testing/NowContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import class_list_json from './fixtures/class_list_json';
@@ -210,7 +210,7 @@ it('#onFetchedClassList loads principal revisions', () => {
           "room:0":"Kevin",
           "room:1":"Alex",
         },
-        "clientNowMs":TEST_TIME_MOMENT.unix()
+        "clientNowMs":testTimeMoment().unix()
       }
     }
   });

@@ -208,7 +208,7 @@ export default class StudentLevelsTable extends React.Component {
   }
 }
 StudentLevelsTable.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 StudentLevelsTable.propTypes = {
   sortedStudentsWithTiering: PropTypes.array.isRequired

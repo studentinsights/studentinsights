@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
-import moment from 'moment';
 import {studentProfile} from './fixtures/fixtures';
+import {testTimeMoment} from '../testing/NowContainer';
 import NoteCard from './NoteCard';
 
 
 const helpers = {
   renderInto(el, props) {
     const mergedProps = {
-      noteMoment: moment(),
+      noteMoment: testTimeMoment(),
       educatorId: 1,
       badge: <span>
         {''}

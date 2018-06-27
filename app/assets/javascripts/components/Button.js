@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Hover from './Hover';
 
 
@@ -31,13 +32,13 @@ export default function Button(props) {
   );
 }
 const propTypes = Button.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  isDisabled: React.PropTypes.bool,
-  style: React.PropTypes.object,
-  hoverStyle: React.PropTypes.object,
-  disabledStyle: React.PropTypes.object,
-  containerStyle: React.PropTypes.object
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool,
+  style: PropTypes.object,
+  hoverStyle: PropTypes.object,
+  disabledStyle: PropTypes.object,
+  containerStyle: PropTypes.object
 };
 
 const styles = {

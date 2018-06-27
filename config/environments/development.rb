@@ -4,14 +4,8 @@ Rails.application.configure do
   YAML.load(File.open(env_file)).each do |key, value|
     ENV[key.to_s] = value
   end if File.exists?(env_file)
-
-  ENV['DISTRICT_KEY'] = 'somerville'
-  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
-  ENV['USE_MOCK_LDAP'] = 'true'
-  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
-  ENV['ENABLE_CLASS_LISTS'] = 'true'
-  ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
-  ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
+  
+  Env.set_for_development_and_test!
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
 
   config.cache_classes = false

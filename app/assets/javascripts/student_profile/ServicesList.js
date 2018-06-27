@@ -112,14 +112,6 @@ export default class ServicesList extends React.Component {
 
   renderDateStarted(service) {
     const momentStarted = moment.utc(service.date_started);
-    // const startedToday = moment().utc().subtract(1, 'day');
-
-    // For services added today, return "Started today" instead of the date:
-    // if (momentStarted > startedToday ) return (
-    //   <div>
-    //     Started today
-    //   </div>
-    // );
 
     // For services started earlier than today, show the date started:
     return (
@@ -146,26 +138,27 @@ export default class ServicesList extends React.Component {
     const wasDiscontinued = this.wasDiscontinued(service);
     const momentStarted = moment.utc(service.date_started);
 
+    // For discontinued services, display the length of time between start and discontinue dates
     if (wasDiscontinued) {
-      // For discontinued services, display the length of time between start and discontinue dates
       return (
         <div>
           {moment.utc(service.discontinued_recorded_at).from(moment.utc(service.date_started), true)}
         </div>
       );
-    } else {
-      const startedToday = moment().utc().subtract(1, 'day') < momentStarted;
-
-      // Don't show how long service has been going if it was added today
-      if (startedToday) return null;
-
-      // Show how long the service has been going
-      return (
-        <div>
-          {moment.utc(service.date_started).fromNow(true)}
-        </div>
-      );
     }
+
+    // Don't show how long service has been going if it was added today
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
+    const startedToday = nowMoment.subtract(1, 'day') < momentStarted;
+    if (startedToday) return null;
+
+    // Show how long the service has been going
+    return (
+      <div>
+        {moment.utc(service.date_started).from(nowMoment, true)}
+      </div>
+    );
   }
 
   renderEducatorName(educatorName) {
@@ -258,6 +251,9 @@ export default class ServicesList extends React.Component {
     );
   }
 }
+ServicesList.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 ServicesList.propTypes = {
   servicesFeed: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,

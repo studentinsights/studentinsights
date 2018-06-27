@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 /*
@@ -216,22 +217,22 @@ export default class TakeNotes extends React.Component {
   }
 }
 TakeNotes.propTypes = {
-  nowMoment: React.PropTypes.object.isRequired,
-  eventNoteTypesIndex: React.PropTypes.object.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onCancel: React.PropTypes.func.isRequired,
-  currentEducator: React.PropTypes.object.isRequired,
-  requestState: React.PropTypes.string, // or null
+  nowMoment: PropTypes.object.isRequired,
+  eventNoteTypesIndex: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  currentEducator: PropTypes.object.isRequired,
+  requestState: PropTypes.string, // or null
 
-  noteInProgressText: React.PropTypes.string.isRequired,
-  noteInProgressType: React.PropTypes.number,
-  noteInProgressAttachmentUrls: React.PropTypes.arrayOf(
-    React.PropTypes.string
+  noteInProgressText: PropTypes.string.isRequired,
+  noteInProgressType: PropTypes.number,
+  noteInProgressAttachmentUrls: PropTypes.arrayOf(
+    PropTypes.string
   ).isRequired,
 
-  onClickNoteType: React.PropTypes.func.isRequired,
-  onChangeNoteInProgressText: React.PropTypes.func.isRequired,
-  onChangeAttachmentUrl: React.PropTypes.func.isRequired,
+  onClickNoteType: PropTypes.func.isRequired,
+  onChangeNoteInProgressText: PropTypes.func.isRequired,
+  onChangeAttachmentUrl: PropTypes.func.isRequired,
 };
 
 

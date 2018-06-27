@@ -1,0 +1,40 @@
+require 'spec_helper'
+
+RSpec.describe EnvForJs do
+  # Preserve ENV after test
+  let!(:test_env) do
+    {
+      'DISTRICT_KEY' => 'demo',
+      'DEPLOYMENT_KEY' => 'production',
+      'DEMO_SITE' => 'false',
+      'SHOULD_REPORT_ANALYTICS' => 'true',
+      'SHOULD_REPORT_ERRORS' => 'true',
+      'MIXPANEL_TOKEN' => 'abc',
+      'ROLLBAR_JS_ACCESS_TOKEN' => 'xyz'
+    }
+  end
+  before do
+    @env = {}
+    test_env.keys.each do |key|
+      @env[key] = ENV[key]
+      ENV[key] = test_env[key]
+    end
+  end
+  after do
+    test_env.keys.each {|key| ENV[key] = @env[key] }
+  end
+
+  it 'works' do
+    expect(EnvForJs.new.as_json).to eq({
+      railsEnvironment: "test",
+      deploymentKey: "production",
+      districtKey: "demo",
+      isDemoSite: false,
+      mixpanelToken: "abc",
+      rollbarJsAccessToken: "xyz",
+      sessionTimeoutInSeconds: 21600,
+      shouldReportAnalytics: true,
+      shouldReportErrors: true,
+    })
+  end
+end
