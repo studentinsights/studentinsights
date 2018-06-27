@@ -37,7 +37,7 @@ SecureHeaders::Configuration.default do |config|
     child_src: %w('none'),
     frame_ancestors: %w('none'),
     media_src: %w('none'),
-    object_src: %w('none'),
+    object_src: %w('self' https:), # for PDF download (eg, profile packet PDF)
     worker_src: %w('none'),
     plugin_types: nil
   }
