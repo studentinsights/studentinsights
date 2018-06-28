@@ -14,8 +14,8 @@ class ParseableCsvString
 
   def from_string(raw_file_contents)
     encoded_string = encode_as_utf8(raw_file_contents)
-    string_without_quotes = convert_quotes(encoded_string)
-    strip_inline_newlines(string_without_quotes)
+    string_without_slash_quotes = convert_slash_quote_to_double_quote(encoded_string)
+    strip_inline_newlines(string_without_slash_quotes)
   end
 
   private
@@ -65,30 +65,32 @@ class ParseableCsvString
     }[invalid_encoding]
   end
 
-  # Replace \" within fields to just ", to satisfy the strict Ruby CSV parser
-  def convert_quotes(string)
-    @log.puts '#convert_quotes...'
+  # Replace `\"` within fields to `""`, to satisfy the strict Ruby CSV parser,
+  # and do not get confused and match the `\\"` sequence.
+  def convert_slash_quote_to_double_quote(string)
+    @log.puts '#convert_slash_quote_to_double_quote...'
 
     quotes_converted_count = 0
-    string_without_quotes = string.gsub("\\\"") do |match|
+    string_without_slash_quotes = string.gsub(/([^\\])\\\"/) do |match|
       quotes_converted_count = quotes_converted_count + 1
-       '""'
+      "#{Regexp.last_match.captures.first}\"\""
     end
 
     @log.puts "  stripped #{quotes_converted_count} quotes."
-    string_without_quotes
+    string_without_slash_quotes
   end
 
-  # Find newlines within quotes fields (\\\r\n) and replace them with spaces, since
+  # Find newlines within quotes fields `\CRLF` and replace them with spaces, since
   # the Ruby CSV class can't understand that they're within the field and interpret them as a
-  # broken line that hasn't close the quote.
+  # broken line that hasn't closed the quote.
+  # Don't get confused by escape characters before.
   def strip_inline_newlines(string)
     @log.puts '#strip_inline_newlines...'
 
     newlines_stripped_count = 0
-    string_without_inline_newlines = string.gsub(/\\\r\n/) do |match|
+    string_without_inline_newlines = string.gsub(/([^\\])\\\r\n/) do |match|
       newlines_stripped_count = newlines_stripped_count + 1
-      " "
+      "#{Regexp.last_match.captures.first} "
     end
 
     @log.puts "  stripped #{newlines_stripped_count} newlines."
