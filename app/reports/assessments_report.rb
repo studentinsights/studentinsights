@@ -10,8 +10,8 @@ class AssessmentsReport < Struct.new :log
     [
       'Assessments:',
       '',
-      "#{'Family'.ljust(10)}| #{'Subject'.ljust(15)}| Count (Active Students) | Count (All Students)",
-      "#{'---'.ljust(10)}| #{'---'.ljust(15)}| #{'---'.ljust(24)}| #{'---'.ljust(24)} ",
+      "#{'Family'.ljust(10)}| #{'Subject'.ljust(15)} | Count (All Students)",
+      "#{'---'.ljust(10)}| #{'---'.ljust(15)}| #{'---'.ljust(24)} ",
     ]
   end
 
@@ -24,7 +24,6 @@ class AssessmentsReport < Struct.new :log
     [
       family_column(assessment),
       subject_column(assessment),
-      active_students_column(assessment),
       all_students_column(assessment)
     ].join
   end
@@ -35,14 +34,6 @@ class AssessmentsReport < Struct.new :log
 
   def subject_column(assessment)
     "#{assessment.subject.to_s.ljust(15)}| "
-  end
-
-  def active_students_count(assessment)
-    assessment.student_assessments.count
-  end
-
-  def active_students_column(assessment)
-    "#{active_students_count(assessment).to_s.ljust(24)}| "
   end
 
   def all_students_column(assessment)
