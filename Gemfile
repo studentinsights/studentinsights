@@ -8,7 +8,7 @@ gem 'puma'
 
 gem 'administrate', '~> 0.10.0'
 gem 'aws-sdk', '~> 2'
-gem 'delayed_job_active_record'
+gem 'delayed_job_active_record', '~> 4.1.3'
 gem 'devise', '~> 4.4.0'
 gem 'friendly_id', '~> 5.1.0'
 gem 'get_process_mem'
