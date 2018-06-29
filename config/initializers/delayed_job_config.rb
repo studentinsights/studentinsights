@@ -11,9 +11,6 @@ Delayed::Worker.max_run_time = 2.hours
 Delayed::Worker.max_attempts = 2
 Delayed::Worker.destroy_failed_jobs = false
 
-# This raises the default to a minute instead of querying every 5 seconds.
-Delayed::Worker.sleep_delay = 60 # seconds
-
 # Some failure cases we've seen are running out of memory (SIGKILL) or a dyno restart from a config
 # change, when Heroku sends a SIGTERM and then SIGKILL.  In that case, we want want the job to be retried
 # one more time and then not retried anymore if it fails the second time.
