@@ -40,7 +40,10 @@ class StarReadingImporter
   end
 
   def data_transformer
-    StarReadingCsvTransformer.new
+    # Star CSV files use ClassCase headers
+    StreamingCsvTransformer.new(@log, {
+      csv_options: { header_converters: nil }
+    })
   end
 
   def filter
@@ -52,8 +55,8 @@ class StarReadingImporter
   end
 
   def import_row(row)
-    date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
-    student = Student.find_by_local_id(row[:local_id])
+    date_taken = Date.strptime(row['AssessmentDate'].split(' ')[0], "%m/%d/%Y")
+    student = Student.find_by_local_id(row['StudentLocalID'])
 
     return if student.nil?
 
@@ -64,10 +67,9 @@ class StarReadingImporter
     }).first_or_create!
 
     star_assessment.update_attributes({
-      percentile_rank: row[:percentile_rank],
-      instructional_reading_level: row[:instructional_reading_level],
-      grade_equivalent: row[:grade_equivalent]
+      percentile_rank: row['PercentileRank'],
+      instructional_reading_level: row['IRL'],
+      grade_equivalent: row['GradeEquivalent']
     })
   end
-
 end

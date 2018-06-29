@@ -8,7 +8,8 @@ class StreamingCsvTransformer
 
   def initialize(log, options = {})
     @log = log
-    @headers = options.key?(:headers) ? options[:headers] : true
+    @headers = options.fetch(:headers, true)
+    @csv_options = options.fetch(:csv_options, {})
     @total_rows_count = nil
     @processed_rows_count = nil
   end
@@ -35,12 +36,13 @@ class StreamingCsvTransformer
     @total_rows_count = 0
     @processed_rows_count = 0
 
-    CSV.new(@csv_string, {
+    csv_options = {
       headers: @headers,
       header_converters: :symbol,
       encoding: 'binary:UTF-8',
       converters: lambda { |h| nil_converter(h) }
-    }).each.with_index do |row, index|
+    }.merge(@csv_options)
+    CSV.new(@csv_string, csv_options).each.with_index do |row, index|
       @total_rows_count = @total_rows_count + 1
       cleaner = CsvRowCleaner.new(row)
       next if cleaner.dirty_data?
