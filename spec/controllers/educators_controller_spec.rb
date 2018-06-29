@@ -195,7 +195,7 @@ describe EducatorsController, :type => :controller do
         make_request
       end
       it 'succeeds' do
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
       it 'resets the session clock' do
         # TODO: Get Devise test helpers like `educator_session`
