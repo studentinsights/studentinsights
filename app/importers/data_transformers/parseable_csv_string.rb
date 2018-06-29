@@ -71,9 +71,9 @@ class ParseableCsvString
     @log.puts '#convert_slash_quote_to_double_quote...'
 
     quotes_converted_count = 0
-    string_without_slash_quotes = string.gsub(/[^\\]\\"/) do |match|
+    string_without_slash_quotes = string.gsub(/([^\\])\\\"/) do |match|
       quotes_converted_count = quotes_converted_count + 1
-      '""'
+      "#{Regexp.last_match.captures.first}\"\""
     end
 
     @log.puts "  stripped #{quotes_converted_count} quotes."
@@ -88,9 +88,9 @@ class ParseableCsvString
     @log.puts '#strip_inline_newlines...'
 
     newlines_stripped_count = 0
-    string_without_inline_newlines = string.gsub("\\r\n") do |match|
+    string_without_inline_newlines = string.gsub(/([^\\])\\\r\n/) do |match|
       newlines_stripped_count = newlines_stripped_count + 1
-      ' '
+      "#{Regexp.last_match.captures.first} "
     end
 
     @log.puts "  stripped #{newlines_stripped_count} newlines."
