@@ -14,7 +14,6 @@ class X2AssessmentImporter
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    log("data.size: #{data.size}")
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
       log("processed #{index} rows.") if index % 10000 == 0
