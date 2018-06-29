@@ -21,8 +21,9 @@ class StarMathImporter
 
       data = data_transformer.transform(data_string)
 
-      data.each.each_with_index do |row, index|
+      data.each_with_index do |row, index|
         import_row(row) if filter.include?(row)
+        @log.puts("processed #{index} rows.") if index % 1000 == 0
       end
     end
   end
@@ -57,8 +58,10 @@ class StarMathImporter
   def import_row(row)
     date_taken = Date.strptime(row['AssessmentDate'].split(' ')[0], "%m/%d/%Y")
     student = Student.find_by_local_id(row['StudentLocalID'])
-
-    return if student.nil?
+    if student.nil?
+      log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
+      return
+    end
 
     star_assessment = StudentAssessment.where({
       student_id: student.id,
@@ -66,7 +69,7 @@ class StarMathImporter
       assessment: star_mathematics_assessment
     }).first_or_create!
 
-    star_assessment.update_attributes({
+    star_assessment.save!({
       percentile_rank: row['PercentileRank'],
       grade_equivalent: row['GradeEquivalent']
     })

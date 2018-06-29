@@ -16,13 +16,17 @@ class AssessmentsReport < Struct.new :log
   end
 
   def report
-    headers << Assessment.all.sort_by(&:family).map { |assessment| row(assessment) }
+    sorted_assessments = Assessment.all.includes(:student_assessments).sort_by(&:family)
+    headers << sorted_assessments.map { |assessment| row(assessment) }
   end
 
   def row(assessment)
     [
-      family_column(assessment), subject_column(assessment),
-      active_students_column(assessment), all_students_column(assessment) ].join
+      family_column(assessment),
+      subject_column(assessment),
+      active_students_column(assessment),
+      all_students_column(assessment)
+    ].join
   end
 
   def family_column(assessment)
@@ -34,9 +38,7 @@ class AssessmentsReport < Struct.new :log
   end
 
   def active_students_count(assessment)
-    Student.active.inject(0) do |sum, student|
-      sum + student.student_assessments.where(assessment: assessment).count
-    end
+    assessment.student_assessments.count
   end
 
   def active_students_column(assessment)
