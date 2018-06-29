@@ -14,10 +14,10 @@ class X2AssessmentImporter
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    @log.puts("data.size: #{data.size}")
+    log("data.size: #{data.size}")
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      @log.puts("processed #{index} rows.") if index % 10000 == 0
+      log("processed #{index} rows.") if index % 10000 == 0
     end
   end
 
@@ -30,7 +30,7 @@ class X2AssessmentImporter
   end
 
   def data_transformer
-    CsvTransformer.new(@log)
+    StreamingCsvTransformer.new(@log)
   end
 
   def filter
@@ -59,4 +59,8 @@ class X2AssessmentImporter
     end
   end
 
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "X2AssessmentImporter: #{text}"
+  end
 end
