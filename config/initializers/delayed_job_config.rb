@@ -2,7 +2,7 @@
 # can run before being killed - it actually describes how long to wait until taking over a job
 # that has been locked.  So in effect, this means "how long does a worker have to release until
 # the system takes that job back and retries it."
-Delayed::Worker.max_run_time = 6.hours
+Delayed::Worker.max_run_time = 2.hours
 
 # For the import job, we want it to run as one big job since the steps are sequential and dependent
 # on running in a particular order.  The job overall is idempotent, but dependending on where it fails,
@@ -10,6 +10,9 @@ Delayed::Worker.max_run_time = 6.hours
 # others are still stale).  We tolerate that, and on failure re-run the entire job.
 Delayed::Worker.max_attempts = 2
 Delayed::Worker.destroy_failed_jobs = false
+
+# This raises the default to a minute instead of querying every 5 seconds.
+Delayed::Worker.sleep_delay = 60 # seconds
 
 # Some failure cases we've seen are running out of memory (SIGKILL) or a dyno restart from a config
 # change, when Heroku sends a SIGTERM and then SIGKILL.  In that case, we want want the job to be retried
