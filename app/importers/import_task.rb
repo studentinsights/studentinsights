@@ -33,19 +33,13 @@ class ImportTask
       run_update_tasks
       @report.print_final_counts_report
       log('Done.')
-    rescue SignalException => e
-      log("Encountered a SignalException!: #{e}")
-
-      if (@options.attempt == 0)
-        log('Putting a new job into the queue...')
-        Delayed::Job.enqueue ImportJob.new(
-          options: @options.merge({ attempt: @options.attempt + 1 })
-        )
-      else
-        log('Already re-tried this once, not going to retry again...')
-      end
-
-      log('Bye!')
+    rescue SignalException => err
+      log("ImportTask caught a SignalException: #{err}")
+      log('Re-raising the SignalException...')
+      raise err
+    rescue => err
+      log("ImportTask aborted because of an error: #{err}")
+      Rollbar.error('ImportTask aborted because of an error', err)
     end
   end
 
