@@ -41,32 +41,36 @@ RSpec.describe ParseableCsvString do
     end
 
     it 'warns and strips unknown invalid characters' do
-      test_string = "\"hi\",\N,\"eating s\xF2mething\"".force_encoding('ASCII-8BIT')
+      test_string = "\"hi\",\"eating s\xF2mething\"".force_encoding('ASCII-8BIT')
       log, parseable_string = parseable_string_from(test_string)
 
       expect(parseable_string.encoding.name).to eq 'UTF-8'
       expect(log.output).to include ('failed to convert 1 unexpected invalid character encodings for ["\xF2"]')
-      expect(parseable_string).to eq "\"hi\",\N,\"eating smething\""
+      expect(parseable_string).to eq '"hi","eating smething"'
       expect { parse(parseable_string) }.not_to raise_error
     end
   end
 
   it 'converts slash quote (`\"`) to double quote (`""`)' do
-    string = "\"hi there \\\"friend\\\" person\",\N,\"bye\""
+    string = '"hi there \"friend\" person","bye"'
     log, parseable_string = parseable_string_from(string)
 
     expect(log.output).to include('stripped 2 quotes')
-    expect(parseable_string).to eq "\"hi there \"\"friend\"\" person\",\N,\"bye\""
+    expect(parseable_string).to eq '"hi there ""friend"" person","bye"'
     expect { parse(parseable_string) }.not_to raise_error
   end
 
   it 'does not get confused by `\\"` sequence and mistakenly convert slash quote' do
-    string = "\"hi there friend\\\\\",\N,\"bye\""
+    string = '"hi there friend\\","bye"'
     log, parseable_string = parseable_string_from(string)
+
+    puts string
+    puts log.output
+    puts parseable_string
 
     expect(log.output).to include('stripped 0 newline')
     expect(log.output).to include('stripped 0 quotes')
-    expect(parseable_string).to eq "\"hi there friend\\\\\",\N,\"bye\""
+    expect(parseable_string).to eq '"hi there friend\","bye"'
     expect { parse(parseable_string) }.not_to raise_error
   end
 
@@ -77,6 +81,19 @@ RSpec.describe ParseableCsvString do
     expect(log.output).to include('stripped 1 newline')
     expect(log.output).to include('stripped 0 quotes')
     expect(parseable_string).to eq "\"123\",\"456\",\"1\",\"0\",\"0\",\N,\"0\",\"mom sick \\\\\",\"2015-03-01\",\"SCHOOL\""
+    expect { parse(parseable_string) }.not_to raise_error
+  end
+
+  it 'works on New Bedford test case' do
+    string = '"312","321","something","2014-03-02","07:23:00","Classroom","saying: \"no.\"\"no way.\"\"no thanks.\"\"do not want.\"","654"'
+    log, parseable_string = parseable_string_from(string)
+
+    puts string
+    puts log.output
+    puts parseable_string
+    # expect(log.output).to include('stripped 1 newline')
+    # expect(log.output).to include('stripped 0 quotes')
+    # expect(parseable_string).to eq "\"123\",\"456\",\"1\",\"0\",\"0\",\N,\"0\",\"mom sick \\\\\",\"2015-03-01\",\"SCHOOL\""
     expect { parse(parseable_string) }.not_to raise_error
   end
 
