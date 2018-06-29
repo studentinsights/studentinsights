@@ -12,19 +12,19 @@ FactoryBot.define do
 
     factory :homeroom_with_student do
       after(:create) do |homeroom|
-        homeroom.students << FactoryBot.create(:student, :with_risk_level, :registered_last_year)
+        homeroom.students << FactoryBot.create(:student, :with_risk_level, :registered_last_year, homeroom: homeroom)
       end
     end
 
     factory :homeroom_with_second_grader do
       after(:create) do |homeroom|
-        homeroom.students << FactoryBot.create(:second_grade_student, :with_risk_level, :registered_last_year)
+        homeroom.students << FactoryBot.create(:second_grade_student, :with_risk_level, :registered_last_year, homeroom: homeroom)
       end
     end
 
     factory :homeroom_with_pre_k_student do
       after(:create) do |homeroom|
-        homeroom.students << FactoryBot.create(:pre_k_student, :with_risk_level, :registered_last_year)
+        homeroom.students << FactoryBot.create(:pre_k_student, :with_risk_level, :registered_last_year, homeroom: homeroom)
       end
     end
 
