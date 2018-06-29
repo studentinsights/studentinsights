@@ -69,7 +69,7 @@ class StarMathImporter
       assessment: star_mathematics_assessment
     }).first_or_create!
 
-    star_assessment.save!({
+    star_assessment.update!({
       percentile_rank: row['PercentileRank'],
       grade_equivalent: row['GradeEquivalent']
     })

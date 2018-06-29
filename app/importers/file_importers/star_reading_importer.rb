@@ -69,7 +69,7 @@ class StarReadingImporter
       assessment: star_reading_assessment
     }).first_or_create!
 
-    star_assessment.save!({
+    star_assessment.update!({
       percentile_rank: row['PercentileRank'],
       instructional_reading_level: row['IRL'],
       grade_equivalent: row['GradeEquivalent']
