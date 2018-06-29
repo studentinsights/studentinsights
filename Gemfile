@@ -6,7 +6,7 @@ gem 'rails', '~> 5.1.1'
 gem 'pg'
 gem 'puma'
 
-gem 'administrate', '~> 0.8.1'
+gem 'administrate', '~> 0.10.0'
 gem 'aws-sdk', '~> 2'
 gem 'delayed_job_active_record'
 gem 'devise', '~> 4.4.0'
