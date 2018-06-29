@@ -70,10 +70,13 @@ class ParseableCsvString
   def convert_slash_quote_to_double_quote(string)
     @log.puts '#convert_slash_quote_to_double_quote...'
 
+    # This uses a "negative lookbehind" in the regex to prevent
+    # overmatching: https://www.regular-expressions.info/lookaround.html
+    # Escaping is confusing: https://stackoverflow.com/questions/1542214/weird-backslash-substitution-in-ruby
     quotes_converted_count = 0
-    string_without_slash_quotes = string.gsub(/([^\\])\\\"/) do |match|
+    string_without_slash_quotes = string.gsub(/(?<!\\)\\"/) do
       quotes_converted_count = quotes_converted_count + 1
-      "#{Regexp.last_match.captures.first}\"\""
+      '""'
     end
 
     @log.puts "  stripped #{quotes_converted_count} quotes."
@@ -88,9 +91,9 @@ class ParseableCsvString
     @log.puts '#strip_inline_newlines...'
 
     newlines_stripped_count = 0
-    string_without_inline_newlines = string.gsub(/([^\\])\\\r\n/) do |match|
+    string_without_inline_newlines = string.gsub(/(?<!\\)\\\r\n/) do
       newlines_stripped_count = newlines_stripped_count + 1
-      "#{Regexp.last_match.captures.first} "
+      ' '
     end
 
     @log.puts "  stripped #{newlines_stripped_count} newlines."

@@ -19,14 +19,14 @@ RSpec.describe ParseableCsvString do
 
   describe 'encoding' do
     it 'translates encoding' do
-      test_string = '"hi",\N,"bye"'.force_encoding('ASCII-8BIT')
+      test_string = %q{"hi",\N,"bye"}.force_encoding('ASCII-8BIT')
       log, parseable_string = parseable_string_from(test_string)
 
       expect(parseable_string.encoding.name).to eq 'UTF-8'
       expect(log.output).to include('stripped 0 quotes')
       expect(log.output).to include('stripped 0 newlines')
       expect(log.output).not_to include ('invalid character')
-      expect(parseable_string).to eq '"hi",\N,"bye"'
+      expect(parseable_string).to eq %q{"hi",\N,"bye"}
       expect { parse(parseable_string) }.not_to raise_error
     end
 
@@ -52,21 +52,21 @@ RSpec.describe ParseableCsvString do
   end
 
   it 'converts slash quote (`\"`) to double quote (`""`)' do
-    string = "\"hi there \\\"friend\\\" person\",\N,\"bye\""
+    string = %q{"hi there \"friend\" person",\N,"bye"}
     log, parseable_string = parseable_string_from(string)
 
     expect(log.output).to include('stripped 2 quotes')
-    expect(parseable_string).to eq "\"hi there \"\"friend\"\" person\",\N,\"bye\""
+    expect(parseable_string).to eq %q{"hi there ""friend"" person",\N,"bye"}
     expect { parse(parseable_string) }.not_to raise_error
   end
 
   it 'does not get confused by `\\"` sequence and mistakenly convert slash quote' do
-    string = "\"hi there friend\\\\\",\N,\"bye\""
+    string = %q{"hi there friend\\\\",\N,"bye"}
     log, parseable_string = parseable_string_from(string)
 
     expect(log.output).to include('stripped 0 newline')
     expect(log.output).to include('stripped 0 quotes')
-    expect(parseable_string).to eq "\"hi there friend\\\\\",\N,\"bye\""
+    expect(parseable_string).to eq %q{"hi there friend\\\\",\N,"bye"}
     expect { parse(parseable_string) }.not_to raise_error
   end
 
@@ -80,8 +80,28 @@ RSpec.describe ParseableCsvString do
     expect { parse(parseable_string) }.not_to raise_error
   end
 
+  it 'works on the problematic combination' do
+    string = %q{"he was saying: \"no.\"\"no way\" to me\\\\"}
+    log, parseable_string = parseable_string_from(string)
+
+    expect(log.output).to include('stripped 0 newline')
+    expect(log.output).to include('stripped 4 quotes')
+    expect(parseable_string).to eq %q{"he was saying: ""no.""""no way"" to me\\\\"}
+    expect { parse(parseable_string) }.not_to raise_error
+  end
+
+  it 'works on New Bedford test case' do
+    string = %q{"312","321","something","2014-03-02","07:23:00","Classroom","saying: \"no.\"\"no way.\"\"no thanks.\"\"do not want.\"","654"}
+    log, parseable_string = parseable_string_from(string)
+
+    expect(log.output).to include('stripped 0 newline')
+    expect(log.output).to include('stripped 8 quotes')
+    expect { parse(parseable_string) }.not_to raise_error
+  end
+
   it 'converts inline newlines to spaces' do
-    log, parseable_string = parseable_string_from("\"hi there\\\r\n person\",\N,\"bye\"")
+    string = "\"hi there\\\r\n person\",\N,\"bye\""
+    log, parseable_string = parseable_string_from(string)
 
     expect(log.output).to include('stripped 1 newline')
     expect(log.output).to include('stripped 0 quotes')
