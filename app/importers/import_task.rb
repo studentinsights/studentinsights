@@ -11,6 +11,9 @@ class ImportTask
     # options["only_recent_attendance"]
     @only_recent_attendance = @options.fetch("only_recent_attendance", false)
 
+    # to skip updating any indexes after (eg, when tuning a particular job)
+    @skip_index_updates = @options.fetch('skip_index_updates', false)
+
     @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
 
@@ -159,6 +162,11 @@ class ImportTask
   ## RUN TASKS THAT CACHE DATA ##
 
   def run_update_tasks
+    if @skip_index_updates
+      log('Skipping index updates...')
+      return
+    end
+
     begin
       Student.update_risk_levels!
       Student.update_recent_student_assessments

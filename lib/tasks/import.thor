@@ -16,6 +16,10 @@ class Import
       type: :boolean,
       default: false,
       desc: "Only import attendance rows from the past 90 days for faster attendance import"
+    class_option :skip_index_updates,
+      type: :boolean,
+      default: false,
+      desc: "Skip updating indexes after the import task is completed (not recommended except for when profiling)"
     class_option :background,
       type: :boolean,
       default: true,
