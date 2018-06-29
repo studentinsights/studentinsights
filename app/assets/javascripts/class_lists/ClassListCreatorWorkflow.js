@@ -334,6 +334,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
     if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
 
+    const studentIds = students.map(student => student.id);
     return (
       <div key="export" style={styles.stepContent}>
         <ExportList
@@ -343,8 +344,8 @@ export default class ClassListCreatorWorkflow extends React.Component {
           gradeLevelNextYear={gradeLevelNextYear}
           students={students} 
           fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
-          teacherStudentIdsByRoom={studentIdsByRoom}
-          principalStudentIdsByRoom={principalStudentIdsByRoom}
+          teacherStudentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, studentIds)}
+          principalStudentIdsByRoom={principalStudentIdsByRoom ? resolveDriftForStudents(principalStudentIdsByRoom, studentIds) : null}
           educators={educators}
           principalTeacherNamesByRoom={principalTeacherNamesByRoom}
           onPrincipalTeacherNamesByRoomChanged={isRevisable ? onPrincipalTeacherNamesByRoomChanged : null}
