@@ -3,6 +3,9 @@ class X2AssessmentImporter
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
+    @ignore_old = options.fetch(:ignore_old, false)
+
+    @student_ids_map = nil # set lazily
   end
 
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
@@ -43,18 +46,40 @@ class X2AssessmentImporter
     #   :assessment_scale_score, :assessment_performance_level, :assessment_growth,
     #   :assessment_name, :assessment_subject, :assessment_test
 
+    return if (@ignore_old && is_old?(row))
     return unless row[:assessment_test].match(WHITELIST)
 
     row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
     row[:assessment_test] = "ACCESS" if row[:assessment_test] == "WIDA-ACCESS"
+    student_id = lookup_student_id(row[:local_id])
 
     case row[:assessment_test]
     when 'MCAS'
-      McasRow.build(row).save!
+      McasRow.build(row, student_id).save!
     when 'ACCESS'
-      AccessRow.build(row).save!
+      AccessRow.build(row, student_id).save!
     when 'DIBELS'
-      DibelsRow.build(row).save!
+      DibelsRow.build(row, student_id).save!
+    end
+  end
+
+  def is_old?(row)
+    row[:assessment_date] > Time.current - 365.days
+  end
+
+  def lookup_student_id(local_id)
+    reset_student_ids_map if @student_ids_map.nil?
+    if @student_ids_map.has_key?(local_id)
+      raise "Could not find student with local_id: #{local_id}"
+    end
+    @student_ids_map[local_id]
+  end
+
+  # Build map all at once, as a performance optimization
+  def reset_student_ids_map
+    @student_ids_map = {}
+    Student.pluck(:id, :local_id).each do |id, local_id|
+      @student_ids_map[local_id] = id
     end
   end
 

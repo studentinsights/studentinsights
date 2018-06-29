@@ -1,4 +1,4 @@
-class McasRow < Struct.new :row
+class McasRow < Struct.new :row, :student_id
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
@@ -15,7 +15,7 @@ class McasRow < Struct.new :row
     return NullRow.new unless subject.in?(VALID_MCAS_SUBJECTS)
 
     student_assessment = StudentAssessment.find_or_initialize_by(
-      student: student,
+      student_id: student_id,
       assessment: assessment,
       date_taken: row[:assessment_date]
     )
@@ -30,10 +30,6 @@ class McasRow < Struct.new :row
   end
 
   private
-
-  def student
-    Student.find_by_local_id!(row[:local_id])
-  end
 
   def scale_score
     (row[:assessment_scale_score]).to_i

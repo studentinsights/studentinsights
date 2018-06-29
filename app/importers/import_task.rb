@@ -8,8 +8,10 @@ class ImportTask
     # options["source"] describes which external data sources to import from
     @source = @options.fetch("source", ["x2", "star"])
 
-    # options["only_recent_attendance"]
-    @only_recent_attendance = @options.fetch("only_recent_attendance", false)
+    # These options control whether older data is ignored.  Different importers
+    # respond differently to these options (some do not respect them).
+    @only_recent_attendance = @options.fetch('only_recent_attendance', false)
+    @ignore_older = @options.fetch('ignore_older', false)
 
     # to skip updating any indexes after (eg, when tuning a particular job)
     @skip_index_updates = @options.fetch('skip_index_updates', false)
