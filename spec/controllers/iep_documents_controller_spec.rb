@@ -38,7 +38,7 @@ RSpec.describe IepDocumentsController, type: :controller do
 
       it 'renders a pdf' do
         make_request(subject.id)
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 

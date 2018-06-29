@@ -60,13 +60,13 @@ describe EducatorsController, :type => :controller do
 
     it 'works for Uri as an example' do
       response = get_my_students(pals.uri)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*Student.all.map(&:id))
     end
 
     it 'works for Harry as an example, showing he is authorized for 8th graders' do
       response = get_my_students(pals.shs_harry_housemaster)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.west_eighth_ryan.id,
         pals.shs_freshman_mari.id,
@@ -79,7 +79,7 @@ describe EducatorsController, :type => :controller do
       allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return(nil)
 
       response = get_my_students(pals.shs_harry_housemaster)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
         pals.shs_freshman_amir.id
@@ -219,7 +219,7 @@ describe EducatorsController, :type => :controller do
       it 'is able to access the notes feed page' do
         sign_in(educator)
         make_request
-        expect(response).to be_success
+        expect(response).to be_successful
         body = JSON.parse!(response.body)
         expect(body).to have_key("educators_index")
         expect(body).to have_key("event_note_types_index")
