@@ -241,9 +241,11 @@ RSpec.describe Educator do
 
       it 'saves the correct JSON' do
         educator.save_student_searchbar_json
-        expect(educator.student_searchbar_json).to eq(
-          "[{\"label\":\"Betsy Ramirez - Big River High - 3\",\"id\":#{betsy.id}},{\"label\":\"Bettina Abbas - Big River High - 3\",\"id\":#{bettina.id}}]"
-        )
+        json = JSON.parse(educator.student_searchbar_json).as_json
+        expect(json).to contain_exactly(*[
+          { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" },
+          { "id" => bettina.id, "label" => "Bettina Abbas - Big River High - 3" }
+        ])
       end
     end
     context 'educator has permissions for no students' do

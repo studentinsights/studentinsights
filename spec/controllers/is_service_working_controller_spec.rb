@@ -16,7 +16,7 @@ describe IsServiceWorkingController, :type => :controller do
       it 'succeeds and sends down data as JSON' do
         sign_in(pals.uri)
         make_request(502)
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(JSON.parse(response.body)).to eq({'chart_data' => []})
       end
     end
@@ -25,7 +25,7 @@ describe IsServiceWorkingController, :type => :controller do
       it 'does not succeed' do
         sign_in(pals.shs_bill_nye)
         make_request(502)
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(JSON.parse(response.body)).to eq({
           'error' => 'unauthorized'
         })
@@ -35,7 +35,7 @@ describe IsServiceWorkingController, :type => :controller do
     context 'educator not logged in' do
       it 'does not succeed' do
         make_request(502)
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(JSON.parse(response.body)).to eq({
           'error' => 'You need to sign in before continuing.'
         })
