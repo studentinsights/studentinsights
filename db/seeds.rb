@@ -116,7 +116,7 @@ end
 
 puts 'Updating indexes...'
 Student.update_risk_levels!
-Student.update_recent_student_assessments
+Student.update_recent_student_assessments!
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!(Time.now)
 
 puts "Total number of homerooms: #{Homeroom.count}."

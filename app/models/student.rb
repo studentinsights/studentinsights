@@ -184,23 +184,67 @@ class Student < ActiveRecord::Base
     latest_result_by_family_and_subject("STAR", "Reading") || MissingStudentAssessment.new
   end
 
-  def update_recent_student_assessments
-    update_attributes({
-      most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,
-      most_recent_mcas_ela_growth: latest_mcas_ela.growth_percentile,
-      most_recent_mcas_math_performance: latest_mcas_mathematics.performance_level,
-      most_recent_mcas_ela_performance: latest_mcas_ela.performance_level,
-      most_recent_mcas_math_scaled: latest_mcas_mathematics.scale_score,
-      most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
-      most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
-      most_recent_star_math_percentile: latest_star_mathematics.percentile_rank
-    })
-  end
+  # This is optimized to run across all students at once, after an import job
+  def self.update_recent_student_assessments!
+    # These are the assessments that are indexed
+    assessments = {
+      mcas_math: Assessment.find_by(family: 'MCAS', subject: 'Mathematics').id,
+      mcas_math_next_gen: Assessment.find_by(family: 'Next Gen MCAS', subject: 'Mathematics').id,
+      mcas_ela: Assessment.find_by(family: 'MCAS', subject: 'ELA').id,
+      mcas_ela_next_gen: Assessment.find_by(family: 'Next Gen MCAS', subject: 'ELA').id,
+      star_reading: Assessment.find_by(family: 'STAR', subject: 'Reading').id,
+      star_math: Assessment.find_by(family: 'STAR', subject: 'Mathematics').id
+    }
+    assessment_ids = assessments.values
+    raise "Did not find expected Assessment records" unless assessments.keys.size == assessment_ids.compact.size
 
-  def self.update_recent_student_assessments
-    find_each do |student|
-      student.update_recent_student_assessments
+    # Batch query for all records across all students.
+    # Ordering matters here so we can `find` through the array to get the most recent.
+    student_assessment_tuples = StudentAssessment
+      .where(assessment_id: assessment_ids)
+      .order(date_taken: :desc)
+      .pluck(*[
+        :student_id,
+        :assessment_id,
+        :growth_percentile,
+        :performance_level,
+        :scale_score,
+        :percentile_rank,
+        :date_taken
+      ]) # the order of these fields matters
+
+    # Group by student, so we can do a single update for each `Student` record.
+    tuples_by_student_id = student_assessment_tuples.group_by {|tuple| tuple[0] }
+    students = Student.where(id: tuples_by_student_id.keys)
+    tuples_by_student_id.each do |student_id, tuples|
+      # Find latest scores for the relevant assessments
+      mcas_math_tuple = tuples.find {|tuple| assessments.values_at(:mcas_math, :mcas_math_next_gen).include?(tuple[1]) }
+      mcas_ela_tuple = tuples.find {|tuple| assessments.values_at(:mcas_ela, :mcas_ela_next_gen).include?(tuple[1]) }
+      star_reading_tuple = tuples.find {|tuple| assessments.values_at(:star_reading).include?(tuple[1]) }
+      star_math_tuple = tuples.find {|tuple| assessments.values_at(:star_math).include?(tuple[1]) }
+
+      # Update the record in memory
+      student = students.find {|s| s.id == student_id }
+      student.assign_attributes({
+        most_recent_mcas_math_growth: mcas_math_tuple.try(:[], 2),
+        most_recent_mcas_math_performance: mcas_math_tuple.try(:[], 3),
+        most_recent_mcas_math_scaled: mcas_math_tuple.try(:[], 4),
+        most_recent_mcas_ela_growth: mcas_ela_tuple.try(:[], 2),
+        most_recent_mcas_ela_performance: mcas_ela_tuple.try(:[], 3),
+        most_recent_mcas_ela_scaled: mcas_ela_tuple.try(:[], 4),
+        most_recent_star_reading_percentile: star_reading_tuple.try(:[], 5),
+        most_recent_star_math_percentile: star_math_tuple.try(:[], 5)
+      })
     end
+
+    # If anything changed, save
+    touched_students = []
+    students.each do |student|
+      next unless student.changed?
+      student.save!
+      touched_students << student
+    end
+    touched_students
   end
 
   def self.with_mcas_math

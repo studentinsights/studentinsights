@@ -11,7 +11,7 @@ RSpec.describe StudentsSpreadsheet do
       # a single-file test run), so we only test for the output shape
       3.times { FakeStudent.new(school, homeroom) }
       Student.update_risk_levels!
-      Student.update_recent_student_assessments
+      Student.update_recent_student_assessments!
     end
 
     describe '#csv_string' do

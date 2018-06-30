@@ -174,8 +174,8 @@ class ImportTask
       log('Calling Student.update_risk_levels!...')
       Student.update_risk_levels!
 
-      log('Calling Student.update_recent_student_assessments...')
-      Student.update_recent_student_assessments
+      log('Calling Student.update_recent_student_assessments!...')
+      Student.update_recent_student_assessments!
 
       log('Homeroom.destroy_empty_homerooms...')
       Homeroom.destroy_empty_homerooms

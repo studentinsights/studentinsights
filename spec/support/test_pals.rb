@@ -389,6 +389,6 @@ class TestPals
   # computes some indexes after importing.  So we do the same here.
   def reindex!
     Student.update_risk_levels!
-    Student.update_recent_student_assessments
+    Student.update_recent_student_assessments!
   end
 end
