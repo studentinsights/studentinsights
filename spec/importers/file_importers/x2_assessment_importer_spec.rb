@@ -40,7 +40,7 @@ RSpec.describe X2AssessmentImporter do
         importer.import
 
         expect(log.output).to include('skipped_old_rows_count: 6')
-        expect(log.output).to include('successful_rows_count: 1')
+        expect(log.output).to include('created_rows_count: 1')
         expect(StudentAssessment.count).to eq(1)
       end
     end

@@ -19,7 +19,8 @@ class X2AssessmentImporter
     @skipped_old_rows_count = 0
     @skipped_because_of_test_type = 0
     @invalid_rows_count = 0
-    @successful_rows_count = 0
+    @updated_rows_count = 0
+    @created_rows_count = 0
     @encountered_test_names_count_map = {}
     streaming_csv.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
@@ -29,9 +30,10 @@ class X2AssessmentImporter
     log('Done loop.')
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_because_of_test_type: #{@skipped_because_of_test_type}")
-    log("@invalid_rows_count: #{@invalid_rows_count}")
-    log("@successful_rows_count: #{@successful_rows_count}")
     log("@encountered_test_names_count_map: #{@encountered_test_names_count_map.as_json}")
+    log("@created_rows_count: #{@created_rows_count}")
+    log("@updated_rows_count: #{@updated_rows_count}")
+    log("@invalid_rows_count: #{@invalid_rows_count}")
   end
 
   def download_csv
@@ -90,7 +92,7 @@ class X2AssessmentImporter
       return
     end
 
-    # Try to build a student_assessment record in memory (unsaved)
+    # Try to build a student_assessment record in memory (without saving)
     student_id = lookup_student_id(row[:local_id])
     maybe_student_assessment = row_class.new(row, student_id, assessments_array).build
     if maybe_student_assessment.nil?
@@ -98,9 +100,19 @@ class X2AssessmentImporter
       return
     end
 
-    # Actually save it
+    # Check if anything changed
+    if !maybe_student_assessment.changed?
+      @unchanged_rows_count = @unchanged_rows_count + 1
+      return
+    end
+
+    # Save, tracking if it's an update or create
+    if maybe_student_assessment.persisted?
+      @updated_rows_count = @updated_rows_count + 1
+    else
+      @created_rows_count = @created_rows_count + 1
+    end
     maybe_student_assessment.save!
-    @successful_rows_count = @successful_rows_count + 1
   end
 
   def is_old?(row)

@@ -13,7 +13,7 @@ class McasRow < Struct.new :row, :student_id, :assessments_array
     )
 
     student_assessment.assign_attributes(
-      scale_score: scale_score,
+      scale_score: row[:assessment_scale_score], # may be nil if "absent"
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]
     )
@@ -37,15 +37,13 @@ class McasRow < Struct.new :row, :student_id, :assessments_array
     end
   end
 
+  # Next generation MCAS isn't tagged differently in the export, but the name has the year
+  # and the score is on a different scale.
   def family
-    if scale_score.present? && scale_score > 399
+    if row[:assessment_scale_score].present? && row[:assessment_scale_score].to_i > 399
       'Next Gen MCAS'
     else
       'MCAS'
     end
-  end
-
-  def scale_score
-    (row[:assessment_scale_score]).to_i
   end
 end
