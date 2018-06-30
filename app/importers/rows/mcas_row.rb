@@ -1,22 +1,15 @@
-class McasRow < Struct.new :row, :student_id
+class McasRow < Struct.new :row, :student_id, :assessment_finder
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
 
-  class NullRow
-    def save!; end
-  end
-
-  def self.build(row, student_id)
-    new(row, student_id).build
-  end
-
   def build
-    return NullRow.new unless subject.in?(VALID_MCAS_SUBJECTS)
+    assessment_id = assessment_finder.find_or_create_assessment_id(family: family, subject: subject)
+    return nil unless subject.in?(VALID_MCAS_SUBJECTS)
 
     student_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student_id,
-      assessment: assessment,
+      assessment_id: assessment_id,
       date_taken: row[:assessment_date]
     )
 
@@ -30,11 +23,6 @@ class McasRow < Struct.new :row, :student_id
   end
 
   private
-
-  def scale_score
-    (row[:assessment_scale_score]).to_i
-  end
-
   def subject
     if "English Language Arts".in?(row[:assessment_name])
       'ELA'
@@ -51,8 +39,7 @@ class McasRow < Struct.new :row, :student_id
     end
   end
 
-  def assessment
-    Assessment.find_or_create_by!(subject: subject, family: family)
+  def scale_score
+    (row[:assessment_scale_score]).to_i
   end
-
 end

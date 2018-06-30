@@ -1,11 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe McasRow do
+  def create_assessment_finder
+    X2AssessmentImporter.new(options: {
+      log: LogHelper::FakeLog.new,
+      school_scope: nil
+    })
+  end
 
   context 'with no Assessment records in the database' do
-    before { Assessment.destroy_all }
+    before { Assessment.seed_somerville_assessments }
     let(:student) { FactoryBot.create(:student) }
-    after { Assessment.seed_somerville_assessments }
 
     context 'invalid subject (i.e. not used in Student Insights)' do
       let(:row) {
@@ -17,9 +22,9 @@ RSpec.describe McasRow do
           assessment_date: Date.today
         }
       }
-      before { McasRow.build(row, student.id).save! }
 
-      it 'does not blow up, does not create a student assessment record' do
+      it 'does not create a student assessment record and returns nil' do
+        expect(McasRow.new(row, student.id, create_assessment_finder).build).to eq nil
         expect(StudentAssessment.count).to eq 0
       end
     end
@@ -37,7 +42,7 @@ RSpec.describe McasRow do
 
       context 'when the Assessment family already exists' do
         let(:assessment) { Assessment.where(family: 'MCAS', subject: 'Mathematics').first }
-        before { McasRow.build(row, student.id).save! }
+        before { McasRow.new(row, student.id, create_assessment_finder).build.save! }
 
         it 'creates a student assessment record' do
           expect(StudentAssessment.count).to eq 1
@@ -49,7 +54,7 @@ RSpec.describe McasRow do
       end
 
       context 'when the Assessment family does not yet exist' do
-        before { McasRow.build(row, student.id).save! }
+        before { McasRow.new(row, student.id, create_assessment_finder).build.save! }
 
         it 'creates a student assessment record' do
           expect(StudentAssessment.count).to eq 1
@@ -73,7 +78,7 @@ RSpec.describe McasRow do
           assessment_date: Date.today
         }
       }
-      before { McasRow.build(row, student.id).save! }
+      before { McasRow.new(row, student.id, create_assessment_finder).build.save! }
 
       it 'creates a student assessment record' do
         expect(StudentAssessment.count).to eq 1
@@ -97,7 +102,7 @@ RSpec.describe McasRow do
         }
       }
 
-      before { McasRow.build(row, student.id).save! }
+      before { McasRow.new(row, student.id, create_assessment_finder).build.save! }
 
       let(:student_assessment) { StudentAssessment.last }
 

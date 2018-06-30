@@ -1,14 +1,12 @@
-class DibelsRow < Struct.new :row, :student_id
+class DibelsRow < Struct.new :row, :student_id, :assessment_finder
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
-  def self.build(row, student_id)
-    new(row, student_id).build
-  end
-
   def build
+    assessment_id = assessment_finder.find_or_create_assessment_id(family: 'DIBELS')
+
     student_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student_id,
-      assessment: assessment,
+      assessment_id: assessment_id,
       date_taken: row[:assessment_date]
     )
 
@@ -20,11 +18,4 @@ class DibelsRow < Struct.new :row, :student_id
 
     student_assessment
   end
-
-  private
-
-  def assessment
-    Assessment.find_or_create_by!(family: 'DIBELS')
-  end
-
 end

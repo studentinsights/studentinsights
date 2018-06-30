@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe X2AssessmentImporter do
+  before { Assessment.seed_somerville_assessments }
 
   def make_x2_assessment_importer
     X2AssessmentImporter.new(options: {
@@ -23,8 +24,6 @@ RSpec.describe X2AssessmentImporter do
 
   describe '#import' do
     context 'respects ignore_old' do
-      before { Assessment.destroy_all }
-      after { Assessment.seed_somerville_assessments }
       let!(:student) { FactoryBot.create(:student, local_id: '100') }
       let(:healey) { School.where(local_id: "HEA").first_or_create! }
       let(:csv) { test_csv_from_file("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
@@ -39,15 +38,14 @@ RSpec.describe X2AssessmentImporter do
         })
         allow(importer).to receive(:download_csv).and_return(csv)
         importer.import
+
         expect(log.output).to include('skipped_old_rows_count: 6')
-        expect(log.output).to include('processed_row_count: 1')
+        expect(log.output).to include('successful_rows_count: 1')
         expect(StudentAssessment.count).to eq(1)
       end
     end
 
     context 'with good data and no Assessment records in the database' do
-      before { Assessment.destroy_all }
-      after { Assessment.seed_somerville_assessments }
       let(:csv) { test_csv_from_file() }
 
       context 'for Healey school' do

@@ -1,14 +1,11 @@
-class AccessRow < Struct.new :row, :student_id
+class AccessRow < Struct.new :row, :student_id, :assessment_finder
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
-  def self.build(row, student_id)
-    new(row, student_id).build
-  end
-
   def build
+    assessment_id = assessment_finder.find_or_create_assessment_id(family: 'ACCESS', subject: subject)
     student_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student_id,
-      assessment: assessment,
+      assessment_id: assessment_id,
       date_taken: row[:assessment_date]
     )
 
@@ -22,14 +19,8 @@ class AccessRow < Struct.new :row, :student_id
   end
 
   private
-
   def subject
     return 'Composite' if row[:assessment_subject] == 'Overall'
     row[:assessment_subject]
   end
-
-  def assessment
-    Assessment.find_or_create_by!(subject: subject, family: 'ACCESS')
-  end
-
 end
