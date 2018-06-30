@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe X2AssessmentImporter do
   before { Assessment.seed_somerville_assessments }
 
-  def make_x2_assessment_importer
+  def make_x2_assessment_importer(options = {})
     X2AssessmentImporter.new(options: {
       school_scope: nil,
       log: LogHelper::FakeLog.new
-    })
+    }.merge(options))
   end
 
   def mock_importer_with_csv(importer, filename)
@@ -52,12 +52,21 @@ RSpec.describe X2AssessmentImporter do
 
         let!(:student) { FactoryBot.create(:student, local_id: '100') }
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
-        let(:importer) { make_x2_assessment_importer }
+        let(:log) { LogHelper::FakeLog.new }
+        let(:importer) { make_x2_assessment_importer(log: log) }
         before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
         before { importer.import }
 
-        it 'imports only white-listed assessments' do
+        it 'imports only white-listed assessments and logs all assessment types' do
           expect(StudentAssessment.count).to eq 6
+          expect(log.output).to include 'skipped_because_of_test_type: 2'
+          expect(log.output).to include '@encountered_test_names_count_map'
+          expect(log.output).to include '"MCAS"=>2'
+          expect(log.output).to include '"MAP: Reading 2-5 Common Core 2010 V2"=>1'
+          expect(log.output).to include '"GRADE"=>1'
+          expect(log.output).to include '"DIBELS"=>1'
+          expect(log.output).to include '"WIDA-ACCESS"=>2'
+          expect(log.output).to include '"ACCESS"=>1'
         end
 
         context 'MCAS' do

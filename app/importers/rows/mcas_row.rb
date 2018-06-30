@@ -1,10 +1,11 @@
-class McasRow < Struct.new :row, :student_id, :assessment_finder
+class McasRow < Struct.new :row, :student_id, :assessments_array
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
 
   def build
-    assessment_id = assessment_finder.find_or_create_assessment_id(family: family, subject: subject)
+    assessment_id = find_assessment_id
+    return nil if assessment_id.nil?
     return nil unless subject.in?(VALID_MCAS_SUBJECTS)
 
     student_assessment = StudentAssessment.find_or_initialize_by(
@@ -23,6 +24,13 @@ class McasRow < Struct.new :row, :student_id, :assessment_finder
   end
 
   private
+
+  def find_assessment_id
+    assessments_array.find do |assessment|
+      assessment.subject == subject && assessment.family == family
+    end.try(:id)
+  end
+
   def subject
     if "English Language Arts".in?(row[:assessment_name])
       'ELA'

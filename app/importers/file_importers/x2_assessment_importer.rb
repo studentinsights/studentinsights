@@ -9,8 +9,6 @@ class X2AssessmentImporter
     @student_ids_map = nil # built lazily
   end
 
-  WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
-
   def import
     return unless remote_file_name
 
@@ -19,10 +17,10 @@ class X2AssessmentImporter
 
     log('Starting loop...')
     @skipped_old_rows_count = 0
-    @assessments_not_in_whitelist = 0
+    @skipped_because_of_test_type = 0
     @invalid_rows_count = 0
     @successful_rows_count = 0
-    @created_new_assessment_type_count = 0
+    @encountered_test_names_count_map = {}
     streaming_csv.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
       log("processed #{index} rows.") if index % 10000 == 0
@@ -30,10 +28,10 @@ class X2AssessmentImporter
 
     log('Done loop.')
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
-    log("@assessments_not_in_whitelist: #{@assessments_not_in_whitelist}")
+    log("@skipped_because_of_test_type: #{@skipped_because_of_test_type}")
     log("@invalid_rows_count: #{@invalid_rows_count}")
     log("@successful_rows_count: #{@successful_rows_count}")
-    log("@created_new_assessment_type_count: #{@created_new_assessment_type_count}")
+    log("@encountered_test_names_count_map: #{@encountered_test_names_count_map.as_json}")
   end
 
   def download_csv
@@ -75,23 +73,26 @@ class X2AssessmentImporter
       return
     end
 
-    # Ignore assesments not in the whitelist
-    if !row[:assessment_test].match(WHITELIST)
-      @assessments_not_in_whitelist = @assessments_not_in_whitelist + 1
+    # Some kind of cleanup
+    row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
+
+    # Find out how to interpret the record based on `assessment_test`
+    # and ignore unexpected ones
+    tick_test_type_counter(row[:assessment_test])
+    row_class = case row[:assessment_test]
+      when 'MCAS' then McasRow
+      when 'ACCESS', 'WIDA-ACCESS' then AccessRow
+      when 'DIBELS' then DibelsRow
+      else nil
+    end
+    if row_class.nil?
+      @skipped_because_of_test_type = @skipped_because_of_test_type + 1
       return
     end
 
-    # Some kind of cleanup
-    row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
-    row[:assessment_test] = "ACCESS" if row[:assessment_test] == "WIDA-ACCESS"
-
-    # Try to build a student_assessment record (unsaved)
+    # Try to build a student_assessment record in memory (unsaved)
     student_id = lookup_student_id(row[:local_id])
-    maybe_student_assessment = case row[:assessment_test]
-      when 'MCAS' then McasRow.new(row, student_id, self).build
-      when 'ACCESS' then AccessRow.new(row, student_id, self).build
-      when 'DIBELS' then DibelsRow.new(row, student_id, self).build
-    end
+    maybe_student_assessment = row_class.new(row, student_id, assessments_array).build
     if maybe_student_assessment.nil?
       @invalid_rows_count = @invalid_rows_count + 1
       return
@@ -106,35 +107,17 @@ class X2AssessmentImporter
     row[:assessment_date] < @time_now - 365.days
   end
 
-  # This method is public to the Row classes
-  # This table is only ~10-100 records, so this prevents repeated queries in the most
-  # common case, where the Assessment type already exists.  Also track for logging how many
-  # new Assessment type records we're creating.
-  def find_or_create_assessment_id(params)
-    subject = params.fetch(:subject, nil)
-    family = params.fetch(:family, nil)
-    # Caching the query, to "find" in memory
-    @assessments_array ||= Assessment.all.order(created_at: :asc).to_a
-    existing_assessments = @assessments_array.select do |assessment|
-      if family && assessment.family != family
-        false
-      elsif subject && assessment.subject != subject
-        false
-      else
-        true
-      end
-    end
+  # Prevent repeated queries to this table, which is only ~10-100 records
+  def assessments_array
+    @assessments_array ||= Assessment.all.to_a
+  end
 
-    # Use the match (log if ambiguous), or create a new Assessment
-    if existing_assessments.size == 1
-      existing_assessments.first.id
-    elsif existing_assessments.size > 1
-      log("Found ambiguous match to Assessment for params: #{params.as_json}, choosing the first one: #{existing_assessments.first.id}")
-      existing_assessments.first.id
-    else
-      Assessment.create!(family: family, subject: subject).id
-      @created_new_assessment_type_count = @created_new_assessment_type_count + 1
+  # For logging
+  def tick_test_type_counter(assessment_test)
+    if !@encountered_test_names_count_map.has_key?(assessment_test)
+      @encountered_test_names_count_map[assessment_test] = 0
     end
+    @encountered_test_names_count_map[assessment_test] = @encountered_test_names_count_map[assessment_test] + 1
   end
 
   # Lookup in memory, instead of querying db for every row
