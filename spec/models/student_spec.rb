@@ -101,11 +101,12 @@ RSpec.describe Student do
     let(:student) { FactoryBot.create(:student) }
     let(:assessment_family) { "MCAS" }
     let(:assessment_subject) { "Mathematics" }
-    let(:assessment) { Assessment.create!(
+    let(:assessment) do
+      Assessment.create!(
         family: assessment_family,
         subject: assessment_subject
       )
-    }
+    end
     let(:result) { student.latest_result_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'MCAS Math' do
@@ -123,7 +124,7 @@ RSpec.describe Student do
           )
         }
         context 'when the student has a Math result but not MCAS' do
-          let(:assessment_family) { "Doc's Special Exam" }
+          let(:assessment_family) { "STAR" }
           it 'returns nil' do
             expect(result).to be_nil
           end
