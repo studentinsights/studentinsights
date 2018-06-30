@@ -29,7 +29,6 @@ RSpec.describe PhotoStorer do
       logger: LogHelper::QuietLogger.new,
       time_now: Time.new(2017, 5, 11)
     }
-
     PhotoStorer.new(default_attributes.merge(attributes))
   end
 
@@ -106,11 +105,11 @@ RSpec.describe PhotoStorer do
         logger = LogHelper::QuietLogger.new
         photo_storer(logger: logger).store_only_new
         expect(logger.msgs.as_json).to contain_exactly(*[
-          {"type"=>"info", "message"=>"storing photo for student #10 to s3..."},
+          {"type"=>"info", "message"=>"storing photo for student_id: ##{student.id} to s3..."},
           {"type"=>"info", "message"=>"    successfully stored to s3!"},
           {"type"=>"info", "message"=>"    encrypted with: AES256"},
           {"type"=>"error", "message"=>"    🚨  🚨  🚨  Error! Validation failed: File size can't be blank"},
-          {"type"=>"error", "message"=>"    could not create StudentPhoto record for student_id: #{student.id}..."},
+          {"type"=>"error", "message"=>"    could not create StudentPhoto record for student_id: ##{student.id}..."},
           {"type"=>"error", "message"=>"    orphan Photo up in S3: #{HASHED_STUDENT_LOCAL_ID}/2017-05-11/HashedImageFile"},
           {"type"=>"error", "message"=>"    StudentPhoto model errors: [:file_size]"},
         ])

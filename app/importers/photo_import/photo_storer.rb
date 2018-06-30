@@ -38,7 +38,7 @@ class PhotoStorer
 
   # Returns filename on success, nil on error
   def store_object_in_s3
-    @logger.info("storing photo for student ##{@student.id} to s3...")
+    @logger.info("storing photo for student_id: ##{student.id} to s3...")
 
     # s3 filenames are sorted by student / upload date / image.
     # Filename shape: {64-character hash} / {YYYY}-{MM}-{DD} / {64-character hash}.
@@ -67,7 +67,7 @@ class PhotoStorer
 
   def create_student_photo_record(s3_filename)
     student_photo = StudentPhoto.new(
-      student_id: @student.id,
+      student_id: student.id,
       file_digest: image_file_digest,
       file_size: file_size,
       s3_filename: s3_filename
@@ -78,10 +78,10 @@ class PhotoStorer
       student_photo
     rescue => error
       @logger.error("    🚨  🚨  🚨  Error! #{error}")
-      @logger.error("    could not create StudentPhoto record for student_id: #{@student.id}...")
+      @logger.error("    could not create StudentPhoto record for student_id: ##{student.id}...")
       @logger.error("    orphan Photo up in S3: #{s3_filename}")
       @logger.error("    StudentPhoto model errors: #{student_photo.errors.try(:details).try(:keys).inspect}")
-      Rollbar.error('PhotoStorer#create_student_photo_record', error, { student_id: @student.id })
+      Rollbar.error('PhotoStorer#create_student_photo_record', error, { student_id: student.id })
       nil
     end
   end
