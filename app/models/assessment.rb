@@ -39,9 +39,9 @@ class Assessment < ActiveRecord::Base
   def to_risk_level(student_assessment)
     case family
     when "MCAS"
-      MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level]
+      MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level] || nil
     when "Next Gen MCAS"
-      NEXTGEN_MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level]
+      NEXTGEN_MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level] || nil
     when "STAR"
       case student_assessment.percentile_rank
       when 0..9
@@ -53,6 +53,8 @@ class Assessment < ActiveRecord::Base
       else
         0
       end
+    else
+      nil
     end
   end
 
