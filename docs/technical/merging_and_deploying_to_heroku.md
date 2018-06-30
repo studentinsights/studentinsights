@@ -36,4 +36,4 @@ There's no automatic deployment set up, so your code will not go into production
 ### After deploying
 
 + **Manual QA**. Poke around the production project to triple-check that everything looks right.
-+ **Keep an eye on the logs**. We use Logentries. We also have a custom ErrorMailer that will email you with any errors that come up in the precomputing or data import jobs. Keep a close eye on these if you touch those areas of the codebase. Note (Alex): At some point we should think about setting up Airbrake, in my experience it's better than Logentries or Rollbar about notifying and capturing errors.
++ **Keep an eye on the logs**. We use Logentries and Rollbar for monitoring.

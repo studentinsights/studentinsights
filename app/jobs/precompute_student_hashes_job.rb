@@ -63,7 +63,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
         authorized_students_digest: authorized_students_digest
       )
     rescue => error
-      ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+      Rollbar.error('PrecomputeStudentHashesJob#write_doc_or_log', error, { key: key })
       log.puts "write_doc_or_log failed for key: #{key}"
       log.puts err.inspect
       nil

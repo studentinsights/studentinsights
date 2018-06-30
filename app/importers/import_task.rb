@@ -146,7 +146,7 @@ class ImportTask
         log(error.backtrace)
 
         extra_info =  { "importer" => file_importer.class.name }
-        ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
+        Rollbar.error('ImportTask#import_all_the_data', error, extra_info)
       end
 
       timing_data[:end_time] = Time.current
@@ -175,7 +175,7 @@ class ImportTask
       Student.update_recent_student_assessments
       Homeroom.destroy_empty_homerooms
     rescue => error
-      ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+      Rollbar.error('ImportTask#run_update_tasks', error)
       raise error
     end
   end
