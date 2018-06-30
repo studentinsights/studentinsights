@@ -86,7 +86,7 @@ class X2AssessmentImporter
     tick_test_type_counter(row[:assessment_test])
     row_class = case row[:assessment_test]
       when 'MCAS' then McasRow
-      when 'ACCESS', 'WIDA-ACCESS' then AccessRow
+      when 'ACCESS', 'WIDA', 'WIDA-ACCESS' then AccessRow
       when 'DIBELS' then DibelsRow
       else nil
     end
