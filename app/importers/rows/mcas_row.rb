@@ -7,8 +7,8 @@ class McasRow < Struct.new :row, :student_id
     def save!; end
   end
 
-  def self.build(row)
-    new(row).build
+  def self.build(row, student_id)
+    new(row, student_id).build
   end
 
   def build

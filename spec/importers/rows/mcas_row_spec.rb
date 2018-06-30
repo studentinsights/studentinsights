@@ -17,7 +17,7 @@ RSpec.describe McasRow do
           assessment_date: Date.today
         }
       }
-      before { McasRow.build(row).save! }
+      before { McasRow.build(row, student.id).save! }
 
       it 'does not blow up, does not create a student assessment record' do
         expect(StudentAssessment.count).to eq 0
@@ -37,7 +37,7 @@ RSpec.describe McasRow do
 
       context 'when the Assessment family already exists' do
         let(:assessment) { Assessment.where(family: 'MCAS', subject: 'Mathematics').first }
-        before { McasRow.build(row).save! }
+        before { McasRow.build(row, student.id).save! }
 
         it 'creates a student assessment record' do
           expect(StudentAssessment.count).to eq 1
@@ -49,7 +49,7 @@ RSpec.describe McasRow do
       end
 
       context 'when the Assessment family does not yet exist' do
-        before { McasRow.build(row).save! }
+        before { McasRow.build(row, student.id).save! }
 
         it 'creates a student assessment record' do
           expect(StudentAssessment.count).to eq 1
@@ -73,7 +73,7 @@ RSpec.describe McasRow do
           assessment_date: Date.today
         }
       }
-      before { McasRow.build(row).save! }
+      before { McasRow.build(row, student.id).save! }
 
       it 'creates a student assessment record' do
         expect(StudentAssessment.count).to eq 1
@@ -97,7 +97,7 @@ RSpec.describe McasRow do
         }
       }
 
-      before { McasRow.build(row).save! }
+      before { McasRow.build(row, student.id).save! }
 
       let(:student_assessment) { StudentAssessment.last }
 

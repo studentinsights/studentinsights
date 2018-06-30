@@ -1,8 +1,8 @@
 class DibelsRow < Struct.new :row, :student_id
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
-  def self.build(row)
-    new(row).build
+  def self.build(row, student_id)
+    new(row, student_id).build
   end
 
   def build

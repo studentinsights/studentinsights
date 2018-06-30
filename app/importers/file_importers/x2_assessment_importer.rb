@@ -68,19 +68,20 @@ class X2AssessmentImporter
   end
 
   def lookup_student_id(local_id)
-    reset_student_ids_map if @student_ids_map.nil?
-    if @student_ids_map.has_key?(local_id)
+    reset_student_ids_map! if @student_ids_map.nil?
+    if !@student_ids_map.has_key?(local_id)
       raise "Could not find student with local_id: #{local_id}"
     end
     @student_ids_map[local_id]
   end
 
   # Build map all at once, as a performance optimization
-  def reset_student_ids_map
+  def reset_student_ids_map!
     @student_ids_map = {}
     Student.pluck(:id, :local_id).each do |id, local_id|
       @student_ids_map[local_id] = id
     end
+    log("reset_student_ids_map! built map with #{@student_ids_map.keys.size} local_id keys")
   end
 
   def log(msg)

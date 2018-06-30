@@ -4,7 +4,8 @@ RSpec.describe X2AssessmentImporter do
 
   let(:x2_assessment_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil,
+      log: LogHelper::FakeLog.new
     })
   }
 
@@ -22,7 +23,7 @@ RSpec.describe X2AssessmentImporter do
         let!(:student) { FactoryBot.create(:student, local_id: '100') }
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
         let(:importer) { described_class.new }
-        before { csv.each { |row| x2_assessment_importer.import_row(row) }}
+        before { csv.each_with_index { |row| x2_assessment_importer.import_row(row) }}
 
         it 'imports only white-listed assessments' do
           expect(StudentAssessment.count).to eq 6
