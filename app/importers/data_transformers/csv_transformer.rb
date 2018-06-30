@@ -1,5 +1,7 @@
 require 'csv'
 
+# This is deprecated.
+# See `StreamingCsvTransformer`, which is faster and uses less memory.
 class CsvTransformer
 
   attr_accessor :pre_cleanup_csv_size

@@ -8,12 +8,12 @@ class StarReadingImporter
   def import
     return unless zip_file_name.present? && remote_file_name.present?
 
-    @log.puts("\nDownloading ZIP file #{zip_file_name}...")
+    log("\nDownloading ZIP file #{zip_file_name}...")
 
     downloaded_zip = client.download_file(zip_file_name)
 
     Zip::File.open(downloaded_zip) do |zipfile|
-      @log.puts("\nImporting #{remote_file_name}...")
+      log("\nImporting #{remote_file_name}...")
 
       data_string = zipfile.read(remote_file_name).encode('UTF-8', 'binary', {
         invalid: :replace, undef: :replace, replace: ''
@@ -21,8 +21,9 @@ class StarReadingImporter
 
       data = data_transformer.transform(data_string)
 
-      data.each.each_with_index do |row, index|
+      data.each_with_index do |row, index|
         import_row(row) if filter.include?(row)
+        log("processed #{index} rows.") if index % 1000 == 0
       end
     end
   end
@@ -40,7 +41,10 @@ class StarReadingImporter
   end
 
   def data_transformer
-    StarReadingCsvTransformer.new
+    # Star CSV files use ClassCase headers
+    StreamingCsvTransformer.new(@log, {
+      csv_options: { header_converters: nil }
+    })
   end
 
   def filter
@@ -52,10 +56,12 @@ class StarReadingImporter
   end
 
   def import_row(row)
-    date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
-    student = Student.find_by_local_id(row[:local_id])
-
-    return if student.nil?
+    date_taken = Date.strptime(row['AssessmentDate'].split(' ')[0], "%m/%d/%Y")
+    student = Student.find_by_local_id(row['StudentLocalID'])
+    if student.nil?
+      log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
+      return
+    end
 
     star_assessment = StudentAssessment.where({
       student_id: student.id,
@@ -63,11 +69,15 @@ class StarReadingImporter
       assessment: star_reading_assessment
     }).first_or_create!
 
-    star_assessment.update_attributes({
-      percentile_rank: row[:percentile_rank],
-      instructional_reading_level: row[:instructional_reading_level],
-      grade_equivalent: row[:grade_equivalent]
+    star_assessment.update!({
+      percentile_rank: row['PercentileRank'],
+      instructional_reading_level: row['IRL'],
+      grade_equivalent: row['GradeEquivalent']
     })
   end
 
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "StarReadingImporter: #{text}"
+  end
 end

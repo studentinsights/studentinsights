@@ -8,8 +8,13 @@ class ImportTask
     # options["source"] describes which external data sources to import from
     @source = @options.fetch("source", ["x2", "star"])
 
-    # options["only_recent_attendance"]
-    @only_recent_attendance = @options.fetch("only_recent_attendance", false)
+    # These options control whether older data is ignored.  Different importers
+    # respond differently to these options (some do not respect them).
+    @only_recent_attendance = @options.fetch('only_recent_attendance', false)
+    @skip_old_records = @options.fetch('skip_old_records', false)
+
+    # to skip updating any indexes after (eg, when tuning a particular job)
+    @skip_index_updates = @options.fetch('skip_index_updates', false)
 
     @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
@@ -115,7 +120,8 @@ class ImportTask
     {
       school_scope: school_ids,
       log: @log,
-      only_recent_attendance: @only_recent_attendance
+      only_recent_attendance: @only_recent_attendance,
+      skip_old_records: @skip_old_records
     }
   end
 
@@ -159,6 +165,11 @@ class ImportTask
   ## RUN TASKS THAT CACHE DATA ##
 
   def run_update_tasks
+    if @skip_index_updates
+      log('Skipping index updates...')
+      return
+    end
+
     begin
       Student.update_risk_levels!
       Student.update_recent_student_assessments

@@ -1,8 +1,11 @@
 class Assessment < ActiveRecord::Base
-  has_many :student_assessments, dependent: :destroy
-  has_many :students, through: :student_assessments
-  validate :has_valid_subject
-
+  VALID_FAMILY_VALUES = [
+    'MCAS',
+    'Next Gen MCAS',
+    'STAR',
+    'DIBELS',
+    'ACCESS'
+  ]
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
   VALID_STAR_SUBJECTS = [ 'Mathematics', 'Reading' ].freeze
   VALID_ACCESS_SUBJECTS = [
@@ -12,6 +15,11 @@ class Assessment < ActiveRecord::Base
 
   MCAS_PERFORMANCE_LEVEL_TO_RISK = {"W"=>3, "F"=>3, "NI"=>2, "P"=>1, "A"=>0}
   NEXTGEN_MCAS_PERFORMANCE_LEVEL_TO_RISK = {"NME"=>3, "PE"=>2, "ME"=>1, "EE"=>0}
+
+  has_many :student_assessments, dependent: :destroy
+  has_many :students, through: :student_assessments
+  validate :has_valid_subject
+  validates :family, inclusion: { in: VALID_FAMILY_VALUES }
 
   def has_valid_subject
     case family
@@ -31,9 +39,9 @@ class Assessment < ActiveRecord::Base
   def to_risk_level(student_assessment)
     case family
     when "MCAS"
-      MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level]
+      MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level] || nil
     when "Next Gen MCAS"
-      NEXTGEN_MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level]
+      NEXTGEN_MCAS_PERFORMANCE_LEVEL_TO_RISK[student_assessment.performance_level] || nil
     when "STAR"
       case student_assessment.percentile_rank
       when 0..9
@@ -45,6 +53,8 @@ class Assessment < ActiveRecord::Base
       else
         0
       end
+    else
+      nil
     end
   end
 

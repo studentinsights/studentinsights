@@ -10,10 +10,14 @@ class CsvDownloader
   end
 
   def get_data
+    log('Downloading...')
     file_contents = download_file
+    log("file_contents.size: #{file_contents.size}")
 
+    log('Transforming...')
     data = @transformer.transform(file_contents)
 
+    log('CleanupReport...')
     CleanupReport.new(
       @log, @remote_file_name, @transformer.pre_cleanup_csv_size, data.size
     ).print
@@ -22,7 +26,7 @@ class CsvDownloader
   end
 
   def download_file
-    log("\nDownloading #{@remote_file_name}...")
+    log("Downloading remote file name: #{@remote_file_name}")
 
     downloaded_file = @client.download_file(@remote_file_name)
     File.read(downloaded_file)

@@ -60,10 +60,7 @@ class StudentAssessment < ActiveRecord::Base
   end
 
   def risk_level
-    return nil unless assessment.present? && family.present?
-
     assessment.to_risk_level(self)
-
   end
 
 end
