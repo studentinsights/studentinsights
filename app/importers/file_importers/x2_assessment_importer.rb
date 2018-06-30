@@ -3,7 +3,7 @@ class X2AssessmentImporter
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
-    @ignore_old = options.fetch(:ignore_old, false)
+    @skip_old_records = options.fetch(:skip_old_records, false)
     @time_now = options.fetch(:time_now, Time.now)
 
     @student_ids_map = nil # built lazily
@@ -72,8 +72,8 @@ class X2AssessmentImporter
     #   :assessment_scale_score, :assessment_performance_level, :assessment_growth,
     #   :assessment_name, :assessment_subject, :assessment_test
 
-    # Ignore older assessments, optionally
-    if @ignore_old && is_old?(row)
+    # Skip older assessments, optionally
+    if @skip_old_records && is_old?(row)
       @skipped_old_rows_count = @skipped_old_rows_count + 1
       return
     end

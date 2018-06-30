@@ -23,7 +23,7 @@ RSpec.describe X2AssessmentImporter do
   end
 
   describe '#import' do
-    context 'respects ignore_old' do
+    context 'respects skip_old_records' do
       let!(:student) { FactoryBot.create(:student, local_id: '100') }
       let(:healey) { School.where(local_id: "HEA").first_or_create! }
       let(:csv) { test_csv_from_file("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
@@ -33,7 +33,7 @@ RSpec.describe X2AssessmentImporter do
         importer = X2AssessmentImporter.new(options: {
           school_scope: nil,
           log: log,
-          ignore_old: true,
+          skip_old_records: true,
           time_now: Time.parse('2015-05-01')
         })
         allow(importer).to receive(:download_csv).and_return(csv)
