@@ -9,10 +9,6 @@ RSpec.describe PhotoStorer do
     end
   end
 
-  class QuietLogger
-    def self.info(message); end
-  end
-
   before do
     allow(ENV).to receive(:[]).with('AWS_S3_PHOTOS_BUCKET').and_return('mock-test-photo-bucket')
     allow(Digest::SHA256).to receive(:file).with('/path/to/file').and_return('HashedImageFile')
@@ -30,7 +26,7 @@ RSpec.describe PhotoStorer do
       local_id: student.local_id,
       path_to_file: '/path/to/file',
       s3_client: FakeAwsClient,
-      logger: QuietLogger,
+      logger: LogHelper::QuietLogger.new,
       time_now: Time.new(2017, 5, 11)
     }
 
@@ -102,21 +98,22 @@ RSpec.describe PhotoStorer do
     end
 
     context 'photo record is invalid because file size is nil' do
-      let(:test_subject) { photo_storer }
-
       before do
         allow(File).to receive(:size).with('/path/to/file').and_return nil
       end
 
-      it 'logs the right error message an doesn\'t blow up' do
-        expect(QuietLogger).to receive(:info).with("storing photo for student ##{student.id} to s3...")
-        expect(QuietLogger).to receive(:info).with("    successfully stored to s3!")
-        expect(QuietLogger).to receive(:info).with("    encrypted with: AES256")
-        expect(QuietLogger).to receive(:info).with("    🚨  🚨  🚨  Error! Validation failed: File size can't be blank")
-        expect(QuietLogger).to receive(:info).with("    could not create StudentPhoto record for student...")
-        expect(QuietLogger).to receive(:info).with("    orphan Photo up in S3: #{HASHED_STUDENT_LOCAL_ID}/2017-05-11/HashedImageFile")
-
-        test_subject.store_only_new
+      it 'logs the right error messages and doesn\'t blow up' do
+        logger = LogHelper::QuietLogger.new
+        photo_storer(logger: logger).store_only_new
+        expect(logger.msgs.as_json).to contain_exactly(*[
+          {"type"=>"info", "message"=>"storing photo for student #10 to s3..."},
+          {"type"=>"info", "message"=>"    successfully stored to s3!"},
+          {"type"=>"info", "message"=>"    encrypted with: AES256"},
+          {"type"=>"error", "message"=>"    🚨  🚨  🚨  Error! Validation failed: File size can't be blank"},
+          {"type"=>"error", "message"=>"    could not create StudentPhoto record for student_id: #{student.id}..."},
+          {"type"=>"error", "message"=>"    orphan Photo up in S3: #{HASHED_STUDENT_LOCAL_ID}/2017-05-11/HashedImageFile"},
+          {"type"=>"error", "message"=>"    StudentPhoto model errors: [:file_size]"},
+        ])
       end
     end
   end

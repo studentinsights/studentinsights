@@ -15,7 +15,10 @@ class PhotoStorer
   # Returns nil if we already have image or on error writing to S3
   # we can't control.  Logs messages for success or different error cases.
   def store_only_new
-    return @logger.info("student not in db!") unless student
+    if !student
+      @logger.info("student not in db!")
+      return nil
+    end
 
     # Digest file and check if we already have this image
     return nil if photo_already_exists?
@@ -57,7 +60,7 @@ class PhotoStorer
       @logger.info("    encrypted with: #{response[:server_side_encryption]}")
       s3_filename
     else
-      @logger.info("    error storing photo in s3.")
+      @logger.error("    error storing photo in s3.")
       nil
     end
   end
@@ -75,12 +78,11 @@ class PhotoStorer
       student_photo
     rescue => error
       @logger.error("    🚨  🚨  🚨  Error! #{error}")
-      @logger.error("    could not create StudentPhoto record for student_id #{@student.id}...")
+      @logger.error("    could not create StudentPhoto record for student_id: #{@student.id}...")
       @logger.error("    orphan Photo up in S3: #{s3_filename}")
       @logger.error("    StudentPhoto model errors: #{student_photo.errors.try(:details).try(:keys).inspect}")
-      Rollbar.error('PhotoStorer#create_student_photo_record', error, {
-        student_id: @student.id
-      })
+      Rollbar.error('PhotoStorer#create_student_photo_record', error, { student_id: @student.id })
+      nil
     end
   end
 
