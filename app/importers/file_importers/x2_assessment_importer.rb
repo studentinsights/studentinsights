@@ -4,8 +4,9 @@ class X2AssessmentImporter
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
     @ignore_old = options.fetch(:ignore_old, false)
+    @time_now = options.fetch(:time_now, Time.now)
 
-    @student_ids_map = nil # set lazily
+    @student_ids_map = nil # built lazily
   end
 
   WHITELIST = Regexp.union(/ACCESS/, /WIDA-ACCESS/, /DIBELS/, /MCAS/).freeze
@@ -13,14 +14,32 @@ class X2AssessmentImporter
   def import
     return unless remote_file_name
 
-    @data = CsvDownloader.new(
-      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
-    ).get_data
+    log('Downloading...')
+    streaming_csv = download_csv
 
-    @data.each_with_index do |row, index|
+    log('Starting loop...')
+    @skipped_old_rows_count = 0
+    @assessments_not_in_whitelist = 0
+    @processed_row_count = 0
+    streaming_csv.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
       log("processed #{index} rows.") if index % 10000 == 0
     end
+
+    log('Done loop.')
+    log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
+    log("@assessments_not_in_whitelist: #{@assessments_not_in_whitelist}")
+    log("@processed_row_count: #{@processed_row_count}")
+  end
+
+  def download_csv
+    CsvDownloader.new(
+      log: @log,
+      remote_file_name:
+      remote_file_name,
+      client: client,
+      transformer: data_transformer
+    ).get_data
   end
 
   def client
@@ -46,8 +65,14 @@ class X2AssessmentImporter
     #   :assessment_scale_score, :assessment_performance_level, :assessment_growth,
     #   :assessment_name, :assessment_subject, :assessment_test
 
-    return if (@ignore_old && is_old?(row))
-    return unless row[:assessment_test].match(WHITELIST)
+    if @ignore_old && is_old?(row)
+      @skipped_old_rows_count = @skipped_old_rows_count + 1
+      return
+    end
+    if !row[:assessment_test].match(WHITELIST)
+      @assessments_not_in_whitelist = @assessments_not_in_whitelist + 1
+      return
+    end
 
     row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
     row[:assessment_test] = "ACCESS" if row[:assessment_test] == "WIDA-ACCESS"
@@ -61,10 +86,11 @@ class X2AssessmentImporter
     when 'DIBELS'
       DibelsRow.build(row, student_id).save!
     end
+    @processed_row_count = @processed_row_count + 1
   end
 
   def is_old?(row)
-    row[:assessment_date] > Time.current - 365.days
+    row[:assessment_date] < @time_now - 365.days
   end
 
   def lookup_student_id(local_id)

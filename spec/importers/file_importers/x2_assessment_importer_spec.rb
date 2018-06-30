@@ -2,28 +2,61 @@ require 'rails_helper'
 
 RSpec.describe X2AssessmentImporter do
 
-  let(:x2_assessment_importer) {
-    described_class.new(options: {
+  def make_x2_assessment_importer
+    X2AssessmentImporter.new(options: {
       school_scope: nil,
       log: LogHelper::FakeLog.new
     })
-  }
+  end
+
+  def mock_importer_with_csv(importer, filename)
+    csv = test_csv_from_file(filename)
+    allow(importer).to receive(:download_csv).and_return(csv)
+    importer
+  end
+
+  def test_csv_from_file(filename)
+    file = File.read(filename)
+    transformer = CsvTransformer.new(LogHelper::FakeLog.new)
+    transformer.transform(file)
+  end
 
   describe '#import' do
+    context 'respects ignore_old' do
+      before { Assessment.destroy_all }
+      after { Assessment.seed_somerville_assessments }
+      let!(:student) { FactoryBot.create(:student, local_id: '100') }
+      let(:healey) { School.where(local_id: "HEA").first_or_create! }
+      let(:csv) { test_csv_from_file("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
+
+      it 'skips older records' do
+        log = LogHelper::FakeLog.new
+        importer = X2AssessmentImporter.new(options: {
+          school_scope: nil,
+          log: log,
+          ignore_old: true,
+          time_now: Time.parse('2015-05-01')
+        })
+        allow(importer).to receive(:download_csv).and_return(csv)
+        importer.import
+        expect(log.output).to include('skipped_old_rows_count: 6')
+        expect(log.output).to include('processed_row_count: 1')
+        expect(StudentAssessment.count).to eq(1)
+      end
+    end
+
     context 'with good data and no Assessment records in the database' do
       before { Assessment.destroy_all }
       after { Assessment.seed_somerville_assessments }
-
-      let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
-      let(:transformer) { CsvTransformer.new(LogHelper::FakeLog.new) }
-      let(:csv) { transformer.transform(file) }
+      let(:csv) { test_csv_from_file() }
 
       context 'for Healey school' do
 
         let!(:student) { FactoryBot.create(:student, local_id: '100') }
         let(:healey) { School.where(local_id: "HEA").first_or_create! }
-        let(:importer) { described_class.new }
-        before { csv.each_with_index { |row| x2_assessment_importer.import_row(row) }}
+        let(:importer) { make_x2_assessment_importer }
+        before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/fake_x2_assessments.csv") }
+        before { importer.import }
 
         it 'imports only white-listed assessments' do
           expect(StudentAssessment.count).to eq 6
