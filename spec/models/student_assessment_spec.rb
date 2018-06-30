@@ -80,13 +80,4 @@ RSpec.describe StudentAssessment, type: :model do
       end
     end
   end
-
-  describe '#risk_level' do
-    context 'does not belong to an assessment family' do
-      let(:student_assessment) { FactoryBot.create(:student_assessment) }
-      it 'returns nil' do
-        expect(student_assessment.risk_level).to be nil
-      end
-    end
-  end
 end
