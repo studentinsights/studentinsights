@@ -82,7 +82,9 @@ class X2AssessmentImporter
     row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
 
     # Find out how to interpret the record based on `assessment_test`
-    # and ignore unexpected ones
+    # and ignore unexpected ones.
+    # Be aware that there may be export-side logic and transformations being
+    # applied here as well (eg. https://github.com/studentinsights/studentinsights/blob/f331db10b723fc181a736edacb13b16b3080e889/x2_export/assessment_export.sql#L23)
     tick_test_type_counter(row[:assessment_test])
     row_class = case row[:assessment_test]
       when 'MCAS' then McasRow
