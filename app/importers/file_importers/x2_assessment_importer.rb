@@ -18,10 +18,11 @@ class X2AssessmentImporter
     log('Starting loop...')
     @skipped_old_rows_count = 0
     @skipped_because_of_test_type = 0
-    @invalid_rows_count = 0
+    @encountered_test_names_count_map = {}
+    @unchanged_rows_count = 0
     @updated_rows_count = 0
     @created_rows_count = 0
-    @encountered_test_names_count_map = {}
+    @invalid_rows_count = 0
     streaming_csv.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
       log("processed #{index} rows.") if index % 10000 == 0
@@ -31,8 +32,10 @@ class X2AssessmentImporter
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_because_of_test_type: #{@skipped_because_of_test_type}")
     log("@encountered_test_names_count_map: #{@encountered_test_names_count_map.as_json}")
-    log("@created_rows_count: #{@created_rows_count}")
+    log('')
+    log("@unchanged_rows_count: #{@unchanged_rows_count}")
     log("@updated_rows_count: #{@updated_rows_count}")
+    log("@created_rows_count: #{@created_rows_count}")
     log("@invalid_rows_count: #{@invalid_rows_count}")
   end
 
