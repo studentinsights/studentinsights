@@ -9,24 +9,26 @@ class AttendanceImporter
   def import
     return unless remote_file_name
 
+    log('Downloading...')
     @data = CsvDownloader.new(
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
+    log('Starting loop...')
     @success_count = 0
     @error_list = []
-
     @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
-      @log.puts("processed #{index} rows.") if index % 10000 == 0
+      log("processed #{index} rows.") if index % 10000 == 0
     end
+    log('Done loop.')
 
-    @log.puts("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
+    log("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
     @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
       memo[error] += 1
     end
-    @log.puts("\n\nAttendanceImporter: Invalid rows summary: ")
-    @log.puts(@error_summary)
+    log("\n\nAttendanceImporter: Invalid rows summary: ")
+    log(@error_summary)
   end
 
   def remote_file_name
@@ -66,4 +68,8 @@ class AttendanceImporter
     end
   end
 
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "AttendanceImporter: #{text}"
+  end
 end
