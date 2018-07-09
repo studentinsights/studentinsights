@@ -13,7 +13,7 @@ RSpec.describe StudentsImporter do
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
       let(:transformer) { StreamingCsvTransformer.new(log) }
       let(:csv) { transformer.transform(file) }
-      let(:import) { csv.each { |row| students_importer.import_row(row) } }
+      let(:import) { csv.each_with_index { |row, index| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
       let!(:brown) { School.create(local_id: 'BRN') }
