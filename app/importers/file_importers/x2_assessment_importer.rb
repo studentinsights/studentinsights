@@ -139,7 +139,7 @@ class X2AssessmentImporter
   end
 
   def is_old?(row)
-    row[:assessment_date] < @time_now - 365.days
+    row[:assessment_date] < @time_now - 90.days
   end
 
   # Prevent repeated queries to this table, which is only ~10-100 records

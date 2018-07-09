@@ -6,7 +6,7 @@ class AttendanceImporter
     @skip_old_records = options.fetch(:skip_old_records)
     @time_now = options.fetch(:time_now, Time.now)
 
-    @student_ids_map = StudentIdsMap.new
+    @student_ids_map = ::StudentIdsMap.new
   end
 
   def import
@@ -66,7 +66,7 @@ class AttendanceImporter
   end
 
   def is_old?(row)
-    row[:event_date] < @time_now - 365.days
+    row[:event_date] < @time_now - 90.days
   end
 
   def import_row(row)
@@ -77,7 +77,7 @@ class AttendanceImporter
     end
 
     # Skip old records
-    if @skip_old_records && old_event?(row)
+    if @skip_old_records && is_old?(row)
       @skipped_old_rows_count = @skipped_old_rows_count + 1
       return
     end

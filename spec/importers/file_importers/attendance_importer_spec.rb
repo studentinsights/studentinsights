@@ -2,19 +2,24 @@ require 'rails_helper'
 
 RSpec.describe AttendanceImporter do
 
-  let(:base_attendance_importer) {
-    importer = described_class.new(options: {
-      school_scope: nil, log: nil, skip_old_records: false
-    })
-  }
-
-  let(:attendance_importer) {
-    base_attendance_importer.instance_variable_set(:@success_count, 0)
-    base_attendance_importer.instance_variable_set(:@error_list, [])
-    base_attendance_importer
-  }
+  def make_attendance_importer(options = {})
+    importer = AttendanceImporter.new(options: {
+      school_scope: nil,
+      log: nil,
+      skip_old_records: false
+    }.merge(options))
+    importer.instance_variable_set(:@skipped_from_school_filter, 0)
+    importer.instance_variable_set(:@skipped_old_rows_count, 0)
+    importer.instance_variable_set(:@skipped_other_rows_count, 0)
+    importer.instance_variable_set(:@unchanged_rows_count, 0)
+    importer.instance_variable_set(:@updated_rows_count, 0)
+    importer.instance_variable_set(:@created_rows_count, 0)
+    importer.instance_variable_set(:@invalid_rows_count, 0)
+    importer
+  end
 
   describe '#import_row' do
+    let(:attendance_importer) { make_attendance_importer }
 
     context 'recent attendance events' do
       before { Timecop.freeze('2005-09-16') }
@@ -168,15 +173,9 @@ RSpec.describe AttendanceImporter do
       }
 
       context '--skip_old_records flag on' do
-        let(:attendance_importer) {
-          described_class.new(options: {
-            school_scope: nil, log: nil, skip_old_records: true
-          })
-        }
-
         it 'does not create an absence' do
           expect {
-            attendance_importer.import_row(row)
+            make_attendance_importer(skip_old_records: true).import_row(row)
           }.to change {
             Absence.count
           }.by 0
@@ -184,15 +183,9 @@ RSpec.describe AttendanceImporter do
       end
 
       context '--skip_old_records flag off' do
-        let(:base_attendance_importer) {
-          described_class.new(options: {
-            school_scope: nil, log: nil, skip_old_records: false
-          })
-        }
-
         it 'creates an absence' do
           expect {
-            attendance_importer.import_row(row)
+            make_attendance_importer.import_row(row)
           }.to change {
             Absence.count
           }.by 1
