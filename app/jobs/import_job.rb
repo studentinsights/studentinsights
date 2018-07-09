@@ -9,14 +9,6 @@ class ImportJob
     ImportTask.new(options: @options).connect_transform_import
   end
 
-  def max_attempts
-    1
-  end
-
-  def max_run_time
-    6.hours
-  end
-
   def error(job, exception)
     extra_info =  { "hook" => "error", "job" => job.as_json(except: :log) }
     Rollbar.error('ImporterJob#error', exception, extra_info)
