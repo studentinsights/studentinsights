@@ -9,17 +9,17 @@ RSpec.describe StreamingCsvTransformer do
       let(:output) { transformer.transform(csv_string) }
 
       it '#stats (before iteration)' do
-        expect(transformer.stats).to eq({
+        expect(transformer.send(:stats)).to eq({
           :processed_rows_count => 0,
-          :total_rows_count => 0,
+          :skipped_dirty_rows_count => 0
         })
       end
 
       it '#stats (after iteration) filter out row with bad date' do
         output.each_with_index {|row, index| nil }
-        expect(transformer.stats).to eq({
+        expect(transformer.send(:stats)).to eq({
           :processed_rows_count => 3,
-          :total_rows_count => 4
+          :skipped_dirty_rows_count => 1
         })
       end
     end
@@ -60,9 +60,9 @@ RSpec.describe StreamingCsvTransformer do
         output.each_with_index {|row, index| rows << row }
         expect(rows.size).to eq(6)
         expect(rows.first.headers).to match_array(headers.map(&:to_sym))
-        expect(transformer.stats).to eq({
+        expect(transformer.send(:stats)).to eq({
           :processed_rows_count => 6,
-          :total_rows_count => 6,
+          :skipped_dirty_rows_count => 0
         })
       end
     end
