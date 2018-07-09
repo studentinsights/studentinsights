@@ -8,11 +8,11 @@ class EducatorsImporter
   def import
     return unless remote_file_name
 
-    @data = CsvDownloader.new(
+    streaming_csv = CsvDownloader.new(
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    @data.each.each_with_index do |row, index|
+    streaming_csv.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
     end
   end
@@ -26,7 +26,7 @@ class EducatorsImporter
   end
 
   def data_transformer
-    CsvTransformer.new(@log)
+    StreamingCsvTransformer.new(@log)
   end
 
   def filter

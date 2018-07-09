@@ -8,14 +8,14 @@ class BehaviorImporter
   def import
     return unless remote_file_name
 
-    @data = CsvDownloader.new(
+    streaming_csv = CsvDownloader.new(
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
     @success_count = 0
     @error_list = []
 
-    @data.each_with_index do |row, index|
+    streaming_csv.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
       @log.puts("processed #{index} rows.") if index % 10000 == 0
     end
@@ -37,7 +37,7 @@ class BehaviorImporter
   end
 
   def data_transformer
-    CsvTransformer.new(@log)
+    StreamingCsvTransformer.new(@log)
   end
 
   def filter

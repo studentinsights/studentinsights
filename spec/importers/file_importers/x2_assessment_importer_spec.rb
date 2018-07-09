@@ -18,7 +18,7 @@ RSpec.describe X2AssessmentImporter do
 
   def test_csv_from_file(filename)
     file = File.read(filename)
-    transformer = CsvTransformer.new(LogHelper::FakeLog.new)
+    transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new)
     transformer.transform(file)
   end
 
