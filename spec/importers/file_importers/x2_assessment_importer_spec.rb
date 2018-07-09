@@ -34,14 +34,14 @@ RSpec.describe X2AssessmentImporter do
           school_scope: nil,
           log: log,
           skip_old_records: true,
-          time_now: Time.parse('2015-05-01')
+          time_now: Time.parse('2014-06-12')
         })
         allow(importer).to receive(:download_csv).and_return(csv)
         importer.import
 
-        expect(log.output).to include('skipped_old_rows_count: 6')
-        expect(log.output).to include('created_rows_count: 1')
-        expect(StudentAssessment.count).to eq(1)
+        expect(log.output).to include('skipped_old_rows_count: 3')
+        expect(log.output).to include('created_rows_count: 3')
+        expect(StudentAssessment.count).to eq(3)
       end
     end
 

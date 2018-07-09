@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe AttendanceRow do
   let(:absence) { '1' }
   let(:tardy) { '0' }
-  subject(:row) { AttendanceRow.new(data) }
 
   describe '#build' do
 
@@ -17,6 +16,7 @@ RSpec.describe AttendanceRow do
           tardy: tardy,
         }
       }
+      subject(:row) { AttendanceRow.new(data, student.id) }
 
       context 'when the row is an absence' do
         it 'saves an absence' do
@@ -37,29 +37,15 @@ RSpec.describe AttendanceRow do
         let(:absence) { '0' }
 
         it 'does not save an absence' do
-          expect { row.build.save }.not_to change(Absence, :count)
+          expect { row.build }.not_to change(Absence, :count)
+          expect(row.build).to eq nil
         end
 
         it 'does not save a tardy' do
-          expect { row.build.save }.not_to change(Tardy, :count)
+          expect { row.build }.not_to change(Tardy, :count)
+          expect(row.build).to eq nil
         end
       end
-    end
-  end
-
-  context 'row has no student ID' do
-    let(:data) {
-      {
-        local_id: nil,
-        event_date: DateTime.parse('1981-12-30'),
-        absence: absence,
-        tardy: tardy,
-      }
-    }
-
-    it 'does not save an absence' do
-      expect(row.build.valid?).to eq false
-      expect(row.build.save).to eq false
     end
   end
 end
