@@ -39,6 +39,7 @@ class AttendanceImporter
     end
 
     log('Done loop.')
+    log("StreamingCsvTransformer#stats: #{streaming_csv.stats}")
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_other_rows_count: #{@skipped_other_rows_count}")
