@@ -14,7 +14,7 @@ class StreamingCsvTransformer
   end
 
   # Performs whole-file transformations first
-  # This method returns itself, satisfying the {each_with_index} inteface for
+  # This method returns itself, satisfying the {each_with_index} interface for
   # iterating over CSV rows.
   def transform(csv_string)
     @csv_string = ParseableCsvString.new(@log).from_string(csv_string)
