@@ -34,6 +34,7 @@ class X2AssessmentImporter
     end
 
     log('Done loop.')
+    log("StreamingCsvTransformer#stats: #{streaming_csv.stats}")
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_because_of_test_type: #{@skipped_because_of_test_type}")

@@ -1,8 +1,8 @@
 require 'csv'
 
 # This implements:
-#   the Transformer interface {transform, pre_cleanup_csv_size}
-#   our ad-hoc CSV data interface {each_with_index, size}
+#   the Transformer interface {transform}
+#   our ad-hoc CSV data interface {each_with_index}
 class StreamingCsvTransformer
   NIL_CODE = '\N'
 
@@ -10,21 +10,15 @@ class StreamingCsvTransformer
     @log = log
     @headers = options.fetch(:headers, true)
     @csv_options = options.fetch(:csv_options, {})
-    @total_rows_count = nil
-    @processed_rows_count = nil
+    reset_counters!
   end
 
   # Performs whole-file transformations first
-  # This method returns itself, satisfying the {each_with_index, size} inteface for
+  # This method returns itself, satisfying the {each_with_index} inteface for
   # iterating over CSV rows.
   def transform(csv_string)
     @csv_string = ParseableCsvString.new(@log).from_string(csv_string)
     self
-  end
-
-  # This is only valid after data is read with #each_with_index
-  def pre_cleanup_csv_size
-    @total_rows_count
   end
 
   # Stream each line of the CSV and parse it.
@@ -33,9 +27,7 @@ class StreamingCsvTransformer
   # callers in the future.  These are: nil_converter for each field, discarding rows with
   # dirty_data? and parsing particular field names into Ruby dates.
   def each_with_index(&block)
-    @total_rows_count = 0
-    @processed_rows_count = 0
-
+    reset_counters!
     csv_options = {
       headers: @headers,
       header_converters: :symbol,
@@ -54,13 +46,20 @@ class StreamingCsvTransformer
     nil
   end
 
-  # This doesn't return a valid value until after iterating, because we're streaming and
-  # don't parse all at once
-  def size
-    @processed_rows_count
+  def stats
+    {
+      total_rows_count: @total_rows_count,
+      processed_rows_count: @processed_rows_count
+    }
   end
 
   private
+  def reset_counters!
+    @total_rows_count = 0
+    @processed_rows_count = 0
+    nil
+  end
+
   def nil_converter(value)
     value == NIL_CODE ? nil : value
   end

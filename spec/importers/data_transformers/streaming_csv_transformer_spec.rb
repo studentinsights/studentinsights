@@ -8,15 +8,19 @@ RSpec.describe StreamingCsvTransformer do
       let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
       let(:output) { transformer.transform(csv_string) }
 
-      it '#size and #pre_cleanup_csv_size (before iteration)' do
-        expect(transformer.pre_cleanup_csv_size).to eq nil
-        expect(output.size).to eq nil
+      it '#stats (before iteration)' do
+        expect(transformer.stats).to eq({
+          :processed_rows_count => 0,
+          :total_rows_count => 0,
+        })
       end
 
-      it '#size and #pre_cleanup_csv_size (after iteration) filter out row with bad date' do
+      it '#stats (after iteration) filter out row with bad date' do
         output.each_with_index {|row, index| nil }
-        expect(transformer.pre_cleanup_csv_size).to eq 4
-        expect(output.size).to eq 3
+        expect(transformer.stats).to eq({
+          :processed_rows_count => 3,
+          :total_rows_count => 4
+        })
       end
     end
 
@@ -51,15 +55,15 @@ RSpec.describe StreamingCsvTransformer do
       let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new, headers: headers) }
       let(:output) { transformer.transform(csv_string) }
 
-      it '#size' do
-        expect(output.size).to eq nil
-      end
-
       it '#each_with_index' do
         rows = []
         output.each_with_index {|row, index| rows << row }
         expect(rows.size).to eq(6)
         expect(rows.first.headers).to match_array(headers.map(&:to_sym))
+        expect(transformer.stats).to eq({
+          :processed_rows_count => 6,
+          :total_rows_count => 6,
+        })
       end
     end
   end
