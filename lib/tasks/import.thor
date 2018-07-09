@@ -18,16 +18,14 @@ class Import
       desc: "Only import attendance rows from the past 90 days for faster attendance import"
     class_option :background,
       type: :boolean,
-      default: true,
+      default: false,
       desc: "Import data in a background job"
 
     def import
-      job_options = options.merge({ attempt: 0 })
-
       if options.fetch(:background)
-        Delayed::Job.enqueue ImportJob.new(options: job_options)
+        Delayed::Job.enqueue ImportJob.new(options: options)
       else
-        ImportTask.new(options: job_options).connect_transform_import
+        ImportTask.new(options: options).connect_transform_import
       end
     end
   end
