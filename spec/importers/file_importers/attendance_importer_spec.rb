@@ -4,7 +4,7 @@ RSpec.describe AttendanceImporter do
 
   let(:base_attendance_importer) {
     importer = described_class.new(options: {
-      school_scope: nil, log: nil, only_recent_attendance: false
+      school_scope: nil, log: nil, skip_old_records: false
     })
   }
 
@@ -167,10 +167,10 @@ RSpec.describe AttendanceImporter do
         { event_date: date, local_id: '1', absence: '1', tardy: '0' }
       }
 
-      context '--only_recent_attendance flag on' do
+      context '--skip_old_records flag on' do
         let(:attendance_importer) {
           described_class.new(options: {
-            school_scope: nil, log: nil, only_recent_attendance: true
+            school_scope: nil, log: nil, skip_old_records: true
           })
         }
 
@@ -183,10 +183,10 @@ RSpec.describe AttendanceImporter do
         end
       end
 
-      context '--only_recent_attendance flag off' do
+      context '--skip_old_records flag off' do
         let(:base_attendance_importer) {
           described_class.new(options: {
-            school_scope: nil, log: nil, only_recent_attendance: false
+            school_scope: nil, log: nil, skip_old_records: false
           })
         }
 

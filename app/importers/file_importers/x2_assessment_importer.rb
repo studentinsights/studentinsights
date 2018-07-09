@@ -6,7 +6,7 @@ class X2AssessmentImporter
     @skip_old_records = options.fetch(:skip_old_records, false)
     @time_now = options.fetch(:time_now, Time.now)
 
-    @student_ids_map = nil # built lazily
+    @student_ids_map = StudentIdsMap.new
   end
 
   def import
@@ -15,7 +15,12 @@ class X2AssessmentImporter
     log('Downloading...')
     streaming_csv = download_csv
 
+    log('Building student_ids_map...')
+    @student_ids_map.reset!
+    log("@student_ids_map built with #{@student_ids_map.size} local_id keys")
+
     log('Starting loop...')
+    @skipped_from_school_filter = 0
     @skipped_old_rows_count = 0
     @skipped_because_of_test_type = 0
     @encountered_test_names_count_map = {}
@@ -24,11 +29,12 @@ class X2AssessmentImporter
     @created_rows_count = 0
     @invalid_rows_count = 0
     streaming_csv.each_with_index do |row, index|
-      import_row(row) if filter.include?(row)
+      import_row(row)
       log("processed #{index} rows.") if index % 10000 == 0
     end
 
     log('Done loop.')
+    log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_because_of_test_type: #{@skipped_because_of_test_type}")
     log("@encountered_test_names_count_map: #{@encountered_test_names_count_map.as_json}")
@@ -61,7 +67,7 @@ class X2AssessmentImporter
     StreamingCsvTransformer.new(@log)
   end
 
-  def filter
+  def school_filter
     SchoolFilter.new(@school_scope)
   end
 
@@ -71,6 +77,12 @@ class X2AssessmentImporter
     #   :state_id, :local_id, :school_local_id, :assessment_date,
     #   :assessment_scale_score, :assessment_performance_level, :assessment_growth,
     #   :assessment_name, :assessment_subject, :assessment_test
+
+    # Skip based on school filter
+    if !school_filter.include?(row)
+      @skipped_from_school_filter = @skipped_from_school_filter + 1
+      return
+    end
 
     # Skip older assessments, optionally
     if @skip_old_records && is_old?(row)
@@ -97,8 +109,14 @@ class X2AssessmentImporter
       return
     end
 
+    # Find the student_id
+    student_id = @student_ids_map.lookup_student_id(row[:local_id])
+    if student_id.nil?
+      @invalid_rows_count = @invalid_rows_count + 1
+      return
+    end
+
     # Try to build a student_assessment record in memory (without saving)
-    student_id = lookup_student_id(row[:local_id])
     maybe_student_assessment = row_class.new(row, student_id, assessments_array).build
     if maybe_student_assessment.nil?
       @invalid_rows_count = @invalid_rows_count + 1
@@ -135,24 +153,6 @@ class X2AssessmentImporter
       @encountered_test_names_count_map[assessment_test] = 0
     end
     @encountered_test_names_count_map[assessment_test] = @encountered_test_names_count_map[assessment_test] + 1
-  end
-
-  # Lookup in memory, instead of querying db for every row
-  def lookup_student_id(local_id)
-    reset_student_ids_map! if @student_ids_map.nil?
-    if !@student_ids_map.has_key?(local_id)
-      raise "Could not find student with local_id: #{local_id}"
-    end
-    @student_ids_map[local_id]
-  end
-
-  # Build map all at once, as a performance optimization
-  def reset_student_ids_map!
-    @student_ids_map = {}
-    Student.pluck(:id, :local_id).each do |id, local_id|
-      @student_ids_map[local_id] = id
-    end
-    log("reset_student_ids_map! built map with #{@student_ids_map.keys.size} local_id keys")
   end
 
   def log(msg)
