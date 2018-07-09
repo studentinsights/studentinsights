@@ -48,7 +48,9 @@ class ImportTask
     rescue => err
       # Note that there is also separate error handling for each importer class independently.
       log("ImportTask aborted because of an error: #{err}")
+      log("Re-raising exception...")
       Rollbar.error('ImportTask aborted because of an error', err)
+      raise err
     end
   end
 
@@ -140,11 +142,13 @@ class ImportTask
         file_importer.import
         log("Done file_importer#import for #{file_importer.class}.")
       rescue => error
-        log("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
+        log("Error! #{error}")
         log(error.backtrace)
 
+        message = "ImportTask#import_all_the_data caught an error from #{file_import_class.name} and aborted that import task, but is continuing the job..."
+        log(message)
         extra_info =  { "importer" => file_importer.class.name }
-        Rollbar.error('ImportTask#import_all_the_data', error, extra_info)
+        Rollbar.error(message, error, extra_info)
       end
 
       timing_data[:end_time] = Time.current
