@@ -28,6 +28,7 @@ class StreamingCsvTransformer
   # dirty_data? and parsing particular field names into Ruby dates.
   def each_with_index(&block)
     reset_counters!
+
     csv_options = {
       headers: @headers,
       header_converters: :symbol,
@@ -35,27 +36,31 @@ class StreamingCsvTransformer
       converters: lambda { |h| nil_converter(h) }
     }.merge(@csv_options)
     CSV.new(@csv_string, csv_options).each.with_index do |row, index|
-      @total_rows_count = @total_rows_count + 1
       cleaner = CsvRowCleaner.new(row)
-      next if cleaner.dirty_data?
+      if cleaner.dirty_data?
+        @skipped_dirty_rows_count = @skipped_dirty_rows_count + 1
+        next
+      end
 
       cleaner.transform_row
       block.call(row, index)
       @processed_rows_count = @processed_rows_count + 1
     end
+
+    @log.puts("StreamingCsvTransformer#stats: #{stats}")
     nil
   end
 
+  private
   def stats
     {
-      total_rows_count: @total_rows_count,
+      skipped_dirty_rows_count: @skipped_dirty_rows_count,
       processed_rows_count: @processed_rows_count
     }
   end
 
-  private
   def reset_counters!
-    @total_rows_count = 0
+    @skipped_dirty_rows_count = 0
     @processed_rows_count = 0
     nil
   end
