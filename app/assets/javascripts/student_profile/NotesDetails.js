@@ -10,7 +10,7 @@ import TakeNotes from './TakeNotes';
 
 const styles = {
   notesContainer: {
-    flex: 1,
+    width: '50%',
     marginRight: 20
   },
   restrictedNotesButton: {
