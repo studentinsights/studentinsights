@@ -178,6 +178,7 @@ exports[`FeedView pure component matches snapshot 1`] = `
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -341,6 +342,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -516,6 +518,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -704,6 +707,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -865,6 +869,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -1040,6 +1045,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -1228,6 +1234,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -1416,6 +1423,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -1590,6 +1598,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -1751,6 +1760,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -1939,6 +1949,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -2127,6 +2138,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -2315,6 +2327,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -2476,6 +2489,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -2651,6 +2665,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -2826,6 +2841,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -3001,6 +3017,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -3189,6 +3206,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >
@@ -3350,6 +3368,7 @@ Philis is meeting with parent next week and will present an attendance contract.
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-all",
             }
           }
         >

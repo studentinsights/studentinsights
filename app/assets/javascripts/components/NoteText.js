@@ -8,6 +8,7 @@ export const exportedNoteText = {
   fontFamily: "'Open Sans', sans-serif",
   fontSize: 14,
   whiteSpace: 'pre-wrap',
+  wordBreak: 'break-all',
   border: '1px solid transparent' // for sizing when we add a border on hover when editable
 };
 
