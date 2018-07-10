@@ -2,7 +2,7 @@
 The overall idea is strong isolation across districts, which means some initial setup overhead.  Here's how you do it!  More detailed notes for various steps are below.
 
 ### 1: Stand up an instance
-Goal: Visit the home page
+Goal: Visit the home page signed-out
 - Add domain
 - SSL certificate
 - New Heroku app with Node/Ruby buildpacks, grant access to team
@@ -63,7 +63,7 @@ Set up a new district with this script:
 $ scripts/deploy/new_district.sh "My New District Name"
 ```
 
-This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
+This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It doesn't include tooling for connecting with a Student Information System or other district-level data sources.
 
 ### New SFTP Site
 
@@ -73,11 +73,11 @@ We're documenting a few ways to set up and secure the SFTP site:
 
 + New District SFTP Setup With Private Key (Strongly Preferred!)
 
-##$# New District SFTP Setup with Password
+#### New District SFTP Setup with Password
 
 To set up an Insights instance, we need an SFTP server where data will sync nightly. The best option is to used private keys to secure the SFTP server, but some hosted Aspen/X2 instances are preconfigured to work with a username/password. We can work with that. Ideally password authentication is a temporary step and the site transitions over to public key auth before it reaches full deployment to a school or district.
 
-##$# Steps
+#### Steps
 
 1. Log onto AWS using the secure, two-factor-protected SFTP account
 2. Create a new EC2 Ubuntu instance
@@ -134,7 +134,7 @@ Once your district has got data out of its SIS, the next step is to bring the da
 
 Each district names its export files according to their own naming convention. We need to tell Insights what remote filenames to look for on the SFTP site. We also need to tell Insights what schools exist in those districts.
 
-There are three parts to the configuration: an `ENV['DISTRICT_KEY']`, other ENV variables, and a YAML config file.
+There are a few parts to the configuration: an `ENV['DISTRICT_KEY']`, other ENV variables, `PerDistrict`, and a YAML config file.
 
 ##### Setting `ENV['DISTRICT_KEY']`
 
@@ -179,12 +179,10 @@ Once you have your own YAML configuration file set up, tell the `DistrictConfig`
 
 ##### Running the import job
 
-Once you have the config set up, run an import job:
+Once you have the config set up, run an import job as minimally as possible (eg, a single importer or scoped for a particular school):
 
 ```
-thor import:start
+thor import:start --source educators --school '123'
 ```
 
 This job has fairly verbose logging output that you can use to debug and tweak the import process for your own district.
-
-If you see 🚨 🚨 🚨, that means that one of the remote files failed to import. The job will complete no matter how many file imports fail. That way it can show you aggregate information about the job.

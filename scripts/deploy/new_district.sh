@@ -36,18 +36,4 @@ echo "Setting config vars..."
 
 heroku config:set DISTRICT_NAME="$DISTRICT_NAME" --app $HEROKU_APP_NAME
 
-echo "Do you want to fill up this database with fake (very fake) data? (Y or N)"
-
-read FILL_WITH_FAKE_DATA
-
-if [ $FILL_WITH_FAKE_DATA = "Y" ]; then
-  echo "Generating some fake data..."
-  heroku run rake db:seed --app $HEROKU_APP_NAME
-  echo "All done!"
-  echo "Log in with {email => demo-admin@example.com, pw => demo-password}"
-  echo "Taking you there now..."
-  open "https://$HEROKU_APP_NAME.herokuapp.com" -a "Google Chrome"
-else
-  echo "All done!"
-fi
-
+echo "All done!"
