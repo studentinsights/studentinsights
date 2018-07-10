@@ -32,6 +32,7 @@ class EducatorsImporter
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
     log("@ignored_unknown_homeroom_count: #{@ignored_unknown_homeroom_count}")
+    log("@touched_homeroom_count: #{@touched_homeroom_count}")
   end
 
   def client
@@ -62,6 +63,10 @@ class EducatorsImporter
 
     maybe_educator = EducatorRow.new(row, school_ids_dictionary).build
     if maybe_educator.nil?
+      @invalid_rows_count = @invalid_rows_count + 1
+      return
+    end
+    if !maybe_educator.valid?
       @invalid_rows_count = @invalid_rows_count + 1
       return
     end
