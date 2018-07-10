@@ -58,13 +58,15 @@ class IepPdfImportJob
 
       remote_filenames.each do |filename|
         zip_file = download(filename)
+        next if zip_file.nil?
+
         log "got a zip: #{zip_file}"
         unzipped_count = 0
         FileUtils.mkdir_p("tmp/data_download/unzipped_ieps/#{filename}")
 
         begin
-          Zip::File.open(zip_file) do |zip_file|
-            zip_file.each do |entry|
+          Zip::File.open(zip_file) do |zip_object|
+            zip_object.each do |entry|
               entry.extract("tmp/data_download/unzipped_ieps/#{filename}/#{entry.name}")
               unzipped_count += 1
             end
@@ -117,20 +119,20 @@ class IepPdfImportJob
       client = SftpClient.for_x2
 
       begin
-        client.download_file(remote_filename)
+        local_file = client.download_file(remote_filename)
         log "downloaded a file!"
+        local_file
       rescue RuntimeError => error
         message = error.message
 
         if message.include?('no such file')
           log error.message
           log 'No file found but no worries, just means no educators added IEPs into the EasyIEP system that particular day.'
+          nil
         else
           raise error
         end
       end
-
-      return File.open("tmp/data_download/#{remote_filename}")
     end
 
     def clean_up
