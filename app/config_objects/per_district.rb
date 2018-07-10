@@ -116,6 +116,14 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
+  def filenames_for_iep_pdf_zips
+    if @district_key == SOMERVILLE
+      LoadDistrictConfig.new.remote_filenames.fetch('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+    else
+      []
+    end
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

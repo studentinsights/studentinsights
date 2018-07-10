@@ -13,10 +13,12 @@ class IepStorer
 
   def store
     @student = Student.find_by_local_id(@local_id)
+    if @student.nil?
+      @logger.info("student local_id: #{@local_id} not found, dropping the IEP PDF file...")
+      return nil
+    end
 
-    return @logger.info("student not in db!") unless @student
-
-    return unless store_object_in_s3
+    return nil unless store_object_in_s3
 
     store_object_in_database
   end
