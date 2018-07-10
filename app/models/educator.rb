@@ -117,7 +117,7 @@ class Educator < ActiveRecord::Base
   private
   def validate_has_school_unless_districtwide
     if school.blank?
-      errors.add(:school_id, "must be assigned a school") unless districtwide_access?
+      errors.add(:school_id, 'must be assigned a school unless districtwide') unless districtwide_access?
     end
   end
 

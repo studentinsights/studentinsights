@@ -124,6 +124,15 @@ class PerDistrict
     end
   end
 
+  # In the import process, NB uses 0-000 as a special code in the staff CSV to indicate "no homeroom"
+  def is_nil_homeroom_name?(homeroom_name)
+    if @district_key == NEW_BEDFORD
+      homeroom_name == '0-000'
+    else
+      false
+    end
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
