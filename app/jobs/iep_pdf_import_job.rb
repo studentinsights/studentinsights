@@ -37,37 +37,30 @@ class IepPdfImportJob
   #
   # Order is important here.
   def nightly_import!
-    remote_filenames = [
-      'student-documents-6.zip',
-      'student-documents-5.zip',
-      'student-documents-4.zip',
-      'student-documents-3.zip',
-      'student-documents-2.zip',
-      'student-documents-1.zip',
-    ]
-
-    import_ieps!(remote_filenames)
+    import_ieps!(PerDistrict.new.filenames_for_iep_pdf_zips)
   end
 
   private
 
     def import_ieps!(remote_filenames)
       clean_up
+      FileUtils.mkdir_p(absolute_local_download_path)
 
-      FileUtils.mkdir_p("tmp/data_download/unzipped_ieps")
+      all_pdf_filenames = []
+      all_iep_documents = []
 
       remote_filenames.each do |filename|
         zip_file = download(filename)
         next if zip_file.nil?
 
-        log "got a zip: #{zip_file}"
+        log "got a zip from: #{filename}"
         unzipped_count = 0
-        FileUtils.mkdir_p("tmp/data_download/unzipped_ieps/#{filename}")
+        FileUtils.mkdir_p(File.join(absolute_local_download_path, filename))
 
         begin
           Zip::File.open(zip_file) do |zip_object|
             zip_object.each do |entry|
-              entry.extract("tmp/data_download/unzipped_ieps/#{filename}/#{entry.name}")
+              entry.extract(File.join(absolute_local_download_path, filename, entry.name))
               unzipped_count += 1
             end
           end
@@ -75,17 +68,17 @@ class IepPdfImportJob
           log e.message
         end
 
-        log "unzipped #{unzipped_count} date zips!"
+        log "unzipped #{unzipped_count} files from #{filename}, parsing those unzipped pdfs..."
 
-        log "parsing unzipped pdfs from #{filename}...!"
+        pdf_filenames = Dir[File.join(absolute_local_download_path, filename, '*')]
 
-        pdf_filenames = Dir["tmp/data_download/unzipped_ieps/#{filename}/*"]
+        iep_documents = pdf_filenames.map {|path| parse_file_name_and_store_file(path) }.compact
 
-        pdf_filenames.each do |path|
-          parse_file_name_and_store_file(path)
-        end
+        all_pdf_filenames = all_pdf_filenames + pdf_filenames
+        all_iep_documents = all_iep_documents + iep_documents
       end
 
+      log "IepPdfImportJob: stored #{all_iep_documents.size} IEP PDFs and dropped #{all_pdf_filenames.size - all_iep_documents.size} PDF files..."
       clean_up
     end
 
@@ -100,7 +93,7 @@ class IepPdfImportJob
     def parse_file_name_and_store_file(path_to_file)
       file_info = IepFileNameParser.new(path_to_file)
 
-      file_info.check_iep_at_a_glance
+      file_info.validata_filename_or_raise!
 
       IepStorer.new(
         path_to_file: path_to_file,
@@ -116,7 +109,7 @@ class IepPdfImportJob
     end
 
     def download(remote_filename)
-      client = SftpClient.for_x2
+      client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)
 
       begin
         local_file = client.download_file(remote_filename)
@@ -135,17 +128,12 @@ class IepPdfImportJob
       end
     end
 
+    def absolute_local_download_path
+      Rails.root.join(File.join('tmp', 'data_download', 'unzipped_ieps'))
+    end
+
     def clean_up
-      FileUtils.rm_rf(Rails.root.join('tmp/data_download/unzipped_ieps'))
-      FileUtils.rm_rf([
-        Rails.root.join("tmp/data_download/#{ENV['BULK_IEP_IMPORT_TARGET']}"),
-        Rails.root.join("tmp/data_download/student-documents-6.zip"),
-        Rails.root.join("tmp/data_download/student-documents-5.zip"),
-        Rails.root.join("tmp/data_download/student-documents-4.zip"),
-        Rails.root.join("tmp/data_download/student-documents-3.zip"),
-        Rails.root.join("tmp/data_download/student-documents-2.zip"),
-        Rails.root.join("tmp/data_download/student-documents-1.zip"),
-      ])
+      FileUtils.rm_rf(absolute_local_download_path)
     end
 
 end
