@@ -47,7 +47,13 @@ describe IsServiceWorkingController, :type => :controller do
         sign_in(pals.uri)
         make_request(502)
         expect(response).to be_successful
-        expect(JSON.parse(response.body)).to eq({'chart_data' => []})
+
+        json_response = JSON.parse(response.body)
+        expect(json_response.keys).to eq(['chart_data'])
+
+        chart_data = json_response['chart_data']
+        expect(chart_data.size).to eq(1)
+        expect(chart_data.first['student']['id']).to eq(student_with_attendance_officer.id)
       end
     end
 
