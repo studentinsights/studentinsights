@@ -4,10 +4,9 @@ The overall idea is strong isolation across districts, which means some initial 
 ### 1: Stand up an instance
 Goal: Visit the home page signed-out
 - Add domain
-- SSL certificate
 - New Heroku app with Node/Ruby buildpacks, grant access to team
 - Review and set environment variables (minimally)
-- Review and set PerDistrict values (minimally)
+- Review and update `PerDistrict.rb` class (minimally)
 - Review and add Heroku scheduler jobs (minimally)
 - Set up Postgres and seed database (minimally)
 - Set up Logentries
@@ -21,7 +20,7 @@ Goal: Sign in as developer, see empty home page, roster page, districtwide pages
 
 ### 3: Import first data
 Goal: Sign in as districtwide educator, use the home page, roster page, student profile page, take notes for students in support meetings
-- Create an instance for receiving data (maybe with static IPs, grant access to team)
+- Create a new EC2 instance for receiving data (maybe with static IPs, grant access to team)
 - `EducatorsImporter` and validate
 - `StudentsImporter` and validate
 - Review permissions with district partner
@@ -51,7 +50,8 @@ Goal: Educators using additional feature (eg, "insights box" for absences) or us
 - Load test or scale accordingly
 
 
-# Details
+# Various other details
+This section has some more details about different bits above.  It's not super organized, and is more a loose collection of how to do different things than a walkthrough or automated process.
 
 ### New Heroku instance
 
