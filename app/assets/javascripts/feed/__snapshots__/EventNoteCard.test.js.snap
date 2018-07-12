@@ -137,10 +137,11 @@ exports[`matches snapshot 1`] = `
             "fontFamily": "'Open Sans', sans-serif",
             "fontSize": 14,
             "marginTop": 5,
+            "overflowX": "hidden",
             "padding": 0,
             "style": undefined,
             "whiteSpace": "pre-wrap",
-            "wordBreak": "break-all",
+            "wordBreak": "break-word",
           }
         }
       >
