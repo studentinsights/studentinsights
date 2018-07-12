@@ -1931,10 +1931,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -2039,10 +2040,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -2147,10 +2149,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -2255,10 +2258,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -2363,10 +2367,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -2471,10 +2476,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -2579,10 +2585,11 @@ exports[`snapshots works for aladdin 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -4770,10 +4777,11 @@ exports[`snapshots works for olaf 1`] = `
                     "fontFamily": "'Open Sans', sans-serif",
                     "fontSize": 14,
                     "marginTop": 5,
+                    "overflowX": "hidden",
                     "padding": 0,
                     "style": undefined,
                     "whiteSpace": "pre-wrap",
-                    "wordBreak": "break-all",
+                    "wordBreak": "break-word",
                   }
                 }
               >
@@ -4856,10 +4864,11 @@ Reduce behavior.
                     "fontFamily": "'Open Sans', sans-serif",
                     "fontSize": 14,
                     "marginTop": 5,
+                    "overflowX": "hidden",
                     "padding": 0,
                     "style": undefined,
                     "whiteSpace": "pre-wrap",
-                    "wordBreak": "break-all",
+                    "wordBreak": "break-word",
                   }
                 }
               >
@@ -4942,10 +4951,11 @@ Increase how often the student is engaged in positive behaviors.
                     "fontFamily": "'Open Sans', sans-serif",
                     "fontSize": 14,
                     "marginTop": 5,
+                    "overflowX": "hidden",
                     "padding": 0,
                     "style": undefined,
                     "whiteSpace": "pre-wrap",
-                    "wordBreak": "break-all",
+                    "wordBreak": "break-word",
                   }
                 }
               >
@@ -5042,10 +5052,11 @@ Reduce behavior.
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -5136,10 +5147,11 @@ Reduce behavior.
                     "fontFamily": "'Open Sans', sans-serif",
                     "fontSize": 14,
                     "marginTop": 5,
+                    "overflowX": "hidden",
                     "padding": 0,
                     "style": undefined,
                     "whiteSpace": "pre-wrap",
-                    "wordBreak": "break-all",
+                    "wordBreak": "break-word",
                   }
                 }
               >
@@ -5236,10 +5248,11 @@ Increase how often the student is engaged in positive behaviors.
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -7310,10 +7323,11 @@ exports[`snapshots works for pluto 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -7418,10 +7432,11 @@ exports[`snapshots works for pluto 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -7526,10 +7541,11 @@ exports[`snapshots works for pluto 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -7634,10 +7650,11 @@ exports[`snapshots works for pluto 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
@@ -7742,10 +7759,11 @@ exports[`snapshots works for pluto 1`] = `
                       "fontFamily": "'Open Sans', sans-serif",
                       "fontSize": 14,
                       "marginTop": 5,
+                      "overflowX": "hidden",
                       "padding": 0,
                       "style": Object {},
                       "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-all",
+                      "wordBreak": "break-word",
                     }
                   }
                 />
