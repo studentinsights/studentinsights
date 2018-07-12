@@ -58,7 +58,7 @@ class SliceButtons extends React.Component {
           href={this.props.filtersHash}
           target="_blank"
           style={{ fontSize: styles.fontSize }}>
-          Share this view
+          Link to save these filters
         </a>
       </div>
     );
