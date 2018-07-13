@@ -46,7 +46,6 @@ class StudentsSpreadsheet
     end
 
     additional_student_fields = {
-      student_risk_level: student.student_risk_level.level,
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
