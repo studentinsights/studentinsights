@@ -53,7 +53,6 @@ RSpec.describe StudentsSpreadsheet do
            "date_of_birth",
            "risk_level",
            "gender",
-           "student_risk_level",
            "discipline_incidents_count",
            "absences_count",
            "tardies_count",
