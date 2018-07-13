@@ -50,7 +50,6 @@ describe HomeroomsController, :type => :controller do
           "most_recent_star_math_percentile",
           "enrollment_status",
           "date_of_birth",
-          "risk_level",
           "gender",
           "house",
           "counselor",
@@ -62,7 +61,6 @@ describe HomeroomsController, :type => :controller do
           "event_notes_without_restricted",
           "interventions",
           "sped_data",
-          "student_risk_level"
         ])
       end
     end
