@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
 import {hasStudentPhotos} from '../helpers/PerDistrict';
@@ -51,7 +50,6 @@ export default class StudentProfileHeader extends React.Component {
             {this.renderDateOfBirth()}
             {this.renderBulletSpacer()}
             {this.renderContactIcon()}
-            <RiskBubble riskLevel={student.student_risk_level.level} />
           </div>
         </div>
         {this.conditionallyRenderStudentPhoto()}

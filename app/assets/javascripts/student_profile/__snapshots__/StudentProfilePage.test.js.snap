@@ -151,39 +151,6 @@ exports[`snapshots works for aladdin 1`] = `
             />
           </a>
         </div>
-        <span>
-          <span
-            style={
-              Object {
-                "fontSize": 25,
-                "marginTop": 3,
-                "padding": 5,
-              }
-            }
-          >
-            Risk Level
-          </span>
-          <span
-            style={
-              Object {
-                "backgroundColor": "#555555",
-                "borderRadius": 30,
-                "color": "white",
-                "display": "inline-block",
-                "fontSize": 20,
-                "height": 35,
-                "marginLeft": 5,
-                "marginRight": 5,
-                "marginTop": 10,
-                "paddingTop": 3,
-                "textAlign": "center",
-                "width": 35,
-              }
-            }
-          >
-            NA
-          </span>
-        </span>
       </div>
     </div>
     <div
@@ -2844,39 +2811,6 @@ exports[`snapshots works for olaf 1`] = `
             />
           </a>
         </div>
-        <span>
-          <span
-            style={
-              Object {
-                "fontSize": 25,
-                "marginTop": 3,
-                "padding": 5,
-              }
-            }
-          >
-            Risk Level
-          </span>
-          <span
-            style={
-              Object {
-                "backgroundColor": "#62c186",
-                "borderRadius": 30,
-                "color": "white",
-                "display": "inline-block",
-                "fontSize": 20,
-                "height": 35,
-                "marginLeft": 5,
-                "marginRight": 5,
-                "marginTop": 10,
-                "paddingTop": 3,
-                "textAlign": "center",
-                "width": 35,
-              }
-            }
-          >
-            1
-          </span>
-        </span>
       </div>
     </div>
     <div
@@ -5507,39 +5441,6 @@ exports[`snapshots works for pluto 1`] = `
             />
           </a>
         </div>
-        <span>
-          <span
-            style={
-              Object {
-                "fontSize": 25,
-                "marginTop": 3,
-                "padding": 5,
-              }
-            }
-          >
-            Risk Level
-          </span>
-          <span
-            style={
-              Object {
-                "backgroundColor": "#f15a3d",
-                "borderRadius": 30,
-                "color": "white",
-                "display": "inline-block",
-                "fontSize": 20,
-                "height": 35,
-                "marginLeft": 5,
-                "marginRight": 5,
-                "marginTop": 10,
-                "paddingTop": 3,
-                "textAlign": "center",
-                "width": 35,
-              }
-            }
-          >
-            3
-          </span>
-        </span>
       </div>
     </div>
     <div
