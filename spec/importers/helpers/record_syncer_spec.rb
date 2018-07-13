@@ -11,7 +11,7 @@ RSpec.describe RecordSyncer do
     RecordSyncer.new({ log: make_log }.merge(options))
   end
 
-  def new_test_absence(attributes = {}) 
+  def new_test_absence(attributes = {})
     student = FactoryBot.create(:student)
     Absence.new({
       occurred_at: time_now - 62.days,
