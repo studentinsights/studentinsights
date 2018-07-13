@@ -105,7 +105,6 @@ export function createFromIdentifier(identifier) {
   if (parts[0] === 'none') return Null(parts[1]);
   if (parts[0] === 'equal') return Equal(parts[1], parts[2]);
   if (parts[0] === 'intervention_type') return InterventionType(parts[1]);
-  if (parts[0] === 'risk_level') return InterventionType(parseFloat(parts[1]));
   if (parts[0] === 'years_enrolled') return YearsEnrolled(parseFloat(parts[1]));
   if (parts[0] === 'service_type') return ServiceType(parseFloat(parts[1]));
   if (parts[0] === 'event_note_type') return EventNoteType(parseFloat(parts[1]));
