@@ -31,8 +31,6 @@ class Student < ActiveRecord::Base
 
   has_many :sst_notes, -> { where(event_note_type_id: 300) }, class_name: "EventNote"
 
-  has_one :student_risk_level, dependent: :destroy
-
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   validates :first_name, presence: true
@@ -217,32 +215,6 @@ class Student < ActiveRecord::Base
 
   def self.with_mcas_ela_warning
     where(most_recent_mcas_ela_performance: 'W')
-  end
-
-  ## RISK LEVELS ##
-
-  def self.update_risk_levels!
-    # This method is meant to be called daily to
-    # check for updates to all student's risk levels
-    # and save the results to the db (too expensive
-    # to calculate on the fly with each page load).
-    find_each { |s| s.update_risk_level! }
-  end
-
-  # Update or create, and cache
-  def update_risk_level!
-    if student_risk_level.present?
-      student_risk_level.update_risk_level!
-    else
-      self.student_risk_level = StudentRiskLevel.new(student_id: id)
-      self.student_risk_level.save!
-    end
-
-    # Cache risk level to the student table
-    if self.risk_level != student_risk_level.level
-      self.risk_level = student_risk_level.level
-      self.save!
-    end
   end
 
   # SpEd Data as defined by Somerville Schools
