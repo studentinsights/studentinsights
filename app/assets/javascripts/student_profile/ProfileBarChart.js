@@ -44,7 +44,8 @@ export default class ProfileBarChart extends React.Component {
       if (events.length == 0) return false;
 
       let unsafeHtmlString = '';
-      _.each(events, function(e){
+      const sortedEvents = _.sortBy(events, e => moment.utc(e.occurred_at));
+      _.each(sortedEvents, function(e){
         unsafeHtmlString += `<span>${moment.utc(e.occurred_at).format('MMMM Do, YYYY')}</span>`;
         unsafeHtmlString += '<br />';
       });
