@@ -136,9 +136,14 @@ class AttendanceImporter
   end
 
   def attendance_event_class(row)
-    return Absence if row[:absence].to_i == 1
-    return Tardy if row[:tardy].to_i == 1
-    nil
+    is_absence = row[:absence].to_i == 1
+    is_tardy = row[:tardy].to_i == 1
+
+    if is_absence && is_tardy then nil
+    elsif is_absence then Absence
+    elsif is_tardy then Tardy
+    else nil
+    end
   end
 
   def log(msg)

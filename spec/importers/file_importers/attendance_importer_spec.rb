@@ -11,11 +11,14 @@ RSpec.describe AttendanceImporter do
     importer.instance_variable_set(:@skipped_from_school_filter, 0)
     importer.instance_variable_set(:@skipped_old_rows_count, 0)
     importer.instance_variable_set(:@skipped_other_rows_count, 0)
-    importer.instance_variable_set(:@unchanged_rows_count, 0)
-    importer.instance_variable_set(:@updated_rows_count, 0)
-    importer.instance_variable_set(:@created_rows_count, 0)
-    importer.instance_variable_set(:@invalid_rows_count, 0)
     importer
+  end
+
+  def make_row(hash = {})
+    {
+      local_id: FactoryBot.create(:student).local_id,
+      event_date: DateTime.parse('1981-12-30'),
+    }.merge(hash)
   end
 
   describe '#import_row' do
@@ -195,4 +198,46 @@ RSpec.describe AttendanceImporter do
     end
   end
 
+  describe '#matching_insights_record_for_row' do
+    def matching_insights_record_for_row(row, record_class)
+      make_attendance_importer.send(:matching_insights_record_for_row, row, record_class)
+    end
+
+    context 'row has student ID' do
+      it 'can match on Absence' do
+        expect(matching_insights_record_for_row(make_row, Absence)).to be_a Absence
+      end
+
+      it 'can match on Tardy' do
+        expect(matching_insights_record_for_row(make_row, Tardy)).to be_a Tardy
+      end
+
+      it 'returns nil, when the student local_id cannot be matched' do
+        row = make_row(local_id: 'cannot-be-found')
+        expect(matching_insights_record_for_row(row, Absence)).to eq nil
+      end
+    end
+  end
+
+  describe '#attendance_event_class' do
+    def attendance_event_class(row)
+      make_attendance_importer.send(:attendance_event_class, row)
+    end
+
+    it 'works for absence' do
+      expect(attendance_event_class(make_row(absence: 1))).to eq Absence
+    end
+
+    it 'works for tardy' do
+      expect(attendance_event_class(make_row(tardy: 1))).to eq Tardy
+    end
+
+    it 'returns nil if not absence or tardy' do
+      expect(attendance_event_class(make_row)).to eq nil
+    end
+
+    it 'returns nil if BOTH absence and tardy' do
+      expect(attendance_event_class(make_row(absence: 1, tardy: 1))).to eq nil
+    end
+  end
 end
