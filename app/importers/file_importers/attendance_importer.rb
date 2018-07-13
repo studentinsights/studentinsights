@@ -7,7 +7,7 @@ class AttendanceImporter
     @log = options.fetch(:log)
     @time_now = options.fetch(:time_now, Time.now)
     @skip_old_records = options.fetch(:skip_old_records)
-    @old_threshold = @time_now.beginning_of_day - 90.days
+    @old_threshold = @time_now.beginning_of_day - 2.days
 
     @student_ids_map = ::StudentIdsMap.new
 
@@ -41,15 +41,21 @@ class AttendanceImporter
     log("@skipped_other_rows_count: #{@skipped_other_rows_count}")
     log('')
 
-    log("Removing records within scope that didn't have CSV rows...")
-    @tardy_record_syncer.delete_unmarked_records!(records_within_scope(Tardy))
+    log('Calling #delete_unmarked_records for Absence...')
     @absence_record_syncer.delete_unmarked_records!(records_within_scope(Absence))
+    log("Absence stats: #{@absence_record_syncer.stats}")
+    log('Calling #delete_unmarked_records for Tardy...')
+    @tardy_record_syncer.delete_unmarked_records!(records_within_scope(Tardy))
+    log("Tardy stats: #{@tardy_record_syncer.stats}")
   end
 
   private
+  def remote_file_name
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
+  end
+
   def download_csv
     client = SftpClient.for_x2
-    remote_file_name = LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
     data_transformer = StreamingCsvTransformer.new(@log)
     CsvDownloader.new(
       log: @log,
@@ -102,13 +108,6 @@ class AttendanceImporter
     syncer.validate_mark_and_sync!(maybe_matching_record)
   end
 
-  def get_syncer!(record_class)
-    if record_class == Absence then @absence_record_syncer
-    elsif record_class == Tardy then @tardy_record_syncer
-    else raise "Code error, unexpected record_class: #{record_class}"
-    end
-  end
-
   # Matches a row from a CSV export with an existing or new (unsaved) Insights record
   # Returns nil if something about the CSV row is invalid and it can't process the row.
   def matching_insights_record_for_row(row, record_class)
@@ -141,6 +140,13 @@ class AttendanceImporter
     elsif is_absence then Absence
     elsif is_tardy then Tardy
     else nil
+    end
+  end
+
+  def get_syncer!(record_class)
+    if record_class == Absence then @absence_record_syncer
+    elsif record_class == Tardy then @tardy_record_syncer
+    else raise "Code error, unexpected record_class: #{record_class}"
     end
   end
 

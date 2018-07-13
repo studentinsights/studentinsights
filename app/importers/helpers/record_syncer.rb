@@ -1,4 +1,4 @@
-  # For syncing between a CSV snapshot and an Insights model, particularly
+# For syncing between a CSV snapshot and an Insights model, particularly
 # for tracking and then removing records in Insights that have been removed
 # in the CSV snapshot.
 #
@@ -37,27 +37,25 @@ class RecordSyncer
       return :invalid
     end
 
-    # Mark that this insights record matches one in the CSV,
+    # For each outcome below, mark the Insights records that match ones in the CSV,
     # so that afterward we can remove ones within the import
     # scope that don't (they've been removed from the CSV).
-    mark_insights_record(insights_record)
-
-    # See if anything has changed
-    if !insights_record.changed?
+    # Nothing has changed, update or create
+    if insights_record.persisted? && !insights_record.changed?
       @unchanged_rows_count = @unchanged_rows_count + 1
+      mark_insights_record(insights_record)
       return :unchanged
-    end
-
-    # Save, tracking if it's an update or create
-    if insights_record.persisted?
+    elsif insights_record.persisted?
       @updated_rows_count = @updated_rows_count + 1
       insights_record.save!
+      mark_insights_record(insights_record)
       return :updated
+    else
+      @created_rows_count = @created_rows_count + 1
+      insights_record.save!
+      mark_insights_record(insights_record)
+      return :created
     end
-
-    @created_rows_count = @created_rows_count + 1
-    insights_record.save!
-    return :created
   end
 
   # Delete Insights records that are no longer in the CSV snapshot.

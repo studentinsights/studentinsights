@@ -11,12 +11,16 @@ RSpec.describe RecordSyncer do
     RecordSyncer.new({ log: make_log }.merge(options))
   end
 
-  def create_test_absence!(attributes = {})
+  def new_test_absence(attributes = {}) 
     student = FactoryBot.create(:student)
-    Absence.create!({
+    Absence.new({
       occurred_at: time_now - 62.days,
       student: student
-    }.merge(attributes))
+    })
+  end
+
+  def create_test_absence!(attributes = {})
+    new_test_absence.tap(&:save!)
   end
 
   describe '#validate_mark_and_sync!' do
@@ -90,13 +94,9 @@ RSpec.describe RecordSyncer do
       })
     end
 
-    it 'when new, creates, marks and counts it' do
+    it 'when new, creates, marks and counts it and marks a valid record id' do
       syncer = make_syncer
-      student = FactoryBot.create(:student)
-      absence = Absence.new({
-        occurred_at: time_now - 62.days,
-        student: student
-      })
+      absence = new_test_absence
       expect(syncer.validate_mark_and_sync!(absence)).to eq(:created)
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
@@ -106,6 +106,7 @@ RSpec.describe RecordSyncer do
         created_rows_count: 1,
         marked_ids_count: 1
       })
+      expect(syncer.instance_variable_get(:@marked_ids)).to eq [absence.id]
     end
   end
 
@@ -153,6 +154,15 @@ RSpec.describe RecordSyncer do
 
       expect(syncer.delete_unmarked_records!(Absence.all)).to eq(5)
       expect(Absence.count).to eq(0)
+    end
+
+    it 'does not delete newly created records' do
+      syncer = make_syncer
+      absence = new_test_absence
+      expect(syncer.validate_mark_and_sync!(absence)).to eq(:created)
+      expect(Absence.count).to eq(1)
+
+      expect(syncer.delete_unmarked_records!(Absence.all)).to eq(0)
     end
 
     it 'handles edge case with a persisted record that would become invalid, deleting the Insights record rather than keeping stale values' do
