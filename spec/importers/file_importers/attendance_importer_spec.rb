@@ -39,14 +39,14 @@ RSpec.describe AttendanceImporter do
 
           it 'creates an absence' do
             expect {
-              attendance_importer.import_row(row)
+              attendance_importer.send(:import_row, row)
             }.to change {
               Absence.count
             }.by 1
           end
 
           it 'sets the right attributes' do
-            attendance_importer.import_row(row)
+            attendance_importer.send(:import_row, row)
             absence = Absence.first
 
             expect(absence.dismissed).to eq false
@@ -57,14 +57,14 @@ RSpec.describe AttendanceImporter do
 
           it 'creates only 1 absence if run twice' do
             expect {
-              attendance_importer.import_row(row)
-              attendance_importer.import_row(row)
+              attendance_importer.send(:import_row, row)
+              attendance_importer.send(:import_row, row)
             }.to change { Absence.count }.by 1
           end
 
           it 'increments student absences by 1' do
             expect {
-              attendance_importer.import_row(row)
+              attendance_importer.send(:import_row, row)
             }.to change {
               student.reload.absences.size
             }.by 1
@@ -72,7 +72,7 @@ RSpec.describe AttendanceImporter do
 
           it 'does not increment student tardies' do
             expect {
-              attendance_importer.import_row(row)
+              attendance_importer.send(:import_row, row)
             }.to change {
               student.tardies.size
             }.by 0
@@ -91,7 +91,7 @@ RSpec.describe AttendanceImporter do
 
         it 'creates an absence' do
           expect {
-            attendance_importer.import_row(row)
+            attendance_importer.send(:import_row, row)
           }.to change {
             Absence.count
           }.by 1
@@ -103,7 +103,7 @@ RSpec.describe AttendanceImporter do
         end
 
         it 'sets the right attributes' do
-          attendance_importer.import_row(row)
+          attendance_importer.send(:import_row, row)
           absence = Absence.first
 
           expect(absence.dismissed).to eq nil
@@ -124,8 +124,8 @@ RSpec.describe AttendanceImporter do
 
         it 'creates an absence for each student' do
           expect {
-            attendance_importer.import_row(row_for_edwin)
-            attendance_importer.import_row(row_for_kristen)
+            attendance_importer.send(:import_row, row_for_edwin)
+            attendance_importer.send(:import_row, row_for_kristen)
           }.to change { Absence.count }.by 2
         end
       end
@@ -139,8 +139,8 @@ RSpec.describe AttendanceImporter do
 
         it 'creates an absence' do
           expect {
-            attendance_importer.import_row(first_row)
-            attendance_importer.import_row(second_row)
+            attendance_importer.send(:import_row, first_row)
+            attendance_importer.send(:import_row, second_row)
           }.to change { Absence.count }.by 1
         end
       end
@@ -156,10 +156,10 @@ RSpec.describe AttendanceImporter do
 
         it 'creates multiple absences' do
           expect {
-            attendance_importer.import_row(first_row)
-            attendance_importer.import_row(second_row)
-            attendance_importer.import_row(third_row)
-            attendance_importer.import_row(fourth_row)
+            attendance_importer.send(:import_row, first_row)
+            attendance_importer.send(:import_row, second_row)
+            attendance_importer.send(:import_row, third_row)
+            attendance_importer.send(:import_row, fourth_row)
           }.to change { Absence.count }.by 4
         end
       end
@@ -175,7 +175,7 @@ RSpec.describe AttendanceImporter do
       context '--skip_old_records flag on' do
         it 'does not create an absence' do
           expect {
-            make_attendance_importer(skip_old_records: true).import_row(row)
+            make_attendance_importer(skip_old_records: true).send(:import_row, row)
           }.to change {
             Absence.count
           }.by 0
@@ -185,7 +185,7 @@ RSpec.describe AttendanceImporter do
       context '--skip_old_records flag off' do
         it 'creates an absence' do
           expect {
-            make_attendance_importer.import_row(row)
+            make_attendance_importer.send(:import_row, row)
           }.to change {
             Absence.count
           }.by 1

@@ -1,24 +1,25 @@
+# These reads the student_attendance table from Aspen and syncs it to the Absence and Tardy
+# tables.
 class AttendanceImporter
 
   def initialize(options:)
-    @school_scope = options.fetch(:school_scope)
+    @school_local_ids = options.fetch(:school_scope)
     @log = options.fetch(:log)
-    @skip_old_records = options.fetch(:skip_old_records)
     @time_now = options.fetch(:time_now, Time.now)
+    @skip_old_records = options.fetch(:skip_old_records)
+    @old_threshold = @time_now.beginning_of_day - 90.days
 
     @student_ids_map = ::StudentIdsMap.new
+
+    @tardy_record_syncer = ::RecordSyncer.new(log: @log)
+    @absence_record_syncer = ::RecordSyncer.new(log: @log)
   end
 
   def import
     return unless remote_file_name
 
     log('Downloading...')
-    streaming_csv = CsvDownloader.new(
-      log: @log,
-      remote_file_name: remote_file_name,
-      client: client,
-      transformer: data_transformer
-    ).get_data
+    streaming_csv = download_csv
 
     log('Building student_ids_map...')
     @student_ids_map.reset!
@@ -28,10 +29,6 @@ class AttendanceImporter
     @skipped_from_school_filter = 0
     @skipped_old_rows_count = 0
     @skipped_other_rows_count = 0
-    @unchanged_rows_count = 0
-    @updated_rows_count = 0
-    @created_rows_count = 0
-    @invalid_rows_count = 0
 
     streaming_csv.each_with_index do |row, index|
       import_row(row)
@@ -43,30 +40,39 @@ class AttendanceImporter
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_other_rows_count: #{@skipped_other_rows_count}")
     log('')
-    log("@unchanged_rows_count: #{@unchanged_rows_count}")
-    log("@updated_rows_count: #{@updated_rows_count}")
-    log("@created_rows_count: #{@created_rows_count}")
-    log("@invalid_rows_count: #{@invalid_rows_count}")
+
+    log("Removing records within scope that didn't have CSV rows...")
+    @tardy_record_syncer.delete_unmarked_records!(records_within_scope(Tardy))
+    @absence_record_syncer.delete_unmarked_records!(records_within_scope(Absence))
   end
 
-  def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
+  private
+  def download_csv
+    client = SftpClient.for_x2
+    remote_file_name = LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
+    data_transformer = StreamingCsvTransformer.new(@log)
+    CsvDownloader.new(
+      log: @log,
+      remote_file_name: remote_file_name,
+      client: client,
+      transformer: data_transformer
+    ).get_data
   end
 
-  def client
-    SftpClient.for_x2
-  end
-
-  def data_transformer
-    StreamingCsvTransformer.new(@log)
+  # What existing Insights records should be updated or deleted from running this import?
+  def records_within_scope(record_class)
+    record_class
+      .joins({ :student => :school })
+      .where(:schools => {:local_id => @school_local_ids})
+      .where('occurred_at >= ?', @old_threshold)
   end
 
   def school_filter
-    SchoolFilter.new(@school_scope)
+    SchoolFilter.new(@school_local_ids)
   end
 
   def is_old?(row)
-    row[:event_date] < @time_now - 90.days
+    row[:event_date] < @old_threshold
   end
 
   def import_row(row)
@@ -83,38 +89,56 @@ class AttendanceImporter
     end
 
     # Skip if not absence or tardy
-    if row[:absence].to_i != 1 && row[:tardy].to_i != 1
+    record_class = attendance_event_class(row)
+    if record_class.nil?
       @skipped_other_rows_count = @skipped_other_rows_count + 1
       return
     end
 
-    # Find student_id
-    student_id = @student_ids_map.lookup_student_id(row[:local_id])
-    if student_id.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
-      return
-    end
-
     # Match with existing record or initialize new one (not saved)
-    maybe_attendance_event = AttendanceRow.new(row, student_id).build
-    if maybe_attendance_event.nil? || !maybe_attendance_event.valid?
-      @invalid_rows_count = @invalid_rows_count + 1
-      return
+    # Then mark the record and sync the record from CSV to Insights
+    maybe_matching_record = matching_insights_record_for_row(row, record_class)
+    syncer = get_syncer!(record_class)
+    syncer.validate_mark_and_sync!(maybe_matching_record)
+  end
+
+  def get_syncer!(record_class)
+    syncer = {
+      Absence => @absence_record_syncer,
+      Tardy => @tardy_record_syncer
+    }[record_class]
+    raise "Code error, unexpected record_class: #{record_class}" if syncer.nil?
+    syncer
+  end
+
+  # Matches a row from a CSV export with an existing or new (unsaved) Insights record
+  # Returns nil if something about the CSV row is invalid and it can't process the row.
+  def matching_insights_record_for_row(row, record_class)
+    student_id = @student_ids_map.lookup_student_id(row[:local_id])
+    return nil if student_id.nil?
+
+    attendance_event = record_class.find_or_initialize_by(
+      occurred_at: row[:event_date],
+      student_id: student_id,
+    )
+
+    # There are some additional fields for some districts.
+    if PerDistrict.new.import_detailed_attendance_fields?
+      attendance_event.assign_attributes(
+        dismissed: row[:dismissed],
+        excused: row[:excused],
+        reason: row[:reason],
+        comment: row[:comment],
+      )
     end
 
-    # See if anything has changed
-    if !maybe_attendance_event.changed?
-      @unchanged_rows_count = @unchanged_rows_count + 1
-      return
-    end
+    attendance_event
+  end
 
-    # Save, tracking if it's an update or create
-    if maybe_attendance_event.persisted?
-      @updated_rows_count = @updated_rows_count + 1
-    else
-      @created_rows_count = @created_rows_count + 1
-    end
-    maybe_attendance_event.save!
+  def attendance_event_class(row)
+    return Absence if row[:absence].to_i == 1
+    return Tardy if row[:tardy].to_i == 1
+    nil
   end
 
   def log(msg)
