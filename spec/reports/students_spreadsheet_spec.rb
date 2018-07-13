@@ -51,7 +51,6 @@ RSpec.describe StudentsSpreadsheet do
            "most_recent_star_math_percentile",
            "enrollment_status",
            "date_of_birth",
-           "risk_level",
            "gender",
            "discipline_incidents_count",
            "absences_count",
