@@ -3,7 +3,7 @@
 class AttendanceImporter
   def initialize(options:)
     @log = options.fetch(:log)
-    @school_local_ids = options.fetch(:school_scope)
+    @school_local_ids = options.fetch(:school_scope, [])
     @date_range_inclusive = create_date_range_inclusive(options)
 
     @student_ids_map = ::StudentIdsMap.new
@@ -50,7 +50,7 @@ class AttendanceImporter
   def create_date_range_inclusive(options)
     time_now = options.fetch(:time_now, Time.now)
     skip_old_records = options.fetch(:skip_old_records, false)
-    time_window = if skip_old_records then 90.days else 20.years end # or max retention policy
+    time_window = if skip_old_records then 90.days else 10.years end # or max retention policy
     end_date = time_now.beginning_of_day.to_date
     start_date = (end_date - time_window).beginning_of_day.to_date
     DateRangeInclusive.new(start_date, end_date)
@@ -92,14 +92,12 @@ class AttendanceImporter
   def import_row(row)
     # Skip based on school filter
     if !school_filter.include?(row)
-      puts "skip school filter: #{school_filter}"
       @skipped_from_school_filter += 1
       return
     end
 
     # Skip old records
     if !within_date_range?(row)
-      puts "skip date range: #{@date_range_inclusive}"
       @skipped_old_rows_count += 1
       return
     end

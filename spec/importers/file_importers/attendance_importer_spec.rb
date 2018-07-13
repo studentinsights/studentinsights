@@ -169,15 +169,16 @@ RSpec.describe AttendanceImporter do
 
     context 'old attendance events' do
       let!(:student) { FactoryBot.create(:student, local_id: '1') }
-      let(:date) { '2005-09-16' }
+      let(:time_now) { Time.parse('2018-07-02') }
       let(:row) {
-        { event_date: date, local_id: '1', absence: '1', tardy: '0' }
+        { event_date: '2018-03-16', local_id: '1', absence: '1', tardy: '0' }
       }
 
       context '--skip_old_records flag on' do
         it 'does not create an absence' do
+          importer = make_attendance_importer(time_now: time_now, skip_old_records: true)
           expect {
-            make_attendance_importer(skip_old_records: true).send(:import_row, row)
+            importer.send(:import_row, row)
           }.to change {
             Absence.count
           }.by 0
@@ -186,8 +187,9 @@ RSpec.describe AttendanceImporter do
 
       context '--skip_old_records flag off' do
         it 'creates an absence' do
+          importer = make_attendance_importer(time_now: time_now, skip_old_records: false)
           expect {
-            make_attendance_importer.send(:import_row, row)
+            importer.send(:import_row, row)
           }.to change {
             Absence.count
           }.by 1
