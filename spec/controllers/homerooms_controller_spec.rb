@@ -106,8 +106,6 @@ describe HomeroomsController, :type => :controller do
             let!(:second_student) { FactoryBot.create(:student, :registered_last_year, homeroom: educator.homeroom) }
             let!(:third_student) { FactoryBot.create(:student, :registered_last_year) }
 
-            before { Student.update_risk_levels! }
-
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)
               expected_student_ids = [first_student, second_student].map(&:id)
