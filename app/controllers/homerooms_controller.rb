@@ -33,7 +33,6 @@ class HomeroomsController < ApplicationController
     @homeroom.students.active.includes([
       :event_notes,
       :interventions,
-      :student_risk_level,
       :homeroom,
     ] + additional_includes)
   end
@@ -46,7 +45,6 @@ class HomeroomsController < ApplicationController
       event_notes_without_restricted: student.event_notes_without_restricted,
       interventions: student.interventions,
       sped_data: student.sped_data,
-      student_risk_level: student.student_risk_level.as_json_with_explanation
     }))
   end
 
