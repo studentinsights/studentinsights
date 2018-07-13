@@ -25,7 +25,7 @@ RSpec.describe AttendanceImporter do
     let(:attendance_importer) { make_attendance_importer }
 
     context 'recent attendance events' do
-      before { Timecop.freeze('2005-09-16') }
+      before { Timecop.freeze('2005-09-17') }
       after { Timecop.return }
 
       context 'one row for one student on one date' do
@@ -150,20 +150,19 @@ RSpec.describe AttendanceImporter do
 
       context 'multiple rows for same student on different dates' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
-        let(:date) { '2005-09-16' }
 
-        let(:first_row) { { event_date: '2005-09-16', local_id: '1', absence: '1', tardy: '0' } }
-        let(:second_row) { { event_date: '2005-09-17', local_id: '1', absence: '1', tardy: '0' } }
-        let(:third_row) { { event_date: '2005-09-18', local_id: '1', absence: '1', tardy: '0' } }
-        let(:fourth_row) { { event_date: '2005-09-19', local_id: '1', absence: '1', tardy: '0' } }
+        let(:first_row) { { event_date: '2005-09-14', local_id: '1', absence: '1', tardy: '0' } }
+        let(:second_row) { { event_date: '2005-09-15', local_id: '1', absence: '1', tardy: '0' } }
+        let(:third_row) { { event_date: '2005-09-16', local_id: '1', absence: '1', tardy: '0' } }
+        let(:fourth_row) { { event_date: '2005-09-17', local_id: '1', absence: '1', tardy: '0' } }
 
-        it 'creates multiple absences' do
+        it 'creates multiple absences, but respects end date for time window' do
           expect {
             attendance_importer.send(:import_row, first_row)
             attendance_importer.send(:import_row, second_row)
             attendance_importer.send(:import_row, third_row)
             attendance_importer.send(:import_row, fourth_row)
-          }.to change { Absence.count }.by 4
+          }.to change { Absence.count }.by 3
         end
       end
     end

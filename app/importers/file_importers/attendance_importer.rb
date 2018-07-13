@@ -1,13 +1,10 @@
 # These reads the student_attendance table from Aspen and syncs it to the Absence and Tardy
 # tables.
 class AttendanceImporter
-
   def initialize(options:)
-    @school_local_ids = options.fetch(:school_scope)
     @log = options.fetch(:log)
-    @time_now = options.fetch(:time_now, Time.now)
-    @skip_old_records = options.fetch(:skip_old_records)
-    @old_threshold = @time_now.beginning_of_day - 2.days
+    @school_local_ids = options.fetch(:school_scope)
+    @date_range_inclusive = create_date_range_inclusive(options)
 
     @student_ids_map = ::StudentIdsMap.new
 
@@ -50,6 +47,15 @@ class AttendanceImporter
   end
 
   private
+  def create_date_range_inclusive(options)
+    time_now = options.fetch(:time_now, Time.now)
+    skip_old_records = options.fetch(:skip_old_records, false)
+    time_window = if skip_old_records then 90.days else 20.years end # or max retention policy
+    end_date = time_now.beginning_of_day.to_date
+    start_date = (end_date - time_window).beginning_of_day.to_date
+    DateRangeInclusive.new(start_date, end_date)
+  end
+
   def remote_file_name
     LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
   end
@@ -70,34 +76,38 @@ class AttendanceImporter
     record_class
       .joins(:student => :school)
       .where(:schools => {:local_id => @school_local_ids})
-      .where('occurred_at >= ?', @old_threshold)
+      .where('occurred_at >= ?', @date_range_inclusive.start)
+      .where('occurred_at <= ?', @date_range_inclusive.end)
   end
 
   def school_filter
     SchoolFilter.new(@school_local_ids)
   end
 
-  def is_old?(row)
-    row[:event_date] < @old_threshold
+  def within_date_range?(row)
+    date = Date.parse(row[:event_date])
+    date >= @date_range_inclusive.start && date <= @date_range_inclusive.end
   end
 
   def import_row(row)
     # Skip based on school filter
     if !school_filter.include?(row)
-      @skipped_from_school_filter = @skipped_from_school_filter + 1
+      puts "skip school filter: #{school_filter}"
+      @skipped_from_school_filter += 1
       return
     end
 
     # Skip old records
-    if @skip_old_records && is_old?(row)
-      @skipped_old_rows_count = @skipped_old_rows_count + 1
+    if !within_date_range?(row)
+      puts "skip date range: #{@date_range_inclusive}"
+      @skipped_old_rows_count += 1
       return
     end
 
     # Skip if not absence or tardy
     record_class = attendance_event_class(row)
     if record_class.nil?
-      @skipped_other_rows_count = @skipped_other_rows_count + 1
+      @skipped_other_rows_count += 1
       return
     end
 
