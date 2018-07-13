@@ -20,7 +20,7 @@ describe StudentsController, :type => :controller do
     let!(:school) { FactoryBot.create(:school) }
     let(:educator) { FactoryBot.create(:educator_with_homeroom) }
     let(:other_educator) { FactoryBot.create(:educator, full_name: "Teacher, Louis") }
-    let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
+    let(:student) { FactoryBot.create(:student, school: school) }
     let(:course) { FactoryBot.create(:course, school: school) }
     let(:section) { FactoryBot.create(:section, course: course) }
     let!(:ssa) { FactoryBot.create(:student_section_assignment, student: student, section: section) }
@@ -197,7 +197,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has some grade level access but for the wrong grade' do
-        let(:student) { FactoryBot.create(:student, :with_risk_level, grade: '1', school: school) }
+        let(:student) { FactoryBot.create(:student, grade: '1', school: school) }
         let(:educator) { FactoryBot.create(:educator, grade_level_access: ['KF'], school: school) }
 
         it 'fails' do
@@ -215,7 +215,6 @@ describe StudentsController, :type => :controller do
 
         context 'student in SPED' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               program_assigned: 'Sp Ed',
                                               school: school)
@@ -229,7 +228,6 @@ describe StudentsController, :type => :controller do
 
         context 'student in Reg Ed' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               program_assigned: 'Reg Ed')
           }
@@ -251,7 +249,6 @@ describe StudentsController, :type => :controller do
 
         context 'limited English proficiency' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               limited_english_proficiency: 'FLEP',
                                               school: school)
@@ -265,7 +262,6 @@ describe StudentsController, :type => :controller do
 
         context 'fluent in English' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               limited_english_proficiency: 'Fluent')
           }
@@ -442,7 +438,6 @@ describe StudentsController, :type => :controller do
       student = FactoryBot.create(:student)
       serialized_student = controller.send(:serialize_student_for_profile, student)
       expect(serialized_student.keys).to include(*[
-        'student_risk_level',
         'absences_count',
         'tardies_count',
         'school_name',
@@ -654,7 +649,7 @@ describe StudentsController, :type => :controller do
   describe '#student_report' do
     let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
     let(:school) { FactoryBot.create(:school) }
-    let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
+    let(:student) { FactoryBot.create(:student, school: school) }
 
     def get_student_report_pdf(student_id, params = {})
       request.env['HTTPS'] = 'on'
