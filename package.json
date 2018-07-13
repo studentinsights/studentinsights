@@ -14,8 +14,10 @@
     "lint-cli": "eslint --ext jsx --ext js -c .eslintrc app/assets/javascripts spec/javascripts ui",
     "dev": "NODE_ENV=development webpack --config ui/config/webpack.dev.js --watch",
     "build": "NODE_ENV=production webpack --config ui/config/webpack.prod.js",
+    "s": "yarn start",
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
     "jest": "TZ='America/New_York' jest --config jest.json",
+    "t": "yarn test",
     "test": "yarn jest --watch",
     "test-cli": "yarn lint-cli && yarn jest",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
