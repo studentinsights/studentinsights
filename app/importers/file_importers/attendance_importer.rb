@@ -62,7 +62,7 @@ class AttendanceImporter
   # What existing Insights records should be updated or deleted from running this import?
   def records_within_scope(record_class)
     record_class
-      .joins({ :student => :school })
+      .joins(:student => :school)
       .where(:schools => {:local_id => @school_local_ids})
       .where('occurred_at >= ?', @old_threshold)
   end
@@ -103,12 +103,10 @@ class AttendanceImporter
   end
 
   def get_syncer!(record_class)
-    syncer = {
-      Absence => @absence_record_syncer,
-      Tardy => @tardy_record_syncer
-    }[record_class]
-    raise "Code error, unexpected record_class: #{record_class}" if syncer.nil?
-    syncer
+    if record_class == Absence then @absence_record_syncer
+    elsif record_class == Tardy then @tardy_record_syncer
+    else raise "Code error, unexpected record_class: #{record_class}"
+    end
   end
 
   # Matches a row from a CSV export with an existing or new (unsaved) Insights record
