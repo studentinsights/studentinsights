@@ -113,7 +113,7 @@ describe('high-level integration tests', () => {
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
       [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'House', 'Counselor', 'Risk level' ],
+      [ 'Grade', 'House', 'Counselor' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -129,7 +129,7 @@ describe('high-level integration tests', () => {
 
     expect(helpers.rowsPerColumnMatrix(el)).toEqual([
       [ 5, 4, 3, 4, 3, 3 ],
-      [ 3, 1, 5 ],
+      [ 3, 1 ],
       [ 5, 5, 5 ],
       [ 5, 5, 5 ],
       [ 5, 5, 5 ],
