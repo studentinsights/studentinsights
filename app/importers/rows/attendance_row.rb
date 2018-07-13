@@ -1,9 +1,6 @@
-class AttendanceRow < Struct.new(:row, :student_id)
+class AttendanceRow < Struct.new(:row, :student_id, :record_class)
   # Matches a row from a CSV export with an Insights record.
   def build
-    record_class = attendance_event_class
-    return nil if record_class.nil?
-
     attendance_event = record_class.find_or_initialize_by(
       occurred_at: row[:event_date],
       student_id: student_id,
@@ -20,12 +17,5 @@ class AttendanceRow < Struct.new(:row, :student_id)
     end
 
     attendance_event
-  end
-
-  private
-  def attendance_event_class
-    return Absence if row[:absence].to_i == 1
-    return Tardy if row[:tardy].to_i == 1
-    nil
   end
 end
