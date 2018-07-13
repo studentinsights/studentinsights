@@ -52,9 +52,9 @@ describe('high-level integration test', () => {
     const {el} = testRender(testProps());
 
     ReactTestUtils.Simulate.click($(el).find('#column-picker-toggle').get(0));
-    expect($(el).find('span.table-header').length).toEqual(10);
-    ReactTestUtils.Simulate.click($(el).find('input[type=checkbox]').get(0));
     expect($(el).find('span.table-header').length).toEqual(9);
+    ReactTestUtils.Simulate.click($(el).find('input[type=checkbox]').get(0));
+    expect($(el).find('span.table-header').length).toEqual(7);
   });
 
   it('renders correct headers for ESMS school', () => {
@@ -64,7 +64,6 @@ describe('high-level integration test', () => {
     }));
     expect(headerTexts(el)).toEqual([
       'Name',
-      'Risk',
       'Last SST',
       'Last MTSS',
       'Program Assigned',
@@ -86,7 +85,6 @@ describe('high-level integration test', () => {
     const {el} = testRender(testProps({ school: shs() }));
     expect(headerTexts(el)).toEqual([
       'Name',
-      'Risk',
       'Last SST',
       'Last NGE',
       'Last 10GE',

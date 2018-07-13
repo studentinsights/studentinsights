@@ -295,23 +295,8 @@ class SlicePanels extends React.Component {
         {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', {})}
         {shouldDisplayCounselor(this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
         {this.renderYearsEnrolled()}
-        {this.renderRiskLevel()}
       </div>
     );
-  }
-
-  renderRiskLevel() {
-    const key = 'risk_level';
-    const items = [0, 1, 2, 3].map(value => {
-      return this.createItem(value, Filters.Equal(key, value));
-    });
-
-    items.push(this.createItem('N/A', Filters.Null(key)));
-
-    return this.renderTable({
-      title: 'Risk level',
-      items: items
-    });
   }
 
   renderYearsEnrolled() {
