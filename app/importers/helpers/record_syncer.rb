@@ -23,7 +23,7 @@ class RecordSyncer
   def validate_mark_and_sync!(insights_record)
     # Passed nil, something failed upstream
     if insights_record.nil?
-      @passed_nil_record_count = @passed_nil_record_count + 1
+      @passed_nil_record_count += 1
       return :nil
     end
 
@@ -33,7 +33,7 @@ class RecordSyncer
     # would be invalid).  By returning early and not marking it,
     # invalid records like this will get purged by `delete_unmarked_records!`
     if !insights_record.valid?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return :invalid
     end
 
@@ -42,16 +42,16 @@ class RecordSyncer
     # scope that don't (they've been removed from the CSV).
     # Nothing has changed, update or create
     if insights_record.persisted? && !insights_record.changed?
-      @unchanged_rows_count = @unchanged_rows_count + 1
+      @unchanged_rows_count += 1
       mark_insights_record(insights_record)
       return :unchanged
     elsif insights_record.persisted?
-      @updated_rows_count = @updated_rows_count + 1
+      @updated_rows_count += 1
       insights_record.save!
       mark_insights_record(insights_record)
       return :updated
     else
-      @created_rows_count = @created_rows_count + 1
+      @created_rows_count += 1
       insights_record.save!
       mark_insights_record(insights_record)
       return :created
