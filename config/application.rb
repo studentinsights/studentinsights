@@ -25,15 +25,13 @@ module SomervilleTeacherTool
         "#{config.root}/app/jobs",
         "#{config.root}/app/serializers",
         "#{config.root}/app/importers/clients",
+        "#{config.root}/app/importers/constants",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
-        "#{config.root}/app/importers/photo_import",
         "#{config.root}/app/importers/helpers",
-        "#{config.root}/app/importers/rows",
-        "#{config.root}/app/importers/sources",
-        "#{config.root}/app/importers/constants",
         "#{config.root}/app/importers/iep_import",
-        "#{config.root}/app/importers/student_services",
+        "#{config.root}/app/importers/photo_import",
+        "#{config.root}/app/importers/rows",
         "#{config.root}/lib"
       ]
 
