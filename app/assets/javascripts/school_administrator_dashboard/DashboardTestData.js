@@ -6,26 +6,38 @@ export function createTestEvents(nowMoment) {
   return {
     oneMonthAgo: {
       occurred_at: nowMoment.clone().subtract(1, 'months').format(),
+      excused: true,
+      dismissed: false,
       student_id: 1,
     },
     twoMonthsAgo: {
       occurred_at: nowMoment.clone().subtract(2, 'months').format(),
+      excused: false,
+      dismissed: true,
       student_id: 1,
     },
     threeMonthsAgo: {
       occurred_at: nowMoment.clone().subtract(3, 'months').format(),
+      excused: false,
+      dismissed: false,
       student_id: 1,
     },
     fourMonthsAgo: {
       occurred_at: nowMoment.clone().subtract(4, 'months').format(),
+      excused: false,
+      dismissed: false,
       student_id: 1,
     },
     oneYearAgo: {
       occurred_at: nowMoment.clone().subtract(1, 'year').format(),
+      excused: false,
+      dismissed: false,
       student_id: 1,
     },
     thisMonth: {
       occurred_at: nowMoment.clone().format(),
+      excused: false,
+      dismissed: false,
       student_id: 1
     }
   };

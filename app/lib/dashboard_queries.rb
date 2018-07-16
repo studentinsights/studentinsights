@@ -48,7 +48,7 @@ class DashboardQueries
 
   def individual_student_absence_data(student)
     shared_student_fields(student).merge({
-      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at])
+      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at, :excused, :dismissed])
     })
   end
 

@@ -7,9 +7,11 @@ import SchoolwideAttendance from './SchoolwideAttendance';
 class SchoolwideAbsences extends React.Component {
 
   render() {
+    const allAbsenceEvents = DashboardHelpers.absenceEvents(this.props.dashboardStudents);
     return (
       <SchoolwideAttendance
-        schoolAbsenceEvents = {DashboardHelpers.absenceEventsByDay(this.props.dashboardStudents)}
+        schoolAbsenceEvents = {allAbsenceEvents}
+        schoolAbsenceEventsByDay = {DashboardHelpers.eventsGroupedByDay(allAbsenceEvents)}
         dashboardStudents = {this.props.dashboardStudents}/>);
   }
 }

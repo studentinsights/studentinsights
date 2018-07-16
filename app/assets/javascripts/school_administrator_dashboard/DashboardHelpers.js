@@ -17,11 +17,18 @@ export default {
     return averageDailyAttendance;
   },
 
-  absenceEventsByDay(studentRecordsArray) {
-    const absenceEvents = _.flattenDeep(studentRecordsArray.map((student) => {
+  //For absences and tardies, removes those events that have been excused
+  filterExcusedEvents(eventsArray) {
+    return eventsArray.filter((event) => {
+      return !event.excused && !event.dismissed;
+    });
+  },
+
+  //array of all student absence events that can be filtered based on absence flags
+  absenceEvents(studentRecordsArray) {
+    return  _.flattenDeep(studentRecordsArray.map((student) => {
       return student.absences;
     }));
-    return this.eventsGroupedByDay(absenceEvents);
   },
 
   tardyEventsByDay(studentRecordsArray) {

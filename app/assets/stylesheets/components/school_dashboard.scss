@@ -19,14 +19,16 @@
 }
 
 .DashboardRosterColumn {
-  vertical-align: top;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-content: flex-start;
   padding-left: 20px;
 }
 
 .DashboardChart {
   flex: 1;
   width: 100%;
-  margin-top: 20px;
   padding: 10px 10px 10px 10px;
 
   div {
@@ -45,8 +47,12 @@
 .DashRangeButtonWrapper {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  display: flex;
   padding: 10px 20px;
-  margin: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 0px;
 }
 
 .DashRangeButtons {
@@ -57,6 +63,18 @@
 
   .DashButton {
     width: 25%;
+  }
+}
+
+.ExcusedFilter {
+  display: flex;
+  align-items: flex-end;
+  padding-left: 30px;
+  margin-left: 20px;
+  border-left: thin solid black;
+  .DashButton {
+    width: 200px;
+    padding-right: 10px;
   }
 }
 

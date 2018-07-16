@@ -186,7 +186,8 @@ function fullNameReverse(student) {
 
 const styles = {
   root: {
-    marginTop: 20
+    marginTop: 20,
+    marginBottom: 20
   },
   caption: {
     display: 'flex',
