@@ -7,7 +7,7 @@ import DashButton from './DashButton';
 class DashRangeButtons extends React.Component {
   constructor(props) {
     super(props);
-    this.state={selectedButton: 'fortyFiveDays'};
+    this.state={selectedButton: 'schoolYear'};
   }
 
   onClick(filterFunc, button) {
@@ -20,17 +20,17 @@ class DashRangeButtons extends React.Component {
       <div className="DashRangeButtons">
         Filter:
         <DashButton
-          onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
-          isSelected={this.state.selectedButton === 'fortyFiveDays'}
-          buttonText='Past 45 Days' />
-        <DashButton
-          onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
-          isSelected={this.state.selectedButton === 'ninetyDays'}
-          buttonText='Past 90 Days' />
-        <DashButton
           onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
           isSelected={this.state.selectedButton === 'schoolYear'}
           buttonText='School Year' />
+        <DashButton
+            onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
+            isSelected={this.state.selectedButton === 'ninetyDays'}
+            buttonText='Past 90 Days' />
+        <DashButton
+            onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
+            isSelected={this.state.selectedButton === 'fortyFiveDays'}
+            buttonText='Past 45 Days' />
       </div>
     );
   }
