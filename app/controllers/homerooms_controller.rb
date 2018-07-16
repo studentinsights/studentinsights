@@ -25,8 +25,8 @@ class HomeroomsController < ApplicationController
   private
 
   def initial_columns
-    return ['name', 'supports', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
-    return ['name', 'supports', 'risk', 'sped', 'interventions']
+    return ['name', 'supports', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'supports', 'sped', 'interventions']
   end
 
   def eager_students(*additional_includes)
