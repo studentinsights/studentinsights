@@ -66,7 +66,6 @@ class UnsafeAnonymizer
       :plan_504,
       :limited_english_proficiency,
       :enrollment_status,
-      :risk_level,
       :gender
     ]
     hashed_keys = [
