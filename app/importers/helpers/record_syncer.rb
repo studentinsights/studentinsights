@@ -71,12 +71,15 @@ class RecordSyncer
     unmarked_ids = records_within_import_scope.pluck(:id) - @marked_ids
     log("  unmarked_ids: #{unmarked_ids.inspect}") if unmarked_ids.size < 10
 
-    records_to_destroy = records_within_import_scope.select {|record| unmarked_ids.include?(record.id) }
+    records_to_destroy = records_within_import_scope.where(id: unmarked_ids)
     log("  records_to_destroy.size: #{records_to_destroy.size} within scope")
 
-    # This intentionally runs validations, hooks, etc. on each record individually
-    # to be conservative.
-    records_to_destroy.each {|record| record.destroy! }
+    # This is slow, but intentionally runs validations, hooks, etc. on each record
+    # individually to be conservative.
+    records_to_destroy.each_with_index do |record, index|
+      record.destroy!
+      log("  destroyed #{index} rows.") if index > 0 && index % 100 == 0
+    end
     records_to_destroy.size
   end
 
