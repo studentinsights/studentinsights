@@ -3,7 +3,9 @@
 class AttendanceImporter
   def initialize(options:)
     @log = options.fetch(:log)
+
     @school_local_ids = options.fetch(:school_scope, [])
+    @student_local_ids = options.fetch(:student_local_ids, nil)
     @inclusive_date_range = create_inclusive_date_range(options)
 
     @student_ids_map = ::StudentIdsMap.new
@@ -23,6 +25,7 @@ class AttendanceImporter
     log("@student_ids_map built with #{@student_ids_map.size} local_id keys")
 
     log('Starting loop...')
+    @skipped_from_student_local_id_filter = 0
     @skipped_from_school_filter = 0
     @skipped_old_rows_count = 0
     @skipped_other_rows_count = 0
@@ -33,6 +36,7 @@ class AttendanceImporter
     end
 
     log('Done loop.')
+    log("@skipped_from_student_local_id_filter: #{@skipped_from_student_local_id_filter}")
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@skipped_old_rows_count: #{@skipped_old_rows_count}")
     log("@skipped_other_rows_count: #{@skipped_other_rows_count}")
@@ -75,11 +79,24 @@ class AttendanceImporter
 
   # What existing Insights records should be updated or deleted from running this import?
   def records_within_scope(record_class)
-    record_class
+    query = record_class
       .joins(:student => :school)
       .where(:schools => {:local_id => @school_local_ids})
       .where('occurred_at >= ?', @inclusive_date_range.begin)
       .where('occurred_at <= ?', @inclusive_date_range.end)
+
+    # Allow filtering by student_local_id as as well
+    if @student_local_ids.present?
+      student_ids = @student_local_ids.map do |student_local_id|
+        @student_ids_map.lookup_student_id(student_local_id)
+      end
+      if student_ids != student_ids.compact
+        log("not all @student_local_ids could be found, compacting #{@student_local_ids} to #{@student_local_ids.compact}...")
+      end
+      query.where(student_id: student_ids.compact)
+    else
+      query
+    end
   end
 
   def school_filter
@@ -108,6 +125,12 @@ class AttendanceImporter
     record_class = attendance_event_class(row)
     if record_class.nil?
       @skipped_other_rows_count += 1
+      return
+    end
+
+    # Skip based on student filter
+    if @student_local_ids.present? && !@student_local_ids.include?(row[:local_id])
+      @skipped_from_student_local_id_filter += 1
       return
     end
 
