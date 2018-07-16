@@ -14,7 +14,7 @@ RSpec.describe DashboardQueries do
         :id,
         :last_name,
         :homeroom_label,
-        :sst_notes
+        :latest_note
       ])
     end
 
@@ -27,7 +27,7 @@ RSpec.describe DashboardQueries do
         :id,
         :last_name,
         :homeroom_label,
-        :sst_notes
+        :latest_note
       ])
     end
 
@@ -44,7 +44,7 @@ RSpec.describe DashboardQueries do
         :id,
         :last_name,
         :homeroom_label,
-        :sst_notes
+        :latest_note
       ])
       expect(json[:discipline_incidents].first.keys).to contain_exactly(*[
         "student_id",
