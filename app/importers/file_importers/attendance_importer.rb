@@ -4,7 +4,7 @@ class AttendanceImporter
   def initialize(options:)
     @log = options.fetch(:log)
     @school_local_ids = options.fetch(:school_scope, [])
-    @date_range_inclusive = create_date_range_inclusive(options)
+    @inclusive_date_range = create_inclusive_date_range(options)
 
     @student_ids_map = ::StudentIdsMap.new
 
@@ -47,7 +47,7 @@ class AttendanceImporter
   end
 
   private
-  def create_date_range_inclusive(options)
+  def create_inclusive_date_range(options)
     time_window = options.fetch(:time_window, 10.days)
     time_now = options.fetch(:time_now, Time.now)
     skip_old_records = options.fetch(:skip_old_records, false)
@@ -55,7 +55,7 @@ class AttendanceImporter
     time_window = if skip_old_records then time_window else 20.years end # or max retention policy
     end_date = time_now.beginning_of_day.to_date
     start_date = (end_date - time_window).beginning_of_day.to_date
-    DateRangeInclusive.new(start_date, end_date)
+    InclusiveDateRange.new(start_date, end_date)
   end
 
   def remote_file_name
@@ -78,8 +78,8 @@ class AttendanceImporter
     record_class
       .joins(:student => :school)
       .where(:schools => {:local_id => @school_local_ids})
-      .where('occurred_at >= ?', @date_range_inclusive.start)
-      .where('occurred_at <= ?', @date_range_inclusive.end)
+      .where('occurred_at >= ?', @inclusive_date_range.begin)
+      .where('occurred_at <= ?', @inclusive_date_range.end)
   end
 
   def school_filter
@@ -88,7 +88,7 @@ class AttendanceImporter
 
   def within_date_range?(row)
     date = row[:event_date]
-    date >= @date_range_inclusive.start && date <= @date_range_inclusive.end
+    date >= @inclusive_date_range.begin && date <= @inclusive_date_range.end
   end
 
   def import_row(row)
