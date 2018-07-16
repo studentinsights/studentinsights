@@ -1,6 +1,3 @@
-import moment from 'moment';
-
-
 // Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {
   return {
