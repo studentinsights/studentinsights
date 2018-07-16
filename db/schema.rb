@@ -344,6 +344,18 @@ ActiveRecord::Schema.define(version: 2018_07_16_183457) do
     t.index ["student_id"], name: "index_student_photos_on_student_id"
   end
 
+  create_table "student_risk_levels", id: :serial, force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "mcas_math_risk_level"
+    t.integer "star_math_risk_level"
+    t.integer "mcas_ela_risk_level"
+    t.integer "star_reading_risk_level"
+    t.integer "limited_english_proficiency_risk_level"
+  end
+
   create_table "student_section_assignments", force: :cascade do |t|
     t.integer "section_id"
     t.integer "student_id"
@@ -385,6 +397,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_183457) do
     t.integer "most_recent_star_math_percentile"
     t.string "enrollment_status"
     t.datetime "date_of_birth"
+    t.integer "risk_level"
     t.string "gender"
     t.string "primary_phone"
     t.string "primary_email"
@@ -454,6 +467,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_183457) do
   add_foreign_key "student_assessments", "assessments", name: "student_assessments_assessment_id_fk"
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
   add_foreign_key "student_photos", "students"
+  add_foreign_key "student_risk_levels", "students", name: "student_risk_levels_student_id_fk"
   add_foreign_key "student_section_assignments", "sections"
   add_foreign_key "student_section_assignments", "students"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
