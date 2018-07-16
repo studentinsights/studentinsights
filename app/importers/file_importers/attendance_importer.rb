@@ -48,7 +48,7 @@ class AttendanceImporter
 
   private
   def create_inclusive_date_range(options)
-    time_window = options.fetch(:time_window, 10.days)
+    time_window = options.fetch(:time_window, 90.days)
     time_now = options.fetch(:time_now, Time.now)
     skip_old_records = options.fetch(:skip_old_records, false)
 
