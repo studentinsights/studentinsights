@@ -17,7 +17,7 @@ RSpec.describe AttendanceImporter do
   def make_row(hash = {})
     {
       local_id: FactoryBot.create(:student).local_id,
-      event_date: DateTime.parse('1981-12-30'),
+      event_date: Date.parse('1981-12-30'),
     }.merge(hash)
   end
 
@@ -30,7 +30,7 @@ RSpec.describe AttendanceImporter do
 
       context 'one row for one student on one date' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
-        let(:date) { '2005-09-16' }
+        let(:date) { Date.parse('2005-09-16') }
 
         context 'row with absence (Somerville)' do
           # Default ENV['DISTRICT_KEY'] for test suite is 'somerville', see test.rb
@@ -85,7 +85,7 @@ RSpec.describe AttendanceImporter do
 
       context 'row with absence (New Bedford)' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
-        let(:date) { '2005-09-16' }
+        let(:date) { Date.parse('2005-09-16') }
 
         let(:row) {
           { event_date: date, local_id: '1', absence: '1', tardy: '0',
@@ -120,7 +120,7 @@ RSpec.describe AttendanceImporter do
 
         let!(:edwin) { FactoryBot.create(:student, local_id: '1', first_name: 'Edwin') }
         let!(:kristen) { FactoryBot.create(:student, local_id: '2', first_name: 'Kristen') }
-        let(:date) { '2005-09-16' }
+        let(:date) { Date.parse('2005-09-16') }
 
         let(:row_for_edwin) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
         let(:row_for_kristen) { { event_date: date, local_id: '2', absence: '1', tardy: '0' } }
@@ -135,7 +135,7 @@ RSpec.describe AttendanceImporter do
 
       context 'multiple rows for same student on same date' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
-        let(:date) { '2005-09-16' }
+        let(:date) { Date.parse('2005-09-16') }
 
         let(:first_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
         let(:second_row) { { event_date: date, local_id: '1', absence: '1', tardy: '0' } }
@@ -151,10 +151,10 @@ RSpec.describe AttendanceImporter do
       context 'multiple rows for same student on different dates' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
 
-        let(:first_row) { { event_date: '2005-09-14', local_id: '1', absence: '1', tardy: '0' } }
-        let(:second_row) { { event_date: '2005-09-15', local_id: '1', absence: '1', tardy: '0' } }
-        let(:third_row) { { event_date: '2005-09-16', local_id: '1', absence: '1', tardy: '0' } }
-        let(:fourth_row) { { event_date: '2005-09-17', local_id: '1', absence: '1', tardy: '0' } }
+        let(:first_row) { { event_date: Date.parse('2005-09-14'), local_id: '1', absence: '1', tardy: '0' } }
+        let(:second_row) { { event_date: Date.parse('2005-09-15'), local_id: '1', absence: '1', tardy: '0' } }
+        let(:third_row) { { event_date: Date.parse('2005-09-16'), local_id: '1', absence: '1', tardy: '0' } }
+        let(:fourth_row) { { event_date: Date.parse('2005-09-17'), local_id: '1', absence: '1', tardy: '0' } }
 
         it 'creates multiple absences, but respects end date for time window' do
           expect {
@@ -168,17 +168,16 @@ RSpec.describe AttendanceImporter do
     end
 
     context 'old attendance events' do
+      let(:time_now) { Time.parse('2018-07-16 09:19:53 -0400') }
       let!(:student) { FactoryBot.create(:student, local_id: '1') }
-      let(:time_now) { Time.parse('2018-07-02') }
       let(:row) {
-        { event_date: '2018-03-16', local_id: '1', absence: '1', tardy: '0' }
+        { event_date: Date.parse('2015-09-16'), local_id: '1', absence: '1', tardy: '0' }
       }
 
       context '--skip_old_records flag on' do
         it 'does not create an absence' do
-          importer = make_attendance_importer(time_now: time_now, skip_old_records: true)
           expect {
-            importer.send(:import_row, row)
+            make_attendance_importer(skip_old_records: true, time_now: time_now).send(:import_row, row)
           }.to change {
             Absence.count
           }.by 0
@@ -187,9 +186,8 @@ RSpec.describe AttendanceImporter do
 
       context '--skip_old_records flag off' do
         it 'creates an absence' do
-          importer = make_attendance_importer(time_now: time_now, skip_old_records: false)
           expect {
-            importer.send(:import_row, row)
+            make_attendance_importer(time_now: time_now).send(:import_row, row)
           }.to change {
             Absence.count
           }.by 1

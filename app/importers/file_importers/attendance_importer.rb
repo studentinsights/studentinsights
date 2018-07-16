@@ -48,9 +48,11 @@ class AttendanceImporter
 
   private
   def create_date_range_inclusive(options)
+    time_window = options.fetch(:time_window, 10.days)
     time_now = options.fetch(:time_now, Time.now)
     skip_old_records = options.fetch(:skip_old_records, false)
-    time_window = if skip_old_records then 90.days else 10.years end # or max retention policy
+
+    time_window = if skip_old_records then time_window else 20.years end # or max retention policy
     end_date = time_now.beginning_of_day.to_date
     start_date = (end_date - time_window).beginning_of_day.to_date
     DateRangeInclusive.new(start_date, end_date)
@@ -85,7 +87,7 @@ class AttendanceImporter
   end
 
   def within_date_range?(row)
-    date = Date.parse(row[:event_date])
+    date = row[:event_date]
     date >= @date_range_inclusive.start && date <= @date_range_inclusive.end
   end
 
