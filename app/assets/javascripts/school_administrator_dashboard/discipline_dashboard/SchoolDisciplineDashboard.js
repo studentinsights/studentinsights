@@ -4,7 +4,6 @@ import _ from 'lodash';
 import moment from 'moment';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import {latestNoteDateText} from '../../helpers/latestNoteDateText';
 import {sortByGrade} from '../../helpers/SortHelpers';
 import ExperimentalBanner from '../../components/ExperimentalBanner';
 import DashboardHelpers from '../DashboardHelpers';
@@ -170,7 +169,7 @@ class SchoolDisciplineDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        last_sst_date_text: latestNoteDateText(300, student.sst_notes),
+        latest_note: student.latest_note,
         events: studentDisciplineIncidentCounts[student.id] || 0,
         grade: student.grade
       });

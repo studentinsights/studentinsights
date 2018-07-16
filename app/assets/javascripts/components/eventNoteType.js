@@ -10,6 +10,18 @@ export function eventNoteTypeText(eventNoteTypeId) {
   return textMap[eventNoteTypeId] || 'Other';
 }
 
+const miniTextMap = {
+  300: 'SST',
+  301: 'MTSS',
+  302: 'Parent',
+  304: 'Other',
+  305: '9GE',
+  306: '10GE'
+};
+export function eventNoteTypeTextMini(eventNoteTypeId) {
+  return miniTextMap[eventNoteTypeId] || 'Other';
+}
+
 const colorMap =  {
   300: '#31AB39',
   301: '#EB4B26',

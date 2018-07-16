@@ -1,6 +1,3 @@
-import moment from 'moment';
-
-
 // Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {
   return {
@@ -55,7 +52,10 @@ export function createStudents(nowMoment) {
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     events: 3,
-    last_sst_date_text: moment.utc(testEvents.threeMonthsAgo.occurred_at).format('M/D/YY')
+    latest_note: {
+      event_note_type_id: 300,
+      recorded_at: testEvents.threeMonthsAgo.occurred_at
+    }
   },
   {
     first_name: 'Pierrette',
@@ -66,7 +66,7 @@ export function createStudents(nowMoment) {
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     events: 2,
-    last_sst_date_text: null
+    latest_note: null
   },
   {
     first_name: 'Arlecchino',
@@ -77,7 +77,7 @@ export function createStudents(nowMoment) {
     absences: [],
     tardies: [],
     events: 0,
-    last_sst_date_text: null
+    latest_note: null
   },
   {
     first_name: 'Colombina',
@@ -88,7 +88,7 @@ export function createStudents(nowMoment) {
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.oneYearAgo],
     tardies: [testEvents.thisMonth],
     events: 3,
-    last_sst_date_text: null
+    latest_note: null
   },
   {
     first_name: 'Scaramuccia',
@@ -99,7 +99,7 @@ export function createStudents(nowMoment) {
     absences: [testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneYearAgo],
     events: 2,
-    last_sst_date_text: null
+    latest_note: null
   },
   {
     first_name: 'Pulcinella',
@@ -110,7 +110,7 @@ export function createStudents(nowMoment) {
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo],
     events: 2,
-    last_sst_date_text: null
+    latest_note: null
   }];
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {latestNoteDateText} from '../../helpers/latestNoteDateText';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
@@ -127,7 +126,7 @@ class SchoolAbsenceDashboard extends React.Component {
         id: student.id,
         first_name: student.first_name,
         last_name: student.last_name,
-        last_sst_date_text: latestNoteDateText(300, student.sst_notes),
+        latest_note: student.latest_note,
         events: studentAbsenceCounts[student.id] || 0,
         grade: student.grade,
       });
