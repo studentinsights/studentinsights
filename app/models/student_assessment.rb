@@ -59,8 +59,4 @@ class StudentAssessment < ActiveRecord::Base
     where(student_id: student.id)
   end
 
-  def risk_level
-    assessment.to_risk_level(self)
-  end
-
 end
