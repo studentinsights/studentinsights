@@ -12,6 +12,7 @@ class Educator < ActiveRecord::Base
   has_many    :transition_notes
   has_many    :event_note_revisions
   has_many    :educator_labels
+  has_many    :login_activities, as: :user
 
   validates :email, presence: true, uniqueness: true, case_sensitive: false
 
