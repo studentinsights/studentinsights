@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
 
     @serialized_data = {
       current_educator: current_educator.as_json(methods: [:labels]),
-      student: serialize_student_for_profile(student),          # Risk level, school homeroom, most recent school year attendance/discipline counts
+      student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
@@ -159,7 +159,6 @@ class StudentsController < ApplicationController
     }
 
     student.as_json.merge(per_district_fields).merge({
-      student_risk_level: student.student_risk_level.as_json,
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
       school_name: student.try(:school).try(:name),

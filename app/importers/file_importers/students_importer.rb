@@ -48,8 +48,6 @@ class StudentsImporter
       return nil
     end
 
-    student.update_risk_level!
-
     if row[:homeroom].present?
       assign_student_to_homeroom(student, row[:homeroom])
     end

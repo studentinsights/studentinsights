@@ -10,11 +10,6 @@ namespace :chores do
     DisciplineIncident.find_each(&:save)
   end
 
-  desc 'Update student risk levels'
-  task update_student_risk_levels: :environment do
-    StudentRiskLevel.find_each(&:update_risk_level!)
-  end
-
   desc 'Update educator student searchbar cached data'
   task update_searchbar_data_for_all_educators: :environment do
     Educator.save_student_searchbar_json

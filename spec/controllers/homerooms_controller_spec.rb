@@ -50,7 +50,6 @@ describe HomeroomsController, :type => :controller do
           "most_recent_star_math_percentile",
           "enrollment_status",
           "date_of_birth",
-          "risk_level",
           "gender",
           "house",
           "counselor",
@@ -62,7 +61,6 @@ describe HomeroomsController, :type => :controller do
           "event_notes_without_restricted",
           "interventions",
           "sped_data",
-          "student_risk_level"
         ])
       end
     end
@@ -105,8 +103,6 @@ describe HomeroomsController, :type => :controller do
             let!(:first_student) { FactoryBot.create(:student, :registered_last_year, homeroom: educator.homeroom) }
             let!(:second_student) { FactoryBot.create(:student, :registered_last_year, homeroom: educator.homeroom) }
             let!(:third_student) { FactoryBot.create(:student, :registered_last_year) }
-
-            before { Student.update_risk_levels! }
 
             it 'assigns rows to a non-empty array' do
               make_request(educator.homeroom.slug)

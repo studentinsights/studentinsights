@@ -191,16 +191,6 @@ namespace :missing_foreign_key_relations do
     puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
     puts ""
 
-    puts "Missing Student IDs on StudentRiskLevel"
-    missing = []
-    StudentRiskLevel.find_each do |risk_level|
-      if !risk_level.student
-        missing << risk_level.student_id
-      end
-    end
-    puts "#{missing.length} records missing an object. Missing IDs: #{missing.uniq}"
-    puts ""
-
     puts "Missing School IDs on Student"
     missing = []
     Student.find_each do |student|
