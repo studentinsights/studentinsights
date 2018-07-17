@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import chroma from 'chroma-js';
-import {
-  steelBlue,
-  high,
-  medium,
-  low
-} from '../helpers/colors';
+import {steelBlue} from '../helpers/colors';
 import School from '../components/School';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
