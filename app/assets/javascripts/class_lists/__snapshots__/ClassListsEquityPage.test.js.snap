@@ -252,56 +252,19 @@ exports[`snapshots view 1`] = `
             <span
               style={
                 Object {
-                  "backgroundColor": "red",
-                  "color": "white",
-                  "fontWeight": "bold",
-                  "padding": 10,
-                }
-              }
-            >
-              100
-            </span>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "center",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <span
-              style={
-                Object {
-                  "backgroundColor": "white",
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      165,
+                      0,
+                      1,
+                    ],
+                  },
                   "color": "black",
-                  "fontWeight": "normal",
-                  "padding": 10,
-                }
-              }
-            >
-              56
-            </span>
-          </td>
-          <td
-            style={
-              Object {
-                "border": "1px solid #eee",
-                "padding": 10,
-                "textAlign": "center",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <span
-              style={
-                Object {
-                  "backgroundColor": "green",
-                  "color": "white",
-                  "fontWeight": "bold",
-                  "padding": 10,
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
                 }
               }
             >
@@ -321,10 +284,51 @@ exports[`snapshots view 1`] = `
             <span
               style={
                 Object {
-                  "backgroundColor": "red",
-                  "color": "white",
-                  "fontWeight": "bold",
-                  "padding": 10,
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      255,
+                      255,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              44
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      137,
+                      175,
+                      202,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
                 }
               }
             >
@@ -344,10 +348,19 @@ exports[`snapshots view 1`] = `
             <span
               style={
                 Object {
-                  "backgroundColor": "green",
-                  "color": "white",
-                  "fontWeight": "bold",
-                  "padding": 10,
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      165,
+                      0,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
                 }
               }
             >
@@ -367,10 +380,19 @@ exports[`snapshots view 1`] = `
             <span
               style={
                 Object {
-                  "backgroundColor": "red",
-                  "color": "white",
-                  "fontWeight": "bold",
-                  "padding": 10,
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      137,
+                      175,
+                      202,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
                 }
               }
             >
@@ -390,10 +412,51 @@ exports[`snapshots view 1`] = `
             <span
               style={
                 Object {
-                  "backgroundColor": "white",
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      165,
+                      0,
+                      1,
+                    ],
+                  },
                   "color": "black",
-                  "fontWeight": "normal",
-                  "padding": 10,
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      255,
+                      255,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
                 }
               }
             >

@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import chroma from 'chroma-js';
+import {
+  steelBlue,
+  high,
+  medium,
+  low
+} from '../helpers/colors';
 import School from '../components/School';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -75,9 +82,6 @@ export class ClassListsEquityPageView extends React.Component {
             </tr>
           </thead>
           <tbody>{sortedClassLists.map(classList => {
-            const educatorStyle = (classList.created_by_teacher_educator.id === currentEducatorId)
-              ? { fontWeight: 'bold' }
-              : {};
             return (
               <tr key={classList.workspace_id}>
                 <td style={cell}><School {...classList.school} /></td>
@@ -101,14 +105,16 @@ export class ClassListsEquityPageView extends React.Component {
   }
 
   renderValue(value) {
-    const rounded = Math.round(value * 100);
-    if (value < .25) {
-      return <span style={{padding: 10, color: 'white', backgroundColor: 'green', fontWeight: 'bold'}}>{rounded}</span>;
-    } else if (value < .60) {
-      return <span style={{padding: 10, color: 'black', backgroundColor: 'white', fontWeight: 'normal'}}>{rounded}</span>;
-    } else {
-      return <span style={{padding: 10, color: 'white', backgroundColor: 'red', fontWeight: 'bold'}}>{rounded}</span>;
-    }
+    const rounded = Math.round((1 - value) * 100);
+    const scale = chroma.scale([steelBlue, 'white', 'orange']).classes([0, .3, .7, 1]);
+    return <span style={{
+      backgroundColor: scale(value),
+      title: ((value > 70 || value < 30) ? 'Above 0.7 or below 0.3' : null),
+      display: 'inline-block',
+      width: '3em',
+      padding: 5,
+      color: 'black'
+    }}>{rounded}</span>;
   }
 }
 ClassListsEquityPageView.propTypes = {
