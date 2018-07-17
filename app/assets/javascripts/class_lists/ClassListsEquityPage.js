@@ -16,7 +16,6 @@ import {fetchExperimentalWorkspacesWithEquity} from './api';
 // Experimental view for looking at equity in class lists
 export default class ClassListsEquityPage extends React.Component {
   render() {
-    const {currentEducatorId} = this.props;
     return (
       <div className="ClassListsEquityPage">
         <GenericLoader
@@ -24,7 +23,6 @@ export default class ClassListsEquityPage extends React.Component {
           promiseFn={fetchExperimentalWorkspacesWithEquity}
           render={json => (
             <ClassListsEquityPageView
-              currentEducatorId={currentEducatorId}
               dimensionKeys={json.dimension_keys}
               classListsWithDimensions={json.class_lists_with_dimensions} />
           )} />
@@ -32,9 +30,7 @@ export default class ClassListsEquityPage extends React.Component {
     );
   }
 }
-ClassListsEquityPage.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired
-};
+ClassListsEquityPage.propTypes = {};
 
 // View component
 export class ClassListsEquityPageView extends React.Component {
@@ -49,7 +45,7 @@ export class ClassListsEquityPageView extends React.Component {
   }
 
   renderTable() {
-    const {dimensionKeys, classListsWithDimensions, currentEducatorId} = this.props;
+    const {dimensionKeys, classListsWithDimensions} = this.props;
 
     if (classListsWithDimensions.length === 0) return <div>No class lists</div>;
 
@@ -113,7 +109,6 @@ export class ClassListsEquityPageView extends React.Component {
   }
 }
 ClassListsEquityPageView.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired,
   dimensionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   classListsWithDimensions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,

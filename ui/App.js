@@ -103,9 +103,8 @@ class App extends React.Component {
   }
 
   renderExperimentalClassListsEquityPage(routeProps) {
-    const {currentEducator} = this.props;
     this.trackVisit(routeProps, 'CLASSROOM_LISTS_EQUITY_PAGE');
-    return <ClassListsEquityPage currentEducatorId={currentEducator.id} />;
+    return <ClassListsEquityPage />;
   }
 
   renderClassListCreatorEdit(routeProps) {
