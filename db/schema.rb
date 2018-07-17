@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_184037) do
     t.boolean "excused"
     t.string "reason"
     t.string "comment"
+    t.index ["student_id", "occurred_at"], name: "index_absences_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_absences_on_student_id"
   end
 
@@ -406,6 +407,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_184037) do
     t.boolean "excused"
     t.string "reason"
     t.string "comment"
+    t.index ["student_id", "occurred_at"], name: "index_tardies_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_tardies_on_student_id"
   end
 
