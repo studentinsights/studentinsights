@@ -6,16 +6,11 @@ start_time = Time.now
 
 def sample_numeric_grade_from_letter(grade_letter)
   case grade_letter
-    when "A"
-      grade_numeric = rand(90..100)
-    when "B"
-      grade_numeric = rand(80..89)
-    when "C"
-      grade_numeric = rand(70..79)
-    when "D"
-      grade_numeric = rand(60..69)
-    when "F"
-      grade_numeric = rand(50..59)
+    when "A" then rand(90..100)
+    when "B" then rand(80..89)
+    when "C" then rand(70..79)
+    when "D" then rand(60..69)
+    when "F" then rand(50..59)
   end
 end
 

@@ -243,7 +243,7 @@ class FakeStudent
 
     events_for_year.times do
       # Randomly determine when it occurred.
-      occurred_at = DemoDataUtil.random_time
+      occurred_at = DemoDataUtil.random_time.to_date
 
       attendance_event = [Absence.new, Tardy.new].sample
       attendance_event.occurred_at = occurred_at
