@@ -10,20 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_183457) do
+ActiveRecord::Schema.define(version: 2018_07_17_184037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "absences", id: :serial, force: :cascade do |t|
-    t.datetime "occurred_at", null: false
+    t.date "occurred_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.boolean "dismissed"
     t.boolean "excused"
     t.string "reason"
     t.string "comment"
+    t.index ["student_id", "occurred_at"], name: "index_absences_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_absences_on_student_id"
   end
 
@@ -398,14 +399,15 @@ ActiveRecord::Schema.define(version: 2018_07_16_183457) do
   end
 
   create_table "tardies", id: :serial, force: :cascade do |t|
-    t.datetime "occurred_at", null: false
+    t.date "occurred_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.boolean "dismissed"
     t.boolean "excused"
     t.string "reason"
     t.string "comment"
+    t.index ["student_id", "occurred_at"], name: "index_tardies_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_tardies_on_student_id"
   end
 
