@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
   get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
   get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
+  get '/api/class_lists/experimental_workspaces_with_equity_json' => 'class_lists#experimental_workspaces_with_equity_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
@@ -100,6 +101,7 @@ Rails.application.routes.draw do
     member do
       get '' => 'ui#ui'
       get '/new' => 'ui#ui'
+      get '/equity' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
     end
   end

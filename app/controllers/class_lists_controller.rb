@@ -37,6 +37,13 @@ class ClassListsController < ApplicationController
     }
   end
 
+  def experimental_workspaces_with_equity_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
+
+    workspaces = queries.all_authorized_workspaces
+    render json: Herfindahl.new.with_dimensions_json(workspaces)
+  end
+
   # Suggest the schools and grade levels that this educator will want to create.
   # This isn't an authorization gate, more a helpful UI suggestion than anything else.
   def available_grade_levels_json

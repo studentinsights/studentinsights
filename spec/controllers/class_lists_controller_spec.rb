@@ -112,6 +112,36 @@ describe ClassListsController, :type => :controller do
     end
   end
 
+  describe '#experimental_workspaces_with_equity_json' do
+    it 'guards access' do
+      create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours,
+      })
+      sign_in(pals.healey_sarah_teacher)
+      get :experimental_workspaces_with_equity_json, params: {
+        format: :json
+      }
+      expect(response.status).to eq 403
+    end
+
+    it 'passes smoke test on happy path' do
+      create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours,
+      })
+      sign_in(pals.uri)
+      get :experimental_workspaces_with_equity_json, params: {
+        format: :json
+      }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to eq(['dimension_keys', 'class_lists_with_dimensions'])
+    end
+  end
+
   describe '#available_grade_levels_json' do
     def request_available_grade_levels_json(educator)
       sign_in(educator)

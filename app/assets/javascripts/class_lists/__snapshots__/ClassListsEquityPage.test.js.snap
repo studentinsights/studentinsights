@@ -1,0 +1,492 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "background": "red",
+        "color": "white",
+        "fontWeight": "bold",
+        "padding": 20,
+      }
+    }
+  >
+    <span>
+      This is an experimental prototype page!
+    </span>
+    <span
+      style={
+        Object {
+          "marginLeft": 10,
+        }
+      }
+    >
+      Please try it out and share your feedback.
+    </span>
+  </div>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Class List: Experimental Equity View
+    </h4>
+  </div>
+  <div>
+    <table
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderCollapse": "collapse",
+          "margin": 10,
+        }
+      }
+    >
+      <thead>
+        <tr>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            School
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            Grade next year
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            iep_or_504
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            limited_or_flep
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            male
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            reduced_lunch
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            high_discipline
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            whiteness
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            color
+          </th>
+          <th
+            style={
+              Object {
+                "backgroundColor": "#ccc",
+                "border": "1px solid #eee",
+                "fontSize": 10,
+                "fontWeight": "bold",
+                "padding": 10,
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          />
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              className="School"
+              href="/schools/2"
+              style={Object {}}
+            >
+              Arthur D Healey
+            </a>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            6th grade
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      165,
+                      0,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      255,
+                      255,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              44
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      137,
+                      175,
+                      202,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              100
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      165,
+                      0,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      137,
+                      175,
+                      202,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              100
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      165,
+                      0,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "backgroundColor": Color {
+                    "_rgb": Array [
+                      255,
+                      255,
+                      255,
+                      1,
+                    ],
+                  },
+                  "color": "black",
+                  "display": "inline-block",
+                  "padding": 5,
+                  "title": "Above 0.7 or below 0.3",
+                  "width": "3em",
+                }
+              }
+            >
+              50
+            </span>
+          </td>
+          <td
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <a
+              href="/classlists/af0cabfe-35c5-4c14-b6b8-2b725bf22e2b"
+              style={
+                Object {
+                  "padding": 10,
+                }
+              }
+            >
+              open
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
