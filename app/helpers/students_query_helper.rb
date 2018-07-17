@@ -4,7 +4,9 @@ module StudentsQueryHelper
   INCLUDE_FOR_STUDENTS = Student.column_names.map(&:to_sym) - [
     :primary_phone,
     :primary_email,
-    :student_address
+    :student_address,
+    :risk_level  # Hacky fix for risk level not clearing from column names
+                 # cache after deploying https://github.com/studentinsights/studentinsights/pull/1892.
   ]
 
   INCLUDE_FOR_EVENT_NOTES = [
