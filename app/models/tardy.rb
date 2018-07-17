@@ -1,4 +1,6 @@
 class Tardy < ActiveRecord::Base
   belongs_to :student
-  validates_presence_of :student, :occurred_at
+
+  validates :student, presence: true
+  validates :occurred_at, presence: true, uniqueness: { scope: [:student_id] }
 end
