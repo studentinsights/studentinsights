@@ -12,7 +12,7 @@ module SomervilleTeacherTool
     config.load_defaults 5.1
 
     # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
-    Rails.application.config.active_record.belongs_to_required_by_default = false 
+    Rails.application.config.active_record.belongs_to_required_by_default = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -55,7 +55,8 @@ module SomervilleTeacherTool
       config.generators do |g|
         g.stylesheets false
         g.javascripts false
-        g.helpers false
+        g.helper false
+        g.test_framework nil
       end
     end
   end
