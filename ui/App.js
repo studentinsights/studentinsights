@@ -21,6 +21,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
+import LoginActivityPage from '../app/assets/javascripts/login_activity/LoginActivityPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
