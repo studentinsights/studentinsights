@@ -71,6 +71,7 @@ class App extends React.Component {
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
+        <Route exact path ='/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -161,6 +162,10 @@ class App extends React.Component {
 
   renderIsServiceWorking(routeProps) {
     return <IsServiceWorking />;
+  }
+
+  renderLoginActivity(routeProps) {
+    return <LoginActivityPage />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the
