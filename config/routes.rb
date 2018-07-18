@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
 
   # login activity security monitoring
-  get '/api/login_activity' => 'login_activities#index'
+  get '/api/login_activity' => 'login_activities#index_json'
 
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
