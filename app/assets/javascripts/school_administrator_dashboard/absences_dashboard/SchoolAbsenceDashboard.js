@@ -7,12 +7,26 @@ import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
+import SectionHeading from '../../components/SectionHeading';
+import FilterBar, {
+  GradeSelect,
+  TimeRangeSelect,
+  ExcusedAbsencesSelect,
+  HouseSelect,
+  TIME_RANGE_45_DAYS_AGO,
+  EXCLUDE_EXCUSED_ABSENCES,
+  ALL
+} from '../../components/FilterBar';
+import {shouldDisplayHouse} from '../../helpers/PerDistrict';
 
-class SchoolAbsenceDashboard extends React.Component {
+
+export default class SchoolAbsenceDashboard extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      filters: initialFilters(),
+
       displayDates: this.props.dateRange,
       showExcused: false,
       selectedHomeroom: null,
@@ -24,6 +38,25 @@ class SchoolAbsenceDashboard extends React.Component {
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
+    this.onExcusedAbsencesChanged = this.onExcusedAbsencesChanged.bind(this);
+    this.onGradeChanged = this.onGradeChanged.bind(this);
+    this.onHouseChanged = this.onHouseChanged.bind(this);
+    this.onTimeRangeChanged = this.onTimeRangeChanged.bind(this);
+    this.onFiltersCleared = this.onFiltersCleared.bind(this);
+  }
+
+  dateRange() {
+    // input from outer component - could be dates or could be keys
+  }
+
+  displayDates() {
+    // what dates should we include?
+  }
+
+  dateRangeText() {
+    // This School Year
+    // Past 90 Days
+    // Past 45 Days
   }
 
   //Monthly attendance for the school must be calculated after the range filter is applied
@@ -74,13 +107,43 @@ class SchoolAbsenceDashboard extends React.Component {
     return studentAbsenceCounts;
   }
 
+  onExcusedAbsencesChanged(excusedAbsencesKey) {
+    this.setState({filters: {
+      ...this.state.filters,
+      excusedAbsencesKey
+    }});
+  }
+  
+  onGradeChanged(grade) {
+    this.setState({filters: {
+      ...this.state.filters,
+      grade
+    }});
+  }
+
+  onHouseChanged(house) {
+    this.setState({filters: {
+      ...this.state.filters,
+      house
+    }});
+  }
+
+  onTimeRangeChanged(timeRangeKey) {
+    this.setState({filters: {
+      ...this.state.filters,
+      timeRangeKey
+    }});
+  }
+
+  onFiltersCleared() {
+    this.setState({filters: initialFilters()});
+  }
+
   render() {
     return (
-      <div>
-        <div className="DashRangeButtonWrapper">
-          {this.renderRangeSelector()}
-          {this.renderFilters()}
-        </div>
+      <div className="SchoolAbsenceDashboard" style={styles.root}>
+        <SectionHeading>Absences at SCHOOL</SectionHeading>
+        {this.renderFilters()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
             {this.renderStudentAbsenceTable()}
@@ -94,27 +157,64 @@ class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderRangeSelector() {
-    const {dateRange} = this.props;
-    const today = moment.utc().format("YYYY-MM-DD");
-    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
-    const schoolYearStart = DashboardHelpers.schoolYearStart();
+  renderFilters() {
+    const {filters} = this.state;
+    const {timeRangeKey, excusedAbsencesKey, house, grade} = filters;
+
     return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-            selectedRange: 'This School Year'})}
-          ninetyDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-            selectedRange: 'Past 90 Days'})}
-          fortyFiveDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-            selectedRange: 'Past 45 Days'})}/>
+      <div style={styles.filtersContainer}>
+        <FilterBar style={{display: 'inline-block'}} onClear={this.onFiltersCleared}>
+          <ExcusedAbsencesSelect excusedAbsencesKey={excusedAbsencesKey} onChange={this.onExcusedAbsencesChanged} />
+          <GradeSelect grade={grade} onChange={this.onGradeChanged} />
+          {shouldDisplayHouse && <HouseSelect house={house} onChange={this.onHouseChanged} />}
+        </FilterBar>
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          <span style={{marginRight: 10}}>Time period</span>
+          <TimeRangeSelect
+            wrapperStyle={{display: 'inline-block'}}
+            timeRangeKey={timeRangeKey}
+            onChange={this.onTimeRangeChanged} />
+        </div>
       </div>
     );
   }
+
+  // renderRangeSelector() {
+  //   const {dateRange} = this.props;
+  //   const today = moment.utc().format("YYYY-MM-DD");
+  //   const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
+  //   const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+  //   const schoolYearStart = DashboardHelpers.schoolYearStart();
+  //   return (
+  //     <div className="DashboardRangeButtons">
+  //       <DashRangeButtons
+  //         schoolYearFilter={() => this.setState({
+  //           displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
+  //           selectedRange: 'This School Year'})}
+  //         ninetyDayFilter={() => this.setState({
+  //           displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
+  //           selectedRange: 'Past 90 Days'})}
+  //         fortyFiveDayFilter={() => this.setState({
+  //           displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
+  //           selectedRange: 'Past 45 Days'})}/>
+  //     </div>
+  //   );
+  // }
+
+  // renderFilters() {
+  //   return(
+  //     <div className="ExcusedFilter">
+  //       <DashButton
+  //           buttonText={"Unexcused Absences Only"}
+  //           onClick={() => this.setState({showExcused: false})}
+  //           isSelected={!this.state.showExcused}/>
+  //       <DashButton
+  //         buttonText={"All Absences"}
+  //         onClick={() => this.setState({showExcused: true})}
+  //         isSelected={this.state.showExcused}/>
+  //     </div>
+  //   );
+  // }
 
   renderStudentAbsenceTable() {
     const studentAbsenceCounts = this.studentAbsenceCounts();
@@ -141,21 +241,6 @@ class SchoolAbsenceDashboard extends React.Component {
         incidentType='Absences'
         incidentSubtitle={selectedRange}
         resetFn={this.resetStudentList}/>
-    );
-  }
-
-  renderFilters() {
-    return(
-      <div className="ExcusedFilter">
-        <DashButton
-            buttonText={"Unexcused Absences Only"}
-            onClick={() => this.setState({showExcused: false})}
-            isSelected={!this.state.showExcused}/>
-        <DashButton
-          buttonText={"All Absences"}
-          onClick={() => this.setState({showExcused: true})}
-          isSelected={this.state.showExcused}/>
-      </div>
     );
   }
 
@@ -229,4 +314,24 @@ SchoolAbsenceDashboard.propTypes = {
   dateRange: PropTypes.array.isRequired
 };
 
-export default SchoolAbsenceDashboard;
+const styles = {
+  root: {
+    margin: 10
+  },
+  filtersContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    margin: 10,
+    marginTop: 20
+  }
+};
+
+function initialFilters() {
+  return {
+    grade: ALL,
+    house: ALL,
+    timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    excusedAbsencesKey: EXCLUDE_EXCUSED_ABSENCES
+  };
+}
