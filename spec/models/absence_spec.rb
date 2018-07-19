@@ -6,11 +6,11 @@ RSpec.describe Absence, type: :model do
   subject(:absence) {
     Absence.create!(
       occurred_at: Time.now,
-      student: student
+      student_id: student.id
     )
   }
 
   it { is_expected.to belong_to :student }
-  it { is_expected.to validate_presence_of :student }
+  it { is_expected.to validate_presence_of :student_id }
   it { is_expected.to validate_presence_of :occurred_at }
 end
