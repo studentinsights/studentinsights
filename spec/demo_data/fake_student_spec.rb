@@ -6,7 +6,7 @@ RSpec.describe FakeStudent do
   let!(:homeroom) { FactoryBot.create(:homeroom, grade: '5') }
   before { FactoryBot.create(:educator, :admin) }
 
-  let(:student) { described_class.new(school, homeroom).student }
+  let(:student) { FakeStudent.create!(school, homeroom) }
 
   it 'sets student name' do
     expect(student.first_name).not_to be_nil
