@@ -110,6 +110,11 @@ export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
 }
 
+export function supportsExcusedAbsences(districtKey) {
+  if (districtKey === 'somerville') return true;
+  return false;
+}
+
 // This returns user-facing text to describe their program and placement
 // in one label.
 export function prettyProgramText(programAssigned, spedPlacement) {
