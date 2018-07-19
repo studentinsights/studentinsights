@@ -2,25 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import SectionHeading from '../../components/SectionHeading';
+import EscapeListener from '../../components/EscapeListener';
+import FilterBar from '../../components/FilterBar';
+import SelectGrade from '../../components/SelectGrade';
+import SelectTimeRange, {momentRange, TIME_RANGE_45_DAYS_AGO, timeRangeText} from '../../components/SelectTimeRange';
+import SelectExcusedAbsences, {EXCLUDE_EXCUSED_ABSENCES} from '../../components/SelectExcusedAbsences';
+import SelectHouse from '../../components/SelectHouse';
+import {ALL} from '../../components/SimpleFilterSelect';
+import {shouldDisplayHouse} from '../../helpers/PerDistrict';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
-import SectionHeading from '../../components/SectionHeading';
-import EscapeListener from '../../components/EscapeListener';
-import FilterBar, {
-  GradeSelect,
-  TimeRangeSelect,
-  ExcusedAbsencesSelect,
-  HouseSelect,
-  TIME_RANGE_45_DAYS_AGO,
-  momentRange,
-  EXCLUDE_EXCUSED_ABSENCES,
-  ALL,
-  timeRangeText
-} from '../../components/FilterBar';
-import {shouldDisplayHouse} from '../../helpers/PerDistrict';
 
 
 export default class SchoolAbsenceDashboard extends React.Component {
@@ -172,12 +167,12 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return (
       <div style={styles.filtersContainer}>
         <FilterBar style={{display: 'flex', alignItems: 'center'}}>
-          <ExcusedAbsencesSelect excusedAbsencesKey={excusedAbsencesKey} onChange={this.onExcusedAbsencesChanged} />
-          <GradeSelect grade={grade} onChange={this.onGradeChanged} />
-          {shouldDisplayHouse && <HouseSelect house={house} onChange={this.onHouseChanged} />}
+          <SelectExcusedAbsences excusedAbsencesKey={excusedAbsencesKey} onChange={this.onExcusedAbsencesChanged} />
+          <SelectGrade grade={grade} onChange={this.onGradeChanged} />
+          {shouldDisplayHouse && <SelectHouse house={house} onChange={this.onHouseChanged} />}
         </FilterBar>
         <FilterBar style={{display: 'flex', alignItems: 'center'}} labelText="Time period">
-          <TimeRangeSelect
+          <SelectTimeRange
             wrapperStyle={{display: 'inline-block'}}
             timeRangeKey={timeRangeKey}
             onChange={this.onTimeRangeChanged} />

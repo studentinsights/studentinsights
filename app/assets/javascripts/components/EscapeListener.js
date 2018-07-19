@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 // Listen for escape key being pressed and call `onEscape`
 export default class EscapeListener extends React.Component {
   constructor(props) {
