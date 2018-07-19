@@ -92,13 +92,32 @@ export default class LoginActivityPage extends React.Component {
     // }
 
     const structuredData = this.structureLoginActivityJson(loginActivityJson);
-    const pastThirtyDaysArray = this.pastThirtyDaysArray();
     const emails = Object.keys(structuredData);
+    const pastThirtyDaysArray = this.pastThirtyDaysArray();
 
     return (
       <div style={style.container}>
+        {this.renderHeaderRow()}
         {emails.map((email) => {
           return this.renderRow(email, structuredData[email], pastThirtyDaysArray)
+        })}
+      </div>
+    );
+  }
+
+  renderHeaderRow() {
+    const pastThirtyDaysArray = this.pastThirtyDaysArray();
+
+    return (
+      <div style={style.row}>
+        <div style={{...style.emailCell, ...{display: 'inline-block'}}}>
+        </div>
+        {pastThirtyDaysArray.map((day) => {
+          return (
+            <div style={{...style.squareCell, ...style.cell, ...style.headerDateCell}}>
+              {moment(day).format('D/M')}
+            </div>
+          );
         })}
       </div>
     );
@@ -112,10 +131,8 @@ export default class LoginActivityPage extends React.Component {
           {truncatedEmail}
         </div>
         {pastThirtyDaysArray.map((day) => {
-          const data = loginData[day];
-
-          return (data)
-            ? this.renderCell(data)
+          return (loginData[day])
+            ? this.renderCell(loginData[day])
             : this.renderEmptyCell()
         })}
       </div>
@@ -162,6 +179,11 @@ const style = {
   row: {
     clear: 'both',
   },
+  headerDateCell: {
+    transform: 'rotate(-45deg)',
+    border: 'none',
+    fontSize: 12,
+  },
   cell: {
     height: 25,
     border: '1px solid #ccc',
@@ -173,6 +195,7 @@ const style = {
     flex: 1,
   },
   emailCell: {
+    float: 'left',
     padding: 2,
     width: 340,
   },
