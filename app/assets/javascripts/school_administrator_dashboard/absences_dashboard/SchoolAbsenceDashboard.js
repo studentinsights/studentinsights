@@ -7,7 +7,7 @@ import EscapeListener from '../../components/EscapeListener';
 import FilterBar from '../../components/FilterBar';
 import SelectGrade from '../../components/SelectGrade';
 import SelectTimeRange, {momentRange, TIME_RANGE_45_DAYS_AGO, timeRangeText} from '../../components/SelectTimeRange';
-import SelectExcusedAbsences, {EXCLUDE_EXCUSED_ABSENCES} from '../../components/SelectExcusedAbsences';
+import SelectExcusedAbsences, {EXCLUDE_EXCUSED_ABSENCES, ALL_ABSENCES} from '../../components/SelectExcusedAbsences';
 import SelectHouse from '../../components/SelectHouse';
 import {ALL} from '../../components/SimpleFilterSelect';
 import {shouldDisplayHouse} from '../../helpers/PerDistrict';
@@ -42,22 +42,44 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.onFiltersCleared = this.onFiltersCleared.bind(this);
   }
 
+  momentRange() {
+    const now = moment.utc();
+    const {timeRangeKey} = this.state.filters;
+    return momentRange(timeRangeKey, now);
+  }
 
-  // // Returns [startDateString, endDateString] like ['2017-08-15', '2018-03-23']
-  // schoolYearDateRange() {
-  //   //change this to change the maximum date range available for the dashboard
-  //   // const fullYearDateRange = Object.keys(this.props.schoolAbsenceEventsByDay).sort();
-  //   const now = moment.utc();
-  //   // return DashboardHelpers.filterDates(fullYearDateRange, DashboardHelpers.schoolYearStart(), today);
-  //   return [DashboardHelpers.schoolYearStart(), now.format('YYYY-MM-DD')];
-  // }
+  filteredStudents() {
+    const students = this.props.dashboardStudents;
+    const {grade, house} = this.state.filters;
+    return students.filter(student => {
+      if (student.grade !== grade && grade !== ALL) return false;
+      if (student.house !== house && house !== ALL) return false;
+      return true;
+    });
+  }
+
+  filteredAbsences() {
+    const absences = this.props.schoolAbsenceEvents;
+    const {excusedAbsencesKey} = this.state.filters;
+    const range = this.momentRange();
+    return absences.filter(absence => {
+      if (!moment.utc(absence.occurred_at).isBetween(range[0], range[1])) return false;
+      if (absence.excused === true && excusedAbsencesKey === EXCLUDE_EXCUSED_ABSENCES) return false;
+      return true;
+    });
+  }
+
+
+
+
+
+
+
 
   // Returns an array of date strings describing the current time range
   // eg: ['2018-08-15', '2018-08-16', ...]
   dateRangeStrings() {
-    const now = moment.utc();
-    const {timeRangeKey} = this.state.filters;
-    const range = momentRange(timeRangeKey, now);
+    const range = this.momentRange();
     return createDateStringArrayForRange(range[0].format('YYYY-MM-DD'), range[1].format("YYYY-MM-DD"));
   }
 
@@ -142,6 +164,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   render() {
+    // what data should we consider, given the filters?
+    const students = this.filteredStudents();
+    const absences = this.filteredAbsences();
+
     return (
       <EscapeListener className="SchoolAbsenceDashboard" style={styles.root} onEscape={this.onFiltersCleared}>
         <SectionHeading>Absences</SectionHeading>
@@ -149,11 +175,11 @@ export default class SchoolAbsenceDashboard extends React.Component {
         <pre>{JSON.stringify(this.state.filters)}</pre>
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
-            {this.renderStudentAbsenceTable()}
+            {this.renderStudentAbsenceTable(students, absences)}
           </div>
           <div className="DashboardChartsColumn">
-            {this.renderMonthlyAbsenceChart()}
-            {this.renderHomeroomAbsenceChart()}
+            {this.renderMonthlyAbsenceChart(students, absences)}
+            {this.renderHomeroomAbsenceChart(students, absences)}
           </div>
         </div>
       </EscapeListener>
@@ -218,21 +244,25 @@ export default class SchoolAbsenceDashboard extends React.Component {
   //   );
   // }
 
-  renderStudentAbsenceTable() {
-    const studentAbsenceCounts = this.studentAbsenceCounts();
-    const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
-    const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
-    let rows =[];
-    students.forEach((student) => {
-      rows.push({
-        id: student.id,
-        first_name: student.first_name,
-        last_name: student.last_name,
-        latest_note: student.latest_note,
-        events: studentAbsenceCounts[student.id] || 0,
-        grade: student.grade,
-      });
-    });
+  renderStudentAbsenceTable(students, absences) {
+    // who are the students?
+    // how are they sorted?
+
+    const rows = studentsWithEventsCount(students, absences);
+    // const studentAbsenceCounts = this.studentAbsenceCounts();
+    // const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
+    // const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
+    // let rows =[];
+    // students.forEach((student) => {
+    //   rows.push({
+    //     id: student.id,
+    //     first_name: student.first_name,
+    //     last_name: student.last_name,
+    //     latest_note: student.latest_note,
+    //     events: studentAbsenceCounts[student.id] || 0,
+    //     grade: student.grade,
+    //   });
+    // });
 
     return (
       <StudentsTable
@@ -245,6 +275,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderMonthlyAbsenceChart() {
+    return <div>NOT YET</div>;
     const dailyAttendance = this.state.showExcused ?
                             this.props.schoolAverageDailyAttendance :
                             this.props.schoolAverageDailyAttendanceUnexcused;
@@ -273,6 +304,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderHomeroomAbsenceChart() {
+    return <div>NOT YET</div>;
     const homeroomAverageDailyAttendance =  this.state.showExcused ?
                                             this.props.homeroomAverageDailyAttendance :
                                             this.props.homeroomAverageDailyAttendanceUnexcused;
@@ -310,13 +342,14 @@ export default class SchoolAbsenceDashboard extends React.Component {
 }
 
 SchoolAbsenceDashboard.propTypes = {
-  schoolAverageDailyAttendance: PropTypes.object.isRequired,
-  schoolAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
-  homeroomAverageDailyAttendance: PropTypes.object.isRequired,
-  homeroomAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
+  // schoolAverageDailyAttendance: PropTypes.object.isRequired,
+  // schoolAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
+  // homeroomAverageDailyAttendance: PropTypes.object.isRequired,
+  // homeroomAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired,
-  schoolAbsenceEventsByDay: PropTypes.object.isRequired,
-  schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired
+  schoolAbsenceEvents: PropTypes.array.isRequired,
+  // schoolAbsenceEventsByDay: PropTypes.object.isRequired,
+  // schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired
 };
 
 const styles = {
@@ -351,4 +384,11 @@ function createDateStringArrayForRange(startDateString, endDateString) {
     currentMoment.add(1, 'day');
   }
   return dateStrings;
+}
+
+function studentsWithEventsCount(students, absences) {
+  const countByStudent = _.countBy(absences, absence => absence.student_id);
+  return students.map(student => {
+    return {...student, events: countByStudent[student.id] || 0 };
+  });
 }
