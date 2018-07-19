@@ -9,34 +9,23 @@ import {somervilleHouses} from '../helpers/PerDistrict';
 import {firstDayOfSchoolFor} from '../helpers/schoolYear';
 
 
-export default class FilterBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onKeyUp = this.onKeyUp.bind(this);
-  }
+export default function FilterBar(props) {
+  const {children, style, barStyle, labelText} = props;
 
-  onKeyUp(e) {
-    const {onClear} = this.props;
-    if (onClear && e.which === 27) onClear();
-  }
-
-  render() {
-    const {children, style, barStyle} = this.props;
-
-    return (
-      <div className="FilterBar" style={style} onKeyUp={this.onKeyUp}>
-        <div style={{...styles.bar, ...barStyle}}>
-          <span style={styles.label}>Filter by</span>
-          {children}
-        </div>
+  return (
+    <div className="FilterBar" style={style}>
+      <div style={{...styles.bar, ...barStyle}}>
+        <span style={styles.label}>{labelText || 'Filter by'}</span>
+        {children}
       </div>
-    );
-  }
+    </div>
+  );
 }
 FilterBar.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   barStyle: PropTypes.object,
+  labelText: PropTypes.string,
   onClear: PropTypes.func
 };
 
@@ -165,7 +154,7 @@ export function ExcusedAbsencesSelect({excusedAbsencesKey, onChange, style = und
       value={excusedAbsencesKey}
       onChange={onChange}
       options={[
-        { value: EXCLUDE_EXCUSED_ABSENCES, label: 'Exclude excused' },
+        { value: EXCLUDE_EXCUSED_ABSENCES, label: 'Unexcused' },
         { value: ALL_ABSENCES, label: 'All absences' }
       ]}
     />

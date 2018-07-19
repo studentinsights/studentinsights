@@ -8,6 +8,7 @@ import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
 import SectionHeading from '../../components/SectionHeading';
+import EscapeListener from '../../components/EscapeListener';
 import FilterBar, {
   GradeSelect,
   TimeRangeSelect,
@@ -60,7 +61,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   // eg: ['2018-08-15', '2018-08-16', ...]
   dateRangeStrings() {
     const now = moment.utc();
-    const {timeRangeKey} = this.state;
+    const {timeRangeKey} = this.state.filters;
     const range = momentRange(timeRangeKey, now);
     return createDateStringArrayForRange(range[0].format('YYYY-MM-DD'), range[1].format("YYYY-MM-DD"));
   }
@@ -147,9 +148,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
 
   render() {
     return (
-      <div className="SchoolAbsenceDashboard" style={styles.root}>
+      <EscapeListener className="SchoolAbsenceDashboard" style={styles.root} onEscape={this.onFiltersCleared}>
         <SectionHeading>Absences</SectionHeading>
         {this.renderFilters()}
+        <pre>{JSON.stringify(this.state.filters)}</pre>
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
             {this.renderStudentAbsenceTable()}
@@ -159,7 +161,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
             {this.renderHomeroomAbsenceChart()}
           </div>
         </div>
-      </div>
+      </EscapeListener>
     );
   }
 
@@ -169,18 +171,17 @@ export default class SchoolAbsenceDashboard extends React.Component {
 
     return (
       <div style={styles.filtersContainer}>
-        <FilterBar style={{display: 'inline-block'}} onClear={this.onFiltersCleared}>
+        <FilterBar style={{display: 'flex', alignItems: 'center'}}>
           <ExcusedAbsencesSelect excusedAbsencesKey={excusedAbsencesKey} onChange={this.onExcusedAbsencesChanged} />
           <GradeSelect grade={grade} onChange={this.onGradeChanged} />
           {shouldDisplayHouse && <HouseSelect house={house} onChange={this.onHouseChanged} />}
         </FilterBar>
-        <div style={{display: 'flex', alignItems: 'center'}}>
-          <span style={{marginRight: 10}}>Time period</span>
+        <FilterBar style={{display: 'flex', alignItems: 'center'}} labelText="Time period">
           <TimeRangeSelect
             wrapperStyle={{display: 'inline-block'}}
             timeRangeKey={timeRangeKey}
             onChange={this.onTimeRangeChanged} />
-        </div>
+        </FilterBar>
       </div>
     );
   }
@@ -308,7 +309,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
 
   // User-facing text describing the selected time range
   renderTimeRangeText() {
-    const {timeRangeKey} = this.state;
+    const {timeRangeKey} = this.state.filters;
     return timeRangeText(timeRangeKey);
   }
 }
