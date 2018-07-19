@@ -74,11 +74,11 @@ end
 puts 'Creating more students for each homeroom...'
 Homeroom.order(:name).each do |homeroom|
   puts "  Creating for homeroom: #{homeroom.name}..."
-  homeroom_class_size.times { FakeStudent.new(homeroom.school, homeroom) }
+  homeroom_class_size.times { FakeStudent.create!(homeroom.school, homeroom) }
 end
 
 puts 'Creating additional students for the Healey with no homeroom...'
-9.times { FakeStudent.new(pals.healey, nil) }
+9.times { FakeStudent.create!(pals.healey, nil) }
 
 puts 'Creating more sophomore students...'
 Section.all.each do |section|
@@ -87,9 +87,9 @@ Section.all.each do |section|
   9.times do
     grade_letter = ['A','B','C','D','F'].sample
     grade_numeric = sample_numeric_grade_from_letter(grade_letter)
-    fake_student = FakeStudent.new(school, pals.shs_sophomore_homeroom)
+    student = FakeStudent.create!(school, pals.shs_sophomore_homeroom)
     StudentSectionAssignment.create!({
-      student: fake_student.student,
+      student: student,
       section: section,
       grade_numeric: grade_numeric,
       grade_letter: grade_letter

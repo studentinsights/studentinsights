@@ -25,24 +25,34 @@ class FakeStudent
     'Mom called, did not leave a reason.'
   ]
 
+  def self.create!(school, homeroom)
+    FakeStudent.new(school, homeroom).create!
+  end
+
   def initialize(school, homeroom)
     @school = school
     @homeroom = homeroom
-    @student = Student.create!(data)
-    @newstudent = rand > 0.95
-    add_attendance_events
-    add_discipline_incidents
-    add_deprecated_interventions
-    add_event_notes
-    add_services
-    add_student_assessments_from_x2
-    add_student_assessments_from_star
-    add_student_assessments_from_access
-    add_student_to_homeroom
-    add_ieps
   end
 
-  def student
+  def create!
+    @student = Student.create!(data)
+
+    add_student_to_homeroom
+    add_ieps
+
+    new_student = rand > 0.95
+    if !new_student
+      add_attendance_events
+      add_discipline_incidents
+      add_deprecated_interventions
+      add_event_notes
+      add_services
+      add_mcas_assessments
+      add_dibels_assessments
+      add_access_assessments
+      add_star_assessments
+    end
+
     @student
   end
 
@@ -180,55 +190,50 @@ class FakeStudent
     end
   end
 
-  def create_x2_assessment_generators(student)
-    [
-      FakeMcasMathResultGenerator.new(student),
-      FakeMcasElaResultGenerator.new(student),
-      FakeNextGenMcasMathResultGenerator.new(student),
-      FakeNextGenMcasElaResultGenerator.new(student),
-      FakeDibelsResultGenerator.new(student),
-      FakeAccessResultGenerator.new(student)
+  def add_mcas_assessments
+    generators = [
+      FakeMcasMathResultGenerator.new(@student),
+      FakeMcasElaResultGenerator.new(@student),
+      FakeNextGenMcasMathResultGenerator.new(@student),
+      FakeNextGenMcasElaResultGenerator.new(@student)
     ]
+
+    generators.each do |generator|
+      4.times { StudentAssessment.new(generator.next).save! }
+    end
   end
 
-  def add_student_assessments_from_x2
-    create_x2_assessment_generators(@student).each do |assessment_generator|
-      unless @newstudent
-        4.times do
-          StudentAssessment.new(assessment_generator.next).save
-        end
+  def add_dibels_assessments
+    generator = FakeDibelsResultGenerator.new(@student)
+    4.times { StudentAssessment.new(generator.next).save! }
+  end
+
+  def add_star_assessments
+    star_period_days = 90
+    # Define semi-realistic date ranges for STAR assessments
+    start_date = DateTime.new(2014, 9, 1)
+    now = DateTime.now
+    assessment_count = (now - start_date).to_i / star_period_days
+    options = {
+      start_date: start_date,
+      star_period_days: star_period_days
+    }
+
+    generators = [
+      FakeStarMathResultGenerator.new(@student, options),
+      FakeStarReadingResultGenerator.new(@student, options)
+    ]
+    generators.each do |star_assessment_generator|
+      assessment_count.times do
+        StudentAssessment.new(star_assessment_generator.next).save!
       end
     end
   end
 
-  def add_student_assessments_from_star
-    unless @newstudent
-      star_period_days = 90
-      # Define semi-realistic date ranges for STAR assessments
-      start_date = DateTime.new(2014, 9, 1)
-      now = DateTime.now
-      assessment_count = (now - start_date).to_i / star_period_days
-      options = {
-        start_date: start_date,
-        star_period_days: star_period_days
-      }
-
-      generators = [
-        FakeStarMathResultGenerator.new(@student, options),
-        FakeStarReadingResultGenerator.new(@student, options)
-      ]
-      generators.each do |star_assessment_generator|
-        assessment_count.times do
-          StudentAssessment.new(star_assessment_generator.next).save
-        end
-      end
-    end
-  end
-
-  def add_student_assessments_from_access
+  def add_access_assessments
     return if @student.limited_english_proficiency == 'Fluent'
-    fake_access_generator = FakeAccessResultGenerator.new(@student)
-    StudentAssessment.new(fake_access_generator.next).save
+    generator = FakeAccessResultGenerator.new(@student)
+    3.times { StudentAssessment.new(generator.next).save! }
   end
 
   def add_attendance_events
@@ -249,7 +254,7 @@ class FakeStudent
 
       attendance_event = [Absence.new, Tardy.new].sample
       attendance_event.occurred_at = occurred_at
-      attendance_event.student = student
+      attendance_event.student = @student
 
       # Frequencies for attendance event reasons/comments/dismissed/excused
       # modeled on Somerville data, for queries see:
@@ -267,7 +272,7 @@ class FakeStudent
         attendance_event.comment = ATTENDANCE_EVENT_COMMENTS.sample if rand < 0.04
       end
 
-      attendance_event.save
+      attendance_event.save!
     end
   end
 
@@ -282,7 +287,7 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
     events_for_year.times do
-      discipline_incident = FactoryBot.create(:discipline_incident, student: student)
+      discipline_incident = FactoryBot.create(:discipline_incident, student: @student)
       discipline_incident.save!
     end
   end
