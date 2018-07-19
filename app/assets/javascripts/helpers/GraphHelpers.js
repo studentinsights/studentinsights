@@ -16,6 +16,18 @@ export function monthKeys(nowMomentUTC, monthsBack) {
   });
 }
 
+// Returns a list of moments for the 1st of each month within the range.
+export function firstsOfTheMonthWithinRange(startMoment, endMoment) {
+  // Starts on 1st of month based on endMoment, and count back
+  var months = []; // eslint-disable-line no-var
+  var currentMoment = endMoment.clone().date(1).clone(); // eslint-disable-line no-var
+  while (currentMoment.isAfter(startMoment)) {
+    months.push(currentMoment);
+    currentMoment = currentMoment.subtract(1, 'months');
+  }
+  return months;
+}
+
 // A function that grabs a monthKey from an event that is passed in.  Should return
 // a string in the format YYYYMMDD for the first day of the month.
 // Used for grouping events on the chart.

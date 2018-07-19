@@ -26,8 +26,9 @@ export default class BreakdownBar extends React.Component {
   }
 
 
-  renderBarAndLabel({key, left, width, color}) {
-    const {height, labelTop, innerStyle} = this.props;
+  renderBarAndLabel(item) {
+    const {labelFn, height, labelTop, innerStyle} = this.props;
+    const {key, left, width, color} = item;
 
     if (width === 0) return;
     return (
@@ -50,7 +51,7 @@ export default class BreakdownBar extends React.Component {
             top: labelTop,
             paddingRight: 1,
             ...innerStyle
-          }}>{width}</div>}
+          }}>{labelFn ? labelFn(item) : width}</div>}
       </div>
     );
   }
@@ -65,5 +66,6 @@ BreakdownBar.propTypes = {
   height: PropTypes.number.isRequired,
   labelTop: PropTypes.number.isRequired,
   style: PropTypes.object,
-  innerStyle: PropTypes.object
+  innerStyle: PropTypes.object,
+  labelFn: PropTypes.func
 };

@@ -2,15 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import d3 from 'd3';
 import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import FilterBar from '../../components/FilterBar';
 import SelectGrade from '../../components/SelectGrade';
 import SelectTimeRange, {momentRange, TIME_RANGE_45_DAYS_AGO, timeRangeText} from '../../components/SelectTimeRange';
-import SelectExcusedAbsences, {EXCLUDE_EXCUSED_ABSENCES, ALL_ABSENCES} from '../../components/SelectExcusedAbsences';
+import SelectExcusedAbsences, {EXCLUDE_EXCUSED_ABSENCES} from '../../components/SelectExcusedAbsences';
 import SelectHouse from '../../components/SelectHouse';
 import {ALL} from '../../components/SimpleFilterSelect';
 import {shouldDisplayHouse} from '../../helpers/PerDistrict';
+import {rankedByGradeLevel} from '../../helpers/SortHelpers';
+import {allGrades, gradeText} from '../../helpers/gradeText';
+import {firstsOfTheMonthWithinRange} from '../../helpers/GraphHelpers';
+import BreakdownBar from '../../components/BreakdownBar';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
@@ -25,7 +30,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.state = {
       filters: initialFilters(),
 
-      showExcused: false,
+      // showExcused: false,
       selectedHomeroom: null,
       // selectedRange: 'This School Year'
     };
@@ -35,6 +40,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
+    this.filteredAbsences = this.filteredAbsences.bind(this);
     this.onExcusedAbsencesChanged = this.onExcusedAbsencesChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
@@ -48,8 +54,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return momentRange(timeRangeKey, now);
   }
 
-  filteredStudents() {
-    const students = this.props.dashboardStudents;
+  filteredStudents(students) {
     const {grade, house} = this.state.filters;
     return students.filter(student => {
       if (student.grade !== grade && grade !== ALL) return false;
@@ -58,8 +63,8 @@ export default class SchoolAbsenceDashboard extends React.Component {
     });
   }
 
-  filteredAbsences() {
-    const absences = this.props.schoolAbsenceEvents;
+  // Does not filter by student
+  filteredAbsences(absences) {
     const {excusedAbsencesKey} = this.state.filters;
     const range = this.momentRange();
     return absences.filter(absence => {
@@ -68,6 +73,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
       return true;
     });
   }
+
+
+
+
 
 
 
@@ -164,15 +173,15 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   render() {
-    // what data should we consider, given the filters?
-    const students = this.filteredStudents();
-    const absences = this.filteredAbsences();
+    // What data should we consider, given the filters?
+    const students = this.filteredStudents(this.props.dashboardStudents);
+    const absences = this.filteredAbsences(_.flatten(students.map(student => student.absences)));
 
     return (
       <EscapeListener className="SchoolAbsenceDashboard" style={styles.root} onEscape={this.onFiltersCleared}>
         <SectionHeading>Absences</SectionHeading>
         {this.renderFilters()}
-        <pre>{JSON.stringify(this.state.filters)}</pre>
+        {this.renderBreakdownForGrade(students, absences)}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
             {this.renderStudentAbsenceTable(students, absences)}
@@ -207,63 +216,8 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  // renderRangeSelector() {
-  //   const {dateRange} = this.props;
-  //   const today = moment.utc().format("YYYY-MM-DD");
-  //   const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-  //   const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
-  //   const schoolYearStart = DashboardHelpers.schoolYearStart();
-  //   return (
-  //     <div className="DashboardRangeButtons">
-  //       <DashRangeButtons
-  //         schoolYearFilter={() => this.setState({
-  //           displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-  //           selectedRange: 'This School Year'})}
-  //         ninetyDayFilter={() => this.setState({
-  //           displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-  //           selectedRange: 'Past 90 Days'})}
-  //         fortyFiveDayFilter={() => this.setState({
-  //           displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-  //           selectedRange: 'Past 45 Days'})}/>
-  //     </div>
-  //   );
-  // }
-
-  // renderFilters() {
-  //   return(
-  //     <div className="ExcusedFilter">
-  //       <DashButton
-  //           buttonText={"Unexcused Absences Only"}
-  //           onClick={() => this.setState({showExcused: false})}
-  //           isSelected={!this.state.showExcused}/>
-  //       <DashButton
-  //         buttonText={"All Absences"}
-  //         onClick={() => this.setState({showExcused: true})}
-  //         isSelected={this.state.showExcused}/>
-  //     </div>
-  //   );
-  // }
-
   renderStudentAbsenceTable(students, absences) {
-    // who are the students?
-    // how are they sorted?
-
     const rows = studentsWithEventsCount(students, absences);
-    // const studentAbsenceCounts = this.studentAbsenceCounts();
-    // const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
-    // const students = studentsByHomeroom[this.state.selectedHomeroom] || this.props.dashboardStudents;
-    // let rows =[];
-    // students.forEach((student) => {
-    //   rows.push({
-    //     id: student.id,
-    //     first_name: student.first_name,
-    //     last_name: student.last_name,
-    //     latest_note: student.latest_note,
-    //     events: studentAbsenceCounts[student.id] || 0,
-    //     grade: student.grade,
-    //   });
-    // });
-
     return (
       <StudentsTable
         rows={rows}
@@ -274,23 +228,44 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderMonthlyAbsenceChart() {
-    return <div>NOT YET</div>;
-    const dailyAttendance = this.state.showExcused ?
-                            this.props.schoolAverageDailyAttendance :
-                            this.props.schoolAverageDailyAttendanceUnexcused;
-    const monthlyAttendance = this.monthlySchoolAttendance(dailyAttendance);
-    const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
-      const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
-      return Math.round(rawAvg*10)/10;
+  
+  renderBreakdownForGrade(students, absences) {
+    const items = breakdownItemsForDimension(students, {
+      accessorFn: student => student.grade,
+      sortFn: rankedByGradeLevel,
+      filterAbsences: this.filteredAbsences
     });
-    const categories = Object.keys(monthlyAttendance);
+
+    return <BreakdownBar
+      items={items}
+      style={{width: 400}}
+      height={10}
+      labelTop={20}
+      innerStyle={{fontSize: 10}}
+      labelFn={item => gradeText(item.key)} />;
+  }
+
+  renderMonthlyAbsenceChart(students, absences) {
+    const firstsOfTheMonth = firstsOfTheMonthWithinRange(...this.momentRange());
+    const categories = firstsOfTheMonth.map(firstMoment => firstMoment.format('YYYY-MM-DD'));
+    const countsByMonth = _.countBy(absences, absence => moment.utc(absence.occurred_at).format('YYYY-MM'));
+    const series = firstsOfTheMonth.map(firstMoment => countsByMonth[firstMoment.format('YYYY-MM')]);
+
+    // const dailyAttendance = this.state.showExcused ?
+    //                         this.props.schoolAverageDailyAttendance :
+    //                         this.props.schoolAverageDailyAttendanceUnexcused;
+    // const monthlyAttendance = this.monthlySchoolAttendance(dailyAttendance);
+    // const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
+    //   const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
+    //   return Math.round(rawAvg*10)/10;
+    // });
+    // const categories = Object.keys(monthlyAttendance);
 
     return (
         <DashboardBarChart
           id = {'string'}
           categories = {{categories: categories}}
-          seriesData = {filteredAttendanceSeries}
+          seriesData = {series}
           yAxisMin = {80}
           yAxisMax = {100}
           titleText = {`Average Attendance By Month (${this.renderTimeRangeText()})`}
@@ -347,7 +322,7 @@ SchoolAbsenceDashboard.propTypes = {
   // homeroomAverageDailyAttendance: PropTypes.object.isRequired,
   // homeroomAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired,
-  schoolAbsenceEvents: PropTypes.array.isRequired,
+  // schoolAbsenceEvents: PropTypes.array.isRequired,
   // schoolAbsenceEventsByDay: PropTypes.object.isRequired,
   // schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired
 };
@@ -386,9 +361,47 @@ function createDateStringArrayForRange(startDateString, endDateString) {
   return dateStrings;
 }
 
+// Add in an `events` property to each student, counting their absences.
 function studentsWithEventsCount(students, absences) {
   const countByStudent = _.countBy(absences, absence => absence.student_id);
   return students.map(student => {
     return {...student, events: countByStudent[student.id] || 0 };
   });
+}
+
+
+function breakdownItemsForDimension(students, options = {}) {
+  const {accessorFn, sortFn, filterAbsences} = options;
+  const studentsByDimension = _.groupBy(students, accessorFn);
+  const absenceCountByDimension = _.map(studentsByDimension, (students, value) => {
+    const count = students.reduce((sum, student) => sum + filterAbsences(student.absences).length, 0);
+    return {dimension: value, count};
+  });
+  const sortedCountByDimension = _.sortBy(absenceCountByDimension, countForDimension => sortFn(countForDimension.dimension));
+
+  // UI
+  const colorScale = d3.scale.ordinal()
+    .domain(allGrades())
+    .range([
+      '#40004b',
+      '#762a83',
+      '#9970ab',
+      '#c2a5cf',
+      '#e7d4e8',
+      '#f7f7f7',
+      '#d9f0d3',
+      '#a6dba0',
+      '#5aae61',
+      '#1b7837',
+      '#00441b',
+    ]);
+  return sortedCountByDimension.reduce((items, countForDimension) => {
+    const lastRight = items.length === 0 ? 0 : _.last(items).left + _.last(items).width;
+    return items.concat({
+      left: lastRight,
+      width: countForDimension.count,
+      color: colorScale(countForDimension.dimension),
+      key: countForDimension.dimension
+    });
+  }, []);
 }
