@@ -126,8 +126,8 @@ export default class LoginActivityPage extends React.Component {
   renderCell(data) {
     return (
       <div style={{...style.cell, ...style.squareCell}}>
-        {this.renderSuccessLoginSegment(data.success)}
-        {this.renderFailLoginSegment(data.fail)}
+        {this.renderSuccessLoginSegment(data.success || 0)}
+        {this.renderFailLoginSegment(data.fail || 0)}
       </div>
     )
   }
