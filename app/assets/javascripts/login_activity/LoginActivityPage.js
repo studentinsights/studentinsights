@@ -12,6 +12,7 @@ export default class LoginActivityPage extends React.Component {
     this.fetchLoginActivities = this.fetchLoginActivities.bind(this);
     this.renderPage = this.renderPage.bind(this);
     this.pastThirtyDaysArray = this.pastThirtyDaysArray.bind(this);
+    this.structureLoginActivityJson = this.structureLoginActivityJson.bind(this);
   }
 
   fetchLoginActivities() {
@@ -25,26 +26,7 @@ export default class LoginActivityPage extends React.Component {
     return apiFetchJson(url);
   }
 
-  pastThirtyDaysArray() {
-    const emptyArray = new Array(30);
-    emptyArray.fill(0);
-
-    const pastThirtyDays = emptyArray.map((value, index) => {
-      return moment().subtract(index, 'days');
-    });
-
-    return pastThirtyDays;
-  }
-
-  render() {
-    return (
-      <GenericLoader
-        promiseFn={this.fetchLoginActivities}
-        render={this.renderPage} />
-    );
-  }
-
-  renderPage(loginActivityJson) {
+  structureLoginActivityJson(loginActivityJson) {
     const toMoment = loginActivityJson.map((activity) => {
       return {...activity, ...{created_at: toMomentFromTime(activity.created_at)}};
     });
@@ -68,10 +50,52 @@ export default class LoginActivityPage extends React.Component {
       });
     });
 
+    return byEmail;
+  }
 
-    console.log('this.pastThirtyDaysArray()', this.pastThirtyDaysArray())
-    console.log('byEmail', byEmail);
-    return null;
+  pastThirtyDaysArray() {
+    const emptyArray = new Array(30);
+    emptyArray.fill(0);
+
+    const pastThirtyDays = emptyArray.map((value, index) => {
+      return moment().subtract(index, 'days');
+    });
+
+    return pastThirtyDays;
+  }
+
+  render() {
+    return (
+      <GenericLoader
+        promiseFn={this.fetchLoginActivities}
+        render={this.renderPage} />
+    );
+  }
+
+  renderPage(loginActivityJson) {
+    // Shape of the data:
+    // {
+    //   "uri@demo.studentinsights.org": {
+    //     "Thu Jul 19 2018 00:00:00 GMT+0000": {
+    //       "fail": 4,
+    //       "success": 2
+    //     }
+    //   },
+    //   "vivian@demo.studentinsights.org": {
+    //     "Thu Jul 19 2018 00:00:00 GMT+0000": {
+    //       "fail": 2,
+    //       "success": 1
+    //     }
+    //   }
+    // }
+
+    const structuredData = this.structureLoginActivityJson(loginActivityJson);
+
+    return (
+      <div>
+
+      </div>
+    );
   }
 
 }
