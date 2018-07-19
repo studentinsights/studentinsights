@@ -9,7 +9,7 @@ RSpec.describe StudentsSpreadsheet do
     before do
       # the test data is not deterministic (setting a seed in srand only worked on
       # a single-file test run), so we only test for the output shape
-      3.times { FakeStudent.new(school, homeroom) }
+      3.times { FakeStudent.create!(school, homeroom) }
       Student.update_recent_student_assessments
     end
 
