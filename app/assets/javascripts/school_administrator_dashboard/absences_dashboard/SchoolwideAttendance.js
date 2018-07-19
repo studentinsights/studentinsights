@@ -11,16 +11,16 @@ class SchoolwideAttendance extends React.Component {
     return DashboardHelpers.averageDailyAttendance(this.props.schoolAbsenceEventsByDay, this.props.dashboardStudents.length);
   }
 
-  //A separate daily average excluding excused or dismissed absences
-  schoolAverageDailyAttendanceUnexcused(unexcusedAbsencesByDay) {
-    return DashboardHelpers.averageDailyAttendance(unexcusedAbsencesByDay, this.props.dashboardStudents.length);
-  }
+  // //A separate daily average excluding excused or dismissed absences
+  // schoolAverageDailyAttendanceUnexcused(unexcusedAbsencesByDay) {
+  //   return DashboardHelpers.averageDailyAttendance(unexcusedAbsencesByDay, this.props.dashboardStudents.length);
+  // }
 
-  //used in the dashboard to get the total absence events for each student
-  schoolUnexcusedAbsenceEventsByDay() {
-    const unexcusedSchoolAbsenceEvents = DashboardHelpers.filterExcusedEvents(this.props.schoolAbsenceEvents);
-    return DashboardHelpers.eventsGroupedByDay(unexcusedSchoolAbsenceEvents);
-  }
+  // //used in the dashboard to get the total absence events for each student
+  // schoolUnexcusedAbsenceEventsByDay() {
+  //   const unexcusedSchoolAbsenceEvents = DashboardHelpers.filterExcusedEvents(this.props.schoolAbsenceEvents);
+  //   return DashboardHelpers.eventsGroupedByDay(unexcusedSchoolAbsenceEvents);
+  // }
 
   homeroomAverageDailyAttendance(homeroomEventsByDay) {
     //
@@ -44,17 +44,17 @@ class SchoolwideAttendance extends React.Component {
     return homeroomAbsenceEventsByDay;
   }
 
-  HomeroomAbsenceEventsByDayunexcused(studentsGroupedByHomeroom) {
-    //Same as above excluding excused absences
-    let HomeroomAbsenceEventsByDayunexcused = {};
-    Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
-      const absenceEvents = DashboardHelpers.absenceEvents(studentsGroupedByHomeroom[homeroom]);
-      const unexcusedAbsenceEvents = DashboardHelpers.filterExcusedEvents(absenceEvents);
-      const daysWithAbsences = DashboardHelpers.eventsGroupedByDay(unexcusedAbsenceEvents);
-      HomeroomAbsenceEventsByDayunexcused[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
-    });
-    return HomeroomAbsenceEventsByDayunexcused;
-  }
+  // HomeroomAbsenceEventsByDayunexcused(studentsGroupedByHomeroom) {
+  //   //Same as above excluding excused absences
+  //   let HomeroomAbsenceEventsByDayunexcused = {};
+  //   Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
+  //     const absenceEvents = DashboardHelpers.absenceEvents(studentsGroupedByHomeroom[homeroom]);
+  //     const unexcusedAbsenceEvents = DashboardHelpers.filterExcusedEvents(absenceEvents);
+  //     const daysWithAbsences = DashboardHelpers.eventsGroupedByDay(unexcusedAbsenceEvents);
+  //     HomeroomAbsenceEventsByDayunexcused[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
+  //   });
+  //   return HomeroomAbsenceEventsByDayunexcused;
+  // }
 
   //Because homerooms often have no absences, merge their daily events with the list of school days
   addPerfectAttendanceDays(eventsGroupedByDay) {
