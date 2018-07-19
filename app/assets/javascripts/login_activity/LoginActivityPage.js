@@ -6,6 +6,13 @@ import _ from 'lodash';
 import {toMomentFromTime} from '../helpers/toMoment';
 
 export default class LoginActivityPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.fetchLoginActivities = this.fetchLoginActivities.bind(this);
+    this.renderPage = this.renderPage.bind(this);
+    this.pastThirtyDaysArray = this.pastThirtyDaysArray.bind(this);
+  }
 
   fetchLoginActivities() {
     const nowTimestamp = moment().unix();
@@ -16,6 +23,17 @@ export default class LoginActivityPage extends React.Component {
     const url = endpoint + params;
 
     return apiFetchJson(url);
+  }
+
+  pastThirtyDaysArray() {
+    const emptyArray = new Array(30);
+    emptyArray.fill(0);
+
+    const pastThirtyDays = emptyArray.map((value, index) => {
+      return moment().subtract(index, 'days');
+    });
+
+    return pastThirtyDays;
   }
 
   render() {
@@ -50,6 +68,8 @@ export default class LoginActivityPage extends React.Component {
       });
     });
 
+
+    console.log('this.pastThirtyDaysArray()', this.pastThirtyDaysArray())
     console.log('byEmail', byEmail);
     return null;
   }
