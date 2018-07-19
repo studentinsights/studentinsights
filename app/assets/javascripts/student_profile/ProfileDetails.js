@@ -5,8 +5,10 @@ import moment from 'moment';
 import {merge} from '../helpers/merge';
 import Datepicker from '../components/Datepicker';
 import {
-  firstDayOfSchool,
   toSchoolYear,
+  firstDayOfSchool
+} from '../helpers/schoolYear';
+import {
   toMoment,
   toValue,
   toDate

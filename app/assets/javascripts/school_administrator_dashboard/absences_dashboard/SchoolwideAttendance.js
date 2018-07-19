@@ -70,26 +70,20 @@ class SchoolwideAttendance extends React.Component {
     return Object.keys(this.props.schoolAbsenceEventsByDay);
   }
 
-  schoolYearDateRange() {
-    //change this to change the maximum date range available for the dashboard
-    const fullYearDateRange = Object.keys(this.props.schoolAbsenceEventsByDay).sort();
-    const today = moment.utc();
-    return DashboardHelpers.filterDates(fullYearDateRange, DashboardHelpers.schoolYearStart(), today);
-  }
-
   render() {
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const schoolUnexcusedAbsenceEventsByDay = this.schoolUnexcusedAbsenceEventsByDay();
     return (
-        <SchoolAbsenceDashboard
-          schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
-          schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
-          homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
-          homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
-          schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
-          schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
-          dashboardStudents = {this.props.dashboardStudents}
-          dateRange = {this.schoolYearDateRange()}/>);
+      <SchoolAbsenceDashboard
+        schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
+        schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
+        homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
+        homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
+        schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
+        schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
+        dashboardStudents = {this.props.dashboardStudents}
+      />
+    );
   }
 }
 

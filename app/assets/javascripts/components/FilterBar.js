@@ -6,6 +6,8 @@ import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {maybeCapitalize} from '../helpers/pretty';
 import {allGrades, gradeText} from '../helpers/gradeText';
 import {somervilleHouses} from '../helpers/PerDistrict';
+import {firstDayOfSchoolFor} from '../helpers/schoolYear';
+
 
 export default class FilterBar extends React.Component {
   constructor(props) {
@@ -107,16 +109,39 @@ HouseSelect.propTypes = {
 
 
 
+// Returns [startMoment, endMoment] range represented by `timeRangeKey`
+// at the given `nowMoment`.
+export function momentRange(timeRangeKey, nowMoment) {
+  const startMoment = {
+    [TIME_RANGE_45_DAYS_AGO]: nowMoment.clone().subtract(45, 'days'),
+    [TIME_RANGE_90_DAYS_AGO]: nowMoment.clone().subtract(90, 'days'),
+    [TIME_RANGE_SCHOOL_YEAR]: firstDayOfSchoolFor(nowMoment)
+  }[timeRangeKey];
+
+  return [startMoment.startOf('day'), nowMoment.startOf('day')];
+}
+
+export function timeRangeText(timeRangeKey) {
+  return {
+    TIME_RANGE_45_DAYS_AGO: 'Last 45 days',
+    TIME_RANGE_90_DAYS_AGO: 'Last 90 days',
+    TIME_RANGE_SCHOOL_YEAR: 'School year'
+  }[timeRangeKey];
+}
 export const TIME_RANGE_45_DAYS_AGO = 'TIME_RANGE_45_DAYS_AGO';
 export const TIME_RANGE_90_DAYS_AGO = 'TIME_RANGE_90_DAYS_AGO';
 export const TIME_RANGE_SCHOOL_YEAR = 'TIME_RANGE_SCHOOL_YEAR';
+
+
 export function TimeRangeSelect(props) {
   const {timeRangeKey, onChange} = props;
   const options = [
-    { value: TIME_RANGE_45_DAYS_AGO, label: 'Last 45 days' },
-    { value: TIME_RANGE_90_DAYS_AGO, label: 'Last 90 days' },
-    { value: TIME_RANGE_SCHOOL_YEAR, label: 'School year' }
-  ];
+    TIME_RANGE_45_DAYS_AGO,
+    TIME_RANGE_90_DAYS_AGO,
+    TIME_RANGE_SCHOOL_YEAR
+  ].map(timeRangeKey => {
+    return { value: timeRangeKey, label: timeRangeText(timeRangeKey) };
+  });
   return (
     <SimpleFilterSelect
       placeholder="House..."

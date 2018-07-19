@@ -14,8 +14,10 @@ import FilterBar, {
   ExcusedAbsencesSelect,
   HouseSelect,
   TIME_RANGE_45_DAYS_AGO,
+  momentRange,
   EXCLUDE_EXCUSED_ABSENCES,
-  ALL
+  ALL,
+  timeRangeText
 } from '../../components/FilterBar';
 import {shouldDisplayHouse} from '../../helpers/PerDistrict';
 
@@ -27,10 +29,9 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.state = {
       filters: initialFilters(),
 
-      displayDates: this.props.dateRange,
       showExcused: false,
       selectedHomeroom: null,
-      selectedRange: 'This School Year'
+      // selectedRange: 'This School Year'
     };
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -45,25 +46,30 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.onFiltersCleared = this.onFiltersCleared.bind(this);
   }
 
-  dateRange() {
-    // input from outer component - could be dates or could be keys
-  }
 
-  displayDates() {
-    // what dates should we include?
-  }
+  // // Returns [startDateString, endDateString] like ['2017-08-15', '2018-03-23']
+  // schoolYearDateRange() {
+  //   //change this to change the maximum date range available for the dashboard
+  //   // const fullYearDateRange = Object.keys(this.props.schoolAbsenceEventsByDay).sort();
+  //   const now = moment.utc();
+  //   // return DashboardHelpers.filterDates(fullYearDateRange, DashboardHelpers.schoolYearStart(), today);
+  //   return [DashboardHelpers.schoolYearStart(), now.format('YYYY-MM-DD')];
+  // }
 
-  dateRangeText() {
-    // This School Year
-    // Past 90 Days
-    // Past 45 Days
+  // Returns an array of date strings describing the current time range
+  // eg: ['2018-08-15', '2018-08-16', ...]
+  dateRangeStrings() {
+    const now = moment.utc();
+    const {timeRangeKey} = this.state;
+    const range = momentRange(timeRangeKey, now);
+    return createDateStringArrayForRange(range[0].format('YYYY-MM-DD'), range[1].format("YYYY-MM-DD"));
   }
 
   //Monthly attendance for the school must be calculated after the range filter is applied
   monthlySchoolAttendance(schoolAverageDailyAttendance) {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
-    this.state.displayDates.forEach((day) => {
+    this.dateRangeStrings().forEach((day) => {
       const date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
       if (schoolAverageDailyAttendance[day] !== undefined) { //school days are based on all absences so it's possible this is undefined when getting the total for unexcused absences
         (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
@@ -88,7 +94,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   filteredHomeroomAttendance(dailyHomeroomAttendance) {
     let filteredHomeroomAttendance = {};
     Object.keys(dailyHomeroomAttendance).forEach((homeroom) => {
-      filteredHomeroomAttendance[homeroom] = this.state.displayDates.map((date) => {
+      filteredHomeroomAttendance[homeroom] = this.dateRangeStrings().map((date) => {
         return dailyHomeroomAttendance[homeroom][date];
       });
     });
@@ -98,7 +104,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   studentAbsenceCounts() {
     let studentAbsenceCounts = {};
     const eventsByDay = this.state.showExcused ? this.props.schoolAbsenceEventsByDay : this.props.schoolUnexcusedAbsenceEventsByDay;
-    this.state.displayDates.forEach((day) => {
+    this.dateRangeStrings().forEach((day) => {
       _.each(eventsByDay[day], (absence) => {
         studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 0;
         studentAbsenceCounts[absence.student_id]++;
@@ -142,7 +148,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   render() {
     return (
       <div className="SchoolAbsenceDashboard" style={styles.root}>
-        <SectionHeading>Absences at SCHOOL</SectionHeading>
+        <SectionHeading>Absences</SectionHeading>
         {this.renderFilters()}
         <div className="DashboardContainer">
           <div className="DashboardRosterColumn">
@@ -232,14 +238,12 @@ export default class SchoolAbsenceDashboard extends React.Component {
       });
     });
 
-    const {selectedRange} = this.state;
-
     return (
       <StudentsTable
         rows={rows}
         selectedCategory={this.state.selectedHomeroom}
         incidentType='Absences'
-        incidentSubtitle={selectedRange}
+        incidentSubtitle={this.renderTimeRangeText()}
         resetFn={this.resetStudentList}/>
     );
   }
@@ -262,7 +266,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
           seriesData = {filteredAttendanceSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {`Average Attendance By Month (${this.state.selectedRange})`}
+          titleText = {`Average Attendance By Month (${this.renderTimeRangeText()})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -292,7 +296,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
           seriesData = {homeroomSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
+          titleText = {`Average Attendance By Homeroom (${this.renderTimeRangeText()})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -300,6 +304,12 @@ export default class SchoolAbsenceDashboard extends React.Component {
           onColumnClick = {this.setStudentList}
           onBackgroundClick = {this.resetStudentList}/>
     );
+  }
+
+  // User-facing text describing the selected time range
+  renderTimeRangeText() {
+    const {timeRangeKey} = this.state;
+    return timeRangeText(timeRangeKey);
   }
 }
 
@@ -310,8 +320,7 @@ SchoolAbsenceDashboard.propTypes = {
   homeroomAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired,
   schoolAbsenceEventsByDay: PropTypes.object.isRequired,
-  schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired,
-  dateRange: PropTypes.array.isRequired
+  schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired
 };
 
 const styles = {
@@ -334,4 +343,16 @@ function initialFilters() {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
     excusedAbsencesKey: EXCLUDE_EXCUSED_ABSENCES
   };
+}
+
+function createDateStringArrayForRange(startDateString, endDateString) {
+  const endDateNumber = parseInt(endDateString, 10);
+
+  var dateStrings = []; // eslint-disable-line no-var
+  var currentMoment = moment.utc(startDateString); // eslint-disable-line no-var
+  while (parseInt(currentMoment.format('YYYYMMDD'), 10) < endDateNumber) {
+    dateStrings.push(currentMoment);
+    currentMoment.add(1, 'day');
+  }
+  return dateStrings;
 }
