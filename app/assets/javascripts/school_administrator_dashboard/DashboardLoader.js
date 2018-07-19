@@ -5,13 +5,21 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import SchoolwideAbsences from './absences_dashboard/SchoolwideAbsences';
 import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies';
 import SchoolwideDisciplineIncidents from './discipline_dashboard/SchoolwideDisciplineIncidents';
-
+import {
+  updateGlobalStylesToTakeFullHeight,
+  updateGlobalStylesToRemoveHorizontalScrollbars
+} from '../helpers/globalStylingWorkarounds';
 
 class DashboardLoader extends React.Component {
   constructor(props) {
     super(props);
     this.fetchDashboardStudents = this.fetchDashboardStudents.bind(this);
     this.renderDashboard = this.renderDashboard.bind(this);
+  }
+
+  componentDidMount() {
+    updateGlobalStylesToTakeFullHeight();
+    updateGlobalStylesToRemoveHorizontalScrollbars();
   }
 
   fetchDashboardStudents() {
@@ -23,6 +31,7 @@ class DashboardLoader extends React.Component {
   render() {
     return (
       <GenericLoader
+        style={{flex: 1, display: 'flex'}}
         promiseFn={this.fetchDashboardStudents}
         render={this.renderDashboard} />
     );
@@ -31,14 +40,23 @@ class DashboardLoader extends React.Component {
   renderDashboard(json) {
     switch(this.props.dashboardTarget) {
     case 'absences':
-      return (<SchoolwideAbsences
-        dashboardStudents = {json}/>);
+      return (
+        <SchoolwideAbsences
+          dashboardStudents={json.students_with_events}
+          school={json.school} />
+      );
     case 'tardies':
-      return (<SchoolwideTardies
-        dashboardStudents = {json}/>);
+      return (
+        <SchoolwideTardies
+          dashboardStudents={json.students_with_events}
+          school={json.school} />
+      );
     case 'discipline':
-      return (<SchoolwideDisciplineIncidents
-        dashboardStudents = {json}/>);
+      return (
+        <SchoolwideDisciplineIncidents
+          dashboardStudents={json.students_with_events}
+          school={json.school} />
+      );
     default:
       return <div style={{padding: 10}}>There was an error loading this data.</div>;
     }

@@ -7,8 +7,10 @@ import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
+import SectionHeading from '../../components/SectionHeading';
 
-class SchoolAbsenceDashboard extends React.Component {
+
+export default class SchoolAbsenceDashboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -75,13 +77,15 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     return (
-      <div>
-        <div className="DashRangeButtonWrapper">
+      <div className="SchoolAbsenceDashboard" style={styles.root}>
+        <SectionHeading>Absences at {school.name}</SectionHeading>
+        <div className="DashboardFilterBar">
           {this.renderRangeSelector()}
           {this.renderFilters()}
         </div>
-        <div className="DashboardContainer">
+        <div className="DashboardColumns">
           <div className="DashboardRosterColumn">
             {this.renderStudentAbsenceTable()}
           </div>
@@ -146,7 +150,7 @@ class SchoolAbsenceDashboard extends React.Component {
 
   renderFilters() {
     return(
-      <div className="ExcusedFilter">
+      <div style={styles.excusedFilter}>
         <DashButton
             buttonText={"Unexcused Absences Only"}
             onClick={() => this.setState({showExcused: false})}
@@ -226,7 +230,26 @@ SchoolAbsenceDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   schoolAbsenceEventsByDay: PropTypes.object.isRequired,
   schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired,
-  dateRange: PropTypes.array.isRequired
+  dateRange: PropTypes.array.isRequired,
+  school: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired
 };
 
-export default SchoolAbsenceDashboard;
+const styles = {
+  root: {
+    flex: 1,
+    width: '100%',
+    marginLeft: 10,
+    marginRight: 10,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  excusedFilter: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    paddingLeft: 20,
+    marginLeft: 20,
+    borderLeft: 'thin solid #ccc'
+  }
+};

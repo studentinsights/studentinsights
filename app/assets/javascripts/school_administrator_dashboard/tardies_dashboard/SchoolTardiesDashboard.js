@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import SectionHeading from '../../components/SectionHeading';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 
-class SchoolTardiesDashboard extends React.Component {
+export default class SchoolTardiesDashboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -82,10 +83,14 @@ class SchoolTardiesDashboard extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     return (
-      <div>
-        {this.renderRangeSelector()}
-        <div className="DashboardContainer">
+      <div className="SchoolTardiesDashboard" style={styles.root}>
+        <SectionHeading>Tardies at {school.name}</SectionHeading>
+        <div className="DashboardFilterBar">
+          {this.renderRangeSelector()}
+        </div>
+        <div className="DashboardColumns">
           <div className="DashboardRosterColumn">
             {this.renderStudentTardiesTable()}
           </div>
@@ -196,7 +201,19 @@ class SchoolTardiesDashboard extends React.Component {
 
 SchoolTardiesDashboard.propTypes = {
   schoolTardyEvents: PropTypes.object.isRequired,
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired
 };
 
-export default SchoolTardiesDashboard;
+const styles = {
+  root: {
+    flex: 1,
+    width: '100%',
+    marginLeft: 10,
+    marginRight: 10,
+    display: 'flex',
+    flexDirection: 'column'
+  }
+};

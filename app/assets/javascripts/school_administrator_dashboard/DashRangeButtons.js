@@ -41,4 +41,12 @@ DashRangeButtons.propTypes = {
   fortyFiveDayFilter: PropTypes.func.isRequired
 };
 
+const styles = {
+  root: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end'
+  }
+};
+
 export default DashRangeButtons;

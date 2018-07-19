@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import {Column, Table, SortDirection} from 'react-virtualized';
+import {AutoSizer} from 'react-virtualized';
 import {
   sortByString,
   sortByNumber,
@@ -78,25 +79,36 @@ export default class StudentsTable extends React.Component {
   }
 
   render() {
-    const {incidentType} = this.props;
-    const {sortBy, sortDesc} = this.state;
-    const list = this.orderedRows();
-
     return (
       <div className="StudentsTable" style={styles.root}>
         <div style={styles.caption}>
           {this.renderCaption()}
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
         </div>
+        <div style={{flex: 1}}>
+          {this.renderTable()}
+        </div>
+        <div style={styles.totalEvents}>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
+      </div>
+    );
+  }
+
+  renderTable() {
+    const {incidentType} = this.props;
+    const {sortBy, sortDesc} = this.state;
+    const list = this.orderedRows();
+
+    return (
+      <AutoSizer>{({height, width}) => (
         <Table
-          width={400}
-          height={400}
+          style={styles.table}
+          width={width}
+          height={height}
           rowCount={list.length}
           rowGetter={({index}) => list[index]}
           headerHeight={25}
           headerStyle={{display: 'flex'}} // necessary for layout, not sure why
           rowHeight={25}
-          style={{fontSize: 14}}
           rowStyle={this.renderRowStyle}
           sort={this.onTableSort}
           sortBy={sortBy}
@@ -128,8 +140,7 @@ export default class StudentsTable extends React.Component {
             cellRenderer={this.renderLastEventNote}
           />
         </Table>
-        <div>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
-      </div>
+      )}</AutoSizer>
     );
   }
 
@@ -211,13 +222,22 @@ function latestNoteTime(student) {
 
 const styles = {
   root: {
-    marginTop: 20,
-    marginBottom: 20
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  table: {
+    fontSize: 14
+  },
+  totalEvents: {
+    paddingTop: 10
   },
   caption: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: 5
+    paddingBottom: 5
   },
   incidentSubtitle: {
     fontWeight: 'normal',

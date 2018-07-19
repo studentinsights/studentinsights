@@ -1,10 +1,24 @@
-.DashboardContainer {
+.DashboardFilterBar {
+  border-bottom: 1px solid #ccc;
   display: flex;
-  height: 85vh;
+  padding: 10px;
+}
+
+.DashboardColumns {
+  display: flex;
+  padding: 10px;
+  flex: 1;
+}
+
+.DashboardRosterColumn {
+  display: flex;
+  align-content: flex-start;
+  width: 500px;
 }
 
 .DashboardChartsColumn {
-  flex: 2 1;
+  flex: 1;
+
   display: flex;
   flex-direction: column;
   padding: 0 20px;
@@ -16,72 +30,4 @@
   .Select-menu {
     max-height: 998px;
   }
-}
-
-.DashboardRosterColumn {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  padding-left: 20px;
-}
-
-.DashboardChart {
-  flex: 1;
-  width: 100%;
-  padding: 10px 10px 10px 10px;
-
-  div {
-    height: 100%;
-  }
-}
-
-.DashboardDatePicker {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 7px;
-  margin-bottom: 7px;
-}
-
-.DashRangeButtonWrapper {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  padding: 10px 20px;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px;
-  margin-bottom: 0px;
-}
-
-.DashRangeButtons {
-  justify-content: space-between;
-  display: flex;
-  align-items: flex-end;
-  width: 400px;
-
-  .DashButton {
-    width: 25%;
-  }
-}
-
-.ExcusedFilter {
-  display: flex;
-  align-items: flex-end;
-  padding-left: 30px;
-  margin-left: 20px;
-  border-left: thin solid black;
-  .DashButton {
-    width: 200px;
-    padding-right: 10px;
-  }
-}
-
-.ui-datepicker-prev {
-  float: left;
-}
-
-.ui-datepicker-next {
-  float: right;
 }

@@ -6,6 +6,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {sortByGrade} from '../../helpers/SortHelpers';
 import ExperimentalBanner from '../../components/ExperimentalBanner';
+import SectionHeading from '../../components/SectionHeading';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
@@ -98,6 +99,7 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     const chartOptions = [
       {value: 'location', label: 'Location'},
       {value: 'time', label: 'Time'},
@@ -110,27 +112,32 @@ class SchoolDisciplineDashboard extends React.Component {
     const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
 
     return(
-      <div>
-      <ExperimentalBanner />
-        <div className="DashboardContainer">
-          <div className="DashboardRosterColumn">
+      <div className="SchoolDisciplineDashboard" style={styles.flexVertical}>
+        <ExperimentalBanner />
+        <div style={{...styles.flexVertical, marginLeft: 10, marginRight: 10}}>
+          <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
+          <div className="DashboardFilterBar">
             {this.renderRangeSelector()}
-            {this.renderStudentDisciplineTable(filteredIncidents, groupedIncidents)}
           </div>
-          <div className="DashboardChartsColumn">
-            <div style={styles.graphTitle}>
-              <div style={styles.titleText}>
-                Incidents by:
-              </div>
-              <Select
-                value={this.state.selectedChart}
-                onChange={this.selectChart}
-                options={chartOptions}
-                style={styles.dropdown}
-                clearable={false}
-              />
+          <div className="DashboardColumns">
+            <div className="DashboardRosterColumn">
+              {this.renderStudentDisciplineTable(filteredIncidents, groupedIncidents)}
             </div>
-           {this.renderDisciplineChart(groupedIncidents)}
+            <div className="DashboardChartsColumn">
+              <div style={styles.graphTitle}>
+                <div style={styles.titleText}>
+                  Incidents by:
+                </div>
+                <Select
+                  value={this.state.selectedChart}
+                  onChange={this.selectChart}
+                  options={chartOptions}
+                  style={styles.dropdown}
+                  clearable={false}
+                />
+              </div>
+             {this.renderDisciplineChart(groupedIncidents)}
+            </div>
           </div>
         </div>
       </div>
@@ -212,12 +219,21 @@ SchoolDisciplineDashboard.propTypes = {
     student_race: PropTypes.string, //Race of student
     occurred_at: PropTypes.string, //Date for incident, used in filtering specific date ranges
     last_sst_date_text: PropTypes.string //Date of last SST meeting
-  })).isRequired
+  })).isRequired,
+  school: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default SchoolDisciplineDashboard;
 
 const styles = {
+  flexVertical: {
+    flex: 1,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
   graphTitle: {
     display: 'flex',
     justifyContent: 'center',

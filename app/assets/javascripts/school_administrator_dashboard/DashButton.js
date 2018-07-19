@@ -12,12 +12,14 @@ class DashButton extends React.Component {
     const variableText = isSelected ? buttonSelectedText : buttonText;
     const displayText = buttonSelectedText ? variableText : buttonText;
     return (
-      <div className="DashButton">
+      <div className="DashButton" style={{display: 'inline-block'}}>
         <a
           style={{
             backgroundColor: isSelected ? 'rgba(49, 119, 201, 0.75)' : '',
             color: isSelected ? 'white' : 'black',
             width: '100%',
+            marginLeft: 10,
+            marginRight: 10,
             display: 'flex',
             justifyContent: 'center'
           }}

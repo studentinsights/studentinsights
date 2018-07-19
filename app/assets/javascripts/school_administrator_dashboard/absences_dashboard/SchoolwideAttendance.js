@@ -81,22 +81,26 @@ class SchoolwideAttendance extends React.Component {
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const schoolUnexcusedAbsenceEventsByDay = this.schoolUnexcusedAbsenceEventsByDay();
     return (
-        <SchoolAbsenceDashboard
-          schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
-          schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
-          homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
-          homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
-          schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
-          schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
-          dashboardStudents = {this.props.dashboardStudents}
-          dateRange = {this.schoolYearDateRange()}/>);
+      <SchoolAbsenceDashboard
+        schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
+        schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
+        homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
+        homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
+        schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
+        schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
+        dashboardStudents = {this.props.dashboardStudents}
+        dateRange = {this.schoolYearDateRange()}
+        school={this.props.school}
+      />
+    );
   }
 }
 
 SchoolwideAttendance.propTypes = {
   schoolAbsenceEvents: PropTypes.array.isRequired,
   schoolAbsenceEventsByDay: PropTypes.object.isRequired,
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.object.isRequired
 };
 
 export default SchoolwideAttendance;

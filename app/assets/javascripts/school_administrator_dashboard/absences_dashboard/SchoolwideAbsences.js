@@ -12,12 +12,16 @@ class SchoolwideAbsences extends React.Component {
       <SchoolwideAttendance
         schoolAbsenceEvents = {allAbsenceEvents}
         schoolAbsenceEventsByDay = {DashboardHelpers.eventsGroupedByDay(allAbsenceEvents)}
-        dashboardStudents = {this.props.dashboardStudents}/>);
+        dashboardStudents = {this.props.dashboardStudents}
+        school={this.props.school}
+      />
+    );
   }
 }
 
 SchoolwideAbsences.propTypes = {
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.object.isRequired
 };
 
 export default SchoolwideAbsences;
