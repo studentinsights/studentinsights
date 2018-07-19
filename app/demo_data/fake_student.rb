@@ -241,9 +241,11 @@ class FakeStudent
 
     events_for_year = DemoDataUtil.sample_from_distribution(d)
 
-    events_for_year.times do
-      # Randomly determine when it occurred.
-      occurred_at = DemoDataUtil.random_time.to_date
+    occurred_ats = DemoDataUtil.generate_unique(events_for_year) do
+      DemoDataUtil.random_time.to_date
+    end
+    events_for_year.times do |index|
+      occurred_at = occurred_ats[index]
 
       attendance_event = [Absence.new, Tardy.new].sample
       attendance_event.occurred_at = occurred_at
