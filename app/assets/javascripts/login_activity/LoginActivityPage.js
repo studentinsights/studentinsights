@@ -90,12 +90,37 @@ export default class LoginActivityPage extends React.Component {
     // }
 
     const structuredData = this.structureLoginActivityJson(loginActivityJson);
+    const emails = Object.keys(structuredData);
 
     return (
-      <div>
-
+      <div style={style.container}>
+        {emails.map(email => this.renderRow(email))}
       </div>
     );
   }
 
+  renderRow(email) {
+    const truncatedEmail = email.substring(0, 35);
+    return (<div style={style.cell}>{truncatedEmail}</div>)
+  }
 }
+
+const style = {
+  cell: {
+    borderTop: '1px solid #ccc',
+    borderLeft: '1px solid #ccc',
+    borderRight: '1px solid #ccc',
+    width: 340,
+    height: 25,
+    padding: 2,
+  },
+  square: {
+    height: 25,
+    length: 25,
+  },
+  container: {
+    marginTop: 50,
+    marginLeft: 25,
+  }
+};
+
