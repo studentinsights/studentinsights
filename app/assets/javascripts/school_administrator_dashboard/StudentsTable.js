@@ -30,6 +30,7 @@ export default class StudentsTable extends React.Component {
     this.onTableSort = this.onTableSort.bind(this);
     this.renderStudent = this.renderStudent.bind(this);
     this.renderRowStyle = this.renderRowStyle.bind(this);
+    this.renderLastEventNote = this.renderLastEventNote.bind(this);
   }
 
   sortedRows() {
@@ -158,12 +159,14 @@ export default class StudentsTable extends React.Component {
     const latestNote = rowData.latest_note;
     if (!latestNote || !latestNote.recorded_at) return null;
 
-    const dateText = moment.utc(latestNote.recorded_at).format('M/DD/YY');
+    const {nowFn} = this.context;
+    const now = nowFn();
+    const daysAgo = now.diff(moment.utc(latestNote.recorded_at), 'days');
     const noteTypeText = eventNoteTypeTextMini(latestNote.event_note_type_id);
     return (
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <span style={{color: '#999'}}>{noteTypeText}</span>
-        <span>{dateText}</span>
+        <span>{daysAgo} days ago</span>
       </div>
     );
   }
@@ -182,7 +185,9 @@ export default class StudentsTable extends React.Component {
     return total;
   }
 }
-
+StudentsTable.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 StudentsTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
