@@ -1,6 +1,15 @@
 class DemoDataUtil
   FIVE_YEARS_OF_SECONDS = 157766400
 
+  def self.generate_unique(n, &block)
+    values = []
+    while values.size < n
+      values << block.call
+      values = values.uniq
+    end
+    values
+  end
+
   def self.random_time(options = {})
     time_now = options[:time_now] || DateTime.now
     seconds_back = options[:seconds_back] || FIVE_YEARS_OF_SECONDS
