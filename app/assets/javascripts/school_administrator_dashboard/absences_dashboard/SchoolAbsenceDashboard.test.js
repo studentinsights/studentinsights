@@ -3,7 +3,8 @@ import moment from 'moment';
 import { shallow } from 'enzyme';
 import {
   createTestEvents,
-  createStudents
+  createStudents,
+  testSchool
 } from '../DashboardTestData';
 import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 
@@ -18,6 +19,7 @@ describe('SchoolAbsenceDashboard', () => {
   const events = createTestEvents(nowMoment);
   const dateRange = ['2001-01-01', '2001-01-02', '2001-01-03', '2001-01-04', '2001-02-01'];
   const dash = shallow(<SchoolAbsenceDashboard
+                       school={testSchool()} 
                        schoolAverageDailyAttendance={attendanceWithExcused}
                        schoolAverageDailyAttendanceUnexcused={attendance}
                        homeroomAverageDailyAttendance={homeroomWithExcused}

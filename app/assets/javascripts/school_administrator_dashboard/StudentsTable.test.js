@@ -7,7 +7,12 @@ import StudentsTable from './StudentsTable';
 
 function testRender(options = {}) {
   const nowMoment = options.nowMoment || moment.utc();
-  const table = mount(<StudentsTable rows={createStudents(nowMoment)} incidentType={"Test Incidents"} resetFn={(value) => null}/>);
+  const table = mount(
+    <StudentsTable
+      rows={createStudents(nowMoment)}
+      incidentType={"Test Incidents"}
+      resetFn={(value) => null} />
+  , {nowFn: () => nowMoment});
   return table;
 }
 

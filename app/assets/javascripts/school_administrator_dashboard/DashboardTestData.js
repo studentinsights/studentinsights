@@ -1,3 +1,10 @@
+export function testSchool() {
+  return {
+    local_id: 'HEA',
+    name: 'Arthur D. Healey'
+  };
+}
+
 // Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {
   return {
