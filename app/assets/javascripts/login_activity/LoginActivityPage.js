@@ -115,7 +115,7 @@ export default class LoginActivityPage extends React.Component {
         {pastThirtyDaysArray.map((day) => {
           return (
             <div style={{...style.squareCell, ...style.cell, ...style.headerDateCell}}>
-              {moment(day).format('D/M')}
+              {moment(day).utc().format('D/M')}
             </div>
           );
         })}
