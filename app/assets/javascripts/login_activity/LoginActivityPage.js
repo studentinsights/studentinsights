@@ -106,7 +106,6 @@ export default class LoginActivityPage extends React.Component {
 
   renderRow(email, loginData, pastThirtyDaysArray) {
     const truncatedEmail = email.substring(0, 35);
-
     return (
       <div style={style.row}>
         <div style={{...style.cell, ...style.emailCell}}>
@@ -161,16 +160,12 @@ export default class LoginActivityPage extends React.Component {
 
 const style = {
   row: {
-    clear: 'both'
-  },
-  lastRow: {
-    borderBottom: '1px solid #ccc'
+    clear: 'both',
   },
   cell: {
     height: 25,
-    borderTop: '1px solid #ccc',
-    borderLeft: '1px solid #ccc',
-    borderRight: '1px solid #ccc',
+    border: '1px solid #ccc',
+    margin: '-1px 0 0 -1px',
     float: 'left',
     display: 'flex',
   },
