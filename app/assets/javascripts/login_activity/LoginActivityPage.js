@@ -133,11 +133,9 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderSuccessLoginSegment(count) {
-    const successHex = '#000099';
+    const baseHex = '#329fff';
     const divStyle = {
-      ...style.cellSegment,
-      ...{backgroundColor: successHex},
-      ...{opacity: count / 10}
+      ...style.cellSegment, ...{backgroundColor: baseHex, opacity: count / 10},
     };
 
     return (
@@ -146,11 +144,9 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderFailLoginSegment(count) {
-    const failHex = '#CD6000';
+    const baseHex = '#CD6000';
     const divStyle = {
-      ...style.cellSegment,
-      ...{backgroundColor: failHex},
-      ...{opacity: count / 10}
+      ...style.cellSegment, ...{backgroundColor: baseHex, opacity: count / 10},
     };
 
     return (
@@ -162,14 +158,6 @@ export default class LoginActivityPage extends React.Component {
     return (<div style={{...style.cell, ...style.squareCell}}></div>)
   }
 }
-
-const failCountToHex = {
-
-};
-
-const successCountToHex = {
-
-};
 
 const style = {
   row: {
