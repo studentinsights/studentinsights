@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Select from 'react-select';
 import Modal from 'react-modal';
-import {gradeText} from '../helpers/gradeText';
+import EscapeListener from '../components/EscapeListener';
+import FilterBar from '../components/FilterBar';
+import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
+import SelectGrade from '../components/SelectGrade';
+import SelectHouse from '../components/SelectHouse';
 import {
   labelAssignment,
   firstMatch,
@@ -20,7 +23,7 @@ export default class TieringView extends React.Component {
     super(props);
     this.state = initialState();
 
-    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onEscape = this.onEscape.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onTierChanged = this.onTierChanged.bind(this);
@@ -33,10 +36,10 @@ export default class TieringView extends React.Component {
     const {studentsWithTiering} = this.props;
     const {grade, house, tier, trigger, search} = this.state;
     return studentsWithTiering.filter(s => {
-      if (grade !== null && s.grade !== grade) return false;
-      if (house !== null && s.house !== house) return false;
-      if (tier !== null && s.tier.level !== parseInt(tier, 0)) return false;
-      if (trigger !== null && s.tier.triggers.indexOf(trigger) === -1) return false;
+      if (grade !== ALL && s.grade !== grade) return false;
+      if (house !== ALL && s.house !== house) return false;
+      if (tier !== ALL && s.tier.level !== parseInt(tier, 0)) return false;
+      if (trigger !== ALL && s.tier.triggers.indexOf(trigger) === -1) return false;
       
       if (search !== '') {
         const tokens = search.toLowerCase().split(' ');
@@ -52,8 +55,8 @@ export default class TieringView extends React.Component {
     });
   }
 
-  onKeyUp(e) {
-    if (e.which === 27) this.setState(initialState());
+  onEscape() {
+    this.setState(initialState());
   }
 
   onGradeChanged(grade) {
@@ -85,66 +88,43 @@ export default class TieringView extends React.Component {
   render() {
     const students = this.filterStudents();
     return (
-      <div className="TieringView" style={{...styles.root, ...styles.flexVertical}} onKeyUp={this.onKeyUp}>
+      <EscapeListener className="TieringView" style={{...styles.root, ...styles.flexVertical}} onEscape={this.onEscape}>
         {this.renderSelection(students)}
         {this.renderTable(students)}
-      </div>
+      </EscapeListener>
     );
   }
 
   renderSelection(studentsWithTiering) {
     const {grade, house, tier, trigger, search} = this.state;
 
-    const nullOption = [{ value: null, label: 'All' }];
-    const possibleGrades = ['9', '10', '11', '12'];
-    const possibleHouses = ['Beacon', 'Broadway', 'Elm', 'Highland'];
+    const nullOption = [{ value: ALL, label: 'All' }];
     const possibleTiers = ['0', '1', '2', '3', '4'];
     const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
-      <div style={styles.selectionBar}>
+      <FilterBar>
         <input
           style={styles.search}
           placeholder={`Search ${studentsWithTiering.length} students...`}
           value={search}
           onChange={this.onSearchChanged} />
-        <Select
-          style={styles.select}
-          simpleValue
-          clearable={false}
-          searchable={false}
-          placeholder="Grade..."
-          value={grade}
-          onChange={this.onGradeChanged}
-          options={nullOption.concat(possibleGrades.map(value => {
-            return { value, label: gradeText(value) };
-          }))} />
-        <Select
-          style={{...styles.select, width: '12em'}}
-          simpleValue
-          clearable={false}
-          searchable={false}
-          placeholder="House..."
-          value={house}
-          onChange={this.onHouseChanged}
-          options={nullOption.concat(possibleHouses.map(value => {
-            return { value, label: `${value} house` };
-          }))} />
-        <Select
-          style={{...styles.select, width: '8em'}}
-          simpleValue
-          clearable={false}
-          searchable={false}
+        <SelectGrade
+          grade={grade}
+          grades={['9', '10', '11', '12']}
+          onChange={this.onGradeChanged} />
+        <SelectHouse
+          style={{width: '12em'}}
+          house={house}
+          onChange={this.onHouseChanged} />
+        <SimpleFilterSelect
+          style={{width: '8em'}}
           placeholder="Level..."
           value={tier}
           onChange={this.onTierChanged}
           options={nullOption.concat(possibleTiers.map(value => {
             return { value, label: `Level ${value}` };
           }))} />
-        <Select
-          style={styles.select}
-          simpleValue
-          clearable={false}
-          searchable={false}
+        <SimpleFilterSelect
           placeholder="Trigger..."
           value={trigger}
           onChange={this.onTriggerChanged}
@@ -153,7 +133,7 @@ export default class TieringView extends React.Component {
           }))} />
         <span style={styles.tieringInfo}>Last 45 days</span>
         {this.renderSummaryModal(studentsWithTiering)}
-      </div>
+      </FilterBar>
     );
   }
 
@@ -300,11 +280,6 @@ const styles = {
     flex: 1,
     flexDirection: 'column'
   },
-  selectionBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   search: {
     display: 'inline-block',
     padding: 8,
@@ -346,10 +321,10 @@ const styles = {
 function initialState() {
   return {
     search: '',
-    grade: null,
-    house: null,
-    tier: null,
-    trigger: null,
+    grade: ALL,
+    house: ALL,
+    tier: ALL,
+    trigger: ALL,
     isModalOpen: false
   };
 }
