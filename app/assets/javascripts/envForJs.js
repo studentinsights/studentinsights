@@ -1,4 +1,7 @@
-// Read the stub written by the Rails HTML in the layout
+// Read the stub written by the Rails HTML in the layout.  Intended for the JS
+// boot process only.
+//
+// Use `PerDistrict` if you're trying to get `districtKey` from inside a React component.
 export function readEnv() {
   if (window.ENV_FOR_JS === undefined) {
     const el = document.getElementById('env-for-js');

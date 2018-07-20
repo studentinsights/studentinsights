@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { shallow } from 'enzyme';
+import {mount, shallow} from 'enzyme';
+import {withNowContext} from '../../testing/NowContainer';
+import PerDistrictContainer from '../../components/PerDistrictContainer';
 import {
   createTestEvents,
   createStudents,
@@ -9,7 +11,8 @@ import {
 import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 
 
-function testSetup() {
+function testSetup(options = {}) {
+  const districtKey = options.districtKey || 'somerville';
   const nowMoment = moment.utc();
   const attendance = {'2001-01-01': 50, '2001-01-02': 25, '2001-01-03': 75, '2001-01-04': 100, '2001-02-01': 10};
   const attendanceWithExcused = {'2001-01-01': 50, '2001-01-02': 25, '2001-01-03': 50, '2001-01-04': 100, '2001-02-01': 10};
@@ -18,7 +21,10 @@ function testSetup() {
   const students = createStudents(nowMoment);
   const events = createTestEvents(nowMoment);
   const dateRange = ['2001-01-01', '2001-01-02', '2001-01-03', '2001-01-04', '2001-02-01'];
-  const context = { nowFn() { return nowMoment; } };
+  const context = {
+    districtKey,
+    nowFn() { return nowMoment; }
+  };
   const el = (
     <SchoolAbsenceDashboard
      school={testSchool()} 
@@ -34,8 +40,26 @@ function testSetup() {
   return {el, context, attendance};
 }
 
+// mount doesn't support passing context directly, and shallow doesn't
+// work with wrapper components, that's why there's extra setup to translate
+// between
+function elWrappedInContext(el, context) {
+  const {districtKey, nowFn} = context;
+  const nowTimeString = nowFn().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+  return withNowContext(nowTimeString, (
+    <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>
+  ));
+}
 
-describe('SchoolAbsenceDashboard', () => {
+it('does not show excused absence option for New Bedford', () => {
+  const {el, context} = testSetup({districtKey: 'new_bedford'});
+  const dash = mount(elWrappedInContext(el, context));
+  expect(dash.html()).not.toContain('Unexcused Absences Only');
+  expect(dash.html()).not.toContain('All Absences');
+  expect(dash.find('.SchoolAbsenceDashboard-excused-absences-select').length).toEqual(0);
+});
+
+describe('with testSetup', () => {
   const {el, context, attendance} = testSetup();
   const dash = shallow(el, {context});
 
@@ -78,5 +102,4 @@ describe('SchoolAbsenceDashboard', () => {
   it('filters dates outside the range for homerooms', () => {
     expect(dash.find('DashboardBarChart').last().props().seriesData).toEqual([66.7,100]);
   });
-
 });

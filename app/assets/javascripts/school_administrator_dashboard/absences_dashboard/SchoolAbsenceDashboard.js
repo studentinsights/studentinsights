@@ -2,21 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import {supportsExcusedAbsences} from '../../helpers/PerDistrict';
+import SectionHeading from '../../components/SectionHeading';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
-import SectionHeading from '../../components/SectionHeading';
 
 
 export default class SchoolAbsenceDashboard extends React.Component {
 
-  constructor(props) {
+  constructor(props, context) {
     super(props);
+
+    const {dateRange} = props;
+    const {districtKey} = context;
+    const showExcused = supportsExcusedAbsences(districtKey) ? false : true;
     this.state = {
-      displayDates: this.props.dateRange,
-      showExcused: false,
+      showExcused,
+      displayDates: dateRange,
       selectedHomeroom: null,
       selectedRange: 'This School Year'
     };
@@ -147,8 +152,11 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderExcusedAbsencesSelect() {
+    const {districtKey} = this.context;
+    if (!supportsExcusedAbsences(districtKey)) return null;
+
     return(
-      <div style={styles.excusedFilter}>
+      <div style={styles.excusedFilter} className="SchoolAbsenceDashboard-excused-absences-select">
         <DashButton
             buttonText={"Unexcused Absences Only"}
             onClick={() => this.setState({showExcused: false})}
@@ -203,23 +211,25 @@ export default class SchoolAbsenceDashboard extends React.Component {
     });
 
     return (
-        <DashboardBarChart
-          id = {'string'}
-          categories = {{categories: homerooms}}
-          seriesData = {homeroomSeries}
-          yAxisMin = {80}
-          yAxisMax = {100}
-          titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
-          measureText = {'Attendance (Percent)'}
-          tooltip = {{
-            pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
-            valueSuffix: '%'}}
-          onColumnClick = {this.setStudentList}
-          onBackgroundClick = {this.resetStudentList}/>
+      <DashboardBarChart
+        id = {'string'}
+        categories = {{categories: homerooms}}
+        seriesData = {homeroomSeries}
+        yAxisMin = {80}
+        yAxisMax = {100}
+        titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
+        measureText = {'Attendance (Percent)'}
+        tooltip = {{
+          pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
+          valueSuffix: '%'}}
+        onColumnClick = {this.setStudentList}
+        onBackgroundClick = {this.resetStudentList}/>
     );
   }
 }
-
+SchoolAbsenceDashboard.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 SchoolAbsenceDashboard.propTypes = {
   schoolAverageDailyAttendance: PropTypes.object.isRequired,
   schoolAverageDailyAttendanceUnexcused: PropTypes.object.isRequired,
