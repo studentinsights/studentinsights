@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import {mount, shallow} from 'enzyme';
-import {withNowContext} from '../../testing/NowContainer';
+import {withNowMoment} from '../../testing/NowContainer';
 import PerDistrictContainer from '../../components/PerDistrictContainer';
 import {
   createTestEvents,
@@ -27,15 +27,15 @@ function testSetup(options = {}) {
   };
   const el = (
     <SchoolAbsenceDashboard
-     school={testSchool()} 
-     schoolAverageDailyAttendance={attendanceWithExcused}
-     schoolAverageDailyAttendanceUnexcused={attendance}
-     homeroomAverageDailyAttendance={homeroomWithExcused}
-     homeroomAverageDailyAttendanceUnexcused={homeroom}
-     dashboardStudents={students}
-     schoolAbsenceEventsByDay={events}
-     schoolUnexcusedAbsenceEventsByDay={events}
-     dateRange={dateRange}/>
+      school={testSchool()} 
+      schoolAverageDailyAttendance={attendanceWithExcused}
+      schoolAverageDailyAttendanceUnexcused={attendance}
+      homeroomAverageDailyAttendance={homeroomWithExcused}
+      homeroomAverageDailyAttendanceUnexcused={homeroom}
+      dashboardStudents={students}
+      schoolAbsenceEventsByDay={events}
+      schoolUnexcusedAbsenceEventsByDay={events}
+      dateRange={dateRange}/>
   );
   return {el, context, attendance};
 }
@@ -45,8 +45,7 @@ function testSetup(options = {}) {
 // between
 function elWrappedInContext(el, context) {
   const {districtKey, nowFn} = context;
-  const nowTimeString = nowFn().format('YYYY-MM-DDTHH:mm:ss.SSSZ');
-  return withNowContext(nowTimeString, (
+  return withNowMoment(nowFn(), (
     <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>
   ));
 }
@@ -56,7 +55,7 @@ it('does not show excused absence option for New Bedford', () => {
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.html()).not.toContain('Unexcused Absences Only');
   expect(dash.html()).not.toContain('All Absences');
-  expect(dash.find('.SchoolAbsenceDashboard-excused-absences-select').length).toEqual(0);
+  expect(dash.find('SelectExcusedAbsences').length).toEqual(0);
 });
 
 describe('with testSetup', () => {
@@ -72,7 +71,9 @@ describe('with testSetup', () => {
   });
 
   it('renders range selection buttons', () => {
-    expect(dash.find('DashRangeButtons').length).toEqual(1);
+    expect(dash.find('FilterBar').length).toEqual(2);
+    expect(dash.find('SelectTimeRange').length).toEqual(1);
+    expect(dash.find('SelectExcusedAbsences').length).toEqual(1);
   });
 
   it('groups the daily attendance within a month', () => {

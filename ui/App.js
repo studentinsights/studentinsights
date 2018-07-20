@@ -35,10 +35,10 @@ class App extends React.Component {
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
   // to remove having to do this manually for each route.
-  trackVisit(routeProps, pageKey) {
+  trackVisit(routeProps, pageKey, params = {}) {
     const {currentEducator} = this.props;
     MixpanelUtils.registerUser(currentEducator);
-    MixpanelUtils.track('PAGE_VISIT', { page_key: pageKey });
+    MixpanelUtils.track('PAGE_VISIT', {...params, page_key: pageKey });
   }
 
   // `NowContainer` provides a fn to read the time
@@ -142,15 +142,21 @@ class App extends React.Component {
   }
 
   renderAbsencesDashboard(routeProps) {
-    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'absences'} />;
+    const schoolId = routeProps.match.params.id;
+    this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id: schoolId});
+    return <DashboardLoader schoolId={schoolId} dashboardTarget={'absences'} />;
   }
 
   renderTardiesDashboard(routeProps) {
-    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'tardies'}/>;
+    const schoolId = routeProps.match.params.id;
+    this.trackVisit(routeProps, 'TARDIES_DASHBOARD', { school_id: schoolId});
+    return <DashboardLoader schoolId={schoolId} dashboardTarget={'tardies'}/>;
   }
 
   renderDisciplineDashboard(routeProps) {
-    return <DashboardLoader schoolId={routeProps.match.params.id} dashboardTarget={'discipline'}/>;
+    const schoolId = routeProps.match.params.id;
+    this.trackVisit(routeProps, 'DISCIPLINE_DASHBOARD', { school_id: schoolId});
+    return <DashboardLoader schoolId={schoolId} dashboardTarget={'discipline'}/>;
   }
 
   renderDistrictEnrollmentPage(routeProps) {

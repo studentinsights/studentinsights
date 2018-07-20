@@ -13,8 +13,7 @@ import App from './App';
 if ($('body').hasClass('students')  ||
     $('body').hasClass('homerooms') ||
     $('body').hasClass('service_uploads') ||
-    $('body').hasClass('ui') ||
-    $('body').hasClass('school_administrator_dashboard')) {
+    $('body').hasClass('ui')) {
   datepickerConfig();
 }
 

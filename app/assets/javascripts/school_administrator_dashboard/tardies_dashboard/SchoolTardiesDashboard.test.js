@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
+import {testContext} from '../../testing/NowContainer';
 import {
   createTestEvents,
   createStudents,
@@ -8,6 +9,11 @@ import {
   testSchool
 } from '../DashboardTestData';
 import SchoolTardiesDashboard from './SchoolTardiesDashboard';
+import {TIME_RANGE_90_DAYS_AGO} from '../../components/SelectTimeRange';
+
+function peekAtChartSeriesData(dash) {
+  return dash.find('DashboardBarChart').first().props().seriesData;
+}
 
 describe('SchoolTardiesDashboard', () => {
   const nowMoment = moment.utc();
@@ -19,11 +25,14 @@ describe('SchoolTardiesDashboard', () => {
     'No Homeroom': [testEvents.oneMonthAgo, testEvents.oneYearAgo]
   };
 
-  const dash = shallow(<SchoolTardiesDashboard
-                       school={testSchool()}
-                       schoolTardyEvents={schoolTardyEvents}
-                       homeroomTardyEvents={homeroomTardyEvents}
-                       dashboardStudents={students}/>);
+  const context = testContext({nowMoment});
+  const dash = shallow(
+    <SchoolTardiesDashboard
+      school={testSchool()}
+      schoolTardyEvents={schoolTardyEvents}
+      homeroomTardyEvents={homeroomTardyEvents}
+      dashboardStudents={students}/>
+  , {context});
 
   it('renders two bar charts', () => {
     expect(dash.find('DashboardBarChart').length).toEqual(2);
@@ -34,10 +43,10 @@ describe('SchoolTardiesDashboard', () => {
   });
 
 
-  it('filters events outside the start date', () => {
-    dash.setState({startDate: moment.utc(testEvents.fourMonthsAgo.occurred_at).format("YYYY-MM-DD")});
-    const seriesData = dash.find('DashboardBarChart').first().props().seriesData;
-    expect(seriesData[0][0]).toEqual(moment.utc(testEvents.fourMonthsAgo.occurred_at).format('ddd MM/DD/YYYY'));
+  it('sets time range to 45 days by default, and responds to state changes', () => {
+    expect(peekAtChartSeriesData(dash).length).toEqual(45);
+    dash.setState({timeRangeKey: TIME_RANGE_90_DAYS_AGO});
+    expect(peekAtChartSeriesData(dash).length).toEqual(90);
   });
 
 });

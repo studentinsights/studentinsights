@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SimpleFilterSelect from './SimpleFilterSelect';
+import SimpleFilterSelect, {ALL} from './SimpleFilterSelect';
 import {maybeCapitalize} from '../helpers/pretty';
-import {ALL} from './FilterBar';
 
 
 // For selecting a counselor (eg, Somerville HS)

@@ -39,21 +39,26 @@ export function testTimeMoment() {
 // For use with Enzyme's shallow renderer
 export function testContext(options = {}) {
   const timeString = options.timeString || TEST_TIME_STRING;
+  const nowMoment = options.nowMoment || toMomentFromTime(timeString);
   return {
-    nowFn() { return toMomentFromTime(timeString); }
+    nowFn() { return nowMoment; }
   };
-}
-
-// Helper to freeze the clock during tests
-export function withNowContext(timeString, children) {
-  return (
-    <NowContainer nowFn={() => toMomentFromTime(timeString)}>
-      {children}
-    </NowContainer>
-  );
 }
 
 // Keep generic "now" value during most tests
 export function withDefaultNowContext(children) {
   return withNowContext(TEST_TIME_STRING, children);
+}
+
+// Helper to freeze the clock during tests
+export function withNowContext(timeString, children) {
+  return withNowMoment(toMomentFromTime(timeString), children);
+}
+
+export function withNowMoment(nowMoment, children) {
+  return (
+    <NowContainer nowFn={() => nowMoment}>
+      {children}
+    </NowContainer>
+  );
 }
