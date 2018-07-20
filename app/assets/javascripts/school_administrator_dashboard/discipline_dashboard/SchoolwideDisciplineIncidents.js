@@ -36,13 +36,15 @@ class SchoolWideDisciplineIncidents extends React.Component {
     return (
       <SchoolDisciplineDashboard
         dashboardStudents={this.props.dashboardStudents}
-        schoolDisciplineEvents={this.schoolDisciplineEvents()}/>
+        schoolDisciplineEvents={this.schoolDisciplineEvents()}
+        school={this.props.school} />
     );
   }
 }
 
 SchoolWideDisciplineIncidents.propTypes = {
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.object.isRequired
 };
 
 export default SchoolWideDisciplineIncidents;

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 
 // Component for all charts in the dashboard page.
-class DashboardBarChart extends React.Component{
+export default class DashboardBarChart extends React.Component{
 
   //Because the highcharts wrapper redraws the charts whether or not the props
   //have changed, this is necessary to prevent rerendering the charts when the
@@ -15,8 +15,9 @@ class DashboardBarChart extends React.Component{
 
   render() {
     return (
-      <div id={this.props.id} className='DashboardChart'>
+      <div id={this.props.id} className="DashboardBarChart" style={styles.root}>
         <HighchartsWrapper
+          style={{flex: 1}}
           chart={{
             type: 'column',
             events: {
@@ -65,4 +66,11 @@ DashboardBarChart.propTypes = {
   onBackgroundClick: PropTypes.func
 };
 
-export default DashboardBarChart;
+const styles = {
+  root: {
+    flex: 1,
+    width: '100%',
+    padding: 10,
+    display: 'flex'
+  }
+};

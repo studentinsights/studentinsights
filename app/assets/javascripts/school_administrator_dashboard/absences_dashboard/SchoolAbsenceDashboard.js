@@ -7,8 +7,10 @@ import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
+import SectionHeading from '../../components/SectionHeading';
 
-class SchoolAbsenceDashboard extends React.Component {
+
+export default class SchoolAbsenceDashboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -75,17 +77,19 @@ class SchoolAbsenceDashboard extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     return (
-      <div>
-        <div className="DashRangeButtonWrapper">
+      <div className="SchoolAbsenceDashboard" style={styles.root}>
+        <SectionHeading>Absences at {school.name}</SectionHeading>
+        <div className="SchoolDashboard-filter-bar">
           {this.renderRangeSelector()}
-          {this.renderFilters()}
+          {this.renderExcusedAbsencesSelect()}
         </div>
-        <div className="DashboardContainer">
-          <div className="DashboardRosterColumn">
+        <div className="SchoolDashboard-columns">
+          <div className="SchoolDashboard-roster-column">
             {this.renderStudentAbsenceTable()}
           </div>
-          <div className="DashboardChartsColumn">
+          <div className="SchoolDashboard-charts-column">
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
           </div>
@@ -101,18 +105,16 @@ class SchoolAbsenceDashboard extends React.Component {
     const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
     const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-            selectedRange: 'This School Year'})}
-          ninetyDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-            selectedRange: 'Past 90 Days'})}
-          fortyFiveDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-            selectedRange: 'Past 45 Days'})}/>
-      </div>
+      <DashRangeButtons
+        schoolYearFilter={() => this.setState({
+          displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
+          selectedRange: 'This School Year'})}
+        ninetyDayFilter={() => this.setState({
+          displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
+          selectedRange: 'Past 90 Days'})}
+        fortyFiveDayFilter={() => this.setState({
+          displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
+          selectedRange: 'Past 45 Days'})}/>
     );
   }
 
@@ -144,9 +146,9 @@ class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderFilters() {
+  renderExcusedAbsencesSelect() {
     return(
-      <div className="ExcusedFilter">
+      <div style={styles.excusedFilter}>
         <DashButton
             buttonText={"Unexcused Absences Only"}
             onClick={() => this.setState({showExcused: false})}
@@ -226,7 +228,26 @@ SchoolAbsenceDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   schoolAbsenceEventsByDay: PropTypes.object.isRequired,
   schoolUnexcusedAbsenceEventsByDay: PropTypes.object.isRequired,
-  dateRange: PropTypes.array.isRequired
+  dateRange: PropTypes.array.isRequired,
+  school: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired
 };
 
-export default SchoolAbsenceDashboard;
+const styles = {
+  root: {
+    flex: 1,
+    width: '100%',
+    paddingLeft: 10,
+    paddingRight: 10,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  excusedFilter: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    paddingLeft: 20,
+    marginLeft: 20,
+    borderLeft: 'thin solid #ccc'
+  }
+};

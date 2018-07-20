@@ -4,7 +4,8 @@ import { shallow } from 'enzyme';
 import {
   createTestEvents,
   createStudents,
-  createSchoolTardyEvents
+  createSchoolTardyEvents,
+  testSchool
 } from '../DashboardTestData';
 import SchoolTardiesDashboard from './SchoolTardiesDashboard';
 
@@ -19,6 +20,7 @@ describe('SchoolTardiesDashboard', () => {
   };
 
   const dash = shallow(<SchoolTardiesDashboard
+                       school={testSchool()}
                        schoolTardyEvents={schoolTardyEvents}
                        homeroomTardyEvents={homeroomTardyEvents}
                        dashboardStudents={students}/>);
