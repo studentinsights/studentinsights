@@ -102,7 +102,7 @@ export default class LoginActivityPage extends React.Component {
         <div style={style.container}>
           {this.renderHeaderRow()}
           {emails.map((email) => {
-            return this.renderRow(email, structuredData[email], pastThirtyDaysArray)
+            return this.renderRow(email, structuredData[email], pastThirtyDaysArray);
           })}
         </div>
       </div>
@@ -137,7 +137,7 @@ export default class LoginActivityPage extends React.Component {
         {pastThirtyDaysArray.map((day) => {
           return (loginData[day])
             ? this.renderCell(email, loginData[day], day)
-            : this.renderEmptyCell()
+            : this.renderEmptyCell();
         })}
       </div>
     );
@@ -150,7 +150,7 @@ export default class LoginActivityPage extends React.Component {
         {this.renderSuccessLoginSegment(data.success || 0)}
         {this.renderFailLoginSegment(data.fail || 0)}
       </div>
-    )
+    );
   }
 
   renderTooltipText(email, data, day) {
@@ -189,7 +189,7 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderEmptyCell() {
-    return (<div style={{...style.cell, ...style.squareCell}}></div>)
+    return (<div style={{...style.cell, ...style.squareCell}}></div>);
   }
 }
 
