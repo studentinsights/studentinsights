@@ -25,7 +25,7 @@ class LoginActivitiesController < ApplicationController
   def login_activity_json(created_at_or_before:, created_after:)
     LoginActivity.where('created_at > ?', created_after)
                  .where('created_at <= ?', created_at_or_before)
-                 .as_json({ only: [ :identity, :success, :created_at ] })
+                 .as_json({ only: [ :identity, :success, :created_at, :ip ] })
   end
 
 end
