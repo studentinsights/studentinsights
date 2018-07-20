@@ -4,12 +4,8 @@ import Datepicker from '../components/Datepicker';
 import {toMoment} from '../helpers/toMoment';
 import {merge} from '../helpers/merge';
 import serviceColor from '../helpers/serviceColor';
+import {toSchoolYear, lastDayOfSchool} from '../helpers/schoolYear';
 import ProvidedByEducatorDropdown from './ProvidedByEducatorDropdown';
-import {
-  toSchoolYear,
-  lastDayOfSchool
-} from './QuadConverter';
-
 
 
 /*

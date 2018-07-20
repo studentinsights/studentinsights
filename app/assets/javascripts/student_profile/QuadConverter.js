@@ -1,5 +1,10 @@
 import _ from 'lodash';
 import moment from 'moment';
+import {
+  toSchoolYear,
+  firstDayOfSchool
+} from '../helpers/schoolYear';
+
 
 // A quad is a 4-element array of numbers that represents numerical data on a given date.
 // The first three elements are (year, month, date) and the last is the value.
@@ -57,30 +62,6 @@ export function schoolYearStartDates(dateRange){
   // returns: An array of Moment objects representing the start dates of each school year in the calendar year range.
   return allSchoolYearStarts(dateRange)
         .map(firstDayOfSchool);
-}
-
-export function firstDayOfSchool(year){
-  // year: An integer year.
-  // returns: A moment object representing the first day of the school year that year starts.
-  return toMoment([year, 8, 15]);
-}
-
-export function lastDayOfSchool(year){
-  // year: An integer year.
-  // returns: A moment object representing roughly the last day of that school year (which will
-  // be in the following calendar year).
-  return toMoment([year + 1, 6, 30]);
-}
-
-export function toSchoolYear(date) {
-  // date: A JS date object or Moment object.
-  // returns: Integer representing what the calendar year was in the fall of date's school year.
-  const momentObject = moment.utc(date);
-
-  const year = momentObject.year();
-  const startOfSchoolYear = toMoment([year, 8, 15]);
-  const isEventDuringFall = momentObject.diff(startOfSchoolYear, 'days') > 0;
-  return (isEventDuringFall) ? year : year - 1;
 }
 
 // Takes an array of attendanceEvent objects.

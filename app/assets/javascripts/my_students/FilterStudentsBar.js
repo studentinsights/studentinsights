@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Select from 'react-select';
+import EscapeListener from '../components/EscapeListener';
+import FilterBar from '../components/FilterBar';
+import SelectHouse from '../components/SelectHouse';
+import SelectGrade from '../components/SelectGrade';
+import SelectCounselor from '../components/SelectCounselor';
+import {ALL} from '../components/SimpleFilterSelect';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {maybeCapitalize} from '../helpers/pretty';
-import {gradeText} from '../helpers/gradeText';
 
 // Takes a list of students, uses them to find values to sort by,
 // and then renders a filtering bar for different dimensions, yielding
@@ -14,7 +17,7 @@ export default class FilterStudentsBar extends React.Component {
     super(props);
     this.state = initialState();
 
-    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onEscape = this.onEscape.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
@@ -34,8 +37,8 @@ export default class FilterStudentsBar extends React.Component {
     });
   }
 
-  onKeyUp(e) {
-    if (e.which === 27) this.setState(initialState());
+  onEscape() {
+    this.setState(initialState());
   }
 
   onSearchChanged(e) {
@@ -59,16 +62,15 @@ export default class FilterStudentsBar extends React.Component {
     const filteredStudents = this.filteredStudents();
 
     return (
-      <div className="FilterStudentsBar" style={style} onKeyUp={this.onKeyUp}>
-        <div style={{...styles.bar, ...barStyle}}>
-          <span style={styles.label}>Filter by</span>
+      <EscapeListener className="FilterStudentsBar" style={style} onEscape={this.onEscape}>
+        <FilterBar style={barStyle}>
           {this.renderSearch(filteredStudents)}
           {this.renderGradeSelect()}
           {this.renderHouseSelect()}
           {this.renderCounselorSelect()}
-        </div>
+        </FilterBar>
         {children(filteredStudents)}
-      </div>
+      </EscapeListener>
     );
   }
 
@@ -87,65 +89,38 @@ export default class FilterStudentsBar extends React.Component {
   renderGradeSelect() {
     const {students} = this.props;
     const {grade} = this.state;
-
-    // Find all grade values in students
     const sortedGrades = _.sortBy(_.uniq(students.map(student => student.grade)), rankedByGradeLevel);
-    const gradeOptions = [{value: null, label: 'All'}].concat(sortedGrades.map(grade => {
-      return { value: grade, label: gradeText(grade) };
-    }));
     return (
-      <Select
-        style={styles.select}
-        simpleValue
-        placeholder="Grade..."
-        clearable={false}
-        value={grade}
-        onChange={this.onGradeChanged}
-        options={gradeOptions} />
+      <SelectGrade
+        grade={grade}
+        grades={sortedGrades}
+        onChange={this.onGradeChanged} />
     );
   }
 
   renderHouseSelect() {
     const {students} = this.props;
     const {house} = this.state;
-
-    // Find all values in students
     const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
     if (sortedHouses.length === 0) return;
-    const houseOptions = [{value: null, label: 'All'}].concat(sortedHouses.map(house => {
-      return { value: house, label: `${maybeCapitalize(house)} house` };
-    }));
     return (
-      <Select
-        style={styles.select}
-        simpleValue
-        placeholder="House..."
-        clearable={false}
-        value={house}
-        onChange={this.onHouseChanged}
-        options={houseOptions} />
+      <SelectHouse
+        house={house}
+        houses={sortedHouses}
+        onChange={this.onHouseChanged} />
     );
   }
 
   renderCounselorSelect() {
     const {students} = this.props;
     const {counselor} = this.state;
-
-    // Find all values in students
     const sortedCounselors = _.sortBy(_.uniq(_.compact(students.map(student => student.counselor))));
     if (sortedCounselors.length === 0) return;
-    const counselorOptions = [{value: null, label: 'All'}].concat(sortedCounselors.map(counselor => {
-      return { value: counselor, label: maybeCapitalize(counselor) };
-    }));
     return (
-      <Select
-        style={styles.select}
-        simpleValue
-        placeholder="Counselor..."
-        clearable={false}
-        value={counselor}
-        onChange={this.onCounselorChanged}
-        options={counselorOptions} />
+      <SelectCounselor
+        counselor={counselor}
+        counselors={sortedCounselors}
+        onChange={this.onHouseChanged} />
     );
   }
 }
@@ -166,15 +141,6 @@ FilterStudentsBar.propTypes = {
 };
 
 const styles = {
-  bar: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  label: {
-    display: 'inline-block',
-    marginBottom: 4, // fudging vertical alignment
-    marginRight: 10
-  },
   select: {
     width: '10em',
     marginRight: 10
@@ -197,14 +163,14 @@ const styles = {
 function initialState() {
   return {
     searchText: '',
-    grade: null,
-    house: null,
-    counselor: null
+    grade: ALL,
+    house: ALL,
+    counselor: ALL
   };
 }
 
 function shouldFilterOut(selectedValue, studentValue) {
-  if (selectedValue === null || selectedValue === undefined) return false; // no filter applied
+  if (selectedValue === ALL) return false; // no filter
   return (studentValue !== selectedValue);
 }
 
