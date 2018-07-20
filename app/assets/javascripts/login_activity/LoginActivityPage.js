@@ -128,7 +128,7 @@ export default class LoginActivityPage extends React.Component {
     return (
       <div style={style.row}>
         <div style={{...style.cell, ...style.emailCell}}>
-          {truncatedEmail}
+          {truncatedEmail || 'No email entered'}
         </div>
         {pastThirtyDaysArray.map((day) => {
           return (loginData[day])
