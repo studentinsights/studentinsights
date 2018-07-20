@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import LoginActivityPage from './LoginActivityPage';
 
 export default class LoginActivityPageContainer extends React.Component {
