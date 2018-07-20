@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import SectionHeading from '../../components/SectionHeading';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DashRangeButtons from '../DashRangeButtons';
 
-class SchoolTardiesDashboard extends React.Component {
+export default class SchoolTardiesDashboard extends React.Component {
 
   constructor(props) {
     super(props);
@@ -82,14 +83,18 @@ class SchoolTardiesDashboard extends React.Component {
   }
 
   render() {
+    const {school} = this.props;
     return (
-      <div>
-        {this.renderRangeSelector()}
-        <div className="DashboardContainer">
-          <div className="DashboardRosterColumn">
+      <div className="SchoolTardiesDashboard" style={styles.root}>
+        <SectionHeading>Tardies at {school.name}</SectionHeading>
+        <div className="SchoolDashboard-filter-bar">
+          {this.renderRangeSelector()}
+        </div>
+        <div className="SchoolDashboard-columns">
+          <div className="SchoolDashboard-roster-column">
             {this.renderStudentTardiesTable()}
           </div>
-          <div className="DashboardChartsColumn">
+          <div className="SchoolDashboard-charts-column">
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
           </div>
@@ -184,19 +189,29 @@ class SchoolTardiesDashboard extends React.Component {
     const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
     const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
-          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
-          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
-      </div>
+      <DashRangeButtons
+        schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
+        ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
+        fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
     );
   }
 }
 
 SchoolTardiesDashboard.propTypes = {
   schoolTardyEvents: PropTypes.object.isRequired,
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired
 };
 
-export default SchoolTardiesDashboard;
+const styles = {
+  root: {
+    flex: 1,
+    width: '100%',
+    marginLeft: 10,
+    marginRight: 10,
+    display: 'flex',
+    flexDirection: 'column'
+  }
+};

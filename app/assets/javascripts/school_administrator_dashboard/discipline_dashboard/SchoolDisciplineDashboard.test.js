@@ -1,12 +1,16 @@
 import React from 'react';
 import moment from 'moment';
 import { shallow } from 'enzyme';
-import { createStudents } from '../DashboardTestData';
+import {
+  createStudents,
+  testSchool
+} from '../DashboardTestData';
 import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
 
 
 describe('SchoolDisciplineDashboard', () => {
   const dash = shallow(<SchoolDisciplineDashboard
+                        school={testSchool()}
                         dashboardStudents={createStudents(moment.utc())}
                         schoolDisciplineEvents={[]}/>);
 

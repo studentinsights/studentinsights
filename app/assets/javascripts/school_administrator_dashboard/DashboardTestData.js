@@ -1,3 +1,10 @@
+export function testSchool() {
+  return {
+    local_id: 'HEA',
+    name: 'Arthur D. Healey'
+  };
+}
+
 // Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {
   return {
@@ -54,7 +61,7 @@ export function createStudents(nowMoment) {
     events: 3,
     latest_note: {
       event_note_type_id: 300,
-      recorded_at: testEvents.threeMonthsAgo.occurred_at
+      recorded_at: testEvents.oneMonthAgo.occurred_at
     }
   },
   {

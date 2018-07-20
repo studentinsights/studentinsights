@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import DashButton from './DashButton';
 
-//Custom all purpose dashboard button
-class DashRangeButtons extends React.Component {
+
+export default class DashRangeButtons extends React.Component {
   constructor(props) {
     super(props);
     this.state={selectedButton: 'schoolYear'};
@@ -17,8 +16,8 @@ class DashRangeButtons extends React.Component {
 
   render() {
     return (
-      <div className="DashRangeButtons">
-        Filter:
+      <div className="DashRangeButtons" style={styles.root}>
+        <span>Filter:</span>
         <DashButton
           onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
           isSelected={this.state.selectedButton === 'schoolYear'}
@@ -41,4 +40,9 @@ DashRangeButtons.propTypes = {
   fortyFiveDayFilter: PropTypes.func.isRequired
 };
 
-export default DashRangeButtons;
+const styles = {
+  root: {
+    display: 'flex',
+    alignItems: 'center'
+  }
+};

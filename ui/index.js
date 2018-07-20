@@ -5,7 +5,6 @@ import {readEnv} from '../app/assets/javascripts/envForJs';
 import datepickerConfig from '../app/assets/javascripts/datepickerConfig';
 import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
 import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
-import EnvContainer from '../app/assets/javascripts/helpers/EnvContainer';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
@@ -42,13 +41,13 @@ const mainEl = document.getElementById('main');
 if (mainEl) {
   const didRoute = legacyRouteHandler(mainEl);
   if (!didRoute) {
+    const {districtKey} = readEnv();
     const serializedData = $('#serialized-data').data() || {};
     const {currentEducator} = serializedData;
     ReactDOM.render(
       <BrowserRouter>
-        <EnvContainer env={readEnv()}>
-          <App currentEducator={currentEducator} />
-        </EnvContainer>
-      </BrowserRouter>, mainEl);
+        <App currentEducator={currentEducator} districtKey={districtKey} />
+      </BrowserRouter>
+    , mainEl);
   }
 }

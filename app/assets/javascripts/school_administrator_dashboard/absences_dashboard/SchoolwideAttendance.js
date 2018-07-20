@@ -44,17 +44,17 @@ class SchoolwideAttendance extends React.Component {
     return homeroomAbsenceEventsByDay;
   }
 
-  // HomeroomAbsenceEventsByDayunexcused(studentsGroupedByHomeroom) {
-  //   //Same as above excluding excused absences
-  //   let HomeroomAbsenceEventsByDayunexcused = {};
-  //   Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
-  //     const absenceEvents = DashboardHelpers.absenceEvents(studentsGroupedByHomeroom[homeroom]);
-  //     const unexcusedAbsenceEvents = DashboardHelpers.filterExcusedEvents(absenceEvents);
-  //     const daysWithAbsences = DashboardHelpers.eventsGroupedByDay(unexcusedAbsenceEvents);
-  //     HomeroomAbsenceEventsByDayunexcused[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
-  //   });
-  //   return HomeroomAbsenceEventsByDayunexcused;
-  // }
+  HomeroomAbsenceEventsByDayunexcused(studentsGroupedByHomeroom) {
+    //Same as above excluding excused absences
+    let HomeroomAbsenceEventsByDayunexcused = {};
+    Object.keys(studentsGroupedByHomeroom).forEach((homeroom) => {
+      const absenceEvents = DashboardHelpers.absenceEvents(studentsGroupedByHomeroom[homeroom]);
+      const unexcusedAbsenceEvents = DashboardHelpers.filterExcusedEvents(absenceEvents);
+      const daysWithAbsences = DashboardHelpers.eventsGroupedByDay(unexcusedAbsenceEvents);
+      HomeroomAbsenceEventsByDayunexcused[homeroom] = this.addPerfectAttendanceDays(daysWithAbsences);
+    });
+    return HomeroomAbsenceEventsByDayunexcused;
+  }
 
   //Because homerooms often have no absences, merge their daily events with the list of school days
   addPerfectAttendanceDays(eventsGroupedByDay) {
@@ -70,19 +70,27 @@ class SchoolwideAttendance extends React.Component {
     return Object.keys(this.props.schoolAbsenceEventsByDay);
   }
 
+  schoolYearDateRange() {
+    //change this to change the maximum date range available for the dashboard
+    const fullYearDateRange = Object.keys(this.props.schoolAbsenceEventsByDay).sort();
+    const today = moment.utc();
+    return DashboardHelpers.filterDates(fullYearDateRange, DashboardHelpers.schoolYearStart(), today);
+  }
+
   render() {
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(this.props.dashboardStudents);
     const schoolUnexcusedAbsenceEventsByDay = this.schoolUnexcusedAbsenceEventsByDay();
     return (
       <SchoolAbsenceDashboard
-        // schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
-        // schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
-        // homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
-        // homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
-        // schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
-        // schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
-        schoolAbsenceEvents={this.props.schoolAbsenceEvents}
+        schoolAverageDailyAttendance = {this.schoolAverageDailyAttendance()}
+        schoolAverageDailyAttendanceUnexcused = {this.schoolAverageDailyAttendanceUnexcused(schoolUnexcusedAbsenceEventsByDay)}
+        homeroomAverageDailyAttendance = {this.homeroomAverageDailyAttendance(this.homeroomAbsenceEventsByDay(studentsByHomeroom))}
+        homeroomAverageDailyAttendanceUnexcused = {this.homeroomAverageDailyAttendance(this.HomeroomAbsenceEventsByDayunexcused(studentsByHomeroom))}
+        schoolAbsenceEventsByDay = {this.props.schoolAbsenceEventsByDay}
+        schoolUnexcusedAbsenceEventsByDay = {schoolUnexcusedAbsenceEventsByDay}
         dashboardStudents = {this.props.dashboardStudents}
+        dateRange = {this.schoolYearDateRange()}
+        school={this.props.school}
       />
     );
   }
@@ -91,7 +99,8 @@ class SchoolwideAttendance extends React.Component {
 SchoolwideAttendance.propTypes = {
   schoolAbsenceEvents: PropTypes.array.isRequired,
   schoolAbsenceEventsByDay: PropTypes.object.isRequired,
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.object.isRequired
 };
 
 export default SchoolwideAttendance;

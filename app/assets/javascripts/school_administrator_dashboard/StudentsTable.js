@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import {Column, Table, SortDirection} from 'react-virtualized';
+import {AutoSizer} from 'react-virtualized';
 import {
   sortByString,
   sortByNumber,
@@ -79,58 +80,73 @@ export default class StudentsTable extends React.Component {
   }
 
   render() {
-    const {incidentType} = this.props;
-    const {sortBy, sortDesc} = this.state;
-    const list = this.orderedRows();
-
     return (
       <div className="StudentsTable" style={styles.root}>
         <div style={styles.caption}>
           {this.renderCaption()}
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
         </div>
-        <Table
-          width={400}
-          height={400}
-          rowCount={list.length}
-          rowGetter={({index}) => list[index]}
-          headerHeight={25}
-          headerStyle={{display: 'flex'}} // necessary for layout, not sure why
-          rowHeight={25}
-          style={{fontSize: 14}}
-          rowStyle={this.renderRowStyle}
-          sort={this.onTableSort}
-          sortBy={sortBy}
-          sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
-        >
-          <Column
-            label='Name'
-            dataKey='name'
-            cellDataGetter={({rowData}) => fullName(rowData)}
-            cellRenderer={this.renderStudent}
-            flexGrow={1}
-            width={150}
-          />
-          <Column
-            width={50}
-            label='Grade'
-            dataKey='grade'
-          />
-          <Column
-            width={80}
-            label={incidentType}
-            dataKey='events'
-          />
-          <Column
-            width={120}
-            style={{textAlign: 'right'}}
-            label='Last note'
-            dataKey='latest_note'
-            cellRenderer={this.renderLastEventNote}
-          />
-        </Table>
-        <div>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
+        <div style={{flex: 1}}>
+          {this.renderTableWithSizing()}
+        </div>
+        <div style={styles.totalEvents}>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
       </div>
+    );
+  }
+
+  renderTableWithSizing() {
+    const {forcedSizeForTesting} = this.props;
+    return (forcedSizeForTesting)
+      ? this.renderTable(forcedSizeForTesting)
+      : <AutoSizer>{({width, height}) => this.renderTable({width, height})}</AutoSizer>;
+  }
+
+  renderTable({width, height}) {
+    const {incidentType} = this.props;
+    const {sortBy, sortDesc} = this.state;
+    const list = this.orderedRows();
+
+    return (
+      <Table
+        style={styles.table}
+        width={width}
+        height={height}
+        rowCount={list.length}
+        rowGetter={({index}) => list[index]}
+        headerHeight={25}
+        headerStyle={{display: 'flex'}} // necessary for layout, not sure why
+        rowHeight={25}
+        rowStyle={this.renderRowStyle}
+        sort={this.onTableSort}
+        sortBy={sortBy}
+        sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
+      >
+        <Column
+          label='Name'
+          dataKey='name'
+          cellDataGetter={({rowData}) => fullName(rowData)}
+          cellRenderer={this.renderStudent}
+          flexGrow={1}
+          width={150}
+        />
+        <Column
+          width={50}
+          label='Grade'
+          dataKey='grade'
+        />
+        <Column
+          width={80}
+          label={incidentType}
+          dataKey='events'
+        />
+        <Column
+          width={150}
+          style={{textAlign: 'right'}}
+          label='Last note'
+          dataKey='latest_note'
+          cellRenderer={this.renderLastEventNote}
+        />
+      </Table>
     );
   }
 
@@ -161,12 +177,12 @@ export default class StudentsTable extends React.Component {
 
     const {nowFn} = this.context;
     const now = nowFn();
-    const daysAgo = now.diff(moment.utc(latestNote.recorded_at), 'days');
+    const daysAgoText = now.diff(moment.utc(latestNote.recorded_at), 'days');
     const noteTypeText = eventNoteTypeTextMini(latestNote.event_note_type_id);
     return (
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div style={{paddingRight: 10, display: 'flex', justifyContent: 'space-between'}}>
         <span style={{color: '#999'}}>{noteTypeText}</span>
-        <span>{daysAgo} days ago</span>
+        <span>{daysAgoText} days ago</span>
       </div>
     );
   }
@@ -199,6 +215,7 @@ StudentsTable.propTypes = {
   selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
+  forcedSizeForTesting: PropTypes.object
 };
 
 
@@ -216,13 +233,22 @@ function latestNoteTime(student) {
 
 const styles = {
   root: {
-    marginTop: 20,
-    marginBottom: 20
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  table: {
+    fontSize: 14
+  },
+  totalEvents: {
+    paddingTop: 10
   },
   caption: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: 5
+    paddingBottom: 5
   },
   incidentSubtitle: {
     fontWeight: 'normal',
