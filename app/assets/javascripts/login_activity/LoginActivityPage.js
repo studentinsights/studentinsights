@@ -176,6 +176,11 @@ export default class LoginActivityPage extends React.Component {
 }
 
 const style = {
+  container: {
+    marginTop: 50,
+    marginLeft: 25,
+    minWidth: 1060,
+  },
   row: {
     clear: 'both',
   },
@@ -203,9 +208,5 @@ const style = {
     width: 25,
     float: 'left',
   },
-  container: {
-    marginTop: 50,
-    marginLeft: 25,
-  }
 };
 
