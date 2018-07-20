@@ -11,7 +11,7 @@ import {ALL} from './FilterBar';
 export default function SelectHouse({house, onChange, houses, style = undefined}) {
   const sortedHouses = _.sortBy(houses || somervilleHouses());
   const houseOptions = [{value: ALL, label: 'All'}].concat(sortedHouses.map(house => {
-    return { value: house, label: `${maybeCapitalize(house)} house` };
+    return { value: house, label: maybeCapitalize(house) };
   }));
   return (
     <SimpleFilterSelect

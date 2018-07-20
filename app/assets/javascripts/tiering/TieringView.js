@@ -102,22 +102,23 @@ export default class TieringView extends React.Component {
     const possibleTiers = ['0', '1', '2', '3', '4'];
     const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
-      <FilterBar>
+      <FilterBar style={styles.filterBar}>
         <input
           style={styles.search}
           placeholder={`Search ${studentsWithTiering.length} students...`}
           value={search}
           onChange={this.onSearchChanged} />
         <SelectGrade
+          style={{...styles.select, width: '8em'}}
           grade={grade}
           grades={['9', '10', '11', '12']}
           onChange={this.onGradeChanged} />
         <SelectHouse
-          style={{width: '12em'}}
+          style={{...styles.select, width: '8em'}}
           house={house}
           onChange={this.onHouseChanged} />
         <SimpleFilterSelect
-          style={{width: '8em'}}
+          style={{...styles.select, width: '8em'}}
           placeholder="Level..."
           value={tier}
           onChange={this.onTierChanged}
@@ -125,6 +126,7 @@ export default class TieringView extends React.Component {
             return { value, label: `Level ${value}` };
           }))} />
         <SimpleFilterSelect
+          style={styles.select}
           placeholder="Trigger..."
           value={trigger}
           onChange={this.onTriggerChanged}
@@ -279,6 +281,12 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
+  },
+  filterBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10
   },
   search: {
     display: 'inline-block',
