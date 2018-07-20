@@ -15,7 +15,7 @@ export default class DashboardBarChart extends React.Component{
 
   render() {
     return (
-      <div id={this.props.id} className='DashboardChart' style={styles.root}>
+      <div id={this.props.id} className="DashboardBarChart" style={styles.root}>
         <HighchartsWrapper
           style={{flex: 1}}
           chart={{

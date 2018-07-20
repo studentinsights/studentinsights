@@ -61,7 +61,7 @@ export function createStudents(nowMoment) {
     events: 3,
     latest_note: {
       event_note_type_id: 300,
-      recorded_at: testEvents.threeMonthsAgo.occurred_at
+      recorded_at: testEvents.oneMonthAgo.occurred_at
     }
   },
   {

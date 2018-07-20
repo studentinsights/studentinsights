@@ -87,61 +87,66 @@ export default class StudentsTable extends React.Component {
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
         </div>
         <div style={{flex: 1}}>
-          {this.renderTable()}
+          {this.renderTableWithSizing()}
         </div>
         <div style={styles.totalEvents}>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
       </div>
     );
   }
 
-  renderTable() {
+  renderTableWithSizing() {
+    const {forcedSizeForTesting} = this.props;
+    return (forcedSizeForTesting)
+      ? this.renderTable(forcedSizeForTesting)
+      : <AutoSizer>{({width, height}) => this.renderTable({width, height})}</AutoSizer>;
+  }
+
+  renderTable({width, height}) {
     const {incidentType} = this.props;
     const {sortBy, sortDesc} = this.state;
     const list = this.orderedRows();
 
     return (
-      <AutoSizer>{({height, width}) => (
-        <Table
-          style={styles.table}
-          width={width}
-          height={height}
-          rowCount={list.length}
-          rowGetter={({index}) => list[index]}
-          headerHeight={25}
-          headerStyle={{display: 'flex'}} // necessary for layout, not sure why
-          rowHeight={25}
-          rowStyle={this.renderRowStyle}
-          sort={this.onTableSort}
-          sortBy={sortBy}
-          sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
-        >
-          <Column
-            label='Name'
-            dataKey='name'
-            cellDataGetter={({rowData}) => fullName(rowData)}
-            cellRenderer={this.renderStudent}
-            flexGrow={1}
-            width={150}
-          />
-          <Column
-            width={50}
-            label='Grade'
-            dataKey='grade'
-          />
-          <Column
-            width={80}
-            label={incidentType}
-            dataKey='events'
-          />
-          <Column
-            width={140}
-            style={{textAlign: 'right'}}
-            label='Last note'
-            dataKey='latest_note'
-            cellRenderer={this.renderLastEventNote}
-          />
-        </Table>
-      )}</AutoSizer>
+      <Table
+        style={styles.table}
+        width={width}
+        height={height}
+        rowCount={list.length}
+        rowGetter={({index}) => list[index]}
+        headerHeight={25}
+        headerStyle={{display: 'flex'}} // necessary for layout, not sure why
+        rowHeight={25}
+        rowStyle={this.renderRowStyle}
+        sort={this.onTableSort}
+        sortBy={sortBy}
+        sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
+      >
+        <Column
+          label='Name'
+          dataKey='name'
+          cellDataGetter={({rowData}) => fullName(rowData)}
+          cellRenderer={this.renderStudent}
+          flexGrow={1}
+          width={150}
+        />
+        <Column
+          width={50}
+          label='Grade'
+          dataKey='grade'
+        />
+        <Column
+          width={80}
+          label={incidentType}
+          dataKey='events'
+        />
+        <Column
+          width={140}
+          style={{textAlign: 'right'}}
+          label='Last note'
+          dataKey='latest_note'
+          cellRenderer={this.renderLastEventNote}
+        />
+      </Table>
     );
   }
 
@@ -210,6 +215,7 @@ StudentsTable.propTypes = {
   selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
+  forcedSizeForTesting: PropTypes.object
 };
 
 

@@ -7,12 +7,14 @@ import StudentsTable from './StudentsTable';
 
 function testRender(options = {}) {
   const nowMoment = options.nowMoment || moment.utc();
+  const context = { nowFn(){ return nowMoment; } };
   const table = mount(
     <StudentsTable
       rows={createStudents(nowMoment)}
       incidentType={"Test Incidents"}
-      resetFn={(value) => null} />
-  , {nowFn: () => nowMoment});
+      resetFn={(value) => null}
+      forcedSizeForTesting={{width: 1000, height: 600}} />
+  , {context});
   return table;
 }
 
@@ -36,7 +38,7 @@ it('renders the first row', () => {
     "Pierrot Zanni",
     "4",
     "3",
-    `SST${nowMoment.clone().subtract(3, 'months').format('M/D/YY')}`,
+    'SST30 days ago',
   ]);
 });
 

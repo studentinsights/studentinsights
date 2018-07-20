@@ -83,7 +83,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
         <SectionHeading>Absences at {school.name}</SectionHeading>
         <div className="DashboardFilterBar">
           {this.renderRangeSelector()}
-          {this.renderFilters()}
+          {this.renderExcusedAbsencesSelect()}
         </div>
         <div className="DashboardColumns">
           <div className="DashboardRosterColumn">
@@ -148,7 +148,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderFilters() {
+  renderExcusedAbsencesSelect() {
     return(
       <div style={styles.excusedFilter}>
         <DashButton

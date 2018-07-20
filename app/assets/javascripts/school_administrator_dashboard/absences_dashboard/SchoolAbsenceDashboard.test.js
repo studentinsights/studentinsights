@@ -9,7 +9,7 @@ import {
 import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
 
 
-describe('SchoolAbsenceDashboard', () => {
+function testSetup() {
   const nowMoment = moment.utc();
   const attendance = {'2001-01-01': 50, '2001-01-02': 25, '2001-01-03': 75, '2001-01-04': 100, '2001-02-01': 10};
   const attendanceWithExcused = {'2001-01-01': 50, '2001-01-02': 25, '2001-01-03': 50, '2001-01-04': 100, '2001-02-01': 10};
@@ -18,16 +18,26 @@ describe('SchoolAbsenceDashboard', () => {
   const students = createStudents(nowMoment);
   const events = createTestEvents(nowMoment);
   const dateRange = ['2001-01-01', '2001-01-02', '2001-01-03', '2001-01-04', '2001-02-01'];
-  const dash = shallow(<SchoolAbsenceDashboard
-                       school={testSchool()} 
-                       schoolAverageDailyAttendance={attendanceWithExcused}
-                       schoolAverageDailyAttendanceUnexcused={attendance}
-                       homeroomAverageDailyAttendance={homeroomWithExcused}
-                       homeroomAverageDailyAttendanceUnexcused={homeroom}
-                       dashboardStudents={students}
-                       schoolAbsenceEventsByDay={events}
-                       schoolUnexcusedAbsenceEventsByDay={events}
-                       dateRange={dateRange}/>);
+  const context = { nowFn() { return nowMoment; } };
+  const el = (
+    <SchoolAbsenceDashboard
+     school={testSchool()} 
+     schoolAverageDailyAttendance={attendanceWithExcused}
+     schoolAverageDailyAttendanceUnexcused={attendance}
+     homeroomAverageDailyAttendance={homeroomWithExcused}
+     homeroomAverageDailyAttendanceUnexcused={homeroom}
+     dashboardStudents={students}
+     schoolAbsenceEventsByDay={events}
+     schoolUnexcusedAbsenceEventsByDay={events}
+     dateRange={dateRange}/>
+  );
+  return {el, context, attendance};
+}
+
+
+describe('SchoolAbsenceDashboard', () => {
+  const {el, context, attendance} = testSetup();
+  const dash = shallow(el, {context});
 
   it('renders two bar charts', () => {
     expect(dash.find('DashboardBarChart').length).toEqual(2);
