@@ -1,20 +1,24 @@
 import * as Filters from './Filters';
 
+export const SOMERVILLE = 'somerville';
+export const NEW_BEDFORD = 'new_bedford';
+export const DEMO = 'demo';
+
 export function hasStudentPhotos(districtKey) {
-  if (districtKey === 'somerville') return true;
-  if (districtKey === 'new_bedford') return false;
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === NEW_BEDFORD) return false;
   return false;
 }
 
 const ORDERED_DISABILITY_VALUES_MAP = {
-  'new_bedford': [
+  [NEW_BEDFORD]: [
     "Does Not Apply",
     "Low-Less Than 2hrs/week",
     "Low-2+ hrs/week",
     "Moderate",
     "High"
   ],
-  'somerville': [
+  [SOMERVILLE]: [
     // also include null
     'Low < 2',
     'Low >= 2',
@@ -53,7 +57,7 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
 
   // Somerville uses a null value for no disability, while New Bedford
   // uses a separate value to describe that explicitly.
-  const items = (districtKey === 'somerville')
+  const items = (districtKey === SOMERVILLE)
     ? [createItemFn('None', Filters.Null(key))].concat(itemsFromValues)
     : itemsFromValues;
   return renderTableFn({items, title: 'Disability'});
@@ -84,7 +88,7 @@ const ORDERED_SOMERVILLE_SCHOOL_SLUGS_BY_GRADE = {
 };
 
 export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
-  if (districtKey === 'somerville') {
+  if (districtKey === SOMERVILLE) {
     return ORDERED_SOMERVILLE_SCHOOL_SLUGS_BY_GRADE[slugA] - ORDERED_SOMERVILLE_SCHOOL_SLUGS_BY_GRADE[slugB];
   }
 
@@ -108,6 +112,12 @@ export function somervilleHouses() {
 // This only applies to high schools.
 export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
+}
+
+export function supportsExcusedAbsences(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  return false;
 }
 
 // This returns user-facing text to describe their program and placement
