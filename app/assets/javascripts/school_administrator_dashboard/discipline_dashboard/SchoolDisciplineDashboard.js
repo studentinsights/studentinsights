@@ -6,9 +6,9 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import SelectTimeRange, {
   momentRange,
-  timeRangeText,
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
+import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
 import ExperimentalBanner from '../../components/ExperimentalBanner';
 import SectionHeading from '../../components/SectionHeading';
@@ -130,9 +130,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
           <div className="SchoolDashboard-filter-bar">
-            <SelectTimeRange
-              timeRangeKey={timeRangeKey}
-              onChange={this.onTimeRangeKeyChanged} />
+            <FilterBar labelText="Time range" style={styles.timeRange} >
+              <SelectTimeRange
+                timeRangeKey={timeRangeKey}
+                onChange={this.onTimeRangeKeyChanged} />
+            </FilterBar>
           </div>
           <div className="SchoolDashboard-columns">
             <div className="SchoolDashboard-roster-column">
@@ -141,7 +143,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
             <div className="SchoolDashboard-charts-column">
               <div style={styles.graphTitle}>
                 <div style={styles.titleText}>
-                  Incidents by:
+                  Break down by:
                 </div>
                 <Select
                   value={this.state.selectedChart}
@@ -234,6 +236,11 @@ const styles = {
     width: '100%',
     display: 'flex',
     flexDirection: 'column'
+  },
+  timeRange: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   graphTitle: {
     display: 'flex',

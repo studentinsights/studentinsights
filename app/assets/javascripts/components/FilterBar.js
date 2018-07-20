@@ -20,8 +20,7 @@ FilterBar.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   barStyle: PropTypes.object,
-  labelText: PropTypes.string,
-  onClear: PropTypes.func
+  labelText: PropTypes.string
 };
 
 const styles = {

@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import {supportsExcusedAbsences} from '../../helpers/PerDistrict';
 import SectionHeading from '../../components/SectionHeading';
+import FilterBar from '../../components/FilterBar';
 import SelectTimeRange, {
   momentRange,
   timeRangeText,
@@ -43,7 +44,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     };
 
     // optimization for reducing repeated compute
-    this.filterDates = _.memoize(this.filterDates);
+    this.memoizedFilterDates = _.memoize(this.memoizedFilterDates.bind(this));
   }
 
   shouldIncludeExcusedAbsences() {
@@ -54,14 +55,14 @@ export default class SchoolAbsenceDashboard extends React.Component {
   displayDates() {
     const {nowFn} = this.context;
     const {timeRangeKey} = this.state;
-    const {dateRange} = this.props;
     const range = momentRange(timeRangeKey, nowFn());
     const rangeDateStrings = range.map(momentValue => momentValue.format('YYYY-MM-DD'));
-    return this.filterDates([dateRange, rangeDateStrings[0], rangeDateStrings[1]]);
+    return this.memoizedFilterDates(rangeDateStrings);
   }
 
-  filterDates(params) {
-    const [dateRange, startDateString, endDateString] = params;
+  memoizedFilterDates(rangeDateStrings) {
+    const {dateRange} = this.props;
+    const [startDateString, endDateString] = rangeDateStrings;
     return DashboardHelpers.filterDates(dateRange, startDateString, endDateString);
   }
 
@@ -127,22 +128,12 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   render() {
-    const {districtKey} = this.context;
     const {school} = this.props;
-    const {timeRangeKey, excusedAbsencesKey} = this.state;
-
     return (
       <div className="SchoolAbsenceDashboard" style={styles.root}>
         <SectionHeading>Absences at {school.name}</SectionHeading>
         <div className="SchoolDashboard-filter-bar">
-          <SelectTimeRange
-            timeRangeKey={timeRangeKey}
-            onChange={this.onTimeRangeKeyChanged} />
-          {supportsExcusedAbsences(districtKey) &&
-            <SelectExcusedAbsences
-              excusedAbsencesKey={excusedAbsencesKey}
-              onChange={this.onExcusedAbsencesChanged} />
-          }
+          {this.renderFilterBar()}
         </div>
         <div className="SchoolDashboard-columns">
           <div className="SchoolDashboard-roster-column">
@@ -153,6 +144,27 @@ export default class SchoolAbsenceDashboard extends React.Component {
             {this.renderHomeroomAbsenceChart()}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  renderFilterBar() {
+    const {districtKey} = this.context;
+    const {timeRangeKey, excusedAbsencesKey} = this.state;
+    return (
+      <div style={styles.filterBarContainer}>
+        <FilterBar>
+          {supportsExcusedAbsences(districtKey) &&
+            <SelectExcusedAbsences
+              excusedAbsencesKey={excusedAbsencesKey}
+              onChange={this.onExcusedAbsencesChanged} />
+          }
+        </FilterBar>
+        <FilterBar labelText="Time range">
+          <SelectTimeRange
+            timeRangeKey={timeRangeKey}
+            onChange={this.onTimeRangeKeyChanged} />
+        </FilterBar>
       </div>
     );
   }
@@ -268,11 +280,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  excusedFilter: {
+  filterBarContainer: {
     display: 'flex',
-    alignItems: 'flex-end',
-    paddingLeft: 20,
-    marginLeft: 20,
-    borderLeft: 'thin solid #ccc'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
   }
 };

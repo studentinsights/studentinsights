@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SimpleFilterSelect from './SimpleFilterSelect';
-import {firstDayOfSchoolFor} from '../helpers/schoolYear';
+import {firstDayOfSchoolForMoment} from '../helpers/schoolYear';
 
 
 // A UI component for selecting a time range.  It limits date range choices
@@ -37,7 +37,7 @@ export function momentRange(timeRangeKey, nowMoment) {
   const startMoment = {
     [TIME_RANGE_45_DAYS_AGO]: nowMoment.clone().subtract(45, 'days'),
     [TIME_RANGE_90_DAYS_AGO]: nowMoment.clone().subtract(90, 'days'),
-    [TIME_RANGE_SCHOOL_YEAR]: firstDayOfSchoolFor(nowMoment)
+    [TIME_RANGE_SCHOOL_YEAR]: firstDayOfSchoolForMoment(nowMoment)
   }[timeRangeKey];
 
   return [startMoment.startOf('day'), nowMoment.startOf('day')];

@@ -8,6 +8,7 @@ import SelectTimeRange, {
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
 import SectionHeading from '../../components/SectionHeading';
+import FilterBar from '../../components/FilterBar';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
@@ -110,9 +111,11 @@ export default class SchoolTardiesDashboard extends React.Component {
       <div className="SchoolTardiesDashboard" style={styles.root}>
         <SectionHeading>Tardies at {school.name}</SectionHeading>
         <div className="SchoolDashboard-filter-bar">
-          <SelectTimeRange
-            timeRangeKey={timeRangeKey}
-            onChange={this.onTimeRangeKeyChanged} />
+          <FilterBar labelText="Time range" style={styles.timeRange}>
+            <SelectTimeRange
+              timeRangeKey={timeRangeKey}
+              onChange={this.onTimeRangeKeyChanged} />
+          </FilterBar>
         </div>
         <div className="SchoolDashboard-columns">
           <div className="SchoolDashboard-roster-column">
@@ -138,22 +141,22 @@ export default class SchoolTardiesDashboard extends React.Component {
     tickPositions.splice(0, 1);
 
     return (
-        <DashboardBarChart
-          id = {'string'}
-          categories = {{
-            offset: 0,
-            linkedTo: 0,
-            categories: monthCategories,
-            tickPositions: tickPositions,
-            tickmarkPlacement: "on"
-          }}
-          seriesData = {seriesData}
-          titleText = {`Schoolwide Tardies (${this.timeRangeText()})`}
-          measureText = {'Number of Tardies'}
-          tooltip = {{
-            pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-          onColumnClick = {this.resetStudentList}
-          onBackgroundClick = {this.resetStudentList}/>
+      <DashboardBarChart
+        id = {'string'}
+        categories = {{
+          offset: 0,
+          linkedTo: 0,
+          categories: monthCategories,
+          tickPositions: tickPositions,
+          tickmarkPlacement: "on"
+        }}
+        seriesData = {seriesData}
+        titleText = {`Schoolwide Tardies (${this.timeRangeText()})`}
+        measureText = {'Number of Tardies'}
+        tooltip = {{
+          pointFormat: 'Total tardies: <b>{point.y}</b>'}}
+        onColumnClick = {this.resetStudentList}
+        onBackgroundClick = {this.resetStudentList}/>
     );
   }
 
@@ -225,5 +228,10 @@ const styles = {
     marginRight: 10,
     display: 'flex',
     flexDirection: 'column'
+  },
+  timeRange: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end'
   }
 };
