@@ -38,7 +38,7 @@ it('renders the first row', () => {
     "Pierrot Zanni",
     "4",
     "3",
-    'SST30 days ago',
+    'SST30 days',
   ]);
 });
 
