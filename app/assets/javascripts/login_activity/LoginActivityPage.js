@@ -4,6 +4,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 import moment from 'moment';
 import _ from 'lodash';
 import {toMomentFromTime} from '../helpers/toMoment';
+import SectionHeading from '../components/SectionHeading';
 
 export default class LoginActivityPage extends React.Component {
   constructor(props) {
@@ -96,11 +97,14 @@ export default class LoginActivityPage extends React.Component {
     const pastThirtyDaysArray = this.pastThirtyDaysArray();
 
     return (
-      <div style={style.container}>
-        {this.renderHeaderRow()}
-        {emails.map((email) => {
-          return this.renderRow(email, structuredData[email], pastThirtyDaysArray)
-        })}
+      <div style={style.wrapper}>
+        <SectionHeading>Login Activity, Past 30 days</SectionHeading>
+        <div style={style.container}>
+          {this.renderHeaderRow()}
+          {emails.map((email) => {
+            return this.renderRow(email, structuredData[email], pastThirtyDaysArray)
+          })}
+        </div>
       </div>
     );
   }
@@ -152,7 +156,7 @@ export default class LoginActivityPage extends React.Component {
   renderTooltipText(email, data, day) {
     return (
       <span className="tooltiptext">
-        <div>{email} {moment(day).utc().format('D/M')}:</div>
+        <div>{email.split('@')[0]}, {moment(day).utc().format('D/M')}:</div>
         <br/>
         <div>{`${data.success || 0} successful logins.`}</div>
         <div>{`${data.fail || 0} failed attempts.`}</div>
@@ -190,9 +194,12 @@ export default class LoginActivityPage extends React.Component {
 }
 
 const style = {
+  wrapper: {
+    padding: '20px 40px',
+  },
   container: {
-    marginTop: 80,
-    marginLeft: 25,
+    marginTop: 20,
+    marginLeft: 10,
     minWidth: 1060,
   },
   row: {
