@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import moment from 'moment';
@@ -19,11 +20,10 @@ export default class LoginActivityPage extends React.Component {
   }
 
   fetchLoginActivities() {
-    const nowTimestamp = moment().unix();
-    const thirtyDaysAgoTimestamp = moment().subtract(30, 'days').unix();
+    const {queryStartTimestamp, queryEndTimestamp} = this.props;
 
     const endpoint = '/api/login_activity';
-    const params = `?created_at_or_before=${nowTimestamp}&created_after=${thirtyDaysAgoTimestamp}`;
+    const params = `?created_at_or_before=${queryEndTimestamp}&created_after=${queryStartTimestamp}`;
     const url = endpoint + params;
 
     return apiFetchJson(url);
@@ -101,8 +101,8 @@ export default class LoginActivityPage extends React.Component {
         <SectionHeading>Login Activity, Past 30 days</SectionHeading>
         <div style={style.container}>
           {this.renderHeaderRow()}
-          {emails.map((email) => {
-            return this.renderRow(email, structuredData[email], pastThirtyDaysArray);
+          {emails.map((email, index) => {
+            return this.renderRow(email, index, structuredData[email], pastThirtyDaysArray);
           })}
         </div>
       </div>
@@ -116,9 +116,9 @@ export default class LoginActivityPage extends React.Component {
       <div style={style.row}>
         <div style={{...style.emailCell, ...{display: 'inline-block'}}}>
         </div>
-        {pastThirtyDaysArray.map((day) => {
+        {pastThirtyDaysArray.map((day, index) => {
           return (
-            <div style={{...style.squareCell, ...style.cell, ...style.headerDateCell}}>
+            <div key={index} style={{...style.squareCell, ...style.cell, ...style.headerDateCell}}>
               {moment(day).utc().format('D/M')}
             </div>
           );
@@ -127,25 +127,27 @@ export default class LoginActivityPage extends React.Component {
     );
   }
 
-  renderRow(email, loginData, pastThirtyDaysArray) {
+  renderRow(email, index, loginData, pastThirtyDaysArray) {
     const truncatedEmail = email.substring(0, 35);
     return (
-      <div style={style.row}>
+      <div style={style.row} key={index}>
         <div style={{...style.cell, ...style.emailCell}}>
           {truncatedEmail || 'No email entered'}
         </div>
-        {pastThirtyDaysArray.map((day) => {
+        {pastThirtyDaysArray.map((day, index) => {
           return (loginData[day])
-            ? this.renderCell(email, loginData[day], day)
+            ? this.renderCell(email, index, loginData[day], day)
             : this.renderEmptyCell();
         })}
       </div>
     );
   }
 
-  renderCell(email, data, day) {
+  renderCell(email, index, data, day) {
     return (
-      <div style={{...style.cell, ...style.squareCell}} className='tooltip'>
+      <div key={index}
+           style={{...style.cell, ...style.squareCell}}
+           className='tooltip'>
         {this.renderTooltipText(email, data, day)}
         {this.renderSuccessLoginSegment(data.success || 0)}
         {this.renderFailLoginSegment(data.fail || 0)}
@@ -191,6 +193,11 @@ export default class LoginActivityPage extends React.Component {
   renderEmptyCell() {
     return (<div style={{...style.cell, ...style.squareCell}}></div>);
   }
+}
+
+LoginActivityPage.propTypes = {
+  queryStartTimestamp: PropTypes.string.isRequired,
+  queryEndTimestamp: PropTypes.string.isRequired,
 }
 
 const style = {
