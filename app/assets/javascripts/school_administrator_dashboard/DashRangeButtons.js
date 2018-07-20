@@ -16,8 +16,8 @@ export default class DashRangeButtons extends React.Component {
 
   render() {
     return (
-      <div className="DashRangeButtons">
-        Filter:
+      <div className="DashRangeButtons" style={styles.root}>
+        <span>Filter:</span>
         <DashButton
           onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
           isSelected={this.state.selectedButton === 'schoolYear'}
@@ -38,4 +38,11 @@ DashRangeButtons.propTypes = {
   schoolYearFilter: PropTypes.func.isRequired,
   ninetyDayFilter: PropTypes.func.isRequired,
   fortyFiveDayFilter: PropTypes.func.isRequired
+};
+
+const styles = {
+  root: {
+    display: 'flex',
+    alignItems: 'center'
+  }
 };

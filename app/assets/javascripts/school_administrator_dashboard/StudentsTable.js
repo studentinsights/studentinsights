@@ -140,7 +140,7 @@ export default class StudentsTable extends React.Component {
           dataKey='events'
         />
         <Column
-          width={140}
+          width={150}
           style={{textAlign: 'right'}}
           label='Last note'
           dataKey='latest_note'
@@ -180,7 +180,7 @@ export default class StudentsTable extends React.Component {
     const daysAgoText = now.diff(moment.utc(latestNote.recorded_at), 'days');
     const noteTypeText = eventNoteTypeTextMini(latestNote.event_note_type_id);
     return (
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div style={{paddingRight: 10, display: 'flex', justifyContent: 'space-between'}}>
         <span style={{color: '#999'}}>{noteTypeText}</span>
         <span>{daysAgoText} days ago</span>
       </div>

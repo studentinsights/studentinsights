@@ -87,14 +87,14 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <div className="SchoolTardiesDashboard" style={styles.root}>
         <SectionHeading>Tardies at {school.name}</SectionHeading>
-        <div className="DashboardFilterBar">
+        <div className="SchoolDashboard-filter-bar">
           {this.renderRangeSelector()}
         </div>
-        <div className="DashboardColumns">
-          <div className="DashboardRosterColumn">
+        <div className="SchoolDashboard-columns">
+          <div className="SchoolDashboard-roster-column">
             {this.renderStudentTardiesTable()}
           </div>
-          <div className="DashboardChartsColumn">
+          <div className="SchoolDashboard-charts-column">
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
           </div>
@@ -189,12 +189,10 @@ export default class SchoolTardiesDashboard extends React.Component {
     const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
     const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
-          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
-          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
-      </div>
+      <DashRangeButtons
+        schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
+        ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
+        fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
     );
   }
 }

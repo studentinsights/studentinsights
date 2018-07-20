@@ -114,16 +114,16 @@ class SchoolDisciplineDashboard extends React.Component {
     return(
       <div className="SchoolDisciplineDashboard" style={styles.flexVertical}>
         <ExperimentalBanner />
-        <div style={{...styles.flexVertical, marginLeft: 10, marginRight: 10}}>
+        <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
-          <div className="DashboardFilterBar">
+          <div className="SchoolDashboard-filter-bar">
             {this.renderRangeSelector()}
           </div>
-          <div className="DashboardColumns">
-            <div className="DashboardRosterColumn">
+          <div className="SchoolDashboard-columns">
+            <div className="SchoolDashboard-roster-column">
               {this.renderStudentDisciplineTable(filteredIncidents, groupedIncidents)}
             </div>
-            <div className="DashboardChartsColumn">
+            <div className="SchoolDashboard-charts-column">
               <div style={styles.graphTitle}>
                 <div style={styles.titleText}>
                   Incidents by:
@@ -196,12 +196,10 @@ class SchoolDisciplineDashboard extends React.Component {
     const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
     const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
-          ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
-          fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
-      </div>
+      <DashRangeButtons
+        schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
+        ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
+        fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
     );
   }
 }

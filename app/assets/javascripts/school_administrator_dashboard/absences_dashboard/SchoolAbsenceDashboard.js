@@ -81,15 +81,15 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return (
       <div className="SchoolAbsenceDashboard" style={styles.root}>
         <SectionHeading>Absences at {school.name}</SectionHeading>
-        <div className="DashboardFilterBar">
+        <div className="SchoolDashboard-filter-bar">
           {this.renderRangeSelector()}
           {this.renderExcusedAbsencesSelect()}
         </div>
-        <div className="DashboardColumns">
-          <div className="DashboardRosterColumn">
+        <div className="SchoolDashboard-columns">
+          <div className="SchoolDashboard-roster-column">
             {this.renderStudentAbsenceTable()}
           </div>
-          <div className="DashboardChartsColumn">
+          <div className="SchoolDashboard-charts-column">
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
           </div>
@@ -105,18 +105,16 @@ export default class SchoolAbsenceDashboard extends React.Component {
     const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
     const schoolYearStart = DashboardHelpers.schoolYearStart();
     return (
-      <div className="DashboardRangeButtons">
-        <DashRangeButtons
-          schoolYearFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-            selectedRange: 'This School Year'})}
-          ninetyDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-            selectedRange: 'Past 90 Days'})}
-          fortyFiveDayFilter={() => this.setState({
-            displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-            selectedRange: 'Past 45 Days'})}/>
-      </div>
+      <DashRangeButtons
+        schoolYearFilter={() => this.setState({
+          displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
+          selectedRange: 'This School Year'})}
+        ninetyDayFilter={() => this.setState({
+          displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
+          selectedRange: 'Past 90 Days'})}
+        fortyFiveDayFilter={() => this.setState({
+          displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
+          selectedRange: 'Past 45 Days'})}/>
     );
   }
 
@@ -240,8 +238,8 @@ const styles = {
   root: {
     flex: 1,
     width: '100%',
-    marginLeft: 10,
-    marginRight: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
     display: 'flex',
     flexDirection: 'column'
   },
