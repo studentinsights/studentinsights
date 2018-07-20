@@ -4,10 +4,14 @@ import _ from 'lodash';
 import moment from 'moment';
 import {supportsExcusedAbsences} from '../../helpers/PerDistrict';
 import SectionHeading from '../../components/SectionHeading';
+import SelectTimeRange, {
+  momentRange,
+  timeRangeText,
+  TIME_RANGE_45_DAYS_AGO
+} from '../../components/SelectTimeRange';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DashRangeButtons from '../DashRangeButtons';
 import DashButton from '../DashButton';
 
 
@@ -19,19 +23,27 @@ export default class SchoolAbsenceDashboard extends React.Component {
     const {dateRange} = props;
     const {districtKey, nowFn} = context;
     const showExcused = supportsExcusedAbsences(districtKey) ? false : true;
-    const {displayDates, selectedRange} = initialTimeRange(nowFn(), dateRange);
+    const timeRangeKey = TIME_RANGE_45_DAYS_AGO;
+    const {displayDates} = timeRangeFields(timeRangeKey, nowFn(), dateRange);
     this.state = {
+      timeRangeKey,
       showExcused,
       displayDates,
-      selectedRange,
       selectedHomeroom: null,
     };
+
+    this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
     };
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
+  }
+
+  timeRangeText() {
+    const {timeRangeKey} = this.state;
+    return timeRangeText(timeRangeKey);
   }
 
   //Monthly attendance for the school must be calculated after the range filter is applied
@@ -82,12 +94,24 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return studentAbsenceCounts;
   }
 
+  onTimeRangeKeyChanged(timeRangeKey) {
+    this.setState({timeRangeKey});
+  }
+
   render() {
     const {school} = this.props;
+    const {timeRangeKey} = this.state;
+
     return (
       <div className="SchoolAbsenceDashboard" style={styles.root}>
         <SectionHeading>Absences at {school.name}</SectionHeading>
         <div className="SchoolDashboard-filter-bar">
+          <SelectTimeRange
+            timeRangeKey={timeRangeKey}
+            onChange={this.onTimeRangeKeyChanged} />
+          {/*<ExcusedAbsencesSelect
+            excusedAbsencesKey={timeRangeKey}
+            onChange={this.onExcusedAbsencesChanged} /> */}
           {this.renderRangeSelector()}
           {this.renderExcusedAbsencesSelect()}
         </div>
@@ -101,30 +125,6 @@ export default class SchoolAbsenceDashboard extends React.Component {
           </div>
         </div>
       </div>
-    );
-  }
-
-  renderRangeSelector() {
-    const {dateRange} = this.props;
-    const {nowFn} = this.context;
-    const now = nowFn();
-    const today = now.format("YYYY-MM-DD");
-    const ninetyDaysAgo = now.clone().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = now.clone().subtract(45, 'days').format("YYYY-MM-DD");
-    const schoolYearStart = DashboardHelpers.schoolYearStart();
-    const {defaultSelectedButton} = initialTimeRange(now, dateRange);
-    return (
-      <DashRangeButtons
-        defaultSelectedButton={defaultSelectedButton}
-        schoolYearFilter={() => this.setState({
-          displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-          selectedRange: 'School Year'})}
-        ninetyDayFilter={() => this.setState({
-          displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-          selectedRange: 'Last 90 Days'})}
-        fortyFiveDayFilter={() => this.setState({
-          displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-          selectedRange: 'Last 45 Days'})}/>
     );
   }
 
@@ -144,14 +144,12 @@ export default class SchoolAbsenceDashboard extends React.Component {
       });
     });
 
-    const {selectedRange} = this.state;
-
     return (
       <StudentsTable
         rows={rows}
         selectedCategory={this.state.selectedHomeroom}
         incidentType='Absences'
-        incidentSubtitle={selectedRange}
+        incidentSubtitle={this.timeRangeText()}
         resetFn={this.resetStudentList}/>
     );
   }
@@ -192,7 +190,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
           seriesData = {filteredAttendanceSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {`Average Attendance By Month (${this.state.selectedRange})`}
+          titleText = {`Average Attendance By Month (${this.timeRangeText()})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -222,7 +220,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
         seriesData = {homeroomSeries}
         yAxisMin = {80}
         yAxisMax = {100}
-        titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
+        titleText = {`Average Attendance By Homeroom (${this.timeRangeText()})`}
         measureText = {'Attendance (Percent)'}
         tooltip = {{
           pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -271,12 +269,10 @@ const styles = {
 
 // Set this to 45 days ago, and describe this in the different formats the component
 // expects.
-function initialTimeRange(now, dateRange) {
-  const today = now.format("YYYY-MM-DD");
-  const fortyFiveDaysAgo = now.clone().subtract(45, 'days').format("YYYY-MM-DD");
-  const displayDates = DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today);
-  const defaultSelectedButton = 'fortyFiveDays';
-  const selectedRange = 'Last 45 Days';
+function timeRangeFields(timeRangeKey, now, propsStaticDateRange) {
+  const range = momentRange(timeRangeKey, now);
+  const displayDates = DashboardHelpers.filterDates(propsStaticDateRange, range[0].format('YYYY-MM-DD'), range[1].format('YYYY-MM-DD'));
+  const defaultSelectedButton = timeRangeKey;
 
-  return {displayDates, selectedRange, defaultSelectedButton};
+  return {displayDates, defaultSelectedButton};
 }
