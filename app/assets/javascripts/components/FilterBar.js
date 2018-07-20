@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 
 // A UI component, for a label and spacing and alignment on filter bars (Select components

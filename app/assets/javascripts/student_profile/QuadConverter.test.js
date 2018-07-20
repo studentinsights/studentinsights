@@ -1,11 +1,7 @@
 import moment from 'moment';
 import {
-
   toDate,
   toMoment,
-  toSchoolYear,
-  firstDayOfSchool,
-  lastDayOfSchool,
   schoolYearStartDates
 } from './QuadConverter';
 

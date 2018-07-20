@@ -103,15 +103,11 @@ export class MyStudentsPageView extends React.Component {
         <FilterStudentsBar students={students} style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}>
           {filteredStudents => this.renderTable(filteredStudents)}
         </FilterStudentsBar>
-        <div style={{...styles.flexVertical, marginLeft: 10}}>
-          {this.renderTable()}
-        </div>
       </div>
     );
   }
 
-  renderTable() {
-    const filteredStudents = this.filteredStudents();
+  renderTable(filteredStudents) {
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
     const rowHeight = 40; // for two lines of student names

@@ -6,6 +6,7 @@ import FilterBar from '../components/FilterBar';
 import SelectHouse from '../components/SelectHouse';
 import SelectGrade from '../components/SelectGrade';
 import SelectCounselor from '../components/SelectCounselor';
+import {ALL} from '../components/SimpleFilterSelect';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 
 // Takes a list of students, uses them to find values to sort by,
@@ -162,14 +163,14 @@ const styles = {
 function initialState() {
   return {
     searchText: '',
-    grade: null,
-    house: null,
-    counselor: null
+    grade: ALL,
+    house: ALL,
+    counselor: ALL
   };
 }
 
 function shouldFilterOut(selectedValue, studentValue) {
-  if (selectedValue === null || selectedValue === undefined) return false; // no filter applied
+  if (selectedValue === ALL) return false; // no filter
   return (studentValue !== selectedValue);
 }
 
