@@ -98,7 +98,7 @@ export default class LoginActivityPage extends React.Component {
 
     return (
       <div style={style.wrapper}>
-        <SectionHeading>Login Activity, Past 30 days</SectionHeading>
+        <SectionHeading>Login Attempts, Past 30 days</SectionHeading>
         <div style={style.container}>
           {this.renderHeaderRow()}
           {emails.map((email, index) => {
