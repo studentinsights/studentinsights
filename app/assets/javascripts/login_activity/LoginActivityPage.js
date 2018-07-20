@@ -132,20 +132,32 @@ export default class LoginActivityPage extends React.Component {
         </div>
         {pastThirtyDaysArray.map((day) => {
           return (loginData[day])
-            ? this.renderCell(loginData[day])
+            ? this.renderCell(email, loginData[day], day)
             : this.renderEmptyCell()
         })}
       </div>
     );
   }
 
-  renderCell(data) {
+  renderCell(email, data, day) {
     return (
-      <div style={{...style.cell, ...style.squareCell}}>
+      <div style={{...style.cell, ...style.squareCell}} className='tooltip'>
+        {this.renderTooltipText(email, data, day)}
         {this.renderSuccessLoginSegment(data.success || 0)}
         {this.renderFailLoginSegment(data.fail || 0)}
       </div>
     )
+  }
+
+  renderTooltipText(email, data, day) {
+    return (
+      <span className="tooltiptext">
+        <div>{email} {moment(day).utc().format('D/M')}:</div>
+        <br/>
+        <div>{`${data.success || 0} successful logins.`}</div>
+        <div>{`${data.fail || 0} failed attempts.`}</div>
+      </span>
+    );
   }
 
   renderSuccessLoginSegment(count) {
@@ -155,7 +167,8 @@ export default class LoginActivityPage extends React.Component {
     };
 
     return (
-      <div style={divStyle}></div>
+      <div style={divStyle}>
+      </div>
     );
   }
 
@@ -166,7 +179,8 @@ export default class LoginActivityPage extends React.Component {
     };
 
     return (
-      <div style={divStyle}></div>
+      <div style={divStyle}>
+      </div>
     );
   }
 
@@ -177,7 +191,7 @@ export default class LoginActivityPage extends React.Component {
 
 const style = {
   container: {
-    marginTop: 50,
+    marginTop: 80,
     marginLeft: 25,
     minWidth: 1060,
   },
