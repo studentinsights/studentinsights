@@ -71,21 +71,6 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return timeRangeText(timeRangeKey);
   }
 
-  //Monthly attendance for the school must be calculated after the range filter is applied
-  monthlySchoolAttendance(schoolAverageDailyAttendance) {
-    let monthlySchoolAttendance = {};
-    //Use the filtered daterange to find the days to include
-    this.displayDates().forEach((day) => {
-      const date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
-      if (schoolAverageDailyAttendance[day] !== undefined) { //school days are based on all absences so it's possible this is undefined when getting the total for unexcused absences
-        (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
-        monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
-        monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
-      }
-    });
-    return monthlySchoolAttendance;
-  }
-
   monthlyHomeroomAttendance(dailyHomeroomAttendance) {
     let monthlyHomeroomAttendance = {};
     Object.keys(dailyHomeroomAttendance).forEach((homeroom) => {
@@ -199,7 +184,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     const dailyAttendance = this.shouldIncludeExcusedAbsences()
       ? this.props.schoolAverageDailyAttendance
       : this.props.schoolAverageDailyAttendanceUnexcused;
-    const monthlyAttendance = this.monthlySchoolAttendance(dailyAttendance);
+    const monthlyAttendance = monthlySchoolAttendance(this.displayDates(), dailyAttendance);
     const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
       const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
       return Math.round(rawAvg*10)/10;
@@ -287,3 +272,18 @@ const styles = {
     width: '100%'
   }
 };
+
+//Monthly attendance for the school must be calculated after the range filter is applied
+export function monthlySchoolAttendance(displayDates, schoolAverageDailyAttendance) {
+  let monthlySchoolAttendance = {};
+  //Use the filtered daterange to find the days to include
+  displayDates.forEach((day) => {
+    const date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
+    if (schoolAverageDailyAttendance[day] !== undefined) { //school days are based on all absences so it's possible this is undefined when getting the total for unexcused absences
+      (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
+      monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
+      monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
+    }
+  });
+  return monthlySchoolAttendance;
+}

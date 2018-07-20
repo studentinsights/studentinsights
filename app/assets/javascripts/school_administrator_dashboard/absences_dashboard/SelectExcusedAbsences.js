@@ -7,6 +7,7 @@ import SimpleFilterSelect from '../../components/SimpleFilterSelect';
 export default function SelectExcusedAbsences({excusedAbsencesKey, onChange, style = undefined}) { 
   return (
     <SimpleFilterSelect
+      className="SelectExcusedAbsences"
       style={style}
       value={excusedAbsencesKey}
       onChange={onChange}
