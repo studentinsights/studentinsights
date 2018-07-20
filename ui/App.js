@@ -7,6 +7,7 @@ import {
 import moment from 'moment';
 import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
+import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
@@ -41,11 +42,15 @@ class App extends React.Component {
   }
 
   // `NowContainer` provides a fn to read the time
-  // in any deeply nested component.
+  // in any deeply nested component,
+  // `PerDistrictContainer` provides `districtKey`.
   render() {
+    const {districtKey} = this.props;
     return (
       <NowContainer nowFn={() => moment.utc()}>
-        {this.renderRoutes()}
+        <PerDistrictContainer districtKey={districtKey}>
+          {this.renderRoutes()}
+        </PerDistrictContainer>
       </NowContainer>
     );
   }
@@ -172,6 +177,7 @@ class App extends React.Component {
   }
 }
 App.propTypes = {
+  districtKey: PropTypes.string.isRequired,
   currentEducator: PropTypes.shape({
     id: PropTypes.number.isRequired,
     admin: PropTypes.bool.isRequired,

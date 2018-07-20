@@ -1,5 +1,9 @@
 import * as Filters from './Filters';
 
+export const SOMERVILLE = 'somerville';
+export const NEW_BEDFORD = 'new_bedford';
+export const DEMO = 'demo';
+
 export function hasStudentPhotos(districtKey) {
   if (districtKey === 'somerville') return true;
   if (districtKey === 'new_bedford') return false;
@@ -99,6 +103,11 @@ export function shouldDisplayHouse(school) {
 // This only applies to high schools.
 export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
+}
+
+export function supportsExcusedAbsences(districtKey) {
+  if (districtKey === 'somerville') return true;
+  return false;
 }
 
 // This returns user-facing text to describe their program and placement

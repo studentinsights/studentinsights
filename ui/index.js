@@ -41,9 +41,13 @@ const mainEl = document.getElementById('main');
 if (mainEl) {
   const didRoute = legacyRouteHandler(mainEl);
   if (!didRoute) {
+    const {districtKey} = readEnv();
     const serializedData = $('#serialized-data').data() || {};
     const {currentEducator} = serializedData;
     ReactDOM.render(
-      <BrowserRouter><App currentEducator={currentEducator} /></BrowserRouter>, mainEl);
+      <BrowserRouter>
+        <App currentEducator={currentEducator} districtKey={districtKey} />
+      </BrowserRouter>
+    , mainEl);
   }
 }

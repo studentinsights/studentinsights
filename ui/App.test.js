@@ -1,5 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
+import {NEW_BEDFORD} from '../app/assets/javascripts/helpers/PerDistrict';
 import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
@@ -23,9 +24,10 @@ jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
 
 function renderPath(path, options = {}) {
   const educator = options.educator || createSerializedDataEducator();
+  const districtKey = options.districtKey || NEW_BEDFORD;
   return (
     <MemoryRouter initialEntries={[path]}>
-      <App currentEducator={educator} />
+      <App currentEducator={educator} districtKey={districtKey} />
     </MemoryRouter>
   );
 }
