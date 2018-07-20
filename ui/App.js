@@ -21,7 +21,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
-import LoginActivityPage from '../app/assets/javascripts/login_activity/LoginActivityPage';
+import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -166,7 +166,7 @@ class App extends React.Component {
   }
 
   renderLoginActivity(routeProps) {
-    return <LoginActivityPage />;
+    return <LoginActivityPageContainer />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the
