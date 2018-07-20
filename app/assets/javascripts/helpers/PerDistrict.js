@@ -100,6 +100,15 @@ export function shouldDisplayHouse(school) {
   return (school && school.local_id === 'SHS');
 }
 
+export function somervilleHouses() {
+  return [
+    'Beacon',
+    'Broadway',
+    'Elm',
+    'Highland'
+  ];
+}
+
 // This only applies to high schools.
 export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
