@@ -178,15 +178,26 @@ export default class StudentsTable extends React.Component {
     if (!latestNote || !latestNote.recorded_at) return null;
 
     const {nowFn} = this.context;
-    const now = nowFn();
-    const daysAgoText = now.diff(moment.utc(latestNote.recorded_at), 'days');
     const noteTypeText = eventNoteTypeTextMini(latestNote.event_note_type_id);
+    const lastNoteMoment = moment.utc(latestNote.recorded_at);
     return (
       <div style={{paddingRight: 10, display: 'flex', justifyContent: 'space-between'}}>
         <span style={{color: '#999'}}>{noteTypeText}</span>
-        <span>{daysAgoText} days ago</span>
+        {this.renderDaysAgo(lastNoteMoment, nowFn())}
       </div>
     );
+  }
+
+  renderDaysAgo(lastNoteMoment, now) {
+    const daysAgo = now.diff(lastNoteMoment, 'days');
+    const isOld = (daysAgo > 45);
+    const text = (isOld)
+      ? `${now.diff(lastNoteMoment, 'weeks')} weeks`
+      : `${daysAgo} days`;
+    const color = (isOld)
+      ? '#ccc'
+      : 'black';
+    return <span style={{color}}>{text}</span>;
   }
 
   renderCaption() {
