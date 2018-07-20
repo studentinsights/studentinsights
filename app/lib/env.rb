@@ -5,21 +5,28 @@ class Env
   # development.rb and test.rb like normal.
   def self.set_for_development_and_test!
     return unless Rails.env.development? || Rails.env.test?
+    default_env = {}
 
     # instance config
-    ENV['DISTRICT_KEY'] = 'somerville'
-    ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
+    default_env['DISTRICT_KEY'] = 'somerville'
+    default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
 
     # service config
-    ENV['USE_MOCK_LDAP'] = 'true'
-    ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
-    ENV['AWS_REGION'] = 'us-west-2'
-    ENV['MIXPANEL_TOKEN'] = 'foo';
-    ENV['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
+    default_env['USE_MOCK_LDAP'] = 'true'
+    default_env['MOCK_LDAP_PASSWORD'] = 'demo-password'
+    default_env['AWS_REGION'] = 'us-west-2'
+    default_env['MIXPANEL_TOKEN'] = 'foo';
+    default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
 
     # feature switches
-    ENV['ENABLE_CLASS_LISTS'] = 'true'
-    ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
-    ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
+    default_env['ENABLE_CLASS_LISTS'] = 'true'
+    default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
+    default_env['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
+
+    # only set values if ENV hasn't already set them (ie, allow command line overrides)
+    default_env.each do |key, value|
+      next if ENV.has_key?(key)
+      ENV[key] = value
+    end
   end
 end
