@@ -2,26 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import SelectTimeRange, {
+  momentRange,
+  timeRangeText,
+  TIME_RANGE_45_DAYS_AGO
+} from '../../components/SelectTimeRange';
 import SectionHeading from '../../components/SectionHeading';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DashRangeButtons from '../DashRangeButtons';
 
 export default class SchoolTardiesDashboard extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      startDate: DashboardHelpers.schoolYearStart(),
-      selectedRange: 'School Year',
-      selectedHomeroom: null};
+      timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+      selectedHomeroom: null
+    };
+
+    this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
     };
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
+  }
+
+  startDate() {
+    const {nowFn} = this.context;
+    const {timeRangeKey} = this.state;
+    const range = momentRange(timeRangeKey, nowFn());
+    return range[0];
+  }
+
+  timeRangeText() {
+    const {timeRangeKey} = this.state;
+    return timeRangeText(timeRangeKey);
   }
 
   createMonthCategories(seriesData) {
@@ -53,7 +71,7 @@ export default class SchoolTardiesDashboard extends React.Component {
     let studentTardyCounts = {};
     const daysWithTardies = Object.keys(this.props.schoolTardyEvents);
     const today = moment.utc().format("YYYY-MM-DD");
-    const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), this.state.startDate, today);
+    const schoolYearTardies = DashboardHelpers.filterDates(daysWithTardies.sort(), this.startDate(), today);
 
     schoolYearTardies.forEach((day) => {
       _.each(this.props.schoolTardyEvents[day], (tardy) => {
@@ -68,12 +86,11 @@ export default class SchoolTardiesDashboard extends React.Component {
     let homeroomTardyEvents = {};
     const studentRecords = this.props.dashboardStudents;
     const studentsByHomeroom = DashboardHelpers.groupByHomeroom(studentRecords);
-    const startDate = this.state.startDate;
     Object.keys(studentsByHomeroom).forEach((homeroom) => {
       homeroomTardyEvents[homeroom] = 0;
       _.each(studentsByHomeroom[homeroom], (student) => {
         student.tardies.forEach((tardy) => {
-          if (moment.utc(tardy.occurred_at).isSameOrAfter(startDate)) {
+          if (moment.utc(tardy.occurred_at).isSameOrAfter(this.startDate())) {
             homeroomTardyEvents[homeroom]++;
           }
         });
@@ -82,13 +99,20 @@ export default class SchoolTardiesDashboard extends React.Component {
     return homeroomTardyEvents;
   }
 
+  onTimeRangeKeyChanged(timeRangeKey) {
+    this.setState({timeRangeKey});
+  }
+
   render() {
+    const {timeRangeKey} = this.state;
     const {school} = this.props;
     return (
       <div className="SchoolTardiesDashboard" style={styles.root}>
         <SectionHeading>Tardies at {school.name}</SectionHeading>
         <div className="SchoolDashboard-filter-bar">
-          {this.renderRangeSelector()}
+          <SelectTimeRange
+            timeRangeKey={timeRangeKey}
+            onChange={this.onTimeRangeKeyChanged} />
         </div>
         <div className="SchoolDashboard-columns">
           <div className="SchoolDashboard-roster-column">
@@ -104,7 +128,7 @@ export default class SchoolTardiesDashboard extends React.Component {
   }
 
   renderMonthlyTardiesChart() {
-    const seriesData = this.getDatesSince(this.state.startDate).map((date) => {
+    const seriesData = this.getDatesSince(this.startDate()).map((date) => {
       const day = moment.utc(date).format("ddd MM/DD/YYYY");
       const tardies = this.props.schoolTardyEvents[date] ? this.props.schoolTardyEvents[date].length : 0;
       return [day, tardies];
@@ -124,7 +148,7 @@ export default class SchoolTardiesDashboard extends React.Component {
             tickmarkPlacement: "on"
           }}
           seriesData = {seriesData}
-          titleText = {`Schoolwide Tardies (${this.state.selectedRange})`}
+          titleText = {`Schoolwide Tardies (${this.timeRangeText()})`}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -134,7 +158,7 @@ export default class SchoolTardiesDashboard extends React.Component {
   }
 
   renderHomeroomTardiesChart() {
-    const homeroomTardyEvents = this.homeroomTardyEventsSince(this.state.startDate);
+    const homeroomTardyEvents = this.homeroomTardyEventsSince(this.startDate());
     const homerooms = Object.keys(homeroomTardyEvents).sort((a,b) => {
       return homeroomTardyEvents[b] - homeroomTardyEvents[a];
     });
@@ -147,7 +171,7 @@ export default class SchoolTardiesDashboard extends React.Component {
           id = {'string'}
           categories = {{categories: homerooms}}
           seriesData = {homeroomSeries}
-          titleText = {`Tardies by Homeroom (${this.state.selectedRange})`}
+          titleText = {`Tardies by Homeroom (${this.timeRangeText()})`}
           measureText = {'Number of Tardies'}
           tooltip = {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
@@ -172,31 +196,19 @@ export default class SchoolTardiesDashboard extends React.Component {
       });
     });
 
-    const {selectedRange} = this.state;
-
     return (
       <StudentsTable
         rows={rows}
         selectedCategory={this.state.selectedHomeroom}
         incidentType='Tardies'
-        incidentSubtitle={selectedRange}
+        incidentSubtitle={this.timeRangeText()}
         resetFn={this.resetStudentList}/>
     );
   }
-
-  renderRangeSelector() {
-    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
-    const schoolYearStart = DashboardHelpers.schoolYearStart();
-    return (
-      <DashRangeButtons
-        schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
-        ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
-        fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
-    );
-  }
 }
-
+SchoolTardiesDashboard.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 SchoolTardiesDashboard.propTypes = {
   schoolTardyEvents: PropTypes.object.isRequired,
   dashboardStudents: PropTypes.array.isRequired,
