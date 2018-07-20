@@ -18,6 +18,7 @@ export default function SelectTimeRange(props) {
   });
   return (
     <SimpleFilterSelect
+      searchable={false}
       value={timeRangeKey}
       onChange={onChange}
       options={options} 

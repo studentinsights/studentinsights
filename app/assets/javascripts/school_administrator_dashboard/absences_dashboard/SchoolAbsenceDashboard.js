@@ -20,18 +20,15 @@ export default class SchoolAbsenceDashboard extends React.Component {
   constructor(props, context) {
     super(props);
 
-    const {dateRange} = props;
-    const {districtKey, nowFn} = context;
-    const showExcused = supportsExcusedAbsences(districtKey) ? false : true;
-    const timeRangeKey = TIME_RANGE_45_DAYS_AGO;
-    const {displayDates} = timeRangeFields(timeRangeKey, nowFn(), dateRange);
+    const {districtKey} = context;
     this.state = {
-      timeRangeKey,
-      showExcused,
-      displayDates,
+      showExcused: supportsExcusedAbsences(districtKey) ? false : true,
+      timeRangeKey: TIME_RANGE_45_DAYS_AGO,
       selectedHomeroom: null,
     };
 
+    // optimization for reducing repeated compute
+    this.filterDates = _.memoize(this.filterDates);
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -39,6 +36,20 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
+  }
+
+  displayDates() {
+    const {nowFn} = this.context;
+    const {timeRangeKey} = this.state;
+    const {dateRange} = this.props;
+    const range = momentRange(timeRangeKey, nowFn());
+    const rangeDateStrings = range.map(momentValue => momentValue.format('YYYY-MM-DD'));
+    return this.filterDates([dateRange, rangeDateStrings[0], rangeDateStrings[1]]);
+  }
+
+  filterDates(params) {
+    const [dateRange, startDateString, endDateString] = params;
+    return DashboardHelpers.filterDates(dateRange, startDateString, endDateString);
   }
 
   timeRangeText() {
@@ -50,7 +61,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   monthlySchoolAttendance(schoolAverageDailyAttendance) {
     let monthlySchoolAttendance = {};
     //Use the filtered daterange to find the days to include
-    this.state.displayDates.forEach((day) => {
+    this.displayDates().forEach((day) => {
       const date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
       if (schoolAverageDailyAttendance[day] !== undefined) { //school days are based on all absences so it's possible this is undefined when getting the total for unexcused absences
         (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
@@ -75,7 +86,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   filteredHomeroomAttendance(dailyHomeroomAttendance) {
     let filteredHomeroomAttendance = {};
     Object.keys(dailyHomeroomAttendance).forEach((homeroom) => {
-      filteredHomeroomAttendance[homeroom] = this.state.displayDates.map((date) => {
+      filteredHomeroomAttendance[homeroom] = this.displayDates().map((date) => {
         return dailyHomeroomAttendance[homeroom][date];
       });
     });
@@ -85,7 +96,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   studentAbsenceCounts() {
     let studentAbsenceCounts = {};
     const eventsByDay = this.state.showExcused ? this.props.schoolAbsenceEventsByDay : this.props.schoolUnexcusedAbsenceEventsByDay;
-    this.state.displayDates.forEach((day) => {
+    this.displayDates().forEach((day) => {
       _.each(eventsByDay[day], (absence) => {
         studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 0;
         studentAbsenceCounts[absence.student_id]++;
@@ -112,7 +123,6 @@ export default class SchoolAbsenceDashboard extends React.Component {
           {/*<ExcusedAbsencesSelect
             excusedAbsencesKey={timeRangeKey}
             onChange={this.onExcusedAbsencesChanged} /> */}
-          {this.renderRangeSelector()}
           {this.renderExcusedAbsencesSelect()}
         </div>
         <div className="SchoolDashboard-columns">
@@ -265,14 +275,3 @@ const styles = {
     borderLeft: 'thin solid #ccc'
   }
 };
-
-
-// Set this to 45 days ago, and describe this in the different formats the component
-// expects.
-function timeRangeFields(timeRangeKey, now, propsStaticDateRange) {
-  const range = momentRange(timeRangeKey, now);
-  const displayDates = DashboardHelpers.filterDates(propsStaticDateRange, range[0].format('YYYY-MM-DD'), range[1].format('YYYY-MM-DD'));
-  const defaultSelectedButton = timeRangeKey;
-
-  return {displayDates, defaultSelectedButton};
-}
