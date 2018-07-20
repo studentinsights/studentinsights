@@ -198,7 +198,7 @@ export default class LoginActivityPage extends React.Component {
 LoginActivityPage.propTypes = {
   queryStartTimestamp: PropTypes.string.isRequired,
   queryEndTimestamp: PropTypes.string.isRequired,
-}
+};
 
 const style = {
   wrapper: {
