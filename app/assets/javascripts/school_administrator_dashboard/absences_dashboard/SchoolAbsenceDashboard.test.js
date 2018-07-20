@@ -2,15 +2,8 @@ import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {toMomentFromTime} from '../../helpers/toMoment';
 import {withNowMoment} from '../../testing/NowContainer';
-import {
-  TIME_RANGE_45_DAYS_AGO,
-  TIME_RANGE_90_DAYS_AGO,
-  TIME_RANGE_SCHOOL_YEAR
-} from '../../components/SelectTimeRange';
-import {
-  EXCLUDE_EXCUSED_ABSENCES,
-  ALL_ABSENCES
-} from './SelectExcusedAbsences';
+import {TIME_RANGE_90_DAYS_AGO, TIME_RANGE_SCHOOL_YEAR} from '../../components/SelectTimeRange';
+import {ALL_ABSENCES} from './SelectExcusedAbsences';
 import PerDistrictContainer from '../../components/PerDistrictContainer';
 import {fixtureProps} from './SchoolAbsenceDashboard.fixtures';
 import SchoolAbsenceDashboard, {monthlySchoolAttendance} from './SchoolAbsenceDashboard';
@@ -90,7 +83,13 @@ describe('with testSetup', () => {
     expect(monthlyAverageSeries(dash)).toEqual([99.7, 99.7, 99.5, 99.6]);
   });
 
-  it('renders different monthly averages when excused is flipped', () => {
+  it('can render values for a whole year', () => {
+    const dash = renderTestEl();
+    dash.setState({timeRangeKey: TIME_RANGE_SCHOOL_YEAR});
+    expect(monthlyAverageSeries(dash).length).toEqual(12);
+  });
+
+  it('renders different values for monthly averages when excused is flipped', () => {
     const dash = renderTestEl();
     // Fixtures don't happen to show a different for these over 45 days, so 90 is used here
     const excusedMonthlyAverages = monthlyAverageSeries(dash);
