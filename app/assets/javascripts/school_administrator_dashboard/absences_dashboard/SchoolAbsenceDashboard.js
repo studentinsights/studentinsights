@@ -17,13 +17,14 @@ export default class SchoolAbsenceDashboard extends React.Component {
     super(props);
 
     const {dateRange} = props;
-    const {districtKey} = context;
+    const {districtKey, nowFn} = context;
     const showExcused = supportsExcusedAbsences(districtKey) ? false : true;
+    const {displayDates, selectedRange} = initialTimeRange(nowFn(), dateRange);
     this.state = {
       showExcused,
-      displayDates: dateRange,
+      displayDates,
+      selectedRange,
       selectedHomeroom: null,
-      selectedRange: 'This School Year'
     };
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
@@ -105,21 +106,25 @@ export default class SchoolAbsenceDashboard extends React.Component {
 
   renderRangeSelector() {
     const {dateRange} = this.props;
-    const today = moment.utc().format("YYYY-MM-DD");
-    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
+    const {nowFn} = this.context;
+    const now = nowFn();
+    const today = now.format("YYYY-MM-DD");
+    const ninetyDaysAgo = now.clone().subtract(90, 'days').format("YYYY-MM-DD");
+    const fortyFiveDaysAgo = now.clone().subtract(45, 'days').format("YYYY-MM-DD");
     const schoolYearStart = DashboardHelpers.schoolYearStart();
+    const {defaultSelectedButton} = initialTimeRange(now, dateRange);
     return (
       <DashRangeButtons
+        defaultSelectedButton={defaultSelectedButton}
         schoolYearFilter={() => this.setState({
           displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-          selectedRange: 'This School Year'})}
+          selectedRange: 'School Year'})}
         ninetyDayFilter={() => this.setState({
           displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-          selectedRange: 'Past 90 Days'})}
+          selectedRange: 'Last 90 Days'})}
         fortyFiveDayFilter={() => this.setState({
           displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-          selectedRange: 'Past 45 Days'})}/>
+          selectedRange: 'Last 45 Days'})}/>
     );
   }
 
@@ -228,6 +233,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 }
 SchoolAbsenceDashboard.contextTypes = {
+  nowFn: PropTypes.func.isRequired,
   districtKey: PropTypes.string.isRequired
 };
 SchoolAbsenceDashboard.propTypes = {
@@ -261,3 +267,16 @@ const styles = {
     borderLeft: 'thin solid #ccc'
   }
 };
+
+
+// Set this to 45 days ago, and describe this in the different formats the component
+// expects.
+function initialTimeRange(now, dateRange) {
+  const today = now.format("YYYY-MM-DD");
+  const fortyFiveDaysAgo = now.clone().subtract(45, 'days').format("YYYY-MM-DD");
+  const displayDates = DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today);
+  const defaultSelectedButton = 'fortyFiveDays';
+  const selectedRange = 'Last 45 Days';
+
+  return {displayDates, selectedRange, defaultSelectedButton};
+}

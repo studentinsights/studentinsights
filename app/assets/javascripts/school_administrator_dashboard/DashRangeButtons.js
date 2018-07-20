@@ -6,7 +6,7 @@ import DashButton from './DashButton';
 export default class DashRangeButtons extends React.Component {
   constructor(props) {
     super(props);
-    this.state={selectedButton: 'schoolYear'};
+    this.state={selectedButton: props.defaultSelectedButton || 'schoolYear'};
   }
 
   onClick(filterFunc, button) {
@@ -19,17 +19,17 @@ export default class DashRangeButtons extends React.Component {
       <div className="DashRangeButtons" style={styles.root}>
         <span>Filter:</span>
         <DashButton
-          onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
-          isSelected={this.state.selectedButton === 'schoolYear'}
-          buttonText='School Year' />
+            onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
+            isSelected={this.state.selectedButton === 'fortyFiveDays'}
+            buttonText='Last 45 Days' />
         <DashButton
             onClick={() => this.onClick(this.props.ninetyDayFilter, 'ninetyDays')}
             isSelected={this.state.selectedButton === 'ninetyDays'}
-            buttonText='Past 90 Days' />
+            buttonText='Last 90 Days' />
         <DashButton
-            onClick={() => this.onClick(this.props.fortyFiveDayFilter, 'fortyFiveDays')}
-            isSelected={this.state.selectedButton === 'fortyFiveDays'}
-            buttonText='Past 45 Days' />
+          onClick={() => this.onClick(this.props.schoolYearFilter, 'schoolYear')}
+          isSelected={this.state.selectedButton === 'schoolYear'}
+          buttonText='School Year' />
       </div>
     );
   }
@@ -37,7 +37,8 @@ export default class DashRangeButtons extends React.Component {
 DashRangeButtons.propTypes = {
   schoolYearFilter: PropTypes.func.isRequired,
   ninetyDayFilter: PropTypes.func.isRequired,
-  fortyFiveDayFilter: PropTypes.func.isRequired
+  fortyFiveDayFilter: PropTypes.func.isRequired,
+  defaultSelectedButton: PropTypes.string
 };
 
 const styles = {
