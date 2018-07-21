@@ -4,12 +4,12 @@ RSpec.describe InsightStudentsWithHighAbsences do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
 
-  def create_absences(n, student, time_now)
+  def create_absences(n, student, time_now, attrs = {})
     n.times do |index|
       Absence.create!({
         occurred_at: time_now - index.days,
         student: student
-      })
+      }.merge(attrs))
     end
   end
 
@@ -120,6 +120,48 @@ RSpec.describe InsightStudentsWithHighAbsences do
         recorded_at: time_now - 50.days
       )
       expect(insight.send(:recently_commented_student_ids, student_ids, time_threshold)).to eq []
+    end
+  end
+
+  describe '#absence_counts_for_students' do
+    def test_absence_counts_for_students(options = {})
+      time_threshold = time_now - 45.days
+      absences_threshold = 4
+      insight = InsightStudentsWithHighAbsences.new(pals.shs_bill_nye, options)
+      insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
+    end
+
+    def expect_n_absences_for(json, n, student_id)
+      expect(json.size).to eq 1
+      expect(json.first[:count]).to eq n
+      expect(json.first[:student]['id']).to eq student_id
+    end
+
+    it 'considers excused: nil absences by default' do
+      n = rand(2..5)
+      create_absences(n, pals.shs_freshman_mari, time_now, excused: nil)
+      json = test_absence_counts_for_students
+      expect_n_absences_for(json, n, pals.shs_freshman_mari.id)
+    end
+
+    it 'considers unexcused absences by default' do
+      n = rand(2..5)
+      create_absences(n, pals.shs_freshman_mari, time_now, excused: false)
+      json = test_absence_counts_for_students
+      expect_n_absences_for(json, n, pals.shs_freshman_mari.id)
+    end
+
+    it 'ignores excused absences by default' do
+      n = rand(2..5)
+      create_absences(n, pals.shs_freshman_mari, time_now, excused: true)
+      expect(test_absence_counts_for_students).to eq []
+    end
+
+    it 'considers excused absences with :include_excused_absences' do
+      n = rand(2..5)
+      create_absences(n, pals.shs_freshman_mari, time_now, excused: true)
+      json = test_absence_counts_for_students(include_excused_absences: true)
+      expect_n_absences_for(json, n, pals.shs_freshman_mari.id)
     end
   end
 end

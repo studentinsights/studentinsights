@@ -1,7 +1,8 @@
 class InsightStudentsWithHighAbsences
-  def initialize(educator)
+  def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(@educator)
+    @include_excused_absences = options.fetch(:include_excused_absences, false)
   end
 
   # Returns a list of all students that the educator has access
@@ -46,9 +47,11 @@ class InsightStudentsWithHighAbsences
   private
   # An array of hashes with [{:student, :count}]
   def absence_counts_for_students(student_ids, time_threshold, absences_threshold)
+    excused_values = if @include_excused_absences then [true, false, nil] else [false, nil] end
     absence_count_map = Absence
       .includes(:student)
       .where(student_id: student_ids)
+      .where(excused: excused_values)
       .where('occurred_at > ?', time_threshold)
       .group(:student)
       .count
