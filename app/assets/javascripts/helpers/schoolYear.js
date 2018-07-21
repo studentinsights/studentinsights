@@ -5,7 +5,7 @@ function toMoment(quad) {
 }
 
 // Returns moment representing the first day of school for a given moment.
-export function firstDayOfSchoolFor(someMoment) {
+export function firstDayOfSchoolForMoment(someMoment) {
   const year = toSchoolYear(someMoment.toDate());
   return firstDayOfSchool(year);
 }

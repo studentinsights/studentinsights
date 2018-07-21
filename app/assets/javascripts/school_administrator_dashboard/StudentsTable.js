@@ -35,7 +35,7 @@ export default class StudentsTable extends React.Component {
   }
 
   sortedRows() {
-    const rows = this.props.rows;
+    const rows = _.sortBy(this.props.rows, row => row.id);
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
 
@@ -59,7 +59,6 @@ export default class StudentsTable extends React.Component {
 
   orderedRows() {
     const sortedRows = this.sortedRows();
-
     if (!this.state.sortDesc) return sortedRows.reverse();
 
     return sortedRows;

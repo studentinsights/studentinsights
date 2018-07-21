@@ -13,7 +13,7 @@ export const ALL = 'ALL';
 export default function SimpleFilterSelect(props) {
   return (
     <Select
-      style={props.style || { width: '10em', marginRight: 10 }}
+      style={props.style || { width: '10em', marginLeft: 10 }}
       value={props.value === ALL ? null : props.value} // so Select shows placeholder text
       simpleValue
       clearable={false}

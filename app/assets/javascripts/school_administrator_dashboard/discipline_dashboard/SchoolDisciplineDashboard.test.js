@@ -1,18 +1,21 @@
 import React from 'react';
 import moment from 'moment';
-import { shallow } from 'enzyme';
+import {mount} from 'enzyme';
 import {
   createStudents,
   testSchool
 } from '../DashboardTestData';
 import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
+import {withDefaultNowContext} from '../../testing/NowContainer';
 
 
 describe('SchoolDisciplineDashboard', () => {
-  const dash = shallow(<SchoolDisciplineDashboard
-                        school={testSchool()}
-                        dashboardStudents={createStudents(moment.utc())}
-                        schoolDisciplineEvents={[]}/>);
+  const dash = mount(withDefaultNowContext(
+    <SchoolDisciplineDashboard
+      school={testSchool()}
+      dashboardStudents={createStudents(moment.utc())}
+      schoolDisciplineEvents={[]} />
+  ));
 
   it('renders at least one bar chart', () => {
     expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
@@ -23,6 +26,6 @@ describe('SchoolDisciplineDashboard', () => {
   });
 
   it('renders a date range selector', () => {
-    expect(dash.find('DashRangeButtons').length).toEqual(1);
+    expect(dash.find('SelectTimeRange').length).toEqual(1);
   });
 });

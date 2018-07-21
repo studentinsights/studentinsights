@@ -4,11 +4,20 @@ import _ from 'lodash';
 import moment from 'moment';
 import {supportsExcusedAbsences} from '../../helpers/PerDistrict';
 import SectionHeading from '../../components/SectionHeading';
+import EscapeListener from '../../components/EscapeListener';
+import FilterBar from '../../components/FilterBar';
+import SelectTimeRange, {
+  momentRange,
+  timeRangeText,
+  TIME_RANGE_45_DAYS_AGO
+} from '../../components/SelectTimeRange';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DashRangeButtons from '../DashRangeButtons';
-import DashButton from '../DashButton';
+import SelectExcusedAbsences, {
+  EXCLUDE_EXCUSED_ABSENCES,
+  ALL_ABSENCES
+} from './SelectExcusedAbsences';
 
 
 export default class SchoolAbsenceDashboard extends React.Component {
@@ -16,36 +25,43 @@ export default class SchoolAbsenceDashboard extends React.Component {
   constructor(props, context) {
     super(props);
 
-    const {dateRange} = props;
-    const {districtKey} = context;
-    const showExcused = supportsExcusedAbsences(districtKey) ? false : true;
-    this.state = {
-      showExcused,
-      displayDates: dateRange,
-      selectedHomeroom: null,
-      selectedRange: 'This School Year'
-    };
+    this.state = initialState(props, context);
+    this.onResetFilters = this.onResetFilters.bind(this);
+    this.onExcusedAbsencesChanged = this.onExcusedAbsencesChanged.bind(this);
+    this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
     };
     this.resetStudentList = () => {
       this.setState({selectedHomeroom: null});
     };
+
+    // optimization for reducing repeated compute
+    this.memoizedFilterDates = _.memoize(this.memoizedFilterDates.bind(this));
   }
 
-  //Monthly attendance for the school must be calculated after the range filter is applied
-  monthlySchoolAttendance(schoolAverageDailyAttendance) {
-    let monthlySchoolAttendance = {};
-    //Use the filtered daterange to find the days to include
-    this.state.displayDates.forEach((day) => {
-      const date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
-      if (schoolAverageDailyAttendance[day] !== undefined) { //school days are based on all absences so it's possible this is undefined when getting the total for unexcused absences
-        (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
-        monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
-        monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
-      }
-    });
-    return monthlySchoolAttendance;
+  shouldIncludeExcusedAbsences() {
+    const {excusedAbsencesKey} = this.state;
+    return excusedAbsencesKey === ALL_ABSENCES;
+  }
+
+  displayDates() {
+    const {nowFn} = this.context;
+    const {timeRangeKey} = this.state;
+    const range = momentRange(timeRangeKey, nowFn());
+    const rangeDateStrings = range.map(momentValue => momentValue.format('YYYY-MM-DD'));
+    return this.memoizedFilterDates(rangeDateStrings);
+  }
+
+  memoizedFilterDates(rangeDateStrings) {
+    const {dateRange} = this.props;
+    const [startDateString, endDateString] = rangeDateStrings;
+    return DashboardHelpers.filterDates(dateRange, startDateString, endDateString);
+  }
+
+  timeRangeText() {
+    const {timeRangeKey} = this.state;
+    return timeRangeText(timeRangeKey);
   }
 
   monthlyHomeroomAttendance(dailyHomeroomAttendance) {
@@ -62,7 +78,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   filteredHomeroomAttendance(dailyHomeroomAttendance) {
     let filteredHomeroomAttendance = {};
     Object.keys(dailyHomeroomAttendance).forEach((homeroom) => {
-      filteredHomeroomAttendance[homeroom] = this.state.displayDates.map((date) => {
+      filteredHomeroomAttendance[homeroom] = this.displayDates().map((date) => {
         return dailyHomeroomAttendance[homeroom][date];
       });
     });
@@ -71,8 +87,8 @@ export default class SchoolAbsenceDashboard extends React.Component {
 
   studentAbsenceCounts() {
     let studentAbsenceCounts = {};
-    const eventsByDay = this.state.showExcused ? this.props.schoolAbsenceEventsByDay : this.props.schoolUnexcusedAbsenceEventsByDay;
-    this.state.displayDates.forEach((day) => {
+    const eventsByDay = this.shouldIncludeExcusedAbsences() ? this.props.schoolAbsenceEventsByDay : this.props.schoolUnexcusedAbsenceEventsByDay;
+    this.displayDates().forEach((day) => {
       _.each(eventsByDay[day], (absence) => {
         studentAbsenceCounts[absence.student_id] = studentAbsenceCounts[absence.student_id] || 0;
         studentAbsenceCounts[absence.student_id]++;
@@ -81,14 +97,25 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return studentAbsenceCounts;
   }
 
+  onTimeRangeKeyChanged(timeRangeKey) {
+    this.setState({timeRangeKey});
+  }
+
+  onExcusedAbsencesChanged(excusedAbsencesKey) {
+    this.setState({excusedAbsencesKey});
+  }
+
+  onResetFilters() {
+    this.setState(initialState(this.props, this.context));
+  }
+
   render() {
     const {school} = this.props;
     return (
       <div className="SchoolAbsenceDashboard" style={styles.root}>
         <SectionHeading>Absences at {school.name}</SectionHeading>
         <div className="SchoolDashboard-filter-bar">
-          {this.renderRangeSelector()}
-          {this.renderExcusedAbsencesSelect()}
+          {this.renderFilterBar()}
         </div>
         <div className="SchoolDashboard-columns">
           <div className="SchoolDashboard-roster-column">
@@ -103,23 +130,24 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderRangeSelector() {
-    const {dateRange} = this.props;
-    const today = moment.utc().format("YYYY-MM-DD");
-    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
-    const schoolYearStart = DashboardHelpers.schoolYearStart();
+  renderFilterBar() {
+    const {districtKey} = this.context;
+    const {timeRangeKey, excusedAbsencesKey} = this.state;
     return (
-      <DashRangeButtons
-        schoolYearFilter={() => this.setState({
-          displayDates: DashboardHelpers.filterDates(dateRange, schoolYearStart, today),
-          selectedRange: 'This School Year'})}
-        ninetyDayFilter={() => this.setState({
-          displayDates: DashboardHelpers.filterDates(dateRange, ninetyDaysAgo, today),
-          selectedRange: 'Past 90 Days'})}
-        fortyFiveDayFilter={() => this.setState({
-          displayDates: DashboardHelpers.filterDates(dateRange, fortyFiveDaysAgo, today),
-          selectedRange: 'Past 45 Days'})}/>
+      <EscapeListener style={styles.filterBarContainer} onEscape={this.onResetFilters}>
+        <FilterBar>
+          {supportsExcusedAbsences(districtKey) &&
+            <SelectExcusedAbsences
+              excusedAbsencesKey={excusedAbsencesKey}
+              onChange={this.onExcusedAbsencesChanged} />
+          }
+        </FilterBar>
+        <FilterBar labelText="Time range">
+          <SelectTimeRange
+            timeRangeKey={timeRangeKey}
+            onChange={this.onTimeRangeKeyChanged} />
+        </FilterBar>
+      </EscapeListener>
     );
   }
 
@@ -139,41 +167,21 @@ export default class SchoolAbsenceDashboard extends React.Component {
       });
     });
 
-    const {selectedRange} = this.state;
-
     return (
       <StudentsTable
         rows={rows}
         selectedCategory={this.state.selectedHomeroom}
         incidentType='Absences'
-        incidentSubtitle={selectedRange}
+        incidentSubtitle={this.timeRangeText()}
         resetFn={this.resetStudentList}/>
     );
   }
 
-  renderExcusedAbsencesSelect() {
-    const {districtKey} = this.context;
-    if (!supportsExcusedAbsences(districtKey)) return null;
-
-    return(
-      <div style={styles.excusedFilter} className="SchoolAbsenceDashboard-excused-absences-select">
-        <DashButton
-            buttonText={"Unexcused Absences Only"}
-            onClick={() => this.setState({showExcused: false})}
-            isSelected={!this.state.showExcused}/>
-        <DashButton
-          buttonText={"All Absences"}
-          onClick={() => this.setState({showExcused: true})}
-          isSelected={this.state.showExcused}/>
-      </div>
-    );
-  }
-
   renderMonthlyAbsenceChart() {
-    const dailyAttendance = this.state.showExcused ?
-                            this.props.schoolAverageDailyAttendance :
-                            this.props.schoolAverageDailyAttendanceUnexcused;
-    const monthlyAttendance = this.monthlySchoolAttendance(dailyAttendance);
+    const dailyAttendance = this.shouldIncludeExcusedAbsences()
+      ? this.props.schoolAverageDailyAttendance
+      : this.props.schoolAverageDailyAttendanceUnexcused;
+    const monthlyAttendance = monthlySchoolAttendance(this.displayDates(), dailyAttendance);
     const filteredAttendanceSeries = Object.keys(monthlyAttendance).map( (month) => {
       const rawAvg = _.sum(monthlyAttendance[month])/monthlyAttendance[month].length;
       return Math.round(rawAvg*10)/10;
@@ -187,7 +195,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
           seriesData = {filteredAttendanceSeries}
           yAxisMin = {80}
           yAxisMax = {100}
-          titleText = {`Average Attendance By Month (${this.state.selectedRange})`}
+          titleText = {`Average Attendance By Month (${this.timeRangeText()})`}
           measureText = {'Attendance (Percent)'}
           tooltip = {{
             pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -198,9 +206,9 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   renderHomeroomAbsenceChart() {
-    const homeroomAverageDailyAttendance =  this.state.showExcused ?
-                                            this.props.homeroomAverageDailyAttendance :
-                                            this.props.homeroomAverageDailyAttendanceUnexcused;
+    const homeroomAverageDailyAttendance = this.shouldIncludeExcusedAbsences()
+      ? this.props.homeroomAverageDailyAttendance
+      : this.props.homeroomAverageDailyAttendanceUnexcused;
     const filteredHomeroomAttendance = this.filteredHomeroomAttendance(homeroomAverageDailyAttendance); //remove dates outside of selected range
     const monthlyHomeroomAttendance = this.monthlyHomeroomAttendance(filteredHomeroomAttendance); //Average homeroom attendance by month
     const homerooms = Object.keys(monthlyHomeroomAttendance).sort((a,b) => { //sort homerooms by attendance, low to high
@@ -217,7 +225,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
         seriesData = {homeroomSeries}
         yAxisMin = {80}
         yAxisMax = {100}
-        titleText = {`Average Attendance By Homeroom (${this.state.selectedRange})`}
+        titleText = {`Average Attendance By Homeroom (${this.timeRangeText()})`}
         measureText = {'Attendance (Percent)'}
         tooltip = {{
           pointFormat: 'Average Daily Attendance: <b>{point.y}</b>',
@@ -228,6 +236,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 }
 SchoolAbsenceDashboard.contextTypes = {
+  nowFn: PropTypes.func.isRequired,
   districtKey: PropTypes.string.isRequired
 };
 SchoolAbsenceDashboard.propTypes = {
@@ -253,11 +262,38 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  excusedFilter: {
+  filterBarContainer: {
     display: 'flex',
-    alignItems: 'flex-end',
-    paddingLeft: 20,
-    marginLeft: 20,
-    borderLeft: 'thin solid #ccc'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
   }
 };
+
+//Monthly attendance for the school must be calculated after the range filter is applied
+export function monthlySchoolAttendance(displayDates, schoolAverageDailyAttendance) {
+  let monthlySchoolAttendance = {};
+  //Use the filtered daterange to find the days to include
+  displayDates.forEach((day) => {
+    const date = moment.utc(day).date(1).format("YYYY-MM"); //first day of the month in which 'day' occurs
+    if (schoolAverageDailyAttendance[day] !== undefined) { //school days are based on all absences so it's possible this is undefined when getting the total for unexcused absences
+      (monthlySchoolAttendance[date] === undefined) ? //if there's nothing for this month yet
+      monthlySchoolAttendance[date] = [schoolAverageDailyAttendance[day]] :
+      monthlySchoolAttendance[date] = monthlySchoolAttendance[date].concat(schoolAverageDailyAttendance[day]);
+    }
+  });
+  return monthlySchoolAttendance;
+}
+
+function initialState(props, context) {
+  const {districtKey} = context;
+  const excusedAbsencesKey = supportsExcusedAbsences(districtKey)
+    ? EXCLUDE_EXCUSED_ABSENCES
+    : ALL_ABSENCES;
+    
+  return {
+    excusedAbsencesKey,
+    timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    selectedHomeroom: null,
+  };
+}

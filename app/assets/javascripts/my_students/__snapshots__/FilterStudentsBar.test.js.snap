@@ -22,7 +22,6 @@ exports[`snapshots 1`] = `
         style={
           Object {
             "display": "inline-block",
-            "marginBottom": 4,
             "marginRight": 10,
           }
         }
@@ -59,7 +58,7 @@ exports[`snapshots 1`] = `
           onTouchStart={[Function]}
           style={
             Object {
-              "marginRight": 10,
+              "marginLeft": 10,
               "width": "10em",
             }
           }
@@ -146,7 +145,7 @@ exports[`snapshots 1`] = `
           onTouchStart={[Function]}
           style={
             Object {
-              "marginRight": 10,
+              "marginLeft": 10,
               "width": "10em",
             }
           }
@@ -233,7 +232,7 @@ exports[`snapshots 1`] = `
           onTouchStart={[Function]}
           style={
             Object {
-              "marginRight": 10,
+              "marginLeft": 10,
               "width": "10em",
             }
           }

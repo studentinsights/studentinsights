@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import SimpleFilterSelect from './SimpleFilterSelect';
+import SimpleFilterSelect, {ALL} from './SimpleFilterSelect';
 import {maybeCapitalize} from '../helpers/pretty';
 import {somervilleHouses} from '../helpers/PerDistrict';
-import {ALL} from './FilterBar';
 
 
 // For selecting a House (Somerville HS)

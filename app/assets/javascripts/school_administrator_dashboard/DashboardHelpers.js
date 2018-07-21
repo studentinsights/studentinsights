@@ -1,9 +1,9 @@
 // Functions used by Administrator Dasbhoard for grouping students and calculating attendance.
 import _ from 'lodash';
 import moment from 'moment';
+import {firstDayOfSchoolForMoment} from '../helpers/schoolYear';
 
 export default {
-
   groupByHomeroom(studentRecords) {
     return _.groupBy(studentRecords, 'homeroom_label');
   },
@@ -46,7 +46,8 @@ export default {
 
   schoolYearStart() {
     const today = moment.utc();
-    return today.month() < 8 ? today.subtract(1, 'year').year() + "-08-15" : today.year() + "-08-15";
+    const schoolYearStartMoment = firstDayOfSchoolForMoment(today);
+    return schoolYearStartMoment.format('YYYY-MM-DD');
   },
 
   //slightly faster than Array.filter for getting a new date range

@@ -4,24 +4,27 @@ import _ from 'lodash';
 import moment from 'moment';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import SelectTimeRange, {
+  momentRange,
+  TIME_RANGE_45_DAYS_AGO
+} from '../../components/SelectTimeRange';
+import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
 import ExperimentalBanner from '../../components/ExperimentalBanner';
 import SectionHeading from '../../components/SectionHeading';
-import DashboardHelpers from '../DashboardHelpers';
+import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DashRangeButtons from '../DashRangeButtons';
 
 
-class SchoolDisciplineDashboard extends React.Component {
+export default class SchoolDisciplineDashboard extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      startDate: DashboardHelpers.schoolYearStart(),
-      selectedChart: 'location',
-      selectedCategory: null
-    };
+    this.state = initialState();
+
+    this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
+    this.onResetFilters = this.onResetFilters.bind(this);
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
     this.selectChart = this.selectChart.bind(this);
@@ -38,8 +41,11 @@ class SchoolDisciplineDashboard extends React.Component {
   }
 
   filterIncidentDates(incidentsArray) {
+    const {nowFn} = this.context;
+    const {timeRangeKey} = this.state;
+    const range = momentRange(timeRangeKey, nowFn());
     return incidentsArray.filter((incident) => {
-      return moment.utc(incident.occurred_at).isSameOrAfter(moment.utc(this.state.startDate));
+      return moment.utc(incident.occurred_at).isBetween(range[0], range[1]);
     });
   }
 
@@ -98,7 +104,16 @@ class SchoolDisciplineDashboard extends React.Component {
     } else return this.props.dashboardStudents;
   }
 
+  onTimeRangeKeyChanged(timeRangeKey) {
+    this.setState({timeRangeKey});
+  }
+
+  onResetFilters() {
+    this.setState(initialState());
+  }
+
   render() {
+    const {timeRangeKey} = this.state;
     const {school} = this.props;
     const chartOptions = [
       {value: 'location', label: 'Location'},
@@ -112,12 +127,16 @@ class SchoolDisciplineDashboard extends React.Component {
     const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
 
     return(
-      <div className="SchoolDisciplineDashboard" style={styles.flexVertical}>
+      <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
         <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
           <div className="SchoolDashboard-filter-bar">
-            {this.renderRangeSelector()}
+            <FilterBar labelText="Time range" style={styles.timeRange} >
+              <SelectTimeRange
+                timeRangeKey={timeRangeKey}
+                onChange={this.onTimeRangeKeyChanged} />
+            </FilterBar>
           </div>
           <div className="SchoolDashboard-columns">
             <div className="SchoolDashboard-roster-column">
@@ -126,7 +145,7 @@ class SchoolDisciplineDashboard extends React.Component {
             <div className="SchoolDashboard-charts-column">
               <div style={styles.graphTitle}>
                 <div style={styles.titleText}>
-                  Incidents by:
+                  Break down by:
                 </div>
                 <Select
                   value={this.state.selectedChart}
@@ -140,7 +159,7 @@ class SchoolDisciplineDashboard extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </EscapeListener>
     );
   }
 
@@ -190,20 +209,10 @@ class SchoolDisciplineDashboard extends React.Component {
         resetFn={this.resetStudentList}/>
     );
   }
-
-  renderRangeSelector() {
-    const ninetyDaysAgo = moment.utc().subtract(90, 'days').format("YYYY-MM-DD");
-    const fortyFiveDaysAgo = moment.utc().subtract(45, 'days').format("YYYY-MM-DD");
-    const schoolYearStart = DashboardHelpers.schoolYearStart();
-    return (
-      <DashRangeButtons
-        schoolYearFilter={() => this.setState({startDate: schoolYearStart, selectedRange: 'School Year'})}
-        ninetyDayFilter={() => this.setState({startDate: ninetyDaysAgo, selectedRange: '90 Days'})}
-        fortyFiveDayFilter={() => this.setState({startDate: fortyFiveDaysAgo, selectedRange: '45 Days'})}/>
-    );
-  }
 }
-
+SchoolDisciplineDashboard.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   schoolDisciplineEvents: PropTypes.arrayOf(PropTypes.shape({
@@ -223,14 +232,17 @@ SchoolDisciplineDashboard.propTypes = {
   }).isRequired
 };
 
-export default SchoolDisciplineDashboard;
-
 const styles = {
   flexVertical: {
     flex: 1,
     width: '100%',
     display: 'flex',
     flexDirection: 'column'
+  },
+  timeRange: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   graphTitle: {
     display: 'flex',
@@ -246,3 +258,11 @@ const styles = {
     width: '200px'
   }
 };
+
+function initialState() {
+  return {
+    timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    selectedChart: 'location',
+    selectedCategory: null
+  };
+}
