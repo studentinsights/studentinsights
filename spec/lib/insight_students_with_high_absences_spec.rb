@@ -5,7 +5,7 @@ RSpec.describe InsightStudentsWithHighAbsences do
   let!(:time_now) { Time.zone.local(2018, 3, 5, 8, 45) }
 
   def create_absences(n, student, time_now, attrs = {})
-    n.times do |index|
+    n.times.map do |index|
       Absence.create!({
         occurred_at: time_now - index.days,
         student: student
@@ -131,6 +131,10 @@ RSpec.describe InsightStudentsWithHighAbsences do
       insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
     end
 
+    def random_absences_above_threshold
+      rand(6..9)
+    end
+
     def expect_n_absences_for(json, n, student_id)
       expect(json.size).to eq 1
       expect(json.first[:count]).to eq n
@@ -138,27 +142,27 @@ RSpec.describe InsightStudentsWithHighAbsences do
     end
 
     it 'considers excused: nil absences by default' do
-      n = rand(2..5)
+      n = random_absences_above_threshold
       create_absences(n, pals.shs_freshman_mari, time_now, excused: nil)
       json = test_absence_counts_for_students
       expect_n_absences_for(json, n, pals.shs_freshman_mari.id)
     end
 
     it 'considers unexcused absences by default' do
-      n = rand(2..5)
+      n = random_absences_above_threshold
       create_absences(n, pals.shs_freshman_mari, time_now, excused: false)
       json = test_absence_counts_for_students
       expect_n_absences_for(json, n, pals.shs_freshman_mari.id)
     end
 
     it 'ignores excused absences by default' do
-      n = rand(2..5)
+      n = random_absences_above_threshold
       create_absences(n, pals.shs_freshman_mari, time_now, excused: true)
       expect(test_absence_counts_for_students).to eq []
     end
 
     it 'considers excused absences with :include_excused_absences' do
-      n = rand(2..5)
+      n = random_absences_above_threshold
       create_absences(n, pals.shs_freshman_mari, time_now, excused: true)
       json = test_absence_counts_for_students(include_excused_absences: true)
       expect_n_absences_for(json, n, pals.shs_freshman_mari.id)
