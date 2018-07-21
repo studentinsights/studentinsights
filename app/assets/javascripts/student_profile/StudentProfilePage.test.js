@@ -137,7 +137,6 @@ describe('transition notes', () => {
 describe('SPED liaison', () => {
   it('renders with serializedDataForPlutoPoppins', () => {
     const {el} = testRender(testPropsForPlutoPoppins());
-    console.log($(el).html());
     expect($(el).text()).toContain('Sp Ed');
     expect($(el).text()).toContain('Partial Inclusion');
     expect($(el).text()).toContain('2-5 hours / week');
