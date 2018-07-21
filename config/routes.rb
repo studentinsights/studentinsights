@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  
+
   namespace :admin do
     resources :educators
     get '/authorization' => 'educators#authorization'
@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   # HS tiers
   get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
 
+  # login activity security monitoring
+  get '/api/login_activity' => 'login_activities#index_json'
+
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
@@ -64,6 +67,9 @@ Rails.application.routes.draw do
 
   # tiering
   get '/levels/:school_id' => 'ui#ui'
+
+  # login activity security monitoring
+  get '/login_activity' => 'ui#ui'
 
   # experimental "is service working?"
   get '/is_service_working' => 'ui#ui'

@@ -463,6 +463,10 @@ array-unique@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
 
+array.prototype.fill@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/array.prototype.fill/-/array.prototype.fill-1.0.2.tgz#ab33207f21d57d1ab2f7f0d1cf122d3419c38ef5"
+
 array.prototype.find@^2.0.1, array.prototype.find@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/array.prototype.find/-/array.prototype.find-2.0.4.tgz#556a5c5362c08648323ddaeb9de9d14bc1864c90"
@@ -2201,7 +2205,7 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
-"console-polyfill@github:rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe":
+console-polyfill@rollbar/console-polyfill#eab6ff9d2b7597fc2f259baa18100556bdb94dbe:
   version "0.2.3"
   resolved "https://codeload.github.com/rollbar/console-polyfill/tar.gz/eab6ff9d2b7597fc2f259baa18100556bdb94dbe"
 

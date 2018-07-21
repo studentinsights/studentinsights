@@ -22,6 +22,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
+import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -76,6 +77,7 @@ class App extends React.Component {
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
+        <Route exact path ='/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -172,6 +174,10 @@ class App extends React.Component {
 
   renderIsServiceWorking(routeProps) {
     return <IsServiceWorking />;
+  }
+
+  renderLoginActivity(routeProps) {
+    return <LoginActivityPageContainer />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

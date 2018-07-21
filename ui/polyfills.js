@@ -18,6 +18,9 @@ if (!window.Promise) {
 
 import 'whatwg-fetch';
 
+import 'array.prototype.fill';
+
 // This is for react-beautiful-dnd in IE.
 import ArrayFindPolyfill from 'array.prototype.find';
 ArrayFindPolyfill.shim();
+
