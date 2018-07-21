@@ -99,10 +99,11 @@ export default class FilterStudentsBar extends React.Component {
   }
 
   renderHouseSelect() {
-    const {students} = this.props;
+    const {students, includeHouse} = this.props;
+    if (!includeHouse) return null;
+
     const {house} = this.state;
     const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
-    if (sortedHouses.length === 0) return;
     return (
       <SelectHouse
         house={house}
@@ -112,19 +113,21 @@ export default class FilterStudentsBar extends React.Component {
   }
 
   renderCounselorSelect() {
-    const {students} = this.props;
+    const {students, includeCounselor} = this.props;
+    if (!includeCounselor) return null;
     const {counselor} = this.state;
     const sortedCounselors = _.sortBy(_.uniq(_.compact(students.map(student => student.counselor))));
-    if (sortedCounselors.length === 0) return;
     return (
       <SelectCounselor
         counselor={counselor}
         counselors={sortedCounselors}
-        onChange={this.onHouseChanged} />
+        onChange={this.onCounselorChanged} />
     );
   }
 }
 FilterStudentsBar.propTypes = {
+  includeCounselor: PropTypes.bool.isRequired,
+  includeHouse: PropTypes.bool.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
