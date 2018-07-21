@@ -57,7 +57,7 @@ export function withNowContext(timeString, children) {
 
 export function withNowMoment(nowMoment, children) {
   return (
-    <NowContainer nowFn={() => nowMoment}>
+    <NowContainer nowFn={() => nowMoment.clone()}>
       {children}
     </NowContainer>
   );
