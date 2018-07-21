@@ -12,6 +12,7 @@ import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
 import ExperimentalBanner from '../../components/ExperimentalBanner';
 import SectionHeading from '../../components/SectionHeading';
+import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 
@@ -20,13 +21,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      timeRangeKey: TIME_RANGE_45_DAYS_AGO,
-      selectedChart: 'location',
-      selectedCategory: null
-    };
+    this.state = initialState();
 
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
+    this.onResetFilters = this.onResetFilters.bind(this);
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
     this.selectChart = this.selectChart.bind(this);
@@ -110,6 +108,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState({timeRangeKey});
   }
 
+  onResetFilters() {
+    this.setState(initialState());
+  }
+
   render() {
     const {timeRangeKey} = this.state;
     const {school} = this.props;
@@ -125,7 +127,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
 
     return(
-      <div className="SchoolDisciplineDashboard" style={styles.flexVertical}>
+      <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
         <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
@@ -157,7 +159,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </EscapeListener>
     );
   }
 
@@ -256,3 +258,11 @@ const styles = {
     width: '200px'
   }
 };
+
+function initialState() {
+  return {
+    timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    selectedChart: 'location',
+    selectedCategory: null
+  };
+}

@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import {supportsExcusedAbsences} from '../../helpers/PerDistrict';
 import SectionHeading from '../../components/SectionHeading';
+import EscapeListener from '../../components/EscapeListener';
 import FilterBar from '../../components/FilterBar';
 import SelectTimeRange, {
   momentRange,
@@ -24,16 +25,8 @@ export default class SchoolAbsenceDashboard extends React.Component {
   constructor(props, context) {
     super(props);
 
-    const {districtKey} = context;
-    const excusedAbsencesKey = supportsExcusedAbsences(districtKey)
-      ? EXCLUDE_EXCUSED_ABSENCES
-      : ALL_ABSENCES;
-    this.state = {
-      excusedAbsencesKey,
-      timeRangeKey: TIME_RANGE_45_DAYS_AGO,
-      selectedHomeroom: null,
-    };
-
+    this.state = initialState(props, context);
+    this.onResetFilters = this.onResetFilters.bind(this);
     this.onExcusedAbsencesChanged = this.onExcusedAbsencesChanged.bind(this);
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.setStudentList = (highchartsEvent) => {
@@ -112,6 +105,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.setState({excusedAbsencesKey});
   }
 
+  onResetFilters() {
+    this.setState(initialState(this.props, this.context));
+  }
+
   render() {
     const {school} = this.props;
     return (
@@ -137,7 +134,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
     const {districtKey} = this.context;
     const {timeRangeKey, excusedAbsencesKey} = this.state;
     return (
-      <div style={styles.filterBarContainer}>
+      <EscapeListener style={styles.filterBarContainer} onEscape={this.onResetFilters}>
         <FilterBar>
           {supportsExcusedAbsences(districtKey) &&
             <SelectExcusedAbsences
@@ -150,7 +147,7 @@ export default class SchoolAbsenceDashboard extends React.Component {
             timeRangeKey={timeRangeKey}
             onChange={this.onTimeRangeKeyChanged} />
         </FilterBar>
-      </div>
+      </EscapeListener>
     );
   }
 
@@ -286,4 +283,17 @@ export function monthlySchoolAttendance(displayDates, schoolAverageDailyAttendan
     }
   });
   return monthlySchoolAttendance;
+}
+
+function initialState(props, context) {
+  const {districtKey} = context;
+  const excusedAbsencesKey = supportsExcusedAbsences(districtKey)
+    ? EXCLUDE_EXCUSED_ABSENCES
+    : ALL_ABSENCES;
+    
+  return {
+    excusedAbsencesKey,
+    timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    selectedHomeroom: null,
+  };
 }

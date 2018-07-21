@@ -8,6 +8,7 @@ import SelectTimeRange, {
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
 import SectionHeading from '../../components/SectionHeading';
+import EscapeListener from '../../components/EscapeListener';
 import FilterBar from '../../components/FilterBar';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
@@ -17,12 +18,10 @@ export default class SchoolTardiesDashboard extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      timeRangeKey: TIME_RANGE_45_DAYS_AGO,
-      selectedHomeroom: null
-    };
+    this.state = initialState();
 
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
+    this.onResetFilters = this.onResetFilters.bind(this);
     this.setStudentList = (highchartsEvent) => {
       this.setState({selectedHomeroom: highchartsEvent.point.category});
     };
@@ -104,11 +103,15 @@ export default class SchoolTardiesDashboard extends React.Component {
     this.setState({timeRangeKey});
   }
 
+  onResetFilters() {
+    this.setState(initialState());
+  }
+
   render() {
     const {timeRangeKey} = this.state;
     const {school} = this.props;
     return (
-      <div className="SchoolTardiesDashboard" style={styles.root}>
+      <EscapeListener className="SchoolTardiesDashboard" style={styles.root} onEscape={this.onResetFilters}>
         <SectionHeading>Tardies at {school.name}</SectionHeading>
         <div className="SchoolDashboard-filter-bar">
           <FilterBar labelText="Time range" style={styles.timeRange}>
@@ -126,7 +129,7 @@ export default class SchoolTardiesDashboard extends React.Component {
             {this.renderHomeroomTardiesChart()}
           </div>
         </div>
-      </div>
+      </EscapeListener>
     );
   }
 
@@ -235,3 +238,10 @@ const styles = {
     justifyContent: 'flex-end'
   }
 };
+
+function initialState() {
+  return {
+    timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    selectedHomeroom: null
+  };
+}
