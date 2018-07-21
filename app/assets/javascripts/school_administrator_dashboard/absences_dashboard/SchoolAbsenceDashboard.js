@@ -135,12 +135,13 @@ export default class SchoolAbsenceDashboard extends React.Component {
     const {timeRangeKey, excusedAbsencesKey} = this.state;
     return (
       <EscapeListener style={styles.filterBarContainer} onEscape={this.onResetFilters}>
-        {supportsExcusedAbsences(districtKey) &&
-          <FilterBar>
-            <SelectExcusedAbsences
-              excusedAbsencesKey={excusedAbsencesKey}
-              onChange={this.onExcusedAbsencesChanged} />
-          </FilterBar>
+        {supportsExcusedAbsences(districtKey)
+          ? <FilterBar>
+              <SelectExcusedAbsences
+                excusedAbsencesKey={excusedAbsencesKey}
+                onChange={this.onExcusedAbsencesChanged} />
+            </FilterBar>
+          : <div /> /* empty element for justify-content: space-between */
         }
         <FilterBar labelText="Time range">
           <SelectTimeRange
