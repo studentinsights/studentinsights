@@ -95,6 +95,12 @@ export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
   return slugA.localeCompare(slugB);
 }
 
+export function supportsHouse(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  return false;
+}
+
 // This only applies to Somerville HS.
 export function shouldDisplayHouse(school) {
   return (school && school.local_id === 'SHS');
@@ -109,9 +115,21 @@ export function somervilleHouses() {
   ];
 }
 
+export function supportsCounselor(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  return false;
+}
+
 // This only applies to high schools.
 export function shouldDisplayCounselor(school) {
   return (school && school.school_type === 'HS');
+}
+
+export function supportsSpedLiaison(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  return false;
 }
 
 export function supportsExcusedAbsences(districtKey) {
