@@ -41,7 +41,7 @@ function elWrappedInContext(el, context) {
   ));
 }
 
-function renderTestEl(props = {}) {
+function renderShallow(props = {}) {
   const context = testContext();
   const el = testEl();
   return shallow(el, {context});
@@ -58,39 +58,39 @@ it('does not show excused absence option for New Bedford', () => {
 
 describe('with testSetup', () => {
   it('renders two bar charts', () => {
-    expect(renderTestEl().find('DashboardBarChart').length).toEqual(2);
+    expect(renderShallow().find('DashboardBarChart').length).toEqual(2);
   });
 
   it('renders a student list', () => {
-    expect(renderTestEl().find('StudentsTable').length).toEqual(1);
+    expect(renderShallow().find('StudentsTable').length).toEqual(1);
   });
 
   it('renders range selection buttons', () => {
-    const dash = renderTestEl();
+    const dash = renderShallow();
     expect(dash.find('FilterBar').length).toEqual(2);
     expect(dash.find('SelectTimeRange').length).toEqual(1);
-    expect(dash.find('.SelectExcusedAbsences').length).toEqual(1);
+    expect(dash.find('SelectExcusedAbsences').length).toEqual(1);
   });
 
   it('renders daily averages for defaults', () => {
-    const dash = renderTestEl();
+    const dash = renderShallow();
     expect(monthlyAverageSeries(dash)).toEqual([99.5, 99.6]);
   });
 
   it('renders different values when the time range changes', () => {
-    const dash = renderTestEl();
+    const dash = renderShallow();
     dash.setState({timeRangeKey: TIME_RANGE_90_DAYS_AGO});
     expect(monthlyAverageSeries(dash)).toEqual([99.7, 99.7, 99.5, 99.6]);
   });
 
   it('can render values for a whole year', () => {
-    const dash = renderTestEl();
+    const dash = renderShallow();
     dash.setState({timeRangeKey: TIME_RANGE_SCHOOL_YEAR});
     expect(monthlyAverageSeries(dash).length).toEqual(12);
   });
 
   it('renders different values for monthly averages when excused is flipped', () => {
-    const dash = renderTestEl();
+    const dash = renderShallow();
     // Fixtures don't happen to show a different for these over 45 days, so 90 is used here
     const excusedMonthlyAverages = monthlyAverageSeries(dash);
     dash.setState({
@@ -102,7 +102,7 @@ describe('with testSetup', () => {
   });
 
   it('renders the attendance by homeroom', () => {
-    const dash = renderTestEl();
+    const dash = renderShallow();
     expect(homeroomAveragesSeries(dash)).toEqual([99, 99.2, 99.2, 99.3, 99.3, 99.3, 99.4, 99.4, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.6, 99.6, 99.6, 99.6, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 100, 100, 100, 100, 100]);
   });
 });

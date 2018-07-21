@@ -1,6 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import StudentProfilePage from './StudentProfilePage';
 import {
   testPropsForPlutoPoppins,
@@ -26,7 +27,9 @@ function storifyProps(props) {
 }
 
 function storyRender(props) {
-  return <ColumnSelectorContainer {...storifyProps(props)} />;
+  return withDefaultNowContext(
+    <ColumnSelectorContainer {...storifyProps(props)} />
+  );
 }
 
 storiesOf('profile/StudentProfilePage', module) // eslint-disable-line no-undef
