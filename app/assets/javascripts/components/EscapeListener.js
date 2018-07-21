@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 // Listen for escape key being pressed and call `onEscape`
@@ -16,7 +17,8 @@ export default class EscapeListener extends React.Component {
 
   render() {
     const {className, children, style} = this.props;
-    return <div className={`${className} EscapeListener`} style={style} onKeyUp={this.onKeyUp}>{children}</div>;
+    const classNameString = _.compact([className, 'EscapeListener']).join(' ');
+    return <div className={classNameString} style={style} onKeyUp={this.onKeyUp}>{children}</div>;
   }
 }
 EscapeListener.propTypes = {

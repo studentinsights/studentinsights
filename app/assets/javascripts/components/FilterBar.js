@@ -30,7 +30,6 @@ const styles = {
   },
   label: {
     display: 'inline-block',
-    marginBottom: 4, // fudging vertical alignment
     marginRight: 10
   }
 };
