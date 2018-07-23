@@ -91,7 +91,7 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator is not an admin but does have a homeroom' do
-      let!(:school) { FactoryBot.create(:healey) }
+      let!(:school) { pals.healey }
       let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
       let!(:homeroom) { educator.homeroom }
 
@@ -103,7 +103,7 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator is an admin with schoolwide access' do
-      let!(:school) { FactoryBot.create(:healey) }
+      let!(:school) { pals.healey }
       let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
       let!(:include_me) { FactoryBot.create(:student, :registered_last_year, school: school) }
       let!(:include_me_too) { FactoryBot.create(:student, :registered_last_year, school: school) }
@@ -126,7 +126,7 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'educator has grade-level access' do
-      let!(:school) { FactoryBot.create(:healey) }
+      let!(:school) { pals.healey }
       let!(:educator) { FactoryBot.create(:educator, school: school, grade_level_access: ['4']) }
 
       let!(:include_me) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
@@ -150,7 +150,7 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'not logged in' do
-      let!(:school) { FactoryBot.create(:healey) }
+      let!(:school) { pals.healey }
 
       let!(:include_me) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
 
@@ -171,8 +171,6 @@ describe SchoolsController, :type => :controller do
     def make_request(school_id)
       get :absence_dashboard_data, params: { id: school_id }
     end
-
-    let!(:pals) { TestPals.create! }
 
     context 'districtwide access' do
       it 'can access any school in the district' do

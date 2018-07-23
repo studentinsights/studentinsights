@@ -70,6 +70,7 @@ RSpec.describe StudentsSpreadsheet do
            "SomerSession (active_service_date_started)",
            "Summer Program for English Language Learners (active_service_date_started)",
            "Freedom School (active_service_date_started)",
+           "BBST Meeting (last_event_note_recorded_at)",
            "SST Meeting (last_event_note_recorded_at)",
            "MTSS Meeting (last_event_note_recorded_at)",
            "9th Grade Experience (last_event_note_recorded_at)",

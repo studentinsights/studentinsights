@@ -137,7 +137,6 @@ export default class TakeNotes extends React.Component {
   renderNoteButtonsPerDistrict() {
     const {districtKey} = this.context;
     const {leftEventNoteTypeIds, rightEventNoteTypeIds} = takeNotesChoices(districtKey);
-    z
     return (
       <div style={{ display: 'flex' }}>
         <div style={{ flex: 1 }}>
