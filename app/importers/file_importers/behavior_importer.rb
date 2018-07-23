@@ -8,26 +8,26 @@ class BehaviorImporter
   def import
     return unless remote_file_name
 
-    @data = CsvDownloader.new(
+    streaming_csv = CsvDownloader.new(
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    @success_count = 0
-    @error_list = []
-
-    @data.each_with_index do |row, index|
-      import_row(row) if filter.include?(row)
-      @log.puts("processed #{index} rows.") if index % 10000 == 0
+    log('Starting loop...')
+    @skipped_from_school_filter = 0
+    @touched_rows_count = 0
+    @invalid_rows_count = 0
+    streaming_csv.each_with_index do |row, index|
+      import_row(row)
+      log("processed #{index} rows.") if index % 10000 == 0
     end
+    log('Done loop.')
 
-    @log.puts("\r#{@success_count} valid rows imported, #{@error_list.size} invalid rows skipped")
-    @error_summary = @error_list.each_with_object(Hash.new(0)) do |error, memo|
-      memo[error] += 1
-    end
-    @log.puts("\n\nBehaviorImporter: Invalid rows summary: ")
-    @log.puts(@error_summary)
+    log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
+    log("@touched_rows_count: #{@touched_rows_count}")
+    log("@invalid_rows_count: #{@invalid_rows_count}")
   end
 
+  private
   def client
     SftpClient.for_x2
   end
@@ -37,21 +37,31 @@ class BehaviorImporter
   end
 
   def data_transformer
-    CsvTransformer.new(@log)
+    StreamingCsvTransformer.new(@log)
   end
 
-  def filter
+  def school_filter
     SchoolFilter.new(@school_scope)
   end
 
   def import_row(row)
-    behavior_event = BehaviorRow.build(row)
-
-    if behavior_event.valid?
-      behavior_event.save!
-      @success_count += 1
-    else
-      @error_list << behavior_event.errors.messages
+    if !school_filter.include?(row)
+      @skipped_from_school_filter += 1
+      return
     end
+
+    behavior_event = BehaviorRow.build(row)
+    if !behavior_event.valid?
+      @invalid_rows_count += 1
+      return
+    end
+
+    behavior_event.save!
+    @touched_rows_count += 1
+  end
+
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "BehaviorImporter: #{text}"
   end
 end

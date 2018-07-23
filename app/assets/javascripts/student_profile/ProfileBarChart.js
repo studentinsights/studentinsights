@@ -32,25 +32,9 @@ const styles = {
   }
 };
 
+
 export default class ProfileBarChart extends React.Component {
   // Component for all charts in the profile page.
-
-  // This returns a function, since HighCharts passes in the current element
-  // as `this` instead of a parameter.
-  createUnsafeTooltipFormatter(monthBuckets, props){
-    return function() {
-      const graphPointIndex = this.series.data.indexOf(this.point);
-      const events = monthBuckets[graphPointIndex];
-      if (events.length == 0) return false;
-
-      let htmlstring = "";
-      _.each(events, function(e){
-        htmlstring += _.template(props.tooltipTemplateString)({e, moment});
-        htmlstring += "<br>";
-      });
-      return htmlstring;
-    };
-  }
 
   makePlotlines(monthKeys) {
     return this.props.phaselines.map(phaseline => {
@@ -104,16 +88,20 @@ export default class ProfileBarChart extends React.Component {
             allowDecimals: false,
             title: {text: this.props.titleText}
           }}
-          tooltip={{
-            formatter: this.createUnsafeTooltipFormatter(monthBuckets, this.props),
+          tooltip={this.props.tooltipFn ? this.props.tooltipFn(monthBuckets) : {
+            formatter: createUnsafeTooltipFormatter(monthBuckets, tooltipEventTextFn),
             useHTML: true
           }}
-          series={[
-            {
-              showInLegend: false,
-              data: _.map(monthBuckets, 'length')
+          plotOptions={{
+            column: {
+              stacking: 'normal'
             }
-          ]} />
+          }}
+          series={this.props.seriesFn ? this.props.seriesFn(monthBuckets) : [{
+            showInLegend: false,
+            data: _.map(monthBuckets, 'length')
+          }]}
+        />
       </div>
     );
   }
@@ -142,15 +130,15 @@ ProfileBarChart.propTypes = {
   id: PropTypes.string.isRequired, // short string identifier for links to jump to
   events: PropTypes.array.isRequired, // array of JSON event objects.
   monthsBack: PropTypes.number.isRequired, // how many months in the past to display?
-  tooltipTemplateString: PropTypes.string.isRequired, // Underscore template string that displays each line of a tooltip.
   titleText: PropTypes.string.isRequired,
   nowMomentUTC: PropTypes.instanceOf(moment),
   monthKeyFn: PropTypes.func,
-  phaselines: PropTypes.array
+  phaselines: PropTypes.array,
+  tooltipFn: PropTypes.func,
+  seriesFn: PropTypes.func
 };
 
 ProfileBarChart.defaultProps = {
-  tooltipTemplateString: "<span><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></span>",
   phaselines: [],
   nowMomentUTC: moment.utc(),
   monthKeyFn(event) {
@@ -160,3 +148,28 @@ ProfileBarChart.defaultProps = {
     return moment.utc(event.occurred_at).date(1).format('YYYYMMDD');
   }
 };
+
+
+
+// This returns a function, since HighCharts passes in the current element
+// as `this` instead of a parameter.
+export function createUnsafeTooltipFormatter(monthBuckets, eventTextFn) {
+  return function() {
+    const graphPointIndex = this.series.data.indexOf(this.point);
+    const events = monthBuckets[graphPointIndex];
+    if (events.length == 0) return false;
+
+    let unsafeHtmlString = '';
+    const sortedEvents = _.sortBy(events, e => moment.utc(e.occurred_at));
+    _.each(sortedEvents, function(e){
+      const text = eventTextFn(e);
+      unsafeHtmlString += `<span>${text}</span>`;
+      unsafeHtmlString += '<br />';
+    });
+    return unsafeHtmlString;
+  };
+}
+
+export function tooltipEventTextFn(e) {
+  return moment.utc(e.occurred_at).format('MMMM Do, YYYY');
+}

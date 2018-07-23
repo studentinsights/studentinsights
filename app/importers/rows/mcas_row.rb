@@ -1,27 +1,19 @@
-class McasRow < Struct.new :row
+class McasRow < Struct.new :row, :student_id, :assessments_array
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
-  VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
-
-  class NullRow
-    def save!; end
-  end
-
-  def self.build(row)
-    new(row).build
-  end
-
   def build
-    return NullRow.new unless subject.in?(VALID_MCAS_SUBJECTS)
+    assessment_id = find_assessment_id
+    return nil if assessment_id.nil?
+    return nil unless subject.in?(Assessment::VALID_MCAS_SUBJECTS)
 
     student_assessment = StudentAssessment.find_or_initialize_by(
-      student: student,
-      assessment: assessment,
+      student_id: student_id,
+      assessment_id: assessment_id,
       date_taken: row[:assessment_date]
     )
 
     student_assessment.assign_attributes(
-      scale_score: scale_score,
+      scale_score: row[:assessment_scale_score], # may be nil if "absent"
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]
     )
@@ -31,12 +23,10 @@ class McasRow < Struct.new :row
 
   private
 
-  def student
-    Student.find_by_local_id!(row[:local_id])
-  end
-
-  def scale_score
-    (row[:assessment_scale_score]).to_i
+  def find_assessment_id
+    assessments_array.find do |assessment|
+      assessment.subject == subject && assessment.family == family
+    end.try(:id)
   end
 
   def subject
@@ -47,16 +37,13 @@ class McasRow < Struct.new :row
     end
   end
 
+  # Next generation MCAS isn't tagged differently in the export, but the name has the year
+  # and the score is on a different scale.
   def family
-    if scale_score.present? && scale_score > 399
+    if row[:assessment_scale_score].present? && row[:assessment_scale_score].to_i > 399
       'Next Gen MCAS'
     else
       'MCAS'
     end
   end
-
-  def assessment
-    Assessment.find_or_create_by!(subject: subject, family: family)
-  end
-
 end

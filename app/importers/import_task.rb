@@ -8,8 +8,12 @@ class ImportTask
     # options["source"] describes which external data sources to import from
     @source = @options.fetch("source", ["x2", "star"])
 
-    # options["only_recent_attendance"]
-    @only_recent_attendance = @options.fetch("only_recent_attendance", false)
+    # This option controls whether older data is ignored.  Different importers
+    # respond differently to these options (some do not respect them).
+    @skip_old_records = @options.fetch('skip_old_records', false)
+
+    # to skip updating any indexes after (eg, when tuning a particular job)
+    @skip_index_updates = @options.fetch('skip_index_updates', false)
 
     @log = Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT
   end
@@ -33,19 +37,19 @@ class ImportTask
       run_update_tasks
       @report.print_final_counts_report
       log('Done.')
-    rescue SignalException => e
-      log("Encountered a SignalException!: #{e}")
-
-      if (@options.attempt == 0)
-        log('Putting a new job into the queue...')
-        Delayed::Job.enqueue ImportJob.new(
-          options: @options.merge({ attempt: @options.attempt + 1 })
-        )
-      else
-        log('Already re-tried this once, not going to retry again...')
-      end
-
-      log('Bye!')
+    rescue SignalException => err
+      # Delayed::Job can trap and raise this (eg, if Heroku is about to restart the
+      # dyno).  This is an expected occurrence, and the worker should stop, and after it comes back
+      # up the new worker should retry the job and succeed.  So we don't need to alert on each occurrence.
+      log("ImportTask caught a SignalException: #{err}")
+      log('Re-raising the SignalException...')
+      raise err
+    rescue => err
+      # Note that there is also separate error handling for each importer class independently.
+      log("ImportTask aborted because of an error: #{err}")
+      log("Re-raising exception...")
+      Rollbar.error('ImportTask aborted because of an error', err)
+      raise err
     end
   end
 
@@ -115,7 +119,7 @@ class ImportTask
     {
       school_scope: school_ids,
       log: @log,
-      only_recent_attendance: @only_recent_attendance
+      skip_old_records: @skip_old_records
     }
   end
 
@@ -136,11 +140,13 @@ class ImportTask
         file_importer.import
         log("Done file_importer#import for #{file_importer.class}.")
       rescue => error
-        log("🚨  🚨  🚨  🚨  🚨  Error! #{error}")
+        log("Error! #{error}")
         log(error.backtrace)
 
+        message = "ImportTask#import_all_the_data caught an error from #{file_import_class.name} and aborted that import task, but is continuing the job..."
+        log(message)
         extra_info =  { "importer" => file_importer.class.name }
-        ErrorMailer.error_report(error, extra_info).deliver_now if Rails.env.production?
+        Rollbar.error(message, error, extra_info)
       end
 
       timing_data[:end_time] = Time.current
@@ -159,12 +165,19 @@ class ImportTask
   ## RUN TASKS THAT CACHE DATA ##
 
   def run_update_tasks
+    if @skip_index_updates
+      log('Skipping index updates...')
+      return
+    end
+
     begin
-      Student.update_risk_levels!
+      log('Calling Student.update_recent_student_assessments...')
       Student.update_recent_student_assessments
+
+      log('Homeroom.destroy_empty_homerooms...')
       Homeroom.destroy_empty_homerooms
     rescue => error
-      ErrorMailer.error_report(error).deliver_now if Rails.env.production?
+      Rollbar.error('ImportTask#run_update_tasks', error)
       raise error
     end
   end

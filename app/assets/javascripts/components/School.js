@@ -3,7 +3,7 @@ import React from 'react';
 
 // A visual UI element with canonical display of a school,
 // showing the name with link to roster.
-function School({id, name, style}) {
+export default function School({id, name, style}) {
   return (
     <a
       className="School"
@@ -17,5 +17,3 @@ School.propTypes = {
   name: PropTypes.string.isRequired,
   style: PropTypes.object
 };
-
-export default School;

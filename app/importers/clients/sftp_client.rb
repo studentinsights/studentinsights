@@ -1,31 +1,34 @@
-# These are keys into ENV
-class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password, :env_key_data
+require 'fileutils'
 
-  def self.for_x2(override_env = nil)
+# These are keys into ENV
+class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password, :env_key_data, :options
+
+  def self.for_x2(override_env = nil, options = {})
     new(
       override_env,
       'SIS_SFTP_HOST',
       'SIS_SFTP_USER',
       nil,
-      'SIS_SFTP_KEY'
+      'SIS_SFTP_KEY',
+      options
     )
   end
 
-  def self.for_star(override_env = nil)
+  def self.for_star(override_env = nil, options = {})
     new(
       override_env,
       'STAR_SFTP_HOST',
       'STAR_SFTP_USER',
       'STAR_SFTP_PASSWORD',
-      nil
+      nil,
+      options
     )
   end
 
   def download_file(remote_file_name)
-    Dir.mkdir('tmp') unless Dir.exist?('tmp')
-    Dir.mkdir('tmp/data_download/') unless Dir.exist?('tmp/data_download/')
+    FileUtils.mkdir_p(local_download_folder)
 
-    local_filename = File.join('tmp/data_download/', remote_file_name.split("/").last)
+    local_filename = File.join(local_download_folder, remote_file_name.split("/").last)
     local_file = File.open(local_filename, 'w')
     sftp_session.download!(remote_file_name, local_file.path)
 
@@ -37,6 +40,10 @@ class SftpClient < Struct.new :override_env, :env_host, :env_user, :env_password
   end
 
   private
+  def local_download_folder
+    options.fetch(:unsafe_local_download_folder, Rails.root.join(File.join('tmp', 'data_download/')))
+  end
+
   # This returns an object that will reveal secure data if printed
   def sftp_session
     raise "SFTP information missing" unless sftp_info_present?

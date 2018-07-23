@@ -69,7 +69,7 @@ describe('high-level integration tests', () => {
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
       [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'Risk level' ],
+      [ 'Grade' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -79,7 +79,7 @@ describe('high-level integration tests', () => {
 
   it(`renders everything on the happy path for elementary school with
        student registration dates`, () => {
-    
+
     const studentsWithRegistration = FixtureStudents.map((student) => {
       return _.merge(student, {registration_date: '2018-02-13T22:17:30.338Z'});
     });
@@ -93,7 +93,7 @@ describe('high-level integration tests', () => {
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
       [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'Years enrolled', 'Risk level' ],
+      [ 'Grade', 'Years enrolled' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -113,7 +113,7 @@ describe('high-level integration tests', () => {
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
       [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'House', 'Counselor', 'Risk level' ],
+      [ 'Grade', 'House', 'Counselor' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -129,7 +129,7 @@ describe('high-level integration tests', () => {
 
     expect(helpers.rowsPerColumnMatrix(el)).toEqual([
       [ 5, 4, 3, 4, 3, 3 ],
-      [ 3, 1, 5 ],
+      [ 3, 1 ],
       [ 5, 5, 5 ],
       [ 5, 5, 5 ],
       [ 5, 5, 5 ],

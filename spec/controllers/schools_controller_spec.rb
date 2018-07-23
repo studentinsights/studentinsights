@@ -16,7 +16,7 @@ describe SchoolsController, :type => :controller do
       sign_in(districtwide_educator)
       get :overview, params: { id: 'hea' }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       serialized_data = controller.instance_variable_get(:@serialized_data)
       expect(serialized_data[:school_slug]).to eq('hea')
     end
@@ -30,7 +30,7 @@ describe SchoolsController, :type => :controller do
       sign_in(districtwide_educator)
       get :overview_json, params: { id: 'hea' }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       json = JSON.parse(response.body)
       expect(json.keys).to eq [
         "students",
@@ -50,11 +50,11 @@ describe SchoolsController, :type => :controller do
       it 'can access any school in the district' do
         sign_in(educator)
         get :show, params: { id: 'hea' }
-        expect(response).to be_success
+        expect(response).to be_successful
         get :show, params: { id: 'brn' }
-        expect(response).to be_success
+        expect(response).to be_successful
         get :show, params: { id: 'kdy' }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
       before do
@@ -68,7 +68,7 @@ describe SchoolsController, :type => :controller do
       it 'succeeds when students in the school have event notes and services' do
         sign_in(educator)
         get :show, params: { id: 'hea' }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
 
     end
@@ -84,11 +84,11 @@ describe SchoolsController, :type => :controller do
       it 'can only access assigned school' do
         sign_in(educator)
         get :show, params: { id: 'hea' }
-        expect(response).to be_success
+        expect(response).to be_successful
         get :show, params: { id: 'brn' }
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         get :show, params: { id: 'kdy' }
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
       end
 
     end
@@ -120,7 +120,7 @@ describe SchoolsController, :type => :controller do
         sign_in(educator)
         get :show, params: { id: 'hea' }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         student_ids = extract_serialized_student_ids(controller)
         expect(student_ids).to include include_me.id
         expect(student_ids).to include include_me_too.id
@@ -144,7 +144,7 @@ describe SchoolsController, :type => :controller do
         sign_in(educator)
         get :show, params: { id: 'hea' }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         student_ids = extract_serialized_student_ids(controller)
         expect(student_ids).to include include_me.id
         expect(student_ids).to include include_me_too.id
@@ -182,7 +182,7 @@ describe SchoolsController, :type => :controller do
         sign_in(pals.uri)
         School.all.each do |school|
           make_request(school.slug)
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
@@ -191,10 +191,10 @@ describe SchoolsController, :type => :controller do
       it 'can only access assigned school' do
         sign_in(pals.healey_laura_principal)
         make_request('hea')
-        expect(response).to be_success
+        expect(response).to be_successful
         (School.all - [School.find_by_slug('hea')]).each do |school|
           make_request(school.slug)
-          expect(response).not_to be_success
+          expect(response).not_to be_successful
         end
       end
     end
@@ -221,7 +221,7 @@ describe SchoolsController, :type => :controller do
     end
 
     it 'works on happy path' do
-      expect(make_request(pals.uri, pals.healey.slug)).to be_success
+      expect(make_request(pals.uri, pals.healey.slug)).to be_successful
     end
 
     it 'enforces authorization' do
@@ -242,7 +242,7 @@ describe SchoolsController, :type => :controller do
     end
 
     it 'works on happy path' do
-      expect(make_request(pals.uri, pals.healey.slug)).to be_success
+      expect(make_request(pals.uri, pals.healey.slug)).to be_successful
     end
 
     it 'enforces authorization' do
@@ -263,7 +263,7 @@ describe SchoolsController, :type => :controller do
       it 'succeeds without throwing' do
         sign_in(educator)
         get :csv, params: { id: 'hea' }
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end

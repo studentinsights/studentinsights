@@ -65,7 +65,7 @@ class Feed
       .where(id: @authorized_students.map(&:id))
       .where('extract(doy from date_of_birth) > ?', time_now.yday - days_back)
       .where('extract(doy from date_of_birth) <= ?', time_now.yday + days_ahead)
-      .order('extract(doy from date_of_birth) DESC')
+      .order(Arel.sql('extract(doy from date_of_birth) DESC')) # see https://github.com/rails/rails/issues/32995
       .limit(limit)
     students.map { |student| birthday_card(student, time_now) }
   end

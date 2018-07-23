@@ -1,18 +1,36 @@
 import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import RiskBubble from '../student_profile/RiskBubble';
 import ModalSmall from '../student_profile/ModalSmall';
 import * as Routes from '../helpers/Routes';
-
+import {hasStudentPhotos} from '../helpers/PerDistrict';
+import StudentPhoto from '../components/StudentPhoto';
 
 /*
-This pure UI component renders top-line information like the student's name, school and
-classroom.
+This pure UI component renders top-line information like the student's name, school,
+photo and classroom.
 */
 export default class StudentProfileHeader extends React.Component {
+
+  conditionallyRenderStudentPhoto() {
+    const {student, districtKey} = this.props;
+    const shouldShowPhoto = hasStudentPhotos(districtKey);
+    if (!shouldShowPhoto) return null;
+
+    return (
+      <div style={{width: '15em', display: 'flex', justifyContent: 'flex-end'}}>
+        <StudentPhoto
+           student={student}
+           style={{float: 'right', paddingRight: 44}}
+           height={90}
+        />
+      </div>
+    );
+  }
+
   render() {
-    const student =  this.props.student;
+    const {student} = this.props;
+
     return (
       <div className="StudentProfileHeader" style={styles.titleContainer}>
         <div style={{ display: 'inline-block', flex: 'auto' }}>
@@ -20,7 +38,6 @@ export default class StudentProfileHeader extends React.Component {
             {student.first_name + ' ' + student.last_name}
           </a>
           <div style={{ display: 'inline-block' }}>
-            {this.renderBulletSpacer()}
             <a href={Routes.school(student.school_id)} style={styles.subtitleItem}>
               {student.school_name}
             </a>
@@ -35,14 +52,7 @@ export default class StudentProfileHeader extends React.Component {
             {this.renderContactIcon()}
           </div>
         </div>
-        <div
-          style={{
-            width: '15em',
-            display: 'flex',
-            justifyContent: 'flex-end'
-          }}>
-          <RiskBubble riskLevel={student.student_risk_level.level} />
-        </div>
+        {this.conditionallyRenderStudentPhoto()}
       </div>
     );
   }
@@ -122,8 +132,10 @@ export default class StudentProfileHeader extends React.Component {
     );
   }
 }
+
 StudentProfileHeader.propTypes = {
-  student: PropTypes.object.isRequired
+  student: PropTypes.object.isRequired,
+  districtKey: PropTypes.string.isRequired,
 };
 
 const styles = {

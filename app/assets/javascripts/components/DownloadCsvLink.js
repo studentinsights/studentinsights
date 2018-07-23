@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Render a link that will download a CSV string as a file when clicked.
 // This relies on the global `btn` CSS style.
@@ -29,11 +30,11 @@ export default class DownloadCsvLink extends React.Component {
   }
 }
 DownloadCsvLink.propTypes = {
-  filename: React.PropTypes.string.isRequired,
-  csvText: React.PropTypes.string.isRequired,
-  children: React.PropTypes.node.isRequired,
-  disabled: React.PropTypes.bool,
-  style: React.PropTypes.object
+  filename: PropTypes.string.isRequired,
+  csvText: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+  style: PropTypes.object
 };
 
 // Escape quotes as double quotes, and quote every cell

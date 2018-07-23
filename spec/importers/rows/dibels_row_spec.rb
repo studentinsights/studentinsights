@@ -8,7 +8,7 @@ RSpec.describe DibelsRow do
   }
 
   let(:assessment) { Assessment.last }
-  before { DibelsRow.build(row).save! }
+  before { DibelsRow.new(row, student.id, Assessment.all.to_a).build.save! }
 
   it 'creates an assessment with family DIBELS and no subject' do
     expect(assessment.family).to eq 'DIBELS'

@@ -6,16 +6,11 @@ start_time = Time.now
 
 def sample_numeric_grade_from_letter(grade_letter)
   case grade_letter
-    when "A"
-      grade_numeric = rand(90..100)
-    when "B"
-      grade_numeric = rand(80..89)
-    when "C"
-      grade_numeric = rand(70..79)
-    when "D"
-      grade_numeric = rand(60..69)
-    when "F"
-      grade_numeric = rand(50..59)
+    when "A" then rand(90..100)
+    when "B" then rand(80..89)
+    when "C" then rand(70..79)
+    when "D" then rand(60..69)
+    when "F" then rand(50..59)
   end
 end
 
@@ -79,11 +74,11 @@ end
 puts 'Creating more students for each homeroom...'
 Homeroom.order(:name).each do |homeroom|
   puts "  Creating for homeroom: #{homeroom.name}..."
-  homeroom_class_size.times { FakeStudent.new(homeroom.school, homeroom) }
+  homeroom_class_size.times { FakeStudent.create!(homeroom.school, homeroom) }
 end
 
 puts 'Creating additional students for the Healey with no homeroom...'
-9.times { FakeStudent.new(pals.healey, nil) }
+9.times { FakeStudent.create!(pals.healey, nil) }
 
 puts 'Creating more sophomore students...'
 Section.all.each do |section|
@@ -92,9 +87,9 @@ Section.all.each do |section|
   9.times do
     grade_letter = ['A','B','C','D','F'].sample
     grade_numeric = sample_numeric_grade_from_letter(grade_letter)
-    fake_student = FakeStudent.new(school, pals.shs_sophomore_homeroom)
+    student = FakeStudent.create!(school, pals.shs_sophomore_homeroom)
     StudentSectionAssignment.create!({
-      student: fake_student.student,
+      student: student,
       section: section,
       grade_numeric: grade_numeric,
       grade_letter: grade_letter
@@ -107,12 +102,14 @@ Student.all.each do |student|
     student_id: student.id,
     file_digest: Digest::SHA256.hexdigest(student.local_id),
     file_size: 37010,
-    s3_filename: 'PlanetAvatar.png'
+    s3_filename: [
+      'demo-student-photo-large-308x364.jpg',
+      'demo-student-photo-small-172x207.jpg',
+    ].sample
   )
 end
 
 puts 'Updating indexes...'
-Student.update_risk_levels!
 Student.update_recent_student_assessments
 PrecomputeStudentHashesJob.new(STDOUT).precompute_all!(Time.now)
 

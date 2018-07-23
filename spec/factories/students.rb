@@ -13,12 +13,6 @@ FactoryBot.define do
     association :school
     enrollment_status "Active"
 
-    trait :with_risk_level do
-      after(:create) do |student|
-        FactoryBot.create(:student_risk_level, student: student)
-      end
-    end
-
     trait :registered_last_year do
       registration_date Time.now - 1.year
     end

@@ -11,17 +11,17 @@ RSpec.describe StudentsImporter do
   describe '#import_row' do
     context 'good data' do
       let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
-      let(:transformer) { CsvTransformer.new(log) }
+      let(:transformer) { StreamingCsvTransformer.new(log) }
       let(:csv) { transformer.transform(file) }
-      let(:import) { csv.each { |row| students_importer.import_row(row) } }
+      let(:import) { csv.each_with_index { |row, index| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
       let!(:brown) { School.create(local_id: 'BRN') }
 
       context 'no existing students in database' do
 
-        it 'creates Student and StudentRiskLevel records' do
-          expect { import }.to change { [Student.count, StudentRiskLevel.count] }.by([4, 4])
+        it 'creates Student records' do
+          expect { import }.to change { Student.count }.by(4)
         end
 
         it 'does not import students with far future registration dates' do
@@ -31,7 +31,7 @@ RSpec.describe StudentsImporter do
         end
 
         it 'imports student data correctly' do
-          expect { import }.to change { [Student.count, StudentRiskLevel.count] }.by([4, 4])
+          expect { import }.to change { Student.count }.by(4)
 
           first_student = Student.find_by_state_id('1000000000')
           expect(first_student.reload.school).to eq healey
@@ -44,7 +44,6 @@ RSpec.describe StudentsImporter do
           expect(first_student.race).to eq 'Black'
           expect(first_student.hispanic_latino).to eq false
           expect(first_student.gender).to eq 'F'
-          expect(first_student.student_risk_level).to_not eq nil
           expect(first_student.house).to eq ''
           expect(first_student.counselor).to eq nil
 
@@ -52,7 +51,6 @@ RSpec.describe StudentsImporter do
           expect(second_student.race).to eq 'White'
           expect(second_student.hispanic_latino).to eq true
           expect(second_student.gender).to eq 'F'
-          expect(second_student.student_risk_level).to_not eq nil
 
           shs_student = Student.find_by_state_id('1000000001')
           expect(shs_student.house).to eq 'Elm'
@@ -71,12 +69,11 @@ RSpec.describe StudentsImporter do
             grade: '7'
           })
           student.save!
-          student.create_student_risk_level!
         end
         it 'does not create new records for existing students' do
-          expect([Student.count, StudentRiskLevel.count]).to eq([1, 1])
+          expect(Student.count).to eq(1)
           import
-          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+          expect(Student.count).to eq(4)
         end
       end
 
@@ -85,9 +82,9 @@ RSpec.describe StudentsImporter do
           import
         end
         it 'does not create new records for existing students' do
-          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+          expect(Student.count).to eq(4)
           import
-          expect([Student.count, StudentRiskLevel.count]).to eq([4, 4])
+          expect(Student.count).to eq(4)
         end
       end
 

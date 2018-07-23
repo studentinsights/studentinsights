@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   namespace :admin do
     resources :educators
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
   post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
   get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
   get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
+  get '/api/class_lists/experimental_workspaces_with_equity_json' => 'class_lists#experimental_workspaces_with_equity_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
@@ -39,6 +41,12 @@ Rails.application.routes.draw do
 
   # HS tiers
   get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
+
+  # login activity security monitoring
+  get '/api/login_activity' => 'login_activities#index_json'
+
+  # is service working?
+  get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
   devise_for :educators
   authenticated :educator do
@@ -61,6 +69,12 @@ Rails.application.routes.draw do
 
   # tiering
   get '/levels/:school_id' => 'ui#ui'
+
+  # login activity security monitoring
+  get '/login_activity' => 'ui#ui'
+
+  # experimental "is service working?"
+  get '/is_service_working' => 'ui#ui'
 
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
@@ -95,6 +109,7 @@ Rails.application.routes.draw do
     member do
       get '' => 'ui#ui'
       get '/new' => 'ui#ui'
+      get '/equity' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
     end
   end

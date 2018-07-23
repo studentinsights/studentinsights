@@ -5,7 +5,6 @@ import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main';
 import renderSectionMain from '../app/assets/javascripts/section/main';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main';
-import renderSchoolAdminDashboardMain from '../app/assets/javascripts/school_administrator_dashboard/main';
 
 
 // Placeholder routing (not fully client-side, just on page load).
@@ -46,11 +45,6 @@ export default function legacyRouteHandler(el) {
 
   if ($('body').hasClass('service_uploads') && $('body').hasClass('index')) {
     renderServiceUploadsMain(el);
-    return true;
-  }
-
-  if ($('body').hasClass('schools') && $('body').hasClass('school_administrator_dashboard')) {
-    renderSchoolAdminDashboardMain(el);
     return true;
   }
 

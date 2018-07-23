@@ -101,11 +101,12 @@ RSpec.describe Student do
     let(:student) { FactoryBot.create(:student) }
     let(:assessment_family) { "MCAS" }
     let(:assessment_subject) { "Mathematics" }
-    let(:assessment) { Assessment.create!(
+    let(:assessment) do
+      Assessment.create!(
         family: assessment_family,
         subject: assessment_subject
       )
-    }
+    end
     let(:result) { student.latest_result_by_family_and_subject("MCAS", "Mathematics") }
 
     context 'MCAS Math' do
@@ -123,7 +124,7 @@ RSpec.describe Student do
           )
         }
         context 'when the student has a Math result but not MCAS' do
-          let(:assessment_family) { "Doc's Special Exam" }
+          let(:assessment_family) { "STAR" }
           it 'returns nil' do
             expect(result).to be_nil
           end
@@ -212,48 +213,6 @@ RSpec.describe Student do
         student.update_recent_student_assessments
         expect(student.reload.most_recent_mcas_math_performance).to eq 'A'
         expect(student.reload.most_recent_star_math_percentile).to eq 8
-      end
-    end
-  end
-
-  describe '#update_risk_level!' do
-    context 'when risk level record already exists' do
-      let(:student) { FactoryBot.create(:student) }
-      let(:student_risk_level) { StudentRiskLevel.create!(student: student) }
-      before do
-        student.student_risk_level = student_risk_level
-        student.save!
-      end
-      it 'updates existing record and does not create a new one' do
-        expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 0
-        expect(student.student_risk_level).to eq student_risk_level
-      end
-    end
-
-    context 'no pre-existing risk level' do
-      context 'non-ELL student with no test results' do
-        let(:student) { FactoryBot.create(:student) }
-        it 'creates a risk level' do
-          expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 1
-        end
-        it 'assigns correct level' do
-          student.update_risk_level!
-          student_risk_level = student.student_risk_level
-          expect(student_risk_level.level).to eq nil
-          expect(student.risk_level).to eq nil
-        end
-      end
-      context 'ELL student with no test results' do
-        let(:student) { FactoryBot.build(:limited_english_student) }
-        it 'creates a risk level' do
-          expect { student.update_risk_level! }.to change(StudentRiskLevel, :count).by 1
-        end
-        it 'assigns correct level' do
-          student.update_risk_level!
-          student_risk_level = student.student_risk_level
-          expect(student_risk_level.level).to eq 3
-          expect(student.risk_level).to eq 3
-        end
       end
     end
   end

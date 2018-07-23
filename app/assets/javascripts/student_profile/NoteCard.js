@@ -74,15 +74,22 @@ export default class NoteCard extends React.Component {
     return attachments.map(attachment => {
       return (
         <div key={attachment.id}>
-          <p>
-            {'link: '}
+          <p style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: 10
+          }}>
+            <span>link:</span>
             <a
               href={attachment.url}
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
-                marginTop: 20
+                marginLeft: 10,
+                marginRight: 10,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
               }}>
               {attachment.url}
             </a>

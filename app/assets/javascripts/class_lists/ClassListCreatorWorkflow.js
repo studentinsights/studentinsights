@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -333,6 +334,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
 
     if (students === null || educators === null || studentIdsByRoom === null) return <Loading />;
 
+    const studentIds = students.map(student => student.id);
     return (
       <div key="export" style={styles.stepContent}>
         <ExportList
@@ -342,8 +344,8 @@ export default class ClassListCreatorWorkflow extends React.Component {
           gradeLevelNextYear={gradeLevelNextYear}
           students={students} 
           fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
-          teacherStudentIdsByRoom={studentIdsByRoom}
-          principalStudentIdsByRoom={principalStudentIdsByRoom}
+          teacherStudentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, studentIds)}
+          principalStudentIdsByRoom={principalStudentIdsByRoom ? resolveDriftForStudents(principalStudentIdsByRoom, studentIds) : null}
           educators={educators}
           principalTeacherNamesByRoom={principalTeacherNamesByRoom}
           onPrincipalTeacherNamesByRoomChanged={isRevisable ? onPrincipalTeacherNamesByRoomChanged : null}
@@ -354,55 +356,58 @@ export default class ClassListCreatorWorkflow extends React.Component {
 }
 ClassListCreatorWorkflow.propTypes = {
   // server data
-  schools: React.PropTypes.array,
-  gradeLevelsNextYear: React.PropTypes.array,
-  students: React.PropTypes.array,
-  educators: React.PropTypes.array,
+  schools: PropTypes.array,
+  gradeLevelsNextYear: PropTypes.array,
+  students: PropTypes.array,
+  educators: PropTypes.array,
 
   // config
-  steps: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  availableSteps: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-  isEditable: React.PropTypes.bool.isRequired,
-  isSubmitted: React.PropTypes.bool.isRequired,
-  isRevisable: React.PropTypes.bool.isRequired,
+  steps: PropTypes.arrayOf(PropTypes.string).isRequired,
+  availableSteps: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  isSubmitted: PropTypes.bool.isRequired,
+  isRevisable: PropTypes.bool.isRequired,
 
   // workspace
-  isDirty: React.PropTypes.bool.isRequired,
-  canChangeSchoolOrGrade: React.PropTypes.bool.isRequired,
-  stepIndex: React.PropTypes.number.isRequired,
-  workspaceId: React.PropTypes.string.isRequired,
-  schoolId: React.PropTypes.number,
-  gradeLevelNextYear: React.PropTypes.string,
-  authors: React.PropTypes.array.isRequired,
-  classroomsCount: React.PropTypes.number.isRequired,
-  planText: React.PropTypes.string.isRequired,
-  studentIdsByRoom: React.PropTypes.object,
-  principalNoteText: React.PropTypes.string.isRequired,
-  feedbackText: React.PropTypes.string.isRequired,
+  isDirty: PropTypes.bool.isRequired,
+  canChangeSchoolOrGrade: PropTypes.bool.isRequired,
+  stepIndex: PropTypes.number.isRequired,
+  workspaceId: PropTypes.string.isRequired,
+  schoolId: PropTypes.number,
+  gradeLevelNextYear: PropTypes.string,
+  authors: PropTypes.array.isRequired,
+  classroomsCount: PropTypes.number.isRequired,
+  planText: PropTypes.string.isRequired,
+  studentIdsByRoom: PropTypes.object,
+  principalNoteText: PropTypes.string.isRequired,
+  feedbackText: PropTypes.string.isRequired,
 
   // principal
-  principalTeacherNamesByRoom: React.PropTypes.object,
-  principalStudentIdsByRoom: React.PropTypes.object,
-  onClassListsChangedByPrincipal: React.PropTypes.func.isRequired,
-  onPrincipalTeacherNamesByRoomChanged: React.PropTypes.func.isRequired,
+  principalTeacherNamesByRoom: PropTypes.object,
+  principalStudentIdsByRoom: PropTypes.object,
+  onClassListsChangedByPrincipal: PropTypes.func.isRequired,
+  onPrincipalTeacherNamesByRoomChanged: PropTypes.func.isRequired,
 
   // callbacks
-  onStepChanged: React.PropTypes.func.isRequired,
-  onSchoolIdChanged: React.PropTypes.func.isRequired,
-  onGradeLevelNextYearChanged: React.PropTypes.func.isRequired,
-  onEducatorsChanged: React.PropTypes.func.isRequired,
-  onClassroomsCountIncremented: React.PropTypes.func.isRequired,
-  onPlanTextChanged: React.PropTypes.func.isRequired,
-  onClassListsChanged: React.PropTypes.func.isRequired,
-  onPrincipalNoteChanged: React.PropTypes.func.isRequired,
-  onFeedbackTextChanged: React.PropTypes.func.isRequired,
-  onSubmitClicked: React.PropTypes.func.isRequired
+  onStepChanged: PropTypes.func.isRequired,
+  onSchoolIdChanged: PropTypes.func.isRequired,
+  onGradeLevelNextYearChanged: PropTypes.func.isRequired,
+  onEducatorsChanged: PropTypes.func.isRequired,
+  onClassroomsCountIncremented: PropTypes.func.isRequired,
+  onPlanTextChanged: PropTypes.func.isRequired,
+  onClassListsChanged: PropTypes.func.isRequired,
+  onPrincipalNoteChanged: PropTypes.func.isRequired,
+  onFeedbackTextChanged: PropTypes.func.isRequired,
+  onSubmitClicked: PropTypes.func.isRequired
 };
 
 const styles = {
   root: {
     fontSize: 14,
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column'
   },
   heading: {
     marginTop: 20

@@ -5,7 +5,6 @@ class Homeroom < ActiveRecord::Base
   validates :slug, uniqueness: true, presence: true
   validates :school, presence: true
   has_many :students, after_add: :update_grade
-  has_many :student_risk_levels, through: :students
   belongs_to :educator, optional: true
   belongs_to :school
 

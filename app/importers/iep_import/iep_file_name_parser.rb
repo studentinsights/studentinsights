@@ -8,8 +8,8 @@ class IepFileNameParser < Struct.new :path
     path.split("/").last
   end
 
-  def check_iep_at_a_glance
-    raise 'oh no!' if pdf_basename.split('_')[1] != 'IEPAtAGlance'
+  def validata_filename_or_raise!
+    raise 'Filename does not contain `IEPAtAGlance` as expected' if pdf_basename.split('_')[1] != 'IEPAtAGlance'
   end
 
   private

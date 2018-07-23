@@ -100,7 +100,6 @@ class HomeroomTable extends React.Component {
 
   columnKeysToNames() {
     return {
-      'risk': 'Risk',
       'supports': 'Supports',
       'program': 'Program',
       'sped': 'SPED & Disability',
@@ -124,12 +123,6 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  mergeInStudentRiskLevel(row) {
-    let risk = { risk: row['student_risk_level']['level'] };
-    let sped_level = { sped_level: row['sped_data']['sped_level'] };
-
-    return { ...row, ...risk, ...sped_level };
-  }
   mergeInLatestMeetings(row) {
     const latestSstDateText = latestNoteDateText(300, row.event_notes_without_restricted);
     const latestMtssDateText = latestNoteDateText(301, row.event_notes_without_restricted);
@@ -146,14 +139,7 @@ class HomeroomTable extends React.Component {
 
   mergedStudentRows() {
     return this.props.rows
-      .map(this.mergeInStudentRiskLevel)
       .map(this.mergeInLatestMeetings);
-  }
-
-  warningBubbleClassName(row) {
-    const riskLevel = row['student_risk_level']['level'] || 'na';
-
-    return `warning-bubble risk-${riskLevel} tooltip`;
   }
 
   visitStudentProfile(id) {
@@ -360,9 +346,6 @@ class HomeroomTable extends React.Component {
       <tr className="column-names">
         {/* COLUMN HEADERS */}
         {this.renderNameSubheader()}
-        {this.renderSubHeader(
-          'risk', 'Risk', 'risk', 'number'
-        )}
         {this.renderSubHeader('supports', 'Last SST', 'latestSstDateText', 'date')}
         {!this.isHighSchool() && this.renderSubHeader('supports', 'Last MTSS', 'latestMtssDateText', 'date')}
         {this.isHighSchool() && this.renderSubHeader('supports', 'Last NGE', 'latestNgeDateText', 'date')}
@@ -398,7 +381,6 @@ class HomeroomTable extends React.Component {
         <tr className="column-groups">
           {/*  TOP-LEVEL COLUMN GROUPS */}
           <td colSpan="1"></td>
-          {this.renderSuperHeader('risk', '1')}
           {this.renderSuperHeader('supports', supportColumnCount, 'Supports')}
           {this.renderSuperHeader('program', '1')}
           {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
@@ -420,36 +402,6 @@ class HomeroomTable extends React.Component {
 
     return (
       <td>{data || '—'}</td>
-    );
-  }
-
-  renderRiskLevelExplanation(row) {
-    const explanationData = row['student_risk_level']['explanation'];
-    const intro = explanationData.intro;
-    const reasons = explanationData.reasons;
-
-    return (
-      <div>
-        <span>{intro}</span>
-        <br/>
-        <br/>
-        <ul>
-          {reasons.map((reason, index) => {
-            return <li key={index}>{reason}</li>;
-          })}
-        </ul>
-      </div>
-    );
-  }
-
-  renderWarningBubble(row) {
-    return (
-      <div className={this.warningBubbleClassName(row)}>
-        {row['student_risk_level']['level'] || 'N/A'}
-        <span className="tooltiptext">
-          {this.renderRiskLevelExplanation(row)}
-        </span>
-      </div>
     );
   }
 
@@ -477,7 +429,6 @@ class HomeroomTable extends React.Component {
           key={id}
           style={style}>
         <td className="name">{fullName}</td>
-        {this.renderDataCell('risk', this.renderWarningBubble(row))}
         {this.renderDataCell('supports', row['latestSstDateText'])}
         {!this.isHighSchool() && this.renderDataCell('supports', row['latestMtssDateText'])}
         {this.isHighSchool() && this.renderDataCell('supports', row['latestNgeDateText'])}

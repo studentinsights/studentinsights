@@ -1,5 +1,7 @@
 class UnwrapFileImporterOptions
 
+  # Some of these are circular for a first-time run - eg, StudentsImporter creates Homeroom records, and
+  # EducatorsImporter matches on those.
   PRIORITY = {
     EducatorsImporter => 0,
     CoursesSectionsImporter => 1,

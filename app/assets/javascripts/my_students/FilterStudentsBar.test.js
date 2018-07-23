@@ -9,6 +9,8 @@ function testProps(props = {}) {
   return {
     students: myStudentsJson.students,
     children: jest.fn(),
+    includeCounselor: true,
+    includeHouse: true,
     ...props
   };
 }
@@ -63,8 +65,19 @@ it('filters students by counselor', () => {
   expect(_.uniq(studentsAfterClick.map(student => student.counselor))).toEqual(['WOODY']);
 });
 
-it('snapshots', () => {
+it('snapshots with all options', () => {
   const props = testProps();
+  const tree = renderer
+    .create(<FilterStudentsBar {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots without options', () => {
+  const props = testProps({
+    includeHouse: false,
+    includeCounselor: false
+  });
   const tree = renderer
     .create(<FilterStudentsBar {...props} />)
     .toJSON();

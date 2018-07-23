@@ -15,12 +15,14 @@ class SchoolwideTardies extends React.Component {
     return (
         <SchoolTardiesDashboard
           schoolTardyEvents = {this.schoolTardyEvents()}
-          dashboardStudents = {this.props.dashboardStudents}/>);
+          dashboardStudents = {this.props.dashboardStudents}
+          school={this.props.school} />);
   }
 }
 
 SchoolwideTardies.propTypes = {
-  dashboardStudents: PropTypes.array.isRequired
+  dashboardStudents: PropTypes.array.isRequired,
+  school: PropTypes.object.isRequired
 };
 
 export default SchoolwideTardies;

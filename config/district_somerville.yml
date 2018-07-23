@@ -1,16 +1,23 @@
 remote_filenames:
-  FILENAME_FOR_EDUCATORS_IMPORT:                    educators_export.txt
-  FILENAME_FOR_STUDENTS_IMPORT:                     students_export.txt
-  FILENAME_FOR_BEHAVIOR_IMPORT:                     behavior_export.txt
-  FILENAME_FOR_ASSESSMENT_IMPORT:                   assessment_export.txt
-  FILENAME_FOR_ATTENDANCE_IMPORT:                   attendance_export.txt
-  FILENAME_FOR_STUDENT_AVERAGES_IMPORT:             student_averages_export.txt
-  FILENAME_FOR_COURSE_SECTION_IMPORT:               courses_sections_export.txt
-  FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT:  student_section_assignment_export.txt
-  FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT:  educator_section_assignment_export.txt
+  FILENAME_FOR_EDUCATORS_IMPORT:                    /home/jbreslin/data/educators_export.txt
+  FILENAME_FOR_STUDENTS_IMPORT:                     /home/jbreslin/data/students_export.txt
+  FILENAME_FOR_BEHAVIOR_IMPORT:                     /home/jbreslin/data/behavior_export.txt
+  FILENAME_FOR_ASSESSMENT_IMPORT:                   /home/jbreslin/data/assessment_export.txt
+  FILENAME_FOR_ATTENDANCE_IMPORT:                   /home/jbreslin/data/attendance_export.txt
+  FILENAME_FOR_STUDENT_AVERAGES_IMPORT:             /home/jbreslin/data/student_averages_export.txt
+  FILENAME_FOR_COURSE_SECTION_IMPORT:               /home/jbreslin/data/courses_sections_export.txt
+  FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/student_section_assignment_export.txt
+  FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/educator_section_assignment_export.txt
   FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
   FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
+  FILENAMES_FOR_IEP_PDF_ZIPS:   # order is important here, these need to be oldest > newest
+    - /home/jbreslin/data/student-documents-6.zip
+    - /home/jbreslin/data/student-documents-5.zip
+    - /home/jbreslin/data/student-documents-4.zip
+    - /home/jbreslin/data/student-documents-3.zip
+    - /home/jbreslin/data/student-documents-2.zip
+    - /home/jbreslin/data/student-documents-1.zip
 schools:
   -
     local_id: BRN

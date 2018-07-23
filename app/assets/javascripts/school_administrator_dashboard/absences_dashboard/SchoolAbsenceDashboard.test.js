@@ -1,59 +1,131 @@
 import React from 'react';
-import moment from 'moment';
-import { shallow } from 'enzyme';
-import {
-  createTestEvents,
-  createStudents
-} from '../DashboardTestData';
-import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
+import {mount, shallow} from 'enzyme';
+import {toMomentFromTime} from '../../helpers/toMoment';
+import {withNowMoment} from '../../testing/NowContainer';
+import {TIME_RANGE_90_DAYS_AGO, TIME_RANGE_SCHOOL_YEAR} from '../../components/SelectTimeRange';
+import {ALL_ABSENCES} from './SelectExcusedAbsences';
+import PerDistrictContainer from '../../components/PerDistrictContainer';
+import {fixtureProps} from './SchoolAbsenceDashboard.fixtures';
+import SchoolAbsenceDashboard, {monthlySchoolAttendance} from './SchoolAbsenceDashboard';
 
+function testContext(context = {}) {
+  const nowMoment = toMomentFromTime('2018-07-20T17:03:06.123Z');
+  return {
+    districtKey: 'somerville',
+    nowFn() { return nowMoment; },
+    ...context
+  };
+}
+function testEl(moreProps = {}) {
+  const props = {
+    ...fixtureProps(),
+    ...moreProps
+  };
+  return <SchoolAbsenceDashboard {...props} />;
+}
 
-describe('SchoolAbsenceDashboard', () => {
-  const nowMoment = moment.utc();
-  const attendance = {'2001-01-01': 50, '2001-01-02': 25, '2001-01-03': 75, '2001-01-04': 100, '2001-02-01': 10};
-  const homeroom = {'HR1': attendance, 'No Homeroom': {'2001-01-01': 50, '2001-01-02': 100, '2001-01-03': 100, '2001-01-04': 100, '2001-02-01': 50}};
-  const students = createStudents(nowMoment);
-  const events = createTestEvents(nowMoment);
-  const dateRange = ['2001-01-01', '2001-01-02', '2001-01-03', '2001-01-04', '2001-02-01'];
-  const dash = shallow(<SchoolAbsenceDashboard
-                       schoolAverageDailyAttendance={attendance}
-                       homeroomAverageDailyAttendance={homeroom}
-                       dashboardStudents={students}
-                       schoolAbsenceEvents={events}
-                       dateRange={dateRange}/>);
+function homeroomAveragesSeries(dash) {
+  return dash.find('DashboardBarChart').last().props().seriesData;
+}
+function monthlyAverageSeries(dash) {
+  return dash.find('DashboardBarChart').first().props().seriesData;
+}
 
+// mount doesn't support passing context directly, and shallow doesn't
+// work with wrapper components, that's why there's extra setup to translate
+// between
+function elWrappedInContext(el, context) {
+  const {districtKey, nowFn} = context;
+  return withNowMoment(nowFn(), (
+    <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>
+  ));
+}
+
+function renderShallow(props = {}) {
+  const context = testContext();
+  const el = testEl();
+  return shallow(el, {context});
+}
+
+it('does not show excused absence option for New Bedford', () => {
+  const context = testContext({districtKey: 'new_bedford'});
+  const el = testEl();
+  const dash = mount(elWrappedInContext(el, context));
+  expect(dash.html()).not.toContain('Unexcused Absences Only');
+  expect(dash.html()).not.toContain('All Absences');
+  expect(dash.find('SelectExcusedAbsences').length).toEqual(0);
+});
+
+describe('with testSetup', () => {
   it('renders two bar charts', () => {
-    expect(dash.find('DashboardBarChart').length).toEqual(2);
+    expect(renderShallow().find('DashboardBarChart').length).toEqual(2);
   });
 
   it('renders a student list', () => {
-    expect(dash.find('StudentsTable').length).toEqual(1);
+    expect(renderShallow().find('StudentsTable').length).toEqual(1);
   });
 
   it('renders range selection buttons', () => {
-    expect(dash.find('DashRangeButtons').length).toEqual(1);
+    const dash = renderShallow();
+    expect(dash.find('FilterBar').length).toEqual(2);
+    expect(dash.find('SelectTimeRange').length).toEqual(1);
+    expect(dash.find('SelectExcusedAbsences').length).toEqual(1);
   });
 
-  it('groups the daily attendance within a month', () => {
-    const monthly = dash.instance().monthlySchoolAttendance(attendance);
-    expect(monthly).toEqual({'2001-01': [50, 25, 75, 100], '2001-02': [10]});
+  it('renders daily averages for defaults', () => {
+    const dash = renderShallow();
+    expect(monthlyAverageSeries(dash)).toEqual([99.5, 99.6]);
   });
 
-  it('averages the monthly attendance for the school', () => {
-    expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([62.5,10]);
+  it('renders different values when the time range changes', () => {
+    const dash = renderShallow();
+    dash.setState({timeRangeKey: TIME_RANGE_90_DAYS_AGO});
+    expect(monthlyAverageSeries(dash)).toEqual([99.7, 99.7, 99.5, 99.6]);
   });
 
-  it('averages the attendance by homeroom', () => {
-    expect(dash.find('DashboardBarChart').last().props().seriesData).toEqual([52,80]);
+  it('can render values for a whole year', () => {
+    const dash = renderShallow();
+    dash.setState({timeRangeKey: TIME_RANGE_SCHOOL_YEAR});
+    expect(monthlyAverageSeries(dash).length).toEqual(12);
   });
 
-  it('filters dates outside the range for the school', () => {
-    dash.setState({displayDates:['2001-01-02', '2001-01-03', '2001-01-04']});
-    expect(dash.find('DashboardBarChart').first().props().seriesData).toEqual([66.7]);
+  it('renders different values for monthly averages when excused is flipped', () => {
+    const dash = renderShallow();
+    // Fixtures don't happen to show a different for these over 45 days, so 90 is used here
+    const excusedMonthlyAverages = monthlyAverageSeries(dash);
+    dash.setState({
+      excusedAbsencesKey: ALL_ABSENCES,
+      timeRangeKey: TIME_RANGE_90_DAYS_AGO
+    });
+    const allAbsencesMonthlyAverages = monthlyAverageSeries(dash);
+    expect(excusedMonthlyAverages).not.toEqual(allAbsencesMonthlyAverages);
   });
 
-  it('filters dates outside the range for homerooms', () => {
-    expect(dash.find('DashboardBarChart').last().props().seriesData).toEqual([66.7,100]);
+  it('renders the attendance by homeroom', () => {
+    const dash = renderShallow();
+    expect(homeroomAveragesSeries(dash)).toEqual([99, 99.2, 99.2, 99.3, 99.3, 99.3, 99.4, 99.4, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.6, 99.6, 99.6, 99.6, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 100, 100, 100, 100, 100]);
   });
+});
 
+describe('unit tests', () => {
+  it('#monthlySchoolAttendance groups the daily attendance within a month', () => {
+    const displayDates = [
+      '2018-01-01',
+      '2018-01-02',
+      '2018-01-03',
+      '2018-01-04',
+      '2018-02-01'
+    ];
+    const averageDailyAttendance = {
+      '2018-01-01': 50,
+      '2018-01-02': 25,
+      '2018-01-03': 75,
+      '2018-01-04': 100,
+      '2018-02-01': 10
+    };
+    expect(monthlySchoolAttendance(displayDates, averageDailyAttendance)).toEqual({
+      ['2018-01']: [50, 25, 75, 100],
+      ['2018-02']: [10]
+    });
+  });
 });

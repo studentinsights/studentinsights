@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe McasRow do
 
   context 'with no Assessment records in the database' do
-    before { Assessment.destroy_all }
+    before { Assessment.seed_somerville_assessments }
     let(:student) { FactoryBot.create(:student) }
-    after { Assessment.seed_somerville_assessments }
 
     context 'invalid subject (i.e. not used in Student Insights)' do
       let(:row) {
@@ -17,9 +16,9 @@ RSpec.describe McasRow do
           assessment_date: Date.today
         }
       }
-      before { McasRow.build(row).save! }
 
-      it 'does not blow up, does not create a student assessment record' do
+      it 'does not create a student assessment record and returns nil' do
+        expect(McasRow.new(row, student.id, Assessment.all.to_a).build).to eq nil
         expect(StudentAssessment.count).to eq 0
       end
     end
@@ -36,29 +35,11 @@ RSpec.describe McasRow do
       }
 
       context 'when the Assessment family already exists' do
-        let(:assessment) { Assessment.where(family: 'MCAS', subject: 'Mathematics').first }
-        before { McasRow.build(row).save! }
+        let!(:assessment) { Assessment.where(family: 'MCAS', subject: 'Mathematics').first }
 
-        it 'creates a student assessment record' do
+        it 'returns a saveable student assessment record' do
+          McasRow.new(row, student.id, Assessment.all.to_a).build.save!
           expect(StudentAssessment.count).to eq 1
-        end
-
-        it 'does not create another Assessment record' do
-          expect(Assessment.count).to eq 1
-        end
-      end
-
-      context 'when the Assessment family does not yet exist' do
-        before { McasRow.build(row).save! }
-
-        it 'creates a student assessment record' do
-          expect(StudentAssessment.count).to eq 1
-        end
-
-        it 'also creates an Assessment with family MCAS and subject Mathematics as a side effect' do
-          expect(Assessment.count).to eq 1
-          expect(Assessment.last.family).to eq 'MCAS'
-          expect(Assessment.last.subject).to eq 'Mathematics'
         end
       end
     end
@@ -73,15 +54,10 @@ RSpec.describe McasRow do
           assessment_date: Date.today
         }
       }
-      before { McasRow.build(row).save! }
 
-      it 'creates a student assessment record' do
+      it 'returns a saveable student assessment record' do
+        McasRow.new(row, student.id, Assessment.all.to_a).build.save!
         expect(StudentAssessment.count).to eq 1
-      end
-
-      it 'creates a new Assessment as a side-effect' do
-        expect(Assessment.count).to eq 1
-        expect(Assessment.last.subject).to eq 'ELA'
       end
     end
 
@@ -97,7 +73,7 @@ RSpec.describe McasRow do
         }
       }
 
-      before { McasRow.build(row).save! }
+      before { McasRow.new(row, student.id, Assessment.all.to_a).build.save! }
 
       let(:student_assessment) { StudentAssessment.last }
 

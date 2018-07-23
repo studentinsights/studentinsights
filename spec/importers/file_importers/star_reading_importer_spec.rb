@@ -4,7 +4,8 @@ RSpec.describe StarReadingImporter do
 
   let(:star_reading_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil
+      school_scope: nil,
+      log: LogHelper::FakeLog.new
     })
   }
 
@@ -12,10 +13,9 @@ RSpec.describe StarReadingImporter do
 
     context 'reading file' do
 
-      let(:file) { File.open("#{Rails.root}/spec/fixtures/fake_star_reading.csv") }
-      let(:transformer) { StarReadingCsvTransformer.new }
-      let(:csv) { transformer.transform(file) }
-      let(:import) { csv.each { |row| star_reading_importer.import_row(row) } }
+      let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_star_reading.csv") }
+      let(:csv) { star_reading_importer.data_transformer.transform(csv_string) }
+      let(:import) { csv.each_with_index { |row, index| star_reading_importer.import_row(row) } }
 
       context 'with good data' do
         context 'existing student' do
@@ -52,9 +52,8 @@ RSpec.describe StarReadingImporter do
       end
 
       context 'with bad data' do
-        let(:file) { File.open("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
-        let(:transformer) { StarReadingCsvTransformer.new }
-        let(:csv) { transformer.transform(file) }
+        let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
+        let(:csv) { star_reading_importer.data_transformer.transform(csv_string) }
         let(:reading_importer) { star_reading_importer }
         it 'raises an error' do
           expect { import }.to raise_error NoMethodError

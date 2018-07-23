@@ -45,6 +45,15 @@ export default class PageContainer extends React.Component {
     this.onDiscontinueServiceFail = this.onDiscontinueServiceFail.bind(this);
   }
 
+  // This is a workaround to provide a consistent API to child components until
+  // this is migrated within App.js.
+  getChildContext() {
+    const {nowMomentFn} = this.props;
+    return {
+      nowFn() { return nowMomentFn(); }
+    };
+  }
+
   componentWillMount(props, state) {
     this.api = this.props.api || new Api();
   }
@@ -278,6 +287,7 @@ export default class PageContainer extends React.Component {
             'noteInProgressType',
             'noteInProgressAttachmentUrls'
           ), {
+            districtKey: this.props.districtKey,
             nowMomentFn: this.props.nowMomentFn,
             actions: {
               onColumnClicked: this.onColumnClicked,
@@ -295,13 +305,18 @@ export default class PageContainer extends React.Component {
       </div>
     );
   }
-
 }
+// This is a workaround to keep a consistent API for child components until we migrate
+// this from legacyRouteHandler to App.js.
+PageContainer.childContextTypes = {
+  nowFn: PropTypes.func
+};
 PageContainer.propTypes = {
   nowMomentFn: PropTypes.func.isRequired,
   serializedData: PropTypes.object.isRequired,
   queryParams: PropTypes.object.isRequired,
   history: InsightsPropTypes.history.isRequired,
+  districtKey: PropTypes.string.isRequired,
 
   // for testing
   actions: InsightsPropTypes.actions,

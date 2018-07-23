@@ -12,7 +12,7 @@ class StudentsImporter
       log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
     ).get_data
 
-    @data.each.each_with_index do |row, index|
+    @data.each_with_index do |row, index|
       import_row(row) if filter.include?(row)
     end
   end
@@ -26,7 +26,7 @@ class StudentsImporter
   end
 
   def data_transformer
-    CsvTransformer.new(@log)
+    StreamingCsvTransformer.new(@log)
   end
 
   def filter
@@ -39,15 +39,14 @@ class StudentsImporter
 
   def import_row(row)
     student = StudentRow.new(row, school_ids_dictionary).build
-    return if student.registration_date_in_future
+    return nil if student.registration_date_in_future
+    return student unless student.changed?
 
     did_save = student.save
     if !did_save
       @log.puts "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
       return nil
     end
-
-    student.update_risk_level!
 
     if row[:homeroom].present?
       assign_student_to_homeroom(student, row[:homeroom])

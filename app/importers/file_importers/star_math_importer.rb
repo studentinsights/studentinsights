@@ -21,8 +21,9 @@ class StarMathImporter
 
       data = data_transformer.transform(data_string)
 
-      data.each.each_with_index do |row, index|
+      data.each_with_index do |row, index|
         import_row(row) if filter.include?(row)
+        @log.puts("processed #{index} rows.") if index % 1000 == 0
       end
     end
   end
@@ -40,7 +41,10 @@ class StarMathImporter
   end
 
   def data_transformer
-    StarMathCsvTransformer.new
+    # Star CSV files use ClassCase headers
+    StreamingCsvTransformer.new(@log, {
+      csv_options: { header_converters: nil }
+    })
   end
 
   def filter
@@ -52,10 +56,12 @@ class StarMathImporter
   end
 
   def import_row(row)
-    date_taken = Date.strptime(row[:date_taken].split(' ')[0], "%m/%d/%Y")
-    student = Student.find_by_local_id(row[:local_id])
-
-    return if student.nil?
+    date_taken = Date.strptime(row['AssessmentDate'].split(' ')[0], "%m/%d/%Y")
+    student = Student.find_by_local_id(row['StudentLocalID'])
+    if student.nil?
+      log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
+      return
+    end
 
     star_assessment = StudentAssessment.where({
       student_id: student.id,
@@ -63,9 +69,9 @@ class StarMathImporter
       assessment: star_mathematics_assessment
     }).first_or_create!
 
-    star_assessment.update_attributes({
-      percentile_rank: row[:percentile_rank],
-      grade_equivalent: row[:grade_equivalent]
+    star_assessment.update!({
+      percentile_rank: row['PercentileRank'],
+      grade_equivalent: row['GradeEquivalent']
     })
   end
 

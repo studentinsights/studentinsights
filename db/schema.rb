@@ -10,20 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180618231412) do
+ActiveRecord::Schema.define(version: 2018_07_17_184037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "absences", id: :serial, force: :cascade do |t|
-    t.datetime "occurred_at", null: false
+    t.date "occurred_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.boolean "dismissed"
     t.boolean "excused"
     t.string "reason"
     t.string "comment"
+    t.index ["student_id", "occurred_at"], name: "index_absences_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_absences_on_student_id"
   end
 
@@ -238,12 +239,25 @@ ActiveRecord::Schema.define(version: 20180618231412) do
     t.string "custom_intervention_name"
   end
 
-  create_table "masquerading_logs", force: :cascade do |t|
-    t.integer "educator_id"
-    t.integer "masquerading_as_educator_id"
-    t.text "action"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "login_activities", force: :cascade do |t|
+    t.text "scope"
+    t.text "strategy"
+    t.string "identity"
+    t.boolean "success"
+    t.text "failure_reason"
+    t.string "user_type"
+    t.bigint "user_id"
+    t.text "context"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.text "city"
+    t.text "region"
+    t.text "country"
+    t.datetime "created_at"
+    t.index ["identity"], name: "index_login_activities_on_identity"
+    t.index ["ip"], name: "index_login_activities_on_ip"
+    t.index ["user_type", "user_id"], name: "index_login_activities_on_user_type_and_user_id"
   end
 
   create_table "precomputed_query_docs", id: :serial, force: :cascade do |t|
@@ -331,18 +345,6 @@ ActiveRecord::Schema.define(version: 20180618231412) do
     t.index ["student_id"], name: "index_student_photos_on_student_id"
   end
 
-  create_table "student_risk_levels", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "level"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "mcas_math_risk_level"
-    t.integer "star_math_risk_level"
-    t.integer "mcas_ela_risk_level"
-    t.integer "star_reading_risk_level"
-    t.integer "limited_english_proficiency_risk_level"
-  end
-
   create_table "student_section_assignments", force: :cascade do |t|
     t.integer "section_id"
     t.integer "student_id"
@@ -384,7 +386,6 @@ ActiveRecord::Schema.define(version: 20180618231412) do
     t.integer "most_recent_star_math_percentile"
     t.string "enrollment_status"
     t.datetime "date_of_birth"
-    t.integer "risk_level"
     t.string "gender"
     t.string "primary_phone"
     t.string "primary_email"
@@ -398,14 +399,15 @@ ActiveRecord::Schema.define(version: 20180618231412) do
   end
 
   create_table "tardies", id: :serial, force: :cascade do |t|
-    t.datetime "occurred_at", null: false
+    t.date "occurred_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.boolean "dismissed"
     t.boolean "excused"
     t.string "reason"
     t.string "comment"
+    t.index ["student_id", "occurred_at"], name: "index_tardies_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_tardies_on_student_id"
   end
 
@@ -456,7 +458,6 @@ ActiveRecord::Schema.define(version: 20180618231412) do
   add_foreign_key "student_assessments", "assessments", name: "student_assessments_assessment_id_fk"
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
   add_foreign_key "student_photos", "students"
-  add_foreign_key "student_risk_levels", "students", name: "student_risk_levels_student_id_fk"
   add_foreign_key "student_section_assignments", "sections"
   add_foreign_key "student_section_assignments", "students"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"

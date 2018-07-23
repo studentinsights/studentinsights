@@ -8,6 +8,12 @@ Bundler.require(*Rails.groups)
 
 module SomervilleTeacherTool
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
+    # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
+    Rails.application.config.active_record.belongs_to_required_by_default = false
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -19,15 +25,13 @@ module SomervilleTeacherTool
         "#{config.root}/app/jobs",
         "#{config.root}/app/serializers",
         "#{config.root}/app/importers/clients",
+        "#{config.root}/app/importers/constants",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
-        "#{config.root}/app/importers/photo_import",
-        "#{config.root}/app/importers/filters",
-        "#{config.root}/app/importers/rows",
-        "#{config.root}/app/importers/sources",
-        "#{config.root}/app/importers/constants",
+        "#{config.root}/app/importers/helpers",
         "#{config.root}/app/importers/iep_import",
-        "#{config.root}/app/importers/student_services",
+        "#{config.root}/app/importers/photo_import",
+        "#{config.root}/app/importers/rows",
         "#{config.root}/lib"
       ]
 
@@ -51,7 +55,7 @@ module SomervilleTeacherTool
       config.generators do |g|
         g.stylesheets false
         g.javascripts false
-        g.helpers false
+        g.helper false
       end
     end
   end

@@ -175,9 +175,11 @@ exports[`FeedView pure component matches snapshot 1`] = `
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -338,9 +340,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -513,9 +517,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -701,9 +707,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -862,9 +870,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -1037,9 +1047,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -1225,9 +1237,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -1413,9 +1427,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -1587,9 +1603,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -1748,9 +1766,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -1936,9 +1956,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -2124,9 +2146,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -2312,9 +2336,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -2473,9 +2499,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -2648,9 +2676,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -2823,9 +2853,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -2998,9 +3030,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -3186,9 +3220,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >
@@ -3347,9 +3383,11 @@ Philis is meeting with parent next week and will present an attendance contract.
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "overflowX": "hidden",
               "padding": 0,
               "style": undefined,
               "whiteSpace": "pre-wrap",
+              "wordBreak": "break-word",
             }
           }
         >

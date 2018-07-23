@@ -213,123 +213,15 @@ OS | Windows 7 and 8.1 | "Maybe some Win10 next year." <br>    – John Breslin,
 
 # Deployment
 
-## Deploying new code to Insights
+### Deploying new code to Insights
 
 See our guide:
 
 [Merging and deploying new code to Heroku](docs/technical/merging_and_deploying_to_heroku.md).
 
-## Setting up Insights for a new district
+### Creating a new Insights instance
+[Creating a new Insights instance](docs/technical/new_instance.md).
 
-### New Heroku instance
-
-Insights uses a separate-instance strategy for new districts (one database and one Heroku app per district).
-
-Set up a new district with this script:
-
-```
-$ scripts/deploy/new_district.sh "My New District Name"
-```
-
-This sets up a new Heroku app instance with the Student Insights code and copies over some basic configuration around the district name. It gives you the option to fill the instance with fake data if you like. It doesn't yet include tooling for connecting with a Student Information System or other district-level data sources.
-
-### New SFTP Site
-
-In addition to a Heroku instance, you'll need an SFTP site to hold data as it flows between the district IT systems and Student Insights.
-
-We're documenting a few ways to set up and secure the SFTP site:
-
-+ New District SFTP Setup With Private Key (Strongly Preferred!)
-+ [New District SFTP Setup With Password](docs/technical/new_district_sftp_with_password.md)
-
-### Importing data
-
-There are two parts to importing data into a Student Insights instance: getting data out of the school SIS, and getting data into Student Insights.
-
-#### Getting data out of the SIS
-
-![](docs/readme_images/sis-to-sftp.jpg)
-
-This is going to vary widely from district to district. Districts use different Student Information Systems (SISes), and there's no common path for getting data out of SISes into a standardized form.
-
-As a project, Student Insights has the most experience extracting data from Aspen/X2 SISes.
-
-##### Self-Hosted Aspen
-
-Somerville Public Schools hosts its own instance of the Aspen/X2 SIS.
-
-It runs the SQL scripts in the `/x2_export` directory nightly to extract data from its SIS.
-
-If your district self-hosts Aspen/X2, the scripts in `/x2_export` are the best place to start.
-
-##### Hosted Aspen
-
-New Bedford Public Schools also uses Aspen/X2, but their instance is hosted by the company that creates Aspen/X2.
-
-We are currently working on this integration and will share more instructions and code as we learn!
-
-#### Getting data into Insights
-
-![](docs/readme_images/sftp-to-insights.jpg)
-
-Once your district has got data out of its SIS, the next step is to bring the data into Insights.
-
-Each district names its export files according to their own naming convention. We need to tell Insights what remote filenames to look for on the SFTP site. We also need to tell Insights what schools exist in those districts.
-
-There are three parts to the configuration: an `ENV['DISTRICT_KEY']`, other ENV variables, and a YAML config file.
-
-##### Setting `ENV['DISTRICT_KEY']`
-
-This is the canonical key for the district. Use a slug-style string, like `"somerville"` or `"new_bedford"`.
-
-Locally, change this key by editing the `development.rb` or `test.rb` config files. Currently it defaults to `"somerville"` in both of these environments, since the codebase was built for Somerville and some code (i.e. test code) assumes Somerville as the district.
-
-In a production Heroku instance, set this key by either running `heroku config:set DISTRICT_KEY={{key_goes_here}}`, or through the Heroku UI.
-
-##### Setting other ENV variables
-
-In addition to the DISTRICT_KEY, there are a few other variables you'll need to set in ENV. These are credentials for the nightly import process. They are stored in ENV because they are sensitive and need to be kept secret.
-
-These variables are:
-
-+ `SIS_SFTP_HOST`,
-+ `SIS_SFTP_USER`,
-+ `SIS_SFTP_KEY` or `STAR_SFTP_PASSWORD`
-
-Key-based authentication is preferred, but sometimes we need to use password-based if key-based auth is a major obstacle for a school district or a vendor.
-
-In production, set variables through the command line or the Heroku UI just like with `ENV['DISTRICT_KEY']`. If you need to work with real SIS access locally, create a temporary local env file:
-
-```
-touch config/local_env.yml
-```
-
-The values in this file are read in as ENV by the `development.rb` file. This file is `.gitignore`d because we need to keep sensitive values out of git source control and out of GitHub.
-
-##### Creating a YAML config file
-
-The third step to configuring a new district is to create a public YAML file with non-sensitive configuration information, like which schools are in the district.
-
-Configure that data by creating a new district configuration file under `/config`. You can use one of these files as examples:
-
-```
-* /config/district_somerville.yml
-* /config/district_new_bedford.yml
-```
-
-Once you have your own YAML configuration file set up, tell the `DistrictConfig` object where to look for it. Update the `district_key_to_config_file` method in `app/config_objects/district_config.rb`.
-
-##### Running the import job
-
-Once you have the config set up, run an import job:
-
-```
-thor import:start
-```
-
-This job has fairly verbose logging output that you can use to debug and tweak the import process for your own district.
-
-If you see 🚨 🚨 🚨, that means that one of the remote files failed to import. The job will complete no matter how many file imports fail. That way it can show you aggregate information about the job.
 
 ### Heroku notes
 
@@ -367,5 +259,5 @@ We use [Mixpanel](https://mixpanel.com) to track user interactions on the client
 # More information
 
 - [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
-- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or with @eli-rose on Code for Boston Slack
+- Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or on Code for Boston Slack
 - More docs in the `docs` folder!

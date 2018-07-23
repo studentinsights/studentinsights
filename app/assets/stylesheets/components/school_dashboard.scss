@@ -1,13 +1,29 @@
-.DashboardContainer {
+.SchoolDashboard-filter-bar {
+  border-bottom: 1px solid #ccc;
   display: flex;
-  height: 85vh;
+  align-items: center;
+  padding: 10px;
 }
 
-.DashboardChartsColumn {
-  flex: 2 1;
+.SchoolDashboard-columns {
+  display: flex;
+  padding: 10px;
+  flex: 1;
+}
+
+.SchoolDashboard-roster-column {
+  display: flex;
+  align-content: flex-start;
+  width: 450px;
+}
+
+.SchoolDashboard-charts-column {
+  flex: 1;
+
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding-left: 20px;
+  
   // This overrides the default react-select styles imported in the app to make sure our lists
   // are not cut off. See: https://github.com/JedWatson/react-select/blob/master/less/menu.less
   .Select-menu-outer {
@@ -16,54 +32,4 @@
   .Select-menu {
     max-height: 998px;
   }
-}
-
-.DashboardRosterColumn {
-  vertical-align: top;
-  padding-left: 20px;
-}
-
-.DashboardChart {
-  flex: 1;
-  width: 100%;
-  margin-top: 20px;
-  padding: 10px 10px 10px 10px;
-
-  div {
-    height: 100%;
-  }
-}
-
-.DashboardDatePicker {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 7px;
-  margin-bottom: 7px;
-}
-
-.DashRangeButtonWrapper {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  padding: 10px 20px;
-  margin: 20px;
-}
-
-.DashRangeButtons {
-  justify-content: space-between;
-  display: flex;
-  align-items: flex-end;
-  width: 400px;
-
-  .DashButton {
-    width: 25%;
-  }
-}
-
-.ui-datepicker-prev {
-  float: left;
-}
-
-.ui-datepicker-next {
-  float: right;
 }

@@ -10,7 +10,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def build
-    return if row[:login_name].nil? || row[:login_name] == ''
+    return nil if row[:login_name].nil? || row[:login_name] == ''
 
     educator = Educator.find_or_initialize_by(email: email)
 

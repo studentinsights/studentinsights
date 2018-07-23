@@ -1,13 +1,7 @@
 Rails.application.configure do
-  ENV['DISTRICT_KEY'] = 'somerville'
-  ENV['DISTRICT_NAME'] = 'Localhost Public Schools'
-  ENV['USE_MOCK_LDAP'] = 'true'
-  ENV['MOCK_LDAP_PASSWORD'] = 'demo-password'
-  ENV['ENABLE_CLASS_LISTS'] = 'true'
-  ENV['AWS_REGION'] = 'us-west-2'
-  ENV['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
-  ENV['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
-  ENV['ENABLE_MASQUERADING'] = 'true'
+  # Settings specified here will take precedence over those in config/application.rb.
+  # Set env variables
+  Env.set_for_development_and_test!
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
@@ -15,15 +9,13 @@ Rails.application.configure do
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
 
-  # Do not eager load code on boot. This avoids loading your whole application
-  # just for the purpose of running a single test. If you are using a tool that
-  # preloads Rails for running tests, you may have to set it to true.
-  config.eager_load = false
+  # Eager load code on boot to match production and catch tricky bugs.
+  config.eager_load = true
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=3600'
+    'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
   }
 
   # Show full error reports and disable caching.

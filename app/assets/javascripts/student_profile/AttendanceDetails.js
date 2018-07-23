@@ -1,42 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import moment from 'moment';
-import ProfileBarChart from './ProfileBarChart';
+import ProfileBarChart, {tooltipEventTextFn, createUnsafeTooltipFormatter} from './ProfileBarChart';
 import IncidentCard from '../components/IncidentCard';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
-  navBar: {
-    fontSize: 18
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
 
-
-class AttendanceDetails extends React.Component {
+export default class AttendanceDetails extends React.Component {
 
   phaselines() {
     const activeServices = this.props.feed.services.active;
@@ -112,7 +83,6 @@ class AttendanceDetails extends React.Component {
         titleText="Discipline Incidents"
         id="disciplineChart"
         monthsBack={48}
-        tooltipTemplateString="<span><a href='#history' style='font-size: 12px'><%= moment.utc(e.occurred_at).format('MMMM Do, YYYY')%></a></span>"
         phaselines={this.phaselines()} />
     );
   }
@@ -124,7 +94,10 @@ class AttendanceDetails extends React.Component {
         id="absences"
         titleText="Absences"
         monthsBack={48}
-        phaselines={this.phaselines()} />
+        phaselines={this.phaselines()}
+        seriesFn={absenceSeriesFn}
+        tooltipFn={absenceTooltipFn}
+        />
     );
   }
 
@@ -173,4 +146,80 @@ AttendanceDetails.propTypes = {
   serviceTypesIndex: PropTypes.object.isRequired
 };
 
-export default AttendanceDetails;
+
+function absenceSeriesFn(monthBuckets) {
+  return [{
+    name: 'Excused',
+    color: '#ccc',
+    showInLegend: true,
+    data: _.map(monthBuckets, es => es.filter(e => e.excused).length)
+  },
+  {
+    name: 'Unexcused absences',
+    color: '#7cb5ec',
+    showInLegend: true,
+    data: _.map(monthBuckets, es => es.filter(e => !e.excused).length)
+  }];
+}
+
+
+function absenceTooltipFn(monthBuckets) {
+  return {
+    formatter: createUnsafeTooltipFormatter(monthBuckets, tooltipTextFn),
+    useHTML: true
+  };
+}
+
+function tooltipTextFn(e) {
+  const date = tooltipEventTextFn(e);
+  const explanation = absenceExplanationText(e);
+  return `${date}${explanation}`;
+}
+
+function absenceExplanationText(absence) {
+  if (absence.excused && absence.reason && absence.comment) {
+    return ` (Excused, ${absence.reason}, ${absence.comment})`;
+  } else if (absence.excused && absence.reason) {
+    return ` (Excused, ${absence.reason})`;
+  } else if (absence.excused) {
+    return ` (Excused)`;
+  } else if (absence.reason) {
+    return ` (${absence.reason})`;
+  } else if (absence.comment) {
+    return ` (${absence.comment})`;
+  }
+
+  return '';
+}
+
+
+const styles = {
+  title: {
+    color: 'black',
+    paddingBottom: 20,
+    fontSize: 24
+  },
+  container: {
+    width: '100%',
+    marginTop: 50,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '1px solid #ccc',
+    padding: '30px 30px 30px 30px',
+    position: 'relative'
+  },
+  secHead: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    position: 'relative',
+    bottom: 10
+  },
+  navBar: {
+    fontSize: 18
+  },
+  navTop: {
+    textAlign: 'right',
+    verticalAlign: 'text-top'
+  }
+};
+

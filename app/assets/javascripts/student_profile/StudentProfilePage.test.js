@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import renderer from 'react-test-renderer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import {studentProfile, nowMoment} from './fixtures/fixtures';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
@@ -86,13 +87,14 @@ function testPropsFromSerializedData(serializedData) {
       onChangeNoteInProgressText: jest.fn(),
       onClickNoteType: jest.fn(),
       onChangeAttachmentUrl: jest.fn()
-    }
+    },
+    districtKey: 'somerville'
   };
 }
 
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(<StudentProfilePage {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<StudentProfilePage {...props} />), el);
   return {el};
 }
 
@@ -273,12 +275,12 @@ describe('renders MCAS/DIBELS correctly according to grade level', () => {
 describe('snapshots', () => {
   function expectSnapshot(props) {
     const tree = renderer
-      .create(<StudentProfilePage {...props} />)
+      .create(withDefaultNowContext(<StudentProfilePage {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   }
 
   it('works for olaf', () => expectSnapshot(testPropsForOlafWhite()));
-  it('works for olaf', () => expectSnapshot(testPropsForPlutoPoppins()));
-  it('works for olaf', () => expectSnapshot(testPropsForAladdinMouse()));
+  it('works for pluto', () => expectSnapshot(testPropsForPlutoPoppins()));
+  it('works for aladdin', () => expectSnapshot(testPropsForAladdinMouse()));
 });

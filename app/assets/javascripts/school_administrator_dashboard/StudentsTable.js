@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import _ from 'lodash';
 import {Column, Table, SortDirection} from 'react-virtualized';
+import {AutoSizer} from 'react-virtualized';
 import {
   sortByString,
   sortByNumber,
@@ -9,10 +12,11 @@ import {
 } from '../helpers/SortHelpers';
 import * as Routes from '../helpers/Routes';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import {eventNoteTypeTextMini} from '../components/eventNoteType';
 import DashResetButton from './DashResetButton';
 
 
-class StudentsTable extends React.Component {
+export default class StudentsTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -27,10 +31,11 @@ class StudentsTable extends React.Component {
     this.onTableSort = this.onTableSort.bind(this);
     this.renderStudent = this.renderStudent.bind(this);
     this.renderRowStyle = this.renderRowStyle.bind(this);
+    this.renderLastEventNote = this.renderLastEventNote.bind(this);
   }
 
   sortedRows() {
-    const rows = this.props.rows;
+    const rows = _.sortBy(this.props.rows, row => row.id);
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
 
@@ -43,6 +48,8 @@ class StudentsTable extends React.Component {
       return rows.sort((a, b) => sortByNumber(a, b, sortBy));
     case 'date':
       return rows.sort((a, b) => sortByDate(a, b, sortBy));
+    case 'latest_note_date':
+      return _.sortBy(rows, row => new Date(latestNoteTime(row)));
     case 'grade':
       return rows.sort((a, b) => sortByGrade(a[sortBy], b[sortBy]));
     default:
@@ -52,7 +59,6 @@ class StudentsTable extends React.Component {
 
   orderedRows() {
     const sortedRows = this.sortedRows();
-
     if (!this.state.sortDesc) return sortedRows.reverse();
 
     return sortedRows;
@@ -63,7 +69,7 @@ class StudentsTable extends React.Component {
       name: 'name',
       grade: 'grade',
       events: 'number',
-      last_sst_date_text: 'date'
+      latest_note: 'latest_note_date'
     }[sortBy];
     if (sortBy === this.state.sortBy) {
       this.setState({ sortDesc: !this.state.sortDesc });
@@ -73,56 +79,73 @@ class StudentsTable extends React.Component {
   }
 
   render() {
-    const {incidentType} = this.props;
-    const {sortBy, sortDesc} = this.state;
-    const list = this.orderedRows();
-
     return (
       <div className="StudentsTable" style={styles.root}>
         <div style={styles.caption}>
           {this.renderCaption()}
           <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
         </div>
-        <Table
-          width={400}
-          height={400}
-          rowCount={list.length}
-          rowGetter={({index}) => list[index]}
-          headerHeight={25}
-          headerStyle={{display: 'flex'}} // necessary for layout, not sure why
-          rowHeight={25}
-          style={{fontSize: 14}}
-          rowStyle={this.renderRowStyle}
-          sort={this.onTableSort}
-          sortBy={sortBy}
-          sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
-        >
-          <Column
-            label='Name'
-            dataKey='name'
-            cellDataGetter={({rowData}) => fullName(rowData)}
-            cellRenderer={this.renderStudent}
-            flexGrow={1}
-            width={100}
-          />
-          <Column
-            width={60}
-            label='Grade'
-            dataKey='grade'
-          />
-          <Column
-            width={85}
-            label={incidentType}
-            dataKey='events'
-          />
-          <Column
-            width={85}
-            label='Last SST'
-            dataKey='last_sst_date_text'
-          />
-        </Table>
-        <div>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
+        <div style={{flex: 1}}>
+          {this.renderTableWithSizing()}
+        </div>
+        <div style={styles.totalEvents}>{`Total ${this.props.incidentType}:  ${this.renderTotalEvents()}`}</div>
       </div>
+    );
+  }
+
+  renderTableWithSizing() {
+    const {forcedSizeForTesting} = this.props;
+    return (forcedSizeForTesting)
+      ? this.renderTable(forcedSizeForTesting)
+      : <AutoSizer>{({width, height}) => this.renderTable({width, height})}</AutoSizer>;
+  }
+
+  renderTable({width, height}) {
+    const {incidentType} = this.props;
+    const {sortBy, sortDesc} = this.state;
+    const list = this.orderedRows();
+
+    return (
+      <Table
+        style={styles.table}
+        width={width}
+        height={height}
+        rowCount={list.length}
+        rowGetter={({index}) => list[index]}
+        headerHeight={25}
+        headerStyle={{display: 'flex'}} // necessary for layout, not sure why
+        rowHeight={25}
+        rowStyle={this.renderRowStyle}
+        sort={this.onTableSort}
+        sortBy={sortBy}
+        sortDirection={sortDesc ? SortDirection.DESC : SortDirection.ASC}
+      >
+        <Column
+          label='Name'
+          dataKey='name'
+          cellDataGetter={({rowData}) => fullName(rowData)}
+          cellRenderer={this.renderStudent}
+          flexGrow={1}
+          width={150}
+        />
+        <Column
+          width={50}
+          label='Grade'
+          dataKey='grade'
+        />
+        <Column
+          width={80}
+          label={incidentType}
+          dataKey='events'
+        />
+        <Column
+          width={150}
+          style={{textAlign: 'right'}}
+          label='Last note'
+          dataKey='latest_note'
+          cellRenderer={this.renderLastEventNote}
+        />
+      </Table>
     );
   }
 
@@ -147,6 +170,33 @@ class StudentsTable extends React.Component {
     );
   }
 
+  renderLastEventNote({rowData}) {
+    const latestNote = rowData.latest_note;
+    if (!latestNote || !latestNote.recorded_at) return null;
+
+    const {nowFn} = this.context;
+    const noteTypeText = eventNoteTypeTextMini(latestNote.event_note_type_id);
+    const lastNoteMoment = moment.utc(latestNote.recorded_at);
+    return (
+      <div style={{paddingRight: 10, display: 'flex', justifyContent: 'space-between'}}>
+        <span style={{color: '#999'}}>{noteTypeText}</span>
+        {this.renderDaysAgo(lastNoteMoment, nowFn())}
+      </div>
+    );
+  }
+
+  renderDaysAgo(lastNoteMoment, now) {
+    const daysAgo = now.diff(lastNoteMoment, 'days');
+    const isOld = (daysAgo > 45);
+    const text = (isOld)
+      ? `${now.diff(lastNoteMoment, 'weeks')} weeks`
+      : `${daysAgo} days`;
+    const color = (isOld)
+      ? '#ccc'
+      : 'black';
+    return <span style={{color}}>{text}</span>;
+  }
+
   renderCaption() {
     const {selectedCategory} = this.props;
 
@@ -161,20 +211,23 @@ class StudentsTable extends React.Component {
     return total;
   }
 }
-
+StudentsTable.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 StudentsTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     events: PropTypes.number.isRequired,
-    last_sst_date_text: InsightsPropTypes.nullableWithKey(PropTypes.string)
+    latest_note: InsightsPropTypes.nullableWithKey(PropTypes.object)
   })).isRequired,
   selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
+  forcedSizeForTesting: PropTypes.object
 };
-export default StudentsTable;
+
 
 function fullName(student) {
   return`${student.first_name} ${student.last_name}`;
@@ -184,14 +237,28 @@ function fullNameReverse(student) {
   return`${student.last_name}, ${student.first_name}`;
 }
 
+function latestNoteTime(student) {
+  return student.latest_note && student.latest_note.recorded_at;
+}
+
 const styles = {
   root: {
-    marginTop: 20
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  table: {
+    fontSize: 14
+  },
+  totalEvents: {
+    paddingTop: 10
   },
   caption: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: 5
+    paddingBottom: 5
   },
   incidentSubtitle: {
     fontWeight: 'normal',

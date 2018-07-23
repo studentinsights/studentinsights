@@ -149,7 +149,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
         it 'can access the page' do
           make_request
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 

@@ -139,7 +139,6 @@ export const studentProfile = {
     "sped_placement": null,
     "disability": null,
     "sped_level_of_need": null,
-    "student_risk_level": {"id":5,"student_id":5,"level":3,"created_at":"2016-02-27T20:13:19.158Z","updated_at":"2016-02-27T20:13:19.167Z","mcas_math_risk_level":3,"star_math_risk_level":0,"mcas_ela_risk_level":2,"star_reading_risk_level":0,"limited_english_proficiency_risk_level":null},
     "plan_504": "Not 504",
     "limited_english_proficiency": "Fluent",
     "most_recent_mcas_math_growth": 16,

@@ -4,20 +4,21 @@ RSpec.describe BehaviorImporter do
 
   let(:base_behavior_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil, only_recent_attendance: false
+      school_scope: nil, log: nil, skip_old_records: false
     })
   }
 
   let(:behavior_importer) {
-    base_behavior_importer.instance_variable_set(:@success_count, 0)
-    base_behavior_importer.instance_variable_set(:@error_list, [])
+    base_behavior_importer.instance_variable_set(:@skipped_from_school_filter, 0)
+    base_behavior_importer.instance_variable_set(:@touched_rows_count, 0)
+    base_behavior_importer.instance_variable_set(:@invalid_rows_count, 0)
     base_behavior_importer
   }
 
   describe '#import_row' do
 
     let(:importer) { behavior_importer }
-    before { importer.import_row(row) }
+    before { importer.send(:import_row, row) }
     let(:incidents) { student.discipline_incidents }
     let(:incident) { incidents.last }
 
@@ -51,7 +52,7 @@ RSpec.describe BehaviorImporter do
 
     context 'multiple rows' do
       let(:student) { FactoryBot.create(:student, local_id: '10') }
-      before { importer.import_row(row_two) }
+      before { importer.send(:import_row, row_two) }
 
       let(:row) {
         {

@@ -3,7 +3,22 @@ require 'spec_helper'
 RSpec.describe DashboardQueries do
   describe 'dashboard serialization' do
     let!(:pals) { TestPals.create! }
-    let!(:student) { FactoryBot.create(:student, school: School.find_by_local_id('HEA'))}
+    let!(:student) { FactoryBot.create(:student, school: pals.healey)}
+
+    it '#absence_dashboard_data shape of data' do
+      json = DashboardQueries.new(pals.healey_laura_principal).absence_dashboard_data(pals.healey)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(:students_with_events, :school)
+    end
+
+    it '#tardies_dashboard_data shape of data' do
+      json = DashboardQueries.new(pals.healey_laura_principal).tardies_dashboard_data(pals.healey)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(:students_with_events, :school)
+    end
+
+    it '#discipline_dashboard_data shape of data' do
+      json = DashboardQueries.new(pals.healey_laura_principal).discipline_dashboard_data(pals.healey)
+      expect(json.keys.map(&:to_sym)).to contain_exactly(:students_with_events, :school)
+    end
 
     it '#individual_student_absence_data has expected fields' do
       json = DashboardQueries.new(pals.healey_laura_principal).send(:individual_student_absence_data, student)
@@ -14,7 +29,7 @@ RSpec.describe DashboardQueries do
         :id,
         :last_name,
         :homeroom_label,
-        :sst_notes
+        :latest_note
       ])
     end
 
@@ -27,7 +42,7 @@ RSpec.describe DashboardQueries do
         :id,
         :last_name,
         :homeroom_label,
-        :sst_notes
+        :latest_note
       ])
     end
 
@@ -44,7 +59,7 @@ RSpec.describe DashboardQueries do
         :id,
         :last_name,
         :homeroom_label,
-        :sst_notes
+        :latest_note
       ])
       expect(json[:discipline_incidents].first.keys).to contain_exactly(*[
         "student_id",

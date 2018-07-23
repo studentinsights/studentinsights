@@ -25,15 +25,14 @@ class HomeroomsController < ApplicationController
   private
 
   def initial_columns
-    return ['name', 'supports', 'risk', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
-    return ['name', 'supports', 'risk', 'sped', 'interventions']
+    return ['name', 'supports', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
+    return ['name', 'supports', 'sped', 'interventions']
   end
 
   def eager_students(*additional_includes)
     @homeroom.students.active.includes([
       :event_notes,
       :interventions,
-      :student_risk_level,
       :homeroom,
     ] + additional_includes)
   end
@@ -46,7 +45,6 @@ class HomeroomsController < ApplicationController
       event_notes_without_restricted: student.event_notes_without_restricted,
       interventions: student.interventions,
       sped_data: student.sped_data,
-      student_risk_level: student.student_risk_level.as_json_with_explanation
     }))
   end
 

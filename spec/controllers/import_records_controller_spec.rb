@@ -20,7 +20,7 @@ RSpec.describe ImportRecordsController, type: :controller do
         context 'no import records' do
           it 'can access the page' do
             make_request
-            expect(response).to be_success
+            expect(response).to be_successful
             expect(JSON.parse(response.body)).to eq({
               "import_records" => [],
               "queued_jobs" => [],
@@ -41,7 +41,7 @@ RSpec.describe ImportRecordsController, type: :controller do
 
           it 'can access the page' do
             make_request
-            expect(response).to be_success
+            expect(response).to be_successful
             expect(JSON.parse(response.body)["import_records"].size).to eq 1
             expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
           end
@@ -59,7 +59,7 @@ RSpec.describe ImportRecordsController, type: :controller do
 
           it 'can access the page' do
             make_request
-            expect(response).to be_success
+            expect(response).to be_successful
             expect(JSON.parse(response.body)["import_records"].size).to eq 1
             expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
           end

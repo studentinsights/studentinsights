@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Wrapping on `beforeunload` event.
 export default class WarnBeforeUnload extends React.Component {
@@ -32,6 +33,6 @@ export default class WarnBeforeUnload extends React.Component {
   }
 }
 WarnBeforeUnload.propTypes = {
-  messageFn: React.PropTypes.func.isRequired,
-  children: React.PropTypes.node.isRequired
+  messageFn: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 };

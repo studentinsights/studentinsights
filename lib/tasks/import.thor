@@ -16,18 +16,24 @@ class Import
       type: :boolean,
       default: false,
       desc: "Only import attendance rows from the past 90 days for faster attendance import"
+    class_option :skip_old_records,
+      type: :boolean,
+      default: false,
+      desc: "Skip old data (eg, more than a calendar year old)"
+    class_option :skip_index_updates,
+      type: :boolean,
+      default: false,
+      desc: "Skip updating indexes after the import task is completed (not recommended except for when profiling)"
     class_option :background,
       type: :boolean,
-      default: true,
+      default: false,
       desc: "Import data in a background job"
 
     def import
-      job_options = options.merge({ attempt: 0 })
-
       if options.fetch(:background)
-        Delayed::Job.enqueue ImportJob.new(options: job_options)
+        Delayed::Job.enqueue ImportJob.new(options: options)
       else
-        ImportTask.new(options: job_options).connect_transform_import
+        ImportTask.new(options: options).connect_transform_import
       end
     end
   end

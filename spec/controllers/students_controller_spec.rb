@@ -20,7 +20,7 @@ describe StudentsController, :type => :controller do
     let!(:school) { FactoryBot.create(:school) }
     let(:educator) { FactoryBot.create(:educator_with_homeroom) }
     let(:other_educator) { FactoryBot.create(:educator, full_name: "Teacher, Louis") }
-    let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
+    let(:student) { FactoryBot.create(:student, school: school) }
     let(:course) { FactoryBot.create(:course, school: school) }
     let(:section) { FactoryBot.create(:section, course: course) }
     let!(:ssa) { FactoryBot.create(:student_section_assignment, student: student, section: section) }
@@ -51,7 +51,7 @@ describe StudentsController, :type => :controller do
 
         it 'is successful' do
           make_request({ student_id: student.id, format: :html })
-          expect(response).to be_success
+          expect(response).to be_successful
         end
 
         it 'assigns the student\'s serialized data correctly' do
@@ -159,7 +159,7 @@ describe StudentsController, :type => :controller do
 
         it 'is successful' do
           make_request({ student_id: student.id, format: :html })
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
@@ -169,7 +169,7 @@ describe StudentsController, :type => :controller do
 
         it 'is successful' do
           make_request({ student_id: student.id, format: :html })
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
@@ -183,7 +183,7 @@ describe StudentsController, :type => :controller do
 
         it 'is successful' do
           make_request({ student_id: section_student.id, format: :html })
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
@@ -197,7 +197,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has some grade level access but for the wrong grade' do
-        let(:student) { FactoryBot.create(:student, :with_risk_level, grade: '1', school: school) }
+        let(:student) { FactoryBot.create(:student, grade: '1', school: school) }
         let(:educator) { FactoryBot.create(:educator, grade_level_access: ['KF'], school: school) }
 
         it 'fails' do
@@ -215,7 +215,6 @@ describe StudentsController, :type => :controller do
 
         context 'student in SPED' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               program_assigned: 'Sp Ed',
                                               school: school)
@@ -223,13 +222,12 @@ describe StudentsController, :type => :controller do
 
           it 'is successful' do
             make_request({ student_id: student.id, format: :html })
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
 
         context 'student in Reg Ed' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               program_assigned: 'Reg Ed')
           }
@@ -251,7 +249,6 @@ describe StudentsController, :type => :controller do
 
         context 'limited English proficiency' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               limited_english_proficiency: 'FLEP',
                                               school: school)
@@ -259,13 +256,12 @@ describe StudentsController, :type => :controller do
 
           it 'is successful' do
             make_request({ student_id: student.id, format: :html })
-            expect(response).to be_success
+            expect(response).to be_successful
           end
         end
 
         context 'fluent in English' do
           let(:student) { FactoryBot.create(:student,
-                                              :with_risk_level,
                                               grade: '1',
                                               limited_english_proficiency: 'Fluent')
           }
@@ -389,7 +385,7 @@ describe StudentsController, :type => :controller do
 
       it 'returns an array of student labels and ids that match educator\'s students' do
         make_request
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(JSON.parse(response.body)).to eq [
           { "label" => "Juan P - HEA - 5", "id" => juan.id }
         ]
@@ -408,7 +404,7 @@ describe StudentsController, :type => :controller do
 
       it 'returns an array of student labels and ids that match cached students' do
         make_request
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(JSON.parse(response.body)).to eq [
           { "label" => "Juan P - HEA - 5", "id" => "700" }
         ]
@@ -442,7 +438,6 @@ describe StudentsController, :type => :controller do
       student = FactoryBot.create(:student)
       serialized_student = controller.send(:serialize_student_for_profile, student)
       expect(serialized_student.keys).to include(*[
-        'student_risk_level',
         'absences_count',
         'tardies_count',
         'school_name',
@@ -522,7 +517,7 @@ describe StudentsController, :type => :controller do
 
         it 'is successful' do
           make_request(student)
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
@@ -565,7 +560,7 @@ describe StudentsController, :type => :controller do
 
       it 'succeeds and sends the right response body down' do
         make_request(pals.healey_kindergarten_student.id)
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response.body).to eq 'eee'
       end
 
@@ -574,7 +569,7 @@ describe StudentsController, :type => :controller do
 
         it 'assigns the most recent photo' do
           make_request(pals.healey_kindergarten_student.id)
-          expect(response).to be_success
+          expect(response).to be_successful
           expect(assigns(:student_photo)).to eq(more_recent_student_photo)
         end
       end
@@ -585,7 +580,7 @@ describe StudentsController, :type => :controller do
 
       it 'is not successful; sends an error' do
         make_request(pals.healey_kindergarten_student.id)
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
       end
     end
@@ -596,7 +591,7 @@ describe StudentsController, :type => :controller do
 
       it 'redirects' do
         make_request(pals.healey_kindergarten_student.id)
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(response).to redirect_to('/not_authorized')
       end
     end
@@ -606,7 +601,7 @@ describe StudentsController, :type => :controller do
 
       it 'redirects' do
         make_request(pals.healey_kindergarten_student.id)
-        expect(response).not_to be_success
+        expect(response).not_to be_successful
         expect(response).to redirect_to('/educators/sign_in')
       end
     end
@@ -654,7 +649,7 @@ describe StudentsController, :type => :controller do
   describe '#student_report' do
     let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
     let(:school) { FactoryBot.create(:school) }
-    let(:student) { FactoryBot.create(:student, :with_risk_level, school: school) }
+    let(:student) { FactoryBot.create(:student, school: school) }
 
     def get_student_report_pdf(student_id, params = {})
       request.env['HTTPS'] = 'on'
@@ -683,7 +678,7 @@ describe StudentsController, :type => :controller do
       context 'educator has schoolwide access' do
 
         it 'is successful' do
-          expect(response).to be_success
+          expect(response).to be_successful
         end
 
         it 'assigns the student correctly' do
@@ -748,14 +743,14 @@ describe StudentsController, :type => :controller do
         recorded_at: Time.parse('2017-03-16 11:12:00')
       })
       get_student_report_pdf(student.id)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(assigns(:event_notes)).to include(event_note_today)
     end
 
     it 'does not raise when rendering the Rails view' do
       sign_in(educator)
       get_student_report_pdf(student.id)
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response.headers).to eq({
         "Content-Type" => "application/pdf",
         "Content-Disposition" => "inline; filename=\"student_report.pdf\"",

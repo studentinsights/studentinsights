@@ -45,7 +45,6 @@ export const students = [
     "most_recent_star_math_percentile": 95,
     "enrollment_status": "Active",
     "date_of_birth": "2009-05-03T00:00:00.000Z",
-    "risk_level": 0,
     "gender": "F",
     "house": null,
     "counselor": null,
@@ -93,24 +92,6 @@ export const students = [
       "sped_level": "—",
       "sped_tooltip_message": null,
       "sped_bubble_class": "sped"
-    },
-    "student_risk_level": {
-      "id": 4,
-      "student_id": 4,
-      "level": 0,
-      "created_at": "2018-01-10T13:42:56.153Z",
-      "updated_at": "2018-01-10T13:42:56.184Z",
-      "mcas_math_risk_level": null,
-      "star_math_risk_level": 0,
-      "mcas_ela_risk_level": null,
-      "star_reading_risk_level": 1,
-      "limited_english_proficiency_risk_level": null,
-      "explanation": {
-        "intro": "Snow is at Risk 0 because:",
-        "reasons": [
-          "Snow's STAR Math performance is above 85."
-        ]
-      }
     }
   },
   {
@@ -145,7 +126,6 @@ export const students = [
     "most_recent_star_math_percentile": 44,
     "enrollment_status": "Active",
     "date_of_birth": "2009-03-12T00:00:00.000Z",
-    "risk_level": 0,
     "gender": "M",
     "house": null,
     "counselor": null,
@@ -237,24 +217,6 @@ export const students = [
       "sped_level": "—",
       "sped_tooltip_message": null,
       "sped_bubble_class": "sped"
-    },
-    "student_risk_level": {
-      "id": 7,
-      "student_id": 7,
-      "level": 0,
-      "created_at": "2018-01-10T13:42:56.306Z",
-      "updated_at": "2018-01-10T13:42:56.332Z",
-      "mcas_math_risk_level": null,
-      "star_math_risk_level": 1,
-      "mcas_ela_risk_level": null,
-      "star_reading_risk_level": 0,
-      "limited_english_proficiency_risk_level": null,
-      "explanation": {
-        "intro": "Chip is at Risk 0 because:",
-        "reasons": [
-          "Chip's STAR Reading performance is above 85."
-        ]
-      }
     }
   },
   {
@@ -289,7 +251,6 @@ export const students = [
     "most_recent_star_math_percentile": 100,
     "enrollment_status": "Active",
     "date_of_birth": "2009-07-02T00:00:00.000Z",
-    "risk_level": 0,
     "gender": "M",
     "house": null,
     "counselor": null,
@@ -392,24 +353,6 @@ export const students = [
       "sped_level": "—",
       "sped_tooltip_message": null,
       "sped_bubble_class": "sped"
-    },
-    "student_risk_level": {
-      "id": 9,
-      "student_id": 9,
-      "level": 0,
-      "created_at": "2018-01-10T13:42:56.394Z",
-      "updated_at": "2018-01-10T13:42:56.421Z",
-      "mcas_math_risk_level": null,
-      "star_math_risk_level": 0,
-      "mcas_ela_risk_level": null,
-      "star_reading_risk_level": 1,
-      "limited_english_proficiency_risk_level": null,
-      "explanation": {
-        "intro": "Pluto is at Risk 0 because:",
-        "reasons": [
-          "Pluto's STAR Math performance is above 85."
-        ]
-      }
     }
   },
   {
@@ -444,7 +387,6 @@ export const students = [
     "most_recent_star_math_percentile": 2,
     "enrollment_status": "Active",
     "date_of_birth": "2009-08-13T00:00:00.000Z",
-    "risk_level": 3,
     "gender": "F",
     "house": null,
     "counselor": null,
@@ -481,24 +423,6 @@ export const students = [
       "sped_level": "—",
       "sped_tooltip_message": null,
       "sped_bubble_class": "sped"
-    },
-    "student_risk_level": {
-      "id": 3,
-      "student_id": 3,
-      "level": 3,
-      "created_at": "2018-01-10T13:42:56.106Z",
-      "updated_at": "2018-01-10T13:42:56.139Z",
-      "mcas_math_risk_level": 1,
-      "star_math_risk_level": 3,
-      "mcas_ela_risk_level": null,
-      "star_reading_risk_level": 1,
-      "limited_english_proficiency_risk_level": null,
-      "explanation": {
-        "intro": "Aladdin is at Risk 3 because:",
-        "reasons": [
-          "Aladdin's STAR Math performance is in the warning range (below 10)."
-        ]
-      }
     }
   },
   {
@@ -533,7 +457,6 @@ export const students = [
     "most_recent_star_math_percentile": 29,
     "enrollment_status": "Active",
     "date_of_birth": "2009-02-22T00:00:00.000Z",
-    "risk_level": 2,
     "gender": "F",
     "house": null,
     "counselor": null,
@@ -647,24 +570,6 @@ export const students = [
       "sped_level": "—",
       "sped_tooltip_message": null,
       "sped_bubble_class": "sped"
-    },
-    "student_risk_level": {
-      "id": 6,
-      "student_id": 6,
-      "level": 2,
-      "created_at": "2018-01-10T13:42:56.261Z",
-      "updated_at": "2018-01-10T13:42:56.288Z",
-      "mcas_math_risk_level": null,
-      "star_math_risk_level": 2,
-      "mcas_ela_risk_level": null,
-      "star_reading_risk_level": 0,
-      "limited_english_proficiency_risk_level": null,
-      "explanation": {
-        "intro": "Snow is at Risk 2 because:",
-        "reasons": [
-          "Snow's STAR Math performance is in the 10-30 range."
-        ]
-      }
     }
   },
   {
@@ -699,7 +604,6 @@ export const students = [
     "most_recent_star_math_percentile": 27,
     "enrollment_status": "Active",
     "date_of_birth": "2008-09-27T00:00:00.000Z",
-    "risk_level": 2,
     "gender": "F",
     "house": null,
     "counselor": null,
@@ -813,24 +717,6 @@ export const students = [
       "sped_level": "—",
       "sped_tooltip_message": null,
       "sped_bubble_class": "sped"
-    },
-    "student_risk_level": {
-      "id": 10,
-      "student_id": 10,
-      "level": 2,
-      "created_at": "2018-01-10T13:42:56.433Z",
-      "updated_at": "2018-01-10T13:42:56.459Z",
-      "mcas_math_risk_level": null,
-      "star_math_risk_level": 2,
-      "mcas_ela_risk_level": null,
-      "star_reading_risk_level": 1,
-      "limited_english_proficiency_risk_level": null,
-      "explanation": {
-        "intro": "Rapunzel is at Risk 2 because:",
-        "reasons": [
-          "Rapunzel's STAR Math performance is in the 10-30 range."
-        ]
-      }
     }
   }
 ] // eslint-disable-line

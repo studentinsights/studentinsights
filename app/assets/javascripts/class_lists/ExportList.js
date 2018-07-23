@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Creatable} from 'react-select';
 import 'react-select/dist/react-select.css';
 import _ from 'lodash';
@@ -185,29 +186,29 @@ export default class ExportList extends React.Component {
   }
 }
 ExportList.contextTypes = {
-  nowFn: React.PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired
 };
 ExportList.propTypes = {
-  isRevisable: React.PropTypes.bool.isRequired,
-  gradeLevelNextYear: React.PropTypes.string.isRequired,
-  school: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired
+  isRevisable: PropTypes.bool.isRequired,
+  gradeLevelNextYear: PropTypes.string.isRequired,
+  school: PropTypes.shape({
+    name: PropTypes.string.isRequired
   }),
-  students: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    local_id: React.PropTypes.string.isRequired,
-    first_name: React.PropTypes.string.isRequired,
-    last_name: React.PropTypes.string.isRequired
+  students: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    local_id: PropTypes.string.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired
   })).isRequired,
-  fetchProfile: React.PropTypes.func.isRequired,
-  teacherStudentIdsByRoom: React.PropTypes.object.isRequired,
-  principalStudentIdsByRoom: React.PropTypes.object,
-  educators: React.PropTypes.arrayOf(React.PropTypes.shape({
-    full_name: React.PropTypes.string.isRequired
+  fetchProfile: PropTypes.func.isRequired,
+  teacherStudentIdsByRoom: PropTypes.object.isRequired,
+  principalStudentIdsByRoom: PropTypes.object,
+  educators: PropTypes.arrayOf(PropTypes.shape({
+    full_name: PropTypes.string.isRequired
   })).isRequired,
-  principalTeacherNamesByRoom: React.PropTypes.object.isRequired,
-  onPrincipalTeacherNamesByRoomChanged:  React.PropTypes.func,
-  headingStyle: React.PropTypes.object
+  principalTeacherNamesByRoom: PropTypes.object.isRequired,
+  onPrincipalTeacherNamesByRoomChanged:  PropTypes.func,
+  headingStyle: PropTypes.object
 };
 
 

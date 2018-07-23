@@ -1,6 +1,6 @@
 import {postTeacherUpdates, postPrincipalRevisions} from './api';
 import fetchMock from 'fetch-mock/es5/client';
-import {TEST_TIME_MOMENT} from '../testing/NowContainer';
+import {testTimeMoment} from '../testing/NowContainer';
 
 beforeEach(() => {
   fetchMock.restore();
@@ -9,6 +9,7 @@ beforeEach(() => {
 });
 
 it('#postTeacherUpdates', done => {
+  const nowMoment = testTimeMoment();
   const params = {
     workspaceId: 'foo-workspace-id',
     isSubmitted: false,
@@ -24,7 +25,7 @@ it('#postTeacherUpdates', done => {
     },
     feedbackText: 'feedback!',
     principalNoteText: 'notes!',
-    clientNowMs: TEST_TIME_MOMENT.unix()
+    clientNowMs: nowMoment.unix()
   };
 
   // This is read off the page from rails, but not in test
@@ -58,7 +59,7 @@ it('#postTeacherUpdates', done => {
         },
         "principalNoteText": "notes!",
         "feedbackText": "feedback!",
-        "clientNowMs": TEST_TIME_MOMENT.unix()
+        "clientNowMs": nowMoment.unix()
       }
     }));
     done();
@@ -67,9 +68,10 @@ it('#postTeacherUpdates', done => {
 
 
 it('#postPrincipalRevisions', done => {
+  const nowMoment = testTimeMoment();
   const params = {
     workspaceId: 'foo-workspace-id',
-    clientNowMs: TEST_TIME_MOMENT.unix(),
+    clientNowMs: nowMoment.unix(),
     principalStudentIdsByRoom: {
       "room:unplaced":[],
       "room:0":[1, 2],
@@ -108,7 +110,7 @@ it('#postPrincipalRevisions', done => {
           "room:0":"Kevin",
           "room:1":"Alex",
         },
-        "clientNowMs":TEST_TIME_MOMENT.unix()
+        "clientNowMs":nowMoment.unix()
       }
     }));
     done();

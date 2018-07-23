@@ -1,6 +1,4 @@
 class MissingStudentAssessment
-  def risk_level; nil end
-
   def growth_percentile; nil end
 
   def performance_level; nil end

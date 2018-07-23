@@ -52,6 +52,20 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect(strategy.user).to eq nil
     end
 
+    it 'reports error and calls fail! when is_authorized_by_ldap? times out' do
+      expect(Rollbar).to receive(:error).with(any_args)
+
+      strategy = test_strategy
+      allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
+      allow(strategy).to receive(:password) { 'supersecure' }
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_raise(Net::LDAP::Error)
+      strategy.authenticate!
+
+      expect(strategy.result).to eq :failure
+      expect(strategy.message).to eq :error
+      expect(strategy.user).to eq nil
+    end
+
     it 'calls success! even when cases are different' do
       strategy = test_strategy
       allow(strategy).to receive(:authentication_hash) { { email: 'URI@demo.studentinsights.org' } }

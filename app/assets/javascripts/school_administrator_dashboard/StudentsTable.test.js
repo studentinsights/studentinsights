@@ -7,7 +7,14 @@ import StudentsTable from './StudentsTable';
 
 function testRender(options = {}) {
   const nowMoment = options.nowMoment || moment.utc();
-  const table = mount(<StudentsTable rows={createStudents(nowMoment)} incidentType={"Test Incidents"} resetFn={(value) => null}/>);
+  const context = { nowFn(){ return nowMoment; } };
+  const table = mount(
+    <StudentsTable
+      rows={createStudents(nowMoment)}
+      incidentType={"Test Incidents"}
+      resetFn={(value) => null}
+      forcedSizeForTesting={{width: 1000, height: 600}} />
+  , {context});
   return table;
 }
 
@@ -17,10 +24,10 @@ it('renders the students list', () => {
   expect(table.find("div").first().hasClass("StudentsTable")).toEqual(true);
 });
 
-it('renders headers for name, incident count and last SST', () => {
+it('renders headers for name, incident count and latest note', () => {
   const table = testRender();
   const headerTexts = table.find('.ReactVirtualized__Table__headerColumn').map(node => node.text());
-  expect(headerTexts).toEqual(['Name', 'Grade', 'Test Incidents', 'Last SST']);
+  expect(headerTexts).toEqual(['Name', 'Grade', 'Test Incidents', 'Last note']);
 });
 
 it('renders the first row', () => {
@@ -31,7 +38,7 @@ it('renders the first row', () => {
     "Pierrot Zanni",
     "4",
     "3",
-    nowMoment.clone().subtract(3, 'months').format('M/D/YY'),
+    'SST30 days',
   ]);
 });
 
@@ -72,8 +79,8 @@ it('orders students by events when Incidents is clicked', () => {
   expect(table.state().sortBy).toEqual("events");
 });
 
-it('orders students by events when Last SST is clicked', () => {
+it('orders students by events when Last note is clicked', () => {
   const table = testRender();
   table.find('.ReactVirtualized__Table__headerColumn').at(3).simulate('click');
-  expect(table.state().sortBy).toEqual("last_sst_date_text");
+  expect(table.state().sortBy).toEqual("latest_note");
 });

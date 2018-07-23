@@ -25,6 +25,11 @@ export function fetchAllWorkspaces() {
   return apiFetchJson('/api/class_lists/workspaces_json');
 }
 
+// Experimental
+export function fetchExperimentalWorkspacesWithEquity() {
+  return apiFetchJson('/api/class_lists/experimental_workspaces_with_equity_json');
+}
+
 // Fetch the state of a class list workspace
 export function fetchClassListJson(workspaceId) {
   const url = `/api/class_lists/${workspaceId}/class_list_json`;
