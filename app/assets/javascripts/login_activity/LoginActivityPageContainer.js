@@ -10,8 +10,8 @@ export default class LoginActivityPageContainer extends React.Component {
 
     return (
       <LoginActivityPage
-        queryStartTimestamp={thirtyDaysAgoTimestamp}
-        queryEndTimestamp={nowTimestamp}
+        queryStartTimestamp={String(thirtyDaysAgoTimestamp)}
+        queryEndTimestamp={String(nowTimestamp)}
       />
     );
   }
