@@ -178,7 +178,7 @@ export default class LoginActivityPage extends React.Component {
       <div>
         <br/><div>Successful login activity:</div>
         {successfulAttempts.map((item, index) => {
-          return this.renderSuccessfulLoginListItem(item, index)
+          return this.renderSuccessfulLoginListItem(item, index);
         }, this)}
       </div>
     );
@@ -191,7 +191,7 @@ export default class LoginActivityPage extends React.Component {
       <div>
         <br/><div>Failed login activity:</div>
         {failedAttempts.map((item, index) => {
-          return this.renderFailedAttemptListItem(item, index)
+          return this.renderFailedAttemptListItem(item, index);
         }, this)}
       </div>
     );
