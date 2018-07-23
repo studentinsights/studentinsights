@@ -146,14 +146,16 @@ export function prettyProgramText(programAssigned, spedPlacement) {
     : null;
 }
 
+// What is the eventNoteTypeId to use in user-facing text about how to support
+// students with high absences?
 export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
   if (districtKey === NEW_BEDFORD) return 400; // bbst
   if (districtKey === SOMERVILLE) return 300; // sst
   
-  return 'SST';
+  return 300;
 }
 
-// What choices do educators have for taking notes?
+// What choices do educators have for taking notes in the product?
 export function takeNotesChoices(districtKey) {
   if (districtKey === SOMERVILLE || districtKey === DEMO) {
     return {
@@ -172,6 +174,8 @@ export function takeNotesChoices(districtKey) {
   throw new Error(`unsupported districtKey: ${districtKey}`);
 }
 
+// In tables of students, what eventNoteTypeIds should be shown as columns with notes
+// about those students?
 export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
   if (isSomervilleOrDemo && schoolType === 'ESMS') return [300, 301];
