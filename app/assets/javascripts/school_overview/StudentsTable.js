@@ -7,13 +7,18 @@ import {
   sortByCustomEnum,
   sortByActiveServices
 } from '../helpers/SortHelpers';
-import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
-import {latestNoteDateText} from '../helpers/latestNoteDateText';
+import {
+  eventNoteTypeTextMini,
+  studentTableEventNoteTypeIds,
+  shouldDisplayHouse,
+  shouldDisplayCounselor
+} from '../helpers/PerDistrict';
+import {studentsWithLatestNoteFields} from '../helpers/latestNoteDateText';
 import * as Routes from '../helpers/Routes';
 
 
 // Renders a table of students.
-class StudentsTable extends React.Component {
+export default class StudentsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,20 +29,11 @@ class StudentsTable extends React.Component {
     this.onClickHeader = this.onClickHeader.bind(this);
   }
 
-  studentsWithComputedFields() {
-    return this.props.students.map(student => {
-      const latestSstDateText = latestNoteDateText(300, student.event_notes);
-      const latestMtssDateText = latestNoteDateText(301, student.event_notes);
-      const latestNgeDateText = latestNoteDateText(305, student.event_notes);
-      const latest10geDateText = latestNoteDateText(306, student.event_notes);
-      return {
-        ...student,
-        latestSstDateText,
-        latestMtssDateText,
-        latestNgeDateText,
-        latest10geDateText
-      };
-    });
+  eventNoteTypeIds() {
+    const {districtKey} = this.context;
+    const {school} = this.props;
+    const schoolType = school.school_type;
+    return studentTableEventNoteTypeIds(districtKey, schoolType);
   }
 
   orderedStudents() {
@@ -49,7 +45,7 @@ class StudentsTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.studentsWithComputedFields();
+    const students = studentsWithLatestNoteFields(this.props.students, this.eventNoteTypeIds());
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
@@ -109,10 +105,9 @@ class StudentsTable extends React.Component {
           <thead>
             <tr>
               {this.renderHeader('Name', 'last_name', 'string')}
-              {this.renderHeader('Last SST', 'latestSstDateText', 'date')}
-              {school.school_type === 'ESMS' && this.renderHeader('Last MTSS', 'latestMtssDateText', 'date')}
-              {school.school_type === 'HS' && this.renderHeader('Last NGE', 'latestNgeDateText', 'date')}
-              {school.school_type === 'HS' && this.renderHeader('Last 10GE', 'latest10geDateText', 'date')}
+              {this.eventNoteTypeIds().map(eventNoteTypeId => (
+                this.renderHeader(`Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}`, 'date')
+              ))}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {shouldDisplayHouse(school) && this.renderHeader('House', 'house', 'string')}
               {shouldDisplayCounselor(school) && this.renderHeader('Counselor', 'counselor', 'string')}
@@ -140,10 +135,9 @@ class StudentsTable extends React.Component {
                       {student.last_name}, {student.first_name}
                     </a>
                   </td>
-                  <td>{student.latestSstDateText}</td>
-                  {school.school_type === 'ESMS' && <td>{student.latestMtssDateText}</td>}
-                  {school.school_type === 'HS' && <td>{student.latestNgeDateText}</td>}
-                  {school.school_type === 'HS' && <td>{student.latest10geDateText}</td>}
+                  {this.eventNoteTypeIds().map(eventNoteTypeId => (
+                    <td>{student[`latest_note_${eventNoteTypeId}`].dateText}</td>
+                  ))}
                   <td>{student.grade}</td>
                   {shouldDisplayHouse(school) && (<td>{student.house}</td>)}
                   {shouldDisplayCounselor(school) && (<td>{student.counselor}</td>)}
@@ -206,6 +200,9 @@ class StudentsTable extends React.Component {
     );
   }
 }
+StudentsTable.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 StudentsTable.propTypes = {
   students: PropTypes.arrayOf(PropTypes.object).isRequired,
   school: PropTypes.shape({
@@ -213,5 +210,3 @@ StudentsTable.propTypes = {
     school_type: PropTypes.string.isRequired
   })
 };
-
-export default StudentsTable;

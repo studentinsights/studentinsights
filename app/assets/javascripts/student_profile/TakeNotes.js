@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {takeNotesChoices} from '../helpers/PerDistrict';
 
 /*
 Pure UI form for taking notes about an event, tracking its own local state
@@ -89,18 +89,7 @@ export default class TakeNotes extends React.Component {
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
-            {this.renderNoteButton(300)}
-            {this.renderNoteButton(301)}
-            {this.renderNoteButton(305)}
-          </div>
-          <div style={{ flex: 1 }}>
-            {this.renderNoteButton(306)}
-            {this.renderNoteButton(302)}
-            {this.renderNoteButton(304)}
-          </div>
-        </div>
+        {this.renderNoteButtonsPerDistrict()}
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           Add a link (i.e. to a file of student work on Google Drive):
         </div>
@@ -141,6 +130,22 @@ export default class TakeNotes extends React.Component {
         <span style={styles.educator}>
           {header.educatorEmail}
         </span>
+      </div>
+    );
+  }
+
+  renderNoteButtonsPerDistrict() {
+    const {districtKey} = this.context;
+    const {leftEventNoteTypeIds, rightEventNoteTypeIds} = takeNotesChoices(districtKey);
+    z
+    return (
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }}>
+          {leftEventNoteTypeIds.map(this.renderNoteButton)}
+        </div>
+        <div style={{ flex: 1 }}>
+          {rightEventNoteTypeIds.map(this.renderNoteButton)}
+        </div>
       </div>
     );
   }

@@ -29,8 +29,6 @@ class Student < ActiveRecord::Base
     where('occurred_at >= ?', 1.year.ago)
   }, class_name: "Absence"
 
-  has_many :sst_notes, -> { where(event_note_type_id: 300) }, class_name: "EventNote"
-
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   validates :first_name, presence: true
@@ -100,6 +98,11 @@ class Student < ActiveRecord::Base
     sorter = StudentSchoolYearSorter.new(student: self)
 
     sorter.sort_and_filter(filter_to_date, filter_from_date)
+  end
+
+  # Maybe include a restricted note, but cannot return any restricted data
+  def latest_note
+    event_notes.order(recorded_at: :desc).limit(1).first.as_json(only: [:event_note_type_id, :recorded_at])
   end
 
   ## STUDENT ASSESSMENT RESULTS ##

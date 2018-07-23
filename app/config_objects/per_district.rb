@@ -133,6 +133,10 @@ class PerDistrict
     end
   end
 
+  def is_research_matters_analysis_supported?
+    @district_key == SOMERVILLE
+  end
+
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

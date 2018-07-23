@@ -8,8 +8,9 @@ import {
   sortByCustomEnum,
   sortByActiveServices
 } from '../helpers/SortHelpers';
+import {eventNoteTypeTextMini, studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
+import {mergeLatestNoteFields} from '../helpers/latestNoteDateText';
 import Cookies from 'js-cookie';
-import {latestNoteDateText} from '../helpers/latestNoteDateText';
 
 
 // Shows a homeroom roster, for K8 and HS homerooms.
@@ -31,6 +32,13 @@ class HomeroomTable extends React.Component {
     this.openColumnPicker = this.openColumnPicker.bind(this);
     this.closeColumnPicker = this.closeColumnPicker.bind(this);
     this.toggleColumn = this.toggleColumn.bind(this);
+  }
+
+  eventNoteTypeIds() {
+    const {districtKey} = this.context;
+    const {school} = this.props;
+    const schoolType = school.school_type;
+    return studentTableEventNoteTypeIds(districtKey, schoolType);
   }
 
   orderedStudents() {
@@ -123,23 +131,10 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  mergeInLatestMeetings(row) {
-    const latestSstDateText = latestNoteDateText(300, row.event_notes_without_restricted);
-    const latestMtssDateText = latestNoteDateText(301, row.event_notes_without_restricted);
-    const latestNgeDateText = latestNoteDateText(305, row.event_notes_without_restricted);
-    const latest10geDateText = latestNoteDateText(306, row.event_notes_without_restricted);
-    return {
-      ...row,
-      latestSstDateText,
-      latestMtssDateText,
-      latestNgeDateText,
-      latest10geDateText
-    };
-  }
-
   mergedStudentRows() {
+    const eventNoteTypeIds = this.eventNoteTypeIds();
     return this.props.rows
-      .map(this.mergeInLatestMeetings);
+      .map(student => mergeLatestNoteFields(student, eventNoteTypeIds));
   }
 
   visitStudentProfile(id) {
@@ -162,11 +157,6 @@ class HomeroomTable extends React.Component {
     if (this.props.showMcas === true && mcasDisplayed === true) return true;
 
     return false;
-  }
-
-  isHighSchool() {
-    const {school} = this.props;
-    return (school.school_type === 'HS');
   }
 
   onClickHeader(sortBy, sortType) {
@@ -346,10 +336,9 @@ class HomeroomTable extends React.Component {
       <tr className="column-names">
         {/* COLUMN HEADERS */}
         {this.renderNameSubheader()}
-        {this.renderSubHeader('supports', 'Last SST', 'latestSstDateText', 'date')}
-        {!this.isHighSchool() && this.renderSubHeader('supports', 'Last MTSS', 'latestMtssDateText', 'date')}
-        {this.isHighSchool() && this.renderSubHeader('supports', 'Last NGE', 'latestNgeDateText', 'date')}
-        {this.isHighSchool() && this.renderSubHeader('supports', 'Last 10GE', 'latest10geDateText', 'date')}
+        {this.eventNoteTypeIds().map(eventNoteTypeId => (
+          this.renderSubHeader('supports', `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}`, 'date')
+        ))}
         {this.renderSubHeader(
           'program', 'Program Assigned', 'program_assigned', 'program_assigned'
         )}
@@ -375,7 +364,7 @@ class HomeroomTable extends React.Component {
   }
 
   renderHeaders() {
-    const supportColumnCount = this.isHighSchool() ? 3 : 2;
+    const supportColumnCount = this.eventNoteTypeIds().length;
     return (
       <thead>
         <tr className="column-groups">
@@ -429,10 +418,9 @@ class HomeroomTable extends React.Component {
           key={id}
           style={style}>
         <td className="name">{fullName}</td>
-        {this.renderDataCell('supports', row['latestSstDateText'])}
-        {!this.isHighSchool() && this.renderDataCell('supports', row['latestMtssDateText'])}
-        {this.isHighSchool() && this.renderDataCell('supports', row['latestNgeDateText'])}
-        {this.isHighSchool() && this.renderDataCell('supports', row['latest10geDateText'])}
+        {this.eventNoteTypeIds().map(eventNoteTypeId => (
+          this.renderDataCell('supports', row[eventNoteTypeTextMini(eventNoteTypeId)])
+        ))}
         {this.renderDataCell('program', row['program_assigned'])}
         {this.renderDataCell('sped', row['disability'])}
         {this.renderDataCell('sped', this.renderDataWithSpedTooltip(row))}
@@ -534,7 +522,9 @@ class HomeroomTable extends React.Component {
     );
   }
 }
-
+HomeroomTable.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 HomeroomTable.propTypes = {
   showStar: PropTypes.bool.isRequired,
   showMcas: PropTypes.bool.isRequired,

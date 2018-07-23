@@ -1,17 +1,27 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-// Find the latest event note of a particular type, and return a string
-// of that date.
 
-// TODO (ARS): Sometimes we want to use this function on a list of notes that
-// all have the same event_note_type. In that case we just want to use the sorting
-// and text formatting functions here. We could switch the order of the arguments
-// passed in and make eventNoteTypeId an optional second argument.
-
-export function latestNoteDateText(eventNoteTypeId, eventNotes) {
+// Returns latest {event_note_type_id, recorded_at}, sorted by recorded_at time
+// or null
+function latestNote(eventNotes, options = {}) {
   const sortedEventNotes = _.sortBy(eventNotes, note => new Date(note.recorded_at));
-  const latestNoteOfType = _.findLast(sortedEventNotes, { event_note_type_id: eventNoteTypeId });
-  if (latestNoteOfType === undefined) return null;
-  return moment.utc(latestNoteOfType.recorded_at).format('M/D/YY');
+  return _.last(sortedEventNotes);
 }
+
+function noteDateText(eventNote) {
+  if (eventNote === undefined) return null;
+  return moment.utc(eventNote.recorded_at).format('M/D/YY');
+}
+
+// Merge in info about latest notes into 
+export function mergeLatestNoteFields(studentWithEventNotes, eventNoteTypeIds) {
+  return eventNoteTypeIds.reduce((student, eventNoteTypeId) => {
+    const dateText = noteDateText(latestNote(eventNoteTypeId, student.event_notes));
+    return {
+      ...student,
+      [`latest_note_${eventNoteTypeId}`]: {eventNoteTypeId, dateText}
+    };
+  }, studentWithEventNotes);
+}
+

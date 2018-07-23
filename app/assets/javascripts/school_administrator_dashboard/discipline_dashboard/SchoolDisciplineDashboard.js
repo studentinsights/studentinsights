@@ -225,7 +225,6 @@ SchoolDisciplineDashboard.propTypes = {
     offense: PropTypes.string, //Specific type of incident
     student_race: PropTypes.string, //Race of student
     occurred_at: PropTypes.string, //Date for incident, used in filtering specific date ranges
-    last_sst_date_text: PropTypes.string //Date of last SST meeting
   })).isRequired,
   school: PropTypes.shape({
     name: PropTypes.string.isRequired

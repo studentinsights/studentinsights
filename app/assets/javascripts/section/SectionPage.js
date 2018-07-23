@@ -8,12 +8,13 @@ import {
   sortByDate,
   sortByNumber
 } from '../helpers/SortHelpers';
-import {latestNoteDateText} from '../helpers/latestNoteDateText';
+import {eventNoteTypeTextMini, studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
+import {mergeLatestNoteFields} from '../helpers/latestNoteDateText';
 import * as Routes from '../helpers/Routes';
 
 
 // Show a section roster for a high school course.
-class SectionPage extends React.Component {
+export default class SectionPage extends React.Component {
 
   styleStudentName(student, column) {
     return (
@@ -21,6 +22,12 @@ class SectionPage extends React.Component {
         {student.last_name + ', ' + student.first_name}
       </a>
     );
+  }
+
+  eventNoteTypeIds() {
+    const {districtKey} = this.context;
+    const schoolType = 'HS';
+    return studentTableEventNoteTypeIds(districtKey, schoolType);
   }
 
   nameSorter(a, b, sortBy) {
@@ -42,23 +49,10 @@ class SectionPage extends React.Component {
     return sortByCustomEnum(a,b,sortBy,['A','P','NI','W','F']);
   }
 
-  studentsWithComputedFields(students) {
-    return students.map(student => {
-      const latestSstDateText = latestNoteDateText(300, student.event_notes_without_restricted);
-      const latestNgeDateText = latestNoteDateText(305, student.event_notes_without_restricted);
-      const latest10geDateText = latestNoteDateText(306, student.event_notes_without_restricted);
-      return {
-        ...student,
-        latestSstDateText,
-        latestNgeDateText,
-        latest10geDateText
-      };
-    });
-  }
-
   render() {
     const {section, sections, students} = this.props;
-    const studentsWithComputedFields = this.studentsWithComputedFields(students);
+    const eventNoteTypeIds = this.eventNoteTypeIds();
+    const studentsWithComputedFields = students.map(student => mergeLatestNoteFields(student, eventNoteTypeIds));
 
     // Grades are being rolled out ONLY to educators with districtwide access
     // for data validation purposes
@@ -66,9 +60,9 @@ class SectionPage extends React.Component {
       {label: 'Name', key: 'first_name', cell:this.styleStudentName, sortFunc: this.nameSorter},
 
       // Supports
-      {label: 'Last SST', group: 'Supports', key: 'latestSstDateText', sortFunc: sortByDate},
-      {label: 'Last NGE', group: 'Supports', key: 'latestNgeDateText', sortFunc: sortByDate},
-      {label: 'Last 10GE', group: 'Supports', key: 'latest10geDateText', sortFunc: sortByDate},
+      ...eventNoteTypeIds.map(eventNoteTypeId => (
+        {label: `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, group: 'Supports', key: `latest_note_${eventNoteTypeId}`, sortFunc: sortByDate}
+      )),
 
       {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},
       
@@ -117,7 +111,9 @@ class SectionPage extends React.Component {
     );
   }
 }
-
+SectionPage.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 SectionPage.propTypes = {
   students: PropTypes.arrayOf(PropTypes.shape({
     event_notes_without_restricted: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -127,5 +123,3 @@ SectionPage.propTypes = {
   section: PropTypes.object.isRequired,
   currentEducator: PropTypes.object.isRequired
 };
-
-export default SectionPage;

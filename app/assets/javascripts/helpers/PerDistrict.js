@@ -145,3 +145,38 @@ export function prettyProgramText(programAssigned, spedPlacement) {
     ? programAssigned === 'Sp Ed' ? spedPlacement : programAssigned
     : null;
 }
+
+export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
+  if (districtKey === NEW_BEDFORD) return 400; // bbst
+  if (districtKey === SOMERVILLE) return 300; // sst
+  
+  return 'SST';
+}
+
+// What choices do educators have for taking notes?
+export function takeNotesChoices(districtKey) {
+  if (districtKey === SOMERVILLE || districtKey === DEMO) {
+    return {
+      leftEventNoteTypeIds: [300, 301, 302],
+      rightEventNoteTypeIds: [305, 306, 303]
+    };
+  }
+
+  if (districtKey === NEW_BEDFORD) {
+    return {
+      leftEventNoteTypeIds: [400, 302, 304],
+      rightEventNoteTypeIds: []
+    };
+  }
+
+  throw new Error("unsupported districtKey: #{districtKey}");
+}
+
+export function studentTableEventNoteTypeIds(districtKey, schoolType) {
+  const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
+  if (isSomervilleOrDemo && schoolType === 'ESMS') return [300, 301];
+  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306];
+  if (districtKey === NEW_BEDFORD) return [400];
+  
+  throw new Error("unsupported districtKey: #{districtKey}");
+}

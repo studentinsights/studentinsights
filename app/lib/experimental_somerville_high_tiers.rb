@@ -13,6 +13,10 @@ class ExperimentalSomervilleHighTiers
   def initialize(educator)
     @educator = educator
     @authorizer = Authorizer.new(@educator)
+
+    if !PerDistrict.new.enabled_high_school_tiering?
+      raise 'not enabled: PerDistrict.new.enabled_high_school_tiering?'
+    end
   end
 
   def students_with_tiering_json(school_ids, time_now)
