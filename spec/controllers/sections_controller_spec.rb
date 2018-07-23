@@ -3,12 +3,30 @@ require 'rails_helper'
 describe SectionsController, :type => :controller do
   def make_request(id = nil)
     request.env['HTTPS'] = 'on'
-    get :show, params: { id: id }
+    request.env['HTTP_ACCEPT'] = 'application/json'
+    get :section_json, params: { id: id }
   end
 
-  def extract_serialized_ids(controller, instance)
-    serialized_data = controller.instance_variable_get(:@serialized_data)
-    serialized_data[instance].map {|data_hash| data_hash['id'] }
+  def extract_serialized_ids(response, field)
+    json = JSON.parse(response.body)
+    json[field.to_s].map {|data_hash| data_hash['id'] }
+  end
+
+  context 'can be disabled by PerDistrict' do
+    let!(:pals) { TestPals.create! }
+    let!(:educator) { pals.shs_bill_nye }
+    let!(:section) { pals.shs_tuesday_biology_section }
+    before { sign_in(educator) }
+    before do
+      mock_per_district = instance_double(PerDistrict)
+      expect(mock_per_district).to receive(:high_school_enabled?).and_return(false)
+      expect(PerDistrict).to receive(:new).and_return(mock_per_district)
+    end
+
+    it 'guards access' do
+      make_request(section.id)
+      expect(response.status).to eq 403
+    end
   end
 
   context 'with test pals setup' do
@@ -20,9 +38,10 @@ describe SectionsController, :type => :controller do
 
       it 'returns the right shape of data' do
         make_request(section.id)
-        expect(assigns(:serialized_data)[:sections].size).to eq 2
-        expect(assigns(:serialized_data)[:students].size).to eq 1
-        expect(assigns(:serialized_data)[:students].first.keys).to include(
+        json = JSON.parse(response.body)
+        expect(json['sections'].size).to eq 2
+        expect(json['students'].size).to eq 1
+        expect(json['students'].first.keys).to include(
           'event_notes_without_restricted',
           'most_recent_school_year_absences_count',
           'most_recent_school_year_tardies_count',
@@ -40,7 +59,8 @@ describe SectionsController, :type => :controller do
           recorded_at: Time.now
         })
         make_request(section.id)
-        expect(assigns(:serialized_data)[:students].first['event_notes_without_restricted']).to eq []
+        json = JSON.parse(response.body)
+        expect(json['students'].first['event_notes_without_restricted']).to eq []
       end
     end
   end
@@ -56,19 +76,19 @@ describe SectionsController, :type => :controller do
     let!(:ssa1) { FactoryBot.create(:student_section_assignment, student: first_student, section: first_section)}
     let!(:first_esa) { FactoryBot.create(:educator_section_assignment, educator: high_school_educator, section: first_section)}
 
-    describe '#show' do
+    describe '#section_json' do
       it 'does student-level authorization, beyond just section relation' do
         sign_in(high_school_educator)
         make_request(first_section.id)
         expect(response.status).to eq 200
-        expect(extract_serialized_ids(controller, :students)).to eq []
-        expect(extract_serialized_ids(controller, :sections)).to eq [first_section.id]
+        expect(extract_serialized_ids(response, :students)).to eq []
+        expect(extract_serialized_ids(response, :sections)).to eq [first_section.id]
       end
 
       it 'does not allow educators not at a HS' do
         sign_in(pals.healey_laura_principal)
         make_request(first_section.id)
-        expect(response.status).to eq 302
+        expect(response.status).to eq 403
       end
     end
   end
@@ -85,11 +105,11 @@ describe SectionsController, :type => :controller do
     let!(:ssa2) { FactoryBot.create(:student_section_assignment, student: second_student, section: first_section)}
     let!(:third_student) { FactoryBot.create(:student, :registered_last_year, grade: '9', school: school) }
     let!(:ssa3) { FactoryBot.create(:student_section_assignment, student: third_student, section: first_section)}
-    let(:other_school) { FactoryBot.create(:school) }
-    let(:other_school_course) { FactoryBot.create(:course, school: other_school) }
-    let(:other_school_section) { FactoryBot.create(:section, course: other_school_course) }
+    let!(:other_school) { FactoryBot.create(:school) }
+    let!(:other_school_course) { FactoryBot.create(:course, school: other_school) }
+    let!(:other_school_section) { FactoryBot.create(:section, course: other_school_course) }
 
-    describe '#show' do
+    describe '#section_json' do
 
       context 'educator with section logged in' do
         let!(:educator) { FactoryBot.create(:educator, school: school) }
@@ -106,7 +126,7 @@ describe SectionsController, :type => :controller do
             end
             it 'redirects' do
               make_request('garbage ids rule')
-              expect(response).to redirect_to(home_path)
+              expect(response.status).to eq 404
             end
           end
 
@@ -118,14 +138,14 @@ describe SectionsController, :type => :controller do
             it 'assigns correct sections to drop-down' do
               make_request(first_section.id)
               expected_section_ids = [first_section, second_section].map(&:id)
-              sections = extract_serialized_ids(controller, :sections)
+              sections = extract_serialized_ids(response, :sections)
               expect(sections).to match_array(expected_section_ids)
             end
 
             context 'when there are no students' do
               it 'assigns students to empty' do
                 make_request(second_section.id)
-                student_ids = extract_serialized_ids(controller, :students)
+                student_ids = extract_serialized_ids(response, :students)
                 expect(student_ids).to be_empty
               end
             end
@@ -134,7 +154,7 @@ describe SectionsController, :type => :controller do
               it 'assigns rows to a non-empty array' do
                 make_request(first_section.id)
                 expected_student_ids = [first_student, second_student, third_student].map(&:id)
-                student_ids = extract_serialized_ids(controller,:students)
+                student_ids = extract_serialized_ids(response,:students)
                 expect(student_ids).to match_array(expected_student_ids)
               end
             end
@@ -142,9 +162,9 @@ describe SectionsController, :type => :controller do
 
           context 'section not accessible to educator' do
             let(:another_section) { FactoryBot.create(:section) }
-            it 'redirects' do
+            it 'guards access' do
               make_request(another_section.id)
-              expect(response.status).to eq 302
+              expect(response.status).to eq 403
             end
           end
         end
@@ -164,15 +184,15 @@ describe SectionsController, :type => :controller do
           it 'assigns correct sections to drop-down' do
             make_request(first_section.id)
             expected_section_ids = [first_section, second_section, third_section].map(&:id)
-            sections = extract_serialized_ids(controller, :sections)
+            sections = extract_serialized_ids(response, :sections)
             expect(sections).to match_array(expected_section_ids)
           end
         end
 
         context 'when requesting section outside their school' do
-          it 'redirects' do
+          it 'guards access' do
             make_request(other_school_section.id)
-            expect(response.status).to eq 302
+            expect(response.status).to eq 403
           end
         end
       end
@@ -191,7 +211,7 @@ describe SectionsController, :type => :controller do
           it 'assigns correct sections to drop-down' do
             make_request(first_section.id)
             expected_section_ids = [first_section, second_section, third_section, other_school_section].map(&:id)
-            sections = extract_serialized_ids(controller, :sections)
+            sections = extract_serialized_ids(response, :sections)
             expect(sections).to match_array(expected_section_ids)
           end
         end
