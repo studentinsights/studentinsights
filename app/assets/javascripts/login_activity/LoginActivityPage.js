@@ -42,7 +42,7 @@ export default class LoginActivityPage extends React.Component {
     // Iterate through each identity and group login activity by day
     _.forOwn(byEmail, (value, key, collection) => {
       collection[key] = _.groupBy(value, (activity) => {
-        return activity.created_at.startOf('day').format();
+        return activity.created_at.clone().startOf('day').format();
       });
     });
 
@@ -196,7 +196,7 @@ export default class LoginActivityPage extends React.Component {
   renderSuccessfulLoginListItem (item, index) {
     return (
       <li key={index}>
-        {item.created_at.format('LTS')}
+        {item.created_at.local().format('h:mm A')}
       </li>
     );
   }
@@ -204,7 +204,7 @@ export default class LoginActivityPage extends React.Component {
   renderFailedAttemptListItem (item, index) {
     return (
       <li key={index}>
-        {item.created_at.format('LTS')} ({item.failure_reason})
+        {item.created_at.local().format('h:mm A')} – {item.failure_reason}
       </li>
     );
   }
