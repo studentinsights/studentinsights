@@ -17,6 +17,8 @@ export default class LoginActivityPage extends React.Component {
     this.structureLoginActivityJson = this.structureLoginActivityJson.bind(this);
     this.renderCellForDay = this.renderCellForDay.bind(this);
     this.renderEmptyCellForDay = this.renderEmptyCellForDay.bind(this);
+    this.renderSuccessfulLoginListItem = this.renderSuccessfulLoginListItem.bind(this);
+    this.renderFailedAttemptListItem = this.renderFailedAttemptListItem.bind(this);
   }
 
   fetchLoginActivities() {
@@ -157,10 +159,52 @@ export default class LoginActivityPage extends React.Component {
   renderTooltipText(email, successfulAttempts, failedAttempts, day) {
     return (
       <span className="tooltiptext">
-        <div>{email.split('@')[0]}, {moment(day).utc().format('D/M')}:</div>
-        <br/>
-        <div>{JSON.stringify(data)}</div>
+        <div>{email.split('@')[0]}, {moment(day).utc().format('D/M')}</div>
+        {this.renderSuccessfulLoginList(successfulAttempts)}
+        {this.renderFailedAttemptList(failedAttempts)}
       </span>
+    );
+  }
+
+  renderSuccessfulLoginList(successfulAttempts) {
+    if (successfulAttempts.length === 0) return null;
+
+    return (
+      <div>
+        <br/><div>Successful logins:</div>
+        {successfulAttempts.map((item, index) => {
+          return this.renderSuccessfulLoginListItem(item, index)
+        }, this)}
+      </div>
+    );
+  }
+
+  renderFailedAttemptList(failedAttempts) {
+    if (failedAttempts.length === 0) return null;
+
+    return (
+      <div>
+        <br/><div>Failed login attempts:</div>
+        {failedAttempts.map((item, index) => {
+          return this.renderFailedAttemptListItem(item, index)
+        }, this)}
+      </div>
+    );
+  }
+
+  renderSuccessfulLoginListItem (item, index) {
+    return (
+      <li key={index}>
+        {item.created_at.format('LTS')}
+      </li>
+    );
+  }
+
+  renderFailedAttemptListItem (item, index) {
+    return (
+      <li key={index}>
+        {item.created_at.format('LTS')} ({item.failure_reason})
+      </li>
     );
   }
 
