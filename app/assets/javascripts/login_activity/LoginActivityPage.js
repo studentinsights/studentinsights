@@ -121,7 +121,7 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderRow(email, index, loginData, pastThirtyDaysArray) {
-    const emailDisplay = (email === 'null')
+    const emailDisplay = (email === 'null') /* null cast to string by _.groupBy */
       ? 'No email (often means user timed out)'
       : email.substring(0, 35);
 
@@ -158,9 +158,13 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderTooltipText(email, successfulAttempts, failedAttempts, day) {
+    const emailDisplay = (email === 'null') /* null cast to string by _.groupBy */
+      ? 'No email (often means user timed out)'
+      : email.split('@')[0];
+
     return (
       <span className="tooltiptext">
-        <div>{email.split('@')[0]}, {moment(day).utc().format('D/M')}</div>
+        <div>{emailDisplay}, {moment(day).utc().format('D/M')}</div>
         {this.renderSuccessfulLoginList(successfulAttempts)}
         {this.renderFailedAttemptList(failedAttempts)}
       </span>
@@ -172,7 +176,7 @@ export default class LoginActivityPage extends React.Component {
 
     return (
       <div>
-        <br/><div>Successful logins:</div>
+        <br/><div>Successful login activity:</div>
         {successfulAttempts.map((item, index) => {
           return this.renderSuccessfulLoginListItem(item, index)
         }, this)}
@@ -185,7 +189,7 @@ export default class LoginActivityPage extends React.Component {
 
     return (
       <div>
-        <br/><div>Failed login attempts:</div>
+        <br/><div>Failed login activity:</div>
         {failedAttempts.map((item, index) => {
           return this.renderFailedAttemptListItem(item, index)
         }, this)}
