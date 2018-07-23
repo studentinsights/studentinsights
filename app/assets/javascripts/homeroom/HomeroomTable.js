@@ -135,7 +135,7 @@ class HomeroomTable extends React.Component {
   mergedStudentRows() {
     const eventNoteTypeIds = this.eventNoteTypeIds();
     return this.props.rows
-      .map(student => mergeLatestNoteFields(student, eventNoteTypeIds));
+      .map(student => mergeLatestNoteFields(student, student.event_notes_without_restricted, eventNoteTypeIds));
   }
 
   visitStudentProfile(id) {

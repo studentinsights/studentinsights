@@ -45,7 +45,7 @@ export default class StudentsTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.props.students.map(student => mergeLatestNoteFields(student, this.eventNoteTypeIds()));
+    const students = this.props.students.map(student => mergeLatestNoteFields(student, student.event_notes, this.eventNoteTypeIds()));
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;

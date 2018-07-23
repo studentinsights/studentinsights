@@ -53,7 +53,7 @@ export default class SectionTable extends React.Component {
   render() {
     const {section, sections, students} = this.props;
     const eventNoteTypeIds = this.eventNoteTypeIds();
-    const studentsWithComputedFields = students.map(student => mergeLatestNoteFields(student, eventNoteTypeIds));
+    const studentsWithComputedFields = students.map(student => mergeLatestNoteFields(student, student.event_notes_without_restricted, eventNoteTypeIds));
 
     // Grades are being rolled out ONLY to educators with districtwide access
     // for data validation purposes

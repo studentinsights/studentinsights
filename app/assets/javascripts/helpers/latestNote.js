@@ -15,14 +15,14 @@ function noteDateText(eventNote) {
 }
 
 // Merge in info about latest notes into 
-export function mergeLatestNoteFields(studentWithEventNotes, eventNoteTypeIds) {
+export function mergeLatestNoteFields(initialStudent, eventNotes, eventNoteTypeIds) {
   return eventNoteTypeIds.reduce((student, eventNoteTypeId) => {
-    const eventNote = latestNote(student.event_notes, eventNoteTypeId);
+    const eventNote = latestNote(eventNotes, eventNoteTypeId);
     const dateText = noteDateText(eventNote);
     return {
       ...student,
       [`latest_note_${eventNoteTypeId}`]: {eventNoteTypeId, dateText}
     };
-  }, studentWithEventNotes);
+  }, initialStudent);
 }
 
