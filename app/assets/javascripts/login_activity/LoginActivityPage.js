@@ -15,8 +15,8 @@ export default class LoginActivityPage extends React.Component {
     this.renderPage = this.renderPage.bind(this);
     this.pastThirtyDaysArray = this.pastThirtyDaysArray.bind(this);
     this.structureLoginActivityJson = this.structureLoginActivityJson.bind(this);
-    this.renderCell = this.renderCell.bind(this);
-    this.renderEmptyCell = this.renderEmptyCell.bind(this);
+    this.renderCellForDay = this.renderCellForDay.bind(this);
+    this.renderEmptyCellForDay = this.renderEmptyCellForDay.bind(this);
   }
 
   fetchLoginActivities() {
@@ -41,15 +41,6 @@ export default class LoginActivityPage extends React.Component {
     _.forOwn(byEmail, (value, key, collection) => {
       collection[key] = _.groupBy(value, (activity) => {
         return activity.created_at.startOf('day').format();
-      });
-    });
-
-    // Iterate through each day and group by success/fail
-    _.forOwn(byEmail, (identityLoginsByDay, identity, collection) => {
-      _.forOwn(identityLoginsByDay, (activities, day, collection) => {
-        identityLoginsByDay[day] = _.countBy(activities, (activity) => {
-          return activity.success ? 'success' : 'fail';
-        });
       });
     });
 
@@ -136,37 +127,45 @@ export default class LoginActivityPage extends React.Component {
         </div>
         {pastThirtyDaysArray.map((day, index) => {
           return (loginData[day])
-            ? this.renderCell(email, index, loginData[day], day)
-            : this.renderEmptyCell();
+            ? this.renderCellForDay(email, index, loginData[day], day)
+            : this.renderEmptyCellForDay();
         })}
       </div>
     );
   }
 
-  renderCell(email, index, data, day) {
+  renderCellForDay(email, index, data, day) {
+    /*
+    We're using lodash 3.10.1, so this uses 3.10.1 syntax for _.filter.
+    The most up-to-date syntax is different.
+    See https://lodash.com/docs/3.10.1#filter.
+    */
+    const successfulAttempts = _.filter(data, 'success', true);
+    const failedAttempts = _.filter(data, 'success', false);
+
     return (
       <div key={index}
            style={{...style.cell, ...style.squareCell}}
            className='tooltip'>
-        {this.renderTooltipText(email, data, day)}
-        {this.renderSuccessLoginSegment(data.success || 0)}
-        {this.renderFailLoginSegment(data.fail || 0)}
+        {this.renderTooltipText(email, successfulAttempts, failedAttempts, day)}
+        {this.renderSuccessLoginSegment(successfulAttempts)}
+        {this.renderFailLoginSegment(failedAttempts)}
       </div>
     );
   }
 
-  renderTooltipText(email, data, day) {
+  renderTooltipText(email, successfulAttempts, failedAttempts, day) {
     return (
       <span className="tooltiptext">
         <div>{email.split('@')[0]}, {moment(day).utc().format('D/M')}:</div>
         <br/>
-        <div>{`${data.success || 0} successful logins.`}</div>
-        <div>{`${data.fail || 0} failed attempts.`}</div>
+        <div>{JSON.stringify(data)}</div>
       </span>
     );
   }
 
-  renderSuccessLoginSegment(count) {
+  renderSuccessLoginSegment(successfulAttempts) {
+    const count = successfulAttempts.length;
     const baseHex = '#329fff';
     const divStyle = {
       ...style.cellSegment, ...{backgroundColor: baseHex, opacity: count / 10},
@@ -178,7 +177,8 @@ export default class LoginActivityPage extends React.Component {
     );
   }
 
-  renderFailLoginSegment(count) {
+  renderFailLoginSegment(failedAttempts) {
+    const count = failedAttempts.length;
     const baseHex = '#CD6000';
     const divStyle = {
       ...style.cellSegment, ...{backgroundColor: baseHex, opacity: count / 10},
@@ -190,7 +190,7 @@ export default class LoginActivityPage extends React.Component {
     );
   }
 
-  renderEmptyCell() {
+  renderEmptyCellForDay() {
     return (<div style={{...style.cell, ...style.squareCell}}></div>);
   }
 }
