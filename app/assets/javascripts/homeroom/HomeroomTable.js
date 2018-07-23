@@ -8,8 +8,9 @@ import {
   sortByCustomEnum,
   sortByActiveServices
 } from '../helpers/SortHelpers';
-import {eventNoteTypeTextMini, studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
-import {mergeLatestNoteFields} from '../helpers/latestNoteDateText';
+import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
+import {studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
+import {mergeLatestNoteFields} from '../helpers/latestNote';
 import Cookies from 'js-cookie';
 
 
@@ -169,7 +170,7 @@ class HomeroomTable extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="HomeroomTable">
         {this.renderColumnPickerArea()}
         <table id="roster-table" cellSpacing="0" cellPadding="5" className="sort-default">
           {this.renderHeaders()}
@@ -294,8 +295,10 @@ class HomeroomTable extends React.Component {
     if (columnKeyIndex === -1) return null;
 
     return (
-      <th className="sortable_header"
-          onClick={this.onClickHeader.bind(null, sortBy, sortType)}>
+      <th
+        key={sortBy}
+        className="sortable_header"
+        onClick={this.onClickHeader.bind(null, sortBy, sortType)}>
         <span className="table-header">{label}</span>
       </th>
     );
@@ -383,14 +386,14 @@ class HomeroomTable extends React.Component {
     );
   }
 
-  renderDataCell(columnKey, data) {
+  renderDataCell(columnKey, data, options = {}) {
     const columnsDisplayed = this.state.columnsDisplayed;
     const columnKeyIndex = _.indexOf(columnsDisplayed, columnKey);
 
     if (columnKeyIndex === -1) return null;
 
     return (
-      <td>{data || '—'}</td>
+      <td key={options.key}>{data || '—'}</td>
     );
   }
 
@@ -418,9 +421,10 @@ class HomeroomTable extends React.Component {
           key={id}
           style={style}>
         <td className="name">{fullName}</td>
-        {this.eventNoteTypeIds().map(eventNoteTypeId => (
-          this.renderDataCell('supports', row[eventNoteTypeTextMini(eventNoteTypeId)])
-        ))}
+        {this.eventNoteTypeIds().map(eventNoteTypeId => {
+          const key = eventNoteTypeTextMini(eventNoteTypeId);
+          return this.renderDataCell('supports', row[key], {key});
+        })}
         {this.renderDataCell('program', row['program_assigned'])}
         {this.renderDataCell('sped', row['disability'])}
         {this.renderDataCell('sped', this.renderDataWithSpedTooltip(row))}

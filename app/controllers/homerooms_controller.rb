@@ -1,36 +1,26 @@
 class HomeroomsController < ApplicationController
   include StudentsQueryHelper
 
-  # Authentication by default inherited from ApplicationController.
+  def homeroom_json
+    homeroom = authorize_and_assign_homeroom!(params[:id])
 
-  before_action :authorize_and_assign_homeroom
-
-  def show
-    cookies[:columns_selected] ||= initial_columns.to_json
-
-    @rows = eager_students().map {|student| fat_student_hash(student) }
-
+    rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
     # Dropdown for homeroom navigation
-    @homerooms_by_name = current_educator.allowed_homerooms.order(:name)
+    homerooms_by_name = current_educator.allowed_homerooms.order(:name)
 
-    # For JSX Table:
-    @serialized_data = {
-      school: @homeroom.school,
-      show_star: @homeroom.show_star?,
-      show_mcas: @homeroom.show_mcas?,
-      rows: @rows.as_json
+    render json: {
+      homeroom: homeroom.as_json,
+      school: homeroom.school,
+      homerooms_by_name: homerooms_by_name,
+      show_star: homeroom.show_star?,
+      show_mcas: homeroom.show_mcas?,
+      rows: rows
     }
   end
 
   private
-
-  def initial_columns
-    return ['name', 'supports', 'sped', 'mcas_math', 'mcas_ela', 'interventions'] if @homeroom.show_mcas?
-    return ['name', 'supports', 'sped', 'interventions']
-  end
-
-  def eager_students(*additional_includes)
-    @homeroom.students.active.includes([
+  def eager_students(homeroom, *additional_includes)
+    homeroom.students.active.includes([
       :event_notes,
       :interventions,
       :homeroom,
@@ -48,15 +38,9 @@ class HomeroomsController < ApplicationController
     }))
   end
 
-  def authorize_and_assign_homeroom
-    @requested_homeroom = Homeroom.friendly.find(params[:id])
-
-    if current_educator.allowed_homerooms.include? @requested_homeroom
-      @homeroom = @requested_homeroom
-    else
-      redirect_to homepage_path_for_role(current_educator)
-    end
-  rescue ActiveRecord::RecordNotFound     # Params don't match an actual homeroom
-    redirect_to homepage_path_for_role(current_educator)
+  def authorize_and_assign_homeroom!(homeroom_id_or_slug)
+    homeroom = Homeroom.friendly.find(homeroom_id_or_slug)
+    raise Exceptions::EducatorNotAuthorized unless current_educator.allowed_homerooms.include? homeroom
+    homeroom
   end
 end

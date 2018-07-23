@@ -50,6 +50,7 @@ class EventNoteSerializer < Struct.new :event_note
     ])
   end
 
+  # Includes all, across all districts right now
   def self.event_note_types_index
     index = {}
     EventNoteType.all.each do |event_note_type|

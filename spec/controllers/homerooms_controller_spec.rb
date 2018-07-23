@@ -6,7 +6,7 @@ describe HomeroomsController, :type => :controller do
   describe '#show' do
     def make_request(slug = nil)
       request.env['HTTPS'] = 'on'
-      get :show, params: { id: slug }
+      get :homeroom_json, params: { id: slug, format: :json }
     end
 
     context 'happy path' do
@@ -17,8 +17,8 @@ describe HomeroomsController, :type => :controller do
 
       it 'returns the right shape of data' do
         make_request(educator.homeroom.slug)
-        expect(assigns(:rows).length).to eq 1
-        expect(assigns(:rows).first.keys).to match_array([
+        expect(reponse[:rows].length).to eq 1
+        expect(reponse[:rows].first.keys).to match_array([
           "id",
           "grade",
           "hispanic_latino",
@@ -89,7 +89,7 @@ describe HomeroomsController, :type => :controller do
           end
           it 'assigns correct homerooms to drop-down' do
             make_request(educator.homeroom.slug)
-            expect(assigns(:homerooms_by_name)).to eq([educator.homeroom])
+            expect(respons[:homerooms_by_name]).to eq([educator.homeroom])
           end
 
           context 'when there are no students' do

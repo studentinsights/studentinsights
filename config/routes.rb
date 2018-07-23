@@ -46,6 +46,9 @@ Rails.application.routes.draw do
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
+  # homeroom
+  get '/api/homerooms/:id/homeroom_json' => 'homerooms#homeroom_json'
+
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
@@ -77,6 +80,9 @@ Rails.application.routes.draw do
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
+  # k8 homeroom
+  get '/homerooms/:id' => 'ui#ui'
+
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
   post '/students/:student_id/update_transition_note' => 'transition_notes#update'
@@ -99,7 +105,8 @@ Rails.application.routes.draw do
       get :past
     end
   end
-  resources :homerooms, only: [:show]
+
+
   resources :sections, only: [:index, :show]
   resources :iep_documents, only: [:show]
 

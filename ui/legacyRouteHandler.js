@@ -1,6 +1,5 @@
 import renderStudentMain from '../app/assets/javascripts/student_profile/main';
 import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main';
-import homeroomMain from '../app/assets/javascripts/homeroom_table/main';
 import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main';
 import renderSectionMain from '../app/assets/javascripts/section/main';
@@ -25,11 +24,6 @@ export default function legacyRouteHandler(el) {
 
   if ($('body').hasClass('schools') && $('body').hasClass('overview')) {
     renderSchoolOverviewMain(el, { json: true });
-    return true;
-  }
-
-  if ($('body').hasClass('homerooms') && $('body').hasClass('show')) {
-    homeroomMain(); // different HTML
     return true;
   }
 

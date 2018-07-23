@@ -86,7 +86,7 @@ describe StudentsController, :type => :controller do
           })
 
           expect(serialized_data[:event_note_types_index].keys).to match_array([
-            300, 301, 302, 304, 305, 306
+            300, 301, 302, 304, 305, 306, 400
           ])
 
           expect(serialized_data[:event_note_types_index].values).to match_array([
@@ -96,6 +96,7 @@ describe StudentsController, :type => :controller do
             {:id=>304, :name=>"Something else"},
             {:id=>305, :name=>"9th Grade Experience"},
             {:id=>306, :name=>"10th Grade Experience"},
+            {:id=>400, :name=>"BBST Meeting"}
           ])
 
           expect(serialized_data[:educators_index]).to include({

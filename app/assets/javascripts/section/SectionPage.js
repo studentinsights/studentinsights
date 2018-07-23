@@ -8,8 +8,9 @@ import {
   sortByDate,
   sortByNumber
 } from '../helpers/SortHelpers';
-import {eventNoteTypeTextMini, studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
-import {mergeLatestNoteFields} from '../helpers/latestNoteDateText';
+import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
+import {studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
+import {mergeLatestNoteFields} from '../helpers/latestNote';
 import * as Routes from '../helpers/Routes';
 
 

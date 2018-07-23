@@ -4,9 +4,9 @@ import moment from 'moment';
 
 // Returns latest {event_note_type_id, recorded_at}, sorted by recorded_at time
 // or null
-function latestNote(eventNotes, options = {}) {
+function latestNote(eventNotes, eventNoteTypeId) {
   const sortedEventNotes = _.sortBy(eventNotes, note => new Date(note.recorded_at));
-  return _.last(sortedEventNotes);
+  return _.findLast(sortedEventNotes, { event_note_type_id: eventNoteTypeId });
 }
 
 function noteDateText(eventNote) {
@@ -17,7 +17,8 @@ function noteDateText(eventNote) {
 // Merge in info about latest notes into 
 export function mergeLatestNoteFields(studentWithEventNotes, eventNoteTypeIds) {
   return eventNoteTypeIds.reduce((student, eventNoteTypeId) => {
-    const dateText = noteDateText(latestNote(eventNoteTypeId, student.event_notes));
+    const eventNote = latestNote(student.event_notes, eventNoteTypeId);
+    const dateText = noteDateText(eventNote);
     return {
       ...student,
       [`latest_note_${eventNoteTypeId}`]: {eventNoteTypeId, dateText}

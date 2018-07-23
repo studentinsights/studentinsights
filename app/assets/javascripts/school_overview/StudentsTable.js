@@ -8,12 +8,12 @@ import {
   sortByActiveServices
 } from '../helpers/SortHelpers';
 import {
-  eventNoteTypeTextMini,
   studentTableEventNoteTypeIds,
   shouldDisplayHouse,
   shouldDisplayCounselor
 } from '../helpers/PerDistrict';
-import {studentsWithLatestNoteFields} from '../helpers/latestNoteDateText';
+import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
+import {mergeLatestNoteFields} from '../helpers/latestNote';
 import * as Routes from '../helpers/Routes';
 
 
@@ -45,7 +45,7 @@ export default class StudentsTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = studentsWithLatestNoteFields(this.props.students, this.eventNoteTypeIds());
+    const students = this.props.students.map(student => mergeLatestNoteFields(student, this.eventNoteTypeIds()));
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;

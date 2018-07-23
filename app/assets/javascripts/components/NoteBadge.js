@@ -3,7 +3,7 @@ import Badge from './Badge';
 import {
   eventNoteTypeText,
   eventNoteTypeColor
-} from './eventNoteType';
+} from '../helpers/eventNoteType';
 
 
 // A visual UI element for a badge indicating a particular 
