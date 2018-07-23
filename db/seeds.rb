@@ -37,11 +37,11 @@ puts "Checking for existing data in the database..."
   raise "empty yer db for: #{klass}" if klass.count > 0
 end
 
-# The local demo data setup uses the Somerville database constants
+# The local demo data setup uses these database constants
 # (eg., the set of `ServiceType`s) for generating local demo data and
 # for tests.
-puts 'Seeding database constants for Somerville...'
-DatabaseConstants.new.seed!
+puts 'Seeding database constants for all districts...'
+DatabaseConstants.new.seed_for_all_districts!
 
 puts 'Destroying all educators...'
 Educator.destroy_all

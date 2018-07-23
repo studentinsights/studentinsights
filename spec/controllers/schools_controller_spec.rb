@@ -7,9 +7,9 @@ describe SchoolsController, :type => :controller do
   end
 
   before { request.env['HTTPS'] = 'on' }
+  let!(:pals) { TestPals.create! }
 
   describe '#overview' do
-    before { School.seed_somerville_schools }
     let!(:districtwide_educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
     it 'sets school slug' do
@@ -23,7 +23,6 @@ describe SchoolsController, :type => :controller do
   end
 
   describe '#overview_json' do
-    before { School.seed_somerville_schools }
     let!(:districtwide_educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
     it 'is successful' do
@@ -43,7 +42,6 @@ describe SchoolsController, :type => :controller do
 
   describe '#show' do
     context 'districtwide access' do
-      before { School.seed_somerville_schools }
       before { FactoryBot.create(:homeroom) }
       let!(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
@@ -74,7 +72,6 @@ describe SchoolsController, :type => :controller do
     end
 
     context 'schoolwide access but no districtwide access' do
-      before { School.seed_somerville_schools }
       before { FactoryBot.create(:homeroom) }
       let(:hea) { School.find_by_local_id 'HEA' }
       let!(:educator) {
@@ -255,7 +252,6 @@ describe SchoolsController, :type => :controller do
 
   describe '#csv' do
     context 'with school-wide access' do
-      before { School.seed_somerville_schools }
       before { FactoryBot.create(:homeroom) }
       let!(:school) { School.find_by_local_id('HEA') }
       let!(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
@@ -269,7 +265,6 @@ describe SchoolsController, :type => :controller do
   end
 
   describe '#courses_json' do
-    let!(:pals) { TestPals.create! }
     def make_request(school_id)
       get :courses_json, params: { format: :json, id: school_id }
     end

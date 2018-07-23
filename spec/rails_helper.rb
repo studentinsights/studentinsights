@@ -68,7 +68,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseConstants.new.seed!
+    DatabaseConstants.new.seed_for_all_districts!
   end
 
   # Devise helpers for controller tests (eg., `sign_in`)

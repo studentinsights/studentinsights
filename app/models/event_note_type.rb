@@ -1,6 +1,6 @@
 
 class EventNoteType < ActiveRecord::Base
-  def self.seed_somerville_event_note_types
+  def self.seed_for_all_districts
     EventNoteType.destroy_all
     EventNoteType.create([
       { id: 300, name: 'SST Meeting' },

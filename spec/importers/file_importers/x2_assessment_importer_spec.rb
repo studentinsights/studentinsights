@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe X2AssessmentImporter do
-  before { Assessment.seed_somerville_assessments }
+  before { Assessment.seed_for_all_districts }
 
   def make_x2_assessment_importer(options = {})
     X2AssessmentImporter.new(options: {

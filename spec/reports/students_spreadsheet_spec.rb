@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StudentsSpreadsheet do
   context 'with generated students' do
-    before { School.seed_somerville_schools }
+    let!(:pals) { TestPals.create! }
     let!(:school) { School.find_by_name('Arthur D Healey') }
     let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
     let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school) }

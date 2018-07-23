@@ -8,7 +8,7 @@ class MigrateProgressNotesToEventNotes < ActiveRecord::Migration[4.2]
 
   def change
     sst_meeting = EventNoteType.find_by_name('SST Meeting')
-    raise "Please run DatabaseConstants.new.seed!" if sst_meeting.nil?
+    raise "Please run DatabaseConstants.new.seed_for_all_districts!" if sst_meeting.nil?
 
     DeprecatedProgressNotesClass.find_each do |progress_note|
       student = progress_note.intervention.student

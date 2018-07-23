@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe McasRow do
 
   context 'with no Assessment records in the database' do
-    before { Assessment.seed_somerville_assessments }
+    before { Assessment.seed_for_all_districts }
     let(:student) { FactoryBot.create(:student) }
 
     context 'invalid subject (i.e. not used in Student Insights)' do

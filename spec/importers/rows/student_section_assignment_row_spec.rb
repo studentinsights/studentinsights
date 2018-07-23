@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentRow do
   describe '#build' do
-    before { School.seed_somerville_schools }
+    let!(:pals) { TestPals.create! }
     let(:dictionary) {
       School.all.map { |school| [school.local_id, school.id] }.to_h
     }

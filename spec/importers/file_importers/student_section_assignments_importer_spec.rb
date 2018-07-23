@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentsImporter do
-  before { School.seed_somerville_schools }
+  let!(:pals) { TestPals.create! }
   let(:high_school) { School.find_by_local_id('SHS') }
 
   let(:student_section_assignments_importer) {
