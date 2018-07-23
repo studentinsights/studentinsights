@@ -128,7 +128,7 @@ export default class LoginActivityPage extends React.Component {
         {pastThirtyDaysArray.map((day, index) => {
           return (loginData[day])
             ? this.renderCellForDay(email, index, loginData[day], day)
-            : this.renderEmptyCellForDay();
+            : this.renderEmptyCellForDay(index);
         })}
       </div>
     );
@@ -190,8 +190,8 @@ export default class LoginActivityPage extends React.Component {
     );
   }
 
-  renderEmptyCellForDay() {
-    return (<div style={{...style.cell, ...style.squareCell}}></div>);
+  renderEmptyCellForDay(index) {
+    return (<div key={index} style={{...style.cell, ...style.squareCell}}></div>);
   }
 }
 
