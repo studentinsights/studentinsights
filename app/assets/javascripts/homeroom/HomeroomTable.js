@@ -10,7 +10,7 @@ import {
 } from '../helpers/SortHelpers';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
-import {mergeLatestNoteFields} from '../helpers/latestNote';
+import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
 import Cookies from 'js-cookie';
 
 
@@ -135,7 +135,7 @@ class HomeroomTable extends React.Component {
   mergedStudentRows() {
     const eventNoteTypeIds = this.eventNoteTypeIds();
     return this.props.rows
-      .map(student => mergeLatestNoteFields(student, student.event_notes_without_restricted, eventNoteTypeIds));
+      .map(student => mergeLatestNoteDateTextFields(student, student.event_notes_without_restricted, eventNoteTypeIds));
   }
 
   visitStudentProfile(id) {
@@ -340,7 +340,7 @@ class HomeroomTable extends React.Component {
         {/* COLUMN HEADERS */}
         {this.renderNameSubheader()}
         {this.eventNoteTypeIds().map(eventNoteTypeId => (
-          this.renderSubHeader('supports', `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}`, 'date')
+          this.renderSubHeader('supports', `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}_date_text`, 'date')
         ))}
         {this.renderSubHeader(
           'program', 'Program Assigned', 'program_assigned', 'program_assigned'

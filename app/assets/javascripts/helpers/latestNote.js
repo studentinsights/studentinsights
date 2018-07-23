@@ -14,14 +14,15 @@ function noteDateText(eventNote) {
   return moment.utc(eventNote.recorded_at).format('M/D/YY');
 }
 
-// Merge in info about latest notes into 
-export function mergeLatestNoteFields(initialStudent, eventNotes, eventNoteTypeIds) {
+// Merge in info about latest notes into student record.  This merges these as flat fields since
+// that's what <FlexibleRoster /> expects.
+export function mergeLatestNoteDateTextFields(initialStudent, eventNotes, eventNoteTypeIds) {
   return eventNoteTypeIds.reduce((student, eventNoteTypeId) => {
     const eventNote = latestNote(eventNotes, eventNoteTypeId);
     const dateText = noteDateText(eventNote);
     return {
       ...student,
-      [`latest_note_${eventNoteTypeId}`]: {eventNoteTypeId, dateText}
+      [`latest_note_${eventNoteTypeId}_date_text`]: dateText
     };
   }, initialStudent);
 }

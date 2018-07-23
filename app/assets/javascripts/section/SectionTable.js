@@ -10,7 +10,7 @@ import {
 } from '../helpers/SortHelpers';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
-import {mergeLatestNoteFields} from '../helpers/latestNote';
+import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
 import * as Routes from '../helpers/Routes';
 
 
@@ -53,7 +53,7 @@ export default class SectionTable extends React.Component {
   render() {
     const {section, sections, students} = this.props;
     const eventNoteTypeIds = this.eventNoteTypeIds();
-    const studentsWithComputedFields = students.map(student => mergeLatestNoteFields(student, student.event_notes_without_restricted, eventNoteTypeIds));
+    const studentsWithComputedFields = students.map(student => mergeLatestNoteDateTextFields(student, student.event_notes_without_restricted, eventNoteTypeIds));
 
     // Grades are being rolled out ONLY to educators with districtwide access
     // for data validation purposes
@@ -62,7 +62,7 @@ export default class SectionTable extends React.Component {
 
       // Supports
       ...eventNoteTypeIds.map(eventNoteTypeId => (
-        {label: `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, group: 'Supports', key: `latest_note_${eventNoteTypeId}`, sortFunc: sortByDate}
+        {label: `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, group: 'Supports', key: `latest_note_${eventNoteTypeId}_date_text`, sortFunc: sortByDate}
       )),
 
       {label: 'Program Assigned', key: 'program_assigned', sortFunc: this.programSorter},

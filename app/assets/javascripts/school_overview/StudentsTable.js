@@ -13,7 +13,7 @@ import {
   shouldDisplayCounselor
 } from '../helpers/PerDistrict';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
-import {mergeLatestNoteFields} from '../helpers/latestNote';
+import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
 import * as Routes from '../helpers/Routes';
 
 
@@ -45,7 +45,7 @@ export default class StudentsTable extends React.Component {
   }
 
   sortedStudents() {
-    const students = this.props.students.map(student => mergeLatestNoteFields(student, student.event_notes, this.eventNoteTypeIds()));
+    const students = this.props.students.map(student => mergeLatestNoteDateTextFields(student, student.event_notes, this.eventNoteTypeIds()));
     const sortBy = this.state.sortBy;
     const sortType = this.state.sortType;
     let customEnum;
@@ -106,7 +106,7 @@ export default class StudentsTable extends React.Component {
             <tr>
               {this.renderHeader('Name', 'last_name', 'string')}
               {this.eventNoteTypeIds().map(eventNoteTypeId => (
-                this.renderHeader(`Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}`, 'date')
+                this.renderHeader(`Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}_date_text`, 'date')
               ))}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {shouldDisplayHouse(school) && this.renderHeader('House', 'house', 'string')}
