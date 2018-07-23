@@ -169,7 +169,7 @@ export function takeNotesChoices(districtKey) {
     };
   }
 
-  throw new Error("unsupported districtKey: #{districtKey}");
+  throw new Error(`unsupported districtKey: ${districtKey}`);
 }
 
 export function studentTableEventNoteTypeIds(districtKey, schoolType) {
@@ -178,5 +178,5 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306];
   if (districtKey === NEW_BEDFORD) return [400];
   
-  throw new Error("unsupported districtKey: #{districtKey}");
+  throw new Error(`unsupported districtKey: ${districtKey}`);
 }

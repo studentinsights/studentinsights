@@ -11,6 +11,7 @@ import PerDistrictContainer from '../app/assets/javascripts/components/PerDistri
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
+import SectionPage from '../app/assets/javascripts/section/SectionPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
@@ -72,6 +73,7 @@ class App extends React.Component {
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
+        <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
         <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
         <Route exact path="/classlists/equity" render={this.renderExperimentalClassListsEquityPage.bind(this)}/>
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
@@ -134,6 +136,14 @@ class App extends React.Component {
       homeroom_id_or_slug: homeroomIdOrSlug
     });
     return <HomeroomPage homeroomIdOrSlug={homeroomIdOrSlug} />;
+  }
+
+  renderSectionPage(routeProps) {
+    const sectionId = parseInt(routeProps.match.params.id, 10);
+    this.trackVisit(routeProps, 'SECTION', {
+      section_id: sectionId
+    });
+    return <SectionPage sectionId={sectionId} />;
   }
 
   renderSchoolCoursesPage(routeProps) {

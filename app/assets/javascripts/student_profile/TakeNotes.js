@@ -220,6 +220,9 @@ export default class TakeNotes extends React.Component {
     );
   }
 }
+TakeNotes.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 TakeNotes.propTypes = {
   nowMoment: PropTypes.object.isRequired,
   eventNoteTypesIndex: PropTypes.object.isRequired,

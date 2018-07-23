@@ -49,6 +49,10 @@ Rails.application.routes.draw do
   # homeroom
   get '/api/homerooms/:id/homeroom_json' => 'homerooms#homeroom_json'
 
+  # sections
+  get '/api/sections/:id/section_json' => 'sections#section_json'
+
+
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
@@ -107,8 +111,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sections, only: [:index]
+  get '/sections/:id' => 'ui#ui', as: :section
 
-  resources :sections, only: [:index, :show]
   resources :iep_documents, only: [:show]
 
   resource :classlists, only: [] do

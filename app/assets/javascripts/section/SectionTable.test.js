@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SectionPage from './SectionPage';
+import SectionTable from './SectionTable';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 
 
 function testProps(props = {}) {
@@ -24,8 +25,13 @@ function testProps(props = {}) {
 }
 
 function testRender(props) {
+  const districtKey = 'somerville';
   const el = document.createElement('div');
-  ReactDOM.render(<SectionPage {...props} />, el);
+  ReactDOM.render(
+    <PerDistrictContainer districtKey={districtKey}>
+      <SectionTable {...props} />
+    </PerDistrictContainer>
+  , el);
   return {el};
 }
 

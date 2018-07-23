@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {studentProfile} from './fixtures/fixtures';
+import {SOMERVILLE} from '../helpers/PerDistrict';
 import NotesDetails from './NotesDetails';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 
-function testRenderWithEl(props) {
+
+function testRenderWithEl(districtKey, props) {
   const mergedProps = {
     eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
     educatorsIndex: {},
@@ -35,13 +38,17 @@ function testRenderWithEl(props) {
   };
 
   const el = document.createElement('div');
-  ReactDOM.render(<NotesDetails {...mergedProps} />, el);
+  ReactDOM.render(
+    <PerDistrictContainer districtKey={districtKey}>
+      <NotesDetails {...mergedProps} />
+    </PerDistrictContainer>
+  , el);
   return {el};
 }
 
 describe('educator can view restricted notes', () => {
   it('renders restricted notes button with zero notes', () => {
-    const {el} = testRenderWithEl({
+    const {el} = testRenderWithEl(SOMERVILLE, {
       currentEducator: { can_view_restricted_notes: true },
       student: { restricted_notes_count: 0 },
     });
@@ -49,7 +56,7 @@ describe('educator can view restricted notes', () => {
   });
 
   it('renders restricted notes button with 7 notes', () => {
-    const {el} = testRenderWithEl({
+    const {el} = testRenderWithEl(SOMERVILLE, {
       currentEducator: { can_view_restricted_notes: true },
       student: { restricted_notes_count: 7 },
     });
@@ -59,7 +66,7 @@ describe('educator can view restricted notes', () => {
 
 describe('educator can not view restricted notes', () => {
   it('does not render restricted notes button', () => {
-    const {el} = testRenderWithEl({
+    const {el} = testRenderWithEl(SOMERVILLE, {
       currentEducator: { can_view_restricted_notes: false },
       student: { restricted_notes_count: 0 },
     });

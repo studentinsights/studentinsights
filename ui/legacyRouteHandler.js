@@ -2,7 +2,6 @@ import renderStudentMain from '../app/assets/javascripts/student_profile/main';
 import renderSchoolOverviewMain from '../app/assets/javascripts/school_overview/main';
 import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main';
-import renderSectionMain from '../app/assets/javascripts/section/main';
 import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main';
 
 
@@ -29,11 +28,6 @@ export default function legacyRouteHandler(el) {
 
   if ($('body').hasClass('students') && $('body').hasClass('restricted_notes')) {
     renderRestrictedNotesMain(el);
-    return true;
-  }
-
-  if ($('body').hasClass('sections') && $('body').hasClass('show')) {
-    renderSectionMain(el);
     return true;
   }
 
