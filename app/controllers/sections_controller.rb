@@ -11,12 +11,11 @@ class SectionsController < ApplicationController
   def section_json
     current_section = authorized_section(params[:id])
     students = authorized { current_section.students } # extra layer while transitioning K8 to use sections
+
     students_json = serialize_students(students.map(&:id), current_section)
     section = serialize_section(current_section)
     sections = current_educator.allowed_sections
 
-    puts "  sections: #{sections.inspect}"
-    
     render json: {
       students: students_json,
       section: section,
