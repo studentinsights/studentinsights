@@ -1,58 +1,48 @@
 require 'rails_helper'
 
 describe SchoolsController, :type => :controller do
-  def extract_serialized_student_ids(controller)
-    serialized_data = controller.instance_variable_get(:@serialized_data)
-    serialized_data[:students].map {|student_hash| student_hash['id'] }
-  end
-
   before { request.env['HTTPS'] = 'on' }
-  let!(:pals) { TestPals.create! }
 
-  describe '#overview' do
-    let!(:districtwide_educator) { FactoryBot.create(:educator, districtwide_access: true) }
-
-    it 'sets school slug' do
-      sign_in(districtwide_educator)
-      get :overview, params: { id: 'hea' }
-
-      expect(response).to be_successful
-      serialized_data = controller.instance_variable_get(:@serialized_data)
-      expect(serialized_data[:school_slug]).to eq('hea')
-    end
+  def get_overview_json(id, options = {})
+    sign_in(options[:educator]) if options.has_key?(:educator)
+    request.env['HTTP_ACCEPT'] = 'application/json'
+    get :overview_json, params: { id: id }
+    response
   end
+
+  def extract_serialized_student_ids(response)
+    json = JSON.parse(response.body)
+    json['students'].map {|student_hash| student_hash['id'] }
+  end
+
+  let!(:pals) { TestPals.create! }
 
   describe '#overview_json' do
     let!(:districtwide_educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
     it 'is successful' do
-      sign_in(districtwide_educator)
-      get :overview_json, params: { id: 'hea' }
-
-      expect(response).to be_successful
+      response = get_overview_json('hea', educator: districtwide_educator)
+      expect(response.status).to eq 200
       json = JSON.parse(response.body)
-      expect(json.keys).to eq [
+      expect(json.keys).to contain_exactly(*[
         "students",
         "school",
+        "district_key",
         "current_educator",
         "constant_indexes"
-      ]
+      ])
     end
   end
 
-  describe '#show' do
+  describe '#overview_json combinations' do
     context 'districtwide access' do
       before { FactoryBot.create(:homeroom) }
       let!(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
 
       it 'can access any school in the district' do
-        sign_in(educator)
-        get :show, params: { id: 'hea' }
-        expect(response).to be_successful
-        get :show, params: { id: 'brn' }
-        expect(response).to be_successful
-        get :show, params: { id: 'kdy' }
-        expect(response).to be_successful
+        expect(get_overview_json('hea', educator: educator).status).to eq 200
+        expect(get_overview_json('brn', educator: educator).status).to eq 200
+        expect(get_overview_json('kdy', educator: educator).status).to eq 200
       end
 
       before do
@@ -64,9 +54,8 @@ describe SchoolsController, :type => :controller do
       end
 
       it 'succeeds when students in the school have event notes and services' do
-        sign_in(educator)
-        get :show, params: { id: 'hea' }
-        expect(response).to be_successful
+        get_overview_json('hea', educator: educator)
+        expect(response.status).to eq 200
       end
 
     end
@@ -79,13 +68,9 @@ describe SchoolsController, :type => :controller do
       }
 
       it 'can only access assigned school' do
-        sign_in(educator)
-        get :show, params: { id: 'hea' }
-        expect(response).to be_successful
-        get :show, params: { id: 'brn' }
-        expect(response).not_to be_successful
-        get :show, params: { id: 'kdy' }
-        expect(response).not_to be_successful
+        expect(get_overview_json('hea', educator: educator).status).to eq 200
+        expect(get_overview_json('brn', educator: educator).status).to eq 403
+        expect(get_overview_json('kdy', educator: educator).status).to eq 403
       end
 
     end
@@ -95,10 +80,8 @@ describe SchoolsController, :type => :controller do
       let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
       let!(:homeroom) { educator.homeroom }
 
-      it 'redirects' do
-        sign_in(educator)
-        get :show, params: { id: 'hea' }
-        expect(response).to redirect_to(home_path)
+      it 'guards access' do
+        expect(get_overview_json('hea', educator: educator).status).to eq 403
       end
     end
 
@@ -109,16 +92,10 @@ describe SchoolsController, :type => :controller do
       let!(:include_me_too) { FactoryBot.create(:student, :registered_last_year, school: school) }
       let!(:include_me_not) { FactoryBot.create(:student, :registered_last_year ) }
 
-      before { school.reload }
-
-      let(:serialized_data) { assigns(:serialized_data) }
-
-      it 'is successful and assigns the correct students' do
-        sign_in(educator)
-        get :show, params: { id: 'hea' }
-
-        expect(response).to be_successful
-        student_ids = extract_serialized_student_ids(controller)
+      it 'is successful and returns the correct students' do
+        response = get_overview_json('hea', educator: educator)
+        expect(response.status).to eq 200
+        student_ids = extract_serialized_student_ids(response)
         expect(student_ids).to include include_me.id
         expect(student_ids).to include include_me_too.id
         expect(student_ids).not_to include include_me_not
@@ -133,16 +110,11 @@ describe SchoolsController, :type => :controller do
       let!(:include_me_too) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
       let!(:include_me_not) { FactoryBot.create(:student, :registered_last_year, grade: '5', school: school) }
 
-      before { school.reload }
+      it 'is successful and returns the correct students' do
+        response = get_overview_json('hea', educator: educator)
 
-      let(:serialized_data) { assigns(:serialized_data) }
-
-      it 'is successful and assigns the correct students' do
-        sign_in(educator)
-        get :show, params: { id: 'hea' }
-
-        expect(response).to be_successful
-        student_ids = extract_serialized_student_ids(controller)
+        expect(response.status).to eq 200
+        student_ids = extract_serialized_student_ids(response)
         expect(student_ids).to include include_me.id
         expect(student_ids).to include include_me_too.id
         expect(student_ids).not_to include include_me_not
@@ -154,14 +126,9 @@ describe SchoolsController, :type => :controller do
 
       let!(:include_me) { FactoryBot.create(:student, :registered_last_year, grade: '4', school: school) }
 
-      before { school.reload }
-
-      let(:serialized_data) { assigns(:serialized_data) }
-
-      it 'is successful and assigns the correct students' do
-        get :show, params: { id: 'hea' }
-
-        expect(response).to redirect_to(new_educator_session_path)
+      it 'guards access' do
+        get_overview_json('hea')
+        expect(response.status).to eq 401
       end
     end
 
@@ -169,6 +136,7 @@ describe SchoolsController, :type => :controller do
 
   describe '#absence_dashboard_data' do
     def make_request(school_id)
+      request.env['HTTP_ACCEPT'] = 'application/json'
       get :absence_dashboard_data, params: { id: school_id }
     end
 
@@ -200,7 +168,7 @@ describe SchoolsController, :type => :controller do
         (Educator.all - authorized_educators).each do |educator|
           sign_in(educator)
           make_request('hea')
-          expect(response).to redirect_to(home_path)
+          expect(response.status).to eq 403
         end
       end
     end
@@ -210,6 +178,7 @@ describe SchoolsController, :type => :controller do
     let!(:pals) { TestPals.create! }
 
     def make_request(educator, school_slug)
+      request.env['HTTP_ACCEPT'] = 'application/json'
       sign_in(educator)
       get :tardies_dashboard_data, params: { id: school_slug }
       response
@@ -222,7 +191,7 @@ describe SchoolsController, :type => :controller do
     it 'enforces authorization' do
       authorized_educators = [pals.uri, pals.rich_districtwide, pals.healey_laura_principal]
       (Educator.all - authorized_educators).each do |educator|
-        expect(make_request(educator, pals.healey.slug)).to redirect_to(home_path)
+        expect(make_request(educator, pals.healey.slug).status).to eq 403
       end
     end
   end
@@ -231,6 +200,7 @@ describe SchoolsController, :type => :controller do
     let!(:pals) { TestPals.create! }
 
     def make_request(educator, school_slug)
+      request.env['HTTP_ACCEPT'] = 'application/json'
       sign_in(educator)
       get :discipline_dashboard_data, params: { id: school_slug }
       response
@@ -243,7 +213,7 @@ describe SchoolsController, :type => :controller do
     it 'enforces authorization' do
       authorized_educators = [pals.uri, pals.rich_districtwide, pals.healey_laura_principal]
       (Educator.all - authorized_educators).each do |educator|
-        expect(make_request(educator, pals.healey.slug)).to redirect_to(home_path)
+        expect(make_request(educator, pals.healey.slug).status).to eq 403
       end
     end
   end
@@ -264,6 +234,7 @@ describe SchoolsController, :type => :controller do
 
   describe '#courses_json' do
     def make_request(school_id)
+      request.env['HTTP_ACCEPT'] = 'application/json'
       get :courses_json, params: { format: :json, id: school_id }
     end
 

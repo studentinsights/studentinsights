@@ -85,7 +85,7 @@ Rails.application.routes.draw do
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
-  # K8 homeroom
+  # K8 homeroom page
   get '/homerooms/:id' => 'ui#ui', as: :homeroom
 
   get '/students/names' => 'students#names'
