@@ -5,7 +5,7 @@ import Card from '../components/Card';
 import HelpBubble from '../components/HelpBubble';
 import GenericLoader from '../components/GenericLoader';
 import {eventNoteTypeIdForAbsenceSupportMeeting} from '../helpers/PerDistrict';
-import {eventNoteTypeTextMini} from '../helpes/eventNoteType';
+import {eventNoteTypeTextMini} from '../components/eventNoteType';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 
 
