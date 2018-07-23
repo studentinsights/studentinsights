@@ -10,7 +10,7 @@ import {apiFetchJson} from '../helpers/apiFetchJson';
 
 
 // Show teachers their students who have high absences
-// but don't have any notes in Insights recently (eg, haven't been brought up in SST).
+// but don't have any notes in Insights recently (eg, haven't been brought up in SST or BBST).
 class CheckStudentsWithHighAbsences extends React.Component {
   constructor(props) {
     super(props);
@@ -152,7 +152,7 @@ export class CheckStudentsWithHighAbsencesView extends React.Component {
       <div>
         <p style={styles.helpContent}>These are all the students that you have access to who have a high number of absences over the last 45 days, but {"haven't"} been mentioned recently.</p>
         <p style={styles.helpContent}>This means there aren't any notes about them from {shortMeetingText} meetings, parent conversations, or anything else in Student Insights.  The threshold for being included in this list is to have 4 or more absences over the last 45 calendar days.</p>
-        <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, SST, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>        
+        <p style={styles.helpContent}>If you work directly with this student, you could talk with them or reach out to the family.  Or you could connect with a colleague providing support services (eg, {shortMeetingText}, attendance officers, counselors, redirect).  If the student in still missing school, attendance contracts might be a next step.</p>        
       </div>
     );
   }
