@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
   before_action :redirect_domain!
   before_action :authenticate_educator!  # Devise method, applies to all controllers (in this app 'users' are 'educators')
 
+  rescue_from ActiveRecord::RecordNotFound do
+    if request.format.json?
+      render_not_found_json!
+    else
+      redirect_to home_path
+    end
+  end
+
   rescue_from Exceptions::EducatorNotAuthorized do
     if request.format.json?
       render_unauthorized_json!
@@ -35,13 +43,12 @@ class ApplicationController < ActionController::Base
     return_value
   end
 
-  # Sugar for filters checking authorization
-  def redirect_unauthorized!
-    redirect_to not_authorized_path
-  end
-
   def render_unauthorized_json!
     render json: { error: 'unauthorized' }, status: 403
+  end
+
+  def render_not_found_json!
+    render json: { error: 'not_found' }, status: 404
   end
 
   # For redirecting requests directly from the Heroku domain to the canonical domain name
@@ -50,6 +57,10 @@ class ApplicationController < ActionController::Base
     return if canonical_domain == nil
     return if request.host == canonical_domain
     redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently
+  end
+
+  def redirect_unauthorized!
+    redirect_to not_authorized_path
   end
 
   # Used to wrap a block with timing measurements and logging, returning the value of the

@@ -77,11 +77,12 @@ Rails.application.routes.draw do
   # experimental "is service working?"
   get '/is_service_working' => 'ui#ui'
 
+  # error pages
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
 
-  # k8 homeroom
-  get '/homerooms/:id' => 'ui#ui'
+  # K8 homeroom
+  get '/homerooms/:id' => 'ui#ui', as: :homeroom
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'

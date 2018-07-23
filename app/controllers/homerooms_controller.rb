@@ -5,16 +5,15 @@ class HomeroomsController < ApplicationController
     homeroom = authorize_and_assign_homeroom!(params[:id])
 
     rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
-    # Dropdown for homeroom navigation
-    homerooms_by_name = current_educator.allowed_homerooms.order(:name)
+
+    # For navigation
+    allowed_homerooms = current_educator.allowed_homerooms.order(:name)
 
     render json: {
-      homeroom: homeroom.as_json,
+      homeroom: homeroom.as_json(only: [:id, :slug, :name, :grade]),
       school: homeroom.school,
-      homerooms_by_name: homerooms_by_name,
-      show_star: homeroom.show_star?,
-      show_mcas: homeroom.show_mcas?,
-      rows: rows
+      rows: rows,
+      homerooms: allowed_homerooms.as_json(only: [:id, :slug, :name, :grade])
     }
   end
 

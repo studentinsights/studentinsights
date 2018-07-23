@@ -35,10 +35,7 @@ export default class HomeroomPage extends React.Component {
   }
 
   renderHomeroom(json) {
-    const showStar = json.show_star;
-    const showMcas = json.show_mcas;
-    const {homeroom, rows, school} = json;
-    const homerooms = json.homerooms_by_name;
+    const {homeroom, rows, school, homerooms} = json;    
     return (
       <div style={styles.flexVertical}>
         <SectionHeading>Homeroom: {homeroom.name}</SectionHeading>
@@ -46,8 +43,7 @@ export default class HomeroomPage extends React.Component {
           style={styles.navigator}
           homerooms={homerooms} />
         <HomeroomTable
-          showStar={showStar}
-          showMcas={showMcas}
+          grade={homeroom.grade}
           rows={rows}
           school={school}
         />

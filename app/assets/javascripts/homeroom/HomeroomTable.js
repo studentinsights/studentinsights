@@ -143,21 +143,21 @@ class HomeroomTable extends React.Component {
   }
 
   showStar() {
+    const {grade} = this.props;
     const columnsDisplayed = this.state.columnsDisplayed;
     const starDisplayed = _.indexOf(columnsDisplayed, 'star') > -1;
 
-    if (this.props.showStar === true && starDisplayed === true) return true;
-
-    return false;
+    if (starDisplayed === false) return false;
+    return (grade && grade >= 2);
   }
 
   showMcas() {
+    const {grade} = this.props;    
+
     const columnsDisplayed = this.state.columnsDisplayed;
     const mcasDisplayed = _.indexOf(columnsDisplayed, 'mcas') > -1;
-
-    if (this.props.showMcas === true && mcasDisplayed === true) return true;
-
-    return false;
+    if (mcasDisplayed === false) return false;
+    return (grade && grade >= 3) ;
   }
 
   onClickHeader(sortBy, sortType) {
@@ -530,11 +530,10 @@ HomeroomTable.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 HomeroomTable.propTypes = {
-  showStar: PropTypes.bool.isRequired,
-  showMcas: PropTypes.bool.isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape({
     event_notes_without_restricted: PropTypes.array.isRequired
   })).isRequired,
+  grade: PropTypes.string,
   school: PropTypes.shape({
     school_type: PropTypes.string.isRequired
   }).isRequired

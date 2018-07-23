@@ -6,6 +6,8 @@ import * as Routes from '../helpers/Routes';
 import Button from '../components/Button';
 
 
+// For typing a homeroom name and jumping to it, or dropping down a list and clicking.
+// Requires clicking "Go" to navigate.
 export default class HomeroomNavigator extends React.Component {
   constructor(props) {
     super(props);

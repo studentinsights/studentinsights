@@ -130,7 +130,9 @@ class App extends React.Component {
 
   renderHomeroomPage(routeProps) {
     const homeroomIdOrSlug = routeProps.match.params.id_or_slug;
-    this.trackVisit(routeProps, 'ROSTER_PAGE');
+    this.trackVisit(routeProps, 'ROSTER_PAGE', {
+      homeroom_id_or_slug: homeroomIdOrSlug
+    });
     return <HomeroomPage homeroomIdOrSlug={homeroomIdOrSlug} />;
   }
 
