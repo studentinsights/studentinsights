@@ -121,12 +121,13 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderRow(email, index, loginData, pastThirtyDaysArray) {
-    const truncatedEmail = email.substring(0, 35);
+    const emailDisplay = (email === 'null')
+      ? 'No email (often means user timed out)'
+      : email.substring(0, 35);
+
     return (
       <div style={style.row} key={index}>
-        <div style={{...style.cell, ...style.emailCell}}>
-          {truncatedEmail || 'No email entered'}
-        </div>
+        <div style={{...style.cell, ...style.emailCell}}>{emailDisplay}</div>
         {pastThirtyDaysArray.map((day, index) => {
           return (loginData[day])
             ? this.renderCellForDay(email, index, loginData[day], day)
