@@ -125,9 +125,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/schools/:id' => 'ui#ui', as: :school
   resources :schools, only: [] do
     member do
-      get '' => 'ui#ui', as: :school
       get :overview_json # also used by internal equity page
       get :csv
       get 'absences' => 'ui#ui'
