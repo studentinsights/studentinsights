@@ -10,7 +10,6 @@ function testProps(props = {}) {
   return {
     feed: feedForTestingNotes,
     educatorsIndex: studentProfile.educatorsIndex,
-    eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
     onSaveNote: jest.fn(),
     onEventNoteAttachmentDeleted: jest.fn(),
     ...props

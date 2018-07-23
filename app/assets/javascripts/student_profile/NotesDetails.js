@@ -69,7 +69,6 @@ class NotesDetails extends React.Component {
         <NotesList
           feed={this.props.feed}
           educatorsIndex={this.props.educatorsIndex}
-          eventNoteTypesIndex={this.props.eventNoteTypesIndex}
           onSaveNote={this.onClickSaveNotes}
           onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
       </div>
@@ -87,7 +86,6 @@ class NotesDetails extends React.Component {
         <TakeNotes
           // TODO(kr) thread through
           nowMoment={moment.utc()}
-          eventNoteTypesIndex={this.props.eventNoteTypesIndex}
           currentEducator={this.props.currentEducator}
           onSave={this.onClickSaveNotes}
           onCancel={this.onCancelNotes}
@@ -131,7 +129,6 @@ class NotesDetails extends React.Component {
 
 NotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   currentEducator: PropTypes.object.isRequired,
   actions: PropTypes.shape({

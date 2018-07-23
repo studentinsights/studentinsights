@@ -2,6 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {takeNotesChoices} from '../helpers/PerDistrict';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
+
 
 /*
 Pure UI form for taking notes about an event, tracking its own local state
@@ -140,10 +142,10 @@ export default class TakeNotes extends React.Component {
     return (
       <div style={{ display: 'flex' }}>
         <div style={{ flex: 1 }}>
-          {leftEventNoteTypeIds.map(this.renderNoteButton)}
+          {leftEventNoteTypeIds.map(this.renderNoteButton, this)}
         </div>
         <div style={{ flex: 1 }}>
-          {rightEventNoteTypeIds.map(this.renderNoteButton)}
+          {rightEventNoteTypeIds.map(this.renderNoteButton, this)}
         </div>
       </div>
     );
@@ -151,16 +153,11 @@ export default class TakeNotes extends React.Component {
 
   // TODO(kr) extract button UI
   renderNoteButton(eventNoteTypeId) {
-    const {
-      onClickNoteType,
-      eventNoteTypesIndex,
-      noteInProgressType
-    } = this.props;
-
-    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
+    const {onClickNoteType, noteInProgressType} = this.props;
 
     return (
       <button
+        key={eventNoteTypeId}
         className="btn note-type"
         onClick={onClickNoteType}
         tabIndex={-1}
@@ -173,7 +170,7 @@ export default class TakeNotes extends React.Component {
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         }}>
-        {eventNoteType.name}
+        {eventNoteTypeText(eventNoteTypeId)}
       </button>
     );
   }
@@ -225,7 +222,6 @@ TakeNotes.contextTypes = {
 };
 TakeNotes.propTypes = {
   nowMoment: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   currentEducator: PropTypes.object.isRequired,

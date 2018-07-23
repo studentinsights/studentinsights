@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  studentProfile,
   nowMoment,
   currentEducator
 } from './fixtures/fixtures';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import TakeNotes from './TakeNotes';
 
 export function testProps(props = {}) {
   return {
     nowMoment: nowMoment,
-    eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
     currentEducator: currentEducator,
     onSave: jest.fn(),
     onCancel: jest.fn(),
@@ -28,7 +28,11 @@ export function testProps(props = {}) {
 it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
-  ReactDOM.render(<TakeNotes {...props} />, el);
+  ReactDOM.render(
+    <PerDistrictContainer districtKey={SOMERVILLE}>
+      <TakeNotes {...props} />
+    </PerDistrictContainer>
+  , el);
 
   expect(el.innerHTML).toContain('February 11, 2016');
   expect(el.innerHTML).toContain('demo@example.com');

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {studentProfile} from './fixtures/fixtures';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import NotesDetails from './NotesDetails';
 import PerDistrictContainer from '../components/PerDistrictContainer';
@@ -8,7 +7,6 @@ import PerDistrictContainer from '../components/PerDistrictContainer';
 
 function testRenderWithEl(districtKey, props) {
   const mergedProps = {
-    eventNoteTypesIndex: studentProfile.eventNoteTypesIndex,
     educatorsIndex: {},
     noteInProgressText: '',
     noteInProgressType: null,

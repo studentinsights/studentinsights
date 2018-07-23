@@ -173,7 +173,6 @@ export default class StudentProfilePage extends React.Component {
           <div className="InterventionsDetails" style={{display: 'flex'}}>
             <NotesDetails
               student={this.props.student}
-              eventNoteTypesIndex={this.props.eventNoteTypesIndex}
               educatorsIndex={this.props.educatorsIndex}
               currentEducator={this.props.currentEducator}
               feed={this.props.feed}
@@ -636,7 +635,6 @@ StudentProfilePage.propTypes = {
   // constants
   educatorsIndex: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
 
   // data
   student: PropTypes.object.isRequired,

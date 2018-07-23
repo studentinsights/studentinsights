@@ -35,7 +35,6 @@ export default class SchoolRosterPage extends React.Component {
   renderSchoolRoster(json) {
     const {students, school} = json; 
     const serviceTypesIndex = json.constant_indexes.service_types_index;
-    const eventNoteTypesIndex = json.constant_indexes.event_note_types_index;
     const initialFilters = parseFiltersHash(window.location.hash);
     return (
       <div style={styles.flexVertical}>
@@ -43,7 +42,6 @@ export default class SchoolRosterPage extends React.Component {
           allStudents={students}
           school={school}
           serviceTypesIndex={serviceTypesIndex}
-          eventNoteTypesIndex={eventNoteTypesIndex}
           initialFilters={initialFilters}
         />
       </div>

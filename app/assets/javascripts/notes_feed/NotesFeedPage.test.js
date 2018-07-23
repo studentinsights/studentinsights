@@ -8,7 +8,6 @@ it('displays notes with student cards without crashing', () => {
   ReactDOM.render(<NotesFeedPage
     educatorsIndex={{}}
     eventNotes={[]}
-    eventNoteTypesIndex={{}}
     onClickLoadMoreNotes={jest.fn()}
     totalNotesCount={0} />, el);
 });

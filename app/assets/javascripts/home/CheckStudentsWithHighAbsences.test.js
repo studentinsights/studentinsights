@@ -8,14 +8,18 @@ import {withDefaultNowContext} from '../testing/NowContainer';
 import CheckStudentsWithHighAbsences, {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
 import studentsWithHighAbsencesJson from './home_students_with_high_absences_json';
 
-function renderIntoEl(element) {
-  const districtKey = SOMERVILLE;
-  const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(
+
+function withContext(element, options = {}) {
+  const districtKey = options.districtKey || SOMERVILLE;
+  return withDefaultNowContext(
     <PerDistrictContainer districtKey={districtKey}>
       {element}
     </PerDistrictContainer>
-  ), el);
+  );
+}
+function renderIntoEl(element) {
+  const el = document.createElement('div');
+  ReactDOM.render(withContext(element), el);
   return el;
 }
 
@@ -68,7 +72,7 @@ describe('CheckStudentsWithHighAbsencesView', () => {
       studentsWithHighAbsences: studentsWithHighAbsencesJson.students_with_high_absences
     };
     const tree = renderer
-      .create(withDefaultNowContext(<CheckStudentsWithHighAbsencesView {...props} />))
+      .create(withContext(<CheckStudentsWithHighAbsencesView {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -81,7 +85,7 @@ describe('CheckStudentsWithHighAbsencesView', () => {
       studentsWithHighAbsences: studentsWithHighAbsencesJson.students_with_high_absences.slice(0, 3)
     };
     const tree = renderer
-      .create(withDefaultNowContext(<CheckStudentsWithHighAbsencesView {...props} />))
+      .create(withContext(<CheckStudentsWithHighAbsencesView {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

@@ -7,7 +7,7 @@ import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
 import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
-
+import {eventNoteTypeText} from '../helpers/eventNoteType';
 
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different
@@ -75,8 +75,7 @@ class SlicePanels extends React.Component {
       return parseInt(eventNote.event_note_type_id, 10);
     }));
     const eventNoteItems = allEventNoteTypesIds.map(eventNoteTypeId => {
-      const eventNoteTypeName = this.props.eventNoteTypesIndex[eventNoteTypeId].name;
-      return this.createItem(eventNoteTypeName, Filters.EventNoteType(eventNoteTypeId));
+      return this.createItem(eventNoteTypeText(eventNoteTypeId), Filters.EventNoteType(eventNoteTypeId));
     });
     const sortedItems =  _.sortBy(eventNoteItems, function(item) {
       return -1 * students.filter(item.filter.filterFn).length;
@@ -348,7 +347,6 @@ SlicePanels.propTypes = {
   allStudents: PropTypes.arrayOf(PropTypes.object).isRequired,
   school: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   onFilterToggled: PropTypes.func.isRequired
 };
 

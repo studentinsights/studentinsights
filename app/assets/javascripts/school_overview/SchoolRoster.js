@@ -185,7 +185,6 @@ export default class SchoolRoster extends React.Component {
             students={this.getFilteredStudents()}
             school={this.props.school}
             serviceTypesIndex={this.props.serviceTypesIndex}
-            eventNoteTypesIndex={this.props.eventNoteTypesIndex}
             filters={this.state.filters}
             onFilterToggled={this.onFilterToggled} />
         </div>
@@ -215,6 +214,5 @@ SchoolRoster.propTypes = {
   school: PropTypes.object.isRequired,
   allStudents: PropTypes.arrayOf(PropTypes.object).isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   initialFilters: PropTypes.arrayOf(PropTypes.object)
 };

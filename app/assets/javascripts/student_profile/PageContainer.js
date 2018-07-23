@@ -270,7 +270,6 @@ export default class PageContainer extends React.Component {
             'currentEducator',
             'educatorsIndex',
             'serviceTypesIndex',
-            'eventNoteTypesIndex',
             'student',
             'feed',
             'transitionNotes',
@@ -332,7 +331,6 @@ export function initialState(serializedData, queryParams) {
     // constants
     educatorsIndex: serializedData.educatorsIndex,
     serviceTypesIndex: serializedData.serviceTypesIndex,
-    eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
 
     // data
     student: serializedData.student,

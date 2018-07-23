@@ -12,7 +12,6 @@ class PageContainer extends React.Component {
     this.state = {
       educatorsIndex: this.props.educatorsIndex,
       eventNotes: this.props.eventNotes,
-      eventNoteTypesIndex: this.props.eventNoteTypesIndex,
       batchSizeMultiplier: 2,
     };
 
@@ -46,7 +45,6 @@ class PageContainer extends React.Component {
       <NotesFeedPage
         educatorsIndex={this.state.educatorsIndex}
         eventNotes={this.state.eventNotes}
-        eventNoteTypesIndex={this.state.eventNoteTypesIndex}
         onClickLoadMoreNotes={this.onClickLoadMoreNotes}
         totalNotesCount={this.props.totalNotesCount} />
     );
@@ -57,7 +55,6 @@ class PageContainer extends React.Component {
 PageContainer.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   totalNotesCount: PropTypes.number.isRequired
 };
 

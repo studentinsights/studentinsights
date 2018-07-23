@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
 import NoteCard from './NoteCard';
 
 
@@ -28,11 +29,9 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNoteTypeBadge(eventNoteTypeId) {
-    const eventNoteType = this.props.eventNoteTypesIndex[eventNoteTypeId];
-    if (eventNoteType === undefined) return null;
     return (
       <span style={styles.badge}>
-        {eventNoteType.name}
+        {eventNoteTypeText(eventNoteTypeId)}
       </span>
     );
   }
@@ -76,7 +75,6 @@ export default class NotesList extends React.Component {
 NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func
 };

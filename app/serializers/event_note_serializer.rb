@@ -49,14 +49,4 @@ class EventNoteSerializer < Struct.new :event_note
       :is_restricted,
     ])
   end
-
-  # Includes all, across all districts right now
-  def self.event_note_types_index
-    index = {}
-    EventNoteType.all.each do |event_note_type|
-      index[event_note_type.id] = event_note_type.as_json.symbolize_keys.slice(:id, :name)
-    end
-    index
-  end
-
 end
