@@ -260,6 +260,14 @@ ActiveRecord::Schema.define(version: 2018_07_17_184037) do
     t.index ["user_type", "user_id"], name: "index_login_activities_on_user_type_and_user_id"
   end
 
+  create_table "masquerading_logs", force: :cascade do |t|
+    t.integer "educator_id"
+    t.integer "masquerading_as_educator_id"
+    t.text "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "precomputed_query_docs", id: :serial, force: :cascade do |t|
     t.text "key"
     t.text "json"
