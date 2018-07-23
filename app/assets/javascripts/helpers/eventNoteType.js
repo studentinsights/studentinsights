@@ -16,7 +16,7 @@ const miniTextMap = {
   301: 'MTSS',
   302: 'Parent',
   304: 'Other',
-  305: '9GE',
+  305: 'NGE',
   306: '10GE',
   400: 'BBST'
 };

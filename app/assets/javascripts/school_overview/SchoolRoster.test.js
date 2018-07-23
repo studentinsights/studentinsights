@@ -1,5 +1,5 @@
 import * as Filters from '../helpers/Filters';
-import SchoolOverviewPage from './SchoolOverviewPage';
+import SchoolRoster from './SchoolRoster';
 
 // FILTERING FUNCTIONS //
 
@@ -7,7 +7,7 @@ describe('#filterWithOr', () => {
   const mari = { name: 'Mari', classroom: '101' };    // stubby student object
   const mark = { name: 'Mark', classroom: '101' };    // stubby student object
   const marv = { name: 'Marv', classroom: '102' };    // stubby student object
-  const page = new SchoolOverviewPage({
+  const page = new SchoolRoster({
     initialFilters: [],
     allStudents: [mark, mari, marv]
   });
@@ -48,7 +48,7 @@ describe('#filterWithOr', () => {
 });
 
 describe('#filterWithAnd', () => {
-  const page = new SchoolOverviewPage({initialFilters: []});
+  const page = new SchoolRoster({initialFilters: []});
   const mari = { name: 'Mari' };    // stubby student object
   const mark = { name: 'Mark' };    // stubby student object
 
@@ -79,7 +79,7 @@ describe('#filterWithAnd', () => {
 
 describe('with one initial filter', () => {
   const TestFilter = Filters.Equal('height', 'short');
-  const page = new SchoolOverviewPage({initialFilters: [TestFilter]});
+  const page = new SchoolRoster({initialFilters: [TestFilter]});
 
   describe('#activeFiltersIdentifier', () => {
     it('sets the correct identifier', () => {

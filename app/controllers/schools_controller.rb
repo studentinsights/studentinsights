@@ -3,16 +3,6 @@ class SchoolsController < ApplicationController
 
   before_action :set_school, :authorize_for_school
 
-  def show
-    @serialized_data = json_for_overview(@school)
-    render 'shared/serialized_data'
-  end
-
-  def overview
-    @serialized_data = { school_slug: @school.slug }
-    render 'shared/serialized_data'
-  end
-
   # This is also used by the `ExploresSchoolEquityPage`.
   def overview_json
     render json: json_for_overview(@school)
@@ -87,6 +77,7 @@ class SchoolsController < ApplicationController
     {
       students: merged_student_hashes,
       school: school,
+      district_key: PerDistrict.new.district_key,
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }

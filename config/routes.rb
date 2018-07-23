@@ -125,10 +125,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :schools, only: [:show] do
+  resources :schools, only: [] do
     member do
-      get :overview
-      get :overview_json
+      get '' => 'ui#ui', as: :school
+      get :overview_json # also used by internal equity page
       get :csv
       get 'absences' => 'ui#ui'
       get 'tardies' => 'ui#ui'

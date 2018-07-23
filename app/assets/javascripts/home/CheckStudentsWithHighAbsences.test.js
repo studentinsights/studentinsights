@@ -2,13 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import CheckStudentsWithHighAbsences, {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
 import studentsWithHighAbsencesJson from './home_students_with_high_absences_json';
-import {withDefaultNowContext} from '../testing/NowContainer';
 
 function renderIntoEl(element) {
+  const districtKey = SOMERVILLE;
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(element), el);
+  ReactDOM.render(withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      {element}
+    </PerDistrictContainer>
+  ), el);
   return el;
 }
 

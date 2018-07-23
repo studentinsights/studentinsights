@@ -11,6 +11,7 @@ import PerDistrictContainer from '../app/assets/javascripts/components/PerDistri
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
+import SchoolRosterPage from '../app/assets/javascripts/school_overview/SchoolRosterPage';
 import SectionPage from '../app/assets/javascripts/section/SectionPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
@@ -68,6 +69,7 @@ class App extends React.Component {
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+        <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
         <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
@@ -161,6 +163,12 @@ class App extends React.Component {
   renderImportRecordsPage(routeProps) {
     this.trackVisit(routeProps, 'IMPORT_RECORDS_PAGE');
     return <ImportRecordsPage />;
+  }
+
+  renderSchoolRosterPage(routeProps) {
+    const schoolIdOrSlug = routeProps.match.params.id_or_slug;
+    this.trackVisit(routeProps, 'SCHOOL_OVERVIEW_DASHBOARD', { school_id_or_slug: schoolIdOrSlug});
+    return <SchoolRosterPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
   renderAbsencesDashboard(routeProps) {

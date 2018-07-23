@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import Cookies from 'js-cookie';
 import HomeroomTable from './HomeroomTable';
 import {healey, shs, students} from './HomeroomTable.fixtures';
@@ -18,7 +20,11 @@ function testProps(props = {}) {
 
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(<HomeroomTable {...props} />, el);
+  ReactDOM.render(
+    <PerDistrictContainer districtKey={SOMERVILLE}>
+      <HomeroomTable {...props} />
+    </PerDistrictContainer>
+  , el);
   return {el};
 }
 

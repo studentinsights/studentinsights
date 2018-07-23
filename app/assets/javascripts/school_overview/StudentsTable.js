@@ -136,7 +136,7 @@ export default class StudentsTable extends React.Component {
                     </a>
                   </td>
                   {this.eventNoteTypeIds().map(eventNoteTypeId => (
-                    <td>{student[`latest_note_${eventNoteTypeId}`].dateText}</td>
+                    <td key={eventNoteTypeId}>{student[`latest_note_${eventNoteTypeId}_date_text`]}</td>
                   ))}
                   <td>{student.grade}</td>
                   {shouldDisplayHouse(school) && (<td>{student.house}</td>)}
@@ -192,7 +192,7 @@ export default class StudentsTable extends React.Component {
     const pieces = caption.split(' ');
 
     return (
-      <th onClick={this.onClickHeader.bind(null, sortBy, sortType)}
+      <th key={sortBy} onClick={this.onClickHeader.bind(null, sortBy, sortType)}
           className={this.headerClassName(sortBy)}>
         <div>{pieces[0]}</div>
         <div>{pieces[1]}</div>
