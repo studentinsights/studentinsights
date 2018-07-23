@@ -121,7 +121,7 @@ describe('high-level integration test', () => {
     ]);
   });
 
-  it('renders correct headers for Somervill HS', () => {
+  it('renders correct headers for Somerville HS', () => {
     const {el} = testRender(testProps({ school: shs() }));
     expect(headerTexts(el)).toEqual([
       'Name',

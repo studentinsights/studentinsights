@@ -160,7 +160,7 @@ export function takeNotesChoices(districtKey) {
   if (districtKey === SOMERVILLE || districtKey === DEMO) {
     return {
       leftEventNoteTypeIds: [300, 301, 302],
-      rightEventNoteTypeIds: [305, 306, 303]
+      rightEventNoteTypeIds: [305, 306, 304]
     };
   }
 
