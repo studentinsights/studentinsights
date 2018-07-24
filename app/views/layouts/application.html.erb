@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Student Insights</title>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
-    <link rel="apple-touch-icon" href="/icon.png"/>
-    <%= json_div(id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
-    <%= javascript_include_tag webpack_bundle('rollbar.js') %>
-    <%= csrf_meta_tags %>
+    <%= render('shared/head') %>
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
+    <%= render('shared/masquerade') %>
     <div class="nav">
       <% if ENV['DEPLOYMENT_KEY'] == 'demo' %>
         <div class="big_warning">
@@ -30,7 +25,7 @@
           </div>
         </a>
         <% if educator_signed_in? %>
-          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator } %>
+          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
         <% else %>
           <div class="sign-in-container">
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -61,6 +56,6 @@
 
         json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-    <%= javascript_include_tag webpack_bundle('bundle.js') %>
+    <%= javascript_include_tag Webpack.bundle('bundle.js') %>
   </body>
 </html>

@@ -22,6 +22,7 @@ class Env
     default_env['ENABLE_CLASS_LISTS'] = 'true'
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
     default_env['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
+    ENV['ENABLE_MASQUERADING'] = 'true'
 
     # only set values if ENV hasn't already set them (ie, allow command line overrides)
     default_env.each do |key, value|

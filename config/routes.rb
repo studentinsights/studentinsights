@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :educators
     get '/authorization' => 'educators#authorization'
+    post '/masquerade/become' => 'masquerade#become'
+    post '/masquerade/clear' => 'masquerade#clear'
     root to: "educators#index"
   end
 
