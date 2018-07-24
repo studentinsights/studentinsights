@@ -32,6 +32,12 @@ function headerTexts(el) {
   return $(el).find('table thead tr th').toArray().map(el => $(el).text());
 }
 
+function sstAndMtssDateTexts(el) {
+  return $(el).find('table tbody tr').toArray().map(el => {
+    return $(el).find('td').toArray().slice(0, 3).map(el => $(el).text());
+  });
+}
+
 describe('high-level integration test', () => {
   // Prevent test pollution
   beforeEach(() => Cookies.remove('columnsDisplayed'));
@@ -61,6 +67,18 @@ describe('high-level integration test', () => {
     expect($(el).find('span.table-header').length).toEqual(9);
     ReactTestUtils.Simulate.click($(el).find('input[type=checkbox]').get(0));
     expect($(el).find('span.table-header').length).toEqual(7);
+  });
+
+  it('renders SST and MTSS dates correctly for Somerville grade 2 as a happy path test case', () => {
+    const {el} = testRender(testProps());
+    expect(sstAndMtssDateTexts(el)).toEqual([
+      ["Aladdin Kenobi", "—", '—'],
+      ["Chip Pan", "2/16/11", '—'],
+      ["Pluto Poppins", "9/2/11", '6/5/11'],
+      ["Rapunzel Duck", "1/2/11", '8/6/11'],
+      ["Snow Skywalker", "10/31/10", '—'],
+      ["Snow Kenobi", "8/29/11", '7/27/11']
+    ]);
   });
 
   it('renders correct headers for Somerville grade 2', () => {
