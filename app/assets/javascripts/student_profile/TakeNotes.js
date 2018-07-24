@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {takeNotesChoices} from '../helpers/PerDistrict';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
 
 
 /*
@@ -89,18 +91,7 @@ export default class TakeNotes extends React.Component {
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
-            {this.renderNoteButton(300)}
-            {this.renderNoteButton(301)}
-            {this.renderNoteButton(305)}
-          </div>
-          <div style={{ flex: 1 }}>
-            {this.renderNoteButton(306)}
-            {this.renderNoteButton(302)}
-            {this.renderNoteButton(304)}
-          </div>
-        </div>
+        {this.renderNoteButtonsPerDistrict()}
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           Add a link (i.e. to a file of student work on Google Drive):
         </div>
@@ -145,18 +136,28 @@ export default class TakeNotes extends React.Component {
     );
   }
 
+  renderNoteButtonsPerDistrict() {
+    const {districtKey} = this.context;
+    const {leftEventNoteTypeIds, rightEventNoteTypeIds} = takeNotesChoices(districtKey);
+    return (
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }}>
+          {leftEventNoteTypeIds.map(this.renderNoteButton, this)}
+        </div>
+        <div style={{ flex: 1 }}>
+          {rightEventNoteTypeIds.map(this.renderNoteButton, this)}
+        </div>
+      </div>
+    );
+  }
+
   // TODO(kr) extract button UI
   renderNoteButton(eventNoteTypeId) {
-    const {
-      onClickNoteType,
-      eventNoteTypesIndex,
-      noteInProgressType
-    } = this.props;
-
-    const eventNoteType = eventNoteTypesIndex[eventNoteTypeId];
+    const {onClickNoteType, noteInProgressType} = this.props;
 
     return (
       <button
+        key={eventNoteTypeId}
         className="btn note-type"
         onClick={onClickNoteType}
         tabIndex={-1}
@@ -169,7 +170,7 @@ export default class TakeNotes extends React.Component {
             ? '4px solid rgba(49, 119, 201, 0.75)'
             : '4px solid white'
         }}>
-        {eventNoteType.name}
+        {eventNoteTypeText(eventNoteTypeId)}
       </button>
     );
   }
@@ -216,9 +217,11 @@ export default class TakeNotes extends React.Component {
     );
   }
 }
+TakeNotes.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 TakeNotes.propTypes = {
   nowMoment: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   currentEducator: PropTypes.object.isRequired,

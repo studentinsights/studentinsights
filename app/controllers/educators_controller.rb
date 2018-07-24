@@ -97,7 +97,6 @@ class EducatorsController < ApplicationController
             .limit(batch_size)
     {
       educators_index: Educator.to_index,
-      event_note_types_index: EventNoteSerializer.event_note_types_index,
       current_educator: current_educator,
       notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student },
       total_notes_count: total_notes_for_educator

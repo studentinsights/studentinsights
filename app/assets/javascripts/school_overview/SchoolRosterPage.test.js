@@ -4,13 +4,12 @@ import {withDefaultNowContext} from '../testing/NowContainer';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import fetchMock from 'fetch-mock/es5/client';
-import SectionPage from './SectionPage';
-import sectionJson from './sectionJson.fixture';
+import SchoolRosterPage from './SchoolRosterPage';
+import schoolOverviewJson from './schoolOverviewJson.fixture';
 
 function testProps(props = {}) {
-  const sectionId = sectionJson.section.id;
   return {
-    sectionId,
+    schoolIdOrSlug: 'HEA',
     ...props
   };
 }
@@ -20,17 +19,15 @@ function testRender(props = {}, context = {}) {
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(
     <PerDistrictContainer districtKey={districtKey}>
-      <SectionPage {...props} />
+      <SchoolRosterPage {...props} />
     </PerDistrictContainer>
   ), el);
   return {el};
 }
 
 beforeEach(() => {
-  const sectionId = sectionJson.section.id;
-
   fetchMock.restore();
-  fetchMock.get(`/api/sections/${sectionId}/section_json`, sectionJson);
+  fetchMock.get(`/schools/HEA/overview_json`, schoolOverviewJson);
 });
 
 it('renders without crashing', () => {
@@ -43,10 +40,7 @@ it('renders everything after fetch', done => {
   const {el} = testRender(props);
   
   setTimeout(() => {
-    expect($(el).text()).toContain('SCI-201B');
-    expect($(el).text()).toContain('PHYSICS 1 (SCI-201)');
-    expect($(el).text()).toContain('Room 306W');
-    expect($(el).find('.FlexibleRoster tbody > tr').length).toEqual(sectionJson.students.length);
+    expect($(el).html()).toContain('Found: 26 students');
     done();
   }, 0);
 });

@@ -1,52 +1,40 @@
 class SectionsController < ApplicationController
-  before_action :authorize_and_assign_section, only: :show
-  before_action :authenticate_districtwide_access!, only: :index # Extra authentication layer
+  before_action :ensure_feature_enabled!
 
+  # This is intended for project leads or developers
   def index
-    #just setting this to all courses for now
-    #since we are only testing with district wide admins
+    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.high_school_enabled?
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
     @educator_courses = Course.all.order(:course_number)
   end
 
-  def show
-    students = authorized { @current_section.students } # extra layer while transitioning K8 to use sections
-    students_json = serialize_students(students.map(&:id), @current_section)
-    section = serialize_section(@current_section)
+  def section_json
+    current_section = authorized_section(params[:id])
+    students = authorized { current_section.students } # extra layer while transitioning K8 to use sections
 
-    @serialized_data = {
+    students_json = serialize_students(students.map(&:id), current_section)
+    section = serialize_section(current_section)
+    sections = current_educator.allowed_sections
+
+    render json: {
       students: students_json,
-      educators: @current_section.educators,
       section: section,
-      sections: current_educator.allowed_sections,
-      current_educator: current_educator,
+      sections: sections
     }
-    render 'shared/serialized_data'
   end
 
   private
-  def authorize_and_assign_section
-    if !can_view_section_page? # Extra layer while transitioning K8 to use sections
-      return redirect_to homepage_path_for_role(current_educator)
-    end
-
-    requested_section = Section.find(params[:id])
-    if current_educator.is_authorized_for_section(requested_section)
-      @current_section = requested_section
-    else
-      redirect_to homepage_path_for_role(current_educator)
-    end
-  rescue ActiveRecord::RecordNotFound     # Params don't match an actual section
-    redirect_to homepage_path_for_role(current_educator)
+  def ensure_feature_enabled!
+    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.high_school_enabled?
   end
 
-  def can_view_section_page?
-    current_educator.districtwide_access || current_educator.school.is_high_school?
-  end
+  def authorized_section(section_id)
+    # Extra layer since we don't yet allow K8 teachers to view sections
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access || current_educator.school.is_high_school?
 
-  def authenticate_districtwide_access!
-    unless current_educator.districtwide_access
-      redirect_to not_authorized_path
-    end
+    section = Section.find(params[:id])
+    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_section(section)
+    section
   end
 
   # Include grade for section as well

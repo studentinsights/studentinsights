@@ -8,7 +8,7 @@ import SliceButtons from './SliceButtons';
 import StudentsTable from './StudentsTable';
 
 
-class SchoolOverviewPage extends React.Component {
+export default class SchoolRoster extends React.Component {
 
   constructor(props) {
     super(props);
@@ -173,18 +173,18 @@ class SchoolOverviewPage extends React.Component {
   }
 
   render() {
+    const {districtKey} = this.context;
     this.setFilteredStudents(this.filteredStudents());
 
     return (
       <div className="school-overview" style={{ fontSize: styles.fontSize }}>
         <div className="header" style={styles.header}>
           <SlicePanels
-            districtKey={this.props.districtKey}
+            districtKey={districtKey}
             allStudents={this.props.allStudents}
             students={this.getFilteredStudents()}
             school={this.props.school}
             serviceTypesIndex={this.props.serviceTypesIndex}
-            eventNoteTypesIndex={this.props.eventNoteTypesIndex}
             filters={this.state.filters}
             onFilterToggled={this.onFilterToggled} />
         </div>
@@ -207,14 +207,12 @@ class SchoolOverviewPage extends React.Component {
     );
   }
 }
-
-SchoolOverviewPage.propTypes = {
-  districtKey: PropTypes.string.isRequired,
+SchoolRoster.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
+SchoolRoster.propTypes = {
   school: PropTypes.object.isRequired,
   allStudents: PropTypes.arrayOf(PropTypes.object).isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   initialFilters: PropTypes.arrayOf(PropTypes.object)
 };
-
-export default SchoolOverviewPage;

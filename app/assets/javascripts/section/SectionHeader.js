@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import * as Routes from '../helpers/Routes';
 
-class SectionHeader extends React.Component {
+export default class SectionHeader extends React.Component {
 
   handleChangeSection(event) {
     window.location.href = Routes.section(event.target.value);
@@ -12,7 +12,7 @@ class SectionHeader extends React.Component {
     const section = this.props.section;
 
     return (
-      <div className='SectionHeader'>
+      <div className='SectionHeader' style={styles.root}>
         <div id="section-header-info">
           <h1>{section.section_number}</h1>
           <p id="course-info">{section.course_description} {'(' + section.course_number + ')'}</p>
@@ -53,4 +53,10 @@ SectionHeader.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default SectionHeader;
+const styles = {
+  root: {
+    padding: '30px 20px 20px 30px',
+    float: 'left',
+    display: 'flex'
+  }
+};

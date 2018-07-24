@@ -24,6 +24,10 @@ class ResearchMattersExporter
 
     @mixpanel_downloader = options[:mixpanel_downloader]
     @canonical_domain = options[:canonical_domain]
+
+    if !PerDistrict.new.is_research_matters_analysis_supported?
+      raise 'not enabled: PerDistrict.new.is_research_matters_analysis_supported?'
+    end
   end
 
   def student_file

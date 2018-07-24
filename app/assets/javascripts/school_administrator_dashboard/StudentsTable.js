@@ -12,7 +12,7 @@ import {
 } from '../helpers/SortHelpers';
 import * as Routes from '../helpers/Routes';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
-import {eventNoteTypeTextMini} from '../components/eventNoteType';
+import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import DashResetButton from './DashResetButton';
 
 

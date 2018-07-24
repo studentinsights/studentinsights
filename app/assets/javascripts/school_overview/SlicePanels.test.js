@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import _ from 'lodash';
 import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
-import eventNoteTypesIndex from '../testing/fixtures/eventNoteTypesIndex';
 import FixtureStudents from './schoolOverviewStudents.fixture';
 import SlicePanels from './SlicePanels';
 
@@ -12,7 +11,6 @@ function testProps(props = {}) {
     districtKey: 'somerville',
     filters: [],
     serviceTypesIndex,
-    eventNoteTypesIndex,
     school: {
       school_type: 'ES'
     },

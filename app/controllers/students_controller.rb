@@ -32,7 +32,6 @@ class StudentsController < ApplicationController
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.student_assessments.by_family('DIBELS'),
       service_types_index: ServiceSerializer.service_types_index,
-      event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       transition_notes: (can_see_transition_notes ? student.transition_notes : []),
@@ -56,7 +55,6 @@ class StudentsController < ApplicationController
       current_educator: current_educator,
       student: serialize_student_for_profile(student),
       feed: student_feed(student, restricted_notes: true),
-      event_note_types_index: EventNoteSerializer.event_note_types_index,
       educators_index: Educator.to_index,
     }
     render 'shared/serialized_data'

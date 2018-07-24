@@ -46,7 +46,6 @@ class DashboardQueries
   end
 
   def shared_student_fields(student)
-    latest_note = student.event_notes.order(recorded_at: :desc).first(1).first
     student.as_json(only: [
       :first_name,
       :last_name,
@@ -54,7 +53,7 @@ class DashboardQueries
       :id
     ]).merge({
       homeroom_label: homeroom_label(student.homeroom),
-      latest_note: latest_note.as_json(only: [:event_note_type_id, :recorded_at])
+      latest_note: student.latest_note
     })
   end
 

@@ -22,7 +22,6 @@ class RestrictedNotesPageContainer extends React.Component {
 
       // constants
       educatorsIndex: serializedData.educatorsIndex,
-      eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
 
       // data
       feed: serializedData.feed,
@@ -124,7 +123,6 @@ class RestrictedNotesPageContainer extends React.Component {
             {...merge(_.pick(this.state,
               'currentEducator',
               'educatorsIndex',
-              'eventNoteTypesIndex',
               'feed',
               'student',
               'requests',

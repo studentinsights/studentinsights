@@ -18,21 +18,6 @@ class Homeroom < ActiveRecord::Base
     update_attribute(:grade, student.grade)
   end
 
-  def show_dibels?
-    return true if grade.blank?  # Default to show
-    grade.to_i <= 4  # DIBELS is given K-3, show through grade 4
-  end
-
-  def show_mcas?
-    return true if grade.blank?  # Default to show
-    grade.to_i >= 3  # MCAS is given 3–8, 10
-  end
-
-  def show_star?
-    return true if grade.blank?  # Default to show
-    grade.to_i >= 2  # STAR is given 2–8
-  end
-
   def self.destroy_empty_homerooms
     Homeroom.where(students_count: 0).destroy_all
   end

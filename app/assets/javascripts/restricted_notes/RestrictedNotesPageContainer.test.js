@@ -2,20 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import moment from 'moment';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import {studentProfile} from '../student_profile/fixtures/fixtures';
 import RestrictedNotesPageContainer from './RestrictedNotesPageContainer';
 import changeTextValue from '../testing/changeTextValue';
 
 
 const helpers = {
-  renderInto(props) {
+  renderInto(districtKey, props) {
     const mergedProps = {
       nowMomentFn: moment.utc,
       serializedData: studentProfile,
       ...props
     };
     const el = document.createElement('div');
-    ReactDOM.render(<RestrictedNotesPageContainer {...mergedProps} />, el);
+    ReactDOM.render(
+      <PerDistrictContainer districtKey={districtKey}>
+        <RestrictedNotesPageContainer {...mergedProps} />
+      </PerDistrictContainer>
+    , el);
     return {el};
   },
 
@@ -49,7 +55,7 @@ const helpers = {
 describe('high-level integration tests', () => {
   it('saves notes as restricted', () => {
     const mockApi = helpers.createMockApi();
-    const {el} = helpers.renderInto({api: mockApi});
+    const {el} = helpers.renderInto(SOMERVILLE, {api: mockApi});
 
     helpers.takeNotesAndSave(el, {
       text: "hi",

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StudentsSpreadsheet do
   context 'with generated students' do
-    before { School.seed_somerville_schools }
+    let!(:pals) { TestPals.create! }
     let!(:school) { School.find_by_name('Arthur D Healey') }
     let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
     let!(:homeroom) { Homeroom.create(name: 'HEA 300', grade: '3', school: school) }
@@ -70,6 +70,7 @@ RSpec.describe StudentsSpreadsheet do
            "SomerSession (active_service_date_started)",
            "Summer Program for English Language Learners (active_service_date_started)",
            "Freedom School (active_service_date_started)",
+           "BBST Meeting (last_event_note_recorded_at)",
            "SST Meeting (last_event_note_recorded_at)",
            "MTSS Meeting (last_event_note_recorded_at)",
            "9th Grade Experience (last_event_note_recorded_at)",

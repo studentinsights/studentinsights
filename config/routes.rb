@@ -48,6 +48,13 @@ Rails.application.routes.draw do
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
+  # homeroom
+  get '/api/homerooms/:id/homeroom_json' => 'homerooms#homeroom_json'
+
+  # sections
+  get '/api/sections/:id/section_json' => 'sections#section_json'
+
+
   devise_for :educators
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
@@ -76,8 +83,12 @@ Rails.application.routes.draw do
   # experimental "is service working?"
   get '/is_service_working' => 'ui#ui'
 
+  # error pages
   get 'no_default_page' => 'pages#no_default_page'
   get 'not_authorized' => 'pages#not_authorized'
+
+  # K8 homeroom page
+  get '/homerooms/:id' => 'ui#ui', as: :homeroom
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
@@ -101,8 +112,10 @@ Rails.application.routes.draw do
       get :past
     end
   end
-  resources :homerooms, only: [:show]
-  resources :sections, only: [:index, :show]
+
+  resources :sections, only: [:index]
+  get '/sections/:id' => 'ui#ui', as: :section
+
   resources :iep_documents, only: [:show]
 
   resource :classlists, only: [] do
@@ -114,10 +127,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :schools, only: [:show] do
+  get '/schools/:id' => 'ui#ui', as: :school
+  resources :schools, only: [] do
     member do
-      get :overview
-      get :overview_json
+      get :overview_json # also used by internal equity page
       get :csv
       get 'absences' => 'ui#ui'
       get 'tardies' => 'ui#ui'

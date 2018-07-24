@@ -6,6 +6,6 @@ class CreateEventNoteTypes < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    EventNoteType.seed_somerville_event_note_types
+    EventNoteType.seed_for_all_districts
   end
 end

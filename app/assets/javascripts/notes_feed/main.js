@@ -8,7 +8,6 @@ export default function renderNotesFeedMain(el) {
   render(el, {
     current_educator: serializedData.currentEducator,
     educatorsIndex: serializedData.educatorsIndex,
-    eventNoteTypesIndex: serializedData.eventNoteTypesIndex,
     notes: serializedData.notes,
     totalNotesCount: serializedData.totalNotesCount
   });
@@ -20,6 +19,5 @@ function render(el, json) {
   ReactDOM.render(<PageContainer
     educatorsIndex={json.educatorsIndex}
     eventNotes={json.notes}
-    eventNoteTypesIndex={json.eventNoteTypesIndex}
     totalNotesCount={json.totalNotesCount} />, el);
 }

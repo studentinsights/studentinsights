@@ -58,6 +58,10 @@ class PerDistrict
     end
   end
 
+  def high_school_enabled?
+    @district_key == SOMERVILLE
+  end
+
   def enabled_high_school_tiering?
     @district_key == SOMERVILLE || @district_key == DEMO
   end
@@ -131,6 +135,10 @@ class PerDistrict
     else
       false
     end
+  end
+
+  def is_research_matters_analysis_supported?
+    @district_key == SOMERVILLE
   end
 
   private

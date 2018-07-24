@@ -5,11 +5,11 @@ class DatabaseConstants
   #
   # These are all specific to the initial Somerville deployment, but
   # are used for local development as well and relied on in tests.
-  def seed!
-    Assessment.seed_somerville_assessments
-    InterventionType.seed_somerville_intervention_types
-    EventNoteType.seed_somerville_event_note_types
-    ServiceType.seed_somerville_service_types
+  def seed_for_all_districts!
+    Assessment.seed_for_all_districts
+    InterventionType.seed_for_all_districts
+    EventNoteType.seed_for_all_districts
+    ServiceType.seed_for_all_districts
     ServiceType.add_summer_program_status_to_service_types
     nil
   end

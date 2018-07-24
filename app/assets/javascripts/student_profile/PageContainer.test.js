@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import {mount} from 'enzyme';
 import ReactTestUtils from 'react-addons-test-utils';
 import {nowMoment, studentProfile} from './fixtures/fixtures';
-import {mount} from 'enzyme';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
@@ -24,7 +27,18 @@ function testProps(props = {}) {
 }
 
 function mountWithContext(props) {
-  return mount(<PageContainer {...props} />);
+  const el = document.createElement('div');
+  const wrapper = mount(<PageContainer {...props} />, {
+    attachTo: el,
+    context: {
+      districtKey: SOMERVILLE
+    },
+    childContextTypes: {
+      districtKey: PropTypes.string.isRequired
+    }
+  });
+
+  return {wrapper, el};
 }
 
 const helpers = {
@@ -59,7 +73,11 @@ const helpers = {
   renderInto(props) {
     const mergedProps = testProps(props);
     const el = document.createElement('div');
-    const instance = ReactDOM.render(<PageContainer {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
+    const instance = ReactDOM.render( //eslint-disable-line react/no-render-return-value
+      <PerDistrictContainer districtKey={SOMERVILLE}>
+        <PageContainer {...mergedProps} />
+      </PerDistrictContainer>
+    , el);
     return {el, instance};
   },
 
@@ -152,7 +170,8 @@ describe('integration tests', () => {
 
   it('verifies that the educator name is in the correct format', () => {
     const props = testProps();
-    const {instance, el} = helpers.renderInto(props);
+    const {wrapper, el} = mountWithContext(props);
+    const instance = wrapper.instance();
 
     // Simulate that the server call is still pending
     props.api.saveService.mockReturnValue($.Deferred());
@@ -194,7 +213,7 @@ describe('integration tests', () => {
 
   it('#mergedDiscontinueService', () => {
     const props = testProps();
-    const wrapper = mountWithContext(props);
+    const {wrapper} = mountWithContext(props);
     const instance = wrapper.instance();
     const updatedState = instance.mergedDiscontinueService(instance.state, 312, 'foo');
     expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));

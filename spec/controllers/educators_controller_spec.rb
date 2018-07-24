@@ -222,7 +222,6 @@ describe EducatorsController, :type => :controller do
         expect(response).to be_successful
         body = JSON.parse!(response.body)
         expect(body).to have_key("educators_index")
-        expect(body).to have_key("event_note_types_index")
         expect(body).to have_key("current_educator")
         expect(body).to have_key("notes")
         expect(body["notes"].length).to be(1)

@@ -1,17 +1,7 @@
 class SchoolsController < ApplicationController
   include StudentsQueryHelper
 
-  before_action :set_school, :authorize_for_school
-
-  def show
-    @serialized_data = json_for_overview(@school)
-    render 'shared/serialized_data'
-  end
-
-  def overview
-    @serialized_data = { school_slug: @school.slug }
-    render 'shared/serialized_data'
-  end
+  before_action :set_school, :ensure_authorized_for_school!
 
   # This is also used by the `ExploresSchoolEquityPage`.
   def overview_json
@@ -73,6 +63,15 @@ class SchoolsController < ApplicationController
   end
 
   private
+  def ensure_authorized_for_school!
+    raise Exceptions::EducatorNotAuthorized unless authorizer.is_authorized_for_school?(@school)
+  end
+
+  def set_school
+    @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
+    redirect_to root_url if @school.nil?
+  end
+
   def json_for_overview(school)
     authorized_students = authorized_students_for_overview(school)
 
@@ -87,6 +86,7 @@ class SchoolsController < ApplicationController
     {
       students: merged_student_hashes,
       school: school,
+      district_key: PerDistrict.new.district_key,
       current_educator: current_educator,
       constant_indexes: constant_indexes
     }
@@ -124,20 +124,8 @@ class SchoolsController < ApplicationController
   # to the UI so it can use them for joins.
   def constant_indexes
     {
-      service_types_index: ServiceSerializer.service_types_index,
-      event_note_types_index: EventNoteSerializer.event_note_types_index
+      service_types_index: ServiceSerializer.service_types_index
     }
-  end
-
-  def authorize_for_school
-    unless authorizer.is_authorized_for_school?(@school)
-      return redirect_to homepage_path_for_role(current_educator)
-    end
-  end
-
-  def set_school
-    @school = School.find_by_slug(params[:id]) || School.find_by_id(params[:id])
-    redirect_to root_url if @school.nil?
   end
 
   def authorized_students_for_overview(school)

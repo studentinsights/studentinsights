@@ -4,6 +4,7 @@ RSpec.describe EventNoteAttachmentsController, type: :controller do
 
   def make_delete_request(id = nil)
     request.env['HTTPS'] = 'on'
+    request.env['HTTP_ACCEPT'] = 'application/json'
     delete :destroy, params: { id: id }
   end
 
@@ -26,22 +27,21 @@ RSpec.describe EventNoteAttachmentsController, type: :controller do
 
     end
 
-    context 'unauthroized educator' do
+    context 'unauthorized educator' do
       let(:educator) { FactoryBot.create(:educator) }
 
       it 'fails authorization' do
         make_delete_request(event_note_attachment.id)
-        expect(response.code).to eq '302'
+        expect(response.status).to eq 403
         expect(event_note.reload.event_note_attachments.size).to eq 1
       end
 
     end
 
     context 'on bad id' do
-      it 'throws an error' do
-        expect {
-          make_delete_request(12345) # non-existent
-        }.to raise_error ActiveRecord::RecordNotFound
+      it 'fails' do
+        make_delete_request(12345) # non-existent
+        expect(response.status).to eq 404
       end
 
     end

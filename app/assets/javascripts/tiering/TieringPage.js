@@ -11,7 +11,7 @@ import {
 import TieringView from './TieringView';
 
 
-// Experimental page for looking at HS support tiers
+// Experimental page for looking at HS support tiers (Somerville only)
 export default class TieringPage extends React.Component {
   constructor(props) {
     super(props);

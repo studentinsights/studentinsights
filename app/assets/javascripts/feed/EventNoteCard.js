@@ -6,7 +6,7 @@ import NoteText from '../components/NoteText';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import Timestamp from '../components/Timestamp';
-import {eventNoteTypeText} from '../components/eventNoteType';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
 
 
 // Render a card in the feed for an EventNote

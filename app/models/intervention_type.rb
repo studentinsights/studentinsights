@@ -5,7 +5,7 @@ class InterventionType < ActiveRecord::Base
   # If this becomes out of sync with production, you can
   # generate this with:
   # `puts InterventionType.all.as_json.map {|i| i.except('created_at', 'updated_at') }`
-  def self.seed_somerville_intervention_types
+  def self.seed_for_all_districts
     InterventionType.destroy_all
     InterventionType.create([
       { id: 20, name: "After-School Tutoring (ATP)" },

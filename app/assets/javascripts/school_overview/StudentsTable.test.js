@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import StudentsTable from './StudentsTable';
 import studentsFixture from './schoolOverviewStudents.fixture';
 
@@ -16,7 +18,11 @@ function testProps(props = {}) {
 
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(<StudentsTable {...props} />, el);
+  ReactDOM.render(
+    <PerDistrictContainer districtKey={SOMERVILLE}>
+      <StudentsTable {...props} />
+    </PerDistrictContainer>
+  , el);
   return {el};
 }
 

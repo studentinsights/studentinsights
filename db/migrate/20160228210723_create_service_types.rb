@@ -6,6 +6,6 @@ class CreateServiceTypes < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    ServiceType.seed_somerville_service_types
+    ServiceType.seed_for_all_districts
   end
 end

@@ -30,7 +30,7 @@ class PathsForEducator
     end
 
     if @educator.homeroom.present? && !@educator.homeroom.school.is_high_school?
-      links[:homeroom] = url_helpers.homeroom_path(@educator.default_homeroom)
+      links[:homeroom] = url_helpers.homeroom_path(@educator.homeroom)
     end
 
     links

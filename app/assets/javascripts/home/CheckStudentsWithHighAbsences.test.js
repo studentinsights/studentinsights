@@ -2,13 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import fetchMock from 'fetch-mock/es5/client';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import PerDistrictContainer from '../components/PerDistrictContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import CheckStudentsWithHighAbsences, {CheckStudentsWithHighAbsencesView} from './CheckStudentsWithHighAbsences';
 import studentsWithHighAbsencesJson from './home_students_with_high_absences_json';
-import {withDefaultNowContext} from '../testing/NowContainer';
 
+
+function withContext(element, options = {}) {
+  const districtKey = options.districtKey || SOMERVILLE;
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      {element}
+    </PerDistrictContainer>
+  );
+}
 function renderIntoEl(element) {
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(element), el);
+  ReactDOM.render(withContext(element), el);
   return el;
 }
 
@@ -61,7 +72,7 @@ describe('CheckStudentsWithHighAbsencesView', () => {
       studentsWithHighAbsences: studentsWithHighAbsencesJson.students_with_high_absences
     };
     const tree = renderer
-      .create(withDefaultNowContext(<CheckStudentsWithHighAbsencesView {...props} />))
+      .create(withContext(<CheckStudentsWithHighAbsencesView {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -74,7 +85,7 @@ describe('CheckStudentsWithHighAbsencesView', () => {
       studentsWithHighAbsences: studentsWithHighAbsencesJson.students_with_high_absences.slice(0, 3)
     };
     const tree = renderer
-      .create(withDefaultNowContext(<CheckStudentsWithHighAbsencesView {...props} />))
+      .create(withContext(<CheckStudentsWithHighAbsencesView {...props} />))
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

@@ -58,7 +58,6 @@ class NotesFeedPage extends React.Component {
           <div className="notes-list">
             <NotesList
               educatorsIndex={this.props.educatorsIndex}
-              eventNoteTypesIndex={this.props.eventNoteTypesIndex}
               feed={feed} />
           </div>
         </div>
@@ -94,7 +93,6 @@ class NotesFeedPage extends React.Component {
 NotesFeedPage.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  eventNoteTypesIndex: PropTypes.object.isRequired,
   onClickLoadMoreNotes: PropTypes.func.isRequired,
   totalNotesCount: PropTypes.number.isRequired
 };
