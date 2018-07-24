@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 
 
 // Shows a homeroom roster, for K8 and HS homerooms.
-class HomeroomTable extends React.Component {
+export default class HomeroomTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -535,8 +535,7 @@ HomeroomTable.propTypes = {
   })).isRequired,
   grade: PropTypes.string,
   school: PropTypes.shape({
-    school_type: PropTypes.string.isRequired
+    school_type: PropTypes.string
   }).isRequired
 };
 
-export default HomeroomTable;
