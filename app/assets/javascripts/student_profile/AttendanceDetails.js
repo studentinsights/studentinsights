@@ -40,6 +40,9 @@ export default class AttendanceDetails extends React.Component {
   }
 
   renderNavBar() {
+    const {hideNavbar} = this.props;
+    if (hideNavbar) return null;
+    
     return (
       <div style={styles.navBar}>
         <a style={styles.navBar} href="#disciplineChart">
@@ -143,7 +146,8 @@ AttendanceDetails.propTypes = {
   disciplineIncidents: PropTypes.array.isRequired,
   student: PropTypes.object.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
-  serviceTypesIndex: PropTypes.object.isRequired
+  serviceTypesIndex: PropTypes.object.isRequired,
+  hideNavbar: PropTypes.bool
 };
 
 

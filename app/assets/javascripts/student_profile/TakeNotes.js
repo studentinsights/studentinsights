@@ -68,6 +68,7 @@ export default class TakeNotes extends React.Component {
 
   render() {
     const {
+      style,
       noteInProgressText,
       nowMoment,
       requestState,
@@ -76,7 +77,7 @@ export default class TakeNotes extends React.Component {
     } = this.props;
 
     return (
-      <div className="TakeNotes" style={styles.dialog}>
+      <div className="TakeNotes" style={{...styles.dialog, ...style}}>
         {this.renderNoteHeader({
           noteMoment: nowMoment,
           educatorEmail: currentEducator.email
@@ -221,6 +222,7 @@ TakeNotes.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 TakeNotes.propTypes = {
+  style: PropTypes.object,
   nowMoment: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,

@@ -1,0 +1,156 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
+import SectionHeading from '../components/SectionHeading';
+import LightHelpBubble from './LightHelpBubble';
+import NotesList from './NotesList';
+import TakeNotes from './TakeNotes';
+
+
+const styles = {
+  notesContainer: {
+    width: '50%',
+    marginRight: 20
+  },
+  restrictedNotesButton: {
+    color: 'white',
+    fontSize: 12,
+    padding: 8,
+    float: 'right'
+  }
+};
+
+/*
+The bottom region of the page, showing notes about the student, services
+they are receiving, and allowing users to enter new information about
+these as well.
+*/
+export default class LightNotesDetails extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isTakingNotes: false
+    };
+
+    this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
+    this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
+    this.onCancelNotes = this.onCancelNotes.bind(this);
+  }
+
+  onClickTakeNotes(event) {
+    this.setState({ isTakingNotes: true });
+  }
+
+  onCancelNotes(event) {
+    this.setState({ isTakingNotes: false });
+  }
+
+  onClickSaveNotes(eventNoteParams, event) {
+    this.props.actions.onClickSaveNotes(eventNoteParams);
+    this.setState({ isTakingNotes: false });
+  }
+
+  render() {
+    const { student, title } = this.props;
+
+    return (
+      <div className="LightNotesDetails" style={styles.notesContainer}>
+        {<SectionHeading titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <span>{title} for {student.first_name}</span>
+            <LightHelpBubble
+              title={this.props.helpTitle}
+              content={this.props.helpContent} />
+          </div>
+          {/*this.renderRestrictedNotesButtonIfAppropriate()*/}
+          {this.renderTakeNotesSection()}
+        </SectionHeading>}
+        <NotesList
+          feed={this.props.feed}
+          educatorsIndex={this.props.educatorsIndex}
+          onSaveNote={this.onClickSaveNotes}
+          onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
+      </div>
+    );
+  }
+
+  renderTakeNotesSection() {
+    const showTakeNotes = this.state.isTakingNotes ||
+                          this.props.requests.saveNote !== null ||
+                          this.props.noteInProgressText.length > 0 ||
+                          this.props.noteInProgressAttachmentUrls.length > 0;
+
+    if (showTakeNotes) {
+      return (
+        <TakeNotes
+          // TODO(kr) thread through
+          nowMoment={moment.utc()}
+          currentEducator={this.props.currentEducator}
+          onSave={this.onClickSaveNotes}
+          onCancel={this.onCancelNotes}
+          requestState={this.props.requests.saveNote}
+          noteInProgressText={this.props.noteInProgressText}
+          noteInProgressType={this.props.noteInProgressType}
+          noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
+          onClickNoteType={this.props.actions.onClickNoteType}
+          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
+          onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
+      );
+    }
+
+    return (
+      <button
+        className="btn take-notes"
+        style={{display: 'inline-block', margin: 0}}
+        onClick={this.onClickTakeNotes}>
+        <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
+      </button>
+    );
+  }
+
+  renderRestrictedNotesButtonIfAppropriate() {
+    return false;
+
+  //   if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
+  //     return (
+  //       <a
+  //         className="btn btn-warning"
+  //         style={styles.restrictedNotesButton}
+  //         href={'/students/' + this.props.student.id + '/restricted_notes'}>
+  //         {'Restricted (' + this.props.student.restricted_notes_count + ')'}
+  //       </a>
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  }
+}
+
+LightNotesDetails.propTypes = {
+  student: PropTypes.object.isRequired,
+  educatorsIndex: PropTypes.object.isRequired,
+  currentEducator: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    onClickSaveNotes: PropTypes.func.isRequired,
+    onEventNoteAttachmentDeleted: PropTypes.func,
+    onDeleteEventNoteAttachment: PropTypes.func,
+    onChangeNoteInProgressText: PropTypes.func.isRequired,
+    onClickNoteType: PropTypes.func.isRequired,
+    onChangeAttachmentUrl: PropTypes.func.isRequired,
+  }),
+  feed: InsightsPropTypes.feed.isRequired,
+  requests: PropTypes.object.isRequired,
+
+  noteInProgressText: PropTypes.string.isRequired,
+  noteInProgressType: PropTypes.number,
+  noteInProgressAttachmentUrls: PropTypes.arrayOf(
+    PropTypes.string
+  ).isRequired,
+
+  showingRestrictedNotes: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  helpContent: PropTypes.node.isRequired,
+  helpTitle: PropTypes.string.isRequired,
+};

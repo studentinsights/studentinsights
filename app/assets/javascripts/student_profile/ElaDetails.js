@@ -78,6 +78,9 @@ export default class ElaDetails extends React.Component {
   }
 
   renderNavBar() {
+    const {hideNavbar} = this.props;
+    if (hideNavbar) return null;
+    
     return (
       <div style={styles.navBar}>
         <a style={styles.navBar} href="#Star">
@@ -203,7 +206,8 @@ ElaDetails.propTypes = {
     next_gen_mcas_ela_scaled: PropTypes.array,
     mcas_series_ela_growth: PropTypes.array.isRequired
   }).isRequired,
-  student: PropTypes.object.isRequired
+  student: PropTypes.object.isRequired,
+  hideNavbar: PropTypes.bool
 };
 
 const styles = {
