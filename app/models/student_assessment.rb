@@ -9,10 +9,17 @@ class StudentAssessment < ActiveRecord::Base
 
   def valid_assessment_attributes
     case assessment.family
-    when 'MCAS'
-      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'STAR'
-      # errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
+      errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
+    when 'MCAS'
+      # Not all records for Somerville match the validation we have sketched out here.
+      # * 5.4% are missing a scale score value.
+      # * 32.6% are missing a growth percentile value
+      # * 1 record out of 20,000+ is missing a performance level value.
+      # Adding these comments while we figure out whether the right choice
+      # lies in relaxing the validation or cleaning up the data.
+
+      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'DIBELS'
       # errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
     end
