@@ -106,6 +106,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
           :username=>"foo",
           :password=>"bar"
         },
+        :connect_timeout => 10,
         :encryption => {
           :method=>:simple_tls,
           :tls_options=>{
