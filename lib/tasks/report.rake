@@ -6,7 +6,7 @@ namespace :report do
 
   desc 'Run data integrity check'
   task data_integrity: :environment do
-    IntegrityCheck.new.check!
+    IntegrityCheck.new.check_assessments
   end
 
   desc 'Generate & email weekly Mixpanel usage report'

@@ -1,30 +1,73 @@
+# Checks assessments against the validations sketched out in student_assessment.rb.
+# Those validations are commented out and not being enforced; this code will
+# tell us how many invalid records we have in production in MCAS, STAR, DIBELS.
+# First step to implementing and enforcing proper validation.
 class IntegrityCheck
 
-  def check!
-    has_data?
-    has_valid_data?
+  def check_assessments
+    check_star
+    check_mcas
+    check_dibels
   end
 
-  private
+  def check_star
+    star_assessment_ids = Assessment.where(family: 'STAR').pluck(:id)
+    records = StudentAssessment.where(assessment_id: star_assessment_ids)
+    total_records = records.count
 
-  def has_data?
-    raise "no students" unless Student.count > 0
-    raise "no schools" unless School.count > 0
-    raise "no assesments" unless Assessment.count > 0
-    raise "no homerooms" unless Homeroom.count > 0
-    raise "no student assessments" unless StudentAssessment.count > 0
-    raise "no educators" unless Educator.count > 0
+    percentile_rank_present = records.where.not(percentile_rank: nil)
+    scale_score_nil = records.where(scale_score: nil)
+    growth_percentile_nil = records.where(growth_percentile: nil)
+    performance_level_nil = records.where(performance_level: nil)
+
+    puts "STAR:"
+    puts "Total records: #{total_records}"
+
+    puts "percentile_rank_present: #{percentile_rank_present.count}/#{total_records}"
+    puts "scale_score_nil: #{scale_score_nil.count}/#{total_records}"
+    puts "growth_percentile_nil: #{growth_percentile_nil.count}/#{total_records}"
+    puts "performance_level_ni: #{performance_level_nil.count}/#{total_records}"
+    puts
   end
 
-  def models_to_check
-    [StudentAssessment, Assessment, Educator, Student]
+  def check_mcas
+    mcas_assessment_ids = Assessment.where(family: 'MCAS').pluck(:id)
+    records = StudentAssessment.where(assessment_id: mcas_assessment_ids)
+    total_records = records.count
+
+    scale_score_present = records.where.not(scale_score: nil)
+    growth_percentile_present = records.where.not(growth_percentile: nil)
+    performance_level_present = records.where.not(performance_level: nil)
+    percentile_rank_nil = records.where(percentile_rank: nil)
+
+    puts "MCAS:"
+    puts "Total records: #{total_records}"
+
+    puts "scale_score_present: #{scale_score_present.count}/#{total_records}"
+    puts "growth_percentile_present: #{growth_percentile_present.count}/#{total_records}"
+    puts "performance_level_present: #{performance_level_present.count}/#{total_records}"
+    puts "percentile_rank_nil: #{percentile_rank_nil.count}/#{total_records}"
+    puts
   end
 
-  def has_valid_data?
-    models_to_check.each do |model|
-      puts "Validating #{model.to_s.pluralize}..."
-      model.find_each(&:save!)
-    end
+  def check_dibels
+    dibels_assessment_ids = Assessment.where(family: 'DIBELS').pluck(:id)
+    records = StudentAssessment.where(assessment_id: dibels_assessment_ids)
+    total_records = records.count
+
+    performance_level_present = records.where.not(performance_level: nil)
+    scale_score_nil = records.where(scale_score: nil)
+    percentile_rank_nil = records.where(percentile_rank: nil)
+    growth_percentile_nil = records.where(growth_percentile: nil)
+
+    puts "DIBELS:"
+    puts "Total records: #{total_records}"
+
+    puts "performance_level_present: #{performance_level_present.count}/#{total_records}"
+    puts "scale_score_nil: #{scale_score_nil.count}/#{total_records}"
+    puts "percentile_rank_nil: #{percentile_rank_nil.count}/#{total_records}"
+    puts "growth_percentile_nil: #{growth_percentile_nil.count}/#{total_records}"
+    puts
   end
 
 end
