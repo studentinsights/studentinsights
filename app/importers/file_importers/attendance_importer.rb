@@ -1,5 +1,6 @@
 # These reads the student_attendance table from Aspen and syncs it to the Absence and Tardy
 # tables.
+# See http://aspenhelp.follettlearning.com/570/SI/guides/Attendance.pdf
 class AttendanceImporter
   def initialize(options:)
     @log = options.fetch(:log)
