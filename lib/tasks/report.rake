@@ -5,8 +5,8 @@ namespace :report do
   end
 
   desc 'Run data integrity check'
-  task data_integrity: :environment do
-    IntegrityCheck.new.check_assessments
+  task assessment_integrity: :environment do
+    StudentAssessmentIntegrityCheck.new.check_assessments
   end
 
   desc 'Generate & email weekly Mixpanel usage report'

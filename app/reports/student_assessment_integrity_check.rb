@@ -2,7 +2,7 @@
 # Those validations are commented out and not being enforced; this code will
 # tell us how many invalid records we have in production in MCAS, STAR, DIBELS.
 # First step to implementing and enforcing proper validation.
-class IntegrityCheck
+class StudentAssessmentIntegrityCheck
 
   def check_assessments
     check_star
