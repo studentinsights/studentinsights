@@ -56,6 +56,7 @@ module Devise
         {
           host: host,
           port: port,
+          connect_timeout: 10, # seconds
           auth: {
             :method => :simple,
             :username => email,

@@ -12,7 +12,7 @@ module.exports = merge(common, {
   devtool: 'source-map',
 
   // Rails looks in this particular place
-  // See application.html.erb and ApplicationHelper#webpack_bundle
+  // See application.html.erb and Webpack#bundle
   output: {
     filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, '../../public/build')

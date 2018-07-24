@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # This overrides `current_educator` to enable masquerading as other users.
+  # It's factored out to be re-used by Administrate, which doesn't inherit
+  # from `ApplicationController`.
+  include MasqueradeHelpers
+  helper_method :masquerade
+
   def homepage_path_for_role(educator)
     home_path # /home
   end

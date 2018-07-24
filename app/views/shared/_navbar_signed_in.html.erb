@@ -1,4 +1,5 @@
 <div class="nav-options">
+
   <% # Show different links based on role and access %>
   <% links = PathsForEducator.new(educator).navbar_links %>
 
@@ -38,5 +39,16 @@
   <p class="search-label">Search for student:</p>
   <input class="student-searchbar" />
   <span class="navbar-spacer"></span>
-  <%= link_to "Sign Out", destroy_educator_session_path, method: :delete, class: 'navbar-sign-out' %>
+  <div>
+    <% if masquerade.authorized? %>
+      <% username = "#{educator.email.split('@')[0]}@" %>
+      <% if masquerade.is_masquerading? %>
+        <%= link_to username, admin_masquerade_clear_url, { method: :post, class: 'nav-options-clear-masquerade' } %>
+      <% else %>
+        <%= link_to username, admin_authorization_url, class: 'nav-options-masquerade-link-to-become-page' %>
+      <% end %>
+      <br/>
+    <% end %>
+    <%= link_to "Sign Out", destroy_educator_session_path, method: :delete, class: 'navbar-sign-out' %>
+  </div>
 </div>

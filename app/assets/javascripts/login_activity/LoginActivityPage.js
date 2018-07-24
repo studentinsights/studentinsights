@@ -15,8 +15,10 @@ export default class LoginActivityPage extends React.Component {
     this.renderPage = this.renderPage.bind(this);
     this.pastThirtyDaysArray = this.pastThirtyDaysArray.bind(this);
     this.structureLoginActivityJson = this.structureLoginActivityJson.bind(this);
-    this.renderCell = this.renderCell.bind(this);
-    this.renderEmptyCell = this.renderEmptyCell.bind(this);
+    this.renderCellForDay = this.renderCellForDay.bind(this);
+    this.renderEmptyCellForDay = this.renderEmptyCellForDay.bind(this);
+    this.renderSuccessfulLoginListItem = this.renderSuccessfulLoginListItem.bind(this);
+    this.renderFailedAttemptListItem = this.renderFailedAttemptListItem.bind(this);
   }
 
   fetchLoginActivities() {
@@ -40,16 +42,7 @@ export default class LoginActivityPage extends React.Component {
     // Iterate through each identity and group login activity by day
     _.forOwn(byEmail, (value, key, collection) => {
       collection[key] = _.groupBy(value, (activity) => {
-        return activity.created_at.startOf('day').format();
-      });
-    });
-
-    // Iterate through each day and group by success/fail
-    _.forOwn(byEmail, (identityLoginsByDay, identity, collection) => {
-      _.forOwn(identityLoginsByDay, (activities, day, collection) => {
-        identityLoginsByDay[day] = _.countBy(activities, (activity) => {
-          return activity.success ? 'success' : 'fail';
-        });
+        return activity.created_at.clone().startOf('day').format();
       });
     });
 
@@ -128,45 +121,100 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderRow(email, index, loginData, pastThirtyDaysArray) {
-    const truncatedEmail = email.substring(0, 35);
+    const emailDisplay = (email === 'null') /* null cast to string by _.groupBy */
+      ? 'No email (often means user timeout)'
+      : email.substring(0, 35);
+
     return (
       <div style={style.row} key={index}>
-        <div style={{...style.cell, ...style.emailCell}}>
-          {truncatedEmail || 'No email entered'}
-        </div>
+        <div style={{...style.cell, ...style.emailCell}}>{emailDisplay}</div>
         {pastThirtyDaysArray.map((day, index) => {
           return (loginData[day])
-            ? this.renderCell(email, index, loginData[day], day)
-            : this.renderEmptyCell();
+            ? this.renderCellForDay(email, index, loginData[day], day)
+            : this.renderEmptyCellForDay(index);
         })}
       </div>
     );
   }
 
-  renderCell(email, index, data, day) {
+  renderCellForDay(email, index, data, day) {
+    /*
+    We're using lodash 3.10.1, so this uses 3.10.1 syntax for _.filter.
+    The most up-to-date syntax is different.
+    See https://lodash.com/docs/3.10.1#filter.
+    */
+    const successfulAttempts = _.filter(data, 'success', true);
+    const failedAttempts = _.filter(data, 'success', false);
+
     return (
       <div key={index}
            style={{...style.cell, ...style.squareCell}}
            className='tooltip'>
-        {this.renderTooltipText(email, data, day)}
-        {this.renderSuccessLoginSegment(data.success || 0)}
-        {this.renderFailLoginSegment(data.fail || 0)}
+        {this.renderTooltipText(email, successfulAttempts, failedAttempts, day)}
+        {this.renderSuccessLoginSegment(successfulAttempts)}
+        {this.renderFailLoginSegment(failedAttempts)}
       </div>
     );
   }
 
-  renderTooltipText(email, data, day) {
+  renderTooltipText(email, successfulAttempts, failedAttempts, day) {
+    const emailDisplay = (email === 'null') /* null cast to string by _.groupBy */
+      ? 'No email'
+      : email.split('@')[0];
+
     return (
       <span className="tooltiptext">
-        <div>{email.split('@')[0]}, {moment(day).utc().format('D/M')}:</div>
-        <br/>
-        <div>{`${data.success || 0} successful logins.`}</div>
-        <div>{`${data.fail || 0} failed attempts.`}</div>
+        <div>{[emailDisplay, moment(day).utc().format('D/M')].join(', ')}</div>
+        {this.renderSuccessfulLoginList(successfulAttempts)}
+        {this.renderFailedAttemptList(failedAttempts)}
       </span>
     );
   }
 
-  renderSuccessLoginSegment(count) {
+  renderSuccessfulLoginList(successfulAttempts) {
+    if (successfulAttempts.length === 0) return null;
+
+    return (
+      <div>
+        <br/><div>Successful login activity:</div>
+        {successfulAttempts.map((item, index) => {
+          return this.renderSuccessfulLoginListItem(item, index);
+        }, this)}
+      </div>
+    );
+  }
+
+  renderFailedAttemptList(failedAttempts) {
+    if (failedAttempts.length === 0) return null;
+
+    return (
+      <div>
+        <br/><div>Failed login activity:</div>
+        {failedAttempts.map((item, index) => {
+          return this.renderFailedAttemptListItem(item, index);
+        }, this)}
+      </div>
+    );
+  }
+
+  renderSuccessfulLoginListItem (item, index) {
+    return (
+      <li key={index} style={style.li}>
+        {item.created_at.local().format('h:mm A')}
+      </li>
+    );
+  }
+
+  renderFailedAttemptListItem (item, index) {
+    return (
+      <li key={index} style={style.li}>
+        {item.created_at.local().format('h:mm A')} – {item.failure_reason}
+      </li>
+    );
+  }
+
+  renderSuccessLoginSegment(successfulAttempts) {
+    const count = successfulAttempts.length;
     const baseHex = '#329fff';
     const divStyle = {
       ...style.cellSegment, ...{backgroundColor: baseHex, opacity: count / 10},
@@ -178,7 +226,8 @@ export default class LoginActivityPage extends React.Component {
     );
   }
 
-  renderFailLoginSegment(count) {
+  renderFailLoginSegment(failedAttempts) {
+    const count = failedAttempts.length;
     const baseHex = '#CD6000';
     const divStyle = {
       ...style.cellSegment, ...{backgroundColor: baseHex, opacity: count / 10},
@@ -190,8 +239,8 @@ export default class LoginActivityPage extends React.Component {
     );
   }
 
-  renderEmptyCell() {
-    return (<div style={{...style.cell, ...style.squareCell}}></div>);
+  renderEmptyCellForDay(index) {
+    return (<div key={index} style={{...style.cell, ...style.squareCell}}></div>);
   }
 }
 
@@ -205,7 +254,7 @@ const style = {
     padding: '20px 40px',
   },
   container: {
-    marginTop: 20,
+    marginTop: 50,
     marginLeft: 10,
     minWidth: 1060,
   },
@@ -236,5 +285,8 @@ const style = {
     width: 25,
     float: 'left',
   },
+  li: {
+    listStyleType: 'none',
+  }
 };
 

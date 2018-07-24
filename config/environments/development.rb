@@ -4,7 +4,6 @@ Rails.application.configure do
   YAML.load(File.open(env_file)).each do |key, value|
     ENV[key.to_s] = value
   end if File.exists?(env_file)
-  
   Env.set_for_development_and_test!
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
 

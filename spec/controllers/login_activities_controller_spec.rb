@@ -29,7 +29,8 @@ RSpec.describe LoginActivitiesController, type: :controller do
         LoginActivity.create!({
           identity: 'spammy@demo.studentinsights.org',
           success: false,
-          created_at: DateTime.new(2018, 7, 20)
+          created_at: DateTime.new(2018, 7, 20),
+          failure_reason: 'invalid'
         })
       }
 
@@ -41,12 +42,14 @@ RSpec.describe LoginActivitiesController, type: :controller do
           {
             "identity"=>"rich@demo.studentinsights.org",
             "success"=>true,
-            "created_at"=>"2018-07-10T00:00:00.000Z"
+            "created_at"=>"2018-07-10T00:00:00.000Z",
+            "failure_reason"=>nil
           },
           {
             "identity"=>"spammy@demo.studentinsights.org",
             "success"=>false,
-            "created_at"=>"2018-07-20T00:00:00.000Z"
+            "created_at"=>"2018-07-20T00:00:00.000Z",
+            "failure_reason"=>'invalid'
           }
         ])
       end
