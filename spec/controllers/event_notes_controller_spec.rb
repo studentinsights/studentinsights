@@ -213,8 +213,8 @@ describe EventNotesController, :type => :controller do
 
       context 'valid second edit request' do
         let!(:event_note_revision) { FactoryBot.create(:event_note_revision) }
-        let(:event_note) { event_note_revision.event_note }
-        let(:post_params) {
+        let!(:event_note) { event_note_revision.event_note }
+        let!(:post_params) {
           {
             id: event_note.id,
             student_id: student.id,
