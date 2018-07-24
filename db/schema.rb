@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_24_143823) do
+ActiveRecord::Schema.define(version: 2018_07_24_151520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -448,6 +448,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_143823) do
   add_foreign_key "event_note_revisions", "event_note_types"
   add_foreign_key "event_note_revisions", "event_notes"
   add_foreign_key "event_note_revisions", "event_notes", name: "event_note_revisions_event_note_id_fk"
+  add_foreign_key "event_note_revisions", "students", name: "event_note_revisions_student_id_fk"
   add_foreign_key "event_notes", "educators", name: "event_notes_educator_id_fk"
   add_foreign_key "event_notes", "event_note_types"
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
