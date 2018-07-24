@@ -244,7 +244,7 @@
 
     <%= json_div(id: "serialized-data", data: @serialized_data) %>
     <div class="scripts">
-      <%= wicked_pdf_javascript_include_tag webpack_bundle('student_report_pdf.js') %>
+      <%= wicked_pdf_javascript_include_tag Webpack.bundle('student_report_pdf.js') %>
     </div>
   </body>
 </html>

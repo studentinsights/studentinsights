@@ -56,6 +56,6 @@
 
         json_div(id: "educator-is-admin") if current_educator.try(:admin) %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-    <%= javascript_include_tag webpack_bundle('bundle.js') %>
+    <%= javascript_include_tag Webpack.bundle('bundle.js') %>
   </body>
 </html>

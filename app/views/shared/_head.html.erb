@@ -2,6 +2,6 @@
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
 <link rel="apple-touch-icon" href="/icon.png"/>
-<%= json_div(id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
-<%= javascript_include_tag webpack_bundle('rollbar.js') %>
+<%= content_tag('div', '', id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
+<%= javascript_include_tag Webpack.bundle('rollbar.js') %>
 <%= csrf_meta_tags %>
