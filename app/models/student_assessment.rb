@@ -12,24 +12,10 @@ class StudentAssessment < ActiveRecord::Base
     when 'STAR'
       errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
     when 'MCAS'
-      # Not all records for Somerville match the validation we have sketched out here.
-      # * 5.4% are missing a scale score value.
-      # * 32.6% are missing a growth percentile value
-      # * 1 record out of 20,000+ is missing a performance level value.
-      # Adding these comments while we figure out whether the right choice
-      # lies in relaxing the validation or cleaning up the data.
-
-      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
+      errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'DIBELS'
       # errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
     end
-  end
-
-  def valid_mcas_attributes
-    scale_score.present? &&
-    growth_percentile.present? &&
-    performance_level.present? &&
-    percentile_rank.nil?
   end
 
   def valid_star_attributes
@@ -37,6 +23,16 @@ class StudentAssessment < ActiveRecord::Base
     scale_score.nil? &&
     growth_percentile.nil? &&
     performance_level.nil?
+  end
+
+  def valid_mcas_attributes
+    # Looking at the data exports from Somerville, we see that:
+    # * Around 40% of MCAS rows have no growth percentile, so we don't validate that field.
+    # * Around 5% of MCAS rows have no scale score, so we don't validate that field.
+    # * Only one valid row has no performance level, so we do validate that field
+    #   and call that one row invalid.
+
+    performance_level.present? && percentile_rank.nil?
   end
 
   def valid_dibels_attributes
