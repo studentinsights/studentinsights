@@ -422,7 +422,7 @@ class HomeroomTable extends React.Component {
           style={style}>
         <td className="name">{fullName}</td>
         {this.eventNoteTypeIds().map(eventNoteTypeId => {
-          const key = eventNoteTypeTextMini(eventNoteTypeId);
+          const key = `latest_note_${eventNoteTypeId}_date_text`;
           return this.renderDataCell('supports', row[key], {key});
         })}
         {this.renderDataCell('program', row['program_assigned'])}
