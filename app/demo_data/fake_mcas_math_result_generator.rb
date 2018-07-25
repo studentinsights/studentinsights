@@ -14,7 +14,7 @@ class FakeMcasMathResultGenerator
       assessment_id: mcas_mathematics_assessment_id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       scale_score: rand(200..280),
-      performance_level: ["W", "NI", "P", "A", nil].sample,
+      performance_level: ["W", "NI", "P", "A"].sample,
       growth_percentile: rand(100),
       student_id: @student.id
     }

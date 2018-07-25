@@ -9,20 +9,13 @@ class StudentAssessment < ActiveRecord::Base
 
   def valid_assessment_attributes
     case assessment.family
-    when 'MCAS'
-      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'STAR'
-      # errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
+      errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
+    when 'MCAS'
+      errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'DIBELS'
-      # errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
+      errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
     end
-  end
-
-  def valid_mcas_attributes
-    scale_score.present? &&
-    growth_percentile.present? &&
-    performance_level.present? &&
-    percentile_rank.nil?
   end
 
   def valid_star_attributes
@@ -32,11 +25,21 @@ class StudentAssessment < ActiveRecord::Base
     performance_level.nil?
   end
 
+  def valid_mcas_attributes
+    # Looking at the data exports from Somerville (7/18), we see that:
+    # * Around 40% of MCAS rows have no growth percentile.
+    # * Around 5% of MCAS rows have no scale score.
+    # * Only one otherwise-valid row has no performance level.
+
+    performance_level.present? && percentile_rank.nil?
+  end
+
   def valid_dibels_attributes
-    performance_level.present? &&
-    percentile_rank.nil? &&
-    scale_score.nil? &&
-    growth_percentile.nil?
+    # Looking at the data exports from Somerville (7/18), we see that:
+    # * Around 0.05% of DIBELS rows have no performance level.
+
+    # Performance level is the only DIBELS field we visualize in the product.
+    performance_level.present?
   end
 
   def self.order_by_date_taken_desc

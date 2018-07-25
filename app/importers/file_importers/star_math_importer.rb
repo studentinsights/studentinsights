@@ -67,12 +67,14 @@ class StarMathImporter
       student_id: student.id,
       date_taken: date_taken,
       assessment: star_mathematics_assessment
-    }).first_or_create!
+    }).first_or_initialize
 
-    star_assessment.update!({
+    star_assessment.update_attributes({
       percentile_rank: row['PercentileRank'],
       grade_equivalent: row['GradeEquivalent']
     })
+
+    star_assessment.save!
   end
 
   def log(msg)

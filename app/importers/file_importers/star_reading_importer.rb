@@ -67,13 +67,15 @@ class StarReadingImporter
       student_id: student.id,
       date_taken: date_taken,
       assessment: star_reading_assessment
-    }).first_or_create!
+    }).first_or_initialize
 
-    star_assessment.update!({
+    star_assessment.update_attributes({
       percentile_rank: row['PercentileRank'],
       instructional_reading_level: row['IRL'],
       grade_equivalent: row['GradeEquivalent']
     })
+
+    star_assessment.save!
   end
 
   def log(msg)
