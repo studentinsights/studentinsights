@@ -63,13 +63,13 @@ class StarReadingImporter
       return
     end
 
-    star_assessment = StudentAssessment.where({
+    star_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student.id,
       date_taken: date_taken,
       assessment: star_reading_assessment
-    }).first_or_initialize
+    )
 
-    star_assessment.update_attributes({
+    star_assessment.assign_attributes({
       percentile_rank: row['PercentileRank'],
       instructional_reading_level: row['IRL'],
       grade_equivalent: row['GradeEquivalent']
