@@ -710,7 +710,7 @@ describe StudentsController, :type => :controller do
           assessment = FactoryBot.create(:assessment, :access)
           student_assessment = FactoryBot.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
           assessment = FactoryBot.create(:assessment, :math, :star)
-          student_assessment = FactoryBot.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16')
+          student_assessment = FactoryBot.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16', percentile_rank: 50)
           get_student_report_pdf(student.id)
 
           expect(assigns(:student_assessments)).to include("ACCESS Composite")
