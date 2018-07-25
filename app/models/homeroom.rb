@@ -7,6 +7,15 @@ class Homeroom < ActiveRecord::Base
   has_many :students, after_add: :update_grade
   belongs_to :educator, optional: true
   belongs_to :school
+  validate :school_matches_educator_school
+
+  def school_matches_educator_school
+    if educator.present? && educator.school.present?
+      if educator.school != school
+        error.add(:school, 'does not match educator\'s school')
+      end
+    end
+  end
 
   def update_grade(student)
     # Set homeroom grade level to be first student's grade level, since
