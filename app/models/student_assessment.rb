@@ -9,34 +9,31 @@ class StudentAssessment < ActiveRecord::Base
 
   def valid_assessment_attributes
     case assessment.family
-    when 'MCAS'
-      # errors.add(:scale_score, "invalid attributes") unless valid_mcas_attributes
     when 'STAR'
-      # errors.add(:scale_score, "invalid attributes") unless valid_star_attributes
-    when 'DIBELS'
-      # errors.add(:scale_score, "invalid attributes") unless valid_dibels_attributes
+      errors.add(:percentile_rank, "invalid") unless valid_star_attributes?
+
+      # TODO: Add validation for STAR grade_equivalent field.
+      # This should be present for all STAR records, but because this wasn't
+      # backfilled to older records, ~40% of STAR records in production
+      # have grade_equivalent of nil.
+
+      if assessment.subject == 'Reading' && !valid_star_reading_attributes?
+        errors.add(:instructional_reading_level, "invalid")
+      end
     end
+
+    # TODO: Add validation for MCAS, DIBELS, and ACCESS assessments.
   end
 
-  def valid_mcas_attributes
-    scale_score.present? &&
-    growth_percentile.present? &&
-    performance_level.present? &&
-    percentile_rank.nil?
-  end
-
-  def valid_star_attributes
+  def valid_star_attributes?
     percentile_rank.present? &&
-    scale_score.nil? &&
-    growth_percentile.nil? &&
-    performance_level.nil?
+      scale_score.nil? &&
+      growth_percentile.nil? &&
+      performance_level.nil?
   end
 
-  def valid_dibels_attributes
-    performance_level.present? &&
-    percentile_rank.nil? &&
-    scale_score.nil? &&
-    growth_percentile.nil?
+  def valid_star_reading_attributes?
+    instructional_reading_level.present?
   end
 
   def self.order_by_date_taken_desc
