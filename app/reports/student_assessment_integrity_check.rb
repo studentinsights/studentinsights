@@ -36,7 +36,7 @@ class StudentAssessmentIntegrityCheck
     irl_present = star_reading_records.where.not(instructional_reading_level: nil)
 
     puts "STAR Reading:"
-    puts "instructional_reading_level_present: #{irl_present.count}/#{total_records}"
+    puts "instructional_reading_level_present: #{irl_present.count}/#{star_reading_records.count}"
     puts
   end
 
