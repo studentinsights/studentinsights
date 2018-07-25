@@ -88,7 +88,7 @@ class EducatorsImporter
     end
 
     # Update homeroom
-    homeroom = Homeroom.find_by_name(row[:homeroom])
+    homeroom = Homeroom.find_by(name: row[:homeroom], school: educator.school)
     if homeroom.nil?
       @ignored_unknown_homeroom_count = @ignored_unknown_homeroom_count + 1
       return
