@@ -12,7 +12,7 @@ class Homeroom < ActiveRecord::Base
   def school_matches_educator_school
     if educator.present? && educator.school.present?
       if educator.school != school
-        error.add(:school, 'does not match educator\'s school')
+        errors.add(:school, 'does not match educator\'s school')
       end
     end
   end
