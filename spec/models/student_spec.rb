@@ -123,12 +123,6 @@ RSpec.describe Student do
             date_taken: Date.today - 1.year,
           )
         }
-        context 'when the student has a Math result but not MCAS' do
-          let(:assessment_family) { "STAR" }
-          it 'returns nil' do
-            expect(result).to be_nil
-          end
-        end
         context 'when the student has an MCAS Math result' do
           context 'when the student has one MCAS Math result' do
             it 'returns the MCAS result' do
