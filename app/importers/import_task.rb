@@ -74,13 +74,9 @@ class ImportTask
     # If there's no filtering by school, we take all the school IDs listed in
     # the district config file and make sure those schools are in the database.
 
-    school_ids.each { |id| School.find_by!(local_id: id) }
-  end
-
-  def school_ids
-    return @school if @school.present?
-
-    LoadDistrictConfig.new.schools.map { |school| school["local_id"] }
+    if @school.present?
+      @school.each { |id| School.find_by!(local_id: id) }
+    end
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
@@ -117,7 +113,7 @@ class ImportTask
 
   def options_for_file_importers
     {
-      school_scope: school_ids,
+      school_scope: @school,
       log: @log,
       skip_old_records: @skip_old_records
     }
