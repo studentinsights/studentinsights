@@ -13,7 +13,7 @@ class CoursesSectionsImporter
     ).get_data
 
     streaming_csv.each_with_index do |row, index|
-      import_row(row) if filter.include?(row)
+      import_row(row) if filter.include?(row[:school_local_id])
     end
   end
 

@@ -56,7 +56,7 @@ class EducatorsImporter
   end
 
   def import_row(row)
-    if !filter.include?(row)
+    if !filter.include?(row[:school_local_id])
       @skipped_from_school_filter = @skipped_from_school_filter + 1
       return
     end

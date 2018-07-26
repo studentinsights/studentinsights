@@ -79,7 +79,7 @@ class X2AssessmentImporter
     #   :assessment_name, :assessment_subject, :assessment_test
 
     # Skip based on school filter
-    if !school_filter.include?(row)
+    if !school_filter.include?(row[:school_local_id])
       @skipped_from_school_filter = @skipped_from_school_filter + 1
       return
     end

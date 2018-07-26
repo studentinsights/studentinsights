@@ -22,7 +22,7 @@ class StarReadingImporter
       data = data_transformer.transform(data_string)
 
       data.each_with_index do |row, index|
-        import_row(row) if filter.include?(row)
+        import_row(row) if filter.include?(row['SchoolLocalID'])
         log("processed #{index} rows.") if index % 1000 == 0
       end
     end
