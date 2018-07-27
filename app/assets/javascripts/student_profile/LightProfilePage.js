@@ -31,17 +31,11 @@ export default class LightProfilePage extends React.Component {
   }
 
   render() {
-    const {student, districtKey, access, transitionNotes, educatorsIndex} = this.props;
+    const {student} = this.props;
     const isHighSchool = (student.school_type === 'HS');
     return (
       <div className="LightProfilePage">
-        <LightProfileHeader
-          student={student}
-          access={access}
-          transitionNotes={transitionNotes}
-          educatorsIndex={educatorsIndex}
-          districtKey={districtKey}
-        />
+        {this.renderHeader()}
         <div style={styles.tabsContainer}>
           <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
           {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
@@ -54,6 +48,28 @@ export default class LightProfilePage extends React.Component {
           {this.renderSectionDetails()}
         </div>
       </div>
+    );
+  }
+
+  renderHeader() {
+    const {
+      student,
+      districtKey,
+      access,
+      transitionNotes,
+      educatorsIndex,
+      iepDocument
+    } = this.props;
+    
+    return (
+      <LightProfileHeader
+        student={student}
+        access={access}
+        iepDocument={iepDocument}
+        transitionNotes={transitionNotes}
+        educatorsIndex={educatorsIndex}
+        districtKey={districtKey}
+      />
     );
   }
 
