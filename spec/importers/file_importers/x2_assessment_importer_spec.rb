@@ -5,7 +5,7 @@ RSpec.describe X2AssessmentImporter do
 
   def make_x2_assessment_importer(options = {})
     X2AssessmentImporter.new(options: {
-      school_scope: nil,
+      school_scope: :all,
       log: LogHelper::FakeLog.new
     }.merge(options))
   end
@@ -31,7 +31,7 @@ RSpec.describe X2AssessmentImporter do
       it 'skips older records' do
         log = LogHelper::FakeLog.new
         importer = X2AssessmentImporter.new(options: {
-          school_scope: nil,
+          school_scope: :all,
           log: log,
           skip_old_records: true,
           time_now: Time.parse('2014-06-12')
