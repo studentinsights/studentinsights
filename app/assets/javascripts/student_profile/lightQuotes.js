@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
+import {toMomentFromTime} from '../helpers/toMoment';
 import Educator from '../components/Educator';
 import HelpBubble from '../components/HelpBubble';
 import {parseTransitionNoteText} from './lightTransitionNotes';
@@ -25,7 +26,7 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
   const safeNotes = transitionNotes.filter(transitionNote => !transitionNote.is_restricted);
 
   return _.flatten(safeNotes.map(note => {
-    const dateText = moment.utc(note.recorded_at).format('M/D/YY');
+    const dateText = toMomentFromTime(note.recorded_at).format('M/D/YY');
     const educator = educatorsIndex[note.educator_id] || educatorsIndex[_.keys(educatorsIndex)[0]];
     const tagline = <span>from <Educator style={style} educator={educator} /></span>;
     const source = (
