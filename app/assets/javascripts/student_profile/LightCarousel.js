@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-// A visual UI element for a badge indicating a particular 
-// event note type.
+// A component that rotates through the `quotes` passed.
 export default class LightCarousel extends React.Component {
   constructor(props) {
     super(props);
