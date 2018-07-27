@@ -6,6 +6,7 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
 import Api from './Api';
 import * as Routes from '../helpers/Routes';
+import LightProfilePage from './LightProfilePage';
 import StudentProfilePage from './StudentProfilePage';
 
 
@@ -23,8 +24,7 @@ export default class PageContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    const {serializedData, queryParams} = props;
-    this.state = initialState(serializedData, queryParams);
+    this.state = initialState(props);
 
     this.onColumnClicked = this.onColumnClicked.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
@@ -59,9 +59,13 @@ export default class PageContainer extends React.Component {
   }
 
   componentDidUpdate(props, state) {
-    const path = Routes.studentProfile(this.state.student.id, {
-      column: this.state.selectedColumnKey
-    });
+    const {shouldUseLightProfilePage} = this.props;
+    const {selectedColumnKey, student} = this.state;
+    const queryParams = { column: selectedColumnKey };
+    const path = (shouldUseLightProfilePage)
+      ? `/students/${student.id}/v3?${$.param(queryParams)}`
+      : Routes.studentProfile(student.id, queryParams);
+
     this.props.history.replaceState({}, null, path);
   }
 
@@ -263,44 +267,51 @@ export default class PageContainer extends React.Component {
   }
 
   render() {
+    const {shouldUseLightProfilePage, districtKey, nowMomentFn} = this.props;
+    const propsFromState = _.pick(this.state,
+      'currentEducator',
+      'educatorsIndex',
+      'serviceTypesIndex',
+      'student',
+      'feed',
+      'transitionNotes',
+      'access',
+      'chartData',
+      'dibels',
+      'attendanceData',
+      'selectedColumnKey',
+      'iepDocument',
+      'sections',
+      'currentEducatorAllowedSections',
+      'requests',
+      'noteInProgressText',
+      'noteInProgressType',
+      'noteInProgressAttachmentUrls'
+    );
+    const actions = {
+      onColumnClicked: this.onColumnClicked,
+      onClickSaveNotes: this.onClickSaveNotes,
+      onClickSaveTransitionNote: this.onClickSaveTransitionNote,
+      onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
+      onClickSaveService: this.onClickSaveService,
+      onClickDiscontinueService: this.onClickDiscontinueService,
+      onChangeNoteInProgressText: this.onChangeNoteInProgressText,
+      onClickNoteType: this.onClickNoteType,
+      onChangeAttachmentUrl: this.onChangeAttachmentUrl,
+      ...this.props.actions
+    };
+    const profilePageProps = {
+      districtKey,
+      nowMomentFn,
+      actions,
+      ...propsFromState
+    };
     return (
       <div className="PageContainer">
-        <StudentProfilePage
-          {...merge(_.pick(this.state,
-            'currentEducator',
-            'educatorsIndex',
-            'serviceTypesIndex',
-            'student',
-            'feed',
-            'transitionNotes',
-            'access',
-            'chartData',
-            'dibels',
-            'attendanceData',
-            'selectedColumnKey',
-            'iepDocument',
-            'sections',
-            'currentEducatorAllowedSections',
-            'requests',
-            'noteInProgressText',
-            'noteInProgressType',
-            'noteInProgressAttachmentUrls'
-          ), {
-            districtKey: this.props.districtKey,
-            nowMomentFn: this.props.nowMomentFn,
-            actions: {
-              onColumnClicked: this.onColumnClicked,
-              onClickSaveNotes: this.onClickSaveNotes,
-              onClickSaveTransitionNote: this.onClickSaveTransitionNote,
-              onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
-              onClickSaveService: this.onClickSaveService,
-              onClickDiscontinueService: this.onClickDiscontinueService,
-              onChangeNoteInProgressText: this.onChangeNoteInProgressText,
-              onClickNoteType: this.onClickNoteType,
-              onChangeAttachmentUrl: this.onChangeAttachmentUrl,
-              ...this.props.actions,
-            }
-          })} />
+        {shouldUseLightProfilePage
+          ? <LightProfilePage {...profilePageProps} />
+          : <StudentProfilePage {...profilePageProps} />
+        }
       </div>
     );
   }
@@ -311,6 +322,7 @@ PageContainer.childContextTypes = {
   nowFn: PropTypes.func
 };
 PageContainer.propTypes = {
+  shouldUseLightProfilePage: PropTypes.bool,
   nowMomentFn: PropTypes.func.isRequired,
   serializedData: PropTypes.object.isRequired,
   queryParams: PropTypes.object.isRequired,
@@ -323,7 +335,10 @@ PageContainer.propTypes = {
 };
 
 // Exported for test and story
-export function initialState(serializedData, queryParams) {
+export function initialState(props) {
+  const {serializedData, queryParams, shouldUseLightProfilePage} = props;
+  const defaultColumnKey = (shouldUseLightProfilePage) ? 'notes' : 'interventions';
+
   return {
     // context
     currentEducator: serializedData.currentEducator,
@@ -348,7 +363,7 @@ export function initialState(serializedData, queryParams) {
     noteInProgressText: '',
     noteInProgressType: null,
     noteInProgressAttachmentUrls: [],
-    selectedColumnKey: queryParams.column || 'interventions',
+    selectedColumnKey: queryParams.column || defaultColumnKey,
 
     // This map holds the state of network requests for various actions.  This allows UI components to branch on this
     // and show waiting messages or error messages.

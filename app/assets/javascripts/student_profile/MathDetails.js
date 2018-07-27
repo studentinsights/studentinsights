@@ -79,6 +79,9 @@ export default class MathDetails extends React.Component {
   }
 
   renderNavBar() {
+    const {hideNavbar} = this.props;
+    if (hideNavbar) return null;
+
     return (
       <div style={styles.navBar}>
         <a style={styles.navBar} href="#starMath">
@@ -203,7 +206,8 @@ MathDetails.propTypes = {
     next_gen_mcas_mathematics_scaled: PropTypes.array,
     mcas_series_math_growth: PropTypes.array.isRequired
   }).isRequired,
-  student: PropTypes.object.isRequired
+  student: PropTypes.object.isRequired,
+  hideNavbar: PropTypes.bool
 };
 
 const styles = {

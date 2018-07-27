@@ -73,9 +73,9 @@ function testPropsFromPatches(patches = {}) {
   return testPropsFromSerializedData(testSerializedData(patches));
 }
 
-function testPropsFromSerializedData(serializedData) {
+function testPropsFromSerializedData(serializedData, queryParams = {}) {
   return {
-    ...initialState(serializedData, {}),
+    ...initialState({serializedData, queryParams}),
     nowMomentFn() { return nowMoment; },
     actions: {
       onColumnClicked: jest.fn(),

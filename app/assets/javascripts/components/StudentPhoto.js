@@ -17,15 +17,16 @@ export default class StudentPhoto extends React.Component {
   }
 
   render() {
-    const {student, height, style} = this.props;
+    const {student, height, width, style} = this.props;
 
     return (
       <img id='student-photo'
-           style={style}
-           src={Routes.studentPhoto(student.id)}
-           height={height}
-           alt={this.altText()}
-           onError={this.onError}
+        style={style}
+        src={Routes.studentPhoto(student.id)}
+        width={width}
+        height={height}
+        alt={this.altText()}
+        onError={this.onError}
         />
     );
   }
@@ -35,7 +36,8 @@ StudentPhoto.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired
   }).isRequired,
-  height: PropTypes.number.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
   style: PropTypes.object,
 };
 
