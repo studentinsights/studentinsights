@@ -50,21 +50,26 @@ export default class LightCarousel extends React.Component {
     const {quote, tagline, source, withoutQuotes} = item;
     const quoted = (withoutQuotes) ? quote : `“${quote}”`;
     return (
-      <div style={{display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'space-between', ...style}}>
-        <div style={{margin: 20, marginBottom: 0, marginTop: 15}}>
-          <div style={{fontSize: 20}}>{quoted}</div>
+      <div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'space-between', ...style}}>
+        <div style={{flex: 1, margin: 20, marginBottom: 0, marginTop: 15, display: 'flex'}}>
+          <div style={{fontSize: 18, overflowY: 'hidden'}}>{quoted}</div>
         </div>
-        <div style={{fontSize: 12, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: 20, marginBottom: 10}}>
+        <div style={{
+          fontSize: 12,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+          margin: 20,
+          marginBottom: 15
+        }}>
           <div>
             <div style={{fontSize: 12, color: '#333'}}>
               <div>{tagline}</div>
               <div>{source}</div>
             </div>
           </div>
-          <div>
-            <div style={{color: '#ccc', cursor: 'pointer'}} onClick={this.onNext}>edit</div>
-            <div style={{color: '#ccc', cursor: 'pointer'}} onClick={this.onNext}>next</div>
-          </div>
+          {quotes.length > 1 && <div style={{color: '#ccc', cursor: 'pointer'}} onClick={this.onNext}>more</div>}
         </div>
       </div>
     );

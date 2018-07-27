@@ -8,10 +8,9 @@ import * as Routes from '../helpers/Routes';
 import {hasStudentPhotos} from '../helpers/PerDistrict';
 import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
 import HelpBubble from '../components/HelpBubble';
-import Educator from '../components/Educator';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
-import {parseTransitionNoteText} from './lightTransitionNotes';
+import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
 
 /*
 UI component for top-line information like the student's name, school,
@@ -85,16 +84,15 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderIEPLink() {
-    const {student} = this.props;
-    const {iepDocument} = student;
+    const {student, iepDocument} = this.props;
     const hasDisability = student.disability !== 'None' && student.disability !== null;
     const hasLiaison = student.sped_liaison !== null && student.sped_liaison !== undefined;
     const spedPlacement = student.sped_placement || null;
     const hasIep = (iepDocument || hasDisability || hasLiaison || spedPlacement);
 
-    if (hasIep && iepDocument) return <a target="_blank" href={`/iep_documents/${iepDocument.id}`}>IEP</a>;
-    if (hasIep && hasDisability) return <span>IEP for {student.disability}</span>;
-    if (hasIep) return <span>IEP</span>;
+    if (hasIep && iepDocument) return <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>;
+    if (hasIep && hasDisability) return <span style={styles.subtitleItem}>IEP for {student.disability}</span>;
+    if (hasIep) return <span style={styles.subtitleItem}>IEP</span>;
     return null;
   }
 
@@ -116,7 +114,7 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
-        linkStyle={{fontSize: 14}}
+        linkStyle={styles.subtitleItem}
         teaser={el}
         title="Language learning"
         content={this.renderLanguageDialog()} />
@@ -168,29 +166,25 @@ export default class LightProfileHeader extends React.Component {
 
   renderButtons() {
     return (
-      <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-        <div>
-          <a title="Next student" href="#" style={{display: 'block'}}>
-            <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </a>
-        </div>
-        <div>
-          <a title="Print PDF" href="#" style={{display: 'block'}}>
-            <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </a>
-          <a title="List all data points" href="#" style={{display: 'block'}}>
-            <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg>
-          </a>
-        </div>
+      <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
+        <a title="Next student" href="#" style={{display: 'block'}}>
+          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </a>
+        <a title="Print PDF" href="#" style={{display: 'block'}}>
+          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </a>
+        <a title="List all data points" href="#" style={{display: 'block'}}>
+          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </a>
       </div>
     );
   }
@@ -198,20 +192,15 @@ export default class LightProfileHeader extends React.Component {
   renderGlance() {
     const {transitionNotes, educatorsIndex, student} = this.props;
     const style = {fontSize: 12};
-    const useRealTransitionNotes = window.location.search.indexOf('transition') !== -1;
+    const useRealTransitionNotes = window.location.search.indexOf('sample') === -1;
     const quotes = (useRealTransitionNotes)
       ? quotesFrom(transitionNotes, educatorsIndex, style)
       : sampleQuotes(style);
-    const upsellQuotes = [{
-      quote: `Add an insight about ${student.first_name}!`,
-      withoutQuotes: true,
-      source: <span>See <a href="#" style={style}>Ileana</a> or <a href="#" style={style}>Manuel</a> for examples from other educators.</span>,
-      tagline: ''
-    }];
-    const quotesOrUpsell = (quotes.length === 0) ? upsellQuotes : quotes;
+    const quotesOrUpsell = (quotes.length === 0) ? upsellQuotes(student, style) : quotes;
     return (
       <div style={{
         width: 350,
+        display: 'flex',
         background: '#eee'
       }}>
         <LightCarousel quotes={quotesOrUpsell} />
@@ -290,6 +279,7 @@ export default class LightProfileHeader extends React.Component {
 
 LightProfileHeader.propTypes = {
   student: PropTypes.object.isRequired,
+  iepDocument: PropTypes.object,
   access: PropTypes.object,
   educatorsIndex: PropTypes.object,
   transitionNotes: PropTypes.array,
@@ -300,7 +290,7 @@ LightProfileHeader.propTypes = {
 const styles = {
   root: {
     display: 'flex',
-    minHeight: 200,
+    height: 220,
     fontSize: 14,
     padding: 20,
     marginBottom: 20
@@ -343,7 +333,9 @@ const styles = {
     flex: 1
   },
   subtitleItem: {
-    display: 'block'
+    display: 'inline-block',
+    paddingRight: 5, // for easier clicking
+    fontSize: 14
   },
   contactItem: {
     padding: 6,
@@ -355,62 +347,3 @@ const styles = {
   }
 };
 
-
-function sampleQuotes(style) {  
-  const quotes = [
-    'Smart, very athletic, baseball, works w/uncle (carpenter)',
-    'Truly bilingual in English & French',
-    'Very social; gets along well w/adults and most kids'
-  ];
-  return quotes.map(quote => {
-    const dateText = moment.utc().subtract(Math.random() * 30, 'days').format('M/D/YY');
-    const tagline = <span><a href="#" style={style}>Samwise Gamgee</a>, Counselor</span>;
-    const source = <span><a href="#" style={{fontSize: 12}}>Transition note</a> on {dateText}</span>;
-    return {quote, tagline, source};
-  });
-}
-
-function quotesFrom(transitionNotes, educatorsIndex, style) {
-  const safeNotes = transitionNotes.filter(transitionNote => !transitionNote.is_restricted);
-
-  return _.flatten(safeNotes.map(note => {
-    const dateText = moment.utc(note.recorded_at).format('M/D/YY');
-    const educator = educatorsIndex[note.educator_id] || educatorsIndex[_.keys(educatorsIndex)[0]];
-    const tagline = <span>from <Educator style={style} educator={educator} /></span>;
-    const source = (
-      <span>
-        <span>in</span>
-        <HelpBubble
-          style={{marginLeft: 5, marginRight: 5}}
-          linkStyle={style}
-          teaser="Transition note"
-          title="Transition note"
-          content={renderTransitionNote(note.text, dateText, <Educator educator={educator} />)} />
-        <span>on {dateText}</span>
-      </span>
-    );
-
-    // only strengths for now
-    const noteParts = parseTransitionNoteText(note.text);
-    const quote = noteParts.strengths;
-    if (!quote || quote.length === 0) return [];
-    return [{quote, source, tagline}];
-  }));
-   
-}
-
-function renderTransitionNote(text, dateText, educatorEl) {
-  return (
-    <div>
-      <div style={{
-        whiteSpace: 'pre',
-        marginBottom: 10,
-        padding: 20,
-        border: '1px solid #ccc',
-        background: '#eee'
-      }}>{text}</div>
-      <div>by {educatorEl}</div>
-      <div>on {dateText}</div>
-    </div>
-  );
-}
