@@ -71,9 +71,9 @@ class ImportTask
     # If the developer is passing in a list of school IDs to filter by,
     # we check that the IDs are valid and the schools exist in the database.
 
-    if @school.present?
-      @school.each { |id| School.find_by!(local_id: id) }
-    end
+    return if @school == :all
+
+    @school.each { |id| School.find_by!(local_id: id) }
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
