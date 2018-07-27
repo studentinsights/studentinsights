@@ -18,8 +18,16 @@ export default class LightCarousel extends React.Component {
     this.resetInterval();
   }
 
-  resetInterval() {
+  componentWillUnmount() {
+    this.clearInterval();
+  }
+
+  clearInterval() {
     if (this.interval) window.clearInterval(this.interval);
+  }
+
+  resetInterval() {
+    this.clearInterval();
     this.interval = window.setInterval(this.onIntervalTicked, 10000);
   }
 
