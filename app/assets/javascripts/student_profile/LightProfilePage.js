@@ -108,7 +108,7 @@ export default class LightProfilePage extends React.Component {
     const {sections, selectedColumnKey} = this.props;
     const columnKey = 'grades';
     const strugglingSectionsCount = sections.filter(section => {
-      if (_.isNaN(section.grade_numeric)) return false;
+      if (section.grade_numeric === null) return false;
       return (section.grade_numeric < 69);
     }).length;
 
