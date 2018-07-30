@@ -331,6 +331,7 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
   create_table "star_math_test_results", force: :cascade do |t|
     t.integer "percentile_rank", null: false
     t.string "grade_equivalent", null: false
+    t.integer "total_time", null: false
     t.bigint "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -339,6 +340,7 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
 
   create_table "star_reading_test_results", force: :cascade do |t|
     t.integer "percentile_rank", null: false
+    t.integer "total_time", null: false
     t.string "grade_equivalent", null: false
     t.decimal "instructional_reading_level", null: false
     t.bigint "student_id", null: false
