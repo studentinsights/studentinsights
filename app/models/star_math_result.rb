@@ -2,6 +2,7 @@
 # Migrating over in stages:
 #   - First, dump data from the import process into the new model's table.
 #   - Next, point endpoints in the app over to read from the new table.
+#     (The app may be showing slightly stale data until this step is shipped.)
 #   - Finally, remove STAR results from the student_assessment model/table.
 class StarMathResult < ApplicationRecord
   belongs_to :student
