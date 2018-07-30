@@ -8,8 +8,8 @@ remote_filenames:
   FILENAME_FOR_COURSE_SECTION_IMPORT:               /home/jbreslin/data/courses_sections_export.txt
   FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/student_section_assignment_export.txt
   FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/educator_section_assignment_export.txt
-  FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
-  FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
+  FILENAME_FOR_STAR_READING_IMPORT:                 SR_Historical.csv   # Change this back to SR.csv after historical data is imported.
+  FILENAME_FOR_STAR_MATH_IMPORT:                    SM_Historical.csv   # Change this back to SM.csv after historical data is imported.
   FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
   FILENAMES_FOR_IEP_PDF_ZIPS:   # order is important here, these need to be oldest > newest
     - /home/jbreslin/data/student-documents-6.zip
