@@ -66,7 +66,8 @@ class StarMathImporter
 
     test_result.assign_attributes(
       percentile_rank: row['PercentileRank'],
-      grade_equivalent: row['GradeEquivalent']
+      grade_equivalent: row['GradeEquivalent'],
+      total_time: row['TotalTime']
     )
 
     test_result.save!

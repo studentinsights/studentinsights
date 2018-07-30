@@ -67,7 +67,8 @@ class StarReadingImporter
     test_result.assign_attributes({
       percentile_rank: row['PercentileRank'],
       instructional_reading_level: row['IRL'],
-      grade_equivalent: row['GradeEquivalent']
+      grade_equivalent: row['GradeEquivalent'],
+      total_time: row['TotalTime']
     })
 
     test_result.save!
