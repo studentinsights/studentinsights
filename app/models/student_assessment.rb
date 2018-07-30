@@ -1,3 +1,7 @@
+# NOTE: Right now, this single model holds data for different assessments, including
+# MCAS, STAR, DIBELS, and ACCESS. Over time, we want to create a separate model
+# and table for each assessment. Each assessment has its own unique fields.
+# Breaking them into separate tables will let us add database-level validations.
 class StudentAssessment < ActiveRecord::Base
   belongs_to :assessment
   belongs_to :student
