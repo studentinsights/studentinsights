@@ -4,7 +4,9 @@ RSpec.describe BehaviorImporter do
 
   let(:base_behavior_importer) {
     described_class.new(options: {
-      school_scope: nil, log: nil, skip_old_records: false
+      school_scope: :all,
+      log: nil,
+      skip_old_records: false
     })
   }
 

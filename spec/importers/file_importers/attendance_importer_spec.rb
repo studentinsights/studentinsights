@@ -4,7 +4,7 @@ RSpec.describe AttendanceImporter do
 
   def make_attendance_importer(options = {})
     importer = AttendanceImporter.new(options: {
-      school_scope: nil,
+      school_scope: :all,
       log: nil,
       skip_old_records: false
     }.merge(options))

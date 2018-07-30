@@ -8,7 +8,7 @@ RSpec.describe EducatorsImporter do
   let(:log) { LogHelper::Redirect.instance.file }
   def make_educators_importer
     importer = EducatorsImporter.new(options: {
-      school_scope: nil,
+      school_scope: :all,
       log: log
     })
     importer.instance_variable_set(:@skipped_from_school_filter, 0)
