@@ -5,6 +5,7 @@ class AddSeparateStarTables < ActiveRecord::Migration[5.2]
       t.string :grade_equivalent, null: false
       t.integer :total_time, null: false
       t.references :student, foreign_key: true, null: false
+      t.date :date_taken, null: false
       t.timestamps
     end
 
@@ -14,6 +15,8 @@ class AddSeparateStarTables < ActiveRecord::Migration[5.2]
       t.string :grade_equivalent, null: false
       t.decimal :instructional_reading_level, null: false
       t.references :student, foreign_key: true, null: false
+      t.date :date_taken, null: false
+
       t.timestamps
     end
   end

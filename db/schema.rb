@@ -333,6 +333,7 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
     t.string "grade_equivalent", null: false
     t.integer "total_time", null: false
     t.bigint "student_id", null: false
+    t.date "date_taken", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_star_math_test_results_on_student_id"
@@ -344,6 +345,7 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
     t.string "grade_equivalent", null: false
     t.decimal "instructional_reading_level", null: false
     t.bigint "student_id", null: false
+    t.date "date_taken", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_star_reading_test_results_on_student_id"
