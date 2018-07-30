@@ -8,8 +8,7 @@ class AssessmentsReport < Struct.new :log
 
   def headers
     [
-      'Assessments:',
-      '',
+      'Assessments (FROM OLD STUDENT_ASSESSMENTS TABLE):',
       "#{'Family'.ljust(10)}| #{'Subject'.ljust(15)} | Count (All Students)",
       "#{'---'.ljust(10)}| #{'---'.ljust(15)}| #{'---'.ljust(24)} ",
     ]
@@ -17,7 +16,15 @@ class AssessmentsReport < Struct.new :log
 
   def report
     sorted_assessments = Assessment.all.includes(:student_assessments).sort_by(&:family)
-    headers << sorted_assessments.map { |assessment| row(assessment) }
+    old_table = headers << sorted_assessments.map { |assessment| row(assessment) }
+
+    old_table + [
+      # New one-table-per-assessment!
+      '',
+      'Assessments (FROM NEW ONE-TABLE-PER-ASSESSMENT):',
+      "StarMathTestResult: #{StarMathTestResult.count}",
+      "StarReadingTestResult: #{StarReadingTestResult.count}",
+    ]
   end
 
   def row(assessment)
