@@ -59,7 +59,7 @@ class StarReadingImporter
       return
     end
 
-    test_result = StarReadingTestResult.find_or_initialize_by(
+    test_result = StarReadingResult.find_or_initialize_by(
       student_id: student.id,
       date_taken: date_taken,
     )

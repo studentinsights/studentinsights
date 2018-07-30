@@ -1,6 +1,7 @@
-class StarMathTestResult < ApplicationRecord
+class StarReadingResult < ApplicationRecord
   belongs_to :student
-  validates :percentile_rank, :grade_equivalent, :total_time, :student, presence: true
+  validates :percentile_rank, :grade_equivalent, :total_time, :student,
+    :instructional_reading_level, presence: true
   validate :valid_percentile_rank
 
   def valid_percentile_rank

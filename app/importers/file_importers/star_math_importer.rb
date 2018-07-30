@@ -59,7 +59,7 @@ class StarMathImporter
       return
     end
 
-    test_result = StarMathTestResult.find_or_initialize_by(
+    test_result = StarMathResult.find_or_initialize_by(
       student_id: student.id,
       date_taken: date_taken,
     )

@@ -1,6 +1,6 @@
 class AddSeparateStarTables < ActiveRecord::Migration[5.2]
   def change
-    create_table :star_math_test_results do |t|
+    create_table :star_math_results do |t|
       t.integer :percentile_rank, null: false
       t.string :grade_equivalent, null: false
       t.integer :total_time, null: false
@@ -9,7 +9,7 @@ class AddSeparateStarTables < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :star_reading_test_results do |t|
+    create_table :star_reading_results do |t|
       t.integer :percentile_rank, null: false
       t.integer :total_time, null: false
       t.string :grade_equivalent, null: false

@@ -22,8 +22,8 @@ class AssessmentsReport < Struct.new :log
       # New one-table-per-assessment!
       '',
       'Assessments (FROM NEW ONE-TABLE-PER-ASSESSMENT):',
-      "StarMathTestResult: #{StarMathTestResult.count}",
-      "StarReadingTestResult: #{StarReadingTestResult.count}",
+      "StarMathResult: #{StarMathResult.count}",
+      "StarReadingResult: #{StarReadingResult.count}",
     ]
   end
 
