@@ -51,10 +51,6 @@ class StarMathImporter
     SchoolFilter.new(@school_scope)
   end
 
-  def star_mathematics_assessment
-    @assessment ||= Assessment.where(family: "STAR", subject: "Mathematics").first_or_create!
-  end
-
   def import_row(row)
     date_taken = Date.strptime(row['AssessmentDate'].split(' ')[0], "%m/%d/%Y")
     student = Student.find_by_local_id(row['StudentLocalID'])
@@ -63,18 +59,17 @@ class StarMathImporter
       return
     end
 
-    star_assessment = StudentAssessment.find_or_initialize_by(
+    test_result = StarMathTestResult.find_or_initialize_by(
       student_id: student.id,
       date_taken: date_taken,
-      assessment: star_mathematics_assessment
     )
 
-    star_assessment.assign_attributes(
+    test_result.assign_attributes(
       percentile_rank: row['PercentileRank'],
       grade_equivalent: row['GradeEquivalent']
     )
 
-    star_assessment.save!
+    test_result.save!
   end
 
   def log(msg)
