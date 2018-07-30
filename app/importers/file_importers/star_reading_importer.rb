@@ -52,7 +52,7 @@ class StarReadingImporter
   end
 
   def import_row(row)
-    date_taken = Date.strptime(row['AssessmentDate'], "%m/%d/%Y %H:%M:%S")
+    date_taken = DateTime.strptime(row['AssessmentDate'], "%m/%d/%Y %H:%M:%S")
     student = Student.find_by_local_id(row['StudentLocalID'])
     if student.nil?
       log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
