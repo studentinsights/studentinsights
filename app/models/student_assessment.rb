@@ -14,8 +14,8 @@ class StudentAssessment < ActiveRecord::Base
 
       # TODO: Add validation for STAR grade_equivalent field.
       # This should be present for all STAR records, but because this wasn't
-      # backfilled to older records, ~40% of STAR records in production
-      # have grade_equivalent of nil.
+      # backfilled to older records, ~40% of STAR records in the Somerville
+      # production database have grade_equivalent of nil.
 
       if assessment.subject == 'Reading' && !valid_star_reading_attributes?
         errors.add(:instructional_reading_level, "invalid")
