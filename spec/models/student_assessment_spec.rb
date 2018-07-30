@@ -64,10 +64,10 @@ RSpec.describe StudentAssessment, type: :model do
   end
 
   describe '.by_family' do
-    let!(:student_assessment) { FactoryBot.create(:student_assessment, assessment: assessment) }
     context 'ACCESS' do
       context 'there are only ACCESS student assessments' do
         let(:assessment) { FactoryBot.create(:assessment, :access) }
+        let(:student_assessment) { FactoryBot.create(:student_assessment, assessment: assessment) }
         it 'returns the ACCESS student assessments' do
           expect(StudentAssessment.by_family("ACCESS")).to eq([student_assessment])
         end

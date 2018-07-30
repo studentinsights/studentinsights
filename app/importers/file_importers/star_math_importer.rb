@@ -63,16 +63,18 @@ class StarMathImporter
       return
     end
 
-    star_assessment = StudentAssessment.where({
+    star_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student.id,
       date_taken: date_taken,
       assessment: star_mathematics_assessment
-    }).first_or_create!
+    )
 
-    star_assessment.update!({
+    star_assessment.assign_attributes(
       percentile_rank: row['PercentileRank'],
       grade_equivalent: row['GradeEquivalent']
-    })
+    )
+
+    star_assessment.save!
   end
 
   def log(msg)
