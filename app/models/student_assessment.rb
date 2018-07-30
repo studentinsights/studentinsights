@@ -21,10 +21,25 @@ class StudentAssessment < ActiveRecord::Base
       # backfilled to older records, ~40% of STAR records in the Somerville
       # production database have grade_equivalent of nil.
 
+      # TODO: For STAR, is zero a valid percentile?
+
+      # TODO: For STAR, can students take the assessment multiple times on the
+      # same day? How is that recorded in the data?
+
       if assessment.subject == 'Reading' && !valid_star_reading_attributes?
         errors.add(:instructional_reading_level, "invalid")
       end
     end
+
+    # For MCAS:
+      # Looking at Somerville raw data July 2018:
+      #   * ~40% of rows have no growth percentile.
+      #   * ~5% of rows have no scale score.
+      #   * Almost all rows have performance level (only 1 exception).
+      # Looking at New Bedford raw data July 2018:
+      #   * Zero rows have growth percentile.
+      #   * 33% of rows have no scale score.
+      #   * 16% of rows have no performance level.
 
     # TODO: Add validation for MCAS, DIBELS, and ACCESS assessments.
   end
