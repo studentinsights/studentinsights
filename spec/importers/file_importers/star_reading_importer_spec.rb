@@ -20,30 +20,24 @@ RSpec.describe StarReadingImporter do
       context 'with good data' do
         context 'existing student' do
           let!(:student) { FactoryBot.create(:student_we_want_to_update) }
-          it 'creates a new student assessment' do
-            expect { import }.to change { StudentAssessment.count }.by 1
-          end
-          it 'creates a new STAR Reading assessment' do
-            import
-            student_assessment = StudentAssessment.last
-            expect(student_assessment.family).to eq "STAR"
-            expect(student_assessment.subject).to eq "Reading"
+          it 'creates a new student test result' do
+            expect { import }.to change { StarReadingResult.count }.by 1
           end
           it 'sets instructional reading level correctly' do
             import
-            expect(StudentAssessment.last.instructional_reading_level).to eq 5.0
+            expect(StarReadingResult.last.instructional_reading_level).to eq 5.0
           end
           it 'sets date taken correctly' do
             import
-            expect(StudentAssessment.last.date_taken).to eq Date.new(2015, 1, 21)
+            expect(StarReadingResult.last.date_taken).to eq Date.new(2015, 1, 21)
           end
           it 'does not create a new student' do
             expect { import }.to change(Student, :count).by 0
           end
         end
         context 'student does not exist' do
-          it 'does not create a new student assessment' do
-            expect { import }.to change { StudentAssessment.count }.by 0
+          it 'does not create a new student test result' do
+            expect { import }.to change { StarReadingResult.count }.by 0
           end
           it 'does not create a new student' do
             expect { import }.to change(Student, :count).by 0

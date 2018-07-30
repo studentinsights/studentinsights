@@ -21,23 +21,16 @@ RSpec.describe StarMathImporter do
 
         context 'existing student' do
           let!(:student) { FactoryBot.create(:student_we_want_to_update) }
-          it 'creates a new student assessment' do
-            expect { import }.to change { StudentAssessment.count }.by 1
-          end
-          it 'creates a new STAR MATH assessment' do
-            import
-            student_assessment = StudentAssessment.last
-            assessment = student_assessment.assessment
-            expect(assessment.family).to eq "STAR"
-            expect(assessment.subject).to eq "Mathematics"
+          it 'creates a new student test result' do
+            expect { import }.to change { StarMathResult.count }.by 1
           end
           it 'sets math percentile rank correctly' do
             import
-            expect(StudentAssessment.last.percentile_rank).to eq 70
+            expect(StarMathResult.last.percentile_rank).to eq 70
           end
           it 'sets date taken correctly' do
             import
-            expect(StudentAssessment.last.date_taken).to eq Date.new(2015, 1, 21)
+            expect(StarMathResult.last.date_taken).to eq Date.new(2015, 1, 21)
           end
           it 'does not create a new student' do
             expect { import }.to change(Student, :count).by 0
@@ -45,8 +38,8 @@ RSpec.describe StarMathImporter do
         end
 
         context 'student does not exist' do
-          it 'does not create a new student assessment' do
-            expect { import }.to change { StudentAssessment.count }.by 0
+          it 'does not create a new student test result' do
+            expect { import }.to change { StarMathResult.count }.by 0
           end
           it 'does not create a new student' do
             expect { import }.to change(Student, :count).by 0
