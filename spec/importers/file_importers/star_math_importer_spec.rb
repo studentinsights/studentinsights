@@ -30,7 +30,9 @@ RSpec.describe StarMathImporter do
           end
           it 'sets date taken correctly' do
             import
-            expect(StarMathResult.last.date_taken).to eq Date.new(2015, 1, 21)
+            expect(StarMathResult.last.date_taken).to eq(
+              DateTime.new(2015, 1, 21, 9, 18, 27)
+            )
           end
           it 'does not create a new student' do
             expect { import }.to change(Student, :count).by 0
@@ -52,7 +54,7 @@ RSpec.describe StarMathImporter do
         let(:csv) { star_math_importer.data_transformer.transform(csv_string) }
 
         it 'raises an error' do
-          expect { import }.to raise_error NoMethodError
+          expect { import }.to raise_error(KeyError, 'key not found: AssessmentDate')
         end
       end
     end

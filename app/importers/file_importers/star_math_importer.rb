@@ -52,8 +52,8 @@ class StarMathImporter
   end
 
   def import_row(row)
-    date_taken = DateTime.strptime(row['AssessmentDate'], "%m/%d/%Y %H:%M:%S")
-    student = Student.find_by_local_id(row['StudentLocalID'])
+    date_taken = DateTime.strptime(row.fetch('AssessmentDate'), "%m/%d/%Y %H:%M:%S")
+    student = Student.find_by_local_id(row.fetch('StudentLocalID'))
     if student.nil?
       log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
       return
@@ -65,9 +65,9 @@ class StarMathImporter
     )
 
     test_result.assign_attributes(
-      percentile_rank: row['PercentileRank'],
-      grade_equivalent: row['GradeEquivalent'],
-      total_time: row['TotalTime']
+      percentile_rank: row.fetch('PercentileRank'),
+      grade_equivalent: row.fetch('GradeEquivalent'),
+      total_time: row.fetch('TotalTime'),
     )
 
     test_result.save!

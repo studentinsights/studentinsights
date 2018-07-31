@@ -52,8 +52,8 @@ class StarReadingImporter
   end
 
   def import_row(row)
-    date_taken = DateTime.strptime(row['AssessmentDate'], "%m/%d/%Y %H:%M:%S")
-    student = Student.find_by_local_id(row['StudentLocalID'])
+    date_taken = DateTime.strptime(row.fetch('AssessmentDate'), "%m/%d/%Y %H:%M:%S")
+    student = Student.find_by_local_id(row.fetch('StudentLocalID'))
     if student.nil?
       log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
       return
@@ -65,10 +65,10 @@ class StarReadingImporter
     )
 
     test_result.assign_attributes({
-      percentile_rank: row['PercentileRank'],
-      instructional_reading_level: row['IRL'],
-      grade_equivalent: row['GradeEquivalent'],
-      total_time: row['TotalTime']
+      percentile_rank: row.fetch('PercentileRank'),
+      instructional_reading_level: row.fetch('IRL'),
+      grade_equivalent: row.fetch('GradeEquivalent'),
+      total_time: row.fetch('TotalTime'),
     })
 
     test_result.save!
