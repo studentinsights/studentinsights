@@ -59,7 +59,7 @@ class BehaviorImporter
       return
     end
 
-    behavior_event = BehaviorRow.build(row, student.id)
+    behavior_event = BehaviorRow.new(row, student.id).build
     if !behavior_event.valid?
       @invalid_rows_count += 1
       return
