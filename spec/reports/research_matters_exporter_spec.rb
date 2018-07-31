@@ -58,7 +58,7 @@ RSpec.describe ResearchMattersExporter do
         }
 
         it 'outputs the right file' do
-          expect(exporter.student_file).to eq([
+          expect(exporter.student_file).to match_array([
             "student_id,school_id,absence_indicator,discipline_indicator,sst_indicator,notes_added,notes_revised,notes_total,educator_id,educator_count,pageview_count",
             "#{student.id},HEA,0,0,0,0,0,0,#{educator.id},1,0",
             "#{another_student.id},KDY,0,0,0,0,0,0,,0,0"
@@ -287,7 +287,7 @@ RSpec.describe ResearchMattersExporter do
       }
 
       it 'outputs the right file' do
-        expect(exporter.teacher_file).to eq([
+        expect(exporter.teacher_file).to match_array([
           "educator_id,email,first_name,last_name,school_id,notes_added,notes_revised,notes_total,total_student_count,focal_student_count,pageview_count",
           "#{educator.id},matsay@demo.studentinsights.org,Matsay,Khamar,HEA,0,0,0,1,0,0",
           "#{another_educator.id},rchin@demo.studentinsights.org,Renan,Chin,HEA,0,0,0,0,0,0",
