@@ -1,4 +1,4 @@
-class BehaviorRow < Struct.new(:row)
+class BehaviorRow < Struct.new(:row, :student_id)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   #
   # Expects the following headers:
@@ -13,7 +13,7 @@ class BehaviorRow < Struct.new(:row)
   def build
     discipline_incident = DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
-      student_id: student.try(:id),
+      student_id: student_id,
       incident_code: row[:incident_code]
     )
 
@@ -42,7 +42,4 @@ class BehaviorRow < Struct.new(:row)
     row[:event_date].to_datetime + incident_time
   end
 
-  def student
-    Student.find_by_local_id(row[:local_id])
-  end
 end
