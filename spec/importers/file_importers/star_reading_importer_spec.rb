@@ -50,9 +50,12 @@ RSpec.describe StarReadingImporter do
       context 'with bad data' do
         let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
         let(:csv) { star_reading_importer.data_transformer.transform(csv_string) }
-        let(:reading_importer) { star_reading_importer }
+        let!(:student) { FactoryBot.create(:student, local_id: '10') }
+
         it 'raises an error' do
-          expect { import }.to raise_error(KeyError, 'key not found: AssessmentDate')
+          expect { import }.to raise_error(
+            ActiveRecord::RecordInvalid, 'Validation failed: Percentile rank too high'
+          )
         end
       end
 

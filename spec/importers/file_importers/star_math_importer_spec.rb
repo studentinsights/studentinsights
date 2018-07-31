@@ -50,13 +50,17 @@ RSpec.describe StarMathImporter do
       end
 
       context 'with bad data' do
-        let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/bad_star_reading_data.csv") }
+        let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/bad_star_math_data.csv") }
         let(:csv) { star_math_importer.data_transformer.transform(csv_string) }
+        let!(:student) { FactoryBot.create(:student_we_want_to_update) }
 
         it 'raises an error' do
-          expect { import }.to raise_error(KeyError, 'key not found: AssessmentDate')
+          expect { import }.to raise_error(
+            ActiveRecord::RecordInvalid, 'Validation failed: Percentile rank can\'t be blank'
+          )
         end
       end
     end
   end
 end
+

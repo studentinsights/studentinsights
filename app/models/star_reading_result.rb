@@ -19,7 +19,8 @@ class StarReadingResult < ApplicationRecord
   validate :valid_percentile_rank
 
   def valid_percentile_rank
-    errors.add(:percentile_rank, "too high") if percentile_rank > 99
-    errors.add(:percentile_rank, "too low") if percentile_rank < 1
+    return unless percentile_rank
+    errors.add(:percentile_rank, "too high") && return if percentile_rank > 99
+    errors.add(:percentile_rank, "too low") && return if percentile_rank < 1
   end
 end
