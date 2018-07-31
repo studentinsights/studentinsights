@@ -63,4 +63,3 @@ RSpec.describe StarMathImporter do
     end
   end
 end
-
