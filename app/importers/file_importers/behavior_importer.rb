@@ -14,6 +14,7 @@ class BehaviorImporter
 
     log('Starting loop...')
     @skipped_from_school_filter = 0
+    @skipped_from_invalid_student_id = 0
     @touched_rows_count = 0
     @invalid_rows_count = 0
     streaming_csv.each_with_index do |row, index|
@@ -23,6 +24,7 @@ class BehaviorImporter
     log('Done loop.')
 
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
+    log("@skipped_from_invalid_student_id: #{@skipped_from_invalid_student_id}")
     log("@touched_rows_count: #{@touched_rows_count}")
     log("@invalid_rows_count: #{@invalid_rows_count}")
   end
@@ -50,7 +52,14 @@ class BehaviorImporter
       return
     end
 
-    behavior_event = BehaviorRow.build(row)
+    student = Student.find_by_local_id(row[:local_id])
+    if student.nil?
+      @skipped_from_invalid_student_id += 1
+      log("skipping, StudentLocalID not found: #{row[:local_id]}")
+      return
+    end
+
+    behavior_event = BehaviorRow.new(row, student.id).build
     if !behavior_event.valid?
       @invalid_rows_count += 1
       return

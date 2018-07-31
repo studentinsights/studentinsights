@@ -14,7 +14,7 @@ RSpec.describe BehaviorRow do
     }
   end
 
-  subject(:row) { BehaviorRow.new(data) }
+  subject(:row) { BehaviorRow.new(data, student.id) }
 
   describe '#build' do
     it 'records a discipline incident' do
