@@ -31,7 +31,7 @@ RSpec.describe StarMathImporter do
           it 'sets date taken correctly' do
             import
             expect(StarMathResult.last.date_taken).to eq(
-              DateTime.new(2015, 1, 21, 9, 18, 27)
+              DateTime.new(2015, 1, 21, 9, 18, 27, '-06:00')
             )
           end
           it 'does not create a new student' do
