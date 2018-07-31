@@ -22,7 +22,7 @@ class StarMathImporter
       data = data_transformer.transform(data_string)
 
       data.each_with_index do |row, index|
-        import_row(row) if filter.include?(row['SchoolLocalID'])
+        import_row(row) if filter.include?(row.fetch('SchoolLocalID'))
         @log.puts("processed #{index} rows.") if index % 1000 == 0
       end
     end
