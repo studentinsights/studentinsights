@@ -9,25 +9,25 @@ export function testSchool() {
 export function createTestEvents(nowMoment) {
   return {
     oneMonthAgo: {
-      occurred_at: nowMoment.clone().subtract(1, 'months').format(),
+      occurred_at: nowMoment.clone().subtract(30, 'days').format(),
       excused: true,
       dismissed: false,
       student_id: 1,
     },
     twoMonthsAgo: {
-      occurred_at: nowMoment.clone().subtract(2, 'months').format(),
+      occurred_at: nowMoment.clone().subtract(60, 'days').format(),
       excused: false,
       dismissed: true,
       student_id: 1,
     },
     threeMonthsAgo: {
-      occurred_at: nowMoment.clone().subtract(3, 'months').format(),
+      occurred_at: nowMoment.clone().subtract(90, 'days').format(),
       excused: false,
       dismissed: false,
       student_id: 1,
     },
     fourMonthsAgo: {
-      occurred_at: nowMoment.clone().subtract(4, 'months').format(),
+      occurred_at: nowMoment.clone().subtract(120, 'days').format(),
       excused: false,
       dismissed: false,
       student_id: 1,
@@ -124,9 +124,9 @@ export function createStudents(nowMoment) {
 export function createSchoolTardyEvents(nowMoment) {
   const testEvents = createTestEvents(nowMoment);
 
-  const oneMonthAgo = nowMoment.clone().subtract(1, 'months').format('YYYY-MM-DD');
-  const threeMonthsAgo = nowMoment.clone().subtract(3, 'months').format('YYYY-MM-DD');
-  const fourMonthsAgo = nowMoment.clone().subtract(4, 'months').format('YYYY-MM-DD');
+  const oneMonthAgo = nowMoment.clone().subtract(30, 'days').format('YYYY-MM-DD');
+  const threeMonthsAgo = nowMoment.clone().subtract(90, 'days').format('YYYY-MM-DD');
+  const fourMonthsAgo = nowMoment.clone().subtract(120, 'days').format('YYYY-MM-DD');
   const oneYearAgo = nowMoment.clone().subtract(1, 'year').format('YYYY-MM-DD');
   let schoolTardyEvents = {};
 
