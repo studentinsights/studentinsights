@@ -7,6 +7,11 @@ class BehaviorRow < Struct.new(:row, :student_id)
   #  :incident_location, :incident_description, :school_local_id
 
   def build
+    # This method is picky. A record must exactly match every field in a row
+    # in order to `find`; otherwise a new record is `initialized`.
+
+    # The existing record in the Insights database won't be marked in by
+    # RecordSyncer and will be deleted at the end of import if anything has changed.
     DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
       student_id: student_id,
