@@ -11,14 +11,13 @@ RSpec.describe StarMathImporter do
 
   describe '#import_row' do
 
-    context 'math file' do
+    context 'math fixture file' do
 
       let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_star_math.csv") }
       let(:csv) { star_math_importer.data_transformer.transform(csv_string) }
       let(:import) { csv.each_with_index { |row, index| star_math_importer.import_row(row) } }
 
       context 'with good data' do
-
         context 'existing student' do
           let!(:student) { FactoryBot.create(:student_we_want_to_update) }
           it 'creates a new student test result' do
@@ -31,7 +30,7 @@ RSpec.describe StarMathImporter do
           it 'sets date taken correctly' do
             import
             expect(StarMathResult.last.date_taken).to eq(
-              DateTime.new(2015, 1, 21, 9, 18, 27, '-06:00')
+              DateTime.new(2015, 1, 21, 14, 18, 27)  # DateTimes imported from CST; stored in UTC
             )
           end
           it 'does not create a new student' do
@@ -61,5 +60,6 @@ RSpec.describe StarMathImporter do
         end
       end
     end
+
   end
 end

@@ -60,8 +60,7 @@ class StarReadingImporter
 
     datetime_string = row.fetch('AssessmentDate')
     day = DateTime.strptime(datetime_string, "%m/%d/%Y")
-    time = Time.strptime(datetime_string, "%m/%d/%Y %H:%M:%S")
-               .in_time_zone('America/Chicago')   # Times from STAR are in CST
+    time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
 
     # Merge together data from DateTime and Time because:
     #  * The Ruby `Time` class handles timezones properly (DateTime has issues)
