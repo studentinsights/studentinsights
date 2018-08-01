@@ -10,6 +10,7 @@ RSpec.describe BehaviorImporter do
 
   let(:behavior_importer) {
     base_behavior_importer.instance_variable_set(:@skipped_from_school_filter, 0)
+    base_behavior_importer.instance_variable_set(:@skipped_old_rows_count, 0)
     base_behavior_importer.instance_variable_set(:@touched_rows_count, 0)
     base_behavior_importer.instance_variable_set(:@invalid_rows_count, 0)
     base_behavior_importer
