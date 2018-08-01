@@ -63,6 +63,11 @@ class StarMathImporter
     time = Time.strptime(datetime_string, "%m/%d/%Y %H:%M:%S")
                .in_time_zone('America/Chicago')  # Times from STAR are in CST
 
+    # Merge together data from DateTime and Time because:
+    #  * The Ruby `Time` class handles timezones properly (DateTime has issues)
+    #  * The Ruby `DateTime` class stores dates properly
+    #  * The only way I found to successfully parse and store this data was to
+    #    use both classes and merge the results together
     date_taken = DateTime.new(
       day.year, day.month, day.day,
       time.hour, time.min, time.sec, time.formatted_offset
