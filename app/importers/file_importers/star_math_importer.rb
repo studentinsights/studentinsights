@@ -58,8 +58,15 @@ class StarMathImporter
       return
     end
 
-    date_in_cst = row.fetch('AssessmentDate') + ' CST'  # All times in the CSV are CST
-    date_taken = DateTime.strptime(date_in_cst, "%m/%d/%Y %H:%M:%S %Z")
+    datetime_string = row.fetch('AssessmentDate')
+    day = DateTime.strptime(datetime_string, "%m/%d/%Y")
+    time = Time.strptime(datetime_string, "%m/%d/%Y %H:%M:%S")
+               .in_time_zone('America/Chicago')  # Times from STAR are in CST
+
+    date_taken = DateTime.new(
+      day.year, day.month, day.day,
+      time.hour, time.min, time.sec, time.formatted_offset
+    )
 
     test_result = StarMathResult.find_or_initialize_by(
       student_id: student.id,
