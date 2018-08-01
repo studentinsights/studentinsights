@@ -7,19 +7,14 @@ class BehaviorRow < Struct.new(:row, :student_id)
   #  :incident_location, :incident_description, :school_local_id
 
   def build
-    discipline_incident = DisciplineIncident.find_or_initialize_by(
+    DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
       student_id: student_id,
       incident_code: row[:incident_code]
-    )
-
-    discipline_incident.assign_attributes(
       has_exact_time: has_exact_time?,
       incident_location: row[:incident_location],
       incident_description: row[:incident_description],
     )
-
-    discipline_incident
   end
 
   private

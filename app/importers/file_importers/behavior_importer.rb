@@ -91,19 +91,10 @@ class BehaviorImporter
       return
     end
 
-    maybe_matching_record = matching_insights_record_for_row(row)
+    maybe_matching_record = BehaviorRow.new(row, student.id).build
 
     @record_syncer.validate_mark_and_sync!(maybe_matching_record)
     @record_syncer.delete_unmarked_records!(records_within_scope)
-  end
-
-  def matching_insights_record_for_row(row)
-    behavior_event = BehaviorRow.new(row, student.id).build
-
-    if !behavior_event.invalid?
-      @invalid_rows_count += 1
-      return nil
-    end
   end
 
   def within_date_range?(row)
