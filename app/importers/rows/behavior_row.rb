@@ -15,7 +15,7 @@ class BehaviorRow < Struct.new(:row, :student_id)
     DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
       student_id: student_id,
-      incident_code: row[:incident_code]
+      incident_code: row[:incident_code],
       has_exact_time: has_exact_time?,
       incident_location: row[:incident_location],
       incident_description: row[:incident_description],
