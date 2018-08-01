@@ -2,6 +2,10 @@
 # MCAS, STAR, DIBELS, and ACCESS. Over time, we want to create a separate model
 # and table for each assessment. Each assessment has its own unique fields.
 # Breaking them into separate tables will let us add database-level validations.
+
+# IN PROGRESS: Migrating STAR data out of this model. See star_reading_result.rb
+# and star_math_result.rb for details.
+
 class StudentAssessment < ActiveRecord::Base
   belongs_to :assessment
   belongs_to :student

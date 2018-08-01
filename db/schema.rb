@@ -328,6 +328,29 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
     t.integer "discontinued_by_educator_id"
   end
 
+  create_table "star_math_results", force: :cascade do |t|
+    t.integer "percentile_rank", null: false
+    t.string "grade_equivalent", null: false
+    t.integer "total_time", null: false
+    t.bigint "student_id", null: false
+    t.datetime "date_taken", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_star_math_results_on_student_id"
+  end
+
+  create_table "star_reading_results", force: :cascade do |t|
+    t.integer "percentile_rank", null: false
+    t.integer "total_time", null: false
+    t.string "grade_equivalent", null: false
+    t.decimal "instructional_reading_level", null: false
+    t.bigint "student_id", null: false
+    t.datetime "date_taken", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_star_reading_results_on_student_id"
+  end
+
   create_table "student_assessments", id: :serial, force: :cascade do |t|
     t.integer "scale_score"
     t.integer "growth_percentile"
@@ -467,6 +490,8 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
   add_foreign_key "services", "service_types", name: "services_service_type_id_fk"
   add_foreign_key "services", "service_uploads", name: "services_service_upload_id_fk"
   add_foreign_key "services", "students", name: "services_student_id_fk"
+  add_foreign_key "star_math_results", "students"
+  add_foreign_key "star_reading_results", "students"
   add_foreign_key "student_assessments", "assessments", name: "student_assessments_assessment_id_fk"
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
   add_foreign_key "student_photos", "students"

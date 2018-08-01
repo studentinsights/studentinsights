@@ -22,7 +22,7 @@ class StarReadingImporter
       data = data_transformer.transform(data_string)
 
       data.each_with_index do |row, index|
-        import_row(row) if filter.include?(row['SchoolLocalID'])
+        import_row(row) if filter.include?(row.fetch('SchoolLocalID'))
         log("processed #{index} rows.") if index % 1000 == 0
       end
     end
@@ -51,31 +51,40 @@ class StarReadingImporter
     SchoolFilter.new(@school_scope)
   end
 
-  def star_reading_assessment
-    @assessment ||= Assessment.where(family: "STAR", subject: "Reading").first_or_create!
-  end
-
   def import_row(row)
-    date_taken = Date.strptime(row['AssessmentDate'].split(' ')[0], "%m/%d/%Y")
-    student = Student.find_by_local_id(row['StudentLocalID'])
+    student = Student.find_by_local_id(row.fetch('StudentLocalID'))
     if student.nil?
       log("skipping, StudentLocalID not found: #{row['StudentLocalID']}")
       return
     end
 
-    star_assessment = StudentAssessment.find_or_initialize_by(
-      student_id: student.id,
-      date_taken: date_taken,
-      assessment: star_reading_assessment
+    datetime_string = row.fetch('AssessmentDate')
+    day = DateTime.strptime(datetime_string, "%m/%d/%Y")
+    time = Time.strptime("#{datetime_string} CDT", "%m/%d/%Y %H:%M:%S %Z")
+
+    # Merge together data from DateTime and Time because:
+    #  * The Ruby `Time` class handles timezones properly (DateTime has issues)
+    #  * The Ruby `DateTime` class stores dates properly
+    #  * The only way I found to successfully parse and store this data was to
+    #    use both classes and merge the results together
+    date_taken = DateTime.new(
+      day.year, day.month, day.day,
+      time.hour, time.min, time.sec, time.formatted_offset
     )
 
-    star_assessment.assign_attributes({
-      percentile_rank: row['PercentileRank'],
-      instructional_reading_level: row['IRL'],
-      grade_equivalent: row['GradeEquivalent']
+    test_result = StarReadingResult.find_or_initialize_by(
+      student_id: student.id,
+      date_taken: date_taken,
+    )
+
+    test_result.assign_attributes({
+      percentile_rank: row.fetch('PercentileRank'),
+      instructional_reading_level: row.fetch('IRL'),
+      grade_equivalent: row.fetch('GradeEquivalent'),
+      total_time: row.fetch('TotalTime'),
     })
 
-    star_assessment.save!
+    test_result.save!
   end
 
   def log(msg)
