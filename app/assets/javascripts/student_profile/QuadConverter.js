@@ -31,7 +31,7 @@ export function toDeprecatedStarQuads(series) {
       dateTaken.date(),      // moment `date()` => Ruby `day`
       starResult.percentile_rank,
     ];
-  }), (quad) => { [quad[0], quad[1], quad[2]] });
+  }), (quad) => { [quad[0], quad[1], quad[2]]; });
 }
 
 export function toMoment(quad) {
