@@ -2148,7 +2148,7 @@ exports[`exportProps snapshots all placed 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-4--value"
+                          id="react-select-12--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -2156,7 +2156,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-4--value"
+                            aria-activedescendant="react-select-12--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -2225,7 +2225,7 @@ exports[`exportProps snapshots all placed 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-5--value"
+                          id="react-select-13--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -2233,7 +2233,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-5--value"
+                            aria-activedescendant="react-select-13--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -2302,7 +2302,7 @@ exports[`exportProps snapshots all placed 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-6--value"
+                          id="react-select-14--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -2310,7 +2310,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-6--value"
+                            aria-activedescendant="react-select-14--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -2861,7 +2861,7 @@ exports[`exportProps snapshots moves 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-7--value"
+                          id="react-select-15--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -2869,7 +2869,7 @@ exports[`exportProps snapshots moves 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-7--value"
+                            aria-activedescendant="react-select-15--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -2938,7 +2938,7 @@ exports[`exportProps snapshots moves 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-8--value"
+                          id="react-select-16--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -2946,7 +2946,7 @@ exports[`exportProps snapshots moves 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-8--value"
+                            aria-activedescendant="react-select-16--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -3015,7 +3015,7 @@ exports[`exportProps snapshots moves 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-9--value"
+                          id="react-select-17--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -3023,7 +3023,7 @@ exports[`exportProps snapshots moves 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-9--value"
+                            aria-activedescendant="react-select-17--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -3558,7 +3558,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-2--value"
+                          id="react-select-10--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -3566,7 +3566,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-2--value"
+                            aria-activedescendant="react-select-10--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -3635,7 +3635,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-3--value"
+                          id="react-select-11--value"
                         >
                           <div
                             className="Select-placeholder"
@@ -3643,7 +3643,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                             Select or type...
                           </div>
                           <div
-                            aria-activedescendant="react-select-3--value"
+                            aria-activedescendant="react-select-11--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -4192,7 +4192,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-10--value"
+                          id="react-select-18--value"
                         >
                           <div
                             className="Select-value"
@@ -4202,14 +4202,14 @@ exports[`exportProps snapshots with teachers 1`] = `
                             <span
                               aria-selected="true"
                               className="Select-value-label"
-                              id="react-select-10--value-item"
+                              id="react-select-18--value-item"
                               role="option"
                             >
                               Kevin
                             </span>
                           </div>
                           <div
-                            aria-activedescendant="react-select-10--value"
+                            aria-activedescendant="react-select-18--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -4278,7 +4278,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-11--value"
+                          id="react-select-19--value"
                         >
                           <div
                             className="Select-value"
@@ -4288,14 +4288,14 @@ exports[`exportProps snapshots with teachers 1`] = `
                             <span
                               aria-selected="true"
                               className="Select-value-label"
-                              id="react-select-11--value-item"
+                              id="react-select-19--value-item"
                               role="option"
                             >
                               Alex
                             </span>
                           </div>
                           <div
-                            aria-activedescendant="react-select-11--value"
+                            aria-activedescendant="react-select-19--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
@@ -4364,7 +4364,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                       >
                         <span
                           className="Select-multi-value-wrapper"
-                          id="react-select-12--value"
+                          id="react-select-20--value"
                         >
                           <div
                             className="Select-value"
@@ -4374,14 +4374,14 @@ exports[`exportProps snapshots with teachers 1`] = `
                             <span
                               aria-selected="true"
                               className="Select-value-label"
-                              id="react-select-12--value-item"
+                              id="react-select-20--value-item"
                               role="option"
                             >
                               Uri
                             </span>
                           </div>
                           <div
-                            aria-activedescendant="react-select-12--value"
+                            aria-activedescendant="react-select-20--value"
                             aria-disabled="true"
                             aria-expanded={false}
                             aria-label={undefined}
