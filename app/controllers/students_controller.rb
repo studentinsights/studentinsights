@@ -232,22 +232,18 @@ class StudentsController < ApplicationController
 
     @student_assessments = student_assessments_by_date.each_with_object({}) do |student_assessment, hash|
       test = student_assessment.assessment
-      test_name = case test.family
-        when "STAR" then "#{test.family} #{test.subject} Percentile"
-        else "#{test.family} #{test.subject}"
-      end
+      test_name = "#{test.family} #{test.subject}"
 
       hash[test_name] ||= []
 
       result = case test.family
         when "MCAS" then student_assessment.scale_score
         when "Next Gen MCAS" then student_assessment.scale_score
-        when "STAR" then student_assessment.percentile_rank
         when "DIBELS" then student_assessment.performance_level
         else student_assessment.scale_score
       end
 
-      hash[test_name].push([student_assessment.date_taken,result])
+      hash[test_name].push([student_assessment.date_taken, result])
     end.sort.to_h
 
     @serialized_data = {
