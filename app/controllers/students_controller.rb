@@ -248,8 +248,10 @@ class StudentsController < ApplicationController
 
     @star_math_results = @student.star_math_results.order(date_taken: :asc)
                                  .where(date_taken: @filter_from_date..@filter_to_date)
+                                 .map { |star| [star.date_taken, star.percentile_rank] }
     @star_reading_results = @student.star_reading_results.order(date_taken: :asc)
                                  .where(date_taken: @filter_from_date..@filter_to_date)
+                                 .map { |star| [star.date_taken, star.percentile_rank] }
 
     @student_assessments['STAR Math Percentile'] = @star_math_results
     @student_assessments['STAR Reading Percentile'] = @star_reading_results

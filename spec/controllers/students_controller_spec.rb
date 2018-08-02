@@ -722,9 +722,9 @@ describe StudentsController, :type => :controller do
           expect(assigns(:student_assessments)).to include("ACCESS Composite")
           expect(assigns(:student_assessments)["ACCESS Composite"]).to be_kind_of(Array)
           expect(assigns(:student_assessments)["ACCESS Composite"]).to eq([["2016-08-16 00:00:00 UTC", nil]])
-          expect(assigns(:student_assessments)).to include("STAR Mathematics Percentile")
-          expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to be_kind_of(Array)
-          expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to eq([["2017-02-16 00:00:00 UTC", 57]])
+          expect(assigns(:student_assessments)).to include("STAR Math Percentile")
+          expect(assigns(:student_assessments)["STAR Math Percentile"]).to be_kind_of(Array)
+          expect(assigns(:student_assessments)["STAR Math Percentile"]).to eq([["2017-02-16 00:00:00 UTC", 57]])
         end
       end
     end
