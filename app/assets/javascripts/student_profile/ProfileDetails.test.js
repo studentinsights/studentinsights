@@ -73,8 +73,14 @@ const helpers = {
       chartData: {
         mcas_series_ela_scaled: [[2015, 2, 18, 63]],
         mcas_series_math_scaled: [[2014, 9, 18, 23]],
-        star_series_reading_percentile: [[2016, 1, 18, 83]],
-        star_series_math_percentile: [[2012, 11, 18, 43]],
+        star_series_reading_percentile: [
+          {id: 1, date_taken: '2018-02-13T22:17:30.338Z', percentile_rank: 10, grade_equivalent: '1.00'},
+          {id: 2, date_taken: '2018-02-13T22:17:50.338Z', percentile_rank: 20, grade_equivalent: '2.00'},
+        ],
+        star_series_math_percentile: [
+          {id: 1, date_taken: '2018-03-13T22:17:30.338Z', percentile_rank: 10, grade_equivalent: '1.00'},
+          {id: 2, date_taken: '2018-03-13T22:17:50.338Z', percentile_rank: 20, grade_equivalent: '2.00'},
+        ],
       },
       iepDocuments: [],
       school_type: "HS",
