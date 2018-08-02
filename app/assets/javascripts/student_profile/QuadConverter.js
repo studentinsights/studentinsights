@@ -4,7 +4,7 @@ import {
   toSchoolYear,
   firstDayOfSchool
 } from '../helpers/schoolYear';
-import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate'
+import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate';
 
 
 // A quad is a 4-element array of numbers that represents numerical data on a given date.
