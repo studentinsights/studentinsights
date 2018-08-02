@@ -7,24 +7,16 @@ class FakeStarMathResultGenerator
     @math_percentile = rand(10..99)
   end
 
-  def star_math_assessment
-    @assessment ||= Assessment.find_by_family_and_subject('STAR', 'Mathematics')
-  end
-
   def next
-    @math_percentile += rand(-15..15)
-    @math_percentile = [0, @math_percentile, 100].sort[1]
     @test_date += @star_period_days + rand(-10..10)  # days
-    @grade_equivalent = [
-      nil, nil, nil, nil, "0.00", "4.00", "5.70", "2.60"
-    ].sample
+    @grade_equivalent = ["0.00", "4.00", "5.70", "2.60"].sample
 
     return {
-      assessment: star_math_assessment,
       date_taken: @test_date,
       percentile_rank: @math_percentile,
       grade_equivalent: @grade_equivalent,
-      student_id: @student.id
+      student_id: @student.id,
+      total_time: rand(0..120)
     }
   end
 end

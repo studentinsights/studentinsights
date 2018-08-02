@@ -219,14 +219,12 @@ class FakeStudent
       star_period_days: star_period_days
     }
 
-    generators = [
-      FakeStarMathResultGenerator.new(@student, options),
-      FakeStarReadingResultGenerator.new(@student, options)
-    ]
-    generators.each do |star_assessment_generator|
-      assessment_count.times do
-        StudentAssessment.new(star_assessment_generator.next).save!
-      end
+    assessment_count.times do
+      fake_math = FakeStarMathResultGenerator.new(@student, options).next
+      fake_reading = FakeStarReadingResultGenerator.new(@student, options).next
+
+      StarMathResult.new(fake_math).save!
+      StarReadingResult.new(fake_reading).save!
     end
   end
 
