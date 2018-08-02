@@ -246,6 +246,14 @@ class StudentsController < ApplicationController
       hash[test_name].push([student_assessment.date_taken, result])
     end.sort.to_h
 
+    @star_math_results = @student.star_math_results.order(date_taken: :asc)
+                                 .where(date_taken: @filter_from_date..@filter_to_date)
+    @star_reading_results = @student.star_reading_results.order(date_taken: :asc)
+                                 .where(date_taken: @filter_from_date..@filter_to_date)
+
+    @student_assessments['STAR Math Percentile'] = @star_math_results
+    @student_assessments['STAR Reading Percentile'] = @star_reading_results
+
     @serialized_data = {
       graph_date_range: {
         filter_from_date: @filter_from_date.to_time,
