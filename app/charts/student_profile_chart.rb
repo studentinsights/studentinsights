@@ -32,16 +32,6 @@ class StudentProfileChart < Struct.new :student
     end
   end
 
-  # v We need to reverse series that have school years as their x-axes so that they
-  #   appear on the chart in ascending instead of descending order.
-  #   Time axes on charts need to go from least recent to most recent, as opposed
-  #   to the CSV export which reads vertically downwards, most recent to least.
-
-  def reverse_for_highcharts(series)
-    return if series.blank?
-    series.reverse
-  end
-
   def chart_data
     data = serialize_student_for_profile_chart(student)
     {
