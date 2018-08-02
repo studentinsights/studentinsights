@@ -19,6 +19,21 @@ function allSchoolYearStarts(dateRange) {
   return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
 }
 
+// The Sparkline component expects this form; not going to re-write Sparkline
+// since student profile is being redesigned. So let's give Sparklines what
+// they want for now.
+export function toDeprecatedStarQuads(series) {
+  return series.map((starResult) => {
+    const dateTaken = toMomentFromRailsDateTime(starResult.date_taken);
+
+    return [
+      dateTaken.year(),
+      dateTaken.month() + 1, // moment months are zero-indexed (https://momentjs.com/docs/#/get-set/month/)
+      dateTaken.date(),      // moment `date()` => Ruby `day`
+      starResult.percentile_rank,
+    ];
+  });
+}
 
 export function toMoment(quad) {
   return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
