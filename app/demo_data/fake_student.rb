@@ -219,9 +219,9 @@ class FakeStudent
       days_between_tests: days_between_tests
     }
 
-    assessment_count.times do
-      fake_math = FakeStarMathResultGenerator.new(@student, options).next
-      fake_reading = FakeStarReadingResultGenerator.new(@student, options).next
+    assessment_count.times do |index|
+      fake_math = FakeStarMathResultGenerator.new(@student, options, index).next
+      fake_reading = FakeStarReadingResultGenerator.new(@student, options, index).next
 
       StarMathResult.new(fake_math).save!
       StarReadingResult.new(fake_reading).save!

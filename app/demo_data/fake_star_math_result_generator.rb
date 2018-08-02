@@ -1,20 +1,16 @@
 class FakeStarMathResultGenerator
-
-  def initialize(student, options = {})
+  def initialize(student, options = {}, index)
     @student = student
-    @test_date = options.fetch(:start_date)
+    @index = index
+    @start_date = options.fetch(:start_date)
     @days_between_tests = options.fetch(:days_between_tests)
-    @math_percentile = rand(10..99)
   end
 
   def next
-    @test_date += @days_between_tests + rand(-10..10)  # days
-    @grade_equivalent = ["0.00", "4.00", "5.70", "2.60"].sample
-
     return {
-      date_taken: @test_date,
-      percentile_rank: @math_percentile,
-      grade_equivalent: @grade_equivalent,
+      date_taken: @start_date + (@index * @days_between_tests),
+      percentile_rank: rand(10..99),
+      grade_equivalent: ["0.00", "4.00", "5.70", "2.60"].sample,
       student_id: @student.id,
       total_time: rand(0..120)
     }
