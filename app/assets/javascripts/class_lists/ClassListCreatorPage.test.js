@@ -72,7 +72,7 @@ it('integration test for state changes, server requests and autosave', done => {
 
   // This should update component state, but also trigger server
   // requests and other state changes too.
-  setTimeout(() => { 
+  setTimeout(() => {
     expect(wrapper.state().schoolId).toEqual(4);
     expect(wrapper.state().gradeLevelNextYear).toEqual('6');
     expect(wrapper.state().stepIndex).toEqual(2);
@@ -125,11 +125,11 @@ it('integration test for loading existing workspace', done => {
     expect(wrapper.state().feedbackText).toEqual('feedback!');
     expect(wrapper.state().principalNoteText).toEqual('principal!');
     expect(wrapper.state().planText).toEqual('plan!');
-    
+
     // Type other feedback values
     wrapper.instance().onFeedbackTextChanged('other feedback');
     expect(wrapper.state().feedbackText).toEqual('other feedback');
-    
+
     done();
   }, 10); // delay a tick for fetch requests
 });
