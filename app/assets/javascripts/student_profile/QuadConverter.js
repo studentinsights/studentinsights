@@ -6,7 +6,6 @@ import {
 } from '../helpers/schoolYear';
 import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate';
 
-
 // A quad is a 4-element array of numbers that represents numerical data on a given date.
 // The first three elements are (year, month, date) and the last is the value.
 // Months are 1-indexed (the way humans write months) and not 0-indexed like Date.getMonth.
@@ -23,7 +22,7 @@ function allSchoolYearStarts(dateRange) {
 // since student profile is being redesigned. So let's give Sparklines what
 // they want for now.
 export function toDeprecatedStarQuads(series) {
-  return series.map((starResult) => {
+  return _.uniq(series.map((starResult) => {
     const dateTaken = toMomentFromRailsDateTime(starResult.date_taken);
 
     return [
@@ -32,7 +31,7 @@ export function toDeprecatedStarQuads(series) {
       dateTaken.date(),      // moment `date()` => Ruby `day`
       starResult.percentile_rank,
     ];
-  });
+  }), (quad) => { [quad[0], quad[1], quad[2]] });
 }
 
 export function toMoment(quad) {
