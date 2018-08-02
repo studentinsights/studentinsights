@@ -2,13 +2,13 @@ class FakeStarMathResultGenerator
 
   def initialize(student, options = {})
     @student = student
-    @test_date = options[:start_date] || DateTime.new(2010, 9, 1)
-    @star_period_days = options[:star_period_days] || 90
+    @test_date = options.fetch(:start_date)
+    @days_between_tests = options.fetch(:days_between_tests)
     @math_percentile = rand(10..99)
   end
 
   def next
-    @test_date += @star_period_days + rand(-10..10)  # days
+    @test_date += @days_between_tests + rand(-10..10)  # days
     @grade_equivalent = ["0.00", "4.00", "5.70", "2.60"].sample
 
     return {

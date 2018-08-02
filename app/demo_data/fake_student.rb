@@ -209,14 +209,14 @@ class FakeStudent
   end
 
   def add_star_assessments
-    star_period_days = 90
+    days_between_tests = 90
     # Define semi-realistic date ranges for STAR assessments
     start_date = DateTime.new(2014, 9, 1)
     now = DateTime.now
-    assessment_count = (now - start_date).to_i / star_period_days
+    assessment_count = (now - start_date).to_i / days_between_tests
     options = {
       start_date: start_date,
-      star_period_days: star_period_days
+      days_between_tests: days_between_tests
     }
 
     assessment_count.times do
