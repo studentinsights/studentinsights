@@ -172,14 +172,6 @@ class Student < ActiveRecord::Base
     latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "ELA") || MissingStudentAssessment.new
   end
 
-  def latest_star_mathematics
-    star_math_results.order(date_taken: :desc).first || MissingStudentAssessment.new
-  end
-
-  def latest_star_reading
-    star_reading_results.order(date_taken: :desc).last || MissingStudentAssessment.new
-  end
-
   def update_recent_student_assessments
     update_attributes({
       most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,
@@ -188,8 +180,8 @@ class Student < ActiveRecord::Base
       most_recent_mcas_ela_performance: latest_mcas_ela.performance_level,
       most_recent_mcas_math_scaled: latest_mcas_mathematics.scale_score,
       most_recent_mcas_ela_scaled: latest_mcas_ela.scale_score,
-      most_recent_star_reading_percentile: latest_star_reading.percentile_rank,
-      most_recent_star_math_percentile: latest_star_mathematics.percentile_rank
+      most_recent_star_reading_percentile: star_reading_results.first.try(:percentile_rank),
+      most_recent_star_math_percentile: star_math_results.first.try(:percentile_rank)
     })
   end
 
