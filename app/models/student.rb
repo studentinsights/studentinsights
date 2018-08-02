@@ -22,6 +22,9 @@ class Student < ActiveRecord::Base
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
 
+  has_many :star_math_results, dependent: :destroy
+  has_many :star_reading_results, dependent: :destroy
+
   has_many :dashboard_tardies, -> {
     where('occurred_at >= ?', 1.year.ago)
   }, class_name: "Tardy"
@@ -142,14 +145,6 @@ class Student < ActiveRecord::Base
     ordered_results_by_family_and_subject("Next Gen MCAS", "ELA")
   end
 
-  def star_reading_results
-    ordered_results_by_family_and_subject("STAR", "Reading")
-  end
-
-  def star_math_results
-    ordered_results_by_family_and_subject("STAR", "Mathematics")
-  end
-
   def dibels
     ordered_results_by_family("DIBELS")
   end
@@ -178,11 +173,11 @@ class Student < ActiveRecord::Base
   end
 
   def latest_star_mathematics
-    latest_result_by_family_and_subject("STAR", "Mathematics") || MissingStudentAssessment.new
+    star_math_results.order(date_taken: :desc).first || MissingStudentAssessment.new
   end
 
   def latest_star_reading
-    latest_result_by_family_and_subject("STAR", "Reading") || MissingStudentAssessment.new
+    star_reading_results.order(date_taken: :desc).last || MissingStudentAssessment.new
   end
 
   def update_recent_student_assessments
