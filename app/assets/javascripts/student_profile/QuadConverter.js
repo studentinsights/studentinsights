@@ -4,6 +4,7 @@ import {
   toSchoolYear,
   firstDayOfSchool
 } from '../helpers/schoolYear';
+import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate'
 
 
 // A quad is a 4-element array of numbers that represents numerical data on a given date.
@@ -35,18 +36,14 @@ export function toPair(quad){
   return [toMoment(quad).valueOf(), toValue(quad)];
 }
 
-// The "Star Object" adds an additional data point (4-indexed) to a quad.
-// This allows the rendering of gradeLevelEquivalent data in highcharts tooltip
-export function toStarObject(quad){
-  return {
-    x: toMoment(quad).valueOf(),
-    y: toValue(quad),
-    gradeLevelEquivalent: toGradeLevelEquivalent(quad)
-  };
-}
+export function toStarObject(starObject) {
+  const {date_taken} = starObject;
 
-export function toGradeLevelEquivalent(quad){
-  return quad[4];
+  return {
+    x: toMomentFromRailsDateTime(date_taken).valueOf(),
+    y: starObject.percentile_rank,
+    gradeLevelEquivalent: starObject.grade_level_equivalent
+  };
 }
 
 // These functions are provided for constructing quads.

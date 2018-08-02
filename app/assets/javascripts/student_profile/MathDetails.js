@@ -113,13 +113,15 @@ export default class MathDetails extends React.Component {
   }
 
   renderStarMath() {
+    const starMathPercentile = this.props.chartData.star_series_math_percentile;
+
     return (
       <div id="starMath" style={styles.container}>
         {this.renderHeader('STAR Math, last 4 years')}
         <ProfileChart
           quadSeries={[{
             name: 'Percentile rank',
-            data: this.props.chartData.star_series_math_percentile
+            data: starMathPercentile
           }]}
           titleText="STAR Math, last 4 years"
           student={this.props.student}

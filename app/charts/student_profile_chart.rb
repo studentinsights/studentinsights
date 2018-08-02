@@ -1,5 +1,11 @@
 class StudentProfileChart < Struct.new :student
 
+  def percentile_ranks_to_highcharts(star_results)
+    return nil unless star_results
+
+    star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent)
+  end
+
   def interventions_to_highcharts
     return if student.interventions.blank?
     student.interventions.with_start_and_end_dates.map do |intervention|
@@ -11,17 +17,6 @@ class StudentProfileChart < Struct.new :student
     return if student_assessments.blank?
     student_assessments.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.growth_percentile]
-    end
-  end
-
-  def percentile_ranks_to_highcharts(student_assessments)
-    return if student_assessments.blank?
-    student_assessments.map do |s|
-      if s.grade_equivalent == nil
-        [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank]
-      else
-        [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank, s.grade_equivalent]
-      end
     end
   end
 
