@@ -14,7 +14,7 @@ import {
   toDate
 } from './QuadConverter';
 import StudentSectionsRoster from './StudentSectionsRoster';
-
+import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate';
 
 export default class ProfileDetails extends React.Component {
   constructor(props) {
@@ -94,22 +94,24 @@ export default class ProfileDetails extends React.Component {
         date: toDate(quad)
       });
     });
-    _.each(this.props.chartData.star_series_reading_percentile, quad => {
-      // var score = quad[3];
+    _.each(this.props.chartData.star_series_reading_percentile, starObject => {
+      const dateTaken = toMomentFromRailsDateTime(starObject.date_taken);
+
       events.push({
         type: 'STAR-Reading',
-        id: toMoment(quad).format("MM-DD"),
-        message: name + ' scored in the ' + toValue(quad) +'th percentile on the Reading section of STAR.',
-        date: toDate(quad)
+        id: dateTaken.format(),
+        message: `${name} scored in the ${starObject.percentile_rank}th percentile on the Reading section of STAR.`,
+        date: dateTaken.toDate()
       });
     });
-    _.each(this.props.chartData.star_series_math_percentile, quad => {
-      // var score = quad[3];
+    _.each(this.props.chartData.star_series_math_percentile, starObject => {
+      const dateTaken = toMomentFromRailsDateTime(starObject.date_taken);
+
       events.push({
         type: 'STAR-Math',
-        id: toMoment(quad).format("MM-DD"),
-        message: name + ' scored in the ' + toValue(quad) +'th percentile on the Math section of STAR.',
-        date: toDate(quad)
+        id: dateTaken.format(),
+        message: `${name} scored in the ${starObject.percentile_rank}th percentile on the Math section of STAR.`,
+        date: dateTaken.toDate()
       });
     });
     _.each(this.props.feed.deprecated.interventions, obj => {
