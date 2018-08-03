@@ -191,15 +191,28 @@ class FakeStudent
   end
 
   def add_mcas_assessments
-    generators = [
-      FakeMcasMathResultGenerator.new(@student),
-      FakeMcasElaResultGenerator.new(@student),
-      FakeNextGenMcasMathResultGenerator.new(@student),
-      FakeNextGenMcasElaResultGenerator.new(@student)
+    days_between_tests = 360  # Define semi-realistic date ranges for MCAS assessments
+    start_date = DateTime.new(2014, 9, 1)
+    now = DateTime.now
+    assessment_count = (now - start_date).to_i / days_between_tests
+    options = {
+      start_date: start_date,
+      days_between_tests: days_between_tests
+    }
+
+    generator_classes = [
+      FakeMcasMathResultGenerator,
+      FakeMcasElaResultGenerator,
+      FakeNextGenMcasMathResultGenerator,
+      FakeNextGenMcasElaResultGenerator,
     ]
 
-    generators.each do |generator|
-      4.times { StudentAssessment.new(generator.next).save! }
+    generator_classes.each do |generator_class|
+      assessment_count.times do |index|
+        generator = generator_class.new(@student, options, index)
+
+        StudentAssessment.new(generator.next).save!
+      end
     end
   end
 
@@ -209,8 +222,7 @@ class FakeStudent
   end
 
   def add_star_assessments
-    days_between_tests = 90
-    # Define semi-realistic date ranges for STAR assessments
+    days_between_tests = 90  # Define semi-realistic date ranges for STAR assessments
     start_date = DateTime.new(2014, 9, 1)
     now = DateTime.now
     assessment_count = (now - start_date).to_i / days_between_tests
