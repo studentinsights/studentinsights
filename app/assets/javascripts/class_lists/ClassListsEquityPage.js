@@ -49,7 +49,7 @@ export class ClassListsEquityPageView extends React.Component {
 
     if (classListsWithDimensions.length === 0) return <div>No class lists</div>;
 
-    const sortedClassLists = _.sortByOrder(classListsWithDimensions, classList => {
+    const sortedClassLists = _.orderBy(classListsWithDimensions, classList => {
       return [
         classList.school.name,
         rankedByGradeLevel(classList.grade_level_next_year),

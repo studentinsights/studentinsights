@@ -119,7 +119,7 @@ describe('#mergeCards', () => {
     const moreCards = moreCardsJson().feed_cards;
     const mergedCards = mergeCards(homeFeedJson.feed_cards, moreCards);
     expect(mergedCards.length).toEqual(21);
-    expect(_.last(mergedCards)).toEqual(_.first(moreCards));
+    expect(_.last(mergedCards)).toEqual(_.head(moreCards));
   });
 
   it('preserves server sort order for events on same date', () => {

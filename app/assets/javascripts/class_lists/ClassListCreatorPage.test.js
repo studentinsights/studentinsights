@@ -27,7 +27,7 @@ function mountWithContext(props) {
 }
 
 function anyServerCallsIncludePath(string) {
-  return _.any(fetchMock.calls(), call => {
+  return _.some(fetchMock.calls(), call => {
     const path = call[0];
     return path.indexOf(string) !== -1;
   });

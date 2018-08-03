@@ -191,5 +191,5 @@ export function searchTextMatches(searchText, student) {
     student.program_assigned,
     student.sped_placement
   ]).join(' ').toLowerCase();
-  return _.all(tokens, token => studentText.indexOf(token) !== -1);
+  return _.every(tokens, token => studentText.indexOf(token) !== -1);
 }

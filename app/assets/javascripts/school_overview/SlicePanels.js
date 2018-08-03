@@ -26,7 +26,7 @@ class SlicePanels extends React.Component {
     const items = _.compact(uniqueValues).map(value => {
       return this.createItem(value, Filters.Equal(key, value));
     });
-    const itemsWithNull = (_.any(uniqueValues, _.isNull))
+    const itemsWithNull = (_.some(uniqueValues, _.isNull))
       ? items.concat(this.createItem('None', Filters.Null(key)))
       : items;
     const students = this.props.allStudents;
@@ -39,7 +39,7 @@ class SlicePanels extends React.Component {
     const students = this.props.allStudents;
     const activeServices = _.compact(_.flatten(_.map(students, 'active_services')));
     const activeServiceTypeIds = activeServices.map(service => parseInt(service.service_type_id, 10));
-    const allServiceTypeIds = _.pull(_.unique(activeServiceTypeIds), 508); // Deprecated Math intervention service type
+    const allServiceTypeIds = _.pull(_.uniq(activeServiceTypeIds), 508); // Deprecated Math intervention service type
 
     const serviceItems = allServiceTypeIds.map(serviceTypeId => {
       const serviceName = this.props.serviceTypesIndex[serviceTypeId].name;
@@ -55,7 +55,7 @@ class SlicePanels extends React.Component {
   summerItems () {
     const students = this.props.allStudents;
     const summerServices = _.compact(_.flatten(_.map(students, 'summer_services')));
-    const allSummerServiceTypeIds = _.unique(summerServices.map(service => {
+    const allSummerServiceTypeIds = _.uniq(summerServices.map(service => {
       return parseInt(service.service_type_id, 10);
     }));
 
@@ -71,7 +71,7 @@ class SlicePanels extends React.Component {
   mergedNoteItems() {
     const students = this.props.allStudents;
     const allEventNotes = _.compact(_.flatten(_.map(students, 'event_notes')));
-    const allEventNoteTypesIds = _.unique(allEventNotes.map(eventNote => {
+    const allEventNoteTypesIds = _.uniq(allEventNotes.map(eventNote => {
       return parseInt(eventNote.event_note_type_id, 10);
     }));
     const eventNoteItems = allEventNoteTypesIds.map(eventNoteTypeId => {
@@ -268,7 +268,7 @@ class SlicePanels extends React.Component {
 
   renderGradeTable() {
     const key = 'grade';
-    const uniqueValues = _.compact(_.unique(_.map(this.props.allStudents, key)));
+    const uniqueValues = _.compact(_.uniq(_.map(this.props.allStudents, key)));
     const items = uniqueValues.map(value => {
       return this.createItem(value, Filters.Equal(key, value));
     });
@@ -304,7 +304,7 @@ class SlicePanels extends React.Component {
 
     if (registrationDates.length === 0) return null;
 
-    const uniqueValues =_.unique(registrationDates.map(regDate => {
+    const uniqueValues =_.uniq(registrationDates.map(regDate => {
       return Math.floor((new Date() - new Date(regDate)) / (1000 * 60 * 60 * 24 * 365));
     }));
 
@@ -322,7 +322,7 @@ class SlicePanels extends React.Component {
   }
 
   renderSimpleTable(title, key, props = {}) {
-    const uniqueValues = _.unique(_.map(props.students || this.props.allStudents, key));
+    const uniqueValues = _.uniq(_.map(props.students || this.props.allStudents, key));
     const items = this.createItemsFromValues(key, uniqueValues);
     return this.renderTable({
       ...props,

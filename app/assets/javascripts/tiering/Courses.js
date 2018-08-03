@@ -3,7 +3,7 @@ import _ from 'lodash';
 // eg see http://www.somerville.k12.ma.us/sites/default/files/SHS_2018-2019%20Program%20of%20Studies%20Final%20-%20Jan%2010%202018.pdf
 
 function matches(text, patterns) {
-  return _.any(patterns, pattern => text.indexOf(pattern) !== -1);
+  return _.some(patterns, pattern => text.indexOf(pattern) !== -1);
 }
 
 export function labelAssignment(assignment) {
@@ -37,9 +37,9 @@ export function labelAssignment(assignment) {
 
 // This doesn't work exactly, since multiple sections may match
 export function firstMatch(assignments, patterns) {
-  return _.first(assignments.filter(assignment => {
+  return _.head(assignments.filter(assignment => {
     const text = assignment.section.course_description;
-    return _.any(patterns, pattern => text.indexOf(pattern) !== -1);
+    return _.some(patterns, pattern => text.indexOf(pattern) !== -1);
   }));
 }
 

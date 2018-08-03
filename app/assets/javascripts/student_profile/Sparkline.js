@@ -16,7 +16,7 @@ export default class Sparkline extends React.Component {
       return quad[3];
     }));
     if (filteredQuadValues.length < 2) return 0;
-    return _.last(filteredQuadValues) - _.first(filteredQuadValues);
+    return _.last(filteredQuadValues) - _.head(filteredQuadValues);
   }
 
   render() {

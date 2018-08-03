@@ -143,8 +143,8 @@ export default class LoginActivityPage extends React.Component {
     The most up-to-date syntax is different.
     See https://lodash.com/docs/3.10.1#filter.
     */
-    const successfulAttempts = _.filter(data, 'success', true);
-    const failedAttempts = _.filter(data, 'success', false);
+    const successfulAttempts = _.filter(data, _.bind('success', true));
+    const failedAttempts = _.filter(data, _.bind('success', false));
 
     return (
       <div key={index}

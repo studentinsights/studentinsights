@@ -58,7 +58,7 @@ export default class ProfileChart extends React.Component {
       return `<b>Grade ${grade}<br>started</b>`;
     };
 
-    return _.object(
+    return _.zipObject(
       startDates.map(date => date.valueOf()),
       startDates.map((date, i) => {
         return create_label(

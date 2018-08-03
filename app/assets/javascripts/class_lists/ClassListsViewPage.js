@@ -66,7 +66,7 @@ export class ClassListsViewPageView extends React.Component {
     const {workspaces, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
-    const sortedWorkspaces = _.sortByOrder(workspaces, workspace => {
+    const sortedWorkspaces = _.orderBy(workspaces, workspace => {
       const classList = workspace.class_list;
       return [
         classList.school.name,

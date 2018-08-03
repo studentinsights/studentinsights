@@ -27,7 +27,7 @@ function domNodeToText(node) {
 
   if (
     node.previousSibling
-    && _(['BR', 'DIV', 'P']).contains(node.tagName)
+    && _(['BR', 'DIV', 'P']).includes(node.tagName)
   ) {
     text = '\n';
   }

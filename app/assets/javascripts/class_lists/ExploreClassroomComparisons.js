@@ -15,7 +15,7 @@ export default class ExploreClassroomComparisons extends React.Component {
     super(props);
 
     this.state = {
-      gradeFilter: _.first(orderedGrades)
+      gradeFilter: _.head(orderedGrades)
     };
 
     this.onGradeClicked = this.onGradeClicked.bind(this);
@@ -361,7 +361,7 @@ const makeCountMap = function(students, key) {
 // if they're not present.
 const completeCountBy = function(students, key, allValues) {
   return allValues.map((value) => {
-    const matches = _.where(students, { [key]: value });
+    const matches = _.filter(students, { [key]: value });
     return { [key]: value, count: matches.length };
   });
 };
