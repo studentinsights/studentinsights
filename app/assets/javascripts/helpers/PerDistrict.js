@@ -151,7 +151,7 @@ export function prettyProgramText(programAssigned, spedPlacement) {
 export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
   if (districtKey === NEW_BEDFORD) return 400; // bbst
   if (districtKey === SOMERVILLE) return 300; // sst
-  
+
   return 300;
 }
 
@@ -177,10 +177,11 @@ export function takeNotesChoices(districtKey) {
 // In tables of students, what eventNoteTypeIds should be shown as columns with notes
 // about those students?
 export function studentTableEventNoteTypeIds(districtKey, schoolType) {
-  const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
-  if (isSomervilleOrDemo && schoolType === 'ESMS') return [300, 301];
-  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306];
   if (districtKey === NEW_BEDFORD) return [400];
-  
-  throw new Error(`unsupported districtKey: ${districtKey}`);
+  const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
+  if (!isSomervilleOrDemo) throw new Error(`unsupported districtKey: ${districtKey}`);
+
+  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306];
+  if (isSomervilleOrDemo) return [300, 301];  // Includes elementary/middle, Capuano early childhood,
+                                              // and SPED.
 }
