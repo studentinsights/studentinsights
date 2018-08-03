@@ -19,7 +19,6 @@ RSpec.describe BehaviorImporter do
   }
 
   describe '#import_row' do
-
     let(:importer) { behavior_importer }
     before { importer.send(:import_row, row) }
     let(:incidents) { student.discipline_incidents }
@@ -151,6 +150,38 @@ RSpec.describe BehaviorImporter do
         expect(incident.reload.incident_description).to eq("pencil that didn’t need to be")
       end
     end
+  end
 
+  describe '#import' do
+    let(:csv_string) { File.read("#{Rails.root}/spec/fixtures/fake_behavior_export.txt") }
+    let(:transformer) { StreamingCsvTransformer.new(LogHelper::FakeLog.new) }
+    let(:output) { transformer.transform(csv_string) }
+
+    before do
+      allow_any_instance_of(CsvDownloader).to receive(:get_data).and_return output
+    end
+
+    before do
+      %w[10 11 13 14].each do |local_id|
+        FactoryBot.create(:student, local_id: local_id)
+      end
+    end
+
+    context 'no discipline records in database' do
+      it 'creates three new rows' do
+        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 3
+      end
+    end
+
+    context 'existing discipline incident record, in scope' do
+      let!(:discipline_incident) { FactoryBot.create(:discipline_incident) }
+      it 'creates three new rows' do
+        p 'discipline_incident'
+        p discipline_incident
+        p 'discipline_incident.all'
+        p DisciplineIncident.all
+        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 3
+      end
+    end
   end
 end
