@@ -4,12 +4,6 @@ class StudentProfileChart < Struct.new :student
     return nil unless star_results
 
     star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent)
-
-    star_results.each do |result|
-      result.date_taken = result.date_taken.in_time_zone('Eastern Time (US & Canada)')
-    end
-
-    star_results
   end
 
   def interventions_to_highcharts
