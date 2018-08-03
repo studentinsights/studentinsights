@@ -1,4 +1,3 @@
-import Highcharts from 'highcharts';
 import moment from 'moment';
 
 const ProfileChartSettings = {};
