@@ -22,7 +22,7 @@ function allSchoolYearStarts(dateRange) {
 // since student profile is being redesigned. So let's give Sparklines what
 // they want for now.
 export function toDeprecatedStarQuads(series) {
-  return _.uniq(series.map((starResult) => {
+  return _.uniqBy(series.map((starResult) => {
     const dateTaken = toMomentFromRailsDateTime(starResult.date_taken);
 
     return [
