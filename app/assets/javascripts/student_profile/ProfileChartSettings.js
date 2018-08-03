@@ -1,4 +1,5 @@
 import Highcharts from 'highcharts';
+import moment from 'moment';
 
 const ProfileChartSettings = {};
 export default ProfileChartSettings;
@@ -78,16 +79,18 @@ ProfileChartSettings.star_chart_base_options = {
   },
   tooltip: {
     formatter() {
-      const date = Highcharts.dateFormat('%A, %b %e, %Y %l:%M%p', new Date(this.x));
-      const percentileRank = this.y;
-      const gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;
+      const dateTaken = moment(new Date(this.x));
+      const formattedDate = dateTaken.local().format('MMMM Do YYYY, h:mm:ss a');
 
-      if ( gradeLevelEquivalent === undefined ) {
-        return date + '<br>Percentile Rank:<b> ' + percentileRank;
-      } else {
-        return date + '<br>Percentile Rank:<b> ' + percentileRank +
-               '</b><br>Grade Level Equivalent: <b>' + gradeLevelEquivalent;
-      }
+      const percentileRank = this.y;
+      const formattedPercentileRank = `<br/>Percentile Rank: <b>${percentileRank}</b>`;
+
+      const gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;
+      const formattedGradeEquivalent = `<br>Grade Level Equivalent: <b>${gradeLevelEquivalent}</b>`;
+
+      return `${formattedDate}
+              ${formattedPercentileRank}
+              ${gradeLevelEquivalent ? formattedGradeEquivalent : ''}`;
     },
     shared: true
   },

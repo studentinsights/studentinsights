@@ -100,7 +100,7 @@ export default class ProfileDetails extends React.Component {
       events.push({
         type: 'STAR-Reading',
         id: dateTaken.format(),
-        message: `${name} scored in the ${starObject.percentile_rank}th percentile on the Reading section of STAR.`,
+        message: `${name} scored in the ${starObject.percentile_rank}th percentile on the Reading section of STAR at ${dateTaken.local().format('h:mma')}.`,
         date: dateTaken.toDate()
       });
     });
@@ -110,7 +110,7 @@ export default class ProfileDetails extends React.Component {
       events.push({
         type: 'STAR-Math',
         id: dateTaken.format(),
-        message: `${name} scored in the ${starObject.percentile_rank}th percentile on the Math section of STAR.`,
+        message: `${name} scored in the ${starObject.percentile_rank}th percentile on the Math section of STAR at ${dateTaken.local().format('h:mma')}.`,
         date: dateTaken.toDate()
       });
     });
