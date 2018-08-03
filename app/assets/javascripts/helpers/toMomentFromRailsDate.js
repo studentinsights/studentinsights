@@ -1,6 +1,5 @@
 import moment from 'moment';
 
-
 export function toMomentFromRailsDate(railsDateString) {
   // Parse moment from client-side serialized Rails timestamp.
   //
@@ -20,4 +19,12 @@ export function toMomentFromRailsDate(railsDateString) {
   const trimmedDate = railsDateString.slice(0, 10);
 
   return moment.utc(trimmedDate, 'YYYY-MM-DD');
+}
+
+export function toMomentFromRailsDateTime(railsDateTimeString) {
+  // In this function we want to parse time as well
+
+  const trimmedDate = railsDateTimeString.slice(0, 19);
+
+  return moment.utc(trimmedDate);
 }

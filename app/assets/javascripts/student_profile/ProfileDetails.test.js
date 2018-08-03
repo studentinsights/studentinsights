@@ -21,8 +21,12 @@ function testProps(props = {}) {
     chartData: {
       mcas_series_ela_scaled: [[2015, 2, 18, 63]],
       mcas_series_math_scaled: [[2014, 9, 18, 23]],
-      star_series_reading_percentile: [[2016, 1, 18, 83]],
-      star_series_math_percentile: [[2012, 11, 18, 43]],
+      star_series_reading_percentile: [
+        {id: 1, date_taken: '2016-01-18T00:00:00.000Z', percentile_rank: 83, grade_equivalent: '1.00'},
+      ],
+      star_series_math_percentile: [
+        {id: 1, date_taken: '2012-11-18T00:00:00.000Z', percentile_rank: 43, grade_equivalent: '1.00'},
+      ],
     },
     iepDocuments: [],
     services: [],
@@ -65,8 +69,12 @@ const helpers = {
       chartData: {
         mcas_series_ela_scaled: [[2015, 2, 18, 63]],
         mcas_series_math_scaled: [[2014, 9, 18, 23]],
-        star_series_reading_percentile: [[2016, 1, 18, 83]],
-        star_series_math_percentile: [[2012, 11, 18, 43]],
+        star_series_reading_percentile: [
+          {id: 1, date_taken: '2016-01-18T00:00:00.000Z', percentile_rank: 83, grade_equivalent: '1.00'},
+        ],
+        star_series_math_percentile: [
+          {id: 1, date_taken: '2012-10-18T00:00:00.000Z', percentile_rank: 43, grade_equivalent: '1.00'},
+        ],
       },
       iepDocuments: [],
       school_type: "HS",
@@ -141,12 +149,12 @@ describe('rendering', () => {
       'September 18th, 2014:MCAS MathTest scored a 23 on the Math section of the MCAS.'
     );
 
-    expect($("#school-year-starting-2015 > #STAR-Reading-01-18", el).text()).toEqual(
-      'January 18th, 2016:STAR ReadingTest scored in the 83th percentile on the Reading section of STAR.'
+    expect($("#school-year-starting-2015 > #STAR-Reading-2016-01-18T00\\:00\\:00Z", el).text()).toEqual(
+      'January 18th, 2016:STAR ReadingTest scored in the 83th percentile on the Reading section of STAR at 7:00pm.'
     );
 
-    expect($("#school-year-starting-2012 > #STAR-Math-11-18", el).text()).toEqual(
-      'November 18th, 2012:STAR MathTest scored in the 43th percentile on the Math section of STAR.'
+    expect($("#school-year-starting-2012 > #STAR-Math-2012-11-18T00\\:00\\:00Z", el).text()).toEqual(
+      'November 18th, 2012:STAR MathTest scored in the 43th percentile on the Math section of STAR at 7:00pm.'
     );
 
     expect($("#school-year-starting-2010 > #Note-997", el).text()).toEqual(

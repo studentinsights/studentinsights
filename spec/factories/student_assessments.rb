@@ -36,27 +36,6 @@ FactoryBot.define do
           scale_score 290
         end
       end
-      factory :star_assessment do
-        factory :star_math_assessment do
-          association :assessment, subject: "Mathematics", family: "STAR"
-          factory :star_math_warning_assessment do
-            percentile_rank 8
-          end
-          factory :star_assessment_between_30_85 do
-            percentile_rank 40
-          end
-          factory :star_math_assessment_on_different_day do
-            date_taken DateTime.new(2015, 6, 20)
-            percentile_rank 10
-          end
-        end
-        factory :star_reading_assessment do
-          association :assessment, subject: "Reading", family: "STAR"
-          factory :star_assessment_with_irl_above_5 do
-            instructional_reading_level 6
-          end
-        end
-      end
     end
     factory :dibels do
       association :assessment, family: "DIBELS"

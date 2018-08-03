@@ -4,7 +4,6 @@ import {merge} from '../helpers/merge';
 import ProfileChart from './ProfileChart';
 import ProfileChartSettings from './ProfileChartSettings';
 
-
 /*
 This renders details about ELA performance and growth in the student profile page.
 It's mostly historical charts.
@@ -80,7 +79,7 @@ export default class ElaDetails extends React.Component {
   renderNavBar() {
     const {hideNavbar} = this.props;
     if (hideNavbar) return null;
-    
+
     return (
       <div style={styles.navBar}>
         <a style={styles.navBar} href="#Star">
@@ -112,15 +111,17 @@ export default class ElaDetails extends React.Component {
   }
 
   renderStarReading() {
+    const {chartData} = this.props;
+
+    // HighCharts wants time series data sorted in ascending order by time:
+    const starReading = chartData.star_series_reading_percentile.reverse();
+
     return (
-      <div id="Star" style={styles.container}>
+      <div id='Star' style={styles.container}>
         {this.renderHeader('STAR Reading, last 4 years')}
         <ProfileChart
-          quadSeries={[{
-            name: 'Percentile rank',
-            data: this.props.chartData.star_series_reading_percentile
-          }]}
-          titleText=""
+          quadSeries={[{ name: 'Percentile rank', data: starReading }]}
+          titleText=''
           student={this.props.student}
           yAxis={merge(this.percentileYAxis(), {
             title: { text: 'Percentile rank' }

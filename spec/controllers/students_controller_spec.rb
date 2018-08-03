@@ -709,16 +709,22 @@ describe StudentsController, :type => :controller do
         it 'assigns the student\'s assesments correctly' do
           assessment = FactoryBot.create(:assessment, :access)
           student_assessment = FactoryBot.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
-          assessment = FactoryBot.create(:assessment, :math, :star)
-          student_assessment = FactoryBot.create(:star_math_assessment, student: student, assessment: assessment, date_taken: '2017-02-16', percentile_rank: 57)
+
+          student_assessment = StarMathResult.create!(
+            student: student,
+            date_taken: '2017-02-16',
+            percentile_rank: 57,
+            grade_equivalent: '5.0',
+            total_time: 10)
+
           get_student_report_pdf(student.id)
 
           expect(assigns(:student_assessments)).to include("ACCESS Composite")
           expect(assigns(:student_assessments)["ACCESS Composite"]).to be_kind_of(Array)
           expect(assigns(:student_assessments)["ACCESS Composite"]).to eq([["2016-08-16 00:00:00 UTC", nil]])
-          expect(assigns(:student_assessments)).to include("STAR Mathematics Percentile")
-          expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to be_kind_of(Array)
-          expect(assigns(:student_assessments)["STAR Mathematics Percentile"]).to eq([["2017-02-16 00:00:00 UTC", 57]])
+          expect(assigns(:student_assessments)).to include("STAR Math Percentile")
+          expect(assigns(:student_assessments)["STAR Math Percentile"]).to be_kind_of(Array)
+          expect(assigns(:student_assessments)["STAR Math Percentile"]).to eq([["2017-02-16 00:00:00 UTC", 57]])
         end
       end
     end

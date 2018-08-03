@@ -1,5 +1,11 @@
 class StudentProfileChart < Struct.new :student
 
+  def percentile_ranks_to_highcharts(star_results)
+    return nil unless star_results
+
+    star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent)
+  end
+
   def interventions_to_highcharts
     return if student.interventions.blank?
     student.interventions.with_start_and_end_dates.map do |intervention|
@@ -14,32 +20,11 @@ class StudentProfileChart < Struct.new :student
     end
   end
 
-  def percentile_ranks_to_highcharts(student_assessments)
-    return if student_assessments.blank?
-    student_assessments.map do |s|
-      if s.grade_equivalent == nil
-        [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank]
-      else
-        [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.percentile_rank, s.grade_equivalent]
-      end
-    end
-  end
-
   def scale_scores_to_highcharts(student_assessments)
     return if student_assessments.blank?
     student_assessments.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.scale_score]
     end
-  end
-
-  # v We need to reverse series that have school years as their x-axes so that they
-  #   appear on the chart in ascending instead of descending order.
-  #   Time axes on charts need to go from least recent to most recent, as opposed
-  #   to the CSV export which reads vertically downwards, most recent to least.
-
-  def reverse_for_highcharts(series)
-    return if series.blank?
-    series.reverse
   end
 
   def chart_data

@@ -113,14 +113,16 @@ export default class MathDetails extends React.Component {
   }
 
   renderStarMath() {
+    const {chartData} = this.props;
+
+    // HighCharts wants time series data sorted in ascending order by time:
+    const starMathPercentile = chartData.star_series_math_percentile.reverse();
+
     return (
       <div id="starMath" style={styles.container}>
         {this.renderHeader('STAR Math, last 4 years')}
         <ProfileChart
-          quadSeries={[{
-            name: 'Percentile rank',
-            data: this.props.chartData.star_series_math_percentile
-          }]}
+          quadSeries={[{ name: 'Percentile rank', data: starMathPercentile }]}
           titleText="STAR Math, last 4 years"
           student={this.props.student}
           yAxis={merge(this.percentileYAxis(), {

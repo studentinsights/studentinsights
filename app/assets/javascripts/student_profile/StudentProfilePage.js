@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
+import {toDeprecatedStarQuads, cumulativeByMonthFromEvents} from './QuadConverter';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import BarChartSparkline from './BarChartSparkline';
 import AttendanceDetails from './AttendanceDetails';
@@ -12,7 +13,6 @@ import NotesDetails from './NotesDetails';
 import Scales from './Scales';
 import SummaryList from './SummaryList';
 import SummaryWithoutSparkline from './SummaryWithoutSparkline';
-import {cumulativeByMonthFromEvents} from './QuadConverter';
 import Sparkline from './Sparkline';
 import StudentProfileHeader from './StudentProfileHeader';
 import ProfileDetails from './ProfileDetails';
@@ -421,7 +421,9 @@ export default class StudentProfilePage extends React.Component {
           {this.renderWrappedSummary({
             caption: 'STAR Reading',
             value: student.most_recent_star_reading_percentile,
-            sparkline: this.renderSparkline(chartData.star_series_reading_percentile || [])
+            sparkline: this.renderSparkline((chartData.star_series_reading_percentile)
+              ? toDeprecatedStarQuads(chartData.star_series_reading_percentile)
+              : [])
           })}
           {this.renderWrappedSummary({
             caption: 'MCAS ELA Score',
@@ -484,7 +486,9 @@ export default class StudentProfilePage extends React.Component {
           {this.renderWrappedSummary({
             caption: 'STAR Math',
             value: student.most_recent_star_math_percentile,
-            sparkline: this.renderSparkline(chartData.star_series_math_percentile || [])
+            sparkline: this.renderSparkline((chartData.star_series_math_percentile)
+              ? toDeprecatedStarQuads(chartData.star_series_math_percentile)
+              : [])
           })}
           {this.renderWrappedSummary({
             caption: 'MCAS Math Score',

@@ -93,7 +93,7 @@ FactoryBot.define do
     factory :pre_k_student do
       grade "PK"
     end
-    factory :student_we_want_to_update do       # Test importing data from X2, STAR
+    factory :student_we_want_to_update do       # Test importing data
       local_id "10"                             # State ID matches fixture
       home_language "English"
     end
@@ -139,44 +139,6 @@ FactoryBot.define do
         end
       end
 
-      factory :student_with_mcas_math_advanced_and_star_math_warning_assessments do
-        grade '6'
-        after(:create) do |student|
-          FactoryBot.create(:mcas_math_advanced_assessment, student: student)
-          FactoryBot.create(:star_math_warning_assessment, student: student)
-        end
-      end
-
-      factory :student_with_star_math_assessment do
-        grade '6'
-        after(:create) do |student|
-          FactoryBot.create(:star_math_assessment, student: student)
-        end
-      end
-
-      factory :student_with_star_math_and_star_reading_same_day do
-        grade '6'
-        after(:create) do |student|
-          FactoryBot.create(:star_math_assessment, student: student)
-          FactoryBot.create(:star_reading_assessment, student: student)
-        end
-      end
-
-      factory :student_with_star_math_student_assessments_different_days do
-        grade '6'
-        after(:create) do |student|
-          FactoryBot.create(:star_math_assessment, student: student)
-          FactoryBot.create(:star_math_assessment_on_different_day, student: student)
-        end
-      end
-
-      factory :student_with_star_assessment_between_30_85 do
-        grade '6'
-        after(:create) do |student|
-          FactoryBot.create(:star_assessment_between_30_85, student: student)
-        end
-      end
-
       factory :student_with_dibels do
         after(:create) do |student|
           FactoryBot.create(:dibels_with_performance_level, student: student)
@@ -207,21 +169,6 @@ FactoryBot.define do
           FactoryBot.create(:atp_intervention, student: student)
           FactoryBot.create(:more_recent_atp_intervention, student: student)
         end
-      end
-    end
-
-    # Test STAR Instructional Reading Level
-    factory :student_behind_in_reading do
-      grade "5"
-      after(:create) do |student|
-        FactoryBot.create(:star_assessment_with_irl_below_4, student: student)
-      end
-    end
-
-    factory :student_ahead_in_reading do
-      grade "5"
-      after(:create) do |student|
-        FactoryBot.create(:star_assessment_with_irl_above_5, student: student)
       end
     end
 

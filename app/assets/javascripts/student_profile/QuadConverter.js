@@ -4,7 +4,7 @@ import {
   toSchoolYear,
   firstDayOfSchool
 } from '../helpers/schoolYear';
-
+import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate';
 
 // A quad is a 4-element array of numbers that represents numerical data on a given date.
 // The first three elements are (year, month, date) and the last is the value.
@@ -18,6 +18,21 @@ function allSchoolYearStarts(dateRange) {
   return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
 }
 
+// The Sparkline component expects this form; not going to re-write Sparkline
+// since student profile is being redesigned. So let's give Sparklines what
+// they want for now.
+export function toDeprecatedStarQuads(series) {
+  return _.uniq(series.map((starResult) => {
+    const dateTaken = toMomentFromRailsDateTime(starResult.date_taken);
+
+    return [
+      dateTaken.year(),
+      dateTaken.month() + 1, // moment months are zero-indexed (https://momentjs.com/docs/#/get-set/month/)
+      dateTaken.date(),      // moment `date()` => Ruby `day`
+      starResult.percentile_rank,
+    ];
+  }), (quad) => { return [quad[0], quad[1], quad[2]]; });
+}
 
 export function toMoment(quad) {
   return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
@@ -35,18 +50,14 @@ export function toPair(quad){
   return [toMoment(quad).valueOf(), toValue(quad)];
 }
 
-// The "Star Object" adds an additional data point (4-indexed) to a quad.
-// This allows the rendering of gradeLevelEquivalent data in highcharts tooltip
-export function toStarObject(quad){
-  return {
-    x: toMoment(quad).valueOf(),
-    y: toValue(quad),
-    gradeLevelEquivalent: toGradeLevelEquivalent(quad)
-  };
-}
+export function toStarObject(starObject) {
+  const {date_taken} = starObject;
 
-export function toGradeLevelEquivalent(quad){
-  return quad[4];
+  return {
+    x: toMomentFromRailsDateTime(date_taken).valueOf(),
+    y: starObject.percentile_rank,
+    gradeLevelEquivalent: starObject.grade_level_equivalent
+  };
 }
 
 // These functions are provided for constructing quads.
