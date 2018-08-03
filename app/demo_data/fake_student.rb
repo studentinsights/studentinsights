@@ -217,8 +217,19 @@ class FakeStudent
   end
 
   def add_dibels_assessments
-    generator = FakeDibelsResultGenerator.new(@student)
-    4.times { StudentAssessment.new(generator.next).save! }
+    days_between_tests = 120  # Define semi-realistic date ranges for DIBELS assessments
+    start_date = DateTime.new(2014, 9, 1)
+    now = DateTime.now
+    assessment_count = (now - start_date).to_i / days_between_tests
+    options = {
+      start_date: start_date,
+      days_between_tests: days_between_tests
+    }
+
+    assessment_count.times do |index|
+      generator = FakeDibelsResultGenerator.new(@student, options, index)
+      StudentAssessment.new(generator.next).save!
+    end
   end
 
   def add_star_assessments
