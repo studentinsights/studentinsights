@@ -150,11 +150,11 @@ describe('rendering', () => {
     );
 
     expect($("#school-year-starting-2015 > #STAR-Reading-2016-01-18T00\\:00\\:00Z", el).text()).toEqual(
-      'January 18th, 2016:STAR ReadingTest scored in the 83th percentile on the Reading section of STAR.'
+      'January 18th, 2016:STAR ReadingTest scored in the 83th percentile on the Reading section of STAR at 7:00pm.'
     );
 
     expect($("#school-year-starting-2012 > #STAR-Math-2012-11-18T00\\:00\\:00Z", el).text()).toEqual(
-      'November 18th, 2012:STAR MathTest scored in the 43th percentile on the Math section of STAR.'
+      'November 18th, 2012:STAR MathTest scored in the 43th percentile on the Math section of STAR at 7:00pm.'
     );
 
     expect($("#school-year-starting-2010 > #Note-997", el).text()).toEqual(
