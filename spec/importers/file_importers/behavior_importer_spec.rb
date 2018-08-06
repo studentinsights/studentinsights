@@ -4,7 +4,7 @@ RSpec.describe BehaviorImporter do
 
   let(:base_behavior_importer) {
     described_class.new(options: {
-      school_scope: nil,
+      school_scope: LoadDistrictConfig.new.schools.map { |school| school['local_id'] },
       log: LogHelper::FakeLog.new,
       skip_old_records: false
     })
@@ -174,13 +174,18 @@ RSpec.describe BehaviorImporter do
     end
 
     context 'existing discipline incident record, in scope' do
-      let!(:discipline_incident) { FactoryBot.create(:discipline_incident) }
+      let(:hea) { School.find_by_local_id('HEA') }
+      let(:student) { FactoryBot.create(:student, school: hea) }
+      let!(:discipline_incident) { FactoryBot.create(:discipline_incident, student: student) }
+      let(:discipline_incident_id) { discipline_incident.id }
+
       it 'creates three new rows' do
-        p 'discipline_incident'
-        p discipline_incident
-        p 'discipline_incident.all'
-        p DisciplineIncident.all
-        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 3
+        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 2
+      end
+
+      it 'deletes the existing row in school scope' do
+        behavior_importer.import
+        expect(DisciplineIncident.find_by_id(discipline_incident_id)).to eq(nil)
       end
     end
   end
