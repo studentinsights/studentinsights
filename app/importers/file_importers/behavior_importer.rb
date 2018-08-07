@@ -34,6 +34,8 @@ class BehaviorImporter
     log("@invalid_rows_count: #{@invalid_rows_count}")
     log("@touched_rows_count: #{@touched_rows_count}")
 
+    log('Calling #delete_unmarked_records...')
+    @record_syncer.delete_unmarked_records!(records_within_scope)
     log("Sync stats: #{@record_syncer.stats}")
   end
 
@@ -94,7 +96,6 @@ class BehaviorImporter
     maybe_matching_record = BehaviorRow.new(row, student.id).build
 
     @record_syncer.validate_mark_and_sync!(maybe_matching_record)
-    @record_syncer.delete_unmarked_records!(records_within_scope)
   end
 
   def within_date_range?(row)
