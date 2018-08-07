@@ -10,8 +10,9 @@ class BehaviorRow < Struct.new(:row, :student_id)
     # This method is picky. A record must exactly match every field in a row
     # in order to `find`; otherwise a new record is `initialized`.
 
-    # The existing record in the Insights database won't be marked in by
-    # RecordSyncer and will be deleted at the end of import if anything has changed.
+    # If any attributes about a discipline incident change upstream in Aspen/X2,
+    # the existing record in the Insights database won't be marked by the
+    # RecordSyncer and will be deleted at the end of the import task.
     DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
       student_id: student_id,
