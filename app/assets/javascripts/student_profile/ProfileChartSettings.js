@@ -88,7 +88,8 @@ ProfileChartSettings.star_chart_base_options = {
       const formattedGradeEquivalent = `<br>Grade Level Equivalent: <b>${gradeLevelEquivalent}</b>`;
 
       const totalTime = this.points[0].point.totalTime;
-      const formattedTotalTime = `<br>Total Time: <b>${totalTime}</b>`;
+      const duration = moment.duration(totalTime, 'seconds').humanize();
+      const formattedTotalTime = `<br>Total Time: <b>${duration}</b>`;
 
       return `${formattedDate}
               ${formattedPercentileRank}
