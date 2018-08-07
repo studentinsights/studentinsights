@@ -196,7 +196,7 @@ export default class PageContainer extends React.Component {
     // essentially, find the eventNote that has eventNoteAttachmentId in attachments
     // remove it
     const eventNoteToUpdate = _.find(this.state.feed.event_notes, function(eventNote) {
-      return _.findWhere(eventNote.attachments, { id: eventNoteAttachmentId });
+      return _.find(eventNote.attachments, { id: eventNoteAttachmentId });
     });
     const updatedAttachments = eventNoteToUpdate.attachments.filter(attachment => {
       return attachment.id !== eventNoteAttachmentId;

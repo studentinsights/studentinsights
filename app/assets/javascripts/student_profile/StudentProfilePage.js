@@ -380,7 +380,7 @@ export default class StudentProfilePage extends React.Component {
   renderStaff(student) {
     const activeServices = this.props.feed.services.active;
     const educatorNamesFromServices = _.map(activeServices, 'provided_by_educator_name');
-    const uniqueNames = _.unique(educatorNamesFromServices);
+    const uniqueNames = _.uniq(educatorNamesFromServices);
     const nonEmptyNames = _.filter(uniqueNames, id => id !== "" && id !== null);
     const educatorNames = _.isEmpty( nonEmptyNames ) ? ["No staff"] : nonEmptyNames;
 

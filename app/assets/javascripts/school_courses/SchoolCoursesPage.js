@@ -79,7 +79,7 @@ export class SchoolCoursesPagePure extends React.Component {
               const birthdate = moment.unix(unix).utc();
               return now.clone().diff(birthdate, 'year');
             }));
-            const schools = _.sortBy(_.uniq(_.flatten(students.map(s => s.school)), 'id'), 'name');
+            const schools = _.sortBy(_.uniqBy(_.flatten(students.map(s => s.school)), 'id'), 'name');
             return (
               <tr key={course.id}>
                 <td style={tableStyles.cell}>{course.course_number} {course.course_description}</td>
@@ -94,9 +94,9 @@ export class SchoolCoursesPagePure extends React.Component {
                 )}</td>
                 <td style={rightAlignStyle}>{students.length}</td>
                 <td style={rightAlignStyle}>{grades.length > 1
-                    ? <span>{_.first(grades)} - {_.last(grades)}</span>
+                    ? <span>{_.head(grades)} - {_.last(grades)}</span>
                     : grades[0]}</td>
-                <td style={rightAlignStyle}>{_.first(ages)} - {_.last(ages)}</td>
+                <td style={rightAlignStyle}>{_.head(ages)} - {_.last(ages)}</td>
                 <td style={tableStyles.cell}>{schools.map(school =>
                   <School
                     key={school.id}

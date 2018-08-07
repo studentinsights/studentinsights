@@ -43,7 +43,7 @@ export default class TieringView extends React.Component {
       
       if (search !== '') {
         const tokens = search.toLowerCase().split(' ');
-        const matchesAllTokens = _.all(tokens, token => {
+        const matchesAllTokens = _.every(tokens, token => {
           if (s.first_name.toLowerCase().indexOf(token) !== -1) return true;
           if (s.last_name.toLowerCase().indexOf(token) !== -1) return true;
           return false;
@@ -236,7 +236,7 @@ export default class TieringView extends React.Component {
   }
 
   renderTable(studentsWithTiering) {
-    const sortedStudentsWithTiering = _.sortByOrder(studentsWithTiering, [
+    const sortedStudentsWithTiering = _.orderBy(studentsWithTiering, [
       (s => s.tier.level),
       (s => s.tier.triggers.length),
       (s => s.tier.triggers.sort()),

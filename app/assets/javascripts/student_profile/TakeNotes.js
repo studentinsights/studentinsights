@@ -43,7 +43,7 @@ export default class TakeNotes extends React.Component {
   isValidAttachmentUrls() {
     const {noteInProgressAttachmentUrls} = this.props;
 
-    return _.all(noteInProgressAttachmentUrls, url => {
+    return _.every(noteInProgressAttachmentUrls, url => {
       return (url.slice(0, 7) === 'http://'  ||
               url.slice(0, 8) === 'https://' ||
               url.length      === 0);

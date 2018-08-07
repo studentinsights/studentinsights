@@ -28,7 +28,7 @@ it.only('renders everything on the happy path', () => {
   ReactDOM.render(<NotesList {...props} />, el);
 
   const noteTimestamps = readNoteTimestamps(el);
-  expect(_.first(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
+  expect(_.head(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
   expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
   expect($(el).find('.NoteCard').length).toEqual(4);
   expect(el.innerHTML).toContain('Behavior Plan');

@@ -43,7 +43,7 @@ class FixedTable extends React.Component {
         <table>
           <tbody>
             {items.map(item => {
-              const isFilterApplied = _.contains(selectedFilterIdentifiers, item.filter.identifier);
+              const isFilterApplied = _.includes(selectedFilterIdentifiers, item.filter.identifier);
               return (
                 <tr
                   className="clickable-row"

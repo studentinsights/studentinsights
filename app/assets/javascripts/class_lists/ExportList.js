@@ -41,7 +41,7 @@ export default class ExportList extends React.Component {
   isReadyToExport(studentIdsByRoom) {
     const {principalTeacherNamesByRoom} = this.props;
     const isMissingTeacherNames = (Object.keys(principalTeacherNamesByRoom).length < Object.keys(studentIdsByRoom).length - 1);
-    const hasBlankTeacherName = _.any(_.values(principalTeacherNamesByRoom), _.isEmpty);
+    const hasBlankTeacherName = _.some(_.values(principalTeacherNamesByRoom), _.isEmpty);
 
     return (!isMissingTeacherNames && !hasBlankTeacherName);
   }
@@ -56,7 +56,7 @@ export default class ExportList extends React.Component {
   onRoomTeacherChanged(roomKey, option) {
     const {principalTeacherNamesByRoom, onPrincipalTeacherNamesByRoomChanged} = this.props;
     const teacherName = (option === null) ? '' : option.name;
-    if ((teacherName !== '') && _.include(principalTeacherNamesByRoom, teacherName)) {
+    if ((teacherName !== '') && _.includes(principalTeacherNamesByRoom, teacherName)) {
       return alert('Duplicate teacher name.');
     }
     onPrincipalTeacherNamesByRoomChanged({

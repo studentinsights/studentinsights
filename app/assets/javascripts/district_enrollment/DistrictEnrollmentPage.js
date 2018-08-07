@@ -82,7 +82,7 @@ export class DistrictEnrollmentPageView extends React.Component {
     const {enrollments, districtKey, districtName} = this.props;
 
     const grades = _.uniq(enrollments.map(enrollment => enrollment.grade)).sort(sortByGrade);
-    const sortedSchools = _.uniq(enrollments.map(enrollment => enrollment.school), 'id').sort((a, b) => {
+    const sortedSchools = _.uniqBy(enrollments.map(enrollment => enrollment.school), 'id').sort((a, b) => {
       const bySchool = sortSchoolSlugsByGrade(districtKey, a.slug, b.slug);
       if (bySchool !== 0) return bySchool;
       return computeStudentCountForSchool(a, enrollments) - computeStudentCountForSchool(b, enrollments);
