@@ -3,7 +3,7 @@ class StudentProfileChart < Struct.new :student
   def percentile_ranks_to_highcharts(star_results)
     return nil unless star_results
 
-    star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent)
+    star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent, :total_time)
   end
 
   def interventions_to_highcharts
