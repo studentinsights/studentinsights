@@ -33,7 +33,8 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
-        marked_ids_count: 0
+        marked_ids_count: 0,
+        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
       })
     end
 
@@ -46,7 +47,8 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
-        marked_ids_count: 0
+        marked_ids_count: 0,
+        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
       })
     end
 
@@ -61,7 +63,8 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
-        marked_ids_count: 0
+        marked_ids_count: 0,
+        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
       })
     end
 
@@ -75,7 +78,8 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 1,
         updated_rows_count: 0,
         created_rows_count: 0,
-        marked_ids_count: 1
+        marked_ids_count: 1,
+        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
       })
     end
 
@@ -90,7 +94,8 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 1,
         created_rows_count: 0,
-        marked_ids_count: 1
+        marked_ids_count: 1,
+        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
       })
     end
 
@@ -104,7 +109,8 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 1,
-        marked_ids_count: 1
+        marked_ids_count: 1,
+        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
       })
       expect(syncer.instance_variable_get(:@marked_ids)).to eq [absence.id]
     end
@@ -120,6 +126,16 @@ RSpec.describe RecordSyncer do
 
       expect(syncer.delete_unmarked_records!(records_within_scope)).to eq(0)
       expect(Absence.count).to eq(1)
+
+      expect(syncer.stats).to eq({
+        passed_nil_record_count: 0,
+        invalid_rows_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        created_rows_count: 0,
+        marked_ids_count: 0,
+        destroyed_records_count: 0,
+      })
     end
 
     it 'keeps two marked records, destroys one unmarked record' do
@@ -144,6 +160,16 @@ RSpec.describe RecordSyncer do
         RecordSyncer:   records_to_destroy.size: 1 within scope
       HEREDOC
       expect(log.output).to eq expected_log_output.strip
+
+      expect(syncer.stats).to eq({
+        passed_nil_record_count: 0,
+        invalid_rows_count: 0,
+        unchanged_rows_count: 2,
+        updated_rows_count: 0,
+        created_rows_count: 0,
+        marked_ids_count: 2,
+        destroyed_records_count: 1,
+      })
     end
 
     it 'deletes all records in scope if nothing was marked' do
@@ -154,6 +180,16 @@ RSpec.describe RecordSyncer do
 
       expect(syncer.delete_unmarked_records!(Absence.all)).to eq(5)
       expect(Absence.count).to eq(0)
+
+      expect(syncer.stats).to eq({
+        passed_nil_record_count: 0,
+        invalid_rows_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        created_rows_count: 0,
+        marked_ids_count: 0,
+        destroyed_records_count: 5,
+      })
     end
 
     it 'does not delete newly created records' do
@@ -163,6 +199,16 @@ RSpec.describe RecordSyncer do
       expect(Absence.count).to eq(1)
 
       expect(syncer.delete_unmarked_records!(Absence.all)).to eq(0)
+
+      expect(syncer.stats).to eq({
+        passed_nil_record_count: 0,
+        invalid_rows_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        created_rows_count: 1,
+        marked_ids_count: 1,
+        destroyed_records_count: 0,
+      })
     end
 
     it 'handles edge case with a persisted record that would become invalid, deleting the Insights record rather than keeping stale values' do
@@ -174,6 +220,16 @@ RSpec.describe RecordSyncer do
 
       expect(syncer.delete_unmarked_records!(Absence.all)).to eq(1)
       expect(Absence.count).to eq(0)
+
+      expect(syncer.stats).to eq({
+        passed_nil_record_count: 0,
+        invalid_rows_count: 1,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        created_rows_count: 0,
+        marked_ids_count: 0,
+        destroyed_records_count: 1,
+      })
     end
   end
 end

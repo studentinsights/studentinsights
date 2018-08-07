@@ -80,7 +80,8 @@ class RecordSyncer
       record.destroy!
       log("  destroyed #{index} rows.") if index > 0 && index % 100 == 0
     end
-    records_to_destroy.size
+
+    @destroyed_records_count = records_to_destroy.size
   end
 
   # For debugging and testing
@@ -91,7 +92,8 @@ class RecordSyncer
       unchanged_rows_count: @unchanged_rows_count,
       updated_rows_count: @updated_rows_count,
       created_rows_count: @created_rows_count,
-      marked_ids_count: @marked_ids.size
+      marked_ids_count: @marked_ids.size,
+      destroyed_records_count: @destroyed_records_count,
     }
   end
 

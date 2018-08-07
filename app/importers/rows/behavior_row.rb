@@ -7,19 +7,19 @@ class BehaviorRow < Struct.new(:row, :student_id)
   #  :incident_location, :incident_description, :school_local_id
 
   def build
-    discipline_incident = DisciplineIncident.find_or_initialize_by(
+    # This method is picky. A record must exactly match every field in a row
+    # in order to `find`; otherwise a new record is `initialized`.
+
+    # If any attributes change upstream in Aspen/X2, the record in the Insights
+    # database won't be marked by and will be deleted at the end of the import task.
+    DisciplineIncident.find_or_initialize_by(
       occurred_at: occurred_at,
       student_id: student_id,
-      incident_code: row[:incident_code]
-    )
-
-    discipline_incident.assign_attributes(
+      incident_code: row[:incident_code],
       has_exact_time: has_exact_time?,
       incident_location: row[:incident_location],
       incident_description: row[:incident_description],
     )
-
-    discipline_incident
   end
 
   private
