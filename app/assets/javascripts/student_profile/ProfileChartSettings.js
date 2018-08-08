@@ -3,6 +3,15 @@ import moment from 'moment';
 const ProfileChartSettings = {};
 export default ProfileChartSettings;
 
+function humanizeStarTotalTime (seconds) {
+  if (seconds < 60) return `${seconds} seconds`;
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${minutes} minutes and ${remainingSeconds} seconds`;
+}
+
 ProfileChartSettings.base_options = {
   chart: {
     renderTo: 'chart',
@@ -88,13 +97,15 @@ ProfileChartSettings.star_chart_base_options = {
       const formattedGradeEquivalent = `<br>Grade Level Equivalent: <b>${gradeLevelEquivalent}</b>`;
 
       const totalTime = this.points[0].point.totalTime;
-      const duration = moment.duration(totalTime, 'seconds').humanize();
+      const duration = humanizeStarTotalTime(totalTime, 'seconds');
       const formattedTotalTime = `<br>Time Taking Test: <b>${duration}</b>`;
 
-      return `${formattedDate}
-              ${formattedPercentileRank}
-              ${formattedTotalTime}
-              ${formattedGradeEquivalent}`;
+      return [
+        formattedDate,
+        formattedPercentileRank,
+        formattedTotalTime,
+        formattedGradeEquivalent,
+      ].join('');
     },
     shared: true
   },
