@@ -3,6 +3,20 @@ import moment from 'moment';
 const ProfileChartSettings = {};
 export default ProfileChartSettings;
 
+// This is meant as a more precise alternative to moment.humanize(). It's geared
+// to STAR total time values, which are mostly in minutes. (The average STAR
+// total_time for Somerville is 23 minutes and 20 seconds.)
+// See https://github.com/moment/moment/issues/348 for more on problems with
+// lack of precision in moment.humanize().
+function humanizeStarTotalTime (seconds) {
+  if (seconds < 60) return `${seconds} seconds`;
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${minutes} minutes and ${remainingSeconds} seconds`;
+}
+
 ProfileChartSettings.base_options = {
   chart: {
     renderTo: 'chart',
@@ -87,9 +101,16 @@ ProfileChartSettings.star_chart_base_options = {
       const gradeLevelEquivalent = this.points[0].point.gradeLevelEquivalent;
       const formattedGradeEquivalent = `<br>Grade Level Equivalent: <b>${gradeLevelEquivalent}</b>`;
 
-      return `${formattedDate}
-              ${formattedPercentileRank}
-              ${gradeLevelEquivalent ? formattedGradeEquivalent : ''}`;
+      const totalTime = this.points[0].point.totalTime;
+      const duration = humanizeStarTotalTime(totalTime, 'seconds');
+      const formattedTotalTime = `<br>Time Taking Test: <b>${duration}</b>`;
+
+      return [
+        formattedDate,
+        formattedPercentileRank,
+        formattedTotalTime,
+        formattedGradeEquivalent,
+      ].join('');
     },
     shared: true
   },

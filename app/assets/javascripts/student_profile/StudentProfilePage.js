@@ -646,18 +646,35 @@ StudentProfilePage.propTypes = {
   transitionNotes: PropTypes.array.isRequired,
   dibels: PropTypes.array.isRequired,
   chartData: PropTypes.shape({
-    // ela
+    star_series_math_percentile: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        date_taken: PropTypes.string,
+        percentile_rank: PropTypes.number,
+        grade_equivalent: PropTypes.string,
+        total_time: PropTypes.number,
+      })
+    ),
+    star_series_reading_percentile: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        date_taken: PropTypes.string,
+        percentile_rank: PropTypes.number,
+        grade_equivalent: PropTypes.string,
+        total_time: PropTypes.number,
+      })
+    ),
+
     most_recent_star_reading_percentile: PropTypes.number,
+    most_recent_star_math_percentile: PropTypes.number,
+
     most_recent_mcas_ela_scaled: PropTypes.number,
     most_recent_mcas_ela_growth: PropTypes.number,
-    star_series_reading_percentile: PropTypes.array,
     mcas_series_ela_scaled: PropTypes.array,
     mcas_series_ela_growth: PropTypes.array,
-    // math
-    most_recent_star_math_percentile: PropTypes.number,
+
     most_recent_mcas_math_scaled: PropTypes.number,
     most_recent_mcas_math_growth: PropTypes.number,
-    star_series_math_percentile: PropTypes.array,
     mcas_series_math_scaled: PropTypes.array,
     mcas_series_math_growth: PropTypes.array
   }),

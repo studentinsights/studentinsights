@@ -12,7 +12,7 @@ class FakeStarMathResultGenerator
       percentile_rank: rand(10..99),
       grade_equivalent: ["0.00", "4.00", "5.70", "2.60"].sample,
       student_id: @student.id,
-      total_time: rand(0..120)
+      total_time: rand(1000..1800)
     }
   end
 end

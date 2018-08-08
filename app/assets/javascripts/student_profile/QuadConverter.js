@@ -56,7 +56,8 @@ export function toStarObject(starObject) {
   return {
     x: toMomentFromRailsDateTime(date_taken).valueOf(),
     y: starObject.percentile_rank,
-    gradeLevelEquivalent: starObject.grade_level_equivalent
+    gradeLevelEquivalent: starObject.grade_equivalent,
+    totalTime: starObject.total_time,
   };
 }
 
