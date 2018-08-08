@@ -89,7 +89,7 @@ ProfileChartSettings.star_chart_base_options = {
 
       const totalTime = this.points[0].point.totalTime;
       const duration = moment.duration(totalTime, 'seconds').humanize();
-      const formattedTotalTime = `<br>Total Time: <b>${duration}</b>`;
+      const formattedTotalTime = `<br>Time Taking Test: <b>${duration}</b>`;
 
       return `${formattedDate}
               ${formattedPercentileRank}
