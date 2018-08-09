@@ -104,6 +104,7 @@ class X2AssessmentImporter
       when 'DIBELS' then DibelsRow
       else nil
     end
+
     if row_class.nil?
       @skipped_because_of_test_type = @skipped_because_of_test_type + 1
       return
@@ -117,7 +118,16 @@ class X2AssessmentImporter
     end
 
     # Try to build a student_assessment record in memory (without saving)
-    maybe_student_assessment = row_class.new(row, student_id, assessments_array).build
+    maybe_student_assessment = if row_class == McasRow
+      McasRow.new(row, student_id, assessments_array).build
+    elsif row_class == AccessRow
+      AccessRow.new(row, student_id, assessments_array).build
+    elsif row_class == DibelsRow
+      DibelsRow.new(row, student_id, @log).build
+    else
+      nil
+    end
+
     if maybe_student_assessment.nil?
       @invalid_rows_count = @invalid_rows_count + 1
       return

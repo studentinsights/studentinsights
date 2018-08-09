@@ -1,28 +1,37 @@
-
-class DibelsRow < Struct.new :row, :student_id, :assessments_array
+class DibelsRow < Struct.new :row, :student_id, :log
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
   def build
-    assessment_id = find_assessment_id
-    return nil if assessment_id.nil?
+    benchmark = extract_benchmark_from_string(row[:assessment_performance_level])
 
-    student_assessment = StudentAssessment.find_or_initialize_by(
+    return nil unless benchmark.present?
+
+    DibelsResult.find_or_initialize_by(
       student_id: student_id,
-      assessment_id: assessment_id,
-      date_taken: row[:assessment_date]
+      date_taken: row[:assessment_date],
+      benchmark: benchmark
     )
-
-    student_assessment.assign_attributes(
-      scale_score: row[:assessment_scale_score],
-      performance_level: row[:assessment_performance_level],
-      growth_percentile: row[:assessment_growth]
-    )
-
-    student_assessment
   end
 
   private
-  def find_assessment_id
-    assessments_array.find { |assessment| assessment.family == 'DIBELS' }.try(:id)
+  def extract_benchmark_from_string(raw_string)
+    return nil if raw_string.nil?
+
+    return 'CORE' if raw_string.upcase == 'CORE'
+    return 'CORE' if raw_string.upcase.include?('CORE')
+
+    return 'STRATEGIC' if raw_string.upcase == 'STRATEGIC'
+    return 'STRATEGIC' if raw_string.upcase == 'STRG'
+    return 'STRATEGIC' if raw_string.upcase.include?('STRG')
+    return 'STRATEGIC' if raw_string.upcase.include?('STRATEGIC')
+
+    return 'INTENSIVE' if raw_string.upcase == 'INT'
+    return 'INTENSIVE' if raw_string.upcase == 'INTENSIVE'
+    return 'INTENSIVE' if raw_string.upcase.include?('INT')
+
+    log.puts("DibelsRow: couldn't parse DIBELS benchmark: #{raw_string}")
+
+    return nil
   end
+
 end
