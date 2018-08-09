@@ -58,13 +58,13 @@ RSpec.describe X2AssessmentImporter do
         before { importer.import }
 
         it 'imports only white-listed assessments and logs all assessment types' do
-          expect(StudentAssessment.count).to eq 6
+          expect(StudentAssessment.count).to eq 5
+          expect(DibelsResult.count).to eq 1
           expect(log.output).to include 'skipped_because_of_test_type: 2'
           expect(log.output).to include '@encountered_test_names_count_map'
           expect(log.output).to include '"MCAS"=>2'
           expect(log.output).to include '"MAP: Reading 2-5 Common Core 2010 V2"=>1'
           expect(log.output).to include '"GRADE"=>1'
-          expect(log.output).to include '"DIBELS"=>1'
           expect(log.output).to include '"WIDA-ACCESS"=>2'
           expect(log.output).to include '"ACCESS"=>1'
         end
@@ -97,19 +97,9 @@ RSpec.describe X2AssessmentImporter do
         end
 
         context 'DIBELS' do
-          let(:assessments) { Assessment.where(family: "DIBELS") }
-          let(:assessment) { assessments.first }
-
-          it 'creates assessment' do
-            expect(assessments.count).to eq 1
-          end
-          it 'creates a student assessment' do
-            results = assessment.student_assessments
-            expect(results.count).to eq 1
-          end
-          it 'sets the performance levels correctly' do
-            dibels_result = assessment.student_assessments.last
-            expect(dibels_result.performance_level).to eq('Benchmark')
+          it 'creates the correct DIBELS record' do
+            expect(DibelsResult.count).to eq 1
+            expect(DibelsResult.last.benchmark).to eq 'STRATEGIC'
           end
         end
 
