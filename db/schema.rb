@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_31_200155) do
+ActiveRecord::Schema.define(version: 2018_08_09_175409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "dibels_results", force: :cascade do |t|
+    t.string "benchmark", null: false
+    t.bigint "student_id", null: false
+    t.datetime "date_taken", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_dibels_results_on_student_id"
   end
 
   create_table "discipline_incidents", id: :serial, force: :cascade do |t|
@@ -461,6 +470,7 @@ ActiveRecord::Schema.define(version: 2018_07_31_200155) do
   add_foreign_key "class_lists", "schools", name: "classrooms_for_grades_school_id_fk"
   add_foreign_key "counselor_name_mappings", "educators", name: "counselor_name_mappings_educator_id_fk"
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
+  add_foreign_key "dibels_results", "students"
   add_foreign_key "discipline_incidents", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
