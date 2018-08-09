@@ -118,6 +118,7 @@ class X2AssessmentImporter
     end
 
     # Try to build a student_assessment record in memory (without saving)
+    # Note: Can't use case/when here because Ruby uses `===` for case/when.
     maybe_student_assessment = if row_class == McasRow
       McasRow.new(row, student_id, assessments_array).build
     elsif row_class == AccessRow
