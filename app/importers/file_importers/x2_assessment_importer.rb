@@ -106,14 +106,14 @@ class X2AssessmentImporter
     end
 
     if row_class.nil?
-      @skipped_because_of_test_type = @skipped_because_of_test_type + 1
+      @skipped_because_of_test_type += 1
       return
     end
 
     # Find the student_id
     student_id = @student_ids_map.lookup_student_id(row[:local_id])
     if student_id.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return
     end
 
@@ -130,21 +130,21 @@ class X2AssessmentImporter
     end
 
     if maybe_student_assessment.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return
     end
 
     # Check if anything changed
     if !maybe_student_assessment.changed?
-      @unchanged_rows_count = @unchanged_rows_count + 1
+      @unchanged_rows_count += 1
       return
     end
 
     # Save, tracking if it's an update or create
     if maybe_student_assessment.persisted?
-      @updated_rows_count = @updated_rows_count + 1
+      @updated_rows_count += 1
     else
-      @created_rows_count = @created_rows_count + 1
+      @created_rows_count += 1
     end
     maybe_student_assessment.save!
   end
