@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2018_08_09_175409) do
 
   create_table "dibels_results", force: :cascade do |t|
     t.string "benchmark", null: false
+    t.string "subtest_results"
     t.bigint "student_id", null: false
     t.datetime "date_taken", null: false
     t.datetime "created_at", null: false
