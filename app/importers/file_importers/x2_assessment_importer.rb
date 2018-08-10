@@ -104,36 +104,47 @@ class X2AssessmentImporter
       when 'DIBELS' then DibelsRow
       else nil
     end
+
     if row_class.nil?
-      @skipped_because_of_test_type = @skipped_because_of_test_type + 1
+      @skipped_because_of_test_type += 1
       return
     end
 
     # Find the student_id
     student_id = @student_ids_map.lookup_student_id(row[:local_id])
     if student_id.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return
     end
 
     # Try to build a student_assessment record in memory (without saving)
-    maybe_student_assessment = row_class.new(row, student_id, assessments_array).build
+    # Note: Can't use case/when here because Ruby uses `===` for case/when.
+    maybe_student_assessment = if row_class == McasRow
+      McasRow.new(row, student_id, assessments_array).build
+    elsif row_class == AccessRow
+      AccessRow.new(row, student_id, assessments_array).build
+    elsif row_class == DibelsRow
+      DibelsRow.new(row, student_id, @log).build
+    else
+      nil
+    end
+
     if maybe_student_assessment.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return
     end
 
     # Check if anything changed
     if !maybe_student_assessment.changed?
-      @unchanged_rows_count = @unchanged_rows_count + 1
+      @unchanged_rows_count += 1
       return
     end
 
     # Save, tracking if it's an update or create
     if maybe_student_assessment.persisted?
-      @updated_rows_count = @updated_rows_count + 1
+      @updated_rows_count += 1
     else
-      @created_rows_count = @created_rows_count + 1
+      @created_rows_count += 1
     end
     maybe_student_assessment.save!
   end
