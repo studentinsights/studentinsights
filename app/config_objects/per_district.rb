@@ -120,6 +120,10 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
+  def import_dibels?
+    @district_key == SOMERVILLE
+  end
+
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
       LoadDistrictConfig.new.remote_filenames.fetch('FILENAMES_FOR_IEP_PDF_ZIPS', [])

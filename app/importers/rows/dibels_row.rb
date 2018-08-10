@@ -2,11 +2,11 @@ class DibelsRow < Struct.new :row, :student_id, :log
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
 
   def build
+    return nil unless PerDistrict.new.import_dibels?
+
     raw_result_string = row[:assessment_performance_level]
     benchmark = extract_benchmark_from_string(raw_result_string)
-
     return nil unless benchmark.present?
-
     subtest_results = extract_subtest_results_from_string(raw_result_string)
 
     DibelsResult.find_or_initialize_by(
