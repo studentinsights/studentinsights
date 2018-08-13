@@ -228,7 +228,7 @@ class FakeStudent
 
     assessment_count.times do |index|
       generator = FakeDibelsResultGenerator.new(@student, options, index)
-      StudentAssessment.new(generator.next).save!
+      DibelsResult.new(generator.next).save!
     end
   end
 
