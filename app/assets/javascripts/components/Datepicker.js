@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-// This must be read lazily, since these options require the DOM
-// to be ready and some specific HTML to be on the page.
-const datepickerOptionsFn = function() { return window.datepicker_options || {}; };
-
-const styles = {
-  datepicker: {},
-  input: {}
-};
 
 /*
-React wrapper for jQuery datepicker.  Relies on JS from Rails and on global config.
+React wrapper for jQuery datepicker.  Relies on an asset file being available at a particular path.
 */
-class Datepicker extends React.Component {
+const BUTTON_IMAGE_ASSET_PATH = '/datepicker-calendar-icon.svg'; // in public folder
+
+export default class Datepicker extends React.Component {
 
   constructor(props) {
     super(props);
@@ -25,7 +19,12 @@ class Datepicker extends React.Component {
   componentDidMount(props, state) {
     const el = this.el;
     $(el).find('.datepicker').datepicker({
-      ...datepickerOptionsFn(),
+      showOn: "button",
+      buttonImage: BUTTON_IMAGE_ASSET_PATH,
+      buttonImageOnly: true,
+      buttonText: "Select date",
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,    // intervention end date cannot be earlier than today
       ...this.props.datepickerOptions,
       onSelect: this.onDateSelected
     });
@@ -64,7 +63,6 @@ class Datepicker extends React.Component {
       </div>
     );
   }
-
 }
 
 Datepicker.propTypes = {
@@ -83,4 +81,7 @@ Datepicker.defaultProps = {
   dynamicUpdate: false
 };
 
-export default Datepicker;
+const styles = {
+  datepicker: {},
+  input: {}
+};
