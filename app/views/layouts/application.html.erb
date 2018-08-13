@@ -49,7 +49,6 @@
       </div>
     </div>
     <%= yield %>
-    <%= json_div(id: "calendar-icon-path", data: { path: asset_path('calendar-icon.svg') }) %>
     <%= # Gives the front-end clues about what UI elements to render or not.
         # All functionality meant for admins only should be restricted on the server side.
         # This tag is a helper for the UI, not a security feature.
