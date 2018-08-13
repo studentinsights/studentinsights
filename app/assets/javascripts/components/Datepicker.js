@@ -77,11 +77,9 @@ Datepicker.propTypes = {
 };
 
 Datepicker.defaultProps = {
-  styles: styles,
+  styles: {
+    datepicker: {},
+    input: {}
+  },
   dynamicUpdate: false
-};
-
-const styles = {
-  datepicker: {},
-  input: {}
 };
