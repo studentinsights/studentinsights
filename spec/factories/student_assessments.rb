@@ -37,12 +37,6 @@ FactoryBot.define do
         end
       end
     end
-    factory :dibels do
-      association :assessment, family: "DIBELS"
-      factory :dibels_with_performance_level do
-        performance_level "Strategic"
-      end
-    end
     factory :access do
       association :assessment, family: "ACCESS"
     end

@@ -1,11 +1,10 @@
-# NOTE: Right now, this single model holds data for different assessments, including
-# MCAS, DIBELS, and ACCESS. Over time, we want to create a separate model
+# NOTE: Right now, this single model holds data forboth  MCAS and ACCESS.
+# Over time, we want to create a separate model
 # and table for each assessment. Each assessment has its own unique fields.
 # Breaking them into separate tables will let us add database-level validations.
 
 # IN PROGRESS: Migrating student assessment data out of this model.
-# First assessment to migrate out was STAR, see star_reading_result.rb
-# and star_math_result.rb for details.
+# First assessments to migrate out were STAR and DIBELS.
 
 class StudentAssessment < ActiveRecord::Base
   belongs_to :assessment
@@ -25,7 +24,7 @@ class StudentAssessment < ActiveRecord::Base
     #   * 33% of rows have no scale score.
     #   * 16% of rows have no performance level.
 
-  # TODO: Add validation for MCAS, DIBELS, and ACCESS assessments.
+  # TODO: Add validation for MCAS and ACCESS assessments.
 
   def self.order_by_date_taken_desc
     order(date_taken: :desc)

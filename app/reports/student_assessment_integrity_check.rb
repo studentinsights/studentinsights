@@ -3,12 +3,6 @@
 # tell us how many invalid records we have in production in MCAS, STAR, DIBELS.
 # First step to implementing and enforcing proper validation.
 class StudentAssessmentIntegrityCheck
-
-  def check_assessments
-    check_mcas
-    check_dibels
-  end
-
   def check_mcas
     mcas_assessment_ids = Assessment.where(family: 'MCAS').pluck(:id)
     records = StudentAssessment.where(assessment_id: mcas_assessment_ids)
@@ -28,25 +22,4 @@ class StudentAssessmentIntegrityCheck
     puts "percentile_rank_nil: #{percentile_rank_nil.count}/#{total_records}"
     puts
   end
-
-  def check_dibels
-    dibels_assessment_ids = Assessment.where(family: 'DIBELS').pluck(:id)
-    records = StudentAssessment.where(assessment_id: dibels_assessment_ids)
-    total_records = records.count
-
-    performance_level_present = records.where.not(performance_level: nil)
-    scale_score_nil = records.where(scale_score: nil)
-    percentile_rank_nil = records.where(percentile_rank: nil)
-    growth_percentile_nil = records.where(growth_percentile: nil)
-
-    puts "DIBELS:"
-    puts "Total records: #{total_records}"
-
-    puts "performance_level_present: #{performance_level_present.count}/#{total_records}"
-    puts "scale_score_nil: #{scale_score_nil.count}/#{total_records}"
-    puts "percentile_rank_nil: #{percentile_rank_nil.count}/#{total_records}"
-    puts "growth_percentile_nil: #{growth_percentile_nil.count}/#{total_records}"
-    puts
-  end
-
 end

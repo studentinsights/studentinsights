@@ -5,8 +5,6 @@ FactoryBot.define do
       case family
         when 'MCAS','Next Gen MCAS' then Assessment::VALID_MCAS_SUBJECTS.sample
         when 'ACCESS' then Assessment::VALID_ACCESS_SUBJECTS.sample
-        when 'STAR' then Assessment::VALID_STAR_SUBJECTS.sample
-        when 'DIBELS' then nil
       end
     end
     trait :mcas do
@@ -20,9 +18,6 @@ FactoryBot.define do
     end
     trait :ela do
       subject "ELA"
-    end
-    trait :star do
-      family "STAR"
     end
     trait :access do
       family "ACCESS"
