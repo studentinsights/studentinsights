@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
-import {toMomentFromTime} from '../../helpers/toMoment';
+import {toMomentFromTimestamp} from '../../helpers/toMoment';
 import {withNowMoment} from '../../testing/NowContainer';
 import {TIME_RANGE_90_DAYS_AGO, TIME_RANGE_SCHOOL_YEAR} from '../../components/SelectTimeRange';
 import {ALL_ABSENCES} from './SelectExcusedAbsences';
@@ -9,7 +9,7 @@ import {fixtureProps} from './SchoolAbsenceDashboard.fixtures';
 import SchoolAbsenceDashboard, {monthlySchoolAttendance} from './SchoolAbsenceDashboard';
 
 function testContext(context = {}) {
-  const nowMoment = toMomentFromTime('2018-07-20T17:03:06.123Z');
+  const nowMoment = toMomentFromTimestamp('2018-07-20T17:03:06.123Z');
   return {
     districtKey: 'somerville',
     nowFn() { return nowMoment; },

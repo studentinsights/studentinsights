@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import AttendanceDetails from './AttendanceDetails';
@@ -392,7 +392,7 @@ const styles = {
 
 function findTopRecentTags(eventNotes, nowMoment) {
   const thresholdInDays = 100000; // should be 45, this is for testing locally, where dates are busted
-  const recentNotes = eventNotes.filter(e => nowMoment.clone().diff(toMomentFromTime(e.recorded_at), 'days') < thresholdInDays);
+  const recentNotes = eventNotes.filter(e => nowMoment.clone().diff(toMomentFromTimestamp(e.recorded_at), 'days') < thresholdInDays);
   const recentNotesText = recentNotes.map(e => e.text).join(' ');
   const recentTags = tags(recentNotesText);
   return recentTags.slice(0, 4);

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 
 
 // Render a timestamp with "from" and short date
@@ -9,7 +9,7 @@ export default class Timestamp extends React.Component {
     const {nowFn} = this.context;
     const now = nowFn();
     const {railsTimestamp, style} = this.props;
-    const momentTimestamp = toMomentFromTime(railsTimestamp);
+    const momentTimestamp = toMomentFromTimestamp(railsTimestamp);
 
     return (
       <div className="Timestamp" style={style || {}}>

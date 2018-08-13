@@ -4,7 +4,7 @@ import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import moment from 'moment';
 import _ from 'lodash';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import SectionHeading from '../components/SectionHeading';
 
 export default class LoginActivityPage extends React.Component {
@@ -33,7 +33,7 @@ export default class LoginActivityPage extends React.Component {
 
   structureLoginActivityJson(loginActivityJson) {
     const toMoment = loginActivityJson.map((activity) => {
-      return {...activity, ...{created_at: toMomentFromTime(activity.created_at)}};
+      return {...activity, ...{created_at: toMomentFromTimestamp(activity.created_at)}};
     });
 
     // Group activities by email identity

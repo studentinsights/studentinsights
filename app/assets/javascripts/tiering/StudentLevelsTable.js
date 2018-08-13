@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {prettyProgramText} from '../helpers/PerDistrict';
 import {
   firstMatch,
@@ -201,7 +201,7 @@ export default class StudentLevelsTable extends React.Component {
     if (eventNote === undefined) return null;
     if (eventNote.recorded_at === undefined) return null;
 
-    const noteMoment = toMomentFromTime(eventNote.recorded_at);
+    const noteMoment = toMomentFromTimestamp(eventNote.recorded_at);
     const daysAgo = now.clone().diff(noteMoment, 'days');
     if (daysAgo > 45) return null;
     return <span style={{...styles.support, fontSize: 12}}>{daysAgo} days</span>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 
 
 // A container for testing that allows passing in a `nowFn`
@@ -33,13 +33,13 @@ NowContainer.propTypes = {
 export const TEST_TIME_STRING = '2018-03-13T11:03:06.123Z';
 
 export function testTimeMoment() {
-  return toMomentFromTime(TEST_TIME_STRING);
+  return toMomentFromTimestamp(TEST_TIME_STRING);
 }
 
 // For use with Enzyme's shallow renderer
 export function testContext(options = {}) {
   const timeString = options.timeString || TEST_TIME_STRING;
-  const nowMoment = options.nowMoment || toMomentFromTime(timeString);
+  const nowMoment = options.nowMoment || toMomentFromTimestamp(timeString);
   return {
     nowFn() { return nowMoment; }
   };
@@ -52,7 +52,7 @@ export function withDefaultNowContext(children) {
 
 // Helper to freeze the clock during tests
 export function withNowContext(timeString, children) {
-  return withNowMoment(toMomentFromTime(timeString), children);
+  return withNowMoment(toMomentFromTimestamp(timeString), children);
 }
 
 export function withNowMoment(nowMoment, children) {

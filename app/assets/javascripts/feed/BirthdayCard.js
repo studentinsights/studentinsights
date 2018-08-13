@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Card from '../components/Card';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 
 
 // Render a card in the feed for an EventNote
@@ -9,7 +9,7 @@ class BirthdayCard extends React.Component {
   render() {
     const now = this.context.nowFn();
     const {studentBirthdayCard, style = {}} = this.props;
-    const thisYearBirthdateMoment = toMomentFromTime(studentBirthdayCard.date_of_birth).year(now.year());
+    const thisYearBirthdateMoment = toMomentFromTimestamp(studentBirthdayCard.date_of_birth).year(now.year());
     const isWas = (thisYearBirthdateMoment.isBefore(now.clone().startOf('day'))) ? 'was' : 'is';
     return (
       <Card key={studentBirthdayCard.id} className="BirthdayCard" style={style}>
