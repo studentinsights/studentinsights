@@ -449,7 +449,7 @@ export default class StudentProfilePage extends React.Component {
     const hasDibels = (dibels.length > 0);
 
     if (belowGradeFour && hasDibels) {
-      const latestDibels = _.last(dibels).performance_level.toUpperCase();
+      const latestDibels = _.last(dibels).benchmark;
       return (
         <div style={styles.summaryWrapper}>
           <SummaryWithoutSparkline caption="DIBELS" value={latestDibels} />
@@ -644,27 +644,32 @@ StudentProfilePage.propTypes = {
   student: PropTypes.object.isRequired,
   feed: PropTypes.object.isRequired,
   transitionNotes: PropTypes.array.isRequired,
-  dibels: PropTypes.array.isRequired,
+  dibels: PropTypes.arrayOf(
+    PropTypes.shape({
+      benchmark: PropTypes.string.isRequired,
+      date_taken: PropTypes.string.isRequired,
+      subtest_results: PropTypes.string,
+    })
+  ).isRequired,
   chartData: PropTypes.shape({
     star_series_math_percentile: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
-        date_taken: PropTypes.string,
-        percentile_rank: PropTypes.number,
-        grade_equivalent: PropTypes.string,
-        total_time: PropTypes.number,
+        id: PropTypes.number.isRequired,
+        date_taken: PropTypes.string.isRequired,
+        percentile_rank: PropTypes.number.isRequired,
+        grade_equivalent: PropTypes.string.isRequired,
+        total_time: PropTypes.number.isRequired,
       })
-    ),
+    ).isRequired,
     star_series_reading_percentile: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
-        date_taken: PropTypes.string,
-        percentile_rank: PropTypes.number,
-        grade_equivalent: PropTypes.string,
-        total_time: PropTypes.number,
+        id: PropTypes.number.isRequired,
+        date_taken: PropTypes.string.isRequired,
+        percentile_rank: PropTypes.number.isRequired,
+        grade_equivalent: PropTypes.string.isRequired,
+        total_time: PropTypes.number.isRequired,
       })
-    ),
-
+    ).isRequired,
     most_recent_star_reading_percentile: PropTypes.number,
     most_recent_star_math_percentile: PropTypes.number,
 
