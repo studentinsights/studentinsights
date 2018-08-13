@@ -24,6 +24,7 @@ class Student < ActiveRecord::Base
 
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
+  has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
   has_many :dashboard_tardies, -> {
     where('occurred_at >= ?', 1.year.ago)
@@ -145,12 +146,8 @@ class Student < ActiveRecord::Base
     ordered_results_by_family_and_subject("Next Gen MCAS", "ELA")
   end
 
-  def dibels
-    ordered_results_by_family("DIBELS")
-  end
-
   def latest_dibels
-    ordered_results_by_family("DIBELS").last
+    dibels_results.last
   end
 
   def latest_access_results
