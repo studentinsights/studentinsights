@@ -19,6 +19,10 @@ describe('#toMomentFromTimestamp', () => {
     expect(toMomentFromTimestamp(string).local().format('dddd M/D, h:mma')).toEqual('Wednesday 5/9, 8:03am');
     expect(toMomentFromTimestamp(string).toDate().toLocaleTimeString()).toEqual('08:03:26');
   });
+
+  it('works on example string', () => {
+    expect(toMomentFromTimestamp('2017-01-07T02:00:00.000Z').format('dddd M/D, h:mma')).toEqual('Saturday 1/7, 2:00am');
+  });
 });
 
 
