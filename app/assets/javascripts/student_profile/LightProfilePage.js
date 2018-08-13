@@ -14,7 +14,6 @@ import LightServiceDetails from './LightServiceDetails';
 import LightNotesHelpContext from './LightNotesHelpContext';
 import StudentSectionsRoster from './StudentSectionsRoster';
 import {tags} from './lightTagger';
-import {toMoment, toValue} from './QuadConverter';
 
 
 // Prototype of profile v3
@@ -408,16 +407,16 @@ function countEventsBetween(events, startMoment, endMoment) {
 const DAYS_AGO = 45;
 
 
-function latestStar(sortedQuads, nowMoment) {
-  const quad = _.last(sortedQuads);
-  if (!quad) return {
+export function latestStar(sortedStarDataPoints, nowMoment) {
+  const starDataPoint = _.last(sortedStarDataPoints);
+  if (!starDataPoint) return {
     nDaysText: 'not yet taken',
     percentileText: '-'
   };
 
-  const testMoment = toMoment(quad);
+  const testMoment = toMomentFromTimestamp(starDataPoint.date_taken);
   const nDaysText = testMoment.from(nowMoment);
-  const percentile = toValue(quad);
+  const percentile = starDataPoint.percentile_rank;
   const percentileText = (percentile)
     ? percentileWithSuffix(percentile)
     : '-';
