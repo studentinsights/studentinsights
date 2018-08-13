@@ -14,7 +14,7 @@ import {
   toDate
 } from './QuadConverter';
 import StudentSectionsRoster from './StudentSectionsRoster';
-import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate';
+import { toMomentFromTimestamp } from '../helpers/toMoment';
 
 export default class ProfileDetails extends React.Component {
   constructor(props) {
@@ -95,7 +95,7 @@ export default class ProfileDetails extends React.Component {
       });
     });
     _.each(this.props.chartData.star_series_reading_percentile, starObject => {
-      const dateTaken = toMomentFromRailsDateTime(starObject.date_taken);
+      const dateTaken = toMomentFromTimestamp(starObject.date_taken);
 
       events.push({
         type: 'STAR-Reading',
@@ -105,7 +105,7 @@ export default class ProfileDetails extends React.Component {
       });
     });
     _.each(this.props.chartData.star_series_math_percentile, starObject => {
-      const dateTaken = toMomentFromRailsDateTime(starObject.date_taken);
+      const dateTaken = toMomentFromTimestamp(starObject.date_taken);
 
       events.push({
         type: 'STAR-Math',

@@ -9,7 +9,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import SuccessLabel from '../components/SuccessLabel';
 import tableStyles from '../components/tableStyles';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {gradeText} from '../helpers/gradeText';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import IntroCopy from './IntroCopy';
@@ -91,7 +91,7 @@ export class ClassListsViewPageView extends React.Component {
           </thead>
           <tbody>{sortedWorkspaces.map(workspace => {
             const classList = workspace.class_list;
-            const createdAtMoment = toMomentFromTime(classList.created_at).local();
+            const createdAtMoment = toMomentFromTimestamp(classList.created_at).local();
             const educatorStyle = (classList.created_by_teacher_educator.id === currentEducatorId)
               ? { fontWeight: 'bold' }
               : {};

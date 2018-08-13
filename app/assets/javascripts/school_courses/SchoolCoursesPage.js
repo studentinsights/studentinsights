@@ -9,7 +9,7 @@ import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import tableStyles from '../components/tableStyles';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 
 /*
 Showing info about courses offered at a school.
@@ -75,7 +75,7 @@ export class SchoolCoursesPagePure extends React.Component {
             const rightAlignStyle = {...tableStyles.cell, textAlign: 'right'};
             const students = _.flatten(course.sections.map(s => s.students));
             const grades = _.sortBy(_.uniq(students.map(s => parseInt(s.grade, 10))));
-            const ages =  _.sortBy(_.uniq(students.map(s => toMomentFromTime(s.date_of_birth).unix())).map(unix => {
+            const ages =  _.sortBy(_.uniq(students.map(s => toMomentFromTimestamp(s.date_of_birth).unix())).map(unix => {
               const birthdate = moment.unix(unix).utc();
               return now.clone().diff(birthdate, 'year');
             }));

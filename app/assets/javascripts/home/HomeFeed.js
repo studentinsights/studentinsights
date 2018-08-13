@@ -4,11 +4,11 @@ import qs from 'query-string';
 import _ from 'lodash';
 import FeedView from '../feed/FeedView';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {toMomentFromTime} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 
 
 export function mergeCards(previousCards, newCards) {
-  return _.sortBy(previousCards.concat(newCards), card => -1 * toMomentFromTime(card.timestamp).unix());
+  return _.sortBy(previousCards.concat(newCards), card => -1 * toMomentFromTimestamp(card.timestamp).unix());
 }
 
 /*
@@ -73,7 +73,7 @@ class HomeFeed extends React.Component {
   onMore(event) {
     const {cards} = this.state;
     event.preventDefault();
-    const timestamp = toMomentFromTime(_.last(cards).timestamp).unix();
+    const timestamp = toMomentFromTimestamp(_.last(cards).timestamp).unix();
     this.fetchFeed(timestamp);
   }
 

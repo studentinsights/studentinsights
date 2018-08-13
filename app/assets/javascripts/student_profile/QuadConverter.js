@@ -4,7 +4,7 @@ import {
   toSchoolYear,
   firstDayOfSchool
 } from '../helpers/schoolYear';
-import { toMomentFromRailsDateTime } from '../helpers/toMomentFromRailsDate';
+import { toMomentFromTimestamp } from '../helpers/toMoment';
 
 // A quad is a 4-element array of numbers that represents numerical data on a given date.
 // The first three elements are (year, month, date) and the last is the value.
@@ -23,7 +23,7 @@ function allSchoolYearStarts(dateRange) {
 // they want for now.
 export function toDeprecatedStarQuads(series) {
   return _.uniqBy(series.map((starResult) => {
-    const dateTaken = toMomentFromRailsDateTime(starResult.date_taken);
+    const dateTaken = toMomentFromTimestamp(starResult.date_taken);
 
     return [
       dateTaken.year(),
@@ -54,7 +54,7 @@ export function toStarObject(starObject) {
   const {date_taken} = starObject;
 
   return {
-    x: toMomentFromRailsDateTime(date_taken).valueOf(),
+    x: toMomentFromTimestamp(date_taken).valueOf(),
     y: starObject.percentile_rank,
     gradeLevelEquivalent: starObject.grade_equivalent,
     totalTime: starObject.total_time,
