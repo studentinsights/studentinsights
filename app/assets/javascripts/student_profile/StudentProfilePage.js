@@ -650,7 +650,7 @@ StudentProfilePage.propTypes = {
       date_taken: PropTypes.string.isRequired,
       subtest_results: PropTypes.string,
     })
-  ).isRequired,
+  ),
   chartData: PropTypes.shape({
     star_series_math_percentile: PropTypes.arrayOf(
       PropTypes.shape({
@@ -660,7 +660,7 @@ StudentProfilePage.propTypes = {
         grade_equivalent: PropTypes.string.isRequired,
         total_time: PropTypes.number.isRequired,
       })
-    ).isRequired,
+    ),
     star_series_reading_percentile: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -669,7 +669,7 @@ StudentProfilePage.propTypes = {
         grade_equivalent: PropTypes.string.isRequired,
         total_time: PropTypes.number.isRequired,
       })
-    ).isRequired,
+    ),
     most_recent_star_reading_percentile: PropTypes.number,
     most_recent_star_math_percentile: PropTypes.number,
 
