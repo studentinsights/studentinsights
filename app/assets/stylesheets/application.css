@@ -11,5 +11,6 @@
  * file per style scope.
  *
  *= require style
- *= require jquery-ui
+ *= require jquery-ui/autocomplete
+ *= require jquery-ui/datepicker
  */
