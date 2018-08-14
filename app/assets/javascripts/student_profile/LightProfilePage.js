@@ -33,7 +33,7 @@ export default class LightProfilePage extends React.Component {
     const {student} = this.props;
     const isHighSchool = (student.school_type === 'HS');
     return (
-      <div className="LightProfilePage">
+      <div className="LightProfilePage" style={styles.root}>
         {this.renderHeader()}
         <div style={styles.tabsContainer}>
           <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
@@ -366,6 +366,9 @@ LightProfilePage.propTypes = {
 
 
 const styles = {
+  root: {
+    fontSize: 14
+  },
   tabsContainer: {
     display: 'flex',
     flexDirection: 'row',
