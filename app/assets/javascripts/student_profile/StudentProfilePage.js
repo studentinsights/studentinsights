@@ -440,10 +440,8 @@ export default class StudentProfilePage extends React.Component {
   }
 
   renderMcasElaSgpOrDibels() {
-    const student = this.props.student;
-    const chartData = this.props.chartData;
-    const grade = student.grade;
-    const dibels = _.sortBy(this.props.dibels, 'date_taken');
+    const {student, chartData, dibels} = this.props;
+    const {grade} = student;
 
     const belowGradeFour = _.includes(['KF', 'PK', '1', '2', '3'], grade);
     const hasDibels = (dibels.length > 0);
