@@ -25,16 +25,6 @@ export const HighlightKeys = {
   DIBELS: 'DIBELS'
 };
 
-export function dibelsLevel(dibels) {
-  const performanceLevel = dibels.performance_level.toLowerCase();
-  if (performanceLevel.indexOf('core') !== -1) return 'core';
-  if (performanceLevel.indexOf('strategic') !== -1) return 'strategic';
-  if (performanceLevel.indexOf('strg') !== -1) return 'strategic';
-  if (performanceLevel.indexOf('intensive') !== -1) return 'intensive';
-  if (performanceLevel.indexOf('int') !== -1) return 'intensive';
-  return null;
-}
-
 // Bucket STAR percentiles into high/medium/low
 export const starBucketThresholds = [0, 0.30, 0.70, 1];
 export function starBucket(percentile) {

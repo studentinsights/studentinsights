@@ -4,20 +4,20 @@ RSpec.describe StudentAssessment, type: :model do
 
   describe 'validation by student/assessment/date_taken' do
     let!(:student) { FactoryBot.create(:student) }
-    let!(:dibels) { FactoryBot.create(:assessment, family: 'DIBELS') }
+    let!(:access) { FactoryBot.create(:assessment, family: 'ACCESS') }
     let(:yesterday) { Time.now - 1.day }
     let(:day_before_yesterday) { Time.now - 2.days }
 
     context 'unique across the combination of student/assessment/date_taken' do
       before {
         FactoryBot.create(
-          :student_assessment, assessment: dibels, date_taken: day_before_yesterday, student: student
+          :student_assessment, assessment: access, date_taken: day_before_yesterday, student: student
         )
       }
 
       subject(:student_assessment) {
         FactoryBot.build(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+          :student_assessment, assessment: access, date_taken: yesterday, student: student
         )
       }
 
@@ -28,13 +28,13 @@ RSpec.describe StudentAssessment, type: :model do
     context 'not unique across the combination of student/assessment/date_taken' do
       before {
         FactoryBot.create(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+          :student_assessment, assessment: access, date_taken: yesterday, student: student
         )
       }
 
       subject(:student_assessment) {
         FactoryBot.build(
-          :student_assessment, assessment: dibels, date_taken: yesterday, student: student
+          :student_assessment, assessment: access, date_taken: yesterday, student: student
         )
       }
 

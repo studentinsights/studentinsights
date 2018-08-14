@@ -832,14 +832,32 @@ export const studentProfile = {
   "currentEducator": currentEducator,
   "chartData": {
     "star_series_math_percentile": [
-      {id: 1, date_taken: '2018-02-13T22:17:30.338Z', percentile_rank: 10, grade_equivalent: '1.00'},
-      {id: 2, date_taken: '2018-03-13T22:17:30.338Z', percentile_rank: 20, grade_equivalent: '2.00'},
-      {id: 3, date_taken: '2018-04-13T22:17:30.338Z', percentile_rank: 30, grade_equivalent: '3.00'},
+      {
+        id: 1, date_taken: '2018-02-13T22:17:30.338Z', percentile_rank: 10,
+        grade_equivalent: '1.00', total_time: 100
+      },
+      {
+        id: 2, date_taken: '2018-03-13T22:17:30.338Z', percentile_rank: 20,
+        grade_equivalent: '2.00', total_time: 100
+      },
+      {
+        id: 3, date_taken: '2018-04-13T22:17:30.338Z', percentile_rank: 30,
+        grade_equivalent: '3.00', total_time: 100
+      },
     ],
     "star_series_reading_percentile": [
-      {id: 1, date_taken: '2018-02-13T22:17:30.338Z', percentile_rank: 10, grade_equivalent: '1.00'},
-      {id: 2, date_taken: '2018-03-13T22:17:30.338Z', percentile_rank: 20, grade_equivalent: '2.00'},
-      {id: 3, date_taken: '2018-04-13T22:17:30.338Z', percentile_rank: 30, grade_equivalent: '3.00'},
+      {
+        id: 1, date_taken: '2018-02-13T22:17:30.338Z', percentile_rank: 10,
+        grade_equivalent: '1.00', total_time: 100
+      },
+      {
+        id: 2, date_taken: '2018-03-13T22:17:30.338Z', percentile_rank: 20,
+        grade_equivalent: '2.00', total_time: 100
+      },
+      {
+        id: 3, date_taken: '2018-04-13T22:17:30.338Z', percentile_rank: 30,
+        grade_equivalent: '3.00', total_time: 100
+      },
     ],
     "mcas_series_math_scaled": [
       [

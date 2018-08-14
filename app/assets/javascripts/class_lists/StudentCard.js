@@ -18,7 +18,6 @@ import {
   isIepOr504,
   isLowIncome,
   isHighDiscipline,
-  dibelsLevel,
   starBucketThresholds,
   HighlightKeys
 } from './studentFilters';
@@ -191,14 +190,13 @@ function starStyles(maybePercentile) {
 
 function dibelsStyles(maybeLatestDibels) {
   if (!maybeLatestDibels) return styles.none;
-  const level = dibelsLevel(maybeLatestDibels);
-  if (!level) return  styles.none;
+  const benchmark = maybeLatestDibels.benchmark;
   const colorMap = {
-    core: high,
-    strategic: medium,
-    intensive: low
+    CORE: high,
+    STRATEGIC: medium,
+    INTENSIVE: low
   };
-  const backgroundColor = colorMap[level];
+  const backgroundColor = colorMap[benchmark];
   return {backgroundColor};
 }
 

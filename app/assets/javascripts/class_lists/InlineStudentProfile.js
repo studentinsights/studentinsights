@@ -21,7 +21,7 @@ export default class InlineStudentProfile extends React.Component {
               <Card style={styles.card}>
                 <div style={styles.header}>Special needs</div>
                 {student.disability &&
-                  <div>Disability: {student.disability} 
+                  <div>Disability: {student.disability}
                     {student.iep_document && <span> (<a href={`/iep_documents/${student.iep_document.id}`} target="_blank">IEP</a>)</span>}
                   </div>
                 }
@@ -51,7 +51,7 @@ export default class InlineStudentProfile extends React.Component {
             <div style={{display: 'flex'}}>
               <Card style={styles.card}>
                 <div style={styles.header}>Standardized tests</div>
-                {student.latest_dibels && <div>DIBELS: {student.latest_dibels.performance_level}</div>}
+                {student.latest_dibels && <div>DIBELS: {student.latest_dibels.benchmark}</div>}
                 {student.most_recent_star_math_percentile && <div>STAR Math percentile: {student.most_recent_star_math_percentile}</div>}
                 {student.most_recent_star_reading_percentile && <div>STAR Reading percentile: {student.most_recent_star_reading_percentile}</div>}
               </Card>

@@ -41,7 +41,9 @@ function testProps(props = {}) {
         discontinued: [{id: 945, date_started: "2010-10-08"}]
       }
     },
-    dibels: [{id: 901, date_taken: "2012-05-15Z", performance_level: "Strategic"}],
+    dibels: [
+      {id: 901, date_taken: "2012-05-15Z", benchmark: "STRATEGIC"}
+    ],
     serviceTypesIndex: {
       "508": {name: "Math intervention", id: 508}
     },

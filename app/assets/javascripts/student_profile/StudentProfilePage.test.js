@@ -182,7 +182,10 @@ describe('renders MCAS/DIBELS correctly according to grade level', () => {
       it('renders the latest DIBELS', () => {
         const props = testPropsFromPatches({
           grade: '3',
-          dibels: [{ 'performance_level': 'INTENSIVE '}]
+          dibels: [{
+            'benchmark': 'INTENSIVE',
+            'date_taken': '2018-02-13T22:17:30.338Z',
+          }]
         });
         const {el} = testRender(props);
         expect($(el).text()).not.toContain('MCAS ELA SGP');
@@ -211,7 +214,10 @@ describe('renders MCAS/DIBELS correctly according to grade level', () => {
       it('renders MCAS ELA SGP', () => {
         const props = testPropsFromPatches({
           grade: '5',
-          dibels: [{ 'performance_level': 'INTENSIVE '}]
+          dibels: [{
+            'benchmark': 'INTENSIVE',
+            'date_taken': '2018-02-13T22:17:30.338Z',
+          }]
         });
         const {el} = testRender(props);
         expect($(el).text()).toContain('MCAS ELA SGP');
