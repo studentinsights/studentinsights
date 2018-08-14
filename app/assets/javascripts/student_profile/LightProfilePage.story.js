@@ -10,14 +10,6 @@ import {
   testPropsForAladdinMouse
 } from './StudentProfilePage.test';
 
-/*
-import fetchMock from 'fetch-mock/es5/client';
-import fs from 'fs';
-beforeEach(() => {
-  fetchMock.restore();
-  fetchMock.get('express:/students/:id/photo', fs.readFileSync('../../../public/demo-student-photo-small-172x207.jpg'));
-});
-*/
 
 function storifyProps(props) {
   return {

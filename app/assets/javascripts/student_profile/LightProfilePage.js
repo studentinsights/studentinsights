@@ -399,7 +399,7 @@ const styles = {
     alignItems: 'stretch',
     margin: 20,
     flex: 1,
-    height: 135
+    height: 150
   },
   tabLayout: {
     flex: 1,

@@ -23,6 +23,7 @@ import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassLists
 import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
+import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
@@ -65,6 +66,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
+        <Route exact path="/admin/sample_students" render={this.renderSampleStudentsPage.bind(this)}/>
         <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
@@ -163,6 +165,11 @@ class App extends React.Component {
   renderImportRecordsPage(routeProps) {
     this.trackVisit(routeProps, 'IMPORT_RECORDS_PAGE');
     return <ImportRecordsPage />;
+  }
+
+  renderSampleStudentsPage(routeProps) {
+    this.trackVisit(routeProps, 'SAMPLE_STUDENTS_PAGE');
+    return <SampleStudentsPage />; 
   }
 
   renderSchoolRosterPage(routeProps) {
