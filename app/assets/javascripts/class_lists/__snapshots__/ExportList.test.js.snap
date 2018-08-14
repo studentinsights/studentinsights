@@ -348,7 +348,6 @@ When Student Insights was being developed, some teachers started asking whether 
             </div>
             <div
               className="Select has-value is-clearable is-searchable Select--single"
-              style={undefined}
             >
               <input
                 disabled={false}
@@ -363,7 +362,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                style={undefined}
               >
                 <span
                   className="Select-multi-value-wrapper"
@@ -371,8 +369,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -393,14 +389,9 @@ When Student Insights was being developed, some teachers started asking whether 
                   >
                     <input
                       aria-activedescendant="react-select-2--value"
-                      aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
-                      aria-label={undefined}
-                      aria-labelledby={undefined}
                       aria-owns=""
-                      className={undefined}
-                      id={undefined}
                       onBlur={[Function]}
                       onChange={[Function]}
                       onFocus={[Function]}
@@ -412,7 +403,6 @@ When Student Insights was being developed, some teachers started asking whether 
                           "width": "5px",
                         }
                       }
-                      tabIndex={undefined}
                       value=""
                     />
                     <div
@@ -474,7 +464,6 @@ When Student Insights was being developed, some teachers started asking whether 
             </div>
             <div
               className="Select has-value is-clearable is-searchable Select--single"
-              style={undefined}
             >
               <input
                 disabled={false}
@@ -489,7 +478,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                style={undefined}
               >
                 <span
                   className="Select-multi-value-wrapper"
@@ -497,8 +485,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -519,14 +505,9 @@ When Student Insights was being developed, some teachers started asking whether 
                   >
                     <input
                       aria-activedescendant="react-select-3--value"
-                      aria-describedby={undefined}
                       aria-expanded="false"
                       aria-haspopup="false"
-                      aria-label={undefined}
-                      aria-labelledby={undefined}
                       aria-owns=""
-                      className={undefined}
-                      id={undefined}
                       onBlur={[Function]}
                       onChange={[Function]}
                       onFocus={[Function]}
@@ -538,7 +519,6 @@ When Student Insights was being developed, some teachers started asking whether 
                           "width": "5px",
                         }
                       }
-                      tabIndex={undefined}
                       value=""
                     />
                     <div
@@ -995,7 +975,6 @@ When Student Insights was being developed, some teachers started asking whether 
             </div>
             <div
               className="Select has-value is-clearable is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <input
                 disabled={true}
@@ -1010,7 +989,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                style={undefined}
               >
                 <span
                   className="Select-multi-value-wrapper"
@@ -1018,8 +996,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -1034,8 +1010,6 @@ When Student Insights was being developed, some teachers started asking whether 
                     aria-activedescendant="react-select-4--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}
@@ -1075,7 +1049,6 @@ When Student Insights was being developed, some teachers started asking whether 
             </div>
             <div
               className="Select has-value is-clearable is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <input
                 disabled={true}
@@ -1090,7 +1063,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                style={undefined}
               >
                 <span
                   className="Select-multi-value-wrapper"
@@ -1098,8 +1070,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -1114,8 +1084,6 @@ When Student Insights was being developed, some teachers started asking whether 
                     aria-activedescendant="react-select-5--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}
@@ -1534,7 +1502,6 @@ When Student Insights was being developed, some teachers started asking whether 
             </div>
             <div
               className="Select has-value is-clearable is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <input
                 disabled={true}
@@ -1549,7 +1516,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                style={undefined}
               >
                 <span
                   className="Select-multi-value-wrapper"
@@ -1557,8 +1523,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -1573,8 +1537,6 @@ When Student Insights was being developed, some teachers started asking whether 
                     aria-activedescendant="react-select-6--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}
@@ -1614,7 +1576,6 @@ When Student Insights was being developed, some teachers started asking whether 
             </div>
             <div
               className="Select has-value is-clearable is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <input
                 disabled={true}
@@ -1629,7 +1590,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchEnd={[Function]}
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
-                style={undefined}
               >
                 <span
                   className="Select-multi-value-wrapper"
@@ -1637,8 +1597,6 @@ When Student Insights was being developed, some teachers started asking whether 
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -1653,8 +1611,6 @@ When Student Insights was being developed, some teachers started asking whether 
                     aria-activedescendant="react-select-7--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}
@@ -2131,7 +2087,6 @@ exports[`exportProps snapshots all placed 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -2159,8 +2114,6 @@ exports[`exportProps snapshots all placed 1`] = `
                             aria-activedescendant="react-select-12--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -2208,7 +2161,6 @@ exports[`exportProps snapshots all placed 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -2236,8 +2188,6 @@ exports[`exportProps snapshots all placed 1`] = `
                             aria-activedescendant="react-select-13--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -2285,7 +2235,6 @@ exports[`exportProps snapshots all placed 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -2313,8 +2262,6 @@ exports[`exportProps snapshots all placed 1`] = `
                             aria-activedescendant="react-select-14--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -2844,7 +2791,6 @@ exports[`exportProps snapshots moves 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -2872,8 +2818,6 @@ exports[`exportProps snapshots moves 1`] = `
                             aria-activedescendant="react-select-15--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -2921,7 +2865,6 @@ exports[`exportProps snapshots moves 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -2949,8 +2892,6 @@ exports[`exportProps snapshots moves 1`] = `
                             aria-activedescendant="react-select-16--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -2998,7 +2939,6 @@ exports[`exportProps snapshots moves 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -3026,8 +2966,6 @@ exports[`exportProps snapshots moves 1`] = `
                             aria-activedescendant="react-select-17--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -3541,7 +3479,6 @@ exports[`exportProps snapshots unplaced 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -3569,8 +3506,6 @@ exports[`exportProps snapshots unplaced 1`] = `
                             aria-activedescendant="react-select-10--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -3618,7 +3553,6 @@ exports[`exportProps snapshots unplaced 1`] = `
                   >
                     <div
                       className="Select is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -3646,8 +3580,6 @@ exports[`exportProps snapshots unplaced 1`] = `
                             aria-activedescendant="react-select-11--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -4175,7 +4107,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                   >
                     <div
                       className="Select has-value is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -4196,8 +4127,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                         >
                           <div
                             className="Select-value"
-                            style={undefined}
-                            title={undefined}
                           >
                             <span
                               aria-selected="true"
@@ -4212,8 +4141,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                             aria-activedescendant="react-select-18--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -4261,7 +4188,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                   >
                     <div
                       className="Select has-value is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -4282,8 +4208,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                         >
                           <div
                             className="Select-value"
-                            style={undefined}
-                            title={undefined}
                           >
                             <span
                               aria-selected="true"
@@ -4298,8 +4222,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                             aria-activedescendant="react-select-19--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -4347,7 +4269,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                   >
                     <div
                       className="Select has-value is-disabled is-searchable Select--single"
-                      style={undefined}
                     >
                       <div
                         className="Select-control"
@@ -4368,8 +4289,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                         >
                           <div
                             className="Select-value"
-                            style={undefined}
-                            title={undefined}
                           >
                             <span
                               aria-selected="true"
@@ -4384,8 +4303,6 @@ exports[`exportProps snapshots with teachers 1`] = `
                             aria-activedescendant="react-select-20--value"
                             aria-disabled="true"
                             aria-expanded={false}
-                            aria-label={undefined}
-                            aria-labelledby={undefined}
                             aria-owns=""
                             className="Select-input"
                             onBlur={[Function]}
@@ -4777,7 +4694,6 @@ exports[`makeAPlanProps 1`] = `
           </div>
           <div
             className="Select has-value is-clearable is-searchable Select--multi"
-            style={undefined}
           >
             <input
               disabled={false}
@@ -4792,7 +4708,6 @@ exports[`makeAPlanProps 1`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <span
                 className="Select-multi-value-wrapper"
@@ -4800,8 +4715,6 @@ exports[`makeAPlanProps 1`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-hidden="true"
@@ -4837,14 +4750,9 @@ exports[`makeAPlanProps 1`] = `
                 >
                   <input
                     aria-activedescendant="react-select-8--value"
-                    aria-describedby={undefined}
                     aria-expanded="false"
                     aria-haspopup="false"
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
-                    className={undefined}
-                    id={undefined}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
@@ -4856,7 +4764,6 @@ exports[`makeAPlanProps 1`] = `
                         "width": "5px",
                       }
                     }
-                    tabIndex={undefined}
                     value=""
                   />
                   <div
@@ -5403,7 +5310,6 @@ exports[`makeAPlanProps 2`] = `
           </div>
           <div
             className="Select has-value is-clearable is-disabled is-searchable Select--multi"
-            style={undefined}
           >
             <input
               disabled={true}
@@ -5418,7 +5324,6 @@ exports[`makeAPlanProps 2`] = `
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={undefined}
             >
               <span
                 className="Select-multi-value-wrapper"
@@ -5426,8 +5331,6 @@ exports[`makeAPlanProps 2`] = `
               >
                 <div
                   className="Select-value"
-                  style={undefined}
-                  title={undefined}
                 >
                   <span
                     aria-selected="true"
@@ -5447,8 +5350,6 @@ exports[`makeAPlanProps 2`] = `
                   aria-activedescendant="react-select-9--value"
                   aria-disabled="true"
                   aria-expanded={false}
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
                   aria-owns=""
                   className="Select-input"
                   onBlur={[Function]}
@@ -6046,7 +5947,7 @@ exports[`shareWithPrincipalProps 1`] = `
               style={Object {}}
             >
               <button
-                onClick={[Function]}
+                onClick={[MockFunction]}
                 style={
                   Object {
                     "background": "#E5370E",
@@ -6612,9 +6513,7 @@ exports[`snapshots 1`] = `
 <div
   className="ExportList"
 >
-  <div
-    style={undefined}
-  >
+  <div>
     Have all students been placed for next year's 
     1st grade
     ?
@@ -6641,9 +6540,7 @@ exports[`snapshots 1`] = `
       All students have been placed.
     </span>
   </div>
-  <div
-    style={undefined}
-  >
+  <div>
     Have you reviewed the team's plan and notes before making changes?
   </div>
   <div
@@ -6668,9 +6565,7 @@ exports[`snapshots 1`] = `
       No students were moved.
     </span>
   </div>
-  <div
-    style={undefined}
-  >
+  <div>
     Who will teach next year's 
     1st grade
     ?
@@ -6704,7 +6599,6 @@ exports[`snapshots 1`] = `
           >
             <div
               className="Select has-value is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <div
                 className="Select-control"
@@ -6725,8 +6619,6 @@ exports[`snapshots 1`] = `
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -6741,8 +6633,6 @@ exports[`snapshots 1`] = `
                     aria-activedescendant="react-select-24--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}
@@ -6790,7 +6680,6 @@ exports[`snapshots 1`] = `
           >
             <div
               className="Select has-value is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <div
                 className="Select-control"
@@ -6811,8 +6700,6 @@ exports[`snapshots 1`] = `
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -6827,8 +6714,6 @@ exports[`snapshots 1`] = `
                     aria-activedescendant="react-select-25--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}
@@ -6876,7 +6761,6 @@ exports[`snapshots 1`] = `
           >
             <div
               className="Select has-value is-disabled is-searchable Select--single"
-              style={undefined}
             >
               <div
                 className="Select-control"
@@ -6897,8 +6781,6 @@ exports[`snapshots 1`] = `
                 >
                   <div
                     className="Select-value"
-                    style={undefined}
-                    title={undefined}
                   >
                     <span
                       aria-selected="true"
@@ -6913,8 +6795,6 @@ exports[`snapshots 1`] = `
                     aria-activedescendant="react-select-26--value"
                     aria-disabled="true"
                     aria-expanded={false}
-                    aria-label={undefined}
-                    aria-labelledby={undefined}
                     aria-owns=""
                     className="Select-input"
                     onBlur={[Function]}

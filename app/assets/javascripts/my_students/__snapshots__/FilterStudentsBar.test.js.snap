@@ -4,11 +4,9 @@ exports[`snapshots with all options 1`] = `
 <div
   className="FilterStudentsBar EscapeListener"
   onKeyUp={[Function]}
-  style={undefined}
 >
   <div
     className="FilterBar"
-    style={undefined}
   >
     <div
       style={
@@ -47,7 +45,6 @@ exports[`snapshots with all options 1`] = `
       />
       <div
         className="Select is-searchable Select--single"
-        style={undefined}
       >
         <div
           className="Select-control"
@@ -82,14 +79,9 @@ exports[`snapshots with all options 1`] = `
             >
               <input
                 aria-activedescendant="react-select-14--value"
-                aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
-                aria-label={undefined}
-                aria-labelledby={undefined}
                 aria-owns=""
-                className={undefined}
-                id={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
@@ -101,7 +93,6 @@ exports[`snapshots with all options 1`] = `
                     "width": "5px",
                   }
                 }
-                tabIndex={undefined}
                 value=""
               />
               <div
@@ -134,7 +125,6 @@ exports[`snapshots with all options 1`] = `
       </div>
       <div
         className="Select is-searchable Select--single"
-        style={undefined}
       >
         <div
           className="Select-control"
@@ -169,14 +159,9 @@ exports[`snapshots with all options 1`] = `
             >
               <input
                 aria-activedescendant="react-select-15--value"
-                aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
-                aria-label={undefined}
-                aria-labelledby={undefined}
                 aria-owns=""
-                className={undefined}
-                id={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
@@ -188,7 +173,6 @@ exports[`snapshots with all options 1`] = `
                     "width": "5px",
                   }
                 }
-                tabIndex={undefined}
                 value=""
               />
               <div
@@ -221,7 +205,6 @@ exports[`snapshots with all options 1`] = `
       </div>
       <div
         className="Select is-searchable Select--single"
-        style={undefined}
       >
         <div
           className="Select-control"
@@ -256,14 +239,9 @@ exports[`snapshots with all options 1`] = `
             >
               <input
                 aria-activedescendant="react-select-16--value"
-                aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
-                aria-label={undefined}
-                aria-labelledby={undefined}
                 aria-owns=""
-                className={undefined}
-                id={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
@@ -275,7 +253,6 @@ exports[`snapshots with all options 1`] = `
                     "width": "5px",
                   }
                 }
-                tabIndex={undefined}
                 value=""
               />
               <div
@@ -315,11 +292,9 @@ exports[`snapshots without options 1`] = `
 <div
   className="FilterStudentsBar EscapeListener"
   onKeyUp={[Function]}
-  style={undefined}
 >
   <div
     className="FilterBar"
-    style={undefined}
   >
     <div
       style={
@@ -358,7 +333,6 @@ exports[`snapshots without options 1`] = `
       />
       <div
         className="Select is-searchable Select--single"
-        style={undefined}
       >
         <div
           className="Select-control"
@@ -393,14 +367,9 @@ exports[`snapshots without options 1`] = `
             >
               <input
                 aria-activedescendant="react-select-17--value"
-                aria-describedby={undefined}
                 aria-expanded="false"
                 aria-haspopup="false"
-                aria-label={undefined}
-                aria-labelledby={undefined}
                 aria-owns=""
-                className={undefined}
-                id={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
@@ -412,7 +381,6 @@ exports[`snapshots without options 1`] = `
                     "width": "5px",
                   }
                 }
-                tabIndex={undefined}
                 value=""
               />
               <div

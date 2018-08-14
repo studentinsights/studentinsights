@@ -38,7 +38,6 @@ exports[`snapshots view 1`] = `
     </div>
     <textarea
       onChange={[Function]}
-      readOnly={undefined}
       rows={10}
       style={
         Object {
@@ -96,7 +95,6 @@ Any additional comments or good things to know about this student?"
     </div>
     <textarea
       onChange={[Function]}
-      readOnly={undefined}
       rows={10}
       style={
         Object {
