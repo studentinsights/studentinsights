@@ -449,7 +449,8 @@ export default class StudentProfilePage extends React.Component {
     const hasDibels = (dibels.length > 0);
 
     if (belowGradeFour && hasDibels) {
-      const latestDibels = _.last(dibels).benchmark;
+      const latestDibels = dibels[0].benchmark;  // DIBELS sent from server in desc order
+
       return (
         <div style={styles.summaryWrapper}>
           <SummaryWithoutSparkline caption="DIBELS" value={latestDibels} />
