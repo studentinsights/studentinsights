@@ -149,18 +149,14 @@ export default class ProfileDetails extends React.Component {
       });
     });
 
-    _.each(this.props.dibels, function(obj) {
-      // TODO(kr) need to investigate further, whether this is local demo data or production
-      // data quality issue
-      if (obj.performance_level === null) return;
-
+    _.each(this.props.dibels, (obj) => {
       const cleanedDate = obj.date_taken.split('T')[0];
       const parsedDate = moment.utc(cleanedDate, 'YYYY-MM-DD').toDate();
 
       events.push({
         type: 'DIBELS',
         id: obj.id,
-        message: name + ' scored ' + obj.performance_level.toUpperCase() + ' in DIBELS.',
+        message: name + ' scored ' + obj.benchmark + ' in DIBELS.',
         date: parsedDate
       });
     });
