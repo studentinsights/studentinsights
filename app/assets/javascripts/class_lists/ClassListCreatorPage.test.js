@@ -76,7 +76,7 @@ it('integration test for state changes, server requests and autosave', done => {
     expect(wrapper.state().schoolId).toEqual(4);
     expect(wrapper.state().gradeLevelNextYear).toEqual('6');
     expect(wrapper.state().stepIndex).toEqual(2);
-    expect(wrapper.state().students.length).toEqual(57);
+    expect(wrapper.state().students.length).toEqual(7);
     expect(Object.keys(wrapper.state().studentIdsByRoom)).toEqual([
       'room:unplaced',
       'room:0',
@@ -116,7 +116,7 @@ it('integration test for loading existing workspace', done => {
     expect(wrapper.state().schoolId).toEqual(2);
     expect(wrapper.state().gradeLevelNextYear).toEqual('3');
     expect(wrapper.state().stepIndex).toEqual(0);
-    expect(wrapper.state().students.length).toEqual(57);
+    expect(wrapper.state().students.length).toEqual(7);
     expect(Object.keys(wrapper.state().studentIdsByRoom)).toEqual([
       'room:unplaced',
       'room:0',

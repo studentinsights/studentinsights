@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
-      dibels: student.student_assessments.by_family('DIBELS'),
+      dibels: student.dibels_results.select(:id, :date_taken, :benchmark),
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
@@ -263,7 +263,6 @@ class StudentsController < ApplicationController
       result = case test.family
         when "MCAS" then student_assessment.scale_score
         when "Next Gen MCAS" then student_assessment.scale_score
-        when "DIBELS" then student_assessment.performance_level
         else student_assessment.scale_score
       end
 
@@ -279,6 +278,12 @@ class StudentsController < ApplicationController
 
     @student_assessments['STAR Math Percentile'] = @star_math_results
     @student_assessments['STAR Reading Percentile'] = @star_reading_results
+
+    @dibels_results = @student.dibels_results.order(date_taken: :asc)
+                              .where(date_taken: @filter_from_date..@filter_to_date)
+                              .map { |dibels| [dibels.date_taken, dibels.benchmark] }
+
+    @student_assessments['DIBELS'] = @dibels_results
 
     @serialized_data = {
       graph_date_range: {
