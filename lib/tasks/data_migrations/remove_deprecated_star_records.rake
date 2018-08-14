@@ -4,7 +4,7 @@ namespace :data_migration do
     puts "Records in student_assessment table: #{StudentAssessment.count}"
 
     puts "Destorying STAR assessments..."
-    Assessment.where(family: 'STAR').destroy_all
+    Assessment.where(family: 'STAR').delete_all
     puts "Done."
 
     puts "Records in student_assessment table: #{StudentAssessment.count}"
