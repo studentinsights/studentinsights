@@ -743,7 +743,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "12%",
+                      "width": "48%",
                     }
                   }
                 />
@@ -758,7 +758,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "12%",
+                      "width": "48%",
                     }
                   }
                 >
@@ -769,243 +769,7 @@ exports[`snapshots 1`] = `
                       }
                     }
                   >
-                    2
-                  </span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td
-            style={
-              Object {
-                "fontWeight": "normal",
-                "overflow": "hidden",
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "color": "black",
-                  "cursor": "default",
-                  "display": "inline-block",
-                  "height": 20,
-                  "marginBottom": 1,
-                  "paddingTop": 5,
-                  "position": "relative",
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
-                      "left": "0%",
-                      "position": "absolute",
-                      "width": "23%",
-                    }
-                  }
-                />
-                <div
-                  style={
-                    Object {
-                      "alignItems": "flex-end",
-                      "display": "flex",
-                      "fontSize": 12,
-                      "height": "100%",
-                      "justifyContent": "flex-end",
-                      "left": 14,
-                      "position": "relative",
-                      "top": -6,
-                      "width": "23%",
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    4
-                  </span>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td
-            style={
-              Object {
-                "fontWeight": "normal",
-                "overflow": "hidden",
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <div
-              className="BreakdownBar"
-              style={
-                Object {
-                  "height": 5,
-                  "paddingRight": 10,
-                  "paddingTop": 4,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "height": 5,
-                    "position": "relative",
-                    "width": "100%",
-                  }
-                }
-              >
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(41, 159, 197, 0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "63%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(41, 159, 197, 0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "63%",
-                      }
-                    }
-                  >
-                    5
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(224, 99, 120, 0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "63%",
-                        "position": "absolute",
-                        "width": "38%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(224, 99, 120, 0.5)",
-                        "fontSize": 12,
-                        "left": "63%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "38%",
-                      }
-                    }
-                  >
-                    3
-                  </div>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td
-            style={
-              Object {
-                "fontWeight": "normal",
-                "overflow": "hidden",
-                "textAlign": "left",
-                "verticalAlign": "top",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "color": "black",
-                  "cursor": "default",
-                  "display": "inline-block",
-                  "height": 20,
-                  "marginBottom": 1,
-                  "paddingTop": 5,
-                  "position": "relative",
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
-                      "left": "0%",
-                      "position": "absolute",
-                      "width": "29%",
-                    }
-                  }
-                />
-                <div
-                  style={
-                    Object {
-                      "alignItems": "flex-end",
-                      "display": "flex",
-                      "fontSize": 12,
-                      "height": "100%",
-                      "justifyContent": "flex-end",
-                      "left": 14,
-                      "position": "relative",
-                      "top": -6,
-                      "width": "29%",
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    5
+                    1
                   </span>
                 </div>
               </div>
@@ -1106,12 +870,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
+                        "background": "rgba(41, 159, 197, 0.5)",
                         "fontSize": 12,
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "13%",
+                        "width": "50%",
                       }
                     }
                   >
@@ -1120,14 +884,14 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(0,128,0,0.5)",
+                        "color": "rgba(41, 159, 197, 0.5)",
                         "fontSize": 12,
                         "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "13%",
+                        "width": "50%",
                       }
                     }
                   >
@@ -1138,12 +902,200 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
+                        "background": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "height": 5,
+                        "left": "50%",
+                        "position": "absolute",
+                        "width": "50%",
+                      }
+                    }
+                  >
+                     
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "color": "rgba(224, 99, 120, 0.5)",
+                        "fontSize": 12,
+                        "left": "50%",
+                        "paddingRight": 1,
+                        "position": "absolute",
+                        "textAlign": "right",
+                        "top": 5,
+                        "width": "50%",
+                      }
+                    }
+                  >
+                    1
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
+                    }
+                  }
+                >
+                   
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "color": "black",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "height": 20,
+                  "marginBottom": 1,
+                  "paddingTop": 5,
+                  "position": "relative",
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "backgroundColor": "rgb(137, 175, 202)",
+                      "height": 3,
+                      "left": "0%",
+                      "position": "absolute",
+                      "width": "0%",
+                    }
+                  }
+                />
+                <div
+                  style={
+                    Object {
+                      "alignItems": "flex-end",
+                      "display": "flex",
+                      "fontSize": 12,
+                      "height": "100%",
+                      "justifyContent": "flex-end",
+                      "left": 14,
+                      "position": "relative",
+                      "top": -6,
+                      "width": "0%",
+                    }
+                  }
+                >
+                   
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            style={
+              Object {
+                "fontWeight": "normal",
+                "overflow": "hidden",
+                "textAlign": "left",
+                "verticalAlign": "top",
+              }
+            }
+          >
+            <div
+              className="BreakdownBar"
+              style={
+                Object {
+                  "height": 5,
+                  "paddingRight": 10,
+                  "paddingTop": 4,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "height": 5,
+                    "position": "relative",
+                    "width": "100%",
+                  }
+                }
+              >
+                <div>
+                  <div
+                    style={
+                      Object {
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "13%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "25%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -1154,48 +1106,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "13%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "25%",
+                        "width": "100%",
                       }
                     }
                   >
                     2
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "38%",
-                        "position": "absolute",
-                        "width": "63%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "left": "38%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "63%",
-                      }
-                    }
-                  >
-                    5
                   </div>
                 </div>
               </div>
@@ -1234,44 +1154,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "25%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "25%",
-                      }
-                    }
-                  >
-                    2
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "25%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "38%",
+                        "width": "50%",
                       }
                     }
                   >
@@ -1282,16 +1170,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "25%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "38%",
+                        "width": "50%",
                       }
                     }
                   >
-                    3
+                    1
                   </div>
                 </div>
                 <div>
@@ -1301,9 +1189,9 @@ exports[`snapshots 1`] = `
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "63%",
+                        "left": "50%",
                         "position": "absolute",
-                        "width": "38%",
+                        "width": "50%",
                       }
                     }
                   >
@@ -1314,16 +1202,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "63%",
+                        "left": "50%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "38%",
+                        "width": "50%",
                       }
                     }
                   >
-                    3
+                    1
                   </div>
                 </div>
               </div>
@@ -1349,7 +1237,7 @@ exports[`snapshots 1`] = `
                 }
               }
             >
-              8
+              2
             </span>
           </td>
         </tr>
@@ -1404,7 +1292,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "18%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1419,19 +1307,11 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "18%",
+                      "width": "0%",
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    3
-                  </span>
+                   
                 </div>
               </div>
             </div>
@@ -1474,7 +1354,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "58%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -1489,19 +1369,11 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "58%",
+                      "width": "0%",
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    10
-                  </span>
+                   
                 </div>
               </div>
             </div>
@@ -1539,44 +1411,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(41, 159, 197, 0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "43%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(41, 159, 197, 0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "43%",
-                      }
-                    }
-                  >
-                    6
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(224, 99, 120, 0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "43%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "58%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -1587,16 +1427,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(224, 99, 120, 0.5)",
                         "fontSize": 12,
-                        "left": "43%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "58%",
+                        "width": "100%",
                       }
                     }
                   >
-                    8
+                    1
                   </div>
                 </div>
               </div>
@@ -1640,7 +1480,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "47%",
+                      "width": "48%",
                     }
                   }
                 />
@@ -1655,7 +1495,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "47%",
+                      "width": "48%",
                     }
                   }
                 >
@@ -1666,7 +1506,7 @@ exports[`snapshots 1`] = `
                       }
                     }
                   >
-                    8
+                    1
                   </span>
                 </div>
               </div>
@@ -1767,44 +1607,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "39%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "39%",
-                      }
-                    }
-                  >
-                    5
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "39%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "24%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -1815,48 +1623,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "39%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "24%",
+                        "width": "100%",
                       }
                     }
                   >
-                    3
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "62%",
-                        "position": "absolute",
-                        "width": "39%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "left": "62%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "39%",
-                      }
-                    }
-                  >
-                    5
+                    1
                   </div>
                 </div>
               </div>
@@ -1895,76 +1671,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "16%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "16%",
-                      }
-                    }
-                  >
-                    2
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,165,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "16%",
-                        "position": "absolute",
-                        "width": "47%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,165,0,0.5)",
-                        "fontSize": 12,
-                        "left": "16%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "47%",
-                      }
-                    }
-                  >
-                    6
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "62%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "39%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -1975,16 +1687,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "62%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "39%",
+                        "width": "100%",
                       }
                     }
                   >
-                    5
+                    1
                   </div>
                 </div>
               </div>
@@ -2010,7 +1722,7 @@ exports[`snapshots 1`] = `
                 }
               }
             >
-              14
+              1
             </span>
           </td>
         </tr>
@@ -2065,7 +1777,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "18%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2080,19 +1792,11 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "18%",
+                      "width": "0%",
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    3
-                  </span>
+                   
                 </div>
               </div>
             </div>
@@ -2135,7 +1839,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "29%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2150,19 +1854,11 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "29%",
+                      "width": "0%",
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    5
-                  </span>
+                   
                 </div>
               </div>
             </div>
@@ -2205,7 +1901,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "67%",
+                        "width": "50%",
                       }
                     }
                   >
@@ -2221,23 +1917,23 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "67%",
+                        "width": "50%",
                       }
                     }
                   >
-                    6
+                    1
                   </div>
                 </div>
                 <div>
                   <div
                     style={
                       Object {
-                        "background": "rgba(224, 99, 120, 0.5)",
+                        "background": "rgba(81, 185, 86, 0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "67%",
+                        "left": "50%",
                         "position": "absolute",
-                        "width": "34%",
+                        "width": "50%",
                       }
                     }
                   >
@@ -2246,18 +1942,18 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(224, 99, 120, 0.5)",
+                        "color": "rgba(81, 185, 86, 0.5)",
                         "fontSize": 12,
-                        "left": "67%",
+                        "left": "50%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "34%",
+                        "width": "50%",
                       }
                     }
                   >
-                    3
+                    1
                   </div>
                 </div>
               </div>
@@ -2301,7 +1997,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "41%",
+                      "width": "48%",
                     }
                   }
                 />
@@ -2316,7 +2012,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "41%",
+                      "width": "48%",
                     }
                   }
                 >
@@ -2327,7 +2023,7 @@ exports[`snapshots 1`] = `
                       }
                     }
                   >
-                    7
+                    1
                   </span>
                 </div>
               </div>
@@ -2433,7 +2129,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "34%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -2449,75 +2145,11 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "34%",
+                        "width": "100%",
                       }
                     }
                   >
-                    3
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,165,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "34%",
-                        "position": "absolute",
-                        "width": "34%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,165,0,0.5)",
-                        "fontSize": 12,
-                        "left": "34%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "34%",
-                      }
-                    }
-                  >
-                    3
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "67%",
-                        "position": "absolute",
-                        "width": "34%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "left": "67%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "34%",
-                      }
-                    }
-                  >
-                    3
+                    1
                   </div>
                 </div>
               </div>
@@ -2556,44 +2188,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "45%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "45%",
-                      }
-                    }
-                  >
-                    4
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "45%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "23%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -2604,48 +2204,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "45%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "23%",
+                        "width": "100%",
                       }
                     }
                   >
-                    2
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "67%",
-                        "position": "absolute",
-                        "width": "34%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "left": "67%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "34%",
-                      }
-                    }
-                  >
-                    3
+                    1
                   </div>
                 </div>
               </div>
@@ -2671,7 +2239,7 @@ exports[`snapshots 1`] = `
                 }
               }
             >
-              9
+              2
             </span>
           </td>
         </tr>
@@ -2726,7 +2294,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "18%",
+                      "width": "48%",
                     }
                   }
                 />
@@ -2741,7 +2309,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "18%",
+                      "width": "48%",
                     }
                   }
                 >
@@ -2752,7 +2320,7 @@ exports[`snapshots 1`] = `
                       }
                     }
                   >
-                    3
+                    1
                   </span>
                 </div>
               </div>
@@ -2796,7 +2364,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "58%",
+                      "width": "48%",
                     }
                   }
                 />
@@ -2811,7 +2379,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "58%",
+                      "width": "48%",
                     }
                   }
                 >
@@ -2822,7 +2390,7 @@ exports[`snapshots 1`] = `
                       }
                     }
                   >
-                    10
+                    1
                   </span>
                 </div>
               </div>
@@ -2866,7 +2434,7 @@ exports[`snapshots 1`] = `
                         "height": 5,
                         "left": "0%",
                         "position": "absolute",
-                        "width": "47%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -2882,43 +2450,11 @@ exports[`snapshots 1`] = `
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "47%",
+                        "width": "100%",
                       }
                     }
                   >
-                    7
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(224, 99, 120, 0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "47%",
-                        "position": "absolute",
-                        "width": "54%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(224, 99, 120, 0.5)",
-                        "fontSize": 12,
-                        "left": "47%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "54%",
-                      }
-                    }
-                  >
-                    8
+                    1
                   </div>
                 </div>
               </div>
@@ -2962,7 +2498,7 @@ exports[`snapshots 1`] = `
                       "height": 3,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "41%",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2977,19 +2513,11 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "41%",
+                      "width": "0%",
                     }
                   }
                 >
-                  <span
-                    style={
-                      Object {
-                        "color": "#333",
-                      }
-                    }
-                  >
-                    7
-                  </span>
+                   
                 </div>
               </div>
             </div>
@@ -3089,76 +2617,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "39%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "39%",
-                      }
-                    }
-                  >
-                    5
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,165,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "39%",
-                        "position": "absolute",
-                        "width": "24%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,165,0,0.5)",
-                        "fontSize": 12,
-                        "left": "39%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "24%",
-                      }
-                    }
-                  >
-                    3
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "62%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "39%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -3169,16 +2633,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,0,0,0.5)",
                         "fontSize": 12,
-                        "left": "62%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "39%",
+                        "width": "100%",
                       }
                     }
                   >
-                    5
+                    1
                   </div>
                 </div>
               </div>
@@ -3217,44 +2681,12 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "39%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(0,128,0,0.5)",
-                        "fontSize": 12,
-                        "left": "0%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "39%",
-                      }
-                    }
-                  >
-                    5
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
                         "background": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
                         "height": 5,
-                        "left": "39%",
+                        "left": "0%",
                         "position": "absolute",
-                        "width": "31%",
+                        "width": "100%",
                       }
                     }
                   >
@@ -3265,48 +2697,16 @@ exports[`snapshots 1`] = `
                       Object {
                         "color": "rgba(255,165,0,0.5)",
                         "fontSize": 12,
-                        "left": "39%",
+                        "left": "0%",
                         "paddingRight": 1,
                         "position": "absolute",
                         "textAlign": "right",
                         "top": 5,
-                        "width": "31%",
+                        "width": "100%",
                       }
                     }
                   >
-                    4
-                  </div>
-                </div>
-                <div>
-                  <div
-                    style={
-                      Object {
-                        "background": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "height": 5,
-                        "left": "70%",
-                        "position": "absolute",
-                        "width": "31%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "color": "rgba(255,0,0,0.5)",
-                        "fontSize": 12,
-                        "left": "70%",
-                        "paddingRight": 1,
-                        "position": "absolute",
-                        "textAlign": "right",
-                        "top": 5,
-                        "width": "31%",
-                      }
-                    }
-                  >
-                    4
+                    1
                   </div>
                 </div>
               </div>
@@ -3332,7 +2732,7 @@ exports[`snapshots 1`] = `
                 }
               }
             >
-              15
+              1
             </span>
           </td>
         </tr>
