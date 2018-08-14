@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
@@ -32,7 +33,13 @@ export default class SampleStudentsPage extends React.Component {
   }
 
   renderPage(json) {
-    const sampleStudents = json.sample_students;
+    return <SampleStudentsPageView sampleStudents={json.sample_students} />;
+  }
+}
+
+export class SampleStudentsPageView extends React.Component {
+  render() {
+    const {sampleStudents} = this.props;
     const sortedSampleStudents = _.sortBy(sampleStudents, student => {
       return [
         student.school.school_type,
@@ -81,3 +88,16 @@ export default class SampleStudentsPage extends React.Component {
     );
   }
 }
+SampleStudentsPageView.propTypes = {
+  sampleStudents: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    grade: PropTypes.string.isRequired,
+    school: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      school_type: PropTypes.string.isRequired
+    }).isRequired,
+  })).isRequired
+};

@@ -7,8 +7,7 @@ class StudentsController < ApplicationController
     :sample_students_json
   ]
   before_action :authorize_for_districtwide_access_admin, only: [
-    :lasids,
-    :sample_students_json
+    :lasids
   ]
 
   def authorize!
