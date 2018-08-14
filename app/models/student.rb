@@ -147,7 +147,7 @@ class Student < ActiveRecord::Base
   end
 
   def latest_dibels
-    dibels_results.last
+    dibels_results.first  # Sorted by descending date_taken by default
   end
 
   def latest_access_results
