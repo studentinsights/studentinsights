@@ -224,9 +224,9 @@ export default class ClassroomStats extends React.Component {
     });
     return (
       <DibelsBreakdownBar
-        coreCount={dibelsCounts.core}
-        intensiveCount={dibelsCounts.intensive}
-        strategicCount={dibelsCounts.strategic}
+        coreCount={dibelsCounts.CORE}
+        intensiveCount={dibelsCounts.INTENSIVE}
+        strategicCount={dibelsCounts.STRATEGIC}
         style={styles.breakdownBar}
         innerStyle={styles.breakdownBarInner}
         height={5}
