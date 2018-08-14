@@ -4,6 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import AttendanceDetails from './AttendanceDetails';
@@ -30,24 +31,26 @@ export default class LightProfilePage extends React.Component {
   }
 
   render() {
-    const {student} = this.props;
+    const {student, districtKey} = this.props;
     const isHighSchool = (student.school_type === 'HS');
     return (
-      <div className="LightProfilePage" style={styles.root}>
-        {this.renderHeader()}
-        <div style={styles.tabsContainer}>
-          <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
-          {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
-          {isHighSchool && <div style={styles.tabLayout}>{this.renderMcasColumn()}</div>}
-          {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
-          {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
-          <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
-          <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
+      <PerDistrictContainer districtKey={districtKey}>
+        <div className="LightProfilePage" style={styles.root}>
+          {this.renderHeader()}
+          <div style={styles.tabsContainer}>
+            <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
+            {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
+            {isHighSchool && <div style={styles.tabLayout}>{this.renderMcasColumn()}</div>}
+            {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
+            {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
+            <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
+            <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
+          </div>
+          <div style={styles.detailsContainer}>
+            {this.renderSectionDetails()}
+          </div>
         </div>
-        <div style={styles.detailsContainer}>
-          {this.renderSectionDetails()}
-        </div>
-      </div>
+      </PerDistrictContainer>
     );
   }
 
@@ -395,7 +398,8 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'stretch',
     margin: 20,
-    flex: 1
+    flex: 1,
+    height: 135
   },
   tabLayout: {
     flex: 1,
