@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
-      dibels: student.dibels_results,
+      dibels: student.dibels_results.select(:id, :date_taken, :benchmark),
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
