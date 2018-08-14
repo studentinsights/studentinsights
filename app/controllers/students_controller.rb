@@ -157,6 +157,7 @@ class StudentsController < ApplicationController
     }
 
     student.as_json.merge(per_district_fields).merge({
+      has_photo: (student.student_photos.size > 0),
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
       school_name: student.try(:school).try(:name),

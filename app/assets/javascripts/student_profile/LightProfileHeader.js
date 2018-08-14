@@ -18,12 +18,23 @@ photo and classroom.  Also includes a carousel of humanizing quotes about
 the student, and some buttons for exporting, etc.
 */
 export default class LightProfileHeader extends React.Component {
+  hasPhoto() {
+    const {student, districtKey} = this.props;
+    const shouldShowPhoto = hasStudentPhotos(districtKey);
+    return (shouldShowPhoto && student.has_photo);
+  }
+
   render() {
     const {style} = this.props;
+    const hasPhoto = this.hasPhoto();
+    const firstColumnFlex = (hasPhoto) ? 1 : 0;
+    const secondColumnFlex = (hasPhoto) ? 2 : 3;
     return (
       <div className="LightProfileHeader" style={{...styles.root, style}}>
-        <div style={{flex: 3, display: 'flex', flexDirection: 'row'}}>
+        <div style={{flex: firstColumnFlex, display: 'flex', flexDirection: 'row'}}>
           {this.renderStudentPhotoOrNull()}
+        </div>
+        <div style={{flex: secondColumnFlex, display: 'flex', flexDirection: 'row'}}>
           {this.renderOverview()}
         </div>
         <div style={{flex: 2, display: 'flex', flexDirection: 'row', marginTop: 10}}>
@@ -35,10 +46,9 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderStudentPhotoOrNull() {
-    const {student, districtKey} = this.props;
-    const shouldShowPhoto = hasStudentPhotos(districtKey);
-    if (!shouldShowPhoto) return null;
-
+    const {student} = this.props;
+    if (!this.hasPhoto()) return null;
+    
     return (
       <div style={{flex: 1, marginLeft: 10}}>
         <AutoSizer>
@@ -78,6 +88,7 @@ export default class LightProfileHeader extends React.Component {
             {this.render504()}
             {this.renderLanguage()}
           </div>
+          {this.hasPhoto() ? null : <div style={{flex: 1}} />}
         </div>
       </div>
     );
@@ -199,7 +210,7 @@ export default class LightProfileHeader extends React.Component {
     const quotesOrUpsell = (quotes.length === 0) ? upsellQuotes(student, style) : quotes;
     return (
       <div style={{
-        width: 350,
+        flex: 1,
         display: 'flex',
         background: '#eee'
       }}>

@@ -38,6 +38,7 @@ export default class LightProfilePage extends React.Component {
         <div style={styles.tabsContainer}>
           <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
           {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
+          {isHighSchool && <div style={styles.tabLayout}>{this.renderMcasColumn()}</div>}
           {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
           {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
           <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
@@ -122,6 +123,26 @@ export default class LightProfilePage extends React.Component {
           <LightShoutNumber number={strugglingSectionsCount}>
             <div>courses with a D or F</div>
             <div>right now</div>
+          </LightShoutNumber>
+        </LightProfileTab>
+    );
+  }
+
+  renderMcasColumn() {
+    const {selectedColumnKey} = this.props;
+    const columnKey = 'mcas';
+    // const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowMomentFn());
+    return (
+      <LightProfileTab
+        style={styles.tab}
+        isSelected={selectedColumnKey === columnKey}
+        onClick={this.onColumnClicked.bind(this, columnKey)}
+        intenseColor="#6A2987"
+        fadedColor="hsl(237,80%,95%)"
+        text="Testing">
+          <LightShoutNumber number={"NI"}>
+            <div>ELA MCAS</div>
+            <div>{"?"}</div>
           </LightShoutNumber>
         </LightProfileTab>
     );
