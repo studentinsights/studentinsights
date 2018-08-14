@@ -149,14 +149,14 @@ export default class ProfileDetails extends React.Component {
       });
     });
 
-    _.each(this.props.dibels, (obj) => {
+    _.each(this.props.dibels, obj => {
       const cleanedDate = obj.date_taken.split('T')[0];
       const parsedDate = moment.utc(cleanedDate, 'YYYY-MM-DD').toDate();
 
       events.push({
         type: 'DIBELS',
         id: obj.id,
-        message: name + ' scored ' + obj.benchmark + ' in DIBELS.',
+        message: `${name} scored ${obj.benchmark} in DIBELS.`,
         date: parsedDate
       });
     });
