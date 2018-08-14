@@ -103,11 +103,9 @@ class EducatorsController < ApplicationController
     }
   end
 
+  # Send arbitrary request to reset Devise Timeoutable
   def reset_session_clock
-    # Send arbitrary request to reset Devise Timeoutable
-    respond_to do |format|
-      format.json { render json: :ok }
-    end
+    render json: { status: 'ok' }
   end
 
   private

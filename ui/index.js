@@ -2,24 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {readEnv} from '../app/assets/javascripts/envForJs';
-import sessionTimeoutWarning from '../app/assets/javascripts/sessionTimeoutWarning';
+import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
 import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
 
-// Session timeout
-if ($('body').hasClass('educator-signed-in')) {
-  sessionTimeoutWarning(readEnv().sessionTimeoutInSeconds);
-} else {
-  clearStorage(); // extra guard that there's no storage if not signed in
-}
 
 // Student searchbar, and clearing cache on sign out
 if ($('.student-searchbar').length > 0) {
   initSearchBar();
   $('.navbar-sign-out').click(clearStorage);
 }
+
+// Extra guard that there's no storage if not signed in
+if (!$('body').hasClass('educator-signed-in')) {
+  clearStorage(); 
+}
+
 
 // Routing
 // Some pages are server-rendered and have a different structure
@@ -34,9 +34,15 @@ if (mainEl) {
     const {districtKey} = readEnv();
     const serializedData = $('#serialized-data').data() || {};
     const {currentEducator} = serializedData;
+    const {sessionTimeoutInSeconds} = readEnv();
     ReactDOM.render(
       <BrowserRouter>
-        <App currentEducator={currentEducator} districtKey={districtKey} />
+        <div>
+          <SessionRenewal
+            sessionTimeoutInSeconds={10}
+            warningTimeoutInSeconds={3} />
+          <App currentEducator={currentEducator} districtKey={districtKey} />
+        </div>
       </BrowserRouter>
     , mainEl);
   }
