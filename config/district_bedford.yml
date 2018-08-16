@@ -1,0 +1,19 @@
+schools:
+  -
+    name: Lane Elementary
+    local_id: Lane
+  -
+    name: Davis Elementary
+    local_id: Davis
+  -
+    name: John Glenn Middle School
+    local_id: JGMS
+  -
+    name: Bedford High School
+    local_id: BHS
+  -
+    name: Pre-K
+    local_id: BHS Pre-K
+  -
+    name: System
+    local_id: System

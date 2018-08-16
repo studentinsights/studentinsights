@@ -2,6 +2,7 @@ import * as Filters from './Filters';
 
 export const SOMERVILLE = 'somerville';
 export const NEW_BEDFORD = 'new_bedford';
+export const BEDFORD = 'bedford';
 export const DEMO = 'demo';
 
 export function hasStudentPhotos(districtKey) {
