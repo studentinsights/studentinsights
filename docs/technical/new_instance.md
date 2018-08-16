@@ -7,6 +7,7 @@ Goal: Visit the home page signed-out
 - New Heroku app with Node/Ruby buildpacks, grant access to team
 - Review and set environment variables (minimally)
 - Review and update `PerDistrict.rb` class & district config YML (minimally)
+- Update `scripts/deploy/all.sh`
 - Set up Postgres and seed database (minimally, i.e. just schools)
 - Set up Logentries
 - Set up Rollbar
