@@ -3,7 +3,7 @@ The overall idea is strong isolation across districts, which means some initial 
 
 ### 1: Stand up an instance
 Goal: Visit the home page signed-out
-- Add domain
+
 - New Heroku app with Node/Ruby buildpacks, grant access to team
 - Review and set environment variables (minimally)
 - Review and update `PerDistrict.rb` class (minimally)
@@ -13,6 +13,7 @@ Goal: Visit the home page signed-out
 - Set up Rollbar
 - Set up Mixpanel
 - Set up CSP and CSP logger
+- Add domain
 
 ### 2: Sign in
 Goal: Sign in as developer, see empty home page, roster page, districtwide pages
@@ -24,7 +25,7 @@ Goal: Sign in as districtwide educator, use the home page, roster page, student 
 - `EducatorsImporter` and validate
 - `StudentsImporter` and validate
 - Review permissions with district partner
-- Set up Mailgun and enable usage emails 
+- Set up Mailgun and enable usage emails
 
 ### 4: Enable additional features, or ensure disabled
 Goal: Educators using additional feature (eg, "insights box" for absences) or using additional data within support meetings (eg BBST).
