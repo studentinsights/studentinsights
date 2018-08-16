@@ -30,6 +30,7 @@ class LoadDistrictConfig
     {
       'somerville' => 'config/district_somerville.yml',
       'new_bedford' => 'config/district_new_bedford.yml',
+      'bedford' => 'config/district_bedford.yml',
     }
   end
 
