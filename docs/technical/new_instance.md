@@ -21,7 +21,7 @@ Goal: Sign in as developer, see empty home page, roster page, districtwide pages
 
 ### 3: Import first data
 Goal: Sign in as districtwide educator, use the home page, roster page, student profile page, take notes for students in support meetings
-- Create a new EC2 instance for receiving data (maybe with static IPs, grant access to team): see `new_sftp.md` doc
+- Create a new EC2 instance for receiving data (maybe with static IPs, grant access to team): ask teammates for `new_sftp.md` doc
 - Set `SIS_SFTP_HOST`, `SIS_SFTP_USER`, `SIS_SFTP_KEY` or `STAR_SFTP_PASSWORD`
 - `EducatorsImporter` and validate
 - `StudentsImporter` and validate
