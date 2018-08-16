@@ -7,8 +7,7 @@ Goal: Visit the home page signed-out
 - New Heroku app with Node/Ruby buildpacks, grant access to team
 - Review and set environment variables (minimally)
 - Review and update `PerDistrict.rb` class & district config YML (minimally)
-- Review and add Heroku scheduler jobs (minimally)
-- Set up Postgres and seed database (minimally)
+- Set up Postgres and seed database (minimally, i.e. just schools)
 - Set up Logentries
 - Set up Rollbar
 - Set up Mixpanel
@@ -27,6 +26,9 @@ Goal: Sign in as districtwide educator, use the home page, roster page, student 
 - `StudentsImporter` and validate
 - Review permissions with district partner
 - Set up Mailgun and enable usage emails
+- Add Heroku scheduler jobs for import
+- Add Heroku scheduler jobs for cached background tasks
+- Test Heroku scheduler jobs
 
 ### 4: Enable additional features, or ensure disabled
 Goal: Educators using additional feature (eg, "insights box" for absences) or using additional data within support meetings (eg BBST).
