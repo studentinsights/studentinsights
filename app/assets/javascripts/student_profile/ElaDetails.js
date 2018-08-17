@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {merge} from '../helpers/merge';
 import ProfileChart from './ProfileChart';
 import ProfileChartSettings from './ProfileChartSettings';
+import DetailsSection from './DetailsSection';
 
 /*
 This renders details about ELA performance and growth in the student profile page.
@@ -35,12 +36,13 @@ export default class ElaDetails extends React.Component {
   }
 
   render() {
+    const {hideStar} = this.props;
     return (
       <div className="ElaDetails">
         {this.renderNavBar()}
-        {this.renderStarReading()}
-        {this.renderMCASELAScores()}
+        {!hideStar && this.renderStarReading()}
         {this.renderMCASELANextGenScores()}
+        {this.renderMCASELAScores()}
         {this.renderMCASELAGrowth()}
       </div>
     );
@@ -77,35 +79,16 @@ export default class ElaDetails extends React.Component {
   }
 
   renderNavBar() {
-    const {hideNavbar} = this.props;
+    const {hideNavbar, hideStar} = this.props;
     if (hideNavbar) return null;
 
     return (
       <div style={styles.navBar}>
-        <a style={styles.navBar} href="#Star">
-          STAR Reading Chart
-        </a>
-        {' | '}
+        {!hideStar && <a style={styles.navBar} href="#Star"> STAR Reading Chart </a>}
+        {!hideStar && ' | '}
         {this.renderMCASNextGenLink()}
         {this.renderMCASLink()}
-        <a style={styles.navBar} href="#SGPs">
-          MCAS ELA SGPs Chart
-        </a>
-      </div>
-    );
-  }
-
-  renderHeader(title) {
-    return (
-      <div style={styles.secHead}>
-        <h4 style={styles.title}>
-          {title}
-        </h4>
-        <span style={styles.navTop}>
-          <a href="#">
-            Back to top
-          </a>
-        </span>
+        <a style={styles.navBar} href="#SGPs"> MCAS ELA SGPs Chart</a>
       </div>
     );
   }
@@ -117,8 +100,7 @@ export default class ElaDetails extends React.Component {
     const starReading = chartData.star_series_reading_percentile.reverse();
 
     return (
-      <div id='Star' style={styles.container}>
-        {this.renderHeader('STAR Reading, last 4 years')}
+      <DetailsSection anchorId="Star" title="STAR Reading, last 4 years">
         <ProfileChart
           quadSeries={[{ name: 'Percentile rank', data: starReading }]}
           titleText=''
@@ -127,7 +109,7 @@ export default class ElaDetails extends React.Component {
             title: { text: 'Percentile rank' }
           })}
           showGradeLevelEquivalent= { true }/>
-      </div>
+      </DetailsSection>
     );
   }
 
@@ -137,8 +119,7 @@ export default class ElaDetails extends React.Component {
     if (!data || data.length === 0) return null;
 
     return (
-      <div id="NextGenScores" style={styles.container}>
-        {this.renderHeader('MCAS Next Gen ELA Scores, last 4 years')}
+      <DetailsSection anchorId="NextGenScores" title="MCAS Next Gen ELA Scores, last 4 years">
         <ProfileChart
           quadSeries={[{
             name: 'Scaled score',
@@ -153,7 +134,7 @@ export default class ElaDetails extends React.Component {
             title: { text: 'Scaled score' }
           })} />
 
-      </div>
+      </DetailsSection>
     );
   }
 
@@ -163,8 +144,7 @@ export default class ElaDetails extends React.Component {
     if (!data || data.length === 0) return null;
 
     return (
-      <div id="Scores" style={styles.container}>
-        {this.renderHeader('MCAS ELA Scores, last 4 years')}
+      <DetailsSection anchorId="Scores" title="MCAS ELA Scores, last 4 years">
         <ProfileChart
           quadSeries={[{
             name: 'Scaled score',
@@ -176,14 +156,13 @@ export default class ElaDetails extends React.Component {
             plotLines: ProfileChartSettings.mcas_level_bands,
             title: { text: 'Scaled score' }
           })} />
-      </div>
+      </DetailsSection>
     );
   }
 
   renderMCASELAGrowth() {
     return (
-      <div id="SGPs" style={styles.container}>
-        {this.renderHeader('Student growth percentile (SGP), last 4 years')}
+      <DetailsSection anchorId="SGPs" title="Student growth percentile (SGP), last 4 years">
         <ProfileChart
           quadSeries={[{
             name: '',
@@ -194,7 +173,7 @@ export default class ElaDetails extends React.Component {
           yAxis={merge(this.percentileYAxis(), {
             title: { text: 'Student growth percentile (SGP)' }
           })} />
-      </div>
+      </DetailsSection>
     );
   }
 
@@ -208,35 +187,12 @@ ElaDetails.propTypes = {
     mcas_series_ela_growth: PropTypes.array.isRequired
   }).isRequired,
   student: PropTypes.object.isRequired,
-  hideNavbar: PropTypes.bool
+  hideNavbar: PropTypes.bool,
+  hideStar: PropTypes.bool
 };
 
 const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
   navBar: {
     fontSize: 18
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
   }
 };

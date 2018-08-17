@@ -1,5 +1,44 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
-import {latestStar} from './LightProfilePage';
+import {withDefaultNowContext} from '../testing/NowContainer';
+import LightProfilePage, {latestStar} from './LightProfilePage';
+import {
+  testPropsForPlutoPoppins,
+  testPropsForOlafWhite,
+  testPropsForAladdinMouse
+} from './StudentProfilePage.test';
+
+
+
+it('renders without crashing', () => {
+  const el = document.createElement('div');
+  const props = testPropsForPlutoPoppins();
+  ReactDOM.render(<LightProfilePage {...props} />, el);
+});
+
+
+describe('snapshots', () => {
+  function expectSnapshot(props) {
+    const tree = renderer
+      .create(withDefaultNowContext(<LightProfilePage {...props} />))
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  }
+
+  it('works for olaf notes', () => expectSnapshot(testPropsForOlafWhite({selectedColumnKey: 'notes'})));
+  it('works for olaf reading', () => expectSnapshot(testPropsForOlafWhite({selectedColumnKey: 'reading'})));
+  it('works for olaf math', () => expectSnapshot(testPropsForOlafWhite({selectedColumnKey: 'math'})));
+
+  it('works for pluto notes', () => expectSnapshot(testPropsForPlutoPoppins({selectedColumnKey: 'notes'})));
+  it('works for pluto attendance', () => expectSnapshot(testPropsForPlutoPoppins({selectedColumnKey: 'attendance'})));
+  it('works for pluto behavior', () => expectSnapshot(testPropsForPlutoPoppins({selectedColumnKey: 'behavior'})));
+
+  it('works for aladdin notes', () => expectSnapshot(testPropsForAladdinMouse({selectedColumnKey: 'notes'})));
+  it('works for aladdin grades', () => expectSnapshot(testPropsForAladdinMouse({selectedColumnKey: 'grades'})));
+  it('works for aladdin testing', () => expectSnapshot(testPropsForAladdinMouse({selectedColumnKey: 'testing'})));
+});
 
 
 it('#latestStar', () => {
