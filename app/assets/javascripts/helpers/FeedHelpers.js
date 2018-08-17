@@ -22,7 +22,13 @@ export function mergedNotes(feed) {
     };
   });
 
-  const mergedNotes = eventNotes.concat.apply(eventNotes, [deprecatedInterventions]);
+  const transitionNotes = [];
+
+  const mergedNotes = [
+    ...eventNotes,
+    ...deprecatedInterventions,
+    ...transitionNotes
+  ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }
 
