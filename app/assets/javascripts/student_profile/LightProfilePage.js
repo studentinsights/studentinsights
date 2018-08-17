@@ -253,7 +253,6 @@ export default class LightProfilePage extends React.Component {
           educatorsIndex={this.props.educatorsIndex}
           currentEducator={this.props.currentEducator}
           feed={this.props.feed}
-          transitionNotes={this.props.transitionNotes}
           actions={this.props.actions}
           requests={this.props.requests}
           showingRestrictedNotes={false}
