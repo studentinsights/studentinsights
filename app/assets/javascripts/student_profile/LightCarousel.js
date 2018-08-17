@@ -52,7 +52,7 @@ export default class LightCarousel extends React.Component {
     return (
       <div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'space-between', ...style}}>
         <div style={{flex: 1, margin: 20, marginBottom: 0, marginTop: 15, display: 'flex'}}>
-          <div style={{flex: 1, fontSize: 20, overflowY: 'scroll'}}>{quoted}</div>
+          <div style={{flex: 1, fontSize: 20, overflowY: 'hidden'}}>{quoted}</div>
         </div>
         <div style={{
           fontSize: 12,

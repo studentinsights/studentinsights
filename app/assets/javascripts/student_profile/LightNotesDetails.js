@@ -8,6 +8,7 @@ import NotesList from './NotesList';
 import TakeNotes from './TakeNotes';
 
 
+
 const styles = {
   notesContainer: {
     width: '50%',
@@ -39,6 +40,15 @@ export default class LightNotesDetails extends React.Component {
     this.onCancelNotes = this.onCancelNotes.bind(this);
   }
 
+  isTakingNotes() {
+    return (
+      this.state.isTakingNotes ||
+      this.props.requests.saveNote !== null ||
+      this.props.noteInProgressText.length > 0 ||
+      this.props.noteInProgressAttachmentUrls.length > 0
+    );
+  }
+
   onClickTakeNotes(event) {
     this.setState({ isTakingNotes: true });
   }
@@ -58,48 +68,46 @@ export default class LightNotesDetails extends React.Component {
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
         {<SectionHeading titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-          <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{display: 'flex', alignItems: 'center', padding: 2}}>
             <span>{title} for {student.first_name}</span>
             <LightHelpBubble
               title={this.props.helpTitle}
               content={this.props.helpContent} />
           </div>
           {/*this.renderRestrictedNotesButtonIfAppropriate()*/}
-          {this.renderTakeNotesSection()}
+          {!this.isTakingNotes() && this.renderTakeNotesButton()}
         </SectionHeading>}
-        <NotesList
-          feed={this.props.feed}
-          educatorsIndex={this.props.educatorsIndex}
-          onSaveNote={this.onClickSaveNotes}
-          onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
+        <div>
+          {this.isTakingNotes() && this.renderTakeNotesDialog()}
+          <NotesList
+            feed={this.props.feed}
+            educatorsIndex={this.props.educatorsIndex}
+            onSaveNote={this.onClickSaveNotes}
+            onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
+        </div>
       </div>
     );
   }
 
-  renderTakeNotesSection() {
-    const showTakeNotes = this.state.isTakingNotes ||
-                          this.props.requests.saveNote !== null ||
-                          this.props.noteInProgressText.length > 0 ||
-                          this.props.noteInProgressAttachmentUrls.length > 0;
+  renderTakeNotesDialog() {
+    return (
+      <TakeNotes
+        // TODO(kr) thread through
+        nowMoment={moment.utc()}
+        currentEducator={this.props.currentEducator}
+        onSave={this.onClickSaveNotes}
+        onCancel={this.onCancelNotes}
+        requestState={this.props.requests.saveNote}
+        noteInProgressText={this.props.noteInProgressText}
+        noteInProgressType={this.props.noteInProgressType}
+        noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
+        onClickNoteType={this.props.actions.onClickNoteType}
+        onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
+        onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
+    );
+  }
 
-    if (showTakeNotes) {
-      return (
-        <TakeNotes
-          // TODO(kr) thread through
-          nowMoment={moment.utc()}
-          currentEducator={this.props.currentEducator}
-          onSave={this.onClickSaveNotes}
-          onCancel={this.onCancelNotes}
-          requestState={this.props.requests.saveNote}
-          noteInProgressText={this.props.noteInProgressText}
-          noteInProgressType={this.props.noteInProgressType}
-          noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
-          onClickNoteType={this.props.actions.onClickNoteType}
-          onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
-          onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
-      );
-    }
-
+  renderTakeNotesButton() {
     return (
       <button
         className="btn take-notes"

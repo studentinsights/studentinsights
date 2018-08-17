@@ -26,6 +26,10 @@ export default class ServiceDetails extends React.Component {
     this.onClickDiscontinueService = this.onClickDiscontinueService.bind(this);
   }
 
+  isAddingService() {
+    return (this.state.isAddingService || this.props.requests.saveService !== null);
+  }
+
   onClickRecordService(event) {
     this.setState({ isAddingService: true });
   }
@@ -47,20 +51,23 @@ export default class ServiceDetails extends React.Component {
     return (
       <div className="ServicesDetails" style={styles.servicesContainer}>
         <SectionHeading titleStyle={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-          <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{display: 'flex', alignItems: 'center', padding: 2}}>
             <span>Services</span>
             <LightHelpBubble
               title="What is a Service?"
               content={this.renderServicesHelpContent()} />
           </div>
-          {this.renderRecordServiceSection()}
+          {!this.isAddingService() && this.renderAddServiceButton()}
         </SectionHeading>
-        <ServicesList
-          servicesFeed={this.props.feed.services}
-          educatorsIndex={this.props.educatorsIndex}
-          serviceTypesIndex={this.props.serviceTypesIndex}
-          onClickDiscontinueService={this.onClickDiscontinueService}
-          discontinueServiceRequests={this.props.requests.discontinueService} />
+        <div>
+          {this.isAddingService() && this.renderAddServiceDialog()}
+          <ServicesList
+            servicesFeed={this.props.feed.services}
+            educatorsIndex={this.props.educatorsIndex}
+            serviceTypesIndex={this.props.serviceTypesIndex}
+            onClickDiscontinueService={this.onClickDiscontinueService}
+            discontinueServiceRequests={this.props.requests.discontinueService} />
+        </div>
       </div>
     );
   }
@@ -121,23 +128,23 @@ export default class ServiceDetails extends React.Component {
     );
   }
 
-  renderRecordServiceSection() {
-    if (this.state.isAddingService || this.props.requests.saveService !== null) {
-      return (
-        <RecordService
-          studentFirstName={this.props.student.first_name}
-          studentId={this.props.student.id}
-          onSave={this.onClickSaveService}
-          onCancel={this.onCancelRecordService}
-          requestState={this.props.requests.saveService}
-          // TODO(kr) thread through
-          nowMoment={moment.utc()}
-          currentEducator={this.props.currentEducator}
-          serviceTypesIndex={this.props.serviceTypesIndex}
-          educatorsIndex={this.props.educatorsIndex} />
-      );
-    }
+  renderAddServiceDialog() {
+    return (
+      <RecordService
+        studentFirstName={this.props.student.first_name}
+        studentId={this.props.student.id}
+        onSave={this.onClickSaveService}
+        onCancel={this.onCancelRecordService}
+        requestState={this.props.requests.saveService}
+        // TODO(kr) thread through
+        nowMoment={moment.utc()}
+        currentEducator={this.props.currentEducator}
+        serviceTypesIndex={this.props.serviceTypesIndex}
+        educatorsIndex={this.props.educatorsIndex} />
+    );
+  }
 
+  renderAddServiceButton() {
     return (
       <button className="btn record-service" style={{margin: 0}} onClick={this.onClickRecordService}>
         <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>service</span></span>

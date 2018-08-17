@@ -22,6 +22,9 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/RecordService.story');
   require('../../../app/assets/javascripts/student_profile/StudentProfilePage.story');
 
+  // student profile v3
+  require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
+
   // classlists
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');
   require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story');

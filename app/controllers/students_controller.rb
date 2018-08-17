@@ -1,13 +1,14 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  before_action :authorize!, except: [          # The :names and lasids actions are subject to
-    :names, :lasids                             # educator authentication via :authenticate_educator!
-  ]                                             # inherited from ApplicationController.
-                                                # They then get further authorization filtering using
-                                                # The custom authorization methods below.
-
-  before_action :authorize_for_districtwide_access_admin, only: [:lasids]
+  before_action :authorize!, except: [
+    :names,
+    :lasids,
+    :sample_students_json
+  ]
+  before_action :authorize_for_districtwide_access_admin, only: [
+    :lasids
+  ]
 
   def authorize!
     student = Student.find(params[:id])
@@ -145,6 +146,28 @@ class StudentsController < ApplicationController
     render json: Student.pluck(:local_id)
   end
 
+  # Admin only; get a sample of students for looking at data across the site
+  def sample_students_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
+
+    seed = params.fetch(:seed, 42)
+    n = 20
+    authorized_sample_students = authorized do
+      Student.active.sample(n, random: Random.new(seed))
+    end
+    sample_students_json = authorized_sample_students.as_json({
+      only: [:id, :grade, :first_name, :last_name],
+      include: {
+        school: {
+          only: [:id, :name, :school_type]
+        }
+      }
+    })
+    render json: {
+      sample_students: sample_students_json
+    }
+  end
+
   private
 
   def serialize_student_for_profile(student)
@@ -157,6 +180,7 @@ class StudentsController < ApplicationController
     }
 
     student.as_json.merge(per_district_fields).merge({
+      has_photo: (student.student_photos.size > 0),
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
       school_name: student.try(:school).try(:name),

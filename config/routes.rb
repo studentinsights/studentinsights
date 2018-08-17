@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   scope '/admin' do
     get 'import_records' => 'ui#ui'
     get '/api/import_records' => 'import_records#import_records_json'
+    
+    get 'sample_students' => 'ui#ui'
+    get '/api/sample_students_json' => 'students#sample_students_json'
   end
 
   get '/api/educators/view/:id' => 'educators#show'

@@ -633,6 +633,44 @@ describe StudentsController, :type => :controller do
     end
   end
 
+  describe '#sample_students_json' do
+    def get_sample_students_json
+      request.env['HTTPS'] = 'on'
+      get :sample_students_json, params: { format: :json }
+    end
+
+    let!(:pals) { TestPals.create! }
+
+    it 'returns students for Uri' do
+      sign_in(pals.uri)
+      get_sample_students_json
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to contain_exactly('sample_students')
+      expect(json['sample_students'].size).to eq Student.all.size
+      expect(json['sample_students']).to include({
+        "id"=>pals.shs_freshman_mari.id,
+        "grade"=>"9",
+        "first_name"=>"Mari",
+        "last_name"=>"Kenobi",
+        "school"=>{
+          "id"=>pals.shs.id,
+          "school_type"=>"HS",
+          "name"=>"Somerville High"
+        }
+      })
+    end
+
+    it 'guards access for everyone else' do
+      (Educator.all - [pals.uri]).each do |educator|
+        sign_in(educator)
+        get_sample_students_json
+        expect(response.status).to eq 403
+        sign_out(educator)
+      end
+    end
+  end
+
   describe '#student_report' do
     let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
     let(:school) { FactoryBot.create(:school) }

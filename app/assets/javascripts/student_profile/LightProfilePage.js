@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
+import {updateGlobalStylesToRemoveHorizontalScrollbars} from '../helpers/globalStylingWorkarounds';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import AttendanceDetails from './AttendanceDetails';
@@ -18,6 +20,10 @@ import {tags} from './lightTagger';
 
 // Prototype of profile v3
 export default class LightProfilePage extends React.Component {
+  componentDidMount() {
+    updateGlobalStylesToRemoveHorizontalScrollbars();
+  }
+
   countEventsBetween(events, daysBack) {
     const {nowMomentFn} = this.props;
     const startMoment = nowMomentFn().startOf('day');
@@ -30,23 +36,26 @@ export default class LightProfilePage extends React.Component {
   }
 
   render() {
-    const {student} = this.props;
+    const {student, districtKey} = this.props;
     const isHighSchool = (student.school_type === 'HS');
     return (
-      <div className="LightProfilePage">
-        {this.renderHeader()}
-        <div style={styles.tabsContainer}>
-          <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
-          {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
-          {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
-          {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
-          <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
-          <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
+      <PerDistrictContainer districtKey={districtKey}>
+        <div className="LightProfilePage" style={styles.root}>
+          {this.renderHeader()}
+          <div style={styles.tabsContainer}>
+            <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
+            {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
+            {isHighSchool && <div style={styles.tabLayout}>{this.renderMcasColumn()}</div>}
+            {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
+            {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
+            <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
+            <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
+          </div>
+          <div style={styles.detailsContainer}>
+            {this.renderSectionDetails()}
+          </div>
         </div>
-        <div style={styles.detailsContainer}>
-          {this.renderSectionDetails()}
-        </div>
-      </div>
+      </PerDistrictContainer>
     );
   }
 
@@ -122,6 +131,26 @@ export default class LightProfilePage extends React.Component {
           <LightShoutNumber number={strugglingSectionsCount}>
             <div>courses with a D or F</div>
             <div>right now</div>
+          </LightShoutNumber>
+        </LightProfileTab>
+    );
+  }
+
+  renderMcasColumn() {
+    const {selectedColumnKey} = this.props;
+    const columnKey = 'mcas';
+    // const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowMomentFn());
+    return (
+      <LightProfileTab
+        style={styles.tab}
+        isSelected={selectedColumnKey === columnKey}
+        onClick={this.onColumnClicked.bind(this, columnKey)}
+        intenseColor="#6A2987"
+        fadedColor="hsl(237,80%,95%)"
+        text="Testing">
+          <LightShoutNumber number={"NI"}>
+            <div>ELA MCAS</div>
+            <div>{"?"}</div>
           </LightShoutNumber>
         </LightProfileTab>
     );
@@ -366,12 +395,16 @@ LightProfilePage.propTypes = {
 
 
 const styles = {
+  root: {
+    fontSize: 14
+  },
   tabsContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'stretch',
     margin: 20,
-    flex: 1
+    flex: 1,
+    height: 150
   },
   tabLayout: {
     flex: 1,
