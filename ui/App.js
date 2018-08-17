@@ -49,21 +49,26 @@ class App extends React.Component {
   // `NowContainer` provides a fn to read the time
   // in any deeply nested component,
   // `PerDistrictContainer` provides `districtKey`.
-  // `SessionRenewal` cues the user when their session is about to timeout.
   render() {
     const {districtKey, sessionTimeoutInSeconds} = this.props;
     return (
       <NowContainer nowFn={() => moment.utc()}>
         <PerDistrictContainer districtKey={districtKey}>
           <div className="App-content">
-            {sessionTimeoutInSeconds &&
-              <SessionRenewal
-                sessionTimeoutInSeconds={sessionTimeoutInSeconds}
-                warningTimeoutInSeconds={sessionTimeoutInSeconds - 60} />}
+            {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
             {this.renderRoutes()}
           </div>
         </PerDistrictContainer>
       </NowContainer>
+    );
+  }
+
+  // `SessionRenewal` cues the user when their session is about to timeout from inactivity.
+  renderSessionRenewal(sessionTimeoutInSeconds) {
+    return (
+      <SessionRenewal
+        sessionTimeoutInSeconds={sessionTimeoutInSeconds}
+        warningTimeoutInSeconds={sessionTimeoutInSeconds - 1} />
     );
   }
 

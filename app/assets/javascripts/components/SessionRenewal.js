@@ -43,6 +43,9 @@ export default class SessionRenewal extends React.Component {
   }
 
   doNavigateHome() {
+    const {doNavigate} = this.props;
+    if (doNavigate) return doNavigate();
+    
     window.location = '/';
   }
 
@@ -101,7 +104,8 @@ SessionRenewal.childContextTypes = {
 };
 SessionRenewal.propTypes = {
   warningTimeoutInSeconds: PropTypes.number.isRequired,
-  sessionTimeoutInSeconds: PropTypes.number.isRequired
+  sessionTimeoutInSeconds: PropTypes.number.isRequired,
+  doNavigate: PropTypes.func
 };
 
 const styles = {

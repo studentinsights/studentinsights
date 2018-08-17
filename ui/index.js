@@ -2,20 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {readEnv} from '../app/assets/javascripts/envForJs';
-import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
 import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
 
-
-// Student searchbar, and clearing cache on sign out
+// Student searchbar
 if ($('.student-searchbar').length > 0) {
   initSearchBar();
-  $('.navbar-sign-out').click(clearStorage);
 }
 
-// Extra guard that there's no storage if not signed in
+// Clear browser cache on sign out
+$('.navbar-sign-out').click(clearStorage);
+
+// Extra guard that there's no browser storage if not signed in
 if (!$('body').hasClass('educator-signed-in')) {
   clearStorage(); 
 }
