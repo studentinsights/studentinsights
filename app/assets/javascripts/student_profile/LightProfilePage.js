@@ -26,7 +26,7 @@ import {shortLabelFromScore} from './nextGenMcasScores';
 export default class LightProfilePage extends React.Component {
   componentDidMount() {
     updateGlobalStylesToRemoveHorizontalScrollbars();
-    alwaysShowVerticalScrollbars():
+    alwaysShowVerticalScrollbars();
   }
 
   countEventsBetween(events, daysBack) {
