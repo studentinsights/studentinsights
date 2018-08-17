@@ -4,38 +4,11 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as GraphHelpers from '../helpers/GraphHelpers';
 import HighchartsWrapper from '../components/HighchartsWrapper';
-
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
+import DetailsHeader from './DetailsHeader';
 
 
+// Component for all bar charts in the profile page.
 export default class ProfileBarChart extends React.Component {
-  // Component for all charts in the profile page.
-
   makePlotlines(monthKeys) {
     return this.props.phaselines.map(phaseline => {
       const phaselineMonthKey = phaseline.momentUTC.clone().date(1).format('YYYYMMDD');
@@ -109,19 +82,7 @@ export default class ProfileBarChart extends React.Component {
   renderHeader() {
     const nYearsBack = Math.ceil(this.props.monthsBack / 12);
     const title = this.props.titleText + ', last ' + nYearsBack + ' years';
-
-    return (
-      <div style={styles.secHead}>
-        <h4 style={styles.title}>
-          {title}
-        </h4>
-        <span style={styles.navTop}>
-          <a href="#">
-            Back to top
-          </a>
-        </span>
-      </div>
-    );
+    return <DetailsHeader title={title} />;
   }
 
 }
@@ -173,3 +134,35 @@ export function createUnsafeTooltipFormatter(monthBuckets, eventTextFn) {
 export function tooltipEventTextFn(e) {
   return moment.utc(e.occurred_at).format('MMMM Do, YYYY');
 }
+
+
+// Given a list of activeServices, return a list of `phaselines` that can be passed to `ProfileBarChart`
+// to render the services as phaseline interventions.
+export function servicePhaselines(activeServices, serviceTypesIndex) {
+  const attendanceServiceTypes = [502, 503, 504, 505, 506];
+  const attendanceServices = activeServices.filter(service => {
+    return (attendanceServiceTypes.indexOf(service.service_type_id) > -1);
+  });
+
+  return attendanceServices.map(service => {
+    const serviceText = serviceTypesIndex[service.service_type_id].name;
+
+    return {
+      momentUTC: moment.utc(service.date_started),
+      text: 'Started ' + serviceText
+    };
+  });
+}
+
+
+const styles = {
+  container: {
+    width: '100%',
+    marginTop: 50,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '1px solid #ccc',
+    padding: '30px 30px 30px 30px',
+    position: 'relative'
+  }
+};

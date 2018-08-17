@@ -8,7 +8,8 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
-import AttendanceDetails from './AttendanceDetails';
+import LightAttendanceDetails from './LightAttendanceDetails';
+import LightBehaviorDetails from './LightBehaviorDetails';
 import ElaDetails from './ElaDetails';
 import MathDetails from './MathDetails';
 import LightNotesDetails from './LightNotesDetails';
@@ -311,28 +312,21 @@ export default class LightProfilePage extends React.Component {
 
   renderAttendance() {
     return (
-      <AttendanceDetails
+      <LightAttendanceDetails
         className="LightProfilePage-attendance"
-        hideNavbar={true}
-        disciplineIncidents={this.props.attendanceData.discipline_incidents}
         absences={this.props.attendanceData.absences}
         tardies={this.props.attendanceData.tardies}
-        student={this.props.student}
-        feed={this.props.feed}
+        activeServices={this.props.feed.services.active}
         serviceTypesIndex={this.props.serviceTypesIndex} />
     );
   }
 
   renderBehavior() {
     return (
-      <AttendanceDetails
-        className="LightProfilePage-attendance"
-        hideNavbar={true}
+      <LightBehaviorDetails
+        className="LightProfilePage-behavior"
         disciplineIncidents={this.props.attendanceData.discipline_incidents}
-        absences={this.props.attendanceData.absences}
-        tardies={this.props.attendanceData.tardies}
-        student={this.props.student}
-        feed={this.props.feed}
+        activeServices={this.props.feed.services.active}
         serviceTypesIndex={this.props.serviceTypesIndex} />
     );
   }
