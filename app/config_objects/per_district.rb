@@ -58,15 +58,14 @@ class PerDistrict
         '123',  # Pulaski
 
         # New 2018-19 school year schools
-        '078',  # Hayden McFadden
-        '063',  # Gomes
-        '050',  # DeValles
         '040',  # Congdon
-        '045',  # Carney
-        '095',  # Lincoln
+        '050',  # DeValles
         '405',  # Keith Middle
         '415',  # Roosevelt Middle
         '410',  # Normandin Middle
+        '063',  # Gomes
+        '045',  # Carney
+        '078',  # Hayden McFadden
       ])
     else
       School.all
