@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
-import {updateGlobalStylesToRemoveHorizontalScrollbars} from '../helpers/globalStylingWorkarounds';
+import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import PerDistrictContainer from '../components/PerDistrictContainer';
@@ -26,6 +26,7 @@ import {shortLabelFromScore} from './nextGenMcasScores';
 export default class LightProfilePage extends React.Component {
   componentDidMount() {
     updateGlobalStylesToRemoveHorizontalScrollbars();
+    alwaysShowVerticalScrollbars();
   }
 
   countEventsBetween(events, daysBack) {
