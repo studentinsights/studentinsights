@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="DetailsSection FooClassName"
+  id="foo"
+  style={
+    Object {
+      "border": "1px solid #ccc",
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "marginTop": 50,
+      "padding": "30px 30px 30px 30px",
+      "position": "relative",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "bottom": 10,
+        "display": "flex",
+        "justifyContent": "space-between",
+        "position": "relative",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "fontSize": 24,
+          "paddingBottom": 20,
+        }
+      }
+    >
+      foo title
+    </h4>
+    <span
+      style={
+        Object {
+          "textAlign": "right",
+          "verticalAlign": "text-top",
+        }
+      }
+    >
+      <a
+        href="#"
+      >
+        Back to top
+      </a>
+    </span>
+  </div>
+  <div>
+    children are here!
+  </div>
+</div>
+`;
