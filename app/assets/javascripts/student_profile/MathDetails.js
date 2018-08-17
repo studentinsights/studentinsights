@@ -38,10 +38,11 @@ export default class MathDetails extends React.Component {
   }
 
   render() {
+    const {hideStar} = this.props;
     return (
       <div className="MathDetails">
         {this.renderNavBar()}
-        {this.renderStarMath()}
+        {!hideStar && this.renderStarMath()}
         {this.renderMCASMathNextGenScores()}
         {this.renderMCASMathScores()}
         {this.renderMCASMathGrowth()}
@@ -80,20 +81,16 @@ export default class MathDetails extends React.Component {
   }
 
   renderNavBar() {
-    const {hideNavbar} = this.props;
+    const {hideNavbar, hideStar} = this.props;
     if (hideNavbar) return null;
 
     return (
       <div style={styles.navBar}>
-        <a style={styles.navBar} href="#starMath">
-          STAR Math Chart
-        </a>
-        {' | '}
+        {!hideStar && <a style={styles.navBar} href="#starMath"> STAR Math Chart </a>}
+        {!hideStar && ' | '}
         {this.renderMCASNextGenLink()}
         {this.renderMCASLink()}
-        <a style={styles.navBar} href="#MCASMathGrowth">
-          MCAS Math SGPs
-        </a>
+        <a style={styles.navBar} href="#MCASMathGrowth">MCAS Math SGPss</a>
       </div>
     );
   }
@@ -191,7 +188,8 @@ MathDetails.propTypes = {
     mcas_series_math_growth: PropTypes.array.isRequired
   }).isRequired,
   student: PropTypes.object.isRequired,
-  hideNavbar: PropTypes.bool
+  hideNavbar: PropTypes.bool,
+  hideStar: PropTypes.bool
 };
 
 const styles = {

@@ -17,6 +17,9 @@ import LightServiceDetails from './LightServiceDetails';
 import LightNotesHelpContext from './LightNotesHelpContext';
 import StudentSectionsRoster from './StudentSectionsRoster';
 import {tags} from './lightTagger';
+import DetailsSection from './DetailsSection';
+import {toMoment} from './QuadConverter';
+import {shortLabelFromScore} from './nextGenMcasScores';
 
 
 // Prototype of profile v3
@@ -46,7 +49,7 @@ export default class LightProfilePage extends React.Component {
           <div style={styles.tabsContainer}>
             <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
             {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
-            {isHighSchool && <div style={styles.tabLayout}>{this.renderMcasColumn()}</div>}
+            {isHighSchool && <div style={styles.tabLayout}>{this.renderTestingColumn()}</div>}
             {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
             {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
             <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
@@ -86,6 +89,7 @@ export default class LightProfilePage extends React.Component {
     const {selectedColumnKey} = this.props;
     if (selectedColumnKey === 'notes') return this.renderNotes();
     if (selectedColumnKey === 'grades') return this.renderGrades();
+    if (selectedColumnKey === 'testing') return this.renderTesting();
     if (selectedColumnKey === 'reading') return this.renderReading();
     if (selectedColumnKey === 'math') return this.renderMath();
     if (selectedColumnKey === 'attendance') return this.renderAttendance();
@@ -137,10 +141,12 @@ export default class LightProfilePage extends React.Component {
     );
   }
 
-  renderMcasColumn() {
-    const {selectedColumnKey} = this.props;
-    const columnKey = 'mcas';
-    // const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowMomentFn());
+  renderTestingColumn() {
+    const {selectedColumnKey, chartData, nowMomentFn} = this.props;
+    const columnKey = 'testing';
+
+    const nowMoment = nowMomentFn();
+    const {scoreText, testText, dateText} = testingColumnTexts(nowMoment, chartData);
     return (
       <LightProfileTab
         style={styles.tab}
@@ -149,9 +155,9 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#6A2987"
         fadedColor="hsl(237,80%,95%)"
         text="Testing">
-          <LightShoutNumber number={"NI"}>
-            <div>ELA MCAS</div>
-            <div>{"?"}</div>
+          <LightShoutNumber number={scoreText}>
+            <div>{testText}</div>
+            <div>{dateText}</div>
           </LightShoutNumber>
         </LightProfileTab>
     );
@@ -269,24 +275,35 @@ export default class LightProfilePage extends React.Component {
 
   renderGrades() {
     const sections = this.props.sections;
-
-    // If there are no sections, don't generate the student sections roster
-    if (!sections || sections.length == 0) return null;
-
-    // If this student is not a high school student, don't generate the student sections roster
-    if (this.props.student.school_type != 'HS') return null;
+    const hasSections = (sections && sections.length > 0);
 
     return (
-      <div id="sections-roster" className="roster" style={styles.roundedBox}>
-        <h4 style={styles.sectionsRosterTitle}>
-          Sections
-        </h4>
-        <StudentSectionsRoster
-          sections={this.props.sections}
-          linkableSections={this.props.currentEducatorAllowedSections}
-          />
-      </div>
+      <DetailsSection anchorId="sections-roster" className="roster" title="Sections">
+        {hasSections
+          ? <StudentSectionsRoster
+              sections={this.props.sections}
+              linkableSections={this.props.currentEducatorAllowedSections} />
+          : <div>Not enrolled in any sections</div>}
+      </DetailsSection>
+    );
+  }
 
+  renderTesting() {
+    return (
+      <div className="LightProfilePage-testing">
+        <ElaDetails
+          className="LightProfilePage-ela"
+          hideNavbar={true}
+          hideStar={true}
+          chartData={this.props.chartData}
+          student={this.props.student} />
+        <MathDetails
+          className="LightProfilePage-math"
+          hideStar={true}
+          hideNavbar={true}
+          chartData={this.props.chartData}
+          student={this.props.student} />
+      </div>
     );
   }
 
@@ -458,4 +475,28 @@ function percentileWithSuffix(percentile) {
     3: 'rd'
   }[lastDigit] || 'th';
   return `${percentile}${suffix}`;
+}
+
+function latestNextGenMcas(quads, nowMoment) {
+  const latestEla = _.last(quads || []);
+  const scoreText = latestEla ? shortLabelFromScore(latestEla[3]) : 'na';
+  const dateText = latestEla ? toMoment(latestEla).from(nowMoment) : 'not yet';
+  return {scoreText, dateText};
+}
+
+function testingColumnTexts(nowMoment, chartData) {
+  const ela = latestNextGenMcas(chartData.next_gen_mcas_ela_scaled, nowMoment);
+  const math = latestNextGenMcas(chartData.next_gen_mcas_ela_scaled, nowMoment);
+
+  const scoreText = ela.scoreText === math.scoreText
+    ? ela.scoreText
+    : `${ela.scoreText} / ${math.scoreText}`;
+  const testText = ela.scoreText === math.scoreText
+    ? 'ELA and Math MCAS'
+    : 'ELA / Math MCAS';
+  const dateText = (ela.dateText === math.dateText)
+    ? ela.dateText
+    : `${ela.dateText} / ${math.dateText}`;
+
+  return {scoreText, testText, dateText};
 }

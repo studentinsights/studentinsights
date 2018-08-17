@@ -36,10 +36,11 @@ export default class ElaDetails extends React.Component {
   }
 
   render() {
+    const {hideStar} = this.props;
     return (
       <div className="ElaDetails">
         {this.renderNavBar()}
-        {this.renderStarReading()}
+        {!hideStar && this.renderStarReading()}
         {this.renderMCASELANextGenScores()}
         {this.renderMCASELAScores()}
         {this.renderMCASELAGrowth()}
@@ -78,20 +79,16 @@ export default class ElaDetails extends React.Component {
   }
 
   renderNavBar() {
-    const {hideNavbar} = this.props;
+    const {hideNavbar, hideStar} = this.props;
     if (hideNavbar) return null;
 
     return (
       <div style={styles.navBar}>
-        <a style={styles.navBar} href="#Star">
-          STAR Reading Chart
-        </a>
-        {' | '}
+        {!hideStar && <a style={styles.navBar} href="#Star"> STAR Reading Chart </a>}
+        {!hideStar && ' | '}
         {this.renderMCASNextGenLink()}
         {this.renderMCASLink()}
-        <a style={styles.navBar} href="#SGPs">
-          MCAS ELA SGPs Chart
-        </a>
+        <a style={styles.navBar} href="#SGPs"> MCAS ELA SGPs Chart</a>
       </div>
     );
   }
@@ -190,7 +187,8 @@ ElaDetails.propTypes = {
     mcas_series_ela_growth: PropTypes.array.isRequired
   }).isRequired,
   student: PropTypes.object.isRequired,
-  hideNavbar: PropTypes.bool
+  hideNavbar: PropTypes.bool,
+  hideStar: PropTypes.bool
 };
 
 const styles = {
