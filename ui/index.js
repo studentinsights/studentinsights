@@ -37,12 +37,10 @@ if (mainEl) {
     const {sessionTimeoutInSeconds} = readEnv();
     ReactDOM.render(
       <BrowserRouter>
-        <div>
-          <SessionRenewal
-            sessionTimeoutInSeconds={10}
-            warningTimeoutInSeconds={3} />
-          <App currentEducator={currentEducator} districtKey={districtKey} />
-        </div>
+        <App
+          currentEducator={currentEducator}
+          districtKey={districtKey}
+          sessionTimeoutInSeconds={sessionTimeoutInSeconds} />
       </BrowserRouter>
     , mainEl);
   }

@@ -57,6 +57,12 @@ export default class SessionRenewal extends React.Component {
       .catch(e => this.doNavigateHome(e));
   }
 
+  onError() {
+    this.setState({status: States.ERROR});
+    this.resetTimers();
+    this.doNavigateHome();
+  }
+
   onRenewClicked() {
     apiFetchJson('/educators/reset').then(this.onRenewCompleted);
   }
@@ -66,7 +72,7 @@ export default class SessionRenewal extends React.Component {
       this.resetTimers();
       this.setState({status: States.ACTIVE});
     } else {
-      this.onTimeout();  
+      this.onError();  
     }
   }
 
@@ -83,6 +89,10 @@ export default class SessionRenewal extends React.Component {
 
     if (status === States.TIMED_OUT) return (
       <div style={styles.root}>Your session has timed out due to inactivity.</div>
+    );
+
+    if (status === States.ERROR) return (
+      <div style={styles.root}>Your session could not be renewed, please sign in again.</div>
     );
   }
 }

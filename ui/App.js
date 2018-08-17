@@ -8,6 +8,7 @@ import moment from 'moment';
 import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
+import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
@@ -48,12 +49,19 @@ class App extends React.Component {
   // `NowContainer` provides a fn to read the time
   // in any deeply nested component,
   // `PerDistrictContainer` provides `districtKey`.
+  // `SessionRenewal` cues the user when their session is about to timeout.
   render() {
-    const {districtKey} = this.props;
+    const {districtKey, sessionTimeoutInSeconds} = this.props;
     return (
       <NowContainer nowFn={() => moment.utc()}>
         <PerDistrictContainer districtKey={districtKey}>
-          {this.renderRoutes()}
+          <div className="App-content">
+            {sessionTimeoutInSeconds &&
+              <SessionRenewal
+                sessionTimeoutInSeconds={sessionTimeoutInSeconds}
+                warningTimeoutInSeconds={sessionTimeoutInSeconds - 60} />}
+            {this.renderRoutes()}
+          </div>
         </PerDistrictContainer>
       </NowContainer>
     );
@@ -63,7 +71,7 @@ class App extends React.Component {
   // side.
   renderRoutes() {
     return (
-      <Switch>
+      <Switch className="App-routes">
         <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
         <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
@@ -223,7 +231,8 @@ App.propTypes = {
     admin: PropTypes.bool.isRequired,
     school_id: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
-  }).isRequired
+  }).isRequired,
+  sessionTimeoutInSeconds: PropTypes.number
 };
 
 export default App;
