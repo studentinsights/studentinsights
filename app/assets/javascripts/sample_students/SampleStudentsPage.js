@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import qs from 'querystring';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {rankedByGradeLevel} from '../helpers/SortHelpers';
+import {rankedBySchoolType, rankedByGradeLevel} from '../helpers/SortHelpers';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import tableStyles from '../components/tableStyles';
@@ -19,7 +20,9 @@ export default class SampleStudentsPage extends React.Component {
   }
 
   fetch() {
-    return apiFetchJson('/admin/api/sample_students_json');
+    const {n, seed} = this.props;
+    const queryString = qs.stringify({n, seed});
+    return apiFetchJson(`/admin/api/sample_students_json?${queryString}`);
   }
 
   render() {
@@ -36,13 +39,17 @@ export default class SampleStudentsPage extends React.Component {
     return <SampleStudentsPageView sampleStudents={json.sample_students} />;
   }
 }
+SampleStudentsPage.propTypes = {
+  n: PropTypes.number.isRequired,
+  seed: PropTypes.number.isRequired
+};
 
 export class SampleStudentsPageView extends React.Component {
   render() {
     const {sampleStudents} = this.props;
     const sortedSampleStudents = _.sortBy(sampleStudents, student => {
       return [
-        student.school.school_type,
+        rankedBySchoolType(student.school.school_type),
         student.school.name,
         rankedByGradeLevel(student.grade),
         student.last_name,

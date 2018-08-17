@@ -7,13 +7,15 @@ import sampleStudentsJson from './sampleStudentsJson.fixture';
 
 function testProps(props = {}) {
   return {
+    n: 20,
+    seed: 42,
     ...props
   };
 }
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/admin/api/sample_students_json', sampleStudentsJson);
+  fetchMock.get('/admin/api/sample_students_json?n=20&seed=42', sampleStudentsJson);
 });
 
 it('renders without crashing', () => {
