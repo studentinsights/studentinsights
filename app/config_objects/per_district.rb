@@ -4,13 +4,15 @@
 #
 # If this gets too big we can refactor :)
 class PerDistrict
-  NEW_BEDFORD = 'new_bedford'
   SOMERVILLE = 'somerville'
+  NEW_BEDFORD = 'new_bedford'
+  BEDFORD = 'bedford'
   DEMO = 'demo'
 
   VALID_DISTRICT_KEYS = [
     NEW_BEDFORD,
     SOMERVILLE,
+    BEDFORD,
     DEMO
   ]
 
@@ -52,7 +54,21 @@ class PerDistrict
   # with pilot schools in New Bedford shown first.
   def ordered_schools_for_admin_page
     if @district_key == NEW_BEDFORD
-      School.where(local_id: ['115', '123']) # parker and pulaski, the first pilot schools
+      School.where(local_id: [
+        # Pilot schools
+        '115',  # Parker
+        '123',  # Pulaski
+
+        # New 2018-19 school year schools
+        '040',  # Congdon
+        '050',  # DeValles
+        '405',  # Keith Middle
+        '415',  # Roosevelt Middle
+        '410',  # Normandin Middle
+        '063',  # Gomes
+        '045',  # Carney
+        '078',  # Hayden McFadden
+      ])
     else
       School.all
     end
@@ -87,6 +103,8 @@ class PerDistrict
       login_name + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
       login_name + '@newbedfordschools.org'
+    elsif @district_key == BEDFORD
+      login_name + '@bedfordps.org'
     elsif @district_key == DEMO
       raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
     else
@@ -97,11 +115,11 @@ class PerDistrict
   def import_detailed_attendance_fields?
     return true if @district_key == SOMERVILLE
 
-    return false if  @district_key == NEW_BEDFORD
+    return false if @district_key == NEW_BEDFORD
 
     raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO
 
-    raise_not_handled!
+    raise_not_handled!  # Importing attendance not handled yet for BEDFORD
   end
 
   def import_student_house?
