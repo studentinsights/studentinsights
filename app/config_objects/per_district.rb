@@ -54,7 +54,21 @@ class PerDistrict
   # with pilot schools in New Bedford shown first.
   def ordered_schools_for_admin_page
     if @district_key == NEW_BEDFORD
-      School.where(local_id: ['115', '123']) # parker and pulaski, the first pilot schools
+      School.where(local_id: [
+        # Pilot schools
+        '115',  # Parker
+        '123',  # Pulaski
+
+        # New 2018-19 school year schools
+        '040',  # Congdon
+        '050',  # DeValles
+        '405',  # Keith Middle
+        '415',  # Roosevelt Middle
+        '410',  # Normandin Middle
+        '063',  # Gomes
+        '045',  # Carney
+        '078',  # Hayden McFadden
+      ])
     else
       School.all
     end
