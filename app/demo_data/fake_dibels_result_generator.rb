@@ -6,15 +6,10 @@ class FakeDibelsResultGenerator
     @days_between_tests = options.fetch(:days_between_tests)
   end
 
-  def dibels_assessment_id
-    @assessment_id ||= Assessment.find_by_family('DIBELS').id
-  end
-
   def next
     {
-      assessment_id: dibels_assessment_id,
       date_taken: @start_date + (@index * @days_between_tests),
-      performance_level: ["Intensive", "Strategic", "Core"].sample,
+      benchmark: ["Intensive", "Strategic", "Core"].sample.upcase,
       student_id: @student.id
     }
   end

@@ -22,7 +22,6 @@ import {
   isIepOr504,
   isLowIncome,
   isHighDiscipline,
-  dibelsLevel,
   starBucket,
   HighlightKeys
 } from './studentFilters';
@@ -108,7 +107,7 @@ export default class ClassroomStats extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {rooms.map(room => {  
+              {rooms.map(room => {
                 const studentsInRoom = this.studentsInRoom(room);
                 return (
                   <tr key={room.roomKey}>
@@ -138,7 +137,7 @@ export default class ClassroomStats extends React.Component {
   // showing a `title` on longer hovers, and clicking to toggle whether the column is selected.
   renderHeaderCell({title, label, columnHighlightKey}) {
     const {onCategorySelected, highlightKey} = this.props;
-    return (    
+    return (
       <th
         style={{...styles.cell, ...styles.heading}}
         title={title}
@@ -154,7 +153,7 @@ export default class ClassroomStats extends React.Component {
     );
   }
 
-  // This renders an overlay over the column (by positioning relative to the 
+  // This renders an overlay over the column (by positioning relative to the
   // header cell, then clipping overflows with the divs that contain the table.
   // It responds to hover and selection for styling.
   renderColumnOverlay(columnHighlightKey) {
@@ -214,20 +213,20 @@ export default class ClassroomStats extends React.Component {
   renderDibelsBreakdown(studentsInRoom) {
     const students = studentsInRoom;
     const dibelsCounts = {
-      strategic: 0,
-      intensive: 0,
-      core: 0
+      STRATEGIC: 0,
+      INTENSIVE: 0,
+      CORE: 0
     };
     students.forEach(student => {
       if (!student.latest_dibels) return;
-      const level = dibelsLevel(student.latest_dibels);
-      dibelsCounts[level] = dibelsCounts[level] + 1;
+      const benchmark = student.latest_dibels.benchmark;
+      dibelsCounts[benchmark] = dibelsCounts[benchmark] + 1;
     });
     return (
       <DibelsBreakdownBar
-        coreCount={dibelsCounts.core}
-        intensiveCount={dibelsCounts.intensive}
-        strategicCount={dibelsCounts.strategic}
+        coreCount={dibelsCounts.CORE}
+        intensiveCount={dibelsCounts.INTENSIVE}
+        strategicCount={dibelsCounts.STRATEGIC}
         style={styles.breakdownBar}
         innerStyle={styles.breakdownBarInner}
         height={5}
@@ -289,7 +288,7 @@ export default class ClassroomStats extends React.Component {
   // shows one bar, and positions the label to the right versus underneath.
   renderStackSimple(count) {
     const {students, rooms} = this.props;
-    
+
     // tunable, this is a multiplier above the space an even split would take
     const scaleTuningFactor = (students.length / rooms.length) * 1.5;
     const stacks = [{ count, color: steelBlue }];
@@ -297,7 +296,7 @@ export default class ClassroomStats extends React.Component {
       <Stack
         stacks={stacks}
         style={styles.stackStyle}
-        barStyle={styles.stackBarStyle} 
+        barStyle={styles.stackBarStyle}
         labelStyle={styles.stackLabelStyle}
         scaleFn={count => count / scaleTuningFactor}
         labelFn={this.renderLabelFn} />

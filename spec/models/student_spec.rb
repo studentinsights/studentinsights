@@ -97,6 +97,26 @@ RSpec.describe Student do
     end
   end
 
+  describe '#latest_dibels' do
+    let!(:student) { FactoryBot.create(:student) }
+    let!(:recent_dibels_result) {
+      DibelsResult.create!(
+        student: student, benchmark: 'CORE', date_taken: DateTime.now - 1.day
+      )
+    }
+    let!(:old_dibels_result) {
+      DibelsResult.create!(
+        student: student, benchmark: 'STRATEGIC', date_taken: DateTime.now - 3.years
+      )
+    }
+
+    it 'chooses the most recent one' do
+      latest_dibels = student.latest_dibels
+      expect(latest_dibels.id).to eq(recent_dibels_result.id)
+      expect(latest_dibels.benchmark).to eq('CORE')
+    end
+  end
+
   describe '#latest_result_by_family_and_subject' do
     let(:student) { FactoryBot.create(:student) }
     let(:assessment_family) { "MCAS" }

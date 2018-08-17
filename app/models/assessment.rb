@@ -2,7 +2,6 @@ class Assessment < ActiveRecord::Base
   VALID_FAMILY_VALUES = [
     'MCAS',
     'Next Gen MCAS',
-    'DIBELS',
     'ACCESS'
   ]
   VALID_MCAS_SUBJECTS = [ 'ELA', 'Mathematics' ].freeze
@@ -20,8 +19,6 @@ class Assessment < ActiveRecord::Base
     case family
     when 'MCAS'
       errors.add(:subject, "invalid MCAS subject") unless subject.in?(VALID_MCAS_SUBJECTS)
-    when 'DIBELS'
-      errors.add(:subject, "DIBELS has no subject") unless subject.nil?
     when 'ACCESS'
       errors.add(:subject, "invalid ACCESS subject") unless subject.in?(VALID_ACCESS_SUBJECTS)
     end
@@ -41,8 +38,7 @@ class Assessment < ActiveRecord::Base
       { family: "ACCESS", subject: "Listening" },
       { family: "ACCESS", subject: "Reading" },
       { family: "ACCESS", subject: "Speaking" },
-      { family: "ACCESS", subject: "Writing" },
-      { family: "DIBELS" }
+      { family: "ACCESS", subject: "Writing" }
     ])
   end
 

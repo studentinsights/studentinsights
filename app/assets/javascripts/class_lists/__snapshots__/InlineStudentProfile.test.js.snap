@@ -11,7 +11,7 @@ exports[`snapshots 1`] = `
 >
   <h4>
     <a
-      href="/students/153"
+      href="/students/1"
       style={
         Object {
           "fontSize": 24,
@@ -19,9 +19,9 @@ exports[`snapshots 1`] = `
       }
       target="_blank"
     >
-      Winnie
+      Garfield
        
-      Pan
+      Skywalker
     </a>
   </h4>
   <div
@@ -64,10 +64,6 @@ exports[`snapshots 1`] = `
           >
             Special needs
           </div>
-          <div>
-            Program: 
-            Reg Ed
-          </div>
         </div>
         <div
           className="Card "
@@ -91,14 +87,6 @@ exports[`snapshots 1`] = `
             }
           >
             Learning English
-          </div>
-          <div>
-            Learning English: 
-            Limited
-          </div>
-          <div>
-            ACCESS Composite: 
-            2
           </div>
         </div>
       </div>
@@ -134,7 +122,6 @@ exports[`snapshots 1`] = `
           </div>
           <div>
             Racial identity: 
-            White
           </div>
           <div>
             Hispanic: 
@@ -142,7 +129,6 @@ exports[`snapshots 1`] = `
           </div>
           <div>
             Gender: 
-            F
           </div>
         </div>
         <div
@@ -170,7 +156,6 @@ exports[`snapshots 1`] = `
           </div>
           <div>
             Home language: 
-            Portuguese
           </div>
         </div>
       </div>
@@ -203,18 +188,6 @@ exports[`snapshots 1`] = `
             }
           >
             Standardized tests
-          </div>
-          <div>
-            DIBELS: 
-            Intensive
-          </div>
-          <div>
-            STAR Math percentile: 
-            1
-          </div>
-          <div>
-            STAR Reading percentile: 
-            34
           </div>
         </div>
         <div
@@ -275,7 +248,7 @@ exports[`snapshots 1`] = `
             }
           >
             Notes for 
-            Winnie
+            Garfield
           </h4>
         </div>
         <div
