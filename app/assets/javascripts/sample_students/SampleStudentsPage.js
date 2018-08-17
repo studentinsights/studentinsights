@@ -36,7 +36,14 @@ export default class SampleStudentsPage extends React.Component {
   }
 
   renderPage(json) {
-    return <SampleStudentsPageView sampleStudents={json.sample_students} />;
+    const {seed, n} = this.props;
+
+    return (
+      <SampleStudentsPageView
+        n={n}
+        seed={seed}
+        sampleStudents={json.sample_students} />
+    );
   }
 }
 SampleStudentsPage.propTypes = {
@@ -46,7 +53,7 @@ SampleStudentsPage.propTypes = {
 
 export class SampleStudentsPageView extends React.Component {
   render() {
-    const {sampleStudents} = this.props;
+    const {sampleStudents, seed, n} = this.props;
     const sortedSampleStudents = _.sortBy(sampleStudents, student => {
       return [
         rankedBySchoolType(student.school.school_type),
@@ -58,7 +65,8 @@ export class SampleStudentsPageView extends React.Component {
     });
     return (
       <div style={{margin: 10}}>
-        <SectionHeading>Sample students</SectionHeading>
+        <SectionHeading>Student sample for data quality checks</SectionHeading>
+        <div style={{margin: 15, fontSize: 10}}>seed={seed} n={n}</div>
         {this.renderTable(sortedSampleStudents)}
       </div>
     );
@@ -96,6 +104,8 @@ export class SampleStudentsPageView extends React.Component {
   }
 }
 SampleStudentsPageView.propTypes = {
+  n: PropTypes.number.isRequired,
+  seed: PropTypes.number.isRequired,
   sampleStudents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
