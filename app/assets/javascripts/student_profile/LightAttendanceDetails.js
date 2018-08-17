@@ -104,23 +104,3 @@ function absenceExplanationText(absence) {
 
   return '';
 }
-
-
-const styles = {
-  title: {
-    color: 'black',
-    paddingBottom: 20,
-    fontSize: 24
-  },
-  secHead: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    position: 'relative',
-    bottom: 10
-  },
-  navTop: {
-    textAlign: 'right',
-    verticalAlign: 'text-top'
-  }
-};
-

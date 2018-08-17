@@ -4,7 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import * as GraphHelpers from '../helpers/GraphHelpers';
 import HighchartsWrapper from '../components/HighchartsWrapper';
-import DetailsHeader from './DetailsHeader';
+import DetailsSection from './DetailsSection';
 
 
 // Component for all bar charts in the profile page.
@@ -35,9 +35,10 @@ export default class ProfileBarChart extends React.Component {
     const monthBuckets = GraphHelpers.eventsToMonthBuckets(monthKeys, this.props.events);
     const yearCategories = GraphHelpers.yearCategories(monthKeys);
 
+    const nYearsBack = Math.ceil(this.props.monthsBack / 12);
+    const title = this.props.titleText + ', last ' + nYearsBack + ' years';
     return (
-      <div id={this.props.id} style={styles.container}>
-        {this.renderHeader()}
+      <DetailsSection className="ProfileBarChart" title={title} anchorId={this.props.id}>
         <HighchartsWrapper
           chart={{type: 'column'}}
           credits={false}
@@ -75,14 +76,8 @@ export default class ProfileBarChart extends React.Component {
             data: _.map(monthBuckets, 'length')
           }]}
         />
-      </div>
+      </DetailsSection>
     );
-  }
-
-  renderHeader() {
-    const nYearsBack = Math.ceil(this.props.monthsBack / 12);
-    const title = this.props.titleText + ', last ' + nYearsBack + ' years';
-    return <DetailsHeader title={title} />;
   }
 
 }
@@ -153,16 +148,3 @@ export function servicePhaselines(activeServices, serviceTypesIndex) {
     };
   });
 }
-
-
-const styles = {
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  }
-};

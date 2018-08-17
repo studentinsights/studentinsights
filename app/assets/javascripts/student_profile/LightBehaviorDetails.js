@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DetailsHeader from './DetailsHeader';
+import DetailsSection from './DetailsSection';
 import ProfileBarChart, {servicePhaselines} from './ProfileBarChart';
 import IncidentCard from '../components/IncidentCard';
 
@@ -31,13 +31,12 @@ export default class LightBehaviorDetails extends React.Component {
   renderIncidentHistory() {
     const {disciplineIncidents} = this.props;
     return (
-      <div id="history" style={styles.container}>
-        <DetailsHeader title="Incident History" />
+      <DetailsSection anchorId="history" title="Incident History">
         <div style={{paddingTop: 20}}>{disciplineIncidents.length > 0
           ? this.renderIncidents(disciplineIncidents)
           : <div>No Incidents</div>
         }</div>
-      </div>
+      </DetailsSection>
     );
   }
 
@@ -60,17 +59,3 @@ LightBehaviorDetails.propTypes = {
   })).isRequired,
   serviceTypesIndex: PropTypes.object.isRequired
 };
-
-
-const styles = {
-  container: {
-    width: '100%',
-    marginTop: 50,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '1px solid #ccc',
-    padding: '30px 30px 30px 30px',
-    position: 'relative'
-  }
-};
-
