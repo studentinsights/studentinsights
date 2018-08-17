@@ -1,5 +1,36 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
-import {latestStar} from './LightProfilePage';
+import {withDefaultNowContext} from '../testing/NowContainer';
+import LightProfilePage, {latestStar} from './LightProfilePage';
+import {
+  testPropsForPlutoPoppins,
+  testPropsForOlafWhite,
+  testPropsForAladdinMouse
+} from './StudentProfilePage.test';
+
+
+
+it('renders without crashing', () => {
+  const el = document.createElement('div');
+  const props = testPropsForPlutoPoppins();
+  ReactDOM.render(<LightProfilePage {...props} />, el);
+});
+
+
+describe('snapshots', () => {
+  function expectSnapshot(props) {
+    const tree = renderer
+      .create(withDefaultNowContext(<LightProfilePage {...props} />))
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  }
+
+  it('works for olaf', () => expectSnapshot(testPropsForOlafWhite()));
+  it('works for pluto', () => expectSnapshot(testPropsForPlutoPoppins()));
+  it('works for aladdin', () => expectSnapshot(testPropsForAladdinMouse()));
+});
 
 
 it('#latestStar', () => {

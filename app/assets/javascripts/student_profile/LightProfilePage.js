@@ -477,16 +477,12 @@ function percentileWithSuffix(percentile) {
   return `${percentile}${suffix}`;
 }
 
-function latestNextGenMcas(quads, nowMoment) {
-  const latestEla = _.last(quads || []);
-  const scoreText = latestEla ? shortLabelFromScore(latestEla[3]) : 'na';
-  const dateText = latestEla ? toMoment(latestEla).from(nowMoment) : 'not yet';
-  return {scoreText, dateText};
-}
 
+// Look at ELA and Math next gen MCAS scores and make the different texts for the 'testing'
+// column summary for HS.
 function testingColumnTexts(nowMoment, chartData) {
-  const ela = latestNextGenMcas(chartData.next_gen_mcas_ela_scaled, nowMoment);
-  const math = latestNextGenMcas(chartData.next_gen_mcas_ela_scaled, nowMoment);
+  const ela = latestNextGenMcasSummary(chartData.next_gen_mcas_ela_scaled, nowMoment);
+  const math = latestNextGenMcasSummary(chartData.next_gen_mcas_ela_scaled, nowMoment);
 
   const scoreText = ela.scoreText === math.scoreText
     ? ela.scoreText
@@ -499,4 +495,12 @@ function testingColumnTexts(nowMoment, chartData) {
     : `${ela.dateText} / ${math.dateText}`;
 
   return {scoreText, testText, dateText};
+}
+
+// Make text for the score and date for the latest next gen MCAS score
+function latestNextGenMcasSummary(quads, nowMoment) {
+  const latestEla = _.last(quads || []);
+  const scoreText = latestEla ? shortLabelFromScore(latestEla[3]) : '-';
+  const dateText = latestEla ? toMoment(latestEla).from(nowMoment) : 'not yet taken';
+  return {scoreText, dateText};
 }

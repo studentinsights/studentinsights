@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import DetailsSection from './DetailsSection';
 
 
-export function testProps(props = {}) {
+function testProps(props = {}) {
   return {
     title: 'foo title',
     anchorId: 'foo',
