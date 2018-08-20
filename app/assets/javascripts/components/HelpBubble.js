@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-class HelpBubble extends React.Component {
+export default class HelpBubble extends React.Component {
 
   constructor(props){
     super(props);
@@ -44,16 +44,17 @@ class HelpBubble extends React.Component {
   }
 
   renderModal(){
+    const {title, content, modalStyle} = this.props;
     // There are three ways to close a modal dialog: click on one of the close buttons,
     // click outside the bounds, or press Escape.
     return (
-      <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal}>
+      <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={modalStyle}>
         {// Every help box has a title and two close buttons. The content is free-form HTML.
         <div className="modal-help">
           <div
             style={{borderBottom: '1px solid #333', paddingBottom: 10, marginBottom: 20}}>
             <h1 style={{display: 'inline-block'}}>
-              {this.props.title}
+              {title}
             </h1>
             <a
               href="#"
@@ -63,7 +64,7 @@ class HelpBubble extends React.Component {
             </a>
           </div>
           <div>
-            {this.props.content}
+            {content}
           </div>
           {// Fills the empty space
           <div style={{flex: 1, minHeight: 20}}>
@@ -85,8 +86,6 @@ HelpBubble.propTypes = {
   content: PropTypes.node.isRequired, // React DOM objects which will be displayed in the modal text box.
   teaser: PropTypes.node.isRequired, // text displayed before the user clicks, e.g. 'Find out more.'
   style: PropTypes.object,
-  linkStyle: PropTypes.object
+  linkStyle: PropTypes.object,
+  modalStyle: PropTypes.object
 };
-
-export default HelpBubble;
-

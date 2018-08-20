@@ -19,7 +19,6 @@ class Env
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
 
     # feature switches
-    default_env['ENABLE_CLASS_LISTS'] = 'true'
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
     default_env['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
     ENV['ENABLE_MASQUERADING'] = 'true'
