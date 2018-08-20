@@ -12,7 +12,7 @@ import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassLis
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
 import {MemoryRouter} from 'react-router-dom';
-import mockHistory from '../app/assets/javascripts/testing/mockHistory';
+
 
 jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
