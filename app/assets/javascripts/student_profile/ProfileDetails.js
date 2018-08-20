@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import StudentSectionsRoster from './StudentSectionsRoster';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import FullCaseHistory from './FullCaseHistory';
+import AccessPanel from './AccessPanel';
 
 
 export default class ProfileDetails extends React.Component {
@@ -48,48 +49,10 @@ export default class ProfileDetails extends React.Component {
   }
 
   renderAccessDetails() {
-    const access = this.props.access;
-    if (!access) return null;
-
-    const access_result_rows = Object.keys(access).map(subject => {
-      return (
-        <tr key={subject}>
-          <td style={styles.accessLeftTableCell}>
-            {subject}
-          </td>
-          <td>
-            {access[subject] || '—'}
-          </td>
-        </tr>
-      );
-    });
-
-    return (
-      <div style={{...styles.column, display: 'flex', flex: 1}}>
-        <h4 style={styles.title}>
-          ACCESS
-        </h4>
-        <table>
-          <thead>
-            <tr>
-              <th style={styles.tableHeader}>
-                Subject
-              </th>
-              <th style={styles.tableHeader}>
-                Score
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {access_result_rows}
-          </tbody>
-        </table>
-        <div />
-        <div style={styles.accessTableFootnote}>
-          Most recent ACCESS scores shown.
-        </div>
-      </div>
-    );
+    const {access} = this.props;
+    return (access)
+      ? <AccessPanel showTitle={true} access={access} style={styles.column} />
+      : null;
   }
 
   renderIepDocuments() {
@@ -165,20 +128,6 @@ const styles = {
     padding: 10,
     paddingLeft: 0,
     marginBottom: 10
-  },
-  tableHeader: {
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginBottom: 10
-  },
-  accessLeftTableCell: {
-    paddingRight: 25
-  },
-  accessTableFootnote: {
-    fontStyle: 'italic',
-    fontSize: 13,
-    marginTop: 15,
-    marginBottom: 20
   },
   sectionsRosterTitle: {
     color: 'black',

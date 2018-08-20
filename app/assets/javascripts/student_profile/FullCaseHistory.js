@@ -154,7 +154,7 @@ export default class FullCaseHistory extends React.Component {
       <div className="FullCaseHistory" style={styles.root}>
         {showTitle && (
           <div className="ServicesHeader" style={styles.fullCaseHistoryHeading}>
-            <h4 style={styles.fullCaseHistoryTitle}>Full Case History</h4>}
+            <h4 style={styles.fullCaseHistoryTitle}>Full Case History</h4>
           </div>
         )}
         {bySchoolYearDescending.map(this.renderCardsForYear, this)}

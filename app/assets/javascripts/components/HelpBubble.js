@@ -120,8 +120,17 @@ const styles = {
 export const modalFromRight = {
   content: {
     right: 40,
-    bottom: 'auto',
     left: 'auto',
+    bottom: 'auto',
+    width: '55%'
+  }
+};
+
+export const modalFromLeft = {
+  content: {
+    left: 40,
+    right: 'auto',
+    bottom: 'auto',
     width: '55%'
   }
 };

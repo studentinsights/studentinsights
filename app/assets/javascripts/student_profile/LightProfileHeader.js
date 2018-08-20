@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import moment from 'moment';
 import {AutoSizer} from 'react-virtualized';
 import {isLimitedOrFlep} from '../helpers/language';
 import * as Routes from '../helpers/Routes';
 import {hasStudentPhotos} from '../helpers/PerDistrict';
 import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
-import HelpBubble, {modalFromRight, modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
+import HelpBubble, {
+  modalFromLeft,
+  modalFromRight,
+  modalFullScreenWithVerticalScroll
+} from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
 import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
 import ProfilePdfDialog from './ProfilePdfDialog';
-
+import AccessPanel from './AccessPanel';
 
 /*
 UI component for top-line information like the student's name, school,
@@ -127,69 +130,37 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
-        linkStyle={styles.subtitleItem}
         teaser={el}
+        linkStyle={styles.subtitleItem}
+        modalStyle={modalFromLeft}
         title="Language learning"
-        content={this.renderLanguageDialog()} />
-    );
-  }
-
-  renderLanguageDialog() {
-    const {access} = this.props;
-    const access_result_rows = Object.keys(access).map(subject => {
-      return (
-        <tr key={subject}>
-          <td style={styles.accessLeftTableCell}>
-            {subject}
-          </td>
-          <td>
-            {access[subject] || '—'}
-          </td>
-        </tr>
-      );
-    });
-
-    return (
-      <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
-        <h4 style={styles.title}>
-          ACCESS
-        </h4>
-        <table>
-          <thead>
-            <tr>
-              <th style={styles.tableHeader}>
-                Subject
-              </th>
-              <th style={styles.tableHeader}>
-                Score
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {access_result_rows}
-          </tbody>
-        </table>
-        <div />
-        <div style={styles.accessTableFootnote}>
-          Most recent ACCESS scores shown.
-        </div>
-      </div>
+        content={<AccessPanel access={access} />}
+      />
     );
   }
 
   renderButtons() {
     return (
       <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-        {/*<a title="Next student" href="#" style={{display: 'block'}}>
-          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        </a>*/}
+        {this.renderNextStudentButton()}
         {this.renderProfilePdfButton()}
         {this.renderFullCaseHistoryButton()}
       </div>
     );
+  }
+
+  // The intention here is that this would allow paging through students, but it's not yet enabled.
+  renderNextStudentButton() {
+    return null;
+
+    /*
+    <a title="Next student" href="#" style={{display: 'block'}}>
+      <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+    </a>
+    */
   }
 
   renderProfilePdfButton() {
