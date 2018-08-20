@@ -27,6 +27,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
 
@@ -92,6 +93,7 @@ class App extends React.Component {
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
         <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
+        <Route exact path="/students/:id/v3" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
         <Route exact path="/classlists/equity" render={this.renderExperimentalClassListsEquityPage.bind(this)}/>
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
@@ -99,7 +101,7 @@ class App extends React.Component {
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
-        <Route exact path ='/login_activity' render={this.renderLoginActivity.bind(this)}/>
+        <Route exact path='/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -117,6 +119,20 @@ class App extends React.Component {
   renderMyStudentsPage(routeProps) {
     this.trackVisit(routeProps, 'MY_STUDENTS_PAGE');
     return <MyStudentsPage />;
+  }
+
+  renderStudentProfilePage(routeProps) {
+    const studentId = parseInt(routeProps.match.params.id, 10);
+    this.trackVisit(routeProps, 'STUDENT_PROFILE_V3', {
+      student_id: studentId
+    });
+    const queryParams = qs.parse(routeProps.location.search.slice(1));
+    return (
+      <StudentProfilePageRoute
+        studentId={studentId}
+        queryParams={queryParams}
+        history={window.history} />
+    );
   }
 
   renderExploreSchoolEquityPage(routeProps) {

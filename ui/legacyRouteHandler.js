@@ -10,11 +10,13 @@ import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/
 // Returns true if it could handle a route, false if not (for newer code
 // using a client-side router).
 export default function legacyRouteHandler(el) {
+  // deprecated
   if ($('body').hasClass('students') && $('body').hasClass('show')) {
     renderStudentMain(el);
     return true;
   }
 
+  // deprecated
   if ($('body').hasClass('students') && $('body').hasClass('restricted_notes')) {
     renderRestrictedNotesMain(el);
     return true;

@@ -42,20 +42,27 @@ Rails.application.routes.draw do
   get '/api/home/feed_json' => 'home#feed_json'
   get '/api/district/enrollment_json' => 'district#enrollment_json'
 
-  # HS tiers
-  get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
-
-  # login activity security monitoring
-  get '/api/login_activity' => 'login_activities#index_json'
-
-  # is service working?
-  get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
-
   # homeroom
   get '/api/homerooms/:id/homeroom_json' => 'homerooms#homeroom_json'
 
   # sections
   get '/api/sections/:id/section_json' => 'sections#section_json'
+
+  # student profile
+  get '/api/students/:id/profile_json' => 'profile#json'
+
+
+  ### experimental
+  # HS tiers
+  get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
+
+  # is service working?
+  get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
+
+
+  ### internal
+  # login activity security monitoring
+  get '/api/login_activity' => 'login_activities#index_json'
 
 
   devise_for :educators
@@ -101,8 +108,8 @@ Rails.application.routes.draw do
     resources :event_notes, only: [:create, :update]
 
     member do
-      get '/v3' => 'students#show'
-      get :student_report
+      get '/v3' => 'ui#ui'
+      get '/student_report' => 'profile_pdf#student_report'
       get :restricted_notes
       get :photo
       post :service

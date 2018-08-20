@@ -15,11 +15,10 @@ export default function renderStudentMain(el) {
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'STUDENT_PROFILE' });
   const {districtKey} = readEnv();
 
-  const shouldUseLightProfilePage = (window.location.pathname.slice(-3) === '/v3');
   ReactDOM.render(
     <PerDistrictContainer districtKey={districtKey}>
       <PageContainer
-        shouldUseLightProfilePage={shouldUseLightProfilePage}
+        shouldUseLightProfilePage={false}
         districtKey={districtKey}
         nowMomentFn={() => moment.utc()}
         serializedData={serializedData}
