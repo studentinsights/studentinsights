@@ -1,4 +1,4 @@
-class StudentSchoolYearSorter
+class ProfilePdfStudentSchoolYearSorter
 
   def initialize(student:)
     @student = student
@@ -15,7 +15,7 @@ class StudentSchoolYearSorter
       if school_year_events
         school_year_events.add_event(event)
       else
-        memo << StudentSchoolYearEvents.new(
+        memo << ProfilePdfStudentSchoolYearEvents.new(
           name: school_year_name, events: [event]
         )
       end
@@ -45,6 +45,7 @@ class StudentSchoolYearSorter
       ].flatten
     end
 
+    # TODO(kr)
     def find_school_year_name(month, year)
       if month >= 8
         "#{year}-#{year + 1}"

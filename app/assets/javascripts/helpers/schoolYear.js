@@ -1,7 +1,16 @@
 import moment from 'moment';
 
-function toMoment(quad) {
-  return moment.utc([quad[0], quad[1], quad[2]].join('-'), 'YYYY-M-D');
+// year: An integer year.
+// returns: A moment object representing the first day of the school year that year starts.
+export function firstDayOfSchool(year) {
+  return toMoment([year, 8, 15]);
+}
+
+// year: An integer year.
+// returns: A moment object representing roughly the last day of that school year (which will
+// be in the following calendar year).
+export function lastDayOfSchool(year) {
+  return toMoment([year + 1, 6, 30]);
 }
 
 // Returns moment representing the first day of school for a given moment.
@@ -21,15 +30,6 @@ export function toSchoolYear(date) {
   return (isEventDuringFall) ? year : year - 1;
 }
 
-// year: An integer year.
-// returns: A moment object representing the first day of the school year that year starts.
-export function firstDayOfSchool(year) {
-  return toMoment([year, 8, 15]);
-}
-
-// year: An integer year.
-// returns: A moment object representing roughly the last day of that school year (which will
-// be in the following calendar year).
-export function lastDayOfSchool(year) {
-  return toMoment([year + 1, 6, 30]);
+function toMoment(triple) {
+  return moment.utc([triple[0], triple[1], triple[2]].join('-'), 'YYYY-M-D');
 }

@@ -1,4 +1,4 @@
-class StudentSchoolYearEvents
+class ProfilePdfStudentSchoolYearEvents
 
   def initialize(name:, events:)
     @name = name
