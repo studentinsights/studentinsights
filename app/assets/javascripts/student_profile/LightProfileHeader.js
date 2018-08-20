@@ -12,8 +12,6 @@ import HelpBubble, {
   modalFullScreenWithVerticalScroll
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
-import DialogIcon from '../components/DialogIcon';
-import InlineIcon from '../components/InlineIcon';
 import LightCarousel from './LightCarousel';
 import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
 import ProfilePdfDialog from './ProfilePdfDialog';
@@ -109,14 +107,7 @@ export default class LightProfileHeader extends React.Component {
     const spedPlacement = student.sped_placement || null;
     const hasIep = (iepDocument || hasDisability || hasLiaison || spedPlacement);
 
-    if (hasIep && iepDocument) {
-      return (
-        <InlineIcon icon={<DialogIcon />}>
-          <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>
-        </InlineIcon>
-      );
-    }
-
+    if (hasIep && iepDocument) return <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>;
     if (hasIep && hasDisability) return <span style={styles.subtitleItem}>IEP for {student.disability}</span>;
     if (hasIep) return <span style={styles.subtitleItem}>IEP</span>;
     return null;
@@ -140,7 +131,7 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
-        teaser={<InlineIcon icon={<DialogIcon />}>{el}</InlineIcon>}
+        teaser={el}
         linkStyle={styles.subtitleItem}
         modalStyle={modalFromLeft}
         title="Language learning"
@@ -275,7 +266,7 @@ export default class LightProfileHeader extends React.Component {
       <HelpBubble
         style={{marginLeft: 0, display: 'inline-block'}}
         linkStyle={styles.subtitleItem}
-        teaser={<InlineIcon icon={<DialogIcon />}>Family contacts</InlineIcon>}
+        teaser="Family contacts"
         modalStyle={modalFromLeft}
         title="Family contacts"
         content={this.renderContactInformationDialog()} />
