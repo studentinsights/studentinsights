@@ -101,7 +101,7 @@ Rails.application.routes.draw do
     resources :event_notes, only: [:create, :update]
 
     member do
-      get '/v3' => 'profile#show_v3'
+      get '/profile_json' => 'profile#json'
       get '/student_report' => 'profile_pdf#student_report'
       get :restricted_notes
       get :photo

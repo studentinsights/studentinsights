@@ -3,7 +3,7 @@ class ProfileController < ApplicationController
 
   before_action :authorize!
 
-  def show_v3
+  def json
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
     can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
