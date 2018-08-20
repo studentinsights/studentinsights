@@ -24,6 +24,7 @@ import {shortLabelFromScore} from './nextGenMcasScores';
 
 
 // Prototype of profile v3
+const DAYS_AGO = 45;
 export default class LightProfilePage extends React.Component {
   componentDidMount() {
     updateGlobalStylesToRemoveHorizontalScrollbars();
@@ -468,7 +469,8 @@ const styles = {
 
 
 function findTopRecentTags(eventNotes, nowMoment) {
-  const thresholdInDays = 100000; // should be 45, this is for testing locally, where dates are busted
+  // this branching is for testing locally, where demo dates aren't realistic
+  const thresholdInDays = (process.env.NODE_ENV === 'production') ? DAYS_AGO : 100000; // eslint-disable-line no-undef
   const recentNotes = eventNotes.filter(e => nowMoment.clone().diff(toMomentFromTimestamp(e.recorded_at), 'days') < thresholdInDays);
   const recentNotesText = recentNotes.map(e => e.text).join(' ');
   const recentTags = tags(recentNotesText);
@@ -482,7 +484,6 @@ function countEventsBetween(events, startMoment, endMoment) {
   }).length;
 }
 
-const DAYS_AGO = 45;
 
 
 export function latestStar(starDataPoints, nowMoment) {
