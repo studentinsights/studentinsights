@@ -12,10 +12,13 @@ import HelpBubble, {
   modalFullScreenWithVerticalScroll
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
+import DialogIcon from '../components/DialogIcon';
+import InlineIcon from '../components/InlineIcon';
 import LightCarousel from './LightCarousel';
 import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import AccessPanel from './AccessPanel';
+
 
 /*
 UI component for top-line information like the student's name, school,
@@ -106,7 +109,14 @@ export default class LightProfileHeader extends React.Component {
     const spedPlacement = student.sped_placement || null;
     const hasIep = (iepDocument || hasDisability || hasLiaison || spedPlacement);
 
-    if (hasIep && iepDocument) return <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>;
+    if (hasIep && iepDocument) {
+      return (
+        <InlineIcon icon={<DialogIcon />}>
+          <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>
+        </InlineIcon>
+      );
+    }
+
     if (hasIep && hasDisability) return <span style={styles.subtitleItem}>IEP for {student.disability}</span>;
     if (hasIep) return <span style={styles.subtitleItem}>IEP</span>;
     return null;
@@ -130,7 +140,7 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
-        teaser={el}
+        teaser={<InlineIcon icon={<DialogIcon />}>{el}</InlineIcon>}
         linkStyle={styles.subtitleItem}
         modalStyle={modalFromLeft}
         title="Language learning"
@@ -264,15 +274,16 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'inline-block'}}
-        linkStyle={{fontSize: 14}}
-        teaser={<div style={styles.subtitleItem}>Family contacts</div>}
-        title="Family contact information"
+        linkStyle={styles.subtitleItem}
+        teaser={<InlineIcon icon={<DialogIcon />}>Family contacts</InlineIcon>}
+        modalStyle={modalFromLeft}
+        title="Family contacts"
         content={this.renderContactInformationDialog()} />
     );
   }
 
   renderContactInformationDialog(){
-    const student = this.props.student;
+    const {student} = this.props;
     return (
       <span>
         <span style={styles.contactItem}>
@@ -347,7 +358,6 @@ const styles = {
   },
   subtitleItem: {
     display: 'inline-block',
-    paddingRight: 5, // for easier clicking
     fontSize: 14
   },
   contactItem: {

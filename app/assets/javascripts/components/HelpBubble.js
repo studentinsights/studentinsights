@@ -139,7 +139,7 @@ export const modalFullScreenWithVerticalScroll = {
   content: {
     top: 40,
     bottom: 40,
-    left: 40,
-    right: 40
+    left: 80,
+    right: 80
   }
 };
