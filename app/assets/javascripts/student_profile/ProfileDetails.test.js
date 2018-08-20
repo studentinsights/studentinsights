@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import {mount} from 'enzyme';
-import {testTimeMoment} from '../testing/NowContainer';
+import {testTimeMoment, withDefaultNowContext, testContext} from '../testing/NowContainer';
 import ProfileDetails from './ProfileDetails';
 
 
@@ -11,7 +11,7 @@ function testProps(props = {}) {
     nowMoment: testTimeMoment(),
     student: {
       first_name: 'Test',
-      id: 42,
+      id: 42
     },
     attendanceData: {
       absences: [{id: 991, occurred_at: "2016-02-21T18:35:03.757Z"}],
@@ -54,11 +54,12 @@ function testProps(props = {}) {
 const helpers = {
   renderInto(el, props) {
     const mergedProps = testProps(props);
-    ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
+    ReactDOM.render(withDefaultNowContext(<ProfileDetails {...mergedProps} />), el);
   },
   renderHSInto(el, props) {
     const mergedProps = {
       student: {
+        id: 43,
         first_name: 'Test',
         last_name: 'HighSchool',
         school_type: 'HS'
@@ -115,7 +116,7 @@ const helpers = {
       },
       ...props
     };
-    ReactDOM.render(<ProfileDetails {...mergedProps} />, el);
+    helpers.renderInto(el, mergedProps);
   }
 };
 
@@ -125,7 +126,7 @@ describe('rendering', () => {
     helpers.renderInto(el);
 
     // Is header here?
-    expect($(el).find("#full-case-history").length).toEqual(1);
+    expect($(el).find('.FullCaseHistory').length).toEqual(1);
     // Are all the school years represented?
     _.each([2009, 2010, 2011, 2012, 2013, 2014, 2015], year => {
       expect($(el).find("#school-year-starting-" + year).length).toEqual(1);
@@ -235,13 +236,5 @@ describe('Sections', () => {
 
     const firstDataRows = dataElements.eq(0).find('td');
     expect($(firstDataRows[0]).text()).toEqual('SOM-A');
-  });
-});
-
-
-describe('PDF', () => {
-  it('creates download URL in correct format', () => {
-    const wrapper = mount(<ProfileDetails {...testProps()} />);
-    expect(wrapper.instance().studentReportURL()).toEqual('/students/42/student_report.pdf?sections=notes,services,attendance,discipline_incidents,assessments&from_date=08/15/2016&to_date=03/13/2018');
   });
 });
