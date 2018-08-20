@@ -114,44 +114,5 @@ RSpec.describe StudentsImporter do
         ]
       end
     end
-
-  end
-
-  describe '#assign_student_to_homeroom' do
-
-    context 'student already has a homeroom' do
-      let!(:school) { FactoryBot.create(:school) }
-      let!(:student) { FactoryBot.create(:student_with_homeroom, school: school) }
-      let!(:new_homeroom) { FactoryBot.create(:homeroom, school: school) }
-
-      it 'assigns the student to the homeroom' do
-        students_importer.assign_student_to_homeroom(student, new_homeroom.name)
-        expect(student.reload.homeroom).to eq(new_homeroom)
-      end
-    end
-
-    context 'student does not have a homeroom' do
-      let!(:student) { FactoryBot.create(:student) }
-      let!(:new_homeroom_name) { '152I' }
-
-      it 'assigns the student to the homeroom' do
-        students_importer.assign_student_to_homeroom(student, new_homeroom_name)
-        new_homeroom = Homeroom.find_by_name(new_homeroom_name)
-        expect(student.homeroom_id).to eq(new_homeroom.id)
-      end
-    end
-
-    context 'student is inactive' do
-      let!(:student) { FactoryBot.create(:student, enrollment_status: 'Inactive') }
-      let!(:new_homeroom_name) { '152K' }
-
-      it 'does not assign to new homeroom' do
-        expect {
-          students_importer.assign_student_to_homeroom(student, new_homeroom_name)
-        }.to change(Homeroom, :count).by(0)
-      end
-
-    end
-
   end
 end
