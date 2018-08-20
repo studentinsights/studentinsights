@@ -5,6 +5,7 @@ import {
   Route
 } from 'react-router-dom';
 import moment from 'moment';
+import qs from 'query-string';
 import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
@@ -181,8 +182,11 @@ class App extends React.Component {
   }
 
   renderSampleStudentsPage(routeProps) {
+    const queryParams = qs.parse(routeProps.location.search.slice(1));
+    const n = parseInt(queryParams.n || '50', 10);
+    const seed = parseInt(queryParams.seed || '42', 10);
     this.trackVisit(routeProps, 'SAMPLE_STUDENTS_PAGE');
-    return <SampleStudentsPage />; 
+    return <SampleStudentsPage n={n} seed={seed} />; 
   }
 
   renderSchoolRosterPage(routeProps) {

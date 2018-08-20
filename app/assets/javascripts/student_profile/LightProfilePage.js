@@ -452,8 +452,8 @@ function countEventsBetween(events, startMoment, endMoment) {
 const DAYS_AGO = 45;
 
 
-export function latestStar(sortedStarDataPoints, nowMoment) {
-  const starDataPoint = _.last(sortedStarDataPoints);
+export function latestStar(starDataPoints, nowMoment) {
+  const starDataPoint = _.last(_.sortBy(starDataPoints, dataPoint => toMomentFromTimestamp(dataPoint.date_taken).unix()));
   if (!starDataPoint) return {
     nDaysText: 'not yet taken',
     percentileText: '-'
@@ -461,6 +461,7 @@ export function latestStar(sortedStarDataPoints, nowMoment) {
 
   const testMoment = toMomentFromTimestamp(starDataPoint.date_taken);
   const nDaysText = testMoment.from(nowMoment);
+
   const percentile = starDataPoint.percentile_rank;
   const percentileText = (percentile)
     ? percentileWithSuffix(percentile)
@@ -500,7 +501,7 @@ function testingColumnTexts(nowMoment, chartData) {
 
 // Make text for the score and date for the latest next gen MCAS score
 function latestNextGenMcasSummary(quads, nowMoment) {
-  const latestEla = _.last(quads || []);
+  const latestEla = _.last(_.sortBy(quads || [], quad => toMoment(quad).unix()));
   const scoreText = latestEla ? shortLabelFromScore(latestEla[3]) : '-';
   const dateText = latestEla ? toMoment(latestEla).from(nowMoment) : 'not yet taken';
   return {scoreText, dateText};

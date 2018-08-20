@@ -71,3 +71,17 @@ export function sortByGrade(gradeA, gradeB) {
 export function rankedByGradeLevel(gradeLevel) {
   return ORDERED_GRADES[gradeLevel];
 }
+
+const ORDERED_SCHOOL_TYPES = {
+  'ES': 200,
+  'ESMS': 300,
+  'MS': 400,
+  'HS': 500,
+  '': 600,
+  [null]: 700,
+  [undefined]: 800
+};
+
+export function rankedBySchoolType(schoolType) {
+  return ORDERED_SCHOOL_TYPES[schoolType];
+}

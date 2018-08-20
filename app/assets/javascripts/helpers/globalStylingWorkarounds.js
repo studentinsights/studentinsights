@@ -20,3 +20,7 @@ export function updateGlobalStylesToTakeFullHeight() {
 export function updateGlobalStylesToRemoveHorizontalScrollbars() {
   window.document.body.style['min-width'] = '1000px';
 }
+
+export function alwaysShowVerticalScrollbars() {
+  window.document.body.style['overflow-y'] = 'scroll';
+}

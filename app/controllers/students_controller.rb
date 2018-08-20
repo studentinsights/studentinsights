@@ -150,8 +150,8 @@ class StudentsController < ApplicationController
   def sample_students_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
 
-    seed = params.fetch(:seed, 42)
-    n = 20
+    seed = params.fetch(:seed, '42').to_i
+    n = params.fetch(:n, '40').to_i
     authorized_sample_students = authorized do
       Student.active.sample(n, random: Random.new(seed))
     end

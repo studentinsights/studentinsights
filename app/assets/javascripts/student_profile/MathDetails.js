@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {merge} from '../helpers/merge';
 import ProfileChart from './ProfileChart';
 import ProfileChartSettings from './ProfileChartSettings';
@@ -99,7 +100,7 @@ export default class MathDetails extends React.Component {
     const {chartData} = this.props;
 
     // HighCharts wants time series data sorted in ascending order by time:
-    const starMathPercentile = chartData.star_series_math_percentile.reverse();
+    const starMathPercentile = _.clone(chartData.star_series_math_percentile).reverse();
 
     return (
       <DetailsSection anchorId="starMath" title="STAR Math, last 4 years">

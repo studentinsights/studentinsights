@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {merge} from '../helpers/merge';
 import ProfileChart from './ProfileChart';
 import ProfileChartSettings from './ProfileChartSettings';
@@ -97,7 +98,7 @@ export default class ElaDetails extends React.Component {
     const {chartData} = this.props;
 
     // HighCharts wants time series data sorted in ascending order by time:
-    const starReading = chartData.star_series_reading_percentile.reverse();
+    const starReading = _.clone(chartData.star_series_reading_percentile).reverse();
 
     return (
       <DetailsSection anchorId="Star" title="STAR Reading, last 4 years">
