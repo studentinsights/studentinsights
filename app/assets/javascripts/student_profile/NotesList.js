@@ -5,7 +5,6 @@ import moment from 'moment';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
-import Badge from '../components/Badge';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import NoteCard from './NoteCard';
 
@@ -32,6 +31,14 @@ export default class NotesList extends React.Component {
     );
   }
 
+  renderEventNoteTypeBadge(eventNoteTypeId) {
+    return (
+      <span style={styles.badge}>
+        {eventNoteTypeText(eventNoteTypeId)}
+      </span>
+    );
+  }
+
   renderEventNote(eventNote) {
     return (
       <NoteCard
@@ -40,7 +47,7 @@ export default class NotesList extends React.Component {
         student={eventNote.student}          
         eventNoteTypeId={eventNote.event_note_type_id}
         noteMoment={moment.utc(eventNote.recorded_at)}
-        badge={<Badge style={styles.badge} text={eventNoteTypeText(eventNote.event_note_type_id)} backgroundColor="#666" />}
+        badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
         numberOfRevisions={eventNote.event_note_revisions.length}
@@ -59,7 +66,7 @@ export default class NotesList extends React.Component {
       <NoteCard
         key={['deprecated_intervention', deprecatedIntervention.id].join()}
         noteMoment={moment.utc(deprecatedIntervention.start_date_timestamp, 'MMMM-YY-DD')}
-        badge={<Badge style={styles.badge} text="Old intervention" backgroundColor="#666" />}
+        badge={<span style={styles.badge}>Old intervention</span>}
         educatorId={deprecatedIntervention.educator_id}
         text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}
         educatorsIndex={this.props.educatorsIndex}
@@ -73,7 +80,7 @@ export default class NotesList extends React.Component {
       <NoteCard
         key={['transition_note', transitionNote.id].join()}
         noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
-        badge={<Badge style={styles.badge} text="Transition note" backgroundColor="#666" />}
+        badge={<span style={styles.badge}>Transition note</span>}
         educatorId={transitionNote.educator_id}
         text={transitionNote.text}
         educatorsIndex={this.props.educatorsIndex}
@@ -94,7 +101,11 @@ const styles = {
   },
   badge: {
     display: 'inline-block',
-    width: '11em',
-    textAlign: 'center'
+    background: '#eee',
+    outline: '3px solid #eee',
+    width: '10em',
+    textAlign: 'center',
+    marginLeft: 10,
+    marginRight: 10
   }
 };

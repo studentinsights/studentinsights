@@ -65,8 +65,14 @@ describe StudentsController, :type => :controller do
           expect(serialized_data[:dibels]).to eq []
           expect(serialized_data[:feed]).to eq ({
             event_notes: [],
-            services: {active: [], discontinued: []},
-            deprecated: {interventions: []}
+            transition_notes: [],
+            services: {
+              active: [],
+              discontinued: []
+            },
+            deprecated: {
+              interventions: []
+            }
           })
 
           expect(serialized_data[:service_types_index]).to eq({
@@ -445,7 +451,7 @@ describe StudentsController, :type => :controller do
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to eq([:event_notes, :services, :deprecated])
+      expect(feed.keys).to contain_exactly([:event_notes, :services, :deprecated, :transition_notes])
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
