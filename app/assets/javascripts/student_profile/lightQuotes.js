@@ -1,11 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
-import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {toMomentFromRailsDate, toMomentFromTimestamp} from '../helpers/toMoment';
 import Educator from '../components/Educator';
 import HelpBubble from '../components/HelpBubble';
-import {parseTransitionNoteText} from './lightTransitionNotes';
-
+import NoteCard from './NoteCard';
+import {badgeStyle} from './NotesList';
+import {parseTransitionNoteText, parseAndReRender} from './lightTransitionNotes';
 
 export function sampleQuotes(style) {  
   const quotes = [
@@ -34,10 +35,12 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
         <span>in</span>
         <HelpBubble
           style={{marginLeft: 5, marginRight: 5}}
+          modalStyle={{content: {right: 40, bottom: 'auto', left: 'auto'}}} // styling to be above this part of the page
           linkStyle={style}
           teaser="Transition note"
           title="Transition note"
-          content={renderTransitionNote(note.text, dateText, <Educator educator={educator} />)} />
+          content={renderTransitionNote(note, educator)}
+        />
         <span>on {dateText}</span>
       </span>
     );
@@ -73,18 +76,15 @@ export function upsellQuotes(student, style) {
 }
 
 
-function renderTransitionNote(text, dateText, educatorEl) {
+// Look similar to profile view
+function renderTransitionNote(transitionNote, educator) {
   return (
-    <div>
-      <div style={{
-        whiteSpace: 'pre',
-        marginBottom: 10,
-        padding: 20,
-        border: '1px solid #ccc',
-        background: '#eee'
-      }}>{text}</div>
-      <div>by {educatorEl}</div>
-      <div>on {dateText}</div>
-    </div>
+    <NoteCard
+      noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
+      badge={<span style={badgeStyle}>Transition note</span>}
+      educatorId={educator.id}
+      text={parseAndReRender(transitionNote.text)}
+      educatorsIndex={{[educator.id]: educator}}
+      attachments={[]} />
   );
 }

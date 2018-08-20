@@ -109,3 +109,5 @@ const styles = {
     marginRight: 10
   }
 };
+
+export const badgeStyle = styles.badge;
