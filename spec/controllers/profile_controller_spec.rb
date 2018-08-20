@@ -16,6 +16,10 @@ describe ProfileController, :type => :controller do
     }.merge(params))
   end
 
+  def parse_json(response_body)
+    JSON.parse(response_body)
+  end
+
   describe '#json' do
     let!(:school) { FactoryBot.create(:school) }
     let(:educator) { FactoryBot.create(:educator_with_homeroom) }
@@ -27,18 +31,20 @@ describe ProfileController, :type => :controller do
     let!(:esa) { FactoryBot.create(:educator_section_assignment, educator: other_educator, section: section)}
     let(:homeroom) { student.homeroom }
 
-    def make_request(options = { student_id: nil, format: :html })
+    def make_request(educator, student_id)
       request.env['HTTPS'] = 'on'
+      sign_in(educator)
+      request.env['HTTP_ACCEPT'] = 'application/json'
       get :json, params: {
-        id: options[:student_id],
-        format: options[:format]
+        id: student_id,
+        format: :json
       }
     end
 
     context 'when educator is not logged in' do
       it 'redirects to sign in page' do
-        make_request({ student_id: student.id, format: :html })
-        expect(response).to redirect_to(new_educator_session_path)
+        make_request(educator, student.id)
+        expect(response.status).to eq 403
       end
     end
 
@@ -47,72 +53,74 @@ describe ProfileController, :type => :controller do
 
       context 'educator has schoolwide access' do
         let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
-        let(:serialized_data) { assigns(:serialized_data) }
 
         it 'is successful' do
-          make_request({ student_id: student.id, format: :html })
+          make_request(educator, student.id)
           expect(response).to be_successful
         end
 
         it 'assigns the student\'s serialized data correctly' do
-          make_request({ student_id: student.id, format: :html })
-          expect(serialized_data[:current_educator]['id']).to eq educator['id']
-          expect(serialized_data[:current_educator]['email']).to eq educator['email']
-          expect(serialized_data[:current_educator]['labels']).to eq []
-          expect(serialized_data[:student]["id"]).to eq student.id
-          expect(serialized_data[:student]["restricted_notes_count"]).to eq 0
+          make_request(educator, student.id)
+          json = parse_json(response.body)
+          expect(json['current_educator']['id']).to eq educator['id']
+          expect(json['current_educator']['email']).to eq educator['email']
+          expect(json['current_educator']['labels']).to eq []
+          expect(json['student']["id"]).to eq student.id
+          expect(json['student']["restricted_notes_count"]).to eq 0
 
-          expect(serialized_data[:dibels]).to eq []
-          expect(serialized_data[:feed]).to eq ({
-            event_notes: [],
-            transition_notes: [],
-            services: {
-              active: [],
-              discontinued: []
+          expect(json['dibels']).to eq []
+          expect(json['feed']).to eq ({
+            'event_notes' => [],
+            'transition_notes' => [],
+            'services' => {
+              'active' => [],
+              'discontinued' => []
             },
-            deprecated: {
-              interventions: []
+            'deprecated' => {
+              'interventions' => []
             }
           })
 
-          expect(serialized_data[:service_types_index]).to eq({
-            502 => {:id=>502, :name=>"Attendance Officer"},
-            503 => {:id=>503, :name=>"Attendance Contract"},
-            504 => {:id=>504, :name=>"Behavior Contract"},
-            505 => {:id=>505, :name=>"Counseling, in-house"},
-            506 => {:id=>506, :name=>"Counseling, outside"},
-            507 => {:id=>507, :name=>"Reading intervention"},
-            508 => {:id=>508, :name=>"Math intervention"},
-            509 => {:id=>509, :name=>"SomerSession"},
-            510 => {:id=>510, :name=>"Summer Program for English Language Learners"},
-            511 => {:id=>511, :name=>"Afterschool Tutoring"},
-            512 => {:id=>512, :name=>"Freedom School"},
-            513 => {:id=>513, :name=>"Community Schools"},
-            514 => {:id=>514, :name=>"X-Block"},
+          expect(json['service_types_index']).to eq({
+            '502' => {'id'=>502, 'name'=>"Attendance Officer"},
+            '503' => {'id'=>503, 'name'=>"Attendance Contract"},
+            '504' => {'id'=>504, 'name'=>"Behavior Contract"},
+            '505' => {'id'=>505, 'name'=>"Counseling, in-house"},
+            '506' => {'id'=>506, 'name'=>"Counseling, outside"},
+            '507' => {'id'=>507, 'name'=>"Reading intervention"},
+            '508' => {'id'=>508, 'name'=>"Math intervention"},
+            '509' => {'id'=>509, 'name'=>"SomerSession"},
+            '510' => {'id'=>510, 'name'=>"Summer Program for English Language Learners"},
+            '511' => {'id'=>511, 'name'=>"Afterschool Tutoring"},
+            '512' => {'id'=>512, 'name'=>"Freedom School"},
+            '513' => {'id'=>513, 'name'=>"Community Schools"},
+            '514' => {'id'=>514, 'name'=>"X-Block"},
           })
 
-          expect(serialized_data[:educators_index]).to include({
-            educator.id => {:id=>educator.id, :email=>educator.email, :full_name=> 'Teacher, Karen'}
+          expect(json['educators_index']).to include({
+            educator.id.to_s => {
+              'id'=>educator.id,
+              'email'=>educator.email,
+              'full_name'=> 'Teacher, Karen'
+            }
           })
 
-          expect(serialized_data[:attendance_data].keys).to eq [
-            :discipline_incidents, :tardies, :absences
-          ]
+          expect(json['attendance_data'].keys).to contain_exactly(*[
+            'discipline_incidents',
+            'tardies',
+            'absences'
+          ])
 
-          expect(serialized_data[:sections].length).to equal(1)
-          expect(serialized_data[:sections][0]["id"]).to eq(section.id)
-          expect(serialized_data[:sections][0]["grade_numeric"]).to eq(ssa.grade_numeric)
-          expect(serialized_data[:sections][0]["educators"][0]["full_name"]).to eq(other_educator.full_name)
-          expect(serialized_data[:current_educator_allowed_sections]).to include(section.id)
+          expect(json['sections'].length).to equal(1)
+          expect(json['sections'][0]["id"]).to eq(section.id)
+          expect(json['sections'][0]["grade_numeric"]).to eq(ssa.grade_numeric.to_s)
+          expect(json['sections'][0]["educators"][0]["full_name"]).to eq(other_educator.full_name)
+          expect(json['current_educator_allowed_sections']).to include(section.id)
         end
 
         context 'student has multiple discipline incidents' do
           let!(:student) { FactoryBot.create(:student, school: school) }
           let(:most_recent_school_year) { student.most_recent_school_year }
-          let(:serialized_data) { assigns(:serialized_data) }
-          let(:attendance_data) { serialized_data[:attendance_data] }
-          let(:discipline_incidents) { attendance_data[:discipline_incidents] }
-
           let!(:more_recent_incident) {
             FactoryBot.create(
               :discipline_incident,
@@ -130,8 +138,13 @@ describe ProfileController, :type => :controller do
           }
 
           it 'sets the correct order' do
-            make_request({ student_id: student.id, format: :html })
-            expect(discipline_incidents).to eq [more_recent_incident, less_recent_incident]
+            make_request(educator, student.id)
+            json = parse_json(response.body)
+            discipline_incident_ids = json['attendance_data']['discipline_incidents'].map {|event| event['id'] }
+            expect(discipline_incident_ids).to eq [
+              more_recent_incident.id,
+              less_recent_incident.id
+            ]
           end
         end
       end
@@ -139,11 +152,11 @@ describe ProfileController, :type => :controller do
       context 'educator has an associated label' do
         let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
         let!(:label) { EducatorLabel.create!(label_key: 'k8_counselor', educator: educator) }
-        let(:serialized_data) { assigns(:serialized_data) }
 
         it 'serializes the educator label correctly' do
-          make_request({ student_id: student.id, format: :html })
-          expect(serialized_data[:current_educator]['labels']).to eq ['k8_counselor']
+          make_request(educator, student.id)
+          json = parse_json(response.body)
+          expect(json['current_educator']['labels']).to eq ['k8_counselor']
         end
       end
 
@@ -151,7 +164,7 @@ describe ProfileController, :type => :controller do
         let(:educator) { FactoryBot.create(:educator, grade_level_access: [student.grade], school: school )}
 
         it 'is successful' do
-          make_request({ student_id: student.id, format: :html })
+          make_request(educator, student.id)
           expect(response).to be_successful
         end
       end
@@ -161,7 +174,7 @@ describe ProfileController, :type => :controller do
         before { homeroom.update(educator: educator) }
 
         it 'is successful' do
-          make_request({ student_id: student.id, format: :html })
+          make_request(educator, student.id)
           expect(response).to be_successful
         end
       end
@@ -175,7 +188,7 @@ describe ProfileController, :type => :controller do
         let!(:ssa) { FactoryBot.create(:student_section_assignment, student: section_student, section: section) }
 
         it 'is successful' do
-          make_request({ student_id: section_student.id, format: :html })
+          make_request(educator, section_student.id)
           expect(response).to be_successful
         end
       end
@@ -184,8 +197,8 @@ describe ProfileController, :type => :controller do
         let(:educator) { FactoryBot.create(:educator, school: school) }
 
         it 'fails' do
-          make_request({ student_id: student.id, format: :html })
-          expect(response).to redirect_to(not_authorized_path)
+          make_request(educator, student.id)
+          expect(response.status).to eq 403
         end
       end
 
@@ -194,8 +207,8 @@ describe ProfileController, :type => :controller do
         let(:educator) { FactoryBot.create(:educator, grade_level_access: ['KF'], school: school) }
 
         it 'fails' do
-          make_request({ student_id: student.id, format: :html })
-          expect(response).to redirect_to(not_authorized_path)
+          make_request(educator, student.id)
+          expect(response.status).to eq 403
         end
       end
 
@@ -214,7 +227,7 @@ describe ProfileController, :type => :controller do
           }
 
           it 'is successful' do
-            make_request({ student_id: student.id, format: :html })
+            make_request(educator, student.id)
             expect(response).to be_successful
           end
         end
@@ -226,8 +239,8 @@ describe ProfileController, :type => :controller do
           }
 
           it 'fails' do
-            make_request({ student_id: student.id, format: :html })
-            expect(response).to redirect_to(not_authorized_path)
+            make_request(educator, student.id)
+            expect(response.status).to eq 403
           end
         end
 
@@ -248,7 +261,7 @@ describe ProfileController, :type => :controller do
           }
 
           it 'is successful' do
-            make_request({ student_id: student.id, format: :html })
+            make_request(educator, student.id)
             expect(response).to be_successful
           end
         end
@@ -260,8 +273,8 @@ describe ProfileController, :type => :controller do
           }
 
           it 'fails' do
-            make_request({ student_id: student.id, format: :html })
-            expect(response).to redirect_to(not_authorized_path)
+            make_request(educator, student.id)
+            expect(response.status).to eq 403
           end
         end
       end
