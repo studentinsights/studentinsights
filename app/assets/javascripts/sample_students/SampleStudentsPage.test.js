@@ -7,38 +7,45 @@ import sampleStudentsJson from './sampleStudentsJson.fixture';
 
 function testProps(props = {}) {
   return {
-    n: 20,
+    n: 17,
     seed: 42,
     ...props
   };
 }
 
-beforeEach(() => {
+function mockFetch(props = {}) {
+  const {n, seed} = props;
   fetchMock.restore();
-  fetchMock.get('/admin/api/sample_students_json?n=20&seed=42', sampleStudentsJson);
-});
+  fetchMock.get(`/admin/api/sample_students_json?n=${n}&seed=${seed}`, {
+    sample_students: sampleStudentsJson.sample_students.slice(0, n)
+  });
+}
 
 it('renders without crashing', () => {
   const props = testProps();
+  mockFetch(props);
   const el = document.createElement('div');
   ReactDOM.render(<SampleStudentsPage {...props} />, el);
 });
 
 it('renders everything after fetch', done => {
   const props = testProps();
+  mockFetch(props);
   const el = document.createElement('div');
   ReactDOM.render(<SampleStudentsPage {...props} />, el);
 
   setTimeout(() => {
-    expect($(el).find('table tbody tr').length).toEqual(20);
+    expect($(el).find('table tbody tr').length).toEqual(props.n);
     done();
   }, 0);
 });
 
 describe('SampleStudentsPageView', () => {
   it('pure component matches snapshot', () => {
+    const props = testProps({sampleStudents: sampleStudentsJson.sample_students});
+    mockFetch(props);
     const tree = renderer
-      .create(<SampleStudentsPageView sampleStudents={sampleStudentsJson.sample_students} />)
+      .create(<SampleStudentsPageView {...props} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
