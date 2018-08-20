@@ -235,7 +235,7 @@ RSpec.describe EducatorsImporter do
 
       context 'name of homeroom that exists' do
         let!(:homeroom) {
-          Homeroom.create!(name: 'HEA 100',school: school)
+          Homeroom.create!(name: 'HEA 100', school: school)
         }
 
         it 'assigns the homeroom to the educator' do
