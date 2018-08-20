@@ -33,3 +33,16 @@ export function parseTransitionNoteText(transitionNoteText) {
     other: extractOne(transitionNoteText, OTHER_PROMPT)
   };
 }
+
+// Parse and re-render as text with whitespace etc. in a standard format.
+export function parseAndReRender(transitionNoteText) {
+  const {strengths, community, peers, guardian, other} = parseTransitionNoteText(transitionNoteText);
+  const NEWLINE = "\n";
+  return [
+    STRENGTHS_PROMPT, NEWLINE, strengths, NEWLINE, NEWLINE,
+    COMMUNITY_PROMPT, NEWLINE, community, NEWLINE, NEWLINE,
+    PEERS_PROMPT, NEWLINE, peers, NEWLINE, NEWLINE,
+    GUARDIAN_PROMPT, NEWLINE, guardian, NEWLINE, NEWLINE,
+    OTHER_PROMPT, NEWLINE, other, NEWLINE, NEWLINE
+  ].join('');
+}
