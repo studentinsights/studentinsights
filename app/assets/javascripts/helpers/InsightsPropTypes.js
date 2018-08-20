@@ -25,6 +25,7 @@ export const api = PropTypes.shape({
 // The feed of all notes and data entered in Student Insights for
 // a student.
 export const feed = PropTypes.shape({
+  transition_notes: PropTypes.array,
   event_notes: PropTypes.array.isRequired,
   services: PropTypes.shape({
     active: PropTypes.array.isRequired,

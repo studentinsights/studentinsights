@@ -22,7 +22,14 @@ export function mergedNotes(feed) {
     };
   });
 
-  const transitionNotes = [];
+  // optional
+  const transitionNotes = (feed.transition_notes || []).map(transitionNote => {
+    return {
+      ...transitionNote,
+      type: 'transition_notes',
+      sort_timestamp: transitionNote.created_at
+    };
+  });
 
   const mergedNotes = [
     ...eventNotes,
