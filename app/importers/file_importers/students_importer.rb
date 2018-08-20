@@ -58,12 +58,13 @@ class StudentsImporter
   def assign_student_to_homeroom(student, homeroom_name)
     return unless student.active?
 
-    homeroom = Homeroom.where({
-      name: homeroom_name,
-      school: student.school
-    }).first_or_create!
+    homeroom = Homeroom.find_by(name: homeroom_name, school: student.school)
 
-    homeroom.students << student
+    if homeroom.present?
+      homeroom.students << student
+    else
+      @log.puts "StudentsImporter: missing homeroom name #{homeroom_name}"
+    end
   end
 
 end
