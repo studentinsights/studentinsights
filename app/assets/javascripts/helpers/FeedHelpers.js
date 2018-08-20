@@ -38,13 +38,3 @@ export function mergedNotes(feed) {
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }
-
-export function matchesMergedNoteType(mergedNote, mergedNoteType, mergedNoteTypeId) {
-  if (mergedNote.type !== mergedNoteType) return false;
-  switch (mergedNote.type) {
-  case 'event_notes': return (mergedNote.event_note_type_id === mergedNoteTypeId);
-  case 'deprecated_interventions': return (mergedNote.intervention_type_id === mergedNoteTypeId);
-  }
-
-  return false;
-}

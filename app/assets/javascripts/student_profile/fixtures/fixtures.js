@@ -5,6 +5,18 @@ import serviceTypesIndex from '../../testing/fixtures/serviceTypesIndex';
 export const nowMoment = moment('2016-02-11T10:15:00');
 
 export const feedForTestingNotes = {
+  "transition_notes": [
+    {
+      "id": 1,
+      "created_at": "2016-08-20T11:52:47.814Z",
+      "updated_at": "2016-08-20T11:52:47.814Z",
+      "educator_id": 1,
+      "student_id": 5,
+      "text": "What are this student's strengths?\neverything!\n\nWhat is this student's involvement in the school community like?\nreally good\n\nHow does this student relate to their peers?\nnot sure\n\nWho is the student's primary guardian?\nokay\n\nAny additional comments or good things to know about this student?\nnope :)",
+      "recorded_at": null,
+      "is_restricted": false
+    }
+  ],
   "event_notes": [
     {
       "id": 3,
@@ -86,7 +98,7 @@ export const feedForTestingNotes = {
         "educator_id": 1
       }
     ]
-  }
+  },
 };
 
 export const currentEducator = {
