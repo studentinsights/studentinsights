@@ -14,6 +14,7 @@ import {
 import StudentSectionsRoster from './StudentSectionsRoster';
 import { toMomentFromTimestamp } from '../helpers/toMoment';
 import ProfilePdfDialog from './ProfilePdfDialog';
+import FullCaseHistory from './FullCaseHistory';
 
 
 export default class ProfileDetails extends React.Component {
@@ -318,78 +319,17 @@ export default class ProfileDetails extends React.Component {
   }
 
   renderFullCaseHistory(){
-    const bySchoolYearDescending = _.toArray(
-      _.groupBy(this.getEvents(), function(event){ return toSchoolYear(event.date); })
-    ).reverse();
-
+    const {student, feed, chartData, dibels, attendanceData, serviceTypesIndex} = this.props;
     return (
-      <div id="full-case-history">
-        <div className="ServicesHeader" style={styles.fullCaseHistoryHeading}>
-          <h4 style={styles.fullCaseHistoryTitle}>
-            Full Case History
-          </h4>
-        </div>
-        {bySchoolYearDescending.map(this.renderCardsForYear, this)}
-      </div>
-    );
-  }
-
-  renderCardsForYear(eventsForYear){
-    // Grab what school year we're in from any object in the list.
-    const year = toSchoolYear(eventsForYear[0].date);
-    // Computes '2016 - 2017 School Year' for input 2016, etc.
-    const schoolYearString = year.toString() + ' - ' + (year+1).toString() + ' School Year';
-
-    const key = 'school-year-starting-' + year;
-    return (
-      <div style={styles.box} key={key} id={key}>
-        <h4 style={styles.schoolYearTitle}>
-          {schoolYearString}
-        </h4>
-        {eventsForYear.map(this.renderCard, this)}
-      </div>
-    );
-  }
-
-  renderCard(event){
-    const key = [event.type, event.id].join("-");
-
-    let containingDivStyle;
-    let headerDivStyle;
-    let paddingStyle;
-    let text;
-
-    if (event.type === 'Absence' || event.type === 'Tardy'){
-      // These event types are less important, so make them smaller and no description text.
-      containingDivStyle = styles.feedCard;
-      headerDivStyle = {...styles.feedCardHeader, fontSize: 14};
-      paddingStyle = {paddingLeft: 10};
-      text = '';
-    } else {
-      containingDivStyle = {...styles.feedCard, border: '1px solid #eee'};
-      headerDivStyle = styles.feedCardHeader;
-      paddingStyle = {padding: 10};
-      text = event.message;
-    }
-
-    const dateStyle = {display: 'inline-block', width: 180};
-
-    const badgeStyle = {...styles.badge, background: styles.type_to_color[event.type]};
-
-    return (
-      <div key={key} id={key} style={containingDivStyle}>
-        <div style={paddingStyle}>
-          <div style={headerDivStyle}>
-            <span style={dateStyle}>
-              {this.displayEventDate(event.date)}
-            </span>
-            <span style={badgeStyle}>
-              {event.type.replace("-", " ")}
-            </span>
-          </div>
-          {text}
-        </div>
-      </div>
+      <FullCaseHistory
+        showTitle={true}
+        student={student}
+        feed={feed}
+        dibels={dibels}
+        chartData={chartData}
+        attendanceData={attendanceData}
+        serviceTypesIndex={serviceTypesIndex}
+      />
     );
   }
 }

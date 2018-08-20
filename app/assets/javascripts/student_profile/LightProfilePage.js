@@ -21,6 +21,7 @@ import {tags} from './lightTagger';
 import DetailsSection from './DetailsSection';
 import {toMoment} from './QuadConverter';
 import {shortLabelFromScore} from './nextGenMcasScores';
+import FullCaseHistory from './FullCaseHistory';
 
 
 // Prototype of profile v3
@@ -84,6 +85,7 @@ export default class LightProfilePage extends React.Component {
         transitionNotes={transitionNotes}
         educatorsIndex={educatorsIndex}
         districtKey={districtKey}
+        renderFullCaseHistory={this.renderFullCaseHistory.bind(this)}
       />
     );
   }
@@ -380,6 +382,20 @@ export default class LightProfilePage extends React.Component {
         disciplineIncidents={this.props.attendanceData.discipline_incidents}
         activeServices={this.props.feed.services.active}
         serviceTypesIndex={this.props.serviceTypesIndex} />
+    );
+  }
+
+  renderFullCaseHistory() {
+    const {student, feed, chartData, dibels, attendanceData, serviceTypesIndex} = this.props;
+    return (
+      <FullCaseHistory
+        student={student}
+        feed={feed}
+        dibels={dibels}
+        chartData={chartData}
+        attendanceData={attendanceData}
+        serviceTypesIndex={serviceTypesIndex}
+      />
     );
   }
 }

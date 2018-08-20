@@ -31,10 +31,10 @@ export default class HelpBubble extends React.Component {
   }
 
   render(){
-    const {style, linkStyle} = this.props;
+    const {style, linkStyle, tooltip} = this.props;
     return (
       <div style={{...styles.root, ...style}}>
-        <a href="#" onClick={this.openModal} style={{...styles.link, ...linkStyle}}>
+        <a href="#" title={tooltip} onClick={this.openModal} style={{...styles.link, ...linkStyle}}>
           {this.props.teaser}
         </a>
         {// The modal is not logically here, but even while not displayed it needs a location in the DOM.
@@ -81,7 +81,8 @@ HelpBubble.propTypes = {
   teaser: PropTypes.node.isRequired, // text displayed before the user clicks, e.g. 'Find out more.'
   style: PropTypes.object,
   linkStyle: PropTypes.object,
-  modalStyle: PropTypes.object
+  modalStyle: PropTypes.object,
+  tooltip: PropTypes.string
 };
 
 const styles = {
@@ -122,5 +123,14 @@ export const modalFromRight = {
     bottom: 'auto',
     left: 'auto',
     width: '55%'
+  }
+};
+
+export const modalFullScreenWithVerticalScroll = {
+  content: {
+    top: 40,
+    bottom: 40,
+    left: 40,
+    right: 40
   }
 };

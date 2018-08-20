@@ -7,7 +7,7 @@ import {isLimitedOrFlep} from '../helpers/language';
 import * as Routes from '../helpers/Routes';
 import {hasStudentPhotos} from '../helpers/PerDistrict';
 import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
-import HelpBubble, {modalFromRight} from '../components/HelpBubble';
+import HelpBubble, {modalFromRight, modalFullScreenWithVerticalScroll} from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
 import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
@@ -180,19 +180,14 @@ export default class LightProfileHeader extends React.Component {
   renderButtons() {
     return (
       <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-        <a title="Next student" href="#" style={{display: 'block'}}>
+        {/*<a title="Next student" href="#" style={{display: 'block'}}>
           <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
-        </a>
+        </a>*/}
         {this.renderProfilePdfButton()}
-        <a title="List all data points" href="#" style={{display: 'block'}}>
-          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        </a>
+        {this.renderFullCaseHistoryButton()}
       </div>
     );
   }
@@ -209,8 +204,28 @@ export default class LightProfileHeader extends React.Component {
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
         }
+        tooltip="Print PDF"
         title="Print PDF"
         content={<ProfilePdfDialog studentId={student.id} style={{backgroundColor: 'white'}} />}
+      />
+    );
+  }
+
+  renderFullCaseHistoryButton() {
+    const {renderFullCaseHistory} = this.props;
+    return (
+      <HelpBubble
+        style={{marginLeft: 0}}
+        modalStyle={modalFullScreenWithVerticalScroll}
+        teaser={
+          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        }
+        tooltip="List all data points"
+        title="List all data points"
+        content={renderFullCaseHistory()}
       />
     );
   }
@@ -310,6 +325,7 @@ LightProfileHeader.propTypes = {
   educatorsIndex: PropTypes.object,
   transitionNotes: PropTypes.array,
   districtKey: PropTypes.string.isRequired,
+  renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object
 };
 
