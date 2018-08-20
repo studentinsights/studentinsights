@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {merge} from '../helpers/merge';
-import Datepicker from '../components/Datepicker';
 import {
   toSchoolYear,
   firstDayOfSchool
@@ -15,6 +13,8 @@ import {
 } from './QuadConverter';
 import StudentSectionsRoster from './StudentSectionsRoster';
 import { toMomentFromTimestamp } from '../helpers/toMoment';
+import ProfilePdfDialog from './ProfilePdfDialog';
+
 
 export default class ProfileDetails extends React.Component {
   constructor(props) {
@@ -261,7 +261,7 @@ export default class ProfileDetails extends React.Component {
     });
 
     return (
-      <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
+      <div style={{...styles.column, display: 'flex', flex: 1}}>
         <h4 style={styles.title}>
           ACCESS
         </h4>
@@ -288,21 +288,6 @@ export default class ProfileDetails extends React.Component {
     );
   }
 
-  renderStudentReportSectionOption(optionValue, optionName) {
-    return (
-      <div style={styles.option3Column}>
-        <input
-          style={styles.optionCheckbox}
-          type='checkbox'
-          className="ProfileDetails-section"
-          name={optionValue}
-          defaultChecked
-          value={optionValue} />
-        <label style={styles.optionLabel}>{optionName}</label>
-      </div>
-    );
-  }
-
   renderIepDocuments() {
     const iepDocument = this.props.iepDocument;
     if (!iepDocument) return null;
@@ -310,7 +295,7 @@ export default class ProfileDetails extends React.Component {
     const url = `/iep_documents/${iepDocument.id}`;
 
     return (
-      <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
+      <div style={{...styles.column, display: 'flex', flex: 1}}>
         <h4 style={styles.title}>Active IEP:</h4>
         <p style={{fontSize: 15}} key={iepDocument.id}>
           <a href={url}>
@@ -322,52 +307,13 @@ export default class ProfileDetails extends React.Component {
   }
 
   renderStudentReportFilters() {
+    const {student} = this.props;
     return (
-      <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
-        <h4 style={styles.title}>Student Report</h4>
-        <span style={styles.tableHeader}>Select sections to include in report:</span>
-        <div ref={el => this.checkboxContainerEl = el}>
-          {this.renderStudentReportSectionOption('notes','Notes')}
-          {this.renderStudentReportSectionOption('services','Services')}
-          {this.renderStudentReportSectionOption('attendance','Attendance')}
-          {this.renderStudentReportSectionOption('discipline_incidents','Discipline Incidents')}
-          {this.renderStudentReportSectionOption('assessments','Assessments')}
-        </div>
-        <span style={styles.tableHeader}>Select dates for the report:</span>
-        <div>
-          <div style={styles.option2Column}>
-            <label>From date:</label>
-            <Datepicker
-              styles={{ input: styles.datepickerInput }}
-              value={this.state.filterFromDate.format('MM/DD/YYYY')}
-              onChange={this.onFilterFromDateChanged}
-              datepickerOptions={{
-                showOn: 'both',
-                dateFormat: 'mm/dd/yy',
-                minDate: undefined
-              }} />
-          </div>
-          <div style={styles.option2Column}>
-            <label>To date:</label>
-            <Datepicker
-              styles={{ input: styles.datepickerInput }}
-              value={this.state.filterToDate.format('MM/DD/YYYY')}
-              onChange={this.onFilterToDateChanged}
-              datepickerOptions={{
-                showOn: 'both',
-                dateFormat: 'mm/dd/yy',
-                minDate: undefined
-              }} />
-          </div>
-        </div>
-        <br/>
-        <button
-          style={styles.studentReportButton}
-          className="btn btn-warning"
-          onClick={this.onClickGenerateStudentReport}>
-          Generate Student Report
-        </button>
-      </div>
+      <ProfilePdfDialog
+        showTitle={true}
+        studentId={student.id}
+        style={{...styles.column, flex: 1}}
+      />
     );
   }
 
@@ -416,11 +362,11 @@ export default class ProfileDetails extends React.Component {
     if (event.type === 'Absence' || event.type === 'Tardy'){
       // These event types are less important, so make them smaller and no description text.
       containingDivStyle = styles.feedCard;
-      headerDivStyle = merge(styles.feedCardHeader, {fontSize: 14});
+      headerDivStyle = {...styles.feedCardHeader, fontSize: 14};
       paddingStyle = {paddingLeft: 10};
       text = '';
     } else {
-      containingDivStyle = merge(styles.feedCard, {border: '1px solid #eee'});
+      containingDivStyle = {...styles.feedCard, border: '1px solid #eee'};
       headerDivStyle = styles.feedCardHeader;
       paddingStyle = {padding: 10};
       text = event.message;
@@ -428,7 +374,7 @@ export default class ProfileDetails extends React.Component {
 
     const dateStyle = {display: 'inline-block', width: 180};
 
-    const badgeStyle = merge(styles.badge, {background: styles.type_to_color[event.type]});
+    const badgeStyle = {...styles.badge, background: styles.type_to_color[event.type]};
 
     return (
       <div key={key} id={key} style={containingDivStyle}>
@@ -543,11 +489,6 @@ const styles = {
     padding: 10,
     paddingLeft: 0,
   },
-  studentReportButton: {
-    width: '20em',
-    fontSize: 12,
-    padding: 8
-  },
   type_to_color: {
     "Absence": '#e8fce8',
     "Tardy": '#e8fce8',
@@ -576,25 +517,5 @@ const styles = {
     borderRadius: '5px 5px 5px 5px',
     border: '1px solid #ccc',
     width: '50%',
-  },
-  option3Column: {
-    float: 'left',
-    width: '33%'
-  },
-  option2Column: {
-    float: 'left',
-    width: '50%'
-  },
-  optionCheckbox: {
-    float: 'left',
-  },
-  optionLabel: {
-    float: 'left',
-    padding: '0px 0px 20px 5px'
-  },
-  datepickerInput: {
-    fontSize: 14,
-    padding: 5,
-    width: '50%'
   }
 };
