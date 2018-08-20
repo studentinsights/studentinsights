@@ -125,7 +125,7 @@ export default class LightProfilePage extends React.Component {
         fadedColor="#ededed"
         text="Notes">
           <LightShoutNumber number={recentNotes.length}>
-            <div>notes taken</div>
+            <div>{recentNotes.length === 1 ? 'note taken' : 'notes taken'}</div>
             <div>last {DAYS_AGO} days</div>
           </LightShoutNumber>
         </LightProfileTab>
