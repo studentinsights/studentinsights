@@ -19,8 +19,9 @@ class EducatorsImporter
     @touched_rows_count = 0
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
-    @ignored_unknown_homeroom_count = 0
-    @touched_homeroom_count = 0
+    @ignored_invalid_homeroom_count = 0
+    @created_homeroom_count = 0
+    @updated_homeroom_count = 0
     streaming_csv.each_with_index do |row, index|
       import_row(row)
     end
@@ -31,8 +32,9 @@ class EducatorsImporter
     log("@touched_rows_count: #{@touched_rows_count}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
-    log("@ignored_unknown_homeroom_count: #{@ignored_unknown_homeroom_count}")
-    log("@touched_homeroom_count: #{@touched_homeroom_count}")
+    log("@ignored_invalid_homeroom_count: #{@ignored_invalid_homeroom_count}")
+    log("@created_homeroom_count: #{@created_homeroom_count}")
+    log("@updated_homeroom_count: #{@updated_homeroom_count}")
   end
 
   def client
@@ -57,45 +59,59 @@ class EducatorsImporter
 
   def import_row(row)
     if !filter.include?(row[:school_local_id])
-      @skipped_from_school_filter = @skipped_from_school_filter + 1
+      @skipped_from_school_filter += 1
       return
     end
 
     maybe_educator = EducatorRow.new(row, school_ids_dictionary).build
     if maybe_educator.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return
     end
     if !maybe_educator.valid?
-      @invalid_rows_count = @invalid_rows_count + 1
+      @invalid_rows_count += 1
       return
     end
     educator = maybe_educator
 
     educator.save!
-    @touched_rows_count = @touched_rows_count + 1
+    @touched_rows_count += 1
 
     # Special case for NB magic "nil" value
     if PerDistrict.new.is_nil_homeroom_name?(row[:homeroom])
-      @ignored_special_nil_homeroom_count = @ignored_special_nil_homeroom_count + 1
+      @ignored_special_nil_homeroom_count += 1
       return
     end
 
     # No homeroom
     if !row[:homeroom]
-      @ignored_no_homeroom_count = @ignored_no_homeroom_count + 1
+      @ignored_no_homeroom_count += 1
       return
     end
 
-    # Update homeroom: homerooms guaranteed to be uniqe on {name, school}
-    # by the index_homerooms_on_school_id_and_name database index
-    homeroom = Homeroom.find_by(name: row[:homeroom], school: educator.school)
-    if homeroom.nil?
-      @ignored_unknown_homeroom_count = @ignored_unknown_homeroom_count + 1
+    # Homerooms guaranteed to be uniqe on {name, school} by database index
+    homeroom = Homeroom.find_or_initialize_by(
+      name: row[:homeroom],
+      school: educator.school,
+    )
+
+    # Invalid homeroom
+    if homeroom.nil? || homeroom.invalid?
+      @ignored_invalid_homeroom_count += 1
       return
     end
-    homeroom.update!(educator: educator)
-    @touched_homeroom_count = @touched_homeroom_count + 1
+
+    homeroom.educator = educator
+
+    if homeroom.persisted? && !homeroom.changed?
+      return
+    elsif homeroom.persisted?
+      @updated_homeroom_count += 1
+      homeroom.save!
+    else
+      @created_homeroom_count += 1
+      homeroom.save!
+    end
   end
 
   private
