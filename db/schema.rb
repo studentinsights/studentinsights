@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_09_175409) do
+ActiveRecord::Schema.define(version: 2018_08_20_193329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(version: 2018_08_09_175409) do
     t.string "grade"
     t.integer "school_id"
     t.index ["educator_id"], name: "index_homerooms_on_educator_id"
+    t.index ["school_id", "name"], name: "index_homerooms_on_school_id_and_name", unique: true
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
   end
 
