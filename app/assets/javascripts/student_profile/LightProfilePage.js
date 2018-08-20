@@ -5,6 +5,7 @@ import _ from 'lodash';
 import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import * as FeedHelpers from '../helpers/FeedHelpers';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
@@ -99,6 +100,38 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotesColumn() {
+    return (window.location.search.indexOf('tags') !== -1)
+      ? this.renderNotesColumnWithTags()
+      : this.renderNotesColumnWithCount();
+  }
+
+  renderNotesColumnWithCount() {
+    const {feed, nowMomentFn, selectedColumnKey} = this.props;
+    const columnKey = 'notes';
+
+    // Recent notes of any kind
+    const recentMomentCutoff = nowMomentFn().clone().subtract(DAYS_AGO, 'days');
+    const mergedNotes = FeedHelpers.mergedNotes(feed);
+    const recentNotes = mergedNotes.filter(mergedNote => {
+      return toMomentFromTimestamp(mergedNote.sort_timestamp).isAfter(recentMomentCutoff);
+    });
+    return (
+      <LightProfileTab
+        style={styles.tab}
+        isSelected={selectedColumnKey === columnKey}
+        onClick={this.onColumnClicked.bind(this, columnKey)}
+        intenseColor="#4A90E2"
+        fadedColor="#ededed"
+        text="Notes">
+          <LightShoutNumber number={recentNotes.length}>
+            <div>notes taken</div>
+            <div>last {DAYS_AGO} days</div>
+          </LightShoutNumber>
+        </LightProfileTab>
+    );
+  }
+
+  renderNotesColumnWithTags() {
     const {feed, nowMomentFn, selectedColumnKey} = this.props;
     const columnKey = 'notes';
     const topRecentTags = findTopRecentTags(feed.event_notes, nowMomentFn());
