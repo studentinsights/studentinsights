@@ -33,12 +33,27 @@ export default class StudentProfilePageRoute extends React.Component {
   renderJson(json) {
     const {districtKey, nowFn} = this.context;
     const {queryParams, history} = this.props;
+    const serializedData = {
+      currentEducator: json.current_educator,
+      student: json.student,
+      feed: json.feed,
+      chartData: json.chart_data,
+      dibels: json.dibels,
+      serviceTypesIndex: json.service_types_index,
+      educatorsIndex: json.educators_index,
+      access: json.access,
+      transitionNotes: json.transition_notes,
+      iepDocument: json.iep_document,
+      sections: json.sections,
+      currentEducatorAllowedSections: json.current_educator_allowed_sections,
+      attendanceData: json.attendance_data
+    };
     return (
       <PageContainer
         shouldUseLightProfilePage={true}
         districtKey={districtKey}
         nowMomentFn={nowFn}
-        serializedData={json}
+        serializedData={serializedData}
         queryParams={queryParams}
         history={history} />
     );

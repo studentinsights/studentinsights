@@ -8,7 +8,7 @@ class ProfileController < ApplicationController
     chart_data = StudentProfileChart.new(student).chart_data
     can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
 
-    @serialized_data = {
+    render json: {
       current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student, restricted_notes: false),     # Notes, services
@@ -27,7 +27,6 @@ class ProfileController < ApplicationController
         absences: student.absences.order(occurred_at: :desc)
       }
     }
-    render 'shared/serialized_data'
   end
 
   private
