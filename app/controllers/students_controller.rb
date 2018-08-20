@@ -202,6 +202,8 @@ class StudentsController < ApplicationController
       event_notes: student.event_notes
         .select {|note| note.is_restricted == restricted_notes}
         .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
+      transition_notes: student.transition_notes
+        .select {|note| note.is_restricted == restricted_notes},
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }

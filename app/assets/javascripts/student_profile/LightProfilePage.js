@@ -5,6 +5,7 @@ import _ from 'lodash';
 import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import * as FeedHelpers from '../helpers/FeedHelpers';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
@@ -23,6 +24,7 @@ import {shortLabelFromScore} from './nextGenMcasScores';
 
 
 // Prototype of profile v3
+const DAYS_AGO = 45;
 export default class LightProfilePage extends React.Component {
   componentDidMount() {
     updateGlobalStylesToRemoveHorizontalScrollbars();
@@ -99,6 +101,38 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotesColumn() {
+    return (window.location.search.indexOf('tags') !== -1)
+      ? this.renderNotesColumnWithTags()
+      : this.renderNotesColumnWithCount();
+  }
+
+  renderNotesColumnWithCount() {
+    const {feed, nowMomentFn, selectedColumnKey} = this.props;
+    const columnKey = 'notes';
+
+    // Recent notes of any kind
+    const recentMomentCutoff = nowMomentFn().clone().subtract(DAYS_AGO, 'days');
+    const mergedNotes = FeedHelpers.mergedNotes(feed);
+    const recentNotes = mergedNotes.filter(mergedNote => {
+      return toMomentFromTimestamp(mergedNote.sort_timestamp).isAfter(recentMomentCutoff);
+    });
+    return (
+      <LightProfileTab
+        style={styles.tab}
+        isSelected={selectedColumnKey === columnKey}
+        onClick={this.onColumnClicked.bind(this, columnKey)}
+        intenseColor="#4A90E2"
+        fadedColor="#ededed"
+        text="Notes">
+          <LightShoutNumber number={recentNotes.length}>
+            <div>{recentNotes.length === 1 ? 'note taken' : 'notes taken'}</div>
+            <div>last {DAYS_AGO} days</div>
+          </LightShoutNumber>
+        </LightProfileTab>
+    );
+  }
+
+  renderNotesColumnWithTags() {
     const {feed, nowMomentFn, selectedColumnKey} = this.props;
     const columnKey = 'notes';
     const topRecentTags = findTopRecentTags(feed.event_notes, nowMomentFn());
@@ -435,7 +469,8 @@ const styles = {
 
 
 function findTopRecentTags(eventNotes, nowMoment) {
-  const thresholdInDays = 100000; // should be 45, this is for testing locally, where dates are busted
+  // this branching is for testing locally, where demo dates aren't realistic
+  const thresholdInDays = (process.env.NODE_ENV === 'production') ? DAYS_AGO : 100000; // eslint-disable-line no-undef
   const recentNotes = eventNotes.filter(e => nowMoment.clone().diff(toMomentFromTimestamp(e.recorded_at), 'days') < thresholdInDays);
   const recentNotesText = recentNotes.map(e => e.text).join(' ');
   const recentTags = tags(recentNotesText);
@@ -449,7 +484,6 @@ function countEventsBetween(events, startMoment, endMoment) {
   }).length;
 }
 
-const DAYS_AGO = 45;
 
 
 export function latestStar(starDataPoints, nowMoment) {

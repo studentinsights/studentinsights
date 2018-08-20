@@ -1831,7 +1831,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -1940,7 +1947,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2049,7 +2063,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2158,7 +2179,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2267,7 +2295,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2376,7 +2411,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2485,7 +2527,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -4490,7 +4539,14 @@ exports[`snapshots works for olaf 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -4577,7 +4633,14 @@ Reduce behavior.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -4664,7 +4727,14 @@ Increase how often the student is engaged in positive behaviors.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -4751,7 +4821,14 @@ Reduce behavior.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -4860,7 +4937,14 @@ Reduce behavior.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -4947,7 +5031,14 @@ Increase how often the student is engaged in positive behaviors.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -6821,7 +6912,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -6930,7 +7028,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7039,7 +7144,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7148,7 +7260,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7257,7 +7376,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={

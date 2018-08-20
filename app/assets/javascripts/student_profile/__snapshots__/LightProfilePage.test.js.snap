@@ -1831,7 +1831,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -1940,7 +1947,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2049,7 +2063,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2158,7 +2179,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2267,7 +2295,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2376,7 +2411,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -2485,7 +2527,14 @@ exports[`snapshots works for aladdin 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -3265,24 +3314,46 @@ exports[`snapshots works for aladdin grades 1`] = `
           }
         >
           <div>
-            “
-            placement
-            ”
-          </div>
-          <div>
-            “
-            attendance
-            ”
-          </div>
-          <div>
-            “
-            tardies
-            ”
-          </div>
-          <div>
-            “
-            attendance contract
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -4271,24 +4342,46 @@ exports[`snapshots works for aladdin notes 1`] = `
           }
         >
           <div>
-            “
-            placement
-            ”
-          </div>
-          <div>
-            “
-            attendance
-            ”
-          </div>
-          <div>
-            “
-            tardies
-            ”
-          </div>
-          <div>
-            “
-            attendance contract
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -5277,24 +5370,46 @@ exports[`snapshots works for aladdin testing 1`] = `
           }
         >
           <div>
-            “
-            placement
-            ”
-          </div>
-          <div>
-            “
-            attendance
-            ”
-          </div>
-          <div>
-            “
-            tardies
-            ”
-          </div>
-          <div>
-            “
-            attendance contract
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -7508,7 +7623,14 @@ exports[`snapshots works for olaf 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7595,7 +7717,14 @@ Reduce behavior.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7682,7 +7811,14 @@ Increase how often the student is engaged in positive behaviors.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7769,7 +7905,14 @@ Reduce behavior.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7878,7 +8021,14 @@ Reduce behavior.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -7965,7 +8115,14 @@ Increase how often the student is engaged in positive behaviors.
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -8688,14 +8845,46 @@ exports[`snapshots works for olaf math 1`] = `
           }
         >
           <div>
-            “
-            yelling
-            ”
-          </div>
-          <div>
-            “
-            disruptive
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -9627,14 +9816,46 @@ exports[`snapshots works for olaf notes 1`] = `
           }
         >
           <div>
-            “
-            yelling
-            ”
-          </div>
-          <div>
-            “
-            disruptive
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -10566,14 +10787,46 @@ exports[`snapshots works for olaf reading 1`] = `
           }
         >
           <div>
-            “
-            yelling
-            ”
-          </div>
-          <div>
-            “
-            disruptive
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -12656,7 +12909,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -12765,7 +13025,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -12874,7 +13141,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -12983,7 +13257,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -13092,7 +13373,14 @@ exports[`snapshots works for pluto 1`] = `
                 }
               }
             >
-              <div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "justifyContent": "space-between",
+                  }
+                }
+              >
                 <span
                   className="date"
                   style={
@@ -14185,9 +14473,46 @@ exports[`snapshots works for pluto attendance 1`] = `
           }
         >
           <div>
-            “
-            referral
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -15137,9 +15462,46 @@ exports[`snapshots works for pluto behavior 1`] = `
           }
         >
           <div>
-            “
-            referral
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -16089,9 +16451,46 @@ exports[`snapshots works for pluto notes 1`] = `
           }
         >
           <div>
-            “
-            referral
-            ”
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "fontSize": 32,
+                  "justifyContent": "center",
+                  "marginBottom": 10,
+                }
+              }
+            >
+              0
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#333",
+                  "display": "flex",
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                <div>
+                  notes taken
+                </div>
+                <div>
+                  last 
+                  45
+                   days
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

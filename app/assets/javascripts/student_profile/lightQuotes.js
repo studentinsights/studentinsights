@@ -26,7 +26,7 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
   const safeNotes = transitionNotes.filter(transitionNote => !transitionNote.is_restricted);
 
   return _.flatten(safeNotes.map(note => {
-    const dateText = toMomentFromTimestamp(note.recorded_at).format('M/D/YY');
+    const dateText = toMomentFromTimestamp(note.created_at).format('M/D/YY');
     const educator = educatorsIndex[note.educator_id] || educatorsIndex[_.keys(educatorsIndex)[0]];
     const tagline = <span>from <Educator style={style} educator={educator} /></span>;
     const source = (

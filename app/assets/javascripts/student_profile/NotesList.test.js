@@ -30,11 +30,12 @@ it.only('renders everything on the happy path', () => {
   const noteTimestamps = readNoteTimestamps(el);
   expect(_.head(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
   expect(_.sortBy(noteTimestamps).reverse()).toEqual(noteTimestamps);
-  expect($(el).find('.NoteCard').length).toEqual(4);
+  expect($(el).find('.NoteCard').length).toEqual(5);
+
   expect(el.innerHTML).toContain('Behavior Plan');
   expect(el.innerHTML).toContain('Attendance Officer');
   expect(el.innerHTML).toContain('MTSS Meeting');
-
+  expect(el.innerHTML).toContain('Transition note');
   expect(el.innerHTML).not.toContain('SST Meeting');
 
   // Notes attachments expectations

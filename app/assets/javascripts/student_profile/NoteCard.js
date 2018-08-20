@@ -35,7 +35,7 @@ export default class NoteCard extends React.Component {
       <div className="wrapper" style={styles.wrapper}>
         {this.renderStudentCard()}
         <div className="NoteCard" style={styles.note}>
-          <div>
+          <div style={styles.titleLine}>
             <span className="date" style={styles.date}>
               {this.props.noteMoment.format('MMMM D, YYYY')}
             </span>
@@ -198,6 +198,10 @@ const styles = {
     marginTop: 10,
     marginBottom: 10,
     width: '100%'
+  },
+  titleLine: {
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   date: {
     display: 'inline-block',

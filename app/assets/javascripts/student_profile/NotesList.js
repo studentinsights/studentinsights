@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
@@ -9,21 +10,23 @@ import NoteCard from './NoteCard';
 
 
 /*
-Renders the list of notes.
+Renders the list of notes, including the different types of notes (eg, deprecated
+interventions, transition notes).
 */
 export default class NotesList extends React.Component {
   render() {
     const mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
     return (
       <div className="NotesList">
-        {(mergedNotes.length === 0) ? <div style={styles.noItems}>
-          No notes
-        </div> : mergedNotes.map(mergedNote => {
-          switch (mergedNote.type) {
-          case 'event_notes': return this.renderEventNote(mergedNote);
-          case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-          }
-        })}
+        {(mergedNotes.length === 0)
+          ? <div style={styles.noItems}>No notes</div>
+          : mergedNotes.map(mergedNote => {
+            switch (mergedNote.type) {
+            case 'event_notes': return this.renderEventNote(mergedNote);
+            case 'transition_notes': return this.renderTransitionNote(mergedNote);
+            case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+            }
+          })}
       </div>
     );
   }
@@ -68,6 +71,19 @@ export default class NotesList extends React.Component {
         text={_.compact([deprecatedIntervention.name, deprecatedIntervention.comment, deprecatedIntervention.goal]).join('\n')}
         educatorsIndex={this.props.educatorsIndex}
         // deprecated interventions have no attachments
+        attachments={[]} />
+    );
+  }
+
+  renderTransitionNote(transitionNote) {
+    return (
+      <NoteCard
+        key={['transition_note', transitionNote.id].join()}
+        noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
+        badge={<span style={styles.badge}>Transition note</span>}
+        educatorId={transitionNote.educator_id}
+        text={transitionNote.text}
+        educatorsIndex={this.props.educatorsIndex}
         attachments={[]} />
     );
   }
