@@ -2822,7 +2822,6 @@ exports[`snapshots works for aladdin grades 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -2833,7 +2832,6 @@ exports[`snapshots works for aladdin grades 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -2845,7 +2843,6 @@ exports[`snapshots works for aladdin grades 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -2882,7 +2879,6 @@ exports[`snapshots works for aladdin grades 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -2895,7 +2891,6 @@ exports[`snapshots works for aladdin grades 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -2906,7 +2901,6 @@ exports[`snapshots works for aladdin grades 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -2926,21 +2920,59 @@ exports[`snapshots works for aladdin grades 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -2967,7 +2999,6 @@ exports[`snapshots works for aladdin grades 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -2980,7 +3011,6 @@ exports[`snapshots works for aladdin grades 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -3002,20 +3032,65 @@ exports[`snapshots works for aladdin grades 1`] = `
                     "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
-                    "paddingRight": 5,
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  FLEP
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "fontSize": 14,
+                          }
+                        }
+                      >
+                        FLEP
+                      </div>
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -3842,7 +3917,6 @@ exports[`snapshots works for aladdin notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -3853,7 +3927,6 @@ exports[`snapshots works for aladdin notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -3865,7 +3938,6 @@ exports[`snapshots works for aladdin notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -3902,7 +3974,6 @@ exports[`snapshots works for aladdin notes 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -3915,7 +3986,6 @@ exports[`snapshots works for aladdin notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -3926,7 +3996,6 @@ exports[`snapshots works for aladdin notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -3946,21 +4015,59 @@ exports[`snapshots works for aladdin notes 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -3987,7 +4094,6 @@ exports[`snapshots works for aladdin notes 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -4000,7 +4106,6 @@ exports[`snapshots works for aladdin notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -4022,20 +4127,65 @@ exports[`snapshots works for aladdin notes 1`] = `
                     "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
-                    "paddingRight": 5,
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  FLEP
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "fontSize": 14,
+                          }
+                        }
+                      >
+                        FLEP
+                      </div>
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -4862,7 +5012,6 @@ exports[`snapshots works for aladdin testing 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -4873,7 +5022,6 @@ exports[`snapshots works for aladdin testing 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -4885,7 +5033,6 @@ exports[`snapshots works for aladdin testing 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -4922,7 +5069,6 @@ exports[`snapshots works for aladdin testing 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -4935,7 +5081,6 @@ exports[`snapshots works for aladdin testing 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -4946,7 +5091,6 @@ exports[`snapshots works for aladdin testing 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -4966,21 +5110,59 @@ exports[`snapshots works for aladdin testing 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -5007,7 +5189,6 @@ exports[`snapshots works for aladdin testing 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -5020,7 +5201,6 @@ exports[`snapshots works for aladdin testing 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -5042,20 +5222,65 @@ exports[`snapshots works for aladdin testing 1`] = `
                     "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
-                    "paddingRight": 5,
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  FLEP
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "fontSize": 14,
+                          }
+                        }
+                      >
+                        FLEP
+                      </div>
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -8386,7 +8611,6 @@ exports[`snapshots works for olaf math 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -8397,7 +8621,6 @@ exports[`snapshots works for olaf math 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -8409,7 +8632,6 @@ exports[`snapshots works for olaf math 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -8446,7 +8668,6 @@ exports[`snapshots works for olaf math 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -8459,7 +8680,6 @@ exports[`snapshots works for olaf math 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -8470,7 +8690,6 @@ exports[`snapshots works for olaf math 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -8490,21 +8709,59 @@ exports[`snapshots works for olaf math 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -9349,7 +9606,6 @@ exports[`snapshots works for olaf notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -9360,7 +9616,6 @@ exports[`snapshots works for olaf notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -9372,7 +9627,6 @@ exports[`snapshots works for olaf notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -9409,7 +9663,6 @@ exports[`snapshots works for olaf notes 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -9422,7 +9675,6 @@ exports[`snapshots works for olaf notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -9433,7 +9685,6 @@ exports[`snapshots works for olaf notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -9453,21 +9704,59 @@ exports[`snapshots works for olaf notes 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -10312,7 +10601,6 @@ exports[`snapshots works for olaf reading 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -10323,7 +10611,6 @@ exports[`snapshots works for olaf reading 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -10335,7 +10622,6 @@ exports[`snapshots works for olaf reading 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -10372,7 +10658,6 @@ exports[`snapshots works for olaf reading 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -10385,7 +10670,6 @@ exports[`snapshots works for olaf reading 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -10396,7 +10680,6 @@ exports[`snapshots works for olaf reading 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -10416,21 +10699,59 @@ exports[`snapshots works for olaf reading 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -13937,7 +14258,6 @@ exports[`snapshots works for pluto attendance 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -13948,7 +14268,6 @@ exports[`snapshots works for pluto attendance 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -13960,7 +14279,6 @@ exports[`snapshots works for pluto attendance 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -13997,7 +14315,6 @@ exports[`snapshots works for pluto attendance 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -14010,7 +14327,6 @@ exports[`snapshots works for pluto attendance 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -14021,7 +14337,6 @@ exports[`snapshots works for pluto attendance 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -14041,21 +14356,59 @@ exports[`snapshots works for pluto attendance 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -14082,7 +14435,6 @@ exports[`snapshots works for pluto attendance 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -14106,20 +14458,65 @@ exports[`snapshots works for pluto attendance 1`] = `
                     "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
-                    "paddingRight": 5,
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Limited
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "fontSize": 14,
+                          }
+                        }
+                      >
+                        Limited
+                      </div>
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -14918,7 +15315,6 @@ exports[`snapshots works for pluto behavior 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -14929,7 +15325,6 @@ exports[`snapshots works for pluto behavior 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -14941,7 +15336,6 @@ exports[`snapshots works for pluto behavior 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -14978,7 +15372,6 @@ exports[`snapshots works for pluto behavior 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -14991,7 +15384,6 @@ exports[`snapshots works for pluto behavior 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -15002,7 +15394,6 @@ exports[`snapshots works for pluto behavior 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -15022,21 +15413,59 @@ exports[`snapshots works for pluto behavior 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -15063,7 +15492,6 @@ exports[`snapshots works for pluto behavior 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -15087,20 +15515,65 @@ exports[`snapshots works for pluto behavior 1`] = `
                     "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
-                    "paddingRight": 5,
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Limited
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "fontSize": 14,
+                          }
+                        }
+                      >
+                        Limited
+                      </div>
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -15899,7 +16372,6 @@ exports[`snapshots works for pluto notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -15910,7 +16382,6 @@ exports[`snapshots works for pluto notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -15922,7 +16393,6 @@ exports[`snapshots works for pluto notes 1`] = `
               Object {
                 "display": "inline-block",
                 "fontSize": 14,
-                "paddingRight": 5,
               }
             }
           >
@@ -15959,7 +16429,6 @@ exports[`snapshots works for pluto notes 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -15972,7 +16441,6 @@ exports[`snapshots works for pluto notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -15983,7 +16451,6 @@ exports[`snapshots works for pluto notes 1`] = `
                 Object {
                   "display": "inline-block",
                   "fontSize": 14,
-                  "paddingRight": 5,
                 }
               }
             >
@@ -16003,21 +16470,59 @@ exports[`snapshots works for pluto notes 1`] = `
                 onClick={[Function]}
                 style={
                   Object {
+                    "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Family contacts
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      Family contacts
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
@@ -16044,7 +16549,6 @@ exports[`snapshots works for pluto notes 1`] = `
                   Object {
                     "display": "inline-block",
                     "fontSize": 14,
-                    "paddingRight": 5,
                   }
                 }
               >
@@ -16068,20 +16572,65 @@ exports[`snapshots works for pluto notes 1`] = `
                     "display": "inline-block",
                     "fontSize": 14,
                     "outline": "none",
-                    "paddingRight": 5,
                   }
                 }
               >
                 <div
+                  className="InlineIcon"
                   style={
                     Object {
                       "display": "inline-block",
-                      "fontSize": 14,
-                      "paddingRight": 5,
                     }
                   }
                 >
-                  Limited
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "fontSize": 14,
+                          }
+                        }
+                      >
+                        Limited
+                      </div>
+                    </span>
+                    <svg
+                      className="DialogIcon"
+                      height={14}
+                      style={
+                        Object {
+                          "fill": "#3177c9",
+                          "opacity": 0.75,
+                        }
+                      }
+                      viewBox="0 0 24 24"
+                      width={14}
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 0h24v24H0z"
+                        fill="none"
+                      />
+                      <path
+                        d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </a>
             </div>
