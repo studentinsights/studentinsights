@@ -25,7 +25,7 @@ export function toSchoolYear(date) {
   const momentObject = moment.utc(date);
 
   const year = momentObject.year();
-  const startOfSchoolYear = toMoment([year, 8, 15]);
+  const startOfSchoolYear = firstDayOfSchool(year);
   const isEventDuringFall = momentObject.diff(startOfSchoolYear, 'days') > 0;
   return (isEventDuringFall) ? year : year - 1;
 }

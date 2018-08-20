@@ -21,7 +21,8 @@ class SchoolYear
 
   # returns: Integer representing what the calendar year was in the fall of date's school year
   def self.to_school_year(date_time)
-    start_of_school_year = self.first_day_of_school_for_year(date_time.year)
+    year = date_time.year
+    start_of_school_year = self.first_day_of_school_for_year(year)
     is_event_during_fall = (date_time - start_of_school_year) > 0
     if is_event_during_fall
       year
