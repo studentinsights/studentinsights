@@ -3160,96 +3160,88 @@ exports[`snapshots works for aladdin grades 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -4188,96 +4180,88 @@ exports[`snapshots works for aladdin notes 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -5216,96 +5200,88 @@ exports[`snapshots works for aladdin testing 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -8691,96 +8667,88 @@ exports[`snapshots works for olaf math 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -9662,96 +9630,88 @@ exports[`snapshots works for olaf notes 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -10633,96 +10593,88 @@ exports[`snapshots works for olaf reading 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -14319,96 +14271,88 @@ exports[`snapshots works for pluto attendance 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -15308,96 +15252,88 @@ exports[`snapshots works for pluto behavior 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -16297,96 +16233,88 @@ exports[`snapshots works for pluto notes 1`] = `
           }
         }
       >
-        <a
-          href="#"
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Next student"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="Print PDF"
           >
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
+        <div
           style={
             Object {
-              "display": "block",
+              "display": "inline",
+              "marginLeft": 0,
             }
           }
-          title="Print PDF"
         >
-          <svg
-            height="24"
+          <a
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+                "fontSize": 12,
+                "outline": "none",
               }
             }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+            title="List all data points"
           >
-            <path
-              d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
-        <a
-          href="#"
-          style={
-            Object {
-              "display": "block",
-            }
-          }
-          title="List all data points"
-        >
-          <svg
-            height="24"
-            style={
-              Object {
-                "fill": "#3177c9",
-                "opacity": 0.5,
+            <svg
+              height="24"
+              style={
+                Object {
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
               }
-            }
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
-            />
-            <path
-              d="M0 0h24v24H0z"
-              fill="none"
-            />
-          </svg>
-        </a>
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
