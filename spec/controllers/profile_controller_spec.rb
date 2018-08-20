@@ -171,7 +171,7 @@ describe ProfileController, :type => :controller do
 
       context 'educator has homeroom access' do
         let(:educator) { FactoryBot.create(:educator, school: school) }
-        before { homeroom.update(educator: educator) }
+        before { homeroom.update(educator: educator, school: school) }
 
         it 'is successful' do
           make_request(educator, student.id)
