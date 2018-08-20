@@ -7,7 +7,7 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import NoteCard from './NoteCard';
-import {parseAndReRender} from './lightTransitionNotes';
+
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -82,7 +82,7 @@ export default class NotesList extends React.Component {
         noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
         badge={<span style={styles.badge}>Transition note</span>}
         educatorId={transitionNote.educator_id}
-        text={parseAndReRender(transitionNote.text)}
+        text={transitionNote.text}
         educatorsIndex={this.props.educatorsIndex}
         attachments={[]} />
     );
