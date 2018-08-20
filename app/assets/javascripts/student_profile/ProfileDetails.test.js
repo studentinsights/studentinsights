@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import {mount} from 'enzyme';
-import {testTimeMoment, withDefaultNowContext, testContext} from '../testing/NowContainer';
+import {testTimeMoment, withDefaultNowContext} from '../testing/NowContainer';
 import ProfileDetails from './ProfileDetails';
 
 
-function testProps(props = {}) {
+export function testProps(props = {}) {
   return {
     nowMoment: testTimeMoment(),
     student: {

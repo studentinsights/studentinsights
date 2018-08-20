@@ -1,0 +1,303 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="ProfilePdfDialog"
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "column",
+    }
+  }
+>
+  <h4
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "color": "black",
+        "marginBottom": 10,
+        "padding": 10,
+        "paddingLeft": 0,
+      }
+    }
+  >
+    Student Report
+  </h4>
+  <span
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "textAlign": "left",
+      }
+    }
+  >
+    Select sections to include in report:
+  </span>
+  <div
+    style={
+      Object {
+        "paddingBottom": 10,
+        "paddingLeft": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "height": "1.8em",
+          "verticalAlign": "middle",
+          "width": "12em",
+        }
+      }
+    >
+      <input
+        className="ProfilePdfDialog-section"
+        defaultChecked={true}
+        name="notes"
+        style={Object {}}
+        type="checkbox"
+        value="notes"
+      />
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "padding": "0px 0px 20px 5px",
+          }
+        }
+      >
+        Notes
+      </label>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "height": "1.8em",
+          "verticalAlign": "middle",
+          "width": "12em",
+        }
+      }
+    >
+      <input
+        className="ProfilePdfDialog-section"
+        defaultChecked={true}
+        name="services"
+        style={Object {}}
+        type="checkbox"
+        value="services"
+      />
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "padding": "0px 0px 20px 5px",
+          }
+        }
+      >
+        Services
+      </label>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "height": "1.8em",
+          "verticalAlign": "middle",
+          "width": "12em",
+        }
+      }
+    >
+      <input
+        className="ProfilePdfDialog-section"
+        defaultChecked={true}
+        name="attendance"
+        style={Object {}}
+        type="checkbox"
+        value="attendance"
+      />
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "padding": "0px 0px 20px 5px",
+          }
+        }
+      >
+        Attendance
+      </label>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "height": "1.8em",
+          "verticalAlign": "middle",
+          "width": "12em",
+        }
+      }
+    >
+      <input
+        className="ProfilePdfDialog-section"
+        defaultChecked={true}
+        name="discipline_incidents"
+        style={Object {}}
+        type="checkbox"
+        value="discipline_incidents"
+      />
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "padding": "0px 0px 20px 5px",
+          }
+        }
+      >
+        Discipline Incidents
+      </label>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "height": "1.8em",
+          "verticalAlign": "middle",
+          "width": "12em",
+        }
+      }
+    >
+      <input
+        className="ProfilePdfDialog-section"
+        defaultChecked={true}
+        name="assessments"
+        style={Object {}}
+        type="checkbox"
+        value="assessments"
+      />
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "padding": "0px 0px 20px 5px",
+          }
+        }
+      >
+        Assessments
+      </label>
+    </div>
+  </div>
+  <span
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "textAlign": "left",
+      }
+    }
+  >
+    Select dates for the report:
+  </span>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "column",
+        "marginLeft": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "width": "4em",
+          }
+        }
+      >
+        From:
+      </label>
+      <div
+        className="Datepicker"
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <input
+          className="datepicker"
+          onChange={[Function]}
+          style={
+            Object {
+              "fontSize": 14,
+              "padding": 5,
+              "width": "8em",
+            }
+          }
+          value="08/15/2016"
+        />
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+            "width": "4em",
+          }
+        }
+      >
+        Until:
+      </label>
+      <div
+        className="Datepicker"
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <input
+          className="datepicker"
+          onChange={[Function]}
+          style={
+            Object {
+              "fontSize": 14,
+              "padding": 5,
+              "width": "8em",
+            }
+          }
+          value="03/13/2018"
+        />
+      </div>
+    </div>
+  </div>
+  <button
+    className="btn btn-warning"
+    onClick={[Function]}
+    style={
+      Object {
+        "fontSize": 12,
+        "marginRight": 0,
+      }
+    }
+  >
+    Generate Student Report
+  </button>
+</div>
+`;
