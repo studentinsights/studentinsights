@@ -16,8 +16,9 @@ RSpec.describe EducatorsImporter do
     importer.instance_variable_set(:@touched_rows_count, 0)
     importer.instance_variable_set(:@ignored_special_nil_homeroom_count, 0)
     importer.instance_variable_set(:@ignored_no_homeroom_count, 0)
-    importer.instance_variable_set(:@ignored_unknown_homeroom_count, 0)
-    importer.instance_variable_set(:@touched_homeroom_count, 0)
+    importer.instance_variable_set(:@ignored_invalid_homeroom_count, 0)
+    importer.instance_variable_set(:@created_homeroom_count, 0)
+    importer.instance_variable_set(:@updated_homeroom_count, 0)
     importer
   end
 

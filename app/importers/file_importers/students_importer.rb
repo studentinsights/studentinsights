@@ -38,33 +38,22 @@ class StudentsImporter
   end
 
   def import_row(row)
-    student = StudentRow.new(row, school_ids_dictionary).build
+    student = StudentRow.new(row, school_ids_dictionary, @log).build
     return nil if student.registration_date_in_future
     return student unless student.changed?
 
     did_save = student.save
     if !did_save
-      @log.puts "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
+      @log.puts(error_message(student))
       return nil
     end
 
-    if row[:homeroom].present?
-      assign_student_to_homeroom(student, row[:homeroom])
-    end
-
-    student
+    return student
   end
 
-  def assign_student_to_homeroom(student, homeroom_name)
-    return unless student.active?
-
-    homeroom = Homeroom.find_by(name: homeroom_name, school: student.school)
-
-    if homeroom.present?
-      homeroom.students << student
-    else
-      @log.puts "StudentsImporter: missing homeroom name #{homeroom_name}"
-    end
+  private
+  def error_message(student)
+    "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
   end
 
 end

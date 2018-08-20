@@ -1,7 +1,7 @@
-class StudentRow < Struct.new(:row, :school_ids_dictionary)
+class StudentRow < Struct.new(:row, :school_ids_dictionary, :log)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   # Some of those rows will enter Student Insights, and the data in the CSV will be written into the database
-  # (see name_view_attributes, demographic_attributes, school_attribute).
+  # (see name_attributes, demographic_attributes, school_attribute).
   #
   # Contrast with student.rb, which is represents a student once they've entered the DB.
   #
@@ -20,7 +20,30 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
 
   private
 
-  def name_view_attributes
+  def attributes
+    demographic_attributes
+      .merge(name_attributes)
+      .merge(school_attributes)
+      .merge(per_district_attributes)
+      .merge({ grade: grade })
+      .merge({ homeroom_id: homeroom_id })
+  end
+
+  def homeroom_id
+    return nil unless row[:enrollment_status] == 'Active'
+    homeroom_name = row[:homeroom]
+
+    # Homeroom is guaranteed by index to be unique on {name, school}
+    homeroom = Homeroom.find_by(name: homeroom_name, school_id: school_rails_id)
+
+    return homeroom.id if homeroom.present?
+
+    log.puts("StudentsImporter: missing homeroom: #{homeroom_name}")
+
+    return nil
+  end
+
+  def name_attributes
     name_split = row[:full_name].split(", ")
 
     case name_split.size
@@ -31,35 +54,29 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary)
     end
   end
 
-  def attributes
-    demographic_attributes
-      .merge(name_view_attributes)
-      .merge(school_attributes)
-      .merge(per_district_attributes)
-  end
-
   def demographic_attributes
-    {
-      state_id: row[:state_id],
-      enrollment_status: row[:enrollment_status],
-      home_language: row[:home_language],
-      program_assigned: row[:program_assigned],
-      limited_english_proficiency: row[:limited_english_proficiency],
-      sped_placement: row[:sped_placement],
-      disability: row[:disability],
-      sped_level_of_need: row[:sped_level_of_need],
-      plan_504: row[:plan_504],
-      student_address: row[:student_address],
-      grade: grade,
-      registration_date: row[:registration_date],
-      free_reduced_lunch: row[:free_reduced_lunch],
-      date_of_birth: row[:date_of_birth],
-      race: row[:race],
-      hispanic_latino: row[:hispanic_latino],
-      gender: row[:gender],
-      primary_phone: row[:primary_phone],
-      primary_email: row[:primary_email]
-    }
+    demographic_keys = [
+      :state_id,
+      :enrollment_status,
+      :home_language,
+      :program_assigned,
+      :limited_english_proficiency,
+      :sped_placement,
+      :disability,
+      :sped_level_of_need,
+      :plan_504,
+      :student_address,
+      :registration_date,
+      :free_reduced_lunch,
+      :date_of_birth,
+      :race,
+      :hispanic_latino,
+      :gender,
+      :primary_phone,
+      :primary_email,
+    ]
+
+    row.to_h.slice(demographic_keys)
   end
 
   def school_attributes
