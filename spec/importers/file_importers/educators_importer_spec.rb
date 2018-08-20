@@ -219,17 +219,25 @@ RSpec.describe EducatorsImporter do
 
   end
 
-  describe '#update_homeroom' do
+  describe 'update homeroom' do
     let!(:school) { FactoryBot.create(:healey) }
 
     context 'row with homeroom name' do
       let(:row) {
-        { state_id: "500", full_name: "Young, Jenny",
-          homeroom: "HEA 100", login_name: "jyoung", school_local_id: "HEA" }
+        {
+          login_name: 'jyoung',
+          school_local_id: 'HEA',
+          homeroom: 'HEA 100',
+          full_name: 'Young, Jenny',
+          state_id: '500',
+        }
       }
 
       context 'name of homeroom that exists' do
-        let!(:homeroom) { FactoryBot.create(:homeroom, :named_hea_100) }
+        let!(:homeroom) {
+          Homeroom.create!(name: 'HEA 100',school: school)
+        }
+
         it 'assigns the homeroom to the educator' do
           make_educators_importer.import_row(row)
           expect(Educator.last.homeroom).to eq homeroom
