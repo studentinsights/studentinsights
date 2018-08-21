@@ -123,9 +123,9 @@ RSpec.describe EventNote, type: :model do
         array = test_relation.to_a
         json = array.as_json(only: [:student_id, :event_note_type_id])
         expect(json).to eq([
-          {"student_id"=>array[0].student_id, "event_note_type_id"=>array[0].student_id},
-          {"student_id"=>array[1].student_id, "event_note_type_id"=>array[1].student_id},
-          {"student_id"=>array[2].student_id, "event_note_type_id"=>array[2].student_id}
+          {"student_id"=>array[0].student_id, "event_note_type_id"=>array[0].event_note_type_id},
+          {"student_id"=>array[1].student_id, "event_note_type_id"=>array[1].event_note_type_id},
+          {"student_id"=>array[2].student_id, "event_note_type_id"=>array[2].event_note_type_id}
         ])
       end
 
