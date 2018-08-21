@@ -87,7 +87,8 @@ class EducatorsImporter
       return
     end
 
-    # Update homeroom
+    # Update homeroom: homerooms guaranteed to be uniqe on {name, school}
+    # by the index_homerooms_on_school_id_and_name database index
     homeroom = Homeroom.find_by(name: row[:homeroom], school: educator.school)
     if homeroom.nil?
       @ignored_unknown_homeroom_count = @ignored_unknown_homeroom_count + 1
