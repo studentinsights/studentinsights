@@ -66,7 +66,7 @@ describe ProfileController, :type => :controller do
           expect(json['current_educator']['email']).to eq educator['email']
           expect(json['current_educator']['labels']).to eq []
           expect(json['student']["id"]).to eq student.id
-          expect(json['student']["restricted_notes_count"]).to eq 0
+          expect(json['student']).not_to have_key('restricted_notes_count')
 
           expect(json['dibels']).to eq []
           expect(json['feed']).to eq ({

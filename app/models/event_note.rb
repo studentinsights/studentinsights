@@ -9,4 +9,25 @@ class EventNote < ActiveRecord::Base
 
   validates :educator, :student, :event_note_type, :recorded_at, presence: true
   validates :is_restricted, inclusion: { in: [true, false] }
+
+  REDACTED = '<redacted>'
+
+  # override
+  # Ensures that text for restricted notes don't get accidentally serialized
+  # without explicitly asking for them.
+  def as_json(options = {})
+    json = super(options)
+
+    # unrestricted notes are safe to serialize
+    return json unless self.is_restricted
+
+    # if a restricted note isn't serializing the text content it's okay
+    return json unless json.has_key?('text')
+
+    # allow a dangerous manual override
+    return json if options[:dangerously_include_restricted_note_text]
+
+    # redact text content
+    json.merge('text' => '<redacted>')
+  end
 end

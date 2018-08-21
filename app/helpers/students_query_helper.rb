@@ -9,6 +9,7 @@ module StudentsQueryHelper
                  # cache after deploying https://github.com/studentinsights/studentinsights/pull/1892.
   ]
 
+  # include notes that are is_restricted, but without their content
   INCLUDE_FOR_EVENT_NOTES = [
     :id,
     :student_id,
