@@ -39,7 +39,7 @@ export const feedForTestingNotes = {
       "student_id": 5,
       "educator_id": 1,
       "event_note_type_id": 301,
-      "text": "Sweet! (Restricted)",
+      "text": "<redacted>",
       "recorded_at": "2016-02-27T19:23:26.835Z",
       "created_at": "2016-02-27T19:23:26.836Z",
       "updated_at": "2016-02-27T19:23:26.836Z",

@@ -32,7 +32,7 @@ const helpers = {
     mockApi.saveNotes.mockImplementation(() =>
       $.Deferred().resolve({
         id: 9999,
-        text: 'hi',
+        text: 'RESTRICTED-something-sensitive',
         is_restricted: true,
         event_note_type_id: 301,
         student_id: 23,
@@ -65,7 +65,7 @@ describe('high-level integration tests', () => {
     // 23 is the student id, and MTSS Meeting has id 301.
     expect(mockApi.saveNotes).toHaveBeenCalledWith(23, {
       eventNoteTypeId: 301,
-      text: 'hi',
+      text: 'RESTRICTED-something-sensitive',
       is_restricted: true,
       eventNoteAttachments: []
     });
