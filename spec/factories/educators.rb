@@ -29,7 +29,7 @@ FactoryBot.define do
 
     factory :educator_with_homeroom do
       after(:create) do |educator|
-        create(:homeroom, educator: educator)
+        create(:homeroom, educator: educator, school: educator.school)
       end
     end
 

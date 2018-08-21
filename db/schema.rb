@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2018_08_21_152930) do
     t.string "grade"
     t.integer "school_id"
     t.index ["educator_id"], name: "index_homerooms_on_educator_id"
+    t.index ["school_id", "name"], name: "index_homerooms_on_school_id_and_name", unique: true
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
   end
 

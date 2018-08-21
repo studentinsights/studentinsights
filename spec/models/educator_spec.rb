@@ -156,27 +156,6 @@ RSpec.describe Educator do
 
   end
 
-  describe '#default_homeroom' do
-    context 'educator assigned a homeroom' do
-      let(:educator) { FactoryBot.create(:educator) }
-      let!(:homeroom) { FactoryBot.create(:homeroom, educator: educator) }
-
-      it 'raises an error' do
-        expect(educator.default_homeroom).to eq homeroom
-      end
-    end
-
-    context 'educator not assigned a homeroom' do
-      let!(:homeroom) { FactoryBot.create(:homeroom) }
-      let(:educator) { FactoryBot.create(:educator) }
-
-      it 'raises an error' do
-        expect { educator.default_homeroom }.to raise_error Exceptions::NoAssignedHomeroom
-      end
-    end
-
-  end
-
   describe '#allowed_homerooms' do
     let!(:school) { FactoryBot.create(:healey) }
     let!(:other_school) { FactoryBot.create(:brown) }
