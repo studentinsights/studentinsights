@@ -50,7 +50,7 @@ export default class NotesList extends React.Component {
         badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
-        numberOfRevisions={eventNote.event_note_revisions.length}
+        numberOfRevisions={eventNote.event_note_revisions_count}
         attachments={eventNote.attachments}
         educatorsIndex={this.props.educatorsIndex}
         onSave={this.props.onSaveNote}

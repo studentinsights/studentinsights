@@ -13,7 +13,7 @@ class EventNotesController < ApplicationController
       recorded_at: Time.now
     }))
 
-    serializer = EventNoteSerializer.new(event_note)
+    serializer = EventNoteSerializer.safe(event_note)
 
     if event_note.save
       render json: serializer.serialize_event_note
@@ -27,7 +27,7 @@ class EventNotesController < ApplicationController
 
     event_note = EventNote.find(event_note_id)
 
-    serializer = EventNoteSerializer.new(event_note)
+    serializer = EventNoteSerializer.safe(event_note)
 
     # Save the state of the existing event note.
     previous_event_note_revision = EventNoteRevision.where(
