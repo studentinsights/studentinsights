@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe StudentSectionAssignmentsImporter do
-  before { School.seed_somerville_schools }
-  let(:high_school) { School.find_by_local_id('SHS') }
-
-  let(:student_section_assignments_importer) do
+  def make_importer_with_initialization(options = {})
     importer = described_class.new(options: {
-      school_scope: nil, log: LogHelper::Redirect.instance.file
-    })
+      school_scope: nil,
+      log: LogHelper::Redirect.instance.file
+    }.merge(options))
     importer.instance_variable_set(:@skipped_from_school_filter, 0)
     importer.instance_variable_set(:@invalid_student_count, 0)
     importer.instance_variable_set(:@invalid_course_count, 0)
@@ -16,6 +14,10 @@ RSpec.describe StudentSectionAssignmentsImporter do
     importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
     importer
   end
+
+  before { School.seed_somerville_schools }
+  let(:high_school) { School.find_by_local_id('SHS') }
+  let(:student_section_assignments_importer) { make_importer_with_initialization }
 
   describe 'integration tests' do
     def make_importer(options = {})
@@ -203,58 +205,60 @@ RSpec.describe StudentSectionAssignmentsImporter do
     end
   end
 
-  # describe '#delete_rows' do
-  #   let(:log) { LogHelper::Redirect.instance.file }
-  #   let!(:section) { FactoryBot.create(:section) }
-  #   let!(:student) { FactoryBot.create(:student) }
-  #   let(:row) {
-  #     {
-  #       local_id: student.local_id,
-  #       course_number: section.course.course_number,
-  #       school_local_id: section.course.school.local_id,
-  #       section_number: section.section_number,
-  #       term_local_id: section.term_local_id
-  #     }
-  #   }
+  describe 'deleting rows' do
+    def sync_records(importer)
+      syncer = importer.instance_variable_get(:@syncer)
+      syncer.delete_unmarked_records!(importer.send(:records_within_scope))
+      nil
+    end
 
-  #   context 'happy path' do
-  #     let(:student_section_assignments_importer) {
-  #       described_class.new(options: {
-  #         school_scope: School.pluck(:local_id), log: LogHelper::Redirect.instance.file
-  #       })
-  #     }
+    let(:log) { LogHelper::Redirect.instance.file }
+    let!(:section) { FactoryBot.create(:section) }
+    let!(:student) { FactoryBot.create(:student) }
+    let(:row) {
+      {
+        local_id: student.local_id,
+        course_number: section.course.course_number,
+        school_local_id: section.course.school.local_id,
+        section_number: section.section_number,
+        term_local_id: section.term_local_id
+      }
+    }
 
-  #     before do
-  #       FactoryBot.create_list(:student_section_assignment, 20)
-  #       FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
+    context 'happy path' do
+      let(:student_section_assignments_importer) do
+        make_importer_with_initialization(school_scope: School.pluck(:local_id))
+      end
 
-  #       student_section_assignments_importer.send(:import_row, row)
-  #       student_section_assignments_importer.delete_rows
-  #     end
+      before do
+        FactoryBot.create_list(:student_section_assignment, 20)
+        FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-  #     it 'deletes all student section assignments except the recently imported one' do
-  #       expect(StudentSectionAssignment.count).to eq(1)
-  #     end
-  #   end
+        student_section_assignments_importer.send(:import_row, row)
+        sync_records(student_section_assignments_importer)
+      end
 
-  #   context 'delete only stale assignments from schools being imported' do
-  #     let(:student_section_assignments_importer) {
-  #       described_class.new(options: {
-  #         school_scope: ['SHS'], log: LogHelper::Redirect.instance.file
-  #       })
-  #     }
+      it 'deletes all student section assignments except the recently imported one' do
+        expect(StudentSectionAssignment.count).to eq(1)
+      end
+    end
 
-  #     before do
-  #       FactoryBot.create_list(:student_section_assignment, 20)
-  #       FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
+    context 'delete only stale assignments from schools being imported' do
+      let(:student_section_assignments_importer) do
+        make_importer_with_initialization(school_scope: ['SHS'])
+      end
 
-  #       student_section_assignments_importer.send(:import_row, row)
-  #       student_section_assignments_importer.delete_rows
-  #     end
+      before do
+        FactoryBot.create_list(:student_section_assignment, 20)
+        FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-  #     it 'deletes all student section assignments for that school except the recently imported one' do
-  #       expect(StudentSectionAssignment.count).to eq(21)
-  #     end
-  #   end
-  # end
+        student_section_assignments_importer.send(:import_row, row)
+        sync_records(student_section_assignments_importer)
+      end
+
+      it 'deletes all student section assignments for that school except the recently imported one' do
+        expect(StudentSectionAssignment.count).to eq(21)
+      end
+    end
+  end
 end
