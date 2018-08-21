@@ -7604,7 +7604,6 @@ exports[`snapshots works for olaf 1`] = `
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -7698,7 +7697,6 @@ Reduce behavior.
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -7792,7 +7790,6 @@ Increase how often the student is engaged in positive behaviors.
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -8002,7 +7999,6 @@ Reduce behavior.
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }

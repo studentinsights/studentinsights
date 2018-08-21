@@ -52,11 +52,11 @@ export default class NotesList extends React.Component {
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
         numberOfRevisions={eventNote.event_note_revisions_count}
-        attachments={eventNote.attachments}
+        attachments={isRestricted ? [] : eventNote.attachments}
         educatorsIndex={this.props.educatorsIndex}
         isRestricted={isRestricted}
-        onSave={isRestricted ? this.props.onSaveNote : null}
-        onEventNoteAttachmentDeleted={isRestricted ? this.props.onEventNoteAttachmentDeleted : null} />
+        onSave={isRestricted ? null : this.props.onSaveNote}
+        onEventNoteAttachmentDeleted={isRestricted ? null : this.props.onEventNoteAttachmentDeleted} />
     );
   }
 
