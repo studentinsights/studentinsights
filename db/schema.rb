@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_09_175409) do
+ActiveRecord::Schema.define(version: 2018_08_21_123346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -507,7 +507,9 @@ ActiveRecord::Schema.define(version: 2018_08_09_175409) do
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
   add_foreign_key "student_photos", "students"
   add_foreign_key "student_section_assignments", "sections"
+  add_foreign_key "student_section_assignments", "sections", name: "student_section_assignments_section_id_fk"
   add_foreign_key "student_section_assignments", "students"
+  add_foreign_key "student_section_assignments", "students", name: "student_section_assignments_student_id_fk"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"
