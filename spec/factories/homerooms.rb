@@ -1,10 +1,5 @@
 FactoryBot.define do
-
   sequence(:name) { |n| n.to_s }
-
-  trait :named_hea_100 do
-    name "HEA 100"
-  end
 
   factory :homeroom do
     name { FactoryBot.generate(:name) }

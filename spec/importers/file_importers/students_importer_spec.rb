@@ -19,11 +19,6 @@ RSpec.describe StudentsImporter do
       let!(:brown) { School.create(local_id: 'BRN') }
 
       context 'no existing students in database' do
-
-        it 'creates Student records' do
-          expect { import }.to change { Student.count }.by(4)
-        end
-
         it 'does not import students with far future registration dates' do
           import
           expect(Student.count).to eq 4
