@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Educator from '../components/Educator';
-import NoteText, {exportedNoteText} from '../components/NoteText';
+import NoteText from '../components/NoteText';
 import EditableNoteText from '../components/EditableNoteText';
 import moment from 'moment';
 import * as Routes from '../helpers/Routes';
@@ -76,11 +76,10 @@ export default class NoteCard extends React.Component {
       ? educatorName.split(' ')[0]
       : educatorName;
     return (
-      <div style={styles.restrictedNoteRedaction}>
-        To respect {studentFirstNameOrTheir} privacy, {educatorFirstNameOrEmail} marked
-        this note as restricted.  Consider whether you really need to know about
-        this before asking more.
-      </div>
+      <NoteText
+        style={styles.restrictedNoteRedaction}
+        text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorFirstNameOrEmail} marked this note as restricted.  Consider whether you really need to know before asking more.`}
+      />
     );
   }
 
@@ -264,7 +263,6 @@ const styles = {
     display: 'flex'
   },
   restrictedNoteRedaction: {
-    color: '#999',
-    ...exportedNoteText
+    color: '#999'
   }
 };
