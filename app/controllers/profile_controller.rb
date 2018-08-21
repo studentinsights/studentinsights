@@ -51,8 +51,7 @@ class ProfileController < ApplicationController
       school_name: student.try(:school).try(:name),
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
-      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: student.event_notes.where(is_restricted: true).count,
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count
     }).stringify_keys
   end
 

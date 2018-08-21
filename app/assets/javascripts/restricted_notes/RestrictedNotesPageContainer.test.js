@@ -38,7 +38,7 @@ const helpers = {
         student_id: 23,
         educator_id: 1,
         attachments: [],
-        event_note_revisions: []
+        event_note_revisions_count: 0
       })
     );
     return mockApi;

@@ -14,9 +14,8 @@ class EventNote < ActiveRecord::Base
 
   # override
   # Ensures that text for restricted notes don't get accidentally serialized
-  # without explicitly asking for them.
+  # without explicitly asking for them.  See also EventNoteRevision#as_json
   def as_json(options = {})
-    puts "EventNote, options: #{options}"
     json = super(options)
 
     # unrestricted notes are safe to serialize
