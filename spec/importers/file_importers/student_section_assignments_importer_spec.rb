@@ -4,11 +4,18 @@ RSpec.describe StudentSectionAssignmentsImporter do
   before { School.seed_somerville_schools }
   let(:high_school) { School.find_by_local_id('SHS') }
 
-  let(:student_section_assignments_importer) {
-    described_class.new(options: {
+  let(:student_section_assignments_importer) do
+    importer = described_class.new(options: {
       school_scope: nil, log: LogHelper::Redirect.instance.file
     })
-  }
+    importer.instance_variable_set(:@skipped_from_school_filter, 0)
+    importer.instance_variable_set(:@invalid_student_count, 0)
+    importer.instance_variable_set(:@invalid_course_count, 0)
+    importer.instance_variable_set(:@invalid_section_count, 0)
+    importer.instance_variable_get(:@student_ids_map).reset!
+    importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
+    importer
+  end
 
   describe 'integration tests' do
     def make_importer(options = {})
@@ -87,114 +94,114 @@ RSpec.describe StudentSectionAssignmentsImporter do
 
   end
 
-  # describe '#import_row' do
-  #   let!(:course) { FactoryBot.create(:course, school: high_school) }
-  #   let!(:section) { FactoryBot.create(:section, course: course) }
-  #   let!(:student) { FactoryBot.create(:student) }
+  describe '#import_row' do
+    let!(:course) { FactoryBot.create(:course, school: high_school) }
+    let!(:section) { FactoryBot.create(:section, course: course) }
+    let!(:student) { FactoryBot.create(:student) }
 
-  #   context 'happy path' do
-  #     let(:row) {
-  #       {
-  #         local_id: student.local_id,
-  #         course_number: section.course.course_number,
-  #         school_local_id: 'SHS',
-  #         section_number: section.section_number,
-  #         term_local_id: 'FY'
-  #       }
-  #     }
+    context 'happy path' do
+      let(:row) {
+        {
+          local_id: student.local_id,
+          course_number: section.course.course_number,
+          school_local_id: 'SHS',
+          section_number: section.section_number,
+          term_local_id: 'FY'
+        }
+      }
 
-  #       before do
-  #         student_section_assignments_importer.import_row(row)
-  #       end
+        before do
+          student_section_assignments_importer.send(:import_row, row)
+        end
 
-  #       it 'creates a student section assignment' do
-  #         expect(StudentSectionAssignment.count).to eq(1)
-  #       end
+        it 'creates a student section assignment' do
+          expect(StudentSectionAssignment.count).to eq(1)
+        end
 
-  #       it 'assigns the proper student to the proper section' do
-  #         expect(StudentSectionAssignment.first.student).to eq(student)
-  #         expect(StudentSectionAssignment.first.section).to eq(section)
-  #       end
-  #   end
+        it 'assigns the proper student to the proper section' do
+          expect(StudentSectionAssignment.first.student).to eq(student)
+          expect(StudentSectionAssignment.first.section).to eq(section)
+        end
+    end
 
-  #   context 'student lasid is missing' do
-  #     let(:row) {
-  #       {
-  #         course_number: section.course.course_number,
-  #         school_local_id: 'SHS',
-  #         section_number: section.section_number,
-  #         term_local_id: 'FY'
-  #       }
-  #     }
+    context 'student lasid is missing' do
+      let(:row) {
+        {
+          course_number: section.course.course_number,
+          school_local_id: 'SHS',
+          section_number: section.section_number,
+          term_local_id: 'FY'
+        }
+      }
 
-  #     before do
-  #       student_section_assignments_importer.import_row(row)
-  #     end
+      before do
+        student_section_assignments_importer.send(:import_row, row)
+      end
 
-  #     it 'does not create a student section assignment' do
-  #       expect(StudentSectionAssignment.count).to eq(0)
-  #     end
-  #   end
+      it 'does not create a student section assignment' do
+        expect(StudentSectionAssignment.count).to eq(0)
+      end
+    end
 
-  #   context 'section is missing' do
-  #     let(:row) {
-  #       {
-  #         local_id: student.local_id,
-  #         course_number: section.course.course_number,
-  #         school_local_id: 'SHS',
-  #         term_local_id: 'FY'
-  #       }
-  #     }
+    context 'section is missing' do
+      let(:row) {
+        {
+          local_id: student.local_id,
+          course_number: section.course.course_number,
+          school_local_id: 'SHS',
+          term_local_id: 'FY'
+        }
+      }
 
-  #     before do
-  #       student_section_assignments_importer.import_row(row)
-  #     end
+      before do
+        student_section_assignments_importer.send(:import_row, row)
+      end
 
-  #     it 'does not create a student section assignment' do
-  #       expect(StudentSectionAssignment.count).to eq(0)
-  #     end
-  #   end
+      it 'does not create a student section assignment' do
+        expect(StudentSectionAssignment.count).to eq(0)
+      end
+    end
 
-  #   context 'student does not exist' do
-  #     let(:row) {
-  #       {
-  #         local_id: 'NO EXIST',
-  #         course_number: section.course.course_number,
-  #         school_local_id: 'SHS',
-  #         section_number: section.section_number,
-  #         term_local_id: 'FY'
-  #       }
-  #     }
+    context 'student does not exist' do
+      let(:row) {
+        {
+          local_id: 'NO EXIST',
+          course_number: section.course.course_number,
+          school_local_id: 'SHS',
+          section_number: section.section_number,
+          term_local_id: 'FY'
+        }
+      }
 
-  #     before do
-  #       student_section_assignments_importer.import_row(row)
-  #     end
+      before do
+        student_section_assignments_importer.send(:import_row, row)
+      end
 
-  #     it 'does not create a student section assignment' do
-  #       expect(StudentSectionAssignment.count).to eq(0)
-  #     end
-  #   end
+      it 'does not create a student section assignment' do
+        expect(StudentSectionAssignment.count).to eq(0)
+      end
+    end
 
-  #   context 'section does not exist' do
-  #     let(:row) {
-  #       {
-  #         local_id: student.local_id,
-  #         course_number: section.course.course_number,
-  #         school_local_id: 'SHS',
-  #         section_number: 'NO EXIST',
-  #         term_local_id: 'FY'
-  #       }
-  #     }
+    context 'section does not exist' do
+      let(:row) {
+        {
+          local_id: student.local_id,
+          course_number: section.course.course_number,
+          school_local_id: 'SHS',
+          section_number: 'NO EXIST',
+          term_local_id: 'FY'
+        }
+      }
 
-  #     before do
-  #       student_section_assignments_importer.import_row(row)
-  #     end
+      before do
+        student_section_assignments_importer.send(:import_row, row)
+      end
 
-  #     it 'does not create a student section assignment' do
-  #       expect(StudentSectionAssignment.count).to eq(0)
-  #     end
-  #   end
-  # end
+      it 'does not create a student section assignment' do
+        expect(StudentSectionAssignment.count).to eq(0)
+      end
+    end
+  end
 
   # describe '#delete_rows' do
   #   let(:log) { LogHelper::Redirect.instance.file }
@@ -221,7 +228,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
   #       FactoryBot.create_list(:student_section_assignment, 20)
   #       FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-  #       student_section_assignments_importer.import_row(row)
+  #       student_section_assignments_importer.send(:import_row, row)
   #       student_section_assignments_importer.delete_rows
   #     end
 
@@ -241,7 +248,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
   #       FactoryBot.create_list(:student_section_assignment, 20)
   #       FactoryBot.create(:student_section_assignment, student_id: student.id, section_id: section.id)
 
-  #       student_section_assignments_importer.import_row(row)
+  #       student_section_assignments_importer.send(:import_row, row)
   #       student_section_assignments_importer.delete_rows
   #     end
 
