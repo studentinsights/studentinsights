@@ -3,7 +3,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import {toMomentFromRailsDate, toMomentFromTimestamp} from '../helpers/toMoment';
 import Educator from '../components/Educator';
-import HelpBubble from '../components/HelpBubble';
+import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
 import {parseTransitionNoteText, parseAndReRender} from './lightTransitionNotes';
@@ -35,7 +35,7 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
         <span>in</span>
         <HelpBubble
           style={{marginLeft: 5, marginRight: 5}}
-          modalStyle={{content: {right: 40, bottom: 'auto', left: 'auto'}}} // styling to be above this part of the page
+          modalStyle={modalFromRight}
           linkStyle={style}
           teaser="Transition note"
           title="Transition note"

@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import moment from 'moment';
 import {AutoSizer} from 'react-virtualized';
 import {isLimitedOrFlep} from '../helpers/language';
 import * as Routes from '../helpers/Routes';
 import {hasStudentPhotos} from '../helpers/PerDistrict';
 import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
-import HelpBubble from '../components/HelpBubble';
+import HelpBubble, {
+  modalFromLeft,
+  modalFromRight,
+  modalFullScreenWithVerticalScroll
+} from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
 import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
+import ProfilePdfDialog from './ProfilePdfDialog';
+import AccessPanel from './AccessPanel';
+
 
 /*
 UI component for top-line information like the student's name, school,
@@ -125,78 +131,74 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
-        linkStyle={styles.subtitleItem}
         teaser={el}
+        linkStyle={styles.subtitleItem}
+        modalStyle={modalFromLeft}
         title="Language learning"
-        content={this.renderLanguageDialog()} />
-    );
-  }
-
-  renderLanguageDialog() {
-    const {access} = this.props;
-    const access_result_rows = Object.keys(access).map(subject => {
-      return (
-        <tr key={subject}>
-          <td style={styles.accessLeftTableCell}>
-            {subject}
-          </td>
-          <td>
-            {access[subject] || '—'}
-          </td>
-        </tr>
-      );
-    });
-
-    return (
-      <div style={_.merge(styles.column, {display: 'flex', flex: 1})}>
-        <h4 style={styles.title}>
-          ACCESS
-        </h4>
-        <table>
-          <thead>
-            <tr>
-              <th style={styles.tableHeader}>
-                Subject
-              </th>
-              <th style={styles.tableHeader}>
-                Score
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {access_result_rows}
-          </tbody>
-        </table>
-        <div />
-        <div style={styles.accessTableFootnote}>
-          Most recent ACCESS scores shown.
-        </div>
-      </div>
+        content={<AccessPanel access={access} />}
+      />
     );
   }
 
   renderButtons() {
     return (
       <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-        <a title="Next student" href="#" style={{display: 'block'}}>
-          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        </a>
-        <a title="Print PDF" href="#" style={{display: 'block'}}>
+        {this.renderNextStudentButton()}
+        {this.renderProfilePdfButton()}
+        {this.renderFullCaseHistoryButton()}
+      </div>
+    );
+  }
+
+  // The intention here is that this would allow paging through students, but it's not yet enabled.
+  renderNextStudentButton() {
+    return null;
+
+    /*
+    <a title="Next student" href="#" style={{display: 'block'}}>
+      <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        <path d="M0 0h24v24H0z" fill="none"/>
+      </svg>
+    </a>
+    */
+  }
+
+  renderProfilePdfButton() {
+    const {student} = this.props;
+    return (
+      <HelpBubble
+        style={{marginLeft: 0}}
+        modalStyle={modalFromRight}
+        teaser={
           <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
-        </a>
-        <a title="List all data points" href="#" style={{display: 'block'}}>
+        }
+        tooltip="Print PDF"
+        title="Print PDF"
+        content={<ProfilePdfDialog studentId={student.id} style={{backgroundColor: 'white'}} />}
+      />
+    );
+  }
+
+  renderFullCaseHistoryButton() {
+    const {renderFullCaseHistory} = this.props;
+    return (
+      <HelpBubble
+        style={{marginLeft: 0}}
+        modalStyle={modalFullScreenWithVerticalScroll}
+        teaser={
           <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
           </svg>
-        </a>
-      </div>
+        }
+        tooltip="List all data points"
+        title="List all data points"
+        content={renderFullCaseHistory()}
+      />
     );
   }
 
@@ -263,15 +265,16 @@ export default class LightProfileHeader extends React.Component {
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'inline-block'}}
-        linkStyle={{fontSize: 14}}
-        teaser={<div style={styles.subtitleItem}>Family contacts</div>}
-        title="Family contact information"
+        linkStyle={styles.subtitleItem}
+        teaser="Family contacts"
+        modalStyle={modalFromLeft}
+        title="Family contacts"
         content={this.renderContactInformationDialog()} />
     );
   }
 
   renderContactInformationDialog(){
-    const student = this.props.student;
+    const {student} = this.props;
     return (
       <span>
         <span style={styles.contactItem}>
@@ -295,6 +298,7 @@ LightProfileHeader.propTypes = {
   educatorsIndex: PropTypes.object,
   transitionNotes: PropTypes.array,
   districtKey: PropTypes.string.isRequired,
+  renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object
 };
 
@@ -345,7 +349,6 @@ const styles = {
   },
   subtitleItem: {
     display: 'inline-block',
-    paddingRight: 5, // for easier clicking
     fontSize: 14
   },
   contactItem: {
