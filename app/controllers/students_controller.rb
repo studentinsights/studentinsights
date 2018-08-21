@@ -13,9 +13,10 @@ class StudentsController < ApplicationController
   # deprecated
   def show
     student = Student.find(params[:id])
+    return redirect_to(v3_student_path(student)) if should_redirect_to_profile_v3?(params)
+
     chart_data = StudentProfileChart.new(student).chart_data
     can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
-
     @serialized_data = {
       current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
@@ -144,6 +145,11 @@ class StudentsController < ApplicationController
     unless current_educator.admin? && current_educator.districtwide_access?
       render json: { error: "You don't have the correct authorization." }
     end
+  end
+
+  def should_redirect_to_profile_v3?(params)
+    return false if params.has_key?(:please)
+    EnvironmentVariable.is_true('ENABLE_STUDENT_PROFILE_V3')
   end
 
   def serialize_student_for_profile(student)
