@@ -40,6 +40,7 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNote(eventNote) {
+    const isRestricted = eventNote.is_restricted;
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
@@ -53,8 +54,9 @@ export default class NotesList extends React.Component {
         numberOfRevisions={eventNote.event_note_revisions_count}
         attachments={eventNote.attachments}
         educatorsIndex={this.props.educatorsIndex}
-        onSave={this.props.onSaveNote}
-        onEventNoteAttachmentDeleted={this.props.onEventNoteAttachmentDeleted} />
+        isRestricted={isRestricted}
+        onSave={isRestricted ? this.props.onSaveNote : null}
+        onEventNoteAttachmentDeleted={isRestricted ? this.props.onEventNoteAttachmentDeleted : null} />
     );
   }
 

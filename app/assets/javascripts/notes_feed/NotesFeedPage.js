@@ -79,13 +79,6 @@ class NotesFeedPage extends React.Component {
         </div>
       );
     }
-    else {
-      return (
-        <div className="footer" style={styles.footer}>
-          <p>You have no more notes to display.</p>
-        </div>
-      );
-    }
   }
 }
 
