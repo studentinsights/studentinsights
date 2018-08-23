@@ -1,37 +1,70 @@
 class EventNotesController < ApplicationController
-  before_action :authorize!
-
-  def authorize!
-    student = Student.find(params[:student_id])
-    educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator && educator.is_authorized_for_student(student)
-  end
-
+  # post
+  # for restricted or unrestricted notes
   def create
-    event_note = EventNote.new(event_note_params.merge({
+    authorized_or_raise! { Student.find(create_params[:student_id]) }
+
+    event_note = EventNote.new(create_params.merge({
+      is_restricted: safe_is_restricted_value_for_create,
       educator_id: current_educator.id,
       recorded_at: Time.now
     }))
 
-    serializer = EventNoteSerializer.safe(event_note)
-
     if event_note.save
+      serializer = EventNoteSerializer.dangerously_include_restricted_note_text(event_note)
       render json: serializer.serialize_event_note
     else
       render json: { errors: event_note.errors.full_messages }, status: 422
     end
   end
 
+  # patch
+  # restricted or unrestricted
   def update
-    event_note_id = params[:id]
+    event_note = authorized_or_raise! { EventNote.find(update_params[:id]) }
 
-    event_note = EventNote.find(event_note_id)
+    # First store the current state of the existing event note
+    event_note_revision = create_event_note_revision(event_note)
+    unless event_note_revision
+      return render json: { errors: event_note_revision.errors.full_messages }, status: 422
+    end
 
-    serializer = EventNoteSerializer.safe(event_note)
+    # Update the EventNote
+    if event_note.update(text: update_params[:event_note][:text])
+      serializer = EventNoteSerializer.dangerously_include_restricted_note_text(event_note)
+      render json: serializer.serialize_event_note
+    else
+      render json: { errors: event_note.errors.full_messages }, status: 422
+    end
+  end
 
-    # Save the state of the existing event note.
+  private
+  def create_params
+    params.require(:event_note).permit(
+      :student_id,
+      :event_note_type_id,
+      :text,
+      :is_restricted,
+      event_note_attachments_attributes: [:url]
+    )
+  end
+
+  # Guard what values can be set by the current educator
+  def safe_is_restricted_value_for_create
+    if current_educator.can_view_restricted_notes?
+      create_params[:is_restricted]
+    else
+      false
+    end
+  end
+
+  def update_params
+    params.require(:id, event_note: [:text])
+  end
+
+  def create_event_note_revision(event_note)
     previous_event_note_revision = EventNoteRevision.where(
-      event_note_id: event_note_id
+      event_note_id: event_note.id
     ).order(
       :version
     ).last
@@ -51,26 +84,10 @@ class EventNotesController < ApplicationController
       version: version
     })
 
-    unless event_note_revision.save
-      render json: { errors: event_note_revision.errors.full_messages }, status: 422
-    end
-
-    if event_note.update!(event_note_params)
-      render json: serializer.serialize_event_note
+    if event_note_revision.save
+      event_note_revision
     else
-      render json: { errors: event_note.errors.full_messages }, status: 422
+      nil
     end
   end
-
-  private
-    def event_note_params
-      params.require(:event_note).permit(
-        :student_id,
-        :event_note_type_id,
-        :text,
-        :is_restricted,
-        event_note_attachments_attributes: [:url]
-      )
-    end
-
 end
