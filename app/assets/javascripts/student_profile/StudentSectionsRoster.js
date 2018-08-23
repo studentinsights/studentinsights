@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {baseSortByString, sortByNumber} from '../helpers/SortHelpers';
+import {baseSortByString, sortByNumber, sortByCustomEnum} from '../helpers/SortHelpers';
 import FlexibleRoster from '../components/FlexibleRoster';
 import * as Routes from '../helpers/Routes';
 
@@ -25,6 +25,14 @@ export default class StudentSectionsRoster extends React.Component {
     return baseSortByString(educatorNamesA, educatorNamesB);
   }
 
+  sortTerm(a, b, sortBy) {
+    return sortByCustomEnum(a, b, sortBy, [
+      '9', 'FY',  // all year
+      '1', 'S1', 'Q1', 'Q2', // first semester or first two quarters
+      '2', 'S2', 'Q3', 'Q4' // second semester of last two quarters
+    ]);
+  }
+
   render() {
     const sections = this.props.sections;
     
@@ -35,14 +43,14 @@ export default class StudentSectionsRoster extends React.Component {
       {label: 'Schedule', key: 'schedule'},
       {label: 'Educators', key: 'educators', cell: this.renderEducators, sortFunc: this.sortEducatorNames},
       {label: 'Room', key: 'room_number'},
-      {label: 'Term', key: 'term_local_id'}
+      {label: 'Term', key: 'term_local_id', sortFunc: this.sortTerm}
     ];
     
     return (
       <FlexibleRoster className="StudentSectionsRoster"
         rows={sections}
         columns={columns}
-        initialSortIndex={0}/>
+        initialSortIndex={6}/>
     );
   }
 
