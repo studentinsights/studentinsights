@@ -108,9 +108,11 @@ exports[`snapshots view 1`] = `
         }
       >
         <td>
-          <p>
+          <a
+            href="/sections/6"
+          >
             SCI-201B
-          </p>
+          </a>
         </td>
         <td>
           PHYSICS 1
