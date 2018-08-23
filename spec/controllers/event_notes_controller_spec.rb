@@ -89,13 +89,13 @@ describe EventNotesController, :type => :controller do
 
       it 'guards from creating a note for an unauthorized student' do
         sign_in(pals.healey_laura_principal)
-        make_create_request(student, post_params)
+        expect { make_create_request(student, post_params) }.to change(EventNote, :count).by 0
         expect(response.status).to eq 403
       end
 
-      it 'guards creating is_restricted:true without access' do
+      it 'guards setting is_restricted:true without access' do
         sign_in(pals.shs_jodi)
-        make_create_request(student, post_params(is_restricted: true))
+        expect { make_create_request(student, post_params) }.to change(EventNote, :count).by 1
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['is_restricted']).to eq false
@@ -103,77 +103,24 @@ describe EventNotesController, :type => :controller do
 
       it 'permits is_restricted:true with access, and response includes restricted note text' do
         sign_in(pals.rich_districtwide)
-        make_create_request(student, post_params({
-          is_restricted: true,
-          text: 'RESTRICTED-sensitive-message'
-        }))
+        expect {
+          make_create_request(student, post_params({
+            is_restricted: true,
+            text: 'RESTRICTED-sensitive-message'
+          }))
+        }.to change(EventNote, :count).by 1
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['is_restricted']).to eq true
         expect(json['text']).to eq 'RESTRICTED-sensitive-message'
       end
+
+      it 'guards access when not logged in' do
+        expect { make_create_request(student, post_params) }.to change(EventNote, :count).by 0
+        expect(response.status).to eq 401
+      end
     end
   end
-
-  #   context 'educator who can view restricted notes logged in' do
-  #     let(:educator) { FactoryBot.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
-  #     let!(:student) { FactoryBot.create(:student, school: school) }
-
-  #     before do
-  #       sign_in(educator)
-  #     end
-
-  #     context 'valid request' do
-  #       let(:post_params) {
-  #         {
-  #           student_id: student.id,
-  #           event_note_type_id: EventNoteType.all.sample.id,
-  #           recorded_at: Time.now,
-  #           text: 'RESTRICTED-bar',
-  #           is_restricted: true
-  #         }
-  #       }
-  #       it 'responds with json that INCLUDES restricted text' do
-  #         make_post_request(student, post_params)
-  #         expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
-  #         json = JSON.parse(response.body)
-  #         expect(json.keys).to eq [
-  #           'id',
-  #           'student_id',
-  #           'educator_id',
-  #           'event_note_type_id',
-  #           'text',
-  #           'recorded_at',
-  #           'is_restricted',
-  #           'event_note_revisions_count',
-  #           'attachments'
-  #         ]
-  #         expect(json["is_restricted"]).to eq true
-  #         expect(json['text']).to eq 'RESTRICTED-bar'
-  #       end
-  #     end
-  #   end
-
-  #   context 'not logged in' do
-  #     let!(:student) { FactoryBot.create(:student, school: school) }
-  #     let(:post_params) {
-  #       {
-  #         student_id: student.id,
-  #         event_note_type_id: EventNoteType.all.sample.id,
-  #         recorded_at: Time.now,
-  #         text: 'foo',
-  #         is_restricted: false
-  #       }
-  #     }
-
-  #     it 'creates a new event note' do
-  #       make_post_request(student, { text: 'foo' })
-  #       expect(response.status).to eq 401
-
-  #       expect { make_post_request(student, post_params) }.to change(EventNote, :count).by 0
-  #     end
-  #   end
-  # end
 
   # describe '#update' do
   #   def make_put_request(student, event_note_params = {})
