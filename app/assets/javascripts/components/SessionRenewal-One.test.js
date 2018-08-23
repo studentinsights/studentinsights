@@ -9,7 +9,7 @@ export function testProps(props = {}) {
   return {
     sessionTimeoutInSeconds: 2,
     warningTimeoutInSeconds: 1,
-    doNavigate: jest.fn(),
+    forceReload: jest.fn(),
     ...props
   };
 }
@@ -24,7 +24,6 @@ export function resetFetchMock() {
   fetchMock.reset();
   fetchMock.restore();
   fetchMock.get('/educators/reset', {});
-  fetchMock.delete('/educators/sign_out', {});
 }
 
 export function callUrls() {

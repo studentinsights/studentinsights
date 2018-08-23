@@ -1,6 +1,3 @@
-import qs from 'query-string';
-
-
 // Fetch with common headers
 function apiFetch(url, options = {}) {
   const fetchOptions = {
@@ -34,27 +31,5 @@ export function apiPostJson(url, body, options = {}) {
       'Content-Type': 'application/json',
       'X-CSRF-Token': csrfToken
     }
-  });
-}
-
-// This relies on a Rails CSRF token being rendered on the page
-export function signOut(options = {}) {
-  const url = '/educators/sign_out';
-  const csrfToken = options.csrfToken || $('meta[name="csrf-token"]').attr('content');
-  return fetch(url, {
-    method: 'DELETE',
-    credentials: 'same-origin',
-    body: qs.stringify({
-      _method: 'delete',
-      authenticity_token: csrfToken,
-      ...(options.body || {})
-    }),
-    headers: {
-      'Accept': 'text/html',
-      'Content-Type': 'text/html',
-      'X-CSRF-Token': csrfToken,
-      ...(options.headers || {})
-    },
-    ...options
   });
 }
