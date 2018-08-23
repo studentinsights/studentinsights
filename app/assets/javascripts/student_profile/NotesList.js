@@ -40,12 +40,18 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNote(eventNote) {
+    const {
+      includeStudentPanel,
+      educatorsIndex,
+      onSaveNote,
+      onEventNoteAttachmentDeleted
+    } = this.props;
     const isRestricted = eventNote.is_restricted;
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
         eventNoteId={eventNote.id}
-        student={eventNote.student}          
+        student={eventNote.student} /* really only for my notes page */
         eventNoteTypeId={eventNote.event_note_type_id}
         noteMoment={moment.utc(eventNote.recorded_at)}
         badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
@@ -53,10 +59,11 @@ export default class NotesList extends React.Component {
         text={eventNote.text || ''}
         numberOfRevisions={eventNote.event_note_revisions_count}
         attachments={isRestricted ? [] : eventNote.attachments}
-        educatorsIndex={this.props.educatorsIndex}
+        educatorsIndex={educatorsIndex}
         isRestricted={isRestricted}
-        onSave={isRestricted ? null : this.props.onSaveNote}
-        onEventNoteAttachmentDeleted={isRestricted ? null : this.props.onEventNoteAttachmentDeleted} />
+        includeStudentPanel={includeStudentPanel}
+        onSave={isRestricted ? null : onSaveNote}
+        onEventNoteAttachmentDeleted={isRestricted ? null : onEventNoteAttachmentDeleted} />
     );
   }
 
@@ -93,6 +100,7 @@ export default class NotesList extends React.Component {
 NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
+  includeStudentPanel: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func
 };

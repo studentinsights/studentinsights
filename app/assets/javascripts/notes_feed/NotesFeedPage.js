@@ -57,6 +57,7 @@ class NotesFeedPage extends React.Component {
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
             <NotesList
+              includeStudentPanel={true}
               educatorsIndex={this.props.educatorsIndex}
               feed={feed} />
           </div>

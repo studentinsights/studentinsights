@@ -36,9 +36,10 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
+    const {includeStudentPanel} = this.props;
     return (
       <div className="wrapper" style={styles.wrapper}>
-        {this.renderStudentCard()}
+        {includeStudentPanel && this.renderStudentCard()}
         <div className="NoteCard" style={styles.note}>
           <div style={styles.titleLine}>
             <span className="date" style={styles.date}>
@@ -66,6 +67,7 @@ export default class NoteCard extends React.Component {
       : this.renderText();
   }
 
+  // The student name may or not be present.
   renderRestrictedNoteRedaction() {
     const {student} = this.props;
     const studentFirstNameOrTheir = (student)
@@ -215,6 +217,7 @@ NoteCard.propTypes = {
   eventNoteTypeId: PropTypes.number,
   numberOfRevisions: PropTypes.number,
   isRestricted: PropTypes.bool,
+  includeStudentPanel: PropTypes.bool,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
   student: PropTypes.object
