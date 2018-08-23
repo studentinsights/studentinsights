@@ -122,107 +122,129 @@ describe EventNotesController, :type => :controller do
     end
   end
 
-  # describe '#update' do
-  #   def make_put_request(student, event_note_params = {})
-  #     request.env['HTTPS'] = 'on'
-  #     put :update, params: {
-  #       format: :json,
-  #       student_id: student.id,
-  #       id: event_note_params[:id],
-  #       event_note: event_note_params
-  #     }
-  #   end
+  describe '#update' do
+    def make_update_request(student, event_note_id, event_note_params = {})
+      request.env['HTTPS'] = 'on'
+      put :update, params: {
+        format: :json,
+        student_id: student.id,
+        id: event_note_id,
+        event_note: {
+          text: 'updated-foobar'
+        }.merge(event_note_params)
+      }
+    end
 
-  #   context 'admin educator logged in' do
-  #     let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
-  #     let!(:student) { FactoryBot.create(:student, school: school) }
+    context 'happy path' do
+      let!(:educator) { pals.shs_jodi }
+      let!(:student) { pals.shs_freshman_mari }
+      let!(:event_note) do
+        FactoryBot.create(:event_note, {
+          text: 'original-text',
+          student_id: student.id
+        })
+      end
+      before { sign_in(educator) }
 
-  #     before do
-  #       sign_in(educator)
-  #     end
+      it 'does not add a new event note' do
+        expect { make_update_request(student, event_note.id) }.to change(EventNote, :count).by 0
+      end
 
-  #     it 'does not allow anyone to change is_restricted' do
-  #       event_note = FactoryBot.create(:event_note, {
-  #         text: 'RESTRICTED-alpha',
-  #         is_restricted: true
-  #       })
-  #       make_put_request(student, {
-  #         id: event_note.id,
-  #         text: 'RESTRICTED-beta',
-  #         is_restricted: false
-  #       })
+      it 'updates an existing event note' do
+        time_now = Time.parse('2017-03-16 11:12:00')
+        Timecop.freeze(time_now) do
+          make_update_request(student, event_note.id, text: 'updated-text!')
+        end
+        expect(response.status).to eq 200
+        event_note.reload
+        expect(event_note.recorded_at).to eq time_now
+        expect(event_note.text).to eq 'updated-text!'
+      end
 
-  #       event_note.reload
-  #       expect(event_note.is_restricted).to eq true
-  #       expect(event_note.text).to eq 'RESTRICTED-beta'
-  #       json = JSON.parse(response.body)
-  #       expect(json['is_restricted']).to eq true
-  #       expect(json['text']).to eq 'RESTRICTED-beta'
-  #     end
+      it 'creates a new event note revision' do
+        expect { make_update_request(student, event_note.id, text: 'updated-value') }.to change(EventNoteRevision, :count).by 1
+        expect(EventNoteRevision.last.version).to eq 1
+        expect(EventNoteRevision.last.text).to eq 'original-text'
+      end
 
-  #     context 'valid first edit request' do
-  #       let!(:event_note) { FactoryBot.create(:event_note) }
-  #       let(:post_params) {
-  #         {
-  #           id: event_note.id,
-  #           text: 'bar'
-  #         }
-  #       }
-  #       it 'does not add a new event note' do
-  #         expect { make_put_request(student, post_params) }.to change(EventNote, :count).by 0
-  #       end
-  #       it 'updates an existing event note' do
-  #         Timecop.freeze(post_params[:recorded_at]) do
-  #           make_put_request(student, post_params)
-  #         end
-  #         updated_event_note = EventNote.find(event_note.id)
-  #         expect(updated_event_note.recorded_at.to_i).to eq event_note.recorded_at.to_i
-  #         expect(updated_event_note.text).to eq(post_params['text'])
-  #         expect(event_note.reload.text).to eq(post_params['text'])
-  #       end
-  #       it 'creates a new event note revision' do
-  #         expect { make_put_request(student, post_params) }.to change(EventNoteRevision, :count).by 1
-  #       end
-  #       it 'saves the previous note revision' do
-  #         make_put_request(student, post_params)
-  #         event_note_revision = EventNoteRevision.last
-  #         expect(event_note_revision.event_note_id).to eq event_note.id
-  #         expect(event_note_revision.version).to eq 1
-  #         expect(event_note_revision.attributes.except(
-  #           'id',
-  #           'event_note_id',
-  #           'version',
-  #           'created_at',
-  #           'updated_at',
-  #           'is_restricted'
-  #         )).to eq event_note.attributes.except(
-  #           'id',
-  #           'created_at',
-  #           'updated_at',
-  #           'recorded_at',
-  #           'is_restricted'
-  #         )
-  #       end
-  #     end
+      it 'creates a second event note revision and increments the version' do
+        make_update_request(student, event_note.id, text: 'second-version')
+        make_update_request(student, event_note.id, text: 'third-version')
+        make_update_request(student, event_note.id, text: 'fourth-version')
+        expect(EventNoteRevision.last.text).to eq 'third-version'
+        expect(EventNoteRevision.last.version).to eq 3
+      end
 
-  #     context 'valid second edit request' do
-  #       let!(:event_note_revision) { FactoryBot.create(:event_note_revision) }
-  #       let!(:event_note) { event_note_revision.event_note }
-  #       let!(:post_params) {
-  #         {
-  #           id: event_note.id,
-  #           student_id: student.id,
-  #           event_note_type_id: event_note_type.id,
-  #           recorded_at: Time.now,
-  #           text: 'baz'
-  #         }
-  #       }
-  #       it 'creates a second event note revision' do
-  #         make_put_request(student, post_params)
-  #         expect(EventNoteRevision.last.version).to eq 2
-  #       end
-  #     end
-  #   end
+      it 'saves the previous note revision' do
+        make_update_request(student, event_note.id, text: 'updated-text!')
+        event_note_revision = EventNoteRevision.last
+        expect(event_note_revision.event_note_id).to eq event_note.id
+        expect(event_note_revision.version).to eq 1
+        expect(event_note_revision.attributes.except(
+          'id',
+          'event_note_id',
+          'version',
+          'created_at',
+          'updated_at',
+          'is_restricted'
+        )).to eq event_note.attributes.except(
+          'id',
+          'created_at',
+          'updated_at',
+          'recorded_at',
+          'is_restricted'
+        )
+      end
+
+      it 'echoes the note back as response' do
+        time_now = Time.parse('2018-08-23T23:38:13.956Z')
+        Timecop.freeze(time_now) do
+          make_update_request(student, event_note.id, text: 'updated-text!')
+        end
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json).to eq({
+          "attachments" => [],
+          "educator_id" => event_note.educator_id,
+          "event_note_revisions_count" => 1,
+          "event_note_type_id" => event_note.event_note_type_id,
+          "id" => event_note.id,
+          "is_restricted" => false,
+          "student_id" => student.id,
+          "text" => "updated-text!",
+          "recorded_at" => "2018-08-23T23:38:13.956Z"
+        })
+      end
+    end
+
+    # context 'authorization checks' do
+    #   it 'does not allow anyone to change is_restricted value' do
+    #     student = 
+    #     event_note = FactoryBot.create(:event_note, {
+    #       text: 'RESTRICTED-alpha',
+    #       is_restricted: true
+    #     })
+    #     make_update_request(student, {
+    #       id: event_note.id,
+    #       text: 'RESTRICTED-beta',
+    #       is_restricted: false
+    #     })
+
+    #     event_note.reload
+    #     expect(event_note.is_restricted).to eq true
+    #     expect(event_note.text).to eq 'RESTRICTED-beta'
+    #     json = JSON.parse(response.body)
+    #     expect(json['is_restricted']).to eq true
+    #     expect(json['text']).to eq 'RESTRICTED-beta'
+    #   end
+
+    #   it 'guards from updating text for an unauthorized student' do pending end
+    #   it 'guards from updating text for restricted note without access' do pending end
+    #   it 'only allows updating text, not other fields' do pending end
+    # end
+  end
+end
+
 
   #   context 'educator who can view restricted notes logged in' do
   #     let(:educator) { FactoryBot.create(:educator, :admin, school: school, can_view_restricted_notes: true) }
@@ -246,7 +268,7 @@ describe EventNotesController, :type => :controller do
   #       }
   #       it 'updates an existing event note' do
   #         Timecop.freeze(post_params[:recorded_at]) do
-  #           make_put_request(student, post_params)
+  #           make_update_request(student, post_params)
   #         end
   #         updated_event_note = EventNote.find(event_note.id)
   #         expect(updated_event_note.recorded_at.to_i).to eq event_note.recorded_at.to_i
@@ -263,4 +285,4 @@ describe EventNotesController, :type => :controller do
   #       end
   #     end
   #   end
-end
+  #  end

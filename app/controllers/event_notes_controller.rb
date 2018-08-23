@@ -30,7 +30,11 @@ class EventNotesController < ApplicationController
     end
 
     # Update the EventNote
-    if event_note.update(text: update_params[:event_note][:text])
+    update_params[:event_note]
+    if event_note.update({
+      text: update_params[:event_note][:text],
+      recorded_at: Time.now
+    })
       serializer = EventNoteSerializer.dangerously_include_restricted_note_text(event_note)
       render json: serializer.serialize_event_note
     else
@@ -59,7 +63,7 @@ class EventNotesController < ApplicationController
   end
 
   def update_params
-    params.require(:id, event_note: [:text])
+    params.permit(:id, :student_id, event_note: [:text])
   end
 
   def create_event_note_revision(event_note)
