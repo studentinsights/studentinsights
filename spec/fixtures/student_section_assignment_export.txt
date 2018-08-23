@@ -1,0 +1,9 @@
+"local_id","course_number","school_local_id","section_number","term_local_id"
+"333","SOC6","SHS","SOC6-001","FY"
+"111","SOC6","ESCS","SOC6-001","FY"
+"222","SOC6","ESCS","SOC6-001","FY"
+"333","ELA6","SHS","ELA6-002","FY"
+"","SOC6","ESCS","SOC6-001","FY"
+"333","","SHS","SOC6-001","FY"
+"333","SOC6","SHS","","FY"
+
