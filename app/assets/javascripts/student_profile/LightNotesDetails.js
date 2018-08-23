@@ -8,20 +8,6 @@ import NotesList from './NotesList';
 import TakeNotes from './TakeNotes';
 
 
-
-const styles = {
-  notesContainer: {
-    width: '50%',
-    marginRight: 20
-  },
-  restrictedNotesButton: {
-    color: 'white',
-    fontSize: 12,
-    padding: 8,
-    float: 'right'
-  }
-};
-
 /*
 The bottom region of the page, showing notes about the student, services
 they are receiving, and allowing users to enter new information about
@@ -74,7 +60,6 @@ export default class LightNotesDetails extends React.Component {
               title={this.props.helpTitle}
               content={this.props.helpContent} />
           </div>
-          {/*this.renderRestrictedNotesButtonIfAppropriate()*/}
           {!this.isTakingNotes() && this.renderTakeNotesButton()}
         </SectionHeading>}
         <div>
@@ -117,23 +102,6 @@ export default class LightNotesDetails extends React.Component {
       </button>
     );
   }
-
-  renderRestrictedNotesButtonIfAppropriate() {
-    return false;
-
-  //   if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
-  //     return (
-  //       <a
-  //         className="btn btn-warning"
-  //         style={styles.restrictedNotesButton}
-  //         href={'/students/' + this.props.student.id + '/restricted_notes'}>
-  //         {'Restricted (' + this.props.student.restricted_notes_count + ')'}
-  //       </a>
-  //     );
-  //   } else {
-  //     return null;
-  //   }
-  }
 }
 
 LightNotesDetails.propTypes = {
@@ -157,8 +125,15 @@ LightNotesDetails.propTypes = {
     PropTypes.string
   ).isRequired,
 
-  showingRestrictedNotes: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   helpContent: PropTypes.node.isRequired,
   helpTitle: PropTypes.string.isRequired,
+};
+
+
+const styles = {
+  notesContainer: {
+    width: '50%',
+    marginRight: 20
+  }
 };

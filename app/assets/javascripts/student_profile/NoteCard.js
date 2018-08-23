@@ -61,8 +61,8 @@ export default class NoteCard extends React.Component {
   // component that allows viewing and editing.
   // Otherwise, show the substance of the note.
   renderNoteSubstanceOrRedaction() {
-    const {isRestricted} = this.props;
-    return (isRestricted)
+    const {showRestrictedNoteRedaction} = this.props;
+    return (showRestrictedNoteRedaction)
       ? this.renderRestrictedNoteRedaction()
       : this.renderText();
   }
@@ -216,7 +216,7 @@ NoteCard.propTypes = {
   eventNoteId: PropTypes.number,
   eventNoteTypeId: PropTypes.number,
   numberOfRevisions: PropTypes.number,
-  isRestricted: PropTypes.bool,
+  showRestrictedNoteRedaction: PropTypes.bool,
   includeStudentPanel: PropTypes.bool,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,

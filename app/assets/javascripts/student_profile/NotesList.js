@@ -44,9 +44,10 @@ export default class NotesList extends React.Component {
       includeStudentPanel,
       educatorsIndex,
       onSaveNote,
-      onEventNoteAttachmentDeleted
+      onEventNoteAttachmentDeleted,
+      allowDirectEditingOfRestrictedNoteText
     } = this.props;
-    const isRestricted = eventNote.is_restricted;
+    const showRestrictedNoteRedaction = eventNote.is_restricted && !allowDirectEditingOfRestrictedNoteText;
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
@@ -58,12 +59,12 @@ export default class NotesList extends React.Component {
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
         numberOfRevisions={eventNote.event_note_revisions_count}
-        attachments={isRestricted ? [] : eventNote.attachments}
+        attachments={showRestrictedNoteRedaction ? [] : eventNote.attachments}
         educatorsIndex={educatorsIndex}
-        isRestricted={isRestricted}
+        showRestrictedNoteRedaction={showRestrictedNoteRedaction}
         includeStudentPanel={includeStudentPanel}
-        onSave={isRestricted ? null : onSaveNote}
-        onEventNoteAttachmentDeleted={isRestricted ? null : onEventNoteAttachmentDeleted} />
+        onSave={showRestrictedNoteRedaction ? null : onSaveNote}
+        onEventNoteAttachmentDeleted={showRestrictedNoteRedaction ? null : onEventNoteAttachmentDeleted} />
     );
   }
 
@@ -101,6 +102,7 @@ NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   includeStudentPanel: PropTypes.bool,
+  allowDirectEditingOfRestrictedNoteText: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func
 };
