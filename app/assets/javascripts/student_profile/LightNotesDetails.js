@@ -76,21 +76,30 @@ export default class LightNotesDetails extends React.Component {
   }
 
   renderTakeNotesDialog() {
+    const {
+      currentEducator,
+      noteInProgressText,
+      noteInProgressType,
+      noteInProgressAttachmentUrls,
+      actions,
+      requests
+    } = this.props;
+
     return (
       <TakeNotes
         // TODO(kr) thread through
         nowMoment={moment.utc()}
-        currentEducator={this.props.currentEducator}
+        currentEducator={currentEducator}
         onSave={this.onClickSaveNotes}
         onCancel={this.onCancelNotes}
-        requestState={this.props.requests.saveNote}
-        noteInProgressText={this.props.noteInProgressText}
-        noteInProgressType={this.props.noteInProgressType}
-        noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
-        onClickNoteType={this.props.actions.onClickNoteType}
-        onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
-        onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl}
-        showRestrictedCheckbox={true}
+        requestState={requests.saveNote}
+        noteInProgressText={noteInProgressText}
+        noteInProgressType={noteInProgressType}
+        noteInProgressAttachmentUrls={noteInProgressAttachmentUrls}
+        onClickNoteType={actions.onClickNoteType}
+        onChangeNoteInProgressText={actions.onChangeNoteInProgressText}
+        onChangeAttachmentUrl={actions.onChangeAttachmentUrl}
+        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
       />
     );
   }
@@ -110,7 +119,9 @@ export default class LightNotesDetails extends React.Component {
 LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  currentEducator: PropTypes.shape({
+    can_view_restricted_notes: PropTypes.bool.isRequired
+  }).isRequired,
   actions: PropTypes.shape({
     onClickSaveNotes: PropTypes.func.isRequired,
     onEventNoteAttachmentDeleted: PropTypes.func,
