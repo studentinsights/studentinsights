@@ -49,7 +49,7 @@ export default class LightNotesDetails extends React.Component {
   }
 
   render() {
-    const { student, title } = this.props;
+    const {student, title, currentEducator} = this.props;
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
@@ -66,6 +66,7 @@ export default class LightNotesDetails extends React.Component {
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             feed={this.props.feed}
+            canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
             educatorsIndex={this.props.educatorsIndex}
             onSaveNote={this.onClickSaveNotes}
             onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />

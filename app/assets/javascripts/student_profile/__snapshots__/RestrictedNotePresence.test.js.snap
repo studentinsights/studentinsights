@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="RestrictedNotePresence"
+>
+  <div>
+    <div
+      style={
+        Object {
+          "border": "1px solid transparent",
+          "color": "#999",
+          "fontFamily": "'Open Sans', sans-serif",
+          "fontSize": 14,
+          "marginTop": 5,
+          "overflowX": "hidden",
+          "padding": 0,
+          "whiteSpace": "pre-wrap",
+          "wordBreak": "break-word",
+        }
+      }
+    >
+      To respect Cassandra's privacy, Darnell marked this note as restricted.  Consider whether you really need to know before asking more.
+    </div>
+  </div>
+</div>
+`;

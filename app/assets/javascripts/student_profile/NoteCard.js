@@ -70,7 +70,7 @@ export default class NoteCard extends React.Component {
 
   // The student name may or not be present.
   renderRestrictedNoteRedaction() {
-    const {eventNoteId, student} = this.props;
+    const {eventNoteId, student, canUserAccessRestrictedNotes} = this.props;
     const educatorName = formatEducatorName(this.educator());
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
@@ -81,8 +81,7 @@ export default class NoteCard extends React.Component {
         eventNoteId={eventNoteId}
         studentFirstName={student ? student.first_name : null}
         educatorName={educatorFirstNameOrEmail}
-        allowViewing={false}
-        allowEditing={false}
+        allowViewing={canUserAccessRestrictedNotes}
       />
     );
   }
@@ -220,10 +219,11 @@ NoteCard.propTypes = {
   eventNoteTypeId: PropTypes.number,
   numberOfRevisions: PropTypes.number,
   showRestrictedNoteRedaction: PropTypes.bool,
+  canUserAccessRestrictedNotes: PropTypes.bool,
   includeStudentPanel: PropTypes.bool,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
-  student: PropTypes.object
+  student: PropTypes.object,
 };
 NoteCard.defaultProps = {
   numberOfRevisions: 0
