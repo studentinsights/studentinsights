@@ -20,7 +20,7 @@ import StudentSectionsRoster from './StudentSectionsRoster';
 import {tags} from './lightTagger';
 import DetailsSection from './DetailsSection';
 import {toMoment} from './QuadConverter';
-import {shortLabelFromScore} from './nextGenMcasScores';
+import {shortLabelFromNextGenMcasScore, shortLabelFromOldMcasScore} from './mcasScores';
 import FullCaseHistory from './FullCaseHistory';
 
 
@@ -530,10 +530,18 @@ function percentileWithSuffix(percentile) {
 
 
 // Look at ELA and Math next gen MCAS scores and make the different texts for the 'testing'
-// column summary for HS.
+// column summary for HS.  If those don't exist, fall back to old-school MCAS.
 function testingColumnTexts(nowMoment, chartData) {
-  const ela = latestNextGenMcasSummary(chartData.next_gen_mcas_ela_scaled, nowMoment);
-  const math = latestNextGenMcasSummary(chartData.next_gen_mcas_ela_scaled, nowMoment);
+  const ela = (
+    latestMcasScoreSummary(chartData.next_gen_mcas_ela_scaled, shortLabelFromNextGenMcasScore, nowMoment) ||
+    latestMcasScoreSummary(chartData.mcas_series_ela_scaled, shortLabelFromOldMcasScore, nowMoment) ||
+    missingMcasSummary()
+  );
+  const math = (
+    latestMcasScoreSummary(chartData.next_gen_mcas_math_scaled, shortLabelFromNextGenMcasScore, nowMoment) ||
+    latestMcasScoreSummary(chartData.mcas_series_math_scaled, shortLabelFromOldMcasScore, nowMoment) ||
+    missingMcasSummary()
+  );
 
   const scoreText = ela.scoreText === math.scoreText
     ? ela.scoreText
@@ -548,10 +556,19 @@ function testingColumnTexts(nowMoment, chartData) {
   return {scoreText, testText, dateText};
 }
 
-// Make text for the score and date for the latest next gen MCAS score
-function latestNextGenMcasSummary(quads, nowMoment) {
+// Make text for the score and date for the latest MCAS score (either next gen
+// or old, depending on `scoreTextFn`).
+function latestMcasScoreSummary(quads, scoreTextFn, nowMoment) {
   const latestEla = _.last(_.sortBy(quads || [], quad => toMoment(quad).unix()));
-  const scoreText = latestEla ? shortLabelFromScore(latestEla[3]) : '-';
-  const dateText = latestEla ? toMoment(latestEla).from(nowMoment) : 'not yet taken';
+  if (!latestEla) return null;
+
+  const scoreText = scoreTextFn(latestEla[3]);
+  const dateText = toMoment(latestEla).from(nowMoment);
+  return {scoreText, dateText};
+}
+
+function missingMcasSummary() {
+  const scoreText = '-';
+  const dateText = 'not yet taken';
   return {scoreText, dateText};
 }
