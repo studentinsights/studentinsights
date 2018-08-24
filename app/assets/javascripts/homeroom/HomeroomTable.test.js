@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import {SOMERVILLE, NEW_BEDFORD} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import Cookies from 'js-cookie';
 import HomeroomTable from './HomeroomTable';
 import {healey, shs, students} from './HomeroomTable.fixtures';
 
