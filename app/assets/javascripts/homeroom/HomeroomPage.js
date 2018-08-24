@@ -6,7 +6,6 @@ import SectionHeading from '../components/SectionHeading';
 import HomeroomTable from './HomeroomTable';
 import HomeroomNavigator from './HomeroomNavigator';
 
-
 /*
 Homeroom page, for K8 classroom teachers.  Most meaningful the first week or two of school.
 */
@@ -35,7 +34,7 @@ export default class HomeroomPage extends React.Component {
   }
 
   renderHomeroom(json) {
-    const {homeroom, rows, school, homerooms} = json;    
+    const {homeroom, rows, school, homerooms} = json;
     return (
       <div style={styles.flexVertical}>
         <SectionHeading>Homeroom: {homeroom.name}</SectionHeading>
