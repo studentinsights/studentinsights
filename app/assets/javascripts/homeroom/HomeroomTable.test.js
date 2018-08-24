@@ -49,12 +49,12 @@ describe('high-level integration test', () => {
   it('renders SST and MTSS dates correctly for Somerville grade 2 as a happy path test case', () => {
     const {el} = testRender(testProps());
     expect(sstAndMtssDateTexts(el)).toEqual([
-      ["Aladdin Kenobi", "—", '—'],
-      ["Chip Pan", "2/16/11", '—'],
-      ["Pluto Poppins", "9/2/11", '6/5/11'],
-      ["Rapunzel Duck", "1/2/11", '8/6/11'],
-      ["Snow Skywalker", "10/31/10", '—'],
-      ["Snow Kenobi", "8/29/11", '7/27/11']
+      ["Aladdin Kenobi", "", "—", '—'],
+      ["Chip Pan", "", "2/16/11", '—'],
+      ["Pluto Poppins", "", "9/2/11", '6/5/11'],
+      ["Rapunzel Duck", "", "1/2/11", '8/6/11'],
+      ["Snow Skywalker", "", "10/31/10", '—'],
+      ["Snow Kenobi", "", "8/29/11", '7/27/11']
     ]);
   });
 
