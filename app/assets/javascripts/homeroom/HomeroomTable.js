@@ -8,7 +8,7 @@ import {
   sortByActiveServices
 } from '../helpers/SortHelpers';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
-import {studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
+import {studentTableEventNoteTypeIds, hasStudentPhotos} from '../helpers/PerDistrict';
 import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
 import StudentPhoto from '../components/StudentPhoto';
 
@@ -26,6 +26,11 @@ export default class HomeroomTable extends React.Component {
     };
 
     this.onClickHeader = this.onClickHeader.bind(this);
+  }
+
+  showStudentPhotos() {
+    const {districtKey} = this.context;
+    return hasStudentPhotos(districtKey);
   }
 
   eventNoteTypeIds() {
@@ -85,6 +90,37 @@ export default class HomeroomTable extends React.Component {
 
   visitStudentProfile(id) {
     window.location.href = `/students/${id}`;
+  }
+
+  maybeRenderStudentPhotoSubheader() {
+    const showStudentPhotos = this.showStudentPhotos();
+    if (!showStudentPhotos) return null;
+
+    return (
+      <th>
+        <span className="table-header">
+          Photo
+        </span>
+      </th>
+    );
+  }
+
+  maybeRenderStudentPhotoHeader() {
+    const showStudentPhotos = this.showStudentPhotos();
+    if (!showStudentPhotos) return null;
+
+    return(<td colSpan="1"></td>);
+  }
+
+  maybeRenderStudentPhoto() {
+    const showStudentPhotos = this.showStudentPhotos();
+    if (!showStudentPhotos) return null;
+
+    return (
+      <td>
+        <StudentPhoto student={row} height={65} />
+      </td>
+    );
   }
 
   onClickHeader(sortBy, sortType) {
@@ -147,11 +183,7 @@ export default class HomeroomTable extends React.Component {
       <tr className="column-names">
         {/* COLUMN HEADERS */}
         {this.renderNameSubheader()}
-        <th>
-          <span className="table-header">
-            Photo
-          </span>
-        </th>
+        {this.maybeRenderStudentPhotoSubheader()}
         {this.eventNoteTypeIds().map(eventNoteTypeId => (
           this.renderSubHeader('supports', `Last ${eventNoteTypeTextMini(eventNoteTypeId)}`, `latest_note_${eventNoteTypeId}_date_text`, 'date')
         ))}
@@ -184,7 +216,7 @@ export default class HomeroomTable extends React.Component {
         <tr className="column-groups">
           {/*  TOP-LEVEL COLUMN GROUPS */}
           <td colSpan="1"></td>
-          <td colSpan="1"></td>
+          {this.maybeRenderStudentPhotoHeader()}
           {this.renderSuperHeader('supports', supportColumnCount, 'Supports')}
           {this.renderSuperHeader('program', '1')}
           {this.renderSuperHeader('sped', '3', 'SPED & Disability')}
@@ -226,9 +258,7 @@ export default class HomeroomTable extends React.Component {
           key={id}
           style={style}>
         <td className="name">{fullName}</td>
-        <td>
-          <StudentPhoto student={row} height={65} />
-        </td>
+        {this.maybeRenderStudentPhoto()}
         {this.eventNoteTypeIds().map(eventNoteTypeId => {
           const key = `latest_note_${eventNoteTypeId}_date_text`;
           return this.renderDataCell('supports', row[key], {key});
