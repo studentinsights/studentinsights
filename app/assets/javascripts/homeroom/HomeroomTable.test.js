@@ -80,6 +80,7 @@ describe('high-level integration test', () => {
     const {el} = testRender(props, context);
     expect(headerTexts(el)).toEqual([
       'Name',
+      'Photo',
       'Last BBST',
       'Program Assigned',
       'Disability',
@@ -87,12 +88,6 @@ describe('high-level integration test', () => {
       '504 Plan',
       'Fluency',
       'Home Language',
-      'Percentile',
-      'Percentile',
-      'Performance',
-      'Score',
-      'Performance',
-      'Score'
     ]);
   });
 
@@ -100,6 +95,7 @@ describe('high-level integration test', () => {
     const {el} = testRender(testProps({ grade: '6'}));
     expect(headerTexts(el)).toEqual([
       'Name',
+      'Photo',
       'Last SST',
       'Last MTSS',
       'Program Assigned',
@@ -108,12 +104,6 @@ describe('high-level integration test', () => {
       '504 Plan',
       'Fluency',
       'Home Language',
-      'Percentile',
-      'Percentile',
-      'Performance',
-      'Score',
-      'Performance',
-      'Score'
     ]);
   });
 
@@ -121,6 +111,7 @@ describe('high-level integration test', () => {
     const {el} = testRender(testProps({ school: shs() }));
     expect(headerTexts(el)).toEqual([
       'Name',
+      'Photo',
       'Last SST',
       'Last NGE',
       'Last 10GE',
