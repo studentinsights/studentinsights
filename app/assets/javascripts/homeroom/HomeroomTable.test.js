@@ -38,34 +38,13 @@ function sstAndMtssDateTexts(el) {
 }
 
 describe('high-level integration test', () => {
-  // Prevent test pollution
-  beforeEach(() => Cookies.remove('columnsDisplayed'));
 
   it('renders the table', () => {
-
     const {el} = testRender(testProps());
 
     expect($(el).find('thead > tr').length).toEqual(2);
     expect($(el).find('tbody > tr').length).toEqual(6);
     expect(el.innerHTML).toContain('Aladdin Kenobi');
-  });
-
-  it('opens column picker when clicking on column picker toggle ', () => {
-
-    const {el} = testRender(testProps());
-
-    ReactTestUtils.Simulate.click($(el).find('#column-picker-toggle').get(0));
-    expect($(el).find('#column-picker').length).toEqual(1);
-  });
-
-  it('able to remove a column when unchecking an item on the column picker menu  ', () => {
-
-    const {el} = testRender(testProps());
-
-    ReactTestUtils.Simulate.click($(el).find('#column-picker-toggle').get(0));
-    expect($(el).find('span.table-header').length).toEqual(9);
-    ReactTestUtils.Simulate.click($(el).find('input[type=checkbox]').get(0));
-    expect($(el).find('span.table-header').length).toEqual(7);
   });
 
   it('renders SST and MTSS dates correctly for Somerville grade 2 as a happy path test case', () => {
@@ -152,14 +131,5 @@ describe('high-level integration test', () => {
       'Fluency',
       'Home Language'
     ]);
-  });
-
-  it('closes column picker when clicking close on an opened column picker ', () => {
-
-    const {el} = testRender(testProps());
-
-    $(el).find('#column-picker-toggle').click();
-    $(el).find('.close').click();
-    expect($(el).find('#column-picker').length).toEqual(0);
   });
 });
