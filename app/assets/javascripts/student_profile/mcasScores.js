@@ -7,9 +7,9 @@ export function shortLabelFromNextGenMcasScore(score) {
 }
   
 export function shortLabelFromOldMcasScore(score) {
-  if (score >= 200 && score < 218) return 'W'; // Warning
-  if (score >= 220 && score < 238) return 'NI'; // Needs Improvement
-  if (score >= 240 && score < 258) return 'P'; // Proficient
-  if (score >= 260 && score < 280) return 'E'; // Advanced
+  if (score >= 200 && score <= 218) return 'W'; // Warning
+  if (score >= 220 && score <= 238) return 'NI'; // Needs Improvement
+  if (score >= 240 && score <= 258) return 'P'; // Proficient
+  if (score >= 260 && score <= 280) return 'E'; // Advanced
   return null;
 }
