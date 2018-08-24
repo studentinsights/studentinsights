@@ -237,7 +237,8 @@ class TestPals
       email: 'harry@demo.studentinsights.org',
       full_name: 'Housemaster, Harry',
       school: @shs,
-      schoolwide_access: true
+      schoolwide_access: true,
+      can_view_restricted_notes: true
     )
     EducatorLabel.create!({
       educator: @shs_harry_housemaster,

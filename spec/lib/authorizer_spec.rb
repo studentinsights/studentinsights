@@ -361,4 +361,16 @@ RSpec.describe Authorizer do
       end
     end
   end
+
+  describe '#is_authorized_for_deprecated_transition_note_ui??' do
+    it 'only allows K8 counselor with label and access to deprecated restricted notes UI' do
+      authorized_educators = [pals.west_counselor, pals.shs_harry_housemaster]
+      authorized_educators.each do |educator|
+        expect(Authorizer.new(educator).is_authorized_for_deprecated_transition_note_ui?).to eq true
+      end
+      (Educator.all - authorized_educators).each do |educator|
+        expect(Authorizer.new(educator).is_authorized_to_write_transition_notes?).to eq false
+      end
+    end
+  end
 end

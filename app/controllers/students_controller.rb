@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
     student = Student.find(params[:id])
     return redirect_to(v3_student_path(student)) if should_redirect_to_profile_v3?(params)
 
-    can_access_restricted_transition_notes = authorizer.is_authorized_to_write_transition_notes?
+    can_access_restricted_transition_notes = authorizer.is_authorized_for_deprecated_transition_note_ui?
     chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator.as_json(methods: [:labels]),

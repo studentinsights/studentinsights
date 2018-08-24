@@ -154,11 +154,18 @@ class Authorizer
     true
   end
 
-  def is_authorized_to_write_transition_notes?
+  # deprecated
+  def is_authorized_for_deprecated_transition_note_ui?
     return false unless @educator.can_view_restricted_notes
     return true if @educator.labels.include?('k8_counselor')
     return true if @educator.labels.include?('high_school_house_master')
     false
+  end
+
+  def is_authorized_to_write_transition_notes?
+    return false unless @educator.can_view_restricted_notes
+    return false unless @educator.labels.include?('k8_counselor')
+    true
   end
 
   # TODO(kr) remove implementation
