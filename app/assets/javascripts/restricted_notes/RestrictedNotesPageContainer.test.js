@@ -32,13 +32,13 @@ const helpers = {
     mockApi.saveNotes.mockImplementation(() =>
       $.Deferred().resolve({
         id: 9999,
-        text: 'hi',
+        text: 'RESTRICTED-something-sensitive-original',
         is_restricted: true,
         event_note_type_id: 301,
         student_id: 23,
         educator_id: 1,
         attachments: [],
-        event_note_revisions: []
+        event_note_revisions_count: 0
       })
     );
     return mockApi;
@@ -58,14 +58,14 @@ describe('high-level integration tests', () => {
     const {el} = helpers.renderInto(SOMERVILLE, {api: mockApi});
 
     helpers.takeNotesAndSave(el, {
-      text: "hi",
+      text: 'RESTRICTED-something-sensitive-changed',
       eventNoteTypeText: "MTSS Meeting"
     });
 
     // 23 is the student id, and MTSS Meeting has id 301.
     expect(mockApi.saveNotes).toHaveBeenCalledWith(23, {
       eventNoteTypeId: 301,
-      text: 'hi',
+      text: 'RESTRICTED-something-sensitive-changed',
       is_restricted: true,
       eventNoteAttachments: []
     });

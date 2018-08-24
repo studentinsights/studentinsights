@@ -53,7 +53,14 @@ class NotesDetails extends React.Component {
   }
 
   render() {
-    const { student, title } = this.props;
+    const {
+      student,
+      title,
+      feed,
+      educatorsIndex,
+      actions,
+      allowDirectEditingOfRestrictedNoteText
+    } = this.props;
 
     return (
       <div className="NotesDetails" style={styles.notesContainer}>
@@ -67,10 +74,11 @@ class NotesDetails extends React.Component {
         </SectionHeading>
         {this.renderTakeNotesSection()}
         <NotesList
-          feed={this.props.feed}
-          educatorsIndex={this.props.educatorsIndex}
+          feed={feed}
+          educatorsIndex={educatorsIndex}
+          allowDirectEditingOfRestrictedNoteText={allowDirectEditingOfRestrictedNoteText}
           onSaveNote={this.onClickSaveNotes}
-          onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
+          onEventNoteAttachmentDeleted={actions.onDeleteEventNoteAttachment} />
       </div>
     );
   }
@@ -112,7 +120,8 @@ class NotesDetails extends React.Component {
   }
 
   renderRestrictedNotesButtonIfAppropriate() {
-    if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
+    const {currentEducator, showRestrictedNotesButton} = this.props;
+    if (currentEducator.can_view_restricted_notes && showRestrictedNotesButton) {
       return (
         <a
           className="btn btn-warning"
@@ -148,7 +157,8 @@ NotesDetails.propTypes = {
     PropTypes.string
   ).isRequired,
 
-  showingRestrictedNotes: PropTypes.bool.isRequired,
+  allowDirectEditingOfRestrictedNoteText: PropTypes.bool,
+  showRestrictedNotesButton: PropTypes.bool,
   title: PropTypes.string.isRequired,
   helpContent: PropTypes.node.isRequired,
   helpTitle: PropTypes.string.isRequired,

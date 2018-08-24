@@ -51,8 +51,7 @@ class ProfileController < ApplicationController
       school_name: student.try(:school).try(:name),
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
-      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: student.event_notes.where(is_restricted: true).count,
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count
     }).stringify_keys
   end
 
@@ -60,13 +59,10 @@ class ProfileController < ApplicationController
     student.sections_with_grades.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
   end
 
-  # The feed of mutable data that changes most frequently and is owned by Student Insights.
-  # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
   def student_feed(student, restricted_notes: false)
     {
       event_notes: student.event_notes
-        .select {|note| note.is_restricted == restricted_notes}
-        .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
+        .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes
         .select {|note| note.is_restricted == restricted_notes},
       services: {

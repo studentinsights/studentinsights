@@ -57,6 +57,8 @@ class NotesFeedPage extends React.Component {
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
             <NotesList
+              includeStudentPanel={true}
+              showRestrictedNoteContent={true}
               educatorsIndex={this.props.educatorsIndex}
               feed={feed} />
           </div>
@@ -76,13 +78,6 @@ class NotesFeedPage extends React.Component {
             onClick={this.props.onClickLoadMoreNotes}>
             Load 30 More Notes
           </button>
-        </div>
-      );
-    }
-    else {
-      return (
-        <div className="footer" style={styles.footer}>
-          <p>You have no more notes to display.</p>
         </div>
       );
     }

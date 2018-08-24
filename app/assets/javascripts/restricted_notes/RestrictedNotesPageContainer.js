@@ -130,6 +130,7 @@ class RestrictedNotesPageContainer extends React.Component {
               'noteInProgressType',
               'noteInProgressAttachmentUrls'
             ), {
+              allowDirectEditingOfRestrictedNoteText: true,
               nowMomentFn: this.props.nowMomentFn,
               actions: {
                 onClickSaveNotes: this.onClickSaveNotes,
@@ -138,7 +139,6 @@ class RestrictedNotesPageContainer extends React.Component {
                 onChangeAttachmentUrl: this.onChangeAttachmentUrl,
                 ...this.props.actions
               },
-              showingRestrictedNotes: true,
               helpContent: this.renderNotesHelpContent(),
               helpTitle: 'What is a Restricted Note?',
               title: 'Restricted Notes'

@@ -10,7 +10,6 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
   has_many    :event_notes
   has_many    :transition_notes
-  has_many    :event_note_revisions
   has_many    :educator_labels
   has_many    :login_activities, as: :user
 

@@ -40,21 +40,38 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNote(eventNote) {
+    const {
+      includeStudentPanel,
+      educatorsIndex,
+      onSaveNote,
+      onEventNoteAttachmentDeleted,
+      showRestrictedNoteContent,
+      allowDirectEditingOfRestrictedNoteText
+    } = this.props;
+    const isRedacted = eventNote.is_restricted && !showRestrictedNoteContent;
+    const isReadonly = (
+      !onSaveNote ||
+      !onEventNoteAttachmentDeleted ||
+      isRedacted ||
+      (eventNote.is_restricted && !allowDirectEditingOfRestrictedNoteText)
+    );
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
         eventNoteId={eventNote.id}
-        student={eventNote.student}          
+        student={eventNote.student} /* really only for my notes page */
         eventNoteTypeId={eventNote.event_note_type_id}
         noteMoment={moment.utc(eventNote.recorded_at)}
         badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
-        numberOfRevisions={eventNote.event_note_revisions.length}
-        attachments={eventNote.attachments}
-        educatorsIndex={this.props.educatorsIndex}
-        onSave={this.props.onSaveNote}
-        onEventNoteAttachmentDeleted={this.props.onEventNoteAttachmentDeleted} />
+        numberOfRevisions={eventNote.event_note_revisions_count}
+        attachments={isRedacted ? [] : eventNote.attachments}
+        educatorsIndex={educatorsIndex}
+        showRestrictedNoteRedaction={isRedacted}
+        includeStudentPanel={includeStudentPanel}
+        onSave={isReadonly ? null : onSaveNote}
+        onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
   }
 
@@ -91,6 +108,9 @@ export default class NotesList extends React.Component {
 NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
+  includeStudentPanel: PropTypes.bool,
+  showRestrictedNoteContent: PropTypes.bool,
+  allowDirectEditingOfRestrictedNoteText: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func
 };

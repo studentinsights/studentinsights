@@ -183,7 +183,7 @@ class StudentsController < ApplicationController
     {
       event_notes: student.event_notes
         .select {|note| note.is_restricted == restricted_notes}
-        .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
+        .map {|event_note| EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note },
       transition_notes: student.transition_notes
         .select {|note| note.is_restricted == restricted_notes},
       services: {

@@ -48,10 +48,7 @@ class Api {
 
     return this._put('/students/' + studentId + '/event_notes/' + id + '.json', {
       event_note: {
-        id: eventNoteParams.id,
-        event_note_type_id: eventNoteParams.eventNoteTypeId,
-        text: eventNoteParams.text,
-        student_id: studentId
+        text: eventNoteParams.text
       }
     });
   }

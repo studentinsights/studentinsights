@@ -291,7 +291,6 @@ export default class LightProfilePage extends React.Component {
           feed={this.props.feed}
           actions={this.props.actions}
           requests={this.props.requests}
-          showingRestrictedNotes={false}
           helpContent={<LightNotesHelpContext />}
           helpTitle="What is a Note?"
           title="Notes"

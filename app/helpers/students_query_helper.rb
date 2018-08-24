@@ -9,6 +9,7 @@ module StudentsQueryHelper
                  # cache after deploying https://github.com/studentinsights/studentinsights/pull/1892.
   ]
 
+  # include notes that are is_restricted, but without their content
   INCLUDE_FOR_EVENT_NOTES = [
     :id,
     :student_id,
@@ -48,7 +49,7 @@ module StudentsQueryHelper
         interventions: mutable_fields[:all_interventions].select {|intervention| intervention.student_id == student_hash[:id] }
       }
       student_hash.merge({
-        event_notes: for_student[:event_notes].map {|x| EventNoteSerializer.new(x).serialize_for_school_overview },
+        event_notes: for_student[:event_notes].map {|x| EventNoteSerializer.safe(x).serialize_for_school_overview },
         active_services: for_student[:active_services].map {|x| ServiceSerializer.new(x).serialize_service },
         summer_services: for_student[:summer_services].map {|x| ServiceSerializer.new(x).serialize_service },
         interventions: for_student[:interventions].map {|x| DeprecatedInterventionSerializer.new(x).serialize_intervention },
