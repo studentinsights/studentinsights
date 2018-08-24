@@ -8,6 +8,7 @@ import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import NoteCard from './NoteCard';
 import {parseAndReRender} from './lightTransitionNotes';
+import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -56,6 +57,9 @@ export default class NotesList extends React.Component {
       isRedacted ||
       (eventNote.is_restricted && !allowDirectEditingOfRestrictedNoteText)
     );
+    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
+      ? urlForRestrictedEventNoteContent(eventNote)
+      : null;
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
@@ -71,7 +75,7 @@ export default class NotesList extends React.Component {
         educatorsIndex={educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
         includeStudentPanel={includeStudentPanel}
-        canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
         onSave={isReadonly ? null : onSaveNote}
         onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
@@ -97,6 +101,9 @@ export default class NotesList extends React.Component {
   renderTransitionNote(transitionNote) {
     const {showRestrictedNoteContent, canUserAccessRestrictedNotes} = this.props;
     const isRedacted = transitionNote.is_restricted && !showRestrictedNoteContent;
+    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
+      ? urlForRestrictedTransitionNoteContent(transitionNote)
+      : null;
     return (
       <NoteCard
         key={['transition_note', transitionNote.id].join()}
@@ -106,7 +113,7 @@ export default class NotesList extends React.Component {
         text={parseAndReRender(transitionNote.text)}
         educatorsIndex={this.props.educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
-        canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
         attachments={[]} />
     );
   }
