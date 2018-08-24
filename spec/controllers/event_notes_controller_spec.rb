@@ -4,6 +4,56 @@ describe EventNotesController, :type => :controller do
   let!(:pals) { TestPals.create! }
   let(:school) { FactoryBot.create(:school) }
 
+  describe '#restricted_note_json' do
+    def get_restricted_note_json(event_note_id)
+      request.env['HTTPS'] = 'on'
+      get :restricted_note_json, params: {
+        format: :json,
+        id: event_note_id
+      }
+    end
+
+    def create_restricted_event_note_for_mari
+      event_note = FactoryBot.create(:event_note, {
+        student_id: pals.shs_freshman_mari.id,
+        is_restricted: true,
+        text: 'RESTRICTED-original-text'
+      })
+      attachment = EventNoteAttachment.create({
+        event_note_id: event_note.id,
+        url: 'https://docs.com/RESTRICTED-url'
+      })
+      event_note.update!(event_note_attachments: [attachment])
+      event_note
+    end
+
+    it 'permits access, and only sends down :text and :event_note_attachments' do
+      event_note = create_restricted_event_note_for_mari
+      sign_in(pals.rich_districtwide)
+      get_restricted_note_json(event_note.id)
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        "text" => "RESTRICTED-original-text",
+        "event_note_attachments" => [{"url"=>"https://docs.com/RESTRICTED-url"}]
+      })
+    end
+
+    it 'guards access based on student' do
+      event_note = create_restricted_event_note_for_mari
+      sign_in(pals.healey_laura_principal)
+      get_restricted_note_json(event_note.id)
+      expect(response.status).to eq 403
+    end
+
+    it 'guards access based on can_view_restricted_notes' do
+      event_note = create_restricted_event_note_for_mari
+      sign_in(pals.shs_jodi)
+      get_restricted_note_json(event_note.id)
+      expect(response.status).to eq 403
+    end
+  end
+
   describe '#create' do
     def make_create_request(student, event_note_params = {})
       request.env['HTTPS'] = 'on'
@@ -291,7 +341,48 @@ describe EventNotesController, :type => :controller do
         expect(json['is_restricted']).to eq true
         expect(json['text']).to eq 'RESTRICTED-beta'
       end
+    end
+  end
 
+  describe '#destroy_attachment' do
+    def destroy_attachment(id)
+      request.env['HTTPS'] = 'on'
+      delete :destroy_attachment, params: {
+        format: :json,
+        event_note_attachment_id: id
+      }
+    end
+
+    let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
+    before { sign_in(educator) }
+    let(:event_note) { FactoryBot.create(:event_note) }
+    let!(:event_note_attachment) {
+      EventNoteAttachment.create(url: 'www.goodurl.com', event_note: event_note)
+    }
+
+    context 'no error!' do
+      it 'destroys the object and returns empty object' do
+        destroy_attachment(event_note_attachment.id)
+        expect(response.body).to eq '{}'
+        expect(event_note.reload.event_note_attachments.size).to eq 0
+      end
+    end
+
+    context 'unauthorized educator' do
+      let(:educator) { FactoryBot.create(:educator) }
+
+      it 'fails authorization' do
+        destroy_attachment(event_note_attachment.id)
+        expect(response.status).to eq 403
+        expect(event_note.reload.event_note_attachments.size).to eq 1
+      end
+    end
+
+    context 'on bad id' do
+      it 'fails' do
+        destroy_attachment(12345) # non-existent
+        expect(response.status).to eq 404
+      end
     end
   end
 end
