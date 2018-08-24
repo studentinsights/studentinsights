@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
     student = Student.find(params[:id])
     return redirect_to(v3_student_path(student)) if should_redirect_to_profile_v3?(params)
 
+    can_access_restricted_transition_notes = authorizer.is_authorized_to_write_transition_notes?
     chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator.as_json(methods: [:labels]),
@@ -25,7 +26,7 @@ class StudentsController < ApplicationController
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      transition_notes: [], # removing to prevent authorization hole during migration
+      transition_notes: student.transition_notes.as_json(dangerously_include_restricted_note_text: can_access_restricted_transition_notes),
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
