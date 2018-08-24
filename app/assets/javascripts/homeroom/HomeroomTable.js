@@ -227,7 +227,7 @@ export default class HomeroomTable extends React.Component {
           style={style}>
         <td className="name">{fullName}</td>
         <td>
-          <StudentPhoto student={row} width={40} height={40} />
+          <StudentPhoto student={row} height={60} />
         </td>
         {this.eventNoteTypeIds().map(eventNoteTypeId => {
           const key = `latest_note_${eventNoteTypeId}_date_text`;
