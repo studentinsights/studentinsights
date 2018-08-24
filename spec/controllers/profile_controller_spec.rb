@@ -60,6 +60,25 @@ describe ProfileController, :type => :controller do
       end
     end
 
+    describe 'integration test for transition note redactions' do
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+
+      before do
+        FactoryBot.create(:transition_note, student: student, text: 'RESTRICTED-transition-note', is_restricted: true)
+      end
+
+      it 'redacts correctly' do
+        sign_in(educator)
+        make_request(educator, student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json.to_json).to include('<redacted>'.to_json)
+        expect(json.to_json).not_to include('RESTRICTED-transition-note')
+        expect(json['feed']['transition_notes'][0]['text']).to eq '<redacted>'
+        expect(json['transition_notes'][0]['text']).to eq '<redacted>'
+      end
+    end
+
     context 'when educator is not logged in' do
       it 'redirects to sign in page' do
         make_request(educator, student.id)

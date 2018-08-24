@@ -20,8 +20,8 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   fetchRestrictedContent() {
-    const {eventNoteId} = this.props;
-    return apiFetchJson(`/api/event_notes/${eventNoteId}/restricted_note_json`);
+    const {urlForRestrictedNoteContent} = this.props;
+    return apiFetchJson(urlForRestrictedNoteContent);
   }
 
   onViewClicked(e) {
@@ -30,10 +30,10 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   render() {
-    const {isViewing, allowViewing} = this.state;
+    const {isViewing, urlForRestrictedNoteContent} = this.state;
     return (
       <div className="RestrictedNotePresence">
-        {isViewing && !allowViewing
+        {isViewing && !urlForRestrictedNoteContent
           ? this.renderViewing()
           : this.renderRedaction()}
       </div>
@@ -41,7 +41,7 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   renderRedaction() {
-    const {studentFirstName, educatorName, allowViewing} = this.props;
+    const {studentFirstName, educatorName, urlForRestrictedNoteContent} = this.props;
     const studentFirstNameOrTheir = (studentFirstName)
       ? `${studentFirstName}'s`
       : 'their';
@@ -52,7 +52,7 @@ export default class RestrictedNotePresence extends React.Component {
           style={styles.restrictedNoteRedaction}
           text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorName || 'the author'} marked this note as restricted.`}
         />
-        {allowViewing && 
+        {urlForRestrictedNoteContent && 
           <a
             href="#"
             style={styles.showLink}
@@ -82,13 +82,9 @@ export default class RestrictedNotePresence extends React.Component {
   }
 }
 RestrictedNotePresence.propTypes = {
-  eventNoteId: PropTypes.number.isRequired,
   studentFirstName: PropTypes.string,
   educatorName: PropTypes.string,
-  allowViewing: PropTypes.bool
-};
-RestrictedNotePresence.defaultProps = {
-  allowViewing: false
+  urlForRestrictedNoteContent: PropTypes.string
 };
 
 const styles = {
@@ -107,3 +103,11 @@ const styles = {
     paddingTop: 5
   }
 };
+
+export function urlForRestrictedTransitionNoteContent(transitionNote) {
+  return `/api/students/${transitionNote.student_id}/restricted_transition_note_json`;
+}
+
+export function urlForRestrictedEventNoteContent(eventNote) {
+  return `/api/event_notes/${eventNote.id}/restricted_note_json`;
+}

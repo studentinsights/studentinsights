@@ -70,7 +70,7 @@ export default class NoteCard extends React.Component {
 
   // The student name may or not be present.
   renderRestrictedNoteRedaction() {
-    const {eventNoteId, student, canUserAccessRestrictedNotes} = this.props;
+    const {student, urlForRestrictedNoteContent} = this.props;
     const educatorName = formatEducatorName(this.educator());
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
@@ -78,10 +78,9 @@ export default class NoteCard extends React.Component {
     
     return (
       <RestrictedNotePresence
-        eventNoteId={eventNoteId}
         studentFirstName={student ? student.first_name : null}
         educatorName={educatorFirstNameOrEmail}
-        allowViewing={canUserAccessRestrictedNotes}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
       />
     );
   }
@@ -215,15 +214,21 @@ NoteCard.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   noteMoment: PropTypes.instanceOf(moment).isRequired,
   text: PropTypes.string.isRequired,
+
+  // For editing eventNote only
   eventNoteId: PropTypes.number,
   eventNoteTypeId: PropTypes.number,
   numberOfRevisions: PropTypes.number,
-  showRestrictedNoteRedaction: PropTypes.bool,
-  canUserAccessRestrictedNotes: PropTypes.bool,
-  includeStudentPanel: PropTypes.bool,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
-  student: PropTypes.object,
+
+  // Configuring for different uses
+  showRestrictedNoteRedaction: PropTypes.bool,
+  urlForRestrictedNoteContent: PropTypes.string,
+  
+  // For side panel for my notes page
+  includeStudentPanel: PropTypes.bool,
+  student: PropTypes.object
 };
 NoteCard.defaultProps = {
   numberOfRevisions: 0

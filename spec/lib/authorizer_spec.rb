@@ -204,6 +204,68 @@ RSpec.describe Authorizer do
       end
     end
 
+    describe 'TransitionNote' do
+      let!(:healey_public_note) { FactoryBot.create(:transition_note, student: pals.healey_kindergarten_student) }
+      let!(:healey_restricted_note) { FactoryBot.create(:transition_note, student: pals.healey_kindergarten_student, is_restricted: true) }
+      let!(:shs_public_note) { FactoryBot.create(:transition_note, student: pals.shs_freshman_mari) }
+      let!(:shs_restricted_note) { FactoryBot.create(:transition_note, student: pals.shs_freshman_mari, is_restricted: true) }
+
+      it 'limits access for relation' do
+        expect(authorized(pals.uri) { TransitionNote.all }).to eq [
+          healey_public_note,
+          healey_restricted_note,
+          shs_public_note,
+          shs_restricted_note
+        ]
+        expect(authorized(pals.healey_vivian_teacher) { TransitionNote.all }).to eq [
+          healey_public_note
+        ]
+        expect(authorized(pals.shs_bill_nye) { TransitionNote.all }).to eq [
+          shs_public_note
+        ]
+      end
+
+      it 'limits access for array' do
+        all_notes = [
+          healey_public_note,
+          healey_restricted_note,
+          shs_public_note,
+          shs_restricted_note
+        ]
+        expect(authorized(pals.uri) { all_notes }).to eq [
+          healey_public_note,
+          healey_restricted_note,
+          shs_public_note,
+          shs_restricted_note
+        ]
+        expect(authorized(pals.healey_vivian_teacher) { all_notes }).to eq [
+          healey_public_note
+        ]
+        expect(authorized(pals.shs_bill_nye) { all_notes }).to eq [
+          shs_public_note
+        ]
+      end
+
+      it 'limits access for model' do
+        def is_authorized(educator, note)
+          authorized(educator) { note } == note # check that they can access it
+        end
+
+        expect(is_authorized(pals.uri, healey_public_note)).to eq true
+        expect(is_authorized(pals.uri, healey_restricted_note)).to eq true
+        expect(is_authorized(pals.uri, shs_public_note)).to eq true
+        expect(is_authorized(pals.uri, shs_restricted_note)).to eq true
+        expect(is_authorized(pals.healey_vivian_teacher, healey_public_note)).to eq true
+        expect(is_authorized(pals.healey_vivian_teacher, healey_restricted_note)).to eq false
+        expect(is_authorized(pals.healey_vivian_teacher, shs_public_note)).to eq false
+        expect(is_authorized(pals.healey_vivian_teacher, shs_restricted_note)).to eq false
+        expect(is_authorized(pals.shs_bill_nye, healey_public_note)).to eq false
+        expect(is_authorized(pals.shs_bill_nye, healey_restricted_note)).to eq false
+        expect(is_authorized(pals.shs_bill_nye, shs_public_note)).to eq true
+        expect(is_authorized(pals.shs_bill_nye, shs_restricted_note)).to eq false
+      end
+    end
+
     describe 'other models' do
       it 'raises on calls with unchecked models' do
         expect { authorized(pals.uri) { Educator.all } }.to raise_error(Exceptions::EducatorNotAuthorized)
@@ -287,6 +349,27 @@ RSpec.describe Authorizer do
         expect(authorized_students_when_viewing_as(pals.shs_bill_nye, pals.uri)).to match_array [
           pals.shs_freshman_mari
         ]
+      end
+    end
+  end
+
+  describe '#is_authorized_to_write_transition_notes?' do
+    it 'only allows K8 counselor with label and access to restricted notes' do
+      expect(Authorizer.new(pals.west_counselor).is_authorized_to_write_transition_notes?).to eq true
+      (Educator.all - [pals.west_counselor]).each do |educator|
+        expect(Authorizer.new(educator).is_authorized_to_write_transition_notes?).to eq false
+      end
+    end
+  end
+
+  describe '#is_authorized_for_deprecated_transition_note_ui??' do
+    it 'only allows K8 counselor with label and access to deprecated restricted notes UI' do
+      authorized_educators = [pals.west_counselor, pals.shs_harry_housemaster]
+      authorized_educators.each do |educator|
+        expect(Authorizer.new(educator).is_authorized_for_deprecated_transition_note_ui?).to eq true
+      end
+      (Educator.all - authorized_educators).each do |educator|
+        expect(Authorizer.new(educator).is_authorized_to_write_transition_notes?).to eq false
       end
     end
   end

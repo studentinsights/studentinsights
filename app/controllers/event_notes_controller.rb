@@ -1,7 +1,7 @@
 class EventNotesController < ApplicationController
   def restricted_note_json
-    restricted_json_params = params.permit(:id)
-    event_note = authorized_or_raise! { EventNote.find(restricted_json_params[:id]) }
+    safe_params = params.permit(:id)
+    event_note = authorized_or_raise! { EventNote.find(safe_params[:id]) }
     raise Exceptions::EducatorNotAuthorized unless event_note.is_restricted
 
     json = event_note.as_json({
