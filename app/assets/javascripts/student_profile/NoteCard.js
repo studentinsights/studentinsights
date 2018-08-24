@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import EditableNoteText from '../components/EditableNoteText';
-import moment from 'moment';
 import * as Routes from '../helpers/Routes';
 import {formatEducatorName} from '../helpers/educatorName';
+import RestrictedNotePresence from './RestrictedNotePresence';
 
 
 // This renders a single card for a Note of any type.
@@ -69,18 +70,19 @@ export default class NoteCard extends React.Component {
 
   // The student name may or not be present.
   renderRestrictedNoteRedaction() {
-    const {student} = this.props;
-    const studentFirstNameOrTheir = (student)
-      ? `${student.first_name}'s`
-      : 'their';
+    const {eventNoteId, student} = this.props;
     const educatorName = formatEducatorName(this.educator());
     const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
       ? educatorName.split(' ')[0]
       : educatorName;
+    
     return (
-      <NoteText
-        style={styles.restrictedNoteRedaction}
-        text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorFirstNameOrEmail} marked this note as restricted.  Consider whether you really need to know before asking more.`}
+      <RestrictedNotePresence
+        eventNoteId={eventNoteId}
+        studentFirstName={student ? student.first_name : null}
+        educatorName={educatorFirstNameOrEmail}
+        allowViewing={false}
+        allowEditing={false}
       />
     );
   }
@@ -103,8 +105,9 @@ export default class NoteCard extends React.Component {
   }
 
   renderAttachmentUrls() {
-    const attachments = this.props.attachments;
-
+    const {showRestrictedNoteRedaction, attachments} = this.props;
+    if (showRestrictedNoteRedaction) return null;
+    
     return attachments.map(attachment => {
       return (
         <div key={attachment.id}>
