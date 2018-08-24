@@ -178,7 +178,7 @@ export default class StudentProfilePage extends React.Component {
               feed={this.props.feed}
               actions={this.props.actions}
               requests={this.props.requests}
-              showingRestrictedNotes={false}
+              showRestrictedNotesButton={true}
               helpContent={this.renderNotesHelpContent()}
               helpTitle="What is a Note?"
               title="Notes"
