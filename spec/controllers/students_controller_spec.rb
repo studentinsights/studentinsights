@@ -31,7 +31,8 @@ describe StudentsController, :type => :controller do
       request.env['HTTPS'] = 'on'
       get :show, params: {
         id: options[:student_id],
-        format: options[:format]
+        format: options[:format],
+        please: true # force request, regardless of ENV feature switches
       }
     end
 
