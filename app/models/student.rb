@@ -82,26 +82,20 @@ class Student < ActiveRecord::Base
 
   def most_recent_school_year_discipline_incidents_count
     discipline_incidents.where(
-      'occurred_at > ?', start_of_this_school_year
+      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
   def most_recent_school_year_absences_count
     absences.where(
-      'occurred_at > ?', start_of_this_school_year
+      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
   def most_recent_school_year_tardies_count
     tardies.where(
-      'occurred_at > ?', start_of_this_school_year
+      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
-  end
-
-  def events_by_student_school_years(filter_to_date, filter_from_date)
-    sorter = StudentSchoolYearSorter.new(student: self)
-
-    sorter.sort_and_filter(filter_to_date, filter_from_date)
   end
 
   # Maybe include a restricted note, but cannot return any restricted data
@@ -263,22 +257,6 @@ class Student < ActiveRecord::Base
   end
 
   private
-  def this_year
-    DateTime.now.year
-  end
-
-  def august_of_this_year
-    DateTime.new(this_year, 8, 1)
-  end
-
-  def start_of_this_school_year
-    if august_of_this_year > DateTime.now
-      DateTime.new(this_year - 1, 8, 1)
-    else
-      august_of_this_year
-    end
-  end
-
   def validate_free_reduced_lunch
     errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
   end
