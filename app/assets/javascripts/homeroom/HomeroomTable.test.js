@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
 import {SOMERVILLE, NEW_BEDFORD} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import HomeroomTable from './HomeroomTable';
