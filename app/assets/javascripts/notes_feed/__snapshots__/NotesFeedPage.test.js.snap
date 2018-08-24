@@ -1,0 +1,731 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="header"
+    style={
+      Object {
+        "margin": "2.5% 5%",
+      }
+    }
+  >
+    <div
+      className="title"
+      style={
+        Object {
+          "color": "#155094",
+          "fontSize": "28px",
+          "fontWeight": "bold",
+        }
+      }
+    >
+      My Notes
+    </div>
+    <p
+      style={
+        Object {
+          "fontSize": "18px",
+          "marginTop": "5px",
+        }
+      }
+    >
+       Past 
+      5
+       notes.
+    </p>
+  </div>
+  <div
+    className="feed"
+    style={
+      Object {
+        "margin": "auto 10%",
+      }
+    }
+  >
+    <div
+      className="notes-list"
+    >
+      <div
+        className="NotesList"
+      >
+        <div
+          className="wrapper"
+          style={
+            Object {
+              "display": "flex",
+            }
+          }
+        >
+          <div
+            className="studentCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "25%",
+              }
+            }
+          >
+            <p>
+              <a
+                href="/students/79"
+                style={
+                  Object {
+                    "color": "#3177c9",
+                    "fontSize": "18px",
+                    "fontWeight": "bold",
+                    "marginBottom": "5%",
+                  }
+                }
+              >
+                White
+                , 
+                Elsa
+              </a>
+            </p>
+            <p>
+              <a
+                className="school-link"
+                href="/schools/9"
+              >
+                Somerville High
+              </a>
+            </p>
+            <p>
+              10
+              th Grade
+            </p>
+          </div>
+          <div
+            className="NoteCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <span
+                className="date"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontWeight": "bold",
+                    "paddingRight": 10,
+                    "width": "11em",
+                  }
+                }
+              >
+                August 23, 2018
+              </span>
+              <span
+                style={
+                  Object {
+                    "background": "#eee",
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "outline": "3px solid #eee",
+                    "textAlign": "center",
+                    "width": "10em",
+                  }
+                }
+              >
+                SST Meeting
+              </span>
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "paddingLeft": 5,
+                  }
+                }
+              >
+                <a
+                  className="Educator"
+                  href="mailto:uri@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Uri Disney
+                </a>
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "border": "1px solid transparent",
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "whiteSpace": "pre-wrap",
+                  "wordBreak": "break-word",
+                }
+              }
+            >
+              say again please
+            </div>
+          </div>
+        </div>
+        <div
+          className="wrapper"
+          style={
+            Object {
+              "display": "flex",
+            }
+          }
+        >
+          <div
+            className="studentCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "25%",
+              }
+            }
+          >
+            <p>
+              <a
+                href="/students/79"
+                style={
+                  Object {
+                    "color": "#3177c9",
+                    "fontSize": "18px",
+                    "fontWeight": "bold",
+                    "marginBottom": "5%",
+                  }
+                }
+              >
+                White
+                , 
+                Elsa
+              </a>
+            </p>
+            <p>
+              <a
+                className="school-link"
+                href="/schools/9"
+              >
+                Somerville High
+              </a>
+            </p>
+            <p>
+              10
+              th Grade
+            </p>
+          </div>
+          <div
+            className="NoteCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <span
+                className="date"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontWeight": "bold",
+                    "paddingRight": 10,
+                    "width": "11em",
+                  }
+                }
+              >
+                August 23, 2018
+              </span>
+              <span
+                style={
+                  Object {
+                    "background": "#eee",
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "outline": "3px solid #eee",
+                    "textAlign": "center",
+                    "width": "10em",
+                  }
+                }
+              >
+                MTSS Meeting
+              </span>
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "paddingLeft": 5,
+                  }
+                }
+              >
+                <a
+                  className="Educator"
+                  href="mailto:uri@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Uri Disney
+                </a>
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "border": "1px solid transparent",
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "whiteSpace": "pre-wrap",
+                  "wordBreak": "break-word",
+                }
+              }
+            >
+              okay
+            </div>
+          </div>
+        </div>
+        <div
+          className="wrapper"
+          style={
+            Object {
+              "display": "flex",
+            }
+          }
+        >
+          <div
+            className="studentCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "25%",
+              }
+            }
+          >
+            <p>
+              <a
+                href="/students/79"
+                style={
+                  Object {
+                    "color": "#3177c9",
+                    "fontSize": "18px",
+                    "fontWeight": "bold",
+                    "marginBottom": "5%",
+                  }
+                }
+              >
+                White
+                , 
+                Elsa
+              </a>
+            </p>
+            <p>
+              <a
+                className="school-link"
+                href="/schools/9"
+              >
+                Somerville High
+              </a>
+            </p>
+            <p>
+              10
+              th Grade
+            </p>
+          </div>
+          <div
+            className="NoteCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <span
+                className="date"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontWeight": "bold",
+                    "paddingRight": 10,
+                    "width": "11em",
+                  }
+                }
+              >
+                August 23, 2018
+              </span>
+              <span
+                style={
+                  Object {
+                    "background": "#eee",
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "outline": "3px solid #eee",
+                    "textAlign": "center",
+                    "width": "10em",
+                  }
+                }
+              >
+                MTSS Meeting
+              </span>
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "paddingLeft": 5,
+                  }
+                }
+              >
+                <a
+                  className="Educator"
+                  href="mailto:uri@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Uri Disney
+                </a>
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "border": "1px solid transparent",
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "whiteSpace": "pre-wrap",
+                  "wordBreak": "break-word",
+                }
+              }
+            >
+              does it let me record restricted notes?
+            </div>
+          </div>
+        </div>
+        <div
+          className="wrapper"
+          style={
+            Object {
+              "display": "flex",
+            }
+          }
+        >
+          <div
+            className="studentCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "25%",
+              }
+            }
+          >
+            <p>
+              <a
+                href="/students/10"
+                style={
+                  Object {
+                    "color": "#3177c9",
+                    "fontSize": "18px",
+                    "fontWeight": "bold",
+                    "marginBottom": "5%",
+                  }
+                }
+              >
+                Disney
+                , 
+                Donald
+              </a>
+            </p>
+            <p>
+              <a
+                className="school-link"
+                href="/schools/2"
+              >
+                Arthur D Healey
+              </a>
+            </p>
+            <p>
+              <a
+                className="homeroom-link"
+                href="/homerooms/1"
+              >
+                Homeroom HEA 003
+              </a>
+            </p>
+          </div>
+          <div
+            className="NoteCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <span
+                className="date"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontWeight": "bold",
+                    "paddingRight": 10,
+                    "width": "11em",
+                  }
+                }
+              >
+                August 20, 2018
+              </span>
+              <span
+                style={
+                  Object {
+                    "background": "#eee",
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "outline": "3px solid #eee",
+                    "textAlign": "center",
+                    "width": "10em",
+                  }
+                }
+              >
+                SST Meeting
+              </span>
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "paddingLeft": 5,
+                  }
+                }
+              >
+                <a
+                  className="Educator"
+                  href="mailto:uri@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Uri Disney
+                </a>
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "border": "1px solid transparent",
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "whiteSpace": "pre-wrap",
+                  "wordBreak": "break-word",
+                }
+              }
+            >
+              this is restricted! okay
+            </div>
+          </div>
+        </div>
+        <div
+          className="wrapper"
+          style={
+            Object {
+              "display": "flex",
+            }
+          }
+        >
+          <div
+            className="studentCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "25%",
+              }
+            }
+          >
+            <p>
+              <a
+                href="/students/10"
+                style={
+                  Object {
+                    "color": "#3177c9",
+                    "fontSize": "18px",
+                    "fontWeight": "bold",
+                    "marginBottom": "5%",
+                  }
+                }
+              >
+                Disney
+                , 
+                Donald
+              </a>
+            </p>
+            <p>
+              <a
+                className="school-link"
+                href="/schools/2"
+              >
+                Arthur D Healey
+              </a>
+            </p>
+            <p>
+              <a
+                className="homeroom-link"
+                href="/homerooms/1"
+              >
+                Homeroom HEA 003
+              </a>
+            </p>
+          </div>
+          <div
+            className="NoteCard"
+            style={
+              Object {
+                "border": "1px solid #eee",
+                "marginBottom": 10,
+                "marginTop": 10,
+                "padding": 15,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <span
+                className="date"
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "fontWeight": "bold",
+                    "paddingRight": 10,
+                    "width": "11em",
+                  }
+                }
+              >
+                July 23, 2018
+              </span>
+              <span
+                style={
+                  Object {
+                    "background": "#eee",
+                    "display": "inline-block",
+                    "marginLeft": 10,
+                    "marginRight": 10,
+                    "outline": "3px solid #eee",
+                    "textAlign": "center",
+                    "width": "10em",
+                  }
+                }
+              >
+                BBST Meeting
+              </span>
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "paddingLeft": 5,
+                  }
+                }
+              >
+                <a
+                  className="Educator"
+                  href="mailto:uri@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Uri Disney
+                </a>
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "border": "1px solid transparent",
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "whiteSpace": "pre-wrap",
+                  "wordBreak": "break-word",
+                }
+              }
+            >
+              Note
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -7426,45 +7426,21 @@ exports[`snapshots works for pluto 1`] = `
                 </span>
               </div>
               <div
-                className="EditableNoteText"
+                style={
+                  Object {
+                    "border": "1px solid transparent",
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
               >
-                <div
-                  className="EditableTextComponent EditableNoteText-with-hover"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Meetings with staff about lack of academic progress.",
-                    }
-                  }
-                  onBlur={[Function]}
-                  onInput={[Function]}
-                  onKeyUp={[Function]}
-                  onPaste={[Function]}
-                  style={
-                    Object {
-                      "border": "1px solid transparent",
-                      "fontFamily": "'Open Sans', sans-serif",
-                      "fontSize": 14,
-                      "marginTop": 5,
-                      "overflowX": "hidden",
-                      "padding": 0,
-                      "style": Object {},
-                      "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-word",
-                    }
-                  }
-                />
-                <div
-                  style={
-                    Object {
-                      "color": "#aaa",
-                      "fontSize": 13,
-                      "marginTop": 13,
-                    }
-                  }
-                >
-                  Revised 0 times
-                </div>
+                To respect their privacy, Rich marked this note as restricted.  Consider whether you really need to know before asking more.
               </div>
             </div>
           </div>
