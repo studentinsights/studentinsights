@@ -21,6 +21,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
   require('../../../app/assets/javascripts/student_profile/RecordService.story');
   require('../../../app/assets/javascripts/student_profile/StudentProfilePage.story');
+  require('../../../app/assets/javascripts/student_profile/StudentSectionsRoster.story');
 
   // student profile v3
   require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
