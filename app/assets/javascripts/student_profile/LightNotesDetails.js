@@ -89,7 +89,9 @@ export default class LightNotesDetails extends React.Component {
         noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
         onClickNoteType={this.props.actions.onClickNoteType}
         onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
-        onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
+        onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl}
+        showRestrictedCheckbox={true}
+      />
     );
   }
 

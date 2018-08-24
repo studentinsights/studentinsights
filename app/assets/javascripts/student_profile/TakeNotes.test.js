@@ -77,3 +77,13 @@ describe('buttons for taking notes', () => {
     ]);
   });
 });
+
+it('showRestrictedCheckbox', () => {
+  const props = testProps({showRestrictedCheckbox: true});
+  const {el} = renderTestEl(props);
+
+  expect(el.innerHTML).toContain('Restrict access?');
+  expect(el.innerHTML).toContain('Yes, note contains private or sensitive personal information');
+  const $checkboxEl = $(el).find('input[type=checkbox]');
+  expect($checkboxEl.length).toEqual(1);
+});

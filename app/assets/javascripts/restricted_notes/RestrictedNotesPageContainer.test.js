@@ -66,7 +66,7 @@ describe('high-level integration tests', () => {
     expect(mockApi.saveNotes).toHaveBeenCalledWith(23, {
       eventNoteTypeId: 301,
       text: 'RESTRICTED-something-sensitive-changed',
-      is_restricted: true,
+      isRestricted: true,
       eventNoteAttachments: []
     });
   });
