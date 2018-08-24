@@ -20,7 +20,7 @@ export default class HomeroomTable extends React.Component {
     super(props);
 
     this.state = {
-      sortBy: 'first_name',
+      sortBy: 'last_name',
       sortType: 'string',
       sortDesc: true
     };
@@ -134,7 +134,7 @@ export default class HomeroomTable extends React.Component {
   renderNameSubheader() {
     return (
       <th className="name sortable_header"
-          onClick={this.onClickHeader.bind(null, 'first_name', 'string')}>
+          onClick={this.onClickHeader.bind(null, 'last_name', 'string')}>
         <span className="table-header">
           Name
         </span>
@@ -214,7 +214,7 @@ export default class HomeroomTable extends React.Component {
   }
 
   renderRow(row, index) {
-    const fullName = `${row['first_name']} ${row['last_name']}`;
+    const fullName = `${row['last_name']}, ${row['first_name']}`;
     const id = row["id"];
     const style = (index % 2 === 0)
                     ? { backgroundColor: '#FFFFFF' }
