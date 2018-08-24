@@ -149,7 +149,7 @@ class StudentsController < ApplicationController
 
   def should_redirect_to_profile_v3?(params)
     return false if params.has_key?(:please)
-    EnvironmentVariable.is_true('ENABLE_STUDENT_PROFILE_V3')
+    !EnvironmentVariable.is_true('DISABLE_STUDENT_PROFILE_V3')
   end
 
   def serialize_student_for_profile(student)
