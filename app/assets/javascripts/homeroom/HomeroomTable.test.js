@@ -63,6 +63,7 @@ describe('high-level integration test', () => {
     const {el} = testRender(testProps());
     expect(headerTexts(el)).toEqual([
       'Name',
+      'Photo',
       'Last SST',
       'Last MTSS',
       'Program Assigned',
