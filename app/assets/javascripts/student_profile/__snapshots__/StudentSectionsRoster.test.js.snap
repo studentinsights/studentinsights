@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="FlexibleRoster"
+>
+  <table
+    className="roster-table"
+    id="roster-table"
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <thead>
+      <tr
+        className="column-groups"
+      />
+      <tr
+        id="roster-header"
+      >
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Section Number
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Course Description
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Grade
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Schedule
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Educators
+        </th>
+        <th
+          className="sort-header"
+          onClick={[Function]}
+        >
+          Room
+        </th>
+        <th
+          className="sort-header sort-down"
+          onClick={[Function]}
+        >
+          Term
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      id="roster-data"
+    >
+      <tr
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+          }
+        }
+      >
+        <td>
+          <p>
+            BIO-302
+          </p>
+        </td>
+        <td>
+          BIOLOGY 1
+        </td>
+        <td>
+          75.0
+        </td>
+        <td>
+          5(M,W,F)
+        </td>
+        <td>
+          <p>
+            Teacher, Bill
+          </p>
+        </td>
+        <td>
+          206W
+        </td>
+        <td>
+          9
+        </td>
+      </tr>
+      <tr
+        style={
+          Object {
+            "backgroundColor": "#F7F7F7",
+          }
+        }
+      >
+        <td>
+          <a
+            href="/sections/6"
+          >
+            SCI-201B
+          </a>
+        </td>
+        <td>
+          PHYSICS 1
+        </td>
+        <td>
+          60.0
+        </td>
+        <td>
+          5(M,W,F)
+        </td>
+        <td>
+          <p>
+            Teacher, Fatima
+          </p>
+        </td>
+        <td>
+          306W
+        </td>
+        <td>
+          S1
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

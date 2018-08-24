@@ -5,6 +5,7 @@ Rails.application.configure do
     ENV[key.to_s] = value
   end if File.exists?(env_file)
   Env.set_for_development_and_test!
+  ENV['ENABLE_CLASS_LISTS'] = 'false'
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
 
   config.cache_classes = false

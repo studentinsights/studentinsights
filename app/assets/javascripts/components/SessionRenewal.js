@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {apiFetchJson, signOut} from '../helpers/apiFetchJson';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 
 
 // Show a warning that the user's session is likely to timeout shortly.
@@ -21,7 +21,6 @@ export default class SessionRenewal extends React.Component {
     this.onTimeout = this.onTimeout.bind(this);
     this.onRenewClicked = this.onRenewClicked.bind(this);
     this.onRenewCompleted = this.onRenewCompleted.bind(this);
-    this.doNavigateHome = this.doNavigateHome.bind(this);
   }
 
   // Provides a function for child components to reset session timers (eg, on xhr requests).
@@ -42,11 +41,16 @@ export default class SessionRenewal extends React.Component {
     this.timeoutTimer = setTimeout(this.onTimeout, sessionTimeoutInSeconds * 1000);
   }
 
-  doNavigateHome() {
-    const {doNavigate} = this.props;
-    if (doNavigate) return doNavigate();
-    
-    window.location = '/';
+  // At this point, any transient data in the browser will be rejected by the server.
+  // If the server session has expired, this will redirect to the sign in page, clearing the
+  // screen of student data.  If it's still valid (from activities in other tabs, nothing will change).
+  forceReload() {
+    const {forceReload} = this.props;
+    if (forceReload) {
+      forceReload();
+    } else {
+      window.location.reload(true);
+    }
   }
 
   onWarning() {
@@ -55,15 +59,13 @@ export default class SessionRenewal extends React.Component {
 
   onTimeout() {
     this.setState({status: States.TIMED_OUT});
-    signOut('/educators/sign_out')
-      .then(r => this.doNavigateHome(r))
-      .catch(e => this.doNavigateHome(e));
+    this.forceReload();
   }
 
   onError() {
     this.setState({status: States.ERROR});
     this.resetTimers();
-    this.doNavigateHome();
+    this.forceReload();
   }
 
   onRenewClicked() {
@@ -105,7 +107,7 @@ SessionRenewal.childContextTypes = {
 SessionRenewal.propTypes = {
   warningTimeoutInSeconds: PropTypes.number.isRequired,
   sessionTimeoutInSeconds: PropTypes.number.isRequired,
-  doNavigate: PropTypes.func
+  forceReload: PropTypes.func
 };
 
 const styles = {

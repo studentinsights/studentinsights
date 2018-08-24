@@ -60,7 +60,7 @@ class RestrictedNotesPageContainer extends React.Component {
 
   onClickSaveNotes(inputEventNoteParams) {
     // All notes taken on this page should be restricted.
-    const eventNoteParams = merge(inputEventNoteParams, {is_restricted: true});
+    const eventNoteParams = merge(inputEventNoteParams, {isRestricted: true});
     this.setState({ requests: merge(this.state.requests, { saveNote: 'pending'}) });
     this.api.saveNotes(this.state.student.id, eventNoteParams)
       .done(this.onSaveNotesDone)
@@ -130,6 +130,8 @@ class RestrictedNotesPageContainer extends React.Component {
               'noteInProgressType',
               'noteInProgressAttachmentUrls'
             ), {
+              showRestrictedNoteContent: true,
+              allowDirectEditingOfRestrictedNoteText: true,
               nowMomentFn: this.props.nowMomentFn,
               actions: {
                 onClickSaveNotes: this.onClickSaveNotes,
@@ -138,7 +140,6 @@ class RestrictedNotesPageContainer extends React.Component {
                 onChangeAttachmentUrl: this.onChangeAttachmentUrl,
                 ...this.props.actions
               },
-              showingRestrictedNotes: true,
               helpContent: this.renderNotesHelpContent(),
               helpTitle: 'What is a Restricted Note?',
               title: 'Restricted Notes'

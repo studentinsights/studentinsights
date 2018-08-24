@@ -181,6 +181,7 @@ class TestPals
       full_name: "Counselor, Les",
       local_id: '551',
       school: @west,
+      can_view_restricted_notes: true,
       schoolwide_access: true
     )
     EducatorLabel.create!(
@@ -236,7 +237,8 @@ class TestPals
       email: 'harry@demo.studentinsights.org',
       full_name: 'Housemaster, Harry',
       school: @shs,
-      schoolwide_access: true
+      schoolwide_access: true,
+      can_view_restricted_notes: true
     )
     EducatorLabel.create!({
       educator: @shs_harry_housemaster,

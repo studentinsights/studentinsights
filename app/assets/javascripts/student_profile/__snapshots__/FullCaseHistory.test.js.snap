@@ -1,0 +1,875 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="FullCaseHistory"
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  <div
+    id="school-year-starting-2015"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2015 - 2016 School Year
+    </h4>
+    <div
+      id="Absence-991"
+      style={
+        Object {
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingLeft": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontSize": 14,
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            February 21st, 2016:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Absence
+          </span>
+        </div>
+        
+      </div>
+    </div>
+    <div
+      id="STAR-Reading-2016-01-18T00:00:00Z"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            January 18th, 2016:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#ffe7d6",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            STAR Reading
+          </span>
+        </div>
+        Test scored in the 83th percentile on the Reading section of STAR at 7:00pm.
+      </div>
+    </div>
+  </div>
+  <div
+    id="school-year-starting-2014"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2014 - 2015 School Year
+    </h4>
+    <div
+      id="MCAS-ELA-02-18"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            February 18th, 2015:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#ffe7d6",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            MCAS ELA
+          </span>
+        </div>
+        Test scored a 63 on the ELA section of the MCAS.
+      </div>
+    </div>
+    <div
+      id="MCAS-Math-09-18"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            September 18th, 2014:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8e9fc",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            MCAS Math
+          </span>
+        </div>
+        Test scored a 23 on the Math section of the MCAS.
+      </div>
+    </div>
+  </div>
+  <div
+    id="school-year-starting-2013"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2013 - 2014 School Year
+    </h4>
+    <div
+      id="Tardy-998"
+      style={
+        Object {
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingLeft": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontSize": 14,
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            January 1st, 2014:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Tardy
+          </span>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div
+    id="school-year-starting-2012"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2012 - 2013 School Year
+    </h4>
+    <div
+      id="Note-945"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            February 11th, 2013:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Note
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      id="STAR-Math-2012-11-18T00:00:00Z"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            November 18th, 2012:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8e9fc",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            STAR Math
+          </span>
+        </div>
+        Test scored in the 43th percentile on the Math section of STAR at 7:00pm.
+      </div>
+    </div>
+  </div>
+  <div
+    id="school-year-starting-2011"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2011 - 2012 School Year
+    </h4>
+    <div
+      id="DIBELS-901"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            May 15th, 2012:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            DIBELS
+          </span>
+        </div>
+        Test scored STRATEGIC in DIBELS.
+      </div>
+    </div>
+    <div
+      id="Incident-9912"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            January 10th, 2012:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Incident
+          </span>
+        </div>
+        undefined in the undefined
+      </div>
+    </div>
+  </div>
+  <div
+    id="school-year-starting-2010"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2010 - 2011 School Year
+    </h4>
+    <div
+      id="Note-992"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            October 17th, 2010:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Note
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      id="Service-945"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            October 8th, 2010:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Service
+          </span>
+        </div>
+        Description not found for code: undefined
+      </div>
+    </div>
+    <div
+      id="Note-997"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            October 1st, 2010:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Note
+          </span>
+        </div>
+        undefined(Goal: undefined)
+      </div>
+    </div>
+  </div>
+  <div
+    id="school-year-starting-2009"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginBottom": 10,
+        "marginTop": 10,
+        "padding": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "#555555",
+          "marginBottom": 10,
+          "padding": 10,
+          "paddingLeft": 10,
+        }
+      }
+    >
+      2009 - 2010 School Year
+    </h4>
+    <div
+      id="Service-996"
+      style={
+        Object {
+          "border": "1px solid #eee",
+          "borderRadius": 10,
+          "marginBottom": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "color": "#555555",
+              "fontWeight": 400,
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "width": 180,
+              }
+            }
+          >
+            February 9th, 2010:
+          </span>
+          <span
+            style={
+              Object {
+                "background": "#e8fce8",
+                "display": "inline-block",
+                "marginLeft": 10,
+                "marginRight": 10,
+                "textAlign": "center",
+                "width": "10em",
+              }
+            }
+          >
+            Service
+          </span>
+        </div>
+        Math intervention
+      </div>
+    </div>
+  </div>
+</div>
+`;

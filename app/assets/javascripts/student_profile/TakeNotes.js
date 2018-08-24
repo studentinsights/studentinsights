@@ -13,6 +13,10 @@ export default class TakeNotes extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isRestricted: false
+    };
+    this.onRestrictedToggled = this.onRestrictedToggled.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
   }
@@ -50,16 +54,28 @@ export default class TakeNotes extends React.Component {
     });
   }
 
+  onRestrictedToggled(e) {
+    const {isRestricted} = this.state;
+    this.setState({isRestricted: !isRestricted});
+  }
+
   onClickCancel(event) {
     this.props.onCancel();
   }
 
   onClickSave(event) {
-    const {noteInProgressText, noteInProgressType, onSave} = this.props;
+    const {
+      noteInProgressText,
+      noteInProgressType,
+      onSave,
+      showRestrictedCheckbox
+    } = this.props;
+    const {isRestricted} = this.state;
 
     const params = {
       eventNoteTypeId: noteInProgressType,
       text: noteInProgressText,
+      ...(showRestrictedCheckbox ? {isRestricted} : {}),
       ...this.eventNoteUrlsForSave()
     };
 
@@ -73,6 +89,7 @@ export default class TakeNotes extends React.Component {
       nowMoment,
       requestState,
       currentEducator,
+      showRestrictedCheckbox,
       onChangeNoteInProgressText
     } = this.props;
 
@@ -89,6 +106,17 @@ export default class TakeNotes extends React.Component {
           ref={ref => this.textareaRef = ref}
           value={noteInProgressText}
           onChange={onChangeNoteInProgressText} />
+        {showRestrictedCheckbox &&
+          <div>
+            <div style={{ marginBottom: 5, marginTop: 20 }}>
+              Restrict access?
+            </div>
+            <label style={{ marginLeft: 10, color: 'black', cursor: 'pointer' }}>
+              <input type="checkbox" onClick={this.onRestrictedToggled} />
+              <span style={{paddingLeft: 5}}>Yes, note contains private or sensitive personal information</span>
+            </label>
+          </div>
+        }
         <div style={{ marginBottom: 5, marginTop: 20 }}>
           What are these notes from?
         </div>
@@ -238,6 +266,10 @@ TakeNotes.propTypes = {
   onClickNoteType: PropTypes.func.isRequired,
   onChangeNoteInProgressText: PropTypes.func.isRequired,
   onChangeAttachmentUrl: PropTypes.func.isRequired,
+  showRestrictedCheckbox: PropTypes.bool
+};
+TakeNotes.defaultProps = {
+  showRestrictedCheckbox: false
 };
 
 

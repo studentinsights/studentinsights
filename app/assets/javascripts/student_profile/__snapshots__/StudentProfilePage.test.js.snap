@@ -4601,7 +4601,6 @@ exports[`snapshots works for olaf 1`] = `
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -4695,7 +4694,6 @@ Reduce behavior.
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -4789,7 +4787,6 @@ Increase how often the student is engaged in positive behaviors.
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -4999,7 +4996,6 @@ Reduce behavior.
                     "marginTop": 5,
                     "overflowX": "hidden",
                     "padding": 0,
-                    "style": undefined,
                     "whiteSpace": "pre-wrap",
                     "wordBreak": "break-word",
                   }
@@ -7430,44 +7426,26 @@ exports[`snapshots works for pluto 1`] = `
                 </span>
               </div>
               <div
-                className="EditableNoteText"
+                className="RestrictedNotePresence"
               >
-                <div
-                  className="EditableTextComponent EditableNoteText-with-hover"
-                  contentEditable={true}
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Meetings with staff about lack of academic progress.",
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "border": "1px solid transparent",
+                        "color": "#999",
+                        "fontFamily": "'Open Sans', sans-serif",
+                        "fontSize": 14,
+                        "marginTop": 5,
+                        "overflowX": "hidden",
+                        "padding": 0,
+                        "whiteSpace": "pre-wrap",
+                        "wordBreak": "break-word",
+                      }
                     }
-                  }
-                  onBlur={[Function]}
-                  onInput={[Function]}
-                  onKeyUp={[Function]}
-                  onPaste={[Function]}
-                  style={
-                    Object {
-                      "border": "1px solid transparent",
-                      "fontFamily": "'Open Sans', sans-serif",
-                      "fontSize": 14,
-                      "marginTop": 5,
-                      "overflowX": "hidden",
-                      "padding": 0,
-                      "style": Object {},
-                      "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-word",
-                    }
-                  }
-                />
-                <div
-                  style={
-                    Object {
-                      "color": "#aaa",
-                      "fontSize": 13,
-                      "marginTop": 13,
-                    }
-                  }
-                >
-                  Revised 0 times
+                  >
+                    To respect their privacy, Rich marked this note as restricted.
+                  </div>
                 </div>
               </div>
             </div>

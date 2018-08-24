@@ -7,7 +7,8 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import NoteCard from './NoteCard';
-
+import {parseAndReRender} from './lightTransitionNotes';
+import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -40,21 +41,43 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNote(eventNote) {
+    const {
+      includeStudentPanel,
+      educatorsIndex,
+      onSaveNote,
+      onEventNoteAttachmentDeleted,
+      showRestrictedNoteContent,
+      allowDirectEditingOfRestrictedNoteText,
+      canUserAccessRestrictedNotes
+    } = this.props;
+    const isRedacted = eventNote.is_restricted && !showRestrictedNoteContent;
+    const isReadonly = (
+      !onSaveNote ||
+      !onEventNoteAttachmentDeleted ||
+      isRedacted ||
+      (eventNote.is_restricted && !allowDirectEditingOfRestrictedNoteText)
+    );
+    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
+      ? urlForRestrictedEventNoteContent(eventNote)
+      : null;
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
         eventNoteId={eventNote.id}
-        student={eventNote.student}          
+        student={eventNote.student} /* really only for my notes page */
         eventNoteTypeId={eventNote.event_note_type_id}
         noteMoment={moment.utc(eventNote.recorded_at)}
         badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
-        numberOfRevisions={eventNote.event_note_revisions.length}
-        attachments={eventNote.attachments}
-        educatorsIndex={this.props.educatorsIndex}
-        onSave={this.props.onSaveNote}
-        onEventNoteAttachmentDeleted={this.props.onEventNoteAttachmentDeleted} />
+        numberOfRevisions={eventNote.event_note_revisions_count}
+        attachments={isRedacted ? [] : eventNote.attachments}
+        educatorsIndex={educatorsIndex}
+        showRestrictedNoteRedaction={isRedacted}
+        includeStudentPanel={includeStudentPanel}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        onSave={isReadonly ? null : onSaveNote}
+        onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
   }
 
@@ -76,14 +99,21 @@ export default class NotesList extends React.Component {
   }
 
   renderTransitionNote(transitionNote) {
+    const {showRestrictedNoteContent, canUserAccessRestrictedNotes} = this.props;
+    const isRedacted = transitionNote.is_restricted && !showRestrictedNoteContent;
+    const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
+      ? urlForRestrictedTransitionNoteContent(transitionNote)
+      : null;
     return (
       <NoteCard
         key={['transition_note', transitionNote.id].join()}
         noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
         badge={<span style={styles.badge}>Transition note</span>}
         educatorId={transitionNote.educator_id}
-        text={transitionNote.text}
+        text={parseAndReRender(transitionNote.text)}
         educatorsIndex={this.props.educatorsIndex}
+        showRestrictedNoteRedaction={isRedacted}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
         attachments={[]} />
     );
   }
@@ -91,6 +121,11 @@ export default class NotesList extends React.Component {
 NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
+  includeStudentPanel: PropTypes.bool,
+  showRestrictedNoteContent: PropTypes.bool,
+  allowDirectEditingOfRestrictedNoteText: PropTypes.bool,
+  allowViewingRestrictedNotes: PropTypes.bool,
+  canUserAccessRestrictedNotes: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func
 };
@@ -109,3 +144,5 @@ const styles = {
     marginRight: 10
   }
 };
+
+export const badgeStyle = styles.badge;

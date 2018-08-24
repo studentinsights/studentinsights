@@ -6,7 +6,7 @@ import PageContainer from './PageContainer';
 export default function renderNotesFeedMain(el) {
   const serializedData = $('#serialized-data').data();
   render(el, {
-    current_educator: serializedData.currentEducator,
+    currentEducator: serializedData.currentEducator,
     educatorsIndex: serializedData.educatorsIndex,
     notes: serializedData.notes,
     totalNotesCount: serializedData.totalNotesCount
@@ -14,9 +14,10 @@ export default function renderNotesFeedMain(el) {
 }
   
 function render(el, json) {
-  MixpanelUtils.registerUser(json.current_educator);
+  MixpanelUtils.registerUser(json.currentEducator);
   MixpanelUtils.track('PAGE_VISIT', { page_key: 'NOTES_FEED' });
   ReactDOM.render(<PageContainer
+    currentEducator={json.currentEducator}
     educatorsIndex={json.educatorsIndex}
     eventNotes={json.notes}
     totalNotesCount={json.totalNotesCount} />, el);

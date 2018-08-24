@@ -51,6 +51,16 @@ Rails.application.routes.draw do
   # student profile
   get '/api/students/:id/profile_json' => 'profile#json'
 
+  # transition notes: creating/updating, or reading restricted notes
+  post '/api/students/:student_id/update_transition_note' => 'transition_notes#update'
+  get '/api/students/:student_id/restricted_transition_note_json' => 'transition_notes#restricted_transition_note_json'
+
+  # event_notes: creating/updating notes, or reading restricted notes
+  post '/api/event_notes' => 'event_notes#create'
+  patch '/api/event_notes/:id' => 'event_notes#update'
+  get '/api/event_notes/:id/restricted_note_json' => 'event_notes#restricted_note_json'
+  delete '/api/event_notes/attachments/:event_note_attachment_id' => 'event_notes#destroy_attachment'
+
 
   ### experimental
   # HS tiers
@@ -102,11 +112,8 @@ Rails.application.routes.draw do
 
   get '/students/names' => 'students#names'
   get '/students/lasids' => 'students#lasids'
-  post '/students/:student_id/update_transition_note' => 'transition_notes#update'
 
   resources :students, only: [:show] do
-    resources :event_notes, only: [:create, :update]
-
     member do
       get '/v3' => 'ui#ui'
       get '/student_report' => 'profile_pdf#student_report'
@@ -117,7 +124,6 @@ Rails.application.routes.draw do
   end
   resources :services, only: [:destroy]
   resources :service_types, only: [:index]
-  resources :event_note_attachments, only: [:destroy]
   resources :service_uploads, only: [:create, :index, :destroy] do
     collection do
       get :past

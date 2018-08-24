@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-class HelpBubble extends React.Component {
+export default class HelpBubble extends React.Component {
 
   constructor(props){
     super(props);
@@ -31,10 +31,10 @@ class HelpBubble extends React.Component {
   }
 
   render(){
-    const {style, linkStyle} = this.props;
+    const {style, linkStyle, tooltip} = this.props;
     return (
-      <div style={{display: 'inline', marginLeft: 10, ...style}}>
-        <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none', ...linkStyle}}>
+      <div style={{...styles.root, ...style}}>
+        <a href="#" title={tooltip} onClick={this.openModal} style={{...styles.link, ...linkStyle}}>
           {this.props.teaser}
         </a>
         {// The modal is not logically here, but even while not displayed it needs a location in the DOM.
@@ -44,31 +44,26 @@ class HelpBubble extends React.Component {
   }
 
   renderModal(){
+    const {title, content, modalStyle} = this.props;
     // There are three ways to close a modal dialog: click on one of the close buttons,
     // click outside the bounds, or press Escape.
+
     return (
-      <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal}>
+      <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={{...styles.modal, ...modalStyle}}>
         {// Every help box has a title and two close buttons. The content is free-form HTML.
         <div className="modal-help">
-          <div
-            style={{borderBottom: '1px solid #333', paddingBottom: 10, marginBottom: 20}}>
-            <h1 style={{display: 'inline-block'}}>
-              {this.props.title}
-            </h1>
+          <div style={styles.titleBar}>
+            <h1 style={styles.title}>{title}</h1>
             <a
               href="#"
               onClick={this.closeModal}
-              style={{float: 'right', cursor: 'pointer'}}>
+              style={styles.escapeLink}>
               (ESC)
             </a>
           </div>
-          <div>
-            {this.props.content}
-          </div>
-          {// Fills the empty space
-          <div style={{flex: 1, minHeight: 20}}>
-            {""}
-          </div>}
+          <div>{content}</div>
+          {/* Fills the empty space */}
+          <div style={{flex: 1, minHeight: 20}}>{""}</div>
           <div>
             <a href="#" onClick={this.closeModal} style={{cursor: 'pointer'}}>
               (close)
@@ -85,8 +80,66 @@ HelpBubble.propTypes = {
   content: PropTypes.node.isRequired, // React DOM objects which will be displayed in the modal text box.
   teaser: PropTypes.node.isRequired, // text displayed before the user clicks, e.g. 'Find out more.'
   style: PropTypes.object,
-  linkStyle: PropTypes.object
+  linkStyle: PropTypes.object,
+  modalStyle: PropTypes.object,
+  tooltip: PropTypes.string
 };
 
-export default HelpBubble;
+const styles = {
+  root: {
+    display: 'inline',
+    marginLeft: 10
+  },
+  link: {
+    fontSize: 12,
+    outline: 'none'
+  },
+  modal: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    color: '#555',
+  },
+  titleBar: {
+    borderBottom: '1px solid #333',
+    paddingBottom: 10,
+    marginBottom: 20
+  },
+  title: {
+    display: 'inline-block',
+    fontSize: 24
+  },
+  escapeLink: {
+    float: 'right',
+    cursor: 'pointer'
+  }
+};
 
+
+// For `modalStyle` so it appears to be coming from the right side of the page.
+export const modalFromRight = {
+  content: {
+    right: 40,
+    left: 'auto',
+    bottom: 'auto',
+    width: '55%'
+  }
+};
+
+export const modalFromLeft = {
+  content: {
+    left: 40,
+    right: 'auto',
+    bottom: 'auto',
+    width: '55%'
+  }
+};
+
+export const modalFullScreenWithVerticalScroll = {
+  content: {
+    top: 40,
+    bottom: 40,
+    left: 80,
+    right: 80
+  }
+};

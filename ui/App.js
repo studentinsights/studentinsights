@@ -34,7 +34,7 @@ import LoginActivityPageContainer from '../app/assets/javascripts/login_activity
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
-class App extends React.Component {
+export default class App extends React.Component {
   componentDidMount() {
     measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
   }
@@ -57,7 +57,7 @@ class App extends React.Component {
     return (
       <NowContainer nowFn={() => moment.utc()}>
         <PerDistrictContainer districtKey={districtKey}>
-          <div className="App-content">
+          <div className="App-content" style={styles.flexVertical}>
             {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
             {this.renderRoutes()}
           </div>
@@ -267,4 +267,10 @@ App.propTypes = {
   sessionTimeoutInSeconds: PropTypes.number
 };
 
-export default App;
+const styles = {
+  flexVertical: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  }
+};

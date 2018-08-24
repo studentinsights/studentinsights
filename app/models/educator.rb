@@ -10,7 +10,6 @@ class Educator < ActiveRecord::Base
   has_many    :interventions
   has_many    :event_notes
   has_many    :transition_notes
-  has_many    :event_note_revisions
   has_many    :educator_labels
   has_many    :login_activities, as: :user
 
@@ -49,10 +48,6 @@ class Educator < ActiveRecord::Base
     Authorizer.new(self).is_authorized_for_section?(section)
   end
 
-  def is_authorized_to_see_transition_notes
-    Authorizer.new(self).is_authorized_to_see_transition_notes?
-  end
-
   def students_for_school_overview(*additional_includes)
     students = Authorizer.new(self).students_for_school_overview
 
@@ -68,11 +63,6 @@ class Educator < ActiveRecord::Base
 
   def labels
     educator_labels.map(&:label_key)
-  end
-
-  def default_homeroom
-    return homeroom if homeroom.present?
-    raise Exceptions::NoAssignedHomeroom
   end
 
   def default_section

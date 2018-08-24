@@ -11,13 +11,20 @@ import {
 } from './StudentProfilePage.test';
 
 
+function testingTabTextLines(el) {
+  const leafEls = $(el).find('.LightProfileTab:eq(2) *:not(:has(*))').toArray(); // magic selector from https://stackoverflow.com/questions/4602431/what-is-the-most-efficient-way-to-get-leaf-nodes-with-jquery#4602476
+  return leafEls.map(el => $(el).text());
+}
+
+function testRender(props) {
+  const el = document.createElement('div');
+  ReactDOM.render(<LightProfilePage {...props} />, el);
+  return el;
+}
 
 it('renders without crashing', () => {
-  const el = document.createElement('div');
-  const props = testPropsForPlutoPoppins();
-  ReactDOM.render(<LightProfilePage {...props} />, el);
+  testRender(testPropsForPlutoPoppins());
 });
-
 
 describe('snapshots', () => {
   function expectSnapshot(props) {
@@ -54,5 +61,61 @@ it('#latestStar works regardless of initial sort order', () => {
   expect(latestStar(starSeriesReadingPercentile.reverse(), nowMoment)).toEqual({
     nDaysText: 'a year ago',
     percentileText: '98th'
+  });
+});
+
+describe('HS testing tab', () => {
+  it('works when missing', () => {
+    const props = testPropsForAladdinMouse();
+    const el = testRender(props);
+    expect(testingTabTextLines(el)).toEqual([
+      'Testing',
+      '-',
+      'ELA and Math MCAS',
+      'not yet taken'
+    ]);
+  });
+
+  it('takes next gen when there are both', () => {
+    const aladdinProps = testPropsForAladdinMouse();
+    const props = {
+      ...aladdinProps,
+      chartData: {
+        ...aladdinProps.chartData,
+        "next_gen_mcas_mathematics_scaled": [[2014,5,15,537]],
+        "next_gen_mcas_ela_scaled": [[2015,5,15,536]],
+        "mcas_series_math_scaled": [[2015,5,15,225]],
+        "mcas_series_ela_scaled": [[2015,5,15,225]]
+      }
+    };
+    const el = testRender(props);
+    expect(testingTabTextLines(el)).toEqual([
+      'Testing',
+      'M',
+      'ELA and Math MCAS',
+      '9 months ago / 2 years ago'
+    ]);
+  });
+
+  it('falls back to old MCAS when no next gen', () => {
+    const aladdinProps = testPropsForAladdinMouse();
+    const props = {
+      ...aladdinProps,
+      chartData: {
+        ...aladdinProps.chartData,
+        "next_gen_mcas_mathematics_scaled": [],
+        "next_gen_mcas_ela_scaled": [],
+        
+        "mcas_series_math_scaled": [[2015,5,15,225]],
+        "mcas_series_ela_scaled": [[2015,5,15,225]]
+      }
+    };
+    const el = testRender(props);
+    expect(testingTabTextLines(el)).toEqual([
+      'Testing',
+      'NI',
+      'ELA and Math MCAS',
+      '9 months ago'
+    ]);
   });
 });
