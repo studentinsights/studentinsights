@@ -89,12 +89,10 @@ describe('props impacted restricted notes', () => {
   });
 
   it('for my notes page', () => {
-    const el = testRender(testPropsForRestrictedNote({
-      showRestrictedNoteContent: true
-    }));
-    expect(el.innerHTML).toContain('RESTRICTED-this-is-the-note-text');
-    expect(el.innerHTML).toContain('https://www.example.com/');
-    expect(el.innerHTML).not.toContain('marked this note as restricted');
+    const el = testRender(testPropsForRestrictedNote());
+    expect(el.innerHTML).not.toContain('RESTRICTED-this-is-the-note-text');
+    expect(el.innerHTML).not.toContain('https://www.example.com/');
+    expect(el.innerHTML).toContain('marked this note as restricted');
   });
 
   it('for restricted notes page', () => {

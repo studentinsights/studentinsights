@@ -3,40 +3,11 @@ import React from 'react';
 import NotesList from '../student_profile/NotesList';
 
 
-const styles = {
-  button: {
-    marginTop: '10px',
-    display: 'inline'
-  },
-  feed: {
-    margin: 'auto 10%'
-  },
-  footer: {
-    margin: '5% 41%'
-  },
-  header: {
-    margin: '2.5% 5%'
-  },
-  subTitle: {
-    fontSize: '18px',
-    marginTop: '5px'
-  },
-  title: {
-    fontSize: '28px',
-    fontWeight: 'bold',
-    color: '#155094'
-  },
-};
-
-class NotesFeedPage extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+export default class NotesFeedPage extends React.Component {
   render() {
+    const {eventNotes, educatorsIndex, canUserAccessRestrictedNotes} = this.props;
     const feed = {
-      event_notes: this.props.eventNotes,
+      event_notes: eventNotes,
       deprecated: {
         interventions: []
       },
@@ -47,19 +18,19 @@ class NotesFeedPage extends React.Component {
     };
 
     return (
-      <div className="wrapper">
+      <div className="NotesFeedPage" style={styles.root}>
         <div className="header" style={styles.header}>
           <div className="title" style={styles.title}>
             My Notes
           </div>
-          <p style={styles.subTitle}> Past {this.props.eventNotes.length} notes.</p>
+          <p style={styles.subTitle}> Past {eventNotes.length} notes.</p>
         </div>
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
             <NotesList
               includeStudentPanel={true}
-              showRestrictedNoteContent={true}
-              educatorsIndex={this.props.educatorsIndex}
+              canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
+              educatorsIndex={educatorsIndex}
               feed={feed} />
           </div>
         </div>
@@ -83,13 +54,39 @@ class NotesFeedPage extends React.Component {
     }
   }
 }
-
-
 NotesFeedPage.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClickLoadMoreNotes: PropTypes.func.isRequired,
-  totalNotesCount: PropTypes.number.isRequired
+  totalNotesCount: PropTypes.number.isRequired,
+  canUserAccessRestrictedNotes: PropTypes.bool.isRequired
 };
 
-export default NotesFeedPage;
+
+const styles = {
+  root: {
+    fontSize: 14
+  },
+  button: {
+    marginTop: '10px',
+    display: 'inline'
+  },
+  feed: {
+    margin: 'auto 10%'
+  },
+  footer: {
+    margin: '5% 41%'
+  },
+  header: {
+    margin: '2.5% 5%'
+  },
+  subTitle: {
+    fontSize: '18px',
+    marginTop: '5px'
+  },
+  title: {
+    fontSize: '28px',
+    fontWeight: 'bold',
+    color: '#155094'
+  },
+};

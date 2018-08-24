@@ -9,36 +9,14 @@ class Api {
     }
   }
 
-  saveTransitionNote(studentId, noteParams) {
-    return this._post('/students/' + studentId + '/update_transition_note', {
-      text: noteParams.text,
-      is_restricted: noteParams.is_restricted,
-    });
-  }
-
-  deleteEventNoteAttachment(id) {
-    const url = '/event_note_attachments/' + id;
-    return this._delete(url);
-  }
-
   _createNote(studentId, eventNoteParams) {
-    return this._post('/students/' + studentId + '/event_notes.json', {
+    return this._post('/api/event_notes', {
       event_note: {
         event_note_type_id: eventNoteParams.eventNoteTypeId,
         text: eventNoteParams.text,
         student_id: studentId,
-        is_restricted: eventNoteParams.is_restricted || false,
+        is_restricted: eventNoteParams.isRestricted || false,
         event_note_attachments_attributes: eventNoteParams.eventNoteAttachments
-      }
-    });
-  }
-
-  _createTransitionNote(studentId, noteParams) {
-    return this._post('/students/' + studentId + '/transition_notes.json', {
-      transition_note: {
-        text: noteParams.text,
-        student_id: studentId,
-        is_restricted: noteParams.is_restricted || false,
       }
     });
   }
@@ -46,10 +24,22 @@ class Api {
   _updateNote(studentId, eventNoteParams) {
     const id = eventNoteParams.id;
 
-    return this._put('/students/' + studentId + '/event_notes/' + id + '.json', {
+    return this._patch(`/api/event_notes/${id}`, {
       event_note: {
         text: eventNoteParams.text
       }
+    });
+  }
+
+  deleteEventNoteAttachment(eventNoteAttachmentId) {
+    const url = `/event_notes/attachment/${eventNoteAttachmentId}`;
+    return this._delete(url);
+  }
+
+  saveTransitionNote(studentId, noteParams) {
+    return this._post('/students/' + studentId + '/update_transition_note', {
+      text: noteParams.text,
+      is_restricted: noteParams.is_restricted,
     });
   }
 
@@ -83,7 +73,7 @@ class Api {
     });
   }
 
-  _put(url, body) {
+  _patch(url, body) {
     return $.ajax({
       url: url,
       method: 'PATCH',

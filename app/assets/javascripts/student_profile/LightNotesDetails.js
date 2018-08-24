@@ -49,7 +49,7 @@ export default class LightNotesDetails extends React.Component {
   }
 
   render() {
-    const { student, title } = this.props;
+    const {student, title, currentEducator} = this.props;
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
@@ -66,6 +66,7 @@ export default class LightNotesDetails extends React.Component {
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             feed={this.props.feed}
+            canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
             educatorsIndex={this.props.educatorsIndex}
             onSaveNote={this.onClickSaveNotes}
             onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
@@ -75,20 +76,31 @@ export default class LightNotesDetails extends React.Component {
   }
 
   renderTakeNotesDialog() {
+    const {
+      currentEducator,
+      noteInProgressText,
+      noteInProgressType,
+      noteInProgressAttachmentUrls,
+      actions,
+      requests
+    } = this.props;
+
     return (
       <TakeNotes
         // TODO(kr) thread through
         nowMoment={moment.utc()}
-        currentEducator={this.props.currentEducator}
+        currentEducator={currentEducator}
         onSave={this.onClickSaveNotes}
         onCancel={this.onCancelNotes}
-        requestState={this.props.requests.saveNote}
-        noteInProgressText={this.props.noteInProgressText}
-        noteInProgressType={this.props.noteInProgressType}
-        noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
-        onClickNoteType={this.props.actions.onClickNoteType}
-        onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
-        onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
+        requestState={requests.saveNote}
+        noteInProgressText={noteInProgressText}
+        noteInProgressType={noteInProgressType}
+        noteInProgressAttachmentUrls={noteInProgressAttachmentUrls}
+        onClickNoteType={actions.onClickNoteType}
+        onChangeNoteInProgressText={actions.onChangeNoteInProgressText}
+        onChangeAttachmentUrl={actions.onChangeAttachmentUrl}
+        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
+      />
     );
   }
 
@@ -107,7 +119,9 @@ export default class LightNotesDetails extends React.Component {
 LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  currentEducator: PropTypes.shape({
+    can_view_restricted_notes: PropTypes.bool.isRequired
+  }).isRequired,
   actions: PropTypes.shape({
     onClickSaveNotes: PropTypes.func.isRequired,
     onEventNoteAttachmentDeleted: PropTypes.func,
