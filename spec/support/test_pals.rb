@@ -181,6 +181,7 @@ class TestPals
       full_name: "Counselor, Les",
       local_id: '551',
       school: @west,
+      can_view_restricted_notes: true,
       schoolwide_access: true
     )
     EducatorLabel.create!(

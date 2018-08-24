@@ -6,18 +6,17 @@ class ProfileController < ApplicationController
   def json
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
-    can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
 
     render json: {
       current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
-      feed: student_feed(student, restricted_notes: false),     # Notes, services
+      feed: student_feed(student),
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.dibels_results.select(:id, :date_taken, :benchmark),
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      transition_notes: (can_see_transition_notes ? student.transition_notes : []),
+      transition_notes: student.transition_notes,
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
@@ -59,12 +58,11 @@ class ProfileController < ApplicationController
     student.sections_with_grades.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
   end
 
-  def student_feed(student, restricted_notes: false)
+  def student_feed(student)
     {
       event_notes: student.event_notes
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
-      transition_notes: student.transition_notes
-        .select {|note| note.is_restricted == restricted_notes},
+      transition_notes: student.transition_notes,
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }

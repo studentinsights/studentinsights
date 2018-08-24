@@ -49,6 +49,8 @@ class AuthorizedDispatcher
       check_value(model, @authorizer.is_authorized_for_student?(model))
     elsif model.class == EventNote
       check_value(model, @authorizer.is_authorized_for_note?(model))
+    elsif model.class == TransitionNote
+      check_value(model, @authorizer.is_authorized_for_note?(model))
     else
       unchecked_value(model)
     end
