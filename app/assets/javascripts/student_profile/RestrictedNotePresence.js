@@ -20,8 +20,8 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   fetchRestrictedContent() {
-    const {eventNoteId} = this.props;
-    return apiFetchJson(`/api/event_notes/${eventNoteId}/restricted_note_json`);
+    const {urlForRestrictedContentText} = this.props;
+    return apiFetchJson(urlForRestrictedContentText);
   }
 
   onViewClicked(e) {
@@ -82,7 +82,7 @@ export default class RestrictedNotePresence extends React.Component {
   }
 }
 RestrictedNotePresence.propTypes = {
-  eventNoteId: PropTypes.number.isRequired,
+  urlForRestrictedContentText: PropTypes.string.isRequired,
   studentFirstName: PropTypes.string,
   educatorName: PropTypes.string,
   allowViewing: PropTypes.bool

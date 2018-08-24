@@ -95,6 +95,8 @@ export default class NotesList extends React.Component {
   }
 
   renderTransitionNote(transitionNote) {
+    const {showRestrictedNoteContent, canUserAccessRestrictedNotes} = this.props;
+    const isRedacted = transitionNote.is_restricted && !showRestrictedNoteContent;
     return (
       <NoteCard
         key={['transition_note', transitionNote.id].join()}
@@ -103,6 +105,8 @@ export default class NotesList extends React.Component {
         educatorId={transitionNote.educator_id}
         text={parseAndReRender(transitionNote.text)}
         educatorsIndex={this.props.educatorsIndex}
+        showRestrictedNoteRedaction={isRedacted}
+        canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
         attachments={[]} />
     );
   }
