@@ -538,7 +538,7 @@ function testingColumnTexts(nowMoment, chartData) {
     missingMcasSummary()
   );
   const math = (
-    latestMcasScoreSummary(chartData.next_gen_mcas_math_scaled, shortLabelFromNextGenMcasScore, nowMoment) ||
+    latestMcasScoreSummary(chartData.next_gen_mcas_mathematics_scaled, shortLabelFromNextGenMcasScore, nowMoment) ||
     latestMcasScoreSummary(chartData.mcas_series_math_scaled, shortLabelFromOldMcasScore, nowMoment) ||
     missingMcasSummary()
   );
