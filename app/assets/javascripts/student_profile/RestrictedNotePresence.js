@@ -50,7 +50,7 @@ export default class RestrictedNotePresence extends React.Component {
       <div>
         <NoteText
           style={styles.restrictedNoteRedaction}
-          text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorName || 'the author'} marked this note as restricted.  Consider whether you really need to know before asking more.`}
+          text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorName || 'the author'} marked this note as restricted.`}
         />
         {allowViewing && 
           <a
@@ -96,7 +96,7 @@ const styles = {
     color: '#999'
   },
   showLink: {
-    display: 'block',
+    display: 'inline-block',
     color: '#999',
     cursor: 'pointer',
     paddingTop: 5

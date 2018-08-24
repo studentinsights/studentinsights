@@ -59,6 +59,7 @@ class NotesDetails extends React.Component {
       feed,
       educatorsIndex,
       actions,
+      showRestrictedNoteContent,
       allowDirectEditingOfRestrictedNoteText
     } = this.props;
 
@@ -76,6 +77,7 @@ class NotesDetails extends React.Component {
         <NotesList
           feed={feed}
           educatorsIndex={educatorsIndex}
+          showRestrictedNoteContent={showRestrictedNoteContent}
           allowDirectEditingOfRestrictedNoteText={allowDirectEditingOfRestrictedNoteText}
           onSaveNote={this.onClickSaveNotes}
           onEventNoteAttachmentDeleted={actions.onDeleteEventNoteAttachment} />
@@ -158,6 +160,7 @@ NotesDetails.propTypes = {
   ).isRequired,
 
   allowDirectEditingOfRestrictedNoteText: PropTypes.bool,
+  showRestrictedNoteContent: PropTypes.bool,
   showRestrictedNotesButton: PropTypes.bool,
   title: PropTypes.string.isRequired,
   helpContent: PropTypes.node.isRequired,

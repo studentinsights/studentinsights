@@ -2,7 +2,12 @@
 
 exports[`snapshots view 1`] = `
 <div
-  className="wrapper"
+  className="NotesFeedPage"
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
 >
   <div
     className="header"
@@ -167,20 +172,27 @@ exports[`snapshots view 1`] = `
               </span>
             </div>
             <div
-              style={
-                Object {
-                  "border": "1px solid transparent",
-                  "fontFamily": "'Open Sans', sans-serif",
-                  "fontSize": 14,
-                  "marginTop": 5,
-                  "overflowX": "hidden",
-                  "padding": 0,
-                  "whiteSpace": "pre-wrap",
-                  "wordBreak": "break-word",
-                }
-              }
+              className="RestrictedNotePresence"
             >
-              say again please
+              <div>
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "color": "#999",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
+                    }
+                  }
+                >
+                  To respect Elsa's privacy, Uri marked this note as restricted.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -300,20 +312,27 @@ exports[`snapshots view 1`] = `
               </span>
             </div>
             <div
-              style={
-                Object {
-                  "border": "1px solid transparent",
-                  "fontFamily": "'Open Sans', sans-serif",
-                  "fontSize": 14,
-                  "marginTop": 5,
-                  "overflowX": "hidden",
-                  "padding": 0,
-                  "whiteSpace": "pre-wrap",
-                  "wordBreak": "break-word",
-                }
-              }
+              className="RestrictedNotePresence"
             >
-              okay
+              <div>
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "color": "#999",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
+                    }
+                  }
+                >
+                  To respect Elsa's privacy, Uri marked this note as restricted.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -433,20 +452,27 @@ exports[`snapshots view 1`] = `
               </span>
             </div>
             <div
-              style={
-                Object {
-                  "border": "1px solid transparent",
-                  "fontFamily": "'Open Sans', sans-serif",
-                  "fontSize": 14,
-                  "marginTop": 5,
-                  "overflowX": "hidden",
-                  "padding": 0,
-                  "whiteSpace": "pre-wrap",
-                  "wordBreak": "break-word",
-                }
-              }
+              className="RestrictedNotePresence"
             >
-              does it let me record restricted notes?
+              <div>
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "color": "#999",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
+                    }
+                  }
+                >
+                  To respect Elsa's privacy, Uri marked this note as restricted.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -570,20 +596,27 @@ exports[`snapshots view 1`] = `
               </span>
             </div>
             <div
-              style={
-                Object {
-                  "border": "1px solid transparent",
-                  "fontFamily": "'Open Sans', sans-serif",
-                  "fontSize": 14,
-                  "marginTop": 5,
-                  "overflowX": "hidden",
-                  "padding": 0,
-                  "whiteSpace": "pre-wrap",
-                  "wordBreak": "break-word",
-                }
-              }
+              className="RestrictedNotePresence"
             >
-              this is restricted! okay
+              <div>
+                <div
+                  style={
+                    Object {
+                      "border": "1px solid transparent",
+                      "color": "#999",
+                      "fontFamily": "'Open Sans', sans-serif",
+                      "fontSize": 14,
+                      "marginTop": 5,
+                      "overflowX": "hidden",
+                      "padding": 0,
+                      "whiteSpace": "pre-wrap",
+                      "wordBreak": "break-word",
+                    }
+                  }
+                >
+                  To respect Donald's privacy, Uri marked this note as restricted.
+                </div>
+              </div>
             </div>
           </div>
         </div>

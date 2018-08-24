@@ -130,6 +130,7 @@ class RestrictedNotesPageContainer extends React.Component {
               'noteInProgressType',
               'noteInProgressAttachmentUrls'
             ), {
+              showRestrictedNoteContent: true,
               allowDirectEditingOfRestrictedNoteText: true,
               nowMomentFn: this.props.nowMomentFn,
               actions: {

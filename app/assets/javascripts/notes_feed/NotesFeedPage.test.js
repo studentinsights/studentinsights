@@ -10,6 +10,7 @@ export function testProps(props = {}) {
     educatorsIndex,
     totalNotesCount,
     eventNotes: notes,
+    canUserAccessRestrictedNotes: false,
     onClickLoadMoreNotes: jest.fn(),
     ...props
   };
