@@ -32,7 +32,7 @@ function headerTexts(el) {
 
 function sstAndMtssDateTexts(el) {
   return $(el).find('table tbody tr').toArray().map(el => {
-    return $(el).find('td').toArray().slice(0, 3).map(el => $(el).text());
+    return $(el).find('td').toArray().slice(0, 4).map(el => $(el).text());
   });
 }
 
