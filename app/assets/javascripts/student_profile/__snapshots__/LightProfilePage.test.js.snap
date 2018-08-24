@@ -13275,22 +13275,24 @@ exports[`snapshots works for pluto 1`] = `
               <div
                 className="RestrictedNotePresence"
               >
-                <div
-                  style={
-                    Object {
-                      "border": "1px solid transparent",
-                      "color": "#999",
-                      "fontFamily": "'Open Sans', sans-serif",
-                      "fontSize": 14,
-                      "marginTop": 5,
-                      "overflowX": "hidden",
-                      "padding": 0,
-                      "whiteSpace": "pre-wrap",
-                      "wordBreak": "break-word",
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "border": "1px solid transparent",
+                        "color": "#999",
+                        "fontFamily": "'Open Sans', sans-serif",
+                        "fontSize": 14,
+                        "marginTop": 5,
+                        "overflowX": "hidden",
+                        "padding": 0,
+                        "whiteSpace": "pre-wrap",
+                        "wordBreak": "break-word",
+                      }
                     }
-                  }
-                >
-                  To respect their privacy, Rich marked this note as restricted.  Consider whether you really need to know before asking more.
+                  >
+                    To respect their privacy, Rich marked this note as restricted.  Consider whether you really need to know before asking more.
+                  </div>
                 </div>
               </div>
             </div>

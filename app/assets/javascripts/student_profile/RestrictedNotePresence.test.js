@@ -6,7 +6,7 @@ import fetchMock from 'fetch-mock/es5/client';
 import RestrictedNotePresence from './RestrictedNotePresence';
 
 
-function testProps(props = {}) {
+export function testProps(props = {}) {
   return {
     eventNoteId: 42,
     studentFirstName: 'Cassandra',
@@ -16,7 +16,7 @@ function testProps(props = {}) {
   };
 }
 
-function mockFetch() {
+export function mockFetch() {
   fetchMock.restore();
   fetchMock.get('express:/api/event_notes/:id/restricted_note_json', {
     text: 'RESTRICTED-text',
@@ -41,7 +41,7 @@ it('allows viewing', done => {
   const el = document.createElement('div');
   ReactDOM.render(testEl(props), el);
   expect(el.innerHTML).toContain('show restricted note');
-  
+
   ReactTestUtils.Simulate.click($(el).find('a').get(0));
   setTimeout(() => {
     expect(el.innerHTML).not.toContain('show restricted note');
