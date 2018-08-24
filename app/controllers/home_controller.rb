@@ -39,8 +39,11 @@ class HomeController < ApplicationController
     educator = current_educator_or_doppleganger(params[:educator_id])
     time_now = time_now_or_param(params[:time_now])
     limit = params[:limit].to_i
-    time_threshold = time_now - 45.days
+    time_threshold = InsightStudentsWithHighAbsences.time_threshold_capped_to_school_year(time_now, 45.days)
     absences_threshold = 4
+
+    puts 'time_threshold'
+    puts time_threshold
 
     insight = InsightStudentsWithHighAbsences.new(educator)
     students_with_high_absences_json = insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)

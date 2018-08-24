@@ -1,4 +1,13 @@
 class InsightStudentsWithHighAbsences
+  def self.time_threshold_capped_to_school_year(time_now, days_back)
+    time_threshold = time_now - days_back
+    if SchoolYear.to_school_year(time_threshold) < SchoolYear.to_school_year(time_now)
+      SchoolYear.first_day_of_school_for_time(time_now)
+    else
+      time_threshold
+    end
+  end
+
   def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(@educator)
