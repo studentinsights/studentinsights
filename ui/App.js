@@ -26,6 +26,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
 import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
@@ -80,6 +81,7 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
+        <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
         <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
@@ -114,6 +116,12 @@ export default class App extends React.Component {
   renderMyStudentsPage(routeProps) {
     this.trackVisit(routeProps, 'MY_STUDENTS_PAGE');
     return <MyStudentsPage />;
+  }
+
+  renderMySectionsPage(routeProps) {
+    const {currentEducator} = this.props;
+    this.trackVisit(routeProps, 'MY_SECTIONS_PAGE');
+    return <MySectionsPage currentEducatorId={currentEducator.id} />;
   }
 
   renderStudentProfilePage(routeProps) {
