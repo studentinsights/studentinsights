@@ -112,7 +112,7 @@ export default class HomeroomTable extends React.Component {
     return(<td colSpan="1"></td>);
   }
 
-  maybeRenderStudentPhoto() {
+  maybeRenderStudentPhoto(row) {
     const showStudentPhotos = this.showStudentPhotos();
     if (!showStudentPhotos) return null;
 
@@ -258,7 +258,7 @@ export default class HomeroomTable extends React.Component {
           key={id}
           style={style}>
         <td className="name">{fullName}</td>
-        {this.maybeRenderStudentPhoto()}
+        {this.maybeRenderStudentPhoto(row)}
         {this.eventNoteTypeIds().map(eventNoteTypeId => {
           const key = `latest_note_${eventNoteTypeId}_date_text`;
           return this.renderDataCell('supports', row[key], {key});
