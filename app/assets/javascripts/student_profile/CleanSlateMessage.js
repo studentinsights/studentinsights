@@ -20,7 +20,7 @@ export default class CleanSlateMessage extends React.Component {
     const {canViewFullHistory, xAmountOfDataText} = this.props;
 
     return (
-      <div style={styles.cleanSlateMessage}>
+      <div className="CleanSlateMessage" style={styles.cleanSlateMessage}>
         <div style={{fontWeight: 'bold'}}>A note about student privacy</div>
           <span>To respect student privacy, this page only shows {xAmountOfDataText} by default.  </span>
           {canViewFullHistory

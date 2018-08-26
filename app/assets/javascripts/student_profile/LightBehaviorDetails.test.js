@@ -72,7 +72,7 @@ it('always hides older data by default', () => {
 it('allows showing older data when access', () => {
   const el = testRender(testProps({canViewFullHistory: true}));
   expect($(el).text()).toContain('show full case history');
-  ReactTestUtils.Simulate.click($(el).find('.LightBehaviorDetails-show-history-link').get(0));
+  ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage a').get(0));
   expect($(el).text()).toContain('hide full case history');
   expect($(el).html()).toContain('Something else happened a long time ago...');
 });
