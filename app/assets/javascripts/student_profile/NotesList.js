@@ -6,28 +6,61 @@ import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
+import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import NoteCard from './NoteCard';
 import {parseAndReRender} from './lightTransitionNotes';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
+import CleanSlateMessage from './CleanSlateMessage';
+
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
 interventions, transition notes).
 */
 export default class NotesList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isViewingAllNotes: false
+    };
+    this.onToggleCaseHistory = this.onToggleCaseHistory.bind(this);
+  }
+
+  filteredNotes(mergedNotes) {
+    const {isViewingAllNotes} = this.state;
+    if (isViewingAllNotes) return mergedNotes;
+
+    const {nowFn} = this.context;
+    const {defaultSchoolYearsBack} = this.props;
+    const nowMoment = nowFn();
+    const oldestSchoolYearToIncluce = toSchoolYear(nowMoment) - defaultSchoolYearsBack.number;
+    const schoolYearsBackCutoffMoment = firstDayOfSchool(oldestSchoolYearToIncluce);
+    return mergedNotes.filter(mergedNote => {
+      return toMomentFromRailsDate(mergedNote.sort_timestamp).isAfter(schoolYearsBackCutoffMoment);
+    });
+  }
+
+  onToggleCaseHistory() {
+    const {isViewingAllNotes} = this.state;
+    this.setState({isViewingAllNotes: !isViewingAllNotes});
+  }
+
   render() {
-    const mergedNotes = FeedHelpers.mergedNotes(this.props.feed);
+    const {feed} = this.props;
+    const filteredNotes = this.filteredNotes(FeedHelpers.mergedNotes(feed));
     return (
       <div className="NotesList">
-        {(mergedNotes.length === 0)
+        {(filteredNotes.length === 0)
           ? <div style={styles.noItems}>No notes</div>
-          : mergedNotes.map(mergedNote => {
+          : filteredNotes.map(mergedNote => {
             switch (mergedNote.type) {
             case 'event_notes': return this.renderEventNote(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             }
           })}
+        {this.renderCleanSlateMessage()}
       </div>
     );
   }
@@ -117,6 +150,19 @@ export default class NotesList extends React.Component {
         attachments={[]} />
     );
   }
+
+  renderCleanSlateMessage() {
+    const {defaultSchoolYearsBack} = this.props;
+    const {isViewingAllNotes} = this.state;
+    return (
+      <CleanSlateMessage
+        canViewFullHistory={true}
+        isViewingFullHistory={isViewingAllNotes}
+        onToggleVisibility={this.onToggleCaseHistory}
+        xAmountOfDataText={`${defaultSchoolYearsBack.textYears} of data`}
+      />
+    );
+  }
 }
 NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
@@ -127,7 +173,20 @@ NotesList.propTypes = {
   allowViewingRestrictedNotes: PropTypes.bool,
   canUserAccessRestrictedNotes: PropTypes.bool,
   onSaveNote: PropTypes.func,
-  onEventNoteAttachmentDeleted: PropTypes.func
+  onEventNoteAttachmentDeleted: PropTypes.func,
+  defaultSchoolYearsBack: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    textYears: PropTypes.string.isRequired
+  })
+};
+NotesList.defaultProps = {
+  defaultSchoolYearsBack: {
+    number: 1,
+    textYears: 'one year'
+  }
+};
+NotesList.contextTypes = {
+  nowFn: PropTypes.func.isRequired
 };
 
 const styles = {
