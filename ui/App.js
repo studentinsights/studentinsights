@@ -18,7 +18,6 @@ import SectionPage from '../app/assets/javascripts/section/SectionPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
-import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
@@ -35,10 +34,6 @@ import LoginActivityPageContainer from '../app/assets/javascripts/login_activity
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 export default class App extends React.Component {
-  componentDidMount() {
-    measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
-  }
-
   // Read which educator Rails wrote inline in the HTML page,
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
