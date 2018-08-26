@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
   # sections
   get '/api/sections/:id/section_json' => 'sections#section_json'
+  get '/api/educators/my_sections_json' => 'sections#my_sections_json'
 
   # student profile
   get '/api/students/:id/profile_json' => 'profile#json'
@@ -86,6 +87,7 @@ Rails.application.routes.draw do
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/my_students'=> 'ui#ui'
+  get '/educators/my_sections'=> 'ui#ui'
   get '/educators/notes_feed'=> 'educators#notes_feed'
   get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
   get '/educators/reset'=> 'educators#reset_session_clock'

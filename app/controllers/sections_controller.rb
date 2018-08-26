@@ -8,6 +8,12 @@ class SectionsController < ApplicationController
     @educator_courses = Course.all.order(:course_number)
   end
 
+  def my_sections_json
+    sections = authorized_sections { current_educator.sections }
+    json = sections.as_json
+    render json: json
+  end
+
   def section_json
     current_section = authorized_section(params[:id])
     students = authorized { current_section.students } # extra layer while transitioning K8 to use sections
@@ -26,6 +32,13 @@ class SectionsController < ApplicationController
   private
   def ensure_feature_enabled!
     raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.high_school_enabled?
+  end
+
+  def authorized_sections(&block)
+    return_value = block.call
+    return_value.select do |section|
+      authorizer.is_authorized_for_section?(section)
+    end
   end
 
   def authorized_section(section_id)
