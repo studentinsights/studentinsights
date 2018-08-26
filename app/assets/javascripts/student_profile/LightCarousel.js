@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LightShareNewInsight from './LightShareNewInsight';
+import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
 
 
 // A component that rotates through the `quotes` passed.
@@ -33,8 +35,8 @@ export default class LightCarousel extends React.Component {
 
   onIntervalTicked() {
     const {index} = this.state;
-    const {quotes} = this.props;
-    const nextIndex = (index + 1 >= quotes.length) ? 0 : index + 1;
+    const {insights} = this.props;
+    const nextIndex = (index + 1 >= insights.length) ? 0 : index + 1;
     this.setState({ index: nextIndex });
   }
 
@@ -44,39 +46,51 @@ export default class LightCarousel extends React.Component {
   }
 
   render() {
-    const {style, quotes} = this.props;
+    const {style, insights, studentFirstName} = this.props;
     const {index} = this.state;
-    const item = quotes[index];
-    const {quote, tagline, source, withoutQuotes} = item;
-    const quoted = (withoutQuotes) ? quote : `“${quote}”`;
+
+    const buttonEl = (insights.length > 1)
+      ? <div style={styles.link} onClick={this.onNext}>more</div>
+      : null;
+
     return (
-      <div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'space-between', ...style}}>
-        <div style={{flex: 1, margin: 20, marginBottom: 0, marginTop: 15, display: 'flex'}}>
-          <div style={{flex: 1, fontSize: 20, overflowY: 'hidden'}}>{quoted}</div>
-        </div>
-        <div style={{
-          fontSize: 12,
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          margin: 20,
-          marginTop: 10,
-          marginBottom: 15
-        }}>
-          <div>
-            <div style={{fontSize: 12, color: '#333'}}>
-              <div>{tagline}</div>
-              <div>{source}</div>
-            </div>
-          </div>
-          {quotes.length > 1 && <div style={{color: '#ccc', cursor: 'pointer'}} onClick={this.onNext}>more</div>}
-        </div>
+      <div className="LightCarousel" style={{...styles.root, ...style}}>
+        {(insights.length > 0)
+          ? this.renderInsightByType(insights[index], {buttonEl})
+          : <LightShareNewInsight studentFirstName={studentFirstName} />
+        }
       </div>
     );
   }
+
+  renderInsightByType(insight, options = {}) {
+    const {educatorsIndex} = this.props;
+    const {insightType, insightPayload} = insight;
+    if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) {
+      return (
+        <LightInsightTransitionNoteStrength
+          insightPayload={insightPayload}
+          educatorsIndex={educatorsIndex}
+          insightStyle={{fontSize: 12}}
+        />
+      );
+    }
+
+  }
 }
 LightCarousel.propTypes = {
-  quotes: PropTypes.array.isRequired,
-  style: PropTypes.object
+  insights: PropTypes.array.isRequired,
+  educatorsIndex: PropTypes.object.isRequired,
+  studentFirstName: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  insightStyle: PropTypes.object,
+};
+
+const styles = {
+  root: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  }
 };

@@ -13,7 +13,7 @@ import HelpBubble, {
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
-import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
+import {insightsFromTransitionNotes} from './LightInsightTransitionNoteStrength';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import AccessPanel from './AccessPanel';
 
@@ -204,19 +204,19 @@ export default class LightProfileHeader extends React.Component {
 
   renderGlance() {
     const {transitionNotes, educatorsIndex, student} = this.props;
-    const style = {fontSize: 12};
-    const useRealTransitionNotes = window.location.search.indexOf('sample') === -1;
-    const quotes = (useRealTransitionNotes)
-      ? quotesFrom(transitionNotes, educatorsIndex, style)
-      : sampleQuotes(style);
-    const quotesOrUpsell = (quotes.length === 0) ? upsellQuotes(student, style) : quotes;
+    const insights = insightsFromTransitionNotes(transitionNotes);
     return (
       <div style={{
         flex: 1,
         display: 'flex',
         background: '#eee'
       }}>
-        <LightCarousel quotes={quotesOrUpsell} />
+        <LightCarousel
+          insights={insights}
+          studentFirstName={student.first_name}
+          educatorsIndex={educatorsIndex}
+          insightStyle={{fontSize: 12}} 
+        />
       </div>
     );
   }
