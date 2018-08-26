@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-addons-test-utils';
 import _ from 'lodash';
-import {studentProfile, feedForTestingNotes} from './fixtures/fixtures';
 import moment from 'moment';
+import {studentProfile, feedForTestingNotes} from './fixtures/fixtures';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import NotesList from './NotesList';
 
 
@@ -33,9 +35,9 @@ function testPropsForRestrictedNote(props = {}) {
         "educator_id": 1,
         "event_note_type_id": 301,
         "text": "RESTRICTED-this-is-the-note-text",
-        "recorded_at": "2016-02-26T22:20:55.398Z",
-        "created_at": "2016-02-26T22:20:55.416Z",
-        "updated_at": "2016-02-26T22:20:55.416Z",
+        "recorded_at": "2018-02-26T22:20:55.398Z",
+        "created_at": "2018-02-26T22:20:55.416Z",
+        "updated_at": "2018-02-26T22:20:55.416Z",
         "is_restricted": true,
         "event_note_revisions_count": 0,
         "attachments": [
@@ -50,7 +52,7 @@ function testPropsForRestrictedNote(props = {}) {
 
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(<NotesList {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<NotesList {...props} />), el);
   return el;
 }
 
@@ -60,8 +62,13 @@ function readNoteTimestamps(el) {
   });
 }
 
-it('renders everything on the happy path', () => {
-  const el = testRender(testProps());
+it('with full historical data, renders everything on the happy path', () => {
+  const el = testRender(testProps({
+    defaultSchoolYearsBack: {
+      number: 20,
+      textYears: 'twenty years'
+    }
+  }));
 
   const noteTimestamps = readNoteTimestamps(el);
   expect(_.head(noteTimestamps)).toBeGreaterThan(_.last(noteTimestamps));
@@ -80,7 +87,20 @@ it('renders everything on the happy path', () => {
   expect(el.innerHTML).toContain("(remove)");
 });
 
-describe('props impacted restricted notes', () => {
+it('limits visible notes by default', () => {
+  const el = testRender(testProps());
+  expect($(el).find('.NoteCard').length).toEqual(1);
+  expect($(el).find('.CleanSlateMessage').length).toEqual(1);
+});
+
+it('allows anyone to click and see older notes', () => {
+  const el = testRender(testProps());
+  expect($(el).find('.NoteCard').length).toEqual(1);
+  ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage a').get(0));
+  expect($(el).find('.NoteCard').length).toEqual(5);
+});
+
+describe('props impacting restricted notes', () => {
   it('by default', () => {
     const el = testRender(testPropsForRestrictedNote());
     expect(el.innerHTML).not.toContain('RESTRICTED-this-is-the-note-text');

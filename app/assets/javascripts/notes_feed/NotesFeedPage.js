@@ -29,6 +29,7 @@ export default class NotesFeedPage extends React.Component {
           <div className="notes-list">
             <NotesList
               includeStudentPanel={true}
+              forceShowingAllNotes={true}
               canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
               educatorsIndex={educatorsIndex}
               feed={feed} />

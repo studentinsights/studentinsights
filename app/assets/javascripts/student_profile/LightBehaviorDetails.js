@@ -5,6 +5,7 @@ import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import IncidentCard from '../components/IncidentCard';
 import DetailsSection from './DetailsSection';
 import ProfileBarChart, {servicePhaselines} from './ProfileBarChart';
+import CleanSlateMessage from './CleanSlateMessage';
 
 
 export default class LightBehaviorDetails extends React.Component {
@@ -60,8 +61,7 @@ export default class LightBehaviorDetails extends React.Component {
     return servicePhaselines(filteredPhaselines, serviceTypesIndex);
   }
 
-  onToggleCaseHistory(e) {
-    e.preventDefault();
+  onToggleCaseHistory() {
     const {isViewingFullHistory} = this.state;
     this.setState({isViewingFullHistory: !isViewingFullHistory});
   }
@@ -80,32 +80,14 @@ export default class LightBehaviorDetails extends React.Component {
 
   renderCleanSlateMessage() {
     const {canViewFullHistory} = this.props;
-    const {schoolYearsBack} = this.state;
-
+    const {schoolYearsBack, isViewingFullHistory} = this.state;
     return (
-      <div style={styles.cleanSlateMessage}>
-        <div style={{fontWeight: 'bold'}}>A note about student privacy</div>
-          <span>To respect student privacy, this page only shows {schoolYearsBack.textYears} of data by default.  </span>
-          {canViewFullHistory
-            ? this.renderCleanStateMessageForAdmin()
-            : <span>If you need to know more about the student's case history, talk with an administrator who will have access to this data.</span>
-          }
-      </div>
-    );
-  }
-
-  renderCleanStateMessageForAdmin() {
-    const {isViewingFullHistory} = this.state;
-
-    return (
-      <span>
-        <span>Before accessing older data, consider the balance between learning
-        from these records and giving students a chance to start each year with a
-        clean slate.</span>
-        <a className="LightBehaviorDetails-show-history-link" href="#" style={styles.showLink} onClick={this.onToggleCaseHistory}>
-          {isViewingFullHistory ? 'hide full case history' : 'show full case history'}
-        </a>
-      </span>
+      <CleanSlateMessage
+        canViewFullHistory={canViewFullHistory}
+        isViewingFullHistory={isViewingFullHistory}
+        onToggleVisibility={this.onToggleCaseHistory}
+        xAmountOfDataText={`${schoolYearsBack.textYears} of data`}
+      />
     );
   }
 
@@ -157,21 +139,4 @@ LightBehaviorDetails.propTypes = {
 };
 LightBehaviorDetails.contextTypes = {
   nowFn: PropTypes.func.isRequired
-};
-
-const styles = {
-  cleanSlateMessage: {
-    padding: 10,
-    paddingTop: 15,
-    paddingBottom: 0
-  },
-  showLink: {
-    display: 'inline-block',
-    paddingLeft: 5,
-    cursor: 'pointer',
-    color: '#999'
-  },
-  privacyForFullList: {
-    paddingTop: 20
-  }
 };
