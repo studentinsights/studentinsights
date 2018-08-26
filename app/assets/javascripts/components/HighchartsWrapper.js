@@ -6,7 +6,7 @@ import 'highcharts';
 // options as props, and it bridges calling into the library.
 
 export default class HighchartsWrapper extends React.Component {
-  componentDidMount(props, state) {
+  componentDidMount() {
     $(this.chartEl).highcharts(this.props);
   }
 
@@ -14,7 +14,7 @@ export default class HighchartsWrapper extends React.Component {
     $(this.chartEl).highcharts(newProps);
   }
 
-  componentWillUnmount(props, state) {
+  componentWillUnmount() {
     delete this.chartEl;
   }
 

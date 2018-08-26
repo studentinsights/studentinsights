@@ -21,9 +21,9 @@ class ProfileController < ApplicationController
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {
-        discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
-        tardies: student.tardies.order(occurred_at: :desc),
-        absences: student.absences.order(occurred_at: :desc)
+        discipline_incidents: filtered_events(student.discipline_incidents),
+        tardies: filtered_events(student.tardies),
+        absences: filtered_events(student.absences)
       }
     }
   end
@@ -71,5 +71,12 @@ class ProfileController < ApplicationController
         interventions: student.interventions.map { |intervention| DeprecatedInterventionSerializer.new(intervention).serialize_intervention }
       }
     }
+  end
+
+  def filtered_events(mixed_events, options = {})
+    time_now = options.fetch(:time_now, Time.now)
+    months_back = options.fetch(:months_back, 48)
+    cutoff_time = time_now - months_back.months
+    mixed_events.where('occurred_at >= ? ', cutoff_time).order(occurred_at: :desc)
   end
 end
