@@ -22,7 +22,7 @@ export default class CleanSlateMessage extends React.Component {
     return (
       <div className="CleanSlateMessage" style={styles.cleanSlateMessage}>
         <div style={{fontWeight: 'bold'}}>A note about student privacy</div>
-          <span>To respect student privacy, this page only shows {xAmountOfDataText} by default.  </span>
+          <span>To respect student privacy, this page only includes {xAmountOfDataText} by default.  </span>
           {canViewFullHistory
             ? this.renderCleanStateMessageForAdmin()
             : <span>If you need to know more about the student's case history, talk with an administrator who will have access to this data.</span>

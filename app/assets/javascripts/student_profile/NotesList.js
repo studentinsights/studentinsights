@@ -22,7 +22,7 @@ export default class NotesList extends React.Component {
     super(props);
 
     this.state = {
-      isViewingAllNotes: false
+      isViewingAllNotes: props.forceShowingAllNotes
     };
     this.onToggleCaseHistory = this.onToggleCaseHistory.bind(this);
   }
@@ -152,8 +152,10 @@ export default class NotesList extends React.Component {
   }
 
   renderCleanSlateMessage() {
-    const {defaultSchoolYearsBack} = this.props;
+    const {forceShowingAllNotes, defaultSchoolYearsBack} = this.props;
     const {isViewingAllNotes} = this.state;
+
+    if (forceShowingAllNotes) return null;
     return (
       <CleanSlateMessage
         canViewFullHistory={true}
@@ -174,12 +176,14 @@ NotesList.propTypes = {
   canUserAccessRestrictedNotes: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func,
+  forceShowingAllNotes: PropTypes.bool,
   defaultSchoolYearsBack: PropTypes.shape({
     number: PropTypes.number.isRequired,
     textYears: PropTypes.string.isRequired
   })
 };
 NotesList.defaultProps = {
+  forceShowingAllNotes: false,
   defaultSchoolYearsBack: {
     number: 1,
     textYears: 'one year'

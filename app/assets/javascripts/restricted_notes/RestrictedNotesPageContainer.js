@@ -117,7 +117,7 @@ class RestrictedNotesPageContainer extends React.Component {
 
   render() {
     return (
-      <div className="RestrictedNotesPageContainer">
+      <div className="RestrictedNotesPageContainer" style={{fontSize: 14}}>
         <div className="RestrictedNotesDetails" style={{display: 'flex', padding: 10}}>
           <NotesDetails
             {...merge(_.pick(this.state,

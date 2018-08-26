@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import NotesFeedPage from './NotesFeedPage';
 import {serializedData} from './NotesFeedPage.fixture';
 
@@ -19,12 +20,12 @@ export function testProps(props = {}) {
 it('renders empty case without crashing', () => {
   const props = testProps({ eventNotes: [], totalNotesCount: 0 });
   const el = document.createElement('div');
-  ReactDOM.render(<NotesFeedPage {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<NotesFeedPage {...props} />), el);
 });
 
 it('snapshots view', () => {
   const tree = renderer
-    .create(<NotesFeedPage {...testProps()} />)
+    .create(withDefaultNowContext(<NotesFeedPage {...testProps()} />))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
