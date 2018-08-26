@@ -374,10 +374,12 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderBehavior() {
+    const {currentEducator} = this.props;
     return (
       <LightBehaviorDetails
         className="LightProfilePage-behavior"
         disciplineIncidents={this.props.attendanceData.discipline_incidents}
+        canViewFullHistory={currentEducator.can_view_restricted_notes}
         activeServices={this.props.feed.services.active}
         serviceTypesIndex={this.props.serviceTypesIndex} />
     );
@@ -404,7 +406,8 @@ LightProfilePage.propTypes = {
   // context
   nowMomentFn: PropTypes.func.isRequired,
   currentEducator: PropTypes.shape({
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+    can_view_restricted_notes: PropTypes.bool.isRequired
   }).isRequired,
   districtKey: PropTypes.string.isRequired,
 
