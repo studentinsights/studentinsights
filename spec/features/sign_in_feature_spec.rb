@@ -7,7 +7,7 @@ describe 'educator sign in using Mock LDAP', type: :feature do
   context 'teacher signs in' do
     def expect_successful_sign_in_for(educator)
       sign_in_attempt(educator.email, 'demo-password')
-      expect(page).to have_content 'Search for student:'
+      expect(page).to have_content 'Search:'
     end
 
     it { expect_successful_sign_in_for(pals.healey_sarah_teacher) }

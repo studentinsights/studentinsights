@@ -102,9 +102,7 @@ export class MySectionsPageView extends React.Component {
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading>My sections</SectionHeading>
-        <div style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}>
-          {this.renderTable(sections)}
-        </div>
+        {this.renderTable(sections)}
       </div>
     );
   }
@@ -117,7 +115,7 @@ export class MySectionsPageView extends React.Component {
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
     return (
-      <AutoSizer style={{marginTop: 20}}>
+      <AutoSizer style={{marginLeft: 10, marginTop: 20}}>
         {({width, height}) => (
           <Table
             width={width}

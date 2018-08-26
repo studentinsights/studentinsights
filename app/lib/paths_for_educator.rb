@@ -26,7 +26,7 @@ class PathsForEducator
     end
 
     if @educator.school.present? && @educator.school.is_high_school? && @educator.sections.size > 0
-      links[:section] = url_helpers.section_path(@educator.default_section)
+      links[:section] = url_helpers.educators_my_sections_path
     end
 
     if @educator.homeroom.present? && !@educator.homeroom.school.is_high_school?

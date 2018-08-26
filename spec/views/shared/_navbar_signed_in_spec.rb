@@ -14,7 +14,7 @@ describe '_navbar_signed_in partial' do
   def expect_common_links(rendered)
     expect(rendered).to include('My notes')
     expect(rendered).to include('My students')
-    expect(rendered).to include('Search for student:')
+    expect(rendered).to include('Search:')
     expect(rendered).to include('Sign Out')
   end
 
@@ -25,7 +25,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).not_to include('Roster')
     expect(rendered).not_to include('Absences')
     expect(rendered).not_to include('Tardies')
-    expect(rendered).not_to include('Sections')
+    expect(rendered).not_to include('My sections')
     expect(rendered).not_to include('Homeroom')
     expect_common_links(rendered)
   end
@@ -37,7 +37,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).not_to include('Roster')
     expect(rendered).not_to include('Absences')
     expect(rendered).not_to include('Tardies')
-    expect(rendered).not_to include('Sections')
+    expect(rendered).not_to include('My sections')
     expect(rendered).to include('Homeroom')
     expect_common_links(rendered)
   end
@@ -49,7 +49,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).to include('Roster')
     expect(rendered).to include('Absences')
     expect(rendered).to include('Tardies')
-    expect(rendered).not_to include('Sections')
+    expect(rendered).not_to include('My sections')
     expect(rendered).not_to include('Homeroom')
     expect_common_links(rendered)
   end
@@ -61,7 +61,7 @@ describe '_navbar_signed_in partial' do
     expect(rendered).not_to include('Roster')
     expect(rendered).not_to include('Absences')
     expect(rendered).not_to include('Tardies')
-    expect(rendered).to include('Sections')
+    expect(rendered).to include('My sections')
     expect(rendered).not_to include('Homeroom')
     expect_common_links(rendered)
   end
