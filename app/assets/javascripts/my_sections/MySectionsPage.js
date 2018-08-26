@@ -152,18 +152,18 @@ export class MySectionsPageView extends React.Component {
             <Column
               label='Term'
               dataKey='term_local_id'
-              width={150}
+              width={100}
             />
             <Column
               label='Room'
               dataKey='room_number'
-              width={150}
+              width={100}
             />
             <Column
               label='Other teachers'
               dataKey='teachers'
               cellRenderer={this.renderEducators}
-              width={150}
+              width={250}
             />
           </Table>
         )}
