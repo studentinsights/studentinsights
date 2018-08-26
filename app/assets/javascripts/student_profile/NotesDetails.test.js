@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {SOMERVILLE} from '../helpers/PerDistrict';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import NotesDetails from './NotesDetails';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 
@@ -37,11 +38,11 @@ function testRenderWithEl(districtKey, props) {
   };
 
   const el = document.createElement('div');
-  ReactDOM.render(
+  ReactDOM.render(withDefaultNowContext(
     <PerDistrictContainer districtKey={districtKey}>
       <NotesDetails {...mergedProps} />
     </PerDistrictContainer>
-  , el);
+  ), el);
   return {el};
 }
 
