@@ -10,8 +10,20 @@ class SectionsController < ApplicationController
 
   def my_sections_json
     sections = authorized_sections { current_educator.sections }
-    json = sections.as_json
-    render json: json
+    sections_json = sections.as_json({
+      only: [:id, :room_number, :schedule, :section_number, :term_local_id],
+      include: {
+        course: {
+          only: [:id, :course_number, :course_description]
+        },
+        educators: {
+          only: [:id, :full_name, :email]
+        }
+      }
+    })
+    render json: {
+      sections: sections_json
+    }
   end
 
   def section_json

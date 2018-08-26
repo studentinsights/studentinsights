@@ -3,15 +3,11 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {maybeCapitalize} from '../helpers/pretty';
-import {supportsHouse, supportsCounselor, supportsSpedLiaison, prettyProgramText} from '../helpers/PerDistrict';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import HouseBadge from '../components/HouseBadge';
-import School from '../components/School';
-import FilterStudentsBar from './FilterStudentsBar';
+import Educator from '../components/Educator';
+import * as Routes from '../helpers/Routes';
 
 
 // Shows a list of sections for HS educators.
@@ -35,18 +31,26 @@ export default class MySectionsPage extends React.Component {
     return (
       <div className="MySectionsPage" style={styles.flexVertical}>
         <GenericLoader
-          promiseFn={this.fetchJson}
           style={styles.flexVertical}
+          promiseFn={this.fetchJson}
           render={this.renderJson} />
       </div>
     );
   }
 
   renderJson(json) {
-    const {students} = json;
-    return <MySectionsPageView students={students} />;
+    const {currentEducatorId} = this.props;
+    const {sections} = json;
+    return (
+      <MySectionsPageView
+        currentEducatorId={currentEducatorId}
+        sections={sections} />
+    );
   }
 }
+MySectionsPage.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired
+};
 
 
 export class MySectionsPageView extends React.Component {
@@ -54,26 +58,27 @@ export class MySectionsPageView extends React.Component {
     super(props);
     
     this.state = {
-      sortBy: 'name',
+      sortBy: 'section_number',
       sortDirection: SortDirection.ASC,
     };
     this.onTableSort = this.onTableSort.bind(this);
-    this.renderName = this.renderName.bind(this);
-    this.renderSchool = this.renderSchool.bind(this);
+    this.renderSectionNumber = this.renderSectionNumber.bind(this);
+    this.renderCourseDescription = this.renderCourseDescription.bind(this);
+    this.renderEducators = this.renderEducators.bind(this);
   }
 
-  orderedSections(students) {
+  orderedSections(sections) {
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
     const sortFns = {
-      fallback(student) { return student[sortBy]; },
-      grade(student) { return rankedByGradeLevel(student.grade); },
-      school(student) { return student.school.name; },
-      name(student) { return `${student.last_name}, ${student.first_name}`; }
+      fallback(section) { return section[sortBy]; }
+      // grade(section) { return rankedByGradeLevel(section.grade); },
+      // school(section) { return section.school.name; },
+      // name(section) { return `${section.last_name}, ${section.first_name}`; }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
-    const sortedRows = _.sortBy(students, sortFn);
+    const sortedRows = _.sortBy(sections, sortFn);
 
     // respect direction
     return (sortDirection == SortDirection.DESC) 
@@ -93,28 +98,21 @@ export class MySectionsPageView extends React.Component {
   }
 
   render() {
-    const {districtKey} = this.context;
-    const {students} = this.props;
-
+    const {sections} = this.props;
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>My students</SectionHeading>
-        <FilterStudentsBar
-          students={students}
-          style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
-          includeHouse={supportsHouse(districtKey)}
-          includeCounselor={supportsCounselor(districtKey)}>
-          {filteredStudents => this.renderTable(filteredStudents)}
-        </FilterStudentsBar>
+        <SectionHeading>My sections</SectionHeading>
+        <div style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}>
+          {this.renderTable(sections)}
+        </div>
       </div>
     );
   }
 
-  renderTable(filteredStudents) {
-    const {districtKey} = this.context;
+  renderTable(sections) {
     const {sortDirection, sortBy} = this.state;
-    const sortedStudents = this.orderedSections(filteredStudents);
-    const rowHeight = 40; // for two lines of student names
+    const sortedSections = this.orderedSections(sections);
+    const rowHeight = 30; // ~1.5 line height
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -129,100 +127,97 @@ export class MySectionsPageView extends React.Component {
             rowStyle={{display: 'flex'}}
             style={{fontSize: 14}}
             rowHeight={rowHeight}
-            rowCount={sortedStudents.length}
-            rowGetter={({index}) => sortedStudents[index]}
+            rowCount={sortedSections.length}
+            rowGetter={({index}) => sortedSections[index]}
             sort={this.onTableSort}
             sortBy={sortBy}
             sortDirection={sortDirection}
             >
             <Column
-              label='Name'
-              dataKey='name'
-              cellRenderer={this.renderName}
-              flexGrow={1}
-              width={250}
-            />
-            <Column
-              label='School'
-              dataKey='school'
-              cellRenderer={this.renderSchool}
-              width={120}
-            />
-            <Column
-              label='Grade'
-              dataKey='grade'
+              label='Section'
+              dataKey='section_number'
+              cellRenderer={this.renderSectionNumber}
               width={100}
             />
             <Column
-             label='Program'
-             dataKey='program'
-             cellRenderer={this.renderProgram}
-             width={150}
+              label='Course'
+              dataKey='course'
+              cellRenderer={this.renderCourseDescription}
+              width={150}
+              flexGrow={1}
             />
-            {supportsHouse(districtKey) &&
-              <Column
-                label='House'
-                dataKey='house'
-                cellRenderer={this.renderHouse}
-                width={120} />
-            }
-            {supportsCounselor(districtKey) && 
-              <Column
-                label='Counselor'
-                dataKey='counselor'
-                cellDataGetter={({rowData}) => maybeCapitalize(rowData.counselor)}
-                width={100}
-              />
-            }
-            {supportsSpedLiaison(districtKey) && 
-              <Column
-                label='SPED Liaison'
-                dataKey='sped_liaison'
-                cellDataGetter={({rowData}) => maybeCapitalize(rowData.sped_liaison)}
-                width={100}
-              />
-            }
+            <Column
+              label='Schedule'
+              dataKey='schedule'
+              width={150}
+            />
+            <Column
+              label='Term'
+              dataKey='term_local_id'
+              width={150}
+            />
+            <Column
+              label='Room'
+              dataKey='room_number'
+              width={150}
+            />
+            <Column
+              label='Other teachers'
+              dataKey='teachers'
+              cellRenderer={this.renderEducators}
+              width={150}
+            />
           </Table>
         )}
       </AutoSizer>
     );
   }
 
-  renderName(cellProps) {
-    const student = cellProps.rowData;
-    return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank">{student.first_name} {student.last_name}</a>;
+  renderSectionNumber(cellProps) {
+    const section = cellProps.rowData;
+    return (
+      <a href={Routes.section(section.id)}>
+        {section.section_number}
+      </a>
+    );
+  }
+  renderCourseDescription(cellProps) {
+    return cellProps.rowData.course.course_description;
   }
 
-  renderSchool(cellProps) {
-    const student = cellProps.rowData;
-    return <School {...student.school} />;
-  }
-
-  renderHouse(cellProps) {
-    const student = cellProps.rowData;
-    return student.house && <HouseBadge house={student.house} />;
-  }
-
-  renderProgram(cellProps) {
-    const student = cellProps.rowData;
-    return prettyProgramText(student.program_assigned, student.sped_placement);
+  renderEducators(cellProps) {
+    const {currentEducatorId} = this.props;
+    const otherEducators = cellProps.rowData.educators.filter(educator => {
+      return educator.id != currentEducatorId;
+    });
+    
+    return (
+      <div>
+        {otherEducators.map(educator => (
+          <Educator key={educator.id} educator={educator} />
+        ))}
+      </div>
+    );
   }
 }
-MySectionsPageView.contextTypes = {
-  districtKey: PropTypes.string.isRequired
-};
 MySectionsPageView.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired,
   sections: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    first_name: PropTypes.string.isRequired,
-    last_name: PropTypes.string.isRequired,
-    house: PropTypes.string,
-    counselor: PropTypes.string,
-    grade: PropTypes.string.isRequired,
-    school: PropTypes.shape({
+    room_number: PropTypes.string.isRequired,
+    term_local_id: PropTypes.string.isRequired,
+    schedule: PropTypes.string.isRequired,
+    section_number: PropTypes.string.isRequired,
+    course: PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
+      course_number: PropTypes.string.isRequired,
+      course_description: PropTypes.string.isRequired
     }).isRequired,
+    educators: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      full_name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired
+    })).isRequired,
   })).isRequired
 };
 
