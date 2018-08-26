@@ -64,13 +64,13 @@ RSpec.describe PathsForEducator do
           tardies: '/schools/shs/tardies'
         })
         expect(navbar_links(pals.shs_bill_nye)).to eq({
-          section: "/sections/#{pals.shs_tuesday_biology_section.id}"
+          section: '/educators/my_sections'
         })
         expect(navbar_links(pals.shs_hugo_art_teacher)).to eq({
-          section: "/sections/#{pals.shs_second_period_ceramics.id}"
+          section: '/educators/my_sections'
         })
         expect(navbar_links(pals.shs_fatima_science_teacher)).to eq({
-          section: "/sections/#{pals.shs_third_period_physics.id}"
+          section: '/educators/my_sections'
         })
       end
     end
