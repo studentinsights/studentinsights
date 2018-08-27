@@ -103,7 +103,7 @@ RSpec.describe EducatorsImporter do
                   importer = make_educators_importer
                   expect {
                     importer.send(:import_row, row)
-                    importer.import_row(another_row)
+                    importer.send(:import_row, another_row)
                   }.to change(Educator, :count).by 2
                 end
               end

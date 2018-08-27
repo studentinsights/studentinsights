@@ -3,7 +3,8 @@ class EducatorsImporter
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
-    @syncer = ::RecordSyncer.new(log: @log)
+    @educator_syncer = ::RecordSyncer.new(log: @log)
+    @homeroom_syncer = ::RecordSyncer.new(log: @log)
   end
 
   def import
@@ -16,6 +17,7 @@ class EducatorsImporter
     @skipped_from_school_filter = 0
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
+    @ignored_homeroom_because_no_school_count = 0
     @created_homeroom_count = 0
     streaming_csv.each_with_index do |row, index|
       import_row(row)
@@ -23,6 +25,7 @@ class EducatorsImporter
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
+    log("@ignored_homeroom_because_no_school_count: #{@ignored_homeroom_because_no_school_count}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
     log("@created_homeroom_count: #{@created_homeroom_count}")
@@ -30,8 +33,13 @@ class EducatorsImporter
     # We don't want to remove old Educator records, since notes and other records
     # refence them, and this is important information we want to preserve even if
     # an Educator is no longer an active employee.
-    log('Skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Educator records.')
-    log("RecordSyncer#stats: #{@syncer.stats}")
+    log('For Educator, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Educator records.')
+    log("Educator RecordSyncer#stats: #{@educator_syncer.stats}")
+
+    # Similar for Homeroom, for now.  We can tighten this but would need to do a pass
+    # on making sure there are key constraints before deleting these.
+    log('For Homeroom, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Homeroom records.')
+    log("Homeroom RecordSyncer#stats: #{@homeroom_syncer.stats}")
   end
 
   private
@@ -64,23 +72,18 @@ class EducatorsImporter
       return
     end
 
-    # Find the matching Educator record if possible
+    # Find the matching Educator record if possible and sync it
     maybe_educator = EducatorRow.new(row, school_ids_dictionary).build
+    @educator_syncer.validate_mark_and_sync!(maybe_educator)
 
-    # Create a new Homeroom if needed, and return the homeroom_id for the
-    # educator or nil if none is set.
-    homeroom_id = match_or_create_homeroom_id(row)
-    if maybe_educator.present?
-      maybe_educator.update_attributes(homeroom_id: homeroom_id)
-    end
-
-    # Sync the Educator record.
-    @syncer.validate_mark_and_sync!(maybe_educator)
+    # Find the matching Homeroom record if possible and
+    # sync the `educator_id` field.
+    maybe_homeroom = match_homeroom(row, maybe_educator)
+    @homeroom_syncer.validate_mark_and_sync!(maybe_homeroom)
   end
 
-  # Match existing Homeroom or create a new one if it doesn't exist.
-  # Returns nil if row doesn't have a homeroom set.
-  def match_or_create_homeroom_id(row)
+  # Match existing Homeroom and update reference to Educator.
+  def match_homeroom(row, maybe_educator)
     # Special case for NB magic "nil" value
     if PerDistrict.new.is_nil_homeroom_name?(row[:homeroom])
       @ignored_special_nil_homeroom_count += 1
@@ -93,20 +96,24 @@ class EducatorsImporter
       return nil
     end
 
-    # Match Homeroom (guaranteed to be uniqe on {name, school} by database index)
-    homeroom_attributes = {
-      name: row[:homeroom],
-      school: educator.school
-    }
-    existing_homeroom = Homeroom.find_by(homeroom_attributes)
-    if existing_homeroom.present?
-      return existing_homeroom.id
+    # If no school, can't do match
+    school_id = school_ids_dictionary[row[:school_local_id]]
+    if school_id.nil?
+      @ignored_homeroom_because_no_school_count += 1
+      return nil
     end
 
-    # Create if Homeroom doesn't exit
-    created_homeroom = Homeroom.create!(homeroom_attributes)
-    @created_homeroom_count += 1
-    created_homeroom.id
+    # Match Homeroom (guaranteed to be uniqe on {name, school} by database index)
+    homeroom = Homeroom.find_or_initialize_by({
+      name: row[:homeroom],
+      school_id: school_id
+    })
+
+    # Update to reference educator
+    educator_id = maybe_educator.try(:id) # might be nil
+    homeroom.assign_attributes(educator_id: educator_id)
+
+    homeroom
   end
 
   def log(msg)
