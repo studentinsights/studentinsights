@@ -59,7 +59,7 @@ export function upsellQuotes(student, style) {
     quote: (
       <div>
         <div style={{fontSize: 18, marginBottom: 5}}>Share an insight about {student.first_name}</div>
-        <div style={style}>This is being piloted at Somervile High School to start the school year.</div>
+        <div style={style}>This is being piloted at Somerville High School to start the school year.</div>
       </div>
     ),
     withoutQuotes: true,
