@@ -26,7 +26,6 @@ class EducatorsImporter
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
     log("@ignored_homeroom_because_no_school_count: #{@ignored_homeroom_because_no_school_count}")
-    log("@created_homeroom_count: #{@created_homeroom_count}")
 
     # We don't want to remove old Educator records, since notes and other records
     # refence them, and this is important information we want to preserve even if
@@ -46,7 +45,6 @@ class EducatorsImporter
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
     @ignored_homeroom_because_no_school_count = 0
-    @created_homeroom_count = 0
   end
 
   def download_csv

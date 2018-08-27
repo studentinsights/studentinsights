@@ -82,10 +82,10 @@ class RecordSyncer
       log("  destroyed #{index} rows.") if index > 0 && index % 100 == 0
     end
 
-    @destroyed_records_count = records_to_destroy.size
+    @destroyed_records_count += records_to_destroy.size
   end
 
-  # For debugging and testing
+  # For debugging and testing - total counts for instance lifetime
   def stats
     {
       passed_nil_record_count: @passed_nil_record_count,

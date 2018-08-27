@@ -5,12 +5,81 @@ RSpec.describe EducatorsImporter do
   before { @district_key = ENV['DISTRICT_KEY'] }
   after { ENV['DISTRICT_KEY'] = @district_key }
 
-  let(:log) { LogHelper::Redirect.instance.file }
-  def make_educators_importer
+  let!(:log) { LogHelper::FakeLog.new }
+  def make_educators_importer(options = {})
     EducatorsImporter.new(options: {
       school_scope: nil,
       log: log
-    })
+    }.merge(options))
+  end
+
+  describe '#import integration tests' do
+    let!(:pals) { TestPals.create! }
+
+    def make_test_row(attrs = {})
+      {
+        login_name: 'ntufts',
+        state_id: '10002',
+        local_id: 'local123',
+        full_name: 'Tufts, Nathan',
+        staff_type: 'Teacher',
+        homeroom: 'HEA 890',
+        school_local_id: 'HEA'
+      }.merge(attrs)
+    end
+
+    it 'counts skipped_from_school_filter when row is for another school' do
+      importer = make_educators_importer(school_scope: ['SHS'])
+      allow(importer).to receive(:download_csv).and_return([make_test_row])
+      importer.import
+      expect(log.output).to include('@skipped_from_school_filter: 1')
+    end
+
+    it 'creates both Educator and Homeroom records' do
+      importer = make_educators_importer
+      allow(importer).to receive(:download_csv).and_return([make_test_row])
+      importer.import
+      expect(importer.instance_variable_get(:@educator_syncer).stats[:created_rows_count]).to eq 1
+      expect(importer.instance_variable_get(:@homeroom_syncer).stats[:created_rows_count]).to eq 1
+    end
+
+    it 'can create an Educator and update an existing Homeroom record to point to it' do
+      homeroom = Homeroom.create!(name: 'HEA 001', school: pals.healey, educator: nil)
+      test_row = make_test_row(homeroom: 'HEA 001', local_id: '321321')
+      importer = make_educators_importer
+      allow(importer).to receive(:download_csv).and_return([test_row])
+      importer.import
+
+      expect(importer.instance_variable_get(:@educator_syncer).stats[:created_rows_count]).to eq 1
+      expect(importer.instance_variable_get(:@homeroom_syncer).stats[:updated_rows_count]).to eq 1
+      expect(Educator.find_by_local_id('321321').homeroom.id).to eq homeroom.id
+    end
+
+    it 'does nothing if no changes needed' do
+      # The process for mapping the `login_name` in the row to an Educator
+      # `email` varies `PerDistrict` so mock it to work with `TestPals` fixture data.
+      mock_per_district = PerDistrict.new
+      allow(mock_per_district).to receive(:from_import_login_name_to_email).and_return(pals.healey_sarah_teacher.email)
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+
+      # Make an input row that matches the Educator record (to prove import
+      # doesn't change anything when the row matches exactly).
+      test_row = make_test_row({
+        login_name: 'sarah',
+        state_id: pals.healey_sarah_teacher.state_id,
+        local_id: pals.healey_sarah_teacher.local_id,
+        full_name: pals.healey_sarah_teacher.full_name,
+        staff_type: pals.healey_sarah_teacher.staff_type,
+        homeroom: pals.healey_fifth_homeroom.name,
+        school_local_id: pals.healey.local_id
+      })
+      importer = make_educators_importer
+      allow(importer).to receive(:download_csv).and_return([test_row])
+      expect { importer.import }.to change { Educator.count }.by(0).and change { Homeroom.count }.by(0)
+
+      expect(importer.instance_variable_get(:@educator_syncer).stats[:unchanged_rows_count]).to eq 1
+      expect(importer.instance_variable_get(:@homeroom_syncer).stats[:unchanged_rows_count]).to eq 1
+    end
   end
 
   describe '#import_row' do
