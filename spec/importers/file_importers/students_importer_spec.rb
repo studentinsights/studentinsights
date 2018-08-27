@@ -20,6 +20,73 @@ RSpec.describe StudentsImporter do
     transformer.transform(file)
   end
 
+  def get_fixture_row_by_index(target_index, filename)
+    test_csv_from_file(fixture_filename).each_with_index do |row, index|
+      next unless index == target_index
+      return row.to_h
+    end
+    nil
+  end
+
+  def test_row_from_fixture
+    get_fixture_row_by_index(0, fixture_filename)
+  end
+
+  describe '#import integration tests' do
+    let!(:log) { LogHelper::FakeLog.new }
+    let!(:importer) { make_students_importer(log: log) }
+    let!(:fixture_filename) { "#{Rails.root}/spec/fixtures/fake_students_export.txt" }
+
+    it 'does not create Homeroom records' do
+      mock_importer_with_csv(importer, fixture_filename)
+      expect { importer.import }.to change { Homeroom.count }.by(0)
+    end
+
+    it 'does not delete records' do
+      mock_importer_with_csv(importer, fixture_filename)
+      importer.import
+      expect(log.output).to include(':destroyed_records_count=>0')
+    end
+
+    it 'sets homeroom_id:nil when student is not active' do
+      allow(importer).to receive(:download_csv).and_return([
+        test_row_from_fixture.merge(enrollment_status: 'Withdrawn')
+      ])
+      importer.import
+      expect(log.output).to include('@setting_nil_homeroom_because_not_active_count: 1')
+    end
+
+    it 'sets homeroom_id:nil when homeroom cannot be matched' do
+      allow(importer).to receive(:download_csv).and_return([
+        test_row_from_fixture.merge(homeroom: 'homeroom-name-that-does-not-exist')
+      ])
+      importer.import
+      expect(log.output).to include('@could_not_match_homeroom_name_count: 1')
+    end
+
+    it 'sets homeroom_id:nil when homeroom field is nil' do
+      allow(importer).to receive(:download_csv).and_return([
+        test_row_from_fixture.merge(homeroom: nil)
+      ])
+      importer.import
+      expect(log.output).to include('@nil_homeroom_count: 1')
+    end
+
+    it 'updates homeroom_id' do
+      healey = School.create(local_id: 'HEA')
+      first_homeroom = Homeroom.create!(name: 'HEA 001', school: healey)
+      second_homeroom = Homeroom.create!(name: 'HEA 002', school: healey)
+      allow(importer).to receive(:download_csv).and_return([
+        test_row_from_fixture.merge(homeroom: first_homeroom.name),
+        test_row_from_fixture.merge(homeroom: second_homeroom.name)
+      ])
+      expect {importer.import }.to change { Student.count }.by(1).and change { Homeroom.count }.by(0)
+
+      expect(log.output).to include(':created_rows_count=>1')
+      expect(log.output).to include(':updated_rows_count=>1')
+    end
+  end
+
   describe '#import_row' do
     context 'good data' do
       let!(:high_school) { School.create(local_id: 'SHS') }

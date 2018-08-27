@@ -33,6 +33,10 @@ module LogHelper
     def output
       @msgs.join("\n")
     end
+
+    def clear!
+      @msgs = []
+    end
   end
 
   # Rails logger

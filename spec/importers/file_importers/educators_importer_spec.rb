@@ -28,6 +28,14 @@ RSpec.describe EducatorsImporter do
       }.merge(attrs)
     end
 
+    it 'does not delete records' do
+      importer = make_educators_importer
+      allow(importer).to receive(:download_csv).and_return([make_test_row])
+      importer.import
+      expect(importer.instance_variable_get(:@educator_syncer).stats[:destroyed_records_count]).to eq 0
+      expect(importer.instance_variable_get(:@homeroom_syncer).stats[:destroyed_records_count]).to eq 0
+    end
+
     it 'counts skipped_from_school_filter when row is for another school' do
       importer = make_educators_importer(school_scope: ['SHS'])
       allow(importer).to receive(:download_csv).and_return([make_test_row])

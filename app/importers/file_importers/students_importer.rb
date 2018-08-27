@@ -105,7 +105,7 @@ class StudentsImporter
       return nil
     end
 
-    homeroom
+    homeroom.id
   end
 
   def log(msg)
