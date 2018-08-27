@@ -1,32 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe StudentsImporter do
-  let(:log) { LogHelper::FakeLog.new }
-  let(:students_importer) {
-    described_class.new(options: {
-      school_scope: nil, log: log
-    })
-  }
+  def make_students_importer(options = {})
+    StudentsImporter.new(options: {
+      school_scope: nil,
+      log: nil
+    }.merge(options))
+  end
+
+  def mock_importer_with_csv(importer, filename)
+    csv = test_csv_from_file(filename)
+    allow(importer).to receive(:download_csv).and_return(csv)
+    importer
+  end
+
+  def test_csv_from_file(filename)
+    file = File.read(filename)
+    transformer = StreamingCsvTransformer.new(log)
+    transformer.transform(file)
+  end
 
   describe '#import_row' do
     context 'good data' do
-      let(:file) { File.read("#{Rails.root}/spec/fixtures/fake_students_export.txt") }
-      let(:transformer) { StreamingCsvTransformer.new(log) }
-      let(:csv) { transformer.transform(file) }
-      let(:import) { csv.each_with_index { |row, index| students_importer.import_row(row) } }
       let!(:high_school) { School.create(local_id: 'SHS') }
       let!(:healey) { School.create(local_id: 'HEA') }
       let!(:brown) { School.create(local_id: 'BRN') }
 
+      let!(:log) { LogHelper::FakeLog.new }
+      let!(:importer) { make_students_importer(log: log) }
+      before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/fake_students_export.txt") }
+
       context 'no existing students in database' do
         it 'does not import students with far future registration dates' do
-          import
+          importer.import
           expect(Student.count).to eq 4
           expect(Student.where(state_id: '1000000003').size).to eq 0
         end
 
         it 'imports student data correctly' do
-          expect { import }.to change { Student.count }.by(4)
+          expect { importer.import }.to change { Student.count }.by(4)
 
           first_student = Student.find_by_state_id('1000000000')
           expect(first_student.reload.school).to eq healey
@@ -52,33 +64,44 @@ RSpec.describe StudentsImporter do
           expect(shs_student.counselor).to eq 'LABERGE'
         end
 
+        it 'does not create Homeroom records if row[:homeroom] does not exist' do
+          importer.import
+          expect(Homeroom.count).to eq 0
+          expect(Student.all.map(&:homeroom).uniq).to eq [nil]
+          expect(log.output).to include('@could_not_match_homeroom_name_count: 5')
+        end
+
+        it 'does not delete any records' do
+          importer.import
+          expect(log.output).to include(':destroyed_records_count=>0')
+          expect(log.output).to include('Skipping the call to  RecordSyncer#delete_unmarked_records')
+        end
       end
 
       context 'when an existing student in the database' do
         before do
-          student = Student.new({
+          Student.create!({
             first_name: 'Ryan',
             last_name: 'Rodriguez',
             local_id: '100',
             school: healey,
             grade: '7'
           })
-          student.save!
         end
         it 'does not create new records for existing students' do
           expect(Student.count).to eq(1)
-          import
+          importer.import
           expect(Student.count).to eq(4)
         end
       end
 
       context 'when students already imported' do
         before do
-          import
+          importer.import
         end
         it 'does not create new records for existing students' do
           expect(Student.count).to eq(4)
-          import
+          importer.import
           expect(Student.count).to eq(4)
         end
       end
@@ -89,11 +112,11 @@ RSpec.describe StudentsImporter do
         }
 
         it 'imports students' do
-          expect { import }.to change { Student.count }.by 3
+          expect { importer.import }.to change { Student.count }.by 3
         end
 
         it 'updates the student\'s data correctly' do
-          import
+          importer.import
 
           expect(graduating_student.reload.school).to eq high_school
           expect(graduating_student.grade).to eq '10'
@@ -104,14 +127,21 @@ RSpec.describe StudentsImporter do
 
     end
 
-    context 'validation failure' do
-      let(:row) { { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '', homeroom: '101' } }
+    context 'validation failure (missing grade)' do
+      let!(:log) { LogHelper::FakeLog.new }
+      let!(:importer) { make_students_importer(log: log) }
+      before do
+        allow(importer).to receive(:download_csv).and_return([
+          { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '', homeroom: '101' }
+        ])
+      end
       it 'logs an error and skips row' do
-        student = students_importer.import_row(row)
-        expect(student).to eq nil
-        expect(students_importer.instance_variable_get(:@log).msgs).to eq [
-          'StudentsImporter: could not save student record because of errors on [:local_id, :grade]'
-        ]
+        importer.import
+        expect(log.output).to include(':updated_rows_count=>0')
+        expect(log.output).to include(':created_rows_count=>0')
+        expect(log.output).to include(':invalid_rows_count=>1')
+        expect(log.output).to include('@setting_nil_homeroom_because_not_active_count: 1')
+        expect(Student.where(last_name: 'Hoag').size).to eq(0)
       end
     end
   end

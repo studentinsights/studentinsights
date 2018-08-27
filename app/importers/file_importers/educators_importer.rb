@@ -5,6 +5,7 @@ class EducatorsImporter
     @log = options.fetch(:log)
     @educator_syncer = ::RecordSyncer.new(log: @log)
     @homeroom_syncer = ::RecordSyncer.new(log: @log)
+    reset_counters!
   end
 
   def import
@@ -14,20 +15,17 @@ class EducatorsImporter
     streaming_csv = download_csv
 
     log('Starting loop...')
-    @skipped_from_school_filter = 0
-    @ignored_special_nil_homeroom_count = 0
-    @ignored_no_homeroom_count = 0
-    @ignored_homeroom_because_no_school_count = 0
-    @created_homeroom_count = 0
+    reset_counters!
     streaming_csv.each_with_index do |row, index|
       import_row(row)
+      log("processed #{index} rows.") if index > 0 && index % 1000 == 0
     end
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@ignored_homeroom_because_no_school_count: #{@ignored_homeroom_because_no_school_count}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
+    log("@ignored_homeroom_because_no_school_count: #{@ignored_homeroom_because_no_school_count}")
     log("@created_homeroom_count: #{@created_homeroom_count}")
 
     # We don't want to remove old Educator records, since notes and other records
@@ -43,6 +41,14 @@ class EducatorsImporter
   end
 
   private
+  def reset_counters!
+    @skipped_from_school_filter = 0
+    @ignored_special_nil_homeroom_count = 0
+    @ignored_no_homeroom_count = 0
+    @ignored_homeroom_because_no_school_count = 0
+    @created_homeroom_count = 0
+  end
+
   def download_csv
     client = SftpClient.for_x2
     data_transformer = StreamingCsvTransformer.new(@log)

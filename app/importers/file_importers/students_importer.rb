@@ -4,6 +4,8 @@ class StudentsImporter
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
     @syncer = ::RecordSyncer.new(log: @log)
+
+    reset_counters!
   end
 
   def import
@@ -13,16 +15,15 @@ class StudentsImporter
     streaming_csv = download_csv
 
     log('Starting loop...')
-    @skipped_from_school_filter = 0
-    @setting_nil_homeroom_because_not_active_count = 0
-    @nil_homeroom_count = 0
-    @could_not_match_homeroom_name_count = 0
+    reset_counters!
     streaming_csv.each_with_index do |row, index|
       import_row(row)
+      log("processed #{index} rows.") if index > 0 && index % 1000 == 0
     end
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
+    log("@skipped_because_registration_date_nil_or_in_future_count: #{@skipped_because_registration_date_nil_or_in_future_count}")
     log("@setting_nil_homeroom_because_not_active_count: #{@setting_nil_homeroom_because_not_active_count}")
     log("@nil_homeroom_count: #{@nil_homeroom_count}")
     log("@could_not_match_homeroom_name_count: #{@could_not_match_homeroom_name_count}")
@@ -36,6 +37,14 @@ class StudentsImporter
   end
 
   private
+  def reset_counters!
+    @skipped_from_school_filter = 0
+    @skipped_because_registration_date_nil_or_in_future_count = 0
+    @setting_nil_homeroom_because_not_active_count = 0
+    @nil_homeroom_count = 0
+    @could_not_match_homeroom_name_count = 0
+  end
+
   def download_csv
     client = SftpClient.for_x2
     data_transformer = StreamingCsvTransformer.new(@log)
@@ -72,7 +81,7 @@ class StudentsImporter
     # We might be able to remove this or move this to a narrower one-field check
     # before doing the match process for the record, since trying to set a model
     # like this should raise a validation.
-    if student.registration_date_in_future
+    if maybe_student.try(:registration_date_in_future)
       @skipped_because_registration_date_nil_or_in_future_count += 1
       return
     end
@@ -90,8 +99,8 @@ class StudentsImporter
       return nil
     end
 
-    # not sure if this is still needed, we might be able to remove this
-    if row[:enrollment_status] == 'Active'
+    # KR: not sure if this is still needed, we might be able to remove this
+    if row[:enrollment_status] != 'Active'
       @setting_nil_homeroom_because_not_active_count += 1
       return nil
     end
@@ -99,7 +108,7 @@ class StudentsImporter
     # Homeroom is guaranteed by index to be unique on {name, school}
     homeroom = Homeroom.find_by({
       name: row[:homeroom],
-      school_id: school_ids_dictionary[school_local_id]
+      school_id: school_ids_dictionary[row[:school_local_id]]
     })
     if homeroom.nil?
       @could_not_match_homeroom_name_count += 1
@@ -109,8 +118,8 @@ class StudentsImporter
     homeroom
   end
 
-  def error_message(student)
-    "StudentsImporter: could not save student record because of errors on #{student.errors.keys}"
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "StudentsImporter: #{text}"
   end
-
 end
