@@ -163,10 +163,6 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def exemplar_insight_student_ids
-    [2]#ENV.fetch('EXEMPLAR_INSIGHT_STUDENT_IDS', '').split(',')
-  end
-
   private
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError

@@ -17,7 +17,6 @@ class ProfileController < ApplicationController
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       transition_notes: student.transition_notes,
-      insight_exemplar_students: insight_exemplar_students_json(current_educator),
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
@@ -79,12 +78,5 @@ class ProfileController < ApplicationController
     months_back = options.fetch(:months_back, 48)
     cutoff_time = time_now - months_back.months
     mixed_events.where('occurred_at >= ? ', cutoff_time).order(occurred_at: :desc)
-  end
-
-  def insight_exemplar_students_json(educator)
-    exemplar_students = authorized do
-      Student.where(id: PerDistrict.new.exemplar_insight_student_ids).to_a
-    end
-    exemplar_students.as_json(only: [:id, :first_name])
   end
 end
