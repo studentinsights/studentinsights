@@ -7,7 +7,7 @@ import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
 import {parseTransitionNoteText, parseAndReRender} from './lightTransitionNotes';
 
-export function sampleQuotes(style) {  
+export function sampleQuotes(style) {
   const quotes = [
     'Smart, very athletic, baseball, works w/uncle (carpenter)',
     'Truly bilingual in English & French',
@@ -50,7 +50,7 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
     if (!quote || quote.length === 0) return [];
     return [{quote, source, tagline}];
   }));
-   
+
 }
 
 
