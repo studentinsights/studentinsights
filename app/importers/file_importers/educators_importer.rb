@@ -14,8 +14,6 @@ class EducatorsImporter
 
     log('Starting loop...')
     @skipped_from_school_filter = 0
-    @invalid_rows_count = 0
-    @touched_rows_count = 0
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
     @created_homeroom_count = 0
@@ -25,8 +23,6 @@ class EducatorsImporter
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@invalid_rows_count: #{@invalid_rows_count}")
-    log("@touched_rows_count: #{@touched_rows_count}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
     log("@created_homeroom_count: #{@created_homeroom_count}")

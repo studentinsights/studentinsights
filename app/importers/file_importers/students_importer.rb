@@ -17,17 +17,11 @@ class StudentsImporter
     @setting_nil_homeroom_because_not_active_count = 0
     @nil_homeroom_count = 0
     @could_not_match_homeroom_name_count = 0
-    # @invalid_rows_count = 0
-    # @touched_rows_count = 0
-    # @ignored_special_nil_homeroom_count = 0
-    # @ignored_no_homeroom_count = 0
-    # @created_homeroom_count = 0
     streaming_csv.each_with_index do |row, index|
       import_row(row)
     end
 
     log('Done loop.')
-    log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@setting_nil_homeroom_because_not_active_count: #{@setting_nil_homeroom_because_not_active_count}")
     log("@nil_homeroom_count: #{@nil_homeroom_count}")

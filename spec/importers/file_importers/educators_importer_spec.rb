@@ -11,14 +11,11 @@ RSpec.describe EducatorsImporter do
       school_scope: nil,
       log: log
     })
+
     importer.instance_variable_set(:@skipped_from_school_filter, 0)
-    importer.instance_variable_set(:@invalid_rows_count, 0)
-    importer.instance_variable_set(:@touched_rows_count, 0)
     importer.instance_variable_set(:@ignored_special_nil_homeroom_count, 0)
     importer.instance_variable_set(:@ignored_no_homeroom_count, 0)
-    importer.instance_variable_set(:@ignored_invalid_homeroom_count, 0)
     importer.instance_variable_set(:@created_homeroom_count, 0)
-    importer.instance_variable_set(:@updated_homeroom_count, 0)
     importer
   end
 
@@ -38,7 +35,7 @@ RSpec.describe EducatorsImporter do
             }
 
             before do
-              make_educators_importer.import_row(row)
+              make_educators_importer.send(:import_row, row)
             end
 
             it 'creates an educator' do
@@ -70,11 +67,11 @@ RSpec.describe EducatorsImporter do
                 }
               }
               it 'creates an educator' do
-                expect { make_educators_importer.import_row(row) }.to change(Educator, :count).by 1
+                expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 1
               end
 
               it 'sets the attributes correctly' do
-                make_educators_importer.import_row(row)
+                make_educators_importer.send(:import_row, row)
                 educator = Educator.last
                 expect(educator.full_name).to eq("Young, Jenny")
                 expect(educator.state_id).to eq("500")
@@ -85,7 +82,7 @@ RSpec.describe EducatorsImporter do
 
               it 'sets the attributes correctly, PerDistrict' do
                 ENV['DISTRICT_KEY'] = PerDistrict::NEW_BEDFORD
-                make_educators_importer.import_row(row)
+                make_educators_importer.send(:import_row, row)
                 educator = Educator.last
                 expect(educator.email).to eq('jyoung@newbedfordschools.org')
               end
@@ -105,7 +102,7 @@ RSpec.describe EducatorsImporter do
                 it 'creates multiple educators' do
                   importer = make_educators_importer
                   expect {
-                    importer.import_row(row)
+                    importer.send(:import_row, row)
                     importer.import_row(another_row)
                   }.to change(Educator, :count).by 2
                 end
@@ -124,7 +121,7 @@ RSpec.describe EducatorsImporter do
               }
 
               it 'assigns the educator to the correct school' do
-                make_educators_importer.import_row(row)
+                make_educators_importer.send(:import_row, row)
                 educator = Educator.last
                 expect(educator.school).to eq(school)
               end
@@ -145,7 +142,7 @@ RSpec.describe EducatorsImporter do
           }
 
           it 'sets the administrator attributes correctly' do
-            make_educators_importer.import_row(row)
+            make_educators_importer.send(:import_row, row)
             educator = Educator.last
             expect(educator.admin).to eq(true)
             expect(educator.can_view_restricted_notes).to eq true
@@ -165,10 +162,10 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'does not create an educator' do
-          expect { make_educators_importer.import_row(row) }.to change(Educator, :count).by 0
+          expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 0
         end
         it 'updates the educator attributes' do
-          make_educators_importer.import_row(row)
+          make_educators_importer.send(:import_row, row)
           educator = Educator.last
           expect(educator.full_name).to eq("Young, Jenny")
           expect(educator.state_id).to eq("500")
@@ -193,11 +190,11 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'does not create a new educator' do
-          expect { make_educators_importer.import_row(row) }.to change(Educator, :count).by 0
+          expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 0
         end
 
         it 'does not revoke the schoolwide access, restricted notes access' do
-          make_educators_importer.import_row(row)
+          make_educators_importer.send(:import_row, row)
           educator = Educator.last
           expect(educator.schoolwide_access).to eq(true)
           expect(educator.can_view_restricted_notes).to eq(true)
@@ -213,7 +210,7 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'does not create an educator' do
-          expect { make_educators_importer.import_row(row) }.to change(Educator, :count).by 0
+          expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 0
         end
       end
     end
@@ -240,14 +237,14 @@ RSpec.describe EducatorsImporter do
         }
 
         it 'assigns the homeroom to the educator' do
-          make_educators_importer.import_row(row)
+          make_educators_importer.send(:import_row, row)
           expect(Educator.last.homeroom).to eq homeroom
         end
       end
 
       context 'name of homeroom that does not exist' do
         it 'raises an error' do
-          expect { make_educators_importer.import_row(row) }.to_not raise_error
+          expect { make_educators_importer.send(:import_row, row) }.to_not raise_error
         end
       end
     end
