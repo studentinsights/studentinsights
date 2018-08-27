@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import moment from 'moment';
 import {toMomentFromRailsDate, toMomentFromTimestamp} from '../helpers/toMoment';
 import Educator from '../components/Educator';
 import HelpBubble, {modalFromRight} from '../components/HelpBubble';
@@ -16,9 +15,9 @@ export function sampleQuotes(style) {
     'Very social; gets along well w/adults and most kids'
   ];
   return quotes.map(quote => {
-    const dateText = moment.utc().subtract(Math.random() * 30, 'days').format('M/D/YY');
-    const tagline = <span><a href="#" style={style}>Samwise Gamgee</a>, Counselor</span>;
-    const source = <span><a href="#" style={{fontSize: 12}}>Transition note</a> on {dateText}</span>;
+    const dateText = '6/15/18';
+    const tagline = <span>from <b>Samwise Gamgee</b>, Counselor</span>;
+    const source = <span>in <b>Transition note</b> on {dateText}</span>;
     return {quote, tagline, source};
   });
 }
@@ -59,22 +58,53 @@ export function upsellQuotes(student, style) {
   return [{
     quote: (
       <div>
-        <div>Share an insight!</div>
-        <textarea rows={3} style={{
-          border: 0,
-          background: '#f9f9f9',
-          fontSize: 12,
-          width: '100%',
-          marginTop: 10
-        }} placeholder={`What's one of ${student.first_name}'s strengths?`} />
+        <div style={{fontSize: 18, marginBottom: 5}}>Share an insight about {student.first_name}</div>
+        <div style={style}>This is being piloted at Somervile High School to start the school year.</div>
       </div>
     ),
     withoutQuotes: true,
-    source: <span>See <a href="#" style={style}>Ileana</a> or <a href="#" style={style}>Manuel</a> for examples.</span>,
-    tagline: ''
+    tagline: <span>If you're curious, talk with <a style={style} href="mailto:uharel@k12.somerville.ma.us">Uri</a> or check out </span>,
+    source: (
+      <span>an <HelpBubble
+        style={{marginLeft: 0}}
+        modalStyle={modalFromRight}
+        linkStyle={style}
+        teaser="example"
+        title="Example insight"
+        content={renderSample(sampleQuotes(style)[2], style)}
+      />.</span>
+    )
   }];
 }
 
+function renderSample(quoteItem, style) {
+  const {quote, tagline, source, withoutQuotes} = quoteItem;
+  const quoted = (withoutQuotes) ? quote : `“${quote}”`;
+  return (
+    <div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'space-between', ...style}}>
+      <div style={{flex: 1, margin: 20, marginBottom: 0, marginTop: 15, display: 'flex'}}>
+        <div style={{flex: 1, fontSize: 20, overflowY: 'hidden'}}>{quoted}</div>
+      </div>
+      <div style={{
+        fontSize: 12,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+        margin: 20,
+        marginTop: 10,
+        marginBottom: 15
+      }}>
+        <div>
+          <div style={{fontSize: 12, color: '#333'}}>
+            <div>{tagline}</div>
+            <div>{source}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // Look similar to profile view
 function renderTransitionNote(transitionNote, educator) {
