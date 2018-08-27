@@ -358,6 +358,7 @@ export function initialState(props) {
     iepDocument: serializedData.iepDocument,
     sections: serializedData.sections,
     currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
+    insightExemplarStudents: serializedData.insightExemplarStudents,
 
     // ui
     noteInProgressText: '',
