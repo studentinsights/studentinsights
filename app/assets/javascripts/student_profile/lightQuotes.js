@@ -7,7 +7,7 @@ import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
 import {parseTransitionNoteText, parseAndReRender} from './lightTransitionNotes';
 
-export function sampleQuotes(style) {  
+export function sampleQuotes(style) {
   const quotes = [
     'Smart, very athletic, baseball, works w/uncle (carpenter)',
     'Truly bilingual in English & French',
@@ -50,7 +50,7 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
     if (!quote || quote.length === 0) return [];
     return [{quote, source, tagline}];
   }));
-   
+
 }
 
 
@@ -59,7 +59,7 @@ export function upsellQuotes(student, style) {
     quote: (
       <div>
         <div style={{fontSize: 18, marginBottom: 5}}>Share an insight about {student.first_name}</div>
-        <div style={style}>This is being piloted at Somervile High School to start the school year.</div>
+        <div style={style}>This is being piloted at Somerville High School to start the school year.</div>
       </div>
     ),
     withoutQuotes: true,
