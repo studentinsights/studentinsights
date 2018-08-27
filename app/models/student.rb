@@ -38,7 +38,7 @@ class Student < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validate :validate_grade
-  validate :registration_date_cannot_be_in_future
+  validate :validate_registration_date_cannot_be_in_future
   validate :validate_free_reduced_lunch
 
   VALID_GRADES = [
@@ -51,20 +51,6 @@ class Student < ActiveRecord::Base
     "Reduced Lunch",
     nil
   ]
-
-  def registration_date_in_future
-    return false if registration_date.nil?
-
-    return false if DateTime.now > registration_date
-
-    return true
-  end
-
-  def registration_date_cannot_be_in_future
-    if registration_date_in_future
-      errors.add(:registration_date, "cannot be in future for student local id ##{local_id}")
-    end
-  end
 
   def self.with_school
     where.not(school: nil)
@@ -257,6 +243,20 @@ class Student < ActiveRecord::Base
   end
 
   private
+  def registration_date_in_future?
+    return false if registration_date.nil?
+
+    return false if DateTime.now > registration_date
+
+    return true
+  end
+
+  def validate_registration_date_cannot_be_in_future
+    if registration_date_in_future?
+      errors.add(:registration_date, "cannot be in future for student local id ##{local_id}")
+    end
+  end
+
   def validate_free_reduced_lunch
     errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
   end

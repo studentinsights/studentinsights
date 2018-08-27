@@ -23,7 +23,6 @@ class StudentsImporter
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@skipped_because_registration_date_nil_or_in_future_count: #{@skipped_because_registration_date_nil_or_in_future_count}")
     log("@setting_nil_homeroom_because_not_active_count: #{@setting_nil_homeroom_because_not_active_count}")
     log("@nil_homeroom_count: #{@nil_homeroom_count}")
     log("@could_not_match_homeroom_name_count: #{@could_not_match_homeroom_name_count}")
@@ -39,7 +38,6 @@ class StudentsImporter
   private
   def reset_counters!
     @skipped_from_school_filter = 0
-    @skipped_because_registration_date_nil_or_in_future_count = 0
     @setting_nil_homeroom_because_not_active_count = 0
     @nil_homeroom_count = 0
     @could_not_match_homeroom_name_count = 0
@@ -77,14 +75,6 @@ class StudentsImporter
     # Match student records
     maybe_homeroom_id = match_homeroom_id(row)
     maybe_student = StudentRow.new(row, maybe_homeroom_id, school_ids_dictionary, @log).build
-
-    # We might be able to remove this or move this to a narrower one-field check
-    # before doing the match process for the record, since trying to set a model
-    # like this should raise a validation.
-    if maybe_student.try(:registration_date_in_future)
-      @skipped_because_registration_date_nil_or_in_future_count += 1
-      return
-    end
 
     # Sync records
     @syncer.validate_mark_and_sync!(maybe_student)
