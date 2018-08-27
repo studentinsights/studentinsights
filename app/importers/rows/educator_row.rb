@@ -1,10 +1,6 @@
 class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   #
-  # Expects a CSV with the following headers:
-  #
-  # :state_id, :local_id, :full_name, :staff_type, :homeroom, :school_local_id
-
   def self.build(row)
     new(row).build
   end

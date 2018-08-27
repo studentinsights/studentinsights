@@ -34,7 +34,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
-        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
+        destroyed_records_count: 0
       })
     end
 
@@ -48,7 +48,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
-        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
+        destroyed_records_count: 0
       })
     end
 
@@ -64,7 +64,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
-        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
+        destroyed_records_count: 0
       })
     end
 
@@ -79,7 +79,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 1,
-        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
+        destroyed_records_count: 0
       })
     end
 
@@ -95,7 +95,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 1,
         created_rows_count: 0,
         marked_ids_count: 1,
-        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
+        destroyed_records_count: 0
       })
     end
 
@@ -110,7 +110,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 1,
         marked_ids_count: 1,
-        destroyed_records_count: nil,  # updated on `delete_unmarked_records!`
+        destroyed_records_count: 0
       })
       expect(syncer.instance_variable_get(:@marked_ids)).to eq [absence.id]
     end

@@ -1,50 +1,65 @@
+# This importer also creates Homeroom records.
 class EducatorsImporter
-
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
+    @educator_syncer = ::RecordSyncer.new(log: @log)
+    @homeroom_syncer = ::RecordSyncer.new(log: @log)
+    reset_counters!
   end
 
   def import
     return unless remote_file_name
 
     log('Downloading...')
-    streaming_csv = CsvDownloader.new(
-      log: @log, remote_file_name: remote_file_name, client: client, transformer: data_transformer
-    ).get_data
+    streaming_csv = download_csv
 
     log('Starting loop...')
-    @skipped_from_school_filter = 0
-    @invalid_rows_count = 0
-    @touched_rows_count = 0
-    @ignored_special_nil_homeroom_count = 0
-    @ignored_no_homeroom_count = 0
-    @ignored_unknown_homeroom_count = 0
-    @touched_homeroom_count = 0
+    reset_counters!
     streaming_csv.each_with_index do |row, index|
       import_row(row)
+      log("processed #{index} rows.") if index > 0 && index % 1000 == 0
     end
 
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
-    log("@invalid_rows_count: #{@invalid_rows_count}")
-    log("@touched_rows_count: #{@touched_rows_count}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
-    log("@ignored_unknown_homeroom_count: #{@ignored_unknown_homeroom_count}")
-    log("@touched_homeroom_count: #{@touched_homeroom_count}")
+    log("@ignored_homeroom_because_no_school_count: #{@ignored_homeroom_because_no_school_count}")
+
+    # We don't want to remove old Educator records, since notes and other records
+    # refence them, and this is important information we want to preserve even if
+    # an Educator is no longer an active employee.
+    log('For Educator, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Educator records.')
+    log("Educator RecordSyncer#stats: #{@educator_syncer.stats}")
+
+    # Similar for Homeroom, for now.  We can tighten this but would need to do a pass
+    # on making sure there are key constraints before deleting these.
+    log('For Homeroom, skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Homeroom records.')
+    log("Homeroom RecordSyncer#stats: #{@homeroom_syncer.stats}")
   end
 
-  def client
-    SftpClient.for_x2
+  private
+  def reset_counters!
+    @skipped_from_school_filter = 0
+    @ignored_special_nil_homeroom_count = 0
+    @ignored_no_homeroom_count = 0
+    @ignored_homeroom_because_no_school_count = 0
+  end
+
+  def download_csv
+    client = SftpClient.for_x2
+    data_transformer = StreamingCsvTransformer.new(@log)
+    CsvDownloader.new(
+      log: @log,
+      remote_file_name: remote_file_name,
+      client: client,
+      transformer: data_transformer
+    ).get_data
   end
 
   def remote_file_name
     LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_EDUCATORS_IMPORT', nil)
-  end
-
-  def data_transformer
-    StreamingCsvTransformer.new(@log)
   end
 
   def filter
@@ -57,48 +72,54 @@ class EducatorsImporter
 
   def import_row(row)
     if !filter.include?(row[:school_local_id])
-      @skipped_from_school_filter = @skipped_from_school_filter + 1
+      @skipped_from_school_filter += 1
       return
     end
 
+    # Find the matching Educator record if possible and sync it
     maybe_educator = EducatorRow.new(row, school_ids_dictionary).build
-    if maybe_educator.nil?
-      @invalid_rows_count = @invalid_rows_count + 1
-      return
-    end
-    if !maybe_educator.valid?
-      @invalid_rows_count = @invalid_rows_count + 1
-      return
-    end
-    educator = maybe_educator
+    @educator_syncer.validate_mark_and_sync!(maybe_educator)
 
-    educator.save!
-    @touched_rows_count = @touched_rows_count + 1
-
-    # Special case for NB magic "nil" value
-    if PerDistrict.new.is_nil_homeroom_name?(row[:homeroom])
-      @ignored_special_nil_homeroom_count = @ignored_special_nil_homeroom_count + 1
-      return
-    end
-
-    # No homeroom
-    if !row[:homeroom]
-      @ignored_no_homeroom_count = @ignored_no_homeroom_count + 1
-      return
-    end
-
-    # Update homeroom: homerooms guaranteed to be uniqe on {name, school}
-    # by the index_homerooms_on_school_id_and_name database index
-    homeroom = Homeroom.find_by(name: row[:homeroom], school: educator.school)
-    if homeroom.nil?
-      @ignored_unknown_homeroom_count = @ignored_unknown_homeroom_count + 1
-      return
-    end
-    homeroom.update!(educator: educator)
-    @touched_homeroom_count = @touched_homeroom_count + 1
+    # Find the matching Homeroom record if possible and
+    # sync the `educator_id` field.
+    maybe_homeroom = match_homeroom(row, maybe_educator)
+    @homeroom_syncer.validate_mark_and_sync!(maybe_homeroom)
   end
 
-  private
+  # Match existing Homeroom and update reference to Educator.
+  def match_homeroom(row, maybe_educator)
+    # Special case for NB magic "nil" value
+    if PerDistrict.new.is_nil_homeroom_name?(row[:homeroom])
+      @ignored_special_nil_homeroom_count += 1
+      return nil
+    end
+
+    # No homeroom for educator
+    if !row[:homeroom]
+      @ignored_no_homeroom_count += 1
+      return nil
+    end
+
+    # If no school, can't do match
+    school_id = school_ids_dictionary[row[:school_local_id]]
+    if school_id.nil?
+      @ignored_homeroom_because_no_school_count += 1
+      return nil
+    end
+
+    # Match Homeroom (guaranteed to be uniqe on {name, school} by database index)
+    homeroom = Homeroom.find_or_initialize_by({
+      name: row[:homeroom],
+      school_id: school_id
+    })
+
+    # Update to reference educator
+    educator_id = maybe_educator.try(:id) # might be nil
+    homeroom.assign_attributes(educator_id: educator_id)
+
+    homeroom
+  end
+
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
     @log.puts "EducatorsImporter: #{text}"
