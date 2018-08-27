@@ -1,4 +1,15 @@
-class EventNoteSerializer < Struct.new :event_note
+class EventNoteSerializer < Struct.new :event_note, :options
+  def self.safe(event_note)
+    EventNoteSerializer.new(event_note, {})
+  end
+
+  def self.dangerously_include_restricted_note_text(event_note)
+    EventNoteSerializer.new(event_note, {
+      event_note_as_json_options: {
+        dangerously_include_restricted_note_text: true
+      }
+    })
+  end
 
   def serialize_event_note_with_student
     student = {
@@ -26,8 +37,11 @@ class EventNoteSerializer < Struct.new :event_note
     })
   end
 
+  # Allow passing options to EventNote#as_json with options[:event_note_as_json_options]
   def serialize_event_without_attachments
-    event_note.as_json(include: :event_note_revisions).symbolize_keys.slice(*[
+    event_note_as_json_options = options.fetch(:event_note_as_json_options, {})
+    as_json_options = { include: :event_note_revisions }.merge(event_note_as_json_options)
+    event_note.as_json(as_json_options).symbolize_keys.slice(*[
       :id,
       :student_id,
       :educator_id,
@@ -35,8 +49,7 @@ class EventNoteSerializer < Struct.new :event_note
       :text,
       :recorded_at,
       :is_restricted,
-      :event_note_revisions
-    ])
+    ]).merge(event_note_revisions_count: event_note.event_note_revisions.size)
   end
 
   def serialize_for_school_overview

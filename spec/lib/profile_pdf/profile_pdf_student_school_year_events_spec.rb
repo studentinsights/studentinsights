@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StudentSchoolYearEvents, type: :model do
+RSpec.describe ProfilePdfStudentSchoolYearEvents do
   let(:student) { FactoryBot.create(:student) }
 
   let(:events) {
@@ -12,7 +12,7 @@ RSpec.describe StudentSchoolYearEvents, type: :model do
   }
 
   subject {
-    StudentSchoolYearEvents.new(name: '2016-2017', events: events)
+    ProfilePdfStudentSchoolYearEvents.new(name: '2016-2017', events: events)
   }
 
   describe '#filtered_absences' do

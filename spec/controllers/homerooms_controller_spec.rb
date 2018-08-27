@@ -18,6 +18,7 @@ describe HomeroomsController, :type => :controller do
 
       it 'returns the right shape of data' do
         make_request(educator.homeroom.slug)
+        expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['rows'].length).to eq 1
         expect(json['rows'].first.keys).to match_array([
@@ -64,6 +65,13 @@ describe HomeroomsController, :type => :controller do
           "interventions",
           "sped_data",
         ])
+      end
+
+      it 'works with an id instead of slug' do
+        make_request(educator.homeroom.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['rows'].length).to eq 1
       end
     end
 

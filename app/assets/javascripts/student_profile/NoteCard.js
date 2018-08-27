@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import EditableNoteText from '../components/EditableNoteText';
-import moment from 'moment';
 import * as Routes from '../helpers/Routes';
+import {formatEducatorName} from '../helpers/educatorName';
+import RestrictedNotePresence from './RestrictedNotePresence';
 
 
 // This renders a single card for a Note of any type.
@@ -13,6 +15,10 @@ export default class NoteCard extends React.Component {
     super(props);
 
     this.onBlurText = this.onBlurText.bind(this);
+  }
+
+  educator() {
+    return this.props.educatorsIndex[this.props.educatorId];
   }
 
   // No feedback, fire and forget
@@ -31,9 +37,10 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
+    const {includeStudentPanel} = this.props;
     return (
       <div className="wrapper" style={styles.wrapper}>
-        {this.renderStudentCard()}
+        {includeStudentPanel && this.renderStudentCard()}
         <div className="NoteCard" style={styles.note}>
           <div style={styles.titleLine}>
             <span className="date" style={styles.date}>
@@ -41,13 +48,40 @@ export default class NoteCard extends React.Component {
             </span>
             {this.props.badge}
             <span style={styles.educator}>
-              <Educator educator={this.props.educatorsIndex[this.props.educatorId]} />
+              <Educator educator={this.educator()} />
             </span>
           </div>
-          {this.renderText()}
+          {this.renderNoteSubstanceOrRedaction()}
           {this.renderAttachmentUrls()}
         </div>
       </div>        
+    );
+  }
+
+  // For restricted notes, show a message and allow switching to another
+  // component that allows viewing and editing.
+  // Otherwise, show the substance of the note.
+  renderNoteSubstanceOrRedaction() {
+    const {showRestrictedNoteRedaction} = this.props;
+    return (showRestrictedNoteRedaction)
+      ? this.renderRestrictedNoteRedaction()
+      : this.renderText();
+  }
+
+  // The student name may or not be present.
+  renderRestrictedNoteRedaction() {
+    const {student, urlForRestrictedNoteContent} = this.props;
+    const educatorName = formatEducatorName(this.educator());
+    const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
+      ? educatorName.split(' ')[0]
+      : educatorName;
+    
+    return (
+      <RestrictedNotePresence
+        studentFirstName={student ? student.first_name : null}
+        educatorName={educatorFirstNameOrEmail}
+        urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+      />
     );
   }
 
@@ -55,7 +89,7 @@ export default class NoteCard extends React.Component {
   // This is for older interventions that are read-only 
   // because of changes to the server data model.
   renderText() {
-    const {onSave, text, numberOfRevisions}= this.props;
+    const {onSave, text, numberOfRevisions} = this.props;
     if (onSave) {
       return (
         <EditableNoteText
@@ -69,8 +103,9 @@ export default class NoteCard extends React.Component {
   }
 
   renderAttachmentUrls() {
-    const attachments = this.props.attachments;
-
+    const {showRestrictedNoteRedaction, attachments} = this.props;
+    if (showRestrictedNoteRedaction) return null;
+    
     return attachments.map(attachment => {
       return (
         <div key={attachment.id}>
@@ -158,7 +193,7 @@ export default class NoteCard extends React.Component {
   }
 
   renderStudentCard() {
-    const student = this.props.student;
+    const {student} = this.props;
     if (student) {
       return (
         <div className="studentCard" style={styles.studentCard}>
@@ -179,11 +214,20 @@ NoteCard.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   noteMoment: PropTypes.instanceOf(moment).isRequired,
   text: PropTypes.string.isRequired,
+
+  // For editing eventNote only
   eventNoteId: PropTypes.number,
   eventNoteTypeId: PropTypes.number,
   numberOfRevisions: PropTypes.number,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
+
+  // Configuring for different uses
+  showRestrictedNoteRedaction: PropTypes.bool,
+  urlForRestrictedNoteContent: PropTypes.string,
+  
+  // For side panel for my notes page
+  includeStudentPanel: PropTypes.bool,
   student: PropTypes.object
 };
 NoteCard.defaultProps = {
@@ -228,5 +272,8 @@ const styles = {
   },
   wrapper: {
     display: 'flex'
+  },
+  restrictedNoteRedaction: {
+    color: '#999'
   }
 };

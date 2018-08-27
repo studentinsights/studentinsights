@@ -21,10 +21,15 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
   require('../../../app/assets/javascripts/student_profile/RecordService.story');
   require('../../../app/assets/javascripts/student_profile/StudentProfilePage.story');
+  require('../../../app/assets/javascripts/student_profile/StudentSectionsRoster.story');
 
   // student profile v3
   require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
+  require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
 
+  // my notes
+  require('../../../app/assets/javascripts/notes_feed/NotesFeedPage.story');
+  
   // classlists
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');
   require('../../../app/assets/javascripts/class_lists/HorizontalStepper.story');

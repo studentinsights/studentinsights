@@ -6,25 +6,24 @@ class ProfileController < ApplicationController
   def json
     student = Student.find(params[:id])
     chart_data = StudentProfileChart.new(student).chart_data
-    can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
 
     render json: {
       current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
-      feed: student_feed(student, restricted_notes: false),     # Notes, services
+      feed: student_feed(student),
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
       dibels: student.dibels_results.select(:id, :date_taken, :benchmark),
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      transition_notes: (can_see_transition_notes ? student.transition_notes : []),
+      transition_notes: student.transition_notes,
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {
-        discipline_incidents: student.discipline_incidents.order(occurred_at: :desc),
-        tardies: student.tardies.order(occurred_at: :desc),
-        absences: student.absences.order(occurred_at: :desc)
+        discipline_incidents: filtered_events(student.discipline_incidents),
+        tardies: filtered_events(student.tardies),
+        absences: filtered_events(student.absences)
       }
     }
   end
@@ -51,8 +50,7 @@ class ProfileController < ApplicationController
       school_name: student.try(:school).try(:name),
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),
-      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-      restricted_notes_count: student.event_notes.where(is_restricted: true).count,
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count
     }).stringify_keys
   end
 
@@ -60,15 +58,11 @@ class ProfileController < ApplicationController
     student.sections_with_grades.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
   end
 
-  # The feed of mutable data that changes most frequently and is owned by Student Insights.
-  # restricted_notes: If false display non-restricted notes, if true display only restricted notes.
-  def student_feed(student, restricted_notes: false)
+  def student_feed(student)
     {
       event_notes: student.event_notes
-        .select {|note| note.is_restricted == restricted_notes}
-        .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
-      transition_notes: student.transition_notes
-        .select {|note| note.is_restricted == restricted_notes},
+        .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
+      transition_notes: student.transition_notes,
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
@@ -77,5 +71,12 @@ class ProfileController < ApplicationController
         interventions: student.interventions.map { |intervention| DeprecatedInterventionSerializer.new(intervention).serialize_intervention }
       }
     }
+  end
+
+  def filtered_events(mixed_events, options = {})
+    time_now = options.fetch(:time_now, Time.now)
+    months_back = options.fetch(:months_back, 48)
+    cutoff_time = time_now - months_back.months
+    mixed_events.where('occurred_at >= ? ', cutoff_time).order(occurred_at: :desc)
   end
 end

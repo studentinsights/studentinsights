@@ -13,9 +13,10 @@ class StudentsController < ApplicationController
   # deprecated
   def show
     student = Student.find(params[:id])
-    chart_data = StudentProfileChart.new(student).chart_data
-    can_see_transition_notes = current_educator.is_authorized_to_see_transition_notes
+    return redirect_to(v3_student_path(student)) if should_redirect_to_profile_v3?(params)
 
+    can_access_restricted_transition_notes = authorizer.is_authorized_for_deprecated_transition_note_ui?
+    chart_data = StudentProfileChart.new(student).chart_data
     @serialized_data = {
       current_educator: current_educator.as_json(methods: [:labels]),
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
@@ -25,7 +26,7 @@ class StudentsController < ApplicationController
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      transition_notes: (can_see_transition_notes ? student.transition_notes : []),
+      transition_notes: student.transition_notes.as_json(dangerously_include_restricted_note_text: can_access_restricted_transition_notes),
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
@@ -146,6 +147,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  def should_redirect_to_profile_v3?(params)
+    return false if params.has_key?(:please)
+    !EnvironmentVariable.is_true('DISABLE_STUDENT_PROFILE_V3')
+  end
+
   def serialize_student_for_profile(student)
     # These are serialized, even if importing these is disabled
     # and the value is nil.
@@ -177,7 +183,7 @@ class StudentsController < ApplicationController
     {
       event_notes: student.event_notes
         .select {|note| note.is_restricted == restricted_notes}
-        .map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note },
+        .map {|event_note| EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note },
       transition_notes: student.transition_notes
         .select {|note| note.is_restricted == restricted_notes},
       services: {

@@ -8,20 +8,6 @@ import NotesList from './NotesList';
 import TakeNotes from './TakeNotes';
 
 
-
-const styles = {
-  notesContainer: {
-    width: '50%',
-    marginRight: 20
-  },
-  restrictedNotesButton: {
-    color: 'white',
-    fontSize: 12,
-    padding: 8,
-    float: 'right'
-  }
-};
-
 /*
 The bottom region of the page, showing notes about the student, services
 they are receiving, and allowing users to enter new information about
@@ -63,7 +49,7 @@ export default class LightNotesDetails extends React.Component {
   }
 
   render() {
-    const { student, title } = this.props;
+    const {student, title, currentEducator} = this.props;
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
@@ -74,13 +60,13 @@ export default class LightNotesDetails extends React.Component {
               title={this.props.helpTitle}
               content={this.props.helpContent} />
           </div>
-          {/*this.renderRestrictedNotesButtonIfAppropriate()*/}
           {!this.isTakingNotes() && this.renderTakeNotesButton()}
         </SectionHeading>}
         <div>
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             feed={this.props.feed}
+            canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
             educatorsIndex={this.props.educatorsIndex}
             onSaveNote={this.onClickSaveNotes}
             onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
@@ -90,20 +76,31 @@ export default class LightNotesDetails extends React.Component {
   }
 
   renderTakeNotesDialog() {
+    const {
+      currentEducator,
+      noteInProgressText,
+      noteInProgressType,
+      noteInProgressAttachmentUrls,
+      actions,
+      requests
+    } = this.props;
+
     return (
       <TakeNotes
         // TODO(kr) thread through
         nowMoment={moment.utc()}
-        currentEducator={this.props.currentEducator}
+        currentEducator={currentEducator}
         onSave={this.onClickSaveNotes}
         onCancel={this.onCancelNotes}
-        requestState={this.props.requests.saveNote}
-        noteInProgressText={this.props.noteInProgressText}
-        noteInProgressType={this.props.noteInProgressType}
-        noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls}
-        onClickNoteType={this.props.actions.onClickNoteType}
-        onChangeNoteInProgressText={this.props.actions.onChangeNoteInProgressText}
-        onChangeAttachmentUrl={this.props.actions.onChangeAttachmentUrl} />
+        requestState={requests.saveNote}
+        noteInProgressText={noteInProgressText}
+        noteInProgressType={noteInProgressType}
+        noteInProgressAttachmentUrls={noteInProgressAttachmentUrls}
+        onClickNoteType={actions.onClickNoteType}
+        onChangeNoteInProgressText={actions.onChangeNoteInProgressText}
+        onChangeAttachmentUrl={actions.onChangeAttachmentUrl}
+        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
+      />
     );
   }
 
@@ -117,29 +114,14 @@ export default class LightNotesDetails extends React.Component {
       </button>
     );
   }
-
-  renderRestrictedNotesButtonIfAppropriate() {
-    return false;
-
-  //   if (this.props.currentEducator.can_view_restricted_notes && !this.props.showingRestrictedNotes){
-  //     return (
-  //       <a
-  //         className="btn btn-warning"
-  //         style={styles.restrictedNotesButton}
-  //         href={'/students/' + this.props.student.id + '/restricted_notes'}>
-  //         {'Restricted (' + this.props.student.restricted_notes_count + ')'}
-  //       </a>
-  //     );
-  //   } else {
-  //     return null;
-  //   }
-  }
 }
 
 LightNotesDetails.propTypes = {
   student: PropTypes.object.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
-  currentEducator: PropTypes.object.isRequired,
+  currentEducator: PropTypes.shape({
+    can_view_restricted_notes: PropTypes.bool.isRequired
+  }).isRequired,
   actions: PropTypes.shape({
     onClickSaveNotes: PropTypes.func.isRequired,
     onEventNoteAttachmentDeleted: PropTypes.func,
@@ -157,8 +139,15 @@ LightNotesDetails.propTypes = {
     PropTypes.string
   ).isRequired,
 
-  showingRestrictedNotes: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   helpContent: PropTypes.node.isRequired,
   helpTitle: PropTypes.string.isRequired,
+};
+
+
+const styles = {
+  notesContainer: {
+    width: '50%',
+    marginRight: 20
+  }
 };

@@ -19,9 +19,8 @@ import LightNotesHelpContext from './LightNotesHelpContext';
 import StudentSectionsRoster from './StudentSectionsRoster';
 import {tags} from './lightTagger';
 import DetailsSection from './DetailsSection';
-import {toMoment} from './QuadConverter';
-import {shortLabelFromScore} from './nextGenMcasScores';
 import FullCaseHistory from './FullCaseHistory';
+import testingColumnTexts from './testingColumnTexts';
 
 
 // Prototype of profile v3
@@ -291,7 +290,6 @@ export default class LightProfilePage extends React.Component {
           feed={this.props.feed}
           actions={this.props.actions}
           requests={this.props.requests}
-          showingRestrictedNotes={false}
           helpContent={<LightNotesHelpContext />}
           helpTitle="What is a Note?"
           title="Notes"
@@ -376,10 +374,12 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderBehavior() {
+    const {currentEducator} = this.props;
     return (
       <LightBehaviorDetails
         className="LightProfilePage-behavior"
         disciplineIncidents={this.props.attendanceData.discipline_incidents}
+        canViewFullHistory={currentEducator.can_view_restricted_notes}
         activeServices={this.props.feed.services.active}
         serviceTypesIndex={this.props.serviceTypesIndex} />
     );
@@ -406,7 +406,8 @@ LightProfilePage.propTypes = {
   // context
   nowMomentFn: PropTypes.func.isRequired,
   currentEducator: PropTypes.shape({
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+    can_view_restricted_notes: PropTypes.bool.isRequired
   }).isRequired,
   districtKey: PropTypes.string.isRequired,
 
@@ -527,32 +528,4 @@ function percentileWithSuffix(percentile) {
     3: 'rd'
   }[lastDigit] || 'th';
   return `${percentile}${suffix}`;
-}
-
-
-// Look at ELA and Math next gen MCAS scores and make the different texts for the 'testing'
-// column summary for HS.
-function testingColumnTexts(nowMoment, chartData) {
-  const ela = latestNextGenMcasSummary(chartData.next_gen_mcas_ela_scaled, nowMoment);
-  const math = latestNextGenMcasSummary(chartData.next_gen_mcas_ela_scaled, nowMoment);
-
-  const scoreText = ela.scoreText === math.scoreText
-    ? ela.scoreText
-    : `${ela.scoreText} / ${math.scoreText}`;
-  const testText = ela.scoreText === math.scoreText
-    ? 'ELA and Math MCAS'
-    : 'ELA / Math MCAS';
-  const dateText = (ela.dateText === math.dateText)
-    ? ela.dateText
-    : `${ela.dateText} / ${math.dateText}`;
-
-  return {scoreText, testText, dateText};
-}
-
-// Make text for the score and date for the latest next gen MCAS score
-function latestNextGenMcasSummary(quads, nowMoment) {
-  const latestEla = _.last(_.sortBy(quads || [], quad => toMoment(quad).unix()));
-  const scoreText = latestEla ? shortLabelFromScore(latestEla[3]) : '-';
-  const dateText = latestEla ? toMoment(latestEla).from(nowMoment) : 'not yet taken';
-  return {scoreText, dateText};
 }

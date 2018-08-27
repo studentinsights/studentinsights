@@ -41,6 +41,44 @@ describe ProfileController, :type => :controller do
       }
     end
 
+    describe 'integration test for restricted note redactions' do
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+
+      before do
+        event_note = FactoryBot.create(:event_note, student: student, text: 'RESTRICTED-one', is_restricted: true)
+        FactoryBot.create(:event_note_revision, student: student, text: 'RESTRICTED-two', event_note: event_note)
+      end
+
+      it 'redacts correctly' do
+        sign_in(educator)
+        make_request(educator, student.id)
+        expect(response.status).to eq 200
+        json_string = JSON.parse(response.body).to_json
+        expect(json_string).to include('<redacted>'.to_json)
+        expect(json_string).not_to include('RESTRICTED-one')
+        expect(json_string).not_to include('RESTRICTED-two')
+      end
+    end
+
+    describe 'integration test for transition note redactions' do
+      let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+
+      before do
+        FactoryBot.create(:transition_note, student: student, text: 'RESTRICTED-transition-note', is_restricted: true)
+      end
+
+      it 'redacts correctly' do
+        sign_in(educator)
+        make_request(educator, student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json.to_json).to include('<redacted>'.to_json)
+        expect(json.to_json).not_to include('RESTRICTED-transition-note')
+        expect(json['feed']['transition_notes'][0]['text']).to eq '<redacted>'
+        expect(json['transition_notes'][0]['text']).to eq '<redacted>'
+      end
+    end
+
     context 'when educator is not logged in' do
       it 'redirects to sign in page' do
         make_request(educator, student.id)
@@ -66,7 +104,7 @@ describe ProfileController, :type => :controller do
           expect(json['current_educator']['email']).to eq educator['email']
           expect(json['current_educator']['labels']).to eq []
           expect(json['student']["id"]).to eq student.id
-          expect(json['student']["restricted_notes_count"]).to eq 0
+          expect(json['student']).not_to have_key('restricted_notes_count')
 
           expect(json['dibels']).to eq []
           expect(json['feed']).to eq ({

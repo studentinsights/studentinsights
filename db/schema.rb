@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_20_193329) do
+ActiveRecord::Schema.define(version: 2018_08_23_190757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(version: 2018_08_20_193329) do
   create_table "educator_section_assignments", force: :cascade do |t|
     t.integer "section_id"
     t.integer "educator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id"
     t.index ["section_id"], name: "index_educator_section_assignments_on_section_id"
   end
@@ -392,6 +394,8 @@ ActiveRecord::Schema.define(version: 2018_08_20_193329) do
     t.integer "student_id"
     t.decimal "grade_numeric"
     t.string "grade_letter"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_student_section_assignments_on_section_id"
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
@@ -508,7 +512,9 @@ ActiveRecord::Schema.define(version: 2018_08_20_193329) do
   add_foreign_key "student_assessments", "students", name: "student_assessments_student_id_fk"
   add_foreign_key "student_photos", "students"
   add_foreign_key "student_section_assignments", "sections"
+  add_foreign_key "student_section_assignments", "sections", name: "student_section_assignments_section_id_fk"
   add_foreign_key "student_section_assignments", "students"
+  add_foreign_key "student_section_assignments", "students", name: "student_section_assignments_student_id_fk"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"

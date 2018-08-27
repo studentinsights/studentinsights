@@ -18,7 +18,6 @@ import SectionPage from '../app/assets/javascripts/section/SectionPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
-import measurePageLoad from '../app/assets/javascripts/helpers/measurePageLoad';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
@@ -27,6 +26,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
 import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
@@ -34,11 +34,7 @@ import LoginActivityPageContainer from '../app/assets/javascripts/login_activity
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
-class App extends React.Component {
-  componentDidMount() {
-    measurePageLoad(info => console.log(JSON.stringify(info, null, 2))); // eslint-disable-line no-console
-  }
-
+export default class App extends React.Component {
   // Read which educator Rails wrote inline in the HTML page,
   // and report routing activity for analytics (eg, MixPanel)
   // TODO(kr) could do this as a higher-order component
@@ -57,7 +53,7 @@ class App extends React.Component {
     return (
       <NowContainer nowFn={() => moment.utc()}>
         <PerDistrictContainer districtKey={districtKey}>
-          <div className="App-content">
+          <div className="App-content" style={styles.flexVertical}>
             {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
             {this.renderRoutes()}
           </div>
@@ -85,6 +81,7 @@ class App extends React.Component {
         <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
+        <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
         <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
@@ -119,6 +116,12 @@ class App extends React.Component {
   renderMyStudentsPage(routeProps) {
     this.trackVisit(routeProps, 'MY_STUDENTS_PAGE');
     return <MyStudentsPage />;
+  }
+
+  renderMySectionsPage(routeProps) {
+    const {currentEducator} = this.props;
+    this.trackVisit(routeProps, 'MY_SECTIONS_PAGE');
+    return <MySectionsPage currentEducatorId={currentEducator.id} />;
   }
 
   renderStudentProfilePage(routeProps) {
@@ -267,4 +270,10 @@ App.propTypes = {
   sessionTimeoutInSeconds: PropTypes.number
 };
 
-export default App;
+const styles = {
+  flexVertical: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  }
+};

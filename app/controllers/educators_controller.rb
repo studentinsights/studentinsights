@@ -98,7 +98,7 @@ class EducatorsController < ApplicationController
     {
       educators_index: Educator.to_index,
       current_educator: current_educator,
-      notes: notes.map {|event_note| EventNoteSerializer.new(event_note).serialize_event_note_with_student },
+      notes: notes.map {|event_note| EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note_with_student },
       total_notes_count: total_notes_for_educator
     }
   end

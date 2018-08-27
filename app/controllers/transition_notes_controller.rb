@@ -1,32 +1,50 @@
 class TransitionNotesController < ApplicationController
-  before_action :authorize!
+  def restricted_transition_note_json
+    safe_params = params.permit(:student_id)
+    transition_note = authorized_or_raise! do
+      TransitionNote.find_by({
+        is_restricted: true,
+        student_id: safe_params[:student_id]
+      })
+    end
+    raise Exceptions::EducatorNotAuthorized unless transition_note.is_restricted
 
-  def authorize!
-    student = Student.find(params[:student_id])
-    educator = current_educator
-    raise Exceptions::EducatorNotAuthorized unless educator && educator.is_authorized_for_student(student)
-    raise Exceptions::EducatorNotAuthorized unless educator && educator.labels.include?('k8_counselor')
+    json = transition_note.as_json({
+      dangerously_include_restricted_note_text: true,
+      only: [:text]
+    })
+    render json: json
   end
 
+  # post
   def update
-    params.require(:is_restricted)
-    params.require(:student_id)
-    params.require(:text)
+    raise Exceptions::EducatorNotAuthorized unless authorizer.is_authorized_to_write_transition_notes?
 
-    is_restricted = params[:is_restricted]
-    student_id = params[:student_id]
-    text = params[:text]
+    safe_params = params.permit(:student_id, :is_restricted, :text)
+    transition_note = authorized_or_raise! do
+      TransitionNote.find_or_initialize_by({
+        is_restricted: safe_is_restricted_value_for_update(safe_params),
+        student_id: safe_params[:student_id]
+      })
+    end
 
-    transition_note = TransitionNote.find_or_initialize_by(
-      is_restricted: is_restricted,
-      student_id: student_id
-    )
-
-    if transition_note.update(text: text, educator_id: current_educator.id)
+    if transition_note.update({
+      text: safe_params[:text],
+      educator_id: current_educator.id
+    })
       render json: { result: 'ok' }
     else
       render json: { errors: transition_note.errors.full_messages }, status: 422
     end
   end
 
+  private
+  # Guard what values can be set by the current educator
+  def safe_is_restricted_value_for_update(safe_params)
+    if current_educator.can_view_restricted_notes?
+      safe_params[:is_restricted]
+    else
+      false
+    end
+  end
 end

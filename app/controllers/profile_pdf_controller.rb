@@ -49,7 +49,7 @@ class ProfilePdfController < ApplicationController
     @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')
 
     # Load student school years for the filtered dates
-    @student_school_years = @student.events_by_student_school_years(@filter_from_date, @filter_to_date)
+    @student_school_years = events_by_student_school_years(@student, @filter_from_date, @filter_to_date)
 
     # Sort the discipline incidents by occurrance date
     @discipline_incidents = @student.discipline_incidents.sort_by(&:occurred_at).select do |hash|
@@ -101,6 +101,12 @@ class ProfilePdfController < ApplicationController
         absences: @student.absences.order(occurred_at: :desc)
       }
     }
+  end
+
+  def events_by_student_school_years(student, filter_to_date, filter_from_date)
+    sorter = ProfilePdfStudentSchoolYearSorter.new(student: student)
+
+    sorter.sort_and_filter(filter_to_date, filter_from_date)
   end
 
   # Add this as a helper method that the ERB template can call
