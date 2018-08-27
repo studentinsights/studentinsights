@@ -26,9 +26,4 @@ class Homeroom < ActiveRecord::Base
     return if student.grade.blank?
     update_attribute(:grade, student.grade)
   end
-
-  def self.destroy_empty_homerooms
-    Homeroom.where(students_count: 0).destroy_all
-  end
-
 end
