@@ -13,6 +13,7 @@ class RecordSyncer
     @unchanged_rows_count = 0
     @updated_rows_count = 0
     @created_rows_count = 0
+    @destroyed_records_count = 0
 
     @marked_ids = []
   end
