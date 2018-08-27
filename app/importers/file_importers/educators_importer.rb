@@ -34,7 +34,7 @@ class EducatorsImporter
     # We don't want to remove old Educator records, since notes and other records
     # refence them, and this is important information we want to preserve even if
     # an Educator is no longer an active employee.
-    log('Skipping the calll to  RecordSyncer#delete_unmarked_records, to preserve references to older Educator records.')
+    log('Skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Educator records.')
     log("RecordSyncer#stats: #{@syncer.stats}")
   end
 

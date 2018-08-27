@@ -1,4 +1,4 @@
-class StudentRow < Struct.new(:row, :school_ids_dictionary, :log)
+class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
   # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
   # Some of those rows will enter Student Insights, and the data in the CSV will be written into the database
   # (see name_attributes, demographic_attributes, school_attribute).
@@ -15,7 +15,7 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary, :log)
   def build
     student = Student.find_or_initialize_by(local_id: row[:local_id])
     student.assign_attributes(attributes)
-    return student
+    student
   end
 
   private
@@ -27,20 +27,6 @@ class StudentRow < Struct.new(:row, :school_ids_dictionary, :log)
       .merge(per_district_attributes)
       .merge({ grade: grade })
       .merge({ homeroom_id: homeroom_id })
-  end
-
-  def homeroom_id
-    return nil unless row[:enrollment_status] == 'Active'
-    homeroom_name = row[:homeroom]
-
-    # Homeroom is guaranteed by index to be unique on {name, school}
-    homeroom = Homeroom.find_by(name: homeroom_name, school_id: school_rails_id)
-
-    return homeroom.id if homeroom.present?
-
-    log.puts("StudentsImporter: missing homeroom: #{homeroom_name}")
-
-    return nil
   end
 
   def name_attributes
