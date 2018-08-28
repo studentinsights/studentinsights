@@ -5,8 +5,6 @@ class StudentSectionAssignmentsImporter
     @log = options.fetch(:log)
     @student_ids_map = ::StudentIdsMap.new
     @syncer = ::RecordSyncer.new(log: @log)
-
-    @imported_assignments = []
   end
 
   def import
