@@ -25,7 +25,7 @@ LEFT JOIN course_school
   ON schedule_master.MST_CSK_OID = course_school.CSK_OID
 INNER JOIN school
   ON course_school.CSK_SKL_OID = school.SKL_OID
-AND CTX_SCHOOL_YEAR=2019
+AND CTX_SCHOOL_YEAR=2019 # when does the school year end?
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/courses_sections_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
