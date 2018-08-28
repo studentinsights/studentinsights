@@ -1,6 +1,7 @@
 use x2data
 SELECT
   'local_id',
+  'login_name',
   'course_number',
   'school_local_id',
   'section_number',
@@ -8,6 +9,7 @@ SELECT
 UNION ALL
 SELECT
   STF_ID_LOCAL,
+  USR_LOGIN_NAME,
   CSK_COURSE_NUMBER,
   SKL_SCHOOL_ID,
   MST_COURSE_VIEW,
@@ -25,7 +27,11 @@ INNER JOIN school
   ON course_school.CSK_SKL_OID = school.SKL_OID
 INNER JOIN staff
   ON schedule_master_teacher.MTC_STF_OID = staff.STF_OID
-AND CTX_SCHOOL_YEAR=2018
+INNER JOIN person
+  ON staff.STF_PSN_OID=person.PSN_OID
+INNER JOIN user_info
+  ON person.PSN_OID=user_info.USR_PSN_OID
+AND CTX_SCHOOL_YEAR=2019 -- when does the school year end?
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/educator_section_assignment_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
