@@ -173,7 +173,6 @@ describe ClassListsController, :type => :controller do
         format: :html
       }
       expect(response.status).to eq 200
-      expect(response.body).to include('Class list: (foo-workspace-id:2)')
       expect(response.body).to include('School: Arthur D Healey')
       expect(response.body).to include('Grade level (rising): 6')
       expect(response.body).to include('Teaching team, plan and notes')
