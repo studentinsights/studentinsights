@@ -34,9 +34,7 @@ export default class LightProfilePage extends React.Component {
   countEventsSince(events, daysBack) {
     const {nowMomentFn} = this.props;
     const nowMoment = nowMomentFn();
-    const endMoment = nowMoment.endOf('day');
-    const startMoment = nowMoment.clone().subtract(daysBack, 'days').startOf('day');
-    return countEventsBetween(events, startMoment, endMoment);
+    return countEventsSince(nowMoment, events, daysBack);
   }
 
   onColumnClicked(columnKey) {
@@ -495,13 +493,13 @@ function findTopRecentTags(eventNotes, nowMoment) {
   return recentTags.slice(0, 4);
 }
 
-
-function countEventsBetween(events, startMoment, endMoment) {
+export function countEventsSince(nowMoment, events, daysBack) {
+  const endMoment = nowMoment.endOf('day');
+  const startMoment = nowMoment.clone().subtract(daysBack, 'days').startOf('day');
   return events.filter(event => {
     return moment.utc(event.occurred_at).isBetween(startMoment, endMoment);
   }).length;
 }
-
 
 
 export function latestStar(starDataPoints, nowMoment) {
