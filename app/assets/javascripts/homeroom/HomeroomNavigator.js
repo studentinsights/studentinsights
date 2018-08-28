@@ -35,7 +35,7 @@ export default class HomeroomNavigator extends React.Component {
     return (
       <div className="HomeroomNavigator" style={{...styles.root, ...style}}>
         <Select
-          placeholder="Jump to homeroom..."
+          placeholder="Find homeroom..."
           value={homeroomOption}
           style={styles.select}
           onChange={this.onHomeroomItemChanged}
@@ -55,7 +55,10 @@ export default class HomeroomNavigator extends React.Component {
   }
 }
 HomeroomNavigator.propTypes = {
-  homerooms: PropTypes.array.isRequired,
+  homerooms: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired
+  })).isRequired,
   style: PropTypes.object
 };
 

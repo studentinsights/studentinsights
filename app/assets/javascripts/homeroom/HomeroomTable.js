@@ -132,8 +132,9 @@ export default class HomeroomTable extends React.Component {
   }
 
   render() {
+    const {style} = this.props;
     return (
-      <div className="HomeroomTable">
+      <div className="HomeroomTable" style={style}>
         <table id="roster-table" cellSpacing="0" cellPadding="5" className="sort-default">
           {this.renderHeaders()}
           {this.renderRows()}
@@ -293,9 +294,9 @@ HomeroomTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.shape({
     event_notes_without_restricted: PropTypes.array.isRequired
   })).isRequired,
-  grade: PropTypes.string,
   school: PropTypes.shape({
     school_type: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  style: PropTypes.object
 };
 

@@ -11,10 +11,19 @@ class HomeroomsController < ApplicationController
     allowed_homerooms = current_educator.allowed_homerooms.order(:name)
 
     render json: {
-      homeroom: homeroom.as_json(only: [:id, :slug, :name, :grade]),
-      school: homeroom.school,
+      homeroom: homeroom.as_json({
+        only: [:id, :slug, :name],
+        include: {
+          educator: {
+            only: [:id, :email, :full_name]
+          },
+          school: {
+            only: [:id, :name, :school_type]
+          }
+        }
+      }),
       rows: rows,
-      homerooms: allowed_homerooms.as_json(only: [:id, :slug, :name, :grade])
+      homerooms: allowed_homerooms.as_json(only: [:slug, :name])
     }
   end
 
