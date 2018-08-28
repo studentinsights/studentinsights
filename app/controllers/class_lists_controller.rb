@@ -245,6 +245,8 @@ class ClassListsController < ApplicationController
   end
 
   def ensure_feature_enabled_for_district!
-    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_class_lists?
+    is_override_enabled = current_educator.labels.include?('enable_class_lists_override')
+    is_enabled = PerDistrict.new.enabled_class_lists?
+    raise Exceptions::EducatorNotAuthorized if !is_enabled && !is_override_enabled
   end
 end
