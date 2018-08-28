@@ -1,0 +1,6 @@
+"local_id","login_name","course_number","school_local_id","section_number","term_local_id"
+\N,"arodriguez","SOC6","SHS","SOC6-001","FY"
+"9111","djeter","ALG2","SHS","ALG2-004","FY"
+"9222","ngarciaparra","SOC6","SHS","SOC6-001","FY"
+"9333","mtejada","ELA6","SHS","ELA6-002","FY"
+"9444","unknownlogin","ELA6","SHS","ELA6-002","FY"
