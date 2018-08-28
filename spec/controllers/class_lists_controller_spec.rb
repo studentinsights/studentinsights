@@ -142,6 +142,46 @@ describe ClassListsController, :type => :controller do
     end
   end
 
+  describe '#text' do
+    it 'guards access' do
+      class_list = create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours,
+      })
+      sign_in(pals.healey_sarah_teacher)
+      get :text, params: {
+        workspace_id: class_list.workspace_id,
+        format: :html
+      }
+      expect(response.status).to eq 302
+    end
+
+    it 'passes smoke test on happy path, with EducatorLabel set' do
+      EducatorLabel.create!({
+        educator_id: pals.healey_sarah_teacher.id,
+        label_key: 'enable_class_lists_override'
+      })
+      class_list = create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours,
+      })
+      sign_in(pals.healey_sarah_teacher)
+      get :text, params: {
+        workspace_id: class_list.workspace_id,
+        format: :html
+      }
+      expect(response.status).to eq 200
+      expect(response.body).to include('Class list: (foo-workspace-id:2)')
+      expect(response.body).to include('School: Arthur D Healey')
+      expect(response.body).to include('Grade level (rising): 6')
+      expect(response.body).to include('Teaching team, plan and notes')
+      expect(response.body).to include('Teaching team\'s class lists:')
+      expect(response.body).to include('Principal\'s revised class lists:')
+    end
+  end
+
   describe '#available_grade_levels_json' do
     def request_available_grade_levels_json(educator)
       sign_in(educator)
