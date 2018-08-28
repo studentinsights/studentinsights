@@ -31,11 +31,10 @@ export default class LightProfilePage extends React.Component {
     alwaysShowVerticalScrollbars();
   }
 
-  countEventsBetween(events, daysBack) {
+  countEventsSince(events, daysBack) {
     const {nowMomentFn} = this.props;
-    const startMoment = nowMomentFn().startOf('day');
-    const endMoment = startMoment.clone().subtract(daysBack, 'days');
-    return countEventsBetween(events, startMoment, endMoment);
+    const nowMoment = nowMomentFn();
+    return countEventsSince(nowMoment, events, daysBack);
   }
 
   onColumnClicked(columnKey) {
@@ -242,7 +241,7 @@ export default class LightProfilePage extends React.Component {
   renderAttendanceColumn() {
     const {selectedColumnKey} = this.props;
     const columnKey = 'attendance';
-    const count = this.countEventsBetween(this.props.attendanceData.absences, DAYS_AGO);
+    const count = this.countEventsSince(this.props.attendanceData.absences, DAYS_AGO);
     return (
       <LightProfileTab
         style={styles.tab}
@@ -262,7 +261,7 @@ export default class LightProfilePage extends React.Component {
   renderBehaviorColumn() {
     const {selectedColumnKey} = this.props;
     const columnKey = 'behavior';
-    const count = this.countEventsBetween(this.props.attendanceData.discipline_incidents, DAYS_AGO);
+    const count = this.countEventsSince(this.props.attendanceData.discipline_incidents, DAYS_AGO);
 
     return (
       <LightProfileTab
@@ -494,13 +493,13 @@ function findTopRecentTags(eventNotes, nowMoment) {
   return recentTags.slice(0, 4);
 }
 
-
-function countEventsBetween(events, startMoment, endMoment) {
+export function countEventsSince(nowMoment, events, daysBack) {
+  const endMoment = nowMoment.endOf('day');
+  const startMoment = nowMoment.clone().subtract(daysBack, 'days').startOf('day');
   return events.filter(event => {
     return moment.utc(event.occurred_at).isBetween(startMoment, endMoment);
   }).length;
 }
-
 
 
 export function latestStar(starDataPoints, nowMoment) {
