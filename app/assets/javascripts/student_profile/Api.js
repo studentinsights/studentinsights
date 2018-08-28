@@ -8,7 +8,7 @@ export default class Api {
 
   saveNotes(studentId, eventNoteParams) {
     if (eventNoteParams.id) {
-      return this._updateNote(studentId, eventNoteParams);
+      return this._updateNote(eventNoteParams);
     }
     else {
       return this._createNote(studentId, eventNoteParams);
@@ -27,7 +27,7 @@ export default class Api {
     });
   }
 
-  _updateNote(studentId, eventNoteParams) {
+  _updateNote(eventNoteParams) {
     const id = eventNoteParams.id;
 
     return apiPatchJson(`/api/event_notes/${id}`, {
