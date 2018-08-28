@@ -245,6 +245,9 @@ class ClassListsController < ApplicationController
   end
 
   def ensure_feature_enabled_for_district!
-    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_class_lists?
+    override_educator_ids = ENV.fetch('FORCE_ENABLE_CLASS_LISTS_FOR_EDUCATOR_IDS', '').split(',')
+    is_override_enabled = current_educator.can_set_districtwide_access && override_educator_ids.include?(current_educator.id)
+    is_enabled = PerDistrict.new.enabled_class_lists?
+    raise Exceptions::EducatorNotAuthorized unless is_enabled || is_override_enabled
   end
 end
