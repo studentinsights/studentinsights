@@ -65,7 +65,7 @@ class EducatorSectionAssignmentsImporter
   end
 
   def filter
-    SchoolFilter.new(@school_scope)
+    SchoolFilter.new(@school_local_ids)
   end
 
   def import_row(row)
