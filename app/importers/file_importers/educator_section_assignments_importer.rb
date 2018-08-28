@@ -37,7 +37,7 @@ class EducatorSectionAssignmentsImporter
     @invalid_section_count = 0
     @invalid_educator_count = 0
   end
-  
+
   # What existing Insights records should be updated or deleted from running this import?
   def records_within_scope
     return EducatorSectionAssignment.all if @school_local_ids.nil?
