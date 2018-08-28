@@ -31,7 +31,7 @@ INNER JOIN person
   ON staff.STF_PSN_OID=person.PSN_OID
 INNER JOIN user_info
   ON person.PSN_OID=user_info.USR_PSN_OID
-AND CTX_SCHOOL_YEAR=2018
+AND CTX_SCHOOL_YEAR=2019
   INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/educator_section_assignment_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'
