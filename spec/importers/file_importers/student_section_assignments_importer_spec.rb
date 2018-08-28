@@ -6,11 +6,6 @@ RSpec.describe StudentSectionAssignmentsImporter do
       school_scope: nil,
       log: LogHelper::Redirect.instance.file
     }.merge(options))
-    importer.instance_variable_set(:@skipped_from_school_filter, 0)
-    importer.instance_variable_set(:@invalid_student_count, 0)
-    importer.instance_variable_set(:@invalid_course_count, 0)
-    importer.instance_variable_set(:@invalid_section_count, 0)
-    importer.instance_variable_get(:@student_ids_map).reset!
     importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
     importer
   end

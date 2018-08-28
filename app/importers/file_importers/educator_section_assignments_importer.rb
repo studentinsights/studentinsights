@@ -92,19 +92,24 @@ class EducatorSectionAssignmentsImporter
     end
 
     EducatorSectionAssignment.find_or_initialize_by({
-      educator_id: educator.id,
-      section_id: section.id
+      educator_id: educator_id,
+      section_id: section_id
     })
   end
 
-  def find_section_id
+  def find_section_id(row)
     return nil if row[:section_number].nil?
-    Section.find_by_section_number(row[:section_number])
+    Section.find_by_section_number(row[:section_number]).try(:id)
   end
 
   def find_educator_id(row)
     return nil if row[:login_name].nil?
     email = PerDistrict.new.from_import_login_name_to_email(row[:login_name])
-    Educator.find_by(email: email)
+    Educator.find_by(email: email).try(:id)
+  end
+
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "EducatorSectionAssignmentsImporter: #{text}"
   end
 end

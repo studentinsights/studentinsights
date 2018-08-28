@@ -5,6 +5,7 @@ class StudentSectionAssignmentsImporter
     @log = options.fetch(:log)
     @student_ids_map = ::StudentIdsMap.new
     @syncer = ::RecordSyncer.new(log: @log)
+    reset_counters!
   end
 
   def import
@@ -22,10 +23,6 @@ class StudentSectionAssignmentsImporter
     log("@school_ids_dictionary built with #{@school_ids_dictionary.size} local_id keys")
 
     log('Starting loop...')
-    @skipped_from_school_filter = 0
-    @invalid_student_count = 0
-    @invalid_course_count = 0
-    @invalid_section_count = 0
     streaming_csv.each_with_index do |row, index|
       import_row(row)
       log("processed #{index} rows.") if index > 0 && index % 1000 == 0
@@ -43,6 +40,13 @@ class StudentSectionAssignmentsImporter
   end
 
   private
+  def reset_counters!
+    @skipped_from_school_filter = 0
+    @invalid_student_count = 0
+    @invalid_course_count = 0
+    @invalid_section_count = 0
+  end
+
   # What existing Insights records should be updated or deleted from running this import?
   def records_within_scope
     return StudentSectionAssignment.all if @school_local_ids.nil?
