@@ -1,6 +1,6 @@
 use x2data
 SELECT
-  'local_id',
+  'local_id', -- deprecated, use login_name
   'login_name',
   'course_number',
   'school_local_id',
@@ -8,7 +8,7 @@ SELECT
   'term_local_id'
 UNION ALL
 SELECT
-  STF_ID_LOCAL,
+  STF_ID_LOCAL, -- deprecated, use login_name
   USR_LOGIN_NAME,
   CSK_COURSE_NUMBER,
   SKL_SCHOOL_ID,
