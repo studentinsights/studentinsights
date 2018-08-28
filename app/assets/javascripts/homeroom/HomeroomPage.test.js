@@ -41,6 +41,9 @@ it('renders everything after fetch', done => {
   
   setTimeout(() => {
     expect($(el).text()).toContain('Homeroom: HEA 500');
+    expect($(el).text()).toContain('5th grade');
+    expect($(el).text()).toContain('with Sarah Teacher');
+    expect($(el).text()).toContain('at Arthur D Healey');
     done();
   }, 0);
 });
