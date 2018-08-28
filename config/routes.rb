@@ -143,6 +143,7 @@ Rails.application.routes.draw do
       get '/new' => 'ui#ui'
       get '/equity' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
+      get '/:workspace_id/text' => 'class_lists#text'
     end
   end
 

@@ -44,6 +44,17 @@ class ClassListsController < ApplicationController
     render json: Herfindahl.new.with_dimensions_json(workspaces)
   end
 
+  # For getting access to class list data after the year has passed,
+  # until we rework the authorization to work at all times of the year.
+  def text
+    raise Exceptions::EducatorNotAuthorized unless is_authorization_override_enabled?
+
+    workspace_id = params.require(:workspace_id)
+    class_list = ClassList.latest_class_list_for_workspace(workspace_id)
+    text = ClassListText.new(class_list).dangerously_render_as_text
+    render plain: text
+  end
+
   # Suggest the schools and grade levels that this educator will want to create.
   # This isn't an authorization gate, more a helpful UI suggestion than anything else.
   def available_grade_levels_json
@@ -244,9 +255,12 @@ class ClassListsController < ApplicationController
     end
   end
 
+  def is_authorization_override_enabled?
+    current_educator.labels.include?('enable_class_lists_override')
+  end
+
   def ensure_feature_enabled_for_district!
-    is_override_enabled = current_educator.labels.include?('enable_class_lists_override')
     is_enabled = PerDistrict.new.enabled_class_lists?
-    raise Exceptions::EducatorNotAuthorized if !is_enabled && !is_override_enabled
+    raise Exceptions::EducatorNotAuthorized if !is_enabled && !is_authorization_override_enabled?
   end
 end
