@@ -10,8 +10,9 @@ class ServiceUploadsController < ApplicationController
   end
 
   def create
+    safe_params = params.permit(:file_name, :service_type_name, :student_lasids)
     service_upload = ServiceUpload.new(
-      file_name: params['file_name'],
+      file_name: safe_params[:file_name],
       uploaded_by_educator_id: current_educator.id
     )
 
@@ -23,7 +24,7 @@ class ServiceUploadsController < ApplicationController
 
     service_upload.save!
 
-    service_type = ServiceType.find_by_name(params['service_type_name'])
+    service_type = ServiceType.find_by_name(safe_params[:service_type_name])
 
     if service_type.nil?
       return render json: {
@@ -33,7 +34,7 @@ class ServiceUploadsController < ApplicationController
 
     errors = []
 
-    params['student_lasids'].map do |student_lasid|
+    safe_params[:student_lasids].map do |student_lasid|
       student = Student.find_by_local_id(student_lasid)
 
       if student.present?
@@ -43,12 +44,15 @@ class ServiceUploadsController < ApplicationController
           recorded_by_educator: current_educator,
           service_type: service_type,
           recorded_at: recorded_at,
-          date_started: date_started
+          date_started: date_started(safe_params)
         )
 
-        return unless date_ended
+        return unless date_ended(safe_params)
 
-        unless service.update_attributes(:discontinued_at => date_ended, :discontinued_by_educator_id => current_educator.id)
+        unless service.update_attributes({
+          :discontinued_at => date_ended(safe_params),
+          :discontinued_by_educator_id => current_educator.id
+        })
           errors << "Could not save service end date. (Must end after service start date.)"
         end
       end
@@ -122,12 +126,12 @@ class ServiceUploadsController < ApplicationController
       DateTime.current
     end
 
-    def date_started
-      Date.strptime(params['date_started'],  "%m/%d/%Y")
+    def date_started(safe_params)
+      Date.strptime(safe_params[:date_started],  "%m/%d/%Y")
     end
 
     def date_ended
-      Date.strptime(params['date_ended'],  "%m/%d/%Y")
+      Date.strptime(safe_params[:date_ended],  "%m/%d/%Y")
     end
 
 end

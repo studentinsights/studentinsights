@@ -1,6 +1,10 @@
-import {apiFetchJson} from '../helpers/apiFetchJson';
+import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 
 class Api {
+
+  createServiceUploads(params = {}) {
+    return apiPostJson('/service_uploads.json', params);
+  }
 
   getPastServiceUploads(onSucceed) {
     const url = '/service_uploads/past';
