@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import qs from 'querystring';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
@@ -63,7 +64,7 @@ export default class PageContainer extends React.Component {
     const {selectedColumnKey, student} = this.state;
     const queryParams = { column: selectedColumnKey };
     const path = (shouldUseLightProfilePage)
-      ? `/students/${student.id}/v3?${$.param(queryParams)}`
+      ? `/students/${student.id}/v3?${qs.stringify(queryParams)}`
       : Routes.studentProfile(student.id, queryParams);
 
     this.props.history.replaceState({}, null, path);
