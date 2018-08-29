@@ -4,8 +4,11 @@ import moment from 'moment';
 import {AutoSizer} from 'react-virtualized';
 import {isLimitedOrFlep} from '../helpers/language';
 import * as Routes from '../helpers/Routes';
-import {hasStudentPhotos} from '../helpers/PerDistrict';
-import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
+import {
+  hasStudentPhotos,
+  studentProfileQuoteUpsell,
+  hasInfoAbout504Plan
+} from '../helpers/PerDistrict';
 import HelpBubble, {
   modalFromLeft,
   modalFromRight,
@@ -54,7 +57,7 @@ export default class LightProfileHeader extends React.Component {
   renderStudentPhotoOrNull() {
     const {student} = this.props;
     if (!this.hasPhoto()) return null;
-    
+
     return (
       <div style={{flex: 1, marginLeft: 10}}>
         <AutoSizer>
@@ -203,13 +206,18 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderGlance() {
+    const {districtKey} = this.context;
     const {transitionNotes, educatorsIndex, student} = this.props;
     const style = {fontSize: 12};
     const useRealTransitionNotes = window.location.search.indexOf('sample') === -1;
+    const fallbackQuote = studentProfileQuoteUpsell(districtKey);
     const quotes = (useRealTransitionNotes)
       ? quotesFrom(transitionNotes, educatorsIndex, style)
       : sampleQuotes(style);
-    const quotesOrUpsell = (quotes.length === 0) ? upsellQuotes(student, style) : quotes;
+    const quotesOrUpsell = (quotes.length === 0)
+      ? upsellQuotes(student, fallbackQuote, style)
+      : quotes;
+
     return (
       <div style={{
         flex: 1,

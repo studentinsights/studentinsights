@@ -6,7 +6,6 @@ import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
 import {parseTransitionNoteText, parseAndReRender} from './lightTransitionNotes';
-import {studentProfileQuoteUpsell} from '../helpers/PerDistrict';
 
 export function sampleQuotes(style) {
   const quotes = [
@@ -55,15 +54,12 @@ export function quotesFrom(transitionNotes, educatorsIndex, style) {
 }
 
 
-export function upsellQuotes(student, style) {
-  const {districtKey} = this.context;
-  const quoteUpsell = studentProfileQuoteUpsell(districtKey);
-
+export function upsellQuotes(student, fallbackQuote, style) {
   return [{
     quote: (
       <div>
         <div style={{fontSize: 18, marginBottom: 5}}>Share an insight about {student.first_name}</div>
-        <div style={style}>{quoteUpsell}</div>
+        <div style={style}>{fallbackQuote}</div>
       </div>
     ),
     withoutQuotes: true,
