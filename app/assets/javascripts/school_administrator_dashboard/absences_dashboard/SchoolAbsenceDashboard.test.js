@@ -80,7 +80,7 @@ describe('with testSetup', () => {
   it('renders different values when the time range changes', () => {
     const dash = renderShallow();
     dash.setState({timeRangeKey: TIME_RANGE_90_DAYS_AGO});
-    expect(monthlyAverageSeries(dash)).toEqual([99.7, 99.7, 99.5, 99.6]);
+    expect(monthlyAverageSeries(dash)).toEqual([99.6, 99.7, 99.5, 99.6]);
   });
 
   it('can render values for a whole year', () => {
@@ -103,7 +103,7 @@ describe('with testSetup', () => {
 
   it('renders the attendance by homeroom', () => {
     const dash = renderShallow();
-    expect(homeroomAveragesSeries(dash)).toEqual([99, 99.2, 99.2, 99.3, 99.3, 99.3, 99.4, 99.4, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.6, 99.6, 99.6, 99.6, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 100, 100, 100, 100, 100]);
+    expect(homeroomAveragesSeries(dash)).toEqual([99, 99.2, 99.2, 99.2, 99.2, 99.3, 99.3, 99.3, 99.4, 99.4, 99.5, 99.5, 99.5, 99.5, 99.5, 99.5, 99.6, 99.6, 99.6, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 99.8, 100, 100, 100, 100, 100]);
   });
 });
 
