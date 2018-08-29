@@ -26,13 +26,6 @@ class Student < ActiveRecord::Base
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
-  has_many :dashboard_tardies, -> {
-    where('occurred_at >= ?', 1.year.ago)
-  }, class_name: "Tardy"
-  has_many :dashboard_absences, -> {
-    where('occurred_at >= ?', 1.year.ago)
-  }, class_name: "Absence"
-
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   validates :first_name, presence: true
