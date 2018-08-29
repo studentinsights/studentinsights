@@ -57,7 +57,7 @@ export default {
 
   getFirstDateIndex(dates, start_date) {
     for (let i = 0, max = dates.length; i < max; i++) {
-      if (moment.utc(dates[i]).isSameOrAfter(start_date)) return i;
+      if (moment.utc(dates[i]).isSameOrAfter(moment.utc(start_date))) return i;
     }
     return dates.length;
   },
