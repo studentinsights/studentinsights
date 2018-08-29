@@ -22,7 +22,8 @@ class InsightStudentsWithHighAbsences
   # classroom teachers, the intended actions are to talk with
   # the student, parent, or refer for SST.
   #
-  # absences_threshold is "greater than or equal to"
+  # time_threshold and absences_threshold are both inclusive ("greater
+  # than or equal to")
   #
   # This method returns hashes that are the shape of what is needed
   # in the product.
@@ -61,7 +62,7 @@ class InsightStudentsWithHighAbsences
       .includes(:student)
       .where(student_id: student_ids)
       .where(excused: excused_values)
-      .where('occurred_at > ?', time_threshold)
+      .where('occurred_at >= ?', time_threshold)
       .group(:student)
       .count
     pairs = absence_count_map.map do |student, count|
@@ -80,7 +81,7 @@ class InsightStudentsWithHighAbsences
     recent_notes = EventNote
       .where(is_restricted: false)
       .where(student_id: student_ids)
-      .where('recorded_at > ?', time_threshold)
+      .where('recorded_at >= ?', time_threshold)
     recent_notes.map(&:student_id).uniq
   end
 
