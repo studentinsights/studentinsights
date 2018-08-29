@@ -186,3 +186,11 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   if (isSomervilleOrDemo) return [300, 301];  // Includes elementary/middle, Capuano early childhood,
                                               // and SPED.
 }
+
+export function studentProfileQuoteUpsell(districtKey) {
+  if (districtKey === SOMERVILLE) return (
+    'This is being piloted at Somerville High School to start the school year.'
+  );
+
+  return 'This is being piloted at another school.';
+}
