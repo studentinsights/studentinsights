@@ -68,19 +68,19 @@ class Student < ActiveRecord::Base
 
   def most_recent_school_year_discipline_incidents_count
     discipline_incidents.where(
-      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
+      'occurred_at >= ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
   def most_recent_school_year_absences_count
     absences.where(
-      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
+      'occurred_at >= ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
   def most_recent_school_year_tardies_count
     tardies.where(
-      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
+      'occurred_at >= ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
