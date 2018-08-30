@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LightShareNewInsight from './LightShareNewInsight';
+import LightComingSoonInsight from './LightComingSoonInsight';
 import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
 
 
@@ -57,7 +57,7 @@ export default class LightCarousel extends React.Component {
       <div className="LightCarousel" style={{...styles.root, ...style}}>
         {(insights.length > 0)
           ? this.renderInsightByType(insights[index], {buttonEl})
-          : <LightShareNewInsight studentFirstName={studentFirstName} />
+          : <LightComingSoonInsight studentFirstName={studentFirstName} />
         }
       </div>
     );
@@ -71,7 +71,6 @@ export default class LightCarousel extends React.Component {
         <LightInsightTransitionNoteStrength
           insightPayload={insightPayload}
           educatorsIndex={educatorsIndex}
-          insightStyle={{fontSize: 12}}
         />
       );
     }
@@ -82,8 +81,7 @@ LightCarousel.propTypes = {
   insights: PropTypes.array.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   studentFirstName: PropTypes.string.isRequired,
-  style: PropTypes.object,
-  insightStyle: PropTypes.object,
+  style: PropTypes.object
 };
 
 const styles = {

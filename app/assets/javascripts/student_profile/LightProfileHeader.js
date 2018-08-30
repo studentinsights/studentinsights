@@ -206,16 +206,11 @@ export default class LightProfileHeader extends React.Component {
     const {transitionNotes, educatorsIndex, student} = this.props;
     const insights = insightsFromTransitionNotes(transitionNotes);
     return (
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        background: '#eee'
-      }}>
+      <div style={styles.carousel}>
         <LightCarousel
           insights={insights}
           studentFirstName={student.first_name}
           educatorsIndex={educatorsIndex}
-          insightStyle={{fontSize: 12}} 
         />
       </div>
     );
@@ -331,7 +326,6 @@ const styles = {
     marginRight: 5,
     fontSize: 20
   },
-
   headerBitsRow: {
     display: 'flex',
     flexDirection: 'row'
@@ -358,6 +352,11 @@ const styles = {
   svgIcon: {
     fill: "#3177c9",
     opacity: 0.5
+  },
+  carousel: {
+    flex: 1,
+    display: 'flex',
+    background: '#eee'
   }
 };
 
