@@ -2079,8 +2079,7 @@ exports[`snapshots works for aladdin grades 1`] = `
           >
             Grade 10
           </div>
-          <a
-            href="/schools/9"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -2089,7 +2088,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           >
             Somerville High
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -3097,8 +3096,7 @@ exports[`snapshots works for aladdin notes 1`] = `
           >
             Grade 10
           </div>
-          <a
-            href="/schools/9"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -3107,7 +3105,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             }
           >
             Somerville High
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -4115,8 +4113,7 @@ exports[`snapshots works for aladdin testing 1`] = `
           >
             Grade 10
           </div>
-          <a
-            href="/schools/9"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -4125,7 +4122,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           >
             Somerville High
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -7083,8 +7080,7 @@ exports[`snapshots works for olaf math 1`] = `
           >
             Grade 5
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -7093,7 +7089,7 @@ exports[`snapshots works for olaf math 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -8048,8 +8044,7 @@ exports[`snapshots works for olaf notes 1`] = `
           >
             Grade 5
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -8058,7 +8053,7 @@ exports[`snapshots works for olaf notes 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -9013,8 +9008,7 @@ exports[`snapshots works for olaf reading 1`] = `
           >
             Grade 5
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -9023,7 +9017,7 @@ exports[`snapshots works for olaf reading 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -12114,8 +12108,7 @@ exports[`snapshots works for pluto attendance 1`] = `
           >
             Grade KF
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -12124,7 +12117,7 @@ exports[`snapshots works for pluto attendance 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -13094,8 +13087,7 @@ exports[`snapshots works for pluto behavior 1`] = `
           >
             Grade KF
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -13104,7 +13096,7 @@ exports[`snapshots works for pluto behavior 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -14074,8 +14066,7 @@ exports[`snapshots works for pluto notes 1`] = `
           >
             Grade KF
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -14084,7 +14075,7 @@ exports[`snapshots works for pluto notes 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={

@@ -19,6 +19,6 @@ function testRender(props = {}, context = {}) {
 it('renders without crashing', () => {
   const props = testProps();
   const {el} = testRender(props);
-  expect($(el).html()).toContain('Jump to homeroom...');
+  expect($(el).html()).toContain('Find homeroom...');
   expect($(el).html()).toContain('button');
 });
