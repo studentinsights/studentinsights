@@ -6,7 +6,6 @@ import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {gradeText} from '../helpers/gradeText';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import School from '../components/School';
 import Educator from '../components/Educator';
 import HomeroomTable from './HomeroomTable';
 import HomeroomNavigator from './HomeroomNavigator';
@@ -70,9 +69,9 @@ class HomeroomPageView extends React.Component {
           <span style={styles.nameAndInfo}>
             <span>Homeroom: {name}</span>
             <span style={styles.homeroomInfo}>
-              {orderedGrades.length > 0 && <span>{orderedGrades.map(gradeText).join(' and ')}</span>}
+              {orderedGrades.length > 0 && <span>{orderedGrades.map(gradeText).join(' and ')} </span>}
+              <span>at {school.name}</span>
               {educator && <span> with <Educator educator={educator} /></span>}
-              <span> at <School {...school} /></span>
             </span>
           </span>
           <HomeroomNavigator
