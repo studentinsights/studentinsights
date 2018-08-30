@@ -203,8 +203,8 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderGlance() {
-    const {transitionNotes, educatorsIndex, student} = this.props;
-    const insights = insightsFromTransitionNotes(transitionNotes);
+    const {insights, educatorsIndex, student} = this.props;
+    // const insights = insightsFromTransitionNotes(transitionNotes);
     return (
       <div style={styles.carousel}>
         <LightCarousel
@@ -291,7 +291,7 @@ LightProfileHeader.propTypes = {
   iepDocument: PropTypes.object,
   access: PropTypes.object,
   educatorsIndex: PropTypes.object,
-  transitionNotes: PropTypes.array,
+  insights: PropTypes.array.isRequired,
   districtKey: PropTypes.string.isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object

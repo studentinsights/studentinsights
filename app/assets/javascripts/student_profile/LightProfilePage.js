@@ -70,7 +70,7 @@ export default class LightProfilePage extends React.Component {
       student,
       districtKey,
       access,
-      transitionNotes,
+      insights,
       educatorsIndex,
       iepDocument
     } = this.props;
@@ -80,7 +80,7 @@ export default class LightProfilePage extends React.Component {
         student={student}
         access={access}
         iepDocument={iepDocument}
-        transitionNotes={transitionNotes}
+        insights={insights}
         educatorsIndex={educatorsIndex}
         districtKey={districtKey}
         renderFullCaseHistory={this.renderFullCaseHistory.bind(this)}
@@ -417,7 +417,7 @@ LightProfilePage.propTypes = {
   // data
   student: PropTypes.object.isRequired,
   feed: PropTypes.object.isRequired,
-  transitionNotes: PropTypes.array.isRequired,
+  insights: PropTypes.array.isRequired,
   dibels: PropTypes.array.isRequired,
   chartData: PropTypes.shape({
     // ela
