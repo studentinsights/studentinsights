@@ -32,7 +32,7 @@ describe EducatorsController, :type => :controller do
           "name"=>"Arthur D Healey"
         },
         "sections"=>[],
-        "labels"=>[]
+        "labels"=>['can_upload_student_voice_surveys']
       })
     end
 
