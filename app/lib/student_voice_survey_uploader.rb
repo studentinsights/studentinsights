@@ -2,7 +2,7 @@ class StudentVoiceSurveyUploader
   def initialize(file_text, upload_attrs, options = {})
     @file_text = file_text
     @upload_attrs = upload_attrs
-    @log = options.fetch(:log, STDOUT)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     reset_counters!
   end
 
@@ -44,24 +44,26 @@ class StudentVoiceSurveyUploader
     csv_transformer.transform(@file_text)
   end
 
-  def process_row_or_nil(columns_map, row, index)
-    missing_column_keys = (columns_map.values - row.to_h.keys)
+  def process_row_or_nil(columns_map, raw_row, index)
+    missing_column_keys = (columns_map.values - raw_row.to_h.keys)
     if missing_column_keys.size > 0
       @invalid_row_columns_count += 1
       return nil
     end
 
-    student_id = Student.find_by_local_id('2222222222').try(:id) # Student.find_by_local_id(row[:student_lasid]).try(:id)
+    # whitelist attributes for the row, translate to short symbol keys
+    row_attrs = {}
+    columns_map.each do |record_field_name, csv_column_text|
+      row_attrs[record_field_name] = raw_row[csv_column_text]
+    end
+
+    # match student
+    student_id = Student.find_by_local_id(row_attrs[:student_lasid]).try(:id)
     if student_id.nil?
       @invalid_student_local_id_count += 1
       return nil
     end
 
-    # whitelist
-    row_attrs = {}
-    columns_map.each do |record_field_name, csv_column_text|
-      row_attrs[record_field_name] = row.to_h[csv_column_text]
-    end
     row_attrs.merge(student_id: student_id)
   end
 

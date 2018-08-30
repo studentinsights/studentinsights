@@ -5,7 +5,15 @@ class StudentVoiceSurveyUploadsController < ApplicationController
   def index
     student_voice_survey_uploads = StudentVoiceSurveyUpload.all.order(created_at: :desc)
     student_voice_survey_uploads_json = student_voice_survey_uploads.as_json({
-      only: [:id, :file_name, :file_size, :file_digest, :stats, :completed, :created_at],
+      only: [
+        :id,
+        :file_name,
+        :file_size,
+        :file_digest,
+        :stats,
+        :completed,
+        :created_at
+      ],
       include: {
         uploaded_by_educator: {
           only: [:id, :full_name, :email]

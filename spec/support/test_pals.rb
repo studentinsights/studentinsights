@@ -352,7 +352,7 @@ class TestPals
       counselor: 'SOFIA',
       grade: '9',
       date_of_birth: '2004-03-12',
-      local_id: '2222222222',
+      local_id: '111222222',
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(

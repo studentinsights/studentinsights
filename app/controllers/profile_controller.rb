@@ -17,7 +17,6 @@ class ProfileController < ApplicationController
       educators_index: Educator.to_index,
       access: student.latest_access_results,
       transition_notes: student.transition_notes,
-      student_voice_completed_surveys: student.student_voice_completed_surveys,
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
