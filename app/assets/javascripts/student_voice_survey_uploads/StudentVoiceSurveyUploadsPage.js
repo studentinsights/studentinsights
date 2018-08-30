@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
-import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import Educator from '../components/Educator';
-import * as Routes from '../helpers/Routes';
+import StudentVoiceSurveyUploadForm from './StudentVoiceSurveyUploadForm';
 
 
 // Shows a list of uploads of student voice surveys; allow the user to 
@@ -17,6 +13,7 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
     super(props);
     this.fetchJson = this.fetchJson.bind(this);
     this.renderJson = this.renderJson.bind(this);
+    this.onUploadDone = this.onUploadDone.bind(this);
   }
 
   fetchJson() {
@@ -24,13 +21,20 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
     return apiFetchJson(url);
   }
 
+  onUploadDone() {
+    // essentially, reload the list from the server and avoid keeping any separate client state
+    this.forceUpdate();
+  }
+
   render() {
+    const {currentEducatorId} = this.props;
     return (
-      <div className="StudentVoiceSurveyUploadsPage" style={styles.flexVertical}>
+      <div className="StudentVoiceSurveyUploadsPage" style={{...styles.flexVertical, margin: 10}}>
+        <SectionHeading>Student Voice Survey Uploads</SectionHeading>
         <GenericLoader
-          style={styles.flexVertical}
-          promiseFn={this.fetchJson}
-          render={this.renderJson} />
+            style={styles.flexVertical}
+            promiseFn={this.fetchJson}
+            render={this.renderJson} />          
       </div>
     );
   }
@@ -38,10 +42,18 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
   renderJson(json) {
     const {currentEducatorId} = this.props;
     const studentVoiceSurveyUploads = json.student_voice_survey_upload;
+    const surveyFormUrl = json.student_voice_survey_form_url;
     return (
-      <StudentVoiceSurveyUploadsPageView
-        currentEducatorId={currentEducatorId}
-        studentVoiceSurveyUploads={studentVoiceSurveyUploads} />
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+        <StudentVoiceSurveyUploadForm
+          style={{flex: 1}}
+          surveyFormUrl={surveyFormUrl}
+          currentEducatorId={currentEducatorId}
+          onUploadDone={this.onUploadDone} />
+        <StudentVoiceSurveyUploadsList
+          currentEducatorId={currentEducatorId}
+          studentVoiceSurveyUploads={studentVoiceSurveyUploads} />
+      </div>
     );
   }
 }
@@ -50,152 +62,15 @@ StudentVoiceSurveyUploadsPage.propTypes = {
 };
 
 
-export class StudentVoiceSurveyUploadsPageView extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    // this.state = {
-    //   sortBy: 'section_number',
-    //   sortDirection: SortDirection.ASC,
-    // };
-    // this.onTableSort = this.onTableSort.bind(this);
-    // this.renderSectionNumber = this.renderSectionNumber.bind(this);
-    // this.renderCourseDescription = this.renderCourseDescription.bind(this);
-    // this.renderEducators = this.renderEducators.bind(this);
-  }
-
-  // orderedSections(sections) {
-  //   const {sortBy, sortDirection} = this.state;
-
-  //   // map dataKey to an accessor/sort function
-  //   const sortFns = {
-  //     fallback(section) { return section[sortBy]; }
-  //     // grade(section) { return rankedByGradeLevel(section.grade); },
-  //     // school(section) { return section.school.name; },
-  //     // name(section) { return `${section.last_name}, ${section.first_name}`; }
-  //   };
-  //   const sortFn = sortFns[sortBy] || sortFns.fallback;
-  //   const sortedRows = _.sortBy(sections, sortFn);
-
-  //   // respect direction
-  //   return (sortDirection == SortDirection.DESC) 
-  //     ? sortedRows.reverse()
-  //     : sortedRows;
-  // }
-
-  // onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
-  //   if (sortBy === this.state.sortBy) {
-  //     const oppositeSortDirection = (this.state.sortDirection == SortDirection.DESC)
-  //       ? SortDirection.ASC
-  //       : SortDirection.DESC;
-  //     this.setState({ sortDirection: oppositeSortDirection });
-  //   } else {
-  //     this.setState({sortBy});
-  //   }
-  // }
-
-  render() {
-    const {studentVoiceSurveyUploads} = this.props;
-    return (
-      <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>Student Voice Survey Uploads</SectionHeading>
-        <pre>{JSON.stringify(studentVoiceSurveyUploads, null, 2)}</pre>
-      </div>
-    );
-  }
-
-  // renderTable(sections) {
-  //   const {sortDirection, sortBy} = this.state;
-  //   const sortedSections = this.orderedSections(sections);
-  //   const rowHeight = 30; // ~1.5 line height
-
-  //   // In conjuction with the filtering, this can lead to a warning in development.
-  //   // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
-  //   return (
-  //     <AutoSizer style={{marginLeft: 10, marginTop: 20}}>
-  //       {({width, height}) => (
-  //         <Table
-  //           width={width}
-  //           height={height}
-  //           headerHeight={rowHeight}
-  //           headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
-  //           rowStyle={{display: 'flex'}}
-  //           style={{fontSize: 14}}
-  //           rowHeight={rowHeight}
-  //           rowCount={sortedSections.length}
-  //           rowGetter={({index}) => sortedSections[index]}
-  //           sort={this.onTableSort}
-  //           sortBy={sortBy}
-  //           sortDirection={sortDirection}
-  //           >
-  //           <Column
-  //             label='Section'
-  //             dataKey='section_number'
-  //             cellRenderer={this.renderSectionNumber}
-  //             width={100}
-  //           />
-  //           <Column
-  //             label='Course'
-  //             dataKey='course'
-  //             cellRenderer={this.renderCourseDescription}
-  //             width={150}
-  //             flexGrow={1}
-  //           />
-  //           <Column
-  //             label='Schedule'
-  //             dataKey='schedule'
-  //             width={150}
-  //           />
-  //           <Column
-  //             label='Term'
-  //             dataKey='term_local_id'
-  //             width={100}
-  //           />
-  //           <Column
-  //             label='Room'
-  //             dataKey='room_number'
-  //             width={100}
-  //           />
-  //           <Column
-  //             label='Other teachers'
-  //             dataKey='teachers'
-  //             cellRenderer={this.renderEducators}
-  //             width={250}
-  //           />
-  //         </Table>
-  //       )}
-  //     </AutoSizer>
-  //   );
-  // }
-
-  // renderSectionNumber(cellProps) {
-  //   const section = cellProps.rowData;
-  //   return (
-  //     <a href={Routes.section(section.id)}>
-  //       {section.section_number}
-  //     </a>
-  //   );
-  // }
-  // renderCourseDescription(cellProps) {
-  //   return cellProps.rowData.course.course_description;
-  // }
-
-  // renderEducators(cellProps) {
-  //   const {currentEducatorId} = this.props;
-  //   const otherEducators = cellProps.rowData.educators.filter(educator => {
-  //     return educator.id != currentEducatorId;
-  //   });
-    
-  //   return (
-  //     <div>
-  //       {otherEducators.map(educator => (
-  //         <Educator key={educator.id} educator={educator} />
-  //       ))}
-  //     </div>
-  //   );
-  // }
+function StudentVoiceSurveyUploadsList(props) {
+  const {studentVoiceSurveyUploads} = props;
+  return (
+    <div className="StudentVoiceSurveyUploadsList" style={{...styles.flexVertical, margin: 10}}>
+      <pre>{JSON.stringify(studentVoiceSurveyUploads, null, 2)}</pre>
+    </div>
+  );
 }
-StudentVoiceSurveyUploadsPageView.propTypes = {
+StudentVoiceSurveyUploadsList.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   studentVoiceSurveyUploads: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,

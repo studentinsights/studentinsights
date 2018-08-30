@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     get '/student_voice_survey_uploads' => 'ui#ui'
     post '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#upload'
     get '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#index'
-    delete '/api/student_voice_survey_uploads/:id' => 'student_voice_survey_uploads#destroy'
   end
 
   get '/api/educators/view/:id' => 'educators#show'

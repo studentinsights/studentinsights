@@ -21,7 +21,9 @@ class Env
     # feature switches
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
     default_env['HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8'] = 'true'
-    ENV['ENABLE_MASQUERADING'] = 'true'
+    default_env['ENABLE_MASQUERADING'] = 'true'
+    default_env['ENABLE_STUDENT_VOICE_SURVEYS_UPLOADS'] = 'true'
+    default_env['STUDENT_VOICE_SURVEY_FORM_URL'] = 'https://example.com/this-is-the-survey'
 
     # only set values if ENV hasn't already set them (ie, allow command line overrides)
     default_env.each do |key, value|

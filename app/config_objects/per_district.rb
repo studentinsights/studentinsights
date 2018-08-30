@@ -46,8 +46,17 @@ class PerDistrict
     end
   end
 
-  def enabled_student_voice_surveys?
-    true
+  def enabled_student_voice_survey_uploads?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_STUDENT_VOICE_SURVEYS_UPLOADS')
+    else
+      false
+    end
+  end
+
+  def student_voice_survey_form_url
+    return nil unless enabled_student_voice_survey_uploads?
+    ENV.fetch('STUDENT_VOICE_SURVEY_FORM_URL', nil)
   end
 
   def include_incident_cards?
