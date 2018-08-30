@@ -5707,7 +5707,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": null,
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -5781,7 +5781,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#ffe7d6",
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -5855,7 +5855,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": null,
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -5926,7 +5926,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#e8fce8",
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -5997,7 +5997,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#e8fce8",
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
