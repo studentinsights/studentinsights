@@ -3,14 +3,7 @@ class StudentVoiceSurveyUpload < ActiveRecord::Base
   belongs_to :uploaded_by_educator, class_name: 'Educator'
 
   validates :form_timestamp, presence: true
-  validates :first_name, presence: true
   validates :student_lasid, presence: true
-  validates :proud, presence: true
-  validates :best_qualities, presence: true
-  validates :activities_and_interests, presence: true
-  validates :nervous_or_stressed, presence: true
-  validates :learn_best, presence: true
-
   validates :student, presence: true
   validates :uploaded_by_educator, presence: true
   validates :file_name, presence: true

@@ -5,18 +5,29 @@ class StudentVoiceSurveyUploadsController < ApplicationController
   def index
     authorized_student_ids = authorized { Student.all.select(:id) }.map(&:id)
     student_voice_survey_uploads = StudentVoiceSurveyUpload.where(student_id: authorized_student_ids)
-    student_voice_survey_upload_json = student_voice_survey_uploads.all.as_json({
-      includes: {
+    student_voice_survey_upload_json = student_voice_survey_uploads.as_json({
+      only: [:file_digest, :file_name, :file_size, :created_at],
+      include: {
         student: {
           only: [:id, :first_name, :last_name, :grade]
         },
-        educator: {
+        uploaded_by_educator: {
           only: [:id, :full_name, :email]
         }
       }
     })
+    groups = student_voice_survey_upload_json.group_by {|json| json['file_digest']}
+    uploads_json = groups.keys.map do |file_digest|
+      records = groups[file_digest]
+      whitelist = ['uploaded_by_educator', 'file_digest', 'file_name', 'file_size', 'created_at']
+      unique_students_json = records.map {|json| json['student']}.uniq
+      records.first.slice(*whitelist).merge({
+        file_digest: file_digest,
+        students: unique_students_json
+      })
+    end
     render json: {
-      student_voice_survey_upload: student_voice_survey_upload_json,
+      uploads: uploads_json,
       student_voice_survey_form_url: PerDistrict.new.student_voice_survey_form_url
     }
   end

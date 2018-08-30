@@ -88,7 +88,7 @@ StudentVoiceSurveyUploadsList.propTypes = {
       last_name: PropTypes.string.isRequired,
       grade: PropTypes.string
     }).isRequired,
-    educator: PropTypes.shape({
+    uploaded_by_educator: PropTypes.shape({
       id: PropTypes.number.isRequired,
       full_name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired

@@ -11,8 +11,10 @@ class AddStudentVoiceSurveyUpload < ActiveRecord::Migration[5.2]
       t.text :nervous_or_stressed, null: false
       t.text :learn_best, null: false
 
-      # during upload
+      # upload
       t.text :file_name, null: false
+      t.integer :file_size, null: false, default: 0
+      t.text :file_digest, null: false
       t.integer :student_id, null: false
       t.integer :uploaded_by_educator_id, null: false
       

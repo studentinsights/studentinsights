@@ -410,6 +410,8 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
     t.text "nervous_or_stressed", null: false
     t.text "learn_best", null: false
     t.text "file_name", null: false
+    t.integer "file_size", default: 0, null: false
+    t.text "file_digest", null: false
     t.integer "student_id", null: false
     t.integer "uploaded_by_educator_id", null: false
     t.datetime "created_at", null: false
