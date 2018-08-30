@@ -7,14 +7,14 @@ export default function serviceColor(serviceTypeId) {
   };
 
   const map = {
-    507: Colors.orange,
-    502: Colors.green,
-    503: Colors.green,
-    504: Colors.green,
+    507: Colors.gray,
+    502: Colors.gray,
+    503: Colors.gray,
+    504: Colors.gray,
     505: Colors.gray,
     506: Colors.gray,
-    508: Colors.purple
+    508: Colors.gray
   };
 
-  return map[serviceTypeId] || null;
+  return map[serviceTypeId] || Colors.gray;
 }

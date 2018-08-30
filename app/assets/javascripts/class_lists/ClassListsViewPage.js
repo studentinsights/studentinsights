@@ -111,7 +111,7 @@ export class ClassListsViewPageView extends React.Component {
                   {classList.submitted && <SuccessLabel style={{padding: 5}} text="submitted" />}
                 </td>
                 <td style={tableStyles.cell}>
-                  <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}`}>open</a>
+                  <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}/text`}>view text</a>
                 </td>
               </tr>
             );

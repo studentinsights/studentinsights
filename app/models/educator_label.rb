@@ -12,7 +12,8 @@ class EducatorLabel < ActiveRecord::Base
         'k8_counselor',
         'high_school_house_master',
         'class_list_maker_finalizer_principal',
-        'use_counselor_based_feed'
+        'use_counselor_based_feed',
+        'enable_class_lists_override'
       ]
     }
   }

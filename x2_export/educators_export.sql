@@ -1,7 +1,7 @@
 use x2data
 SELECT
   'state_id',
-  'local_id',
+  'local_id', -- deprecated, use login_name instead
   'full_name',
   'staff_type',
   'homeroom',
@@ -11,7 +11,7 @@ SELECT
 UNION ALL
 SELECT
   STF_ID_STATE,
-  STF_ID_LOCAL,
+  STF_ID_LOCAL, -- deprecated, use login_name instead
   stf_name_view,
   STF_STAFF_TYPE,
   STF_HOMEROOM,

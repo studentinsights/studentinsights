@@ -2,7 +2,8 @@ class HomeroomsController < ApplicationController
   include StudentsQueryHelper
 
   def homeroom_json
-    homeroom = authorize_and_assign_homeroom!(params[:id])
+    homeroom_id_or_slug = params.permit(:id)[:id]
+    homeroom = authorize_and_assign_homeroom!(homeroom_id_or_slug)
 
     rows = eager_students(homeroom).map {|student| fat_student_hash(student) }
 
@@ -10,10 +11,19 @@ class HomeroomsController < ApplicationController
     allowed_homerooms = current_educator.allowed_homerooms.order(:name)
 
     render json: {
-      homeroom: homeroom.as_json(only: [:id, :slug, :name, :grade]),
-      school: homeroom.school,
+      homeroom: homeroom.as_json({
+        only: [:id, :slug, :name],
+        include: {
+          educator: {
+            only: [:id, :email, :full_name]
+          },
+          school: {
+            only: [:id, :name, :school_type]
+          }
+        }
+      }),
       rows: rows,
-      homerooms: allowed_homerooms.as_json(only: [:id, :slug, :name, :grade])
+      homerooms: allowed_homerooms.as_json(only: [:slug, :name])
     }
   end
 
@@ -38,8 +48,22 @@ class HomeroomsController < ApplicationController
   end
 
   def authorize_and_assign_homeroom!(homeroom_id_or_slug)
-    homeroom = Homeroom.friendly.find(homeroom_id_or_slug)
+    homeroom = find_homeroom_by_id_or_slug(homeroom_id_or_slug)
     raise Exceptions::EducatorNotAuthorized unless current_educator.allowed_homerooms.include? homeroom
     homeroom
+  end
+
+  # Calling `Homeroom.friendly.find` with a string version of an id will first
+  # not match on id, and will match on the name for another homeroom with that
+  # same value.  Be explicit here that we match first on id (with type coercion) and
+  # then if not we look to match on the slug (with type coercion).
+  def find_homeroom_by_id_or_slug(homeroom_id_or_slug)
+    homeroom_by_id = Homeroom.find_by_id(homeroom_id_or_slug)
+    return homeroom_by_id unless homeroom_by_id.nil?
+
+    homeroom_by_slug = Homeroom.find_by_slug(homeroom_id_or_slug)
+    return homeroom_by_slug unless homeroom_by_slug.nil?
+
+    raise ActiveRecord::RecordNotFound
   end
 end

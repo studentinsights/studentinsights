@@ -42,9 +42,6 @@ class HomeController < ApplicationController
     time_threshold = InsightStudentsWithHighAbsences.time_threshold_capped_to_school_year(time_now, 45.days)
     absences_threshold = 4
 
-    puts 'time_threshold'
-    puts time_threshold
-
     insight = InsightStudentsWithHighAbsences.new(educator)
     students_with_high_absences_json = insight.students_with_high_absences_json(time_now, time_threshold, absences_threshold)
     render json: {

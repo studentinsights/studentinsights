@@ -1,7 +1,8 @@
 class DashboardQueries
-  def initialize(educator)
+  def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(educator)
+    @cutoff_time = SchoolYear.first_day_of_school_for_time(options.fetch(:time_now, Time.now))
   end
 
   def absence_dashboard_data(school)
@@ -28,7 +29,7 @@ class DashboardQueries
     student_discipline_data = authorized_students_for_dashboard(school) do |students_relation|
       students_relation
         .includes([homeroom: :educator], :discipline_incidents, :event_notes)
-        .where('occurred_at >= ?', 1.year.ago)
+        .where('occurred_at >= ?', @cutoff_time)
         .references(:discipline_incidents)
     end
     students_with_events = student_discipline_data.map do |student|
@@ -59,13 +60,17 @@ class DashboardQueries
 
   def individual_student_absence_data(student)
     shared_student_fields(student).merge({
-      absences: student.dashboard_absences.as_json(only: [:student_id, :occurred_at, :excused, :dismissed])
+      absences: student.dashboard_absences
+        .where('occurred_at >= ?', @cutoff_time)
+        .as_json(only: [:student_id, :occurred_at, :excused, :dismissed])
     })
   end
 
   def individual_student_tardies_data(student)
     shared_student_fields(student).merge({
-      tardies: student.dashboard_tardies.as_json(only: [:student_id, :occurred_at])
+      tardies: student.dashboard_tardies
+        .where('occurred_at >= ?', @cutoff_time)
+        .as_json(only: [:student_id, :occurred_at])
     })
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_190757) do
+ActiveRecord::Schema.define(version: 2018_08_28_212654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(version: 2018_08_23_190757) do
   end
 
   create_table "educator_section_assignments", force: :cascade do |t|
-    t.integer "section_id"
-    t.integer "educator_id"
+    t.integer "section_id", null: false
+    t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id"
@@ -201,14 +201,14 @@ ActiveRecord::Schema.define(version: 2018_08_23_190757) do
   end
 
   create_table "homerooms", id: :serial, force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "students_count", default: 0, null: false
     t.integer "educator_id"
-    t.string "slug"
+    t.string "slug", null: false
     t.string "grade"
-    t.integer "school_id"
+    t.integer "school_id", null: false
     t.index ["educator_id"], name: "index_homerooms_on_educator_id"
     t.index ["school_id", "name"], name: "index_homerooms_on_school_id_and_name", unique: true
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
@@ -493,6 +493,8 @@ ActiveRecord::Schema.define(version: 2018_08_23_190757) do
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
   add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
   add_foreign_key "homerooms", "educators", name: "homerooms_educator_id_fk"
+  add_foreign_key "homerooms", "educators", name: "homerooms_for_educator_id_fk"
+  add_foreign_key "homerooms", "schools", name: "homerooms_for_school_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_school_id_fk"
   add_foreign_key "iep_documents", "students", name: "iep_documents_student_id_fk"
   add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"

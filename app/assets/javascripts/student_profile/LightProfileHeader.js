@@ -78,9 +78,9 @@ export default class LightProfileHeader extends React.Component {
           </a>
           {this.renderHomeroomOrEnrollmentStatus()}
           <div style={styles.subtitleItem}>{'Grade ' + student.grade}</div>
-          <a href={Routes.school(student.school_id)} style={styles.subtitleItem}>
+          <div style={styles.subtitleItem}>
             {student.school_name}
-          </a>
+          </div>
         </div>
         <div style={styles.headerBitsRow}>
           <div style={styles.headerBitsColumn}>

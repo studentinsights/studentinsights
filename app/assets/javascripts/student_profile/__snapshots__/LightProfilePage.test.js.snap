@@ -2079,8 +2079,7 @@ exports[`snapshots works for aladdin grades 1`] = `
           >
             Grade 10
           </div>
-          <a
-            href="/schools/9"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -2089,7 +2088,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           >
             Somerville High
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -2296,22 +2295,26 @@ exports[`snapshots works for aladdin grades 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Aladdin's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Aladdin
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -2339,33 +2342,46 @@ exports[`snapshots works for aladdin grades 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -3080,8 +3096,7 @@ exports[`snapshots works for aladdin notes 1`] = `
           >
             Grade 10
           </div>
-          <a
-            href="/schools/9"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -3090,7 +3105,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             }
           >
             Somerville High
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -3297,22 +3312,26 @@ exports[`snapshots works for aladdin notes 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Aladdin's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Aladdin
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -3340,33 +3359,46 @@ exports[`snapshots works for aladdin notes 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -4081,8 +4113,7 @@ exports[`snapshots works for aladdin testing 1`] = `
           >
             Grade 10
           </div>
-          <a
-            href="/schools/9"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -4091,7 +4122,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           >
             Somerville High
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -4298,22 +4329,26 @@ exports[`snapshots works for aladdin testing 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Aladdin's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Aladdin
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -4341,33 +4376,46 @@ exports[`snapshots works for aladdin testing 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -7032,8 +7080,7 @@ exports[`snapshots works for olaf math 1`] = `
           >
             Grade 5
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -7042,7 +7089,7 @@ exports[`snapshots works for olaf math 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -7196,22 +7243,26 @@ exports[`snapshots works for olaf math 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Olaf's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Olaf
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -7239,33 +7290,46 @@ exports[`snapshots works for olaf math 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -7980,8 +8044,7 @@ exports[`snapshots works for olaf notes 1`] = `
           >
             Grade 5
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -7990,7 +8053,7 @@ exports[`snapshots works for olaf notes 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -8144,22 +8207,26 @@ exports[`snapshots works for olaf notes 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Olaf's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Olaf
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -8187,33 +8254,46 @@ exports[`snapshots works for olaf notes 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -8928,8 +9008,7 @@ exports[`snapshots works for olaf reading 1`] = `
           >
             Grade 5
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -8938,7 +9017,7 @@ exports[`snapshots works for olaf reading 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -9092,22 +9171,26 @@ exports[`snapshots works for olaf reading 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Olaf's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Olaf
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -9135,33 +9218,46 @@ exports[`snapshots works for olaf reading 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -11554,7 +11650,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": null,
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -11628,7 +11724,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#ffe7d6",
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -11702,7 +11798,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": null,
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -11773,7 +11869,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#e8fce8",
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -11844,7 +11940,7 @@ exports[`snapshots works for pluto 1`] = `
           <div
             style={
               Object {
-                "background": "#e8fce8",
+                "background": "#eee",
                 "border": "1px solid #eee",
                 "marginBottom": 10,
                 "marginTop": 10,
@@ -12012,8 +12108,7 @@ exports[`snapshots works for pluto attendance 1`] = `
           >
             Grade KF
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -12022,7 +12117,7 @@ exports[`snapshots works for pluto attendance 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -12226,22 +12321,26 @@ exports[`snapshots works for pluto attendance 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Pluto's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Pluto
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -12269,33 +12368,46 @@ exports[`snapshots works for pluto attendance 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -12975,8 +13087,7 @@ exports[`snapshots works for pluto behavior 1`] = `
           >
             Grade KF
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -12985,7 +13096,7 @@ exports[`snapshots works for pluto behavior 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -13189,22 +13300,26 @@ exports[`snapshots works for pluto behavior 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Pluto's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Pluto
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -13232,33 +13347,46 @@ exports[`snapshots works for pluto behavior 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
@@ -13938,8 +14066,7 @@ exports[`snapshots works for pluto notes 1`] = `
           >
             Grade KF
           </div>
-          <a
-            href="/schools/2"
+          <div
             style={
               Object {
                 "display": "inline-block",
@@ -13948,7 +14075,7 @@ exports[`snapshots works for pluto notes 1`] = `
             }
           >
             Arthur D Healey
-          </a>
+          </div>
         </div>
         <div
           style={
@@ -14152,22 +14279,26 @@ exports[`snapshots works for pluto notes 1`] = `
               }
             >
               <div>
-                <div>
-                  Share an insight!
-                </div>
-                <textarea
-                  placeholder="What's one of Pluto's strengths?"
-                  rows={3}
+                <div
                   style={
                     Object {
-                      "background": "#f9f9f9",
-                      "border": 0,
-                      "fontSize": 12,
-                      "marginTop": 10,
-                      "width": "100%",
+                      "fontSize": 18,
+                      "marginBottom": 5,
                     }
                   }
-                />
+                >
+                  Share an insight about 
+                  Pluto
+                </div>
+                <div
+                  style={
+                    Object {
+                      "fontSize": 12,
+                    }
+                  }
+                >
+                  This is being piloted at Somerville High School to start the school year.
+                </div>
               </div>
             </div>
           </div>
@@ -14195,33 +14326,46 @@ exports[`snapshots works for pluto notes 1`] = `
                 }
               >
                 <div>
-                  
+                  <span>
+                    If you're curious, talk with 
+                    <a
+                      href="mailto:uharel@k12.somerville.ma.us"
+                      style={
+                        Object {
+                          "fontSize": 12,
+                        }
+                      }
+                    >
+                      Uri
+                    </a>
+                     or check out 
+                  </span>
                 </div>
                 <div>
                   <span>
-                    See 
-                    <a
-                      href="#"
+                    an 
+                    <div
                       style={
                         Object {
-                          "fontSize": 12,
+                          "display": "inline",
+                          "marginLeft": 0,
                         }
                       }
                     >
-                      Ileana
-                    </a>
-                     or 
-                    <a
-                      href="#"
-                      style={
-                        Object {
-                          "fontSize": 12,
+                      <a
+                        href="#"
+                        onClick={[Function]}
+                        style={
+                          Object {
+                            "fontSize": 12,
+                            "outline": "none",
+                          }
                         }
-                      }
-                    >
-                      Manuel
-                    </a>
-                     for examples.
+                      >
+                        example
+                      </a>
+                    </div>
+                    .
                   </span>
                 </div>
               </div>
