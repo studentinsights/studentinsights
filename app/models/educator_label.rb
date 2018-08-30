@@ -13,7 +13,8 @@ class EducatorLabel < ActiveRecord::Base
         'high_school_house_master',
         'class_list_maker_finalizer_principal',
         'use_counselor_based_feed',
-        'enable_class_lists_override'
+        'enable_class_lists_override',
+        'can_upload_student_voice_surveys'
       ]
     }
   }

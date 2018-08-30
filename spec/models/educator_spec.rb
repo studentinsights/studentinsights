@@ -323,8 +323,8 @@ RSpec.describe Educator do
     let!(:pals) { TestPals.create! }
     it 'works' do
       expect(pals.shs_bill_nye.labels).to eq ['shs_experience_team']
-      expect(pals.shs_jodi.labels).to eq ['shs_experience_team']
-      expect(pals.uri.labels).to eq []
+      expect(pals.shs_jodi.labels).to eq ['shs_experience_team', 'can_upload_student_voice_surveys']
+      expect(pals.uri.labels).to eq ['can_upload_student_voice_surveys']
     end
   end
 end

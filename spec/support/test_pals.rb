@@ -79,6 +79,10 @@ class TestPals
       can_view_restricted_notes: true,
       school: School.find_by_local_id('HEA')
     )
+    EducatorLabel.create!(
+      educator: @uri,
+      label_key: 'can_upload_student_voice_surveys'
+    )
 
     # Rich works in the central office and has districwide access, but
     # not project lead access.
@@ -232,6 +236,10 @@ class TestPals
       educator: @shs_jodi,
       label_key: 'shs_experience_team'
     })
+    EducatorLabel.create!(
+      educator: @shs_jodi,
+      label_key: 'can_upload_student_voice_surveys'
+    )
 
     @shs_harry_housemaster = Educator.create!(
       email: 'harry@demo.studentinsights.org',
@@ -344,7 +352,7 @@ class TestPals
       counselor: 'SOFIA',
       grade: '9',
       date_of_birth: '2004-03-12',
-      local_id: '2222222222',
+      local_id: '111222222',
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
