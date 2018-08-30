@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import StudentVoiceSurveyUploadsList from './StudentVoiceSurveyUploadsList';
 import StudentVoiceSurveyUploadForm from './StudentVoiceSurveyUploadForm';
 
 
@@ -12,6 +13,9 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      fetchCount: 0
+    };
     this.fetchJson = this.fetchJson.bind(this);
     this.renderJson = this.renderJson.bind(this);
     this.onUploadDone = this.onUploadDone.bind(this);
@@ -24,14 +28,17 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
 
   onUploadDone() {
     // essentially, reload the list from the server and avoid keeping any separate client state
-    // TODO(kr)
+    const {fetchCount} = this.state;
+    this.setState({fetchCount: fetchCount + 1});
   }
 
   render() {
+    const {fetchCount} = this.state;
     return (
-      <div className="StudentVoiceSurveyUploadsPage" style={{...styles.flexVertical, margin: 10}}>
+      <div className="StudentVoiceSurveyUploadsPage" style={{...styles.flexVertical, margin: 10, fontSize: 14}}>
         <SectionHeading>Student Voice Survey Uploads</SectionHeading>
         <GenericLoader
+          key={fetchCount}
           style={styles.flexVertical}
           promiseFn={this.fetchJson}
           render={this.renderJson} />          
@@ -44,7 +51,7 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
     const studentVoiceSurveyUploads = json.student_voice_survey_uploads;
     const surveyFormUrl = json.student_voice_survey_form_url;
     return (
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <div style={{display: 'flex', flexDirection: 'row', padding: 20}}>
         <StudentVoiceSurveyUploadForm
           style={{flex: 1}}
           surveyFormUrl={surveyFormUrl}
@@ -59,39 +66,6 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
 }
 StudentVoiceSurveyUploadsPage.propTypes = {
   currentEducatorId: PropTypes.number.isRequired
-};
-
-
-function StudentVoiceSurveyUploadsList(props) {
-  const {studentVoiceSurveyUploads} = props;
-  return (
-    <div className="StudentVoiceSurveyUploadsList" style={{...styles.flexVertical, margin: 10}}>
-      <pre>{JSON.stringify(studentVoiceSurveyUploads, null, 2)}</pre>
-    </div>
-  );
-}
-StudentVoiceSurveyUploadsList.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired,
-  studentVoiceSurveyUploads: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    file_name: PropTypes.string.isRequired,
-    file_size: PropTypes.number.isRequired,
-    file_digest: PropTypes.string.isRequired,
-    stats: PropTypes.object.isRequired,
-    completed: PropTypes.bool.isRequired,
-    created_at: PropTypes.string.isRequired,
-    students: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      first_name: PropTypes.string.isRequired,
-      last_name: PropTypes.string.isRequired,
-      grade: PropTypes.string
-    })).isRequired,
-    uploaded_by_educator: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      full_name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired
-    }).isRequired
-  })).isRequired
 };
 
 const styles = {
