@@ -11,48 +11,58 @@ import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 // Shows a list of uploads of student voice surveys.
 export default class StudentVoiceSurveyUploadsList extends React.Component {
   render() {
-    const {studentVoiceSurveyUploads, style} = this.props;
+    const {style} = this.props;
+    return (
+      <div className="StudentVoiceSurveyUploadsList" style={{...styles.flexVertical, ...style}}>
+        {this.renderTable()}
+      </div>
+    );
+  }
+
+  renderTable() {
+    const {studentVoiceSurveyUploads} = this.props;
     const sortedUploads = _.sortBy(studentVoiceSurveyUploads, upload => {
       return -1* toMomentFromTimestamp(upload.created_at).unix();
     });
 
+    if (sortedUploads.length === 0) {
+      return <div>There are no uploads.</div>;
+    }
     return (
-      <div className="StudentVoiceSurveyUploadsList" style={{...styles.flexVertical, ...style}}>
-        <table style={tableStyles.table}>
-          <thead>
-            <tr>
-              <th style={tableStyles.headerCell}>Uploaded on</th>
-              <th style={tableStyles.headerCell}>Uploaded by</th>
-              <th style={tableStyles.headerCell}>File name</th>
-              <th style={tableStyles.headerCell}>File size</th>
-              <th style={tableStyles.headerCell}>Digest</th>
-              <th style={tableStyles.headerCell}>Students</th>
-              <th style={tableStyles.headerCell}>Status</th>
-            </tr>
-          </thead>
-          <tbody>{sortedUploads.map(upload => (
-            <tr key={upload.id}>
-              <td style={tableStyles.cell}>
-                {toMomentFromTimestamp(upload.created_at).local().format("M/D/YY h:mma")}
-              </td>
-              <td style={tableStyles.cell}>
-                <Educator educator={upload.uploaded_by_educator} />
-              </td>
-              <td style={tableStyles.cell}>{upload.file_name}</td>
-              <td style={tableStyles.cell}>{formatBytes(upload.file_size)}</td>
-              <td style={tableStyles.cell} title={upload.file_digest}>
-                {upload.file_digest.slice(0, 8)}
-              </td>
-              <td style={tableStyles.cell}>
-                {this.renderStudents(upload)}
-              </td>
-              <td style={tableStyles.cell}>
-                {this.renderStats(upload)}
-              </td>
-            </tr>
-          ))}</tbody>
-        </table>
-      </div>
+      <table style={tableStyles.table}>
+        <thead>
+          <tr>
+            <th style={tableStyles.headerCell}>Uploaded on</th>
+            <th style={tableStyles.headerCell}>Uploaded by</th>
+            <th style={tableStyles.headerCell}>File name</th>
+            <th style={tableStyles.headerCell}>File size</th>
+            <th style={tableStyles.headerCell}>Digest</th>
+            <th style={tableStyles.headerCell}>Students</th>
+            <th style={tableStyles.headerCell}>Status</th>
+          </tr>
+        </thead>
+        <tbody>{sortedUploads.map(upload => (
+          <tr key={upload.id}>
+            <td style={tableStyles.cell}>
+              {toMomentFromTimestamp(upload.created_at).local().format("M/D/YY h:mma")}
+            </td>
+            <td style={tableStyles.cell}>
+              <Educator educator={upload.uploaded_by_educator} />
+            </td>
+            <td style={tableStyles.cell}>{upload.file_name}</td>
+            <td style={{...tableStyles.cell, textAlign: 'right'}}>{formatBytes(upload.file_size)}</td>
+            <td style={tableStyles.cell} title={upload.file_digest}>
+              {upload.file_digest.slice(0, 8)}
+            </td>
+            <td style={tableStyles.cell}>
+              {this.renderStudents(upload)}
+            </td>
+            <td style={tableStyles.cell}>
+              {this.renderStats(upload)}
+            </td>
+          </tr>
+        ))}</tbody>
+      </table>
     );
   }
 

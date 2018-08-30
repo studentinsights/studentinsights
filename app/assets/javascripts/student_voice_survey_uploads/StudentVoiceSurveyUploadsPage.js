@@ -51,9 +51,9 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
     const studentVoiceSurveyUploads = json.student_voice_survey_uploads;
     const surveyFormUrl = json.student_voice_survey_form_url;
     return (
-      <div style={{display: 'flex', flexDirection: 'row', padding: 20}}>
+      <div style={styles.layout}>
         <StudentVoiceSurveyUploadForm
-          style={{flex: 1}}
+          style={styles.uploadForm}
           surveyFormUrl={surveyFormUrl}
           currentEducatorId={currentEducatorId}
           onUploadDone={this.onUploadDone} />
@@ -73,5 +73,16 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
+  },
+  layout: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
+  uploadForm: {
+    flex: 1,
+    width: 400,
+    height: 180,
+    padding: 20
   }
 };

@@ -58,9 +58,9 @@ export default class StudentVoiceSurveyUploadForm extends React.Component {
   render() {
     const {style, surveyFormUrl} = this.props;
     return (
-      <div className="StudentVoiceSurveyUploadForm" style={{...styles.root, style}}>
+      <div className="StudentVoiceSurveyUploadForm" style={{...styles.root, ...style}}>
         {this.renderUploadArea()}
-        <div style={{padding: 10}}>
+        <div style={{padding: 5}}>
           This upload is intended to work
           with <a href={surveyFormUrl} target="_blank">this
           survey form</a>.
@@ -71,7 +71,7 @@ export default class StudentVoiceSurveyUploadForm extends React.Component {
 
   renderUploadArea() {
     return (
-      <div style={{width: '100%'}}>
+      <div style={styles.full}>
         <input
           id="StudentVoiceSurveyUploadForm-fileUpload"
           style={{display: 'none'}}
@@ -100,12 +100,17 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     padding: 10
+  },
+  full: {
+    flex: 1,
+    display: 'flex',
+    width: '100%'
   },
   label: {
     width: '100%',
-    minHeight: 180,
+    height: '100%',
     display: 'flex',
     border: '1px dashed gray',
     cursor: 'pointer'

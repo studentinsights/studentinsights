@@ -1,6 +1,6 @@
 // see https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
 const k = 1024;
-const defaultSizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+const defaultSizes = ['', 'k', 'M', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 export default function formatBytes(bytes, options = {}) {
   const sizes = options.sizes || defaultSizes;
