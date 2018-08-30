@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 // Render a large quote with smaller notes about where it came from
 export default class LightInsightQuote extends React.Component {
   render() {
-    const {quoteEl, sourceEl} = this.props;
+    const {quoteEl, sourceEl, style, containerStyle} = this.props;
 
     return (
-      <div className="LightInsightQuote" style={styles.flexVertical}>
-        <div style={styles.quoteContainer}>
+      <div className="LightInsightQuote" style={{...styles.flexVertical, style}}>
+        <div style={{...styles.quoteContainer, ...containerStyle}}>
           <div style={styles.quote}>{quoteEl}</div>
         </div>
         <div style={styles.underQuoteContainer}>
@@ -20,14 +20,17 @@ export default class LightInsightQuote extends React.Component {
 }
 LightInsightQuote.propTypes = {
   quoteEl: PropTypes.node.isRequired,
-  sourceEl: PropTypes.node.isRequired
+  sourceEl: PropTypes.node.isRequired,
+  style: PropTypes.object,
+  containerStyle: PropTypes.object
 };
 
 const styles = {
   flexVertical: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    background: '#eee'
   },
   quoteContainer: {
     flex: 1,
@@ -38,7 +41,6 @@ const styles = {
   },
   quote: {
     flex: 1,
-    fontSize: 18,
     overflow: 'hidden'
   },
   underQuoteContainer: {
@@ -56,3 +58,6 @@ const styles = {
     cursor: 'pointer'
   }
 };
+
+
+export const fontSizeStyle = { fontSize: 12 };

@@ -355,8 +355,7 @@ const styles = {
   },
   carousel: {
     flex: 1,
-    display: 'flex',
-    background: '#eee'
+    display: 'flex'
   }
 };
 

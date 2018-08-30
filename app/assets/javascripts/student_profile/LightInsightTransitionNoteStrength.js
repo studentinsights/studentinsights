@@ -6,14 +6,14 @@ import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import Educator from '../components/Educator';
 import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
-import LightInsightQuote from './LightInsightQuote';
+import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
 import {parseTransitionNoteText, parseAndReRender} from './lightTransitionNotes';
 
 
 // Render an insight about a strength from a transition note
 export default class LightInsightTransitionNoteStrength extends React.Component {
   render() {
-    const {insightPayload, educatorsIndex, insightStyle} = this.props;
+    const {insightPayload, educatorsIndex} = this.props;
     const {strengthsQuoteText, transitionNote} = insightPayload;
     const dateText = toMomentFromTimestamp(transitionNote.created_at).format('M/D/YY');
     const educator = educatorsIndex[transitionNote.educator_id] || educatorsIndex[_.keys(educatorsIndex)[0]];
@@ -22,20 +22,22 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
       <LightInsightQuote
         quoteEl={`“${strengthsQuoteText}”`}
         sourceEl={
-          <span>
-            <span>in</span>
-            <HelpBubble
-              style={{marginLeft: 5, marginRight: 5}}
-              modalStyle={modalFromRight}
-              linkStyle={insightStyle}
-              teaser="Transition note"
-              title="Transition note"
-              content={this.renderTransitionNoteDialog(transitionNote, educator)}
-            />
-            <span>on {dateText}</span>
-          </span>
+          <div>
+            <div>from <Educator style={fontSizeStyle} educator={educator} /></div>
+            <div>
+              <span>in</span>
+              <HelpBubble
+                style={{marginLeft: 5, marginRight: 5}}
+                modalStyle={modalFromRight}
+                linkStyle={fontSizeStyle}
+                teaser="Transition note"
+                title="Transition note"
+                content={this.renderTransitionNoteDialog(transitionNote, educator)}
+              />
+              <span>on {dateText}</span>
+            </div>
+          </div>
         }
-        taglineEl={<span>from <Educator style={insightStyle} educator={educator} /></span>}
       />
     );
   }
