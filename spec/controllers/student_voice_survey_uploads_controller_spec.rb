@@ -123,7 +123,7 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       expect(surveys.size).to eq 1
       expect(surveys.first.as_json).to include({
         "id"=>a_kind_of(Integer),
-        "student_voice_survey_upload_id"=>1,
+        "student_voice_survey_upload_id"=>a_kind_of(Integer),
         "student_id"=>pals.shs_freshman_mari.id,
         "form_timestamp"=>a_kind_of(ActiveSupport::TimeWithZone),
         "first_name"=>"Mari",
