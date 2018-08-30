@@ -2313,7 +2313,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -3330,7 +3330,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -4347,7 +4347,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -7261,7 +7261,7 @@ exports[`snapshots works for olaf math 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -8225,7 +8225,7 @@ exports[`snapshots works for olaf notes 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -9189,7 +9189,7 @@ exports[`snapshots works for olaf reading 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -12339,7 +12339,7 @@ exports[`snapshots works for pluto attendance 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -13318,7 +13318,7 @@ exports[`snapshots works for pluto behavior 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
@@ -14297,7 +14297,7 @@ exports[`snapshots works for pluto notes 1`] = `
                     }
                   }
                 >
-                  This is being piloted at Somerville High School to start the school year.
+                  This is being piloted at another school.
                 </div>
               </div>
             </div>
