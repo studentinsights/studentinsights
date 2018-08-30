@@ -10,11 +10,16 @@ Rails.application.routes.draw do
   end
 
   scope '/admin' do
-    get 'import_records' => 'ui#ui'
+    get '/import_records' => 'ui#ui'
     get '/api/import_records' => 'import_records#import_records_json'
     
-    get 'sample_students' => 'ui#ui'
+    get '/sample_students' => 'ui#ui'
     get '/api/sample_students_json' => 'students#sample_students_json'
+
+    get '/student_voice_survey_uploads' => 'ui#ui'
+    post '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#upload'
+    get '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#index'
+    delete '/api/student_voice_survey_uploads/:id' => 'student_voice_survey_uploads#destroy'
   end
 
   get '/api/educators/view/:id' => 'educators#show'

@@ -46,6 +46,10 @@ class PerDistrict
     end
   end
 
+  def enabled_student_voice_surveys?
+    true
+  end
+
   def include_incident_cards?
     EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
   end

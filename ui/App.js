@@ -24,6 +24,7 @@ import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassLists
 import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
+import StudentVoiceSurveyUploadsPage from '../app/assets/javascripts/student_voice_survey_uploads/StudentVoiceSurveyUploadsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
@@ -78,6 +79,7 @@ export default class App extends React.Component {
       <Switch className="App-routes">
         <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
         <Route exact path="/admin/sample_students" render={this.renderSampleStudentsPage.bind(this)}/>
+        <Route exact path="/admin/student_voice_survey_uploads" render={this.renderStudentVoiceSurveyUploadsPage.bind(this)}/>
         <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
@@ -206,6 +208,12 @@ export default class App extends React.Component {
     const seed = parseInt(queryParams.seed || '42', 10);
     this.trackVisit(routeProps, 'SAMPLE_STUDENTS_PAGE');
     return <SampleStudentsPage n={n} seed={seed} />; 
+  }
+
+  renderStudentVoiceSurveyUploadsPage(routeProps) {
+    const {currentEducator} = this.props;
+    this.trackVisit(routeProps, 'STUDENT_VOICE_SURVEY_UPLOADS_AGE');
+    return <StudentVoiceSurveyUploadsPage currentEducatorId={currentEducator.id} />;
   }
 
   renderSchoolRosterPage(routeProps) {

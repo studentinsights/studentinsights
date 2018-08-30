@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_212654) do
+ActiveRecord::Schema.define(version: 2018_08_30_143340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,6 +400,22 @@ ActiveRecord::Schema.define(version: 2018_08_28_212654) do
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
 
+  create_table "student_voice_survey_uploads", force: :cascade do |t|
+    t.datetime "form_timestamp", null: false
+    t.text "first_name", null: false
+    t.text "student_lasid", null: false
+    t.text "proud", null: false
+    t.text "best_qualities", null: false
+    t.text "activities_and_interests", null: false
+    t.text "nervous_or_stressed", null: false
+    t.text "learn_best", null: false
+    t.text "file_name", null: false
+    t.integer "student_id", null: false
+    t.integer "uploaded_by_educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", id: :serial, force: :cascade do |t|
     t.string "grade"
     t.boolean "hispanic_latino"
@@ -517,6 +533,8 @@ ActiveRecord::Schema.define(version: 2018_08_28_212654) do
   add_foreign_key "student_section_assignments", "sections", name: "student_section_assignments_section_id_fk"
   add_foreign_key "student_section_assignments", "students"
   add_foreign_key "student_section_assignments", "students", name: "student_section_assignments_student_id_fk"
+  add_foreign_key "student_voice_survey_uploads", "educators", column: "uploaded_by_educator_id", name: "student_voice_survey_uploads_for_uploaded_by_educator_id_fk"
+  add_foreign_key "student_voice_survey_uploads", "students", name: "student_voice_survey_uploads_for_student_id_fk"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"
