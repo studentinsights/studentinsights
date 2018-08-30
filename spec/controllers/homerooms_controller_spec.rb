@@ -97,7 +97,7 @@ describe HomeroomsController, :type => :controller do
           it 'assigns correct homerooms to drop-down' do
             make_request(educator.homeroom.slug)
             json = JSON.parse(response.body)
-            expect(json['homerooms']).to eq([educator.homeroom].as_json(only: [:id, :slug, :name, :grade]))
+            expect(json['homerooms']).to eq([educator.homeroom].as_json(only: [:slug, :name]))
           end
 
           context 'when there are no students' do
@@ -202,7 +202,7 @@ describe HomeroomsController, :type => :controller do
           it 'assigns correct homerooms to drop-down' do
             make_request(homeroom.slug)
             json = JSON.parse(response.body)
-            expect(json['homerooms']).to contain_exactly(*Homeroom.all.as_json(only: [:id, :name, :slug, :grade]))
+            expect(json['homerooms']).to contain_exactly(*Homeroom.all.as_json(only: [:name, :slug]))
           end
         end
 
