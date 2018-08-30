@@ -6,28 +6,34 @@ class StudentVoiceSurveyUploader
     reset_counters!
   end
 
-  def create_rows_from_text!
+  def create_from_text!
     reset_counters!
 
-    file_digest = Digest::SHA256.hexdigest(@file_text)
-    file_size = @file_text.size
+    student_voice_survey_upload = StudentVoiceSurveyUpload.create!({
+      file_digest: Digest::SHA256.hexdigest(@file_text),
+      file_size: @file_text.size,
+      file_name: @upload_attrs[:file_name],
+      uploaded_by_educator_id: @upload_attrs[:uploaded_by_educator_id],
+      stats: stats,
+      completed: false
+    })
 
-    columns = StudentVoiceSurveyUpload.columns_for_form_v1
+    completed_surveys = []
+    columns = StudentVoiceCompletedSurvey.columns_for_form_v1
     create_streaming_csv.each_with_index do |row, index|
       maybe_row_attrs = process_row_or_nil(columns, row, index)
       next if maybe_row_attrs.nil?
-
-      StudentVoiceSurveyUpload.create!(maybe_row_attrs.merge({
-        file_digest: file_digest,
-        file_size: file_size,
-        file_name: @upload_attrs[:file_name],
-        uploaded_by_educator_id: @upload_attrs[:uploaded_by_educator_id]
+      completed_surveys << StudentVoiceCompletedSurvey.create!(maybe_row_attrs.merge({
+        student_voice_survey_upload: student_voice_survey_upload
       }))
       @created_records_count += 1
     end
 
-    @log.puts("StudentVoiceSurveyUploader#stats: #{stats}")
-    stats
+    student_voice_survey_upload.update!({
+      stats: stats,
+      completed: true
+    })
+    student_voice_survey_upload
   end
 
   private

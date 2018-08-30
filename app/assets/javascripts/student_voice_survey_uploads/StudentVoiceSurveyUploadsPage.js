@@ -11,6 +11,7 @@ import StudentVoiceSurveyUploadForm from './StudentVoiceSurveyUploadForm';
 export default class StudentVoiceSurveyUploadsPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.fetchJson = this.fetchJson.bind(this);
     this.renderJson = this.renderJson.bind(this);
     this.onUploadDone = this.onUploadDone.bind(this);
@@ -23,25 +24,24 @@ export default class StudentVoiceSurveyUploadsPage extends React.Component {
 
   onUploadDone() {
     // essentially, reload the list from the server and avoid keeping any separate client state
-    this.forceUpdate();
+    // TODO(kr)
   }
 
   render() {
-    const {currentEducatorId} = this.props;
     return (
       <div className="StudentVoiceSurveyUploadsPage" style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading>Student Voice Survey Uploads</SectionHeading>
         <GenericLoader
-            style={styles.flexVertical}
-            promiseFn={this.fetchJson}
-            render={this.renderJson} />          
+          style={styles.flexVertical}
+          promiseFn={this.fetchJson}
+          render={this.renderJson} />          
       </div>
     );
   }
 
   renderJson(json) {
     const {currentEducatorId} = this.props;
-    const studentVoiceSurveyUploads = json.student_voice_survey_upload;
+    const studentVoiceSurveyUploads = json.student_voice_survey_uploads;
     const surveyFormUrl = json.student_voice_survey_form_url;
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -74,20 +74,18 @@ StudentVoiceSurveyUploadsList.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   studentVoiceSurveyUploads: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    form_timestamp: PropTypes.string.isRequired,
-    first_name: PropTypes.string.isRequired,
-    student_lasid: PropTypes.string.isRequired,
-    proud: PropTypes.string.isRequired,
-    best_qualities: PropTypes.string.isRequired,
-    activities_and_interests: PropTypes.string.isRequired,
-    nervous_or_stressed: PropTypes.string.isRequired,
-    learn_best: PropTypes.string.isRequired,
-    student: PropTypes.shape({
+    file_name: PropTypes.string.isRequired,
+    file_size: PropTypes.number.isRequired,
+    file_digest: PropTypes.string.isRequired,
+    stats: PropTypes.object.isRequired,
+    completed: PropTypes.bool.isRequired,
+    created_at: PropTypes.string.isRequired,
+    students: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       first_name: PropTypes.string.isRequired,
       last_name: PropTypes.string.isRequired,
       grade: PropTypes.string
-    }).isRequired,
+    })).isRequired,
     uploaded_by_educator: PropTypes.shape({
       id: PropTypes.number.isRequired,
       full_name: PropTypes.string.isRequired,

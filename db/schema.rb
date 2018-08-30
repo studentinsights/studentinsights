@@ -400,7 +400,9 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
 
-  create_table "student_voice_survey_uploads", force: :cascade do |t|
+  create_table "student_voice_completed_surveys", force: :cascade do |t|
+    t.integer "student_voice_survey_upload_id", null: false
+    t.integer "student_id", null: false
     t.datetime "form_timestamp", null: false
     t.text "first_name", null: false
     t.text "student_lasid", null: false
@@ -409,11 +411,17 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
     t.text "activities_and_interests", null: false
     t.text "nervous_or_stressed", null: false
     t.text "learn_best", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "student_voice_survey_uploads", force: :cascade do |t|
     t.text "file_name", null: false
     t.integer "file_size", default: 0, null: false
     t.text "file_digest", null: false
-    t.integer "student_id", null: false
     t.integer "uploaded_by_educator_id", null: false
+    t.boolean "completed", default: false, null: false
+    t.json "stats", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -535,8 +543,9 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
   add_foreign_key "student_section_assignments", "sections", name: "student_section_assignments_section_id_fk"
   add_foreign_key "student_section_assignments", "students"
   add_foreign_key "student_section_assignments", "students", name: "student_section_assignments_student_id_fk"
+  add_foreign_key "student_voice_completed_surveys", "student_voice_survey_uploads", name: "student_voice_completed_surveys_for_student_voice_survey_upload"
+  add_foreign_key "student_voice_completed_surveys", "students", name: "student_voice_completed_surveys_for_student_id_fk"
   add_foreign_key "student_voice_survey_uploads", "educators", column: "uploaded_by_educator_id", name: "student_voice_survey_uploads_for_uploaded_by_educator_id_fk"
-  add_foreign_key "student_voice_survey_uploads", "students", name: "student_voice_survey_uploads_for_student_id_fk"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"
