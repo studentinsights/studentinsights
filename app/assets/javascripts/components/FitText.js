@@ -59,14 +59,14 @@ export default class FitText extends React.Component {
 
 
   render() {
-    const {text} = this.props;
+    const {text, style} = this.props;
     const {isSized, fontSize} = this.state;
     const opacity = isSized ? 1 : 0;
 
     // Render an element with the text, and shrink the font size until it fits within the bounds
     // of the container element.
     return (
-      <div ref={el => this.measureEl = el} className="FixText" style={styles.root}>
+      <div ref={el => this.measureEl = el} className="FixText" style={{...styles.root, ...style}}>
         <div ref={el => this.realEl = el} style={{...styles.absolute, opacity, fontSize}}>{text}</div>
       </div>
     );
@@ -76,12 +76,14 @@ FitText.propTypes = {
   text: PropTypes.string.isRequired,
   maxFontSize: PropTypes.number,
   minFontSize: PropTypes.number,
-  fontSizeStep: PropTypes.number
+  fontSizeStep: PropTypes.number,
+  style: PropTypes.object
 };
 FitText.defaultProps = {
   maxFontSize: 60,
   minFontSize: 12,
-  fontSizeStep: 4
+  fontSizeStep: 2,
+  style: {}
 };
 
 const styles = {

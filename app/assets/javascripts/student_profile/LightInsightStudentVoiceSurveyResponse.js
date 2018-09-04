@@ -4,7 +4,7 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as Routes from '../helpers/Routes';
 import HelpBubble, {modalFromRightWithVerticalScroll} from '../components/HelpBubble';
 import NoteText from '../components/NoteText';
-import FitText from '../components/FixText';
+import FitText from '../components/FitText';
 import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
 
 
