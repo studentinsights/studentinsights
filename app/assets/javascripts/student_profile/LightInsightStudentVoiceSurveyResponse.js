@@ -25,7 +25,11 @@ export default class LightInsightStudentVoiceSurveyResponse extends React.Compon
           <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             <div style={fontSizeStyle}>{promptText}</div>
             <div style={{marginTop: 5, flex: 1, display: 'flex', flexDirection: 'column'}}>
-              <FitText text={`“${responseText}”`} />
+              <FitText
+                minFontSize={12}
+                maxFontSize={48}
+                fontSizeStep={6}
+                text={`“${responseText}”`} />
             </div>
           </div>
         }

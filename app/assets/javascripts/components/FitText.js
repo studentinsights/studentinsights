@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 // Resize the fontSize of text to fit within the container bounds.
@@ -17,8 +18,9 @@ export default class FitText extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {text, maxFontSize} = this.props;
-    if (prevProps.text !== text || prevProps.maxFontSize !== maxFontSize) {
+    const {maxFontSize} = this.props;
+    const havePropsChanged = !_.isEqual(prevProps, this.props);
+    if (havePropsChanged) {
       this.setState({isSized: false, fontSize: maxFontSize});
     } else {
       this.measureAndResize();
@@ -27,7 +29,7 @@ export default class FitText extends React.Component {
 
   measureAndResize() {
     const {isSized, fontSize} = this.state;
-    const {maxFontSize, minFontSize, fontSizeStep} = this.props;
+    const {minFontSize, fontSizeStep} = this.props;
 
     // Resize in font size in steps until the element size is less than `targetHeight`
     const elHeight = this.realEl.offsetHeight;
@@ -39,15 +41,10 @@ export default class FitText extends React.Component {
       return;
     }
 
-    // previously sized but now not - start the resizing process over
-    if (isSized && elHeight > targetHeight) {
-      this.setState({isSized: false, fontSize: maxFontSize});
-      return;
-    }
-
     // if we'd go below minFontSize, stop
     if (!isSized && (fontSize - fontSizeStep < minFontSize)) {
       this.setState({isSized: true});
+      return;
     }
 
     // not sized but space to try a smaller font, so try shrinking the font
