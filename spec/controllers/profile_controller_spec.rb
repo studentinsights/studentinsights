@@ -107,7 +107,11 @@ describe ProfileController, :type => :controller do
             "transition_note"=>{
               "id"=>transition_note.id,
               "created_at"=>a_kind_of(String),
-              "educator_id"=>transition_note.educator.id,
+              "educator"=>{
+                "id"=>transition_note.educator.id,
+                "full_name"=>transition_note.educator.full_name,
+                "email"=>transition_note.educator.email
+              },
               "text"=>transition_note_text
             }
           }
@@ -121,12 +125,8 @@ describe ProfileController, :type => :controller do
             "student_voice_completed_survey"=>{
               "id"=>survey.id,
               "form_timestamp"=>a_kind_of(String),
-              "proud"=>"proud quote 1",
-              "best_qualities"=>"best_qualities quote 1",
-              "activities_and_interests"=>"activities_and_interests quote 1",
-              "nervous_or_stressed"=>"nervous_or_stressed quote 1",
-              "learn_best"=>"learn_best quote 1",
-              "created_at"=>a_kind_of(String)
+              "created_at"=>a_kind_of(String),
+              "survey_text"=>a_kind_of(String)
             }
           }
         })

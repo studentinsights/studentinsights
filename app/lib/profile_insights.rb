@@ -17,7 +17,7 @@ class ProfileInsights
     return [] if strengths_quote_text.nil? || strengths_quote_text.empty?
 
     transition_note_json = transition_note.as_json({
-      only: [:id, :text, :educator_id, :created_at],
+      only: [:id, :text, :created_at],
       include: {
         educator: {
           only: [:id, :full_name, :email]
@@ -67,7 +67,7 @@ class ProfileInsights
 
       survey_text = render_survey_as_text(most_recent_survey, prompt_keys_to_include)
       student_voice_completed_survey_json = most_recent_survey.as_json({
-        only: [:id, :created_at, :form_timestamp]
+        only: [:id, :form_timestamp, :created_at]
       }).merge(survey_text: survey_text)
       survey_insights << ProfileInsight.new('student_voice_survey_response', {
         prompt_key: prompt_key,
