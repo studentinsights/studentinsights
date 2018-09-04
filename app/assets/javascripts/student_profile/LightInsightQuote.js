@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 // Render a large quote with smaller notes about where it came from
 export default class LightInsightQuote extends React.Component {
   render() {
-    const {quoteEl, sourceEl, style, containerStyle} = this.props;
-
+    const {quoteEl, sourceEl, className, style, containerStyle} = this.props;
+    const classNameText = _.compact(['LightInsightQuote', className]).join(' ');
     return (
-      <div className="LightInsightQuote" style={{...styles.flexVertical, style}}>
+      <div className={classNameText} style={{...styles.flexVertical, style}}>
         <div style={{...styles.quoteContainer, ...containerStyle}}>
           <div style={styles.quote}>{quoteEl}</div>
         </div>
@@ -21,6 +22,7 @@ export default class LightInsightQuote extends React.Component {
 LightInsightQuote.propTypes = {
   quoteEl: PropTypes.node.isRequired,
   sourceEl: PropTypes.node.isRequired,
+  className: PropTypes.string,
   style: PropTypes.object,
   containerStyle: PropTypes.object
 };
@@ -29,8 +31,7 @@ const styles = {
   flexVertical: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column',
-    background: '#eee'
+    flexDirection: 'column'
   },
   quoteContainer: {
     flex: 1,

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import LightComingSoonInsight from './LightComingSoonInsight';
 import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
+import LightInsightStudentVoiceSurveyResponse, {STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE} from './LightInsightStudentVoiceSurveyResponse';
 
 
 // A component that rotates through the `quotes` passed.
@@ -9,7 +11,7 @@ export default class LightCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 0
+      insightToRenderIndex: 0
     };
     this.onIntervalTicked = this.onIntervalTicked.bind(this);
     this.onNext = this.onNext.bind(this);
@@ -33,54 +35,79 @@ export default class LightCarousel extends React.Component {
     this.interval = window.setInterval(this.onIntervalTicked, 10000);
   }
 
-  onIntervalTicked() {
-    const {index} = this.state;
-    const {insights} = this.props;
-    const nextIndex = (index + 1 >= insights.length) ? 0 : index + 1;
-    this.setState({ index: nextIndex });
+  // Insights that we know how to render
+  insightsThatCanBeRendered() {
+    const {profileInsights} = this.props;
+    return _.compact(profileInsights.map(insight => this.renderInsightByType(insight)));
   }
 
-  onNext() {
+  onIntervalTicked() {
+    const {insightToRenderIndex} = this.state;
+    const insightsThatCanBeRendered = this.insightsThatCanBeRendered();
+    const nextIndex = (insightToRenderIndex + 1 >= insightsThatCanBeRendered.length)
+      ? 0
+      : insightToRenderIndex + 1;
+    this.setState({ insightToRenderIndex: nextIndex });
+  }
+
+  onNext(e) {
+    e.preventDefault();
     this.onIntervalTicked();
     this.resetInterval();
   }
 
   render() {
-    const {style, insights, studentFirstName} = this.props;
-    const {index} = this.state;
-
-    const buttonEl = (insights.length > 1)
-      ? <div style={styles.link} onClick={this.onNext}>more</div>
-      : null;
+    const {style, student} = this.props;
+    const {insightToRenderIndex} = this.state;
+    const insightsThatCanBeRendered = this.insightsThatCanBeRendered();
 
     return (
       <div className="LightCarousel" style={{...styles.root, ...style}}>
-        {(insights.length > 0)
-          ? this.renderInsightByType(insights[index], {buttonEl})
-          : <LightComingSoonInsight studentFirstName={studentFirstName} />
+        {(insightsThatCanBeRendered.length > 0)
+          ? insightsThatCanBeRendered[insightToRenderIndex]
+          : <LightComingSoonInsight studentFirstName={student.first_name} />
         }
+        {insightsThatCanBeRendered.length > 1 && (
+          <div style={styles.rotating}>
+            <div>{insightToRenderIndex + 1} / {insightsThatCanBeRendered.length}</div>
+            <a style={styles.moreLink} href="#" onClick={this.onNext}>more</a>
+          </div>
+        )}
       </div>
     );
   }
 
+  // Silently ignore unexpected types
   renderInsightByType(insight, options = {}) {
-    const {educatorsIndex} = this.props;
-    const {insightType, insightPayload} = insight;
-    if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) {
-      return (
-        <LightInsightTransitionNoteStrength
-          insightPayload={insightPayload}
-          educatorsIndex={educatorsIndex}
-        />
-      );
-    }
+    const {student} = this.props;
+    const insightPayload = insight.json;
+    const insightType = insight.type;
+    const shouldIncludeStudentVoiceSurveys = (window.location.search.indexOf('surveys') !== -1);
 
+    if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
+      <LightInsightTransitionNoteStrength insightPayload={insightPayload} />
+    );
+
+    if (shouldIncludeStudentVoiceSurveys && insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (
+      <LightInsightStudentVoiceSurveyResponse
+        student={student}
+        insightPayload={insightPayload} 
+      />
+    );
+
+    return null;
   }
 }
 LightCarousel.propTypes = {
-  insights: PropTypes.array.isRequired,
-  educatorsIndex: PropTypes.object.isRequired,
-  studentFirstName: PropTypes.string.isRequired,
+  profileInsights: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    json: PropTypes.object.isRequired
+  })).isRequired,
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired
+  }).isRequired,
   style: PropTypes.object
 };
 
@@ -89,6 +116,20 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    background: '#eee',
+    position: 'relative'
+  },
+  rotating: {
+    position: 'absolute',
+    textAlign: 'right',
+    fontSize: 12,
+    right: 15,
+    bottom: 15,
+    background: '#eee'
+  },
+  moreLink: {
+    display: 'inline-block',
+    fontSize: 12,
   }
 };

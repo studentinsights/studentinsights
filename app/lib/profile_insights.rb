@@ -18,7 +18,7 @@ class ProfileInsights
 
     transition_note_json = transition_note.as_json({
       only: [:id, :text, :educator_id, :created_at],
-      includes: {
+      include: {
         educator: {
           only: [:id, :full_name, :email]
         }
@@ -65,9 +65,10 @@ class ProfileInsights
       survey_response_text = most_recent_survey[prompt_key]
       next if survey_response_text.nil?
 
+      survey_text = render_survey_as_text(most_recent_survey, prompt_keys_to_include)
       student_voice_completed_survey_json = most_recent_survey.as_json({
-        only: [:id, :created_at, :form_timestamp] + prompt_keys_to_include
-      })
+        only: [:id, :created_at, :form_timestamp]
+      }).merge(survey_text: survey_text)
       survey_insights << ProfileInsight.new('student_voice_survey_response', {
         prompt_key: prompt_key,
         prompt_text: StudentVoiceCompletedSurvey.columns_for_form_v1[prompt_key],
@@ -76,5 +77,15 @@ class ProfileInsights
       })
     end
     survey_insights
+  end
+
+  def render_survey_as_text(most_recent_survey, prompt_keys_to_include)
+    lines = []
+    prompt_keys_to_include.each do |prompt_key|
+      prompt_text = StudentVoiceCompletedSurvey.columns_for_form_v1[prompt_key]
+      response_text = most_recent_survey[prompt_key]
+      lines << "#{prompt_text}\n#{response_text}\n"
+    end
+    lines.join("\n").strip
   end
 end

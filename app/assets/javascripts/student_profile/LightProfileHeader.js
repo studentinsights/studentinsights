@@ -13,7 +13,6 @@ import HelpBubble, {
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
-import {insightsFromTransitionNotes} from './LightInsightTransitionNoteStrength';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import AccessPanel from './AccessPanel';
 
@@ -203,14 +202,12 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderGlance() {
-    const {insights, educatorsIndex, student} = this.props;
-    // const insights = insightsFromTransitionNotes(transitionNotes);
+    const {profileInsights, student} = this.props;
     return (
       <div style={styles.carousel}>
         <LightCarousel
-          insights={insights}
-          studentFirstName={student.first_name}
-          educatorsIndex={educatorsIndex}
+          profileInsights={profileInsights}
+          student={student}
         />
       </div>
     );
@@ -290,8 +287,7 @@ LightProfileHeader.propTypes = {
   student: PropTypes.object.isRequired,
   iepDocument: PropTypes.object,
   access: PropTypes.object,
-  educatorsIndex: PropTypes.object,
-  insights: PropTypes.array.isRequired,
+  profileInsights: PropTypes.array.isRequired,
   districtKey: PropTypes.string.isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object
