@@ -75,7 +75,6 @@ describe ProfileController, :type => :controller do
         expect(json.to_json).to include('<redacted>'.to_json)
         expect(json.to_json).not_to include('RESTRICTED-transition-note')
         expect(json['feed']['transition_notes'][0]['text']).to eq '<redacted>'
-        expect(json['transition_notes'][0]['text']).to eq '<redacted>'
       end
     end
 
