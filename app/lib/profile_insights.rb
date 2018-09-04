@@ -62,8 +62,8 @@ class ProfileInsights
       :learn_best
     ]
     prompt_keys_to_include.each do |prompt_key|
-      survey_response_text = most_recent_survey[prompt_key]
-      next if survey_response_text.nil?
+      survey_response_text = most_recent_survey[prompt_key].strip
+      next if survey_response_text.nil? || survey_response_text == ''
 
       survey_text = render_survey_as_text(most_recent_survey, prompt_keys_to_include)
       student_voice_completed_survey_json = most_recent_survey.as_json({

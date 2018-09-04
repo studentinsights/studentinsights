@@ -40,6 +40,7 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
           "completed"=>true,
           "stats"=>{
             "created_records_count"=>1,
+            "empty_survey_count"=>0,
             "invalid_row_columns_count"=>0,
             "invalid_student_local_id_count"=>0,
             "invalid_student_lodal_ids_list"=>[]
@@ -97,6 +98,7 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       expect(json).to eq({
         "stats"=>{
           "created_records_count"=>1,
+          "empty_survey_count"=>0,
           "invalid_row_columns_count"=>0,
           "invalid_student_local_id_count"=>0,
           "invalid_student_lodal_ids_list"=>[]
@@ -116,6 +118,7 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         "completed"=>true,
         "stats"=>{
           "created_records_count"=>1,
+          "empty_survey_count"=>0,
           "invalid_row_columns_count"=>0,
           "invalid_student_local_id_count"=>0,
           "invalid_student_lodal_ids_list"=>[]
