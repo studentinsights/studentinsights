@@ -10,7 +10,7 @@ function escapeToUseAsRegexLiteral(x) {
 }
 
 function clean(text) {
-  return text.trim().replace(/[\—\-\_]/g, '');
+  return text.trim().replace(/[\—\-\_]/g, '').trim();
 }
 
 function extractOne(text, beforeText, afterText = undefined) {
@@ -24,7 +24,8 @@ function extractOne(text, beforeText, afterText = undefined) {
   return clean(matches[1]);
 }
 
-export function parseTransitionNoteText(transitionNoteText) {
+// See transition_note_parser.rb
+function parseTransitionNoteText(transitionNoteText) {
   return {
     strengths: extractOne(transitionNoteText, STRENGTHS_PROMPT, COMMUNITY_PROMPT),
     community: extractOne(transitionNoteText, COMMUNITY_PROMPT, PEERS_PROMPT),
@@ -43,6 +44,6 @@ export function parseAndReRender(transitionNoteText) {
     COMMUNITY_PROMPT, NEWLINE, community, NEWLINE, NEWLINE,
     PEERS_PROMPT, NEWLINE, peers, NEWLINE, NEWLINE,
     GUARDIAN_PROMPT, NEWLINE, guardian, NEWLINE, NEWLINE,
-    OTHER_PROMPT, NEWLINE, other, NEWLINE, NEWLINE
+    OTHER_PROMPT, NEWLINE, other
   ].join('');
 }
