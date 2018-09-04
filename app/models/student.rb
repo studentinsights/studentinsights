@@ -25,7 +25,6 @@ class Student < ActiveRecord::Base
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
-  has_many :student_voice_completed_surveys
 
   has_many :dashboard_tardies, -> {
     where('occurred_at >= ?', 1.year.ago)

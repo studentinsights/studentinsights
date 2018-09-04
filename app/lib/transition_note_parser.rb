@@ -20,7 +20,12 @@ class TransitionNoteParser
     before_regex_literal = escape_to_use_as_regex_literal(before_text)
     after_regex_literal = escape_to_use_as_regex_literal(after_text)
     regex = Regexp.new(before_regex_literal + '([\\s\\S]*)' + after_regex_literal)
-    match_text = regex.match(text).captures[0]
+    match = regex.match(text)
+    return nil if match.nil?
+
+    match_text = match.captures[0]
+    return nil if match_text.nil?
+
     clean(match_text)
   end
 
