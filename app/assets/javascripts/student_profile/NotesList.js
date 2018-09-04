@@ -8,7 +8,7 @@ import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import NoteCard from './NoteCard';
-import {parseAndReRender} from './lightTransitionNotes';
+import {parseAndReRender} from './transitionNoteParser';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage from './CleanSlateMessage';
 

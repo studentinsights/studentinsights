@@ -6,7 +6,7 @@ import Educator from '../components/Educator';
 import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
 import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
-import {parseAndReRender} from './lightTransitionNotes';
+import {parseAndReRender} from './transitionNoteParser';
 
 
 // Render an insight about a strength from a transition note

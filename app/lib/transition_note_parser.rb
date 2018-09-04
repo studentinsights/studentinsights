@@ -1,3 +1,4 @@
+# See transitionNoteParser.js
 class TransitionNoteParser
   STRENGTHS_PROMPT = "What are this student's strengths?"
   COMMUNITY_PROMPT = "What is this student's involvement in the school community like?"
