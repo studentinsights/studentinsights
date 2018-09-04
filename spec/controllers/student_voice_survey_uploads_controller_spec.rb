@@ -39,9 +39,10 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
           "file_digest"=>"a168104bec80a666e5911890d6c56fc901bd06cf76137ad043b1e2dc4ef9df0d",
           "completed"=>true,
           "stats"=>{
+            "created_records_count"=>1,
             "invalid_row_columns_count"=>0,
             "invalid_student_local_id_count"=>0,
-            "created_records_count"=>1
+            "invalid_student_lodal_ids_list"=>[]
           },
           "created_at"=>a_kind_of(String),
           "uploaded_by_educator"=>{
@@ -95,9 +96,10 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       json = JSON.parse(response.body)
       expect(json).to eq({
         "stats"=>{
+          "created_records_count"=>1,
           "invalid_row_columns_count"=>0,
           "invalid_student_local_id_count"=>0,
-          "created_records_count"=>1
+          "invalid_student_lodal_ids_list"=>[]
         }
       })
       expect(StudentVoiceSurveyUpload.count).to eq 1
@@ -113,9 +115,10 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
         "uploaded_by_educator_id"=>pals.uri.id,
         "completed"=>true,
         "stats"=>{
+          "created_records_count"=>1,
           "invalid_row_columns_count"=>0,
           "invalid_student_local_id_count"=>0,
-          "created_records_count"=>1
+          "invalid_student_lodal_ids_list"=>[]
         }
       })
 

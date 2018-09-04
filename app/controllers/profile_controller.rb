@@ -16,7 +16,7 @@ class ProfileController < ApplicationController
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.latest_access_results,
-      transition_notes: student.transition_notes,
+      profile_insights: ProfileInsights.new(student).as_json,
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),

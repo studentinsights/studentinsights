@@ -13,7 +13,6 @@ import HelpBubble, {
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
-import {quotesFrom, sampleQuotes, upsellQuotes} from './lightQuotes';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import AccessPanel from './AccessPanel';
 
@@ -203,20 +202,13 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderGlance() {
-    const {transitionNotes, educatorsIndex, student} = this.props;
-    const style = {fontSize: 12};
-    const useRealTransitionNotes = window.location.search.indexOf('sample') === -1;
-    const quotes = (useRealTransitionNotes)
-      ? quotesFrom(transitionNotes, educatorsIndex, style)
-      : sampleQuotes(style);
-    const quotesOrUpsell = (quotes.length === 0) ? upsellQuotes(student, style) : quotes;
+    const {profileInsights, student} = this.props;
     return (
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        background: '#eee'
-      }}>
-        <LightCarousel quotes={quotesOrUpsell} />
+      <div style={styles.carousel}>
+        <LightCarousel
+          profileInsights={profileInsights}
+          student={student}
+        />
       </div>
     );
   }
@@ -295,8 +287,7 @@ LightProfileHeader.propTypes = {
   student: PropTypes.object.isRequired,
   iepDocument: PropTypes.object,
   access: PropTypes.object,
-  educatorsIndex: PropTypes.object,
-  transitionNotes: PropTypes.array,
+  profileInsights: PropTypes.array.isRequired,
   districtKey: PropTypes.string.isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object
@@ -331,7 +322,6 @@ const styles = {
     marginRight: 5,
     fontSize: 20
   },
-
   headerBitsRow: {
     display: 'flex',
     flexDirection: 'row'
@@ -358,6 +348,10 @@ const styles = {
   svgIcon: {
     fill: "#3177c9",
     opacity: 0.5
+  },
+  carousel: {
+    flex: 1,
+    display: 'flex'
   }
 };
 

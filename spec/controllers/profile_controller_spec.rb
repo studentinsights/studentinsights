@@ -75,7 +75,61 @@ describe ProfileController, :type => :controller do
         expect(json.to_json).to include('<redacted>'.to_json)
         expect(json.to_json).not_to include('RESTRICTED-transition-note')
         expect(json['feed']['transition_notes'][0]['text']).to eq '<redacted>'
-        expect(json['transition_notes'][0]['text']).to eq '<redacted>'
+      end
+    end
+
+    describe 'integration test for profile_insights' do
+      let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+      let!(:transition_note_text) do
+        "What are this student's strengths?\neverything!\n\nWhat is this student's involvement in the school community like?\nreally good\n\nHow does this student relate to their peers?\nnot sure\n\nWho is the student's primary guardian?\nokay\n\nAny additional comments or good things to know about this student?\nnope :)"
+      end
+      let!(:transition_note) { FactoryBot.create(:transition_note, student: student, text: transition_note_text) }
+      let!(:survey) { FactoryBot.create(:student_voice_completed_survey, student: student) }
+
+      it 'returns the right shape' do
+        sign_in(educator)
+        make_request(educator, student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['profile_insights'].size).to eq 6
+        expect(json['profile_insights'].map {|insight| insight['type'] }).to contain_exactly(*[
+          'student_voice_survey_response',
+          'student_voice_survey_response',
+          'student_voice_survey_response',
+          'student_voice_survey_response',
+          'student_voice_survey_response',
+          'transition_note_strength'
+        ])
+        expect(json['profile_insights']).to include({
+          "type"=>"transition_note_strength",
+          "json"=> {
+            "strengths_quote_text"=>"everything!",
+            "transition_note"=>{
+              "id"=>transition_note.id,
+              "created_at"=>a_kind_of(String),
+              "educator"=>{
+                "id"=>transition_note.educator.id,
+                "full_name"=>transition_note.educator.full_name,
+                "email"=>transition_note.educator.email
+              },
+              "text"=>transition_note_text
+            }
+          }
+        })
+        expect(json['profile_insights']).to include({
+          "type"=>"student_voice_survey_response",
+          "json"=>{
+            "prompt_key"=>"proud",
+            "prompt_text"=>"I am proud that I....",
+            "survey_response_text"=>"proud quote 1",
+            "student_voice_completed_survey"=>{
+              "id"=>survey.id,
+              "form_timestamp"=>a_kind_of(String),
+              "created_at"=>a_kind_of(String),
+              "survey_text"=>a_kind_of(String)
+            }
+          }
+        })
       end
     end
 

@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import LightComingSoonInsight from './LightComingSoonInsight';
+import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
+import LightInsightStudentVoiceSurveyResponse, {STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE} from './LightInsightStudentVoiceSurveyResponse';
 
 
 // A component that rotates through the `quotes` passed.
@@ -7,7 +11,7 @@ export default class LightCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 0
+      insightToRenderIndex: 0
     };
     this.onIntervalTicked = this.onIntervalTicked.bind(this);
     this.onNext = this.onNext.bind(this);
@@ -31,52 +35,101 @@ export default class LightCarousel extends React.Component {
     this.interval = window.setInterval(this.onIntervalTicked, 10000);
   }
 
-  onIntervalTicked() {
-    const {index} = this.state;
-    const {quotes} = this.props;
-    const nextIndex = (index + 1 >= quotes.length) ? 0 : index + 1;
-    this.setState({ index: nextIndex });
+  // Insights that we know how to render
+  insightsThatCanBeRendered() {
+    const {profileInsights} = this.props;
+    return _.compact(profileInsights.map(insight => this.renderInsightByType(insight)));
   }
 
-  onNext() {
+  onIntervalTicked() {
+    const {insightToRenderIndex} = this.state;
+    const insightsThatCanBeRendered = this.insightsThatCanBeRendered();
+    const nextIndex = (insightToRenderIndex + 1 >= insightsThatCanBeRendered.length)
+      ? 0
+      : insightToRenderIndex + 1;
+    this.setState({ insightToRenderIndex: nextIndex });
+  }
+
+  onNext(e) {
+    e.preventDefault();
     this.onIntervalTicked();
     this.resetInterval();
   }
 
   render() {
-    const {style, quotes} = this.props;
-    const {index} = this.state;
-    const item = quotes[index];
-    const {quote, tagline, source, withoutQuotes} = item;
-    const quoted = (withoutQuotes) ? quote : `“${quote}”`;
+    const {style, student} = this.props;
+    const {insightToRenderIndex} = this.state;
+    const insightsThatCanBeRendered = this.insightsThatCanBeRendered();
+
     return (
-      <div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'space-between', ...style}}>
-        <div style={{flex: 1, margin: 20, marginBottom: 0, marginTop: 15, display: 'flex'}}>
-          <div style={{flex: 1, fontSize: 20, overflowY: 'hidden'}}>{quoted}</div>
-        </div>
-        <div style={{
-          fontSize: 12,
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          margin: 20,
-          marginTop: 10,
-          marginBottom: 15
-        }}>
-          <div>
-            <div style={{fontSize: 12, color: '#333'}}>
-              <div>{tagline}</div>
-              <div>{source}</div>
-            </div>
+      <div className="LightCarousel" style={{...styles.root, ...style}}>
+        {(insightsThatCanBeRendered.length > 0)
+          ? insightsThatCanBeRendered[insightToRenderIndex]
+          : <LightComingSoonInsight studentFirstName={student.first_name} />
+        }
+        {insightsThatCanBeRendered.length > 1 && (
+          <div style={styles.rotating}>
+            <div>{insightToRenderIndex + 1} / {insightsThatCanBeRendered.length}</div>
+            <a style={styles.moreLink} href="#" onClick={this.onNext}>more</a>
           </div>
-          {quotes.length > 1 && <div style={{color: '#ccc', cursor: 'pointer'}} onClick={this.onNext}>more</div>}
-        </div>
+        )}
       </div>
     );
   }
+
+  // Silently ignore unexpected types
+  renderInsightByType(insight, options = {}) {
+    const {student} = this.props;
+    const insightPayload = insight.json;
+    const insightType = insight.type;
+    const shouldIncludeStudentVoiceSurveys = (window.location.search.indexOf('surveys') !== -1);
+
+    if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
+      <LightInsightTransitionNoteStrength insightPayload={insightPayload} />
+    );
+
+    if (shouldIncludeStudentVoiceSurveys && insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (
+      <LightInsightStudentVoiceSurveyResponse
+        student={student}
+        insightPayload={insightPayload} 
+      />
+    );
+
+    return null;
+  }
 }
 LightCarousel.propTypes = {
-  quotes: PropTypes.array.isRequired,
+  profileInsights: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    json: PropTypes.object.isRequired
+  })).isRequired,
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired
+  }).isRequired,
   style: PropTypes.object
+};
+
+const styles = {
+  root: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    background: '#eee',
+    position: 'relative'
+  },
+  rotating: {
+    position: 'absolute',
+    textAlign: 'right',
+    fontSize: 12,
+    right: 15,
+    bottom: 15,
+    background: '#eee'
+  },
+  moreLink: {
+    display: 'inline-block',
+    fontSize: 12,
+  }
 };

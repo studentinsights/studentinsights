@@ -143,3 +143,13 @@ export const modalFullScreenWithVerticalScroll = {
     right: 80
   }
 };
+
+export const modalFromRightWithVerticalScroll = {
+  content: {
+    right: 40,
+    left: 'auto',
+    width: '55%',
+    top: 40,
+    bottom: 40
+  }
+};

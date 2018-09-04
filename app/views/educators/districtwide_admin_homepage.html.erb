@@ -58,11 +58,13 @@
                 class: 'prominent-link'
               } %>
             </li>
-            <li>
-              <%= link_to 'Upload student voice survey CSV', student_voice_survey_uploads_url, {
-                class: 'prominent-link'
-              } %>
-            </li>
+            <% if PerDistrict.new.enabled_student_voice_survey_uploads? && current_educator.labels.include?('can_upload_student_voice_surveys') %>
+              <li>
+                <%= link_to 'Upload student voice survey CSV', student_voice_survey_uploads_url, {
+                  class: 'prominent-link'
+                } %>
+              </li>
+            <% end %>
             <li>
               <%= link_to 'View import records',
                 import_records_url, {
