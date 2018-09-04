@@ -19,7 +19,7 @@ export default class LightCarousel extends React.Component {
   }
 
   componentDidMount() {
-    this.resetInterval();
+    // this.resetInterval();
   }
 
   componentWillUnmount() {

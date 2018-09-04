@@ -51,7 +51,7 @@ export default class HelpBubble extends React.Component {
     return (
       <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={{...styles.modal, ...modalStyle}}>
         {// Every help box has a title and two close buttons. The content is free-form HTML.
-        <div className="modal-help">
+        <div>
           <div style={styles.titleBar}>
             <h1 style={styles.title}>{title}</h1>
             <a

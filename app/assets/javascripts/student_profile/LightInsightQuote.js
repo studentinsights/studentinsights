@@ -42,7 +42,9 @@ const styles = {
   },
   quote: {
     flex: 1,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
   },
   underQuoteContainer: {
     fontSize: 12,
