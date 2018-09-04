@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import formatBytes from '../helpers/formatBytes';
+import * as Routes from '../helpers/Routes';
 import Educator from '../components/Educator';
 import tableStyles from '../components/tableStyles';
-import HelpBubble, {modalFromRight} from '../components/HelpBubble';
+import HelpBubble, {modalFromRight, modalFromRightWithVerticalScroll} from '../components/HelpBubble';
 
 
 // Shows a list of uploads of student voice surveys.
@@ -71,14 +72,16 @@ export default class StudentVoiceSurveyUploadsList extends React.Component {
 
     return (
       <HelpBubble
-        modalStyle={modalFromRight}
+        modalStyle={modalFromRightWithVerticalScroll}
         style={{display: 'block', textAlign: 'center', marginLeft: 0}}
         linkStyle={{fontSize: 14}}
         teaser={upload.students.length}
         title={`Students for ${upload.file_digest.slice(0, 8)}:${upload.id}`}
         content={
           <div>{students.map(student => (
-            <div key={student.id}>{student.last_name}, {student.first_name}</div>
+            <a key={student.id} href={Routes.studentProfile(student.id)} target="_blank">
+              {student.last_name}, {student.first_name}
+            </a>
           ))}</div>
         }
       />

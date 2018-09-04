@@ -1,4 +1,3 @@
-# see also TransitionNoteParser.js
 class TransitionNoteParser
   STRENGTHS_PROMPT = "What are this student's strengths?"
   COMMUNITY_PROMPT = "What is this student's involvement in the school community like?"
@@ -31,6 +30,6 @@ class TransitionNoteParser
   end
 
   def clean(text)
-    text.strip.gsub(/[\—\-\_]/, '')
+    text.strip.gsub('[\—\-\_]', '')
   end
 end

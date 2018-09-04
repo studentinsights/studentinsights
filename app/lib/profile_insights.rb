@@ -15,9 +15,17 @@ class ProfileInsights
     strengths_quote_text = note_parts[:strengths]
     return [] if strengths_quote_text.nil? || strengths_quote_text.empty?
 
+    transition_note_json = transition_note.as_json({
+      only: [:id, :text, :created_at, :educator_id],
+      includes: {
+        educator: {
+          only: [:id, :full_name, :email]
+        }
+      }
+    })
     profile_insight = ProfileInsight.new('transition_note_strength', {
       strengths_quote_text: strengths_quote_text,
-      transition_note: transition_note
+      transition_note: transition_note_json
     })
     [profile_insight]
   end

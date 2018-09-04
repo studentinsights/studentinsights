@@ -61,6 +61,7 @@ class StudentVoiceSurveyUploader
     student_id = Student.find_by_local_id(row_attrs[:student_lasid]).try(:id)
     if student_id.nil?
       @invalid_student_local_id_count += 1
+      @invalid_student_lodal_ids_list << row_attrs[:student_lasid]
       return nil
     end
 
@@ -69,9 +70,10 @@ class StudentVoiceSurveyUploader
 
   def stats
     {
+      created_records_count: @created_records_count,
       invalid_row_columns_count: @invalid_row_columns_count,
       invalid_student_local_id_count: @invalid_student_local_id_count,
-      created_records_count: @created_records_count
+      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
     }
   end
 
@@ -79,5 +81,6 @@ class StudentVoiceSurveyUploader
     @invalid_row_columns_count = 0
     @invalid_student_local_id_count = 0
     @created_records_count = 0
+    @invalid_student_lodal_ids_list = []
   end
 end
