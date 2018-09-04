@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as Routes from '../helpers/Routes';
-import HelpBubble, {modalFromRight} from '../components/HelpBubble';
+import HelpBubble, {modalFromRightWithVerticalScroll} from '../components/HelpBubble';
 import NoteText from '../components/NoteText';
+import FitText from '../components/FitText';
 import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
+
 
 
 // Render an insight from a student voice survey response
@@ -20,9 +22,11 @@ export default class LightInsightStudentVoiceSurveyResponse extends React.Compon
       <LightInsightQuote
         className="LightInsightStudentVoiceSurveyResponse"
         quoteEl={
-          <div>
+          <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             <div style={fontSizeStyle}>{promptText}</div>
-            <div style={{marginTop: 5}}>“{responseText}”</div>
+            <div style={{marginTop: 5, flex: 1, display: 'flex', flexDirection: 'column'}}>
+              <FitText text={`“${responseText}”`} />
+            </div>
           </div>
         }
         sourceEl={
@@ -32,7 +36,7 @@ export default class LightInsightStudentVoiceSurveyResponse extends React.Compon
               <span>in </span>
               <HelpBubble
                 style={{margin: 0}}
-                modalStyle={modalFromRight}
+                modalStyle={modalFromRightWithVerticalScroll}
                 linkStyle={fontSizeStyle}
                 teaser="What I want my teachers to know"
                 title="What I want my teachers to know"
@@ -47,7 +51,11 @@ export default class LightInsightStudentVoiceSurveyResponse extends React.Compon
   }
   
   renderStudentSurveyDialog(completedSurvey) {
-    return <NoteText text={completedSurvey.survey_text} />;
+    return (
+      <div style={{display: 'flex', flexDirection: 'column', overflowY: 'scroll'}}>
+        <NoteText text={completedSurvey.survey_text} />
+      </div>
+    );
   }
 }
 LightInsightStudentVoiceSurveyResponse.propTypes = {

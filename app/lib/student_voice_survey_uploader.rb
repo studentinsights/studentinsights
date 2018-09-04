@@ -57,6 +57,12 @@ class StudentVoiceSurveyUploader
       row_attrs[record_field_name] = raw_row[csv_column_text]
     end
 
+    # filter out if all responses are empty
+    if row_attrs.values.uniq == ['']
+      @empty_survey_count += 1
+      return nil
+    end
+
     # match student
     student_id = Student.find_by_local_id(row_attrs[:student_lasid]).try(:id)
     if student_id.nil?
@@ -71,6 +77,7 @@ class StudentVoiceSurveyUploader
   def stats
     {
       created_records_count: @created_records_count,
+      empty_survey_count: @empty_survey_count,
       invalid_row_columns_count: @invalid_row_columns_count,
       invalid_student_local_id_count: @invalid_student_local_id_count,
       invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
@@ -78,9 +85,10 @@ class StudentVoiceSurveyUploader
   end
 
   def reset_counters!
+    @created_records_count = 0
+    @empty_survey_count = 0
     @invalid_row_columns_count = 0
     @invalid_student_local_id_count = 0
-    @created_records_count = 0
     @invalid_student_lodal_ids_list = []
   end
 end

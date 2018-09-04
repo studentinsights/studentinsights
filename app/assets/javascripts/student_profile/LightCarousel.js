@@ -82,13 +82,12 @@ export default class LightCarousel extends React.Component {
     const {student} = this.props;
     const insightPayload = insight.json;
     const insightType = insight.type;
-    const shouldIncludeStudentVoiceSurveys = (window.location.search.indexOf('surveys') !== -1);
-
+    
     if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
       <LightInsightTransitionNoteStrength insightPayload={insightPayload} />
     );
 
-    if (shouldIncludeStudentVoiceSurveys && insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (
+    if (insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (
       <LightInsightStudentVoiceSurveyResponse
         student={student}
         insightPayload={insightPayload} 
