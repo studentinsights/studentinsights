@@ -44,6 +44,6 @@ export function parseAndReRender(transitionNoteText) {
     COMMUNITY_PROMPT, NEWLINE, community, NEWLINE, NEWLINE,
     PEERS_PROMPT, NEWLINE, peers, NEWLINE, NEWLINE,
     GUARDIAN_PROMPT, NEWLINE, guardian, NEWLINE, NEWLINE,
-    OTHER_PROMPT, NEWLINE, other, NEWLINE, NEWLINE
+    OTHER_PROMPT, NEWLINE, other
   ].join('');
 }
