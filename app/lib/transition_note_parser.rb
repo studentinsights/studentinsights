@@ -35,6 +35,6 @@ class TransitionNoteParser
   end
 
   def clean(text)
-    text.strip.gsub('[\—\-\_]', '')
+    text.strip.gsub(/[—\-\_]/, '').strip
   end
 end
