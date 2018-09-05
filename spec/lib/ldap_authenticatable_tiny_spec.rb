@@ -96,6 +96,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       allow(ENV).to receive(:[]).with('DISTRICT_LDAP_HOST').and_return('foo.com')
       allow(ENV).to receive(:[]).with('DISTRICT_LDAP_PORT').and_return('12345.com')
       allow(ENV).to receive(:[]).with('DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON').and_return(test_tls_options_text)
+      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_TIMEOUT_IN_SECONDS').and_return('30')
    end
 
     it 'respects environment variables' do
@@ -106,7 +107,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
           :username=>"foo",
           :password=>"bar"
         },
-        :connect_timeout => 10,
+        :connect_timeout => 30,
         :encryption => {
           :method=>:simple_tls,
           :tls_options=>{
