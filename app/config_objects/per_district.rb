@@ -81,6 +81,12 @@ class PerDistrict
         '063',  # Gomes
         '045',  # Carney
         '078',  # Hayden McFadden
+
+        # Next wave of 2018-19 schools
+        '010',  # Ashley
+        '015',  # Brooks
+        '020',  # Campbell
+        '105',  # Pacheco
       ])
     else
       School.all
