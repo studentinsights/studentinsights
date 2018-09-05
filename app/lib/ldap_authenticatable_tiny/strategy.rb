@@ -22,8 +22,8 @@ module Devise
           fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, email, password)
           success!(educator) and return
         rescue => error
-          Rollbar.error('LdapAuthenticatableTiny error', error)
-          logger.error "LdapAuthenticatableTiny, error: #{error}"
+          Rollbar.error('LdapAuthenticatableTiny error caught', error)
+          logger.error "LdapAuthenticatableTiny, error caught: #{error}"
           fail!(:error) and return
         end
         nil
@@ -40,7 +40,7 @@ module Devise
 
         if !is_authorized
           ldap_error = ldap.get_operation_result
-          logger.error "LdapAuthenticatableTiny, ldap_error: #{ldap_error}"
+          logger.error "LdapAuthenticatableTiny, ldap_error from get_operation_result: #{ldap_error}"
         end
 
         is_authorized
@@ -56,7 +56,7 @@ module Devise
         {
           host: host,
           port: port,
-          connect_timeout: 10, # seconds
+          connect_timeout: ENV.fetch('DISTRICT_LDAP_TIMEOUT_IN_SECONDS', '30').to_i,
           auth: {
             :method => :simple,
             :username => email,
