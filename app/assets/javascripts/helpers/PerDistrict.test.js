@@ -1,13 +1,13 @@
 import {
-  inExperienceTeam,
+  shouldShowLowGradesBox,
   sortSchoolSlugsByGrade,
   studentTableEventNoteTypeIds
 } from './PerDistrict';
 
-it('#inExperienceTeam', () => {
-  expect(inExperienceTeam([])).toEqual(false);
-  expect(inExperienceTeam(['foo'])).toEqual(false);
-  expect(inExperienceTeam(['foo', 'shs_experience_team'])).toEqual(true);
+it('#shouldShowLowGradesBox', () => {
+  expect(shouldShowLowGradesBox([])).toEqual(false);
+  expect(shouldShowLowGradesBox(['foo'])).toEqual(false);
+  expect(shouldShowLowGradesBox(['foo', 'should_show_low_grades_box'])).toEqual(true);
 });
 
 it('#sortSchoolSlugsByGrade', () => {
