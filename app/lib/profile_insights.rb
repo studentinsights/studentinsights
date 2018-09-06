@@ -71,7 +71,7 @@ class ProfileInsights
       }).merge(survey_text: survey_text)
       survey_insights << ProfileInsight.new('student_voice_survey_response', {
         prompt_key: prompt_key,
-        prompt_text: StudentVoiceCompletedSurvey.columns_for_form_v1[prompt_key],
+        prompt_text: StudentVoiceCompletedSurvey.columns_for_form_v2[prompt_key],
         survey_response_text: survey_response_text,
         student_voice_completed_survey: student_voice_completed_survey_json
       })
@@ -82,7 +82,7 @@ class ProfileInsights
   def render_survey_as_text(most_recent_survey, prompt_keys_to_include)
     lines = []
     prompt_keys_to_include.each do |prompt_key|
-      prompt_text = StudentVoiceCompletedSurvey.columns_for_form_v1[prompt_key]
+      prompt_text = StudentVoiceCompletedSurvey.columns_for_form_v2[prompt_key]
       response_text = most_recent_survey[prompt_key]
       lines << "#{prompt_text}\n#{response_text}\n"
     end
