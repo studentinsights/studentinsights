@@ -52,10 +52,16 @@ RSpec.describe StarReadingImporter do
         let(:csv) { star_reading_importer.data_transformer.transform(csv_string) }
         let!(:student) { FactoryBot.create(:student, local_id: '10') }
 
-        it 'raises an error' do
-          expect { import }.to raise_error(
-            ActiveRecord::RecordInvalid, 'Validation failed: Percentile rank too high'
-          )
+        it 'does not raise an error' do
+          expect { import }.not_to raise_error
+        end
+        it 'does not import the invalid row' do
+          expect { import }.to change { StarReadingResult.count }.by 0
+        end
+        it 'increments invalid row counter' do
+          expect { import }.to change {
+            star_reading_importer.instance_variable_get(:@invalid_rows_count)
+          }.by 1
         end
       end
 
