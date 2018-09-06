@@ -64,11 +64,10 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
   return renderTableFn({items, title: 'Disability'});
 }
 
-// Check educator labels to see if the educator belongs to
-// the NGE and 10GE experience teams.  This label only applies to
-// Somerville.
-export function inExperienceTeam(educatorLabels) {
-  return (educatorLabels.indexOf('shs_experience_team') !== -1);
+// Check educator labels to see if the educator should be shown 
+// info about students in their courses with low grades.
+export function shouldShowLowGradesBox(educatorLabels) {
+  return (educatorLabels.indexOf('should_show_low_grades_box') !== -1);
 }
 
 
@@ -155,6 +154,7 @@ export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
 
   return 300;
 }
+
 
 // What choices do educators have for taking notes in the product?
 export function takeNotesChoices(districtKey) {
