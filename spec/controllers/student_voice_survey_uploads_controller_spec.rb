@@ -16,8 +16,8 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
     request.env['HTTPS'] = 'on'
     post :upload, params: {
       format: :json,
-      file_name: 'student_voice_survey.csv',
-      file_text: IO.read("#{Rails.root}/spec/fixtures/student_voice_survey.csv")
+      file_name: 'student_voice_survey_v2.csv',
+      file_text: IO.read("#{Rails.root}/spec/fixtures/student_voice_survey_v2.csv")
     }.merge(params)
   end
 
@@ -34,9 +34,9 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       expect(json).to include({
         "student_voice_survey_uploads"=>[{
           "id"=>a_kind_of(Integer),
-          "file_name"=>"student_voice_survey.csv",
-          "file_size"=>561,
-          "file_digest"=>"a168104bec80a666e5911890d6c56fc901bd06cf76137ad043b1e2dc4ef9df0d",
+          "file_name"=>"student_voice_survey_v2.csv",
+          "file_size"=>542,
+          "file_digest"=>"07e1baadcd3fd9c07ea1e149644ecaa6634ec0c7ac852df871741d353ce76266",
           "completed"=>true,
           "stats"=>{
             "created_records_count"=>1,
@@ -109,9 +109,9 @@ RSpec.describe StudentVoiceSurveyUploadsController, type: :controller do
       upload = StudentVoiceSurveyUpload.first
       expect(upload.as_json).to include({
         "id"=>a_kind_of(Integer),
-        "file_name"=>"student_voice_survey.csv",
-        "file_size"=>561,
-        "file_digest"=> "a168104bec80a666e5911890d6c56fc901bd06cf76137ad043b1e2dc4ef9df0d",
+        "file_name"=>"student_voice_survey_v2.csv",
+        "file_size"=>542,
+        "file_digest"=> "07e1baadcd3fd9c07ea1e149644ecaa6634ec0c7ac852df871741d353ce76266",
         "created_at"=>a_kind_of(ActiveSupport::TimeWithZone),
         "updated_at"=>a_kind_of(ActiveSupport::TimeWithZone),
         "uploaded_by_educator_id"=>pals.uri.id,

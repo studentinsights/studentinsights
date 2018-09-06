@@ -19,7 +19,7 @@ class StudentVoiceSurveyUploader
     })
 
     completed_surveys = []
-    columns = StudentVoiceCompletedSurvey.columns_for_form_v1
+    columns = StudentVoiceCompletedSurvey.columns_for_form_v2
     create_streaming_csv.each_with_index do |row, index|
       maybe_row_attrs = process_row_or_nil(columns, row, index)
       next if maybe_row_attrs.nil?

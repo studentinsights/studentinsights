@@ -36,7 +36,7 @@ describe('integration tests', () => {
     setTimeout(() => {
       expect(wrapper.html()).toContain('Student Voice Survey Uploads');
       expect(wrapper.html()).toContain('Upload CSV');
-      expect(wrapper.html()).toContain('student_voice_survey.csv');
+      expect(wrapper.html()).toContain('student_voice_survey_v2.csv');
       expect(wrapper.html()).toContain('a168104b');
       done();
     }, 0);
