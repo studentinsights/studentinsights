@@ -64,7 +64,7 @@ class StudentPhotoImporter
   end
 
   def s3_client
-    @s3_client ||= Aws::S3::Client.new(region: 'us-west-2')
+    @s3_client ||= Aws::S3::Client.new
   end
 
   def logger

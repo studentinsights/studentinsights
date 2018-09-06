@@ -105,7 +105,7 @@ class IepPdfImportJob
     end
 
     def s3
-      @client ||= Aws::S3::Client.new(region: 'us-west-2')
+      @client ||= Aws::S3::Client.new
     end
 
     def download(remote_filename)
