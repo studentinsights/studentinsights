@@ -4,7 +4,7 @@ class InsightStudentsWithLowGrades
   def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(@educator)
-    @event_note_type_id_ids = options.fetch(:event_note_type_ids, EventNoteType.all.pluck(:id))
+    @event_note_type_ids = options.fetch(:event_note_type_ids, EventNoteType.all.pluck(:id))
   end
 
   # High-school only.  Returns a list of students in the educator's
