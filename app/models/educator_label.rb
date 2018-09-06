@@ -35,7 +35,7 @@ class EducatorLabel < ActiveRecord::Base
     authorized_sections = educator.sections.select do |section|
       authorizer.is_authorized_for_section?(section)
     end
-    if authorized_sections.size > 0
+    if authorized_sections.size > 0 && educator.school.is_high_school?
       dynamic_labels << 'should_show_low_grades_box'
     end
 
