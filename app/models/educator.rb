@@ -62,7 +62,7 @@ class Educator < ActiveRecord::Base
   end
 
   def labels
-    educator_labels.map(&:label_key)
+    EducatorLabel.labels(self)
   end
 
   def default_section

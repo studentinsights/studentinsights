@@ -29,8 +29,8 @@ it('shallow renders', () => {
   expect(wrapper.find(CheckStudentsWithLowGrades).length).toEqual(0);
 });
 
-it('shallow renders NGE/10GE box when labels include experience team', () => {
-  const props = testProps({ educatorLabels: ['shs_experience_team'] });
+it('shallow renders low grades box when correct label is set', () => {
+  const props = testProps({ educatorLabels: ['should_show_low_grades_box'] });
   const wrapper = shallow(<HomeInsights {...props} />);
   expect(wrapper.contains(<CheckStudentsWithLowGrades educatorId={9999} />)).toEqual(true);
 });

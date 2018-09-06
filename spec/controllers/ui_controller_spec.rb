@@ -32,7 +32,7 @@ describe UiController, :type => :controller do
           "id" => pals.shs_bill_nye.id,
           "admin" => false,
           "school_id" => pals.shs.id,
-          "labels" => ['shs_experience_team']
+          "labels" => ['shs_experience_team', 'should_show_low_grades_box']
         }
       }.deep_stringify_keys)
     end

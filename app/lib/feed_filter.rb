@@ -23,7 +23,7 @@ class FeedFilter
   # Check global env flag, then per-educator flag.
   def use_counselor_based_feed?
     return false unless PerDistrict.new.enable_counselor_based_feed?
-    return false unless EducatorLabel.has_label?(@educator.id, 'use_counselor_based_feed')
+    return false unless EducatorLabel.has_static_label?(@educator.id, 'use_counselor_based_feed')
     true
   end
 

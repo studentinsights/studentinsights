@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckStudentsWithLowGradesView handles when limit reached 1`] = `
+exports[`CheckStudentsWithLowGradesBox handles when limit reached 1`] = `
 <div
-  className="CheckStudentsWithLowGrades"
+  className="CheckStudentsWithLowGradesBox"
 >
   <div
     style={
@@ -10,11 +10,36 @@ exports[`CheckStudentsWithLowGradesView handles when limit reached 1`] = `
         "backgroundColor": "#eee",
         "borderBottom": "1px solid #ccc",
         "color": "black",
+        "display": "flex",
+        "justifyContent": "space-between",
         "padding": 10,
       }
     }
   >
-    NGE and 10GE students to check in on
+    Students to check in on
+    <div
+      style={
+        Object {
+          "display": "inline",
+          "marginLeft": 10,
+        }
+      }
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+        style={
+          Object {
+            "fontSize": 12,
+            "outline": "none",
+          }
+        }
+      >
+        <span>
+          what does this mean?
+        </span>
+      </a>
+    </div>
   </div>
   <div
     className="Card "
@@ -35,7 +60,7 @@ exports[`CheckStudentsWithLowGradesView handles when limit reached 1`] = `
            students
         </b>
       </span>
-       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last 45 days.
+       in your classes who have a D or an F right now but no one has mentioned for the last 45 days.
     </div>
     <div
       style={
@@ -219,9 +244,9 @@ exports[`CheckStudentsWithLowGradesView handles when limit reached 1`] = `
 </div>
 `;
 
-exports[`CheckStudentsWithLowGradesView pure component matches snapshot 1`] = `
+exports[`CheckStudentsWithLowGradesBox pure component matches snapshot 1`] = `
 <div
-  className="CheckStudentsWithLowGrades"
+  className="CheckStudentsWithLowGradesBox"
 >
   <div
     style={
@@ -229,11 +254,36 @@ exports[`CheckStudentsWithLowGradesView pure component matches snapshot 1`] = `
         "backgroundColor": "#eee",
         "borderBottom": "1px solid #ccc",
         "color": "black",
+        "display": "flex",
+        "justifyContent": "space-between",
         "padding": 10,
       }
     }
   >
-    NGE and 10GE students to check in on
+    Students to check in on
+    <div
+      style={
+        Object {
+          "display": "inline",
+          "marginLeft": 10,
+        }
+      }
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+        style={
+          Object {
+            "fontSize": 12,
+            "outline": "none",
+          }
+        }
+      >
+        <span>
+          what does this mean?
+        </span>
+      </a>
+    </div>
   </div>
   <div
     className="Card "
@@ -254,7 +304,7 @@ exports[`CheckStudentsWithLowGradesView pure component matches snapshot 1`] = `
            students
         </b>
       </span>
-       in your classes who have a D or an F right now but no one has mentioned in NGE or 10GE for the last 45 days.
+       in your classes who have a D or an F right now but no one has mentioned for the last 45 days.
     </div>
     <div
       style={

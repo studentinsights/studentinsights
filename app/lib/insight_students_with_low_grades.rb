@@ -1,9 +1,10 @@
 class InsightStudentsWithLowGrades
   EXPERIENCE_TEAM_GRADES = ['9', '10']
 
-  def initialize(educator)
+  def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(@educator)
+    @event_note_type_ids = options.fetch(:event_note_type_ids, EventNoteType.all.pluck(:id))
   end
 
   # High-school only.  Returns a list of students in the educator's
@@ -69,7 +70,7 @@ class InsightStudentsWithLowGrades
       .where(is_restricted: false)
       .where(student_id: student_ids)
       .where('recorded_at > ?', time_threshold)
-      .where(event_note_type_id: [305, 306])
+      .where(event_note_type_id: @event_note_type_ids)
     recent_notes.map(&:student_id).uniq
   end
 
