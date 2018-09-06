@@ -13,7 +13,7 @@ class StudentPhotoImporter
   def initialize
     raise "import_student_photos? not enabled" unless PerDistrict.new.import_student_photos?
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
-
+    raise "remote filename not set!" if remote_filename.nil?
     @time_now = Time.now
   end
 
@@ -22,7 +22,7 @@ class StudentPhotoImporter
 
     log('Downloading photos.zip from SFTP site...')
 
-    photos_zip_file = sftp_client.download_file('photos.zip')
+    photos_zip_file = sftp_client.download_file(remote_filename)
 
     log("Downloaded Photos ZIP file!")
 
@@ -57,6 +57,11 @@ class StudentPhotoImporter
 
     log("Created #{created_student_photos_count} StudentPhoto records")
     log("Done.")
+  end
+
+  private
+  def remote_filename
+    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_PHOTOS_ZIP', nil)
   end
 
   def sftp_client
