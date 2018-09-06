@@ -2,12 +2,14 @@ require 'rails_helper'
 
 RSpec.describe StarMathImporter do
 
-  let(:star_math_importer) {
-    described_class.new(options: {
+  let(:star_math_importer) do
+    importer = described_class.new(options: {
       school_scope: nil,
       log: LogHelper::FakeLog.new
     })
-  }
+    importer.instance_variable_set(:@invalid_rows_count, 0)
+    importer
+  end
 
   describe '#import_row' do
 
@@ -53,10 +55,16 @@ RSpec.describe StarMathImporter do
         let(:csv) { star_math_importer.data_transformer.transform(csv_string) }
         let!(:student) { FactoryBot.create(:student_we_want_to_update) }
 
-        it 'raises an error' do
-          expect { import }.to raise_error(
-            ActiveRecord::RecordInvalid, 'Validation failed: Percentile rank can\'t be blank'
-          )
+        it 'does not raise an error' do
+          expect { import }.not_to raise_error
+        end
+        it 'does not import the invalid row' do
+          expect { import }.to change { StarMathResult.count }.by 0
+        end
+        it 'increments invalid row counter' do
+          expect { import }.to change {
+            star_math_importer.instance_variable_get(:@invalid_rows_count)
+          }.by 1
         end
       end
     end
