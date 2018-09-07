@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {isLimitedOrFlep} from '../helpers/language';
+import {isLimitedOrFlep, prettyEnglishProficiencyText} from '../helpers/language';
 import {
   hasInfoAbout504Plan
 } from '../helpers/PerDistrict';
@@ -122,11 +122,9 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderLanguage() {
     const {student, access} = this.props;
-    if (!isLimitedOrFlep(student)) return null;
+    const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency)}</div>;
 
-    const el = <div style={styles.subtitleItem}>{student.limited_english_proficiency}</div>;
     if (!access) return el;
-
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
