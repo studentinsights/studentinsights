@@ -1,21 +1,4 @@
-// This varies by district, but this implementation works across
-// Somerville and New Bedford.
-const notFluentValues = [
-  // Somerville
-  'Limited',
-  'FLEP',
-
-  // New Bedford
-  'Non-English',
-  'Limited English',
-  'Redesignated'
-];
-export function isLimitedOrFlep(student) {
-  return notFluentValues.indexOf(student.limited_english_proficiency) !== -1;
-}
-
-
-const prettyTextMap = {
+const prettyEnglishProficiencyTextMap = {
   // Somerville
   'Limited': 'Limited English',
   'FLEP': 'FLEP',
@@ -29,6 +12,9 @@ const prettyTextMap = {
   // Somerville + New Bedford
   'Fluent': 'Fluent English'
 };
+
+// This varies by district, but this implementation works across
+// Somerville and New Bedford.
 export function prettyEnglishProficiencyText(limitedEnglishProficiencyValue) {
-  return prettyTextMap[limitedEnglishProficiencyValue] || 'No LEP data';
+  return prettyEnglishProficiencyTextMap[limitedEnglishProficiencyValue] || 'No LEP data';
 }

@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {isLimitedOrFlep, prettyEnglishProficiencyText} from '../helpers/language';
+import {prettyEnglishProficiencyText} from '../helpers/language';
 import {
-  hasInfoAbout504Plan
+  hasAnySpecialEducationData,
+  hasInfoAbout504Plan,
+  supportsSpedLiaison,
+  prettyProgramText
 } from '../helpers/PerDistrict';
 import {maybeCapitalize} from '../helpers/pretty';
 import HelpBubble, {
@@ -25,8 +28,8 @@ export default class LightHeaderSupportBits extends React.Component {
     return (
       <div className="LightHeaderSupportBits" style={{...styles.root, style}}>
         {this.render504()}
+        {this.renderIEP()}
         {this.renderLanguage()}
-        {this.renderIEPLink()}
         {this.renderEducators()}
       </div>
     );
@@ -72,9 +75,13 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderSpedLiaison() {
+    const {districtKey} = this.context;
+    if (supportsSpedLiaison(districtKey)) return false;
+
     const {student} = this.props;
     const spedLiaison = student.sped_liaison;
     if (spedLiaison === null || spedLiaison === undefined) return null;
+
     return (
       <div style={styles.contactItem}>
         <div>SPED liaison:</div>
@@ -99,17 +106,51 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
-  renderIEPLink() {
+  renderIEP() {
     const {student, iepDocument} = this.props;
-    const hasDisability = student.disability !== 'None' && student.disability !== null;
-    const hasLiaison = student.sped_liaison !== null && student.sped_liaison !== undefined;
-    const spedPlacement = student.sped_placement || null;
-    const hasIep = (iepDocument || hasDisability || hasLiaison || spedPlacement);
+    if (!hasAnySpecialEducationData(student, iepDocument)) return null;
+    
+    const specialEducationText = 'Special education';
+    return (
+      <HelpBubble
+        style={{marginLeft: 0, display: 'block'}}
+        teaser={specialEducationText}
+        linkStyle={styles.subtitleItem}
+        modalStyle={modalFullScreenWithVerticalScroll}
+        title={specialEducationText}
+        content={this.renderIEPDialog()}
+      />
+    );
+  }
 
-    if (hasIep && iepDocument) return <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>;
-    if (hasIep && hasDisability) return <span style={styles.subtitleItem}>IEP for {student.disability}</span>;
-    if (hasIep) return <span style={styles.subtitleItem}>IEP</span>;
-    return null;
+  renderIEPDialog() {
+    const {districtKey} = this.context;
+    const {student, iepDocument} = this.props;
+
+    return (
+      <div style={{fontSize: 14}}>
+        {iepDocument && (
+          <div style={styles.contactItem}>
+            <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP at a glance PDF</a>
+          </div>
+        )}
+        {supportsSpedLiaison(districtKey) && (
+          <div style={styles.contactItem}>
+            <div>SPED liaison: {student.sped_liaison || 'No data'}</div>
+          </div>
+        )}
+        <div style={styles.contactItem}>
+          <div>Placement: {prettyProgramText(student.sped_placement) || 'No data'}</div>
+        </div>
+        <div style={styles.contactItem}>
+          <div>Disability: {student.disability || 'No data'}</div>
+        </div>
+        <div style={styles.contactItem}>
+          <div>Level of need: {student.sped_level_of_need || 'No data'}</div>
+        </div>
+        
+      </div>
+    );
   }
 
   render504() {
