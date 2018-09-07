@@ -1,26 +1,17 @@
 class IepDocumentsController < ApplicationController
 
-  before_action :find_iep_document, :authorize!
-
   def show
-    file_name = @iep_document.file_name
+    safe_params = params.permit(:id, :disposition)
+    iep_document = IepDocument.find(safe_params[:id])
+    authorized_or_raise! { iep_document.student }
+
+    file_name = iep_document.file_name
+    disposition = if safe_params[:disposition] == 'inline' then 'inline' else nil end
     bytes = read_iep_document_bytes(file_name)
-    send_data bytes, filename: file_name, type: :pdf
+    send_data bytes, filename: file_name, type: :pdf, disposition: disposition
   end
 
   private
-
-  def find_iep_document
-    @iep_document = IepDocument.find_by_id!(params[:id])
-  end
-
-  def student
-    @iep_document.student
-  end
-
-  def authorize!
-    raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
-  end
 
   def read_iep_document_bytes(file_name)
     if ENV['USE_PLACEHOLDER_IEP_DOCUMENT']

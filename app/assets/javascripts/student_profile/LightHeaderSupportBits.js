@@ -11,7 +11,8 @@ import {
 import {maybeCapitalize} from '../helpers/pretty';
 import HelpBubble, {
   modalFromLeft,
-  modalFullScreenWithVerticalScroll
+  modalFullScreenFlex,
+  dialogFullScreenFlex
 } from '../components/HelpBubble';
 import AccessPanel from './AccessPanel';
 
@@ -111,29 +112,28 @@ export default class LightHeaderSupportBits extends React.Component {
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
     const specialEducationText = 'Special education';
+    const shouldRenderPdfIframe = false; // need to figure out IE compatibility when no PDF viewer installed
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
         teaser={specialEducationText}
         linkStyle={styles.subtitleItem}
-        modalStyle={modalFullScreenWithVerticalScroll}
+        modalStyle={shouldRenderPdfIframe ? modalFullScreenFlex : modalFromLeft}
+        dialogStyle={shouldRenderPdfIframe ? dialogFullScreenFlex : {}}
         title={specialEducationText}
-        content={this.renderIEPDialog()}
+        withoutSpacer={true}
+        withoutContentWrapper={true}
+        content={this.renderIEPDialog(shouldRenderPdfIframe)}
       />
     );
   }
 
-  renderIEPDialog() {
+  renderIEPDialog(shouldRenderPdfIframe) {
     const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
 
     return (
-      <div style={{fontSize: 14}}>
-        {iepDocument && (
-          <div style={styles.contactItem}>
-            <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP at a glance PDF</a>
-          </div>
-        )}
+      <div style={styles.iepDialog}>
         {supportsSpedLiaison(districtKey) && (
           <div style={styles.contactItem}>
             <div>SPED liaison: {student.sped_liaison || 'No data'}</div>
@@ -148,7 +148,19 @@ export default class LightHeaderSupportBits extends React.Component {
         <div style={styles.contactItem}>
           <div>Level of need: {student.sped_level_of_need || 'No data'}</div>
         </div>
-        
+        {iepDocument && (
+          <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
+            <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
+            {shouldRenderPdfIframe && (
+              <iframe
+                style={styles.pdfIframe}
+                width="100%"
+                height="100%"
+                src={`/iep_documents/${iepDocument.id}?disposition=inline`}
+              />
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -238,6 +250,31 @@ const styles = {
   carousel: {
     flex: 1,
     display: 'flex'
+  },
+  iepDialog: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    fontSize: 14
+  },
+  flexVertical: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  pdfIframe: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 10,
+    marginBottom: 10
+  },
+  iepDocumentSection: {
+    marginTop: 20,
+    marginBottom: 20,
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column'
   }
 };
 
