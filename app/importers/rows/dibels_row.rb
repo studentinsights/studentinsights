@@ -24,6 +24,10 @@ class DibelsRow < Struct.new :row, :student_id, :log
     return 'CORE' if raw_string.upcase == 'CORE'
     return 'CORE' if raw_string.upcase.include?('CORE')
 
+    # Uri: "If it says Benchmark that's another word for Core."
+    return 'CORE' if raw_string.upcase == 'BENCHMARK'
+    return 'CORE' if raw_string.upcase.include?('BENCHMARK')
+
     return 'STRATEGIC' if raw_string.upcase == 'STRATEGIC'
     return 'STRATEGIC' if raw_string.upcase == 'STRG'
     return 'STRATEGIC' if raw_string.upcase.include?('STRG')
