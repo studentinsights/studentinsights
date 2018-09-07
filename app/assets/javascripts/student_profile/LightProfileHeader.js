@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {AutoSizer} from 'react-virtualized';
-import {isLimitedOrFlep} from '../helpers/language';
 import * as Routes from '../helpers/Routes';
 import {
   hasStudentPhotos,
   supportsHouse,
-  shouldDisplayHouse,
-  hasInfoAbout504Plan
+  shouldDisplayHouse
 } from '../helpers/PerDistrict';
 import HelpBubble, {
   modalFromLeft,
@@ -18,7 +16,7 @@ import HelpBubble, {
 import StudentPhoto from '../components/StudentPhoto';
 import LightCarousel from './LightCarousel';
 import ProfilePdfDialog from './ProfilePdfDialog';
-import AccessPanel from './AccessPanel';
+import LightHeaderSupportBits from './LightHeaderSupportBits';
 
 
 /*
@@ -28,7 +26,8 @@ the student, and some buttons for exporting, etc.
 */
 export default class LightProfileHeader extends React.Component {
   hasPhoto() {
-    const {student, districtKey} = this.props;
+    const {districtKey} = this.context;
+    const {student} = this.props;
     const shouldShowPhoto = hasStudentPhotos(districtKey);
     return (shouldShowPhoto && student.has_photo);
   }
@@ -85,17 +84,15 @@ export default class LightProfileHeader extends React.Component {
             {student.school_name}
           </div>
         </div>
-        <div style={styles.headerBitsRow}>
-          <div style={styles.headerBitsColumn}>
+        <div style={styles.infoBitsRow}>
+          <div style={styles.infoBitsBox}>
             <div style={{marginTop: 20}}>{this.renderAge()}</div>
             {this.renderDateOfBirth()}
             <div style={styles.subtitleItem}>{student.home_language} at home</div>
             {this.renderContactIcon()}
           </div>
-          <div style={styles.headerBitsColumn}>
-            <div style={{marginTop: 20}}>{this.renderIEPLink()}</div>
-            {this.render504()}
-            {this.renderLanguage()}
+          <div style={styles.infoBitsBox}>
+            {this.renderSupportBits()}
           </div>
           {this.hasPhoto() ? null : <div style={{flex: 1}} />}
         </div>
@@ -104,7 +101,8 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderHouseAndGrade() {
-    const {districtKey, student} = this.props;
+    const {districtKey} = this.context;
+    const {student} = this.props;
     const showHouse = (
       supportsHouse(districtKey) &&
       shouldDisplayHouse({local_id: student.school_local_id}) &&
@@ -115,120 +113,6 @@ export default class LightProfileHeader extends React.Component {
       <div style={styles.subtitleItem}>
         {'Grade ' + student.grade}
         {showHouse && `, ${student.house} house`}
-      </div>
-    );
-  }
-
-  renderIEPLink() {
-    const {student, iepDocument} = this.props;
-    const hasDisability = student.disability !== 'None' && student.disability !== null;
-    const hasLiaison = student.sped_liaison !== null && student.sped_liaison !== undefined;
-    const spedPlacement = student.sped_placement || null;
-    const hasIep = (iepDocument || hasDisability || hasLiaison || spedPlacement);
-
-    if (hasIep && iepDocument) return <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>IEP</a>;
-    if (hasIep && hasDisability) return <span style={styles.subtitleItem}>IEP for {student.disability}</span>;
-    if (hasIep) return <span style={styles.subtitleItem}>IEP</span>;
-    return null;
-  }
-
-  render504() {
-    const {student} = this.props;
-    const plan504 = student.plan_504;
-    return (hasInfoAbout504Plan(plan504))
-      ? <div style={styles.subtitleItem}>504 plan</div>
-      : null;
-  }
-
-  renderLanguage() {
-    const {student, access} = this.props;
-    if (!isLimitedOrFlep(student)) return null;
-
-    const el = <div style={styles.subtitleItem}>{student.limited_english_proficiency}</div>;
-    if (!access) return el;
-
-    return (
-      <HelpBubble
-        style={{marginLeft: 0, display: 'block'}}
-        teaser={el}
-        linkStyle={styles.subtitleItem}
-        modalStyle={modalFromLeft}
-        title="Language learning"
-        content={<AccessPanel access={access} />}
-      />
-    );
-  }
-
-  renderButtons() {
-    return (
-      <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
-        {this.renderNextStudentButton()}
-        {this.renderProfilePdfButton()}
-        {this.renderFullCaseHistoryButton()}
-      </div>
-    );
-  }
-
-  // The intention here is that this would allow paging through students, but it's not yet enabled.
-  renderNextStudentButton() {
-    return null;
-
-    /*
-    <a title="Next student" href="#" style={{display: 'block'}}>
-      <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-        <path d="M0 0h24v24H0z" fill="none"/>
-      </svg>
-    </a>
-    */
-  }
-
-  renderProfilePdfButton() {
-    const {student} = this.props;
-    return (
-      <HelpBubble
-        style={{marginLeft: 0}}
-        modalStyle={modalFromRight}
-        teaser={
-          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        }
-        tooltip="Print PDF"
-        title="Print PDF"
-        content={<ProfilePdfDialog studentId={student.id} style={{backgroundColor: 'white'}} />}
-      />
-    );
-  }
-
-  renderFullCaseHistoryButton() {
-    const {renderFullCaseHistory} = this.props;
-    return (
-      <HelpBubble
-        style={{marginLeft: 0}}
-        modalStyle={modalFullScreenWithVerticalScroll}
-        teaser={
-          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
-            <path d="M0 0h24v24H0z" fill="none"/>
-          </svg>
-        }
-        tooltip="List all data points"
-        title="List all data points"
-        content={renderFullCaseHistory()}
-      />
-    );
-  }
-
-  renderGlance() {
-    const {profileInsights, student} = this.props;
-    return (
-      <div style={styles.carousel}>
-        <LightCarousel
-          profileInsights={profileInsights}
-          student={student}
-        />
       </div>
     );
   }
@@ -301,6 +185,78 @@ export default class LightProfileHeader extends React.Component {
       </span>
     );
   }
+
+
+  renderSupportBits() {
+    const {student, iepDocument, access, activeServices} = this.props;
+    return (
+      <LightHeaderSupportBits
+        student={student}
+        access={access}
+        iepDocument={iepDocument}
+        activeServices={activeServices}
+      />
+    );
+  }
+
+  renderButtons() {
+    return (
+      <div style={{marginLeft: 10, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end'}}>
+        {this.renderProfilePdfButton()}
+        {this.renderFullCaseHistoryButton()}
+      </div>
+    );
+  }
+
+  renderProfilePdfButton() {
+    const {student} = this.props;
+    return (
+      <HelpBubble
+        style={{marginLeft: 0}}
+        modalStyle={modalFromRight}
+        teaser={
+          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        }
+        tooltip="Print PDF"
+        title="Print PDF"
+        content={<ProfilePdfDialog studentId={student.id} style={{backgroundColor: 'white'}} />}
+      />
+    );
+  }
+
+  renderFullCaseHistoryButton() {
+    const {renderFullCaseHistory} = this.props;
+    return (
+      <HelpBubble
+        style={{marginLeft: 0}}
+        modalStyle={modalFullScreenWithVerticalScroll}
+        teaser={
+          <svg style={styles.svgIcon} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        }
+        tooltip="List all data points"
+        title="List all data points"
+        content={renderFullCaseHistory()}
+      />
+    );
+  }
+
+  renderGlance() {
+    const {profileInsights, student} = this.props;
+    return (
+      <div style={styles.carousel}>
+        <LightCarousel
+          profileInsights={profileInsights}
+          student={student}
+        />
+      </div>
+    );
+  }
 }
 
 LightProfileHeader.propTypes = {
@@ -329,11 +285,14 @@ LightProfileHeader.propTypes = {
     has_photo: PropTypes.bool
   }).isRequired,
   iepDocument: PropTypes.object,
+  activeServices: PropTypes.array.isRequired,
   access: PropTypes.object,
   profileInsights: PropTypes.array.isRequired,
-  districtKey: PropTypes.string.isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object
+};
+LightProfileHeader.contextTypes = {
+  districtKey: PropTypes.string.isRequired
 };
 
 const styles = {
@@ -365,11 +324,11 @@ const styles = {
     marginRight: 5,
     fontSize: 20
   },
-  headerBitsRow: {
+  infoBitsRow: {
     display: 'flex',
     flexDirection: 'row'
   },
-  headerBitsColumn: {
+  infoBitsBox: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
