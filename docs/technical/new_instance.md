@@ -10,14 +10,19 @@ Goal: Visit the home page signed-out
 - [ ] Update `scripts/deploy/all.sh`
 - [ ] Set up Postgres and seed database (minimally, i.e. just schools)
 - [ ] Set up Logentries
-- [ ] Set up Rollbar
+- [ ] Set up Rollbar (server)
+- [ ] Set up Rollbar (JS)
 - [ ] Set up Mixpanel
 - [ ] Set up CSP and CSP logger
 - [ ] Add domain
 
-### 2: Sign in
+### 2: Sign in with LDAP connection
 Goal: Sign in as developer, see empty home page, roster page, districtwide pages
-- [ ] Create developer user
+- [ ] If district needs static IPs for whitelisting, setup and send static IPs
+- [ ] Point to district LDAP server for authentication
+- [ ] Ask district to set up developer account on their network, share password securely
+- [ ] Make developer record manually in educator table
+- [ ] Verify LDAP login to empty app with developer account
 
 ### 3: Import first data
 Goal: Sign in as districtwide educator, use the home page, roster page, student profile page, take notes for students in support meetings
