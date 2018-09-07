@@ -1,14 +1,13 @@
 class IepDocumentsController < ApplicationController
 
   def show
-    safe_params = params.permit(:id, :disposition)
+    safe_params = params.permit(:id)
     iep_document = IepDocument.find(safe_params[:id])
     authorized_or_raise! { iep_document.student }
 
     file_name = iep_document.file_name
-    disposition = if safe_params[:disposition] == 'inline' then 'inline' else nil end
     bytes = read_iep_document_bytes(file_name)
-    send_data bytes, filename: file_name, type: :pdf, disposition: disposition
+    send_data bytes, filename: file_name, type: :pdf
   end
 
   private
