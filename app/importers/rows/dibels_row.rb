@@ -54,6 +54,8 @@ class DibelsRow < Struct.new :row, :student_id, :log
                       .gsub(/intensive/i, '')
                       .gsub(/int /i, '')
                       .gsub(/int/i, '')
+                      .gsub(/benchmark /i, '')
+                      .gsub(/benchmark/i, '')
 
     return nil if parsed_result == ''
 
