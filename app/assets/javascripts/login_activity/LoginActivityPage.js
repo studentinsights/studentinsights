@@ -138,13 +138,8 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderCellForDay(email, index, data, day) {
-    /*
-    We're using lodash 3.10.1, so this uses 3.10.1 syntax for _.filter.
-    The most up-to-date syntax is different.
-    See https://lodash.com/docs/3.10.1#filter.
-    */
-    const successfulAttempts = _.filter(data, _.bind('success', true));
-    const failedAttempts = _.filter(data, _.bind('success', false));
+    const successfulAttempts = data.filter(d => d.success);
+    const failedAttempts = data.filter(d => d.success);
 
     return (
       <div key={index}
