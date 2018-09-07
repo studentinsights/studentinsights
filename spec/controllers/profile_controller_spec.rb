@@ -154,6 +154,21 @@ describe ProfileController, :type => :controller do
         it 'assigns the student\'s serialized data correctly' do
           make_request(educator, student.id)
           json = parse_json(response.body)
+          expect(json.keys).to contain_exactly(*[
+            'current_educator',
+            'student',
+            'feed',
+            'chart_data',
+            'dibels',
+            'service_types_index',
+            'educators_index',
+            'profile_insights',
+            'access',
+            'iep_document',
+            'sections',
+            'current_educator_allowed_sections',
+            'attendance_data'
+          ])
           expect(json['current_educator']['id']).to eq educator['id']
           expect(json['current_educator']['email']).to eq educator['email']
           expect(json['current_educator']['labels']).to eq []

@@ -47,6 +47,7 @@ class ProfileController < ApplicationController
       has_photo: (student.student_photos.size > 0),
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
+      school_local_id: student.try(:school).try(:local_id),
       school_name: student.try(:school).try(:name),
       school_type: student.try(:school).try(:school_type),
       homeroom_name: student.try(:homeroom).try(:name),

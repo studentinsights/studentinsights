@@ -2078,6 +2078,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           >
             Grade 10
+            , Beacon house
           </div>
           <div
             style={
@@ -3102,6 +3103,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             }
           >
             Grade 10
+            , Beacon house
           </div>
           <div
             style={
@@ -4126,6 +4128,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           >
             Grade 10
+            , Beacon house
           </div>
           <div
             style={

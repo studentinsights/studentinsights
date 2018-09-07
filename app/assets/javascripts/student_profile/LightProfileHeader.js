@@ -4,8 +4,12 @@ import moment from 'moment';
 import {AutoSizer} from 'react-virtualized';
 import {isLimitedOrFlep} from '../helpers/language';
 import * as Routes from '../helpers/Routes';
-import {hasStudentPhotos} from '../helpers/PerDistrict';
-import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
+import {
+  hasStudentPhotos,
+  supportsHouse,
+  shouldDisplayHouse,
+  hasInfoAbout504Plan
+} from '../helpers/PerDistrict';
 import HelpBubble, {
   modalFromLeft,
   modalFromRight,
@@ -76,7 +80,7 @@ export default class LightProfileHeader extends React.Component {
             {student.first_name + ' ' + student.last_name}
           </a>
           {this.renderHomeroomOrEnrollmentStatus()}
-          <div style={styles.subtitleItem}>{'Grade ' + student.grade}</div>
+          {this.renderHouseAndGrade()}
           <div style={styles.subtitleItem}>
             {student.school_name}
           </div>
@@ -95,6 +99,22 @@ export default class LightProfileHeader extends React.Component {
           </div>
           {this.hasPhoto() ? null : <div style={{flex: 1}} />}
         </div>
+      </div>
+    );
+  }
+
+  renderHouseAndGrade() {
+    const {districtKey, student} = this.props;
+    const showHouse = (
+      supportsHouse(districtKey) &&
+      shouldDisplayHouse({local_id: student.school_local_id}) &&
+      student.house
+    );
+
+    return (
+      <div style={styles.subtitleItem}>
+        {'Grade ' + student.grade}
+        {showHouse && `, ${student.house} house`}
       </div>
     );
   }
@@ -284,7 +304,30 @@ export default class LightProfileHeader extends React.Component {
 }
 
 LightProfileHeader.propTypes = {
-  student: PropTypes.object.isRequired,
+  student: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    grade: PropTypes.string,
+    disability: PropTypes.string,
+    sped_placement: PropTypes.string,
+    plan_504: PropTypes.string,
+    limited_english_proficiency: PropTypes.string,
+    enrollment_status: PropTypes.string,
+    home_language: PropTypes.string,
+    date_of_birth: PropTypes.string,
+    student_address: PropTypes.string,
+    primary_phone: PropTypes.string,
+    primary_email: PropTypes.string,
+    house: PropTypes.string,
+    counselor: PropTypes.string,
+    sped_liaison: PropTypes.string,
+    homeroom_id: PropTypes.number,
+    school_name: PropTypes.string,
+    school_local_id: PropTypes.string,
+    homeroom_name: PropTypes.string,
+    has_photo: PropTypes.bool
+  }).isRequired,
   iepDocument: PropTypes.object,
   access: PropTypes.object,
   profileInsights: PropTypes.array.isRequired,
