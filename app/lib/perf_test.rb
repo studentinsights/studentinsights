@@ -9,7 +9,7 @@ class PerfTest
       queries.absence_dashboard_data(school)
     end
   end
-  
+
   def self.tiering(percentage, options = {})
     time_now = options.fetch(:time_now, Time.at(1529067553))
     school_id = 9
