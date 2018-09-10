@@ -8,12 +8,13 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   def build
     return nil if row[:login_name].nil? || row[:login_name] == ''
 
-    # TODO: find_or_initialize on login_name once all active educators
-    # have a login_name set.
-    educator = Educator.find_or_initialize_by(email: email)
+    email = email_from_row
+    login_name = login_name_from_row(email)
+    educator = Educator.find_or_initialize_by(login_name: login_name)
 
     educator.assign_attributes(
-      login_name: row[:login_name],
+      login_name: login_name,
+      email: email,
       state_id: row[:state_id],
       full_name: row[:full_name],
       staff_type: row[:staff_type],
@@ -34,8 +35,12 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
 
   private
 
-  def email
-    PerDistrict.new.from_import_login_name_to_email(row[:login_name], row[:full_name])
+  def login_name_from_row(email)
+    PerDistrict.new.from_import_row_to_login_name(email, row[:login_name])
+  end
+
+  def email_from_row
+    PerDistrict.new.from_import_row_to_email(row[:login_name], row[:full_name])
   end
 
   def is_admin?

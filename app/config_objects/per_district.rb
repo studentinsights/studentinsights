@@ -112,12 +112,26 @@ class PerDistrict
     end
   end
 
+  def from_import_row_to_login_name(email, login_name)
+    if @district_key == SOMERVILLE
+      email
+    elsif @district_key == NEW_BEDFORD
+      email
+    elsif @district_key == BEDFORD
+      login_name
+    elsif @district_key == DEMO
+      raise "PerDistrict#from_import_row_to_login_name not supported for district_key: {DEMO}"
+    else
+      raise_not_handled!
+    end
+  end
+
   # In the import process, we typically only get usernames
   # as the `login_name`, but we want our user account system
   # and our communication with district authentication systems
   # to always be in terms of full email addresses with domain
   # names.
-  def from_import_login_name_to_email(login_name, full_name)
+  def from_import_row_to_email(login_name, full_name)
     if @district_key == SOMERVILLE
       login_name + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
@@ -128,10 +142,17 @@ class PerDistrict
 
       "#{first_name}_#{last_name}@bedfordps.org"
     elsif @district_key == DEMO
-      raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
+      raise "PerDistrict#from_import_row_to_email not supported for district_key: {DEMO}"
     else
       raise_not_handled!
     end
+  end
+
+  def backfill_login_names_with_emails?
+    return true if @district_key == SOMERVILLE
+    return true if @district_key == NEW_BEDFORD
+    return false if @district_key == BEDFORD
+    return false
   end
 
   def import_detailed_attendance_fields?
