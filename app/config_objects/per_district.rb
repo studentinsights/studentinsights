@@ -112,6 +112,8 @@ class PerDistrict
     end
   end
 
+  # Some districts use full email addresses for login names, others use just
+  # a short login_name for each user.
   def from_import_row_to_login_name(email, login_name)
     if @district_key == SOMERVILLE
       email
@@ -126,21 +128,18 @@ class PerDistrict
     end
   end
 
-  # In the import process, we typically only get usernames
-  # as the `login_name`, but we want our user account system
-  # and our communication with district authentication systems
-  # to always be in terms of full email addresses with domain
-  # names.
+  # In the import process, we typically only get usernames as the `login_name`,
+  # but we want to build up full email addresses with domain names.
+  # For some districts, full email addresses are used for authentication.
+  # For all districts, full email address are used to populate mailto links.
   def from_import_row_to_email(login_name, full_name)
     if @district_key == SOMERVILLE
       login_name + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
       login_name + '@newbedfordschools.org'
     elsif @district_key == BEDFORD
-      first_name = full_name.split(", ")[1].downcase
-      last_name = full_name.split(", ")[0].downcase
-
-      "#{first_name}_#{last_name}@bedfordps.org"
+      # TODO: Read in email column from Bedford Aspen/X2 export here.
+      raise 'Not yet handled'
     elsif @district_key == DEMO
       raise "PerDistrict#from_import_row_to_email not supported for district_key: {DEMO}"
     else
