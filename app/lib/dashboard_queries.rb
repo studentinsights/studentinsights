@@ -16,7 +16,7 @@ class DashboardQueries
       .where(student_id: students.map(&:id))
       .where('occurred_at >= ?', @cutoff_time)
 
-    # serialize and merge
+    # serialize
     all_absences_json = absences.as_json(only: [
       :student_id,
       :occurred_at,
@@ -34,12 +34,14 @@ class DashboardQueries
         :latest_note
       ]
     })
+
+    # merge
+    absences_json_by_student_id = all_absences_json.group_by {|a| a['student_id'] }
     students_with_events = students_json.map do |student_json|
       student_id = student_json['id']
       student = students.find {|s| s.id == student_id }
-      absences_json = all_absences_json.select {|a| a['student_id'] == student_id}
       student_json.merge({
-        absences: absences_json,
+        absences: absences_json_by_student_id[student_id],
         homeroom_label: homeroom_label(student.homeroom)
       })
     end
