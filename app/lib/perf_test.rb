@@ -10,79 +10,10 @@ class PerfTest
     end
   end
 
-  def self.tiering_detailed(percentage, options = {})
-    timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|
-      time_now = Time.at(1529067553)
-      school_ids = [9]
-      tiers = ExperimentalSomervilleHighTiers.new(educator)
-      authorizer = Authorizer.new(educator)
-
-      students = t.measure('students') do
-        authorizer.authorized do
-          Student.active
-            .where(school_id: school_ids)
-            .includes(student_section_assignments: [section: :course])
-            .includes(:event_notes)
-            .to_a # because of AuthorizedDispatcher#filter_relation
-        end
-      end
-
-      students_json = t.measure('students_json') do
-        students.as_json({
-          only: [:id, :first_name, :last_name, :grade, :house, :sped_placement, :program_assigned],
-          include: {
-            student_section_assignments: {
-              :only => [:id, :grade_letter, :grade_numeric],
-              :include => {
-                :section => {
-                  :only => [:id, :section_number],
-                  :methods => [:course_description]
-                }
-              }
-            }
-          }
-        })
-      end
-
-      tiers_map = {}
-      t.measure('tiers_json') do
-        students.each do |student|
-          tiers_map[student.id] = tiers.send(:tier, student, time_now: time_now).as_json
-        end
-      end
-
-      notes_map = {}
-      t.measure('notes_json') do
-        raw_rows = EventNote
-          .where(is_restricted: false)
-          .select('student_id, event_note_type_id, max(recorded_at) as most_recent_recorded_at')
-          .group(:student_id, :event_note_type_id)
-        students.each do |student|
-          notes_map[student.id] = {
-            last_sst_note: serialize_note(raw_rows.find {|r| 300 == r.event_note_type_id}),
-            last_experience_note:  serialize_note(raw_rows.find {|r| [305, 306].include?(r.event_note_type_id)})
-          }
-        end
-      end
-
-      t.measure('merge') do
-        students_json.map do |student_json|
-          student_id = student_json['id']
-          student_json.merge({
-            tier: tiers_map[student_id],
-            notes: notes_map[student_id]
-          })
-        end
-      end
-    end
-    pp timer.report
-    timer
-  end
-
   def self.tiering(percentage, options = {})
+    time_now = options.fetch(:time_now, Time.at(1529067553))
+    school_id = 9
     PerfTest.new.simple(percentage, options) do |educator|
-      time_now = Time.at(1529067553)
-      school_id = 9
       tiers = ExperimentalSomervilleHighTiers.new(educator)
       tiers.students_with_tiering_json([school_id], time_now)
     end
