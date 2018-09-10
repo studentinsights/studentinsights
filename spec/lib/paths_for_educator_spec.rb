@@ -15,7 +15,8 @@ RSpec.describe PathsForEducator do
 
       it 'respects PerDistrict for /classlists' do
         expect(navbar_links(pals.uri)).to eq({
-          district: '/educators/districtwide'
+          district: '/educators/districtwide',
+          levels_shs: '/levels/shs'
         })
       end
     end
@@ -24,6 +25,7 @@ RSpec.describe PathsForEducator do
       it 'works across educators, with classlists enabled' do
         expect(navbar_links(pals.uri)).to eq({
           classlists: '/classlists',
+          levels_shs: '/levels/shs',
           district: '/educators/districtwide'
         })
 
@@ -57,7 +59,9 @@ RSpec.describe PathsForEducator do
           absences: '/schools/shs/absences',
           tardies: '/schools/shs/tardies'
         })
-        expect(navbar_links(pals.shs_jodi)).to eq({})
+        expect(navbar_links(pals.shs_jodi)).to eq({
+          levels_shs: '/levels/shs'
+        })
         expect(navbar_links(pals.shs_sofia_counselor)).to eq({
           school: '/schools/shs',
           absences: '/schools/shs/absences',

@@ -14,7 +14,8 @@ class EducatorLabel < ActiveRecord::Base
         'class_list_maker_finalizer_principal',
         'use_counselor_based_feed',
         'enable_class_lists_override',
-        'can_upload_student_voice_surveys'
+        'can_upload_student_voice_surveys',
+        'can_view_experimental_tiering_pages'
       ]
     }
   }
