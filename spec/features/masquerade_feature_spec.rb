@@ -5,7 +5,7 @@ describe 'masquerading', type: :feature do
   let!(:pals) { TestPals.create! }
 
   def sign_in_as(educator)
-    sign_in_attempt(educator.email, 'demo-password')
+    sign_in_attempt(educator.login_name, 'demo-password')
   end
 
   def expect_to_allow_masquerading(page)
