@@ -224,7 +224,8 @@ class TestPals
 
     @shs_sophomore_homeroom = Homeroom.create!(name: "SHS ALL", grade: "10", school: @shs)
 
-    # Jodi has a homeroom period at the high school.
+    # Jodi has a homeroom period at the high school, and is dept. head so has
+    # schoolwide access.
     @shs_jodi_homeroom = Homeroom.create!(
       name: 'SHS 942',
       grade: '9',
@@ -234,6 +235,7 @@ class TestPals
       email: 'jodi@demo.studentinsights.org',
       full_name: 'Teacher, Jodi',
       school: @shs,
+      schoolwide_access: true,
       homeroom: @shs_jodi_homeroom
     )
     EducatorLabel.create!({

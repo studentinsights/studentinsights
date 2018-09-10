@@ -7,7 +7,7 @@
     <%= link_to 'Class lists', links[:classlists] %>
     <span class="navbar-spacer"></span>
   <% end %>
-
+  
   <% if links.has_key?(:district) %>
     <%= link_to 'District', links[:district] %>
     <span class="navbar-spacer"></span>
@@ -21,6 +21,15 @@
   <% end %>
   <% if links.has_key?(:tardies) %>
     <%= link_to "Tardies", links[:tardies] %>
+    <span class="navbar-spacer"></span>
+  <% end %>
+  <% if links.has_key?(:levels_shs) %>
+    <%= link_to links[:levels_shs] do %>
+      <span>
+        <div>SHS Levels</div>
+        <div>(experimental)</div>
+      </span>
+    <% end %>
     <span class="navbar-spacer"></span>
   <% end %>
 
