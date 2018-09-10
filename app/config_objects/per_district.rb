@@ -148,7 +148,7 @@ class PerDistrict
     end
   end
 
-  def backfill_login_names_with_emails?
+  def login_educator_with_email?
     return true if @district_key == SOMERVILLE
     return true if @district_key == NEW_BEDFORD
     return false if @district_key == BEDFORD

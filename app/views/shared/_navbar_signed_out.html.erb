@@ -1,0 +1,19 @@
+<div class="sign-in-container">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="sign-in-item">
+      <%= f.label login_field_label %>
+      <% if login_field_type == :email %>
+        <%= f.email_field :login_name, class: 'sign-in-text', autofocus: true %>
+      <% elsif login_field_type == :text %>
+        <%= f.text_field :login_name, class: 'sign-in-text', autofocus: true %>
+      <% end %>
+    </div>
+    <div class="sign-in-item">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'sign-in-text', autocomplete: "off" %>
+    </div>
+    <div class="sign-in-item">
+      <%= f.submit "Log in", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

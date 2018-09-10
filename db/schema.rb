@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 2018_09_07_185759) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
-    t.string "login_name"
+    t.string "login_name", null: false
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 

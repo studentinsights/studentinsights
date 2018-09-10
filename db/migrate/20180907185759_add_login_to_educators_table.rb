@@ -2,7 +2,7 @@ class AddLoginToEducatorsTable < ActiveRecord::Migration[5.2]
   def change
     add_column :educators, :login_name, :string
 
-    if PerDistrict.new.backfill_login_names_with_emails? && Rails.env.production?
+    if PerDistrict.new.login_educator_with_email? && Rails.env.production?
       puts "Backfilling login_name column with emails for #{PerDistrict.new.district_key}!"
 
       Educator.find_each do |educator, index|
