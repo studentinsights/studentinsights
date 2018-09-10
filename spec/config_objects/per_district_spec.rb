@@ -32,11 +32,13 @@ RSpec.describe PerDistrict do
     end
   end
 
-  describe '#from_import_login_name_to_email' do
+  describe '#from_import_row_to_email' do
     it 'works' do
-      expect(for_somerville.from_import_login_name_to_email('foo')).to eq('foo@k12.somerville.ma.us')
-      expect(for_new_bedford.from_import_login_name_to_email('foo')).to eq('foo@newbedfordschools.org')
-      expect { PerDistrict.new(district_key: 'wat').from_import_login_name_to_email('foo') }.to raise_error Exceptions::DistrictKeyNotHandledError
+      expect(for_somerville.from_import_row_to_email('foo')).to eq('foo@k12.somerville.ma.us')
+      expect(for_new_bedford.from_import_row_to_email('foo')).to eq('foo@newbedfordschools.org')
+
+      # TODO: Bedford.
+      expect { PerDistrict.new(district_key: 'wat').from_import_row_to_email('foo') }.to raise_error Exceptions::DistrictKeyNotHandledError
     end
   end
 

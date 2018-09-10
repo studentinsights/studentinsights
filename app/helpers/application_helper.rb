@@ -11,6 +11,17 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  # HTML email validation for districts that use full email address as login name.
+  def login_field_type
+    return :email if PerDistrict.new.login_educator_with_email?
+    return :text
+  end
+
+  def login_field_label
+    return 'Email' if PerDistrict.new.login_educator_with_email?
+    return 'Username'
+  end
+
   # IE11 reports HTML1500 warnings on the console if tags are not explicitly
   # closed (like happens if you used `tag`).  Here we're rendering tags with
   # attributes and no content to be able to parse the JSON in JS.
