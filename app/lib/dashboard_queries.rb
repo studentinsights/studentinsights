@@ -6,15 +6,17 @@ class DashboardQueries
   end
 
   def absence_dashboard_data(school)
-    # authorization
+    # authorization, query for students, absences, latest notes
     students = authorized_students_for_dashboard(school) do |students_relation|
       students_relation.includes([homeroom: :educator])
     end
-
-    # query for absences
+    student_ids = students.map(&:id)
     absences = Absence
-      .where(student_id: students.map(&:id))
+      .where(student_id: student_ids)
       .where('occurred_at >= ?', @cutoff_time)
+    latest_event_notes = EventNote
+      .where(student_id: student_ids)
+      .where('recorded_at >= ?', @cutoff_time)
 
     # serialize
     all_absences_json = absences.as_json(only: [
@@ -23,26 +25,28 @@ class DashboardQueries
       :excused,
       :dismissed
     ])
-    students_json = students.as_json({
-      only: [
-        :first_name,
-        :last_name,
-        :grade,
-        :id
-      ],
-      methods: [
-        :latest_note
-      ]
-    })
+    all_event_notes_json = latest_event_notes.as_json(only: [
+      :student_id,
+      :event_note_type_id,
+      :recorded_at
+    ])
+    students_json = students.as_json(only: [
+      :first_name,
+      :last_name,
+      :grade,
+      :id
+    ])
 
     # merge
-    absences_json_by_student_id = all_absences_json.group_by {|a| a['student_id'] }
+    absences_json_by_student_id = all_absences_json.group_by {|json| json['student_id'] }
+    latest_event_notes_json_by_student_id = all_event_notes_json.group_by {|json| json['student_id'] }
     students_with_events = students_json.map do |student_json|
       student_id = student_json['id']
       student = students.find {|s| s.id == student_id }
       student_json.merge({
-        absences: absences_json_by_student_id[student_id],
-        homeroom_label: homeroom_label(student.homeroom)
+        homeroom_label: homeroom_label(student.homeroom),
+        latest_note: latest_event_notes_json_by_student_id[student_id].try(:last),
+        absences: absences_json_by_student_id[student_id] || []
       })
     end
     return_json(students_with_events, school)
