@@ -67,6 +67,7 @@ class TestPals
     @uri = Educator.create!(
       id: 999999,
       email: 'uri@demo.studentinsights.org',
+      login_name: 'uri@demo.studentinsights.org',
       full_name: 'Disney, Uri',
       staff_type: 'Administrator',
       can_set_districtwide_access: true,
@@ -88,6 +89,7 @@ class TestPals
     # not project lead access.
     @rich_districtwide = Educator.create!(
       email: 'rich@demo.studentinsights.org',
+      login_name: 'rich@demo.studentinsights.org',
       full_name: 'Districtwide, Rich',
       staff_type: 'Administrator',
       can_set_districtwide_access: false,
@@ -116,6 +118,7 @@ class TestPals
 
     @healey_vivian_teacher = Educator.create!(
       email: 'vivian@demo.studentinsights.org',
+      login_name: 'vivian@demo.studentinsights.org',
       full_name: 'Teacher, Vivian',
       password: 'demo-password',
       staff_type: nil,
@@ -125,18 +128,21 @@ class TestPals
 
     @healey_ell_teacher = Educator.create!(
       email: 'alonso@demo.studentinsights.org',
+      login_name: 'alonso@demo.studentinsights.org',
       full_name: 'Teacher, Alonso',
       restricted_to_english_language_learners: true,
       school: @healey
     )
     @healey_sped_teacher = Educator.create!(
       email: 'silva@demo.studentinsights.org',
+      login_name: 'silva@demo.studentinsights.org',
       full_name: 'Teacher, Silva',
       restricted_to_sped_students: true,
       school: @healey
     )
     @healey_laura_principal = Educator.create!(
       email: 'laura@demo.studentinsights.org',
+      login_name: 'laura@demo.studentinsights.org',
       full_name: 'Principal, Laura',
       school: @healey,
       staff_type: 'Principal',
@@ -151,6 +157,7 @@ class TestPals
     )
     @healey_sarah_teacher = Educator.create!(
       email: "sarah@demo.studentinsights.org",
+      login_name: "sarah@demo.studentinsights.org",
       full_name: 'Teacher, Sarah',
       homeroom: @healey_fifth_homeroom,
       school: @healey,
@@ -175,6 +182,7 @@ class TestPals
     )
     @west_marcus_teacher = Educator.create!(
       email: "marcus@demo.studentinsights.org",
+      login_name: "marcus@demo.studentinsights.org",
       full_name: 'Teacher, Marcus',
       local_id: '550',
       homeroom: @west_fifth_homeroom,
@@ -182,6 +190,7 @@ class TestPals
     )
     @west_counselor = Educator.create!(
       email: "les@demo.studentinsights.org",
+      login_name: "les@demo.studentinsights.org",
       full_name: "Counselor, Les",
       local_id: '551',
       school: @west,
@@ -205,6 +214,7 @@ class TestPals
     @shs = School.find_by_local_id!('SHS')
     @shs_sofia_counselor = Educator.create!(
       email: 'sofia@demo.studentinsights.org',
+      login_name: 'sofia@demo.studentinsights.org',
       full_name: 'Counselor, Sofia',
       school: @shs,
       schoolwide_access: true
@@ -228,6 +238,7 @@ class TestPals
     )
     @shs_jodi = Educator.create!(
       email: 'jodi@demo.studentinsights.org',
+      login_name: 'jodi@demo.studentinsights.org',
       full_name: 'Teacher, Jodi',
       school: @shs,
       homeroom: @shs_jodi_homeroom
@@ -243,6 +254,7 @@ class TestPals
 
     @shs_harry_housemaster = Educator.create!(
       email: 'harry@demo.studentinsights.org',
+      login_name: 'harry@demo.studentinsights.org',
       full_name: 'Housemaster, Harry',
       school: @shs,
       schoolwide_access: true,
@@ -262,6 +274,7 @@ class TestPals
     )
     @shs_bill_nye = Educator.create!(
       email: 'bill@demo.studentinsights.org',
+      login_name: 'bill@demo.studentinsights.org',
       full_name: 'Teacher, Bill',
       school: @shs,
       homeroom: @shs_bill_nye_homeroom
@@ -287,6 +300,7 @@ class TestPals
     # Hugo teachers two sections of ceramics at the high school.
     @shs_hugo_art_teacher = Educator.create!(
       email: "hugo@demo.studentinsights.org",
+      login_name: "hugo@demo.studentinsights.org",
       full_name: 'Teacher, Hugo',
       local_id: '650',
       school: @shs
@@ -316,6 +330,7 @@ class TestPals
     # Fatima teaches two sections of physics at the high school.
     @shs_fatima_science_teacher = Educator.create!(
       email: "fatima@demo.studentinsights.org",
+      login_name: "fatima@demo.studentinsights.org",
       full_name: 'Teacher, Fatima',
       local_id: '750',
       school: @shs
