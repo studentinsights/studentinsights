@@ -6,20 +6,57 @@ class DashboardQueries
   end
 
   def absence_dashboard_data(school)
-    student_absence_data = authorized_students_for_dashboard(school) do |students_relation|
-      students_relation.includes([homeroom: :educator], :dashboard_absences, :event_notes)
+    # authorization, query for students, absences, latest notes
+    students = authorized_students_for_dashboard(school) do |students_relation|
+      students_relation.includes([homeroom: :educator])
     end
-    students_with_events = student_absence_data.map do |student|
-      individual_student_absence_data(student)
+    student_ids = students.map(&:id)
+    absences = Absence
+      .where(student_id: student_ids)
+      .where('occurred_at >= ?', @cutoff_time)
+    latest_event_notes = EventNote
+      .where(student_id: student_ids)
+      .where('recorded_at >= ?', @cutoff_time)
+
+    # serialize
+    all_absences_json = absences.as_json(only: [
+      :student_id,
+      :occurred_at,
+      :excused,
+      :dismissed
+    ])
+    all_event_notes_json = latest_event_notes.as_json(only: [
+      :student_id,
+      :event_note_type_id,
+      :recorded_at
+    ])
+    students_json = students.as_json(only: [
+      :first_name,
+      :last_name,
+      :grade,
+      :id
+    ])
+
+    # merge
+    absences_json_by_student_id = all_absences_json.group_by {|json| json['student_id'] }
+    latest_event_notes_json_by_student_id = all_event_notes_json.group_by {|json| json['student_id'] }
+    students_with_events = students_json.map do |student_json|
+      student_id = student_json['id']
+      student = students.find {|s| s.id == student_id }
+      student_json.merge({
+        homeroom_label: homeroom_label(student.homeroom),
+        latest_note: latest_event_notes_json_by_student_id[student_id].try(:last),
+        absences: absences_json_by_student_id[student_id] || []
+      })
     end
     return_json(students_with_events, school)
   end
 
   def tardies_dashboard_data(school)
-    student_tardies_data = authorized_students_for_dashboard(school) do |students_relation|
-      students_relation.includes([homeroom: :educator], :dashboard_tardies, :event_notes)
+    students = authorized_students_for_dashboard(school) do |students_relation|
+      students_relation.includes([homeroom: :educator])
     end
-    students_with_events = student_tardies_data.map do |student|
+    students_with_events = students.map do |student|
       individual_student_tardies_data(student)
     end
     return_json(students_with_events, school)
@@ -58,17 +95,9 @@ class DashboardQueries
     })
   end
 
-  def individual_student_absence_data(student)
-    shared_student_fields(student).merge({
-      absences: student.dashboard_absences
-        .where('occurred_at >= ?', @cutoff_time)
-        .as_json(only: [:student_id, :occurred_at, :excused, :dismissed])
-    })
-  end
-
   def individual_student_tardies_data(student)
     shared_student_fields(student).merge({
-      tardies: student.dashboard_tardies
+      tardies: student.tardies
         .where('occurred_at >= ?', @cutoff_time)
         .as_json(only: [:student_id, :occurred_at])
     })

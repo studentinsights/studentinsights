@@ -1,4 +1,15 @@
 class PerfTest
+  # querying and serializing data for absence dashboard at a particular school
+  def self.absences_dashboard(percentage, options = ())
+    school_id = options[:school_id] || School.all.first.id
+    school = School.find(school_id)
+    time_now = Time.at(1536589824)
+    PerfTest.new.simple(percentage, options) do |educator|
+      queries = DashboardQueries.new(educator, time_now: time_now)
+      queries.absence_dashboard_data(school)
+    end
+  end
+
   def self.tiering_detailed(percentage, options = {})
     timer = PerfTest.new.run_with_tags(percentage, options) do |t, educator|
       time_now = Time.at(1529067553)
