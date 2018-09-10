@@ -40,7 +40,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   end
 
   def email_from_row
-    PerDistrict.new.from_import_row_to_email(row[:login_name], row[:full_name])
+    PerDistrict.new.from_import_row_to_email(row[:login_name])
   end
 
   def is_admin?

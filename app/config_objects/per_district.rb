@@ -132,7 +132,7 @@ class PerDistrict
   # but we want to build up full email addresses with domain names.
   # For some districts, full email addresses are used for authentication.
   # For all districts, full email address are used to populate mailto links.
-  def from_import_row_to_email(login_name, full_name)
+  def from_import_row_to_email(login_name)
     if @district_key == SOMERVILLE
       login_name + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
