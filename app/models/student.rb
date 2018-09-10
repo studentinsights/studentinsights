@@ -77,6 +77,7 @@ class Student < ActiveRecord::Base
     ).count
   end
 
+  # deprecated
   # Maybe include a restricted note, but cannot return any restricted data
   def latest_note
     event_notes.order(recorded_at: :desc).limit(1).first.as_json(only: [:event_note_type_id, :recorded_at])
