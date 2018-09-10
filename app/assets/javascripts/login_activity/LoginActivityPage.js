@@ -139,7 +139,7 @@ export default class LoginActivityPage extends React.Component {
 
   renderCellForDay(email, index, data, day) {
     const successfulAttempts = data.filter(d => d.success);
-    const failedAttempts = data.filter(d => d.success);
+    const failedAttempts = data.filter(d => !d.success);
 
     return (
       <div key={index}
