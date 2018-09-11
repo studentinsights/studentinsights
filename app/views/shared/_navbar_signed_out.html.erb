@@ -3,8 +3,8 @@
     <div class="sign-in-item">
       <%= f.label login_field_label %>
       <% if login_field_type == :email %>
-        <%= f.email_field :login_name, class: 'sign-in-text', autofocus: true %>
-      <% elsif login_field_type == :text %>
+        <%= f.email_field :email, class: 'sign-in-text', autofocus: true %>
+      <% elsif login_field_type == :login_name %>
         <%= f.text_field :login_name, class: 'sign-in-text', autofocus: true %>
       <% end %>
     </div>
