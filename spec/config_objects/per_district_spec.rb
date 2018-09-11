@@ -37,6 +37,38 @@ RSpec.describe PerDistrict do
     end
   end
 
+  describe '#find_educator_from_login_text' do
+    context 'somerville' do
+      let!(:educator) { FactoryBot.create(:educator, email: 'baz@k12.somerville.ma.us') }
+
+      it 'returns educator when login text matches' do
+        found_educator = for_somerville.find_educator_from_login_text('baz@k12.somerville.ma.us')
+
+        expect(found_educator).to eq(educator)
+      end
+      it 'returns nil when login text does not math' do
+        found_educator = for_somerville.find_educator_from_login_text('fee@k12.somerville.ma.us')
+
+        expect(found_educator).to eq(nil)
+      end
+    end
+
+    context 'bedford' do
+      let!(:educator) { FactoryBot.create(:educator, login_name: 'bar') }
+
+      it 'returns educator when login text matches' do
+        found_educator = for_bedford.find_educator_from_login_text('bar')
+
+        expect(found_educator).to eq(educator)
+      end
+      it 'returns nil when login text does not math' do
+        found_educator = for_bedford.find_educator_from_login_text('bat')
+
+        expect(found_educator).to eq(nil)
+      end
+    end
+  end
+
   describe '#from_educator_row_to_email' do
     it 'works' do
       expect(for_somerville.from_educator_row_to_email(
