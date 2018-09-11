@@ -4,7 +4,7 @@ export function hasAnySpecialEducationData(student, maybeIepDocument) {
   if (maybeIepDocument) return true;
   
   const {program, placement, disability, levelOfNeed} = cleanSpecialEducationValues(student);
-  if (program) return true;
+  if (program && isSpecialEducationProgram(program)) return true;
   if (placement) return true;
   if (disability) return true;
   if (levelOfNeed) return true;
@@ -14,7 +14,8 @@ export function hasAnySpecialEducationData(student, maybeIepDocument) {
   return false;
 }
 
-export function prettyIepTextForStudent(student) {
+// Always falls back to `IEP` at worst
+export function prettyIepTextForSpecialEducationStudent(student) {
   return prettyIepText(cleanSpecialEducationValues(student));
 }
 
@@ -32,7 +33,7 @@ export function prettyLevelOfNeedText(levelOfNeedValue) {
 // as part of special education or ELL services (the program bit is Somerville-only).
 export function prettyProgramOrPlacementText(student) {
   const {program, placement} = cleanSpecialEducationValues(student);
-  if (program && (program !== 'Sp Ed' || !placement)) return program;
+  if (!isNullProgram(program) && (!isSpecialEducationProgram(program) || !placement)) return program;
   if (placement) return placement;
   return null;
 }
@@ -76,4 +77,8 @@ function isNullLevelOfNeed(levelOfNeed) {
 // This field is only used in Somerville
 function isNullProgram(program) {
   return (['Reg Ed', null].indexOf(program) !== -1);
+}
+
+function isSpecialEducationProgram(program) {
+  return (program === 'Sp Ed');
 }

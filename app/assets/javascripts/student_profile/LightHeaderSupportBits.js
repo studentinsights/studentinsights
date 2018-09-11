@@ -10,7 +10,7 @@ import {
   hasAnySpecialEducationData,
   prettyProgramOrPlacementText,
   prettyLevelOfNeedText,
-  prettyIepTextForStudent,
+  prettyIepTextForSpecialEducationStudent,
   cleanSpecialEducationValues
 } from '../helpers/specialEducation';
 import {maybeCapitalize} from '../helpers/pretty';
@@ -27,6 +27,12 @@ UI component for seconds column with extra bits about the
 student (eg, IEP, FLEP, staff contacts).
 */
 export default class LightHeaderSupportBits extends React.Component {
+  educatorNamesFromServices() {
+    const {activeServices} = this.props;
+    const rawEducatorNames = activeServices.map(service => service.provided_by_educator_name);
+    return _.compact(_.uniq(rawEducatorNames)).filter(name => name !== '');
+  }
+
   render() {
     const {style} = this.props;
 
@@ -43,6 +49,10 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderEducators() {
+    const {student} = this.props;
+    const hasAnyContacts = (student.counselor || student.sped_liaison || this.educatorNamesFromServices().length > 0);
+    if (!hasAnyContacts) return <span>No educator contacts</span>;
+
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'inline-block'}}
@@ -98,9 +108,7 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderOtherStaff() {
-    const {activeServices} = this.props;
-    const rawEducatorNames = activeServices.map(service => service.provided_by_educator_name);
-    const educatorNames = _.compact(_.uniq(rawEducatorNames)).filter(name => name !== '');
+    const educatorNames = this.educatorNamesFromServices();
     if (educatorNames.length === 0) return null;
 
     return (
@@ -117,7 +125,7 @@ export default class LightHeaderSupportBits extends React.Component {
     const {student, iepDocument} = this.props;
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
-    const specialEducationText = prettyIepTextForStudent(student);
+    const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
     const shouldRenderPdfInline = canViewPdfInline();
     return (
       <HelpBubble
