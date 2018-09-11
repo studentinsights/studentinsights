@@ -15,7 +15,9 @@ module Devise
       def authenticate!
         # `login_username` can be either an email or a SAM Account Name,
         # depending on the district.
-        login_username = authentication_hash[:login_username]
+        educator_login_field = PerDistrict.new.educator_login_field
+
+        login_username = authentication_hash.fetch(educator_login_field)
         ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
 
         begin
