@@ -125,13 +125,13 @@ class PerDistrict
   # and our communication with district authentication systems
   # to always be in terms of full email addresses with domain
   # names.
-  def from_import_login_name_to_email(login_name)
+  def from_educator_row_to_email(row)
     if @district_key == SOMERVILLE
-      login_name + '@k12.somerville.ma.us'
+      row[:login_name] + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
-      login_name + '@newbedfordschools.org'
+      row[:login_name] + '@newbedfordschools.org'
     elsif @district_key == BEDFORD
-      login_name + '@bedfordps.org'
+      row[:email]
     elsif @district_key == DEMO
       raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
     else
