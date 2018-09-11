@@ -30,7 +30,7 @@ export default class LightHeaderSupportBits extends React.Component {
   render() {
     const {style} = this.props;
 
-    // This has to fit within four lines, given parent layout.
+    // This has to fit within five lines, given parent layout.
     return (
       <div className="LightHeaderSupportBits" style={{...styles.root, style}}>
         {this.render504()}

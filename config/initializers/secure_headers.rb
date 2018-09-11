@@ -2,7 +2,7 @@ SecureHeaders::Configuration.default do |config|
   # Set these all explicitly on top of the defaults, starting from guidance in
   # https://github.com/twitter/secure_headers/blob/5c47914f9c481d8c69fb7af141ed5a79b213bfa1/README.md#configuration
   config.hsts = "max-age=#{1.week.to_i}"
-  config.x_frame_options = SecureHeaders::XFrameOptions::SAMEORIGIN # PDF within an iframe
+  config.x_frame_options = "DENY"
   config.x_content_type_options = "nosniff"
   config.x_xss_protection = "1; mode=block"
   config.x_permitted_cross_domain_policies = "none"
