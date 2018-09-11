@@ -39,13 +39,7 @@ class PerDistrict
   end
 
   def find_educator_from_login_text(login_text)
-    login_text = login_text.downcase
-
-    return Educator.find_by_email(login_text) if @district_key == SOMERVILLE
-    return Educator.find_by_email(login_text) if @district_key == NEW_BEDFORD
-    return Educator.find_by_login_name(login_text) if @district_key == BEDFORD
-
-    raise_not_handled!
+    Educator.find_by(educator_login_field => login_text.downcase)
   end
 
   def valid_plan_504_values
