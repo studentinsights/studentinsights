@@ -4,12 +4,14 @@ import _ from 'lodash';
 import {prettyEnglishProficiencyText} from '../helpers/language';
 import {
   hasInfoAbout504Plan,
-  supportsSpedLiaison,
-  prettyProgramText
+  supportsSpedLiaison
 } from '../helpers/PerDistrict';
 import {
   hasAnySpecialEducationData,
-  prettyIepTextForStudent
+  prettyProgramOrPlacementText,
+  prettyLevelOfNeedText,
+  prettyIepTextForStudent,
+  cleanSpecialEducationValues
 } from '../helpers/specialEducation';
 import {maybeCapitalize} from '../helpers/pretty';
 import HelpBubble, {
@@ -32,6 +34,7 @@ export default class LightHeaderSupportBits extends React.Component {
     return (
       <div className="LightHeaderSupportBits" style={{...styles.root, style}}>
         {this.render504()}
+        {this.renderProgram()}
         {this.renderIEP()}
         {this.renderLanguage()}
         {this.renderEducators()}
@@ -131,25 +134,40 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
+  renderProgram() {
+    const {student} = this.props;
+    const prettyText = prettyProgramOrPlacementText(student);
+    if (!prettyText) return null;
+
+    return (
+      <div style={styles.subtitleItem}>{prettyText}</div>
+    );
+  }
+
   renderIEPDialog(shouldRenderPdfIframe) {
     const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
 
+    const spedLiaison = student.sped_liaison;
+    const {program, placement, levelOfNeed, disability} = cleanSpecialEducationValues(student);
     return (
       <div style={styles.iepDialog}>
         {supportsSpedLiaison(districtKey) && (
           <div style={styles.contactItem}>
-            <div>SPED liaison: {student.sped_liaison || 'No data'}</div>
+            <div>SPED liaison: {spedLiaison || 'No data'}</div>
           </div>
         )}
         <div style={styles.contactItem}>
-          <div>Placement: {prettyProgramText(student.sped_placement) || 'No data'}</div>
+          <div>Program: {program || 'No data'}</div>
         </div>
         <div style={styles.contactItem}>
-          <div>Disability: {student.disability || 'No data'}</div>
+          <div>Placement: {placement || 'No data'}</div>
         </div>
         <div style={styles.contactItem}>
-          <div>Level of need: {student.sped_level_of_need || 'No data'}</div>
+          <div>Disability: {disability || 'No data'}</div>
+        </div>
+        <div style={styles.contactItem}>
+          <div>Level of need: {prettyLevelOfNeedText(levelOfNeed) || 'No data'}</div>
         </div>
         {iepDocument && (
           <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>

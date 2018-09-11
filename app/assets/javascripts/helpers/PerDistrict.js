@@ -11,6 +11,8 @@ export function hasStudentPhotos(districtKey) {
   return false;
 }
 
+
+// See also specialEducation.js
 const ORDERED_DISABILITY_VALUES_MAP = {
   [NEW_BEDFORD]: [
     "Does Not Apply",
@@ -45,6 +47,7 @@ export function hasInfoAbout504Plan(maybeStudent504Field) {
 
   return true;
 }
+
 
 
 // Renders a table for `SlicePanels` that works differently for different
@@ -139,14 +142,6 @@ export function supportsExcusedAbsences(districtKey) {
   return false;
 }
 
-// This returns user-facing text to describe their program and placement
-// in one label.
-export function prettyProgramText(programAssigned, spedPlacement) {
-  return (programAssigned && programAssigned !== 'Reg Ed')
-    ? programAssigned === 'Sp Ed' ? spedPlacement : programAssigned
-    : null;
-}
-
 // What is the eventNoteTypeId to use in user-facing text about how to support
 // students with high absences?
 export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
@@ -187,3 +182,4 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   if (isSomervilleOrDemo) return [300, 301];  // Includes elementary/middle, Capuano early childhood,
                                               // and SPED.
 }
+

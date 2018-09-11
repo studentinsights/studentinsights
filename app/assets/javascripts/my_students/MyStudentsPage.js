@@ -5,7 +5,8 @@ import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {maybeCapitalize} from '../helpers/pretty';
-import {supportsHouse, supportsCounselor, supportsSpedLiaison, prettyProgramText} from '../helpers/PerDistrict';
+import {supportsHouse, supportsCounselor, supportsSpedLiaison} from '../helpers/PerDistrict';
+import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -207,7 +208,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderProgram(cellProps) {
     const student = cellProps.rowData;
-    return prettyProgramText(student.program_assigned, student.sped_placement);
+    return prettyProgramOrPlacementText(student);
   }
 }
 MyStudentsPageView.contextTypes = {

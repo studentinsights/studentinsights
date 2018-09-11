@@ -2207,6 +2207,16 @@ exports[`snapshots works for aladdin grades 1`] = `
               <div
                 style={
                   Object {
+                    "display": "inline-block",
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Private Separate
+              </div>
+              <div
+                style={
+                  Object {
                     "display": "block",
                     "marginLeft": 0,
                   }
@@ -2223,7 +2233,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP for Emotional
                 </a>
               </div>
               <div
@@ -3270,6 +3280,16 @@ exports[`snapshots works for aladdin notes 1`] = `
               <div
                 style={
                   Object {
+                    "display": "inline-block",
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Private Separate
+              </div>
+              <div
+                style={
+                  Object {
                     "display": "block",
                     "marginLeft": 0,
                   }
@@ -3286,7 +3306,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP for Emotional
                 </a>
               </div>
               <div
@@ -4333,6 +4353,16 @@ exports[`snapshots works for aladdin testing 1`] = `
               <div
                 style={
                   Object {
+                    "display": "inline-block",
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Private Separate
+              </div>
+              <div
+                style={
+                  Object {
                     "display": "block",
                     "marginLeft": 0,
                   }
@@ -4349,7 +4379,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP for Emotional
                 </a>
               </div>
               <div
@@ -7351,7 +7381,7 @@ exports[`snapshots works for olaf math 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP
                 </a>
               </div>
               <div
@@ -8403,7 +8433,7 @@ exports[`snapshots works for olaf notes 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP
                 </a>
               </div>
               <div
@@ -9455,7 +9485,7 @@ exports[`snapshots works for olaf reading 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP
                 </a>
               </div>
               <div
@@ -12627,6 +12657,16 @@ exports[`snapshots works for pluto attendance 1`] = `
               <div
                 style={
                   Object {
+                    "display": "inline-block",
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Partial Inclusion
+              </div>
+              <div
+                style={
+                  Object {
                     "display": "block",
                     "marginLeft": 0,
                   }
@@ -12643,7 +12683,7 @@ exports[`snapshots works for pluto attendance 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP for Communication
                 </a>
               </div>
               <div
@@ -13651,6 +13691,16 @@ exports[`snapshots works for pluto behavior 1`] = `
               <div
                 style={
                   Object {
+                    "display": "inline-block",
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Partial Inclusion
+              </div>
+              <div
+                style={
+                  Object {
                     "display": "block",
                     "marginLeft": 0,
                   }
@@ -13667,7 +13717,7 @@ exports[`snapshots works for pluto behavior 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP for Communication
                 </a>
               </div>
               <div
@@ -14675,6 +14725,16 @@ exports[`snapshots works for pluto notes 1`] = `
               <div
                 style={
                   Object {
+                    "display": "inline-block",
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Partial Inclusion
+              </div>
+              <div
+                style={
+                  Object {
                     "display": "block",
                     "marginLeft": 0,
                   }
@@ -14691,7 +14751,7 @@ exports[`snapshots works for pluto notes 1`] = `
                     }
                   }
                 >
-                  Special education
+                  IEP for Communication
                 </a>
               </div>
               <div
