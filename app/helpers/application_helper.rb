@@ -11,6 +11,14 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def login_field_type
+    PerDistrict.new.educator_login_field
+  end
+
+  def login_field_label
+    PerDistrict.new.educator_login_field.to_s.capitalize
+  end
+
   # IE11 reports HTML1500 warnings on the console if tags are not explicitly
   # closed (like happens if you used `tag`).  Here we're rendering tags with
   # attributes and no content to be able to parse the JSON in JS.
