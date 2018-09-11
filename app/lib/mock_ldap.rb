@@ -14,16 +14,16 @@ class MockLDAP
 
   def initialize(options)
     @options = options
-    @email = options[:auth][:username]
+    @login_username = options[:auth][:username]
     @password = options[:auth][:password]
   end
 
   def bind
     raise 'Mock LDAP called but ShouldUseMockLDAP false' unless ShouldUseMockLDAP.new.check
 
-    return false unless email_present?
+    return false unless login_username_present?
 
-    return true if unauthenticated_bind?
+    return true if unauthenticated_bind?  # Mock insecurely configured LDPA.
 
     return false unless password_correct?
 
@@ -35,8 +35,8 @@ class MockLDAP
 
   private
 
-  def email_present?
-    Educator.find_by_email(@email).present?
+  def login_username_present?
+    PerDistrict.new.find_educator_from_login_text(@login_username)
   end
 
   def unauthenticated_bind?
