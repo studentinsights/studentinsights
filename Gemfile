@@ -30,12 +30,12 @@ gem 'probability'
 gem 'rollbar'
 gem 'sass-rails', '~> 5.0'
 gem 'secure_headers'
-gem 'selenium-webdriver'
 gem 'sprockets'
 gem 'thor'
 gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'rubyzip', '~> 1.2.2'
 
 # used to seed demo data in production
 gem 'factory_bot_rails'
