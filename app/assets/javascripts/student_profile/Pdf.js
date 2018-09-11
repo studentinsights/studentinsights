@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PDFObject from 'pdfobject';
 
-// Based on https://pdfobject.com/
 
+// Based on https://pdfobject.com/
 export default class Pdf extends React.Component {
   render() {
     const {url, style} = this.props;
-    const urlWithFragment = `${url}#view=FitBH`;
     return (
       <object
-        data={urlWithFragment}
+        data={url}
         type='application/pdf' 
         style={style}
         width='100%' 
@@ -26,5 +25,6 @@ Pdf.propTypes = {
 
 // For callers to do different layouts
 export function canViewPdfInline() {
-  return PDFObject.supportsPDFs && !window.PDF_INLINE_VIEWING_DISABLED;
+  if (window.PDF_INLINE_VIEWING_DISABLED_IN_TEST) return false;
+  return PDFObject.supportsPDFs;
 }

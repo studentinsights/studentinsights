@@ -188,14 +188,8 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderPdfInline(iepDocumentId) {
-    const url = `/iep_documents/${iepDocumentId}`;
-
-    return (
-      <Pdf
-        style={styles.pdfInline}
-        url={url}
-      />
-    );
+    const url = `/iep_documents/${iepDocumentId}#view=FitBH`;
+    return <Pdf style={styles.pdfInline} url={url} />;
   }
 
   render504() {
