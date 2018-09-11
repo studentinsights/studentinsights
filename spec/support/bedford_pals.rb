@@ -11,11 +11,11 @@ class BedfordTestPals
   attr_reader :donna
 
   def create!
-    School.seed_bedford_schools
+    School.seed_schools_for_district('bedford')
 
     @donna = Educator.create!(
       id: 999998,
-      login_name: 'donna'
+      login_name: 'donna',
       email: 'donna@demo.bedfordps.org',
       full_name: 'Admin, Donna',
       staff_type: 'Administrator',
