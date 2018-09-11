@@ -126,18 +126,17 @@ export default class LightHeaderSupportBits extends React.Component {
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
     const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
-    const shouldRenderPdfInline = canViewPdfInline();
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
         teaser={specialEducationText}
         linkStyle={styles.subtitleItem}
-        modalStyle={shouldRenderPdfInline ? modalFullScreenFlex : modalFromLeft}
-        dialogStyle={shouldRenderPdfInline ? dialogFullScreenFlex : {}}
+        modalStyle={modalFullScreenFlex}
+        dialogStyle={dialogFullScreenFlex}
         title={`${student.first_name}'s ${specialEducationText}`}
         withoutSpacer={true}
         withoutContentWrapper={true}
-        content={this.renderIEPDialog(shouldRenderPdfInline)}
+        content={this.renderIEPDialog()}
       />
     );
   }
@@ -152,7 +151,7 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
-  renderIEPDialog(shouldRenderPdfInline) {
+  renderIEPDialog() {
     const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
 
@@ -188,7 +187,7 @@ export default class LightHeaderSupportBits extends React.Component {
         {iepDocument && (
           <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
             <a href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
-            {shouldRenderPdfInline && this.renderPdfInline(iepDocument.id)}
+            {this.renderPdfInline(iepDocument.id)}
           </div>
         )}
       </div>
@@ -197,7 +196,13 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderPdfInline(iepDocumentId) {
     const url = `/iep_documents/${iepDocumentId}#view=FitBH`;
-    return <Pdf style={styles.pdfInline} url={url} />;
+    return (
+      <Pdf
+        style={styles.pdfInline}
+        url={url}
+        fallbackEl={<div>Firefox, Safari and Chrome can show you this right on the page!</div>}
+      />
+    );
   }
 
   render504() {

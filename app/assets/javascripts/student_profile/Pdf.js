@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PDFObject from 'pdfobject';
 
 
 // View a PDF inline if the browser supports it.  See https://pdfobject.com/
+// Unfortunately 
 export default class Pdf extends React.Component {
   render() {
     const {url, style, fallbackEl} = this.props;
     return (
-      <object
-        data={url}
+      <iframe
+        src={url}
         type='application/pdf' 
         style={style}
         width='100%' 
         height='100%'
-      >{fallbackEl || null}</object>
+      >{fallbackEl || null}</iframe>
     );
   }
 }
@@ -24,7 +24,7 @@ Pdf.propTypes = {
   fallbackEl: PropTypes.node
 };
 
-// For callers to do different layouts
+
 export function canViewPdfInline() {
-  return PDFObject.supportsPDFs;
+  return true;
 }
