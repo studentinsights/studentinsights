@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PDFObject from 'pdfobject';
 
 
 // View a PDF inline if the browser supports it.  See https://pdfobject.com/
@@ -25,6 +26,5 @@ Pdf.propTypes = {
 
 // For callers to do different layouts
 export function canViewPdfInline() {
-  if (window.PDF_INLINE_VIEWING_DISABLED_IN_TEST) return false;
-  return require('pdfobject').supportsPDFs;
+  return PDFObject.supportsPDFs;
 }
