@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   force_ssl unless Rails.env.development?
 
   before_action :redirect_domain!
-  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_educator!  # Devise method, applies to all controllers (in this app 'users' are 'educators')
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -83,11 +82,6 @@ class ApplicationController < ActionController::Base
     logger.info "log_timing:end [#{message}] #{timing_ms.round}ms"
 
     return_value
-  end
-
-  protected
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:login_username])
   end
 
   private
