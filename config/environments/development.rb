@@ -7,6 +7,7 @@ Rails.application.configure do
   Env.set_for_development_and_test!
   ENV['ENABLE_CLASS_LISTS'] = 'false'
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
+  ENV['USE_PLACEHOLDER_IEP_DOCUMENT'] = 'true'
 
   config.cache_classes = false
 

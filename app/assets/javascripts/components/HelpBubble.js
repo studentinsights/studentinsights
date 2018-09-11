@@ -44,14 +44,21 @@ export default class HelpBubble extends React.Component {
   }
 
   renderModal(){
-    const {title, content, modalStyle} = this.props;
+    const {
+      title,
+      content,
+      modalStyle,
+      dialogStyle,
+      withoutSpacer,
+      withoutContentWrapper
+    } = this.props;
     // There are three ways to close a modal dialog: click on one of the close buttons,
     // click outside the bounds, or press Escape.
 
     return (
       <ReactModal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={{...styles.modal, ...modalStyle}}>
         {// Every help box has a title and two close buttons. The content is free-form HTML.
-        <div>
+        <div style={dialogStyle}>
           <div style={styles.titleBar}>
             <h1 style={styles.title}>{title}</h1>
             <a
@@ -61,9 +68,15 @@ export default class HelpBubble extends React.Component {
               (ESC)
             </a>
           </div>
-          <div>{content}</div>
+          {withoutContentWrapper
+            ? content
+            : <div>{content}</div>
+          }
+
           {/* Fills the empty space */}
-          <div style={{flex: 1, minHeight: 20}}>{""}</div>
+          {!withoutSpacer && (
+            <div style={{flex: 1, minHeight: 20}}>{""}</div>
+          )}
           <div>
             <a href="#" onClick={this.closeModal} style={{cursor: 'pointer'}}>
               (close)
@@ -82,7 +95,10 @@ HelpBubble.propTypes = {
   style: PropTypes.object,
   linkStyle: PropTypes.object,
   modalStyle: PropTypes.object,
-  tooltip: PropTypes.string
+  dialogStyle: PropTypes.object,
+  tooltip: PropTypes.string,
+  withoutSpacer: PropTypes.bool,
+  withoutContentWrapper: PropTypes.bool
 };
 
 const styles = {
@@ -144,6 +160,17 @@ export const modalFullScreenWithVerticalScroll = {
   }
 };
 
+export const modalFullScreenFlex = {
+  content: {
+    top: 40,
+    bottom: 40,
+    left: 80,
+    right: 80,
+    display: 'flex',
+    flexDirection: 'column'
+  }
+};
+
 export const modalFromRightWithVerticalScroll = {
   content: {
     right: 40,
@@ -152,4 +179,10 @@ export const modalFromRightWithVerticalScroll = {
     top: 40,
     bottom: 40
   }
+};
+
+export const dialogFullScreenFlex = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column'
 };

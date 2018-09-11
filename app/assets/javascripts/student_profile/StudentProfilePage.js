@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {hasInfoAbout504Plan} from '../helpers/PerDistrict';
+import {prettyLevelOfNeedText} from '../helpers/specialEducation';
 import {toDeprecatedStarQuads, cumulativeByMonthFromEvents} from './QuadConverter';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import BarChartSparkline from './BarChartSparkline';
@@ -311,7 +312,7 @@ export default class StudentProfilePage extends React.Component {
   renderPlacement(student) {
     const program = student.program_assigned;
     const spedPlacement = student.sped_placement || null;
-    const spedHoursText = this.renderSpedHoursText(student);
+    const spedHoursText = prettyLevelOfNeedText(student.sped_level_of_need);
 
     const elements = _.compact([program, spedPlacement, spedHoursText]);
     return (
@@ -320,16 +321,6 @@ export default class StudentProfilePage extends React.Component {
         elements={elements}
       />
     );
-  }
-
-  renderSpedHoursText(student) {
-    switch (student.sped_level_of_need) {
-    case "Low < 2": return "less than 2 hours / week";
-    case "Low >= 2": return "2-5 hours / week";
-    case "Moderate": return "6-14 hours / week";
-    case "High": return "15+ hours / week";
-    default: return null;
-    }
   }
 
   renderServices(student) {

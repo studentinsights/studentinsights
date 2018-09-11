@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
-import {prettyProgramText} from '../helpers/PerDistrict';
+import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {
   firstMatch,
   ELA,
@@ -170,9 +170,8 @@ export default class StudentLevelsTable extends React.Component {
   }
 
   renderProgram({rowData}) {
-    const programAssigned = rowData.program_assigned;
-    const spedPlacement = rowData.sped_placement;
-    const programText = prettyProgramText(programAssigned, spedPlacement);
+    const student = rowData;
+    const programText = prettyProgramOrPlacementText(student);
 
     return (programText !== null)
       ? <span style={{...styles.support, fontSize: 12}}>{programText}</span>

@@ -216,7 +216,7 @@ class StudentsController < ApplicationController
 
   def s3
     if EnvironmentVariable.is_true('USE_PLACEHOLDER_STUDENT_PHOTO')
-      @client ||= MockAwsS3.new
+      @client ||= MockAwsS3.with_student_photo_mocked
     else
       @client ||= Aws::S3::Client.new
     end

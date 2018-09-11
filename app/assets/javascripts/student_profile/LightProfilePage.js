@@ -68,19 +68,19 @@ export default class LightProfilePage extends React.Component {
   renderHeader() {
     const {
       student,
-      districtKey,
       access,
       profileInsights,
-      iepDocument
+      iepDocument,
+      feed
     } = this.props;
-    
+    const activeServices = feed.services.active;
     return (
       <LightProfileHeader
         student={student}
         access={access}
         iepDocument={iepDocument}
         profileInsights={profileInsights}
-        districtKey={districtKey}
+        activeServices={activeServices}
         renderFullCaseHistory={this.renderFullCaseHistory.bind(this)}
       />
     );
