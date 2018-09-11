@@ -8,13 +8,13 @@ export default class Pdf extends React.Component {
   render() {
     const {url, style, fallbackEl} = this.props;
     return (
-      <iframe
-        src={url}
+      <object
+        data={url}
         type='application/pdf' 
         style={style}
         width='100%' 
         height='100%'
-      >{fallbackEl || null}</iframe>
+      >{fallbackEl || null}</object>
     );
   }
 }

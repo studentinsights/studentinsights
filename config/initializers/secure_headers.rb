@@ -2,10 +2,10 @@ SecureHeaders::Configuration.default do |config|
   # Set these all explicitly on top of the defaults, starting from guidance in
   # https://github.com/twitter/secure_headers/blob/5c47914f9c481d8c69fb7af141ed5a79b213bfa1/README.md#configuration
   config.hsts = "max-age=#{1.week.to_i}"
-  config.x_frame_options = "sameorigin"
-  config.x_content_type_options = "nosniff"
-  config.x_xss_protection = "1; mode=block"
-  config.x_permitted_cross_domain_policies = "none"
+  config.x_frame_options = 'sameorigin'
+  config.x_content_type_options = 'nosniff'
+  config.x_xss_protection = '1; mode=block'
+  config.x_permitted_cross_domain_policies = 'none'
   config.referrer_policy = %w(origin-when-cross-origin strict-origin-when-cross-origin)
 
   # Unblock PDF downloading for student report and for IEP-at-a-glance
@@ -37,7 +37,7 @@ SecureHeaders::Configuration.default do |config|
     child_src: %w('none'),
     frame_ancestors: %w('none'),
     media_src: %w('none'),
-    object_src: %w('self' https:), # for viewing PDF inline in Chrome PDF viewing (not for downloading)
+    object_src: %w('self' https:), # for viewing report/IEP PDFs inline (not for downloading)
     worker_src: %w('none'),
     plugin_types: nil
   }

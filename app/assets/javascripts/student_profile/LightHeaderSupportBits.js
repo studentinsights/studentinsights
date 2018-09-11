@@ -20,7 +20,7 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import AccessPanel from './AccessPanel';
-import Pdf, {canViewPdfInline} from './Pdf';
+import Pdf from './Pdf';
 
 /*
 UI component for seconds column with extra bits about the
@@ -200,7 +200,12 @@ export default class LightHeaderSupportBits extends React.Component {
       <Pdf
         style={styles.pdfInline}
         url={url}
-        fallbackEl={<div>Firefox, Safari and Chrome can show you this right on the page!</div>}
+        fallbackEl={(
+          <div style={styles.pdfFallbackMessage}>
+            <div>Use Firefox, Safari, Edge or Chrome to view this PDF right on the page.</div>
+            <div>If you're using an older version of Internet Explorer, you can install Adobe Acrobat Reader.</div>
+          </div>
+        )}
       />
     );
   }
@@ -309,6 +314,16 @@ const styles = {
     marginTop: 10,
     marginBottom: 10,
     border: '1px solid #333'
+  },
+  pdfFallbackMessage: {
+    padding: 20,
+    background: '#eee',
+    color: '#333',
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   iepDocumentSection: {
     marginTop: 20,

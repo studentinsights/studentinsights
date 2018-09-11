@@ -50,6 +50,3 @@ if (process.listeners('unhandledRejection').length === 0) { // eslint-disable-li
     throw error;
   });
 }
-
-// shim for PDFObject
-window.navigator.mimeTypes = {};
