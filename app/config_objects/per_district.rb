@@ -137,7 +137,7 @@ class PerDistrict
     elsif @district_key == BEDFORD
       row[:email]
     elsif @district_key == DEMO
-      raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
+      raise "PerDistrict#from_educator_row_to_email not supported for district_key: {DEMO}"
     else
       raise_not_handled!
     end
