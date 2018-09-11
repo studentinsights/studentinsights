@@ -20,7 +20,7 @@ class IepDocumentsController < ApplicationController
       Aws::S3::Client.new.get_object({
         bucket: bucket_name,
         key: file_name
-      })
+      }).body.read
     end
   end
 end
