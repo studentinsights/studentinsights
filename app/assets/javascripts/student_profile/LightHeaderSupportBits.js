@@ -9,8 +9,7 @@ import {
 } from '../helpers/PerDistrict';
 import {
   hasAnySpecialEducationData,
-  renderSpecialEducationText,
-  cleanSpecialEducationValues
+  prettyIepTextForStudent
 } from '../helpers/specialEducation';
 import {maybeCapitalize} from '../helpers/pretty';
 import HelpBubble, {
@@ -115,8 +114,7 @@ export default class LightHeaderSupportBits extends React.Component {
     const {student, iepDocument} = this.props;
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
-    const specialEducationValues = cleanSpecialEducationValues(student);
-    const specialEducationText = renderSpecialEducationText(specialEducationValues);
+    const specialEducationText = prettyIepTextForStudent(student);
     const shouldRenderPdfIframe = false; // need to figure out IE compatibility when no PDF viewer installed
     return (
       <HelpBubble
