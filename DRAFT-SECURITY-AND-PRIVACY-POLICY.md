@@ -71,6 +71,7 @@ For developers:
   + AWS S3
   + QuotaGuard
   + MailGun
+  + Scout
   + Rollbar (some Rollbar error report emails expose sensitive information)
 
 ## Security process and culture

@@ -245,7 +245,7 @@ Somerville | School Overview Page | Somerville High School Housemasters are requ
 Here are some notes on maintaining, troubleshooting and performance.
 
 ## Response latency
-Look in the Heroku metrics panel.
+Look in the Heroku metrics panel.  If you need to understand further, use Scout.
 
 ## Postgres
 You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to get helpful diagnostic information about slow queries, index usage, and table scans.
