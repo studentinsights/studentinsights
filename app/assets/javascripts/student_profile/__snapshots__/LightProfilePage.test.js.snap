@@ -7381,28 +7381,6 @@ exports[`snapshots works for olaf math 1`] = `
                     }
                   }
                 >
-                  IEP
-                </a>
-              </div>
-              <div
-                style={
-                  Object {
-                    "display": "block",
-                    "marginLeft": 0,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
                   <div
                     style={
                       Object {
@@ -7415,28 +7393,9 @@ exports[`snapshots works for olaf math 1`] = `
                   </div>
                 </a>
               </div>
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": 0,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  Educator contacts
-                </a>
-              </div>
+              <span>
+                No educator contacts
+              </span>
             </div>
           </div>
         </div>
@@ -8433,28 +8392,6 @@ exports[`snapshots works for olaf notes 1`] = `
                     }
                   }
                 >
-                  IEP
-                </a>
-              </div>
-              <div
-                style={
-                  Object {
-                    "display": "block",
-                    "marginLeft": 0,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
                   <div
                     style={
                       Object {
@@ -8467,28 +8404,9 @@ exports[`snapshots works for olaf notes 1`] = `
                   </div>
                 </a>
               </div>
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": 0,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  Educator contacts
-                </a>
-              </div>
+              <span>
+                No educator contacts
+              </span>
             </div>
           </div>
         </div>
@@ -9485,28 +9403,6 @@ exports[`snapshots works for olaf reading 1`] = `
                     }
                   }
                 >
-                  IEP
-                </a>
-              </div>
-              <div
-                style={
-                  Object {
-                    "display": "block",
-                    "marginLeft": 0,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
                   <div
                     style={
                       Object {
@@ -9519,28 +9415,9 @@ exports[`snapshots works for olaf reading 1`] = `
                   </div>
                 </a>
               </div>
-              <div
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "marginLeft": 0,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  Educator contacts
-                </a>
-              </div>
+              <span>
+                No educator contacts
+              </span>
             </div>
           </div>
         </div>

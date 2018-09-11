@@ -10,7 +10,7 @@ import {
   hasAnySpecialEducationData,
   prettyProgramOrPlacementText,
   prettyLevelOfNeedText,
-  prettyIepTextForStudent,
+  prettyIepTextForSpecialEducationStudent,
   cleanSpecialEducationValues
 } from '../helpers/specialEducation';
 import {maybeCapitalize} from '../helpers/pretty';
@@ -20,13 +20,19 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import AccessPanel from './AccessPanel';
-
+import Pdf, {canViewPdfInline} from './Pdf';
 
 /*
 UI component for seconds column with extra bits about the
 student (eg, IEP, FLEP, staff contacts).
 */
 export default class LightHeaderSupportBits extends React.Component {
+  educatorNamesFromServices() {
+    const {activeServices} = this.props;
+    const rawEducatorNames = activeServices.map(service => service.provided_by_educator_name);
+    return _.compact(_.uniq(rawEducatorNames)).filter(name => name !== '');
+  }
+
   render() {
     const {style} = this.props;
 
@@ -43,6 +49,10 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderEducators() {
+    const {student} = this.props;
+    const hasAnyContacts = (student.counselor || student.sped_liaison || this.educatorNamesFromServices().length > 0);
+    if (!hasAnyContacts) return <span>No educator contacts</span>;
+
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'inline-block'}}
@@ -98,9 +108,7 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderOtherStaff() {
-    const {activeServices} = this.props;
-    const rawEducatorNames = activeServices.map(service => service.provided_by_educator_name);
-    const educatorNames = _.compact(_.uniq(rawEducatorNames)).filter(name => name !== '');
+    const educatorNames = this.educatorNamesFromServices();
     if (educatorNames.length === 0) return null;
 
     return (
@@ -117,19 +125,19 @@ export default class LightHeaderSupportBits extends React.Component {
     const {student, iepDocument} = this.props;
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
-    const specialEducationText = prettyIepTextForStudent(student);
-    const shouldRenderPdfIframe = false; // need to figure out IE compatibility when no PDF viewer installed
+    const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
+    const shouldRenderPdfInline = canViewPdfInline();
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
         teaser={specialEducationText}
         linkStyle={styles.subtitleItem}
-        modalStyle={shouldRenderPdfIframe ? modalFullScreenFlex : modalFromLeft}
-        dialogStyle={shouldRenderPdfIframe ? dialogFullScreenFlex : {}}
-        title={specialEducationText}
+        modalStyle={shouldRenderPdfInline ? modalFullScreenFlex : modalFromLeft}
+        dialogStyle={shouldRenderPdfInline ? dialogFullScreenFlex : {}}
+        title={`${student.first_name}'s ${specialEducationText}`}
         withoutSpacer={true}
         withoutContentWrapper={true}
-        content={this.renderIEPDialog(shouldRenderPdfIframe)}
+        content={this.renderIEPDialog(shouldRenderPdfInline)}
       />
     );
   }
@@ -144,7 +152,7 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
-  renderIEPDialog(shouldRenderPdfIframe) {
+  renderIEPDialog(shouldRenderPdfInline) {
     const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
 
@@ -152,38 +160,44 @@ export default class LightHeaderSupportBits extends React.Component {
     const {program, placement, levelOfNeed, disability} = cleanSpecialEducationValues(student);
     return (
       <div style={styles.iepDialog}>
-        {supportsSpedLiaison(districtKey) && (
+        {supportsSpedLiaison(districtKey) && spedLiaison && (
           <div style={styles.contactItem}>
-            <div>SPED liaison: {spedLiaison || 'No data'}</div>
+            <div>SPED liaison: {spedLiaison}</div>
           </div>
         )}
-        <div style={styles.contactItem}>
-          <div>Program: {program || 'No data'}</div>
-        </div>
-        <div style={styles.contactItem}>
-          <div>Placement: {placement || 'No data'}</div>
-        </div>
-        <div style={styles.contactItem}>
-          <div>Disability: {disability || 'No data'}</div>
-        </div>
-        <div style={styles.contactItem}>
-          <div>Level of need: {prettyLevelOfNeedText(levelOfNeed) || 'No data'}</div>
-        </div>
+        {program && (
+          <div style={styles.contactItem}>
+            <div>Program: {program}</div>
+          </div>
+        )}
+        {placement && (
+          <div style={styles.contactItem}>
+            <div>Placement: {placement}</div>
+          </div>
+        )}
+        {disability && (
+          <div style={styles.contactItem}>
+            <div>Disability: {disability}</div>
+          </div>
+        )}
+        {levelOfNeed && (
+          <div style={styles.contactItem}>
+            <div>Level of need: {prettyLevelOfNeedText(levelOfNeed)}</div>
+          </div>
+        )}
         {iepDocument && (
           <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
-            <a target="_blank" href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
-            {shouldRenderPdfIframe && (
-              <iframe
-                style={styles.pdfIframe}
-                width="100%"
-                height="100%"
-                src={`/iep_documents/${iepDocument.id}?disposition=inline`}
-              />
-            )}
+            <a href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
+            {shouldRenderPdfInline && this.renderPdfInline(iepDocument.id)}
           </div>
         )}
       </div>
     );
+  }
+
+  renderPdfInline(iepDocumentId) {
+    const url = `/iep_documents/${iepDocumentId}#view=FitBH`;
+    return <Pdf style={styles.pdfInline} url={url} />;
   }
 
   render504() {
@@ -262,7 +276,7 @@ const styles = {
     fontSize: 14
   },
   contactItem: {
-    paddingTop: 6
+    paddingTop: 2
   },
   svgIcon: {
     fill: "#3177c9",
@@ -283,12 +297,13 @@ const styles = {
     display: 'flex',
     flexDirection: 'column'
   },
-  pdfIframe: {
+  pdfInline: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    border: '1px solid #333'
   },
   iepDocumentSection: {
     marginTop: 20,

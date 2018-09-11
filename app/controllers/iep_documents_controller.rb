@@ -7,7 +7,7 @@ class IepDocumentsController < ApplicationController
 
     file_name = iep_document.file_name
     bytes = read_iep_document_bytes(file_name)
-    send_data bytes, filename: file_name, type: :pdf
+    send_data bytes, filename: file_name, type: 'application/pdf', disposition: 'inline'
   end
 
   private
