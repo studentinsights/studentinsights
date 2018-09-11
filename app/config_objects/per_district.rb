@@ -38,6 +38,14 @@ class PerDistrict
     raise_not_handled!
   end
 
+  def find_educator_from_login_text(login_text)
+    return Educator.find_by_email(email.downcase) if @district_key == SOMERVILLE
+    return Educator.find_by_email(email.downcase) if @district_key == NEW_BEDFORD
+    return Educator.find_by_login_name(login_name.downcase) if @district_key == BEDFORD
+
+    raise_not_handled!
+  end
+
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
       ["504", "Not 504", "NotIn504"]
