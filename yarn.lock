@@ -5984,10 +5984,6 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pdfobject@^2.0.201604172:
-  version "2.0.201604172"
-  resolved "https://registry.yarnpkg.com/pdfobject/-/pdfobject-2.0.201604172.tgz#112edf93b98be121a5e780b06e7f5f78ad31ab3f"
-
 percentile@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/percentile/-/percentile-1.2.0.tgz#fa3b05c1ffd355b35228529834e5fa37f0bd465d"

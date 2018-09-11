@@ -20,7 +20,7 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import AccessPanel from './AccessPanel';
-import Pdf, {canViewPdfInline} from './Pdf';
+import Pdf from './Pdf';
 
 /*
 UI component for seconds column with extra bits about the
@@ -126,18 +126,17 @@ export default class LightHeaderSupportBits extends React.Component {
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
     const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
-    const shouldRenderPdfInline = canViewPdfInline();
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
         teaser={specialEducationText}
         linkStyle={styles.subtitleItem}
-        modalStyle={shouldRenderPdfInline ? modalFullScreenFlex : modalFromLeft}
-        dialogStyle={shouldRenderPdfInline ? dialogFullScreenFlex : {}}
+        modalStyle={modalFullScreenFlex}
+        dialogStyle={dialogFullScreenFlex}
         title={`${student.first_name}'s ${specialEducationText}`}
         withoutSpacer={true}
         withoutContentWrapper={true}
-        content={this.renderIEPDialog(shouldRenderPdfInline)}
+        content={this.renderIEPDialog()}
       />
     );
   }
@@ -152,7 +151,7 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
-  renderIEPDialog(shouldRenderPdfInline) {
+  renderIEPDialog() {
     const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
 
@@ -188,7 +187,7 @@ export default class LightHeaderSupportBits extends React.Component {
         {iepDocument && (
           <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
             <a href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
-            {shouldRenderPdfInline && this.renderPdfInline(iepDocument.id)}
+            {this.renderPdfInline(iepDocument.id)}
           </div>
         )}
       </div>
@@ -197,7 +196,18 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderPdfInline(iepDocumentId) {
     const url = `/iep_documents/${iepDocumentId}#view=FitBH`;
-    return <Pdf style={styles.pdfInline} url={url} />;
+    return (
+      <Pdf
+        style={styles.pdfInline}
+        url={url}
+        fallbackEl={(
+          <div style={styles.pdfFallbackMessage}>
+            <div>Use Firefox, Safari, Edge or Chrome to view this PDF right on the page.</div>
+            <div>If you're using an older version of Internet Explorer, you can install Adobe Acrobat Reader.</div>
+          </div>
+        )}
+      />
+    );
   }
 
   render504() {
@@ -304,6 +314,16 @@ const styles = {
     marginTop: 10,
     marginBottom: 10,
     border: '1px solid #333'
+  },
+  pdfFallbackMessage: {
+    padding: 20,
+    background: '#eee',
+    color: '#333',
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   iepDocumentSection: {
     marginTop: 20,
