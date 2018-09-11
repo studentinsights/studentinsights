@@ -2183,13 +2183,18 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
             >
-              <span
+              <div
                 style={
                   Object {
                     "display": "inline-block",
@@ -2197,50 +2202,83 @@ exports[`snapshots works for aladdin grades 1`] = `
                   }
                 }
               >
-                IEP for 
-                Emotional
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "inline-block",
-                  "fontSize": 14,
-                }
-              }
-            >
-              504 plan
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "block",
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <a
-                href="#"
-                onClick={[Function]}
+                504 plan
+              </div>
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
-                    "outline": "none",
+                    "display": "block",
+                    "marginLeft": 0,
                   }
                 }
               >
-                <div
+                <a
+                  href="#"
+                  onClick={[Function]}
                   style={
                     Object {
                       "display": "inline-block",
                       "fontSize": 14,
+                      "outline": "none",
                     }
                   }
                 >
-                  FLEP
-                </div>
-              </a>
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    FLEP
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -3208,13 +3246,18 @@ exports[`snapshots works for aladdin notes 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
             >
-              <span
+              <div
                 style={
                   Object {
                     "display": "inline-block",
@@ -3222,50 +3265,83 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 }
               >
-                IEP for 
-                Emotional
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "inline-block",
-                  "fontSize": 14,
-                }
-              }
-            >
-              504 plan
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "block",
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <a
-                href="#"
-                onClick={[Function]}
+                504 plan
+              </div>
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
-                    "outline": "none",
+                    "display": "block",
+                    "marginLeft": 0,
                   }
                 }
               >
-                <div
+                <a
+                  href="#"
+                  onClick={[Function]}
                   style={
                     Object {
                       "display": "inline-block",
                       "fontSize": 14,
+                      "outline": "none",
                     }
                   }
                 >
-                  FLEP
-                </div>
-              </a>
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    FLEP
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -4233,13 +4309,18 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
             >
-              <span
+              <div
                 style={
                   Object {
                     "display": "inline-block",
@@ -4247,50 +4328,83 @@ exports[`snapshots works for aladdin testing 1`] = `
                   }
                 }
               >
-                IEP for 
-                Emotional
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "inline-block",
-                  "fontSize": 14,
-                }
-              }
-            >
-              504 plan
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "block",
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <a
-                href="#"
-                onClick={[Function]}
+                504 plan
+              </div>
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
-                    "outline": "none",
+                    "display": "block",
+                    "marginLeft": 0,
                   }
                 }
               >
-                <div
+                <a
+                  href="#"
+                  onClick={[Function]}
                   style={
                     Object {
                       "display": "inline-block",
                       "fontSize": 14,
+                      "outline": "none",
                     }
                   }
                 >
-                  FLEP
-                </div>
-              </a>
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    FLEP
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -7207,12 +7321,93 @@ exports[`snapshots works for olaf math 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
-            />
+            >
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    No LEP data
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -8178,12 +8373,93 @@ exports[`snapshots works for olaf notes 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
-            />
+            >
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    No LEP data
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -9149,12 +9425,93 @@ exports[`snapshots works for olaf reading 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
-            />
+            >
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    No LEP data
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -12256,54 +12613,92 @@ exports[`snapshots works for pluto attendance 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
             >
-              <span
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
+                    "display": "block",
+                    "marginLeft": 0,
                   }
                 }
               >
-                IEP for 
-                Communication
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "block",
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <a
-                href="#"
-                onClick={[Function]}
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
-                    "outline": "none",
-                  }
-                }
-              >
-                <div
+                <a
+                  href="#"
+                  onClick={[Function]}
                   style={
                     Object {
                       "display": "inline-block",
                       "fontSize": 14,
+                      "outline": "none",
                     }
                   }
                 >
-                  Limited
-                </div>
-              </a>
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    Limited English
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
             </div>
           </div>
           <div
@@ -13242,54 +13637,92 @@ exports[`snapshots works for pluto behavior 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
             >
-              <span
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
+                    "display": "block",
+                    "marginLeft": 0,
                   }
                 }
               >
-                IEP for 
-                Communication
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "block",
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <a
-                href="#"
-                onClick={[Function]}
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
-                    "outline": "none",
-                  }
-                }
-              >
-                <div
+                <a
+                  href="#"
+                  onClick={[Function]}
                   style={
                     Object {
                       "display": "inline-block",
                       "fontSize": 14,
+                      "outline": "none",
                     }
                   }
                 >
-                  Limited
-                </div>
-              </a>
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    Limited English
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
             </div>
           </div>
           <div
@@ -14228,54 +14661,92 @@ exports[`snapshots works for pluto notes 1`] = `
             }
           >
             <div
+              className="LightHeaderSupportBits"
               style={
                 Object {
-                  "marginTop": 20,
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "justifyContent": "flex-end",
+                  "style": undefined,
                 }
               }
             >
-              <span
+              <div
                 style={
                   Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
+                    "display": "block",
+                    "marginLeft": 0,
                   }
                 }
               >
-                IEP for 
-                Communication
-              </span>
-            </div>
-            <div
-              style={
-                Object {
-                  "display": "block",
-                  "marginLeft": 0,
-                }
-              }
-            >
-              <a
-                href="#"
-                onClick={[Function]}
-                style={
-                  Object {
-                    "display": "inline-block",
-                    "fontSize": 14,
-                    "outline": "none",
-                  }
-                }
-              >
-                <div
+                <a
+                  href="#"
+                  onClick={[Function]}
                   style={
                     Object {
                       "display": "inline-block",
                       "fontSize": 14,
+                      "outline": "none",
                     }
                   }
                 >
-                  Limited
-                </div>
-              </a>
+                  Special education
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "display": "inline-block",
+                        "fontSize": 14,
+                      }
+                    }
+                  >
+                    Limited English
+                  </div>
+                </a>
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginLeft": 0,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "inline-block",
+                      "fontSize": 14,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  Educator contacts
+                </a>
+              </div>
             </div>
           </div>
           <div

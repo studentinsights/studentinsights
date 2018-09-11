@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {prettyEnglishProficiencyText} from '../helpers/language';
 import {
-  hasAnySpecialEducationData,
   hasInfoAbout504Plan,
   supportsSpedLiaison,
   prettyProgramText
 } from '../helpers/PerDistrict';
+import {
+  hasAnySpecialEducationData,
+  renderSpecialEducationText,
+  cleanSpecialEducationValues
+} from '../helpers/specialEducation';
 import {maybeCapitalize} from '../helpers/pretty';
 import HelpBubble, {
   modalFromLeft,
@@ -111,7 +115,8 @@ export default class LightHeaderSupportBits extends React.Component {
     const {student, iepDocument} = this.props;
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
-    const specialEducationText = 'Special education';
+    const specialEducationValues = cleanSpecialEducationValues(student);
+    const specialEducationText = renderSpecialEducationText(specialEducationValues);
     const shouldRenderPdfIframe = false; // need to figure out IE compatibility when no PDF viewer installed
     return (
       <HelpBubble

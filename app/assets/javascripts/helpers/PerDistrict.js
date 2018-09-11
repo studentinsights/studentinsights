@@ -46,16 +46,6 @@ export function hasInfoAbout504Plan(maybeStudent504Field) {
   return true;
 }
 
-// This function handles variations by district so that it works across all districts.
-export function hasAnySpecialEducationData(student, maybeIepDocument) {
-  if (maybeIepDocument !== null) return true;
-  if (['Does Not Apply', null].indexOf(student.sped_level_of_need) === -1) return true;
-  if (['Does Not Apply', null].indexOf(student.disability) === -1) return true;
-  if (['None', 'Not Enrolled', 'Not special ed', null].indexOf(student.sped_placement) === -1) return true;
-  if (student.sped_liaison !== null) return true;
-  
-  return false;
-}
 
 // Renders a table for `SlicePanels` that works differently for different
 // districts.
