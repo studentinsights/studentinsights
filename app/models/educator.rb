@@ -15,7 +15,8 @@ class Educator < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true, case_sensitive: false
 
-  validate :validate_has_school_unless_districtwide,
+  validate :validate_login_method_per_district,
+           :validate_has_school_unless_districtwide,
            :validate_admin_gets_access_to_all_students,
            :validate_grade_level_access_is_array_of_strings,
            :validate_grade_level_strings_are_valid,
@@ -106,6 +107,17 @@ class Educator < ActiveRecord::Base
   end
 
   private
+  def validate_login_method_per_district
+    educator_login_field = PerDistrict.new.educator_login_field
+
+    if educator_login_field == :login_name && login_name.nil?
+      errors.add(:login_name, "needs login name")
+    end
+
+    # The presence of email address is already validated for all districts
+    # because educator emails are surfaced in the product.
+  end
+
   def validate_has_school_unless_districtwide
     if school.blank?
       errors.add(:school_id, 'must be assigned a school unless districtwide') unless districtwide_access?

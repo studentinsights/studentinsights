@@ -30,6 +30,14 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def educator_login_field
+    return :email if @district_key == SOMERVILLE
+    return :email if @district_key == NEW_BEDFORD
+    return :login_name if @district_key == BEDFORD
+
+    raise_not_handled!
+  end
+
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
       ["504", "Not 504", "NotIn504"]
