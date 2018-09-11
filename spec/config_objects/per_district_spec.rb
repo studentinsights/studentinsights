@@ -49,7 +49,11 @@ RSpec.describe PerDistrict do
         email: 'foo@bedfordps.org'
       )).to eq('foo@bedfordps.org')
 
-      expect { PerDistrict.new(district_key: 'wat').from_import_login_name_to_email('foo') }.to raise_error Exceptions::DistrictKeyNotHandledError
+      expect {
+        PerDistrict.new(district_key: 'wat').from_educator_row_to_email('foo')
+      }.to raise_error(
+        Exceptions::DistrictKeyNotHandledError
+      )
     end
   end
 
