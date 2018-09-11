@@ -26,13 +26,6 @@ class Student < ActiveRecord::Base
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
-  has_many :dashboard_tardies, -> {
-    where('occurred_at >= ?', 1.year.ago)
-  }, class_name: "Tardy"
-  has_many :dashboard_absences, -> {
-    where('occurred_at >= ?', 1.year.ago)
-  }, class_name: "Absence"
-
   validates_presence_of :local_id
   validates_uniqueness_of :local_id
   validates :first_name, presence: true
@@ -84,6 +77,7 @@ class Student < ActiveRecord::Base
     ).count
   end
 
+  # deprecated
   # Maybe include a restricted note, but cannot return any restricted data
   def latest_note
     event_notes.order(recorded_at: :desc).limit(1).first.as_json(only: [:event_note_type_id, :recorded_at])

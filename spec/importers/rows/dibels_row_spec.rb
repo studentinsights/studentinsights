@@ -26,6 +26,13 @@ RSpec.describe DibelsRow do
     expect(dibels_built_row.subtest_results).to eq nil
   end
 
+  it 'parses a row with benchmark "Benchmark" and saves a new record' do
+    dibels_built_row = parse_and_build_row('Benchmark')
+    expect(dibels_built_row.class).to eq DibelsResult
+    expect(dibels_built_row.benchmark).to eq 'CORE'
+    expect(dibels_built_row.subtest_results).to eq nil
+  end
+
   it 'parses and saves a verbose row correctly' do
     dibels_built_row = parse_and_build_row('CORE 108/98% ORF')
     expect(dibels_built_row.class).to eq DibelsResult
