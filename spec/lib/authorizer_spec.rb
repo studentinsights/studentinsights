@@ -211,18 +211,18 @@ RSpec.describe Authorizer do
       let!(:shs_restricted_note) { FactoryBot.create(:transition_note, student: pals.shs_freshman_mari, is_restricted: true) }
 
       it 'limits access for relation' do
-        expect(authorized(pals.uri) { TransitionNote.all }).to eq [
+        expect(authorized(pals.uri) { TransitionNote.all }).to contain_exactly(*[
           healey_public_note,
           healey_restricted_note,
           shs_public_note,
           shs_restricted_note
-        ]
-        expect(authorized(pals.healey_vivian_teacher) { TransitionNote.all }).to eq [
+        ])
+        expect(authorized(pals.healey_vivian_teacher) { TransitionNote.all }).to contain_exactly(*[
           healey_public_note
-        ]
-        expect(authorized(pals.shs_bill_nye) { TransitionNote.all }).to eq [
+        ])
+        expect(authorized(pals.shs_bill_nye) { TransitionNote.all }).to contain_exactly(*[
           shs_public_note
-        ]
+        ])
       end
 
       it 'limits access for array' do
