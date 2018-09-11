@@ -23,7 +23,7 @@ class MockLDAP
 
     return false unless login_username_present?
 
-    return true if unauthenticated_bind?  # Mock insecurely configured LDPA.
+    return true if unauthenticated_bind?  # Mock insecurely configured LDAP: see more below.
 
     return false unless password_correct?
 
