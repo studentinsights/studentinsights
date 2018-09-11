@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_30_143340) do
+ActiveRecord::Schema.define(version: 2018_09_11_150056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
+    t.string "login_name"
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 
