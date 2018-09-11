@@ -50,3 +50,6 @@ if (process.listeners('unhandledRejection').length === 0) { // eslint-disable-li
     throw error;
   });
 }
+
+// see <Pdf />
+window.PDF_INLINE_VIEWING_DISABLED = true;

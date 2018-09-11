@@ -26,5 +26,5 @@ Pdf.propTypes = {
 
 // For callers to do different layouts
 export function canViewPdfInline() {
-  return PDFObject.supportsPDFs;
+  return PDFObject.supportsPDFs && !window.PDF_INLINE_VIEWING_DISABLED;
 }
