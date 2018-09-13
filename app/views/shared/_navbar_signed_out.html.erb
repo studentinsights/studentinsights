@@ -1,6 +1,5 @@
 <div class="sign-in-container">
-  <form class="new_educator" id="new_educator" action="/educators/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
-    <input type="hidden" name="authenticity_token" value="<%= authenticity_token %>" />
+  <%= form_tag('/educators/sign_in') do %>
     <div class="sign-in-item">
       <label for="educator_login_name"><%= login_field_label %></label>
       <input id="educator_login_name"
@@ -21,5 +20,5 @@
     <div class="sign-in-item">
       <input type="submit" name="commit" value="Log in" class="btn btn-primary" data-disable-with="Log in" />
     </div>
-  </form>
+  <% end %>
 </div>
