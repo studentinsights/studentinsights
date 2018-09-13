@@ -35,7 +35,7 @@ it('renders after fetching', done => {
 
   setTimeout(() => {
     expect(el.innerHTML).toContain('Login Attempts, Past 30 days');
-    expect(el.querySelectorAll('div.tooltip').length).toEqual(47);
+    expect(el.querySelectorAll('div.tooltip').length).toEqual(41);
     done();
   }, 0);
 });
