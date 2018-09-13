@@ -1,19 +1,25 @@
 <div class="sign-in-container">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <form class="new_educator" id="new_educator" action="/educators/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+    <input type="hidden" name="authenticity_token" value="<%= authenticity_token %>" />
     <div class="sign-in-item">
-      <%= f.label login_field_label %>
-      <% if login_field_type == :email %>
-        <%= f.email_field :email, class: 'sign-in-text', autofocus: true %>
-      <% elsif login_field_type == :login_name %>
-        <%= f.text_field :login_name, class: 'sign-in-text', autofocus: true %>
-      <% end %>
+      <label for="educator_login_name"><%= login_field_label %></label>
+      <input id="educator_login_name"
+             class="sign-in-text"
+             autofocus="autofocus"
+             type="<%= login_field_type %>"
+             value=""
+             name="educator[login_name]" />
     </div>
     <div class="sign-in-item">
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'sign-in-text', autocomplete: "off" %>
+      <label for="educator_password">Password</label>
+      <input id="educator_password"
+             class="sign-in-text"
+             autocomplete="off"
+             type="password"
+             name="educator[password]" />
     </div>
     <div class="sign-in-item">
-      <%= f.submit "Log in", class: "btn btn-primary" %>
+      <input type="submit" name="commit" value="Log in" class="btn btn-primary" data-disable-with="Log in" />
     </div>
-  <% end %>
+  </form>
 </div>

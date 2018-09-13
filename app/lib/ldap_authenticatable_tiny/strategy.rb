@@ -13,11 +13,7 @@ module Devise
       # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
-        # `login_username` can be either an email or a SAM Account Name,
-        # depending on the district.
-        educator_login_field = PerDistrict.new.educator_login_field
-
-        login_username = authentication_hash.fetch(educator_login_field)
+        login_username = authentication_hash.fetch(:login_name)  # For some districts, this will be an email
         ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
 
         begin

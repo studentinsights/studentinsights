@@ -30,6 +30,8 @@
           <%= render partial: 'shared/navbar_signed_out', locals: {
             login_field_label: login_field_label,
             login_field_type: login_field_type,
+            login_field: login_field,
+            authenticity_token: session[:_csrf_token],
         } %>
         <% end %>
       </div>
