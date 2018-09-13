@@ -13,7 +13,8 @@ module Devise
       # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
-        login_username = authentication_hash.fetch(:login_name)  # For some districts, this will be an email
+        # For some districts, `login_name` will be an email address:
+        login_username = authentication_hash.fetch(:login_name)
         ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
 
         begin
