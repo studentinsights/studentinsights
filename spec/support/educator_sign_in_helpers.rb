@@ -1,7 +1,7 @@
 # Shared method between feature tests for educator sign in
-def sign_in_attempt(login_username, password, login_username_field_id = 'educator_email')
+def sign_in_attempt(login_username, password)
   visit root_url
-  fill_in login_username_field_id, with: login_username
+  fill_in 'educator_login_name', with: login_username
   fill_in 'educator_password', with: password
   click_button 'Log in'
 end
