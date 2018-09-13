@@ -7,7 +7,7 @@ gem 'pg'
 gem 'puma'
 
 gem 'administrate', '~> 0.10.0'
-gem 'authtrail', '~> 0.1.2'
+gem 'authtrail'
 gem 'aws-sdk', '~> 2'
 gem 'delayed_job_active_record', '~> 4.1.3'
 gem 'devise', '~> 4.4.0'

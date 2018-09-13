@@ -335,7 +335,7 @@ PLATFORMS
 
 DEPENDENCIES
   administrate (~> 0.10.0)
-  authtrail (~> 0.1.2)
+  authtrail
   aws-sdk (~> 2)
   better_errors
   bourbon (~> 4.3.2)
