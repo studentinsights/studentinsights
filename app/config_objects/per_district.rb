@@ -30,6 +30,23 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def educator_username_field
+    return :email if @district_key == SOMERVILLE
+    return :email if @district_key == NEW_BEDFORD
+    return :login_name if @district_key == BEDFORD
+
+    raise_not_handled!
+  end
+
+  def find_educator_from_login_text(login_text)
+    Educator.find_by(educator_username_field => login_text.downcase)
+  end
+
+  def educator_username_to_identity(educator)
+    return educator.email if educator_username_field == :email
+    return educator.login_name if educator_username_field == :login_name
+  end
+
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
       ["504", "Not 504", "NotIn504"]
@@ -117,15 +134,15 @@ class PerDistrict
   # and our communication with district authentication systems
   # to always be in terms of full email addresses with domain
   # names.
-  def from_import_login_name_to_email(login_name)
+  def from_educator_row_to_email(row)
     if @district_key == SOMERVILLE
-      login_name + '@k12.somerville.ma.us'
+      row[:login_name] + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
-      login_name + '@newbedfordschools.org'
+      row[:login_name] + '@newbedfordschools.org'
     elsif @district_key == BEDFORD
-      login_name + '@bedfordps.org'
+      row[:email]
     elsif @district_key == DEMO
-      raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
+      raise "PerDistrict#from_educator_row_to_email not supported for district_key: {DEMO}"
     else
       raise_not_handled!
     end

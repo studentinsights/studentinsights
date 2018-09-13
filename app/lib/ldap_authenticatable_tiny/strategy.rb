@@ -13,13 +13,14 @@ module Devise
       # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
-        email = authentication_hash[:email]
+        # For some districts, `username` will be an email address.
+        login_username = authentication_hash.fetch(:username)
         ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
 
         begin
-          educator = Educator.find_by_email(email.downcase)
+          educator = PerDistrict.new.find_educator_from_login_text(login_username)
           fail!(:not_found_in_database) and return unless educator.present?
-          fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, email, password)
+          fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, login_username, password)
           success!(educator) and return
         rescue => error
           Rollbar.error('LdapAuthenticatableTiny error caught', error)
@@ -32,9 +33,9 @@ module Devise
       private
       # Create a Net::LDAP instance, `bind` to it and close.
       # Return true or false if they're authorized.
-      def is_authorized_by_ldap?(ldap_class, login, password)
+      def is_authorized_by_ldap?(ldap_class, login_username, password)
         return false if password.nil? || password == ''
-        options = ldap_options_for(login, password)
+        options = ldap_options_for(login_username, password)
         ldap = ldap_class.new(options)
         is_authorized = ldap.bind
 
@@ -47,8 +48,8 @@ module Devise
       end
 
       # Read config and create options for a Net::LDAP instance
-      # that can bind to `(email,password)`
-      def ldap_options_for(email, password)
+      # that can bind to `(login_username,password)`
+      def ldap_options_for(login_username, password)
         host = ENV['DISTRICT_LDAP_HOST']
         port = ENV['DISTRICT_LDAP_PORT'].to_i
         encryption_tls_options = JSON.parse(ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON'] || '{}').deep_symbolize_keys
@@ -59,7 +60,7 @@ module Devise
           connect_timeout: ENV.fetch('DISTRICT_LDAP_TIMEOUT_IN_SECONDS', '30').to_i,
           auth: {
             :method => :simple,
-            :username => email,
+            :username => login_username,
             :password => password,
           },
           encryption: {

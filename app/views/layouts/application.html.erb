@@ -22,23 +22,16 @@
           </div>
         </a>
         <% if educator_signed_in? %>
-          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
+          <%= render partial: 'shared/navbar_signed_in', locals: {
+            educator: current_educator,
+            masquerade: masquerade
+          } %>
         <% else %>
-          <div class="sign-in-container">
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <div class="sign-in-item">
-                <%= f.label :email %>
-                <%= f.email_field :email, class: 'sign-in-text', autofocus: true %>
-              </div>
-              <div class="sign-in-item">
-                <%= f.label :password %>
-                <%= f.password_field :password, class: 'sign-in-text', autocomplete: "off" %>
-              </div>
-              <div class="sign-in-item">
-                <%= f.submit "Log in", class: "btn btn-primary" %>
-              </div>
-            <% end %>
-          </div>
+          <%= render partial: 'shared/navbar_signed_out', locals: {
+            login_field_label: login_field_label,
+            login_field_type: login_field_type,
+            login_field: login_field
+        } %>
         <% end %>
       </div>
       <div class="flash">
