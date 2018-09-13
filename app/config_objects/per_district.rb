@@ -30,7 +30,7 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
-  def educator_login_field
+  def educator_username_field
     return :email if @district_key == SOMERVILLE
     return :email if @district_key == NEW_BEDFORD
     return :login_name if @district_key == BEDFORD
@@ -39,7 +39,12 @@ class PerDistrict
   end
 
   def find_educator_from_login_text(login_text)
-    Educator.find_by(educator_login_field => login_text.downcase)
+    Educator.find_by(educator_username_field => login_text.downcase)
+  end
+
+  def educator_username_to_identity(educator)
+    return educator.email if educator_username_field == :email
+    return educator.login_name if educator_username_field == :login_name
   end
 
   def valid_plan_504_values

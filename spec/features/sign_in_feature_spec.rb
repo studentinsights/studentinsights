@@ -22,7 +22,7 @@ describe 'educator sign in using Mock LDAP', type: :feature do
     end
   end
 
-  context 'somerville' do
+  context 'bedford' do
     let!(:pals) { BedfordTestPals.create! }
 
     it { expect_successful_sign_in_for(pals.donna) }

@@ -108,9 +108,9 @@ class Educator < ActiveRecord::Base
 
   private
   def validate_login_method_per_district
-    educator_login_field = PerDistrict.new.educator_login_field
+    educator_username_field = PerDistrict.new.educator_username_field
 
-    if educator_login_field == :login_name && login_name.nil?
+    if educator_username_field == :login_name && login_name.nil?
       errors.add(:login_name, "needs login name")
     end
 

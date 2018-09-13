@@ -1,13 +1,13 @@
 <div class="sign-in-container">
   <%= form_tag('/educators/sign_in') do %>
     <div class="sign-in-item">
-      <label for="educator_login_name"><%= login_field_label %></label>
-      <input id="educator_login_name"
+      <label for="educator_username"><%= login_field_label %></label>
+      <input id="educator_username"
              class="sign-in-text"
              autofocus="autofocus"
              type="<%= login_field_type %>"
              value=""
-             name="educator[login_name]" />
+             name="educator[username]" />
     </div>
     <div class="sign-in-item">
       <label for="educator_password">Password</label>

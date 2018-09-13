@@ -32,7 +32,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
 
   private
   def login_name
-    return row[:login_name] if PerDistrict.new.educator_login_field == :login_name
+    return row[:login_name] if PerDistrict.new.educator_username_field == :login_name
     return nil
   end
 

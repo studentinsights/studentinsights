@@ -12,18 +12,18 @@ module ApplicationHelper
   end
 
   def login_field
-    PerDistrict.new.educator_login_field
+    PerDistrict.new.educator_username_field
   end
 
   def login_field_type
-    educator_login_field = PerDistrict.new.educator_login_field
+    educator_username_field = PerDistrict.new.educator_username_field
 
-    return 'email' if educator_login_field == :email
+    return 'email' if educator_username_field == :email
     return 'text'
   end
 
   def login_field_label
-    PerDistrict.new.educator_login_field.to_s.capitalize.gsub("_", " ")
+    PerDistrict.new.educator_username_field.to_s.capitalize.gsub("_", " ")
   end
 
   # IE11 reports HTML1500 warnings on the console if tags are not explicitly
