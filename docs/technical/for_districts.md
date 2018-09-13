@@ -19,6 +19,7 @@ To set up Insights for your district, we'll need to set up **authentication** an
     * Which IP address and port should we use to query your LDAP server?
     * What should we know about how your district LDAP system works? What kind of questions do you have about how our system will query yours?
     * From our end, we'll send you a pair of static IP addresses to add to your allowlist.
+    * On your end, we'll ask you to create an Insights-only developer account for us to test the LDAP connection and log in to Insights with.
   * Do you use Google?
     * This may take us more time to set up for you, because we haven't written a Google integration yet.
     * But we are happy to work with you on integrating with Google!
