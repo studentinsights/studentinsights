@@ -35,7 +35,7 @@ To set up Insights for your district, we'll need to set up **authentication** an
     * Some other method?
 
 * We'll set up a secure SFTP box for you to dump CSV data nightly.
-  * All we need on your end is an RSA public key that your Aspen export job can use. See this GitHub guide for more info: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/.
+  * All we need on your end is an RSA SSH public key that your Aspen export job can use. See this GitHub guide for more info: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/.
 
 * Are there other sources of data you'd like to import?
   * We already have code set up for importing STAR data.
