@@ -29,11 +29,12 @@ To set up Insights for your district, we'll need to set up **authentication** an
 ### For data import
 
 * Insights requires nightly CSV data dumps from your district's SIS.
-  * What's the easiest way for you to export CSVs from your Student Information System? We already have scripts that you can you can re-use or adapt, depending on the details of your Aspen/X2 setup.
-    * Custom SQL scripts: See `/x2_export` folder.
-    * Aspen Hosted export function: Ask us about this.
-    * Aspen export XML: Ask us about this.
-    * Some other method?
+  * Depending on how many data sources you add to Insights, and whether you require  high school or just elementary, this could be five to nine CSVs: `educators_export.csv`, `students_export.csv`, `attendance_export.csv`, etc. See the `/x2_export` for SQL examples of each.
+  * What's the easiest way for you to export CSVs from your Student Information System?
+    * We already have scripts that you can you can re-use or adapt, depending on the details of your Aspen/X2 setup.
+      * Custom SQL scripts: See `/x2_export` folder.
+      * Aspen Hosted export function: Ask us about this.
+      * Aspen export XML: Ask us about this.
 
 * We'll set up a secure SFTP box for you to dump CSV data nightly.
   * All we need on your end is an RSA SSH public key that your Aspen export job can use. See this GitHub guide for more info: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/.
