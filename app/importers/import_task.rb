@@ -37,13 +37,6 @@ class ImportTask
       run_update_tasks
       @report.print_final_counts_report
       log('Done.')
-    rescue SignalException => err
-      # Delayed::Job can trap and raise this (eg, if Heroku is about to restart the
-      # dyno).  This is an expected occurrence, and the worker should stop, and after it comes back
-      # up the new worker should retry the job and succeed.  So we don't need to alert on each occurrence.
-      log("ImportTask caught a SignalException: #{err}")
-      log('Re-raising the SignalException...')
-      raise err
     rescue => err
       # Note that there is also separate error handling for each importer class independently.
       log("ImportTask aborted because of an error: #{err}")
