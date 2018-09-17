@@ -12,16 +12,25 @@
 
 class MockLDAP
 
+  def self.should_use?
+    return false unless ::EnvironmentVariable.is_true('USE_MOCK_LDAP')
+    return false unless ENV['MOCK_LDAP_PASSWORD'].present?
+    return false if ENV['DISTRICT_LDAP_HOST'].present? || ENV['DISTRICT_LDAP_PORT'].present?
+    return true if Rails.env.development? || Rails.env.test?
+    return true if PerDistrict.new.district_key == 'demo'
+    return false
+  end
+
   def initialize(options)
     @options = options
-    @email = options[:auth][:username]
+    @login = options[:auth][:username]
     @password = options[:auth][:password]
   end
 
   def bind
-    raise 'Mock LDAP called but ShouldUseMockLDAP false' unless ShouldUseMockLDAP.new.check
+    raise 'MockLDAP.should_use? returned false' unless MockLDAP.should_use?
 
-    return false unless email_present?
+    return false unless login_present?
 
     return true if unauthenticated_bind?
 
@@ -34,9 +43,8 @@ class MockLDAP
   end
 
   private
-
-  def email_present?
-    Educator.find_by_email(@email).present?
+  def login_present?
+    PerDistrict.new.find_educator_for_mock_ldap_login(@login).present?
   end
 
   def unauthenticated_bind?

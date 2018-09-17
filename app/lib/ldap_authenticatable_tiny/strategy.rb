@@ -14,7 +14,7 @@ module Devise
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
         login_text = authentication_hash[:login_text].downcase.strip
-        ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
+        ldap_class = MockLDAP.should_use? ? MockLDAP : Net::LDAP
 
         begin
           # First, see if we can find an Educator record
