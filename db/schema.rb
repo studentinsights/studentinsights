@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_17_194529) do
+ActiveRecord::Schema.define(version: 2018_09_17_222601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -530,6 +530,7 @@ ActiveRecord::Schema.define(version: 2018_09_17_194529) do
   add_foreign_key "homerooms", "educators", name: "homerooms_for_educator_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_for_school_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_school_id_fk"
+  add_foreign_key "house_educator_mappings", "educators", name: "house_educator_mappings_educator_id_fk"
   add_foreign_key "iep_documents", "students", name: "iep_documents_student_id_fk"
   add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"
   add_foreign_key "interventions", "intervention_types", name: "interventions_intervention_type_id_fk"
