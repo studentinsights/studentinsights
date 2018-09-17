@@ -264,6 +264,14 @@ class TestPals
       educator: @shs_harry_housemaster,
       label_key: 'high_school_house_master'
     })
+    EducatorLabel.create!({
+      educator: @shs_harry_housemaster,
+      label_key: 'use_housemaster_based_feed'
+    })
+    HouseEducatorMapping.create!({
+      house_field_text: 'broadway',
+      educator_id: @shs_harry_housemaster.id
+    })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
     # on Tuesday and Thursday and has a homeroom period.  And he's on the NGE team.
@@ -381,7 +389,7 @@ class TestPals
       last_name: 'Solo',
       school: @shs,
       homeroom: @shs_jodi_homeroom,
-      house: 'Elm',
+      house: 'Broadway',
       counselor: 'FISHMAN',
       grade: '9',
       date_of_birth: '2003-02-07',

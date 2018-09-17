@@ -50,7 +50,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "last_name"=>"Solo",
           "program_assigned"=>nil,
           "sped_placement"=>nil,
-          "house"=>"Elm",
+          "house"=>"Broadway",
           "student_section_assignments"=>[{
             "id"=>pals.shs_freshman_amir.student_section_assignments.first.id,
             "grade_numeric"=>"84.0",

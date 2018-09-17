@@ -5,7 +5,9 @@ class Feed
   def self.students_for_feed(educator)
     # Start with all students they are authorized to view
     authorizer = Authorizer.new(educator)
-    authorized_students = authorizer.authorized { Student.active.select(:counselor) }
+    authorized_students = authorizer.authorized do
+      Student.active.select(:counselor, :house) # these are fetching for FeedFilter below
+    end
 
     # Filter by role (eg, for HS counselors caseload)
     FeedFilter.new(educator).filter_for_educator(authorized_students)
