@@ -4,18 +4,19 @@ RSpec.describe PerDistrict do
   after { ENV['DISTRICT_KEY'] = @district_key }
 
   def for_somerville
-    ENV['DISTRICT_KEY'] = PerDistrict::SOMERVILLE
-    PerDistrict.new
+    PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
   end
 
   def for_new_bedford
-    ENV['DISTRICT_KEY'] = PerDistrict::NEW_BEDFORD
-    PerDistrict.new
+    PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD)
+  end
+
+  def for_bedford
+    PerDistrict.new(district_key: PerDistrict::BEDFORD)
   end
 
   def for_demo
-    ENV['DISTRICT_KEY'] = PerDistrict::DEMO
-    PerDistrict.new
+    PerDistrict.new(district_key: PerDistrict::DEMO)
   end
 
   describe '#initialize' do
@@ -32,10 +33,12 @@ RSpec.describe PerDistrict do
     end
   end
 
-  describe '#from_import_login_name_to_email' do
+  describe '#email_from_educator_import_row' do
     it 'works' do
-      expect(for_somerville.from_import_login_name_to_email('foo')).to eq('foo@k12.somerville.ma.us')
-      expect(for_new_bedford.from_import_login_name_to_email('foo')).to eq('foo@newbedfordschools.org')
+      expect(for_somerville.email_from_educator_import_row(login_name: 'foo')).to eq('foo@k12.somerville.ma.us')
+      expect(for_new_bedford.email_from_educator_import_row(login_name: 'foo')).to eq('foo@newbedfordschools.org')
+      expect(for_bedford.email_from_educator_import_row(login_name: 'foo', email: 'bar@bedfordps.org')).to eq('bar@bedfordps.org')
+      expect(for_demo.email_from_educator_import_row(login_name: 'foo')).to eq('foo@demo.studentinsights.org')
       expect { PerDistrict.new(district_key: 'wat').from_import_login_name_to_email('foo') }.to raise_error Exceptions::DistrictKeyNotHandledError
     end
   end

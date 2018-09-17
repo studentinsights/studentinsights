@@ -13,6 +13,10 @@ FactoryBot.define do
       last_name, first_name = full_name.split(', ')
       "#{first_name}.#{last_name}@demo.studentinsights.org"
     end
+    login_name do
+      last_name, first_name = full_name.split(', ')
+      "#{first_name.first}#{last_name}"
+    end
     local_id { FactoryBot.generate(:staff_local_id) }
     association :school
 
