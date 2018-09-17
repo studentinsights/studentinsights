@@ -2,6 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe 'has Devise hooks' do
+    it 'allow writing password but not reading, only for Devise' do
+      educator = FactoryBot.build(:educator)
+      educator.password = 'foo'
+      expect(educator.respond_to?(:password)).to eq false
+      expect(educator.attributes.has_key?(:password)). to eq false
+    end
+
+    it 'allow writing login_text but not reading, only for Devise' do
+      educator = FactoryBot.build(:educator)
+      educator.login_text = 'foo'
+      expect(educator.respond_to?(:login_text)).to eq false
+      expect(educator.attributes.has_key?(:login_text)). to eq false
+    end
+  end
+
   describe '#as_json' do
     it 'does not include student_searchbar_json' do
       educator = FactoryBot.build(:educator)

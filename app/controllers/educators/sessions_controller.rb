@@ -6,17 +6,10 @@ class Educators::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # override
   # POST /resource/sign_in
-  def create
-    puts '--- create ---'
-    pp params
-    puts
-    puts
-    puts
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:login_text])
-    super
-  end
+  # def create
+  #   super
+  # end
 
   # # DELETE /resource/sign_out
   # def destroy

@@ -54,10 +54,10 @@ export default class StudentLevelsTable extends React.Component {
               width={gradeCellWidth}
               cellRenderer={this.renderLevel} />
             <Column
-              dataKey="absence"
-              label={<span>Absence<br/>Rate</span>}
+              dataKey="attendance"
+              label={<span>Attendance<br/>Rate</span>}
               width={numericCellWidth}
-              cellRenderer={this.renderAbsenceRate} />
+              cellRenderer={this.renderAttendanceRate} />
             <Column
               dataKey="discipline"
               label={<span>Discipline<br/>Incidents</span>}
@@ -138,10 +138,10 @@ export default class StudentLevelsTable extends React.Component {
     return <span style={style}>{count}</span>; 
   }
 
-  renderAbsenceRate({rowData}) {
+  renderAttendanceRate({rowData}) {
     const {tier} = rowData;
-    const percentage = Math.round(tier.data.recent_absence_rate * 100);
-    const style = (tier.triggers.indexOf('absence') !== -1)
+    const percentage = Math.round(tier.data.recent_attendance_rate * 100);
+    const style = (tier.triggers.indexOf('attendance') !== -1)
       ? styles.warn
       : styles.plain;
     return <span style={style}>{percentage}%</span>; 
