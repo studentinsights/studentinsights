@@ -28,7 +28,7 @@ export function labelAssignment(assignment) {
   if (matches(text, OTHER_SUPPORT)) return 'support';
   if (matches(text, PATH_PROGRAM)) return 'support';
 
-  if (matches(text, ELL)) return 'ell';
+  if (matches(text, ELL_SUPPORT)) return 'ell';
   if (matches(text, LIFE_SKILLS)) return 'life';
 
   if (matches(text, OTHER)) return 'elective';
@@ -83,8 +83,8 @@ const OTHER = [
 ];
 
 export const ELL = [
+  'ESL', // core ELL classes are considered part of the english dept.
   'ALCS - GENERAL SUPPORT',
-  'ESL',
   'GOAL PROGRAM DAILY SEMINAR',
   'ACADEMIC LITERACY'
 ];
@@ -94,6 +94,8 @@ export const ELA = [
   'READING FOUNDATIONS',
   'CREATIVE WRITING'
 ];
+
+export const EN_OR_ELL = ELL.concat(ELA);
 
 export const HISTORY = [
   'HISTORY',
