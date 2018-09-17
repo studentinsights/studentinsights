@@ -114,8 +114,8 @@ class PerDistrict
 
   # In the import process, we typically only get usernames
   # as the `login_name`, and emails are the same but with a domain
-  # suffix.  But for Bedford, these usernames and logins are separate
-  # from email addresses.
+  # suffix.  But for Bedford, emails are distinct and imported separately
+  # from `login_name`.
   def email_from_educator_import_row(row)
     if @district_key == BEDFORD
       row[:email]
@@ -124,7 +124,7 @@ class PerDistrict
     elsif @district_key == NEW_BEDFORD
       row[:login_name] + '@newbedfordschools.org'
     elsif @district_key == DEMO
-      raise "PerDistrict#email_from_educator_import_row not supported for district_key: {DEMO}"
+      row[:login_name] + '@demo.studentinsights.org'
     else
       raise_not_handled!
     end

@@ -13,20 +13,20 @@ RSpec.describe EducatorsImporter do
     }.merge(options))
   end
 
+  def make_test_row(attrs = {})
+    {
+      login_name: 'ntufts',
+      state_id: '10002',
+      local_id: 'local123',
+      full_name: 'Tufts, Nathan',
+      staff_type: 'Teacher',
+      homeroom: 'HEA 890',
+      school_local_id: 'HEA'
+    }.merge(attrs)
+  end
+
   describe '#import integration tests' do
     let!(:pals) { TestPals.create! }
-
-    def make_test_row(attrs = {})
-      {
-        login_name: 'ntufts',
-        state_id: '10002',
-        local_id: 'local123',
-        full_name: 'Tufts, Nathan',
-        staff_type: 'Teacher',
-        homeroom: 'HEA 890',
-        school_local_id: 'HEA'
-      }.merge(attrs)
-    end
 
     it 'does not delete records' do
       importer = make_educators_importer
@@ -66,13 +66,12 @@ RSpec.describe EducatorsImporter do
     it 'does nothing if no changes needed' do
       # The process for mapping the `login_name` in the row to an Educator
       # `email` varies `PerDistrict` so mock it to work with `TestPals` fixture data.
-      mock_per_district = PerDistrict.new
-      allow(mock_per_district).to receive(:email_from_educator_import_row).and_return(pals.healey_sarah_teacher.email)
+      mock_per_district = PerDistrict.new(district_key: PerDistrict::DEMO)
       allow(PerDistrict).to receive(:new).and_return(mock_per_district)
 
       # Make an input row that matches the Educator record (to prove import
       # doesn't change anything when the row matches exactly).
-      test_row = make_test_row({
+      test_row = {
         login_name: 'sarah',
         state_id: pals.healey_sarah_teacher.state_id,
         local_id: pals.healey_sarah_teacher.local_id,
@@ -80,13 +79,59 @@ RSpec.describe EducatorsImporter do
         staff_type: pals.healey_sarah_teacher.staff_type,
         homeroom: pals.healey_fifth_homeroom.name,
         school_local_id: pals.healey.local_id
-      })
+      }
       importer = make_educators_importer
       allow(importer).to receive(:download_csv).and_return([test_row])
       expect { importer.import }.to change { Educator.count }.by(0).and change { Homeroom.count }.by(0)
 
       expect(importer.instance_variable_get(:@educator_syncer).stats[:unchanged_rows_count]).to eq 1
       expect(importer.instance_variable_get(:@homeroom_syncer).stats[:unchanged_rows_count]).to eq 1
+    end
+  end
+
+  describe 'works for login_name and email across districts' do
+    let!(:pals) { TestPals.create! }
+
+    def imported_educator(district_key, test_row)
+      mock_per_district = PerDistrict.new(district_key: district_key)
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+
+      importer = make_educators_importer
+      allow(importer).to receive(:download_csv).and_return([test_row])
+      importer.import
+      Educator.find_by_local_id(test_row[:local_id])
+    end
+
+    it 'works for Somerville' do
+      test_row = make_test_row(login_name: 'ntufts', email: nil)
+      expect(imported_educator(PerDistrict::SOMERVILLE, test_row).as_json).to include({
+        'login_name' => 'ntufts',
+        'email' => 'ntufts@k12.somerville.ma.us'
+      })
+    end
+
+    it 'works for New Bedford' do
+      test_row = make_test_row(login_name: 'ntufts', email: nil)
+      expect(imported_educator(PerDistrict::NEW_BEDFORD, test_row).as_json).to include({
+        'login_name' => 'ntufts',
+        'email' => 'ntufts@newbedfordschools.org'
+      })
+    end
+
+    it 'works for Bedford' do
+      test_row = make_test_row(login_name: 'ntufts', email: 'nathan_tufts@bedfordps.org')
+      expect(imported_educator(PerDistrict::BEDFORD, test_row).as_json).to include({
+        'login_name' => 'ntufts',
+        'email' => 'nathan_tufts@bedfordps.org'
+      })
+    end
+
+    it 'works for demo' do
+      test_row = make_test_row(login_name: 'ntufts', email: nil)
+      expect(imported_educator(PerDistrict::DEMO, test_row).as_json).to include({
+        'login_name' => 'ntufts',
+        'email' => 'ntufts@demo.studentinsights.org'
+      })
     end
   end
 
@@ -235,6 +280,7 @@ RSpec.describe EducatorsImporter do
         it 'does not create an educator' do
           expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 0
         end
+
         it 'updates the educator attributes' do
           make_educators_importer.send(:import_row, row)
           educator = Educator.last

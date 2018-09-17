@@ -7,24 +7,19 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
 
     # login_name is the primary key, and email is always secondary
     educator = Educator.find_or_initialize_by(login_name: login_name)
-    educator.assign_attributes(
+    educator.assign_attributes({
       email: email_from_row,
       state_id: row[:state_id],
       full_name: row[:full_name],
       staff_type: row[:staff_type],
       admin: is_admin?,
       local_id: row[:local_id],
-      school_id: school_rails_id
-    )
+      school_id: school_rails_id,
+      schoolwide_access: is_admin?,
+      can_view_restricted_notes: is_admin?
+    })
 
-    if educator.new_record? && is_admin?
-      educator.assign_attributes({
-        schoolwide_access: true,
-        can_view_restricted_notes: true,
-      })
-    end
-
-    return educator
+    educator
   end
 
   private
