@@ -216,7 +216,7 @@ ActiveRecord::Schema.define(version: 2018_09_17_222601) do
   end
 
   create_table "house_educator_mappings", force: :cascade do |t|
-    t.text "house_field_text"
+    t.text "house_field_text", null: false
     t.integer "educator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
