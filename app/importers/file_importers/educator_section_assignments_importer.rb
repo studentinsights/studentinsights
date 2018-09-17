@@ -104,8 +104,7 @@ class EducatorSectionAssignmentsImporter
 
   def find_educator_id(row)
     return nil if row[:login_name].nil?
-    email = PerDistrict.new.from_import_login_name_to_email(row[:login_name])
-    Educator.find_by(email: email).try(:id)
+    Educator.find_by(login_name: row[:login_name]).try(:id)
   end
 
   def log(msg)

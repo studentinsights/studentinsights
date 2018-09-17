@@ -1,16 +1,14 @@
 class EducatorRow < Struct.new(:row, :school_ids_dictionary)
-  # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
-  #
-  def self.build(row)
-    new(row).build
-  end
+  # Returns a new or existing Educator record matching the row, or nil if it can't
+  # understand the row.
+  def match_educator_record
+    login_name = row[:login_name]
+    return nil if login_name.nil? || login_name == ''
 
-  def build
-    return nil if row[:login_name].nil? || row[:login_name] == ''
-
-    educator = Educator.find_or_initialize_by(email: email)
-
+    # login_name is the primary key, and email is always secondary
+    educator = Educator.find_or_initialize_by(login_name: login_name)
     educator.assign_attributes(
+      email: email_from_row,
       state_id: row[:state_id],
       full_name: row[:full_name],
       staff_type: row[:staff_type],
@@ -31,8 +29,8 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
 
   private
 
-  def email
-    PerDistrict.new.from_import_login_name_to_email(row[:login_name])
+  def email_from_row
+    PerDistrict.new.email_from_educator_import_row(row)
   end
 
   def is_admin?

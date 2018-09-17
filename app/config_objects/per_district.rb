@@ -113,19 +113,18 @@ class PerDistrict
   end
 
   # In the import process, we typically only get usernames
-  # as the `login_name`, but we want our user account system
-  # and our communication with district authentication systems
-  # to always be in terms of full email addresses with domain
-  # names.
-  def from_import_login_name_to_email(login_name)
-    if @district_key == SOMERVILLE
-      login_name + '@k12.somerville.ma.us'
+  # as the `login_name`, and emails are the same but with a domain
+  # suffix.  But for Bedford, these usernames and logins are separate
+  # from email addresses.
+  def email_from_educator_import_row(row)
+    if @district_key == BEDFORD
+      row[:email]
+    elsif @district_key == SOMERVILLE
+      row[:login_name] + '@k12.somerville.ma.us'
     elsif @district_key == NEW_BEDFORD
-      login_name + '@newbedfordschools.org'
-    elsif @district_key == BEDFORD
-      login_name + '@bedfordps.org'
+      row[:login_name] + '@newbedfordschools.org'
     elsif @district_key == DEMO
-      raise "PerDistrict#from_import_login_name_to_email not supported for district_key: {DEMO}"
+      raise "PerDistrict#email_from_educator_import_row not supported for district_key: {DEMO}"
     else
       raise_not_handled!
     end
