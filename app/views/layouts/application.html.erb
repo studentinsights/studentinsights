@@ -25,17 +25,17 @@
           <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
         <% else %>
           <div class="sign-in-container">
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= form_tag session_path(resource_name) do %>
               <div class="sign-in-item">
-                <%= f.label :email %>
-                <%= f.email_field :email, class: 'sign-in-text', autofocus: true %>
+                <%= label_tag :login %>
+                <%= text_field_tag :educator, :login_text, class: 'sign-in-text', autofocus: true %>
               </div>
               <div class="sign-in-item">
-                <%= f.label :password %>
-                <%= f.password_field :password, class: 'sign-in-text', autocomplete: "off" %>
+                <%= label_tag :password %>
+                <%= password_field_tag :educator, :password, class: 'sign-in-text', autocomplete: "off" %>
               </div>
               <div class="sign-in-item">
-                <%= f.submit "Log in", class: "btn btn-primary" %>
+                <%= submit_tag "Log in", class: "btn btn-primary" %>
               </div>
             <% end %>
           </div>

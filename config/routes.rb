@@ -85,7 +85,7 @@ Rails.application.routes.draw do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
   devise_scope :educator do
-    root to: "devise/sessions#new"
+    root to: "educators/sessions#new"
   end
 
   get '/educators/view/:id' => 'ui#ui'

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Educators::SessionsController < Devise::SessionsController
-  # # GET /resource/sign_in
+  # GET /resource/sign_in
   # def new
   #   super
   # end
