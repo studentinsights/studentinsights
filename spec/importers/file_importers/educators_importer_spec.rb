@@ -67,7 +67,7 @@ RSpec.describe EducatorsImporter do
       # The process for mapping the `login_name` in the row to an Educator
       # `email` varies `PerDistrict` so mock it to work with `TestPals` fixture data.
       mock_per_district = PerDistrict.new
-      allow(mock_per_district).to receive(:from_import_login_name_to_email).and_return(pals.healey_sarah_teacher.email)
+      allow(mock_per_district).to receive(:email_from_educator_import_row).and_return(pals.healey_sarah_teacher.email)
       allow(PerDistrict).to receive(:new).and_return(mock_per_district)
 
       # Make an input row that matches the Educator record (to prove import
@@ -224,7 +224,7 @@ RSpec.describe EducatorsImporter do
       context 'existing educator' do
         let(:homeroom) { FactoryBot.create(:homeroom) }
         let(:homeroom_name) { homeroom.name }
-        let!(:educator) { FactoryBot.create(:educator, email: 'jyoung@k12.somerville.ma.us') }
+        let!(:educator) { FactoryBot.create(:educator, login_name: 'jyoung', email: 'jyoung@k12.somerville.ma.us') }
         let(:row) {
           {
             state_id: "500", full_name: "Young, Jenny",
