@@ -38,7 +38,7 @@ class PerDistrict
     yaml.fetch('schools')
   end
 
-  def fetch_remote_filename_for(key, fallback = nil)
+  def fetch_remote_filename(key, fallback)
     yaml.fetch('remote_filenames', {}).fetch(key, fallback)
   end
 

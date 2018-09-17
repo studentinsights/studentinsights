@@ -59,7 +59,7 @@ class EducatorsImporter
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_EDUCATORS_IMPORT', nil)
+    PerDistrict.new.fetch_remote_filename('FILENAME_FOR_EDUCATORS_IMPORT', nil)
   end
 
   def filter

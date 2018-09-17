@@ -64,7 +64,7 @@ class AttendanceImporter
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_ATTENDANCE_IMPORT', nil)
+    PerDistrict.new.remote_filename_or_raise!('FILENAME_FOR_ATTENDANCE_IMPORT')
   end
 
   def download_csv
