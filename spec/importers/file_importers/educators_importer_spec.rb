@@ -81,6 +81,7 @@ RSpec.describe EducatorsImporter do
         school_local_id: pals.healey.local_id
       }
       importer = make_educators_importer
+      allow(importer).to receive(:remote_file_name).and_return('mocked_filename.csv')
       allow(importer).to receive(:download_csv).and_return([test_row])
       expect { importer.import }.to change { Educator.count }.by(0).and change { Homeroom.count }.by(0)
 
@@ -97,6 +98,7 @@ RSpec.describe EducatorsImporter do
       allow(PerDistrict).to receive(:new).and_return(mock_per_district)
 
       importer = make_educators_importer
+      allow(importer).to receive(:remote_file_name).and_return('mocked_filename.csv')
       allow(importer).to receive(:download_csv).and_return([test_row])
       importer.import
       Educator.find_by_local_id(test_row[:local_id])
