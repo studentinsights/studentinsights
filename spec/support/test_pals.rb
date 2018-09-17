@@ -380,6 +380,22 @@ class TestPals
       grade_letter: 'B'
     )
 
+    @shs_darius_housemaster = Educator.create!(
+      email: 'darius@demo.studentinsights.org',
+      full_name: 'Housemaster, Darius',
+      school: @shs,
+      schoolwide_access: true
+    )
+    EducatorLabel.create!({
+      educator: @shs_darius_housemaster,
+      label_key: 'use_housemaster_based_feed'
+    })
+    CounselorNameMapping.create!({
+      house_field_text: 'broadway',
+      educator_id: @shs_darius_housemaster.id
+    })
+
+
     reindex!
     self
   end

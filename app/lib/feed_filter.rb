@@ -5,32 +5,55 @@ class FeedFilter
 
   # Apply any student filters by role, if they are enabled.
   def filter_for_educator(students)
-    filtered_students = students
+    filters = [CounselorFilter.new, HouseFilter.new]
 
-    if use_counselor_based_feed?
-      filtered_students = by_counselor_caseload(filtered_students)
+    filtered_students = students
+    filters.each do |filter|
+      filtered_students = filter.filter(filtered_students) if filter.enabled?
     end
 
     filtered_students
   end
 
   private
-  # For filtering base on the student's counselor field.
-  def by_counselor_caseload(students)
-    students.select {|student| is_counselor_for?(student) }
+  class CounselorFilter
+    # Check global env flag, then per-educator flag.
+    def enabled?
+      return false unless PerDistrict.new.enable_counselor_based_feed?
+      return false unless EducatorLabel.has_static_label?(@educator.id, 'use_counselor_based_feed')
+      true
+    end
+
+    # For filtering base on the student's counselor field.
+    def filter(students)
+      students.select {|student| is_counselor_for?(student) }
+    end
+
+    private
+    def is_counselor_for?(student)
+      return false unless use_counselor_based_feed?
+      return false if student.counselor.nil?
+      CounselorNameMapping.has_mapping? @educator.id, student.counselor.downcase
+    end
   end
 
-  # Check global env flag, then per-educator flag.
-  def use_counselor_based_feed?
-    return false unless PerDistrict.new.enable_counselor_based_feed?
-    return false unless EducatorLabel.has_static_label?(@educator.id, 'use_counselor_based_feed')
-    true
-  end
+  class HouseFilter
+    # Check global env flag, then per-educator flag.
+    def enabled?
+      return false unless PerDistrict.new.enable_housemaster_based_feed?
+      return false unless EducatorLabel.has_static_label?(@educator.id, 'use_housemaster_based_feed')
+      true
+    end
 
-  private
-  def is_counselor_for?(student)
-    return false unless use_counselor_based_feed?
-    return false if student.counselor.nil?
-    CounselorNameMapping.has_mapping? @educator.id, student.counselor.downcase
+    def filter(students)
+      students.select {|student| is_housemaster_for?(student) }
+    end
+
+    private
+    def is_housemaster_for?(student)
+      return false unless use_housemaster_based_feed?
+      return false if student.house.nil? || student.house == ''
+      HouseEducatorMapping.has_mapping? @educator.id, student.house.downcase
+    end
   end
 end

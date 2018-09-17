@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_30_143340) do
+ActiveRecord::Schema.define(version: 2018_09_17_194529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
+    t.text "login_name", null: false
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 
@@ -212,6 +213,13 @@ ActiveRecord::Schema.define(version: 2018_08_30_143340) do
     t.index ["educator_id"], name: "index_homerooms_on_educator_id"
     t.index ["school_id", "name"], name: "index_homerooms_on_school_id_and_name", unique: true
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
+  end
+
+  create_table "house_educator_mapping", force: :cascade do |t|
+    t.text "house_field_text"
+    t.integer "educator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "iep_documents", id: :serial, force: :cascade do |t|
