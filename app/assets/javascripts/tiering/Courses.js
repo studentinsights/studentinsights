@@ -28,7 +28,7 @@ export function labelAssignment(assignment) {
   if (matches(text, OTHER_SUPPORT)) return 'support';
   if (matches(text, PATH_PROGRAM)) return 'support';
 
-  if (matches(text, ELL_SUPPORT)) return 'ell';
+  if (matches(text, ELL)) return 'ell';
   if (matches(text, LIFE_SKILLS)) return 'life';
 
   if (matches(text, OTHER)) return 'elective';
