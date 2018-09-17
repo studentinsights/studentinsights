@@ -6,7 +6,7 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {
   firstMatch,
-  ELA,
+  EN_OR_ELL,
   MATH,
   HISTORY,
   SCIENCE,
@@ -65,9 +65,9 @@ export default class StudentLevelsTable extends React.Component {
               cellRenderer={this.renderDisciplineIncidents} />
             <Column
               dataKey="ela"
-              label={<span><br />ELA</span>}
+              label={<span><br />EN/ELL</span>}
               width={gradeCellWidth}
-              cellRenderer={this.renderGradeFor.bind(this, ELA)} />
+              cellRenderer={this.renderGradeFor.bind(this, EN_OR_ELL)} />
             <Column
               dataKey="history"
               label={<span>Social<br/>Studies</span>}
@@ -118,7 +118,6 @@ export default class StudentLevelsTable extends React.Component {
       </AutoSizer>
     );
   }
-
 
   renderStudent({rowData}) {
     const student = rowData;

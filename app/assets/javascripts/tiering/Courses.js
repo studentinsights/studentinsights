@@ -83,8 +83,8 @@ const OTHER = [
 ];
 
 export const ELL = [
+  'ESL', // core ELL classes are considered part of the english dept.
   'ALCS - GENERAL SUPPORT',
-  'ESL',
   'GOAL PROGRAM DAILY SEMINAR',
   'ACADEMIC LITERACY'
 ];
@@ -94,6 +94,8 @@ export const ELA = [
   'READING FOUNDATIONS',
   'CREATIVE WRITING'
 ];
+
+export const EN_OR_ELL = ELL.concat(ELA);
 
 export const HISTORY = [
   'HISTORY',
