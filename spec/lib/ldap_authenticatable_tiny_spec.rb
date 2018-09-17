@@ -82,7 +82,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
     it 'works for demo' do
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
-      TestPals.create!
+      pals = TestPals.create!
       strategy = mocked_test_strategy({
         login_text: 'uri@demo.studentinsights.org',
         password: 'supersecure',

@@ -91,7 +91,7 @@ RSpec.describe PerDistrict do
 
     it 'works for demo' do
       pals = TestPals.create!
-      expect { for_demo.ldap_login_for_educator(pals.uri) }.to raise_error Exceptions::DistrictKeyNotHandledError
+      expect(for_demo.ldap_login_for_educator(pals.uri)).to eq('uri@demo.studentinsights.org')
     end
   end
 
@@ -115,7 +115,7 @@ RSpec.describe PerDistrict do
     end
 
     it 'works for demo' do
-      expect { ldap_login(for_demo, 'demo.studentinsights.org', 'uri') }.to raise_error Exceptions::DistrictKeyNotHandledError
+      expect(ldap_login(for_demo, 'demo.studentinsights.org', 'uri@demo.studentinsights.org')).to eq('uri@demo.studentinsights.org')
     end
   end
 end
