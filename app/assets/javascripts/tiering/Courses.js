@@ -60,6 +60,10 @@ export const CREDIT_RECOVERY = [
   'CREDIT RECOVERY'
 ];
 
+export const STUDY_SKILLS = [
+  'STUDY SKILLS'
+];
+
 const BUSINESS = [
   'ACCOUNTING',
   'ENTREPRENEURSHIP',
@@ -84,7 +88,7 @@ const OTHER = [
 
 export const ELL = [
   'ALCS - GENERAL SUPPORT',
-  'ESL',
+  'ESL', // core ELL classes are considered part of the English dept.
   'GOAL PROGRAM DAILY SEMINAR',
   'ACADEMIC LITERACY'
 ];
@@ -94,6 +98,8 @@ export const ELA = [
   'READING FOUNDATIONS',
   'CREATIVE WRITING'
 ];
+
+export const EN_OR_ELL = ELL.concat(ELA);
 
 export const HISTORY = [
   'HISTORY',
@@ -200,7 +206,6 @@ const PATH_PROGRAM = [
 
 const OTHER_SUPPORT = [
   'STUDENT MENTOR',
-  'STUDY SKILLS',
   'TRANSITION SKILLS',
   'GRADUATION PLAN'
 ];
