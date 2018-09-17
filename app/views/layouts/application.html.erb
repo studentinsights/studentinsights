@@ -27,12 +27,12 @@
           <div class="sign-in-container">
             <%= form_tag session_path(resource_name) do %>
               <div class="sign-in-item">
-                <%= label_tag :login %>
-                <%= text_field_tag :educator, :login_text, class: 'sign-in-text', autofocus: true %>
+                <%= label_tag :login_text, 'Login' %>
+                <%= text_field_tag 'educator[login_text]', nil, class: 'sign-in-text', autofocus: true %>
               </div>
               <div class="sign-in-item">
-                <%= label_tag :password %>
-                <%= password_field_tag :educator, :password, class: 'sign-in-text', autocomplete: "off" %>
+                <%= label_tag :password, 'Password' %>
+                <%= password_field_tag 'educator[password]', nil, class: 'sign-in-text', autocomplete: "off" %>
               </div>
               <div class="sign-in-item">
                 <%= submit_tag "Log in", class: "btn btn-primary" %>

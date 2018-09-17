@@ -1,5 +1,5 @@
 class Educator < ActiveRecord::Base
-  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable
+  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text]
 
   belongs_to  :school
   has_one     :homeroom

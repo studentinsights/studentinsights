@@ -9,6 +9,11 @@ module Devise
       # pass this along to the LDAP request so we
       # don't persist the password anywhere even in memory.
       def password=(new_password) end
+
+      # Similarly, we receive a login_text attribute from the form,
+      # but we don't want to persist this on the model at all,
+      # so we just drop this.
+      def login_text=(login_text) end
     end
   end
 end

@@ -13,16 +13,16 @@ module Devise
       # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
-        login_text = authentication_hash[:login_text]
+        login_text = authentication_hash[:login_text].downcase.strip
         ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
 
         begin
           # First, see if we can find an Educator record
-          educator = PerDistrict.find_educator_by_login_text(login_text.downcase)
+          educator = PerDistrict.new.find_educator_by_login_text(login_text)
           fail!(:not_found_in_database) and return unless educator.present?
 
           # Next, try asking the LDAP server if they have access
-          ldap_login = PerDistrict.ldap_login_for_educator(educator).downcase
+          ldap_login = PerDistrict.new.ldap_login_for_educator(educator)
           fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, ldap_login, password)
           success!(educator) and return
         rescue => error

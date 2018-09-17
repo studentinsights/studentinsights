@@ -133,15 +133,15 @@ class PerDistrict
   # Users in Bedford type in just their login, others
   # use full email addresses.
   def find_educator_by_login_text(login_text)
-    login_text_downcase = login_text.downcase
+    cleaned_login_text = login_text.downcase.strip
     if @district_key == BEDFORD
-      Educator.find_by_login_name(login_text_downcase)
+      Educator.find_by_login_name(cleaned_login_text)
     elsif @district_key == SOMERVILLE
-      Educator.find_by_email(login_text_downcase)
+      Educator.find_by_email(cleaned_login_text)
     elsif @district_key == NEW_BEDFORD
-      Educator.find_by_email(login_text_downcase)
+      Educator.find_by_email(cleaned_login_text)
     elsif @district_key == DEMO
-      Educator.find_by_email(login_text_downcase)
+      Educator.find_by_email(cleaned_login_text)
     else
       raise_not_handled!
     end
@@ -153,9 +153,9 @@ class PerDistrict
     if @district_key == BEDFORD
       "#{educator.login_name.downcase}@bedford.k12.ma.us"
     elsif @district_key == SOMERVILLE
-      educator.email.downcase
+      educator.email
     elsif @district_key == NEW_BEDFORD
-      educator.email.downcase
+      educator.email
     else
       raise_not_handled!
     end

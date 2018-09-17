@@ -9,6 +9,11 @@ class Educators::SessionsController < Devise::SessionsController
   # override
   # POST /resource/sign_in
   def create
+    puts '--- create ---'
+    pp params
+    puts
+    puts
+    puts
     devise_parameter_sanitizer.permit(:sign_in, keys: [:login_text])
     super
   end
