@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import fetchMock from 'fetch-mock/es5/client';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import LoginActivityPage from './LoginActivityPage';
 import loginActivityJson from './loginActivityJson.fixture';
 
@@ -24,18 +25,18 @@ it('renders without crashing', () => {
   const props = testProps();
   mockFetch(props);
   const el = document.createElement('div');
-  ReactDOM.render(<LoginActivityPage {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<LoginActivityPage {...props} />), el);
 });
 
 it('renders after fetching', done => {
   const props = testProps();
   mockFetch(props);
   const el = document.createElement('div');
-  ReactDOM.render(<LoginActivityPage {...props} />, el);
+  ReactDOM.render(withDefaultNowContext(<LoginActivityPage {...props} />), el);
 
   setTimeout(() => {
     expect(el.innerHTML).toContain('Login Attempts, Past 30 days');
-    expect(el.querySelectorAll('div.tooltip').length).toEqual(41);
+    expect(el.querySelectorAll('div.tooltip').length).toEqual(5);
     done();
   }, 0);
 });
