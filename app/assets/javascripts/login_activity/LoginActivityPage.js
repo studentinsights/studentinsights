@@ -50,11 +50,14 @@ export default class LoginActivityPage extends React.Component {
   }
 
   pastThirtyDaysArray() {
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
     const emptyArray = new Array(30);
     emptyArray.fill(0);
 
+
     const pastThirtyDays = emptyArray.map((value, index) => {
-      return moment.utc().subtract(index, 'days').startOf('day').format();
+      return nowMoment.clone().subtract(index, 'days').startOf('day').format();
     });
 
     return pastThirtyDays;
@@ -238,10 +241,12 @@ export default class LoginActivityPage extends React.Component {
     return (<div key={index} style={{...style.cell, ...style.squareCell}}></div>);
   }
 }
-
 LoginActivityPage.propTypes = {
   queryStartTimestamp: PropTypes.string.isRequired,
   queryEndTimestamp: PropTypes.string.isRequired,
+};
+LoginActivityPage.contextTypes = {
+  nowFn: PropTypes.func.isRequired
 };
 
 const style = {
