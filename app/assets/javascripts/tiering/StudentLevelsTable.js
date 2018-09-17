@@ -6,7 +6,7 @@ import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {
   firstMatch,
-  ELA,
+  EN_OR_ELL,
   MATH,
   HISTORY,
   SCIENCE,
@@ -54,10 +54,10 @@ export default class StudentLevelsTable extends React.Component {
               width={gradeCellWidth}
               cellRenderer={this.renderLevel} />
             <Column
-              dataKey="attendance"
-              label={<span>Attendance<br/>Rate</span>}
+              dataKey="absence"
+              label={<span>Absence<br/>Rate</span>}
               width={numericCellWidth}
-              cellRenderer={this.renderAttendanceRate} />
+              cellRenderer={this.renderAbsenceRate} />
             <Column
               dataKey="discipline"
               label={<span>Discipline<br/>Incidents</span>}
@@ -65,9 +65,9 @@ export default class StudentLevelsTable extends React.Component {
               cellRenderer={this.renderDisciplineIncidents} />
             <Column
               dataKey="ela"
-              label={<span><br />ELA</span>}
+              label={<span><br />EN/ELL</span>}
               width={gradeCellWidth}
-              cellRenderer={this.renderGradeFor.bind(this, ELA)} />
+              cellRenderer={this.renderGradeFor.bind(this, EN_OR_ELL)} />
             <Column
               dataKey="history"
               label={<span>Social<br/>Studies</span>}
@@ -119,7 +119,6 @@ export default class StudentLevelsTable extends React.Component {
     );
   }
 
-
   renderStudent({rowData}) {
     const student = rowData;
     return <a style={styles.person} target="_blank" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
@@ -138,10 +137,10 @@ export default class StudentLevelsTable extends React.Component {
     return <span style={style}>{count}</span>; 
   }
 
-  renderAttendanceRate({rowData}) {
+  renderAbsenceRate({rowData}) {
     const {tier} = rowData;
-    const percentage = Math.round(tier.data.recent_attendance_rate * 100);
-    const style = (tier.triggers.indexOf('attendance') !== -1)
+    const percentage = Math.round(tier.data.recent_absence_rate * 100);
+    const style = (tier.triggers.indexOf('absence') !== -1)
       ? styles.warn
       : styles.plain;
     return <span style={style}>{percentage}%</span>; 

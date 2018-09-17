@@ -7,14 +7,7 @@
 class ExperimentalSomervilleHighTiers
   FAILING_GRADE = 65
 
-  class Tier < Struct.new(:level, :data, :triggers)
-    def self.create(level, data, triggers_with_nils)
-      Tier.new(level, triggers_with_nils.compact, data)
-    end
-
-    def any_triggers?
-      triggers.size > 0
-    end
+  class Tier < Struct.new(:level, :triggers, :data)
   end
 
   def initialize(educator, options = {})
@@ -99,43 +92,43 @@ class ExperimentalSomervilleHighTiers
     # Level 4: At least 4 F's
     #   OR less than 80% attendance over last 45 school days
     #   OR 7 or more discipline actions over the last 45 school days
-    tier_four = Tier.create(4, data, [
+    tier_four_triggers = [
       (:academic if data[:course_failures] >= 4),
-      (:attendance if data[:recent_attendance_rate] < 0.80),
+      (:absence if data[:recent_absence_rate] < 0.80),
       (:discipline if data[:recent_discipline_actions] >= 7)
-    ])
-    return tier_four if tier_four.any_triggers?
+    ].compact
+    return Tier.new(4, tier_four_triggers, data) if tier_four_triggers.size > 0
 
     # Level 3: 3 F's
     #   OR less than 85% attendance over last 45
     #   OR 5-6 discipline actions over the last 45 school days
-    tier_three = Tier.create(3, data, [
+    tier_three_triggers = [
       (:academic if data[:course_failures] >= 3),
-      (:attendance if data[:recent_attendance_rate] < 0.85),
+      (:absence if data[:recent_absence_rate] < 0.85),
       (:discipline if data[:recent_discipline_actions] >= 5)
-    ])
-    return tier_three if tier_three.any_triggers?
+    ].compact
+    return Tier.new(3, tier_three_triggers, data) if tier_three_triggers.size > 0
 
     # Level 2: 2 F's
     #  OR less than 90% attendance over last 45
     #  (no discipline involved in calculation)
-    tier_two = Tier.create(2, data, [
+    tier_two_triggers = [
       (:academic if data[:course_failures] >= 2),
-      (:attendance if data[:recent_attendance_rate] < 0.90)
-    ])
-    return tier_two if tier_two.any_triggers?
+      (:absence if data[:recent_absence_rate] < 0.90)
+    ].compact
+    return Tier.new(2, tier_two_triggers, data) if tier_two_triggers.size > 0
 
     # Level 1: 1 F and 2 Ds
     #   OR less than 95% attendance over last 45 days
     #   (no discipline involved)
-    tier_one = Tier.create(1, data, [
+    tier_one_triggers = [
       (:academic if data[:course_failures] == 1 and data[:course_ds] >= 2),
-      (:attendance if data[:recent_attendance_rate] < 0.95)
-    ])
-    return tier_one if tier_one.any_triggers?
+      (:absence if data[:recent_absence_rate] < 0.95)
+    ].compact
+    return Tier.new(1, tier_one_triggers, data) if tier_one_triggers.size > 0
 
     # Level 0: Not any of the other levels
-    return Tier.create(0, data, [])
+    return Tier.new(0, [], data)
   end
 
   private
@@ -199,7 +192,7 @@ class ExperimentalSomervilleHighTiers
   end
 
   # This uses a super rough heuristic for school days.
-  def recent_attendance_rate(absences_count_in_period, time_interval)
+  def recent_absence_rate(absences_count_in_period, time_interval)
     total_days = time_interval / 1.day
     school_days = (total_days * 5/7).round
     (school_days - absences_count_in_period) / school_days.to_f
@@ -213,7 +206,7 @@ class ExperimentalSomervilleHighTiers
     {
       course_failures: course_failures(student),
       course_ds: course_ds(student),
-      recent_attendance_rate: recent_attendance_rate(absences_count_in_period, time_interval),
+      recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),
       recent_discipline_actions: discipline_incident_count_in_period
     }
   end
