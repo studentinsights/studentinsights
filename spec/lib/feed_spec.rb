@@ -28,7 +28,7 @@ RSpec.describe Feed do
 
     it 'does not filter when counselor-based feed switch is disabled globally' do
       mock_per_district = PerDistrict.new
-      allow(mock_per_district).to_receive(:enable_counselor_based_feed?).and_return(false)
+      allow(mock_per_district).to receive(:enable_counselor_based_feed?).and_return(false)
       allow(PerDistrict).to receive(:new).and_return(mock_per_district)
       students = Feed.students_for_feed(pals.shs_sofia_counselor)
       expect(students.map(&:id)).to contain_exactly(*[
