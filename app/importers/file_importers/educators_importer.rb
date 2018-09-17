@@ -77,7 +77,7 @@ class EducatorsImporter
     end
 
     # Find the matching Educator record if possible and sync it
-    maybe_educator = EducatorRow.new(row, school_ids_dictionary).build
+    maybe_educator = EducatorRow.new(row, school_ids_dictionary).match_educator_record
     @educator_syncer.validate_mark_and_sync!(maybe_educator)
 
     # Find the matching Homeroom record if possible and
