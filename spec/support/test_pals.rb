@@ -396,6 +396,7 @@ class TestPals
     )
 
     @shs_darius_housemaster = Educator.create!(
+      login_name: 'darius',
       email: 'darius@demo.studentinsights.org',
       full_name: 'Housemaster, Darius',
       school: @shs,
@@ -405,11 +406,10 @@ class TestPals
       educator: @shs_darius_housemaster,
       label_key: 'use_housemaster_based_feed'
     })
-    CounselorNameMapping.create!({
+    HouseEducatorMapping.create!({
       house_field_text: 'broadway',
       educator_id: @shs_darius_housemaster.id
     })
-
 
     reindex!
     self

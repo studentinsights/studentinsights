@@ -12,6 +12,7 @@ RSpec.describe FeedFilter do
     it 'does not filter for anyone' do
       Educator.all.each do |educator|
         unfiltered_students = Authorizer.new(educator).authorized { Student.active }
+        puts educator.login_name
         expect(FeedFilter.new(educator).filter_for_educator(unfiltered_students)).to contain_exactly(*unfiltered_students)
       end
     end

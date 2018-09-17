@@ -5,7 +5,10 @@ class FeedFilter
 
   # Apply any student filters by role, if they are enabled.
   def filter_for_educator(students)
-    filters = [CounselorFilter.new, HouseFilter.new]
+    filters = [
+      CounselorFilter.new(@educator),
+      HouseFilter.new(@educator)
+    ]
 
     filtered_students = students
     filters.each do |filter|
@@ -16,7 +19,12 @@ class FeedFilter
   end
 
   private
+  # For filtering base on the student's counselor field.
   class CounselorFilter
+    def initialize(educator)
+      @educator = educator
+    end
+
     # Check global env flag, then per-educator flag.
     def enabled?
       return false unless PerDistrict.new.enable_counselor_based_feed?
@@ -24,20 +32,22 @@ class FeedFilter
       true
     end
 
-    # For filtering base on the student's counselor field.
     def filter(students)
       students.select {|student| is_counselor_for?(student) }
     end
 
     private
     def is_counselor_for?(student)
-      return false unless use_counselor_based_feed?
       return false if student.counselor.nil?
       CounselorNameMapping.has_mapping? @educator.id, student.counselor.downcase
     end
   end
 
   class HouseFilter
+    def initialize(educator)
+      @educator = educator
+    end
+
     # Check global env flag, then per-educator flag.
     def enabled?
       return false unless PerDistrict.new.enable_housemaster_based_feed?
@@ -51,7 +61,6 @@ class FeedFilter
 
     private
     def is_housemaster_for?(student)
-      return false unless use_housemaster_based_feed?
       return false if student.house.nil? || student.house == ''
       HouseEducatorMapping.has_mapping? @educator.id, student.house.downcase
     end

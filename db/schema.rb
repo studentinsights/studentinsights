@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2018_09_17_194529) do
 
   # These are extensions that must be enabled in order to support this database
@@ -216,7 +215,7 @@ ActiveRecord::Schema.define(version: 2018_09_17_194529) do
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
   end
 
-  create_table "house_educator_mapping", force: :cascade do |t|
+  create_table "house_educator_mappings", force: :cascade do |t|
     t.text "house_field_text"
     t.integer "educator_id"
     t.datetime "created_at", null: false
