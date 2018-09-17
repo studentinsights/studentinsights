@@ -13,13 +13,17 @@ module Devise
       # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
       def authenticate!
-        email = authentication_hash[:email]
+        login_text = authentication_hash[:login_text]
         ldap_class = ShouldUseMockLDAP.new.check ? MockLDAP : Net::LDAP
 
         begin
-          educator = Educator.find_by_email(email.downcase)
+          # First, see if we can find an Educator record
+          educator = PerDistrict.find_educator_by_login_text(login_text.downcase)
           fail!(:not_found_in_database) and return unless educator.present?
-          fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, email, password)
+
+          # Next, try asking the LDAP server if they have access
+          ldap_login = PerDistrict.ldap_login_for_educator(educator).downcase
+          fail!(:invalid) and return unless is_authorized_by_ldap?(ldap_class, ldap_login, password)
           success!(educator) and return
         rescue => error
           Rollbar.error('LdapAuthenticatableTiny error caught', error)
@@ -47,8 +51,8 @@ module Devise
       end
 
       # Read config and create options for a Net::LDAP instance
-      # that can bind to `(email,password)`
-      def ldap_options_for(email, password)
+      # that can bind to `(login, password)`
+      def ldap_options_for(login, password)
         host = ENV['DISTRICT_LDAP_HOST']
         port = ENV['DISTRICT_LDAP_PORT'].to_i
         encryption_tls_options = JSON.parse(ENV['DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON'] || '{}').deep_symbolize_keys
@@ -59,7 +63,7 @@ module Devise
           connect_timeout: ENV.fetch('DISTRICT_LDAP_TIMEOUT_IN_SECONDS', '30').to_i,
           auth: {
             :method => :simple,
-            :username => email,
+            :username => login,
             :password => password,
           },
           encryption: {

@@ -80,7 +80,7 @@ Rails.application.routes.draw do
   get '/api/login_activity' => 'login_activities#index_json'
 
 
-  devise_for :educators
+  devise_for :educators, controllers: { sessions: 'educators/sessions' }
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end

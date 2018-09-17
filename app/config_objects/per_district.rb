@@ -130,6 +130,37 @@ class PerDistrict
     end
   end
 
+  # Users in Bedford type in just their login, others
+  # use full email addresses.
+  def find_educator_by_login_text(login_text)
+    login_text_downcase = login_text.downcase
+    if @district_key == BEDFORD
+      Educator.find_by_login_name(login_text_downcase)
+    elsif @district_key == SOMERVILLE
+      Educator.find_by_email(login_text_downcase)
+    elsif @district_key == NEW_BEDFORD
+      Educator.find_by_email(login_text_downcase)
+    elsif @district_key == DEMO
+      Educator.find_by_email(login_text_downcase)
+    else
+      raise_not_handled!
+    end
+  end
+
+  # Bedford LDAP server uses an email address format, but this is different
+  # than the email addresses that educators actually use day-to-day.
+  def ldap_login_for_educator(educator)
+    if @district_key == BEDFORD
+      "#{educator.login_name.downcase}@bedford.k12.ma.us"
+    elsif @district_key == SOMERVILLE
+      educator.email.downcase
+    elsif @district_key == NEW_BEDFORD
+      educator.email.downcase
+    else
+      raise_not_handled!
+    end
+  end
+
   def import_detailed_attendance_fields?
     return true if @district_key == SOMERVILLE
 
