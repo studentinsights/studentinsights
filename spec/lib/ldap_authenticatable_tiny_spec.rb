@@ -27,7 +27,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     }
   end
 
-  describe '#authenticate! integration tests across districts' do
+  describe '#authenticate! integration tests across districts, with is_authorized_by_ldap mocked' do
     def mocked_test_strategy(options = {})
       strategy = test_strategy
       allow(strategy).to receive_messages({
@@ -80,7 +80,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect(outcomes_after_authenticate!(strategy)).to eq [:success, nil, pals.uri]
     end
 
-    it 'fails for demo' do
+    it 'works for demo' do
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
       TestPals.create!
       strategy = mocked_test_strategy({
@@ -89,7 +89,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
         ldap_login: 'uri@demo.studentinsights.org',
         is_authorized_by_ldap?: true
       })
-      expect(outcomes_after_authenticate!(strategy)).to eq [:failure, :error, nil]
+      expect(outcomes_after_authenticate!(strategy)).to eq [:success, nil, pals.uri]
     end
   end
 
