@@ -163,7 +163,7 @@ class PerDistrict
     end
   end
 
-  # This is used to mock an LDAP server for local development and test.
+  # This is used to mock an LDAP server for local development, test and for the demo site.
   # The behavior here is different by districts.
   def find_educator_for_mock_ldap_login(ldap_login)
     raise_not_handled! unless MockLDAP.should_use?
