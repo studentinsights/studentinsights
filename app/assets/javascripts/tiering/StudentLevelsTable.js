@@ -12,7 +12,8 @@ import {
   SCIENCE,
   CREDIT_RECOVERY,
   ACADEMIC_SUPPORT,
-  REDIRECT
+  REDIRECT,
+  STUDY_SKILLS
 } from './Courses';
 
 
@@ -27,7 +28,7 @@ export default class StudentLevelsTable extends React.Component {
     const {sortedStudentsWithTiering} = this.props;
     const gradeCellWidth = 50;
     const numericCellWidth = 70;
-    const cellWidth = 85;
+    const supportCellWidth = 70;
 
     return (
       <AutoSizer className="StudentLevelsTable">
@@ -86,32 +87,37 @@ export default class StudentLevelsTable extends React.Component {
             <Column
               dataKey="nge"
               label={<span>Last NGE/<br/>10GE notes</span>}
-              width={cellWidth}
+              width={supportCellWidth}
               cellRenderer={this.renderNotes.bind(this, 'last_experience_note')} />
             <Column
               dataKey="sst"
               label={<span>Last SST<br/>notes</span>}
-              width={cellWidth}
+              width={supportCellWidth}
               cellRenderer={this.renderNotes.bind(this, 'last_sst_note')} />
+            <Column
+              dataKey="study"
+              label={<span>Study<br/>skills</span>}
+              width={supportCellWidth}
+              cellRenderer={this.renderIf.bind(this, STUDY_SKILLS, 'study')} />
             <Column
               dataKey="support"
               label={<span>Academic<br/>Support</span>}
-              width={cellWidth}
+              width={supportCellWidth}
               cellRenderer={this.renderIf.bind(this, ACADEMIC_SUPPORT, 'support')} />
             <Column
               dataKey="redirect"
               label={<span><br/>Redirect</span>}
-              width={cellWidth}
+              width={supportCellWidth}
               cellRenderer={this.renderIf.bind(this, REDIRECT, 'redirect')} />
             <Column
               dataKey="recovery"
               label={<span>Credit<br/>Recovery</span>}
-              width={cellWidth}
+              width={supportCellWidth}
               cellRenderer={this.renderIf.bind(this, CREDIT_RECOVERY, 'recovery')} />
             <Column
               dataKey="program_assigned"
               label={<span>Program<br/>or SPED</span>}
-              width={cellWidth}
+              width={supportCellWidth}
               cellRenderer={this.renderProgram} />
           </Table>
         )}
@@ -240,7 +246,7 @@ const styles = {
     padding: 4,
     backgroundColor: '#3177c9',
     color: 'white',
-    fontSize: 14,
+    fontSize: 12,
     width: '95%',
     height: '95%'
   },

@@ -60,6 +60,10 @@ export const CREDIT_RECOVERY = [
   'CREDIT RECOVERY'
 ];
 
+export const STUDY_SKILLS = [
+  'STUDY SKILLS'
+];
+
 const BUSINESS = [
   'ACCOUNTING',
   'ENTREPRENEURSHIP',
@@ -83,8 +87,8 @@ const OTHER = [
 ];
 
 export const ELL = [
-  'ESL', // core ELL classes are considered part of the english dept.
   'ALCS - GENERAL SUPPORT',
+  'ESL', // core ELL classes are considered part of the English dept.
   'GOAL PROGRAM DAILY SEMINAR',
   'ACADEMIC LITERACY'
 ];
@@ -202,7 +206,6 @@ const PATH_PROGRAM = [
 
 const OTHER_SUPPORT = [
   'STUDENT MENTOR',
-  'STUDY SKILLS',
   'TRANSITION SKILLS',
   'GRADUATION PLAN'
 ];
