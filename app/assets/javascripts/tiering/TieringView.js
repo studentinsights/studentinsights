@@ -12,7 +12,8 @@ import {
   firstMatch,
   CREDIT_RECOVERY,
   ACADEMIC_SUPPORT,
-  REDIRECT
+  REDIRECT,
+  STUDY_SKILLS
 } from './Courses';
 import StudentLevelsTable from './StudentLevelsTable';
 
@@ -176,6 +177,7 @@ export default class TieringView extends React.Component {
           {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
           {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
           {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
+          {this.renderServiceCount(studentsWithTiering, 'Study skills', STUDY_SKILLS)}
         </div>
       </div>
     );
