@@ -12,19 +12,10 @@ class LoadDistrictConfig
     load_yml.fetch("remote_filenames")
   end
 
-  def schools
-    load_yml.fetch("schools")
-  end
-
-  def canonical_domain
-    ENV.fetch('CANONICAL_DOMAIN', nil)
-  end
-
+  private
   def load_yml
     YAML.load(File.open(config_file_path))
   end
-
-  private
 
   def district_key_to_config_file
     {

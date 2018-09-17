@@ -23,8 +23,6 @@ class ImportTask
       @record = create_import_record
       @report = create_report
       log('Starting validation...')
-      validate_district_option
-      seed_schools_if_needed
       validate_school_options
       log('Done validation.')
 
@@ -56,17 +54,6 @@ class ImportTask
   private
 
   ## VALIDATE DEVELOPER INPUT ##
-
-  def validate_district_option
-    # The LoadDistrictConfig class uses `fetch`, which will validate the
-    # district option for us
-    LoadDistrictConfig.new.load_yml
-  end
-
-  def seed_schools_if_needed
-    School.seed_schools_for_district if School.count == 0
-  end
-
   def validate_school_options
     # If the developer is passing in a list of school IDs to filter by,
     # we check that the IDs are valid and the schools exist in the database.
@@ -80,7 +67,7 @@ class ImportTask
   def school_ids
     return @school if @school.present?
 
-    LoadDistrictConfig.new.schools.map { |school| school["local_id"] }
+    PerDistrict.new.schools_within_scope.map { |school| school["local_id"] }
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##

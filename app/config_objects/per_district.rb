@@ -30,6 +30,18 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def canonical_domain
+    ENV['CANONICAL_DOMAIN']
+  end
+
+  def schools_within_scope
+    yaml.fetch('schools')
+  end
+
+  def fetch_remote_filename_for(key, fallback = nil)
+    yaml.fetch('remote_filenames', {}).fetch(key, fallback)
+  end
+
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
       ["504", "Not 504", "NotIn504"]
@@ -162,7 +174,7 @@ class PerDistrict
 
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
-      LoadDistrictConfig.new.remote_filenames.fetch('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+      filenames.fetch('FILENAMES_FOR_IEP_PDF_ZIPS', [])
     else
       []
     end
@@ -182,6 +194,16 @@ class PerDistrict
   end
 
   private
+  def yaml
+    config_map = {
+      'somerville' => 'config/district_somerville.yml',
+      'new_bedford' => 'config/district_new_bedford.yml',
+      'bedford' => 'config/district_bedford.yml'
+    }
+    config_file_path = config_map[@district_key] || raise_not_handled!
+    @yaml ||= YAML.load(File.open(config_file_path))
+  end
+
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
   end
