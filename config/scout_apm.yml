@@ -1,8 +1,0 @@
-common: &defaults
-  log_level: warn
-
-development:
-  monitor: false
-
-test:
-  monitor: false

@@ -11,6 +11,11 @@ class TestPals
     pals
   end
 
+  # This uses the YAML config
+  def self.seed_somerville_schools!
+    School.create!(PerDistrict.new(district_key: PerDistrict::SOMERVILLE).schools_within_scope)
+  end
+
   # schools
   attr_reader :healey
   attr_reader :shs
@@ -60,7 +65,7 @@ class TestPals
   attr_reader :shs_fifth_period_physics
 
   def create!
-    School.seed_somerville_schools
+    TestPals.seed_somerville_schools!
 
     # Uri works in the central office, and is the admin for the
     # project at the district.

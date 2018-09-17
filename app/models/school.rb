@@ -19,10 +19,6 @@ class School < ActiveRecord::Base
     educators_without_test_account.pluck(:full_name)
   end
 
-  def self.seed_somerville_schools
-    School.seed_schools_for_district('somerville')
-  end
-
   def is_high_school?
     school_type == 'HS'
   end

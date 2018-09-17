@@ -24,7 +24,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     let!(:section) { FactoryBot.create(:section) }
     let!(:educator) { FactoryBot.create(:educator) }
     let!(:high_school) do
-      School.seed_somerville_schools
+      TestPals.seed_somerville_schools!
       School.find_by_local_id('SHS')
     end
 
