@@ -13,7 +13,12 @@ class TestPals
 
   # This uses the YAML config
   def self.seed_somerville_schools!
-    School.create!(PerDistrict.new(district_key: PerDistrict::SOMERVILLE).schools_within_scope)
+    if School.all.size > 0
+      raise "TestPals.seed_somerville_schools! expects there to be no School records"
+    end
+    per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
+    school_definitions = per_district.school_definitions_for_import
+    School.create!(school_definitions)
   end
 
   # schools

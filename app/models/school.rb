@@ -20,8 +20,6 @@ class School < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :school_type, inclusion: { in: VALID_SCHOOL_TYPES }
   validates :slug, presence: true, uniqueness: true, case_sensitive: false
-  validates :created_at, presence: true
-  validates :updated_at, presence: true
 
   def is_high_school?
     school_type == 'HS'

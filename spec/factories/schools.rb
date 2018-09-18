@@ -3,21 +3,28 @@ FactoryBot.define do
   factory :school do
     sequence(:local_id) {|n| n }
     sequence(:slug) {|n| "slug#{n}" }
+    sequence(:name) {|n| "school ##{n}" }
+    school_type { School::VALID_SCHOOL_TYPES.sample }
   end
 
   factory :healey, class: School do
     slug 'hea'
-    local_id "HEA"
+    name 'Healey school'
+    local_id 'HEA'
+    school_type 'ES'
   end
 
   factory :brown, class: School do
     slug 'brn'
-    local_id "BRN"
+    name 'Brown school'
+    local_id 'BRN'
+    school_type 'ES'
   end
 
   factory :shs, class: School do
     slug 'shs'
-    local_id "SHS"
+    name 'Somerville High'
+    local_id 'SHS'
     school_type "HS"
   end
 
@@ -26,5 +33,4 @@ FactoryBot.define do
       school.educators << FactoryBot.create(:educator, full_name: 'Stephenson, Neal')
     end
   end
-
 end
