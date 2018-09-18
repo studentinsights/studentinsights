@@ -39,7 +39,7 @@ class PerDistrict
   end
 
   def try_sftp_filename(key, fallback = nil)
-    yaml.fetch('remote_filenames', {}).fetch(key, fallback)
+    yaml.fetch('sftp_filenames', {}).fetch(key, fallback)
   end
 
   def try_star_filename(key, fallback = nil)
