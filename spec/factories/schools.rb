@@ -4,7 +4,7 @@ FactoryBot.define do
     sequence(:local_id) {|n| n }
     sequence(:slug) {|n| "slug#{n}" }
     sequence(:name) {|n| "school ##{n}" }
-    school_type { School::VALID_SCHOOL_TYPES.sample }
+    school_type { School::ORDERED_SCHOOL_TYPES.sample }
   end
 
   factory :healey, class: School do

@@ -65,7 +65,7 @@ class EducatorsController < ApplicationController
 
   def districtwide_admin_homepage
     @schools = School.all.sort_by do |school|
-      SCHOOL_TYPES.find_index(school.school_type)
+      [School::ORDERED_SCHOOL_TYPES.find_index(school.school_type), school.name]
     end
   end
 

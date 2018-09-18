@@ -1,6 +1,6 @@
 class School < ActiveRecord::Base
   # These are internal to Insights, not from the SIS
-  VALID_SCHOOL_TYPES = [
+  ORDERED_SCHOOL_TYPES = [
     'ECS', # early childhood
     'ES', # elementary
     'ESMS', # elementary and middle
@@ -15,7 +15,7 @@ class School < ActiveRecord::Base
 
   validates :local_id, presence: true, uniqueness: true, case_sensitive: false
   validates :name, presence: true, uniqueness: true
-  validates :school_type, inclusion: { in: VALID_SCHOOL_TYPES }
+  validates :school_type, inclusion: { in: ORDERED_SCHOOL_TYPES }
   validates :slug, presence: true, uniqueness: true, case_sensitive: false
 
   def is_high_school?
