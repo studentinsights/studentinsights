@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 
-describe 'masquerading', type: :feature do
+describe 'masquerading, testing only in Somerville', type: :feature do
   let!(:pals) { TestPals.create! }
 
   def sign_in_as(educator)
@@ -32,7 +32,7 @@ describe 'masquerading', type: :feature do
 
   def expect_to_be_logged_out(page)
     expect(current_path).to eq('/')
-    expect(page).to have_content('Email')
+    expect(page).to have_content('Login')
     expect(page).to have_content('Password')
     expect(page).to have_css('.sign-in-container')
     expect(page).not_to have_content('Sign Out')

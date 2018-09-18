@@ -1,5 +1,5 @@
 class Educator < ActiveRecord::Base
-  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable
+  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text]
 
   belongs_to  :school
   has_one     :homeroom
@@ -14,6 +14,7 @@ class Educator < ActiveRecord::Base
   has_many    :login_activities, as: :user
 
   validates :email, presence: true, uniqueness: true, case_sensitive: false
+  validates :login_name, presence: true, uniqueness: true, case_sensitive: false
 
   validate :validate_has_school_unless_districtwide,
            :validate_admin_gets_access_to_all_students,
