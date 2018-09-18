@@ -14,10 +14,18 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
       staff_type: row[:staff_type],
       admin: is_admin?,
       local_id: row[:local_id],
-      school_id: school_rails_id,
-      schoolwide_access: is_admin?,
-      can_view_restricted_notes: is_admin?
+      school_id: school_rails_id
     })
+
+    # These values are "owned" by Insights and are mutable, so only set defaults
+    # for these attributes when creating a new record, don't update over time.
+    # They are mutated and overwritten by the Insights permissions UI.
+    if educator.new_record?
+      educator.assign_attributes({
+        schoolwide_access: is_admin?,
+        can_view_restricted_notes: is_admin?
+      })
+    end
 
     educator
   end
