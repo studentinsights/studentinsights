@@ -1,13 +1,5 @@
 class ServiceUploadsController < ApplicationController
-  # Authentication by default inherited from ApplicationController.
-
-  before_action :authorize_for_districtwide_access_admin # Extra authentication layer
-
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
-    end
-  end
+  before_action :ensure_authorized!
 
   def create
     service_upload = ServiceUpload.new(
@@ -97,6 +89,9 @@ class ServiceUploadsController < ApplicationController
   end
 
   private
+    def ensure_authorized!
+      raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
+    end
 
     def past_service_upload_json
       ServiceUpload.includes(services: [:student, :service_type])

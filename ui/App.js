@@ -271,7 +271,6 @@ App.propTypes = {
   districtKey: PropTypes.string.isRequired,
   currentEducator: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    admin: PropTypes.bool.isRequired,
     school_id: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,

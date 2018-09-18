@@ -231,10 +231,10 @@ describe SectionsController, :type => :controller do
           end
         end
 
-        context 'admin educator logged in' do
-          let(:admin_educator) { FactoryBot.create(:educator, :admin, school: school) }
+        context 'schoolwide_access educator logged in' do
+          let(:schoolwide_educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
 
-          before { sign_in(admin_educator) }
+          before { sign_in(schoolwide_educator) }
 
           context 'when requesting a section inside their school' do
             it 'is successful' do

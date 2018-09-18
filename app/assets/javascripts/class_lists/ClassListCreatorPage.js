@@ -526,7 +526,6 @@ ClassListCreatorPage.contextTypes = {
 ClassListCreatorPage.propTypes = {
   currentEducator: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    admin: PropTypes.bool.isRequired,
     school_id: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,

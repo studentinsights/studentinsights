@@ -87,7 +87,7 @@ describe SchoolsController, :type => :controller do
 
     context 'educator is an admin with schoolwide access' do
       let!(:school) { pals.healey }
-      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
       let!(:include_me) { FactoryBot.create(:student, :registered_last_year, school: school) }
       let!(:include_me_too) { FactoryBot.create(:student, :registered_last_year, school: school) }
       let!(:include_me_not) { FactoryBot.create(:student, :registered_last_year ) }

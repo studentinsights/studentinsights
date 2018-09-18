@@ -40,7 +40,6 @@ function renderPath(path, options = {}) {
 function createSerializedDataEducator(props = {}) {
   return {
     id: 9999,
-    admin: false,
     school_id: 99,
     labels: [],
     ...props

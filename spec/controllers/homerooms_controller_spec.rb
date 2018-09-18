@@ -182,9 +182,9 @@ describe HomeroomsController, :type => :controller do
 
     end
 
-    context 'admin educator logged in' do
-      let(:admin_educator) { FactoryBot.create(:educator, :admin, school: school) }
-      before { sign_in(admin_educator) }
+    context 'schoolwide access educator logged in' do
+      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
+      before { sign_in(educator) }
 
       context 'no homeroom params' do
         it 'raises an error' do

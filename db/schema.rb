@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(version: 2018_09_18_181103) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "admin", default: false
     t.string "phone"
     t.string "full_name"
     t.string "state_id"
@@ -299,7 +298,6 @@ ActiveRecord::Schema.define(version: 2018_09_18_181103) do
   end
 
   create_table "schools", id: :serial, force: :cascade do |t|
-    t.integer "state_id"
     t.string "school_type", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false

@@ -20,13 +20,6 @@ FactoryBot.define do
     local_id { FactoryBot.generate(:staff_local_id) }
     association :school
 
-    trait :admin do
-      admin true
-      schoolwide_access true
-      restricted_to_sped_students false
-      restricted_to_english_language_learners false
-    end
-
     trait :without_email do
       email nil
     end

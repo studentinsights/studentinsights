@@ -47,8 +47,7 @@ class Authorizer
       :restricted_to_sped_students,
       :restricted_to_english_language_learners,
       :districtwide_access,
-      :school_id,
-      :admin
+      :school_id
     ]
   end
 
@@ -104,7 +103,7 @@ class Authorizer
       return false if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
       return false if @educator.school_id.present? && student.school_id.present? && @educator.school_id != student.school_id
 
-      return true if @educator.schoolwide_access? || @educator.admin? # Schoolwide admin
+      return true if @educator.schoolwide_access? # Schoolwide admin
       return true if @educator.has_access_to_grade_levels? && student.grade.in?(@educator.grade_level_access) # Grade level access
 
       # The next two checks call `#to_a` as a performance optimization.
@@ -142,7 +141,7 @@ class Authorizer
 
     return false if @educator.school.present? && @educator.school != section.course.school
 
-    return true if @educator.schoolwide_access? || @educator.admin?
+    return true if @educator.schoolwide_access?
     return true if section.in?(@educator.sections)
     false
   end

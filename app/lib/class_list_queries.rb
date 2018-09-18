@@ -138,7 +138,6 @@ class ClassListQueries
     return false unless is_authorized_for_school_id?(school_id)
 
     return true if @educator.districtwide_access?
-    return true if @educator.admin?
     return true if @educator.schoolwide_access?
     return true if grade_level_now.in?(student_and_homeroom_grade_levels_now(school_id))
 

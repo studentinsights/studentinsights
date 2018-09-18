@@ -46,21 +46,6 @@ RSpec.describe Educator do
     end
   end
 
-  describe '#admin_gets_access_to_all_students' do
-    context 'admin with access to all students' do
-      let(:admin) { FactoryBot.build(:educator, :admin) }
-      it 'is valid' do
-        expect(admin).to be_valid
-      end
-    end
-    context 'admin without access to all students' do
-      let(:admin) { FactoryBot.build(:educator, :admin, restricted_to_sped_students: true) }
-      it 'is invalid' do
-        expect(admin).to be_invalid
-      end
-    end
-  end
-
   describe 'grade level access' do
     context 'mix of strings and not strings' do
       let(:educator) { FactoryBot.create(:educator, grade_level_access: ['3', 4]) }

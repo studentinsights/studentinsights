@@ -1,11 +1,5 @@
 class LoginActivitiesController < ApplicationController
-  before_action :authorize_for_districtwide_access_admin
-
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      raise Exceptions::EducatorNotAuthorized
-    end
-  end
+  before_action :ensure_authorized!
 
   def index_json
     params.require(:created_at_or_before)
@@ -21,6 +15,9 @@ class LoginActivitiesController < ApplicationController
   end
 
   private
+  def ensure_authorized!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
+  end
 
   def login_activity_json(created_at_or_before:, created_after:)
     LoginActivity.where('created_at > ?', created_after)

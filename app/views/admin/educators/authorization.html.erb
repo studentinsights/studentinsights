@@ -11,26 +11,27 @@
     <table style="margin-top: 40px; text-align: left;">
       <thead>
         <tr>
-          <th>Email</th>
           <th>Name</th>
-          <th>Can set access</th>
-          <th>Admin</th>
-          <th>Restricted notes</th>
-          <th>Districtwide</th>
-          <th>School</th>
+          <th>Insights: Can set access</th>
+          <th>Insights: Restricted notes</th>
+          <th>Insights: Districtwide</th>
+          <th>SIS: Staff type</th>
+          <th>SIS: School</th>
         </tr>
       </thead>
       <tbody>
-        <% educators = (@can_set_educators + @admin_educators + @districtwide_educators).uniq %>
+        <% educators = (@can_set_educators + @districtwide_educators + @restricted_notes_educators).uniq %>
         <% educators.map do |educator| %>
           <tr>
-            <td><%= educator.email %></td>
-            <td><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></td>
+            <td>
+              <div><%= educator.email %></div>
+              <div><%= link_to educator.full_name, "/educators/view/#{educator.id}" %></div>
+            </td>
             <td><%= educator.can_set_districtwide_access %></td>
-            <td><%= educator.admin %></td>
             <td><%= educator.can_view_restricted_notes %></td>
             <td><%= educator.districtwide_access %></td>
-            <td><%= educator.school.try(:name) || "N/A" %></td>
+            <td><%= educator.staff_type || '(none)' %></td>
+            <td><%= educator.school.try(:name) || '(none)' %></td>
         <% end %>
       </tbody>
     </table>
