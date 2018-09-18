@@ -47,7 +47,7 @@ describe StudentsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
-        let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school, full_name: "Teacher, Karen") }
         let(:serialized_data) { assigns(:serialized_data) }
 
         it 'is successful' do
@@ -138,7 +138,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator has an associated label' do
-        let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
         let!(:label) { EducatorLabel.create!(label_key: 'k8_counselor', educator: educator) }
         let(:serialized_data) { assigns(:serialized_data) }
 
@@ -282,7 +282,7 @@ describe StudentsController, :type => :controller do
     end
 
     context 'admin educator logged in' do
-      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
       let!(:provided_by_educator) { FactoryBot.create(:educator, school: school) }
       let!(:student) { FactoryBot.create(:student, school: school) }
 
@@ -365,7 +365,7 @@ describe StudentsController, :type => :controller do
     end
 
     context 'admin educator logged in, no cached student names' do
-      let!(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+      let!(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
       before { sign_in(educator) }
       let!(:juan) {
         FactoryBot.create(
@@ -388,8 +388,8 @@ describe StudentsController, :type => :controller do
 
     context 'admin educator logged in, cached student names' do
       let!(:educator) {
-        FactoryBot.create(
-          :educator, :admin,
+        FactoryBot.create(:educator,
+          schoolwide_access: true,
           school: school,
           student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
         )
@@ -446,7 +446,7 @@ describe StudentsController, :type => :controller do
 
   describe '#student_feed' do
     let(:student) { FactoryBot.create(:student) }
-    let(:educator) { FactoryBot.create(:educator, :admin) }
+    let(:educator) { FactoryBot.create(:educator) }
     let!(:service) { create_service(student, educator) }
     let!(:event_note) { create_event_note(student, educator) }
 
@@ -489,7 +489,7 @@ describe StudentsController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator cannot view restricted notes' do
-        let(:educator) { FactoryBot.create(:educator, :admin, can_view_restricted_notes: false, school: school) }
+        let(:educator) { FactoryBot.create(:educator, can_view_restricted_notes: false, school: school) }
 
         it 'is not successful' do
           make_request(student)
@@ -507,7 +507,7 @@ describe StudentsController, :type => :controller do
       end
 
       context 'educator can view restricted notes' do
-        let(:educator) { FactoryBot.create(:educator, :admin, can_view_restricted_notes: true, school: school) }
+        let(:educator) { FactoryBot.create(:educator, can_view_restricted_notes: true, school: school) }
 
         it 'is successful' do
           make_request(student)

@@ -59,7 +59,6 @@ class EducatorDashboard < Administrate::BaseDashboard
     :homeroom,
     :email,
     :sign_in_count,
-    :admin,
     :full_name,
     :schoolwide_access,
     :grade_level_access,

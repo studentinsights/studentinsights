@@ -45,7 +45,7 @@ describe ServicesController, :type => :controller do
     let(:school) { FactoryBot.create(:school) }
     let(:student) { FactoryBot.create(:student, school: school) }
     let(:homeroom) { student.homeroom }
-    let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+    let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
     let(:service) { create_service(student, educator) }
     before { sign_in(educator) }
 

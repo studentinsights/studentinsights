@@ -4,7 +4,7 @@ RSpec.describe ProfileInsights do
   describe '#as_json' do
     let!(:school) { FactoryBot.create(:school) }
     let!(:student) { FactoryBot.create(:student, school: school) }
-    let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+    let!(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school, full_name: "Teacher, Karen") }
 
     describe 'on happy path' do
       let!(:transition_note_text) do

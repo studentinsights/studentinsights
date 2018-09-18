@@ -6,7 +6,7 @@ class StudentsController < ApplicationController
     :lasids,
     :sample_students_json
   ]
-  before_action :authorize_for_districtwide_access_admin, only: [
+  before_action :ensure_authorized_for_project_lead!, only: [
     :lasids
   ]
 
@@ -142,10 +142,8 @@ class StudentsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
-    end
+  def ensure_authorized_for_project_lead!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
   end
 
   def should_redirect_to_profile_v3?(params)

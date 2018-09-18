@@ -9,7 +9,7 @@ describe ProfilePdfController, :type => :controller do
   end
 
   describe '#student_report' do
-    let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+    let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
     let(:school) { FactoryBot.create(:school) }
     let(:student) { FactoryBot.create(:student, school: school) }
 

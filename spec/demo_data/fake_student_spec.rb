@@ -4,7 +4,7 @@ RSpec.describe FakeStudent do
 
   let!(:school) { FactoryBot.create(:school) }
   let!(:homeroom) { FactoryBot.create(:homeroom, grade: '5') }
-  before { FactoryBot.create(:educator, :admin) }
+  before { FactoryBot.create(:educator) }
 
   let(:student) { FakeStudent.create!(school, homeroom) }
 

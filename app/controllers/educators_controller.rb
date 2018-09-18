@@ -23,8 +23,7 @@ class EducatorsController < ApplicationController
         :can_view_restricted_notes,
         :schoolwide_access,
         :districtwide_access,
-        :grade_level_access,
-        :admin
+        :grade_level_access
       ],
       :methods => [:labels],
       :include => {

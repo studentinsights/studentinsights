@@ -1,11 +1,5 @@
 class IsServiceWorkingController < ApplicationController
-  before_action :authorize_for_districtwide_access_admin
-
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      raise Exceptions::EducatorNotAuthorized
-    end
-  end
+  before_action :ensure_authorized!
 
   def is_service_working_json
     service_type_id = params[:service_type_id]
@@ -30,4 +24,8 @@ class IsServiceWorkingController < ApplicationController
     render json: { chart_data: chart_data }
   end
 
+  private
+  def ensure_authorized!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
+  end
 end

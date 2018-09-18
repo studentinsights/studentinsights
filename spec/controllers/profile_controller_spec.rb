@@ -42,7 +42,7 @@ describe ProfileController, :type => :controller do
     end
 
     describe 'integration test for restricted note redactions' do
-      let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school, full_name: "Teacher, Karen") }
 
       before do
         event_note = FactoryBot.create(:event_note, student: student, text: 'RESTRICTED-one', is_restricted: true)
@@ -61,7 +61,7 @@ describe ProfileController, :type => :controller do
     end
 
     describe 'integration test for transition note redactions' do
-      let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school, full_name: "Teacher, Karen") }
 
       before do
         FactoryBot.create(:transition_note, student: student, text: 'RESTRICTED-transition-note', is_restricted: true)
@@ -79,7 +79,7 @@ describe ProfileController, :type => :controller do
     end
 
     describe 'integration test for profile_insights' do
-      let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+      let!(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school, full_name: "Teacher, Karen") }
       let!(:transition_note_text) do
         "What are this student's strengths?\neverything!\n\nWhat is this student's involvement in the school community like?\nreally good\n\nHow does this student relate to their peers?\nnot sure\n\nWho is the student's primary guardian?\nokay\n\nAny additional comments or good things to know about this student?\nnope :)"
       end
@@ -144,7 +144,7 @@ describe ProfileController, :type => :controller do
       before { sign_in(educator) }
 
       context 'educator has schoolwide access' do
-        let(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school, full_name: "Teacher, Karen") }
 
         it 'is successful' do
           make_request(educator, student.id)
@@ -257,7 +257,7 @@ describe ProfileController, :type => :controller do
       end
 
       context 'educator has an associated label' do
-        let(:educator) { FactoryBot.create(:educator, :admin, school: school) }
+        let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
         let!(:label) { EducatorLabel.create!(label_key: 'k8_counselor', educator: educator) }
 
         it 'serializes the educator label correctly' do
@@ -407,7 +407,7 @@ describe ProfileController, :type => :controller do
 
   describe '#student_feed' do
     let(:student) { FactoryBot.create(:student) }
-    let(:educator) { FactoryBot.create(:educator, :admin) }
+    let(:educator) { FactoryBot.create(:educator) }
     let!(:service) { create_service(student, educator) }
     let!(:event_note) { create_event_note(student, educator) }
 
