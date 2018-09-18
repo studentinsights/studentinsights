@@ -1,14 +1,9 @@
 class School < ActiveRecord::Base
   extend FriendlyId
   friendly_id :local_id, use: :slugged
-  validates :local_id, presence: true, uniqueness: true
-  validate :validate_school_type
-  has_many :students
-  has_many :educators
-  has_many :homerooms
 
   # These are internal to Insights, not from the SIS
-  SCHOOL_TYPES = [
+  VALID_SCHOOL_TYPES = [
     'ECS', # early childhood
     'ES', # elementary
     'ESMS', # elementary and middle
@@ -16,6 +11,17 @@ class School < ActiveRecord::Base
     'HS', # high
     'OTHER' # anything else
   ]
+
+  has_many :students
+  has_many :educators
+  has_many :homerooms
+
+  validates :local_id, presence: true, uniqueness: true, case_sensitive: false
+  validates :name, presence: true, uniqueness: true
+  validates :school_type, inclusion: { in: VALID_SCHOOL_TYPES }
+  validates :slug, presence: true, uniqueness: true, case_sensitive: false
+  validates :created_at, presence: true
+  validates :updated_at, presence: true
 
   def is_high_school?
     school_type == 'HS'
@@ -29,12 +35,5 @@ class School < ActiveRecord::Base
   # deprecated
   def educator_names_for_services
     educators_without_test_account.pluck(:full_name)
-  end
-
-  private
-  def validate_school_type
-    if !SCHOOL_TYPES.include?(school_type)
-      errors.add(:school_type, 'invalid school_type; use nil for unknown values or add to validation whitelist')
-    end
   end
 end
