@@ -9,78 +9,108 @@ remote_filenames:
   FILENAME_FOR_STAR_ZIP_FILE:         New Bedford Public Schools.zip
 
 
-school_definitions:
-  - name: Charles S. Ashley
-    local_id: '010'
-
-  - name: Elizabeth Carter Brooks
-    local_id: '015'
-
-  - name: Elwyn G. Campbell
-    local_id: '020'
-
-  - name: Sgt. William Carney Memorial Academy
-    local_id: '045'
-
-  - name: James B. Congdon
-    local_id: '040'
-
-  - name: John B. DeValles
-    local_id: '050'
-
-  - name: Alfred J. Gomes
-    local_id: '063'
-
-  - name: Irwin M. Jacobs
-    local_id: '070'
-
-  - name: Ellen R. Hathaway
-    local_id: '075'
-
-  - name: Hayden-McFadden
-    local_id: '078'
-
-  - name: Abraham Lincoln
-    local_id: '095'
-
-  - name: Carlos Pacheco
-    local_id: '105'
-
+school_definitions_for_import:
+  # First pilot schools
   - name: John A. Parker
     local_id: '115'
+    school_type: ES
 
   - name: Casimir Pulaski
     local_id: '123'
+    school_type: ES
 
-  - name: Renaissance
-    local_id: '124'
+  # Second wave, start of 2018
+  - name: James B. Congdon
+    local_id: '040'
+    school_type: ES
 
-  - name: Thomas R. Rodman
-    local_id: '125'
+  - name: John B. DeValles
+    local_id: '050'
+    school_type: ES
 
-  - name: Jireh Swift
-    local_id: '130'
+  - name: Alfred J. Gomes
+    local_id: '063'
+    school_type: ES
 
-  - name: William H. Taylor
-    local_id: '135'
+  - name: Sgt. William Carney Memorial Academy
+    local_id: '045'
+    school_type: ES
 
-  - name: Betsey B. Winslow
-    local_id: '140'
+  - name: Hayden-McFadden
+    local_id: '078'
+    school_type: ES
 
   - name: Keith Middle
     local_id: '405'
+    school_type: MS
 
   - name: Normandin Middle
     local_id: '410'
+    school_type: MS
 
   - name: Roosevelt Middle
     local_id: '415'
+    school_type: MS
+
+  # Third wave, start of 2018
+  - name: Charles S. Ashley
+    local_id: '010'
+    school_type: ES
+
+  - name: Elizabeth Carter Brooks
+    local_id: '015'
+    school_type: ES
+
+  - name: Elwyn G. Campbell
+    local_id: '020'
+    school_type: ES
+
+  - name: Carlos Pacheco
+    local_id: '105'
+    school_type: ES
+
+
+school_definitions_not_yet_used:
+  - name: Irwin M. Jacobs
+    local_id: '070'
+    school_type: ES
+
+  - name: Ellen R. Hathaway
+    local_id: '075'
+    school_type: ES
+
+  - name: Abraham Lincoln
+    local_id: '095'
+    school_type: ES
+
+  - name: Renaissance
+    local_id: '124'
+    school_type: ES
+
+  - name: Thomas R. Rodman
+    local_id: '125'
+    school_type: ES
+
+  - name: Jireh Swift
+    local_id: '130'
+    school_type: ES
+
+  - name: William H. Taylor
+    local_id: '135'
+    school_type: ES
+
+  - name: Betsey B. Winslow
+    local_id: '140'
+    school_type: ES
 
   - name: New Bedford High
     local_id: '505'
+    school_type: HS
 
   - name: Trinity Day Academy
     local_id: '510'
+    school_type: HS # actually 7-12
 
   - name: Whaling City Jr./Sr. High
     local_id: '515'
+    school_type: HS # actually 6-12
