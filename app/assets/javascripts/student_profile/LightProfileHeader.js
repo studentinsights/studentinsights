@@ -5,8 +5,7 @@ import {AutoSizer} from 'react-virtualized';
 import * as Routes from '../helpers/Routes';
 import {
   hasStudentPhotos,
-  supportsHouse,
-  shouldDisplayHouse
+  supportsHouse
 } from '../helpers/PerDistrict';
 import HelpBubble, {
   modalFromLeft,
@@ -105,7 +104,6 @@ export default class LightProfileHeader extends React.Component {
     const {student} = this.props;
     const showHouse = (
       supportsHouse(districtKey) &&
-      shouldDisplayHouse({local_id: student.school_local_id}) &&
       student.house
     );
 

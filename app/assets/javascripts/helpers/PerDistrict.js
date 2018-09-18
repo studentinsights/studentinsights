@@ -101,6 +101,7 @@ export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
 
 export function supportsHouse(districtKey) {
   if (districtKey === SOMERVILLE) return true;
+  if (districtKey === BEDFORD) return true;
   if (districtKey === DEMO) return true;
   return false;
 }
