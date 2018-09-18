@@ -59,7 +59,7 @@ class EducatorsImporter
   end
 
   def remote_file_name
-    PerDistrict.new.try_remote_filename('FILENAME_FOR_EDUCATORS_IMPORT')
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_EDUCATORS_IMPORT')
   end
 
   def filter

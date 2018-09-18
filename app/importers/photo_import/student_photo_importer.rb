@@ -61,7 +61,7 @@ class StudentPhotoImporter
 
   private
   def remote_filename
-    PerDistrict.new.try_remote_filename('FILENAME_FOR_PHOTOS_ZIP')
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_PHOTOS_ZIP')
   end
 
   def sftp_client

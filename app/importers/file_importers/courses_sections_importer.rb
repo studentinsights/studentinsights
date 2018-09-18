@@ -22,7 +22,7 @@ class CoursesSectionsImporter
   end
 
   def remote_file_name
-    PerDistrict.new.try_remote_filename('FILENAME_FOR_COURSE_SECTION_IMPORT')
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_COURSE_SECTION_IMPORT')
   end
 
   def data_transformer

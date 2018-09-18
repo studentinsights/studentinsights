@@ -38,8 +38,12 @@ class PerDistrict
     yaml.fetch('school_definitions_for_import')
   end
 
-  def try_remote_filename(key, fallback = nil)
+  def try_sftp_filename(key, fallback = nil)
     yaml.fetch('remote_filenames', {}).fetch(key, fallback)
+  end
+
+  def try_star_filename(key, fallback = nil)
+    yaml.fetch('star_filenames', {}).fetch(key, fallback)
   end
 
   def valid_plan_504_values
@@ -207,7 +211,7 @@ class PerDistrict
 
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
-      try_remote_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+      try_sftp_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
     else
       []
     end
