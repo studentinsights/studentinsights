@@ -298,7 +298,6 @@ ActiveRecord::Schema.define(version: 2018_09_18_153205) do
   end
 
   create_table "schools", id: :serial, force: :cascade do |t|
-    t.integer "state_id"
     t.string "school_type"
     t.string "name"
     t.datetime "created_at"
@@ -306,7 +305,6 @@ ActiveRecord::Schema.define(version: 2018_09_18_153205) do
     t.string "local_id"
     t.string "slug"
     t.index ["local_id"], name: "index_schools_on_local_id"
-    t.index ["state_id"], name: "index_schools_on_state_id"
   end
 
   create_table "sections", id: :serial, force: :cascade do |t|

@@ -12,9 +12,8 @@ class FeedFilter
 
     filtered_students = students
     filters.each do |filter|
-      if filter.should_use?
-        filtered_students = filtered_students.select {|student| filter.keep?(student) }
-      end
+      next unless filter.should_use?
+      filtered_students = filtered_students.select {|student| filter.keep?(student) }
     end
 
     filtered_students
