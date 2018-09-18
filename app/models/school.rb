@@ -1,7 +1,4 @@
 class School < ActiveRecord::Base
-  extend FriendlyId
-  friendly_id :local_id, use: :slugged
-
   # These are internal to Insights, not from the SIS
   VALID_SCHOOL_TYPES = [
     'ECS', # early childhood

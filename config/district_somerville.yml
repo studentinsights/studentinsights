@@ -30,67 +30,67 @@ remote_filenames:
 
 school_definitions_for_import:
   - local_id: BRN
-    slug: BRN
+    slug: brn
     name: Benjamin G Brown
     school_type: ES
 
   - local_id: HEA
-    slug: HEA
+    slug: hea
     name: Arthur D Healey
     school_type: ESMS
 
   - local_id: KDY
-    slug: KDY
+    slug: kdy
     name: John F Kennedy
     school_type: ESMS
 
   - local_id: AFAS
-    slug: AFAS
+    slug: afas
     name: Albert F. Argenziano School
     school_type: ESMS
 
   - local_id: ESCS
-    slug: ESCS
+    slug: escs
     name: E Somerville Community
     school_type: ESMS
 
   - local_id: WSNS
-    slug: WSNS
+    slug: wsns
     name: West Somerville Neighborhood
     school_type: ESMS
 
   - local_id: WHCS
-    slug: WHCS
+    slug: whcs
     name: Winter Hill Community
     school_type: ESMS
 
   - local_id: NW
-    slug: NW
+    slug: nw
     name: Next Wave Junior High
     school_type: MS
 
   - local_id: SHS
-    slug: SHS
+    slug: shs
     name: Somerville High
     school_type: HS
 
   - local_id: FC
-    slug: FC
+    slug: fc
     name: Full Circle High School
     school_type: HS
 
   - local_id: CAP
-    slug: CAP
+    slug: cap
     name: Capuano Early Childhood Center
     school_type: ECS
 
   - local_id: PIC
-    slug: PIC
+    slug: pic
     name: Parent Information Center
     school_type: OTHER
 
   - local_id: SPED
-    slug: SPED
+    slug: sped
     name: Special Education
     school_type: OTHER
 
