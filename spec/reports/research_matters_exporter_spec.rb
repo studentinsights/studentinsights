@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ResearchMattersExporter do
-  before { TestPals.seed_somerville_schools! }
+  let!(:pals) { TestPals.seed_somerville_schools_for_test! }
   let!(:school) { School.find_by_name('Arthur D Healey') }
   let!(:kennedy_school) { School.find_by_name('John F Kennedy') }
   let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: 'Khamar, Matsay', email: 'matsay@demo.studentinsights.org') }
