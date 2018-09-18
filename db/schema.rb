@@ -299,7 +299,10 @@ ActiveRecord::Schema.define(version: 2018_09_18_181103) do
   end
 
   create_table "schools", id: :serial, force: :cascade do |t|
+<<<<<<< Updated upstream
     t.integer "state_id"
+=======
+>>>>>>> Stashed changes
     t.string "school_type", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
