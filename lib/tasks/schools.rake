@@ -12,7 +12,7 @@ namespace :schools do
       # create
       if school.nil?
         puts "  Creating school #{local_id}..."
-        school.save!
+        School.create!(school_definition)
         next
       end
 
