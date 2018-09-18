@@ -10,6 +10,9 @@
 # instead of relying on a different auth mechanism locally and only exercising
 # LDAP-related code in production.
 
+# Because the API for Insights to LDAP servers is slightly different per districts,
+# and we want to enable using this in development and test across districts, this
+# means that the behavior here varies using `PerDistrict`.
 class MockLDAP
 
   def self.should_use?
