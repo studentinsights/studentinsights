@@ -12,10 +12,7 @@ class TestPals
   end
 
   # This uses the YAML config
-  def self.seed_somerville_schools!
-    if School.all.size > 0
-      raise "TestPals.seed_somerville_schools! expects there to be no School records"
-    end
+  def self.seed_somerville_schools_for_test!
     per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
     school_definitions = per_district.school_definitions_for_import
     School.create!(school_definitions)
@@ -70,7 +67,7 @@ class TestPals
   attr_reader :shs_fifth_period_physics
 
   def create!(options = {})
-    TestPals.seed_somerville_schools!
+    TestPals.seed_somerville_schools_for_test!
 
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
 

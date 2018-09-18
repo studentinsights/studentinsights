@@ -67,7 +67,7 @@ class ImportTask
   def school_ids
     return @school if @school.present?
 
-    PerDistrict.new.schools_within_scope.map { |school| school["local_id"] }
+    PerDistrict.new.school_definitions_for_import.map { |school| school["local_id"] }
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##
