@@ -7,79 +7,80 @@ remote_filenames:
   FILENAME_FOR_STAR_READING_IMPORT:   SR.csv
   FILENAME_FOR_STAR_MATH_IMPORT:      SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:         New Bedford Public Schools.zip
-schools:
-  -
-    name: Charles S. Ashley
+
+
+school_definitions:
+  - name: Charles S. Ashley
     local_id: '010'
-  -
-    name: Elizabeth Carter Brooks
+
+  - name: Elizabeth Carter Brooks
     local_id: '015'
-  -
-    name: Elwyn G. Campbell
+
+  - name: Elwyn G. Campbell
     local_id: '020'
-  -
-    name: Sgt. William Carney Memorial Academy
+
+  - name: Sgt. William Carney Memorial Academy
     local_id: '045'
-  -
-    name: James B. Congdon
+
+  - name: James B. Congdon
     local_id: '040'
-  -
-    name: John B. DeValles
+
+  - name: John B. DeValles
     local_id: '050'
-  -
-    name: Alfred J. Gomes
+
+  - name: Alfred J. Gomes
     local_id: '063'
-  -
-    name: Irwin M. Jacobs
+
+  - name: Irwin M. Jacobs
     local_id: '070'
-  -
-    name: Ellen R. Hathaway
+
+  - name: Ellen R. Hathaway
     local_id: '075'
-  -
-    name: Hayden-McFadden
+
+  - name: Hayden-McFadden
     local_id: '078'
-  -
-    name: Abraham Lincoln
+
+  - name: Abraham Lincoln
     local_id: '095'
-  -
-    name: Carlos Pacheco
+
+  - name: Carlos Pacheco
     local_id: '105'
-  -
-    name: John A. Parker
+
+  - name: John A. Parker
     local_id: '115'
-  -
-    name: Casimir Pulaski
+
+  - name: Casimir Pulaski
     local_id: '123'
-  -
-    name: Renaissance
+
+  - name: Renaissance
     local_id: '124'
-  -
-    name: Thomas R. Rodman
+
+  - name: Thomas R. Rodman
     local_id: '125'
-  -
-    name: Jireh Swift
+
+  - name: Jireh Swift
     local_id: '130'
-  -
-    name: William H. Taylor
+
+  - name: William H. Taylor
     local_id: '135'
-  -
-    name: Betsey B. Winslow
+
+  - name: Betsey B. Winslow
     local_id: '140'
-  -
-    name: Keith Middle
+
+  - name: Keith Middle
     local_id: '405'
-  -
-    name: Normandin Middle
+
+  - name: Normandin Middle
     local_id: '410'
-  -
-    name: Roosevelt Middle
+
+  - name: Roosevelt Middle
     local_id: '415'
-  -
-    name: New Bedford High
+
+  - name: New Bedford High
     local_id: '505'
-  -
-    name: Trinity Day Academy
+
+  - name: Trinity Day Academy
     local_id: '510'
-  -
-    name: Whaling City Jr./Sr. High
+
+  - name: Whaling City Jr./Sr. High
     local_id: '515'
