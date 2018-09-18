@@ -141,6 +141,58 @@ class PerDistrict
     end
   end
 
+  # Users in Bedford type in just their login, others
+  # use full email addresses.
+  def find_educator_by_login_text(login_text)
+    cleaned_login_text = login_text.downcase.strip
+    if @district_key == BEDFORD
+      Educator.find_by_login_name(cleaned_login_text)
+    elsif @district_key == SOMERVILLE
+      Educator.find_by_email(cleaned_login_text)
+    elsif @district_key == NEW_BEDFORD
+      Educator.find_by_email(cleaned_login_text)
+    elsif @district_key == DEMO
+      Educator.find_by_email(cleaned_login_text)
+    else
+      raise_not_handled!
+    end
+  end
+
+  # Bedford LDAP server uses an email address format, but this is different
+  # than the email addresses that educators actually use day-to-day.
+  def ldap_login_for_educator(educator)
+    if @district_key == BEDFORD
+      "#{educator.login_name.downcase}@bedford.k12.ma.us"
+    elsif @district_key == SOMERVILLE
+      educator.email
+    elsif @district_key == NEW_BEDFORD
+      educator.email
+    elsif @district_key == DEMO
+      educator.email # only used for MockLDAP in dev/test
+    else
+      raise_not_handled!
+    end
+  end
+
+  # This is used to mock an LDAP server for local development, test and for the demo site.
+  # The behavior here is different by districts.
+  def find_educator_for_mock_ldap_login(ldap_login)
+    raise_not_handled! unless MockLDAP.should_use?
+
+    if @district_key == BEDFORD
+      login_name = ldap_login.split('@').first
+      Educator.find_by_login_name(login_name)
+    elsif @district_key == SOMERVILLE
+      Educator.find_by_email(ldap_login)
+    elsif @district_key == NEW_BEDFORD
+      Educator.find_by_email(ldap_login)
+    elsif @district_key == DEMO
+      Educator.find_by_email(ldap_login)
+    else
+      raise_not_handled!
+    end
+  end
+
   def import_detailed_attendance_fields?
     return true if @district_key == SOMERVILLE
 

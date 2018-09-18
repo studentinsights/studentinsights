@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-RSpec.describe ShouldUseMockLDAP do
-  describe '#check' do
+RSpec.describe MockLDAP do
+  describe '.should_use?' do
     context 'USE_MOCK_LDAP is "false"' do
       before do
         allow(ENV).to receive(:[]).with('USE_MOCK_LDAP').and_return('false')
       end
 
       it 'returns false' do
-        expect(described_class.new.check).to eq false
+        expect(MockLDAP.should_use?).to eq false
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe ShouldUseMockLDAP do
       end
 
       it 'returns false' do
-        expect(described_class.new.check).to eq false
+        expect(MockLDAP.should_use?).to eq false
       end
     end
 
@@ -29,13 +29,13 @@ RSpec.describe ShouldUseMockLDAP do
       end
 
       it 'returns false' do
-        expect(described_class.new.check).to eq false
+        expect(MockLDAP.should_use?).to eq false
       end
     end
 
     context 'USE_MOCK_LDAP is "true", password is set (test.rb defaults)'  do
       it 'returns true' do
-        expect(described_class.new.check).to eq true
+        expect(MockLDAP.should_use?).to eq true
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe ShouldUseMockLDAP do
       end
 
       it 'returns false' do
-        expect(described_class.new.check).to eq false
+        expect(MockLDAP.should_use?).to eq false
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe ShouldUseMockLDAP do
       end
 
       it 'returns false' do
-        expect(described_class.new.check).to eq false
+        expect(MockLDAP.should_use?).to eq false
       end
     end
   end
