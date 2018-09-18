@@ -11,6 +11,13 @@ class TestPals
     pals
   end
 
+  # This uses the YAML config
+  def self.seed_somerville_schools_for_test!
+    per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
+    school_definitions = per_district.school_definitions_for_import
+    School.create!(school_definitions)
+  end
+
   # schools
   attr_reader :healey
   attr_reader :shs
@@ -60,8 +67,9 @@ class TestPals
   attr_reader :shs_fifth_period_physics
 
   def create!(options = {})
+    TestPals.seed_somerville_schools_for_test!
+
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
-    School.seed_somerville_schools
 
     # Uri works in the central office, and is the admin for the
     # project at the district.

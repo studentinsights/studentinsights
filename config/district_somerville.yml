@@ -27,53 +27,91 @@ remote_filenames:
   FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
 
-schools:
-  -
-    local_id: BRN
+
+school_definitions_for_import:
+  - local_id: BRN
+    slug: brn
     name: Benjamin G Brown
     school_type: ES
-  -
-    local_id: HEA
+
+  - local_id: HEA
+    slug: hea
     name: Arthur D Healey
     school_type: ESMS
-  -
-    local_id: KDY
+
+  - local_id: KDY
+    slug: kdy
     name: John F Kennedy
     school_type: ESMS
-  -
-    local_id: AFAS
+
+  - local_id: AFAS
+    slug: afas
     name: Albert F. Argenziano School
     school_type: ESMS
-  -
-    local_id: ESCS
+
+  - local_id: ESCS
+    slug: escs
     name: E Somerville Community
     school_type: ESMS
-  -
-    local_id: WSNS
+
+  - local_id: WSNS
+    slug: wsns
     name: West Somerville Neighborhood
     school_type: ESMS
-  -
-    local_id: WHCS
+
+  - local_id: WHCS
+    slug: whcs
     name: Winter Hill Community
     school_type: ESMS
-  -
-    local_id: NW
+
+  - local_id: NW
+    slug: nw
     name: Next Wave Junior High
     school_type: MS
-  -
-    local_id: SHS
+
+  - local_id: SHS
+    slug: shs
     name: Somerville High
     school_type: HS
-  -
-    local_id: FC
+
+  - local_id: FC
+    slug: fc
     name: Full Circle High School
     school_type: HS
-  -
-    local_id: CAP
+
+  - local_id: CAP
+    slug: cap
     name: Capuano Early Childhood Center
-  -
-    local_id: PIC
+    school_type: ECS
+
+  - local_id: PIC
+    slug: pic
     name: Parent Information Center
-  -
-    local_id: SPED
+    school_type: OTHER
+
+  - local_id: SPED
+    slug: sped
     name: Special Education
+    school_type: OTHER
+
+
+school_definitions_not_yet_used:
+  - local_id: CUM
+    slug: CUM
+    name: Cummings School
+    school_type: OTHER
+
+  - local_id: PHCS
+    slug: PHCS
+    name: Powerhouse Community School
+    school_type: OTHER
+
+  - local_id: SCALE
+    slug: SCALE
+    name: Somerville Center for Adult Learning Experiences
+    school_type: OTHER
+
+  - local_id: HIST
+    slug: HIST
+    name: (Historical, marker for students who have graduated, withdrawn, etc.)
+    school_type: OTHER

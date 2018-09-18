@@ -3,7 +3,7 @@ class School < ActiveRecord::Base
   friendly_id :local_id, use: :slugged
 
   # These are internal to Insights, not from the SIS
-  VALID_SCHOOL_TYPES = [
+  ORDERED_SCHOOL_TYPES = [
     'ECS', # early childhood
     'ES', # elementary
     'ESMS', # elementary and middle
@@ -16,37 +16,22 @@ class School < ActiveRecord::Base
   has_many :educators
   has_many :homerooms
 
-  validates :local_id, presence: true, uniqueness: true
+  validates :local_id, presence: true, uniqueness: true, case_sensitive: false
+  validates :name, presence: true, uniqueness: true
+  validates :school_type, inclusion: { in: ORDERED_SCHOOL_TYPES }
+  validates :slug, presence: true, uniqueness: true, case_sensitive: false
 
-  def self.with_students
-    School.all.select { |s| s.students.count > 0 }
+  def is_high_school?
+    school_type == 'HS'
   end
 
+  # deprecated
   def educators_without_test_account
     educators.where.not(local_id: 'LDAP')
   end
 
+  # deprecated
   def educator_names_for_services
     educators_without_test_account.pluck(:full_name)
-  end
-
-  def self.seed_schools_for_district(district_key = ENV['DISTRICT_KEY'])
-    schools = School.fetch_school_data_for_district(district_key)
-
-    School.create!(schools)
-  end
-
-  def self.fetch_school_data_for_district(district_key)
-    yml_config = LoadDistrictConfig.new(district_key).load_yml
-
-    return yml_config.fetch("schools")
-  end
-
-  def self.seed_somerville_schools
-    School.seed_schools_for_district('somerville')
-  end
-
-  def is_high_school?
-    school_type == 'HS'
   end
 end

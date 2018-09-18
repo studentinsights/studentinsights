@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe ImportTask do
 
   describe '#connect_transform_import' do
+    before { TestPals.seed_somerville_schools_for_test! }
     let(:task) { ImportTask.new(options: {'test_mode' => true}) }
 
     it 'doesn\'t blow up (smoke test)' do
