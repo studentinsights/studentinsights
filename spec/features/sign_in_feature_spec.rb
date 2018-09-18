@@ -25,29 +25,29 @@ end
 
 describe 'with Mock LDAP, integration tests work across districts' do
   it 'works for Somerville using email' do
-    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
     TestPals.create!(email_domain: 'k12.somerville.ma.us')
+    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
     sign_in_attempt('uri@k12.somerville.ma.us', 'demo-password')
     expect(page).to have_content 'Search:'
   end
 
   it 'works for New Bedford using email' do
-    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
     TestPals.create!(email_domain: 'newbedfordschools.org')
+    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
     sign_in_attempt('uri@newbedfordschools.org', 'demo-password')
     expect(page).to have_content 'Search:'
   end
 
   it 'works for Bedford using plain login_name, and separate email address for LDAP authentication' do
-    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
     TestPals.create!(email_domain: 'bedfordps.org')
+    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
     sign_in_attempt('uri', 'demo-password')
     expect(page).to have_content 'Search:'
   end
 
   it 'works for demo' do
-    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
     TestPals.create!
+    allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
     sign_in_attempt('uri@demo.studentinsights.org', 'demo-password')
     expect(page).to have_content 'Search:'
   end

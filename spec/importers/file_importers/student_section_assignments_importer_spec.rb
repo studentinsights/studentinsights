@@ -10,7 +10,7 @@ RSpec.describe StudentSectionAssignmentsImporter do
     importer
   end
 
-  before { School.seed_somerville_schools }
+  before { TestPals.seed_somerville_schools_for_test! }
   let(:high_school) { School.find_by_local_id('SHS') }
   let(:student_section_assignments_importer) { make_importer_with_initialization }
 

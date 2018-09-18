@@ -36,11 +36,11 @@ class StarMathImporter
   end
 
   def zip_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_ZIP_FILE')
+    PerDistrict.new.try_remote_filename('FILENAME_FOR_STAR_ZIP_FILE')
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_MATH_IMPORT', nil)
+    PerDistrict.new.try_remote_filename('FILENAME_FOR_STAR_MATH_IMPORT')
   end
 
   def data_transformer

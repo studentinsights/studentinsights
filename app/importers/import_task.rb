@@ -23,9 +23,8 @@ class ImportTask
       @record = create_import_record
       @report = create_report
       log('Starting validation...')
-      validate_district_option
-      seed_schools_if_needed
       validate_school_options
+      verify_school_definitions!
       log('Done validation.')
 
       log('Starting importing work...')
@@ -56,31 +55,29 @@ class ImportTask
   private
 
   ## VALIDATE DEVELOPER INPUT ##
-
-  def validate_district_option
-    # The LoadDistrictConfig class uses `fetch`, which will validate the
-    # district option for us
-    LoadDistrictConfig.new.load_yml
-  end
-
-  def seed_schools_if_needed
-    School.seed_schools_for_district if School.count == 0
-  end
-
   def validate_school_options
-    # If the developer is passing in a list of school IDs to filter by,
-    # we check that the IDs are valid and the schools exist in the database.
-
-    # If there's no filtering by school, we take all the school IDs listed in
-    # the district config file and make sure those schools are in the database.
-
+    # Verify that the list of school local_ids that were passed (or are
+    # default) exist before starting the import.
     school_ids.each { |id| School.find_by!(local_id: id) }
+  end
+
+  # Verify that the schools in the database match what the school
+  # definition files say, otherwise raise.
+  def verify_school_definitions!
+    school_definitions = PerDistrict.new.school_definitions_for_import
+    school_definitions.each do |school_definition|
+      school = School.find_by!(local_id: school_definition['local_id'])
+      school.assign_attributes(school_definition)
+      if school.changed?
+        raise "School id:#{school.id}, local_id:#{school.local_id} does not match definition: #{school_definition.as_json}"
+      end
+    end
   end
 
   def school_ids
     return @school if @school.present?
 
-    LoadDistrictConfig.new.schools.map { |school| school["local_id"] }
+    PerDistrict.new.school_definitions_for_import.map { |school| school["local_id"] }
   end
 
   ## SET UP COMMAND LINE REPORT AND DATABASE RECORD ##

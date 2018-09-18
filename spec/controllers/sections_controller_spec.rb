@@ -79,9 +79,9 @@ describe SectionsController, :type => :controller do
       let!(:section) { pals.shs_tuesday_biology_section }
       before { sign_in(educator) }
       before do
-        mock_per_district = instance_double(PerDistrict)
-        expect(mock_per_district).to receive(:high_school_enabled?).and_return(false)
-        expect(PerDistrict).to receive(:new).and_return(mock_per_district)
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:high_school_enabled?).and_return(false)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
       end
 
       it 'guards access' do

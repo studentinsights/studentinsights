@@ -73,7 +73,7 @@ RSpec.describe StudentsImporter do
     end
 
     it 'updates homeroom_id' do
-      healey = School.create(local_id: 'HEA')
+      healey = FactoryBot.create(:healey)
       first_homeroom = Homeroom.create!(name: 'HEA 001', school: healey)
       second_homeroom = Homeroom.create!(name: 'HEA 002', school: healey)
       allow(importer).to receive(:download_csv).and_return([
@@ -89,9 +89,10 @@ RSpec.describe StudentsImporter do
 
   describe '#import_row' do
     context 'good data' do
-      let!(:high_school) { School.create(local_id: 'SHS') }
-      let!(:healey) { School.create(local_id: 'HEA') }
-      let!(:brown) { School.create(local_id: 'BRN') }
+      before { TestPals.seed_somerville_schools_for_test! }
+      let!(:high_school) { School.find_by_local_id('SHS') }
+      let!(:healey) { School.find_by_local_id('HEA') }
+      let!(:brown) { School.find_by_local_id('BRN') }
 
       let!(:log) { LogHelper::FakeLog.new }
       let!(:importer) { make_students_importer(log: log) }

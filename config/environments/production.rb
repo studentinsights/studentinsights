@@ -95,7 +95,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.default_url_options = {
-    host: "https://#{LoadDistrictConfig.new.canonical_domain}/"
+    host: "https://#{PerDistrict.new.canonical_domain}/"
   }
 
   ActionMailer::Base.smtp_settings = {
@@ -103,7 +103,7 @@ Rails.application.configure do
     :address        => ENV['MAILGUN_SMTP_SERVER'],
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => "https://#{LoadDistrictConfig.new.canonical_domain}/",
+    :domain         => "https://#{PerDistrict.new.canonical_domain}/",
     :authentication => :plain,
   }
 

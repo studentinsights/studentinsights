@@ -305,6 +305,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_181103) do
     t.string "local_id", null: false
     t.string "slug", null: false
     t.index ["local_id"], name: "index_schools_on_local_id"
+    t.index ["state_id"], name: "index_schools_on_state_id"
   end
 
   create_table "sections", id: :serial, force: :cascade do |t|

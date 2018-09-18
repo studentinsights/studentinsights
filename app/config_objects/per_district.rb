@@ -30,6 +30,18 @@ class PerDistrict
     ENV['DISTRICT_NAME']
   end
 
+  def canonical_domain
+    ENV['CANONICAL_DOMAIN']
+  end
+
+  def school_definitions_for_import
+    yaml.fetch('school_definitions_for_import')
+  end
+
+  def try_remote_filename(key, fallback = nil)
+    yaml.fetch('remote_filenames', {}).fetch(key, fallback)
+  end
+
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
       ["504", "Not 504", "NotIn504"]
@@ -61,36 +73,6 @@ class PerDistrict
 
   def include_incident_cards?
     EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
-  end
-
-  # The schools shown on the admin page are in different orders,
-  # with pilot schools in New Bedford shown first.
-  def ordered_schools_for_admin_page
-    if @district_key == NEW_BEDFORD
-      School.where(local_id: [
-        # Pilot schools
-        '115',  # Parker
-        '123',  # Pulaski
-
-        # New 2018-19 school year schools
-        '040',  # Congdon
-        '050',  # DeValles
-        '405',  # Keith Middle
-        '415',  # Roosevelt Middle
-        '410',  # Normandin Middle
-        '063',  # Gomes
-        '045',  # Carney
-        '078',  # Hayden McFadden
-
-        # Next wave of 2018-19 schools
-        '010',  # Ashley
-        '015',  # Brooks
-        '020',  # Campbell
-        '105',  # Pacheco
-      ])
-    else
-      School.all
-    end
   end
 
   def high_school_enabled?
@@ -225,7 +207,7 @@ class PerDistrict
 
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
-      LoadDistrictConfig.new.remote_filenames.fetch('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+      try_remote_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
     else
       []
     end
@@ -245,6 +227,16 @@ class PerDistrict
   end
 
   private
+  def yaml
+    config_map = {
+      SOMERVILLE => 'config/district_somerville.yml',
+      NEW_BEDFORD => 'config/district_new_bedford.yml',
+      BEDFORD => 'config/district_bedford.yml'
+    }
+    config_file_path = config_map[@district_key] || raise_not_handled!
+    @yaml ||= YAML.load(File.open(config_file_path))
+  end
+
   def raise_not_handled!
     raise Exceptions::DistrictKeyNotHandledError
   end
