@@ -30,71 +30,88 @@ remote_filenames:
 
 school_definitions_for_import:
   - local_id: BRN
+    slug: BRN
     name: Benjamin G Brown
     school_type: ES
 
   - local_id: HEA
+    slug: HEA
     name: Arthur D Healey
     school_type: ESMS
 
   - local_id: KDY
+    slug: KDY
     name: John F Kennedy
     school_type: ESMS
 
   - local_id: AFAS
+    slug: AFAS
     name: Albert F. Argenziano School
     school_type: ESMS
 
   - local_id: ESCS
+    slug: ESCS
     name: E Somerville Community
     school_type: ESMS
 
   - local_id: WSNS
+    slug: WSNS
     name: West Somerville Neighborhood
     school_type: ESMS
 
   - local_id: WHCS
+    slug: WHCS
     name: Winter Hill Community
     school_type: ESMS
 
   - local_id: NW
+    slug: NW
     name: Next Wave Junior High
     school_type: MS
 
   - local_id: SHS
+    slug: SHS
     name: Somerville High
     school_type: HS
 
   - local_id: FC
+    slug: FC
     name: Full Circle High School
     school_type: HS
 
   - local_id: CAP
+    slug: CAP
     name: Capuano Early Childhood Center
     school_type: ECS
 
   - local_id: PIC
+    slug: PIC
     name: Parent Information Center
     school_type: OTHER
 
   - local_id: SPED
+    slug: SPED
     name: Special Education
     school_type: OTHER
 
 
 school_definitions_not_yet_used:
   - local_id: CUM
+    slug: CUM
     name: Cummings School
     school_type: OTHER
 
   - local_id: PHCS
+    slug: PHCS
     name: Powerhouse Community School
     school_type: OTHER
 
   - local_id: SCALE
+    slug: SCALE
     name: Somerville Center for Adult Learning Experiences
     school_type: OTHER
 
   - local_id: HIST
+    slug: HIST
     name: (Historical, marker for students who have graduated, withdrawn, etc.)
     school_type: OTHER
