@@ -64,7 +64,9 @@ class EducatorsController < ApplicationController
   end
 
   def districtwide_admin_homepage
-    @schools = PerDistrict.new.ordered_schools_for_admin_page
+    @schools = School.all.sort_by do |school|
+      SCHOOL_TYPES.find_index(school.school_type)
+    end
   end
 
   def names_for_dropdown
