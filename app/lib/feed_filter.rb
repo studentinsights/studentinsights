@@ -12,7 +12,9 @@ class FeedFilter
 
     filtered_students = students
     filters.each do |filter|
-      filtered_students = filter.filter(filtered_students) if filter.enabled?
+      if filter.should_use?
+        filtered_students = filtered_students.select {|student| filter.keep?(student) }
+      end
     end
 
     filtered_students
@@ -25,19 +27,12 @@ class FeedFilter
       @educator = educator
     end
 
-    # Check global env flag, then per-educator flag.
-    def enabled?
+    def should_use?
       return false unless PerDistrict.new.enable_counselor_based_feed?
-      return false unless EducatorLabel.has_static_label?(@educator.id, 'use_counselor_based_feed')
-      true
+      EducatorLabel.has_static_label?(@educator.id, 'use_counselor_based_feed')
     end
 
-    def filter(students)
-      students.select {|student| is_counselor_for?(student) }
-    end
-
-    private
-    def is_counselor_for?(student)
+    def keep?(student)
       return false if student.counselor.nil?
       CounselorNameMapping.has_mapping? @educator.id, student.counselor.downcase
     end
@@ -48,19 +43,12 @@ class FeedFilter
       @educator = educator
     end
 
-    # Check global env flag, then per-educator flag.
-    def enabled?
+    def should_use?
       return false unless PerDistrict.new.enable_housemaster_based_feed?
-      return false unless EducatorLabel.has_static_label?(@educator.id, 'use_housemaster_based_feed')
-      true
+      EducatorLabel.has_static_label?(@educator.id, 'use_housemaster_based_feed')
     end
 
-    def filter(students)
-      students.select {|student| is_housemaster_for?(student) }
-    end
-
-    private
-    def is_housemaster_for?(student)
+    def keep?(student)
       return false if student.house.nil? || student.house == ''
       HouseEducatorMapping.has_mapping? @educator.id, student.house.downcase
     end
