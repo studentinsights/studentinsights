@@ -36,11 +36,11 @@ class StarReadingImporter
   end
 
   def zip_file_name
-    PerDistrict.new.fetch_remote_filename('FILENAME_FOR_STAR_ZIP_FILE', nil)
+    PerDistrict.new.try_remote_filename('FILENAME_FOR_STAR_ZIP_FILE')
   end
 
   def remote_file_name
-    PerDistrict.new.fetch_remote_filename('FILENAME_FOR_STAR_READING_IMPORT', nil)
+    PerDistrict.new.try_remote_filename('FILENAME_FOR_STAR_READING_IMPORT')
   end
 
   def data_transformer

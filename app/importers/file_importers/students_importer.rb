@@ -55,7 +55,7 @@ class StudentsImporter
   end
 
   def remote_file_name
-    PerDistrict.new.fetch_remote_filename('FILENAME_FOR_STUDENTS_IMPORT', nil)
+    PerDistrict.new.try_remote_filename('FILENAME_FOR_STUDENTS_IMPORT')
   end
 
   def filter

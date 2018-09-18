@@ -46,7 +46,7 @@ class StudentSectionGradesImporter
   end
 
   def remote_file_name
-    PerDistrict.new.fetch_remote_filename('FILENAME_FOR_STUDENT_AVERAGES_IMPORT', nil)
+    PerDistrict.new.try_remote_filename('FILENAME_FOR_STUDENT_AVERAGES_IMPORT')
   end
 
   def data_transformer

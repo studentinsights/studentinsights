@@ -38,7 +38,7 @@ class PerDistrict
     yaml.fetch('school_definitions_for_import')
   end
 
-  def fetch_remote_filename(key, fallback)
+  def try_remote_filename(key, fallback = nil)
     yaml.fetch('remote_filenames', {}).fetch(key, fallback)
   end
 
@@ -207,7 +207,7 @@ class PerDistrict
 
   def filenames_for_iep_pdf_zips
     if @district_key == SOMERVILLE
-      filenames.fetch('FILENAMES_FOR_IEP_PDF_ZIPS', [])
+      try_remote_filename('FILENAMES_FOR_IEP_PDF_ZIPS', [])
     else
       []
     end
@@ -229,9 +229,9 @@ class PerDistrict
   private
   def yaml
     config_map = {
-      'somerville' => 'config/district_somerville.yml',
-      'new_bedford' => 'config/district_new_bedford.yml',
-      'bedford' => 'config/district_bedford.yml'
+      SOMERVILLE => 'config/district_somerville.yml',
+      NEW_BEDFORD => 'config/district_new_bedford.yml',
+      BEDFORD => 'config/district_bedford.yml'
     }
     config_file_path = config_map[@district_key] || raise_not_handled!
     @yaml ||= YAML.load(File.open(config_file_path))
