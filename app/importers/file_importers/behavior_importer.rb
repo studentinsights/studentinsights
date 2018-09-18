@@ -56,7 +56,7 @@ class BehaviorImporter
   end
 
   def remote_file_name
-    PerDistrict.new.try_remote_filename('FILENAME_FOR_BEHAVIOR_IMPORT')
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_BEHAVIOR_IMPORT')
   end
 
   def data_transformer

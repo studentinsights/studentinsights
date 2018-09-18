@@ -1,3 +1,11 @@
+sftp_filenames:
+  FILENAME_FOR_EDUCATORS_IMPORT:     /home/bedford/data/staff.csv
+  FILENAME_FOR_STUDENTS_IMPORT:      /home/bedford/data/student.csv
+  FILENAME_FOR_BEHAVIOR_IMPORT:      /home/bedford/data/conduct.csv
+  FILENAME_FOR_ASSESSMENT_IMPORT:    /home/bedford/data/Assessment.csv
+  FILENAME_FOR_ATTENDANCE_IMPORT:    /home/bedford/data/attendance.csv
+
+
 school_definitions_for_import:
   - name: Lane Elementary
     local_id: Lane

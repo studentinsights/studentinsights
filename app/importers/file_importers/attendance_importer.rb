@@ -64,7 +64,7 @@ class AttendanceImporter
   end
 
   def remote_file_name
-    PerDistrict.new.remote_filename_or_raise!('FILENAME_FOR_ATTENDANCE_IMPORT')
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_ATTENDANCE_IMPORT')
   end
 
   def download_csv

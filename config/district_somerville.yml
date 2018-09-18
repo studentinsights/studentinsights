@@ -1,5 +1,4 @@
-remote_filenames:
-  # SIS data
+sftp_filenames:
   FILENAME_FOR_EDUCATORS_IMPORT:                    /home/jbreslin/data/educators_export.txt
   FILENAME_FOR_STUDENTS_IMPORT:                     /home/jbreslin/data/students_export.txt
   FILENAME_FOR_BEHAVIOR_IMPORT:                     /home/jbreslin/data/behavior_export.txt
@@ -22,7 +21,8 @@ remote_filenames:
     - /home/jbreslin/data/student-documents-2.zip
     - /home/jbreslin/data/student-documents-1.zip
 
-  # These are for STAR
+
+star_filenames:
   FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
   FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
