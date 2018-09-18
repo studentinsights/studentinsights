@@ -57,8 +57,8 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     end
 
     it 'works for New Bedford' do
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
       pals = TestPals.create!(email_domain: 'newbedfordschools.org')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
       strategy = mocked_test_strategy({
         login_text: 'uri@newbedfordschools.org',
         password: 'supersecure',
@@ -69,8 +69,8 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     end
 
     it 'works for Bedford' do
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
       pals = TestPals.create!(email_domain: 'bedfordps.org')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
       strategy = mocked_test_strategy({
         login_text: 'uri',
         password: 'supersecure',
@@ -81,8 +81,8 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     end
 
     it 'works for demo' do
-      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
       pals = TestPals.create!
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
       strategy = mocked_test_strategy({
         login_text: 'uri@demo.studentinsights.org',
         password: 'supersecure',
