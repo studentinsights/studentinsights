@@ -15,7 +15,7 @@ class CsvDownloader
     log("file_contents.size: #{file_contents.size}")
 
     if file_contents.size == 0
-      raise "CsvDownloader: size of #{remote_file_name} is 0 bytes"
+      raise "CsvDownloader: size of #{@remote_file_name} is 0 bytes"
     end
 
     log('Transforming...')
