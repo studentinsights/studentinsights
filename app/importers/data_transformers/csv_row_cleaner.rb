@@ -44,7 +44,7 @@ class CsvRowCleaner < Struct.new :row
   def parsed_date
     @parsed_date ||= begin
       return date_from_row if date_from_row.is_a?(DateTime)
-      Date.strptime(date_from_row, '%Y-%m-%d')
+      PerDistrict.new.parse_date_during_import(date_from_row)
     rescue ArgumentError
       false
     end
