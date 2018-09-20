@@ -17,7 +17,8 @@ class HomeController < ApplicationController
   end
 
   # Returns a list of `StudentSectionAssignments` with low grades where
-  # the student hasn't been commented on in NGE or 10GE yet.  High-school only.
+  # the student hasn't been commented on in Insights yet.
+  # Somerville-only and SHS only.
   # Response should include everything UI needs.
   def students_with_low_grades_json
     safe_params = params.permit(:educator_id, :time_now, :limit, :event_note_type_ids)
@@ -26,7 +27,7 @@ class HomeController < ApplicationController
     limit = safe_params[:limit].to_i
     time_threshold = time_now - 45.days
     grade_threshold = 69
-    event_note_type_ids = safe_params[:event_note_type_ids] || [305, 306]
+    event_note_type_ids = safe_params.fetch(:event_note_type_ids, nil)
 
     insight = InsightStudentsWithLowGrades.new(educator, event_note_type_ids: event_note_type_ids)
     students_with_low_grades_json = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
