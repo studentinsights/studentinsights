@@ -8,6 +8,7 @@ export default class EscapeListener extends React.Component {
   constructor(props) {
     super(props);
     this.onKeyUp = this.onKeyUp.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   onKeyUp(e) {
@@ -15,15 +16,27 @@ export default class EscapeListener extends React.Component {
     if (e.which === 27) onEscape();
   }
 
+  onClick(e) {
+    const {escapeOnUnhandledClick, onEscape} = this.props;
+    if (escapeOnUnhandledClick) onEscape();
+  }
+
   render() {
     const {className, children, style} = this.props;
     const classNameString = _.compact([className, 'EscapeListener']).join(' ');
-    return <div className={classNameString} style={style} onKeyUp={this.onKeyUp}>{children}</div>;
+    return (
+      <div
+        className={classNameString}
+        style={style}
+        onKeyUp={this.onKeyUp}
+        onClick={this.onClick}>{children}</div>
+    );
   }
 }
 EscapeListener.propTypes = {
   onEscape: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  escapeOnUnhandledClick: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object
 };

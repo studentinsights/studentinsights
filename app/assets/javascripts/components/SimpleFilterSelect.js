@@ -11,10 +11,11 @@ export const ALL = 'ALL';
 // null so that `placeholder` can be used to name what this component can filter when there's
 // no value selecting, saving horizontal space.
 export default function SimpleFilterSelect(props) {
+  const {style, value} = props;
   return (
     <Select
-      style={props.style || { width: '10em', marginLeft: 10 }}
-      value={props.value === ALL ? null : props.value} // so Select shows placeholder text
+      style={{width: '10em', marginLeft: 10, ...style}}
+      value={value === ALL ? null : value} // so Select shows placeholder text
       simpleValue
       clearable={false}
       {..._.omit(props, 'value', 'style')}
