@@ -54,6 +54,16 @@ class PerDistrict
     end
   end
 
+  def parse_date_during_import(text)
+    if @district_key == SOMERVILLE || @district_key == NEW_BEDFORD
+      Date.strptime(text, '%Y-%m-%d')
+    elsif @district_key == BEDFORD
+      Date.strptime(text, '%m/%d/%Y')
+    else
+      raise_not_handled!
+    end
+  end
+
   def enabled_class_lists?
     if @district_key == SOMERVILLE || @district_key == DEMO
       EnvironmentVariable.is_true('ENABLE_CLASS_LISTS')
