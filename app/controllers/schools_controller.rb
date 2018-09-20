@@ -19,7 +19,7 @@ class SchoolsController < ApplicationController
   end
 
   def absence_dashboard_data
-    render json: dashboard_queries.absence_dashboard_data(@school)
+    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER/absences.json')) # dashboard_queries.absence_dashboard_data(@school)
   end
 
   def tardies_dashboard_data

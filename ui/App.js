@@ -17,6 +17,7 @@ import SchoolRosterPage from '../app/assets/javascripts/school_overview/SchoolRo
 import SectionPage from '../app/assets/javascripts/section/SectionPage';
 import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
+import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -86,7 +87,8 @@ export default class App extends React.Component {
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
-        <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
+        <Route exact path="/schools/:id_or_slug/absences" render={this.renderAbsencesPage.bind(this)}/>
+        <Route exact path="/schools/:id_or_slug/absences/v2" render={this.renderAbsencesPageV2.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
@@ -222,7 +224,14 @@ export default class App extends React.Component {
     return <SchoolRosterPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
-  renderAbsencesDashboard(routeProps) {
+  renderAbsencesPageV2(routeProps) {
+    const schoolIdOrSlug = routeProps.match.params.id_or_slug;
+    this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id_or_slug: schoolIdOrSlug});
+    return <SchoolAbsencesPage schoolIdOrSlug={schoolIdOrSlug} />;
+  }
+
+  // deprecated
+  renderAbsencesPage(routeProps) {
     const schoolId = routeProps.match.params.id;
     this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id: schoolId});
     return <DashboardLoader schoolId={schoolId} dashboardTarget={'absences'} />;
