@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_195321) do
+ActiveRecord::Schema.define(version: 2018_09_21_221051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -536,6 +536,8 @@ ActiveRecord::Schema.define(version: 2018_09_21_195321) do
   add_foreign_key "event_notes", "event_note_types"
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
   add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
+  add_foreign_key "historical_grades", "sections", name: "historical_grades_section_id_fk"
+  add_foreign_key "historical_grades", "students", name: "historical_grades_student_id_fk"
   add_foreign_key "homerooms", "educators", name: "homerooms_educator_id_fk"
   add_foreign_key "homerooms", "educators", name: "homerooms_for_educator_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_for_school_id_fk"
