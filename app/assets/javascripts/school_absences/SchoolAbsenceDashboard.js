@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {createCache} from '../helpers/cache';
+import memoizer from '../helpers/memoizer';
 import {
   supportsExcusedAbsences,
   supportsHouse,
@@ -44,11 +44,13 @@ export default class SchoolAbsenceDashboard extends React.Component {
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.onClearHomeroomSelected = this.onClearHomeroomSelected.bind(this);
     this.onBarChartColumnClicked = this.onBarChartColumnClicked.bind(this);
-    this.memoize = createCache();
+    this.memoize = memoizer();
   }
 
+  // Props changes won't happen as this component is currently written,
+  // so this is just defensive.
   componentWillReceiveProps() {
-    this.memoize = createCache();
+    this.memoize = memoizer();
   }
 
   shouldIncludeExcusedAbsences() {

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 
-// Allow a few strict formats of dates for end-user input
+// Allow a few strict formats of dates
 const allowedFormats = [
   'MM/DD/YYYY',
   'MM/D/YYYY',

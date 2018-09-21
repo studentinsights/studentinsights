@@ -1,9 +1,9 @@
 // as naive as possible
-export function createCache() {
+export default function memoizer() {
   const cacheStorage = {};
 
-  // eg cache('expensiveThing', [this.state, arguments], () => { ... });
-  return function cache(keys, fn) {
+  // eg memoize(['methodName', this.state, arguments], () => { ... });
+  return function memoize(keys, fn) {
     const cacheKey = JSON.stringify(keys);
     const cached = cacheStorage[cacheKey];
     if (cached !== undefined) return cached;
