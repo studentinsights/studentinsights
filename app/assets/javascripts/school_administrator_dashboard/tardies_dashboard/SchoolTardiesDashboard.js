@@ -13,6 +13,8 @@ import FilterBar from '../../components/FilterBar';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import * as dashboardStyles from '../dashboardStyles';
+
 
 export default class SchoolTardiesDashboard extends React.Component {
 
@@ -113,18 +115,18 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <EscapeListener className="SchoolTardiesDashboard" style={styles.root} onEscape={this.onResetFilters}>
         <SectionHeading>Tardies at {school.name}</SectionHeading>
-        <div className="SchoolDashboard-filter-bar">
+        <div style={dashboardStyles.filterBar}>
           <FilterBar labelText="Time range" style={styles.timeRange}>
             <SelectTimeRange
               timeRangeKey={timeRangeKey}
               onChange={this.onTimeRangeKeyChanged} />
           </FilterBar>
         </div>
-        <div className="SchoolDashboard-columns">
-          <div className="SchoolDashboard-roster-column">
+        <div style={dashboardStyles.columns}>
+          <div style={dashboardStyles.rosterColumn}>
             {this.renderStudentTardiesTable()}
           </div>
-          <div className="SchoolDashboard-charts-column">
+          <div style={dashboardStyles.chartsColumn}>
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
           </div>

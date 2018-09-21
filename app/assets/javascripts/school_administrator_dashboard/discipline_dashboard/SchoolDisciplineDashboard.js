@@ -15,6 +15,7 @@ import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import * as dashboardStyles from '../dashboardStyles';
 
 
 export default class SchoolDisciplineDashboard extends React.Component {
@@ -131,18 +132,18 @@ export default class SchoolDisciplineDashboard extends React.Component {
         <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
-          <div className="SchoolDashboard-filter-bar">
+          <div style={dashboardStyles.filterBar}>
             <FilterBar labelText="Time range" style={styles.timeRange} >
               <SelectTimeRange
                 timeRangeKey={timeRangeKey}
                 onChange={this.onTimeRangeKeyChanged} />
             </FilterBar>
           </div>
-          <div className="SchoolDashboard-columns">
-            <div className="SchoolDashboard-roster-column">
+          <div style={dashboardStyles.columns}>
+            <div style={dashboardStyles.rosterColumn}>
               {this.renderStudentDisciplineTable(filteredIncidents, groupedIncidents)}
             </div>
-            <div className="SchoolDashboard-charts-column">
+            <div style={dashboardStyles.chartsColumn}>
               <div style={styles.graphTitle}>
                 <div style={styles.titleText}>
                   Break down by:

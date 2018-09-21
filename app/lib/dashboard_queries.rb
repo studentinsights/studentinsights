@@ -34,6 +34,8 @@ class DashboardQueries
       :first_name,
       :last_name,
       :grade,
+      :house,
+      :counselor,
       :id
     ])
 
@@ -79,7 +81,13 @@ class DashboardQueries
   def return_json(students_with_events, school)
     {
       students_with_events: students_with_events,
-      school: school.as_json(only: [:id, :local_id, :name])
+      school: school.as_json(only: [
+        :id,
+        :local_id,
+        :name,
+        :slug,
+        :school_type
+      ])
     }
   end
 

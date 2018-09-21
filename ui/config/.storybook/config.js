@@ -30,6 +30,9 @@ function loadStories() {
 
   // my notes
   require('../../../app/assets/javascripts/notes_feed/NotesFeedPage.story');
+
+  // absences
+  require('../../../app/assets/javascripts/school_absences/SchoolAbsencesPage.story');
   
   // classlists
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');

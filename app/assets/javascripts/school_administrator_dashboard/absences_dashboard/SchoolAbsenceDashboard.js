@@ -14,6 +14,7 @@ import SelectTimeRange, {
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import * as dashboardStyles from '../dashboardStyles';
 import SelectExcusedAbsences, {
   EXCLUDE_EXCUSED_ABSENCES,
   ALL_ABSENCES
@@ -114,14 +115,14 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return (
       <div className="SchoolAbsenceDashboard" style={styles.root}>
         <SectionHeading>Absences at {school.name}</SectionHeading>
-        <div className="SchoolDashboard-filter-bar">
+        <div style={dashboardStyles.filterBar}>
           {this.renderFilterBar()}
         </div>
-        <div className="SchoolDashboard-columns">
-          <div className="SchoolDashboard-roster-column">
+        <div style={dashboardStyles.columns}>
+          <div style={dashboardStyles.rosterColumn}>
             {this.renderStudentAbsenceTable()}
           </div>
-          <div className="SchoolDashboard-charts-column">
+          <div style={dashboardStyles.chartsColumn}>
             {this.renderMonthlyAbsenceChart()}
             {this.renderHomeroomAbsenceChart()}
           </div>
