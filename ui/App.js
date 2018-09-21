@@ -232,7 +232,7 @@ export default class App extends React.Component {
 
   // deprecated
   renderAbsencesPage(routeProps) {
-    const schoolId = routeProps.match.params.id;
+    const schoolId = routeProps.match.params.id_or_slug;
     this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id: schoolId});
     return <DashboardLoader schoolId={schoolId} dashboardTarget={'absences'} />;
   }

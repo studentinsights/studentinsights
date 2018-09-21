@@ -13,6 +13,7 @@ import {
 import * as Routes from '../helpers/Routes';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
+import DashResetButton from './DashResetButton';
 
 
 export default class StudentsTable extends React.Component {
@@ -23,7 +24,8 @@ export default class StudentsTable extends React.Component {
     this.state = {
       sortBy: 'events',
       sortType: 'number',
-      sortDesc: true
+      sortDesc: true,
+      selectedCategory: null,
     };
 
     this.onTableSort = this.onTableSort.bind(this);
@@ -79,6 +81,10 @@ export default class StudentsTable extends React.Component {
   render() {
     return (
       <div className="StudentsTable" style={styles.root}>
+        <div style={styles.caption}>
+          {this.renderCaption()}
+          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
+        </div>
         <div style={{flex: 1}}>
           {this.renderTableWithSizing()}
         </div>
@@ -191,6 +197,12 @@ export default class StudentsTable extends React.Component {
     return <span style={{color}}>{text}</span>;
   }
 
+  renderCaption() {
+    const {selectedCategory} = this.props;
+
+    return selectedCategory ? selectedCategory : 'All Students';
+  }
+
   renderTotalEvents() {
     let total = 0;
     this.props.rows.forEach((student) => {
@@ -210,7 +222,9 @@ StudentsTable.propTypes = {
     events: PropTypes.number.isRequired,
     latest_note: InsightsPropTypes.nullableWithKey(PropTypes.object)
   })).isRequired,
+  selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
+  resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
   forcedSizeForTesting: PropTypes.object
 };
 
@@ -243,8 +257,7 @@ const styles = {
   },
   caption: {
     display: 'flex',
-    fontSize: 14,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     paddingBottom: 5
   },
   incidentSubtitle: {

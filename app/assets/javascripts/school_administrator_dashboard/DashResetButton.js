@@ -27,9 +27,7 @@ class DashResetButton extends React.Component {
       <div className="DashResetButton">
         <a
           style={{
-            color: '#FFA500',
-            fontWeight: 'bold',
-            padding: 5
+            backgroundColor: '#FFA500'
           }}
           onClick={this.props.clearSelection}>
           {this.props.selectedCategory && 'Reset Students (ESC)'}

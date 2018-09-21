@@ -157,6 +157,7 @@ Rails.application.routes.draw do
       get :overview_json # also used by internal equity page
       get :csv
       get 'absences' => 'ui#ui'
+      get 'absences/v2' => 'ui#ui'
       get 'tardies' => 'ui#ui'
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
