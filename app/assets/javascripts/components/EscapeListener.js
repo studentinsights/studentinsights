@@ -22,14 +22,14 @@ export default class EscapeListener extends React.Component {
   }
 
   render() {
-    const {className, children, style} = this.props;
+    const {className, children, style, escapeOnUnhandledClick} = this.props;
     const classNameString = _.compact([className, 'EscapeListener']).join(' ');
     return (
       <div
         className={classNameString}
         style={style}
         onKeyUp={this.onKeyUp}
-        onClick={this.onClick}>{children}</div>
+        onClick={escapeOnUnhandledClick && this.onClick}>{children}</div>
     );
   }
 }
