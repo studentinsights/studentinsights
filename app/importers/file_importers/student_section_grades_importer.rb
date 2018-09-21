@@ -69,12 +69,14 @@ class StudentSectionGradesImporter
     end
 
     # also store a historical record
-    HistoricalGrade.create!({
-      student_id: student_id,
-      section_id: section_id,
-      section_number: row[:section_number],
-      course_number: row[:course_number],
-      grade: row[:grade]
-    })
+    if student_id && section_id
+      HistoricalGrade.create!({
+        student_id: student_id,
+        section_id: section_id,
+        section_number: row[:section_number],
+        course_number: row[:course_number],
+        grade: row[:grade]
+      })
+    end
   end
 end
