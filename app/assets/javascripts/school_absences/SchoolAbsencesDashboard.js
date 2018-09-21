@@ -108,25 +108,24 @@ export default class SchoolAbsencesDashboard extends React.Component {
     });
   }
 
-  // Compute attendance data for a set of students
+  // Compute attendance counts and rate for a set of students
   attendanceDataForStudents(students, endMoment) {
     const absencesCount = students.reduce((count, student) => {
       return this.filteredAbsences(student.absences, endMoment).length + count;
     }, 0);
-
-    const schoolDaysCount = this.schoolDaysCount();
     const studentsCount = students.length;
-    const studentDays = schoolDaysCount * studentsCount;
+    const studentDays = this.schoolDaysCount() * studentsCount;
     const attendanceRate = (studentDays === 0)
       ? null
-      : 100 * (studentDays - absencesCount) / studentDays;
-    return {studentsCount, absencesCount, attendanceRate};
+      : parseFloat((100 * (studentDays - absencesCount) / studentDays).toFixed(3));
+    return {studentDays, studentsCount, absencesCount, attendanceRate};
   }
 
   // Compute attendance data by homeroom, applying filters (but not homeroom,
   // so we keep showing all homerooms).
   homeroomChartData(endMoment) {
     return this.memoize(['homeroomChartData', this.state, arguments], () => {
+
       // Ordered bars for the chart
       // Partition by homeroom and compute each group
       const filteredStudents = this.filteredStudents({includeAllHomerooms: true});
@@ -134,14 +133,12 @@ export default class SchoolAbsencesDashboard extends React.Component {
       const homeroomLabels = _.compact(Object.keys(studentsByHomeroom));
       const unsortedHomeroomSeries = homeroomLabels.map(homeroomLabel => {
         const students = studentsByHomeroom[homeroomLabel];
-        const {studentsCount, absencesCount, attendanceRate} = this.attendanceDataForStudents(students, endMoment);
+        const attendanceData = this.attendanceDataForStudents(students, endMoment);
         return {
+          ...attendanceData,
           homeroomLabel,
-          attendanceRate,
-          absencesCount,
-          studentsCount,
-          y: attendanceRate,
-          color: (homeroomLabel === this.state.homeroomLabel) ? 'orange' : null,
+          y: attendanceData.attendanceRate,
+          color: (homeroomLabel === this.state.homeroomLabel) ? 'orange' : null
         };
       });
       const homeroomSeries = _.sortBy(unsortedHomeroomSeries, 'attendanceRate');
@@ -200,6 +197,7 @@ export default class SchoolAbsencesDashboard extends React.Component {
   }
 
   onBarChartColumnClicked(highchartsEvent) {
+    console.log('highchartsEvent', highchartsEvent);
     const {homeroomLabel} = highchartsEvent.point;
     this.setState({homeroomLabel});
   }
@@ -286,12 +284,10 @@ export default class SchoolAbsencesDashboard extends React.Component {
   renderOverallData(endMoment) {
     return this.memoize(['renderOverallData', this.state, arguments], () => {
       const filteredStudents = this.filteredStudents();
-      const {attendanceRate, absencesCount, studentsCount} = this.attendanceDataForStudents(filteredStudents, endMoment);
+      const attendanceData = this.attendanceDataForStudents(filteredStudents, endMoment);
       const dataPoint = {
-        attendanceRate,
-        absencesCount,
-        studentsCount,
-        y: attendanceRate
+        ...attendanceData,
+        y: attendanceData.attendanceRate
       };
       return (
         <div style={{display: 'flex', flex: 4}}>
