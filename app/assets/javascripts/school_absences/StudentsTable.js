@@ -21,7 +21,7 @@ export default class StudentsTable extends React.Component {
     super(props);
 
     this.state = {
-      sortBy: 'events',
+      sortBy: 'event_count',
       sortType: 'number',
       sortDesc: true
     };
@@ -66,7 +66,7 @@ export default class StudentsTable extends React.Component {
     const sortType = {
       name: 'name',
       grade: 'grade',
-      events: 'number',
+      event_count: 'number',
       latest_note: 'latest_note_date'
     }[sortBy];
     if (sortBy === this.state.sortBy) {
@@ -130,7 +130,7 @@ export default class StudentsTable extends React.Component {
         <Column
           width={80}
           label={incidentType}
-          dataKey='events'
+          dataKey='event_count'
         />
         <Column
           width={150}
@@ -194,7 +194,7 @@ export default class StudentsTable extends React.Component {
   renderTotalEvents() {
     let total = 0;
     this.props.rows.forEach((student) => {
-      total += student.events;
+      total += student.event_count;
     });
     return total;
   }
@@ -206,8 +206,9 @@ StudentsTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
+    grade: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
-    events: PropTypes.number.isRequired,
+    event_count: PropTypes.number.isRequired,
     latest_note: InsightsPropTypes.nullableWithKey(PropTypes.object)
   })).isRequired,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed

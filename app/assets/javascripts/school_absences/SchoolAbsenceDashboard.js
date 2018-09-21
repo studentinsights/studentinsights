@@ -58,11 +58,12 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return excusedAbsencesKey === ALL_ABSENCES;
   }
 
-  filteredStudents() {
+  filteredStudents(options = {}) {
     const {studentsWithAbsences} = this.props;
     const {homeroomLabel, grade, house, counselor} = this.state;
+    const shouldFilterByHomeroom = !options.includeAllHomerooms;
     return studentsWithAbsences.filter(student => {
-      if (homeroomLabel !== null && student.homeroom_label !== homeroomLabel) return false;
+      if (shouldFilterByHomeroom && homeroomLabel !== null && student.homeroom_label !== homeroomLabel) return false;
       if (grade !== ALL && student.grade !== grade) return false;
       if (house !== ALL && student.house !== house) return false;
       if (counselor !== ALL && student.counselor !== counselor) return false;
@@ -108,11 +109,13 @@ export default class SchoolAbsenceDashboard extends React.Component {
   }
 
   // Compute attendance data for a set of students
-  attendanceDataForStudents(students, endMoment, schoolDaysCount) {
-    const studentsCount = students.length;
+  attendanceDataForStudents(students, endMoment) {
     const absencesCount = students.reduce((count, student) => {
       return this.filteredAbsences(student.absences, endMoment).length + count;
     }, 0);
+
+    const schoolDaysCount = this.schoolDaysCount();
+    const studentsCount = students.length;
     const studentDays = schoolDaysCount * studentsCount;
     const attendanceRate = (studentDays === 0)
       ? null
@@ -120,16 +123,18 @@ export default class SchoolAbsenceDashboard extends React.Component {
     return {studentsCount, absencesCount, attendanceRate};
   }
 
-  // Compute attendance data by homeroom, applying all filters
-  homeroomChartData(endMoment, filteredStudents, schoolDaysCount) {
+  // Compute attendance data by homeroom, applying filters (but not homeroom,
+  // so we keep showing all homerooms).
+  homeroomChartData(endMoment) {
     return this.memoize(['homeroomChartData', this.state, arguments], () => {
       // Ordered bars for the chart
       // Partition by homeroom and compute each group
+      const filteredStudents = this.filteredStudents({includeAllHomerooms: true});
       const studentsByHomeroom = _.groupBy(filteredStudents, 'homeroom_label');
       const homeroomLabels = _.compact(Object.keys(studentsByHomeroom));
       const unsortedHomeroomSeries = homeroomLabels.map(homeroomLabel => {
         const students = studentsByHomeroom[homeroomLabel];
-        const {studentsCount, absencesCount, attendanceRate} = this.attendanceDataForStudents(students, endMoment, schoolDaysCount);
+        const {studentsCount, absencesCount, attendanceRate} = this.attendanceDataForStudents(students, endMoment);
         return {
           homeroomLabel,
           attendanceRate,
@@ -145,15 +150,17 @@ export default class SchoolAbsenceDashboard extends React.Component {
     });
   }
 
-  studentTableRows(endMoment, filteredStudents) {
+  studentTableRows(endMoment) {
     return this.memoize(['studentTableRows', this.state, arguments], () => {
+      const filteredStudents = this.filteredStudents();
       return filteredStudents.map(student => {
         return {
           id: student.id,
           first_name: student.first_name,
           last_name: student.last_name,
+          grade: student.grade,
           latest_note: student.latest_note,
-          events: this.filteredAbsences(student.absences, endMoment).length
+          event_count: this.filteredAbsences(student.absences, endMoment).length
         };
       });
     });
@@ -201,8 +208,6 @@ export default class SchoolAbsenceDashboard extends React.Component {
     const {nowFn} = this.context;
     const {school} = this.props;
     const endMoment = nowFn().endOf('day');
-    const filteredStudents = this.filteredStudents();
-    const schoolDaysCount = this.schoolDaysCount();
 
     return (
       <EscapeListener
@@ -216,11 +221,11 @@ export default class SchoolAbsenceDashboard extends React.Component {
         </div>
         <div className="SchoolDashboard-columns">
           <div className="SchoolDashboard-roster-column">
-            {this.renderStudentAbsenceTable(endMoment, filteredStudents)}
+            {this.renderStudentAbsenceTable(endMoment)}
           </div>
           <div className="SchoolDashboard-charts-column">
-            {this.renderOverallData(endMoment, filteredStudents, schoolDaysCount)}
-            {this.renderHomeroomAbsenceChart(endMoment, filteredStudents, schoolDaysCount)}
+            {this.renderOverallData(endMoment)}
+            {this.renderHomeroomAbsenceChart(endMoment)}
           </div>
         </div>
       </EscapeListener>
@@ -268,8 +273,8 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderStudentAbsenceTable(endMoment, filteredStudents) {
-    const studentTableRows = this.studentTableRows(endMoment, filteredStudents);
+  renderStudentAbsenceTable(endMoment) {
+    const studentTableRows = this.studentTableRows(endMoment);
 
     return (
       <StudentsTable
@@ -278,9 +283,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 
-  renderOverallData(endMoment, filteredStudents, schoolDaysCount) {
+  renderOverallData(endMoment) {
     return this.memoize(['renderOverallData', this.state, arguments], () => {
-      const {attendanceRate} = this.attendanceDataForStudents(filteredStudents, endMoment, schoolDaysCount);
+      const filteredStudents = this.filteredStudents();
+      const {attendanceRate} = this.attendanceDataForStudents(filteredStudents, endMoment);
       const numberText = (attendanceRate)
         ? `${Math.round(attendanceRate, 0)}%`
         : '-';
@@ -302,8 +308,8 @@ export default class SchoolAbsenceDashboard extends React.Component {
     });
   }
 
-  renderHomeroomAbsenceChart(endMoment, filteredStudents, schoolDaysCount) {
-    const {homeroomSeries, homeroomLabels} = this.homeroomChartData(endMoment, filteredStudents, schoolDaysCount);
+  renderHomeroomAbsenceChart(endMoment) {
+    const {homeroomSeries, homeroomLabels} = this.homeroomChartData(endMoment);
     return (
       <EscapeListener escapeOnUnhandledClick={true} onEscape={this.onClearHomeroomSelected}>
         <DashboardBarChart
