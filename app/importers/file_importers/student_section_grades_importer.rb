@@ -16,7 +16,7 @@ class StudentSectionGradesImporter
     'school_local_id',
     'course_number',
     'term_local_id',
-    'grade',
+    'grade'
   ]
 
   def initialize(options:)
@@ -66,6 +66,17 @@ class StudentSectionGradesImporter
       student_section_assignment.save!
     else
       @log.puts("Student Section Grade Import invalid row")
+    end
+
+    # also store a historical record
+    if student_id && section_id
+      HistoricalGrade.create!({
+        student_id: student_id,
+        section_id: section_id,
+        section_number: row[:section_number],
+        course_number: row[:course_number],
+        grade: row[:grade]
+      })
     end
   end
 end
