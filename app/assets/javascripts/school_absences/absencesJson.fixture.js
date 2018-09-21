@@ -849,4 +849,4 @@ export default {
     "local_id": "SHS",
     "slug": "shs"
   }
-}
+};

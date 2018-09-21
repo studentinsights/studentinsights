@@ -197,7 +197,6 @@ export default class SchoolAbsencesDashboard extends React.Component {
   }
 
   onBarChartColumnClicked(highchartsEvent) {
-    console.log('highchartsEvent', highchartsEvent);
     const {homeroomLabel} = highchartsEvent.point;
     this.setState({homeroomLabel});
   }

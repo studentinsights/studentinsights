@@ -23,15 +23,3 @@ export const chartsColumn = {
   flexDirection: 'column',
   paddingLeft: 20
 };
-
-/*
-
-  // This overrides the default react-select styles imported in the app to make sure our lists
-  // are not cut off. See: 'https://github.com/JedWatson/react-select/blob/master/less/menu.les'
-  .Select-menu-outer {
-    max-height: 1000
-  }
-  .Select-menu {
-    max-height: 998
-  }
-*/
