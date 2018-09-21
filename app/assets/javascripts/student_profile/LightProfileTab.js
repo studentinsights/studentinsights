@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import chroma from 'chroma-js';
 
 
-// A (clickable tab) showing a key bit of information
+// A clickable tab showing a key bit of information
 export default function LightProfileTab(props) {
   const {
     isSelected,
@@ -47,7 +47,7 @@ LightProfileTab.propTypes = {
   intenseColor: PropTypes.string.isRequired,
   fadedColor: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   isSelected: PropTypes.bool,
   style: PropTypes.object
 };
