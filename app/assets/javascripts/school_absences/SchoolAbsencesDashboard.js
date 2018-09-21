@@ -325,7 +325,21 @@ export default class SchoolAbsencesDashboard extends React.Component {
           titleText={`Attendance by homeroom`}
           measureText={'Percent of all students, days'}
           tooltip={{
-            formatter() { return createHighChartsTooltipString(this.point); }
+            formatter() {
+              return createHighChartsTooltipString(this.point);
+            },
+            // Enforce above the bar, and don't spill out of the
+            // container to the top or right.  The default positioner
+            // gets in the way of seeing and clicking on bars.
+            positioner(labelWidth, labelHeight, point) {
+              const {width} = this.chart.clipBox;
+              const x = point.plotX;
+              const y = point.plotY - (labelHeight/2);
+              return {
+                x: Math.min(x, width - labelWidth/2 - 10),
+                y: Math.max(y, 0)
+              };
+            }
           }}
           onColumnClick={this.onBarChartColumnClicked}
         />
