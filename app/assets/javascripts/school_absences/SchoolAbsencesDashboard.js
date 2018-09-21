@@ -22,8 +22,8 @@ import {ALL} from '../components/SimpleFilterSelect';
 import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectCounselor from '../components/SelectCounselor';
-import LightProfileTab, {LightShoutNumber} from '../components/LightProfileTab';
 import DashboardBarChart from '../school_administrator_dashboard/DashboardBarChart';
+import * as dashboardStyles from '../school_administrator_dashboard/dashboardStyles';
 import StudentsTable from './StudentsTable';
 import SelectExcusedAbsences, {
   EXCLUDE_EXCUSED_ABSENCES,
@@ -31,7 +31,7 @@ import SelectExcusedAbsences, {
 } from './SelectExcusedAbsences';
 
 
-export default class SchoolAbsenceDashboard extends React.Component {
+export default class SchoolAbsencesDashboard extends React.Component {
   constructor(props, context) {
     super(props);
 
@@ -211,19 +211,19 @@ export default class SchoolAbsenceDashboard extends React.Component {
 
     return (
       <EscapeListener
-        className="SchoolAbsenceDashboard"
+        className="SchoolAbsencesDashboard"
         style={styles.root}
         onEscape={this.onResetFilters}
       >
         <SectionHeading>Absences at {school.name}</SectionHeading>
-        <div className="SchoolDashboard-filter-bar">
+        <div style={dashboardStyles.filterBar}>
           {this.renderFilterBar()}
         </div>
-        <div className="SchoolDashboard-columns">
-          <div className="SchoolDashboard-roster-column">
+        <div style={dashboardStyles.columns}>
+          <div style={dashboardStyles.rosterColumn}>
             {this.renderStudentAbsenceTable(endMoment)}
           </div>
-          <div className="SchoolDashboard-charts-column">
+          <div style={dashboardStyles.chartsColumn}>
             {this.renderOverallData(endMoment)}
             {this.renderHomeroomAbsenceChart(endMoment)}
           </div>
@@ -286,23 +286,28 @@ export default class SchoolAbsenceDashboard extends React.Component {
   renderOverallData(endMoment) {
     return this.memoize(['renderOverallData', this.state, arguments], () => {
       const filteredStudents = this.filteredStudents();
-      const {attendanceRate} = this.attendanceDataForStudents(filteredStudents, endMoment);
-      const numberText = (attendanceRate)
-        ? `${Math.round(attendanceRate, 0)}%`
-        : '-';
+      const {attendanceRate, absencesCount, studentsCount} = this.attendanceDataForStudents(filteredStudents, endMoment);
+      const dataPoint = {
+        attendanceRate,
+        absencesCount,
+        studentsCount,
+        y: attendanceRate
+      };
       return (
-        <div style={styles.upperRightContainer}>
-          <LightProfileTab
-            style={{width: 200, cursor: 'default'}}
-            isSelected={true}
-            intenseColor="#666"
-            fadedColor="#ccc"
-            text="Attendance">
-              <LightShoutNumber number={numberText}>
-                <div>attendance rate</div>
-                <div>{this.timeRangeText().toLowerCase()}</div>
-              </LightShoutNumber>
-            </LightProfileTab>
+        <div style={{display: 'flex', flex: 4}}>
+          <DashboardBarChart
+            id="overall"
+            categories={{categories: ['Overall']}}
+            seriesData={[dataPoint]}
+            series={{pointWidth: 60}}
+            yAxisMin={80}
+            yAxisMax={100}
+            titleText={`Attendance rate`}
+            measureText={'Percent'}
+            tooltip={{
+              formatter() { return createHighChartsTooltipString(this.point); }
+            }}
+          />
         </div>
       );
     });
@@ -311,7 +316,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
   renderHomeroomAbsenceChart(endMoment) {
     const {homeroomSeries, homeroomLabels} = this.homeroomChartData(endMoment);
     return (
-      <EscapeListener escapeOnUnhandledClick={true} onEscape={this.onClearHomeroomSelected}>
+      <EscapeListener
+        style={{display: 'flex', flex: 5}}
+        escapeOnUnhandledClick={true}
+        onEscape={this.onClearHomeroomSelected}>
         <DashboardBarChart
           id={'string'}
           animation={false}
@@ -319,24 +327,10 @@ export default class SchoolAbsenceDashboard extends React.Component {
           seriesData={homeroomSeries}
           yAxisMin={80}
           yAxisMax={100}
-          titleText={`Attendance by homeroom (${this.timeRangeText()})`}
-          measureText={'Attendance rate (percent)'}
+          titleText={`Attendance by homeroom`}
+          measureText={'Percent of all students, days'}
           tooltip={{
-            // Highcharts parses this subset of HTML and re-renders it as SVG
-            formatter() {
-              const {attendanceRate, absencesCount, studentsCount, homeroomLabel} = this.point;
-              return (
-                `<div>
-                  <div>Attendance rate: <b>${Math.round(attendanceRate)}%</b></div>
-                  <br />
-                  <div>Absences: <b>${absencesCount}</b></div>
-                  <br />
-                  <div>Students: <b>${studentsCount}</b></div>
-                  <br />
-                  <div>Homeroom: ${homeroomLabel}</div>
-                </div>`
-              );
-            }
+            formatter() { return createHighChartsTooltipString(this.point); }
           }}
           onColumnClick={this.onBarChartColumnClicked}
         />
@@ -344,11 +338,11 @@ export default class SchoolAbsenceDashboard extends React.Component {
     );
   }
 }
-SchoolAbsenceDashboard.contextTypes = {
+SchoolAbsencesDashboard.contextTypes = {
   nowFn: PropTypes.func.isRequired,
   districtKey: PropTypes.string.isRequired
 };
-SchoolAbsenceDashboard.propTypes = {
+SchoolAbsencesDashboard.propTypes = {
   studentsWithAbsences: PropTypes.array.isRequired,
   school: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -372,11 +366,6 @@ const styles = {
     justifyContent: 'space-between',
     width: '100%'
   },
-  upperRightContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
   narrowSelect: {
     width: '8em'
   }
@@ -388,7 +377,7 @@ function initialState(props, context) {
   const excusedAbsencesKey = supportsExcusedAbsences(districtKey)
     ? EXCLUDE_EXCUSED_ABSENCES
     : ALL_ABSENCES;
-    
+
   return {
     excusedAbsencesKey,
     grade: ALL,
@@ -397,4 +386,24 @@ function initialState(props, context) {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
     homeroomLabel: null
   };
+}
+
+
+// Highcharts parses this string as a subset of HTML
+// and re-renders it as SVG
+function createHighChartsTooltipString(point) {
+  const {attendanceRate, absencesCount, studentsCount, homeroomLabel} = point;
+  const homeroomLabelString = (homeroomLabel)
+    ? `<br /><div>Homeroom: ${homeroomLabel}</div>`
+    : '';
+  return (
+    `<div>
+      <div>Attendance rate: <b>${Math.round(attendanceRate)}%</b></div>
+      <br />
+      <div>Absences: <b>${absencesCount}</b></div>
+      <br />
+      <div>Students: <b>${studentsCount}</b></div>
+      ${homeroomLabelString}
+    </div>`
+  );
 }

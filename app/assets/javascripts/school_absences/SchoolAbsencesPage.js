@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import SchoolAbsenceDashboard from './SchoolAbsenceDashboard';
+import SchoolAbsencesDashboard from './SchoolAbsencesDashboard';
 import {
   updateGlobalStylesToTakeFullHeight,
   updateGlobalStylesToRemoveHorizontalScrollbars
 } from '../helpers/globalStylingWorkarounds';
 
 
+// For school or house admin to see students missing school, that the
+// school isn't yet providing supports for (eg, SST, reaching out to family.
+// etc.).  The intention is to focus attention on individual students and
+// taking action, rather than understanding distributions or aggregate
+// patterns.
 export default class SchoolAbsencesPage extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +22,8 @@ export default class SchoolAbsencesPage extends React.Component {
   }
 
   componentDidMount() {
+    const {disableStylingForTest} = this.props;
+    if (disableStylingForTest) return;
     updateGlobalStylesToTakeFullHeight();
     updateGlobalStylesToRemoveHorizontalScrollbars();
   }
@@ -38,7 +45,7 @@ export default class SchoolAbsencesPage extends React.Component {
 
   renderJson(json) {
     return (
-      <SchoolAbsenceDashboard
+      <SchoolAbsencesDashboard
         studentsWithAbsences={json.students_with_events}
         school={json.school}
       />
@@ -47,5 +54,6 @@ export default class SchoolAbsencesPage extends React.Component {
 }
 
 SchoolAbsencesPage.propTypes = {
-  schoolIdOrSlug: PropTypes.string.isRequired
+  schoolIdOrSlug: PropTypes.string.isRequired,
+  disableStylingForTest: PropTypes.bool
 };

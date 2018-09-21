@@ -46,7 +46,8 @@ export default class DashboardBarChart extends React.Component{
           series={[
             {
               showInLegend: false,
-              data: this.props.seriesData
+              data: this.props.seriesData,
+              ...(this.props.series || {})
             }
           ]} />
       </div>
@@ -65,7 +66,8 @@ DashboardBarChart.propTypes = {
   tooltip: PropTypes.object.isRequired,
   animation: PropTypes.bool,
   onColumnClick: PropTypes.func,
-  onBackgroundClick: PropTypes.func
+  onBackgroundClick: PropTypes.func,
+  series: PropTypes.object
 };
 DashboardBarChart.defaultProps = {
   animation: true
