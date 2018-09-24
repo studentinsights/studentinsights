@@ -19,7 +19,7 @@ describe('#studentTableEventNoteTypeIds', () => {
   it('handles somerville HS correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', 'HS');
 
-    expect(eventNoteTypeIds).toEqual([300, 305, 306]);
+    expect(eventNoteTypeIds).toEqual([300, 305, 306, 307]);
   });
   it('handles somerville elementary school correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', 'ESMS');
