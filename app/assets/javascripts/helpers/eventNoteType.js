@@ -6,7 +6,8 @@ const textMap =  {
   305: '9th Grade Experience',
   306: '10th Grade Experience',
   307: 'NEST',
-  400: 'BBST Meeting'
+  400: 'BBST Meeting',
+  500: 'STAT Meeting'
 };
 export function eventNoteTypeText(eventNoteTypeId) {
   return textMap[eventNoteTypeId] || 'Other';
@@ -20,7 +21,8 @@ const miniTextMap = {
   305: 'NGE',
   306: '10GE',
   307: 'NEST',
-  400: 'BBST'
+  400: 'BBST',
+  500: 'STAT'
 };
 export function eventNoteTypeTextMini(eventNoteTypeId) {
   return miniTextMap[eventNoteTypeId] || 'Other';
@@ -37,7 +39,8 @@ const colorMap =  {
   305: BLUE,
   306: BLUE,
   307: BLUE,
-  400: GREEN
+  400: GREEN,
+  500: GREEN
 };
 export function eventNoteTypeColor(eventNoteTypeId) {
   return colorMap[eventNoteTypeId] || '#666';
