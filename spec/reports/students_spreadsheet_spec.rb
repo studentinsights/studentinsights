@@ -82,7 +82,8 @@ RSpec.describe StudentsSpreadsheet do
            'Boston Breakthrough (active_service_date_started)',
            'Calculus Project (active_service_date_started)',
            'Focused Math Intervention (active_service_date_started)',
-           'Summer Explore (active_service_date_started)'
+           'Summer Explore (active_service_date_started)',
+           'STAT Meeting (active_service_date_started)'
          ].sort
         )
       end
