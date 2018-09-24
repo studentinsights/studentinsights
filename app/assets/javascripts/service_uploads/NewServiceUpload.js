@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Select from 'react-select';
 import Datepicker from '../components/Datepicker';
-import ServiceTypeDropdown from './ServiceTypeDropdown';
+
 
 class NewServiceUpload extends React.Component {
 
@@ -100,10 +101,22 @@ class NewServiceUpload extends React.Component {
           this.props.onSelectEndDate,
           this.props.formData.date_ended || ''
         )}
-        <ServiceTypeDropdown
-          onUserTypingServiceType={this.props.onUserTypingServiceType}
-          onUserSelectServiceType={this.props.onUserSelectServiceType}
-          value={this.props.formData.service_type_name || ''} />
+        <div>
+          <div style={{ marginTop: 20 }}>
+            Service Type
+          </div>
+          <Select
+            style={{width: '50%', fontSize: 14}}
+            options={(this.props.serviceTypeNames || []).map(serviceType => (
+              { label: serviceType, value: serviceType }
+            ))}
+            value={this.props.formData.service_type_name || ''}
+            simpleValue
+            clearable={false}
+            placeholder="Service type..."
+            onChange={this.props.onUserSelectServiceType}
+          />
+        </div>
         <input
           type="file"
           id="fileUpload"
@@ -323,7 +336,7 @@ NewServiceUpload.propTypes = {
   formData: PropTypes.object.isRequired,
   serverSideErrors: PropTypes.array.isRequired,
   uploadingInProgress: PropTypes.bool.isRequired,
-  serviceTypeNames: PropTypes.array.isRequired,
+  serviceTypeNames: PropTypes.array
 };
 
 export default NewServiceUpload;
