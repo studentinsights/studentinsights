@@ -39,11 +39,11 @@ function accessWithComposite(performanceLevel) {
 }
 
 it('#prettyEnglishProficiencyText', () => {
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(1.2))).toEqual('Entering English (1)');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(2.1))).toEqual('Emerging English (2)');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(3.5))).toEqual('Developing English (3)');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(4.7))).toEqual('Expanding English (4)');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(5.4))).toEqual('Bridging English (5)');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(6))).toEqual('Reaching English (6)');
+  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(1.2))).toEqual('Entering English, level 1');
+  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(2.1))).toEqual('Emerging English, level 2');
+  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(3.5))).toEqual('Developing English, level 3');
+  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(4.7))).toEqual('Expanding English, level 4');
+  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(5.4))).toEqual('Bridging English, level 5');
+  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(6))).toEqual('Reaching English, level 6');
   expect(prettyEnglishProficiencyText('Limited', nullAccess())).toEqual('Limited English');
 });
