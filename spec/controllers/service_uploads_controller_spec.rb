@@ -1,9 +1,42 @@
 require 'rails_helper'
 
 RSpec.describe ServiceUploadsController, type: :controller do
+  describe '#lasids' do
+    let!(:pals) { TestPals.create! }
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :lasids, params: { format: :json }
+    end
+
+    let(:parsed_response) { JSON.parse(response.body) }
+
+    it 'returns an array of student lasids' do
+      sign_in(pals.uri)
+      make_request
+      expect(parsed_response).to contain_exactly(*[
+        pals.west_eighth_ryan.local_id,
+        pals.shs_freshman_mari.local_id,
+        pals.shs_freshman_amir.local_id,
+        pals.healey_kindergarten_student.local_id
+      ])
+    end
+
+    context 'authorization' do
+      it 'guards if no access' do
+        sign_in(pals.shs_jodi)
+        make_request
+        expect(response.status).to eq 403
+      end
+
+      it 'guards if not signed in' do
+        make_request
+        expect(response.status).to eq 401
+      end
+    end
+  end
 
   describe '#create' do
-    let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
+    let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
     before { sign_in(educator) }
 
     def make_post_request(params)
@@ -145,19 +178,19 @@ RSpec.describe ServiceUploadsController, type: :controller do
 
       before { sign_in(educator) }
 
-      context 'educator w districtwide access' do
-        let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
+      context 'educator with access' do
+        let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
         it 'can access the page' do
           make_request
           expect(response).to be_successful
         end
       end
 
-      context 'educator w/o districtwide access' do
+      context 'educator w/o access' do
         let(:educator) { FactoryBot.create(:educator) }
         it 'cannot access the page; gets redirected' do
           make_request
-          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+          expect(response.status).to eq 302
         end
       end
     end
@@ -174,17 +207,15 @@ RSpec.describe ServiceUploadsController, type: :controller do
   describe '#past' do
     def make_request
       request.env['HTTPS'] = 'on'
-      get :past
+      get :past, format: :json
     end
 
     context 'educator signed in' do
 
       before { sign_in(educator) }
 
-      context 'educator w districtwide access' do
-        let(:educator) {
-          FactoryBot.create(:educator, districtwide_access: true, admin: true)
-        }
+      context 'educator w access' do
+        let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
 
         let!(:service_upload) {
           ServiceUpload.create!(file_name: 'helpful-service.txt')
@@ -200,15 +231,15 @@ RSpec.describe ServiceUploadsController, type: :controller do
         end
       end
 
-      context 'educator w/o districtwide access' do
+      context 'educator w/o access' do
         let(:educator) { FactoryBot.create(:educator) }
         let!(:service_upload) {
           ServiceUpload.create!(file_name: 'helpful-service.txt')
         }
 
-        it 'sends down JSON error' do
+        it 'guards access' do
           make_request
-          expect(JSON.parse(response.body)).to eq({ "error" => "You don't have the correct authorization." })
+          expect(response.status).to eq 403
         end
       end
     end
@@ -216,7 +247,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
     context 'not signed in' do
       it 'redirects' do
         make_request
-        expect(response).to redirect_to(new_educator_session_url)
+        expect(response.status).to eq 401
       end
     end
 

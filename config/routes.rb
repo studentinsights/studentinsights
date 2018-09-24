@@ -117,7 +117,6 @@ Rails.application.routes.draw do
   get '/homerooms/:id' => 'ui#ui', as: :homeroom
 
   get '/students/names' => 'students#names'
-  get '/students/lasids' => 'students#lasids'
 
   resources :students, only: [:show] do
     member do
@@ -133,6 +132,7 @@ Rails.application.routes.draw do
   resources :service_uploads, only: [:create, :index, :destroy] do
     collection do
       get :past
+      get :lasids
     end
   end
 

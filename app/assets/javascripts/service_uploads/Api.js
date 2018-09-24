@@ -10,7 +10,7 @@ class Api {
   }
 
   validateLasidsInUploadFile (uploadLasids, onSucceed, onError) {
-    const url = '/students/lasids.json';
+    const url = '/service_uploads/lasids';
 
     return apiFetchJson(url)
              .then(allLasids => {

@@ -3,11 +3,7 @@ class StudentsController < ApplicationController
 
   before_action :authorize!, except: [
     :names,
-    :lasids,
     :sample_students_json
-  ]
-  before_action :authorize_for_districtwide_access_admin, only: [
-    :lasids
   ]
 
   # deprecated
@@ -106,12 +102,6 @@ class StudentsController < ApplicationController
     else
       render json: SearchbarHelper.names_for(current_educator)
     end
-  end
-
-  # Used by the service upload page to validate student local ids
-  # LASID => "locally assigned ID"
-  def lasids
-    render json: Student.pluck(:local_id)
   end
 
   # Admin only; get a sample of students for looking at data across the site
