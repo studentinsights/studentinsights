@@ -35,6 +35,46 @@ RSpec.describe ServiceUploadsController, type: :controller do
     end
   end
 
+  describe '#service_types' do
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :service_types, params: { format: :json }
+    end
+
+    let(:parsed_response) { JSON.parse(response.body) }
+
+    context 'educator with access' do
+      let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
+      it 'returns an array of student lasids' do
+        sign_in(educator)
+        make_request
+        expect(parsed_response).to eq [
+          "Afterschool Tutoring",
+           "Attendance Contract",
+           "Attendance Officer",
+           "Behavior Contract",
+           "Community Schools",
+           "Counseling, in-house",
+           "Counseling, outside",
+           "Freedom School",
+           "Math intervention",
+           "Reading intervention",
+           "SomerSession",
+           "Summer Program for English Language Learners",
+           "X-Block"
+          ]
+      end
+    end
+
+    context 'no educator logged in' do
+      it 'returns an error' do
+        make_request
+        expect(response.status).to eq 401
+      end
+    end
+
+  end
+
   describe '#create' do
     let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
     before { sign_in(educator) }
@@ -163,42 +203,6 @@ RSpec.describe ServiceUploadsController, type: :controller do
          '(no error b/c this means Uri confirmed the LASID mismatch was OK)' do
         make_post_request(params)
         expect(response_json['errors']).to eq []
-      end
-    end
-
-  end
-
-  describe '#index' do
-    def make_request
-      request.env['HTTPS'] = 'on'
-      get :index
-    end
-
-    context 'educator signed in' do
-
-      before { sign_in(educator) }
-
-      context 'educator with access' do
-        let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
-        it 'can access the page' do
-          make_request
-          expect(response).to be_successful
-        end
-      end
-
-      context 'educator w/o access' do
-        let(:educator) { FactoryBot.create(:educator) }
-        it 'cannot access the page; gets redirected' do
-          make_request
-          expect(response.status).to eq 302
-        end
-      end
-    end
-
-    context 'not signed in' do
-      it 'redirects' do
-        make_request
-        expect(response).to redirect_to(new_educator_session_url)
       end
     end
 

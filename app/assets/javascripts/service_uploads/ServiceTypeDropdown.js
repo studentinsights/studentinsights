@@ -13,7 +13,7 @@ class ServiceTypeDropdown extends React.Component {
     const self = this;
 
     $(this.refs.ServiceTypeDropdown).autocomplete({
-      source: '/service_types/',
+      source: '/sservice_uploads/service_types',
       delay: 0,
       minLength: 0,
       autoFocus: true,

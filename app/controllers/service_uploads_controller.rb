@@ -7,6 +7,10 @@ class ServiceUploadsController < ApplicationController
     render json: Student.pluck(:local_id)
   end
 
+  def service_types
+    render json: ServiceType.pluck(:name).sort
+  end
+
   def create
     safe_params = params.permit(*[
       :file_name,
@@ -77,14 +81,6 @@ class ServiceUploadsController < ApplicationController
         }
       }
     )}.merge({ errors: errors })
-  end
-
-  def index
-    @serialized_data = {
-      current_educator: current_educator,
-      service_type_names: ServiceType.pluck(:name)
-    }
-    render 'shared/serialized_data'
   end
 
   def past

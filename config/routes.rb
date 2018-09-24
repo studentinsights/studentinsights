@@ -128,11 +128,11 @@ Rails.application.routes.draw do
     end
   end
   resources :services, only: [:destroy]
-  resources :service_types, only: [:index]
-  resources :service_uploads, only: [:create, :index, :destroy] do
+  resources :service_uploads, only: [:create, :destroy] do
     collection do
       get :past
       get :lasids
+      get :service_types
     end
   end
 
