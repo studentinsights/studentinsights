@@ -4,7 +4,7 @@ import {
   nowMoment,
   currentEducator
 } from './fixtures/fixtures';
-import {SOMERVILLE, NEW_BEDFORD} from '../helpers/PerDistrict';
+import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import TakeNotes from './TakeNotes';
 
@@ -73,6 +73,15 @@ describe('buttons for taking notes', () => {
     const {el} = renderTestEl(testProps(), { districtKey: NEW_BEDFORD });
     expect(buttonTexts(el)).toEqual([
       'BBST Meeting',
+      'Parent conversation',
+      'Something else'
+    ]);
+  });
+
+  it('works for New Bedford', () => {
+    const {el} = renderTestEl(testProps(), { districtKey: BEDFORD });
+    expect(buttonTexts(el)).toEqual([
+      'STAT Meeting',
       'Parent conversation',
       'Something else'
     ]);
