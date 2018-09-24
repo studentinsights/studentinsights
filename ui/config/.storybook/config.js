@@ -11,9 +11,10 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/Button.story');
   require('../../../app/assets/javascripts/components/Circle.story');
   require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story');
+  require('../../../app/assets/javascripts/components/FitText.story');
+  require('../../../app/assets/javascripts/components/NoteBadge.story');
   require('../../../app/assets/javascripts/components/ReactSelect.story');
   require('../../../app/assets/javascripts/components/Stack.story');
-  require('../../../app/assets/javascripts/components/FitText.story');
 
   // home
   require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story');

@@ -58,7 +58,7 @@ class ExperimentalSomervilleHighTiers
     # Optimized batch query for latest event_notes
     notes_by_student_id = most_recent_event_notes_by_student_id(student_ids, cutoff_time, {
       last_sst_note: [300],
-      last_experience_note: [305, 306]
+      last_experience_note: [305, 306, 307]
     })
 
     # Serialize student and section data
