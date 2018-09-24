@@ -14,7 +14,7 @@ export default class AccessPanel extends React.Component {
       <div style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>ACCESS</h4>}
         <div style={{marginBottom: 30, fontSize: 14}}>
-          <div><b>Overall English proficiency: {proficiencyText}</b></div>
+          <div><b>Overall proficiency: {proficiencyText}</b></div>
           <div>
             This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
           </div>

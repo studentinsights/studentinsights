@@ -222,7 +222,7 @@ export default class LightHeaderSupportBits extends React.Component {
     const {student, access} = this.props;
     const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency, access)}</div>;
 
-    if (hasAnyAccessData(access)) return el;
+    if (!hasAnyAccessData(access)) return el;
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}

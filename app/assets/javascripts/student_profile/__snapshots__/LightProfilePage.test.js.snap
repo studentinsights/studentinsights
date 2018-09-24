@@ -288,33 +288,12 @@ exports[`snapshots works for aladdin grades 1`] = `
               <div
                 style={
                   Object {
-                    "display": "block",
-                    "marginLeft": 0,
+                    "display": "inline-block",
+                    "fontSize": 14,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                        "fontSize": 14,
-                      }
-                    }
-                  >
-                    FLEP
-                  </div>
-                </a>
+                FLEP
               </div>
               <div
                 style={
@@ -1361,33 +1340,12 @@ exports[`snapshots works for aladdin notes 1`] = `
               <div
                 style={
                   Object {
-                    "display": "block",
-                    "marginLeft": 0,
+                    "display": "inline-block",
+                    "fontSize": 14,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                        "fontSize": 14,
-                      }
-                    }
-                  >
-                    FLEP
-                  </div>
-                </a>
+                FLEP
               </div>
               <div
                 style={
@@ -2434,33 +2392,12 @@ exports[`snapshots works for aladdin testing 1`] = `
               <div
                 style={
                   Object {
-                    "display": "block",
-                    "marginLeft": 0,
+                    "display": "inline-block",
+                    "fontSize": 14,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                        "fontSize": 14,
-                      }
-                    }
-                  >
-                    FLEP
-                  </div>
-                </a>
+                FLEP
               </div>
               <div
                 style={
@@ -3488,7 +3425,7 @@ exports[`snapshots works for olaf math 1`] = `
                       }
                     }
                   >
-                    No LEP data
+                    Expanding English (4)
                   </div>
                 </a>
               </div>
@@ -4499,7 +4436,7 @@ exports[`snapshots works for olaf notes 1`] = `
                       }
                     }
                   >
-                    No LEP data
+                    Expanding English (4)
                   </div>
                 </a>
               </div>
@@ -5510,7 +5447,7 @@ exports[`snapshots works for olaf reading 1`] = `
                       }
                     }
                   >
-                    No LEP data
+                    Expanding English (4)
                   </div>
                 </a>
               </div>
@@ -6494,33 +6431,12 @@ exports[`snapshots works for pluto attendance 1`] = `
               <div
                 style={
                   Object {
-                    "display": "block",
-                    "marginLeft": 0,
+                    "display": "inline-block",
+                    "fontSize": 14,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                        "fontSize": 14,
-                      }
-                    }
-                  >
-                    Limited English
-                  </div>
-                </a>
+                Fluent English
               </div>
               <div
                 style={
@@ -7528,33 +7444,12 @@ exports[`snapshots works for pluto behavior 1`] = `
               <div
                 style={
                   Object {
-                    "display": "block",
-                    "marginLeft": 0,
+                    "display": "inline-block",
+                    "fontSize": 14,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                        "fontSize": 14,
-                      }
-                    }
-                  >
-                    Limited English
-                  </div>
-                </a>
+                Fluent English
               </div>
               <div
                 style={
@@ -8562,33 +8457,12 @@ exports[`snapshots works for pluto notes 1`] = `
               <div
                 style={
                   Object {
-                    "display": "block",
-                    "marginLeft": 0,
+                    "display": "inline-block",
+                    "fontSize": 14,
                   }
                 }
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "inline-block",
-                      "fontSize": 14,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "display": "inline-block",
-                        "fontSize": 14,
-                      }
-                    }
-                  >
-                    Limited English
-                  </div>
-                </a>
+                Fluent English
               </div>
               <div
                 style={

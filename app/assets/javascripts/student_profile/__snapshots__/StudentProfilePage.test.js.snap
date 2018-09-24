@@ -2261,7 +2261,7 @@ exports[`snapshots works for olaf 1`] = `
               >
                 <li>
                   <span>
-                    FLEP-Transitioning
+                    Limited
                   </span>
                 </li>
                 <li>
@@ -4211,7 +4211,7 @@ exports[`snapshots works for pluto 1`] = `
               >
                 <li>
                   <span>
-                    Limited
+                    Fluent
                   </span>
                 </li>
                 <li>
