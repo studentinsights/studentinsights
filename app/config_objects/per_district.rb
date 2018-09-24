@@ -199,6 +199,19 @@ class PerDistrict
     raise_not_handled!  # Importing attendance not handled yet for BEDFORD
   end
 
+  # eg, absence, tardy, discipline columns
+  def is_attendance_import_value_truthy?(value)
+    if @district_key == SOMERVILLE
+      value.to_i == 1
+    elsif @district_key == NEW_BEDFORD
+      value.to_i == 1
+    elsif @district_key == BEDFORD
+      value.downcase == 'true'
+    else
+      raise_not_handled!
+    end
+  end
+
   def import_student_house?
     @district_key == SOMERVILLE || @district_key == DEMO
   end

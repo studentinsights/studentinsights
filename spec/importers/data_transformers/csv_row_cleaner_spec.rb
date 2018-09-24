@@ -85,36 +85,4 @@ RSpec.describe CsvRowCleaner do
     end
 
   end
-
-  describe '#clean_booleans?' do
-
-    context 'there is a boolean column' do
-
-      context 'is parsable' do
-        let(:row) { CSV::Row.new([:event_name, :has_exact_time], ['Pizza Party No. 2', '0']) }
-        it 'returns true' do
-          expect(row_cleaner.send(:clean_booleans?)).to eq true
-
-        end
-      end
-
-      context 'not parsable' do
-        let(:row) { CSV::Row.new([:event_name, :has_exact_time], ['Pizza Party No. 2', ':-/']) }
-        it 'returns false' do
-          expect(row_cleaner.send(:clean_booleans?)).to eq false
-        end
-      end
-
-    end
-
-    context 'there are no boolean columns' do
-      let(:row) { CSV::Row.new([:event_date, :pizza_slices_count], ['2015-13-11', '3']) }
-
-      it 'returns true' do
-        expect(row_cleaner.send(:clean_booleans?)).to eq true
-      end
-    end
-
-  end
-
 end

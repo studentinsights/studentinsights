@@ -167,8 +167,9 @@ class AttendanceImporter
   end
 
   def attendance_event_class(row)
-    is_absence = row[:absence].to_i == 1
-    is_tardy = row[:tardy].to_i == 1
+    per_district = PerDistrict.new
+    is_absence = per_district.is_attendance_import_value_truthy?(row[:absence])
+    is_tardy = per_district.is_attendance_import_value_truthy?(row[:tardy])
 
     if is_absence && is_tardy then nil
     elsif is_absence then Absence
