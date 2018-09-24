@@ -904,7 +904,7 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="Badge"
             style={
               Object {
-                "backgroundColor": "#333333",
+                "backgroundColor": "#139DEA",
                 "color": "white",
                 "marginLeft": 5,
                 "opacity": 0.5,
@@ -2348,7 +2348,7 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="Badge"
             style={
               Object {
-                "backgroundColor": "#333333",
+                "backgroundColor": "#139DEA",
                 "color": "white",
                 "marginLeft": 5,
                 "opacity": 0.5,
