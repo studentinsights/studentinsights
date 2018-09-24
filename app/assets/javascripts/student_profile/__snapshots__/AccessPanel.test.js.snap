@@ -1,0 +1,2331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "fontSize": 14,
+        "marginBottom": 30,
+      }
+    }
+  >
+    <div>
+      <b>
+        Overall English proficiency: 
+        Expanding (4)
+      </b>
+    </div>
+    <div>
+      This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
+    </div>
+    <div>
+      <a
+        href="https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf"
+        style={
+          Object {
+            "fontSize": 14,
+          }
+        }
+        target="_blank"
+      >
+        WIDA interpretive guide
+      </a>
+    </div>
+  </div>
+  <table
+    style={
+      Object {
+        "borderCollapse": "collapse",
+      }
+    }
+  >
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div>
+            Overall Score
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div>
+            Oral Language
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Listening
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Speaking
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div>
+            Literacy
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Reading
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Comprehension
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Writing
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          -
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

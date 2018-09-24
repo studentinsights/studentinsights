@@ -124,6 +124,19 @@ class Student < ActiveRecord::Base
     dibels_results.first  # Sorted by descending date_taken by default
   end
 
+  def access
+    access_data_points = self.student_assessments.by_family('ACCESS').order_by_date_taken_asc
+    grouped_by_subject = access_data_points.group_by(&:subject)
+
+    pairs = [:composite, :comprehension, :literacy, :oral, :listening, :reading, :speaking, :writing].map do |category|
+      subject = category.to_s.capitalize
+      latest_data_point = grouped_by_subject[subject].try(:last)
+      data_point_json = latest_data_point.try(:as_json, only: [:performance_level, :date_taken])
+      [category, data_point_json]
+    end
+    pairs.to_h
+  end
+
   def latest_access_results
     return if latest_result_by_family_and_subject('ACCESS', 'Composite').nil?
 
