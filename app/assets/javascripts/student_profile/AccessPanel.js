@@ -13,7 +13,7 @@ export default class AccessPanel extends React.Component {
     return (
       <div style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>ACCESS</h4>}
-        <div style={{marginBottom: 30, fontSize: 14}}>
+        <div style={styles.explanation}>
           <div><b>Overall proficiency: {proficiencyText}</b></div>
           <div>
             This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
@@ -109,14 +109,16 @@ export default class AccessPanel extends React.Component {
                 : shouldRenderFractions || score === Math.round(score) ? 'white' : '#eee'
             }}
           >
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: cellHeight,
-              color: (score === roundedScore) ? 'white' : '#ccc',
-              fontWeight: (score === roundedScore) ? true : false
-            }}>
+            <div
+              title={(score === roundedScore) ? performanceLevel : null}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: cellHeight,
+                color: (score === roundedScore) ? 'white' : '#ccc',
+                fontWeight: (score === roundedScore) ? true : false
+              }}>
               {shouldRenderFractions || score === Math.round(score) ? score : null}
             </div>
           </td>
@@ -152,7 +154,8 @@ const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    fontSize: 14
   },
   title: {
     borderBottom: '1px solid #333',
@@ -161,18 +164,13 @@ const styles = {
     paddingLeft: 0,
     marginBottom: 10
   },
+  explanation: {
+    marginBottom: 30,
+    fontSize: 14
+  },
   tableHeader: {
     fontWeight: 'bold',
     textAlign: 'left',
     marginBottom: 10
-  },
-  accessLeftTableCell: {
-    paddingRight: 25
-  },
-  accessTableFootnote: {
-    fontStyle: 'italic',
-    fontSize: 13,
-    marginTop: 15,
-    marginBottom: 20
   }
 };
