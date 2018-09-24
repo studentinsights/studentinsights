@@ -90,6 +90,10 @@ describe StudentsController, :type => :controller do
             512 => {:id=>512, :name=>"Freedom School"},
             513 => {:id=>513, :name=>"Community Schools"},
             514 => {:id=>514, :name=>"X-Block"},
+            515 => {:id=>515, :name=>"Calculus Project"},
+            516 => {:id=>516, :name=>"Boston Breakthrough"},
+            517 => {:id=>517, :name=>"Summer Explore"},
+            518 => {:id=>518, :name=>"Focused Math Intervention"}
           })
 
           expect(serialized_data[:educators_index]).to include({
@@ -597,45 +601,6 @@ describe StudentsController, :type => :controller do
         make_request(pals.healey_kindergarten_student.id)
         expect(response).not_to be_successful
         expect(response).to redirect_to('/educators/sign_in')
-      end
-    end
-  end
-
-  describe '#lasids' do
-    def make_request
-      request.env['HTTPS'] = 'on'
-      get :lasids, params: { format: :json }
-    end
-
-    before do
-      FactoryBot.create(:student, local_id: '111')
-      FactoryBot.create(:student, local_id: '222')
-    end
-
-    let(:parsed_response) { JSON.parse(response.body) }
-
-    context 'admin with districtwide access' do
-      let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
-      it 'returns an array of student lasids' do
-        sign_in(educator)
-        make_request
-        expect(parsed_response).to eq ["111", "222"]
-      end
-    end
-
-    context 'non-admin' do
-      let(:educator) { FactoryBot.create(:educator) }
-      it 'does not return any lasids' do
-        sign_in(educator)
-        make_request
-        expect(parsed_response).to eq({ "error"=>"You don't have the correct authorization." })
-      end
-    end
-
-    context 'no educator logged in' do
-      it 'returns an error' do
-        make_request
-        expect(parsed_response).to eq({ "error"=>"You need to sign in before continuing." })
       end
     end
   end

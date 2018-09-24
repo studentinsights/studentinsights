@@ -5,12 +5,7 @@ import fetchMock from 'fetch-mock/es5/client';
 import ServiceUploadsPage from './ServiceUploadsPage';
 
 function testProps(props = {}) {
-  return {
-    serializedData: {
-      serviceTypeNames: ['Extra Tutoring', 'After-School Art Class'],
-    },
-    ...props
-  };
+  return props;
 }
 
 function testRender(props) {
@@ -24,6 +19,7 @@ describe('integration tests', () => {
   beforeEach(() => {
     fetchMock.restore();
     fetchMock.get('/service_uploads/past', []);
+    fetchMock.get('/service_uploads/service_types', ['Extra Tutoring', 'After-School Art Class']);
   });
 
   it('renders the page', () => {

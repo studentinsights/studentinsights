@@ -41,7 +41,7 @@ class ServiceUploadDetail extends React.Component {
     const createdAtMoment = toMomentFromRailsDate(data.created_at);
 
     return (
-      <div key={String(data.id)} style={this.dataCellStyle()}>
+      <div style={this.dataCellStyle()}>
         <div style={{ marginBottom: 18 }}>
           <span style={{ fontSize: 22 }}>
             {data.file_name}
@@ -137,7 +137,7 @@ class ServiceUploadDetail extends React.Component {
     const studentLinks = students.map((student) => {
       return (
         <div
-          key={data.file_name + ' ' + student.id}
+          key={student.id}
           style={{
             marginLeft: 15
           }}>
