@@ -86,12 +86,12 @@ export default class StudentLevelsTable extends React.Component {
               cellRenderer={this.renderGradeFor.bind(this, SCIENCE)} />
             <Column
               dataKey="nge"
-              label={<span>Last NGE/<br/>10GE notes</span>}
+              label={<span>Last NGE/<br/>10GE/NEST</span>}
               width={supportCellWidth}
               cellRenderer={this.renderNotes.bind(this, 'last_experience_note')} />
             <Column
               dataKey="sst"
-              label={<span>Last SST<br/>notes</span>}
+              label={<span>Last SST</span>}
               width={supportCellWidth}
               cellRenderer={this.renderNotes.bind(this, 'last_sst_note')} />
             <Column
@@ -208,7 +208,10 @@ export default class StudentLevelsTable extends React.Component {
     const noteMoment = toMomentFromTimestamp(eventNote.recorded_at);
     const daysAgo = now.clone().diff(noteMoment, 'days');
     if (daysAgo > 45) return null;
-    return <span style={{...styles.support, fontSize: 12}}>{daysAgo} days</span>;
+    const daysAgoText = (daysAgo === 0)
+      ? 'today'
+      : (daysAgo === 1) ? 'yesterday' : `${daysAgo} days`;
+    return <span style={{...styles.support, fontSize: 12}}>{daysAgoText}</span>;
   }
 }
 StudentLevelsTable.contextTypes = {

@@ -114,6 +114,7 @@ describe('high-level integration test', () => {
       'Last SST',
       'Last NGE',
       'Last 10GE',
+      'Last NEST',
       'Program Assigned',
       'Disability',
       'Level of Need',
