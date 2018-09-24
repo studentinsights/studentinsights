@@ -11,6 +11,7 @@ class DatabaseConstants
     EventNoteType.seed_for_all_districts
     ServiceType.seed_for_all_districts
     ServiceType.add_summer_program_status_to_service_types
+    ServiceType.add_somerville_summer_2018_service_types
     nil
   end
 end

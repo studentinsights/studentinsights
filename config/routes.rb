@@ -130,6 +130,7 @@ Rails.application.routes.draw do
   resources :services, only: [:destroy]
   resources :service_uploads, only: [:create, :destroy] do
     collection do
+      get '' => 'ui#ui'
       get :past
       get :lasids
       get :service_types

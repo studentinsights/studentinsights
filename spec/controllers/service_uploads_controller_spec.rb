@@ -49,20 +49,24 @@ RSpec.describe ServiceUploadsController, type: :controller do
         sign_in(educator)
         make_request
         expect(parsed_response).to eq [
-          "Afterschool Tutoring",
-           "Attendance Contract",
-           "Attendance Officer",
-           "Behavior Contract",
-           "Community Schools",
-           "Counseling, in-house",
-           "Counseling, outside",
-           "Freedom School",
-           "Math intervention",
-           "Reading intervention",
-           "SomerSession",
-           "Summer Program for English Language Learners",
-           "X-Block"
-          ]
+          'Afterschool Tutoring',
+          'Attendance Contract',
+          'Attendance Officer',
+          'Behavior Contract',
+          'Boston Breakthrough',
+          'Calculus Project',
+          'Community Schools',
+          'Counseling, in-house',
+          'Counseling, outside',
+          'Focused Math Intervention',
+          'Freedom School',
+          'Math intervention',
+          'Reading intervention',
+          'SomerSession',
+          'Summer Explore',
+          'Summer Program for English Language Learners',
+          'X-Block'
+        ]
       end
     end
 
