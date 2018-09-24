@@ -15,7 +15,7 @@ class ProfileController < ApplicationController
       dibels: student.dibels_results.select(:id, :date_taken, :benchmark),
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
-      access: student.latest_access_results,
+      access: student.access,
       profile_insights: ProfileInsights.new(student).as_json,
       iep_document: student.iep_document,
       sections: serialize_student_sections_for_profile(student),

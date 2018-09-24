@@ -228,7 +228,13 @@ export default class LightHeaderSupportBits extends React.Component {
         style={{marginLeft: 0, display: 'block'}}
         teaser={el}
         linkStyle={styles.subtitleItem}
-        modalStyle={modalFromLeft}
+        modalStyle={{
+          ...modalFromLeft,
+          content: {
+            ...modalFromLeft.content,
+            width: 750
+          }
+        }}
         title="Language learning"
         content={<AccessPanel access={access} />}
       />
