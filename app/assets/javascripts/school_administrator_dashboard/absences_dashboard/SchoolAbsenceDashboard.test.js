@@ -51,8 +51,7 @@ it('does not show excused absence option for New Bedford', () => {
   const context = testContext({districtKey: 'new_bedford'});
   const el = testEl();
   const dash = mount(elWrappedInContext(el, context));
-  expect(dash.html()).not.toContain('Unexcused Absences Only');
-  expect(dash.html()).not.toContain('All Absences');
+  expect(dash.html()).not.toContain('Unexcused');
   expect(dash.find('SelectExcusedAbsences').length).toEqual(0);
 });
 
@@ -60,8 +59,7 @@ it('does show excused absence option for Somerville', () => {
   const context = testContext({districtKey: 'somerville'});
   const el = testEl();
   const dash = mount(elWrappedInContext(el, context));
-  expect(dash.html()).toContain('Unexcused Absences Only');
-  expect(dash.html()).toContain('All Absences');
+  expect(dash.html()).toContain('Unexcused');
   expect(dash.find('SelectExcusedAbsences').length).toEqual(1);
 });
 
@@ -69,8 +67,7 @@ it('does show excused absence option for Bedford', () => {
   const context = testContext({districtKey: 'bedford'});
   const el = testEl();
   const dash = mount(elWrappedInContext(el, context));
-  expect(dash.html()).toContain('Unexcused Absences Only');
-  expect(dash.html()).toContain('All Absences');
+  expect(dash.html()).toContain('Unexcused');
   expect(dash.find('SelectExcusedAbsences').length).toEqual(1);
 });
 
