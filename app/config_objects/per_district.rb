@@ -191,7 +191,7 @@ class PerDistrict
 
   def import_detailed_attendance_fields?
     return true if @district_key == SOMERVILLE
-
+    return true if @district_key == BEDFORD
     return false if @district_key == NEW_BEDFORD
 
     raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO

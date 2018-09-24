@@ -125,7 +125,7 @@ RSpec.describe AttendanceImporter do
         }
 
         before do
-          allow(ENV).to receive(:[]).with('DISTRICT_KEY').and_return("bedford")
+          allow(ENV).to receive(:[]).with('DISTRICT_KEY').and_return('bedford')
         end
 
         it 'creates an absence, parsing true/false correctly' do
@@ -136,14 +136,14 @@ RSpec.describe AttendanceImporter do
           }.by 1
         end
 
-        it 'sets the right attributes' do
+        it 'sets the right attributes for defailed fields' do
           attendance_importer.send(:import_row, row)
           absence = Absence.first
 
-          expect(absence.dismissed).to eq nil
-          expect(absence.reason).to eq nil
-          expect(absence.excused).to eq nil
-          expect(absence.comment).to eq nil
+          expect(absence.dismissed).to eq false
+          expect(absence.reason).to eq 'Medical'
+          expect(absence.excused).to eq false
+          expect(absence.comment).to eq 'Received doctor note.'
         end
       end
 
