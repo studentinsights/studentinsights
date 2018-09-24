@@ -76,6 +76,7 @@ export default class AccessPanel extends React.Component {
     });
   }
 
+  // Sized for ~700px wide
   renderRow(options = {}) {
     const label = options.label;
     const dataPoint = options.dataPoint;
@@ -112,9 +113,7 @@ export default class AccessPanel extends React.Component {
             <div
               title={(score === roundedScore) ? performanceLevel : null}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                ...styles.cell,
                 height: cellHeight,
                 color: (score === roundedScore) ? 'white' : '#ccc',
                 fontWeight: (score === roundedScore) ? true : false
@@ -168,9 +167,10 @@ const styles = {
     marginBottom: 30,
     fontSize: 14
   },
-  tableHeader: {
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginBottom: 10
+  cell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'default'
   }
 };
