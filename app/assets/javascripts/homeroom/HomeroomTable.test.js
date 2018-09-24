@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {SOMERVILLE, NEW_BEDFORD} from '../helpers/PerDistrict';
+import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import HomeroomTable from './HomeroomTable';
 import {healey, shs, students} from './HomeroomTable.fixtures';
@@ -81,6 +81,22 @@ describe('high-level integration test', () => {
     expect(headerTexts(el)).toEqual([
       'Name',
       'Last BBST',
+      'Program Assigned',
+      'Disability',
+      'Level of Need',
+      '504 Plan',
+      'Fluency',
+      'Home Language',
+    ]);
+  });
+
+  it('renders correct headers for Bedford grade 6', () => {
+    const props = testProps({ grade: '6'});
+    const context = { districtKey: BEDFORD };
+    const {el} = testRender(props, context);
+    expect(headerTexts(el)).toEqual([
+      'Name',
+      'Last STAT',
       'Program Assigned',
       'Disability',
       'Level of Need',

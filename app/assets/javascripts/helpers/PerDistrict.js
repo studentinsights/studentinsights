@@ -27,6 +27,13 @@ const ORDERED_DISABILITY_VALUES_MAP = {
     'Low >= 2',
     'Moderate',
     'High'
+  ],
+  [BEDFORD]: [    
+    'Does Not Apply',
+    'Low (2 hours or less)',
+    'Low (2 or more hours)',
+    'Moderate',
+    'High'
   ]
 };
 
@@ -60,8 +67,7 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
     return createItemFn(value, Filters.Equal(key, value));
   });
 
-  // Somerville uses a null value for no disability, while New Bedford
-  // uses a separate value to describe that explicitly.
+  // Somerville uses a null value for no disability instead of an explicit value.
   const items = (districtKey === SOMERVILLE)
     ? [createItemFn('None', Filters.Null(key))].concat(itemsFromValues)
     : itemsFromValues;

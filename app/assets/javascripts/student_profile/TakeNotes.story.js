@@ -31,4 +31,5 @@ function storyRender(props, context) {
 
 storiesOf('profile/TakeNotes', module) // eslint-disable-line no-undef
   .add('somerville', () => storyRender(storyProps(), {districtKey: 'somerville'}))
-  .add('new_bedford', () => storyRender(storyProps(), {districtKey: 'new_bedford'}));
+  .add('new_bedford', () => storyRender(storyProps(), {districtKey: 'new_bedford'}))
+  .add('bedford', () => storyRender(storyProps(), {districtKey: 'bedford'}));
