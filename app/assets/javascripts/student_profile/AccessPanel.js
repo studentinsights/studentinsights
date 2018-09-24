@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import {proficiencyTextForScore} from '../helpers/language';
 
 
 // Renders latest ACCESS score with subtests
@@ -9,12 +10,11 @@ export default class AccessPanel extends React.Component {
     const {showTitle, access, style} = this.props;
 
     const proficiencyText = proficiencyTextForScore(access['composite']);
-
     return (
       <div style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>ACCESS</h4>}
-        <div style={{marginBottom: 30, fontSize: 14}}>
-          <div><b>Overall English proficiency: {proficiencyText}</b></div>
+        <div style={styles.explanation}>
+          <div><b>Overall proficiency: {proficiencyText}</b></div>
           <div>
             This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
           </div>
@@ -76,6 +76,7 @@ export default class AccessPanel extends React.Component {
     });
   }
 
+  // Sized for ~700px wide
   renderRow(options = {}) {
     const label = options.label;
     const dataPoint = options.dataPoint;
@@ -89,7 +90,9 @@ export default class AccessPanel extends React.Component {
 
     // See WIDA interpretive guide
     // https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf
-    const roundedScore = Math.round(performanceLevel*2)/2;
+    const roundedScore = (shouldRenderFractions)
+      ? Math.floor(performanceLevel*2)/2
+      : Math.floor(performanceLevel);
     const scores = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
     const cellWidth = 35;
     const cellHeight = 30;
@@ -107,14 +110,14 @@ export default class AccessPanel extends React.Component {
                 : shouldRenderFractions || score === Math.round(score) ? 'white' : '#eee'
             }}
           >
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: cellHeight,
-              color: (score === roundedScore) ? 'white' : '#ccc',
-              fontWeight: (score === roundedScore) ? true : false
-            }}>
+            <div
+              title={(score === roundedScore) ? performanceLevel : null}
+              style={{
+                ...styles.cell,
+                height: cellHeight,
+                color: (score === roundedScore) ? 'white' : '#ccc',
+                fontWeight: (score === roundedScore) ? true : false
+              }}>
               {shouldRenderFractions || score === Math.round(score) ? score : null}
             </div>
           </td>
@@ -150,7 +153,8 @@ const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    fontSize: 14
   },
   title: {
     borderBottom: '1px solid #333',
@@ -159,34 +163,14 @@ const styles = {
     paddingLeft: 0,
     marginBottom: 10
   },
-  tableHeader: {
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginBottom: 10
+  explanation: {
+    marginBottom: 30,
+    fontSize: 14
   },
-  accessLeftTableCell: {
-    paddingRight: 25
-  },
-  accessTableFootnote: {
-    fontStyle: 'italic',
-    fontSize: 13,
-    marginTop: 15,
-    marginBottom: 20
+  cell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'default'
   }
 };
-
-
-function proficiencyTextForScore(compositeDataPoint) {
-  if (!compositeDataPoint || !compositeDataPoint.performance_level) return 'No data';
-  
-  const scoreNumber = parseFloat(compositeDataPoint.performance_level);
-  if (!scoreNumber) return 'No data';
-  if (scoreNumber < 2) return 'Entering (1)';
-  if (scoreNumber < 3) return 'Emerging (2)';
-  if (scoreNumber < 4) return 'Developing (3)';
-  if (scoreNumber < 5) return 'Expanding (4)';
-  if (scoreNumber < 6) return 'Bridging (5)';
-  if (scoreNumber === 6) return 'Reaching (6)';
-
-  return 'Unknown';
-}
