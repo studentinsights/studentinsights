@@ -138,10 +138,12 @@ export function supportsSpedLiaison(districtKey) {
 }
 
 export function supportsExcusedAbsences(districtKey) {
-  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === NEW_BEDFORD) return false;
+  
   if (districtKey === BEDFORD) return true;
-  if (districtKey === NEW_BEDFORD) return true;
+  if (districtKey === SOMERVILLE) return true;
   if (districtKey === DEMO) return true;
+  
   return false;
 }
 
