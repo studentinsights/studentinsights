@@ -191,12 +191,25 @@ class PerDistrict
 
   def import_detailed_attendance_fields?
     return true if @district_key == SOMERVILLE
-
+    return true if @district_key == BEDFORD
     return false if @district_key == NEW_BEDFORD
 
     raise 'import_detailed_attendance_fields? not supported for DEMO' if @district_key == DEMO
 
     raise_not_handled!  # Importing attendance not handled yet for BEDFORD
+  end
+
+  # eg, absence, tardy, discipline columns
+  def is_attendance_import_value_truthy?(value)
+    if @district_key == SOMERVILLE
+      value.to_i == 1
+    elsif @district_key == NEW_BEDFORD
+      value.to_i == 1
+    elsif @district_key == BEDFORD
+      value.downcase == 'true'
+    else
+      raise_not_handled!
+    end
   end
 
   def import_student_house?
