@@ -70,6 +70,11 @@ RSpec.describe StudentsSpreadsheet do
            'SomerSession (active_service_date_started)',
            'Summer Program for English Language Learners (active_service_date_started)',
            'Freedom School (active_service_date_started)',
+           'Boston Breakthrough (active_service_date_started)',
+           'Calculus Project (active_service_date_started)',
+           'Focused Math Intervention (active_service_date_started)',
+           'Summer Explore (active_service_date_started)',
+
            'BBST Meeting (last_event_note_recorded_at)',
            'SST Meeting (last_event_note_recorded_at)',
            'MTSS Meeting (last_event_note_recorded_at)',
@@ -79,11 +84,7 @@ RSpec.describe StudentsSpreadsheet do
            'X-Block (active_service_date_started)',
            '10th Grade Experience (last_event_note_recorded_at)',
            'NEST (last_event_note_recorded_at)',
-           'Boston Breakthrough (active_service_date_started)',
-           'Calculus Project (active_service_date_started)',
-           'Focused Math Intervention (active_service_date_started)',
-           'Summer Explore (active_service_date_started)',
-           'STAT Meeting (active_service_date_started)'
+           'STAT Meeting (last_event_note_recorded_at)'
          ].sort
         )
       end

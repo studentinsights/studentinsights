@@ -11,7 +11,7 @@ class EventNoteType < ActiveRecord::Base
       { id: 306, name: '10th Grade Experience' },
       { id: 307, name: 'NEST' },
       { id: 400, name: 'BBST Meeting' },
-      { id: 500, name: 'STAT' }
+      { id: 500, name: 'STAT Meeting' }
     ])
   end
 
