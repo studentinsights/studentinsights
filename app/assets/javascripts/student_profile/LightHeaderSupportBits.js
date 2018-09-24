@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {prettyEnglishProficiencyText} from '../helpers/language';
+import {prettyEnglishProficiencyText, hasAnyAccessData} from '../helpers/language';
 import {
   hasInfoAbout504Plan,
   supportsSpedLiaison
@@ -220,9 +220,9 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderLanguage() {
     const {student, access} = this.props;
-    const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency)}</div>;
+    const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency, access)}</div>;
 
-    if (!access) return el;
+    if (hasAnyAccessData(access)) return el;
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
