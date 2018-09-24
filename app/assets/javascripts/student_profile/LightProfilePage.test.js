@@ -8,7 +8,7 @@ import {
   testPropsForPlutoPoppins,
   testPropsForOlafWhite,
   testPropsForAladdinMouse
-} from './StudentProfilePage.test';
+} from './profileTestProps.fixture';
 
 
 function testingTabTextLines(el) {
