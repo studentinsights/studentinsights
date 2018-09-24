@@ -1,20 +1,36 @@
-const prettyEnglishProficiencyTextMap = {
-  // Somerville
-  'Limited': 'Limited English',
-  'FLEP': 'FLEP',
+const LIMITED_ENGLISH = 'Limited English';
+const FLUENT_ENGLISH = 'Fluent English';
 
-  // New Bedford
-  'Non-English': 'Non-English',
-  'Limited English': 'Limited English',
-  'Redesignated': 'Redesignated FLEP',
-  'Native': 'Native English',
-
-  // Somerville + New Bedford
-  'Fluent': 'Fluent English'
+const somervilleMap = {
+  'Limited': LIMITED_ENGLISH,
+  'Fluent': FLUENT_ENGLISH,
+  'FLEP': 'FLEP'
 };
 
-// This varies by district, but this implementation works across
-// Somerville and New Bedford.
+const newBedfordMap = {
+  'Limited English': LIMITED_ENGLISH,
+  'Fluent': FLUENT_ENGLISH,
+  'Non-English': 'Non-English',
+  'Redesignated': 'Redesignated FLEP',
+  'Native': 'Native English'
+};
+
+const bedfordMap = {
+  'Capable': FLUENT_ENGLISH,
+  'Limited English': LIMITED_ENGLISH,
+  'Not Capable': LIMITED_ENGLISH
+};
+
+// This varies by district, but this implementation works across all districts for now.
 export function prettyEnglishProficiencyText(limitedEnglishProficiencyValue) {
-  return prettyEnglishProficiencyTextMap[limitedEnglishProficiencyValue] || 'No LEP data';
+  const prettyTextMap = {
+    ...somervilleMap,
+    ...newBedfordMap,
+    ...bedfordMap
+  };
+  return prettyTextMap[limitedEnglishProficiencyValue] || 'No LEP data';
+}
+
+export function isFluentEnglish(limitedEnglishProficiencyValue) {
+  return (prettyEnglishProficiencyText(limitedEnglishProficiencyValue) === FLUENT_ENGLISH);
 }

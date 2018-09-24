@@ -213,15 +213,24 @@ class PerDistrict
   end
 
   def import_student_house?
-    @district_key == SOMERVILLE || @district_key == DEMO
+    return true if @district_key == SOMERVILLE # SHS house
+    return true if @district_key == BEDFORD # MS house
+    return true if @district_key == DEMO
+    false
   end
 
   def import_student_counselor?
-    @district_key == SOMERVILLE || @district_key == DEMO
+    return true if @district_key == SOMERVILLE
+    return true if @district_key == BEDFORD
+    return true if @district_key == DEMO
+    false
   end
 
   def import_student_sped_liaison?
-    @district_key == SOMERVILLE || @district_key == DEMO
+    return true if @district_key == SOMERVILLE
+    return true if @district_key == BEDFORD
+    return true if @district_key == DEMO
+    false
   end
 
   def import_student_photos?
