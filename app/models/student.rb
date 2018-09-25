@@ -15,7 +15,7 @@ class Student < ActiveRecord::Base
 
   belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
-  has_many :student_photos
+
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -26,20 +26,38 @@ class Student < ActiveRecord::Base
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
   has_one :iep_document, dependent: :destroy
-  has_many :student_section_assignments
-  has_many :sections, through: :student_section_assignments
-
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
+  has_many :student_photos
+  has_many :student_section_assignments
+  has_many :sections, through: :student_section_assignments
 
   validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :state_id, presence: true
   validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
   validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
   validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }
   validate :validate_registration_date_cannot_be_in_future
+
+  # nullable but not empty strings
+  validates :enrollment_status, exclusion: { in: ['']}
+  validates :home_language, exclusion: { in: ['']}
+  validates :program_assigned, exclusion: { in: ['']}
+  validates :limited_english_proficiency, exclusion: { in: ['']}
+  validates :sped_placement, exclusion: { in: ['']}
+  validates :disability, exclusion: { in: ['']}
+  validates :sped_level_of_need, exclusion: { in: ['']}
+  validates :plan_504, exclusion: { in: ['']}
+  validates :student_address, exclusion: { in: ['']}
+  validates :free_reduced_lunch, exclusion: { in: ['']}
+  validates :race, exclusion: { in: ['']}
+  validates :hispanic_latino, exclusion: { in: ['']}
+  validates :gender, exclusion: { in: ['']}
+  validates :primary_phone, exclusion: { in: ['']}
+  validates :primary_email, exclusion: { in: ['']}
 
   def self.with_school
     where.not(school: nil)
