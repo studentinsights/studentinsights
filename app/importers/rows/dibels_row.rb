@@ -11,7 +11,7 @@ class DibelsRow < Struct.new :row, :student_id, :log
 
     DibelsResult.find_or_initialize_by(
       student_id: student_id,
-      date_taken: row[:assessment_date],
+      date_taken: PerDistrict.new.parse_date_during_import(row[:assessment_date]),
       benchmark: benchmark,
       subtest_results: subtest_results,
     )

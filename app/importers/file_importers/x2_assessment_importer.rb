@@ -150,7 +150,8 @@ class X2AssessmentImporter
   end
 
   def is_old?(row)
-    row[:assessment_date] < @time_now - 90.days
+    assessment_date = PerDistrict.new.parse_date_during_import(row[:assessment_date])
+    assessment_date < @time_now - 90.days
   end
 
   # Prevent repeated queries to this table, which is only ~10-100 records
