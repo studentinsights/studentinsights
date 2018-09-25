@@ -3,7 +3,7 @@
 exports[`snapshots with all options 1`] = `
 <div
   className="FilterStudentsBar EscapeListener"
-  onKeyUp={[Function]}
+  onKeyDown={[Function]}
 >
   <div
     className="FilterBar"
@@ -291,7 +291,7 @@ exports[`snapshots with all options 1`] = `
 exports[`snapshots without options 1`] = `
 <div
   className="FilterStudentsBar EscapeListener"
-  onKeyUp={[Function]}
+  onKeyDown={[Function]}
 >
   <div
     className="FilterBar"
