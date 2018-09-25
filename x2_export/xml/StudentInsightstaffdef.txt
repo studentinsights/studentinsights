@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ****************************************************** -->
+<!-- XML DEFINITION FOR THE "Student Insight Staff Export" EXPORT   -->
+<!-- ****************************************************** -->
+<export table-id="tblStaff" header-row="true">
+  <filter field="stfStatus" operator="equals" source="constant" value="Active" />
+  <sort field="stfNameView" />
+  <field id="stfIDState" header-source="constant" header-value="state_id" />
+  <field id="stfStaffID" header-source="constant" header-value="local_id" />
+  <field id="stfNameView" header-source="constant" header-value="full_name" />
+  <field id="stfStaffType" header-source="constant" header-value="staff_type" />
+  <field id="stfHomeroom" header-source="constant" header-value="homeroom" />
+  <field id="stfStatus" header-source="constant" header-value="status" />
+  <field id="relStfPsnOid.relPsnUsrOid.usrLoginName" header-source="constant" header-value="login_name" />
+  <field id="relStfPsnOid.psnEmail01" header-source="constant" header-value="email" />
+  <field id="relStfSklOid.sklSchoolID" header-source="constant" header-value="school_local_id" />
+</export>
+
