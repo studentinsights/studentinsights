@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import FeedCardFrame from './FeedCardFrame';
 import HouseBadge from '../components/HouseBadge';
 import Badge from '../components/Badge';
@@ -11,13 +12,15 @@ class IncidentCard extends React.Component {
   render() {
     const {style, incidentCard} = this.props;
     const {student} = incidentCard;
-
     return (
       <div className="IncidentCard" >
         <FeedCardFrame
           style={style}
           student={student}
-          whereEl={<div>in {incidentCard.incident_location}</div>}
+          whereEl={_.isEmpty(incidentCard.incident_location)
+            ? null
+            : <div>in {incidentCard.incident_location}</div>
+          }
           whenEl={<Timestamp railsTimestamp={incidentCard.occurred_at} />}
           badgesEl={<div>
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
