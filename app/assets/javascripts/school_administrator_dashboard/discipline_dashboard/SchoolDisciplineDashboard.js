@@ -57,7 +57,16 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   allDisciplineIncidents() {
     const {dashboardStudents} = this.props;
-    return _.flattenDeep(_.compact(dashboardStudents.map(student => student.discipline_incidents)));
+    return _.flattenDeep(_.compact(dashboardStudents.map(student => this.mergeDisciplineData(student.discipline_incidents, student))));
+  }
+
+  //Having the grade and homeroom associated with the incident makes grouping simpler
+  mergeDisciplineData(disciplineIncidentsArray, student) {
+    const grade = student.grade;
+    const classroom = student.homeroom_label;
+    return disciplineIncidentsArray.map(incident => {
+      return {...incident, grade, classroom};
+    });
   }
 
   filteredDisciplineIncidents(disciplineIncidents) {
@@ -68,15 +77,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
       if (!moment.utc(incident.occurred_at).isBetween(range[0], range[1])) return false;
       if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== null) return false;
       return true;
-    });
-  }
-
-  filterIncidentDates(incidentsArray) {
-    const {nowFn} = this.context;
-    const {timeRangeKey} = this.state;
-    const range = momentRange(timeRangeKey, nowFn());
-    return incidentsArray.filter((incident) => {
-      return moment.utc(incident.occurred_at).isBetween(range[0], range[1]);
     });
   }
 
