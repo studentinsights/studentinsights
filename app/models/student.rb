@@ -27,12 +27,12 @@ class Student < ActiveRecord::Base
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
   validates :local_id, presence: true, uniqueness: true, with: /^[0-9]+$/
-  validates_uniqueness_of :local_id
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validate :validate_grade
-  validate :validate_registration_date_cannot_be_in_future
-  validate :validate_free_reduced_lunch
+  validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
+  validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
+  validates :validate_registration_date_cannot_be_in_future
+  validates :free_reduced_lunch, inclusion: { in: VALID_FREE_REDUCED_LUNCH_VALUES }
 
   VALID_FREE_REDUCED_LUNCH_VALUES = [
     "Free Lunch",
@@ -260,15 +260,4 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def validate_free_reduced_lunch
-    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
-  end
-
-  def validate_grade
-    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(GradeLevels::ORDERED_GRADE_LEVELS)
-  end
-
-  def validate_plan_504
-    errors.add(:plan_504, "invalid plan_504: #{plan_504}") unless grade.in?(PerDistrict.new.valid_plan_504_values)
-  end
 end
