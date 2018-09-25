@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import SchoolwideAbsences from './absences_dashboard/SchoolwideAbsences';
 import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies';
 import SchoolwideDisciplineIncidents from './discipline_dashboard/SchoolwideDisciplineIncidents';
 import {
@@ -39,12 +38,6 @@ class DashboardLoader extends React.Component {
 
   renderDashboard(json) {
     switch(this.props.dashboardTarget) {
-    case 'absences':
-      return (
-        <SchoolwideAbsences
-          dashboardStudents={json.students_with_events}
-          school={json.school} />
-      );
     case 'tardies':
       return (
         <SchoolwideTardies
