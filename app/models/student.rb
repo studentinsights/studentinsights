@@ -34,9 +34,6 @@ class Student < ActiveRecord::Base
   validate :validate_registration_date_cannot_be_in_future
   validate :validate_free_reduced_lunch
 
-  VALID_GRADES = [
-    'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
-  ].freeze
 
   VALID_FREE_REDUCED_LUNCH_VALUES = [
     "Free Lunch",
@@ -269,7 +266,7 @@ class Student < ActiveRecord::Base
   end
 
   def validate_grade
-    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
+    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(GradeLevels::ORDERED_GRADE_LEVELS)
   end
 
   def validate_plan_504
