@@ -1,5 +1,7 @@
 class GradeLevels
   ORDERED_GRADE_LEVELS = [
+    'OOPK',
+    'OPK',
     'TK',
     'PPK',
     'PK',

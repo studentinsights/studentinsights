@@ -128,7 +128,7 @@ class Educator < ActiveRecord::Base
   end
 
   def validate_grade_level_strings_are_valid
-    if grade_level_access.any? { |grade| !(VALID_GRADES.include?(grade)) }
+    if grade_level_access.any? { |grade| !(GradeLevels::ORDERED_GRADE_LEVELS.include?(grade)) }
       errors.add(:grade_level_access, "invalid grade")
     end
   end
