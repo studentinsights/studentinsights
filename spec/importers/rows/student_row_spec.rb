@@ -33,6 +33,14 @@ RSpec.describe StudentRow do
       end
     end
 
+    context 'empty string sped_placement' do
+      let(:row) { { full_name: 'Hoag, George', sped_placement: '' } }
+
+      it 'sets it as nil' do
+        expect(student.sped_placement).to eq nil
+      end
+    end
+
     context 'grade level KF' do
       let(:row) { { grade: 'KF', full_name: 'Lee, Nico' } }
 

@@ -32,7 +32,13 @@ class InsightStudentsWithHighAbsences
       # Exclude students in younger grades like PreK since attendance isn't mandatory.
       # This means there's less consistent attendance from families, and it's less
       # of a priority to follow-up for schools.
-      students_to_consider = Student.active.where.not(grade: ['TK', 'PPK', 'PK'])
+      students_to_consider = Student.active.where.not(grade: [
+        'TK',
+        'PPK',
+        'PK',
+        'OPK',
+        'OOPK'
+      ])
 
       # Filter students to match what they see in their feed (eg, HS counselors
       # only see students on their caseload).

@@ -1,4 +1,11 @@
 class Student < ActiveRecord::Base
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ].freeze
+
   # Model for a student in the district, backed by information in the database.
   # Class methods (self.active) concern collections of students,
   # and instance methods (latest_mcas_mathematics) concern a single student.
@@ -8,7 +15,7 @@ class Student < ActiveRecord::Base
 
   belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
-  has_many :student_photos
+
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -19,31 +26,38 @@ class Student < ActiveRecord::Base
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
   has_one :iep_document, dependent: :destroy
-  has_many :student_section_assignments
-  has_many :sections, through: :student_section_assignments
-
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
+  has_many :student_photos
+  has_many :student_section_assignments
+  has_many :sections, through: :student_section_assignments
 
-  validates_presence_of :local_id
-  validates_uniqueness_of :local_id
+  validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validate :validate_grade
+  validates :state_id, presence: true
+  validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
+  validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
+  validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }
   validate :validate_registration_date_cannot_be_in_future
-  validate :validate_free_reduced_lunch
 
-  VALID_GRADES = [
-    'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
-  ].freeze
-
-  VALID_FREE_REDUCED_LUNCH_VALUES = [
-    "Free Lunch",
-    "Not Eligible",
-    "Reduced Lunch",
-    nil
-  ]
+  # nullable but not empty strings
+  validates :enrollment_status, exclusion: { in: ['']}
+  validates :home_language, exclusion: { in: ['']}
+  validates :program_assigned, exclusion: { in: ['']}
+  validates :limited_english_proficiency, exclusion: { in: ['']}
+  validates :sped_placement, exclusion: { in: ['']}
+  validates :disability, exclusion: { in: ['']}
+  validates :sped_level_of_need, exclusion: { in: ['']}
+  validates :plan_504, exclusion: { in: ['']}
+  validates :student_address, exclusion: { in: ['']}
+  validates :free_reduced_lunch, exclusion: { in: ['']}
+  validates :race, exclusion: { in: ['']}
+  validates :hispanic_latino, exclusion: { in: ['']}
+  validates :gender, exclusion: { in: ['']}
+  validates :primary_phone, exclusion: { in: ['']}
+  validates :primary_email, exclusion: { in: ['']}
 
   def self.with_school
     where.not(school: nil)
@@ -264,15 +278,4 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def validate_free_reduced_lunch
-    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
-  end
-
-  def validate_grade
-    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
-  end
-
-  def validate_plan_504
-    errors.add(:plan_504, "invalid plan_504: #{plan_504}") unless grade.in?(PerDistrict.new.valid_plan_504_values)
-  end
 end
