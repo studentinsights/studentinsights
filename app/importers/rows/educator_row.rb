@@ -1,4 +1,4 @@
-class EducatorRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary)
+class EducatorRow < Struct.new(:row, :assigned_homeroom_id, :school_ids_dictionary)
   # Returns a new or existing Educator record matching the row, or nil if it can't
   # understand the row.
   def match_educator_record
@@ -14,7 +14,7 @@ class EducatorRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary)
       staff_type: row[:staff_type],
       admin: is_admin?,
       local_id: row[:local_id],
-      homeroom_id: homeroom_id,
+      assigned_homeroom_id: assigned_homeroom_id,
       school_id: school_rails_id
     })
 
