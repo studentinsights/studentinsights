@@ -5,7 +5,7 @@ class Student < ActiveRecord::Base
     "Reduced Lunch",
     nil
   ].freeze
-  
+
   # Model for a student in the district, backed by information in the database.
   # Class methods (self.active) concern collections of students,
   # and instance methods (latest_mcas_mathematics) concern a single student.
