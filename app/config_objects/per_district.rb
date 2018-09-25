@@ -50,9 +50,9 @@ class PerDistrict
     if @district_key == SOMERVILLE || @district_key == DEMO
       [nil, "Not 504", "504", "NotIn504", "Active"]
     elsif @district_key == NEW_BEDFORD
-      [nil, "", "NotIn504", "Active", "Exited"]
+      [nil, "NotIn504", "Active", "Exited"]
     elsif @district_key == BEDFORD
-      [nil, "", "Active", "Exited"]
+      [nil, "Active", "Exited"]
     end
   end
 
