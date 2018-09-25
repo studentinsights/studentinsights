@@ -1,4 +1,11 @@
 class Student < ActiveRecord::Base
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ].freeze
+  
   # Model for a student in the district, backed by information in the database.
   # Class methods (self.active) concern collections of students,
   # and instance methods (latest_mcas_mathematics) concern a single student.
@@ -31,15 +38,8 @@ class Student < ActiveRecord::Base
   validates :last_name, presence: true
   validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
   validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
-  validates :validate_registration_date_cannot_be_in_future
-  validates :free_reduced_lunch, inclusion: { in: VALID_FREE_REDUCED_LUNCH_VALUES }
-
-  VALID_FREE_REDUCED_LUNCH_VALUES = [
-    "Free Lunch",
-    "Not Eligible",
-    "Reduced Lunch",
-    nil
-  ]
+  validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }
+  validate :validate_registration_date_cannot_be_in_future
 
   def self.with_school
     where.not(school: nil)
