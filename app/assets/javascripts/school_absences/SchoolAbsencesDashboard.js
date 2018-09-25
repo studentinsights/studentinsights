@@ -235,32 +235,31 @@ export default class SchoolAbsencesDashboard extends React.Component {
     const {timeRangeKey, excusedAbsencesKey, grade, house, counselor} = this.state;
     return (
       <div style={styles.filterBarContainer}>
-        {supportsExcusedAbsences(districtKey)
-          ? <FilterBar>
-              <SelectExcusedAbsences
-                excusedAbsencesKey={excusedAbsencesKey}
-                onChange={this.onExcusedAbsencesChanged} />
-              <SelectGrade
-                style={styles.narrowSelect}
-                grade={grade}
-                grades={this.allGrades()}
-                onChange={this.onGradeChanged} />
-              {supportsHouse(districtKey) && shouldDisplayHouse(school) && (
-                <SelectHouse
-                  style={styles.narrowSelect}
-                  house={house}
-                  onChange={this.onHouseChanged} />
-              )}
-              {supportsCounselor(districtKey) && shouldDisplayCounselor(school) && (
-                <SelectCounselor
-                  style={styles.narrowSelect}
-                  counselor={counselor}
-                  counselors={this.allCounselors()}
-                  onChange={this.onCounselorChanged} />
-              )}
-            </FilterBar>
-          : <div /> /* empty element for justify-content: space-between */
-        }
+        <FilterBar>
+          {supportsExcusedAbsences(districtKey) && (
+            <SelectExcusedAbsences
+              excusedAbsencesKey={excusedAbsencesKey}
+              onChange={this.onExcusedAbsencesChanged} />
+          )}
+          <SelectGrade
+            style={styles.narrowSelect}
+            grade={grade}
+            grades={this.allGrades()}
+            onChange={this.onGradeChanged} />
+          {supportsHouse(districtKey) && shouldDisplayHouse(school) && (
+            <SelectHouse
+              style={styles.narrowSelect}
+              house={house}
+              onChange={this.onHouseChanged} />
+          )}
+          {supportsCounselor(districtKey) && shouldDisplayCounselor(school) && (
+            <SelectCounselor
+              style={styles.narrowSelect}
+              counselor={counselor}
+              counselors={this.allCounselors()}
+              onChange={this.onCounselorChanged} />
+          )}
+        </FilterBar>
         <FilterBar labelText="Time range">
           <SelectTimeRange
             timeRangeKey={timeRangeKey}

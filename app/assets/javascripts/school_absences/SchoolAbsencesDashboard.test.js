@@ -199,14 +199,18 @@ describe('with testSetup', () => {
 });
 
 
-it('snapshots', () => {
-  const el = (
+function snapshotJson(districtKey) {
+  return renderer.create(
     withNowContext('2018-09-22T17:03:06.123Z',
-      <PerDistrictContainer districtKey="demo">
+      <PerDistrictContainer districtKey={districtKey}>
         {pageSizeFrame(testEl())}
       </PerDistrictContainer>
-    )
-  );
-  const tree = renderer.create(el);
-  expect(tree.toJSON()).toMatchSnapshot();
+  ));
+}
+
+describe('snapshots', () => {
+  it('works for demo', () => expect(snapshotJson('demo')).toMatchSnapshot());
+  it('works for somerville', () => expect(snapshotJson('somerville')).toMatchSnapshot());
+  it('works for new_bedford', () => expect(snapshotJson('new_bedford')).toMatchSnapshot());
+  it('works for bedford', () => expect(snapshotJson('bedford')).toMatchSnapshot());
 });
