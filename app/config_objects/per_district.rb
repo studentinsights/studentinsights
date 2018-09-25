@@ -54,11 +54,12 @@ class PerDistrict
     end
   end
 
+  # Returns nil if strict parsing fails
   def parse_date_during_import(text)
     if @district_key == SOMERVILLE || @district_key == NEW_BEDFORD
-      Date.strptime(text, '%Y-%m-%d')
+      Date.strptime(text, '%Y-%m-%d') rescue nil
     elsif @district_key == BEDFORD
-      Date.strptime(text, '%m/%d/%Y')
+      Date.strptime(text, '%m/%d/%Y') rescue nil
     else
       raise_not_handled!
     end
