@@ -51,9 +51,7 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
       :sped_level_of_need,
       :plan_504,
       :student_address,
-      :registration_date,
       :free_reduced_lunch,
-      :date_of_birth,
       :race,
       :hispanic_latino,
       :gender,
@@ -84,8 +82,13 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
 
   # These are different based on the district configuration and export
   def per_district_attributes
-    included_attributes = {}
     per_district = PerDistrict.new
+
+    # date parsing
+    included_attributes = {
+      registration_date: per_district.parse_date_during_import(row[:registration_date]),
+      date_of_birth: per_district.parse_date_during_import(row[:date_of_birth])
+    }
 
     if per_district.import_student_house?
       included_attributes.merge!(house: row[:house])

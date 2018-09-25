@@ -67,11 +67,11 @@ RSpec.describe StudentRow do
 
     context 'when PerDistrict attributes are not exported' do
       before do
-        mock_per_district = instance_double(PerDistrict)
-        expect(mock_per_district).to receive(:import_student_house?).and_return(false)
-        expect(mock_per_district).to receive(:import_student_counselor?).and_return(false)
-        expect(mock_per_district).to receive(:import_student_sped_liaison?).and_return(false)
-        expect(PerDistrict).to receive(:new).and_return(mock_per_district)
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:import_student_house?).and_return(false)
+        allow(mock_per_district).to receive(:import_student_counselor?).and_return(false)
+        allow(mock_per_district).to receive(:import_student_sped_liaison?).and_return(false)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
       end
 
       it 'does not try to read and leaves them as nil' do
