@@ -34,7 +34,6 @@ class Student < ActiveRecord::Base
   validate :validate_registration_date_cannot_be_in_future
   validate :validate_free_reduced_lunch
 
-
   VALID_FREE_REDUCED_LUNCH_VALUES = [
     "Free Lunch",
     "Not Eligible",
