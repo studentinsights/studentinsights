@@ -33,7 +33,7 @@ class Student < ActiveRecord::Base
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
-  validates :local_id, presence: true, uniqueness: true, with: /^[0-9]+$/
+  validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
