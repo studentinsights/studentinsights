@@ -26,14 +26,13 @@ class Student < ActiveRecord::Base
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
-  validates_presence_of :local_id
+  validates :local_id, presence: true, uniqueness: true, with: /^[0-9]+$/
   validates_uniqueness_of :local_id
   validates :first_name, presence: true
   validates :last_name, presence: true
   validate :validate_grade
   validate :validate_registration_date_cannot_be_in_future
   validate :validate_free_reduced_lunch
-
 
   VALID_FREE_REDUCED_LUNCH_VALUES = [
     "Free Lunch",
