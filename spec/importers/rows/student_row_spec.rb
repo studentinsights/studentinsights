@@ -25,6 +25,14 @@ RSpec.describe StudentRow do
       end
     end
 
+    context 'invalid registration_date' do
+      let(:row) { { full_name: 'Hoag, George', registration_date: '02' } }
+
+      it 'sets it as nil' do
+        expect(student.registration_date).to eq nil
+      end
+    end
+
     context 'grade level KF' do
       let(:row) { { grade: 'KF', full_name: 'Lee, Nico' } }
 
