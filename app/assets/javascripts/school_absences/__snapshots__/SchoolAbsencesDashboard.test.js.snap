@@ -23,7 +23,7 @@ exports[`snapshots works for bedford 1`] = `
   >
     <div
       className="SchoolAbsencesDashboard EscapeListener"
-      onKeyUp={[Function]}
+      onKeyDown={[Function]}
       style={
         Object {
           "display": "flex",
@@ -525,7 +525,7 @@ exports[`snapshots works for bedford 1`] = `
           <div
             className="EscapeListener"
             onClick={[Function]}
-            onKeyUp={[Function]}
+            onKeyDown={[Function]}
             style={
               Object {
                 "display": "flex",
@@ -585,7 +585,7 @@ exports[`snapshots works for demo 1`] = `
   >
     <div
       className="SchoolAbsencesDashboard EscapeListener"
-      onKeyUp={[Function]}
+      onKeyDown={[Function]}
       style={
         Object {
           "display": "flex",
@@ -1167,7 +1167,7 @@ exports[`snapshots works for demo 1`] = `
           <div
             className="EscapeListener"
             onClick={[Function]}
-            onKeyUp={[Function]}
+            onKeyDown={[Function]}
             style={
               Object {
                 "display": "flex",
@@ -1227,7 +1227,7 @@ exports[`snapshots works for new_bedford 1`] = `
   >
     <div
       className="SchoolAbsencesDashboard EscapeListener"
-      onKeyUp={[Function]}
+      onKeyDown={[Function]}
       style={
         Object {
           "display": "flex",
@@ -1562,7 +1562,7 @@ exports[`snapshots works for new_bedford 1`] = `
           <div
             className="EscapeListener"
             onClick={[Function]}
-            onKeyUp={[Function]}
+            onKeyDown={[Function]}
             style={
               Object {
                 "display": "flex",
@@ -1622,7 +1622,7 @@ exports[`snapshots works for somerville 1`] = `
   >
     <div
       className="SchoolAbsencesDashboard EscapeListener"
-      onKeyUp={[Function]}
+      onKeyDown={[Function]}
       style={
         Object {
           "display": "flex",
@@ -2204,7 +2204,7 @@ exports[`snapshots works for somerville 1`] = `
           <div
             className="EscapeListener"
             onClick={[Function]}
-            onKeyUp={[Function]}
+            onKeyDown={[Function]}
             style={
               Object {
                 "display": "flex",
