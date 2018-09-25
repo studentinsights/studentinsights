@@ -1,4 +1,11 @@
 class Student < ActiveRecord::Base
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ].freeze
+
   # Model for a student in the district, backed by information in the database.
   # Class methods (self.active) concern collections of students,
   # and instance methods (latest_mcas_mathematics) concern a single student.
@@ -26,20 +33,13 @@ class Student < ActiveRecord::Base
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
 
-  validates_presence_of :local_id
-  validates_uniqueness_of :local_id
+  validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validate :validate_grade
+  validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
+  validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
+  validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }
   validate :validate_registration_date_cannot_be_in_future
-  validate :validate_free_reduced_lunch
-
-  VALID_FREE_REDUCED_LUNCH_VALUES = [
-    "Free Lunch",
-    "Not Eligible",
-    "Reduced Lunch",
-    nil
-  ]
 
   def self.with_school
     where.not(school: nil)
@@ -260,15 +260,4 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def validate_free_reduced_lunch
-    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
-  end
-
-  def validate_grade
-    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(GradeLevels::ORDERED_GRADE_LEVELS)
-  end
-
-  def validate_plan_504
-    errors.add(:plan_504, "invalid plan_504: #{plan_504}") unless grade.in?(PerDistrict.new.valid_plan_504_values)
-  end
 end

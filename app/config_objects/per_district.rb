@@ -48,9 +48,11 @@ class PerDistrict
 
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
-      ["504", "Not 504", "NotIn504"]
+      [nil, "Not 504", "504", "NotIn504", "Active"]
     elsif @district_key == NEW_BEDFORD
-      ["", "Active", "Exited", "NotIn504"]
+      [nil, "", "NotIn504", "Active", "Exited"]
+    elsif @district_key == BEDFORD
+      [nil, "", "Active", "Exited"]
     end
   end
 

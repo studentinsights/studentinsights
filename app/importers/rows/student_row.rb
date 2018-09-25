@@ -40,7 +40,8 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
   end
 
   def demographic_attributes
-    row.to_h.slice(
+    attrs = {}
+    [
       :state_id,
       :enrollment_status,
       :home_language,
@@ -57,7 +58,18 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
       :gender,
       :primary_phone,
       :primary_email,
-    )
+    ].map do |key|
+      value = row[key]
+      if value.nil? # set nil if column not in import
+        attrs[key] = nil
+      elsif value == '' # set nil if column is in import, but there's an empty string value
+        attrs[key] = nil
+      else
+        attrs[key] = value
+      end
+    end
+
+    attrs
   end
 
   def school_attributes
