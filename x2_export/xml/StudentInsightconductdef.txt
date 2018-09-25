@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************* -->
+<!-- XML DEFINITION FOR THE "Student Insight Conduct Incident Export" EXPORT -->
+<!-- ************************************************* -->
+<export table-id="tblStdIncident" header-row="true">
+  <field id="relCndStdOid.stdIDState" header-source="constant" header-value="state_id" />
+  <field id="relCndStdOid.stdIDLocal" header-source="constant" header-value="local_id" />
+  <field id="cndIncident" header-source="constant" header-value="incident_code" />
+  <field id="cndIncDate" header-source="constant" header-value="event_date" />
+  <field id="cndIncTime" header-source="constant" header-value="incident_time" />
+  <field id="cndIncLocation" header-source="constant" header-value="incident_location" />
+  <field id="cndIncDesc" header-source="constant" header-value="incident_description" />
+  <field id="relCndSklOid.sklSchoolID" header-source="constant" header-value="school_local_id" />
+</export>
+
