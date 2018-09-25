@@ -179,6 +179,7 @@ class TestPals
       homeroom: @healey_kindergarten_homeroom,
       grade: 'KF',
       local_id: '111111111',
+      state_id: '991111111',
       enrollment_status: 'Active'
     )
 
@@ -216,6 +217,7 @@ class TestPals
       school: @west,
       grade: '8',
       local_id: '333333333',
+      state_id: '993333333',
       enrollment_status: 'Active'
     )
 
@@ -385,6 +387,7 @@ class TestPals
       grade: '9',
       date_of_birth: '2004-03-12',
       local_id: '111222222',
+      state_id: '991222222',
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
@@ -403,6 +406,7 @@ class TestPals
       grade: '9',
       date_of_birth: '2003-02-07',
       local_id: '2222222211',
+      state_id: '9922222211',
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
