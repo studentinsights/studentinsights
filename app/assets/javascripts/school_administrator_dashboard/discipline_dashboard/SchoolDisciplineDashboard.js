@@ -41,6 +41,36 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
+  // getIncidentsByType(incidentType) {
+  //   const {studentsWithDisciplineIncidents} = this.props;
+  //   const {selectedIncidentCode} = this.state;
+  //   return studentsWithDisciplineIncidents.filter(student => {
+  //     if(student.discipline_incident)
+  //   });
+  // }
+
+  // disciplineDataForStudents(students, endMoment) {
+  //   return disciplineCount = students.reduce((count, student) => {
+  //     return this.filteredDisciplineIncidents(student.discipline_incidents, endMoment).length + count;
+  //   }, 0);
+  // }
+
+  allDisciplineIncidents() {
+    const {dashboardStudents} = this.props;
+    return _.flattenDeep(_.compact(dashboardStudents.map(student => student.discipline_incidents)));
+  }
+
+  filteredDisciplineIncidents(disciplineIncidents) {
+    const {nowFn} = this.context;
+    const {timeRangeKey, selectedIncidentCode} = this.state;
+    const range = momentRange(timeRangeKey, nowFn());
+    return disciplineIncidents.filter(incident => {
+      if (!moment.utc(incident.occurred_at).isBetween(range[0], range[1])) return false;
+      if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== null) return false;
+      return true;
+    });
+  }
+
   filterIncidentDates(incidentsArray) {
     const {nowFn} = this.context;
     const {timeRangeKey} = this.state;
@@ -114,17 +144,18 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
+    console.log(this.allDisciplineIncidents());
     const {timeRangeKey} = this.state;
     const {school} = this.props;
     const chartOptions = [
-      {value: 'location', label: 'Location'},
-      {value: 'time', label: 'Time'},
+      {value: 'incident_location', label: 'Location'},
+      {value: 'occurred_at', label: 'Time'},
       {value: 'classroom', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
       {value: 'offense', label: 'Offense'},
     ];
-    const filteredIncidents = this.filterIncidentDates(this.props.schoolDisciplineEvents);
+    const filteredIncidents = this.filteredDisciplineIncidents(this.allDisciplineIncidents());
     const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
 
     return(
@@ -262,7 +293,8 @@ const styles = {
 function initialState() {
   return {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
-    selectedChart: 'location',
+    selectedChart: 'incident_location',
+    selectedIncidentCode: null,
     selectedCategory: null
   };
 }
