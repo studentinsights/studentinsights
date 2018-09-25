@@ -151,6 +151,7 @@ RSpec.describe StudentsImporter do
           Student.create!({
             first_name: 'Ryan',
             last_name: 'Rodriguez',
+            state_id: '99100',
             local_id: '100',
             school: healey,
             grade: '7'
