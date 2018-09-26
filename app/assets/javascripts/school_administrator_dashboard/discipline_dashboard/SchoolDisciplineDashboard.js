@@ -8,6 +8,7 @@ import SelectTimeRange, {
   momentRange,
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
+import memoizer from '../../helpers/memoizer';
 import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
 import ExperimentalBanner from '../../components/ExperimentalBanner';
@@ -29,6 +30,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
     this.selectChart = this.selectChart.bind(this);
+    this.memoize = memoizer();
   }
 
   setStudentList(highchartsEvent) {
@@ -41,42 +43,38 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
-  // getIncidentsByType(incidentType) {
-  //   const {studentsWithDisciplineIncidents} = this.props;
-  //   const {selectedIncidentCode} = this.state;
-  //   return studentsWithDisciplineIncidents.filter(student => {
-  //     if(student.discipline_incident)
-  //   });
-  // }
-
-  // disciplineDataForStudents(students, endMoment) {
-  //   return disciplineCount = students.reduce((count, student) => {
-  //     return this.filteredDisciplineIncidents(student.discipline_incidents, endMoment).length + count;
-  //   }, 0);
-  // }
-
   allDisciplineIncidents() {
-    const {dashboardStudents} = this.props;
-    return _.flattenDeep(_.compact(dashboardStudents.map(student => this.mergeDisciplineData(student.discipline_incidents, student))));
+    return this.memoize(['allDisciplineIncidents'], () => {
+      const {dashboardStudents} = this.props;
+      return _.flattenDeep(_.compact(dashboardStudents.map(student => this.mergeDisciplineData(student.discipline_incidents, student))));
+    });
   }
 
-  //Having the grade and homeroom associated with the incident makes grouping simpler
+  //Associate all attributes that we want to use for incident grouping. More may be added here later.
   mergeDisciplineData(disciplineIncidentsArray, student) {
+    //student attributes
     const grade = student.grade;
     const classroom = student.homeroom_label;
+    const race = student.race;
     return disciplineIncidentsArray.map(incident => {
-      return {...incident, grade, classroom};
+      //incident attributes derived from raw incident data
+      const exactTime = incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+      const day = moment.utc(incident.occurred_at).format("ddd");
+      const location = incident.incident_location || "Not Recorded"
+      return {...incident, grade, classroom, race, exactTime, day, location};
     });
   }
 
   filteredDisciplineIncidents(disciplineIncidents) {
-    const {nowFn} = this.context;
-    const {timeRangeKey, selectedIncidentCode} = this.state;
-    const range = momentRange(timeRangeKey, nowFn());
-    return disciplineIncidents.filter(incident => {
-      if (!moment.utc(incident.occurred_at).isBetween(range[0], range[1])) return false;
-      if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== null) return false;
-      return true;
+    return this.memoize(['filteredIncidents', this.state, arguments], () => {
+      const {nowFn} = this.context;
+      const {timeRangeKey, selectedIncidentCode} = this.state;
+      const range = momentRange(timeRangeKey, nowFn());
+      return disciplineIncidents.filter(incident => {
+        if (!moment.utc(incident.occurred_at).isBetween(range[0], range[1])) return false;
+        if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== null) return false;
+        return true;
+      });
     });
   }
 
@@ -149,7 +147,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {school} = this.props;
     const chartOptions = [
       {value: 'incident_location', label: 'Location'},
-      {value: 'occurred_at', label: 'Time'},
+      {value: 'exactTime', label: 'Time'},
       {value: 'classroom', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
@@ -247,17 +245,6 @@ SchoolDisciplineDashboard.contextTypes = {
 };
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
-  schoolDisciplineEvents: PropTypes.arrayOf(PropTypes.shape({
-    student_id: PropTypes.number.isRequired, //ID of student involved in incident
-    location: PropTypes.string, //Place where incident occurred
-    time: PropTypes.string, //Time of day for incident - NULL if no specific time recorded
-    classroom: PropTypes.string, //Name of student's homeroom teacher
-    student_grade: PropTypes.string, //Grade of student
-    day: PropTypes.string, //Day of week on which incident occurred
-    offense: PropTypes.string, //Specific type of incident
-    student_race: PropTypes.string, //Race of student
-    occurred_at: PropTypes.string, //Date for incident, used in filtering specific date ranges
-  })).isRequired,
   school: PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired
