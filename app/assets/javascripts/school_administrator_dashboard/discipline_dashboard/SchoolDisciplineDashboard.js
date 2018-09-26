@@ -8,6 +8,7 @@ import SelectTimeRange, {
   momentRange,
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
+import SelectDisciplineIncidentType from '../../components/SelectDisciplineIncidentType';
 import memoizer from '../../helpers/memoizer';
 import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
@@ -26,11 +27,16 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.state = initialState();
 
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
+    this.selectIncidentCode = this.selectIncidentCode.bind(this);
     this.onResetFilters = this.onResetFilters.bind(this);
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
     this.selectChart = this.selectChart.bind(this);
     this.memoize = memoizer();
+  }
+
+  selectIncidentCode(incidentType) {
+    this.setState({selectedIncidentCode: incidentType});
   }
 
   setStudentList(highchartsEvent) {
@@ -142,7 +148,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.allDisciplineIncidents());
     const {timeRangeKey} = this.state;
     const {school} = this.props;
     const chartOptions = [
@@ -153,8 +158,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
       {value: 'day', label: 'Day'},
       {value: 'offense', label: 'Offense'},
     ];
-    const filteredIncidents = this.filteredDisciplineIncidents(this.allDisciplineIncidents());
+    const allIncidents = this.allDisciplineIncidents();
+    const filteredIncidents = this.filteredDisciplineIncidents(allIncidents);
     const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
+    const incidentTypes = _.uniq(allIncidents.map(incident => incident.incident_code));
 
     return(
       <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
@@ -162,7 +169,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
           <div style={dashboardStyles.filterBar}>
-            <FilterBar labelText="Time range" style={styles.timeRange} >
+            <FilterBar style={styles.timeRange} >
+              <SelectDisciplineIncidentType
+              type={this.state.selectedIncidentCode || 'All'}
+              onChange={this.selectIncidentCode}
+              types={incidentTypes}/>
               <SelectTimeRange
                 timeRangeKey={timeRangeKey}
                 onChange={this.onTimeRangeKeyChanged} />
