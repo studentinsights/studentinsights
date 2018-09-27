@@ -1,7 +1,7 @@
 class IepFileNameParser < Struct.new :path
 
   def local_id
-    pdf_basename.split('_')[0]
+    IepDocument.parse_local_id(pdf_basename)
   end
 
   def file_name

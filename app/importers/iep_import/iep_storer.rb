@@ -50,7 +50,7 @@ class IepStorer
 
     if document.present?
       @logger.info("updating iep record for student ##{@student.id}...")
-      IepDocument.update(file_name: @file_name)
+      IepDocument.update!(file_name: @file_name)
     else
       @logger.info("creating iep record for student ##{@student.id}...")
       IepDocument.create!(
