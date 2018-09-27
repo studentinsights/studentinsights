@@ -66,7 +66,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       //incident attributes derived from raw incident data
       const exactTime = incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
       const day = moment.utc(incident.occurred_at).format("ddd");
-      const location = incident.incident_location || "Not Recorded"
+      const location = incident.incident_location || "Not Recorded";
       return {...incident, grade, classroom, race, exactTime, day, location};
     });
   }
