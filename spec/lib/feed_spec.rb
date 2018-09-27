@@ -33,7 +33,8 @@ RSpec.describe Feed do
       students = Feed.students_for_feed(pals.shs_sofia_counselor)
       expect(students.map(&:id)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
   end
