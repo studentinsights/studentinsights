@@ -35,10 +35,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.memoize = memoizer();
   }
 
-  onIncidentTypeChange(incidentType) {
-    this.setState({selectedIncidentCode: incidentType});
-  }
-
   setStudentList(highchartsEvent) {
     this.setState({selectedCategory: highchartsEvent.point.category});
   }
@@ -133,6 +129,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return chartKeys.sort((a,b) => {
       return groupedIncidents[b].length - groupedIncidents[a].length;
     });
+  }
+
+  onIncidentTypeChange(incidentType) {
+    this.setState({selectedIncidentCode: incidentType});
   }
 
   onTimeRangeKeyChanged(timeRangeKey) {
