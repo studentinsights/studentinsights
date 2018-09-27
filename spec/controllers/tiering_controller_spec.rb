@@ -76,8 +76,8 @@ describe TieringController, :type => :controller do
             "recent_discipline_actions"=>0
           }
         }, {
-          "level"=>1,
-          "triggers"=>['academic'],
+          "level"=>0,
+          "triggers"=>[],
           "data"=>{
             "course_failures"=>1,
             "course_ds"=>0,

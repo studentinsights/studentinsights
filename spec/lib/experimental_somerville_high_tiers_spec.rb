@@ -94,8 +94,8 @@ RSpec.describe ExperimentalSomervilleHighTiers do
             }
           }],
           "tier"=>{
-            "level"=>1,
-            "triggers"=>['academic'],
+            "level"=>0,
+            "triggers"=>[],
             "data"=>{
               "course_failures"=>1,
               "course_ds"=>0,
@@ -121,44 +121,51 @@ RSpec.describe ExperimentalSomervilleHighTiers do
     end
 
     it 'Level 0' do
+      level = 0
       expect(decide_tier_output({
         course_ds: 0,
         course_failures: 0,
         recent_discipline_actions: 0,
         recent_absence_rate: 1.0
-      })).to eq [0, []]
+      })).to eq [level, []]
       expect(decide_tier_output({
         course_ds: 1,
         course_failures: 0,
         recent_discipline_actions: 0,
         recent_absence_rate: 1.0
-      })).to eq [0, []]
+      })).to eq [level, []]
       expect(decide_tier_output({
         course_ds: 1,
         course_failures: 0,
         recent_discipline_actions: 0,
         recent_absence_rate: 0.95
-      })).to eq [0, []]
+      })).to eq [level, []]
       expect(decide_tier_output({
         course_ds: 1,
         course_failures: 0,
         recent_discipline_actions: 4,
         recent_absence_rate: 1.0
-      })).to eq [0, []]
-    end
-
-    it 'Level 1: 1 F or 2 Ds OR less than 95 attendance over last 45 days' do
+      })).to eq [level, []]
       expect(decide_tier_output({
         course_ds: 0,
         course_failures: 1,
         recent_discipline_actions: 0,
         recent_absence_rate: 1.0
-      })).to eq [1, [:academic]]
+      })).to eq [level, []]
       expect(decide_tier_output({
-        course_ds: 2,
+        course_ds: 4,
         course_failures: 0,
         recent_discipline_actions: 0,
         recent_absence_rate: 1.0
+      })).to eq [level, []]
+    end
+
+    it 'Level 1: 1 F and 2 Ds OR less than 95 attendance over last 45 days' do
+      expect(decide_tier_output({
+        course_ds: 2,
+        course_failures: 1,
+        recent_discipline_actions: 0,
+        recent_absence_rate: 1.00
       })).to eq [1, [:academic]]
       expect(decide_tier_output({
         course_ds: 0,
@@ -172,12 +179,6 @@ RSpec.describe ExperimentalSomervilleHighTiers do
         recent_discipline_actions: 0,
         recent_absence_rate: 0.90
       })).to eq [1, [:academic, :absence]]
-      expect(decide_tier_output({
-        course_ds: 4,
-        course_failures: 0,
-        recent_discipline_actions: 0,
-        recent_absence_rate: 1.00
-      })).to eq [1, [:academic]]
     end
 
     it "Level 2: 2 F's OR less than 90 attendance over last 45" do
