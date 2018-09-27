@@ -27,7 +27,7 @@ export default class SupportGaps extends React.Component {
     return (
       <div className="SupportGaps" style={styles.root}>
         <div style={{display: 'flex', flexDirection: 'column', marginBottom: 40}}>
-          <div style={{flex: 1}}>{message}</div>
+          <div>{message}</div>
           <div>{systemsAndSupports}</div>
           {!isShowingList && <Button style={{marginTop: 20}} onClick={this.onLinkClicked}>show students</Button>}
         </div>
