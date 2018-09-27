@@ -6,6 +6,7 @@ import tieringShowJson from './tieringShowJson.fixture';
 
 function testProps(props = {}) {
   return {
+    systemsAndSupportsUrl: 'https://example.com/foo',
     studentsWithTiering: tieringShowJson.students_with_tiering,
     ...props
   };

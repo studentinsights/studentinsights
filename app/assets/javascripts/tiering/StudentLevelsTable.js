@@ -125,7 +125,7 @@ export default class StudentLevelsTable extends React.Component {
               cellRenderer={this.renderLevel} />
             <Column
               dataKey="absence"
-              label={<span>Absence<br/>Rate</span>}
+              label={<span>Attendance<br/>Rate</span>}
               width={numericCellWidth}
               cellRenderer={this.renderAbsenceRate} />
             <Column

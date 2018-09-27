@@ -142,6 +142,11 @@ export default class TieringView extends React.Component {
     );
   }
 
+  renderSystemsAndSupportsLink() {
+    const {systemsAndSupportsUrl} = this.props;
+    return <a href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>;
+  }
+
   renderExperienceGaps(filteredStudents) {
     const uncoveredStudents = filteredStudents.filter(student => (student.grade === '9' || student.grade === '10') && hasAcademicTrigger(student) && !student.notes.last_experience_note.event_note_type_id);
     return (
@@ -159,6 +164,7 @@ export default class TieringView extends React.Component {
             message={this.renderSupportGapsMessageWithFilterWarning(
               <div>There are <b>{uncoveredStudents.length} students</b> with academic triggers recently who haven't been mentioned in NGE or 10GE.</div>
             )}
+            systemsAndSupports={this.renderSystemsAndSupportsLink()}
             uncoveredStudentsWithTiering={uncoveredStudents}
           />
         }
@@ -183,6 +189,7 @@ export default class TieringView extends React.Component {
             message={this.renderSupportGapsMessageWithFilterWarning(
               <div>There are <b>{uncoveredStudents.length} students</b> with absence or discipline triggers recently who haven't been mentioned in SST.</div>
             )}
+            systemsAndSupports={this.renderSystemsAndSupportsLink()}
             uncoveredStudentsWithTiering={uncoveredStudents}
           />
         }
@@ -214,25 +221,28 @@ export default class TieringView extends React.Component {
 
   renderSummary(studentsWithTiering) {
     return (
-      <div style={styles.summaryContainer}>
-        <div style={styles.summaryColumn}>
-          <h4 style={{marginBottom: 10}}>by levels</h4>
-          {this.renderTierCount(studentsWithTiering, 0)}
-          {this.renderTierCount(studentsWithTiering, 1)}
-          {this.renderTierCount(studentsWithTiering, 2)}
-          {this.renderTierCount(studentsWithTiering, 3)}
-          {this.renderTierCount(studentsWithTiering, 4)}
-        </div>
-        <div style={styles.summaryColumn}>
-          <h4 style={{marginBottom: 10}}>by triggers</h4>
-          {this.renderTriggerCount(studentsWithTiering)}
-        </div>
-        <div style={styles.summaryColumn}>
-          <h4 style={{marginBottom: 10}}>by supports</h4>
-          {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
-          {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
-          {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
-          {this.renderServiceCount(studentsWithTiering, 'Study skills', STUDY_SKILLS)}
+      <div>
+        {this.renderSystemsAndSupportsLink()}
+        <div style={styles.summaryContainer}>
+          <div style={styles.summaryColumn}>
+            <h4 style={{marginBottom: 10}}>by levels</h4>
+            {this.renderTierCount(studentsWithTiering, 0)}
+            {this.renderTierCount(studentsWithTiering, 1)}
+            {this.renderTierCount(studentsWithTiering, 2)}
+            {this.renderTierCount(studentsWithTiering, 3)}
+            {this.renderTierCount(studentsWithTiering, 4)}
+          </div>
+          <div style={styles.summaryColumn}>
+            <h4 style={{marginBottom: 10}}>by triggers</h4>
+            {this.renderTriggerCount(studentsWithTiering)}
+          </div>
+          <div style={styles.summaryColumn}>
+            <h4 style={{marginBottom: 10}}>by supports</h4>
+            {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
+            {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
+            {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
+            {this.renderServiceCount(studentsWithTiering, 'Study skills', STUDY_SKILLS)}
+          </div>
         </div>
       </div>
     );
@@ -301,6 +311,7 @@ export default class TieringView extends React.Component {
   }
 }
 TieringView.propTypes = {
+  systemsAndSupportsUrl: PropTypes.string.isRequired,
   studentsWithTiering: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
