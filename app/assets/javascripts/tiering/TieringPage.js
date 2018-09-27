@@ -12,6 +12,7 @@ import TieringView from './TieringView';
 
 
 // Experimental page for looking at HS support tiers (Somerville only)
+export const SYSTEMS_AND_SUPPORTS_URL = 'https://docs.google.com/document/d/10Rm-FMeQsj_ArxqVWefa6bz8-cs2zsCEubaP3iR24KA/edit';
 export default class TieringPage extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +36,10 @@ export default class TieringPage extends React.Component {
       <div className="TieringPage" style={styles.flexVertical}>
         <ExperimentalBanner />
         <div style={{margin: 10}}>
-          <SectionHeading>HS Levels: v1 prototype</SectionHeading>
+          <SectionHeading titleStyle={styles.title}>
+            <div>HS Levels: v1 prototype</div>
+            <a style={{fontSize: 12}} href={SYSTEMS_AND_SUPPORTS_URL} target="_blank">Open SHS Systems and Supports doc</a>
+          </SectionHeading>
         </div>
         <GenericLoader
           promiseFn={this.fetchTiering}
@@ -46,7 +50,12 @@ export default class TieringPage extends React.Component {
   }
 
   renderTiering(studentsWithTiering) {
-    return <TieringView studentsWithTiering={studentsWithTiering} />;
+    return (
+      <TieringView
+        systemsAndSupportsUrl={SYSTEMS_AND_SUPPORTS_URL}
+        studentsWithTiering={studentsWithTiering}
+      />
+    );
   }
 }
 TieringPage.propTypes = {
@@ -59,5 +68,11 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
+  },
+  title: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 };
