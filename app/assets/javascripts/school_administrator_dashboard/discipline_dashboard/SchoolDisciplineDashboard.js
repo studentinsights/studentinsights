@@ -8,6 +8,7 @@ import SelectTimeRange, {
   momentRange,
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
+import {ALL} from '../../components/SimpleFilterSelect';
 import SelectDisciplineIncidentType from '../../components/SelectDisciplineIncidentType';
 import memoizer from '../../helpers/memoizer';
 import FilterBar from '../../components/FilterBar';
@@ -25,9 +26,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState();
-
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
-    this.selectIncidentCode = this.selectIncidentCode.bind(this);
+    this.onIncidentTypeChange = this.onIncidentTypeChange.bind(this);
     this.onResetFilters = this.onResetFilters.bind(this);
     this.setStudentList = this.setStudentList.bind(this);
     this.resetStudentList = this.resetStudentList.bind(this);
@@ -35,7 +35,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.memoize = memoizer();
   }
 
-  selectIncidentCode(incidentType) {
+  onIncidentTypeChange(incidentType) {
     this.setState({selectedIncidentCode: incidentType});
   }
 
@@ -56,18 +56,23 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
-  //Associate all attributes that we want to use for incident grouping. More may be added here later.
+  //Associate all attributes that we want to use for incident grouping and student list. More may be added here later.
   mergeDisciplineData(disciplineIncidentsArray, student) {
+    if (!disciplineIncidentsArray) return;
     //student attributes
     const grade = student.grade;
     const classroom = student.homeroom_label;
     const race = student.race;
+    const first_name = student.first_name;
+    const last_name = student.last_name;
+    const latest_note = student.latest_note;
+
     return disciplineIncidentsArray.map(incident => {
       //incident attributes derived from raw incident data
       const exactTime = incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
       const day = moment.utc(incident.occurred_at).format("ddd");
       const location = incident.incident_location || "Not Recorded";
-      return {...incident, grade, classroom, race, exactTime, day, location};
+      return {...incident, first_name, last_name, latest_note, grade, classroom, race, exactTime, day, location};
     });
   }
 
@@ -78,7 +83,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const range = momentRange(timeRangeKey, nowFn());
       return disciplineIncidents.filter(incident => {
         if (!moment.utc(incident.occurred_at).isBetween(range[0], range[1])) return false;
-        if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== null) return false;
+        if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== ALL) return false;
         return true;
       });
     });
@@ -130,15 +135,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
-  //For grades and classrooms, the students table should only show the relevant students
-  groupStudents() {
-    if (this.state.selectedChart === 'grade' && this.state.selectedCategory) {
-      return this.props.dashboardStudents.filter(student => student.grade === this.state.selectedCategory);
-    } else if (this.state.selectedChart === 'classroom' && this.state.selectedCategory) {
-      return this.props.dashboardStudents.filter(student => student.homeroom_label === this.state.selectedCategory);
-    } else return this.props.dashboardStudents;
-  }
-
   onTimeRangeKeyChanged(timeRangeKey) {
     this.setState({timeRangeKey});
   }
@@ -156,7 +152,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       {value: 'classroom', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
-      {value: 'offense', label: 'Offense'},
+      {value: 'incident_code', label: 'Offense'},
     ];
     const allIncidents = this.allDisciplineIncidents();
     const filteredIncidents = this.filteredDisciplineIncidents(allIncidents);
@@ -172,7 +168,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
             <FilterBar style={styles.timeRange} >
               <SelectDisciplineIncidentType
               type={this.state.selectedIncidentCode || 'All'}
-              onChange={this.selectIncidentCode}
+              onChange={this.onIncidentTypeChange}
               types={incidentTypes}/>
               <SelectTimeRange
                 timeRangeKey={timeRangeKey}
@@ -226,22 +222,18 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderStudentDisciplineTable(allIncidents, groupedIncidents) {
-    const students = this.groupStudents();
     const studentDisciplineIncidentCounts = this.state.selectedCategory ? //if the user is looking at a subgroup of incidents
                                             this.studentDisciplineIncidentCounts(groupedIncidents[this.state.selectedCategory]) :
                                             this.studentDisciplineIncidentCounts(allIncidents);
-    let rows =[];
-    students.forEach((student) => {
-      rows.push({
-        id: student.id,
-        first_name: student.first_name,
-        last_name: student.last_name,
-        latest_note: student.latest_note,
-        events: studentDisciplineIncidentCounts[student.id] || 0,
-        grade: student.grade
-      });
+    const rows = allIncidents.map(incident => {
+      const id = incident.student_id;
+      const first_name = incident.first_name;
+      const last_name = incident.last_name;
+      const latest_note = incident.latest_note;
+      const events = studentDisciplineIncidentCounts[incident.student_id];
+      const grade = incident.grade;
+      return {id, first_name, last_name, latest_note, events, grade};
     });
-
     return (
       <StudentsTable
         rows = {rows}
@@ -292,7 +284,7 @@ function initialState() {
   return {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
     selectedChart: 'incident_location',
-    selectedIncidentCode: null,
+    selectedIncidentCode: ALL,
     selectedCategory: null
   };
 }

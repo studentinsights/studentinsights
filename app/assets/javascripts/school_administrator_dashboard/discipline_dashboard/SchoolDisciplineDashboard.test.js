@@ -13,8 +13,7 @@ describe('SchoolDisciplineDashboard', () => {
   const dash = mount(withDefaultNowContext(
     <SchoolDisciplineDashboard
       school={testSchool()}
-      dashboardStudents={createStudents(moment.utc())}
-      schoolDisciplineEvents={[]} />
+      dashboardStudents={createStudents(moment.utc())}/>
   ));
 
   it('renders at least one bar chart', () => {
