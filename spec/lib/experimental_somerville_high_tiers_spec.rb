@@ -42,8 +42,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "last_experience_note"=>{},
           "last_other_note"=>{}
         }
-      },
-        {
+      }, {
           "id"=>pals.shs_freshman_amir.id,
           "grade"=>"9",
           "first_name"=>"Amir",
@@ -66,6 +65,39 @@ RSpec.describe ExperimentalSomervilleHighTiers do
             "triggers"=>[],
             "data"=>{
               "course_failures"=>0,
+              "course_ds"=>0,
+              "recent_absence_rate"=>1.0,
+              "recent_discipline_actions"=>0
+            }
+          },
+          "notes"=>{
+            "last_sst_note"=>{},
+            "last_experience_note"=>{},
+            "last_other_note"=>{}
+          }
+        }, {
+          "id"=>pals.shs_senior_kylo.id,
+          "grade"=>"12",
+          "first_name"=>"Kylo",
+          "last_name"=>"Ren",
+          "program_assigned"=>nil,
+          "sped_placement"=>nil,
+          "house"=>"Broadway",
+          "student_section_assignments"=>[{
+            "id"=>pals.shs_senior_kylo.student_section_assignments.first.id,
+            "grade_numeric"=>"61.0",
+            "grade_letter"=>"F",
+            "section"=>{
+              "id"=>pals.shs_second_period_ceramics.id,
+              "section_number"=>"ART-302A",
+              "course_description"=>"ART MAJOR FOUNDATIONS"
+            }
+          }],
+          "tier"=>{
+            "level"=>0,
+            "triggers"=>[],
+            "data"=>{
+              "course_failures"=>1,
               "course_ds"=>0,
               "recent_absence_rate"=>1.0,
               "recent_discipline_actions"=>0
