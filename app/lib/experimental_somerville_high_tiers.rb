@@ -88,6 +88,7 @@ class ExperimentalSomervilleHighTiers
     students_with_tiering.as_json
   end
 
+  # See internal SHS doc at https://docs.google.com/document/d/10Rm-FMeQsj_ArxqVWefa6bz8-cs2zsCEubaP3iR24KA/edit
   def decide_tier(data, options = {})
     # Level 4: At least 4 F's
     #   OR less than 80% attendance over last 45 school days
