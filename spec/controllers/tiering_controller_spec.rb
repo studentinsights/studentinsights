@@ -75,6 +75,15 @@ describe TieringController, :type => :controller do
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }
+        }, {
+          "level"=>1,
+          "triggers"=>['academic'],
+          "data"=>{
+            "course_failures"=>1,
+            "course_ds"=>0,
+            "recent_absence_rate"=>1.0,
+            "recent_discipline_actions"=>0
+          }
         }])
       end
     end

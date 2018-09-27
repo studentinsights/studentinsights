@@ -118,11 +118,11 @@ class ExperimentalSomervilleHighTiers
     ].compact
     return Tier.new(2, tier_two_triggers, data) if tier_two_triggers.size > 0
 
-    # Level 1: 1 F and 2 Ds
+    # Level 1: 1 F or 2 Ds
     #   OR less than 95% attendance over last 45 days
     #   (no discipline involved)
     tier_one_triggers = [
-      (:academic if data[:course_failures] == 1 and data[:course_ds] >= 2),
+      (:academic if data[:course_failures] == 1 || data[:course_ds] >= 2),
       (:absence if data[:recent_absence_rate] < 0.95)
     ].compact
     return Tier.new(1, tier_one_triggers, data) if tier_one_triggers.size > 0
