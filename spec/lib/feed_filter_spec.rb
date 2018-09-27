@@ -36,10 +36,12 @@ RSpec.describe FeedFilter do
         unfiltered_students = Authorizer.new(pals.shs_harry_housemaster).authorized { Student.active.to_a }
         expect(unfiltered_students).to contain_exactly(
           pals.shs_freshman_mari,
-          pals.shs_freshman_amir
+          pals.shs_freshman_amir,
+          pals.shs_senior_kylo
         )
         expect(FeedFilter.new(pals.shs_harry_housemaster).filter_for_educator(unfiltered_students)).to contain_exactly(*[
-          pals.shs_freshman_amir
+          pals.shs_freshman_amir,
+          pals.shs_senior_kylo
         ])
       end
     end
@@ -77,7 +79,8 @@ RSpec.describe FeedFilter do
         unfiltered_students = Authorizer.new(pals.shs_sofia_counselor).authorized { Student.active.to_a }
         expect(unfiltered_students).to contain_exactly(
           pals.shs_freshman_mari,
-          pals.shs_freshman_amir
+          pals.shs_freshman_amir,
+          pals.shs_senior_kylo
         )
         expect(FeedFilter.new(pals.shs_sofia_counselor).filter_for_educator(unfiltered_students)).to contain_exactly(*[
           pals.shs_freshman_mari

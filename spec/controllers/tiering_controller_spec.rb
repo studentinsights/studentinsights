@@ -37,7 +37,7 @@ describe TieringController, :type => :controller do
 
         # check shape of data
         expect(json.keys).to eq ['students_with_tiering']
-        expect(json['students_with_tiering'].size).to eq 2
+        expect(json['students_with_tiering'].size).to eq 3
         expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to eq([
           "id",
           "grade",
@@ -72,6 +72,15 @@ describe TieringController, :type => :controller do
           "data"=>{
             "course_failures"=>0,
             "course_ds"=>1,
+            "recent_absence_rate"=>1.0,
+            "recent_discipline_actions"=>0
+          }
+        }, {
+          "level"=>1,
+          "triggers"=>['academic'],
+          "data"=>{
+            "course_failures"=>1,
+            "course_ds"=>0,
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }

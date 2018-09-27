@@ -28,6 +28,7 @@ class TestPals
   attr_reader :west_eighth_ryan
   attr_reader :shs_freshman_mari
   attr_reader :shs_freshman_amir
+  attr_reader :shs_senior_kylo
 
   # educators
   attr_reader :uri
@@ -414,6 +415,25 @@ class TestPals
       section: @shs_third_period_physics,
       grade_numeric: 84,
       grade_letter: 'B'
+    )
+    @shs_senior_kylo = Student.create!(
+      first_name: 'Kylo',
+      last_name: 'Ren',
+      school: @shs,
+      homeroom: nil,
+      house: 'Broadway',
+      counselor: 'FISHMAN',
+      grade: '12',
+      date_of_birth: '2001-02-07',
+      local_id: '2225555555',
+      state_id: '9925555555',
+      enrollment_status: 'Active'
+    )
+    StudentSectionAssignment.create!(
+      student: @shs_senior_kylo,
+      section: @shs_second_period_ceramics,
+      grade_numeric: 61,
+      grade_letter: 'F'
     )
 
     reindex!

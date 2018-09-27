@@ -69,7 +69,8 @@ describe EducatorsController, :type => :controller do
       expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
 
@@ -82,7 +83,8 @@ describe EducatorsController, :type => :controller do
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.west_eighth_ryan.id,
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
 
@@ -94,7 +96,8 @@ describe EducatorsController, :type => :controller do
       expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
   end
