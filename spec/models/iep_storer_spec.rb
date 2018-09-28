@@ -13,28 +13,31 @@ RSpec.describe IepStorer, type: :model do
     def self.info(message); end
   end
 
+  def create_test_student
+    FactoryBot.create(:student, {
+      first_name: 'Alexander',
+      last_name: 'Hamilton',
+      local_id: '124046632'
+    })
+  end
+
   before do
     allow(File).to receive(:open).and_call_original # ActiveSupport calls this for i8n translations
-    allow(File).to receive(:open).with('/path/to/file').and_return 'eeee'
+    allow(File).to receive(:open).with('/tmp/path/124046632_IEPAtAGlance_Alexander_Hamilton.pdf').and_return 'eeee'
   end
 
   subject {
     IepStorer.new(
-      file_name: 'IEP Document',
-      path_to_file: '/path/to/file',
-      local_id: 'abc_student_local_id',
+      file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+      path_to_file: '/tmp/path/124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+      local_id: '124046632',
       client: FakeAwsClient,
       logger: QuietLogger
     )
   }
 
   context 'local id matches to student' do
-    let!(:student) {
-      FactoryBot.create(:student, {
-        local_id: 'abc_student_local_id',
-        grade: 'KF'
-      })
-    }
+    let!(:student) { create_test_student }
 
     context 'no other document for that student' do
       it 'stores an object to the db' do
@@ -44,7 +47,7 @@ RSpec.describe IepStorer, type: :model do
 
     context 'other document exists for that student' do
       let!(:other_iep) {
-        IepDocument.create!(student: student, file_name: 'xyz')
+        IepDocument.create!(student: student, file_name: '124046632_IEPAtAGlance_Alexander_MIDDLENAME_Hamilton.pdf')
       }
 
       it 'stores an object to the db' do
@@ -54,7 +57,7 @@ RSpec.describe IepStorer, type: :model do
       it 'updates the filename' do
         subject.store
         student.reload
-        expect(student.iep_document.file_name).to eq 'IEP Document'
+        expect(student.iep_document.file_name).to eq '124046632_IEPAtAGlance_Alexander_Hamilton.pdf'
       end
     end
   end

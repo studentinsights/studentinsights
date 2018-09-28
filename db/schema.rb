@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_200334) do
+ActiveRecord::Schema.define(version: 2018_09_28_130451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_200334) do
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
     t.text "login_name", null: false
+    t.integer "assigned_homeroom_id"
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 
@@ -239,6 +240,9 @@ ActiveRecord::Schema.define(version: 2018_09_24_200334) do
     t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "file_digest"
+    t.integer "file_size"
+    t.string "s3_filename"
     t.index ["student_id"], name: "index_iep_documents_on_student_id"
   end
 
@@ -399,9 +403,9 @@ ActiveRecord::Schema.define(version: 2018_09_24_200334) do
 
   create_table "student_photos", force: :cascade do |t|
     t.bigint "student_id"
-    t.string "file_digest"
-    t.integer "file_size"
-    t.string "s3_filename"
+    t.string "file_digest", null: false
+    t.integer "file_size", null: false
+    t.string "s3_filename", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_student_photos_on_student_id"
@@ -525,6 +529,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_200334) do
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
+  add_foreign_key "educators", "homerooms", column: "assigned_homeroom_id"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
   add_foreign_key "event_note_attachments", "event_notes", name: "event_note_attachments_event_note_id_fk"
   add_foreign_key "event_note_revisions", "educators", name: "event_note_revisions_educator_id_fk"
