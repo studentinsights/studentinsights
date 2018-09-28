@@ -44,7 +44,7 @@ export default class StudentProfilePageRoute extends React.Component {
       access: json.access,
       transitionNotes: json.transition_notes,
       profileInsights: json.profile_insights,
-      iepDocument: json.iep_document,
+      iepDocument: json.latest_iep_document,
       sections: json.sections,
       currentEducatorAllowedSections: json.current_educator_allowed_sections,
       attendanceData: json.attendance_data

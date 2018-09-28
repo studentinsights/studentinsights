@@ -186,16 +186,16 @@ export default class LightHeaderSupportBits extends React.Component {
         )}
         {iepDocument && (
           <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
-            <a href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
-            {this.renderPdfInline(iepDocument.id)}
+            <a href={`/students/${student.id}/latest_iep_document`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
+            {this.renderPdfInline(student.id)}
           </div>
         )}
       </div>
     );
   }
 
-  renderPdfInline(iepDocumentId) {
-    const url = `/iep_documents/${iepDocumentId}#view=FitBH`;
+  renderPdfInline(studentId) {
+    const url = `/students/${studentId}/latest_iep_document#view=FitBH`;
     return (
       <Pdf
         style={styles.pdfInline}

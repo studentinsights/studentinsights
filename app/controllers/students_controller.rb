@@ -64,6 +64,20 @@ class StudentsController < ApplicationController
     send_data object.body.read, filename: @s3_filename, type: 'image/jpeg'
   end
 
+  def latest_iep_document
+    # guard
+    safe_params = params.permit(:id)
+    student = Student.find(safe_params[:id])
+    iep_document = student.latest_iep_document
+    raise ActiveRecord::RecordNotFound if iep_document.nil?
+    authorized_or_raise! { iep_document.student }
+
+    # download
+    filename = iep_document.pretty_filename_for_download
+    pdf_bytes = IepStorer.unsafe_read_bytes_from_s3(s3, iep_document)
+    send_data pdf_bytes, filename: filename, type: 'application/pdf', disposition: 'inline'
+  end
+
   # post
   def service
     clean_params = params.require(:service).permit(*[
