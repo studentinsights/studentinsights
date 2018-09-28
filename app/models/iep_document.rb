@@ -28,6 +28,8 @@ class IepDocument < ActiveRecord::Base
 
   private
   def validate_file_name
+    puts 'validate_file_name'
+    puts self.attributes
     local_id_from_file_name = IepDocument.parse_local_id(self.file_name)
     if local_id_from_file_name.nil?
       errors.add(:file_name, 'could not be parsed')

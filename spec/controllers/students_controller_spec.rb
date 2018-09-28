@@ -605,6 +605,140 @@ describe StudentsController, :type => :controller do
     end
   end
 
+  describe '#latest_iep_document' do
+    let!(:pals) { TestPals.create! }
+    def create_iep_student
+      FactoryBot.create(:student, {
+        first_name: 'Alexander',
+        last_name: 'Hamilton',
+        local_id: '124046632'
+      })
+    end
+
+    def create_iep_document!(params = {})
+      puts 'params:'
+      puts params
+      IepDocument.create!({
+        student_id: nil,
+        file_name: nil,
+        file_digest: SecureRandom.hex,
+        file_size: 1000 + SecureRandom.random_number(100000),
+        s3_filename: SecureRandom.hex
+      }.merge(params))
+    end
+
+    def get_latest_iep_document_pdf(student_id)
+      request.env['HTTPS'] = 'on'
+      get :latest_iep_document, params: { id: student_id }
+    end
+
+    it 'works on the happy path' do
+      sign_in(pals.uri)
+      iep_student = create_iep_student
+      create_iep_document({
+        student_id: iep_student.id,
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf'
+      })
+      get_latest_iep_document_pdf(iep_student.id)
+      expect(response.status).to eq 999
+      expect(response.body).to eq 'wat'
+    end
+
+    #   context 'multiple photos' do
+    #     let!(:more_recent_student_photo) { create_student_photo }
+
+    #     it 'assigns the most recent photo' do
+    #       make_request(pals.healey_kindergarten_student.id)
+    #       expect(response).to be_successful
+    #       expect(assigns(:student_photo)).to eq(more_recent_student_photo)
+    #     end
+    #   end
+    # end
+
+    # context 'student has no photo' do
+    #   before { sign_in(pals.healey_vivian_teacher) }
+
+    #   it 'is not successful; sends an error' do
+    #     make_request(pals.healey_kindergarten_student.id)
+    #     expect(response).not_to be_successful
+    #     expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
+    #   end
+    # end
+
+    # context 'educator not authorized for student (wrong school)' do
+    #   before { sign_in(pals.shs_jodi) }
+    #   let!(:student_photo) { create_student_photo }
+
+    #   it 'redirects' do
+    #     make_request(pals.healey_kindergarten_student.id)
+    #     expect(response).not_to be_successful
+    #     expect(response).to redirect_to('/not_authorized')
+    #   end
+    # end
+
+    # context 'not signed in' do
+    #   let!(:student_photo) { create_student_photo }
+
+    #   it 'redirects' do
+    #     make_request(pals.healey_kindergarten_student.id)
+    #     expect(response).not_to be_successful
+    #     expect(response).to redirect_to('/educators/sign_in')
+    #   end
+    # end
+
+
+
+    # class FakeAwsResponse
+    #   def body; self end
+
+    #   def read; 'eee' end
+    # end
+
+    # before do
+    #   allow_any_instance_of(
+    #     Aws::S3::Client
+    #   ).to receive(
+    #     :get_object
+    #   ).and_return FakeAwsResponse.new
+    # end
+
+    # let(:student) do
+    #   FactoryBot.create(:student, {
+    #     first_name: 'Alexander',
+    #     last_name: 'Hamilton',
+    #     local_id: '124046632'
+    #   })
+    # end
+
+    # subject {
+    #   IepDocument.create(
+    #     file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+    #     student: student,
+    #   )
+    # }
+
+    # context 'educator has permissions for associated student' do
+    #   let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
+    #   before { sign_in(educator) }
+
+    #   it 'renders a pdf' do
+    #     make_request(subject.id)
+    #     expect(response).to be_successful
+    #   end
+    # end
+
+    # context 'educator does not have permissions for associated student' do
+    #   let(:educator) { FactoryBot.create(:educator) }
+    #   before { sign_in(educator) }
+
+    #   it 'redirects' do
+    #     make_request(subject.id)
+    #     expect(response).to redirect_to('/not_authorized')
+    #   end
+    # end
+
+  end
+
   describe '#sample_students_json' do
     def get_sample_students_json
       request.env['HTTPS'] = 'on'
