@@ -23,11 +23,17 @@ RSpec.describe IepDocumentsController, type: :controller do
       ).and_return FakeAwsResponse.new
     end
 
-    let(:student) { FactoryBot.create(:student) }
+    let(:student) do
+      FactoryBot.create(:student, {
+        first_name: 'Alexander',
+        last_name: 'Hamilton',
+        local_id: '124046632'
+      })
+    end
 
     subject {
       IepDocument.create(
-        file_name: 'IEP Document',
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
         student: student,
       )
     }
