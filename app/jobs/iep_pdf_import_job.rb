@@ -14,6 +14,7 @@ class IepPdfImportJob
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
 
     @time_now = options[:time_now] || Time.now
+    @logger = Logger.new(STDOUT)
   end
 
   # This imports all the IEP PDFs from a zip that
@@ -41,99 +42,105 @@ class IepPdfImportJob
   end
 
   private
+  def import_ieps!(remote_filenames)
+    # Download zip files
+    log 'Downloading zip files...'
+    clean_up
+    FileUtils.mkdir_p(absolute_local_download_path)
+    zip_files = download_zips
+    log "  Downloaded #{zip_files.size} zip files."
 
-    def import_ieps!(remote_filenames)
-      clean_up
-      FileUtils.mkdir_p(absolute_local_download_path)
+    # Unzip locally to get all the pdf filenames
+    pdf_filenames = unzipped_pdf_filenames(zip_files)
 
-      all_pdf_filenames = []
-      all_iep_documents = []
-
-      remote_filenames.each do |filename|
-        zip_file = download(filename)
-        next if zip_file.nil?
-
-        log "got a zip from: #{filename}"
-        unzipped_count = 0
-        FileUtils.mkdir_p(File.join(absolute_local_download_path, filename))
-
-        begin
-          Zip::File.open(zip_file) do |zip_object|
-            zip_object.each do |entry|
-              entry.extract(File.join(absolute_local_download_path, filename, entry.name))
-              unzipped_count += 1
-            end
-          end
-        rescue => e
-          log e.message
-        end
-
-        log "unzipped #{unzipped_count} files from #{filename}, parsing those unzipped pdfs..."
-
-        pdf_filenames = Dir[File.join(absolute_local_download_path, filename, '*')]
-
-        iep_documents = pdf_filenames.map {|path| parse_file_name_and_store_file(path) }.compact
-
-        all_pdf_filenames = all_pdf_filenames + pdf_filenames
-        all_iep_documents = all_iep_documents + iep_documents
-      end
-
-      log "IepPdfImportJob: stored #{all_iep_documents.size} IEP PDFs and dropped #{all_pdf_filenames.size - all_iep_documents.size} PDF files..."
-      clean_up
-    end
-
-    def logger
-      @iep_import_logger ||= Logger.new(STDOUT)
-    end
-
-    def log(msg)
-      logger.info(msg)
-    end
-
-    def parse_file_name_and_store_file(path_to_file)
-      file_info = IepFileNameParser.new(path_to_file)
-
-      file_info.validata_filename_or_raise!
-
-      IepStorer.new(
-        path_to_file: path_to_file,
-        file_name: file_info.file_name,
-        local_id: file_info.local_id,
+    # Store new files and create IepDocuments for each PDF file
+    created_iep_documents_count = 0
+    pdf_filenames.each do |path|
+      IepStorer.new({
+        path_to_file: path,
         client: s3,
         logger: logger
-      ).store
+      }).store_only_new
+      created_iep_documents_count += 1 if iep_document.present?
     end
 
-    def s3
-      @client ||= Aws::S3::Client.new
-    end
+    log "found #{pdf_filenames.size} PDF files within downloaded zips."
+    log "created #{created_iep_documents_count} IepDocument records."
+    log "done."
+  end
 
-    def download(remote_filename)
-      client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)
+  def download_zips
+    zip_files = []
+    remote_filenames.each do |filename|
+      zip_file = download(filename)
+      next if zip_file.nil? # this is normal, if there are no changes on a day, there won't be a file
+      zip_files << zip_file
+    end
+    zip_files
+  end
+
+  def unzipped_pdf_filenames(zip_files)
+    zip_files.flat_map do |zip_file|
+      # There may be collisions on filename across the zips, so unzip each zip into its
+      # own subfolder
+      zip_basename = Pathname.new(zip_file).basename
+      folder_for_zip_file = File.join(absolute_local_download_path, zip_basename)
+      FileUtils.mkdir_p(folder_for_zip_file)
+      unzipped_count_for_file = 0
 
       begin
-        local_file = client.download_file(remote_filename)
-        log "downloaded a file!"
-        local_file
-      rescue RuntimeError => error
-        message = error.message
-
-        if message.include?('no such file')
-          log error.message
-          log 'No file found but no worries, just means no educators added IEPs into the EasyIEP system that particular day.'
-          nil
-        else
-          raise error
+        log "unzipping #{zip_basename}..."
+        Zip::File.open(zip_file) do |zip_object|
+          zip_object.each do |entry|
+            entry.extract(File.join(absolute_local_download_path, zip_basename, entry.name))
+            unzipped_count_for_file += 1
+          end
         end
+      rescue => e
+        log e.message
+      end
+
+      # return the File objects that we unzipped
+      log "unzipped #{unzipped_count_for_file} files from #{zip_basename}..."
+      Dir[File.join(folder_for_zip_file, '*')]
+    end
+  end
+
+
+  def download(remote_filename)
+    client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)
+
+    begin
+      local_file = client.download_file(remote_filename)
+      log "downloaded a file!"
+      local_file
+    rescue RuntimeError => error
+      message = error.message
+
+      if message.include?('no such file')
+        log error.message
+        log 'No file found but no worries, just means no educators added IEPs into the EasyIEP system that particular day.'
+        nil
+      else
+        raise error
       end
     end
+  end
 
-    def absolute_local_download_path
-      Rails.root.join(File.join('tmp', 'data_download', 'unzipped_ieps'))
-    end
+  def log(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @logger.info "IepPdfImportJob: #{text}"
+  end
 
-    def clean_up
-      FileUtils.rm_rf(absolute_local_download_path)
-    end
+  def s3
+    @client ||= Aws::S3::Client.new
+  end
 
+  def absolute_local_download_path
+    Rails.root.join(File.join('tmp', 'data_download', 'unzipped_ieps'))
+  end
+
+  def clean_up
+    FileUtils.rm_rf(absolute_local_download_path)
+  end
 end

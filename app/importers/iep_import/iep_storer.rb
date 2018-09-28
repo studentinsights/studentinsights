@@ -13,65 +13,111 @@ class IepStorer
     object.body.read
   end
 
-  def initialize(file_name:,
-                 path_to_file:,
-                 local_id:,
-                 client:,
-                 logger:)
-    @file_name = file_name
+  def initialize(path_to_file:, client:, logger:)
     @path_to_file = path_to_file
-    @local_id = local_id
     @client = client
     @logger = logger
   end
 
-  def store
-    @student = Student.find_by_local_id(@local_id)
-    if @student.nil?
-      @logger.info("student local_id: #{@local_id} not found, dropping the IEP PDF file...")
+  # On success, stores in S3 and creates a new IepDocument, returning it.
+  # Returns nil if we already have this file or on error writing to S3
+  # we can't control.  Logs messages for success or different error cases.
+  def store_only_new
+    # Parse filename
+    student_local_id = parse_student_id_from_filename
+    if student_local_id.nil?
+      log('filename could not be parsed, dropping the IEP PDF file...')
       return nil
     end
 
-    return nil unless store_object_in_s3
+    # Match to student
+    student = Student.find_by_local_id(student_local_id)
+    if student.nil?
+      log('student local_id: #{student_local_id} not found, dropping the IEP PDF file...')
+      return nil
+    end
 
-    store_object_in_database
+    # Digest file and check if we already have it
+    return nil if iep_pdf_already_exists?(student)
+
+    # Then store it in S3
+    s3_filename = store_object_in_s3(student_local_id)
+    return nil if s3_filename.nil?
+
+    # And add a record referencing it in the database
+    create_iep_document_record(student, s3_filename)
   end
 
-  def store_object_in_s3
-    # Client is supplied with the proper creds via
-    # ENV['AWS_ACCESS_KEY_ID'] and ENV['AWS_SECRET_ACCESS_KEY']
+  private
+  def parse_student_id_from_filename
+    iep_file_basename = Pathname.new(@path_to_file).basename
+    IepDocument.parse_local_id(iep_file_basename)
+  end
 
-    @logger.info("storing iep for student ##{@student.id} to s3...")
+  def iep_pdf_already_exists?(student)
+    IepDocument.find_by(file_digest: file_digest, student_id: student.id).present?
+  end
 
-    response = @client.put_object(
+  # Returns filename on success, nil on error
+  def store_object_in_s3(student_local_id)
+    log("storing iep pdf for student ##{@student.id} in s3...")
+
+    # s3 filenames are sorted by student / upload date / iep
+    # Filename shape: {64-character hash} / {YYYY}-{MM}-{DD} / {64-character hash}.
+    s3_filename = [
+      'iep_pdfs',
+      Digest::SHA256.hexdigest(student_local_id),
+      @time_now.strftime('%Y-%m-%d'),
+      file_digest
+    ].join('/')
+
+    response = @s3_client.put_object(
       bucket: ENV['AWS_S3_IEP_BUCKET'],
-      key: @file_name,
+      key: s3_filename,
       body: File.open(@path_to_file),
       server_side_encryption: 'AES256'
     )
 
-    return false unless response
-
-    @logger.info("    successfully stored to s3!")
-    @logger.info("    encrypted with: #{response[:server_side_encryption]}")
-
-    return true
-  end
-
-  def store_object_in_database
-
-    document = IepDocument.find_by(student: @student)
-
-    if document.present?
-      @logger.info("updating iep record for student ##{@student.id}...")
-      IepDocument.update!(file_name: @file_name)
+    if response
+      @logger.info("    successfully stored to s3!")
+      @logger.info("    encrypted with: #{response[:server_side_encryption]}")
+      s3_filename
     else
-      @logger.info("creating iep record for student ##{@student.id}...")
-      IepDocument.create!(
-        file_name: @file_name,
-        student: @student
-      )
+      @logger.error("    error storing file in s3")
+      nil
     end
   end
 
+  def create_iep_document_record(student, s3_filename)
+    iep_document = IepDocument.new(
+      student_id: student.id,
+      file_digest: file_digest,
+      file_size: file_size,
+      s3_filename: s3_filename
+    )
+
+    begin
+      iep_document.save!
+      iep_document
+    rescue => error
+      @logger.error("    🚨  🚨  🚨  Error! #{error}")
+      @logger.error("    could not create IepDocument record for student_id: ##{student.id}...")
+      @logger.error("    orphan file up in S3: #{s3_filename}")
+      @logger.error("    IepDocument model errors: #{iep_document.errors.try(:details).try(:keys).inspect}")
+      Rollbar.error('IepStorer#create_iep_document_record', error, { student_id: student.id })
+      nil
+    end
+  end
+
+  def file_digest
+    @file_digest ||= Digest::SHA256.file(@path_to_file).to_s
+  end
+
+  def file_size
+    @file_size ||= File.size(@path_to_file) # bytes
+  end
+
+  def log(msg)
+    @logger.info(msg)
+  end
 end
