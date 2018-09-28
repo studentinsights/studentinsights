@@ -85,6 +85,19 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
+  studentDisciplineIncidentRows(incidents) {
+    const incidentCounts = this.studentDisciplineIncidentCounts(incidents);
+    return incidents.map(incident => {
+      const id = incident.student_id;
+      const first_name = incident.first_name;
+      const last_name = incident.last_name;
+      const latest_note = incident.latest_note;
+      const events = incidentCounts[incident.student_id];
+      const grade = incident.grade;
+      return {id, first_name, last_name, latest_note, events, grade};
+    });
+  }
+
   studentDisciplineIncidentCounts(incidents) {
     let studentDisciplineIncidentCounts = {};
 
@@ -222,18 +235,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderStudentDisciplineTable(allIncidents, groupedIncidents) {
-    const studentDisciplineIncidentCounts = this.state.selectedCategory ? //if the user is looking at a subgroup of incidents
-                                            this.studentDisciplineIncidentCounts(groupedIncidents[this.state.selectedCategory]) :
-                                            this.studentDisciplineIncidentCounts(allIncidents);
-    const rows = allIncidents.map(incident => {
-      const id = incident.student_id;
-      const first_name = incident.first_name;
-      const last_name = incident.last_name;
-      const latest_note = incident.latest_note;
-      const events = studentDisciplineIncidentCounts[incident.student_id];
-      const grade = incident.grade;
-      return {id, first_name, last_name, latest_note, events, grade};
-    });
+    const selectedIncidents = this.state.selectedCategory ? //if the user is looking at a subgroup of incidents
+                              groupedIncidents[this.state.selectedCategory] :
+                              allIncidents;
+    const rows = selectedIncidents ? this.studentDisciplineIncidentRows(selectedIncidents) : [];
     return (
       <StudentsTable
         rows = {rows}
