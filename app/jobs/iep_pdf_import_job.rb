@@ -83,19 +83,23 @@ class IepPdfImportJob
 
   def unzipped_pdf_filenames(zip_files)
     zip_files.flat_map do |zip_file|
+      pdf_filenames = []
+
       # There may be collisions on filename across the zips, so unzip each zip into its
       # own subfolder
       zip_basename = Pathname.new(zip_file).basename
-      folder_for_zip_file = File.join(absolute_local_download_path, zip_basename)
-      FileUtils.mkdir_p(folder_for_zip_file)
+      folder_for_unzipped_files = File.join(absolute_local_download_path, 'unzipped', zip_basename)
+      FileUtils.mkdir_p(folder_for_unzipped_files)
       unzipped_count_for_file = 0
 
       begin
-        log "unzipping #{zip_basename}..."
+        log "  unzipping #{zip_basename}..."
         Zip::File.open(zip_file) do |zip_object|
           zip_object.each do |entry|
-            entry.extract(File.join(absolute_local_download_path, zip_basename, entry.name))
+            unzipped_pdf_filename = File.join(folder_for_unzipped_files, entry.name)
+            entry.extract(unzipped_pdf_filename)
             unzipped_count_for_file += 1
+            pdf_filenames << unzipped_pdf_filename
           end
         end
       rescue => e
@@ -103,8 +107,8 @@ class IepPdfImportJob
       end
 
       # return the File objects that we unzipped
-      log "unzipped #{unzipped_count_for_file} files from #{zip_basename}..."
-      Dir[File.join(folder_for_zip_file, '*')]
+      log "   unzipped #{unzipped_count_for_file} files from #{zip_basename}..."
+      pdf_filenames
     end
   end
 
