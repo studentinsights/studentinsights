@@ -54,7 +54,7 @@ module MockAwsS3
 
   class MockClientForPut
     def put_object(args = {})
-      args.slice(:server_side_encryption)
+      { echo_back_put_object_arguments: args }
     end
   end
 end
