@@ -45,6 +45,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
+  //Requirements
+  //grouped incidents with count of incidents and list of students for each group
+  //incident total for each student including only those with correct date/code/category
+
   allDisciplineIncidents() {
     return this.memoize(['allDisciplineIncidents'], () => {
       const {dashboardStudents} = this.props;
@@ -65,10 +69,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
     return disciplineIncidentsArray.map(incident => {
       //incident attributes derived from raw incident data
-      const exactTime = incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+      const exact_time = incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
       const day = moment.utc(incident.occurred_at).format("ddd");
       const location = incident.incident_location || "Not Recorded";
-      return {...incident, first_name, last_name, latest_note, grade, classroom, race, exactTime, day, location};
+      return {...incident, first_name, last_name, latest_note, grade, classroom, race, exact_time, day, location};
     });
   }
 
@@ -83,31 +87,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
         return true;
       });
     });
-  }
-
-  studentDisciplineIncidentRows(incidents) {
-    const incidentCounts = this.studentDisciplineIncidentCounts(incidents);
-    return incidents.map(incident => {
-      const id = incident.student_id;
-      const first_name = incident.first_name;
-      const last_name = incident.last_name;
-      const latest_note = incident.latest_note;
-      const events = incidentCounts[incident.student_id];
-      const grade = incident.grade;
-      return {id, first_name, last_name, latest_note, events, grade};
-    });
-  }
-
-  studentDisciplineIncidentCounts(incidents) {
-    let studentDisciplineIncidentCounts = {};
-
-    //if a user selects a category and then moves to a time range with no incidents within that category, return an empty object
-    if (!incidents) return studentDisciplineIncidentCounts;
-    incidents.forEach((incident) => {
-      studentDisciplineIncidentCounts[incident.student_id] = studentDisciplineIncidentCounts[incident.student_id] || 0;
-      studentDisciplineIncidentCounts[incident.student_id]++;
-    });
-    return studentDisciplineIncidentCounts;
   }
 
   sortChartKeys(groupedIncidents) {
@@ -161,7 +140,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {school} = this.props;
     const chartOptions = [
       {value: 'incident_location', label: 'Location'},
-      {value: 'exactTime', label: 'Time'},
+      {value: 'exact_time', label: 'Time'},
       {value: 'classroom', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
@@ -234,11 +213,24 @@ export default class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderStudentDisciplineTable(allIncidents, groupedIncidents) {
-    const selectedIncidents = this.state.selectedCategory ? //if the user is looking at a subgroup of incidents
-                              groupedIncidents[this.state.selectedCategory] :
-                              allIncidents;
-    const rows = selectedIncidents ? this.studentDisciplineIncidentRows(selectedIncidents) : [];
+  renderStudentDisciplineTable(allIncidents) {
+    const {selectedCategory, selectedChart} = this.state;
+    const selectedIncidents = allIncidents.filter(incident => {
+      if (selectedCategory === null) return true;
+      if (incident[selectedChart] === selectedCategory) return true;
+      return false;
+    });
+    const students = _.groupBy(selectedIncidents, 'student_id');
+
+    const rows = _.uniqBy(selectedIncidents, 'student_id').map(incident => {
+      const id = incident.student_id;
+      const first_name = incident.first_name;
+      const last_name = incident.last_name;
+      const latest_note = incident.latest_note;
+      const grade = incident.grade;
+      const events = students[incident.student_id].length;
+      return {id, first_name, last_name, latest_note, events, grade};
+    })
     return (
       <StudentsTable
         rows = {rows}
