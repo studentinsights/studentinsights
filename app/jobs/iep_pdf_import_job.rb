@@ -14,6 +14,7 @@ class IepPdfImportJob
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
 
     @time_now = options.fetch(:time_now, Time.now)
+    @s3_client = options.fetch(:s3_client, Aws::S3::Client.new)
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
   end
 
@@ -56,11 +57,12 @@ class IepPdfImportJob
     # Store new files and create IepDocuments for each PDF file
     created_iep_documents_count = 0
     pdf_filenames.each do |path|
-      IepStorer.new({
+      storer = IepStorer.new({
         path_to_file: path,
-        s3_client: s3,
-        log: log
-      }).store_only_new
+        s3_client: @s3_client,
+        log: @log
+      })
+      iep_document = storer.store_only_new
       created_iep_documents_count += 1 if iep_document.present?
     end
 
@@ -107,10 +109,10 @@ class IepPdfImportJob
   end
 
   def download(remote_filename)
-    client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)
+    sftp_client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)
 
     begin
-      local_file = client.download_file(remote_filename)
+      local_file = sftp_client.download_file(remote_filename)
       log "downloaded a file!"
       local_file
     rescue RuntimeError => error
@@ -129,10 +131,6 @@ class IepPdfImportJob
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
     @log.puts "IepPdfImportJob: #{text}"
-  end
-
-  def s3
-    @client ||= Aws::S3::Client.new
   end
 
   def absolute_local_download_path

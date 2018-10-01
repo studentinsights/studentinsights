@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe IepStorer, type: :model do
-  class FakeAwsClient
-    def self.put_object(args)
-      {
-        server_side_encryption: 'AES256'
-      }
-    end
-  end
-
   def create_test_student
     FactoryBot.create(:student, {
       first_name: 'Alexander',
@@ -21,7 +13,7 @@ RSpec.describe IepStorer, type: :model do
     path_to_file = '/tmp/path/124046632_IEPAtAGlance_Alexander_Hamilton.pdf'
     storer = IepStorer.new({
       path_to_file: path_to_file,
-      s3_client: FakeAwsClient,
+      s3_client: MockAwsS3.with_put_mocked,
       log: LogHelper::FakeLog.new
     }.merge(attrs))
     allow(File).to receive(:open).and_call_original # ActiveSupport calls this for i8n translations
