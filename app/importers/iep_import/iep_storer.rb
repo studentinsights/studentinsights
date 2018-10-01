@@ -1,4 +1,18 @@
 class IepStorer
+  # No authorization check here
+  def self.unsafe_read_bytes_from_s3(s3_client, iep_document)
+    if ENV['USE_PLACEHOLDER_IEP_DOCUMENT']
+      return File.read("#{Rails.root}/public/demo-blank-iep.pdf")
+    end
+
+    s3_filename = iep_document.s3_filename
+    object = s3_client.get_object({
+      key: s3_filename,
+      bucket: ENV['AWS_S3_PHOTOS_BUCKET']
+    })
+    object.body.read
+  end
+
   def initialize(file_name:,
                  path_to_file:,
                  local_id:,

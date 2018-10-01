@@ -57,7 +57,7 @@ RSpec.describe IepStorer, type: :model do
       it 'updates the filename' do
         subject.store
         student.reload
-        expect(student.iep_document.file_name).to eq '124046632_IEPAtAGlance_Alexander_Hamilton.pdf'
+        expect(student.latest_iep_document.file_name).to eq '124046632_IEPAtAGlance_Alexander_Hamilton.pdf'
       end
     end
   end

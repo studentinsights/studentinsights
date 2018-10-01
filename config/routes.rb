@@ -124,6 +124,7 @@ Rails.application.routes.draw do
       get '/student_report' => 'profile_pdf#student_report'
       get :restricted_notes
       get :photo
+      get :latest_iep_document
       post :service
     end
   end
@@ -139,8 +140,6 @@ Rails.application.routes.draw do
 
   resources :sections, only: [:index]
   get '/sections/:id' => 'ui#ui', as: :section
-
-  resources :iep_documents, only: [:show]
 
   resource :classlists, only: [] do
     member do

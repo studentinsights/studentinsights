@@ -25,7 +25,7 @@ class Student < ActiveRecord::Base
   has_many :tardies, dependent: :destroy
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
-  has_one :iep_document, dependent: :destroy
+  has_many :iep_documents, dependent: :destroy
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
@@ -69,6 +69,10 @@ class Student < ActiveRecord::Base
 
   def active?
     enrollment_status == 'Active'
+  end
+
+  def latest_iep_document
+    self.iep_documents.order(created_at: :desc).limit(1).first
   end
 
   ## ABSENCES / TARDIES ##
