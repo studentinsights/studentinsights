@@ -31,7 +31,7 @@ export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
 export function consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students) {
   return initialStudentIdsByRoom(classroomsCount, students, {
     placementFn(studentIdsByRoom, student) {
-      return roomKeyFromIndex(JSON.stringify(student.id).length % classroomsCount);
+      return roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
     }
   });
 }
