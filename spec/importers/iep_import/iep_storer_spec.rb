@@ -67,5 +67,4 @@ RSpec.describe IepStorer, type: :model do
       expect { subject.store }.to change(IepDocument, :count).by 0
     end
   end
-
 end
