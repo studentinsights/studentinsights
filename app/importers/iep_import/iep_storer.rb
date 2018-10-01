@@ -17,7 +17,7 @@ class IepStorer
   def initialize(options = {})
     @path_to_file = options[:path_to_file]
     @s3_client = options[:s3_client]
-    @logger = options[:logger]
+    @log = options[:log]
     @time_now = options.fetch(:time_now, Time.now)
   end
 
@@ -35,7 +35,7 @@ class IepStorer
     # Match to student
     student = Student.find_by_local_id(student_local_id)
     if student.nil?
-      log('student local_id: #{student_local_id} not found, dropping the IEP PDF file...')
+      log("student local_id: #{student_local_id} not found, dropping the IEP PDF file...")
       return nil
     end
 
@@ -51,8 +51,11 @@ class IepStorer
   end
 
   private
+  def iep_file_basename
+    Pathname.new(@path_to_file).basename.to_s
+  end
+
   def parse_student_id_from_filename
-    iep_file_basename = Pathname.new(@path_to_file).basename.to_s
     IepDocument.parse_local_id(iep_file_basename)
   end
 
@@ -81,18 +84,20 @@ class IepStorer
     )
 
     if response
-      @logger.info("    successfully stored to s3!")
-      @logger.info("    encrypted with: #{response[:server_side_encryption]}")
+      log("    successfully stored to s3!")
+      log("    encrypted with: #{response[:server_side_encryption]}")
       s3_filename
     else
-      @logger.error("    error storing file in s3")
+      log("    error storing file in s3")
       nil
     end
   end
 
   def create_iep_document_record(student, s3_filename)
+    log("creating IepDocument record for student.id:#{student.id}...")
     iep_document = IepDocument.new(
       student_id: student.id,
+      file_name: iep_file_basename,
       file_digest: file_digest,
       file_size: file_size,
       s3_filename: s3_filename
@@ -102,10 +107,10 @@ class IepStorer
       iep_document.save!
       iep_document
     rescue => error
-      @logger.error("    🚨  🚨  🚨  Error! #{error}")
-      @logger.error("    could not create IepDocument record for student_id: ##{student.id}...")
-      @logger.error("    orphan file up in S3: #{s3_filename}")
-      @logger.error("    IepDocument model errors: #{iep_document.errors.try(:details).try(:keys).inspect}")
+      log("    🚨  🚨  🚨  Error! #{error}")
+      log("    could not create IepDocument record for student_id: ##{student.id}...")
+      log("    orphan file up in S3: #{s3_filename}")
+      log("    IepDocument model errors: #{iep_document.errors.try(:details).try(:keys).inspect}")
       Rollbar.error('IepStorer#create_iep_document_record', error, { student_id: student.id })
       nil
     end
@@ -120,6 +125,7 @@ class IepStorer
   end
 
   def log(msg)
-    @logger.info(msg)
+    text = if msg.class == String then msg else JSON.pretty_generate(msg) end
+    @log.puts "IepStorer: #{text}"
   end
 end

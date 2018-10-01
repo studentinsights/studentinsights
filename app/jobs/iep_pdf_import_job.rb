@@ -13,8 +13,8 @@ class IepPdfImportJob
   def initialize(options = {})
     raise "missing AWS keys!" if REQUIRED_KEYS.any? { |aws_key| (ENV[aws_key]).nil? }
 
-    @time_now = options[:time_now] || Time.now
-    @logger = Logger.new(STDOUT)
+    @time_now = options.fetch(:time_now, Time.now)
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
   end
 
   # This imports all the IEP PDFs from a zip that
@@ -59,7 +59,7 @@ class IepPdfImportJob
       IepStorer.new({
         path_to_file: path,
         s3_client: s3,
-        logger: logger
+        log: log
       }).store_only_new
       created_iep_documents_count += 1 if iep_document.present?
     end
@@ -128,7 +128,7 @@ class IepPdfImportJob
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @logger.info "IepPdfImportJob: #{text}"
+    @log.puts "IepPdfImportJob: #{text}"
   end
 
   def s3
