@@ -22,11 +22,12 @@ RSpec.describe EventNote, type: :model do
       FactoryBot.create(:event_note, text: text, is_restricted: is_restricted)
     end
 
-    def test_relation
-      create_note('foo-safe', false)
-      create_note('bar-RESTRICTED', true)
-      create_note('whatever-safe', false)
-      EventNote.all
+    def ordered_test_relation
+      [
+        create_note('foo-safe', false),
+        create_note('bar-RESTRICTED', true),
+        create_note('whatever-safe', false)
+      ]
     end
 
     def note_texts(notes_json)
@@ -88,7 +89,7 @@ RSpec.describe EventNote, type: :model do
 
     describe 'with a relation including a restricted note' do
       it 'works normally when :text is not included' do
-        relation = test_relation
+        relation = ordered_test_relation
         json = relation.as_json(only: [:student_id, :event_note_type_id])
         expect(json).to eq([
           {"student_id"=>relation[0].student_id, "event_note_type_id"=>relation[0].event_note_type_id},
@@ -98,29 +99,29 @@ RSpec.describe EventNote, type: :model do
       end
 
       it 'does not serialize :text for restricted notes by default' do
-        json = test_relation.as_json
+        json = ordered_test_relation.as_json
         expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
       end
 
       it 'does not serialize :text even when asked explicitly' do
-        json = test_relation.as_json(only: [:text])
+        json = ordered_test_relation.as_json(only: [:text])
         expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
       end
 
       it 'does not serializes :text just based on :dangerously_include_restricted_note_text key' do
-        json = test_relation.as_json(dangerously_include_restricted_note_text: false)
+        json = ordered_test_relation.as_json(dangerously_include_restricted_note_text: false)
         expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
       end
 
       it 'serializes :text only when given :dangerously_include_restricted_note_text: true' do
-        json = test_relation.as_json(dangerously_include_restricted_note_text: true)
+        json = ordered_test_relation.as_json(dangerously_include_restricted_note_text: true)
         expect(note_texts(json)).to eq(['foo-safe', 'bar-RESTRICTED', 'whatever-safe'])
       end
     end
 
     describe 'with an array including a restricted note' do
       it 'works normally when :text is not included' do
-        array = test_relation.to_a
+        array = ordered_test_relation.to_a
         json = array.as_json(only: [:student_id, :event_note_type_id])
         expect(json).to eq([
           {"student_id"=>array[0].student_id, "event_note_type_id"=>array[0].event_note_type_id},
@@ -130,22 +131,22 @@ RSpec.describe EventNote, type: :model do
       end
 
       it 'does not serialize :text for restricted notes by default' do
-        json = test_relation.to_a.as_json
+        json = ordered_test_relation.to_a.as_json
         expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
       end
 
       it 'does not serialize :text even when asked explicitly' do
-        json = test_relation.to_a.as_json(only: [:text])
+        json = ordered_test_relation.to_a.as_json(only: [:text])
         expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
       end
 
       it 'does not serializes :text just based on :dangerously_include_restricted_note_text key' do
-        json = test_relation.to_a.as_json(dangerously_include_restricted_note_text: false)
+        json = ordered_test_relation.to_a.as_json(dangerously_include_restricted_note_text: false)
         expect(note_texts(json)).to eq(['foo-safe', EventNote::REDACTED, 'whatever-safe'])
       end
 
       it 'serializes :text only when given :dangerously_include_restricted_note_text: true' do
-        json = test_relation.to_a.as_json(dangerously_include_restricted_note_text: true)
+        json = ordered_test_relation.to_a.as_json(dangerously_include_restricted_note_text: true)
         expect(note_texts(json)).to eq(['foo-safe', 'bar-RESTRICTED', 'whatever-safe'])
       end
     end
