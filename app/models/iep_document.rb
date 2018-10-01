@@ -1,6 +1,10 @@
 class IepDocument < ActiveRecord::Base
   belongs_to :student
   validates :file_name, presence: true
+
+  validates :file_digest, presence: true, uniqueness: true
+  validates :s3_filename, presence: true, uniqueness: true
+  validates :file_size, presence: true
   validate :validate_file_name
 
   # Shown to end users
