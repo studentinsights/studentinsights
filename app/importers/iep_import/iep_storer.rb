@@ -5,7 +5,8 @@ class IepStorer
       return File.read("#{Rails.root}/public/demo-blank-iep.pdf")
     end
 
-    s3_filename = iep_document.s3_filename
+    # Read the new location, falling back to the old if it isn't set
+    s3_filename = iep_document.s3_filename || iep_document.file_name
     object = s3_client.get_object({
       key: s3_filename,
       bucket: ENV['AWS_S3_PHOTOS_BUCKET']
