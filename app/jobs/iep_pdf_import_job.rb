@@ -58,7 +58,7 @@ class IepPdfImportJob
     pdf_filenames.each do |path|
       IepStorer.new({
         path_to_file: path,
-        client: s3,
+        s3_client: s3,
         logger: logger
       }).store_only_new
       created_iep_documents_count += 1 if iep_document.present?
@@ -105,7 +105,6 @@ class IepPdfImportJob
       Dir[File.join(folder_for_zip_file, '*')]
     end
   end
-
 
   def download(remote_filename)
     client = SftpClient.for_x2(nil, unsafe_local_download_folder: absolute_local_download_path)

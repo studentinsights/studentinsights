@@ -13,10 +13,11 @@ class IepStorer
     object.body.read
   end
 
-  def initialize(path_to_file:, client:, logger:)
-    @path_to_file = path_to_file
-    @client = client
-    @logger = logger
+  def initialize(options = {})
+    @path_to_file = options[:path_to_file]
+    @s3_client = options[:s3_client]
+    @logger = options[:logger]
+    @time_now = options.fetch(:time_now, Time.now)
   end
 
   # On success, stores in S3 and creates a new IepDocument, returning it.
@@ -50,7 +51,7 @@ class IepStorer
 
   private
   def parse_student_id_from_filename
-    iep_file_basename = Pathname.new(@path_to_file).basename
+    iep_file_basename = Pathname.new(@path_to_file).basename.to_s
     IepDocument.parse_local_id(iep_file_basename)
   end
 
@@ -60,7 +61,7 @@ class IepStorer
 
   # Returns filename on success, nil on error
   def store_object_in_s3(student_local_id)
-    log("storing iep pdf for student ##{@student.id} in s3...")
+    log("storing iep pdf for student_local_id:#{student_local_id} in s3...")
 
     # s3 filenames are sorted by student / upload date / iep
     # Filename shape: {64-character hash} / {YYYY}-{MM}-{DD} / {64-character hash}.
