@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
       access: student.latest_access_results,
       transition_notes: student.transition_notes.as_json(dangerously_include_restricted_note_text: can_access_restricted_transition_notes),
       profile_insights: [], # not supported
-      iep_document: student.latest_iep_document,
+      iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {

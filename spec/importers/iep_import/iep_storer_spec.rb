@@ -39,7 +39,7 @@ RSpec.describe IepStorer, type: :model do
   context 'other document exists for that student' do
     it 'stores a new object to s3 and the db' do
       student = create_test_student
-      existing_iep_document = IepDocument.create!({
+      existing_iep_document = FactoryBot.create(:iep_document, {
         student: student,
         file_name: '124046632_IEPAtAGlance_Alexander_MIDDLENAME_Hamilton.pdf'
       })
