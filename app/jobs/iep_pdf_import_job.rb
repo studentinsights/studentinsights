@@ -48,7 +48,7 @@ class IepPdfImportJob
     log 'Downloading zip files...'
     clean_up
     FileUtils.mkdir_p(absolute_local_download_path)
-    zip_files = download_zips
+    zip_files = download_zips(remote_filenames)
     log "  Downloaded #{zip_files.size} zip files."
 
     # Unzip locally to get all the pdf filenames
