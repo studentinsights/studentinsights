@@ -284,26 +284,26 @@ describe ClassListsController, :type => :controller do
       expect(json["educators"].size).to eq 6
       expect(json["students"].length).to eq 4
       expect(json["students"].first.keys).to contain_exactly(*[
-        "id",
-        "local_id",
-        "first_name",
-        "last_name",
-        "date_of_birth",
-        "disability",
-        "program_assigned",
-        "limited_english_proficiency",
-        "plan_504",
-        "home_language",
-        "free_reduced_lunch",
-        "race",
-        "hispanic_latino",
-        "iep_document",
-        "gender",
-        "most_recent_star_math_percentile",
-        "most_recent_star_reading_percentile",
-        "latest_access_results",
-        "latest_dibels",
-        "most_recent_school_year_discipline_incidents_count"
+        'id',
+        'local_id',
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'disability',
+        'program_assigned',
+        'limited_english_proficiency',
+        'plan_504',
+        'home_language',
+        'free_reduced_lunch',
+        'race',
+        'hispanic_latino',
+        'latest_iep_document',
+        'gender',
+        'most_recent_star_math_percentile',
+        'most_recent_star_reading_percentile',
+        'latest_access_results',
+        'latest_dibels',
+        'most_recent_school_year_discipline_incidents_count'
       ])
     end
 

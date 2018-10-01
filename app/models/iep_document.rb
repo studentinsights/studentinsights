@@ -1,6 +1,6 @@
 class IepDocument < ActiveRecord::Base
   belongs_to :student
-  validates :file_name, presence: true, uniqueness: true
+  validates :file_name, presence: true
   validate :validate_file_name
 
   # Shown to end users
@@ -8,7 +8,7 @@ class IepDocument < ActiveRecord::Base
     student_name = "#{student.last_name} #{student.first_name}"
     escaped_student_name = student_name.gsub(/[^a-zA-Z0-9]+/, '')
     date_text = self.created_at.strftime('%Y%m%d')
-    "IEP_#{student.id}_#{escaped_student_name}_#{date_text}.pdf"
+    "IEP_#{escaped_student_name}_#{date_text}_#{student.id}_#{self.id}.pdf"
   end
 
   def self.parse_local_id(file_name)
@@ -28,8 +28,6 @@ class IepDocument < ActiveRecord::Base
 
   private
   def validate_file_name
-    puts 'validate_file_name'
-    puts self.attributes
     local_id_from_file_name = IepDocument.parse_local_id(self.file_name)
     if local_id_from_file_name.nil?
       errors.add(:file_name, 'could not be parsed')
