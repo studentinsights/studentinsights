@@ -71,7 +71,7 @@ class IepPdfImportJob
     log "done."
   end
 
-  def download_zips
+  def download_zips(remote_filenames)
     zip_files = []
     remote_filenames.each do |filename|
       zip_file = download(filename)
