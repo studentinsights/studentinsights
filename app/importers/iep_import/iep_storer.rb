@@ -1,4 +1,8 @@
 class IepStorer
+  def self.bucket_name
+    ENV['AWS_S3_IEP_BUCKET']
+  end
+
   # No authorization check here
   def self.unsafe_read_bytes_from_s3(s3_client, iep_document)
     if ENV['USE_PLACEHOLDER_IEP_DOCUMENT']
@@ -9,7 +13,7 @@ class IepStorer
     s3_filename = iep_document.s3_filename || iep_document.file_name
     object = s3_client.get_object({
       key: s3_filename,
-      bucket: ENV['AWS_S3_PHOTOS_BUCKET']
+      bucket: IepStorer.bucket_name
     })
     object.body.read
   end
@@ -77,7 +81,7 @@ class IepStorer
     ].join('/')
 
     response = @s3_client.put_object(
-      bucket: ENV['AWS_S3_IEP_BUCKET'],
+      bucket: IepStorer.bucket_name,
       key: s3_filename,
       body: File.open(@path_to_file),
       server_side_encryption: 'AES256'
