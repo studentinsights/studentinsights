@@ -39,7 +39,7 @@ RSpec.describe IepStorer, type: :model do
 
   context 'other document exists for that student' do
     it 'stores a new object to s3 and the db' do
-      create_test_student
+      student = create_test_student
       IepDocument.create!(student: student, file_name: '124046632_IEPAtAGlance_Alexander_MIDDLENAME_Hamilton.pdf')
 
       expect { create_mocked_iep_storer.store_only_new }.to change(IepDocument, :count).by 1
