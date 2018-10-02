@@ -45,61 +45,99 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
-  //Requirements
-  //grouped incidents with count of incidents and list of students for each group
-  //incident total for each student including only those with correct date/code/category
-
-  allDisciplineIncidents() {
-    return this.memoize(['allDisciplineIncidents'], () => {
-      const {dashboardStudents} = this.props;
-      return _.flattenDeep(_.compact(dashboardStudents.map(student => this.mergeDisciplineData(student.discipline_incidents, student))));
-    });
-  }
-
-  //Associate all attributes that we want to use for incident grouping and student list. More may be added here later.
-  mergeDisciplineData(disciplineIncidentsArray, student) {
-    if (!disciplineIncidentsArray) return;
-    //student attributes
-    const grade = student.grade;
-    const classroom = student.homeroom_label;
-    const race = student.race;
-    const first_name = student.first_name;
-    const last_name = student.last_name;
-    const latest_note = student.latest_note;
-
-    return disciplineIncidentsArray.map(incident => {
-      //incident attributes derived from raw incident data
-      const exact_time = incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
-      const day = moment.utc(incident.occurred_at).format("ddd");
-      const location = incident.incident_location || "Not Recorded";
-      return {...incident, first_name, last_name, latest_note, grade, classroom, race, exact_time, day, location};
-    });
-  }
-
-  filteredDisciplineIncidents(disciplineIncidents) {
+  filterIncidents(disciplineIncidents, shouldFilterSelectedCategory) {
     return this.memoize(['filteredIncidents', this.state, arguments], () => {
+      if (!disciplineIncidents) return [];
       const {nowFn} = this.context;
-      const {timeRangeKey, selectedIncidentCode} = this.state;
+      const {timeRangeKey, selectedIncidentCode, selectedChart, selectedCategory} = this.state;
       const range = momentRange(timeRangeKey, nowFn());
       return disciplineIncidents.filter(incident => {
         if (!moment.utc(incident.occurred_at).isBetween(range[0], range[1])) return false;
         if (incident.incident_code !== selectedIncidentCode && selectedIncidentCode !== ALL) return false;
+        if (shouldFilterSelectedCategory) { //used by the student list when a user selects a category within a chart
+          if (selectedChart === 'day' && this.timeStampToDay(incident) !== selectedCategory) return false;
+          if (selectedChart === 'time' &&  this.timeStampToHour(incident) !== selectedCategory) return false;
+          if (selectedChart === 'incident_location' && incident[selectedChart] !== selectedCategory) return false;
+          if (selectedChart === 'incident_code' && incident[selectedChart] !== selectedCategory) return false;
+        }
         return true;
       });
     });
   }
 
-  sortChartKeys(groupedIncidents) {
-    const chartKeys = Object.keys(groupedIncidents);
-    switch(this.state.selectedChart) {
-    case 'time': return this.sortedTimes(chartKeys);
-    case 'day': return this.sortedDays(chartKeys);
-    case 'grade': return this.sortedGrades(chartKeys);
-    default: return this.sortedByIncidents(groupedIncidents); //because number of incidents in each category needed here
+  filterStudents(students) {
+    const {selectedChart, selectedCategory} = this.state;
+    return students.filter(student => {
+      if (selectedCategory && selectedChart === 'grade' && student.grade !== selectedCategory) return false;
+      if (selectedCategory && selectedChart === 'race' && student.race !== selectedCategory) return false;
+      if (selectedCategory && selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
+      if (selectedCategory && !this.filterIncidents(student.discipline_incidents, true).length) return false;
+      return true;
+    })
+  }
+
+  timeStampToHour(incident) {
+    return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+  }
+
+  timeStampToDay(incident) {
+    return moment.utc(incident.occurred_at).format("ddd");
+  }
+
+  getIncidentsFromStudents(students) {
+    //for chart data, does not filter on selected categories
+    return _.flatten(students.map(student => this.filterIncidents(student.discipline_incidents, false)));
+  }
+
+  //Depending on the chart, incidents are grouped either by student attribute or incident attribute. Any future
+  //charts may be handled here. 
+  getChartData(students, group) {
+    switch(group) {
+      case 'homeroom_label': case 'race': {
+        const groupedStudents = _.groupBy(students, group);
+        const categories = this.sortedByStudent(groupedStudents);
+        const seriesData = categories.map(category => {
+          return this.getIncidentsFromStudents(groupedStudents[category]).length;
+        });
+        return {categories, seriesData};
+      }
+      case 'grade': {
+        const groupedStudents = _.groupBy(students, group);
+        const categories = this.sortedGrades(Object.keys(groupedStudents));
+        const seriesData = categories.map(category => {
+          return this.getIncidentsFromStudents(groupedStudents[category]).length;
+        });
+        return {categories, seriesData};
+      }
+      case 'incident_code': case 'incident_location': {
+        const incidents = this.getIncidentsFromStudents(students);
+        const groupedIncidents = _.groupBy(incidents, group);
+        const categories = this.sortedByIncidents(groupedIncidents);
+        const seriesData = categories.map(category => groupedIncidents[category].length);
+        return {categories, seriesData};
+      }
+      case 'time': {
+        const incidents = this.getIncidentsFromStudents(students);
+        const groupedIncidents = _.groupBy(incidents, incident => {
+          return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+        });
+        const categories = this.sortedTimes(Object.keys(groupedIncidents));
+        const seriesData = categories.map(category => groupedIncidents[category].length);
+        return {categories, seriesData};
+      }
+      case 'day': {
+        const incidents = this.getIncidentsFromStudents(students);
+        const groupedIncidents = _.groupBy(incidents, incident => {
+          return moment.utc(incident.occurred_at).format("ddd");
+        });
+        const categories = this.sortedDays();
+        const seriesData = categories.map(category => groupedIncidents[category].length);
+        return {categories, seriesData};
+      }
     }
   }
 
-  sortedDays(chartKeys) {
+  sortedDays() {
     return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 
@@ -123,6 +161,31 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
+  sortedByStudent(groupedStudents) {
+    return Object.keys(groupedStudents).sort((a,b) => {
+      return this.getIncidentsFromStudents(groupedStudents[b]).length - this.getIncidentsFromStudents(groupedStudents[a]).length
+    });
+  }
+
+  studentTableRows(students) {
+    const filteredStudents = this.filterStudents(students);
+    const {selectedCategory} = this.state;
+    return filteredStudents.map(student => {
+        return {
+          id: student.id,
+          first_name: student.first_name,
+          last_name: student.last_name,
+          grade: student.grade,
+          latest_note: student.latest_note,
+          events: this.filterIncidents(student.discipline_incidents, selectedCategory).length
+        };
+      });
+  }
+
+  allIncidentTypes(students) {
+    return _.uniqBy(this.getIncidentsFromStudents(students), 'incident_code').map(incident => incident.incident_code);
+  }
+
   onIncidentTypeChange(incidentType) {
     this.setState({selectedIncidentCode: incidentType});
   }
@@ -136,20 +199,17 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
-    const {timeRangeKey} = this.state;
-    const {school} = this.props;
+    const {timeRangeKey, selectedChart} = this.state;
+    const {school, dashboardStudents} = this.props;
     const chartOptions = [
       {value: 'incident_location', label: 'Location'},
-      {value: 'exact_time', label: 'Time'},
-      {value: 'classroom', label: 'Classroom'},
+      {value: 'time', label: 'Time'},
+      {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
       {value: 'incident_code', label: 'Offense'},
     ];
-    const allIncidents = this.allDisciplineIncidents();
-    const filteredIncidents = this.filteredDisciplineIncidents(allIncidents);
-    const groupedIncidents = _.groupBy(filteredIncidents, this.state.selectedChart);
-    const incidentTypes = _.uniq(allIncidents.map(incident => incident.incident_code));
+    const incidentTypes = this.allIncidentTypes(dashboardStudents);
 
     return(
       <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
@@ -169,7 +229,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
           </div>
           <div style={dashboardStyles.columns}>
             <div style={dashboardStyles.rosterColumn}>
-              {this.renderStudentDisciplineTable(filteredIncidents, groupedIncidents)}
+              {this.renderStudentDisciplineTable(dashboardStudents)}
             </div>
             <div style={dashboardStyles.chartsColumn}>
               <div style={styles.graphTitle}>
@@ -184,7 +244,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
                   clearable={false}
                 />
               </div>
-             {this.renderDisciplineChart(groupedIncidents)}
+             {this.renderDisciplineChart(dashboardStudents, selectedChart)}
             </div>
           </div>
         </div>
@@ -192,13 +252,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderDisciplineChart(incidents) {
-    const categories = this.sortChartKeys(incidents);
-    const seriesData = categories.map((type) => {
-      if (!incidents[type]) return [];
-      return [type, incidents[type].length];
-    });
-
+  renderDisciplineChart(students, selectedChart) {
+    const {categories, seriesData} = this.getChartData(students, selectedChart);
     return (
         <DashboardBarChart
           id = "Discipline"
@@ -213,24 +268,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderStudentDisciplineTable(allIncidents) {
-    const {selectedCategory, selectedChart} = this.state;
-    const selectedIncidents = allIncidents.filter(incident => {
-      if (selectedCategory === null) return true;
-      if (incident[selectedChart] === selectedCategory) return true;
-      return false;
-    });
-    const students = _.groupBy(selectedIncidents, 'student_id');
-
-    const rows = _.uniqBy(selectedIncidents, 'student_id').map(incident => {
-      const id = incident.student_id;
-      const first_name = incident.first_name;
-      const last_name = incident.last_name;
-      const latest_note = incident.latest_note;
-      const grade = incident.grade;
-      const events = students[incident.student_id].length;
-      return {id, first_name, last_name, latest_note, events, grade};
-    })
+  renderStudentDisciplineTable(students) {
+    const rows = this.studentTableRows(students);
     return (
       <StudentsTable
         rows = {rows}
