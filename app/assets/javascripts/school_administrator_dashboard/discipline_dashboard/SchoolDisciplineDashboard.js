@@ -72,6 +72,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       if (selectedCategory && selectedChart === 'race' && student.race !== selectedCategory) return false;
       if (selectedCategory && selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
       if (selectedCategory && !this.filterIncidents(student.discipline_incidents, true).length) return false;
+      if (!this.filterIncidents(student.discipline_incidents, false).length) return false;
       return true;
     });
   }
@@ -95,7 +96,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     switch(group) {
     case 'homeroom_label': case 'race': {
       const groupedStudents = _.groupBy(students, group);
-      const categories = this.sortedByStudent(groupedStudents);
+      const categories = this.sortedByIncidentsInStudentGroup(groupedStudents);
       const seriesData = categories.map(category => {
         return this.getIncidentsFromStudents(groupedStudents[category]).length;
       });
@@ -122,7 +123,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
         return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
       });
       const categories = this.sortedTimes(Object.keys(groupedIncidents));
-      const seriesData = categories.map(category => groupedIncidents[category].length);
+      const seriesData = categories.map(category => {
+        return groupedIncidents[category] ? groupedIncidents[category].length : 0;
+      });
       return {categories, seriesData};
     }
     case 'day': {
@@ -131,7 +134,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
         return moment.utc(incident.occurred_at).format("ddd");
       });
       const categories = this.sortedDays();
-      const seriesData = categories.map(category => groupedIncidents[category].length);
+      const seriesData = categories.map(category => {
+        return groupedIncidents[category] ? groupedIncidents[category].length : 0;
+      });
       return {categories, seriesData};
     }
     }
@@ -143,11 +148,31 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   sortedTimes(chartKeys) {
     //chartKeys will either contain a time like "4:00 pm", "10:00 am", or "Not Logged"
-    return chartKeys.sort((a, b) => {
-      if (a == "Not Logged") return -1;
-      if (b == "Not Logged") return 1;
-      return new Date('1970/01/01 ' + a) - new Date('1970/01/01 ' + b);
-    });
+    return ["Not Logged",
+            "12:00 am",
+            "1:00 am",
+            "2:00 am",
+            "3:00 am",
+            "4:00 am",
+            "5:00 am",
+            "6:00 am",
+            "7:00 am",
+            "8:00 am",
+            "9:00 am",
+            "10:00 am",
+            "11:00 am",
+            "12:00 pm",
+            "1:00 pm",
+            "2:00 pm",
+            "3:00 pm",
+            "4:00 pm",
+            "5:00 pm",
+            "6:00 pm",
+            "7:00 pm",
+            "8:00 pm",
+            "9:00 pm",
+            "10:00 pm",
+            "11:00 pm",]
   }
 
   sortedGrades(chartKeys) {
@@ -161,7 +186,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
-  sortedByStudent(groupedStudents) {
+  sortedByIncidentsInStudentGroup(groupedStudents) {
     return Object.keys(groupedStudents).sort((a,b) => {
       return this.getIncidentsFromStudents(groupedStudents[b]).length - this.getIncidentsFromStudents(groupedStudents[a]).length;
     });
@@ -183,7 +208,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   allIncidentTypes(students) {
-    return _.uniqBy(this.getIncidentsFromStudents(students), 'incident_code').map(incident => incident.incident_code);
+    return _.uniqBy(_.flatten(students.map(student => student.discipline_incidents)), 'incident_code')
+    .map(incident => incident.incident_code);
   }
 
   onIncidentTypeChange(incidentType) {
