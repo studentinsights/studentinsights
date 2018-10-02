@@ -19,7 +19,7 @@ it('renders without crashing', () => {
     <TieringView {...props} />
   ), el);
 
-  expect($(el).html()).toContain('Search 73 students...');
+  expect($(el).html()).toContain('Search 74 students...');
   expect($(el).find('.Select').length).toEqual(4);
   expect($(el).text()).toContain('Grade...');
   expect($(el).text()).toContain('House...');
