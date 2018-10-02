@@ -140,6 +140,12 @@ class PerDistrict
     end
   end
 
+  # Sometimes we want to be able to import specific educators, even
+  # if they aren't in the specific set of schools we import.
+  def educators_importer_login_name_whitelist
+    ENV.fetch('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', '').split(',')
+  end
+
   # Users in Bedford type in just their login, others
   # use full email addresses.
   def find_educator_by_login_text(login_text)

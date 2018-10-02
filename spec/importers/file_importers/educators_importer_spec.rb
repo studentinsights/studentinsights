@@ -88,6 +88,15 @@ RSpec.describe EducatorsImporter do
       expect(importer.instance_variable_get(:@educator_syncer).stats[:unchanged_rows_count]).to eq 1
       expect(importer.instance_variable_get(:@homeroom_syncer).stats[:unchanged_rows_count]).to eq 1
     end
+
+    it 'includes rows if login_name is on whitelist, even if school is not in scope' do
+      allow(ENV).to receive(:fetch).with('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', anything()).and_return('ntufts')
+      importer = make_educators_importer(school_scope: ['SHS'])
+      allow(importer).to receive(:download_csv).and_return([make_test_row])
+      importer.import
+      expect(log.output).to include('@skipped_from_school_filter: 0')
+      expect(log.output).to include('@included_because_in_whitelist_count: 1')
+    end
   end
 
   describe 'works for login_name and email across districts' do
