@@ -77,7 +77,14 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   timeStampToHour(incident) {
-    return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+    const timeStamp = incident.occurred_at;
+    const schoolStart = moment("7:00 am", "HH:mm a");
+    const schoolEnd = moment("3:00 pm", "HH:mm a");
+    return !incident.has_exact_time
+            ? "Not Logged"
+            : moment(timeStamp).isBetween(schoolStart, schoolEnd)
+            ?  moment.utc(timeStamp).startOf('hour').format('h:mm a')
+            : "Other";
   }
 
   timeStampToDay(incident) {
@@ -119,7 +126,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     case 'time': {
       const incidents = this.getIncidentsFromStudents(students);
       const groupedIncidents = _.groupBy(incidents, incident => {
-        return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+        return this.timeStampToHour(incident);
       });
       const categories = this.sortedTimes(Object.keys(groupedIncidents));
       const seriesData = categories.map(category => {
@@ -149,13 +156,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     //chartKeys will either contain a time like "4:00 pm", "10:00 am", or "Not Logged"
     return [
       "Not Logged",
-      "12:00 am",
-      "1:00 am",
-      "2:00 am",
-      "3:00 am",
-      "4:00 am",
-      "5:00 am",
-      "6:00 am",
       "7:00 am",
       "8:00 am",
       "9:00 am",
@@ -165,14 +165,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       "1:00 pm",
       "2:00 pm",
       "3:00 pm",
-      "4:00 pm",
-      "5:00 pm",
-      "6:00 pm",
-      "7:00 pm",
-      "8:00 pm",
-      "9:00 pm",
-      "10:00 pm",
-      "11:00 pm"];
+      "Other"];
   }
 
   sortedGrades(chartKeys) {
