@@ -268,6 +268,7 @@ class PerDistrict
   def current_quarter(date_time)
     raise_not_handled! unless @district_key == SOMERVILLE
 
+    # See https://docs.google.com/document/d/1HCWMlbzw1KzniitW24aeo_IgjzNDSR-U9Rx_md1Qto8/edit
     year = SchoolYear.to_school_year(date_time)
     return 'SUMMER' if date_time < DateTime.new(year, 8, 29)
     return 'Q1' if date_time < DateTime.new(year, 11, 5)

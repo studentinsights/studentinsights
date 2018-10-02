@@ -38,7 +38,7 @@ describe TieringController, :type => :controller do
         # check shape of data
         expect(json.keys).to eq ['students_with_tiering']
         expect(json['students_with_tiering'].size).to eq 3
-        expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to eq([
+        expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to contain_exactly(*[
           "id",
           "grade",
           "first_name",
@@ -46,7 +46,7 @@ describe TieringController, :type => :controller do
           "program_assigned",
           "sped_placement",
           "house",
-          "student_section_assignments",
+          "student_section_assignments_right_now",
           "tier",
           "notes"
         ])
