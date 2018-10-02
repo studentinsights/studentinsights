@@ -11,7 +11,7 @@ describe TieringController, :type => :controller do
       get :show_json, params: {
         format: :json,
         school_id: pals.shs.id,
-        time_now: Time.now.to_i
+        time_now: pals.time_now.to_i
       }
       sign_out(educator)
       response
@@ -38,7 +38,7 @@ describe TieringController, :type => :controller do
         # check shape of data
         expect(json.keys).to eq ['students_with_tiering']
         expect(json['students_with_tiering'].size).to eq 3
-        expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to eq([
+        expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to contain_exactly(*[
           "id",
           "grade",
           "first_name",
@@ -46,7 +46,7 @@ describe TieringController, :type => :controller do
           "program_assigned",
           "sped_placement",
           "house",
-          "student_section_assignments",
+          "student_section_assignments_right_now",
           "tier",
           "notes"
         ])
@@ -56,17 +56,9 @@ describe TieringController, :type => :controller do
           "last_other_note"
         ])
 
-        # data for amir and mari (one failure)
-        expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[{
-          "level"=>0,
-          "triggers"=>[],
-          "data"=>{
-            "course_failures"=>0,
-            "course_ds"=>0,
-            "recent_absence_rate"=>1.0,
-            "recent_discipline_actions"=>0
-          }
-        }, {
+        # time_now is in Q3, so this includes one D for mari and one failure for kylo
+        expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[
+        { # mari
           "level"=>0,
           "triggers"=>[],
           "data"=>{
@@ -75,7 +67,16 @@ describe TieringController, :type => :controller do
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }
-        }, {
+        }, { # amir
+          "level"=>0,
+          "triggers"=>[],
+          "data"=>{
+            "course_failures"=>0,
+            "course_ds"=>0,
+            "recent_absence_rate"=>1.0,
+            "recent_discipline_actions"=>0
+          }
+        }, { # kylo
           "level"=>0,
           "triggers"=>[],
           "data"=>{

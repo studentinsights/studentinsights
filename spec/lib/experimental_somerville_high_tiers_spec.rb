@@ -6,7 +6,6 @@ RSpec.describe ExperimentalSomervilleHighTiers do
 
   describe '#students_with_tiering_json' do
     it 'works correctly' do
-      time_now = Time.now
       tiers = ExperimentalSomervilleHighTiers.new(pals.uri)
       students_with_tiering_json = tiers.students_with_tiering_json([pals.shs.id], time_now)
       expect(students_with_tiering_json).to contain_exactly(*[{
@@ -17,7 +16,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
         "program_assigned"=>nil,
         "sped_placement"=>nil,
         "house"=>"Beacon",
-        "student_section_assignments"=>[{
+        "student_section_assignments_right_now"=>[{
           "id"=>pals.shs_freshman_mari.student_section_assignments.first.id,
           "grade_numeric"=>"67.0",
           "grade_letter"=>"D",
@@ -50,16 +49,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "program_assigned"=>nil,
           "sped_placement"=>nil,
           "house"=>"Broadway",
-          "student_section_assignments"=>[{
-            "id"=>pals.shs_freshman_amir.student_section_assignments.first.id,
-            "grade_numeric"=>"84.0",
-            "grade_letter"=>"B",
-            "section"=>{
-              "id"=>pals.shs_third_period_physics.id,
-              "section_number"=>"SCI-201A",
-              "course_description"=>"PHYSICS 1"
-            }
-          }],
+          "student_section_assignments_right_now"=>[],
           "tier"=>{
             "level"=>0,
             "triggers"=>[],
@@ -83,7 +73,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "program_assigned"=>nil,
           "sped_placement"=>nil,
           "house"=>"Broadway",
-          "student_section_assignments"=>[{
+          "student_section_assignments_right_now"=>[{
             "id"=>pals.shs_senior_kylo.student_section_assignments.first.id,
             "grade_numeric"=>"61.0",
             "grade_letter"=>"F",
@@ -254,6 +244,16 @@ RSpec.describe ExperimentalSomervilleHighTiers do
         recent_discipline_actions: 7,
         recent_absence_rate: 0.79
       })).to eq [4, [:academic, :absence, :discipline]]
+    end
+  end
+
+  describe '#current_term_local_ids' do
+    it 'works at different times' do
+      tiers = ExperimentalSomervilleHighTiers.new(pals.uri)
+      expect(tiers.send(:current_term_local_ids, time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
+      expect(tiers.send(:current_term_local_ids, DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
+      expect(tiers.send(:current_term_local_ids, DateTime.new(2018, 11, 21))).to eq  ['Q2', 'S1', '1', '9', 'FY']
+      expect(tiers.send(:current_term_local_ids, DateTime.new(2019, 6, 26))).to eq  []
     end
   end
 end

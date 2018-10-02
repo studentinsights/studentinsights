@@ -223,7 +223,7 @@ export default class StudentLevelsTable extends React.Component {
 
   renderGradeFor(patterns, {rowData}) {
     const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments, patterns);
+    const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
     return (assignment)
       ? this.renderGrade(assignment.grade_letter)
       : null;
@@ -231,7 +231,7 @@ export default class StudentLevelsTable extends React.Component {
 
   renderIf(patterns, el, {rowData}) {
     const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments, patterns);
+    const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
     return (assignment)
       ? <span style={styles.support}>{el}</span>
       : null;
@@ -334,14 +334,14 @@ const styles = {
 };
 
 function sortByGrade(patterns, student) {
-  const assignment = firstMatch(student.student_section_assignments, patterns);
+  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
   return (assignment && assignment.grade_letter)
     ? rankedByLetterGrade(assignment.grade_letter)
     : Number.POSITIVE_INFINITY;
 }
 
 function sortIfCourse(patterns, student) {
-  const assignment = firstMatch(student.student_section_assignments, patterns);
+  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
   return (assignment) ? 1 : 0;
 }
 

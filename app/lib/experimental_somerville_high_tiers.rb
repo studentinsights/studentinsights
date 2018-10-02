@@ -27,7 +27,6 @@ class ExperimentalSomervilleHighTiers
     students = @authorizer.authorized do
       Student.active
         .where(school_id: school_ids)
-        .includes(student_section_assignments: [section: :course])
         .to_a # because of AuthorizedDispatcher#filter_relation
     end
     student_ids = students.map(&:id)
@@ -44,14 +43,25 @@ class ExperimentalSomervilleHighTiers
       .group(:student_id)
       .count
 
+    # query for sections within the current term
+    section_ids = Section
+      .where(term_local_id: current_term_local_ids(time_now))
+      .pluck(:id)
+    student_section_assignments_by_student_id = StudentSectionAssignment
+      .includes(section: :course)
+      .where(student_id: student_ids)
+      .where(section_id: section_ids)
+      .group_by(&:student_id)
+
     # Compute tiers for each student, with some querying in here still
     tiers_by_student_id = {}
     students.each do |student|
       query_results_for_student = {
         absences_count_in_period: absence_counts_by_student_id.fetch(student.id, 0),
-        discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student.id, 0)
+        discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student.id, 0),
+        section_assignments_right_now: student_section_assignments_by_student_id.fetch(student.id, [])
       }
-      tiering_data = calculate_tiering_data(student, query_results_for_student, @time_interval)
+      tiering_data = calculate_tiering_data(query_results_for_student, @time_interval)
       tiers_by_student_id[student.id] = decide_tier(tiering_data)
     end
 
@@ -61,28 +71,33 @@ class ExperimentalSomervilleHighTiers
       last_experience_note: [305, 306, 307]
     })
 
-    # Serialize student and section data
-    students_json = students.as_json({
-      only: [:id, :first_name, :last_name, :grade, :house, :sped_placement, :program_assigned],
-      include: {
-        student_section_assignments: {
-          :only => [:id, :grade_letter, :grade_numeric],
-          :include => {
-            :section => {
-              :only => [:id, :section_number],
-              :methods => [:course_description]
-            }
-          }
-        }
-      }
-    })
+    # Serialize student fields
+    students_json = students.as_json(only: [
+      :id,
+      :first_name,
+      :last_name,
+      :grade,
+      :house,
+      :sped_placement,
+      :program_assigned
+    ])
 
     # Merge it all back together
     students_with_tiering = students_json.map do |student_json|
       student_id = student_json['id']
+      student_section_assignments_right_now = student_section_assignments_by_student_id.fetch(student_id, [])
       student_json.merge({
         tier: tiers_by_student_id[student_id],
-        notes: notes_by_student_id[student_id]
+        notes: notes_by_student_id[student_id],
+        student_section_assignments_right_now: student_section_assignments_right_now.as_json({
+          only: [:id, :grade_letter, :grade_numeric],
+          include: {
+            section: {
+              only: [:id, :section_number],
+              methods: [:course_description]
+            }
+          }
+        })
       })
     end
     students_with_tiering.as_json
@@ -176,16 +191,16 @@ class ExperimentalSomervilleHighTiers
     notes_by_student_id
   end
 
-  def course_failures(student, options = {})
-    assignments = student.student_section_assignments.select do |assignment|
+  def course_failures(section_assignments_right_now, options = {})
+    assignments = section_assignments_right_now.select do |assignment|
       grade_numeric = assignment.grade_numeric
       grade_numeric.present? && grade_numeric < FAILING_GRADE
     end
     assignments.size
   end
 
-  def course_ds(student, options = {})
-    assignments = student.student_section_assignments.select do |assignment|
+  def course_ds(section_assignments_right_now, options = {})
+    assignments = section_assignments_right_now.select do |assignment|
       grade_numeric = assignment.grade_numeric
       grade_numeric.present? && grade_numeric > FAILING_GRADE && grade_numeric <= 69
     end
@@ -201,14 +216,24 @@ class ExperimentalSomervilleHighTiers
 
   # This doesn't actually check actions for discipline; it only looks at
   # events since we don't have actions from Aspen yet.
-  def calculate_tiering_data(student, query_results_for_student, time_interval)
+  def calculate_tiering_data(query_results_for_student, time_interval)
     absences_count_in_period = query_results_for_student.fetch(:absences_count_in_period)
     discipline_incident_count_in_period = query_results_for_student.fetch(:discipline_incident_count_in_period)
+    section_assignments_right_now = query_results_for_student.fetch(:section_assignments_right_now)
     {
-      course_failures: course_failures(student),
-      course_ds: course_ds(student),
+      course_failures: course_failures(section_assignments_right_now),
+      course_ds: course_ds(section_assignments_right_now),
       recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),
       recent_discipline_actions: discipline_incident_count_in_period
     }
+  end
+
+  def current_term_local_ids(time_now)
+    current_quarter = PerDistrict.new.current_quarter(time_now)
+    return ['Q1', 'S1', '1', '9', 'FY'] if current_quarter == 'Q1'
+    return ['Q2', 'S1', '1', '9', 'FY'] if current_quarter == 'Q2'
+    return ['Q3', 'S2', '2', '9', 'FY'] if current_quarter == 'Q3'
+    return ['Q4', 'S2', '2', '9', 'FY'] if current_quarter == 'Q4'
+    []
   end
 end

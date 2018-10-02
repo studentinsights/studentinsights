@@ -118,4 +118,15 @@ RSpec.describe PerDistrict do
       expect(ldap_login(for_demo, 'demo.studentinsights.org', 'uri@demo.studentinsights.org')).to eq('uri@demo.studentinsights.org')
     end
   end
+
+  describe '#current_quarter' do
+    it 'works for Somerville in school year 2018-2019' do
+      expect(PerDistrict.new.current_quarter(DateTime.new(2018, 8, 17))).to eq 'SUMMER'
+      expect(PerDistrict.new.current_quarter(DateTime.new(2018, 10, 2))).to eq 'Q1'
+      expect(PerDistrict.new.current_quarter(DateTime.new(2018, 11, 26))).to eq 'Q2'
+      expect(PerDistrict.new.current_quarter(DateTime.new(2018, 2, 26))).to eq 'Q3'
+      expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 1))).to eq 'Q4'
+      expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 24))).to eq 'SUMMER'
+    end
+  end
 end
