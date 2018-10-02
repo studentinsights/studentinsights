@@ -81,14 +81,14 @@ class EducatorsImporter
       return
     end
 
-    # Find the matching Educator record if possible and sync it
-    maybe_educator = EducatorRow.new(row, school_ids_dictionary).match_educator_record
-    @educator_syncer.validate_mark_and_sync!(maybe_educator)
-
-    # Find the matching Homeroom record if possible and
-    # sync the `educator_id` field.
-    maybe_homeroom = match_homeroom(row, maybe_educator)
+    # Find the matching Homeroom record and sync it
+    maybe_homeroom = match_homeroom(row)
     @homeroom_syncer.validate_mark_and_sync!(maybe_homeroom)
+
+    # Find the matching Educator record if possible and sync it
+    # The Homeroom has to be synced first
+    maybe_educator = EducatorRow.new(row, maybe_homeroom.try(:id), school_ids_dictionary).match_educator_record
+    @educator_syncer.validate_mark_and_sync!(maybe_educator)
   end
 
   def is_included_in_whitelist?(row)
@@ -96,8 +96,8 @@ class EducatorsImporter
     whitelist.include?(row[:login_name])
   end
 
-  # Match existing Homeroom and update reference to Educator.
-  def match_homeroom(row, maybe_educator)
+  # Match existing Homeroom if possible, or initialize new record
+  def match_homeroom(row)
     # Special case for NB magic "nil" value
     if PerDistrict.new.is_nil_homeroom_name?(row[:homeroom])
       @ignored_special_nil_homeroom_count += 1
@@ -118,16 +118,10 @@ class EducatorsImporter
     end
 
     # Match Homeroom (guaranteed to be uniqe on {name, school} by database index)
-    homeroom = Homeroom.find_or_initialize_by({
+    Homeroom.find_or_initialize_by({
       name: row[:homeroom],
       school_id: school_id
     })
-
-    # Update to reference educator
-    educator_id = maybe_educator.try(:id) # might be nil
-    homeroom.assign_attributes(educator_id: educator_id)
-
-    homeroom
   end
 
   def log(msg)

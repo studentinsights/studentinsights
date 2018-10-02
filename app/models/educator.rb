@@ -3,6 +3,7 @@ class Educator < ActiveRecord::Base
 
   belongs_to  :school, optional: true # districtwide admin often don't have schools assigned
   has_one     :homeroom
+  belongs_to  :assigned_homeroom, optional: true
   has_many    :students, through: :homeroom
   has_many    :educator_section_assignments
   has_many    :sections, through: :educator_section_assignments
