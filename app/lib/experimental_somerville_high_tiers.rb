@@ -230,10 +230,10 @@ class ExperimentalSomervilleHighTiers
 
   def current_term_local_ids(time_now)
     current_quarter = PerDistrict.new.current_quarter(time_now)
-    return ['9', 'FY', '1', 'S1', 'Q1'] if current_quarter == 'Q1'
-    return ['9', 'FY', '1', 'S1', 'Q2'] if current_quarter == 'Q2'
-    return ['9', 'FY', '2', 'S2', 'Q3'] if current_quarter == 'Q3'
-    return ['9', 'FY', '2', 'S2', 'Q4'] if current_quarter == 'Q4'
+    return ['Q1', 'S1', '1', '9', 'FY'] if current_quarter == 'Q1'
+    return ['Q2', 'S1', '1', '9', 'FY'] if current_quarter == 'Q2'
+    return ['Q3', 'S2', '2', '9', 'FY'] if current_quarter == 'Q3'
+    return ['Q4', 'S2', '2', '9', 'FY'] if current_quarter == 'Q4'
     []
   end
 end

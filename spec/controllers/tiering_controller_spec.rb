@@ -11,7 +11,7 @@ describe TieringController, :type => :controller do
       get :show_json, params: {
         format: :json,
         school_id: pals.shs.id,
-        time_now: Time.now.to_i
+        time_now: pals.time_now.to_i
       }
       sign_out(educator)
       response
@@ -56,8 +56,18 @@ describe TieringController, :type => :controller do
           "last_other_note"
         ])
 
-        # includes one failure for amir, does not include mari's Q3 grade
-        expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[{
+        # time_now is in Q3, so this includes one D for mari and one failure for kylo
+        expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[
+        { # mari
+          "level"=>0,
+          "triggers"=>[],
+          "data"=>{
+            "course_failures"=>0,
+            "course_ds"=>1,
+            "recent_absence_rate"=>1.0,
+            "recent_discipline_actions"=>0
+          }
+        }, { # amir
           "level"=>0,
           "triggers"=>[],
           "data"=>{
@@ -66,16 +76,7 @@ describe TieringController, :type => :controller do
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }
-        }, {
-          "level"=>0,
-          "triggers"=>[],
-          "data"=>{
-            "course_failures"=>0,
-            "course_ds"=>0,
-            "recent_absence_rate"=>1.0,
-            "recent_discipline_actions"=>0
-          }
-        }, {
+        }, { # kylo
           "level"=>0,
           "triggers"=>[],
           "data"=>{

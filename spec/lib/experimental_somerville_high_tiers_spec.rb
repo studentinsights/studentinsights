@@ -49,16 +49,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "program_assigned"=>nil,
           "sped_placement"=>nil,
           "house"=>"Broadway",
-          "student_section_assignments_right_now"=>[{
-            "id"=>pals.shs_freshman_amir.student_section_assignments.first.id,
-            "grade_numeric"=>"84.0",
-            "grade_letter"=>"B",
-            "section"=>{
-              "id"=>pals.shs_third_period_physics.id,
-              "section_number"=>"SCI-201A",
-              "course_description"=>"PHYSICS 1"
-            }
-          }],
+          "student_section_assignments_right_now"=>[],
           "tier"=>{
             "level"=>0,
             "triggers"=>[],
@@ -259,8 +250,10 @@ RSpec.describe ExperimentalSomervilleHighTiers do
   describe '#current_term_local_ids' do
     it 'works at different times' do
       tiers = ExperimentalSomervilleHighTiers.new(pals.uri)
-      expect(tiers.current_term_local_ids(time_now)).to eq 'wat'
-      pending
+      expect(tiers.send(:current_term_local_ids, time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
+      expect(tiers.send(:current_term_local_ids, DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
+      expect(tiers.send(:current_term_local_ids, DateTime.new(2018, 11, 21))).to eq  ['Q2', 'S1', '1', '9', 'FY']
+      expect(tiers.send(:current_term_local_ids, DateTime.new(2019, 6, 26))).to eq  []
     end
   end
 end
