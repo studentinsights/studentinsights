@@ -306,10 +306,14 @@ class TestPals
     })
     create_section_assignment(@shs_bill_nye, [
       @shs_tuesday_biology_section = Section.create!(
-        course: @shs_biology_course, section_number: 'SHS-BIO-TUES'
+        course: @shs_biology_course,
+        section_number: 'SHS-BIO-TUES',
+        term_local_id: 'Q3',
       ),
       @shs_thursday_biology_section = Section.create!(
-        course: @shs_biology_course, section_number: 'SHS-BIO-THUR'
+        course: @shs_biology_course,
+        section_number: 'SHS-BIO-THUR',
+        term_local_id: 'Q4',
       )
     ])
     EducatorLabel.create!({

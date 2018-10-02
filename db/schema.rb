@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_01_203131) do
+ActiveRecord::Schema.define(version: 2018_10_02_153752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -324,8 +324,8 @@ ActiveRecord::Schema.define(version: 2018_10_01_203131) do
   end
 
   create_table "sections", id: :serial, force: :cascade do |t|
-    t.string "section_number"
-    t.string "term_local_id"
+    t.string "section_number", null: false
+    t.string "term_local_id", null: false
     t.string "schedule"
     t.string "room_number"
     t.datetime "created_at"
