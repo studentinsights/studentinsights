@@ -73,7 +73,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       if (selectedCategory && selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
       if (selectedCategory && !this.filterIncidents(student.discipline_incidents, true).length) return false;
       return true;
-    })
+    });
   }
 
   timeStampToHour(incident) {
@@ -90,50 +90,50 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   //Depending on the chart, incidents are grouped either by student attribute or incident attribute. Any future
-  //charts may be handled here. 
+  //charts may be handled here.
   getChartData(students, group) {
     switch(group) {
-      case 'homeroom_label': case 'race': {
-        const groupedStudents = _.groupBy(students, group);
-        const categories = this.sortedByStudent(groupedStudents);
-        const seriesData = categories.map(category => {
-          return this.getIncidentsFromStudents(groupedStudents[category]).length;
-        });
-        return {categories, seriesData};
-      }
-      case 'grade': {
-        const groupedStudents = _.groupBy(students, group);
-        const categories = this.sortedGrades(Object.keys(groupedStudents));
-        const seriesData = categories.map(category => {
-          return this.getIncidentsFromStudents(groupedStudents[category]).length;
-        });
-        return {categories, seriesData};
-      }
-      case 'incident_code': case 'incident_location': {
-        const incidents = this.getIncidentsFromStudents(students);
-        const groupedIncidents = _.groupBy(incidents, group);
-        const categories = this.sortedByIncidents(groupedIncidents);
-        const seriesData = categories.map(category => groupedIncidents[category].length);
-        return {categories, seriesData};
-      }
-      case 'time': {
-        const incidents = this.getIncidentsFromStudents(students);
-        const groupedIncidents = _.groupBy(incidents, incident => {
-          return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
-        });
-        const categories = this.sortedTimes(Object.keys(groupedIncidents));
-        const seriesData = categories.map(category => groupedIncidents[category].length);
-        return {categories, seriesData};
-      }
-      case 'day': {
-        const incidents = this.getIncidentsFromStudents(students);
-        const groupedIncidents = _.groupBy(incidents, incident => {
-          return moment.utc(incident.occurred_at).format("ddd");
-        });
-        const categories = this.sortedDays();
-        const seriesData = categories.map(category => groupedIncidents[category].length);
-        return {categories, seriesData};
-      }
+    case 'homeroom_label': case 'race': {
+      const groupedStudents = _.groupBy(students, group);
+      const categories = this.sortedByStudent(groupedStudents);
+      const seriesData = categories.map(category => {
+        return this.getIncidentsFromStudents(groupedStudents[category]).length;
+      });
+      return {categories, seriesData};
+    }
+    case 'grade': {
+      const groupedStudents = _.groupBy(students, group);
+      const categories = this.sortedGrades(Object.keys(groupedStudents));
+      const seriesData = categories.map(category => {
+        return this.getIncidentsFromStudents(groupedStudents[category]).length;
+      });
+      return {categories, seriesData};
+    }
+    case 'incident_code': case 'incident_location': {
+      const incidents = this.getIncidentsFromStudents(students);
+      const groupedIncidents = _.groupBy(incidents, group);
+      const categories = this.sortedByIncidents(groupedIncidents);
+      const seriesData = categories.map(category => groupedIncidents[category].length);
+      return {categories, seriesData};
+    }
+    case 'time': {
+      const incidents = this.getIncidentsFromStudents(students);
+      const groupedIncidents = _.groupBy(incidents, incident => {
+        return incident.has_exact_time ? moment.utc(incident.occurred_at).startOf('hour').format('h:mm a') : "Not Logged";
+      });
+      const categories = this.sortedTimes(Object.keys(groupedIncidents));
+      const seriesData = categories.map(category => groupedIncidents[category].length);
+      return {categories, seriesData};
+    }
+    case 'day': {
+      const incidents = this.getIncidentsFromStudents(students);
+      const groupedIncidents = _.groupBy(incidents, incident => {
+        return moment.utc(incident.occurred_at).format("ddd");
+      });
+      const categories = this.sortedDays();
+      const seriesData = categories.map(category => groupedIncidents[category].length);
+      return {categories, seriesData};
+    }
     }
   }
 
@@ -163,7 +163,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   sortedByStudent(groupedStudents) {
     return Object.keys(groupedStudents).sort((a,b) => {
-      return this.getIncidentsFromStudents(groupedStudents[b]).length - this.getIncidentsFromStudents(groupedStudents[a]).length
+      return this.getIncidentsFromStudents(groupedStudents[b]).length - this.getIncidentsFromStudents(groupedStudents[a]).length;
     });
   }
 
@@ -171,15 +171,15 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const filteredStudents = this.filterStudents(students);
     const {selectedCategory} = this.state;
     return filteredStudents.map(student => {
-        return {
-          id: student.id,
-          first_name: student.first_name,
-          last_name: student.last_name,
-          grade: student.grade,
-          latest_note: student.latest_note,
-          events: this.filterIncidents(student.discipline_incidents, selectedCategory).length
-        };
-      });
+      return {
+        id: student.id,
+        first_name: student.first_name,
+        last_name: student.last_name,
+        grade: student.grade,
+        latest_note: student.latest_note,
+        events: this.filterIncidents(student.discipline_incidents, selectedCategory).length
+      };
+    });
   }
 
   allIncidentTypes(students) {
