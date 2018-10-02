@@ -76,7 +76,7 @@ class EducatorsImporter
     # Include login_names on whitelist, or filter out based on school
     if is_included_in_whitelist?(row)
       @included_because_in_whitelist_count += 1
-    elsif !filter.include?(row[:school_local_id]) && !
+    elsif !filter.include?(row[:school_local_id])
       @skipped_from_school_filter += 1
       return
     end

@@ -40,12 +40,9 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
     row[:staff_type].present? && row[:staff_type] == 'Administrator'
   end
 
-  def school_local_id
-    row[:school_local_id]
-  end
-
   def school_rails_id
-    school_ids_dictionary[school_local_id] if school_local_id.present?
+    school_local_id = row[:school_local_id]
+    school_ids_dictionary.fetch(school_local_id, nil)
   end
 
 end
