@@ -69,7 +69,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {selectedChart, selectedCategory} = this.state;
     return students.filter(student => {
       if (selectedCategory && selectedChart === 'grade' && student.grade !== selectedCategory) return false;
-      if (selectedCategory && selectedChart === 'race' && student.race !== selectedCategory) return false;
       if (selectedCategory && selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
       if (selectedCategory && !this.filterIncidents(student.discipline_incidents, true).length) return false;
       if (!this.filterIncidents(student.discipline_incidents, false).length) return false;
@@ -94,7 +93,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   //charts may be handled here.
   getChartData(students, group) {
     switch(group) {
-    case 'homeroom_label': case 'race': {
+    case 'homeroom_label': {
       const groupedStudents = _.groupBy(students, group);
       const categories = this.sortedByIncidentsInStudentGroup(groupedStudents);
       const seriesData = categories.map(category => {
