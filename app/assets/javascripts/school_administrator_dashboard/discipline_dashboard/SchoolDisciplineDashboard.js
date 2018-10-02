@@ -210,7 +210,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   allIncidentTypes(students) {
     const incidents = students.map(student => {
-      return student.discipline_incidents ? student.discipline_incidents : []
+      return student.discipline_incidents ? student.discipline_incidents : [];
     });
     return _.uniqBy(_.flatten(incidents), 'incident_code')
     .map(incident => incident.incident_code);
@@ -246,12 +246,14 @@ export default class SchoolDisciplineDashboard extends React.Component {
         <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
-          <div style={dashboardStyles.filterBar}>
+          <div style={styles.filterBarContainer}>
             <FilterBar style={styles.timeRange} >
               <SelectDisciplineIncidentType
-              type={this.state.selectedIncidentCode || 'All'}
-              onChange={this.onIncidentTypeChange}
-              types={incidentTypes}/>
+                type={this.state.selectedIncidentCode || 'All'}
+                onChange={this.onIncidentTypeChange}
+                types={incidentTypes}/>
+            </FilterBar>
+            <FilterBar style={styles.timeRange}>
               <SelectTimeRange
                 timeRangeKey={timeRangeKey}
                 onChange={this.onTimeRangeKeyChanged} />
@@ -327,9 +329,8 @@ const styles = {
     flexDirection: 'column'
   },
   timeRange: {
-    width: '100%',
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'center'
   },
   graphTitle: {
     display: 'flex',
@@ -343,6 +344,14 @@ const styles = {
   },
   dropdown: {
     width: '200px'
+  },
+  filterBarContainer: {
+    borderBottom: '1px solid #ccc',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: 10
   }
 };
 
