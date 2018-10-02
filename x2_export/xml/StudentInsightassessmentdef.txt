@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************* -->
+<!-- XML DEFINITION FOR THE "Student Insight Assessment Export" -->
+<!-- ************************************************* -->
+<export table-id="tblStdAssess" header-row="true">
+  <field id="relAsmStdOid.stdIDState" header-source="constant" header-value="state_id" />
+  <field id="relAsmStdOid.stdIDLocal" header-source="constant" header-value="local_id" />
+  <field id="relAsmSklOid.sklSchoolID" header-source="constant" header-value="school_local_id" />
+  <field id="asmDate" header-source="constant" header-value="assessment_date" />
+  <field id="asmScaleScore" header-source="constant" header-value="assessment_scale_score" />
+  <field id="asmPerfLevel" header-source="constant" header-value="assessment_performance_level" />
+  <field id="asmRawScore" header-source="constant" header-value="assessment_growth" />
+  <field id="relAsmAsdOid.asdName" header-source="constant" header-value="assessment_name" />
+  <field id="relAsmAsdOid.asdSubject" header-source="constant" header-value="assessment_subject" />
+  <field id="relAsmAsdOid.asdName" header-source="constant" header-value="assessment_test" />
+</export>
+

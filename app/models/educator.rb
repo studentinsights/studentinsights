@@ -1,7 +1,7 @@
 class Educator < ActiveRecord::Base
   devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text]
 
-  belongs_to  :school
+  belongs_to  :school, optional: true # districtwide admin often don't have schools assigned
   has_one     :homeroom
   belongs_to  :assigned_homeroom, optional: true
   has_many    :students, through: :homeroom
@@ -17,8 +17,7 @@ class Educator < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, case_sensitive: false
   validates :login_name, presence: true, uniqueness: true, case_sensitive: false
 
-  validate :validate_has_school_unless_districtwide,
-           :validate_admin_gets_access_to_all_students,
+  validate :validate_admin_gets_access_to_all_students,
            :validate_grade_level_access_is_array_of_strings,
            :validate_grade_level_strings_are_valid,
            :validate_grade_level_strings_are_uniq,
@@ -108,12 +107,6 @@ class Educator < ActiveRecord::Base
   end
 
   private
-  def validate_has_school_unless_districtwide
-    if school.blank?
-      errors.add(:school_id, 'must be assigned a school unless districtwide') unless districtwide_access?
-    end
-  end
-
   def validate_admin_gets_access_to_all_students
     has_access_to_all_students = (
       restricted_to_sped_students == false &&

@@ -140,6 +140,12 @@ class PerDistrict
     end
   end
 
+  # Sometimes we want to be able to import specific educators, even
+  # if they aren't in the specific set of schools we import.
+  def educators_importer_login_name_whitelist
+    ENV.fetch('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', '').split(',')
+  end
+
   # Users in Bedford type in just their login, others
   # use full email addresses.
   def find_educator_by_login_text(login_text)
@@ -263,6 +269,19 @@ class PerDistrict
 
   def is_research_matters_analysis_supported?
     @district_key == SOMERVILLE
+  end
+
+  def current_quarter(date_time)
+    raise_not_handled! unless @district_key == SOMERVILLE
+
+    # See https://docs.google.com/document/d/1HCWMlbzw1KzniitW24aeo_IgjzNDSR-U9Rx_md1Qto8/edit
+    year = SchoolYear.to_school_year(date_time)
+    return 'SUMMER' if date_time < DateTime.new(year, 8, 29)
+    return 'Q1' if date_time < DateTime.new(year, 11, 5)
+    return 'Q2' if date_time < DateTime.new(year + 1, 1, 23)
+    return 'Q3' if date_time < DateTime.new(year + 1, 4, 3)
+    return 'Q4' if date_time < DateTime.new(year + 1, 6, 12)
+    'SUMMER'
   end
 
   private

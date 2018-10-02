@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Column, AutoSizer} from 'react-virtualized';
+import _ from 'lodash';
+import moment from 'moment';
+import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {rankedByLetterGrade} from '../helpers/SortHelpers';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {
   firstMatch,
@@ -22,26 +25,92 @@ import {
 export default class StudentLevelsTable extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      sortBy: 'level',
+      sortDirection: SortDirection.ASC,
+    };
+    this.onTableSort = this.onTableSort.bind(this);
+  }
+
+  orderedStudents() {
+    const {studentsWithTiering} = this.props;
+    const {sortBy, sortDirection} = this.state;
+
+    // map dataKey to an accessor/sort function
+    const sortFns = {
+      student(student) { return `${student.last_name}, ${student.first_name}`; },
+      level(student) { return student.tier.level; },
+      absence(student) { return student.tier.data.recent_absence_rate; },
+      discipline(student) { return student.tier.data.recent_discipline_actions; },
+      en_or_ell(student) { return sortByGrade(EN_OR_ELL, student); },
+      history(student) { return sortByGrade(HISTORY, student); },
+      math(student) { return sortByGrade(MATH, student); },
+      science(student) { return sortByGrade(SCIENCE, student); },
+      nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
+      sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
+      study(student) { return sortIfCourse(STUDY_SKILLS, student); },
+      support(student) { return sortIfCourse(ACADEMIC_SUPPORT, student); },
+      redirect(student) { return sortIfCourse(REDIRECT, student); },
+      recovery(student) { return sortIfCourse(CREDIT_RECOVERY, student); },
+      program_assigned(student) { return prettyProgramOrPlacementText(student); },
+      fallback(student) { return student[sortBy]; }
+    };
+
+    // "Natural" sort order, before table sorting
+    const sortFn = sortFns[sortBy] || sortFns.fallback;
+    const sortedRows = _.sortBy(studentsWithTiering, [
+      (s => sortFn(s)),
+      (s => s.tier.level),
+      (s => s.tier.triggers.length),
+      (s => s.tier.triggers.sort()),
+      (s => s.last_name),
+      (s => s.first_name)
+    ]);
+    // sort and respect direction
+    
+    // const sortedRows = _.sortBy(studentsWithTiering, sortFn);
+    return (sortDirection === SortDirection.DESC) 
+      ? sortedRows.reverse()
+      : sortedRows;
+  }
+
+  onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
+    if (sortBy === this.state.sortBy) {
+      const oppositeSortDirection = (this.state.sortDirection == SortDirection.DESC)
+        ? SortDirection.ASC
+        : SortDirection.DESC;
+      this.setState({ sortDirection: oppositeSortDirection });
+    } else {
+      this.setState({sortBy});
+    }
+
+    this.tableEl.scrollToRow(0);
   }
 
   render() {
-    const {sortedStudentsWithTiering} = this.props;
+    const {sortDirection, sortBy} = this.state;
     const gradeCellWidth = 50;
     const numericCellWidth = 70;
     const supportCellWidth = 70;
 
+    const students = this.orderedStudents();
     return (
       <AutoSizer className="StudentLevelsTable">
         {({height, width}) => (
           <Table
+            ref={el => this.tableEl = el}
             width={width}
             headerHeight={40}
             height={height}
-            rowCount={sortedStudentsWithTiering.length}
-            rowGetter={({index}) => sortedStudentsWithTiering[index]}
+            rowCount={students.length}
+            rowGetter={({index}) => students[index]}
             rowHeight={40}
             rowStyle={{display: 'flex', alignItems: 'center'}}
             headerStyle={styles.tableHeaderStyle}
+            sort={this.onTableSort}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
           >
             <Column
               dataKey="student"
@@ -56,7 +125,7 @@ export default class StudentLevelsTable extends React.Component {
               cellRenderer={this.renderLevel} />
             <Column
               dataKey="absence"
-              label={<span>Absence<br/>Rate</span>}
+              label={<span>Attendance<br/>Rate</span>}
               width={numericCellWidth}
               cellRenderer={this.renderAbsenceRate} />
             <Column
@@ -65,7 +134,7 @@ export default class StudentLevelsTable extends React.Component {
               width={numericCellWidth}
               cellRenderer={this.renderDisciplineIncidents} />
             <Column
-              dataKey="ela"
+              dataKey="en_or_ell"
               label={<span><br />EN/ELL</span>}
               width={gradeCellWidth}
               cellRenderer={this.renderGradeFor.bind(this, EN_OR_ELL)} />
@@ -154,7 +223,7 @@ export default class StudentLevelsTable extends React.Component {
 
   renderGradeFor(patterns, {rowData}) {
     const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments, patterns);
+    const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
     return (assignment)
       ? this.renderGrade(assignment.grade_letter)
       : null;
@@ -162,7 +231,7 @@ export default class StudentLevelsTable extends React.Component {
 
   renderIf(patterns, el, {rowData}) {
     const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments, patterns);
+    const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
     return (assignment)
       ? <span style={styles.support}>{el}</span>
       : null;
@@ -218,7 +287,7 @@ StudentLevelsTable.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 StudentLevelsTable.propTypes = {
-  sortedStudentsWithTiering: PropTypes.array.isRequired
+  studentsWithTiering: PropTypes.array.isRequired
 };
 
 const warningColor = 'rgb(255, 222, 198)';
@@ -263,3 +332,21 @@ const styles = {
     padding: 8
   }
 };
+
+function sortByGrade(patterns, student) {
+  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
+  return (assignment && assignment.grade_letter)
+    ? rankedByLetterGrade(assignment.grade_letter)
+    : Number.POSITIVE_INFINITY;
+}
+
+function sortIfCourse(patterns, student) {
+  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
+  return (assignment) ? 1 : 0;
+}
+
+function sortTimestamp(maybeString) {
+  return (maybeString)
+    ? moment.utc(maybeString).unix()
+    : Number.NEGATIVE_INFINITY;
+}

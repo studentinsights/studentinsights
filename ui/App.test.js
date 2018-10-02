@@ -76,22 +76,8 @@ it('render SchoolCoursesPage without crashing', () => {
   )).toEqual(true);
 });
 
-it('renders Absences Dashboard without crashing', () => {
+it('renders SchoolAbsencesPage without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/absences'));
-  expect(wrapper.contains(
-    <SchoolAbsencesPage schoolIdOrSlug="hea" />
-  )).toEqual(true);
-});
-
-it('renders /absences/v1 without crashing', () => {
-  const wrapper = mount(renderPath('/schools/hea/absences/v1'));
-  expect(wrapper.contains(
-    <DashboardLoader schoolId="hea" dashboardTarget="absences"/>
-  )).toEqual(true);
-});
-
-it('renders /absences/v2 without crashing', () => {
-  const wrapper = mount(renderPath('/schools/hea/absences/v2'));
   expect(wrapper.contains(
     <SchoolAbsencesPage schoolIdOrSlug="hea" />
   )).toEqual(true);
@@ -101,6 +87,13 @@ it('renders Tardies Dashboard without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/tardies'));
   expect(wrapper.contains(
     <DashboardLoader schoolId="hea" dashboardTarget="tardies"/>
+  )).toEqual(true);
+});
+
+it('renders Discipline Dashboard without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/discipline'));
+  expect(wrapper.contains(
+    <DashboardLoader schoolId="hea" dashboardTarget="discipline"/>
   )).toEqual(true);
 });
 

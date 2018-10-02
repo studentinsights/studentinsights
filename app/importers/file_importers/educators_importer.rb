@@ -22,6 +22,7 @@ class EducatorsImporter
     end
 
     log('Done loop.')
+    log("@included_because_in_whitelist_count: #{@included_because_in_whitelist_count}")
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@ignored_special_nil_homeroom_count: #{@ignored_special_nil_homeroom_count}")
     log("@ignored_no_homeroom_count: #{@ignored_no_homeroom_count}")
@@ -41,6 +42,7 @@ class EducatorsImporter
 
   private
   def reset_counters!
+    @included_because_in_whitelist_count = 0
     @skipped_from_school_filter = 0
     @ignored_special_nil_homeroom_count = 0
     @ignored_no_homeroom_count = 0
@@ -71,7 +73,10 @@ class EducatorsImporter
   end
 
   def import_row(row)
-    if !filter.include?(row[:school_local_id])
+    # Include login_names on whitelist, or filter out based on school
+    if is_included_in_whitelist?(row)
+      @included_because_in_whitelist_count += 1
+    elsif !filter.include?(row[:school_local_id])
       @skipped_from_school_filter += 1
       return
     end
@@ -84,6 +89,11 @@ class EducatorsImporter
     # The Homeroom has to be synced first
     maybe_educator = EducatorRow.new(row, maybe_homeroom.try(:id), school_ids_dictionary).match_educator_record
     @educator_syncer.validate_mark_and_sync!(maybe_educator)
+  end
+
+  def is_included_in_whitelist?(row)
+    whitelist = PerDistrict.new.educators_importer_login_name_whitelist
+    whitelist.include?(row[:login_name])
   end
 
   # Match existing Homeroom if possible, or initialize new record

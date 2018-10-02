@@ -17,7 +17,7 @@ class ProfileController < ApplicationController
       educators_index: Educator.to_index,
       access: student.access,
       profile_insights: ProfileInsights.new(student).as_json,
-      iep_document: student.iep_document,
+      latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {

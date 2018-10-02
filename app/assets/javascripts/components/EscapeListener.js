@@ -7,11 +7,11 @@ import _ from 'lodash';
 export default class EscapeListener extends React.Component {
   constructor(props) {
     super(props);
-    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
-  onKeyUp(e) {
+  onKeyDown(e) {
     const {onEscape} = this.props;
     if (e.which === 27) onEscape();
   }
@@ -28,7 +28,7 @@ export default class EscapeListener extends React.Component {
       <div
         className={classNameString}
         style={style}
-        onKeyUp={this.onKeyUp}
+        onKeyDown={this.onKeyDown}
         onClick={escapeOnUnhandledClick && this.onClick}>{children}</div>
     );
   }

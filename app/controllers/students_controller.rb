@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
       access: student.latest_access_results,
       transition_notes: student.transition_notes.as_json(dangerously_include_restricted_note_text: can_access_restricted_transition_notes),
       profile_insights: [], # not supported
-      iep_document: student.iep_document,
+      iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {
@@ -62,6 +62,19 @@ class StudentsController < ApplicationController
     object = s3.get_object(key: @s3_filename, bucket: ENV['AWS_S3_PHOTOS_BUCKET'])
 
     send_data object.body.read, filename: @s3_filename, type: 'image/jpeg'
+  end
+
+  def latest_iep_document
+    # guard
+    safe_params = params.permit(:id)
+    student = authorized_or_raise! { Student.find(safe_params[:id]) }
+    iep_document = student.latest_iep_document
+    raise ActiveRecord::RecordNotFound if iep_document.nil?
+
+    # download
+    filename = iep_document.pretty_filename_for_download
+    pdf_bytes = IepStorer.unsafe_read_bytes_from_s3(s3, iep_document)
+    send_data pdf_bytes, filename: filename, type: 'application/pdf', disposition: 'inline'
   end
 
   # post

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Modal from 'react-modal';
 import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
@@ -16,6 +15,11 @@ import {
   STUDY_SKILLS
 } from './Courses';
 import StudentLevelsTable from './StudentLevelsTable';
+import SupportGaps from './SupportGaps';
+import HelpBubble, {
+  modalFromRight,
+  dialogFullScreenFlex
+} from '../components/HelpBubble';
 
 
 // Experimental UI for HS tiering prototype
@@ -30,7 +34,6 @@ export default class TieringView extends React.Component {
     this.onTierChanged = this.onTierChanged.bind(this);
     this.onTriggerChanged = this.onTriggerChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
-    this.onToggleModal = this.onToggleModal.bind(this);
   }
 
   filterStudents() {
@@ -81,32 +84,27 @@ export default class TieringView extends React.Component {
     this.setState({search});
   }
 
-  onToggleModal() {
-    const {isModalOpen} = this.state;
-    this.setState({isModalOpen: !isModalOpen});
-  }
-
   render() {
-    const students = this.filterStudents();
+    const filteredStudents = this.filterStudents();
     return (
       <EscapeListener className="TieringView" style={{...styles.root, ...styles.flexVertical}} onEscape={this.onEscape}>
-        {this.renderSelection(students)}
-        {this.renderTable(students)}
+        {this.renderSelection(filteredStudents)}
+        {this.renderTable(filteredStudents)}
       </EscapeListener>
     );
   }
 
-  renderSelection(studentsWithTiering) {
+  renderSelection(filteredStudents) {
     const {grade, house, tier, trigger, search} = this.state;
 
     const nullOption = [{ value: ALL, label: 'All' }];
     const possibleTiers = ['0', '1', '2', '3', '4'];
     const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
-      <FilterBar style={styles.filterBar}>
+      <FilterBar style={styles.filterBar} barStyle={{flex: 1}}>
         <input
           style={styles.search}
-          placeholder={`Search ${studentsWithTiering.length} students...`}
+          placeholder={`Search ${filteredStudents.length} students...`}
           value={search}
           onChange={this.onSearchChanged} />
         <SelectGrade
@@ -134,57 +132,124 @@ export default class TieringView extends React.Component {
           options={nullOption.concat(possibleTriggers.map(value => {
             return { value, label: `${value} trigger` };
           }))} />
-        <span style={styles.tieringInfo}>Last 45 days</span>
-        {this.renderSummaryModal(studentsWithTiering)}
+        <div style={styles.textBar}>
+          {this.renderExperienceGaps(filteredStudents)}
+          {this.renderSSTGaps(filteredStudents)}
+          {this.renderStats(filteredStudents)}
+          <span style={styles.tieringInfo}>Last 45 days</span>
+        </div>
       </FilterBar>
     );
   }
 
-  renderSummaryModal(studentsWithTiering) {
-    const {isModalOpen} = this.state;
+  renderSystemsAndSupportsLink() {
+    const {systemsAndSupportsUrl} = this.props;
+    return <a href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>;
+  }
+
+  renderExperienceGaps(filteredStudents) {
+    const uncoveredStudents = filteredStudents.filter(student => (student.grade === '9' || student.grade === '10') && hasAcademicTrigger(student) && !student.notes.last_experience_note.event_note_type_id);
+    return (
+      <HelpBubble
+        modalStyle={styles.modalFullScreen}
+        style={{display: 'inline-block', marginLeft: 0}}
+        linkStyle={styles.summary}
+        dialogStyle={dialogFullScreenFlex}
+        withoutSpacer={true}
+        withoutContentWrapper={true}
+        teaser="NGE/110GE"
+        title="Students not yet mentioned in NGE/10GE"
+        content={
+          <SupportGaps
+            message={this.renderSupportGapsMessageWithFilterWarning(
+              <div>There are <b>{uncoveredStudents.length} students</b> with academic triggers recently who haven't been mentioned in NGE or 10GE.</div>
+            )}
+            systemsAndSupports={this.renderSystemsAndSupportsLink()}
+            uncoveredStudentsWithTiering={uncoveredStudents}
+          />
+        }
+      />
+    );
+  }
+  
+  renderSSTGaps(filteredStudents) {
+    const uncoveredStudents = filteredStudents.filter(student => (hasAbsenceTrigger(student) || hasDisciplineTrigger(student)) && !student.notes.last_sst_note.event_note_type_id);
+    return (
+      <HelpBubble
+        modalStyle={styles.modalFullScreen}
+        style={{display: 'inline-block', marginLeft: 0}}
+        linkStyle={styles.summary}
+        dialogStyle={dialogFullScreenFlex}
+        withoutSpacer={true}
+        withoutContentWrapper={true}
+        teaser="SST"
+        title="Students not yet mentioned in SST"
+        content={
+          <SupportGaps
+            message={this.renderSupportGapsMessageWithFilterWarning(
+              <div>There are <b>{uncoveredStudents.length} students</b> with absence or discipline triggers recently who haven't been mentioned in SST.</div>
+            )}
+            systemsAndSupports={this.renderSystemsAndSupportsLink()}
+            uncoveredStudentsWithTiering={uncoveredStudents}
+          />
+        }
+      />
+    );
+  }
+
+  renderSupportGapsMessageWithFilterWarning(message) {
     return (
       <div>
-        <a href="#" style={styles.summary} onClick={this.onToggleModal}>Summary</a>
-        <Modal
-          ariaHideApp={false}
-          isOpen={isModalOpen}
-          onRequestClose={this.onToggleModal}
-          contentLabel="Modal"
-        >
-          {this.renderSummary(studentsWithTiering)}
-        </Modal>
+        <div>{message}</div>
+        {!_.isEqual(initialState(), this.state) && <div style={{color: 'darkorange', fontWeight: 'bold'}}>Filters are applied.</div>}
       </div>
+    );
+  }
+
+  renderStats(filteredStudents) {
+    return (
+      <HelpBubble
+        modalStyle={modalFromRight}
+        style={{display: 'inline-block'}}
+        linkStyle={styles.summary}
+        teaser="Stats"
+        title="Stats"
+        content={this.renderSummary(filteredStudents)}
+      />
     );
   }
 
   renderSummary(studentsWithTiering) {
     return (
-      <div style={styles.summaryContainer}>
-        <div style={styles.summaryColumn}>
-          <h4 style={{marginBottom: 10}}>by levels</h4>
-          {this.renderTierCount(studentsWithTiering, 0)}
-          {this.renderTierCount(studentsWithTiering, 1)}
-          {this.renderTierCount(studentsWithTiering, 2)}
-          {this.renderTierCount(studentsWithTiering, 3)}
-          {this.renderTierCount(studentsWithTiering, 4)}
-        </div>
-        <div style={styles.summaryColumn}>
-          <h4 style={{marginBottom: 10}}>by triggers</h4>
-          {this.renderTriggerCount(studentsWithTiering)}
-        </div>
-        <div style={styles.summaryColumn}>
-          <h4 style={{marginBottom: 10}}>by supports</h4>
-          {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
-          {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
-          {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
-          {this.renderServiceCount(studentsWithTiering, 'Study skills', STUDY_SKILLS)}
+      <div>
+        {this.renderSystemsAndSupportsLink()}
+        <div style={styles.summaryContainer}>
+          <div style={styles.summaryColumn}>
+            <h4 style={{marginBottom: 10}}>by levels</h4>
+            {this.renderTierCount(studentsWithTiering, 0)}
+            {this.renderTierCount(studentsWithTiering, 1)}
+            {this.renderTierCount(studentsWithTiering, 2)}
+            {this.renderTierCount(studentsWithTiering, 3)}
+            {this.renderTierCount(studentsWithTiering, 4)}
+          </div>
+          <div style={styles.summaryColumn}>
+            <h4 style={{marginBottom: 10}}>by triggers</h4>
+            {this.renderTriggerCount(studentsWithTiering)}
+          </div>
+          <div style={styles.summaryColumn}>
+            <h4 style={{marginBottom: 10}}>by supports</h4>
+            {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
+            {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
+            {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
+            {this.renderServiceCount(studentsWithTiering, 'Study skills', STUDY_SKILLS)}
+          </div>
         </div>
       </div>
     );
   }
 
   renderUnlabeledCourses(studentsWithTiering) {
-    const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments));
+    const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments_right_now));
     const labeledAssignments = assignments.map(assignment => {
       return {
         ...assignment,
@@ -222,7 +287,7 @@ export default class TieringView extends React.Component {
 
   renderServiceCount(studentsWithTiering, text, patterns) {
     const count = studentsWithTiering.filter(s => {
-      return firstMatch(s.student_section_assignments, patterns) !== undefined;
+      return firstMatch(s.student_section_assignments_right_now, patterns) !== undefined;
     }).length;
     const percentage = Math.round(100 * count / studentsWithTiering.length);
     return this.renderSummaryBit(text, count, percentage);
@@ -238,22 +303,15 @@ export default class TieringView extends React.Component {
   }
 
   renderTable(studentsWithTiering) {
-    const sortedStudentsWithTiering = _.orderBy(studentsWithTiering, [
-      (s => s.tier.level),
-      (s => s.tier.triggers.length),
-      (s => s.tier.triggers.sort()),
-      (s => s.last_name),
-      (s => s.first_name)
-    ]);
-
     return (
       <div style={{...styles.tableContainer, ...styles.flexVertical}}>
-        <StudentLevelsTable sortedStudentsWithTiering={sortedStudentsWithTiering} />
+        <StudentLevelsTable studentsWithTiering={studentsWithTiering} />
       </div>
     );
   }
 }
 TieringView.propTypes = {
+  systemsAndSupportsUrl: PropTypes.string.isRequired,
   studentsWithTiering: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -262,7 +320,7 @@ TieringView.propTypes = {
     house: PropTypes.string,
     program_assigned: PropTypes.string,
     sped_placement: PropTypes.string,
-    student_section_assignments: PropTypes.arrayOf(PropTypes.shape({
+    student_section_assignments_right_now: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       grade_letter: PropTypes.string,
       grade_numeric: PropTypes.string,
@@ -296,24 +354,25 @@ const styles = {
     paddingLeft: 10,
     borderRadius: 3,
     border: '1px solid #ddd',
-    marginLeft: 20,
+    marginLeft: 10,
     fontSize: 12,
     width: 150
   },
   select: {
     width: '10em',
-    marginLeft: 20
+    marginLeft: 15
   },
   summaryContainer: {
     display: 'flex',
-    margin: 10
+    margin: 10,
+    fontSize: 14
   },
   summaryColumn: {
     flex: 1,
     margin: 10
   },
   tieringInfo: {
-    marginLeft: 20,
+    marginLeft: 15,
     fontSize: 12,
     color: '#666'
   },
@@ -323,8 +382,24 @@ const styles = {
   },
   summary: {
     padding: 5,
-    marginLeft: 10,
     fontSize: 12
+  },
+  modalFullScreen: {
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      top: 40,
+      bottom: 40,
+      left: 40,
+      right: 40
+    }
+  },
+  textBar: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   }
 };
 
@@ -334,7 +409,19 @@ function initialState() {
     grade: ALL,
     house: ALL,
     tier: ALL,
-    trigger: ALL,
-    isModalOpen: false
+    trigger: ALL
   };
+}
+
+
+function hasAcademicTrigger(student) {
+  return student.tier.triggers.indexOf('academic') !== -1;
+}
+
+function hasDisciplineTrigger(student) {
+  return student.tier.triggers.indexOf('discipline') !== -1;
+}
+
+function hasAbsenceTrigger(student) {
+  return student.tier.triggers.indexOf('absence') !== -1;
 }

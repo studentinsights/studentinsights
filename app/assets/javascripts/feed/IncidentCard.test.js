@@ -5,7 +5,7 @@ import IncidentCard from './IncidentCard';
 import {withDefaultNowContext} from '../testing/NowContainer';
 
 
-function testProps(props = {}) {
+export function testProps(props = {}) {
   return {
     incidentCard: {
       "id": 21,
@@ -38,6 +38,16 @@ it('renders without crashing', () => {
 
 it('matches snapshot', () => {
   const props = testProps();
+  const tree = renderer
+    .create(withDefaultNowContext(<IncidentCard {...props} />))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+
+it('matches when no location', () => {
+  const props = testProps();
+  props.incidentCard.incident_location = '';
   const tree = renderer
     .create(withDefaultNowContext(<IncidentCard {...props} />))
     .toJSON();

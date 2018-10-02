@@ -21,13 +21,15 @@ export default class HelpBubble extends React.Component {
   }
 
   closeModal(e){
-    this.setState({modalIsOpen: false});
     e.preventDefault();
+    e.stopPropagation();
+    this.setState({modalIsOpen: false});
   }
 
   openModal(e){
-    this.setState({modalIsOpen: true});
     e.preventDefault();
+    e.stopPropagation();
+    this.setState({modalIsOpen: true});
   }
 
   render(){

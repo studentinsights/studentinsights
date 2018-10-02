@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound do
     if request.format.json?
       render_not_found_json!
+    elsif request.format.pdf?
+      render plain: 'PDF not found', status: 404
     else
       redirect_to home_path
     end
@@ -20,6 +22,8 @@ class ApplicationController < ActionController::Base
   rescue_from Exceptions::EducatorNotAuthorized do
     if request.format.json?
       render_unauthorized_json!
+    elsif request.format.pdf?
+      render plain: 'Not authorized', status: 403
     else
       redirect_unauthorized!
     end

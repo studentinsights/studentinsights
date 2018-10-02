@@ -6,6 +6,7 @@ import tieringShowJson from './tieringShowJson.fixture';
 
 function testProps(props = {}) {
   return {
+    systemsAndSupportsUrl: 'https://example.com/foo',
     studentsWithTiering: tieringShowJson.students_with_tiering,
     ...props
   };
@@ -18,7 +19,7 @@ it('renders without crashing', () => {
     <TieringView {...props} />
   ), el);
 
-  expect($(el).html()).toContain('Search 73 students...');
+  expect($(el).html()).toContain('Search 74 students...');
   expect($(el).find('.Select').length).toEqual(4);
   expect($(el).text()).toContain('Grade...');
   expect($(el).text()).toContain('House...');

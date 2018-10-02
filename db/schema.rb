@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_121832) do
+ActiveRecord::Schema.define(version: 2018_10_02_153752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,10 +236,13 @@ ActiveRecord::Schema.define(version: 2018_09_25_121832) do
   end
 
   create_table "iep_documents", id: :serial, force: :cascade do |t|
-    t.string "file_name"
+    t.string "file_name", null: false
     t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "file_digest", null: false
+    t.integer "file_size", null: false
+    t.string "s3_filename", null: false
     t.index ["student_id"], name: "index_iep_documents_on_student_id"
   end
 
@@ -322,8 +325,8 @@ ActiveRecord::Schema.define(version: 2018_09_25_121832) do
   end
 
   create_table "sections", id: :serial, force: :cascade do |t|
-    t.string "section_number"
-    t.string "term_local_id"
+    t.string "section_number", null: false
+    t.string "term_local_id", null: false
     t.string "schedule"
     t.string "room_number"
     t.datetime "created_at"
@@ -400,9 +403,9 @@ ActiveRecord::Schema.define(version: 2018_09_25_121832) do
 
   create_table "student_photos", force: :cascade do |t|
     t.bigint "student_id"
-    t.string "file_digest"
-    t.integer "file_size"
-    t.string "s3_filename"
+    t.string "file_digest", null: false
+    t.integer "file_size", null: false
+    t.string "s3_filename", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_student_photos_on_student_id"

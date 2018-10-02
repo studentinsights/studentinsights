@@ -11,7 +11,7 @@ RSpec.describe Authorizer do
   it 'sets up test context correctly' do
     expect(School.all.size).to eq 13
     expect(Homeroom.all.size).to eq 6
-    expect(Student.all.size).to eq 4
+    expect(Student.all.size).to eq 5
     expect(Educator.all.size).to eq 15
     expect(Course.all.size).to eq 3
     expect(Section.all.size).to eq 6
@@ -34,7 +34,8 @@ RSpec.describe Authorizer do
         pals.healey_kindergarten_student,
         pals.west_eighth_ryan,
         pals.shs_freshman_mari,
-        pals.shs_freshman_amir
+        pals.shs_freshman_amir,
+        pals.shs_senior_kylo
       ])
       expect(authorized(pals.healey_vivian_teacher) { students }).to eq [pals.healey_kindergarten_student]
       expect(authorized(pals.shs_bill_nye) { students }).to eq [pals.shs_freshman_mari]
@@ -93,7 +94,8 @@ RSpec.describe Authorizer do
           pals.healey_kindergarten_student,
           pals.west_eighth_ryan,
           pals.shs_freshman_mari,
-          pals.shs_freshman_amir
+          pals.shs_freshman_amir,
+          pals.shs_senior_kylo
         ]
         expect(authorized(pals.healey_vivian_teacher) { Student.all }).to match_array [
           pals.healey_kindergarten_student
@@ -131,7 +133,8 @@ RSpec.describe Authorizer do
           pals.healey_kindergarten_student.id,
           pals.west_eighth_ryan.id,
           pals.shs_freshman_mari.id,
-          pals.shs_freshman_amir.id
+          pals.shs_freshman_amir.id,
+          pals.shs_senior_kylo.id
         ])
         expect((authorized(pals.healey_vivian_teacher) { thin_relation }).map(&:id)).to eq([
           pals.healey_kindergarten_student.id

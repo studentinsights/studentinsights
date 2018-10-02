@@ -17,6 +17,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         pals.west_eighth_ryan.local_id,
         pals.shs_freshman_mari.local_id,
         pals.shs_freshman_amir.local_id,
+        pals.shs_senior_kylo.local_id,
         pals.healey_kindergarten_student.local_id
       ])
     end
