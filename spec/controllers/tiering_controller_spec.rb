@@ -56,7 +56,7 @@ describe TieringController, :type => :controller do
           "last_other_note"
         ])
 
-        # data for amir and mari (one failure)
+        # includes one failure for amir, does not include mari's Q3 grade
         expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[{
           "level"=>0,
           "triggers"=>[],
@@ -71,7 +71,7 @@ describe TieringController, :type => :controller do
           "triggers"=>[],
           "data"=>{
             "course_failures"=>0,
-            "course_ds"=>1,
+            "course_ds"=>0,
             "recent_absence_rate"=>1.0,
             "recent_discipline_actions"=>0
           }

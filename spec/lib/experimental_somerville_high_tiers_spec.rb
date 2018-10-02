@@ -260,5 +260,7 @@ RSpec.describe ExperimentalSomervilleHighTiers do
     it 'works at different times' do
       tiers = ExperimentalSomervilleHighTiers.new(pals.uri)
       expect(tiers.current_term_local_ids(time_now)).to eq 'wat'
+      pending
     end
+  end
 end

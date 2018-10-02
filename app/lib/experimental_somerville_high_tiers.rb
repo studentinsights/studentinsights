@@ -85,10 +85,11 @@ class ExperimentalSomervilleHighTiers
     # Merge it all back together
     students_with_tiering = students_json.map do |student_json|
       student_id = student_json['id']
+      student_section_assignments_right_now = student_section_assignments_by_student_id.fetch(student_id, [])
       student_json.merge({
         tier: tiers_by_student_id[student_id],
         notes: notes_by_student_id[student_id],
-        student_section_assignments_right_now: student_section_assignments_by_student_id[student_id].as_json({
+        student_section_assignments_right_now: student_section_assignments_right_now.as_json({
           only: [:id, :grade_letter, :grade_numeric],
           include: {
             section: {

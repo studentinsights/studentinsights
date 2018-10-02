@@ -249,7 +249,7 @@ export default class TieringView extends React.Component {
   }
 
   renderUnlabeledCourses(studentsWithTiering) {
-    const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments));
+    const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments_right_now));
     const labeledAssignments = assignments.map(assignment => {
       return {
         ...assignment,
@@ -287,7 +287,7 @@ export default class TieringView extends React.Component {
 
   renderServiceCount(studentsWithTiering, text, patterns) {
     const count = studentsWithTiering.filter(s => {
-      return firstMatch(s.student_section_assignments, patterns) !== undefined;
+      return firstMatch(s.student_section_assignments_right_now, patterns) !== undefined;
     }).length;
     const percentage = Math.round(100 * count / studentsWithTiering.length);
     return this.renderSummaryBit(text, count, percentage);
@@ -320,7 +320,7 @@ TieringView.propTypes = {
     house: PropTypes.string,
     program_assigned: PropTypes.string,
     sped_placement: PropTypes.string,
-    student_section_assignments: PropTypes.arrayOf(PropTypes.shape({
+    student_section_assignments_right_now: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       grade_letter: PropTypes.string,
       grade_numeric: PropTypes.string,
