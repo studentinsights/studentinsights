@@ -44,6 +44,12 @@ class ExperimentalSomervilleHighTiers
       .group(:student_id)
       .count
 
+    # query for sections within the current term
+    student_section_assignments_by_student_id = StudentSectionAssignment
+      .where(student_id: student_ids)
+      .where(term_local_id: current_term_local_ids)
+      
+
     # Compute tiers for each student, with some querying in here still
     tiers_by_student_id = {}
     students.each do |student|
@@ -66,11 +72,11 @@ class ExperimentalSomervilleHighTiers
       only: [:id, :first_name, :last_name, :grade, :house, :sped_placement, :program_assigned],
       include: {
         student_section_assignments: {
-          :only => [:id, :grade_letter, :grade_numeric],
-          :include => {
-            :section => {
-              :only => [:id, :section_number],
-              :methods => [:course_description]
+          only: [:id, :grade_letter, :grade_numeric],
+          include: {
+            section: {
+              only: [:id, :section_number],
+              methods: [:course_description]
             }
           }
         }
@@ -210,5 +216,14 @@ class ExperimentalSomervilleHighTiers
       recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),
       recent_discipline_actions: discipline_incident_count_in_period
     }
+  end
+
+  def current_term_local_ids
+    current_quarter = PerDistrict.new.current_quarter
+    return ['9', 'FY', '1', 'S1', 'Q1'] if current_quarter == 'Q1'
+    return ['9', 'FY', '1', 'S1', 'Q2'] if current_quarter == 'Q2'
+    return ['9', 'FY', '2', 'S2', 'Q3'] if current_quarter == 'Q3'
+    return ['9', 'FY', '2', 'S2', 'Q4'] if current_quarter == 'Q4'
+    []
   end
 end
