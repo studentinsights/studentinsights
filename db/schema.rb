@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_02_153752) do
+ActiveRecord::Schema.define(version: 2018_10_04_154418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 2018_10_02_153752) do
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
     t.text "login_name", null: false
+    t.integer "assigned_homeroom_id"
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
   end
 
@@ -485,6 +486,7 @@ ActiveRecord::Schema.define(version: 2018_10_02_153752) do
     t.text "house"
     t.text "counselor"
     t.text "sped_liaison"
+    t.boolean "missing_from_last_export", default: false, null: false
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
     t.index ["local_id"], name: "index_students_on_local_id"
     t.index ["school_id"], name: "index_students_on_school_id"
@@ -528,6 +530,7 @@ ActiveRecord::Schema.define(version: 2018_10_02_153752) do
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
+  add_foreign_key "educators", "homerooms", column: "assigned_homeroom_id"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
   add_foreign_key "event_note_attachments", "event_notes", name: "event_note_attachments_event_note_id_fk"
   add_foreign_key "event_note_revisions", "educators", name: "event_note_revisions_educator_id_fk"

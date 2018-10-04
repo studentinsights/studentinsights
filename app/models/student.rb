@@ -63,12 +63,17 @@ class Student < ActiveRecord::Base
     where.not(school: nil)
   end
 
+  # enrollment_status is from the SIS export, while `missing_from_last_export`
+  # indicates the student was missing from the last export where we expected to
+  # find them, so we treat them as no longer active.
+  #
+  # All product features should be scoped to `active` students only.
   def self.active
-    where(enrollment_status: 'Active')
+    where(enrollment_status: 'Active', missing_from_last_export: false)
   end
 
   def active?
-    enrollment_status == 'Active'
+    enrollment_status == 'Active' && !missing_from_last_export
   end
 
   def latest_iep_document
