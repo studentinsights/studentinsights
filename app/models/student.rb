@@ -69,11 +69,19 @@ class Student < ActiveRecord::Base
   #
   # All product features should be scoped to `active` students only.
   def self.active
-    where(enrollment_status: 'Active', missing_from_last_export: false)
+    if ENV.fetch('SHOULD_FILTER_MISSING_FROM_LAST_EXPORT', false)
+      where(enrollment_status: 'Active', missing_from_last_export: false)
+    else
+      where(enrollment_status: 'Active')
+    end
   end
 
   def active?
-    enrollment_status == 'Active' && !missing_from_last_export
+    if ENV.fetch('SHOULD_FILTER_MISSING_FROM_LAST_EXPORT', false)
+      enrollment_status == 'Active' && !missing_from_last_export
+    else
+      enrollment_status == 'Active'
+    end
   end
 
   def latest_iep_document
