@@ -173,13 +173,13 @@ class ResearchMattersExporter
   def educator_to_total_student_count(educator)
     return 0 if educator.homeroom.nil?
 
-    return educator.homeroom.students.count
+    return educator.homeroom.students.active.count
   end
 
   def educator_to_focal_sstudent_count(educator)
     return 0 if educator.homeroom.nil?
 
-    return educator.homeroom.students.select { |student| is_sst(student) }.count
+    return educator.homeroom.students.active.select { |student| is_sst(student) }.count
   end
 
   def is_sst(student)

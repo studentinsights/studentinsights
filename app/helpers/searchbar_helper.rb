@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module SearchbarHelper
   def self.names_for(educator)
-    authorized_students = Student.with_school.select do |student|
+    authorized_students = Student.active.with_school.select do |student|
       educator.is_authorized_for_student(student)
     end
     authorized_students.map do |student|
