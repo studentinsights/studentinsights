@@ -36,7 +36,7 @@ class StudentsImporter
     # But, we also don't want these students to appear as active and in rosters, etc.
     # So if this was in-scope for the import, set a separate `no_longer_exported` bit
     # that we can filter out by as well.
-    log('RecordSyncer#process_unmarked_records! and setting `not_current_exported: true`...')
+    log('RecordSyncer#process_unmarked_records! to set not_current_exported...')
     @syncer.process_unmarked_records!(records_within_scope) do |student, index|
       student.update!(not_currently_exported: true)
       @not_currently_exported_count += 1
@@ -54,7 +54,7 @@ class StudentsImporter
   end
 
   def records_within_scope
-    Student.joins(:school).where(:schools => {:local_id => @school_scope})
+    Student.joins(:school).where(schools: {local_id: @school_scope})
   end
 
   def download_csv
