@@ -52,6 +52,7 @@ describe HomeroomsController, :type => :controller do
           "most_recent_star_reading_percentile",
           "most_recent_star_math_percentile",
           "enrollment_status",
+          "missing_from_last_export",
           "date_of_birth",
           "gender",
           "house",

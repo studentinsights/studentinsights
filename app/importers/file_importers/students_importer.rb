@@ -29,16 +29,23 @@ class StudentsImporter
 
     # We don't want to remove old `Student` records, since notes and other records
     # refence them, and this is important information we want to preserve even if
-    # a `Student` is no longer attending the district.  We'll remove these records in
+    # a `Student` is no longer attending the district.  We'll remove those records in
     # a separate retention policy sweep.
     #
-    # But, we also don't want these students to appear as active and in rosters, etc.
-    # So if this was in-scope for the import, set a separate `no_longer_exported` bit
-    # that we can filter out by as well.
-    log('RecordSyncer#process_unmarked_records! to set missing_from_last_export...')
-    @syncer.process_unmarked_records!(records_within_scope) do |student, index|
-      student.update!(missing_from_last_export: true)
-      @missing_from_last_export_count += 1
+    # But in some districts, if the student withdraws, they just stop exporting data for them.
+    # In these cases, we don't want those students to keep appearing as active in Insights and
+    # in rosters, etc.
+    #
+    # So for Student records that were in-scope for the import but were missing from the export,
+    # set a separate `no_longer_exported` bit that we can filter out by as well.
+    if PerDistrict.new.does_students_export_include_rows_for_inactive_students?
+      log('Skipping RecordSyncer#process_unmarked_records! since district export includes rows for inactive students.')
+    else
+      log('RecordSyncer#process_unmarked_records! to set missing_from_last_export...')
+      @syncer.process_unmarked_records!(records_within_scope) do |student, index|
+        student.update!(missing_from_last_export: true)
+        @missing_from_last_export_count += 1
+      end
     end
     log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
     log("RecordSyncer#stats: #{@syncer.stats}")

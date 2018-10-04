@@ -93,45 +93,85 @@ RSpec.describe StudentsImporter do
   end
 
   describe 'process_unmarked_records! integration tests' do
-    it 'sets missing_from_last_export: true for students missing from the export' do
-      # first import, all students in fixture
-      TestPals.seed_somerville_schools_for_test!
-      first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
-      first_log = LogHelper::FakeLog.new
-      first_importer = make_students_importer(log: first_log)
-      allow(first_importer).to receive(:download_csv).and_return(first_fixture_rows)
-      first_importer.import
-      expect(Student.active.size).to eq 4
+    context 'when does_students_export_include_rows_for_inactive_students?' do
+      before do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:does_students_export_include_rows_for_inactive_students?).and_return(true)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      end
 
-      # second one, with some students missing from export
-      second_fixture_rows = first_fixture_rows.last(2)
-      second_log = LogHelper::FakeLog.new
-      second_importer = make_students_importer(log: second_log)
-      allow(second_importer).to receive(:download_csv).and_return(second_fixture_rows)
-      second_importer.import
+      it 'does not set missing_from_last_export' do
+        # first import, all students in fixture
+        TestPals.seed_somerville_schools_for_test!
+        first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
+        first_log = LogHelper::FakeLog.new
+        first_importer = make_students_importer(log: first_log)
+        allow(first_importer).to receive(:download_csv).and_return(first_fixture_rows)
+        first_importer.import
+        expect(Student.active.size).to eq 4
 
-      # Student records not included in the import are tagged as `missing_from_last_export` and
-      # no longer considered active
-      expect(second_log.output).to include('records_to_process.size: 3 within scope')
-      expect(second_log.output).to include('@missing_from_last_export_count: 3')
-      expect(Student.where(missing_from_last_export: true).size).to eq 3
-      expect(Student.active.size).to eq 1
+        # second one, with some students missing from export
+        second_fixture_rows = first_fixture_rows.last(2)
+        second_log = LogHelper::FakeLog.new
+        second_importer = make_students_importer(log: second_log)
+        allow(second_importer).to receive(:download_csv).and_return(second_fixture_rows)
+        second_importer.import
+
+        # Student records are not changed
+        expect(second_log.output).to include('Skipping RecordSyncer#process_unmarked_records! since district export includes rows for inactive students')
+        expect(second_log.output).to include('@missing_from_last_export_count: 0')
+        expect(Student.where(missing_from_last_export: true).size).to eq 0
+        expect(Student.active.size).to eq 4
+      end
     end
 
-    it 'does not set missing_from_last_export for existing elementary students when only importing SHS' do
-      pals = TestPals.create!
+    context 'when NOT does_students_export_include_rows_for_inactive_students?' do
+      before do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:does_students_export_include_rows_for_inactive_students?).and_return(false)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      end
 
-      log = LogHelper::FakeLog.new
-      importer = make_students_importer(log: log, school_scope: ['SHS'])
-      allow(importer).to receive(:download_csv).and_return([])
-      importer.import
+      it 'sets missing_from_last_export: true for students missing from the export' do
+        # first import, all students in fixture
+        TestPals.seed_somerville_schools_for_test!
+        first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
+        first_log = LogHelper::FakeLog.new
+        first_importer = make_students_importer(log: first_log)
+        allow(first_importer).to receive(:download_csv).and_return(first_fixture_rows)
+        first_importer.import
+        expect(Student.active.size).to eq 4
 
-      expect(log.output).to include('@missing_from_last_export_count: 3')
-      expect(pals.shs.students.active.size).to eq 0
-      expect(pals.shs.students.size).to eq 3
-      expect(pals.shs.students.where(missing_from_last_export: true).size).to eq 3
-      expect(pals.healey.students.active.size).to eq 1
-      expect(pals.west.students.active.size).to eq 1
+        # second one, with some students missing from export
+        second_fixture_rows = first_fixture_rows.last(2)
+        second_log = LogHelper::FakeLog.new
+        second_importer = make_students_importer(log: second_log)
+        allow(second_importer).to receive(:download_csv).and_return(second_fixture_rows)
+        second_importer.import
+
+        # Student records not included in the import are tagged as `missing_from_last_export` and
+        # no longer considered active
+        expect(second_log.output).to include('records_to_process.size: 3 within scope')
+        expect(second_log.output).to include('@missing_from_last_export_count: 3')
+        expect(Student.where(missing_from_last_export: true).size).to eq 3
+        expect(Student.active.size).to eq 1
+      end
+
+      it 'does not set missing_from_last_export for existing elementary students when only importing SHS' do
+        pals = TestPals.create!
+
+        log = LogHelper::FakeLog.new
+        importer = make_students_importer(log: log, school_scope: ['SHS'])
+        allow(importer).to receive(:download_csv).and_return([])
+        importer.import
+
+        expect(log.output).to include('@missing_from_last_export_count: 3')
+        expect(pals.shs.students.active.size).to eq 0
+        expect(pals.shs.students.size).to eq 3
+        expect(pals.shs.students.where(missing_from_last_export: true).size).to eq 3
+        expect(pals.healey.students.active.size).to eq 1
+        expect(pals.west.students.active.size).to eq 1
+      end
     end
   end
 
@@ -189,7 +229,6 @@ RSpec.describe StudentsImporter do
 
         it 'does not delete any records' do
           importer.import
-          expect(log.output).to include('process_unmarked_records starting...')
           expect(log.output).to include(':destroyed_records_count=>0')
         end
       end
