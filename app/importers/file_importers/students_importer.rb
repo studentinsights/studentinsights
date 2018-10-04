@@ -26,12 +26,21 @@ class StudentsImporter
     log("@setting_nil_homeroom_because_not_active_count: #{@setting_nil_homeroom_because_not_active_count}")
     log("@nil_homeroom_count: #{@nil_homeroom_count}")
     log("@could_not_match_homeroom_name_count: #{@could_not_match_homeroom_name_count}")
+    log("@not_currently_exported_count: #{@not_currently_exported_count}")
 
     # We don't want to remove old `Student` records, since notes and other records
     # refence them, and this is important information we want to preserve even if
     # a `Student` is no longer attending the district.  We'll remove these records in
     # a separate retention policy sweep.
-    log('Skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Student records.')
+    #
+    # But, we also don't want these students to appear as active and in rosters, etc.
+    # So if this was in-scope for the import, set a separate `no_longer_exported` bit
+    # that we can filter out by as well.
+    log('RecordSyncer#process_unmarked_records! and setting `not_current_exported: true`...')
+    @syncer.process_unmarked_records!(records_within_scope) do |student, index|
+      student.update!(not_currently_exported: true)
+      @not_currently_exported_count += 1
+    end
     log("RecordSyncer#stats: #{@syncer.stats}")
   end
 
@@ -41,6 +50,11 @@ class StudentsImporter
     @setting_nil_homeroom_because_not_active_count = 0
     @nil_homeroom_count = 0
     @could_not_match_homeroom_name_count = 0
+    @not_currently_exported_count = 0
+  end
+
+  def records_within_scope
+    Student.joins(:school).where(:schools => {:local_id => @school_scope})
   end
 
   def download_csv

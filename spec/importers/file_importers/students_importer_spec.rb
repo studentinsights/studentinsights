@@ -141,8 +141,8 @@ RSpec.describe StudentsImporter do
 
         it 'does not delete any records' do
           importer.import
+          expect(log.output).to include('process_unmarked_records starting...')
           expect(log.output).to include(':destroyed_records_count=>0')
-          expect(log.output).to include('Skipping the call to  RecordSyncer#delete_unmarked_records')
         end
       end
 
