@@ -23,7 +23,7 @@ module StudentsQueryHelper
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
-    student_fields = Student.where(id: student.id).select(INCLUDE_FOR_STUDENTS)
+    student_fields = Student.active.where(id: student.id).select(INCLUDE_FOR_STUDENTS)
 
     HashWithIndifferentAccess.new(
       student_fields.first.as_json.merge({

@@ -4,7 +4,7 @@ class ServiceUploadsController < ApplicationController
   # Used to validate student local ids
   # LASID => "locally assigned ID"
   def lasids
-    render json: Student.pluck(:local_id)
+    render json: Student.all.pluck(:local_id) # not just active students
   end
 
   def service_types

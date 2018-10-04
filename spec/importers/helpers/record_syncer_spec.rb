@@ -116,6 +116,30 @@ RSpec.describe RecordSyncer do
     end
   end
 
+  describe '#process_unmarked_records!' do
+    let(:pals) { TestPals.create! }
+    it 'supports doing something other than deleting, using Student as test case' do
+      log = make_log
+      syncer = make_syncer(log: log)
+      records_within_scope = Student.where(id: [
+        pals.shs_freshman_mari.id,
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
+      ])
+      expect(syncer.validate_mark_and_sync!(pals.shs_freshman_mari)).to eq(:unchanged)
+
+      records_processed_count = syncer.process_unmarked_records!(records_within_scope) do |student, index|
+        student.update!(enrollment_status: 'Withdrawn')
+      end
+      expect(records_processed_count).to eq 2
+      expect(pals.shs_freshman_amir.reload.enrollment_status).to eq 'Withdrawn'
+      expect(pals.shs_senior_kylo.reload.enrollment_status).to eq 'Withdrawn'
+      expect(pals.shs_freshman_mari.reload.enrollment_status).to eq 'Active'
+      expect(pals.healey_kindergarten_student.reload.enrollment_status).to eq 'Active'
+      expect(pals.west_eighth_ryan.reload.enrollment_status).to eq 'Active'
+    end
+  end
+
   describe '#delete_unmarked_records!' do
     it 'does nothing to unmarked records outside of scope' do
       log = make_log
@@ -153,11 +177,14 @@ RSpec.describe RecordSyncer do
       expect(Absence.all.map(&:id)).to contain_exactly(a.id, b.id)
       expect(Absence.all.map(&:id)).not_to include(c.id)
       expected_log_output = <<~HEREDOC
-        RecordSyncer: delete_unmarked_records
+        RecordSyncer: delete_unmarked_records starting...
+        RecordSyncer: process_unmarked_records starting...
         RecordSyncer:   records_within_import_scope.size: 3 in Insights
         RecordSyncer:   @marked_ids.size = 2 from this import
         RecordSyncer:   unmarked_ids: [#{c.id}]
-        RecordSyncer:   records_to_destroy.size: 1 within scope
+        RecordSyncer:   records_to_process.size: 1 within scope
+        RecordSyncer: process_unmarked_records done.
+        RecordSyncer: delete_unmarked_records done.
       HEREDOC
       expect(log.output).to eq expected_log_output.strip
 

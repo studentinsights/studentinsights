@@ -221,6 +221,21 @@ class PerDistrict
     end
   end
 
+  # If a student withdraws, the export code may express this by setting a
+  # different value for `enrollment_status` or by just not including that
+  # student in the export anymore.
+  def does_students_export_include_rows_for_inactive_students?
+    if @district_key == SOMERVILLE
+      true
+    elsif @district_key == BEDFORD
+      false
+    elsif @district_key == NEW_BEDFORD
+      false
+    else
+      raise_not_handled!
+    end
+  end
+
   def import_student_house?
     return true if @district_key == SOMERVILLE # SHS house
     return true if @district_key == BEDFORD # MS house

@@ -65,24 +65,40 @@ class RecordSyncer
   # The caller has to describe what records are in scope of the import (eg,
   # particular schools, date ranges, etc.) and this returns the count of deleted records.
   def delete_unmarked_records!(records_within_import_scope)
-    log("delete_unmarked_records")
+    log('delete_unmarked_records starting...')
+
+    # This is slow, but intentionally runs validations, hooks, etc. on each record
+    # individually to be conservative.
+    process_unmarked_records!(records_within_import_scope) do |record, index|
+      record.destroy!
+      @destroyed_records_count += 1
+    end
+
+    log('delete_unmarked_records done.')
+    @destroyed_records_count
+  end
+
+  # Do something to each Insights record that is no longer in the CSV snapshot.
+  # The caller has to describe what records they expected to be in scope of the import (eg,
+  # particular schools, date ranges, etc.).  Returns the count of processed records.
+  def process_unmarked_records!(records_within_import_scope, &block)
+    log("process_unmarked_records starting...")
     log("  records_within_import_scope.size: #{records_within_import_scope.size} in Insights")
     log("  @marked_ids.size = #{@marked_ids.size} from this import")
 
     unmarked_ids = records_within_import_scope.pluck(:id) - @marked_ids
     log("  unmarked_ids: #{unmarked_ids.inspect}") if unmarked_ids.size < 10
 
-    records_to_destroy = records_within_import_scope.where(id: unmarked_ids)
-    log("  records_to_destroy.size: #{records_to_destroy.size} within scope")
+    records_to_process = records_within_import_scope.where(id: unmarked_ids)
+    log("  records_to_process.size: #{records_to_process.size} within scope")
 
-    # This is slow, but intentionally runs validations, hooks, etc. on each record
-    # individually to be conservative.
-    records_to_destroy.each_with_index do |record, index|
-      record.destroy!
-      log("  destroyed #{index} rows.") if index > 0 && index % 100 == 0
+    records_to_process.each_with_index do |record, index|
+      block.call(record, index)
+      log("  processed #{index} rows.") if index > 0 && index % 100 == 0
     end
 
-    @destroyed_records_count += records_to_destroy.size
+    log("process_unmarked_records done.")
+    records_to_process.size
   end
 
   # For debugging and testing - total counts for instance lifetime

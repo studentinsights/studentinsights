@@ -25,6 +25,7 @@ class Env
     default_env['ENABLE_MASQUERADING'] = 'true'
     default_env['ENABLE_STUDENT_VOICE_SURVEYS_UPLOADS'] = 'true'
     default_env['STUDENT_VOICE_SURVEY_FORM_URL'] = 'https://example.com/this-is-the-survey'
+    default_env['SHOULD_FILTER_MISSING_FROM_LAST_EXPORT'] = 'true'
 
     # only set values if ENV hasn't already set them (ie, allow command line overrides)
     default_env.each do |key, value|

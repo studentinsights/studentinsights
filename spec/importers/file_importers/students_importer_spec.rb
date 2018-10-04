@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe StudentsImporter do
   def make_students_importer(options = {})
+    school_ids = PerDistrict.new.school_definitions_for_import.map { |school| school["local_id"] }
     StudentsImporter.new(options: {
-      school_scope: nil,
+      school_scope: school_ids,
       log: nil
     }.merge(options))
   end
@@ -16,7 +17,7 @@ RSpec.describe StudentsImporter do
 
   def test_csv_from_file(filename)
     file = File.read(filename)
-    transformer = StreamingCsvTransformer.new(log)
+    transformer = StreamingCsvTransformer.new(LogHelper::FakeLog.new) # these tests don't care about this log output
     transformer.transform(file)
   end
 
@@ -28,14 +29,18 @@ RSpec.describe StudentsImporter do
     nil
   end
 
-  def test_row_from_fixture
-    get_fixture_row_by_index(0, fixture_filename)
+  def test_row_from_fixture(options = {})
+    get_fixture_row_by_index(options.fetch(:index, 0), fixture_filename)
+  end
+
+  def fixture_filename
+    "#{Rails.root}/spec/fixtures/fake_students_export.txt"
   end
 
   describe '#import integration tests' do
     let!(:log) { LogHelper::FakeLog.new }
     let!(:importer) { make_students_importer(log: log) }
-    let!(:fixture_filename) { "#{Rails.root}/spec/fixtures/fake_students_export.txt" }
+    before { TestPals.seed_somerville_schools_for_test! }
 
     it 'does not create Homeroom records' do
       mock_importer_with_csv(importer, fixture_filename)
@@ -73,7 +78,7 @@ RSpec.describe StudentsImporter do
     end
 
     it 'updates homeroom_id' do
-      healey = FactoryBot.create(:healey)
+      healey = School.find_by_local_id('HEA')
       first_homeroom = Homeroom.create!(name: 'HEA 001', school: healey)
       second_homeroom = Homeroom.create!(name: 'HEA 002', school: healey)
       allow(importer).to receive(:download_csv).and_return([
@@ -87,6 +92,89 @@ RSpec.describe StudentsImporter do
     end
   end
 
+  describe 'process_unmarked_records! integration tests' do
+    context 'when does_students_export_include_rows_for_inactive_students?' do
+      before do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:does_students_export_include_rows_for_inactive_students?).and_return(true)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      end
+
+      it 'does not set missing_from_last_export' do
+        # first import, all students in fixture
+        TestPals.seed_somerville_schools_for_test!
+        first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
+        first_log = LogHelper::FakeLog.new
+        first_importer = make_students_importer(log: first_log)
+        allow(first_importer).to receive(:download_csv).and_return(first_fixture_rows)
+        first_importer.import
+        expect(Student.active.size).to eq 4
+
+        # second one, with some students missing from export
+        second_fixture_rows = first_fixture_rows.last(2)
+        second_log = LogHelper::FakeLog.new
+        second_importer = make_students_importer(log: second_log)
+        allow(second_importer).to receive(:download_csv).and_return(second_fixture_rows)
+        second_importer.import
+
+        # Student records are not changed
+        expect(second_log.output).to include('Skipping RecordSyncer#process_unmarked_records! since district export includes rows for inactive students')
+        expect(second_log.output).to include('@missing_from_last_export_count: 0')
+        expect(Student.where(missing_from_last_export: true).size).to eq 0
+        expect(Student.active.size).to eq 4
+      end
+    end
+
+    context 'when NOT does_students_export_include_rows_for_inactive_students?' do
+      before do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:does_students_export_include_rows_for_inactive_students?).and_return(false)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      end
+
+      it 'sets missing_from_last_export: true for students missing from the export' do
+        # first import, all students in fixture
+        TestPals.seed_somerville_schools_for_test!
+        first_fixture_rows = (0..4).map {|index| test_row_from_fixture(index: index) }
+        first_log = LogHelper::FakeLog.new
+        first_importer = make_students_importer(log: first_log)
+        allow(first_importer).to receive(:download_csv).and_return(first_fixture_rows)
+        first_importer.import
+        expect(Student.active.size).to eq 4
+
+        # second one, with some students missing from export
+        second_fixture_rows = first_fixture_rows.last(2)
+        second_log = LogHelper::FakeLog.new
+        second_importer = make_students_importer(log: second_log)
+        allow(second_importer).to receive(:download_csv).and_return(second_fixture_rows)
+        second_importer.import
+
+        # Student records not included in the import are tagged as `missing_from_last_export` and
+        # no longer considered active
+        expect(second_log.output).to include('records_to_process.size: 3 within scope')
+        expect(second_log.output).to include('@missing_from_last_export_count: 3')
+        expect(Student.where(missing_from_last_export: true).size).to eq 3
+        expect(Student.active.size).to eq 1
+      end
+
+      it 'does not set missing_from_last_export for existing elementary students when only importing SHS' do
+        pals = TestPals.create!
+
+        log = LogHelper::FakeLog.new
+        importer = make_students_importer(log: log, school_scope: ['SHS'])
+        allow(importer).to receive(:download_csv).and_return([])
+        importer.import
+
+        expect(log.output).to include('@missing_from_last_export_count: 3')
+        expect(pals.shs.students.active.size).to eq 0
+        expect(pals.shs.students.size).to eq 3
+        expect(pals.shs.students.where(missing_from_last_export: true).size).to eq 3
+        expect(pals.healey.students.active.size).to eq 1
+        expect(pals.west.students.active.size).to eq 1
+      end
+    end
+  end
+
   describe '#import_row' do
     context 'good data' do
       before { TestPals.seed_somerville_schools_for_test! }
@@ -96,7 +184,7 @@ RSpec.describe StudentsImporter do
 
       let!(:log) { LogHelper::FakeLog.new }
       let!(:importer) { make_students_importer(log: log) }
-      before { mock_importer_with_csv(importer, "#{Rails.root}/spec/fixtures/fake_students_export.txt") }
+      before { mock_importer_with_csv(importer, fixture_filename) }
 
       context 'no existing students in database' do
         it 'does not import students with far future registration dates' do
@@ -142,7 +230,6 @@ RSpec.describe StudentsImporter do
         it 'does not delete any records' do
           importer.import
           expect(log.output).to include(':destroyed_records_count=>0')
-          expect(log.output).to include('Skipping the call to  RecordSyncer#delete_unmarked_records')
         end
       end
 
@@ -201,7 +288,15 @@ RSpec.describe StudentsImporter do
       let!(:importer) { make_students_importer(log: log) }
       before do
         allow(importer).to receive(:download_csv).and_return([
-          { state_id: nil, full_name: 'Hoag, George', home_language: 'English', grade: '', homeroom: '101' }
+          {
+            state_id: nil,
+            full_name: 'Hoag,
+            George',
+            home_language: 'English',
+            grade: '',
+            homeroom: '101',
+            school_local_id: 'HEA'
+          }
         ])
       end
       it 'logs an error and skips row' do
@@ -210,6 +305,32 @@ RSpec.describe StudentsImporter do
         expect(log.output).to include(':created_rows_count=>0')
         expect(log.output).to include(':invalid_rows_count=>1')
         expect(log.output).to include('@setting_nil_homeroom_because_not_active_count: 1')
+        expect(Student.where(last_name: 'Hoag').size).to eq(0)
+      end
+    end
+
+    context 'skips records outside school_scope' do
+      let!(:log) { LogHelper::FakeLog.new }
+      let!(:importer) { make_students_importer(log: log, school_scope: ['SHS']) }
+      before do
+        allow(importer).to receive(:download_csv).and_return([
+          {
+            state_id: nil,
+            full_name: 'Hoag,
+            George',
+            home_language: 'English',
+            grade: '',
+            homeroom: '101',
+            school_local_id: 'HEA'
+          }
+        ])
+      end
+      it 'logs an error and skips row' do
+        importer.import
+        expect(log.output).to include(':updated_rows_count=>0')
+        expect(log.output).to include(':created_rows_count=>0')
+        expect(log.output).to include(':invalid_rows_count=>0')
+        expect(log.output).to include('@skipped_from_school_filter: 1')
         expect(Student.where(last_name: 'Hoag').size).to eq(0)
       end
     end
