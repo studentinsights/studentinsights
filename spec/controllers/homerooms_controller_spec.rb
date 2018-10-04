@@ -246,4 +246,18 @@ describe HomeroomsController, :type => :controller do
     end
 
   end
+
+  describe '#find_homeroom_by_id_or_slug' do
+    it 'works with different input types' do
+      homeroom_one = FactoryBot.create(:homeroom, id: 1, name: '7-263')
+      homeroom_two = FactoryBot.create(:homeroom, id: 7, name: '1')
+
+      expect(controller.send(:find_homeroom_by_id_or_slug, '7-263')).to eq homeroom_one
+      expect(controller.send(:find_homeroom_by_id_or_slug, '1')).to eq homeroom_one
+      expect(controller.send(:find_homeroom_by_id_or_slug, 1)).to eq homeroom_one
+      expect(controller.send(:find_homeroom_by_id_or_slug, '7')).to eq homeroom_two
+      expect(controller.send(:find_homeroom_by_id_or_slug, 7)).to eq homeroom_two
+      expect { controller.send(:find_homeroom_by_id_or_slug, 'xyz') }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 end
