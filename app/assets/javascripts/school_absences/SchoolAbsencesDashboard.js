@@ -130,8 +130,8 @@ export default class SchoolAbsencesDashboard extends React.Component {
       // Partition by homeroom and compute each group
       const filteredStudents = this.filteredStudents({includeAllHomerooms: true});
       const studentsByHomeroom = _.groupBy(filteredStudents, 'homeroom_label');
-      const homeroomLabels = _.compact(Object.keys(studentsByHomeroom));
-      const unsortedHomeroomSeries = homeroomLabels.map(homeroomLabel => {
+      const unsortedHomeroomLabels = _.compact(Object.keys(studentsByHomeroom));
+      const unsortedHomeroomSeries = unsortedHomeroomLabels.map(homeroomLabel => {
         const students = studentsByHomeroom[homeroomLabel];
         const attendanceData = this.attendanceDataForStudents(students, endMoment);
         return {
@@ -142,6 +142,7 @@ export default class SchoolAbsencesDashboard extends React.Component {
         };
       });
       const homeroomSeries = _.sortBy(unsortedHomeroomSeries, 'attendanceRate');
+      const homeroomLabels = homeroomSeries.map(dataPoint => dataPoint.homeroomLabel);
 
       return {homeroomLabels, homeroomSeries};
     });
