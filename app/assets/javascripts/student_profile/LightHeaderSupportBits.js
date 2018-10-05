@@ -19,7 +19,7 @@ import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
 } from '../components/HelpBubble';
-import TeamIcon, {parseTeam} from '../components/TeamIcon';
+import Team from '../components/Team';
 import AccessPanel from './AccessPanel';
 import Pdf from './Pdf';
 
@@ -54,12 +54,7 @@ export default class LightHeaderSupportBits extends React.Component {
     const {teams} = this.props;
     return (
       <div style={styles.subtitleItem}>
-        {teams.map(team => (
-          <span title={`${team.activity_text} with ${team.coach_text}`}>
-            <TeamIcon teamKey={team.activity_text} style={{paddingRight: 5}} />
-            {parseTeam(team.activity_text)}
-          </span>
-        ))}
+        {teams.map(team => <Team team={team} />)}
       </div>
     );
     
@@ -89,6 +84,7 @@ export default class LightHeaderSupportBits extends React.Component {
         <div style={styles.contactItem}>
           {this.renderSpedLiaison()}
         </div>
+        {this.renderCoaches()}
         {this.renderOtherStaff()}
       </div>
     );
@@ -119,6 +115,21 @@ export default class LightHeaderSupportBits extends React.Component {
       <div style={styles.contactItem}>
         <div>SPED liaison:</div>
         <div>{maybeCapitalize(spedLiaison)}</div>
+      </div>
+    );
+  }
+
+  renderCoaches() {
+    const {teams} = this.props;
+    const coachNames = _.uniq(_.compact(teams.map(team => team.coach_text)));
+    if (coachNames.length === 0) return null;
+
+    return (
+      <div style={styles.contactItem}>
+        <div>Team coaches:</div>
+        {teams.map(team=> (
+          <div key={team.activity_text}>{team.coach_text} for <Team team={team} /></div>
+        ))}
       </div>
     );
   }

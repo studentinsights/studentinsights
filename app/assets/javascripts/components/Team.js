@@ -17,7 +17,25 @@ const TEAM_ICON_MAP = {
   'Volleyball - Girls Varsity': '🏐'
 };
 
-export default function TeamIcon({teamKey, style}) {
+
+export default function Team({team, style}) {
+  return (
+    <span title={`${team.activity_text} with ${team.coach_text}`}>
+      <TeamIcon teamKey={team.activity_text} style={{paddingRight: 5}} />
+      {parseTeam(team.activity_text)}
+    </span>
+  );
+}
+Team.propTypes = {
+  team: PropTypes.shape({
+    activity_text: PropTypes.string.isRequired,
+    coach_text: PropTypes.string.isRequired
+  }).isRequired,
+  style: PropTypes.object
+};
+
+
+export function TeamIcon({teamKey, style}) {
   const emoji = TEAM_ICON_MAP[teamKey] || '🏅';
   return <span style={style}>{emoji}</span>;
 }
