@@ -72,7 +72,7 @@ export default class LightProfileHeader extends React.Component {
             <TeamIcon
               key={team.activity_text}
               style={{fontSize: 20}}
-              teamKey={team.activity_text}
+              team={team}
             />
           ))}
         </div>

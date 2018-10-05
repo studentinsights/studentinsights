@@ -21,7 +21,7 @@ const TEAM_ICON_MAP = {
 export default function Team({team, style}) {
   return (
     <span title={`${team.activity_text} with ${team.coach_text}`}>
-      <TeamIcon teamKey={team.activity_text} style={{paddingRight: 5}} />
+      <TeamIcon team={team} style={{paddingRight: 5}} />
       {parseTeam(team.activity_text)}
     </span>
   );
@@ -35,12 +35,22 @@ Team.propTypes = {
 };
 
 
-export function TeamIcon({teamKey, style}) {
+export function TeamIcon({team, style}) {
+  const teamKey = team.activity_text;
   const emoji = TEAM_ICON_MAP[teamKey] || '🏅';
-  return <span style={style}>{emoji}</span>;
+  return (
+    <span
+      title={`${team.activity_text} with ${team.coach_text}`}
+      style={{cursor: 'default', ...style}}>
+      {emoji}
+    </span>
+  );
 }
 TeamIcon.propTypes = {
-  teamKey: PropTypes.string.isRequired,
+  team: PropTypes.shape({
+    activity_text: PropTypes.string.isRequired,
+    coach_text: PropTypes.string.isRequired
+  }).isRequired,
   style: PropTypes.object
 };
 
