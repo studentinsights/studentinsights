@@ -191,7 +191,8 @@ describe EventNotesController, :type => :controller do
       let!(:event_note) do
         FactoryBot.create(:event_note, {
           text: 'original-text',
-          student_id: student.id
+          student_id: student.id,
+          educator_id: educator.id
         })
       end
       before { sign_in(educator) }
@@ -267,76 +268,88 @@ describe EventNotesController, :type => :controller do
       end
     end
 
-    context 'authorization checks' do
+    context 'authorization checks for notes' do
       let!(:student) { pals.shs_freshman_mari }
-      let!(:event_note) do
+      let!(:note_from_jodi) do
         FactoryBot.create(:event_note, {
           student_id: student.id,
-          text: 'original-text'
-        })
-      end
-      let!(:restricted_event_note) do
-        FactoryBot.create(:event_note, {
-          is_restricted: true,
-          student_id: student.id,
-          text: 'RESTRICTED-original-sensitive-text'
+          text: 'original-text',
+          educator_id: pals.shs_jodi.id
         })
       end
 
       it 'guards when not signed in' do
-        make_update_request(student, event_note.id, text: 'whatever')
+        make_update_request(student, note_from_jodi.id, text: 'whatever')
         expect(response.status).to eq 401
       end
 
       it 'guards from updating text for an unauthorized student' do
         sign_in(pals.healey_laura_principal)
-        make_update_request(student, event_note.id, text: 'whatever')
+        make_update_request(student, note_from_jodi.id, text: 'whatever')
         expect(response.status).to eq 403
       end
 
       it 'only allows updating text, not other fields' do
-        sign_in(pals.uri)
-        make_update_request(student, event_note.id, event_note_type_id: 99, text: 'new-value')
+        sign_in(pals.shs_jodi)
+        make_update_request(student, note_from_jodi.id, event_note_type_id: 99, text: 'new-value')
 
-        event_note.reload
-        expect(event_note.text).to eq 'new-value'
-        expect(event_note.event_note_type_id).not_to eq 99
+        note_from_jodi.reload
+        expect(note_from_jodi.text).to eq 'new-value'
+        expect(note_from_jodi.event_note_type_id).not_to eq 99
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['text']).to eq 'new-value'
         expect(json['event_note_type_id']).not_to eq 99
       end
 
-      it 'guards from updating text for restricted note when access but not can_view_restricted_notes' do
-        sign_in(pals.shs_jodi)
-        make_update_request(student, restricted_event_note.id, text: 'changed')
+      it 'does not allow updating notes from other educators' do
+        sign_in(pals.uri)
+        make_update_request(student, note_from_jodi.id, text: 'new-value-from-uri')
+        expect(response.status).to eq 403
+      end
+    end
 
-        restricted_event_note.reload
-        expect(restricted_event_note.text).not_to eq 'changed'
+    context 'authorization checks for restricted notes' do
+      let!(:student) { pals.shs_freshman_mari }
+      let!(:harry_restricted_event_note) do
+        FactoryBot.create(:event_note, {
+          is_restricted: true,
+          student_id: student.id,
+          educator_id: pals.shs_harry_housemaster.id,
+          text: 'RESTRICTED-original-sensitive-text'
+        })
+      end
+
+      it 'guards from updating text for restricted note when student access but not can_view_restricted_notes' do
+        sign_in(pals.shs_jodi)
+        make_update_request(student, harry_restricted_event_note.id, text: 'changed')
+
+        harry_restricted_event_note.reload
+        expect(harry_restricted_event_note.text).not_to eq 'changed'
         expect(response.status).to eq 403
       end
 
       it 'permits updating text for restricted note when can_view_restricted_notes' do
-        sign_in(pals.rich_districtwide)
-        make_update_request(student, restricted_event_note.id, text: 'RESTRICTED-updated')
+        sign_in(pals.shs_harry_housemaster)
+        make_update_request(student, harry_restricted_event_note.id, text: 'RESTRICTED-updated')
 
-        restricted_event_note.reload
-        expect(restricted_event_note.text).to eq 'RESTRICTED-updated'
+        harry_restricted_event_note.reload
+        expect(harry_restricted_event_note.text).to eq 'RESTRICTED-updated'
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['text']).to eq 'RESTRICTED-updated'
       end
 
       it 'does not allow anyone to change `is_restricted`' do
-        sign_in(pals.uri)
-        make_update_request(student, restricted_event_note.id, {
+        sign_in(pals.shs_harry_housemaster)
+        make_update_request(student, harry_restricted_event_note.id, {
           text: 'RESTRICTED-beta',
           is_restricted: false
         })
 
-        restricted_event_note.reload
-        expect(restricted_event_note.is_restricted).to eq true
-        expect(restricted_event_note.text).to eq 'RESTRICTED-beta'
+        harry_restricted_event_note.reload
+        expect(harry_restricted_event_note.is_restricted).to eq true
+        expect(harry_restricted_event_note.text).to eq 'RESTRICTED-beta'
         json = JSON.parse(response.body)
         expect(json['is_restricted']).to eq true
         expect(json['text']).to eq 'RESTRICTED-beta'
@@ -353,35 +366,55 @@ describe EventNotesController, :type => :controller do
       }
     end
 
-    let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
-    before { sign_in(educator) }
-    let(:event_note) { FactoryBot.create(:event_note) }
-    let!(:event_note_attachment) {
-      EventNoteAttachment.create(url: 'www.goodurl.com', event_note: event_note)
-    }
-
-    context 'no error!' do
-      it 'destroys the object and returns empty object' do
-        destroy_attachment(event_note_attachment.id)
-        expect(response.body).to eq '{}'
-        expect(event_note.reload.event_note_attachments.size).to eq 0
-      end
+    def create_note_from_jodi
+      note_from_jodi = FactoryBot.create(:event_note, {
+        student_id: pals.shs_freshman_mari.id,
+        educator_id: pals.shs_jodi.id,
+        text: 'original-text-from-jodi',
+      })
+      EventNoteAttachment.create!({
+        url: 'www.goodurl.com',
+        event_note: note_from_jodi
+      })
+      note_from_jodi
     end
 
-    context 'unauthorized educator' do
-      let(:educator) { FactoryBot.create(:educator) }
+    it 'works and destroys the object and returns empty object' do
+      note_from_jodi = create_note_from_jodi
+      sign_in(pals.shs_jodi)
+      destroy_attachment(note_from_jodi.event_note_attachments.first.id)
+      expect(response.body).to eq '{}'
+      expect(note_from_jodi.reload.event_note_attachments.size).to eq 0
+    end
 
-      it 'fails authorization' do
-        destroy_attachment(event_note_attachment.id)
+    it '404s on non-existent id' do
+      sign_in(pals.uri)
+      destroy_attachment(12345) # non-existent
+      expect(response.status).to eq 404
+    end
+
+    context 'authorization checks' do
+      it 'does not allow deleting attachments for notes created by other educators' do
+        note_from_jodi = create_note_from_jodi
+        sign_in(pals.uri)
+        destroy_attachment(note_from_jodi.event_note_attachments.first.id)
         expect(response.status).to eq 403
-        expect(event_note.reload.event_note_attachments.size).to eq 1
+        expect(note_from_jodi.reload.event_note_attachments.size).to eq 1
       end
-    end
 
-    context 'on bad id' do
-      it 'fails' do
-        destroy_attachment(12345) # non-existent
-        expect(response.status).to eq 404
+      it 'does not allow deleting attachments if not authorized for student' do
+        note_from_jodi = create_note_from_jodi
+        sign_in(pals.healey_laura_principal)
+        destroy_attachment(note_from_jodi.event_note_attachments.first.id)
+        expect(response.status).to eq 403
+        expect(note_from_jodi.reload.event_note_attachments.size).to eq 1
+      end
+
+      it 'does not allow users not signed in' do
+        note_from_jodi = create_note_from_jodi
+        destroy_attachment(note_from_jodi.event_note_attachments.first.id)
+        expect(response.status).to eq 401
+        expect(note_from_jodi.reload.event_note_attachments.size).to eq 1
       end
     end
   end

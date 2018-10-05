@@ -47,6 +47,7 @@ class EventNotesController < ApplicationController
   def update
     safe_params = params.permit(:id, :student_id, event_note: [:text])
     event_note = authorized_or_raise! { EventNote.find(safe_params[:id]) }
+    raise Exceptions::EducatorNotAuthorized unless event_note.educator_id == current_educator.id
 
     # First store the current state of the existing event note
     event_note_revision = create_event_note_revision(event_note)
@@ -74,6 +75,8 @@ class EventNotesController < ApplicationController
     event_note = authorized_or_raise! do
       EventNoteAttachment.find(id).try(:event_note)
     end
+    raise Exceptions::EducatorNotAuthorized unless event_note.educator_id == current_educator.id
+
     event_note_attachment = event_note.event_note_attachments.find(id)
     if event_note_attachment.destroy
       render json: {}
