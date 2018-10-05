@@ -457,13 +457,13 @@ class TestPals
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
       activity_text: 'Competitive Cheerleading Varsity',
-      school_year_text: '2017-2018',
+      school_year_text: '2017-18',
       coach_text: 'Fatima Teacher'
     })
     TeamMembership.create!({
       student_id: shs_senior_kylo.id,
       activity_text: 'Cross Country - Boys Varsity',
-      school_year_text: '2017-2018',
+      school_year_text: '2017-18',
       coach_text: 'Jonathan Fishman'
     })
 
@@ -471,13 +471,13 @@ class TestPals
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
       activity_text: 'Competitive Cheerleading Varsity',
-      school_year_text: '2018-2019',
+      school_year_text: '2018-19',
       coach_text: 'Fatima Teacher'
     })
     TeamMembership.create!({
       student_id: shs_senior_kylo.id,
       activity_text: 'Cross Country - Boys Varsity',
-      school_year_text: '2018-2019',
+      school_year_text: '2018-19',
       coach_text: 'Jonathan Fishman'
     })
   end
