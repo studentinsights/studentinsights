@@ -13,6 +13,7 @@ import HelpBubble, {
   modalFullScreenWithVerticalScroll
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
+import {TeamIcon} from '../components/Team';
 import LightCarousel from './LightCarousel';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import LightHeaderSupportBits from './LightHeaderSupportBits';
@@ -53,11 +54,12 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderStudentPhotoOrNull() {
-    const {student} = this.props;
+    const {student, teams} = this.props;
     if (!this.hasPhoto()) return null;
     
+    // The teams badges hang over the bottom
     return (
-      <div style={{flex: 1, marginLeft: 10}}>
+      <div style={{flex: 1, marginLeft: 10, position: 'relative'}}>
         <AutoSizer>
           {({width, height}) => (
             <StudentPhoto
@@ -65,6 +67,15 @@ export default class LightProfileHeader extends React.Component {
               student={student} />
           )}
         </AutoSizer>
+        <div style={{position: 'absolute', bottom: -30, left: 5}}>
+          {teams.map(team => (
+            <TeamIcon
+              key={team.activity_text}
+              style={{fontSize: 20}}
+              teamKey={team.activity_text}
+            />
+          ))}
+        </div>
       </div>
     );
   }

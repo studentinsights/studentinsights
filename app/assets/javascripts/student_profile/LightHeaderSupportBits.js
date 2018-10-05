@@ -40,7 +40,6 @@ export default class LightHeaderSupportBits extends React.Component {
     // This has to fit within five lines, given parent layout.
     return (
       <div className="LightHeaderSupportBits" style={{...styles.root, style}}>
-        {this.renderTeams()}
         {this.render504()}
         {this.renderProgram()}
         {this.renderIEP()}
@@ -50,15 +49,6 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
-  renderTeams() {
-    const {teams} = this.props;
-    return (
-      <div style={styles.subtitleItem}>
-        {teams.map(team => <Team team={team} />)}
-      </div>
-    );
-    
-  }
   renderEducators() {
     const {student} = this.props;
     const hasAnyContacts = (student.counselor || student.sped_liaison || this.educatorNamesFromServices().length > 0);
