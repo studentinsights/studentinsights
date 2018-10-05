@@ -44,6 +44,7 @@ class PageContainer extends React.Component {
     const {currentEducator} = this.props;
     return(
       <NotesFeedPage
+        currentEducatorId={currentEducator.id}
         canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
         educatorsIndex={this.state.educatorsIndex}
         eventNotes={this.state.eventNotes}
@@ -56,6 +57,7 @@ class PageContainer extends React.Component {
 
 PageContainer.propTypes = {
   currentEducator: PropTypes.shape({
+    id: PropTypes.number.iRequired,
     can_view_restricted_notes: PropTypes.bool.isRequired
   }).isRequired,
   educatorsIndex: PropTypes.object.isRequired,

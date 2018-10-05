@@ -2,26 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import EditableTextComponent from './EditableTextComponent';
 import {exportedNoteText} from './NoteText';
-
-const styles = {
-  revisionsText: {
-    color: '#aaa',
-    fontSize: 13,
-    marginTop: 13
-  }
-};
-
-// Render 
-function renderNumberOfRevisions(numberOfRevisions) {
-  if (numberOfRevisions === undefined) return null;
-  return (
-    <div style={styles.revisionsText}>
-      {(numberOfRevisions === 1)
-          ? 'Revised 1 time'
-          : 'Revised ' + numberOfRevisions + ' times'}
-    </div>
-  );
-}
+import NoteRevisionMessage from './NoteRevisionMessage';
 
 
 // A visual component for rendering note text that also handles UX and styling
@@ -39,7 +20,7 @@ function EditableNoteText(props) {
         className="EditableTextComponent EditableNoteText-with-hover"
         text={text}
         onBlurText={onBlurText} />
-      {renderNumberOfRevisions(numberOfRevisions)}
+      <NoteRevisionMessage numberOfRevisions={numberOfRevisions} />
     </div>
   );
 }
