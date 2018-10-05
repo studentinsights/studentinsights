@@ -205,6 +205,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState({timeRangeKey});
   }
 
+  onSelectChart(selection) {
+    this.setState({selectedChart: selection.value, selectedCategory: null});
+  }
+
   onResetFilters() {
     this.setState(initialState());
   }
@@ -212,11 +216,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
   onColumnClick(highchartsEvent) {
     this.setState({selectedCategory: highchartsEvent.point.category});
   }
+
   onResetStudentList() {
     this.setState({selectedCategory: null});
-  }
-  onSelectChart(selection) {
-    this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
   render() {
