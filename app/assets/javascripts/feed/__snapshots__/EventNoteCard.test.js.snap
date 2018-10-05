@@ -131,6 +131,7 @@ exports[`matches snapshot 1`] = `
       }
     >
       <div
+        className="NoteText"
         style={
           Object {
             "border": "1px solid transparent",
