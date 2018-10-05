@@ -4,6 +4,7 @@ import _ from 'lodash';
 import LightComingSoonInsight from './LightComingSoonInsight';
 import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
 import LightInsightStudentVoiceSurveyResponse, {STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE} from './LightInsightStudentVoiceSurveyResponse';
+import LightInsightTeamMembership, {TEAM_MEMBERSHIP_INSIGHT_TYPE} from './LightInsightTeamMembership';
 
 
 // A component that rotates through the `quotes` passed.
@@ -85,6 +86,10 @@ export default class LightCarousel extends React.Component {
     
     if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
       <LightInsightTransitionNoteStrength insightPayload={insightPayload} />
+    );
+
+    if (insightType === TEAM_MEMBERSHIP_INSIGHT_TYPE) return (
+      <LightInsightTeamMembership firstName={student.first_name} insightPayload={insightPayload} />
     );
 
     if (insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (

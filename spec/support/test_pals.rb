@@ -71,6 +71,7 @@ class TestPals
     TestPals.seed_somerville_schools_for_test!
 
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
+    skip_team_memberships = options.fetch(:skip_team_memberships, false)
 
     # Uri works in the central office, and is the admin for the
     # project at the district.
@@ -440,6 +441,8 @@ class TestPals
       grade_letter: 'F'
     )
 
+    add_team_memberships unless skip_team_memberships
+
     reindex!
     self
   end
@@ -449,6 +452,36 @@ class TestPals
   end
 
   private
+  def add_team_memberships
+    # "now" in time_now for test
+    TeamMembership.create!({
+      student_id: shs_freshman_mari.id,
+      activity_text: 'Competitive Cheerleading Varsity',
+      school_year_text: '2017-18',
+      coach_text: 'Fatima Teacher'
+    })
+    TeamMembership.create!({
+      student_id: shs_senior_kylo.id,
+      activity_text: 'Cross Country - Boys Varsity',
+      school_year_text: '2017-18',
+      coach_text: 'Jonathan Fishman'
+    })
+
+    # now in wall clock
+    TeamMembership.create!({
+      student_id: shs_freshman_mari.id,
+      activity_text: 'Competitive Cheerleading Varsity',
+      school_year_text: '2018-19',
+      coach_text: 'Fatima Teacher'
+    })
+    TeamMembership.create!({
+      student_id: shs_senior_kylo.id,
+      activity_text: 'Cross Country - Boys Varsity',
+      school_year_text: '2018-19',
+      coach_text: 'Jonathan Fishman'
+    })
+  end
+
   def create_section_assignment(educator, sections)
     sections.each do |section|
       EducatorSectionAssignment.create!(educator: educator, section: section)

@@ -19,6 +19,7 @@ import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
 } from '../components/HelpBubble';
+import Team from '../components/Team';
 import AccessPanel from './AccessPanel';
 import Pdf from './Pdf';
 
@@ -73,6 +74,7 @@ export default class LightHeaderSupportBits extends React.Component {
         <div style={styles.contactItem}>
           {this.renderSpedLiaison()}
         </div>
+        {this.renderCoaches()}
         {this.renderOtherStaff()}
       </div>
     );
@@ -103,6 +105,21 @@ export default class LightHeaderSupportBits extends React.Component {
       <div style={styles.contactItem}>
         <div>SPED liaison:</div>
         <div>{maybeCapitalize(spedLiaison)}</div>
+      </div>
+    );
+  }
+
+  renderCoaches() {
+    const {teams} = this.props;
+    const coachNames = _.uniq(_.compact(teams.map(team => team.coach_text)));
+    if (coachNames.length === 0) return null;
+
+    return (
+      <div style={styles.contactItem}>
+        <div>Team coaches:</div>
+        {teams.map(team=> (
+          <div key={team.activity_text}>{team.coach_text} for <Team team={team} /></div>
+        ))}
       </div>
     );
   }
@@ -245,6 +262,10 @@ export default class LightHeaderSupportBits extends React.Component {
 LightHeaderSupportBits.propTypes = {
   iepDocument: PropTypes.object,
   access: PropTypes.object,
+  teams: PropTypes.arrayOf(PropTypes.shape({
+    activity_text: PropTypes.string.isRequired,
+    coach_text: PropTypes.string.isRequired
+  })).isRequired,
   activeServices: PropTypes.arrayOf(PropTypes.shape({
     provided_by_educator_name: PropTypes.string
   })).isRequired,

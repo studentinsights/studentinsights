@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_04_154418) do
+ActiveRecord::Schema.define(version: 2018_10_05_125820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -505,6 +505,15 @@ ActiveRecord::Schema.define(version: 2018_10_04_154418) do
     t.index ["student_id"], name: "index_tardies_on_student_id"
   end
 
+  create_table "team_memberships", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.text "activity_text", null: false
+    t.text "coach_text", null: false
+    t.text "school_year_text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "transition_notes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -574,6 +583,7 @@ ActiveRecord::Schema.define(version: 2018_10_04_154418) do
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"
+  add_foreign_key "team_memberships", "students"
   add_foreign_key "transition_notes", "educators"
   add_foreign_key "transition_notes", "students"
 end

@@ -84,6 +84,10 @@ class Student < ActiveRecord::Base
     end
   end
 
+  def teams(options = {})
+    TeamMembership.where(student_id: self.id).active(options)
+  end
+
   def latest_iep_document
     self.iep_documents.order(created_at: :desc).limit(1).first
   end
