@@ -79,13 +79,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
   timeStampToHour(incident) {
     const hour = moment.utc(incident.occurred_at).startOf('hour').format('h:mm a');
     const timeFormat = "HH:mm a";
-    const schoolStart = moment("7:00 am", timeFormat);
-    const schoolEnd = moment("3:00 pm", timeFormat);
-    return !incident.has_exact_time
-            ? "Not Logged"
-            : moment(hour, timeFormat).isBetween(schoolStart, schoolEnd)
-            ?  hour
-            : "Other";
+    const schoolStart = moment.utc("7:00 am", timeFormat);
+    const schoolEnd = moment.utc("3:00 pm", timeFormat);
+    if (!incident.has_exact_time) return "Not Logged";
+    if (!moment.utc(hour, timeFormat).isBetween(schoolStart, schoolEnd)) return "Other";
+    return hour;
   }
 
   timeStampToDay(incident) {
