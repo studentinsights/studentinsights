@@ -5,210 +5,210 @@ exports[`snapshots view 1`] = `
   <span
     title="Competitive Cheerleading Varsity with Fatima Teacher"
   >
+    Varsity Competitive Cheerleading
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Competitive Cheerleading Varsity with Fatima Teacher"
     >
       📣
     </span>
-    Varsity Competitive Cheerleading
   </span>
   <span
     title="Cross Country - Boys Varsity with Fatima Teacher"
   >
+    Varsity Cross Country
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Cross Country - Boys Varsity with Fatima Teacher"
     >
       👟
     </span>
-    Varsity Cross Country
   </span>
   <span
     title="Cross Country - Girls Varsity with Fatima Teacher"
   >
+    Varsity Cross Country
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Cross Country - Girls Varsity with Fatima Teacher"
     >
       👟
     </span>
-    Varsity Cross Country
   </span>
   <span
     title="Football Varsity with Fatima Teacher"
   >
+    Varsity Football
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Football Varsity with Fatima Teacher"
     >
       🏈
     </span>
-    Varsity Football
   </span>
   <span
     title="Golf Varsity with Fatima Teacher"
   >
+    Varsity Golf
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Golf Varsity with Fatima Teacher"
     >
       ⛳
     </span>
-    Varsity Golf
   </span>
   <span
     title="Soccer - Boys Freshman with Fatima Teacher"
   >
+    Freshman Soccer
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Soccer - Boys Freshman with Fatima Teacher"
     >
       ⚽
     </span>
-    Freshman Soccer
   </span>
   <span
     title="Soccer - Boys JV with Fatima Teacher"
   >
+    JV Soccer
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Soccer - Boys JV with Fatima Teacher"
     >
       ⚽
     </span>
-    JV Soccer
   </span>
   <span
     title="Soccer - Boys Varsity with Fatima Teacher"
   >
+    Varsity Soccer
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Soccer - Boys Varsity with Fatima Teacher"
     >
       ⚽
     </span>
-    Varsity Soccer
   </span>
   <span
     title="Soccer - Girls JV with Fatima Teacher"
   >
+    JV Soccer
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Soccer - Girls JV with Fatima Teacher"
     >
       ⚽
     </span>
-    JV Soccer
   </span>
   <span
     title="Soccer - Girls Varsity with Fatima Teacher"
   >
+    Varsity Soccer
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Soccer - Girls Varsity with Fatima Teacher"
     >
       ⚽
     </span>
-    Varsity Soccer
   </span>
   <span
     title="Volleyball - Girls Freshman with Fatima Teacher"
   >
+    Freshman Volleyball
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Volleyball - Girls Freshman with Fatima Teacher"
     >
       🏐
     </span>
-    Freshman Volleyball
   </span>
   <span
     title="Volleyball - Girls JV with Fatima Teacher"
   >
+    JV Volleyball
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Volleyball - Girls JV with Fatima Teacher"
     >
       🏐
     </span>
-    JV Volleyball
   </span>
   <span
     title="Volleyball - Girls Varsity with Fatima Teacher"
   >
+    Varsity Volleyball
     <span
       style={
         Object {
           "cursor": "default",
-          "paddingRight": 5,
+          "paddingLeft": 5,
         }
       }
       title="Volleyball - Girls Varsity with Fatima Teacher"
     >
       🏐
     </span>
-    Varsity Volleyball
   </span>
 </div>
 `;
