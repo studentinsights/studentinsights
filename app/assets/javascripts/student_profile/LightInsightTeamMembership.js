@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LightInsightQuote from './LightInsightQuote';
-import {TeamIcon} from '../components/Team';
+import Team from '../components/Team';
 import FitText from '../components/FitText';
 
 
@@ -17,9 +17,9 @@ export default class LightInsightTeamMembership extends React.Component {
         quoteEl={
           <FitText
             minFontSize={12}
-            maxFontSize={48}
+            maxFontSize={42}
             fontSizeStep={6}
-            text={<span>{firstName} is on the <TeamIcon style={{fontWeight: 'bold'}} team={team} /> {team.activity_text} team!</span>}
+            text={<span>{firstName} is on the <Team team={team} /> team</span>}
           />
         }
         sourceEl={<div>with coach {team.coach_text}</div>}

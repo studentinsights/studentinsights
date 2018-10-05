@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+
 
 const TEAM_ICON_MAP = {
   'Competitive Cheerleading Varsity': '📣',
@@ -20,7 +22,7 @@ const TEAM_ICON_MAP = {
 
 export default function Team({team, style}) {
   return (
-    <span title={`${team.activity_text} with ${team.coach_text}`}>
+    <span title={`${team.activity_text} with ${team.coach_text}`} style={style}>
       <TeamIcon team={team} style={{paddingRight: 5}} />
       {parseTeam(team.activity_text)}
     </span>
@@ -56,6 +58,12 @@ TeamIcon.propTypes = {
 
 
 export function parseTeam(activityText) {
+  const level = parseTeamLevel(activityText);
+  const sport = parseSport(activityText);
+  return _.compact([level, sport]).join(' ');
+}
+
+function parseSport(activityText) {
   return activityText
     .replace(' - ', ' ')
     .replace('Boys', '')
@@ -64,4 +72,11 @@ export function parseTeam(activityText) {
     .replace('JV', '')
     .replace('Freshman', '')
     .trim();
+}
+
+function parseTeamLevel(activityText) {
+  if (activityText.indexOf('JV') !== -1) return 'JV';
+  if (activityText.indexOf('Varsity') !== -1) return 'Varsity';
+  if (activityText.indexOf('Freshman') !== -1) return 'Freshman';
+  return '';
 }
