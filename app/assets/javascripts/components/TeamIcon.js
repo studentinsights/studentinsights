@@ -18,10 +18,22 @@ const TEAM_ICON_MAP = {
 };
 
 export default function TeamIcon({teamKey, style}) {
-  const emoji = teamKey[TEAM_ICON_MAP] || '🏅';
+  const emoji = TEAM_ICON_MAP[teamKey] || '🏅';
   return <span style={style}>{emoji}</span>;
 }
 TeamIcon.propTypes = {
   teamKey: PropTypes.string.isRequired,
   style: PropTypes.object
 };
+
+
+export function parseTeam(activityText) {
+  return activityText
+    .replace(' - ', ' ')
+    .replace('Boys', '')
+    .replace('Girls', '')
+    .replace('Varsity', '')
+    .replace('JV', '')
+    .replace('Freshman', '')
+    .trim();
+}

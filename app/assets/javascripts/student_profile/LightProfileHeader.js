@@ -186,11 +186,12 @@ export default class LightProfileHeader extends React.Component {
 
 
   renderSupportBits() {
-    const {student, iepDocument, access, activeServices} = this.props;
+    const {student, iepDocument, access, teams, activeServices} = this.props;
     return (
       <LightHeaderSupportBits
         student={student}
         access={access}
+        teams={teams}
         iepDocument={iepDocument}
         activeServices={activeServices}
       />
@@ -285,6 +286,7 @@ LightProfileHeader.propTypes = {
   iepDocument: PropTypes.object,
   activeServices: PropTypes.array.isRequired,
   access: PropTypes.object,
+  teams: PropTypes.array.isRequired,
   profileInsights: PropTypes.array.isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object

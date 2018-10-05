@@ -85,7 +85,7 @@ class Student < ActiveRecord::Base
   end
 
   def teams(options = {})
-    TeamMembership.where(student_id: self.id)
+    TeamMembership.where(student_id: self.id).active(options)
   end
 
   def latest_iep_document

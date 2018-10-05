@@ -19,6 +19,7 @@ import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
 } from '../components/HelpBubble';
+import TeamIcon, {parseTeam} from '../components/TeamIcon';
 import AccessPanel from './AccessPanel';
 import Pdf from './Pdf';
 
@@ -39,6 +40,7 @@ export default class LightHeaderSupportBits extends React.Component {
     // This has to fit within five lines, given parent layout.
     return (
       <div className="LightHeaderSupportBits" style={{...styles.root, style}}>
+        {this.renderTeams()}
         {this.render504()}
         {this.renderProgram()}
         {this.renderIEP()}
@@ -48,6 +50,20 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
+  renderTeams() {
+    const {teams} = this.props;
+    return (
+      <div style={styles.subtitleItem}>
+        {teams.map(team => (
+          <span title={`${team.activity_text} with ${team.coach_text}`}>
+            <TeamIcon teamKey={team.activity_text} style={{paddingRight: 5}} />
+            {parseTeam(team.activity_text)}
+          </span>
+        ))}
+      </div>
+    );
+    
+  }
   renderEducators() {
     const {student} = this.props;
     const hasAnyContacts = (student.counselor || student.sped_liaison || this.educatorNamesFromServices().length > 0);
@@ -245,6 +261,10 @@ export default class LightHeaderSupportBits extends React.Component {
 LightHeaderSupportBits.propTypes = {
   iepDocument: PropTypes.object,
   access: PropTypes.object,
+  teams: PropTypes.arrayOf(PropTypes.shape({
+    activity_text: PropTypes.string.isRequired,
+    coach_text: PropTypes.string.isRequired
+  })).isRequired,
   activeServices: PropTypes.arrayOf(PropTypes.shape({
     provided_by_educator_name: PropTypes.string
   })).isRequired,
