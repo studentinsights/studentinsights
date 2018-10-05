@@ -453,6 +453,7 @@ class TestPals
 
   private
   def add_team_memberships
+    # "now" in time_now for test
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
       activity_text: 'Competitive Cheerleading Varsity',
@@ -463,6 +464,20 @@ class TestPals
       student_id: shs_senior_kylo.id,
       activity_text: 'Cross Country - Boys Varsity',
       school_year_text: '2017-2018',
+      coach_text: 'Jonathan Fishman'
+    })
+
+    # now in wall clock
+    TeamMembership.create!({
+      student_id: shs_freshman_mari.id,
+      activity_text: 'Competitive Cheerleading Varsity',
+      school_year_text: '2018-2019',
+      coach_text: 'Fatima Teacher'
+    })
+    TeamMembership.create!({
+      student_id: shs_senior_kylo.id,
+      activity_text: 'Cross Country - Boys Varsity',
+      school_year_text: '2018-2019',
       coach_text: 'Jonathan Fishman'
     })
   end
