@@ -29,20 +29,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.onIncidentTypeChange = this.onIncidentTypeChange.bind(this);
     this.onResetFilters = this.onResetFilters.bind(this);
-    this.setStudentList = this.setStudentList.bind(this);
-    this.resetStudentList = this.resetStudentList.bind(this);
-    this.selectChart = this.selectChart.bind(this);
+    this.onColumnClick = this.onColumnClick.bind(this);
+    this.onResetStudentList = this.onResetStudentList.bind(this);
+    this.onSelectChart = this.onSelectChart.bind(this);
     this.memoize = memoizer();
-  }
-
-  setStudentList(highchartsEvent) {
-    this.setState({selectedCategory: highchartsEvent.point.category});
-  }
-  resetStudentList() {
-    this.setState({selectedCategory: null});
-  }
-  selectChart(selection) {
-    this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
   filterIncidents(disciplineIncidents, shouldFilterSelectedCategory) {
@@ -208,7 +198,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   onIncidentTypeChange(incidentType) {
-    this.setState({selectedIncidentCode: incidentType});
+    this.setState({selectedIncidentCode: incidentType, selectedCategory: null});
   }
 
   onTimeRangeKeyChanged(timeRangeKey) {
@@ -217,6 +207,16 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   onResetFilters() {
     this.setState(initialState());
+  }
+
+  onColumnClick(highchartsEvent) {
+    this.setState({selectedCategory: highchartsEvent.point.category});
+  }
+  onResetStudentList() {
+    this.setState({selectedCategory: null});
+  }
+  onSelectChart(selection) {
+    this.setState({selectedChart: selection.value, selectedCategory: null});
   }
 
   render() {
@@ -261,7 +261,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
                 </div>
                 <Select
                   value={this.state.selectedChart}
-                  onChange={this.selectChart}
+                  onChange={this.onSelectChart}
                   options={chartOptions}
                   style={styles.dropdown}
                   clearable={false}
@@ -286,8 +286,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
           measureText = {'Number of Incidents'}
           tooltip = {{
             pointFormat: 'Total incidents: <b>{point.y}</b>'}}
-          onColumnClick = {this.setStudentList}
-          onBackgroundClick = {this.resetStudentList}/>
+          onColumnClick = {this.onColumnClick}
+          onBackgroundClick = {this.onResetStudentList}/>
     );
   }
 
@@ -298,7 +298,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
         rows = {rows}
         selectedCategory = {this.state.selectedCategory}
         incidentType={"Incidents"}
-        resetFn={this.resetStudentList}/>
+        resetFn={this.onResetStudentList}/>
     );
   }
 }
