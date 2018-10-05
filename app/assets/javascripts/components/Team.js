@@ -23,8 +23,8 @@ const TEAM_ICON_MAP = {
 export default function Team({team, style}) {
   return (
     <span title={`${team.activity_text} with ${team.coach_text}`} style={style}>
-      <TeamIcon team={team} style={{paddingRight: 5}} />
       {parseTeam(team.activity_text)}
+      <TeamIcon team={team} style={{paddingLeft: 5}} />
     </span>
   );
 }
