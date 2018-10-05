@@ -55,11 +55,13 @@ class EventNotesController < ApplicationController
       return render json: { errors: event_note_revision.errors.full_messages }, status: 422
     end
 
-    # Update the EventNote
+    # Update the EventNote, but don't update `recorded_at` - keep that at the original
+    # recording time.  The assumption is that these "updates" are from from the user continually
+    # editing during a meeting (the "start time" is fine) or from typo fixes (we don't care about
+    # those).
     safe_params[:event_note]
     if event_note.update({
-      text: safe_params[:event_note][:text],
-      recorded_at: Time.now
+      text: safe_params[:event_note][:text]
     })
       serializer = EventNoteSerializer.dangerously_include_restricted_note_text(event_note)
       render json: serializer.serialize_event_note

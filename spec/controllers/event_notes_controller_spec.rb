@@ -192,7 +192,8 @@ describe EventNotesController, :type => :controller do
         FactoryBot.create(:event_note, {
           text: 'original-text',
           student_id: student.id,
-          educator_id: educator.id
+          educator_id: educator.id,
+          recorded_at: Time.parse('2017-03-11T11:11:11.000Z')
         })
       end
       before { sign_in(educator) }
@@ -201,14 +202,16 @@ describe EventNotesController, :type => :controller do
         expect { make_update_request(student, event_note.id) }.to change(EventNote, :count).by 0
       end
 
-      it 'updates an existing event note' do
-        time_now = Time.parse('2017-03-16 11:12:00')
+      it 'updates an existing event note, but does not update `recorded_at`' do
+        previous_event_note_recorded_at = event_note.recorded_at
+        time_now = Time.parse('2017-03-16T11:12:00.000Z')
         Timecop.freeze(time_now) do
           make_update_request(student, event_note.id, text: 'updated-text!')
         end
         expect(response.status).to eq 200
         event_note.reload
-        expect(event_note.recorded_at).to eq time_now
+        expect(event_note.recorded_at).not_to eq time_now
+        expect(event_note.recorded_at).to eq previous_event_note_recorded_at
         expect(event_note.text).to eq 'updated-text!'
       end
 
@@ -263,7 +266,7 @@ describe EventNotesController, :type => :controller do
           "is_restricted" => false,
           "student_id" => student.id,
           "text" => "updated-text!",
-          "recorded_at" => "2018-08-23T23:38:13.956Z"
+          "recorded_at" => '2017-03-11T11:11:11.000Z'
         })
       end
     end
