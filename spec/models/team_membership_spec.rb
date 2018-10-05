@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe TeamMembership, type: :model do
-  let!(:pals) { TestPals.create! }
-
   describe '.active' do
     it 'works' do
+      pals = TestPals.create!(skip_team_memberships: true)
       TeamMembership.create!({
         student_id: pals.shs_senior_kylo.id,
         activity_text: 'Basebase',

@@ -164,6 +164,7 @@ describe ProfileController, :type => :controller do
             'educators_index',
             'profile_insights',
             'access',
+            'teams',
             'latest_iep_document',
             'sections',
             'current_educator_allowed_sections',
