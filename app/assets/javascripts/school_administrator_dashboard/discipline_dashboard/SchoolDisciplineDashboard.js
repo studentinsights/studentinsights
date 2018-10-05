@@ -93,7 +93,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const groupedStudents = _.groupBy(students, group);
       const categories = this.sortedByIncidentsInStudentGroup(groupedStudents);
       const seriesData = categories.map(category => {
-        return this.getIncidentsFromStudents(groupedStudents[category]).length;
+        const y = this.getIncidentsFromStudents(groupedStudents[category]).length;
+        return {category, y};
       });
       return {categories, seriesData};
     }
@@ -101,7 +102,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const groupedStudents = _.groupBy(students, group);
       const categories = this.sortedGrades(Object.keys(groupedStudents));
       const seriesData = categories.map(category => {
-        return this.getIncidentsFromStudents(groupedStudents[category]).length;
+        const y = this.getIncidentsFromStudents(groupedStudents[category]).length;
+        return {category, y};
       });
       return {categories, seriesData};
     }
@@ -109,7 +111,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const incidents = this.getIncidentsFromStudents(students);
       const groupedIncidents = _.groupBy(incidents, group);
       const categories = this.sortedByIncidents(groupedIncidents);
-      const seriesData = categories.map(category => groupedIncidents[category].length);
+      const seriesData = categories.map(category => {
+        const y = groupedIncidents[category].length;
+        return {category, y};
+      });
       return {categories, seriesData};
     }
     case 'time': {
@@ -119,7 +124,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       const categories = this.sortedTimes(Object.keys(groupedIncidents));
       const seriesData = categories.map(category => {
-        return groupedIncidents[category] ? groupedIncidents[category].length : 0;
+        const y = groupedIncidents[category] ? groupedIncidents[category].length : 0;
+        return {category, y};
       });
       return {categories, seriesData};
     }
@@ -130,7 +136,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       const categories = this.sortedDays();
       const seriesData = categories.map(category => {
-        return groupedIncidents[category] ? groupedIncidents[category].length : 0;
+        const y = groupedIncidents[category] ? groupedIncidents[category].length : 0;
+        return {category, y};
       });
       return {categories, seriesData};
     }
