@@ -34,5 +34,18 @@ RSpec.describe ProfileInsights do
         expect(ProfileInsights.new(student).as_json.size).to eq 1
       end
     end
+
+    describe 'with teams' do
+      let!(:pals) { TestPals.create! }
+
+      it 'excludes survey responses that are empty text' do
+        expect(ProfileInsights.new(pals.shs_freshman_mari).as_json).to eq [
+          ProfileInsight.new('team_membership', {
+            "activity_text"=>"Competitive Cheerleading Varsity",
+            "coach_text"=>"Fatima Teacher"
+          })
+        ]
+      end
+    end
   end
 end
