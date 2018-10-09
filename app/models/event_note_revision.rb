@@ -4,7 +4,7 @@ class EventNoteRevision < ActiveRecord::Base
   belongs_to :student
   belongs_to :event_note_type
 
-  validates :educator, :student, :event_note_type, :event_note, presence: true
+  validates :educator, :student, :event_note_type, :event_note, :version, :text, presence: true
 
   # override
   # Ensures that text for revisions on restricted notes don't get accidentally
