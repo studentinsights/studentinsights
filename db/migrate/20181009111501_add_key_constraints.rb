@@ -42,7 +42,6 @@ class AddKeyConstraints < ActiveRecord::Migration[5.2]
     change_column :student_assessments, :assessment_id, :integer, null: false
 
     change_column :students, :local_id, :string, null: false
-    change_column :students, :state_id, :string, null: false    
     change_column :students, :school_id, :integer, null: false
     change_column :students, :created_at, :datetime, null: false
     change_column :students, :updated_at, :datetime, null: false

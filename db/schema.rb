@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_111501) do
+ActiveRecord::Schema.define(version: 2018_10_09_124708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -457,7 +457,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_111501) do
     t.integer "homeroom_id"
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "state_id", null: false
+    t.string "state_id"
     t.string "home_language"
     t.integer "school_id", null: false
     t.string "student_address"
