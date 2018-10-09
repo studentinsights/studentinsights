@@ -47,8 +47,8 @@ class StudentsImporter
         @missing_from_last_export_count += 1
       end
     end
-    log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
     log("RecordSyncer#stats: #{@syncer.stats}")
+    log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
   end
 
   private
