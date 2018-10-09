@@ -1,7 +1,9 @@
 import _ from 'lodash';
+import {SOMERVILLE} from '../helpers/PerDistrict';
+import {ALL} from '../components/SimpleFilterSelect';
 
-const LIMITED_ENGLISH = 'Limited English';
-const FLUENT_ENGLISH = 'Fluent English';
+export const LIMITED_ENGLISH = 'Limited English';
+export const FLUENT_ENGLISH = 'Fluent English';
 
 const somervilleMap = {
   'Limited': LIMITED_ENGLISH,
@@ -22,6 +24,19 @@ const bedfordMap = {
   'Limited English': LIMITED_ENGLISH,
   'Not Capable': LIMITED_ENGLISH
 };
+
+export function englishProficiencyOptions(districtKey) {
+  if (districtKey === SOMERVILLE) {
+    return [
+      { value: ALL, label: 'All' },
+      { value: 'Fluent', label: FLUENT_ENGLISH },
+      { value: 'Limited', label: LIMITED_ENGLISH },
+      { value: 'FLEP', label: 'FLEP' }
+    ];
+  }
+
+  throw new Error(`unsupported districtKey: ${districtKey}`);
+}
 
 // This varies by district, but this implementation works across all districts for now.
 export function prettyEnglishProficiencyText(limitedEnglishProficiencyValue, access) {

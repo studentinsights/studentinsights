@@ -6,6 +6,7 @@ import FilterBar from '../components/FilterBar';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
 import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
+import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
 import {
   labelAssignment,
   firstMatch,
@@ -30,6 +31,7 @@ export default class TieringView extends React.Component {
 
     this.onEscape = this.onEscape.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
+    this.onEnglishProficiencyChanged = this.onEnglishProficiencyChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onTierChanged = this.onTierChanged.bind(this);
     this.onTriggerChanged = this.onTriggerChanged.bind(this);
@@ -38,9 +40,10 @@ export default class TieringView extends React.Component {
 
   filterStudents() {
     const {studentsWithTiering} = this.props;
-    const {grade, house, tier, trigger, search} = this.state;
+    const {grade, house, tier, trigger, englishProficiency, search} = this.state;
     return studentsWithTiering.filter(s => {
       if (grade !== ALL && s.grade !== grade) return false;
+      if (englishProficiency !== ALL && s.limited_english_proficiency !== englishProficiency) return false;
       if (house !== ALL && s.house !== house) return false;
       if (tier !== ALL && s.tier.level !== parseInt(tier, 0)) return false;
       if (trigger !== ALL && s.tier.triggers.indexOf(trigger) === -1) return false;
@@ -65,6 +68,10 @@ export default class TieringView extends React.Component {
 
   onGradeChanged(grade) {
     this.setState({grade});
+  }
+
+  onEnglishProficiencyChanged(englishProficiency) {
+    this.setState({englishProficiency});
   }
 
   onHouseChanged(house) {
@@ -95,18 +102,22 @@ export default class TieringView extends React.Component {
   }
 
   renderSelection(filteredStudents) {
-    const {grade, house, tier, trigger, search} = this.state;
+    const {grade, house, englishProficiency, tier, trigger, search} = this.state;
 
     const nullOption = [{ value: ALL, label: 'All' }];
     const possibleTiers = ['0', '1', '2', '3', '4'];
     const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
-      <FilterBar style={styles.filterBar} barStyle={{flex: 1}}>
+      <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
         <input
           style={styles.search}
           placeholder={`Search ${filteredStudents.length} students...`}
           value={search}
           onChange={this.onSearchChanged} />
+        <SelectEnglishProficiency
+          style={{...styles.select, width: '10em'}}
+          englishProficiency={englishProficiency}
+          onChange={this.onEnglishProficiencyChanged} />
         <SelectGrade
           style={{...styles.select, width: '8em'}}
           grade={grade}
@@ -157,7 +168,7 @@ export default class TieringView extends React.Component {
         dialogStyle={dialogFullScreenFlex}
         withoutSpacer={true}
         withoutContentWrapper={true}
-        teaser="NGE/110GE"
+        teaser="NGE/10GE"
         title="Students not yet mentioned in NGE/10GE"
         content={
           <SupportGaps
@@ -407,6 +418,7 @@ function initialState() {
   return {
     search: '',
     grade: ALL,
+    englishProficiency: ALL,
     house: ALL,
     tier: ALL,
     trigger: ALL
