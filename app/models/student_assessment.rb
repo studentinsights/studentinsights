@@ -6,7 +6,7 @@
 # IN PROGRESS: Migrating student assessment data out of this model.
 # First assessments to migrate out were STAR and DIBELS.
 
-class StudentAssessment < ActiveRecord::Base
+class StudentAssessment < ApplicationRecord
   belongs_to :assessment
   belongs_to :student
   delegate :family, :subject, to: :assessment

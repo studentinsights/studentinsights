@@ -1,4 +1,4 @@
-class Assessment < ActiveRecord::Base
+class Assessment < ApplicationRecord
   VALID_FAMILY_VALUES = [
     'MCAS',
     'Next Gen MCAS',

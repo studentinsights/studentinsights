@@ -1,4 +1,4 @@
-class EventNote < ActiveRecord::Base
+class EventNote < ApplicationRecord
   belongs_to :educator
   belongs_to :student
   belongs_to :event_note_type

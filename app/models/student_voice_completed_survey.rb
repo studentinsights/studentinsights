@@ -1,5 +1,5 @@
 # A survey that a student completed.
-class StudentVoiceCompletedSurvey < ActiveRecord::Base
+class StudentVoiceCompletedSurvey < ApplicationRecord
   belongs_to :student
   belongs_to :student_voice_survey_upload
 

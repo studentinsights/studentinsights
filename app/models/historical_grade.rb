@@ -1,5 +1,5 @@
 # Store a historical data point about grades for a student in a section.
-class HistoricalGrade < ActiveRecord::Base
+class HistoricalGrade < ApplicationRecord
   belongs_to :student
   belongs_to :section
 

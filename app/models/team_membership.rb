@@ -1,4 +1,4 @@
-class TeamMembership < ActiveRecord::Base
+class TeamMembership < ApplicationRecord
   belongs_to :student
 
   validates :student, presence: true

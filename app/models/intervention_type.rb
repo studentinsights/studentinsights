@@ -1,5 +1,5 @@
 # Deprecated
-class InterventionType < ActiveRecord::Base
+class InterventionType < ApplicationRecord
   has_many :interventions
 
   # If this becomes out of sync with production, you can

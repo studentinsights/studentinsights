@@ -1,4 +1,4 @@
-class School < ActiveRecord::Base
+class School < ApplicationRecord
   extend FriendlyId
   friendly_id :local_id, use: :slugged
 

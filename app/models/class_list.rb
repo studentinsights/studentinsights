@@ -7,7 +7,7 @@
 # with each revision being a new ClassList record as well.  When the principal
 # is revising, this is stored in separate fields, and the principal can't change
 # what the teacher has already done.
-class ClassList < ActiveRecord::Base
+class ClassList < ApplicationRecord
   belongs_to :school
   belongs_to :created_by_teacher_educator, class_name: 'Educator'
   belongs_to :revised_by_principal_educator, class_name: 'Educator'

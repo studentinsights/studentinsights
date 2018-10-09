@@ -1,5 +1,5 @@
 
-class EventNoteType < ActiveRecord::Base
+class EventNoteType < ApplicationRecord
   def self.seed_for_all_districts
     EventNoteType.destroy_all
     EventNoteType.create!([

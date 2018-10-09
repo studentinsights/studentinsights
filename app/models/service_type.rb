@@ -1,4 +1,4 @@
-class ServiceType < ActiveRecord::Base
+class ServiceType < ApplicationRecord
   has_many :services
 
   def self.seed_for_all_districts

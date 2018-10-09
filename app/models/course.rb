@@ -1,4 +1,4 @@
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   validates :course_number, presence: true, uniqueness: {
     # Different courses at different schools can have the same course number
     scope: [:course_number, :school_id]
