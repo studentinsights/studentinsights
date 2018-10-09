@@ -30,6 +30,11 @@ namespace :validations do
 
       invalid_count_by_class = invalids.group_by(&:class).map {|key, values| [key, values.size] }
       puts "Invalids by model class: #{invalid_count_by_class.inspect}"
+      puts "Invalid record ids by class..."
+      invalids.group_by(&:class).each do |key, values|
+        puts "  invalids: #{key}.where(id: #{values.map(&:id)})"
+      end
+      puts "Done."
       nil
     end
 
