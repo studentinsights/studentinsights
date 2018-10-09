@@ -135,6 +135,7 @@ describe('inactive overlay', () => {
     const defaultProps = testPropsForOlafWhite();
     const el = testRender({
       ...defaultProps,
+      districtKey: 'somerville',
       student: {
         ...defaultProps.student,
         enrollment_status: 'Withdrawn'
@@ -148,6 +149,7 @@ describe('inactive overlay', () => {
     const defaultProps = testPropsForOlafWhite();
     const el = testRender({
       ...defaultProps,
+      districtKey: 'new-bedford',
       student: {
         ...defaultProps.student,
         missing_from_last_export: true
