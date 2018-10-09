@@ -2,13 +2,16 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   # Returns a new or existing Educator record matching the row, or nil if it can't
   # understand the row.
   def match_educator_record
+    # login_name is the primary key, but we also always require email
     login_name = row[:login_name]
     return nil if login_name.nil? || login_name == ''
+    email = email_from_row(row)
+    return nil if email.nil? || email == ''
 
     # login_name is the primary key, and email is always secondary
     educator = Educator.find_or_initialize_by(login_name: login_name)
     educator.assign_attributes({
-      email: email_from_row,
+      email: email,
       state_id: row[:state_id],
       full_name: row[:full_name],
       staff_type: row[:staff_type],
@@ -32,7 +35,7 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
 
   private
 
-  def email_from_row
+  def email_from_row(row)
     PerDistrict.new.email_from_educator_import_row(row)
   end
 

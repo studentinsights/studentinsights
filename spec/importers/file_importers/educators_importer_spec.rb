@@ -137,6 +137,11 @@ RSpec.describe EducatorsImporter do
       })
     end
 
+    it 'requires email in Bedford' do
+      expect(imported_educator(PerDistrict::BEDFORD, make_test_row(login_name: 'ntufts', email: ''))).to eq(nil)
+      expect(imported_educator(PerDistrict::BEDFORD, make_test_row(login_name: 'ntufts', email: nil))).to eq(nil)
+    end
+
     it 'works for demo' do
       test_row = make_test_row(login_name: 'ntufts', email: nil)
       expect(imported_educator(PerDistrict::DEMO, test_row).as_json).to include({
@@ -332,17 +337,11 @@ RSpec.describe EducatorsImporter do
     end
 
     context 'bad data' do
-      context 'no login name' do
-        let(:row) {
-          { state_id: "500", full_name: "Young, Jenny" }
-        }
-
-        it 'does not create an educator' do
-          expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 0
-        end
+      it 'requires a login_name' do
+        row = { state_id: "500", full_name: "Young, Jenny" }
+        expect { make_educators_importer.send(:import_row, row) }.to change(Educator, :count).by 0
       end
     end
-
   end
 
   describe 'update homeroom' do
