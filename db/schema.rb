@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_124708) do
+ActiveRecord::Schema.define(version: 2018_10_09_135937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,7 +151,9 @@ ActiveRecord::Schema.define(version: 2018_10_09_124708) do
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
     t.text "login_name", null: false
+    t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
+    t.index ["login_name"], name: "index_educators_on_login_name", unique: true
   end
 
   create_table "event_note_attachments", id: :serial, force: :cascade do |t|
@@ -487,7 +489,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_124708) do
     t.text "sped_liaison"
     t.boolean "missing_from_last_export", default: false, null: false
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
-    t.index ["local_id"], name: "index_students_on_local_id"
+    t.index ["local_id"], name: "index_students_on_local_id", unique: true
     t.index ["school_id"], name: "index_students_on_school_id"
     t.index ["state_id"], name: "index_students_on_state_id"
   end
