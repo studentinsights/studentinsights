@@ -131,7 +131,7 @@ it('#countEventsSince works', () => {
 });
 
 describe('inactive overlay', () => {
-  it('is shown for inactive students', () => {
+  it('is shown for inactive students in Somerville', () => {
     const defaultProps = testPropsForOlafWhite();
     const el = testRender({
       ...defaultProps,
@@ -145,11 +145,25 @@ describe('inactive overlay', () => {
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 
-  it('is shown for students missing from export', () => {
+  it('is shown for students missing from export in New Bedford', () => {
     const defaultProps = testPropsForOlafWhite();
     const el = testRender({
       ...defaultProps,
       districtKey: 'new-bedford',
+      student: {
+        ...defaultProps.student,
+        missing_from_last_export: true
+      }
+    });
+    expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
+    expect($(el).text()).toContain('no longer actively enrolled');
+  });
+
+  it('is shown for students missing from export in Bedford', () => {
+    const defaultProps = testPropsForOlafWhite();
+    const el = testRender({
+      ...defaultProps,
+      districtKey: 'bedford',
       student: {
         ...defaultProps.student,
         missing_from_last_export: true
