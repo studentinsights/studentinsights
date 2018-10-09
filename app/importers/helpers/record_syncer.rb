@@ -15,6 +15,8 @@ class RecordSyncer
     @created_rows_count = 0
     @destroyed_records_count = 0
 
+    @validation_failure_counts_by_field = {}
+
     @marked_ids = []
   end
 
@@ -35,6 +37,10 @@ class RecordSyncer
     # invalid records like this will get purged by `delete_unmarked_records!`
     if !insights_record.valid?
       @invalid_rows_count += 1
+      insights_record.errors.messages.keys.each do |validation_key|
+        @validation_failure_counts_by_field[validation_key] = 0 unless @validation_failure_counts_by_field.has_key?(validation_key)
+        @validation_failure_counts_by_field[validation_key] += 1
+      end
       return :invalid
     end
 
@@ -111,6 +117,7 @@ class RecordSyncer
       created_rows_count: @created_rows_count,
       marked_ids_count: @marked_ids.size,
       destroyed_records_count: @destroyed_records_count,
+      validation_failure_counts_by_field: @validation_failure_counts_by_field
     }
   end
 

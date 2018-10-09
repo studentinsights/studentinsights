@@ -30,6 +30,7 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 1,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
@@ -44,6 +45,10 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 1,
+        validation_failure_counts_by_field: {
+          student_id: 1,
+          occurred_at: 1
+        },
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
@@ -60,6 +65,9 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 1,
+        validation_failure_counts_by_field: {
+          student_id: 1
+        },
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
@@ -75,6 +83,7 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 1,
         updated_rows_count: 0,
         created_rows_count: 0,
@@ -91,6 +100,7 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 1,
         created_rows_count: 0,
@@ -106,6 +116,7 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 1,
@@ -154,11 +165,12 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
-        destroyed_records_count: 0,
+        destroyed_records_count: 0
       })
     end
 
@@ -191,11 +203,12 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 2,
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 2,
-        destroyed_records_count: 1,
+        destroyed_records_count: 1
       })
     end
 
@@ -211,11 +224,12 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
-        destroyed_records_count: 5,
+        destroyed_records_count: 5
       })
     end
 
@@ -230,11 +244,12 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
+        validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 1,
         marked_ids_count: 1,
-        destroyed_records_count: 0,
+        destroyed_records_count: 0
       })
     end
 
@@ -251,11 +266,14 @@ RSpec.describe RecordSyncer do
       expect(syncer.stats).to eq({
         passed_nil_record_count: 0,
         invalid_rows_count: 1,
+        validation_failure_counts_by_field: {
+          student_id: 1
+        },
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
-        destroyed_records_count: 1,
+        destroyed_records_count: 1
       })
     end
   end
