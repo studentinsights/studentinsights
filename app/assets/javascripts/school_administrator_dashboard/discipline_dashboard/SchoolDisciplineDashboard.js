@@ -87,33 +87,36 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   //Depending on the chart, incidents are grouped either by student attribute or incident attribute. Any future
   //charts may be handled here.
-  getChartData(students, group) {
-    switch(group) {
+  getChartData(students, selectedChart) {
+    switch(selectedChart) {
     case 'homeroom_label': {
-      const groupedStudents = _.groupBy(students, group);
+      const groupedStudents = _.groupBy(students, selectedChart);
       const categories = this.sortedByIncidentsInStudentGroup(groupedStudents);
       const seriesData = categories.map(category => {
+        const color = (category === this.state.selectedCategory)? 'orange' : null;
         const y = this.getIncidentsFromStudents(groupedStudents[category]).length;
-        return {category, y};
+        return {category, y, color};
       });
       return {categories, seriesData};
     }
     case 'grade': {
-      const groupedStudents = _.groupBy(students, group);
+      const groupedStudents = _.groupBy(students, selectedChart);
       const categories = this.sortedGrades(Object.keys(groupedStudents));
       const seriesData = categories.map(category => {
+        const color = (category === this.state.selectedCategory)? 'orange' : null;
         const y = this.getIncidentsFromStudents(groupedStudents[category]).length;
-        return {category, y};
+        return {category, y, color};
       });
       return {categories, seriesData};
     }
     case 'incident_code': case 'incident_location': {
       const incidents = this.getIncidentsFromStudents(students);
-      const groupedIncidents = _.groupBy(incidents, group);
+      const groupedIncidents = _.groupBy(incidents, selectedChart);
       const categories = this.sortedByIncidents(groupedIncidents);
       const seriesData = categories.map(category => {
+        const color = (category === this.state.selectedCategory)? 'orange' : null;
         const y = groupedIncidents[category].length;
-        return {category, y};
+        return {category, y, color};
       });
       return {categories, seriesData};
     }
@@ -124,8 +127,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       const categories = this.sortedTimes(Object.keys(groupedIncidents));
       const seriesData = categories.map(category => {
+        const color = (category === this.state.selectedCategory)? 'orange' : null;
         const y = groupedIncidents[category] ? groupedIncidents[category].length : 0;
-        return {category, y};
+        return {category, y, color};
       });
       return {categories, seriesData};
     }
@@ -136,8 +140,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       const categories = this.sortedDays();
       const seriesData = categories.map(category => {
+        const color = (category === this.state.selectedCategory)? 'orange' : null;
         const y = groupedIncidents[category] ? groupedIncidents[category].length : 0;
-        return {category, y};
+        return {category, y, color};
       });
       return {categories, seriesData};
     }
@@ -288,7 +293,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {categories, seriesData} = this.getChartData(students, selectedChart);
     return (
         <DashboardBarChart
-          id = "Discipline"
+          id = "String"
+          animation = {false}
           categories = {{categories: categories}}
           seriesData = {seriesData}
           titleText = {null}
