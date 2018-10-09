@@ -14,16 +14,6 @@ class StudentAssessment < ActiveRecord::Base
   validates_presence_of :date_taken, :student, :assessment
   validates :student, uniqueness: { scope: [:assessment_id, :date_taken] }
 
-  # Notes on data quality for MCAS:
-    # Looking at Somerville raw data July 2018:
-    #   * ~40% of rows have no growth percentile.
-    #   * ~5% of rows have no scale score.
-    #   * Almost all rows have performance level (only 1 exception).
-    # Looking at New Bedford raw data July 2018:
-    #   * Zero rows have growth percentile.
-    #   * 33% of rows have no scale score.
-    #   * 16% of rows have no performance level.
-
   # TODO: Add validation for MCAS and ACCESS assessments.
 
   def self.order_by_date_taken_desc
@@ -46,4 +36,24 @@ class StudentAssessment < ActiveRecord::Base
     where(student_id: student.id)
   end
 
+  # First step to implementing and enforcing proper validation in a new table.
+  def self.printout_present_mcas_fields
+    mcas_assessment_ids = Assessment.where(family: 'MCAS').pluck(:id)
+    records = StudentAssessment.where(assessment_id: mcas_assessment_ids)
+    total_records = records.count
+
+    scale_score_present = records.where.not(scale_score: nil)
+    growth_percentile_present = records.where.not(growth_percentile: nil)
+    performance_level_present = records.where.not(performance_level: nil)
+    percentile_rank_nil = records.where(percentile_rank: nil)
+
+    puts "MCAS:"
+    puts "Total records: #{total_records}"
+
+    puts "scale_score_present: #{scale_score_present.count}/#{total_records}"
+    puts "growth_percentile_present: #{growth_percentile_present.count}/#{total_records}"
+    puts "performance_level_present: #{performance_level_present.count}/#{total_records}"
+    puts "percentile_rank_nil: #{percentile_rank_nil.count}/#{total_records}"
+    puts
+  end
 end
