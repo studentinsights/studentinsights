@@ -4,8 +4,8 @@ class EducatorRow < Struct.new(:row, :school_ids_dictionary)
   def match_educator_record
     # login_name is the primary key, but we also always require email
     login_name = row[:login_name]
-    email = email_from_row(row)
     return nil if login_name.nil? || login_name == ''
+    email = email_from_row(row)
     return nil if email.nil? || email == ''
 
     # login_name is the primary key, and email is always secondary
