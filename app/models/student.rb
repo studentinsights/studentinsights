@@ -36,7 +36,6 @@ class Student < ApplicationRecord
   validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :state_id, presence: true
   validates :school, presence: true
   validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
   validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
