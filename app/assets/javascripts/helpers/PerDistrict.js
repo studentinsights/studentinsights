@@ -204,3 +204,13 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   throw new Error(`unsupported districtKey: ${districtKey}`);
 }
 
+
+// See PerDistrict.rb#does_students_export_include_rows_for_inactive_students?
+export function isStudentActive(districtKey, student) {
+  if (districtKey === BEDFORD) return !student.missing_from_last_export;
+  if (districtKey === NEW_BEDFORD) return !student.missing_from_last_export;
+  if (districtKey === SOMERVILLE) return student.enrollment_status === 'Active';
+
+  // Check both as fallback
+  return student.enrollment_status === 'Active' && !student.missing_from_last_export;
+}
