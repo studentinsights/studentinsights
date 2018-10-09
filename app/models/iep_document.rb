@@ -1,4 +1,4 @@
-class IepDocument < ActiveRecord::Base
+class IepDocument < ApplicationRecord
   belongs_to :student
   validates :file_name, presence: true
 

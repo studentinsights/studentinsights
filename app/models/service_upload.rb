@@ -1,4 +1,4 @@
-class ServiceUpload < ActiveRecord::Base
+class ServiceUpload < ApplicationRecord
   belongs_to :uploaded_by_educator, class_name: 'Educator'
   has_many :services, dependent: :destroy
 

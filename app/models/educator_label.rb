@@ -1,6 +1,6 @@
 # For tagging educators with particular labels (eg, for
 # membership into different educators cohorts like NGE).
-class EducatorLabel < ActiveRecord::Base
+class EducatorLabel < ApplicationRecord
   belongs_to :educator
   validates :educator, presence: true
   validates :label_key, {

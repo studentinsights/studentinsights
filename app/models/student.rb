@@ -1,4 +1,4 @@
-class Student < ActiveRecord::Base
+class Student < ApplicationRecord
   VALID_FREE_REDUCED_LUNCH_VALUES = [
     "Free Lunch",
     "Not Eligible",

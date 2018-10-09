@@ -1,4 +1,4 @@
-class Intervention < ActiveRecord::Base
+class Intervention < ApplicationRecord
   belongs_to :student
   belongs_to :educator
   belongs_to :intervention_type

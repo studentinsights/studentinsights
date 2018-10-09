@@ -1,4 +1,4 @@
-class EducatorSectionAssignment < ActiveRecord::Base
+class EducatorSectionAssignment < ApplicationRecord
   belongs_to :educator
   belongs_to :section
 

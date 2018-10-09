@@ -1,4 +1,4 @@
-class Service < ActiveRecord::Base
+class Service < ApplicationRecord
   belongs_to :student
   belongs_to :recorded_by_educator, class_name: 'Educator'
   belongs_to :service_type

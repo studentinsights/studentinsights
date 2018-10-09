@@ -1,4 +1,4 @@
-class StudentPhoto < ActiveRecord::Base
+class StudentPhoto < ApplicationRecord
   belongs_to :student
 
   validates :student, presence: true
