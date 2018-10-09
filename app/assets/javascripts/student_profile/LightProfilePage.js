@@ -6,6 +6,7 @@ import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScroll
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
+import {isStudentActive} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
@@ -68,9 +69,9 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderInactiveOverlay() {
-    const {student} = this.props;
-    const isInactive = (student.missing_from_last_export || student.enrollment_status !== 'Active');
-    if (!isInactive) return null;
+    const {student, districtKey} = this.props;
+    const isActive = isStudentActive(districtKey, student);
+    if (isActive) return null;
 
     return (
       <div className="LightProfilePage-inactive-overlay" style={styles.inactiveOverlay}>
