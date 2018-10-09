@@ -3,6 +3,8 @@ FactoryBot.define do
   factory :intervention do
     association :student
     association :intervention_type
+    association :educator
+
     start_date Date.new(2014, 9, 9)
     number_of_hours 10
 

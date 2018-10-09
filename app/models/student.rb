@@ -37,6 +37,7 @@ class Student < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :state_id, presence: true
+  validates :school, presence: true
   validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
   validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
   validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }

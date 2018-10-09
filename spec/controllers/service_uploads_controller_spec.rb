@@ -161,7 +161,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
     end
 
     context 'invalid file name' do
-      let!(:existing_service_upload) { ServiceUpload.create(file_name: 'unique_file_name.csv') }
+      let!(:existing_service_upload) { ServiceUpload.create(file_name: 'unique_file_name.csv', uploaded_by_educator: educator) }
       let(:params) {
         {
           file_name: 'unique_file_name.csv'
@@ -227,7 +227,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
         let(:educator) { FactoryBot.create(:educator, can_set_districtwide_access: true) }
 
         let!(:service_upload) {
-          ServiceUpload.create!(file_name: 'helpful-service.txt')
+          ServiceUpload.create!(file_name: 'helpful-service.txt', uploaded_by_educator: educator)
         }
 
         let(:response_body) { JSON.parse(response.body) }
@@ -243,7 +243,7 @@ RSpec.describe ServiceUploadsController, type: :controller do
       context 'educator w/o access' do
         let(:educator) { FactoryBot.create(:educator) }
         let!(:service_upload) {
-          ServiceUpload.create!(file_name: 'helpful-service.txt')
+          ServiceUpload.create!(file_name: 'helpful-service.txt', uploaded_by_educator: educator)
         }
 
         it 'guards access' do

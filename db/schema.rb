@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_125820) do
+ActiveRecord::Schema.define(version: 2018_10_09_111501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
     t.string "course_description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "school_id"
+    t.integer "school_id", null: false
   end
 
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
@@ -162,14 +162,14 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
   end
 
   create_table "event_note_revisions", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "educator_id"
-    t.integer "event_note_type_id"
-    t.text "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "event_note_id"
-    t.integer "version"
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.integer "event_note_type_id", null: false
+    t.text "text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "event_note_id", null: false
+    t.integer "version", null: false
   end
 
   create_table "event_note_types", id: :serial, force: :cascade do |t|
@@ -179,14 +179,14 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
   end
 
   create_table "event_notes", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "educator_id"
-    t.integer "event_note_type_id"
-    t.text "text"
-    t.datetime "recorded_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean "is_restricted", default: false
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.integer "event_note_type_id", null: false
+    t.text "text", null: false
+    t.datetime "recorded_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_restricted", default: false, null: false
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
 
   create_table "iep_documents", id: :serial, force: :cascade do |t|
     t.string "file_name", null: false
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file_digest", null: false
@@ -262,14 +262,14 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
   end
 
   create_table "interventions", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "intervention_type_id"
+    t.integer "student_id", null: false
+    t.integer "intervention_type_id", null: false
     t.text "comment"
     t.date "start_date"
     t.date "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "educator_id"
+    t.integer "educator_id", null: false
     t.integer "number_of_hours"
     t.text "goal"
     t.string "custom_intervention_name"
@@ -330,7 +330,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
     t.string "room_number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "course_id"
+    t.integer "course_id", null: false
   end
 
   create_table "service_types", id: :serial, force: :cascade do |t|
@@ -341,20 +341,20 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
   end
 
   create_table "service_uploads", id: :serial, force: :cascade do |t|
-    t.integer "uploaded_by_educator_id"
+    t.integer "uploaded_by_educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file_name"
   end
 
   create_table "services", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "recorded_by_educator_id"
-    t.integer "service_type_id"
-    t.datetime "recorded_at"
-    t.datetime "date_started"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "student_id", null: false
+    t.integer "recorded_by_educator_id", null: false
+    t.integer "service_type_id", null: false
+    t.datetime "recorded_at", null: false
+    t.datetime "date_started", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "provided_by_educator_name"
     t.integer "service_upload_id"
     t.datetime "estimated_end_date"
@@ -390,12 +390,12 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
     t.integer "growth_percentile"
     t.string "performance_level"
     t.datetime "date_taken"
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "percentile_rank"
     t.decimal "instructional_reading_level"
-    t.integer "assessment_id"
+    t.integer "assessment_id", null: false
     t.string "grade_equivalent"
     t.index ["student_id"], name: "index_student_assessments_on_student_id"
   end
@@ -452,17 +452,17 @@ ActiveRecord::Schema.define(version: 2018_10_05_125820) do
     t.boolean "hispanic_latino"
     t.string "race"
     t.string "free_reduced_lunch"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "homeroom_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "state_id"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "state_id", null: false
     t.string "home_language"
-    t.integer "school_id"
+    t.integer "school_id", null: false
     t.string "student_address"
     t.datetime "registration_date"
-    t.string "local_id"
+    t.string "local_id", null: false
     t.string "program_assigned"
     t.string "sped_placement"
     t.string "disability"

@@ -51,10 +51,10 @@ pals = TestPals.create!
 
 puts 'Uploading services...'
 ServiceUpload.create!([
-  { file_name: "ReadingIntervention-2016.csv" },
-  { file_name: "ATP-2016.csv" },
-  { file_name: "SPELL-2016.csv" },
-  { file_name: "SomerSession-2016.csv" },
+  { uploaded_by_educator_id: pals.uri.id, file_name: "ReadingIntervention-2016.csv" },
+  { uploaded_by_educator_id: pals.uri.id, file_name: "ATP-2016.csv" },
+  { uploaded_by_educator_id: pals.uri.id, file_name: "SPELL-2016.csv" },
+  { uploaded_by_educator_id: pals.uri.id, file_name: "SomerSession-2016.csv" },
 ])
 
 if more_demo_students
