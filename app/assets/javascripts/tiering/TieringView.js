@@ -144,10 +144,14 @@ export default class TieringView extends React.Component {
             return { value, label: `${value} trigger` };
           }))} />
         <div style={styles.textBar}>
-          {this.renderExperienceGaps(filteredStudents)}
-          {this.renderSSTGaps(filteredStudents)}
-          {this.renderStats(filteredStudents)}
-          <span style={styles.tieringInfo}>Last 45 days</span>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            {this.renderExperienceGaps(filteredStudents)}
+            {this.renderSSTGaps(filteredStudents)}
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            {this.renderStats(filteredStudents)}
+            <div style={styles.tieringInfo}>Last 45 days</div>
+          </div>
         </div>
       </FilterBar>
     );
@@ -221,8 +225,8 @@ export default class TieringView extends React.Component {
     return (
       <HelpBubble
         modalStyle={modalFromRight}
-        style={{display: 'inline-block'}}
-        linkStyle={styles.summary}
+        style={{display: 'inline-block', margin: 0}}
+        linkStyle={{...styles.summary, padding: 0}}
         teaser="Stats"
         title="Stats"
         content={this.renderSummary(filteredStudents)}
@@ -371,6 +375,7 @@ const styles = {
   },
   select: {
     width: '10em',
+    fontSize: 12,
     marginLeft: 15
   },
   summaryContainer: {
@@ -383,7 +388,6 @@ const styles = {
     margin: 10
   },
   tieringInfo: {
-    marginLeft: 15,
     fontSize: 12,
     color: '#666'
   },
@@ -409,8 +413,9 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginRight: 20 // for download button
   }
 };
 

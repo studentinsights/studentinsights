@@ -15,13 +15,13 @@ export default class DownloadCsvLink extends React.Component {
   }
 
   render() {
-    const {disabled, filename, csvText, style, children} = this.props;
+    const {disabled, filename, csvText, style, children, disableButtonClass} = this.props;
     return (disabled)
       ? <span
-          className="DownloadCsvLink DownloadCsvLink-disabled btn btn-disabled"
+          className={`DownloadCsvLink DownloadCsvLink-disabled ${!disableButtonClass ? 'btn btn-disabled' : ''}`}
           style={style}>{children}</span>
       : <a
-          className="DownloadCsvLink btn"
+          className={`DownloadCsvLink ${!disableButtonClass ? 'btn' : ''}`}
           href={`data:attachment/csv,${encodeURIComponent(csvText)}`}
           onClick={this.onClickDownload.bind(this, csvText, filename)}
           target="_blank"
@@ -34,7 +34,8 @@ DownloadCsvLink.propTypes = {
   csvText: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.object,
+  disableButtonClass: PropTypes.bool
 };
 
 // Escape quotes as double quotes, and quote every cell

@@ -7,6 +7,8 @@ import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {rankedByLetterGrade} from '../helpers/SortHelpers';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
+import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
+import DownloadCsvLink from '../components/DownloadCsvLink';
 import {
   firstMatch,
   EN_OR_ELL,
@@ -30,7 +32,98 @@ export default class StudentLevelsTable extends React.Component {
       sortBy: 'level',
       sortDirection: SortDirection.ASC,
     };
+
     this.onTableSort = this.onTableSort.bind(this);
+    this.renderStudent = this.renderStudent.bind(this);
+    this.renderLevel = this.renderLevel.bind(this);
+    this.renderAbsenceRate = this.renderAbsenceRate.bind(this);
+    this.renderDisciplineIncidents = this.renderDisciplineIncidents.bind(this);
+    this.renderProgram = this.renderProgram.bind(this);
+  }
+
+  // This is used both for react-virtualized and interpreted to make the CSV export.
+  columns() {
+    const gradeCellWidth = 50;
+    const numericCellWidth = 70;
+    const supportCellWidth = 70;
+
+    return [{
+      dataKey: 'student',
+      label: <span><br />Student</span>,
+      width: 120,
+      flexGrow:1,
+      cellRenderer: this.renderStudent
+    }, {
+      dataKey: 'level',
+      label: <span><br />Level</span>,
+      width: gradeCellWidth,
+      cellRenderer: this.renderLevel
+    }, {
+      dataKey: 'absence',
+      label: <span>Attendance<br/>Rate</span>,
+      width: numericCellWidth,
+      cellRenderer: this.renderAbsenceRate
+    }, {
+      dataKey: 'discipline',
+      label: <span>Discipline<br/>Incidents</span>,
+      width: numericCellWidth,
+      cellRenderer: this.renderDisciplineIncidents
+    }, {
+      dataKey: 'en_or_ell',
+      label: <span><br />EN/ELL</span>,
+      width: gradeCellWidth,
+      cellRenderer: this.renderGradeFor.bind(this, EN_OR_ELL)
+    }, {
+      dataKey: 'history',
+      label: <span>Social<br/>Studies</span>,
+      width: gradeCellWidth,
+      cellRenderer: this.renderGradeFor.bind(this, HISTORY)
+    }, {
+      dataKey: 'math',
+      label: <span><br />Math</span>,
+      width: gradeCellWidth,
+      cellRenderer: this.renderGradeFor.bind(this, MATH)
+    }, {
+      dataKey: 'science',
+      label: <span><br />Science</span>,
+      width: gradeCellWidth,
+      cellRenderer: this.renderGradeFor.bind(this, SCIENCE)
+    }, {
+      dataKey: 'nge',
+      label: <span>Last NGE/<br/>10GE/NEST</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderNotes.bind(this, 'last_experience_note')
+    }, {
+      dataKey: 'sst',
+      label: <span>Last SST</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderNotes.bind(this, 'last_sst_note')
+    }, {
+      dataKey: 'study',
+      label: <span>Study<br/>skills</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderIf.bind(this, STUDY_SKILLS, 'study')
+    }, {
+      dataKey: 'support',
+      label: <span>Academic<br/>Support</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderIf.bind(this, ACADEMIC_SUPPORT, 'support')
+    }, {
+      dataKey: 'redirect',
+      label: <span><br/>Redirect</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderIf.bind(this, REDIRECT, 'redirect')
+    }, {
+      dataKey: 'recovery',
+      label: <span>Credit<br/>Recovery</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderIf.bind(this, CREDIT_RECOVERY, 'recovery')
+    }, {
+      dataKey: 'program_assigned',
+      label: <span>Program<br/>or SPED</span>,
+      width: supportCellWidth,
+      cellRenderer: this.renderProgram
+    }];
   }
 
   orderedStudents() {
@@ -90,107 +183,44 @@ export default class StudentLevelsTable extends React.Component {
 
   render() {
     const {sortDirection, sortBy} = this.state;
-    const gradeCellWidth = 50;
-    const numericCellWidth = 70;
-    const supportCellWidth = 70;
-
     const students = this.orderedStudents();
     return (
-      <AutoSizer className="StudentLevelsTable">
-        {({height, width}) => (
-          <Table
-            ref={el => this.tableEl = el}
-            width={width}
-            headerHeight={40}
-            height={height}
-            rowCount={students.length}
-            rowGetter={({index}) => students[index]}
-            rowHeight={40}
-            rowStyle={{display: 'flex', alignItems: 'center'}}
-            headerStyle={styles.tableHeaderStyle}
-            sort={this.onTableSort}
-            sortBy={sortBy}
-            sortDirection={sortDirection}
-          >
-            <Column
-              dataKey="student"
-              label={<span><br />Student</span>}
-              width={120}
-              flexGrow={1}
-              cellRenderer={this.renderStudent} />
-            <Column
-              dataKey="level"
-              label={<span><br />Level</span>}
-              width={gradeCellWidth}
-              cellRenderer={this.renderLevel} />
-            <Column
-              dataKey="absence"
-              label={<span>Attendance<br/>Rate</span>}
-              width={numericCellWidth}
-              cellRenderer={this.renderAbsenceRate} />
-            <Column
-              dataKey="discipline"
-              label={<span>Discipline<br/>Incidents</span>}
-              width={numericCellWidth}
-              cellRenderer={this.renderDisciplineIncidents} />
-            <Column
-              dataKey="en_or_ell"
-              label={<span><br />EN/ELL</span>}
-              width={gradeCellWidth}
-              cellRenderer={this.renderGradeFor.bind(this, EN_OR_ELL)} />
-            <Column
-              dataKey="history"
-              label={<span>Social<br/>Studies</span>}
-              width={gradeCellWidth}
-              cellRenderer={this.renderGradeFor.bind(this, HISTORY)} />
-            <Column
-              dataKey="math"
-              label={<span><br />Math</span>}
-              width={gradeCellWidth}
-              cellRenderer={this.renderGradeFor.bind(this, MATH)} />
-            <Column
-              dataKey="science"
-              label={<span><br />Science</span>}
-              width={gradeCellWidth}
-              cellRenderer={this.renderGradeFor.bind(this, SCIENCE)} />
-            <Column
-              dataKey="nge"
-              label={<span>Last NGE/<br/>10GE/NEST</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderNotes.bind(this, 'last_experience_note')} />
-            <Column
-              dataKey="sst"
-              label={<span>Last SST</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderNotes.bind(this, 'last_sst_note')} />
-            <Column
-              dataKey="study"
-              label={<span>Study<br/>skills</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderIf.bind(this, STUDY_SKILLS, 'study')} />
-            <Column
-              dataKey="support"
-              label={<span>Academic<br/>Support</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderIf.bind(this, ACADEMIC_SUPPORT, 'support')} />
-            <Column
-              dataKey="redirect"
-              label={<span><br/>Redirect</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderIf.bind(this, REDIRECT, 'redirect')} />
-            <Column
-              dataKey="recovery"
-              label={<span>Credit<br/>Recovery</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderIf.bind(this, CREDIT_RECOVERY, 'recovery')} />
-            <Column
-              dataKey="program_assigned"
-              label={<span>Program<br/>or SPED</span>}
-              width={supportCellWidth}
-              cellRenderer={this.renderProgram} />
-          </Table>
-        )}
-      </AutoSizer>
+      <div className="StudentLevelsTable" style={{flex: 1, display: 'block', flexDirection: 'column'}}>
+        {this.renderDownloadLink()}
+        <AutoSizer>
+          {({height, width}) => (
+            <Table
+              ref={el => this.tableEl = el}
+              width={width}
+              headerHeight={40}
+              height={height}
+              rowCount={students.length}
+              rowGetter={({index}) => students[index]}
+              rowHeight={40}
+              rowStyle={{display: 'flex', alignItems: 'center'}}
+              headerStyle={styles.tableHeaderStyle}
+              sort={this.onTableSort}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+            >{this.columns().map(column => <Column key={column.dataKey} {...column} />)}
+            </Table>
+          )}
+        </AutoSizer>
+      </div>
+    );
+  }
+
+  renderDownloadLink() {
+    const columns = this.columns();
+    const students = this.orderedStudents();
+    const csvText = toCsvTextFromTable(columns, students);
+    const {nowFn} = this.context;
+    const now = nowFn();
+    const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
+    return (
+      <DownloadCsvLink style={styles.downloadLink} disableButtonClass={true} filename={filename} csvText={csvText}>
+        <svg style={{fill: "#3177c9", opacity: 0.5}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </DownloadCsvLink>
     );
   }
 
@@ -330,6 +360,12 @@ const styles = {
   plain: {
     display: 'inline-block',
     padding: 8
+  },
+  downloadLink: {
+    color: 'white',
+    position: 'absolute',
+    right: 10,
+    top: -60 // workaround to appear in bar above
   }
 };
 
