@@ -77,6 +77,7 @@ class ExperimentalSomervilleHighTiers
       :first_name,
       :last_name,
       :grade,
+      :limited_english_proficiency,
       :house,
       :sped_placement,
       :program_assigned

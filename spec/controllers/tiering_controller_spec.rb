@@ -43,6 +43,7 @@ describe TieringController, :type => :controller do
           "grade",
           "first_name",
           "last_name",
+          "limited_english_proficiency",
           "program_assigned",
           "sped_placement",
           "house",
