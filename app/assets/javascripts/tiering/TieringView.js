@@ -149,8 +149,8 @@ export default class TieringView extends React.Component {
             {this.renderSSTGaps(filteredStudents)}
           </div>
           <div style={{display: 'flex', flexDirection: 'column'}}>
-            {this.renderStats(filteredStudents)}
             <div style={styles.tieringInfo}>Last 45 days</div>
+            {this.renderStats(filteredStudents)}
           </div>
         </div>
       </FilterBar>
@@ -227,8 +227,8 @@ export default class TieringView extends React.Component {
         modalStyle={modalFromRight}
         style={{display: 'inline-block', margin: 0}}
         linkStyle={{...styles.summary, padding: 0}}
-        teaser="Stats"
-        title="Stats"
+        teaser="Breakdown"
+        title="Breakdown"
         content={this.renderSummary(filteredStudents)}
       />
     );

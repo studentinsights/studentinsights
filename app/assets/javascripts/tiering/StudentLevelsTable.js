@@ -9,6 +9,7 @@ import {rankedByLetterGrade} from '../helpers/SortHelpers';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
+import ReactModal from 'react-modal';
 import {
   firstMatch,
   EN_OR_ELL,
@@ -29,10 +30,12 @@ export default class StudentLevelsTable extends React.Component {
     super(props);
 
     this.state = {
+      isDownloadOpen: false,
       sortBy: 'level',
       sortDirection: SortDirection.ASC,
     };
 
+    this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
     this.renderStudent = this.renderStudent.bind(this);
     this.renderLevel = this.renderLevel.bind(this);
@@ -181,12 +184,19 @@ export default class StudentLevelsTable extends React.Component {
     this.tableEl.scrollToRow(0);
   }
 
+  onDownloadDialogToggled() {
+    const {isDownloadOpen} = this.state;
+    this.setState({isDownloadOpen: !isDownloadOpen});
+  }
+
   render() {
     const {sortDirection, sortBy} = this.state;
+    const columns = this.columns();
     const students = this.orderedStudents();
+    
     return (
       <div className="StudentLevelsTable" style={{flex: 1, display: 'block', flexDirection: 'column'}}>
-        {this.renderDownloadLink()}
+        {this.renderDownloadLink(columns, students)}
         <AutoSizer>
           {({height, width}) => (
             <Table
@@ -202,7 +212,7 @@ export default class StudentLevelsTable extends React.Component {
               sort={this.onTableSort}
               sortBy={sortBy}
               sortDirection={sortDirection}
-            >{this.columns().map(column => <Column key={column.dataKey} {...column} />)}
+            >{columns.map(column => <Column key={column.dataKey} {...column} />)}
             </Table>
           )}
         </AutoSizer>
@@ -210,17 +220,44 @@ export default class StudentLevelsTable extends React.Component {
     );
   }
 
-  renderDownloadLink() {
-    const columns = this.columns();
-    const students = this.orderedStudents();
+  // This tracks the modal state on its own rather than using <HelpBubble /> so that it
+  // can be lazy about rendering the actual download link (which is expensive) and defer that
+  // until the user expresses intent to download.  This adds an extra UX step to the download to do that.
+  renderDownloadLink(columns, students) {
+    const {isDownloadOpen} = this.state;
+    return (
+      <div>
+        <div onClick={this.onDownloadDialogToggled} style={styles.downloadLink}>
+          {isDownloadOpen
+            ? <ReactModal isOpen={true} onRequestClose={this.onDownloadDialogToggled} style={styles.downloadLink}>
+                {this.renderLinkWithCsvDataInline(columns, students)}
+              </ReactModal>
+            : <svg style={{fill: "#3177c9", opacity: 0.5, cursor: 'pointer'}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          }
+        </div>
+      </div>
+    );
+  }
+
+  // This is expensive to render, since it unrolls the whole spreadsheet into a string
+  // and writes it inline to the link.
+  renderLinkWithCsvDataInline(columns, students) {
     const csvText = toCsvTextFromTable(columns, students);
     const {nowFn} = this.context;
     const now = nowFn();
     const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
     return (
-      <DownloadCsvLink style={styles.downloadLink} disableButtonClass={true} filename={filename} csvText={csvText}>
-        <svg style={{fill: "#3177c9", opacity: 0.5}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-      </DownloadCsvLink>
+      <div style={{fontSize: 14}}>
+        <h1 style={{
+          borderBottom: '1px solid #333',
+          paddingBottom: 10,
+          marginBottom: 20
+        }}>Export as spreadsheet</h1>
+        <div style={{marginBottom: 20}}>This will include data for {students.length} students.</div>
+        <DownloadCsvLink filename={filename} style={{color: 'white'}} csvText={csvText}>
+          Download CSV
+        </DownloadCsvLink>
+      </div>
     );
   }
 
