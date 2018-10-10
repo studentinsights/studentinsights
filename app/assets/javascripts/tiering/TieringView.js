@@ -413,9 +413,9 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginRight: 20 // for download button
+    marginRight: 30 // for download button
   }
 };
 

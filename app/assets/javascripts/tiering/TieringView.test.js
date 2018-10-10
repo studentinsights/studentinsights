@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import TieringView from './TieringView';
 import tieringShowJson from './tieringShowJson.fixture';
 
@@ -16,11 +17,11 @@ it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(
-    <TieringView {...props} />
+    <PerDistrictContainer districtKey="somerville"><TieringView {...props} /></PerDistrictContainer>
   ), el);
 
   expect($(el).html()).toContain('Search 74 students...');
-  expect($(el).find('.Select').length).toEqual(4);
+  expect($(el).find('.Select').length).toEqual(5);
   expect($(el).text()).toContain('Grade...');
   expect($(el).text()).toContain('House...');
   expect($(el).text()).toContain('Level...');
