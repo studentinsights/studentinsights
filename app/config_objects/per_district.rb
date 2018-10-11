@@ -131,7 +131,6 @@ class PerDistrict
     end
   end
 
-
   # In the import process, we typically only get usernames
   # as the `login_name`, and emails are the same but with a domain
   # suffix.  But for Bedford, emails are distinct and imported separately

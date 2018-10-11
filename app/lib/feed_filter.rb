@@ -22,7 +22,7 @@ class FeedFilter
 
   private
   # Filters by students in sections that a teacher is currently teaching.
-  # For HS teachers who need schoolwide access for admin parts of their role (eg, data coordinator, 
+  # For HS teachers who need schoolwide access for admin parts of their role (eg, data coordinator,
   # department head), but who also serve as classroom teachers and really want to just focus on those
   # students for most uses cases (eg, the feed, notifications).
   class SectionsFilter
