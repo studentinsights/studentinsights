@@ -91,7 +91,7 @@ school_definitions_for_import:
 
   - local_id: SPED
     slug: sped
-    name: Special Education
+    name: SPED Outplacement and Walk-in
     school_type: OTHER
 
 
