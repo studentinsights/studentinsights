@@ -174,6 +174,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return (
         <DashboardBarChart
           id = "Discipline"
+          animation={false}
           categories = {{categories: categories}}
           seriesData = {seriesData}
           titleText = {null}
