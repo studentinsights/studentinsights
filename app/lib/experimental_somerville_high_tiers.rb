@@ -10,9 +10,7 @@ class ExperimentalSomervilleHighTiers
   class Tier < Struct.new(:level, :triggers, :data)
   end
 
-  def initialize(educator, options = {})
-    @educator = educator
-    @authorizer = Authorizer.new(@educator)
+  def initialize(options = {})
     @time_interval = options.fetch(:time_interval, 45.days)
 
     if !PerDistrict.new.enabled_high_school_tiering?
@@ -20,16 +18,18 @@ class ExperimentalSomervilleHighTiers
     end
   end
 
-  def students_with_tiering_json(school_ids, time_now)
-    cutoff_time = time_now - @time_interval
-
-    # query for students, enforce authorization
-    students = @authorizer.authorized do
+  # query for students by school, enforcing authorization
+  def students_with_tiering_json(educator, school_ids, time_now)
+    students = Authorizer.new(educator).authorized do
       Student.active
         .where(school_id: school_ids)
         .to_a # because of AuthorizedDispatcher#filter_relation
     end
-    student_ids = students.map(&:id)
+    unsafe_tiering_json(students.map(&:id), time_now)
+  end
+
+  def unsafe_tiering_json(student_ids, time_now)
+    cutoff_time = time_now - @time_interval
 
     # query for absences and discipline events in batch
     absence_counts_by_student_id = Absence
