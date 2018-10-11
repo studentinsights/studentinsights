@@ -353,12 +353,20 @@ class TestPals
     ])
 
     # Fatima teaches two sections of physics at the high school.
+    # She's a data coordinator, so has schoolwide access also, but
+    # wants her feed and other views to be focused on students in her
+    # courses.
     @shs_fatima_science_teacher = Educator.create!(
       login_name: 'fatima',
       email: "fatima@#{email_domain}",
       full_name: 'Teacher, Fatima',
+      schoolwide_access: true,
       local_id: '750',
       school: @shs
+    )
+    EducatorLabel.create!(
+      educator: @shs_fatima_science_teacher,
+      label_key: 'use_section_based_feed'
     )
     @shs_physics_course = Course.create!({
       school: @shs,

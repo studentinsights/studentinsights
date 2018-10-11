@@ -107,6 +107,16 @@ RSpec.describe Authorizer do
         expect(authorized(pals.shs_bill_nye) { Student.all }).to match_array [
           pals.shs_freshman_mari
         ]
+        expect(authorized(pals.shs_fatima_science_teacher) { Student.all }).to match_array [
+          pals.shs_freshman_mari,
+          pals.shs_freshman_amir,
+          pals.shs_senior_kylo
+        ]
+        expect(authorized(pals.shs_harry_housemaster) { Student.all }).to match_array [
+          pals.shs_freshman_mari,
+          pals.shs_freshman_amir,
+          pals.shs_senior_kylo
+        ]
       end
 
       it 'limits access for Student.find' do

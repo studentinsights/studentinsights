@@ -7,7 +7,8 @@ class FeedFilter
   def filter_for_educator(students)
     filters = [
       CounselorFilter.new(@educator),
-      HouseFilter.new(@educator)
+      HouseFilter.new(@educator),
+      SectionsFilter.new(@educator)
     ]
 
     filtered_students = students
@@ -20,6 +21,30 @@ class FeedFilter
   end
 
   private
+  # Filters by students in sections that a teacher is currently teaching.
+  # For HS teachers who need schoolwide access for admin parts of their role (eg, data coordinator,
+  # department head), but who also serve as classroom teachers and really want to just focus on those
+  # students for most uses cases (eg, the feed, notifications).
+  class SectionsFilter
+    def initialize(educator)
+      @educator = educator
+    end
+
+    def should_use?
+      return false unless PerDistrict.new.enable_section_based_feed?
+      EducatorLabel.has_static_label?(@educator.id, 'use_section_based_feed')
+    end
+
+    def keep?(student)
+      student.in?(section_students)
+    end
+
+    private
+    def section_students
+      @section_students ||= @educator.section_students.to_a
+    end
+  end
+
   # For filtering base on the student's counselor field.
   class CounselorFilter
     def initialize(educator)
