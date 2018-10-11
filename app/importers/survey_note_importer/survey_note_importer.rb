@@ -1,0 +1,119 @@
+# Takes a CSV processes each row into the shape of
+# a "survey note".
+#
+# The shape is:
+#  1) `source_key` describes what this is
+#  2) each row references a student and and educator
+#  3) the importer might skip some rows
+#  4) there are some fields for importing (eg, LASID)
+#  5) other fields are stored as a map of field>value in `source_json`
+#  
+# The semantics for import here are:
+#  1) rows aren't guaranteed to be unique in the source data
+#  2) in-place edits are unlikely, but will update records in-place
+#
+class SurveyNoteImporter
+  STUDENT_MEETING = 'student_meeting'
+
+  def self.student_meeting(file_text, options = {})
+    SurveyNoteImporter.new(file_text, options.merge({
+      source_key: STUDENT_MEETING,
+      config: {
+        student_local_id: 'Local Student ID Number',
+        educator_email: 'Username',
+        timestamp: 'Timestamp',
+        ignore_keys: [
+          'Student First and Last Name',
+          'Q1 IPR meeting with (add teacher name below)'
+        ]
+      }
+    }))
+  end
+
+  def initialize(file_text, options = {})
+    @file_text = file_text
+    @source_key = options[:source_key]
+    @config = options[:config]
+    @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    reset_counters!
+  end
+
+  def parse_rows
+    reset_counters!
+
+    parsed_rows = []
+    create_streaming_csv.each_with_index do |row, index|
+      maybe_row = maybe_row(row, index)
+      next if maybe_row.nil?
+
+      parsed_rows << maybe_row
+      @valid_rows_count +=1
+    end
+
+    {
+      stats: stats,
+      parsed_rows: parsed_rows
+    }
+  end
+
+  private
+  def maybe_row(raw_row, source_index)
+    config = @config
+    row = raw_row.to_h
+
+    # student?
+    student_local_id = row[config[:student_local_id]]
+    student_id = Student.find_by_local_id(student_local_id).try(:id)
+    if student_id.nil?
+      @invalid_rows_count += 1
+      @invalid_student_local_ids = (@invalid_student_local_ids + [student_local_id]).uniq
+      return nil
+    end
+
+    # educator?
+    educator_email = row[config[:educator_email]]
+    educator_id = Educator.find_by_email(educator_email).try(:id)
+    if educator_id.nil?
+      @invalid_rows_count += 1
+      @invalid_educator_emails = (@invalid_educator_emails + [educator_email]).uniq
+      return nil
+    end
+
+    # grab other fields, filtering out special ones and `ignore_keys`
+    special_keys = [config[:student_local_id], config[:educator_email], config[:timestamp]]
+    keep_keys = row.keys - special_keys - config[:ignore_keys]
+    source_json = row.slice(*keep_keys)
+
+    {
+      source_key: @source_key,
+      source_index: source_index,
+      student_id: student_id,
+      educator_id: educator_id,
+      source_timestamp: row[config[:timestamp]],
+      source_json: source_json
+    }
+  end
+
+  def create_streaming_csv
+    csv_transformer = StreamingCsvTransformer.new(@log, {
+      csv_options: { header_converters: nil }
+    })
+    csv_transformer.transform(@file_text)
+  end
+
+  def reset_counters!
+    @valid_rows_count = 0
+    @invalid_rows_count = 0
+    @invalid_student_local_ids = []
+    @invalid_educator_emails = []
+  end
+
+  def stats
+    {
+      valid_rows_count: @valid_rows_count,
+      invalid_rows_count: @invalid_rows_count,
+      invalid_student_local_ids: @invalid_student_local_ids,
+      invalid_educator_emails: @invalid_educator_emails
+    }
+  end
+end
