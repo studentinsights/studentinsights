@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 
 // Component for all charts in the dashboard page.
