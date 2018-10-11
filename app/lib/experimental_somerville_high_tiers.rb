@@ -12,6 +12,7 @@ class ExperimentalSomervilleHighTiers
 
   def initialize(educator, options = {})
     @educator = educator
+    @authorizer = Authorizer.new(@educator)
     @time_interval = options.fetch(:time_interval, 45.days)
 
     if !PerDistrict.new.enabled_high_school_tiering?
@@ -23,7 +24,11 @@ class ExperimentalSomervilleHighTiers
     cutoff_time = time_now - @time_interval
 
     # query for students, enforce authorization
-    students = authorized_students
+    students = @authorizer.authorized do
+      Student.active
+        .where(school_id: school_ids)
+        .to_a # because of AuthorizedDispatcher#filter_relation
+    end
     student_ids = students.map(&:id)
 
     # query for absences and discipline events in batch
@@ -144,17 +149,6 @@ class ExperimentalSomervilleHighTiers
   end
 
   private
-  # Some educators at the HS have "data coordinator" roles as well, and they
-  # help facilitate different analyses etc, so they 
-  def authorized_students
-    relevant_students = Student.active.where(school_id: school_ids).to_a
-    if @educator.labels.include?('skip_authorization_and_allow_access_to_all_students_in_levels_page')
-      relevant_students
-    else
-      Authorizer.new(@educator).authorized { relevant_students}
-    end
-  end
-
   # query_map is {:result_key => [event_note_type_id]}
   def most_recent_event_notes_by_student_id(student_ids, cutoff_time, query_map)
     notes_by_student_id = {}

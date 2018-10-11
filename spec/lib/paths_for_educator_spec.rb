@@ -70,7 +70,10 @@ RSpec.describe PathsForEducator do
           section: '/educators/my_sections'
         })
         expect(navbar_links(pals.shs_fatima_science_teacher)).to eq({
-          section: '/educators/my_sections'
+          absences: '/schools/shs/absences',
+          school: '/schools/shs',
+          section: '/educators/my_sections',
+          tardies: '/schools/shs/tardies'
         })
       end
     end
