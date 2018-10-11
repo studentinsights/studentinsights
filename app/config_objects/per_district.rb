@@ -122,6 +122,16 @@ class PerDistrict
     end
   end
 
+  # For filtering the feed by students in sections
+  def enable_section_based_feed?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_SECTION_BASED_FEED')
+    else
+      false
+    end
+  end
+
+
   # In the import process, we typically only get usernames
   # as the `login_name`, and emails are the same but with a domain
   # suffix.  But for Bedford, emails are distinct and imported separately
