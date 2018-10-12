@@ -1,17 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 
 // Component for all charts in the dashboard page.
 export default class DashboardBarChart extends React.Component{
-
-  //Because the highcharts wrapper redraws the charts whether or not the props
-  //have changed, this is necessary to prevent rerendering the charts when the
-  //user only wanted to select a homeroom.
-  shouldComponentUpdate(nextProps) {
-    return !_.isEqual(this.props.seriesData, nextProps.seriesData);
-  }
 
   render() {
     return (

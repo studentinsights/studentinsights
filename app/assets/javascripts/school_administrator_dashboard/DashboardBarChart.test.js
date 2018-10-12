@@ -11,14 +11,4 @@ describe('DashboardBarChart', () => {
   it('should render a highcharts wrapper', () => {
     expect(chart.find(HighchartsWrapper).length).toEqual(1);
   });
-
-  it('should update when the series data changes', () => {
-    const shouldUpdate = chart.instance().shouldComponentUpdate({seriesData: [3]});
-    expect(shouldUpdate).toBe(true);
-  });
-
-  it('should not update when the series data does not change', () => {
-    const shouldUpdate = chart.instance().shouldComponentUpdate({seriesData: []});
-    expect(shouldUpdate).toBe(false);
-  });
 });

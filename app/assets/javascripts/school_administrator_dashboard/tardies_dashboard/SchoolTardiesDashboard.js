@@ -147,21 +147,22 @@ export default class SchoolTardiesDashboard extends React.Component {
 
     return (
       <DashboardBarChart
-        id = {'string'}
-        categories = {{
+        id={'string'}
+        animation={false}
+        categories={{
           offset: 0,
           linkedTo: 0,
           categories: monthCategories,
           tickPositions: tickPositions,
           tickmarkPlacement: "on"
         }}
-        seriesData = {seriesData}
-        titleText = {`Schoolwide Tardies (${this.timeRangeText()})`}
-        measureText = {'Number of Tardies'}
-        tooltip = {{
+        seriesData={seriesData}
+        titleText={`Schoolwide Tardies (${this.timeRangeText()})`}
+        measureText={'Number of Tardies'}
+        tooltip={{
           pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-        onColumnClick = {this.resetStudentList}
-        onBackgroundClick = {this.resetStudentList}/>
+        onColumnClick={this.resetStudentList}
+        onBackgroundClick={this.resetStudentList}/>
     );
   }
 
@@ -176,15 +177,16 @@ export default class SchoolTardiesDashboard extends React.Component {
 
     return (
         <DashboardBarChart
-          id = {'string'}
-          categories = {{categories: homerooms}}
-          seriesData = {homeroomSeries}
-          titleText = {`Tardies by Homeroom (${this.timeRangeText()})`}
-          measureText = {'Number of Tardies'}
-          tooltip = {{
+          id={'string'}
+          animation={false}
+          categories={{categories: homerooms}}
+          seriesData={homeroomSeries}
+          titleText={`Tardies by Homeroom (${this.timeRangeText()})`}
+          measureText={'Number of Tardies'}
+          tooltip= {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-          onColumnClick = {this.setStudentList}
-          onBackgroundClick = {this.resetStudentList}/>
+          onColumnClick={this.setStudentList}
+          onBackgroundClick={this.resetStudentList}/>
     );
   }
 
