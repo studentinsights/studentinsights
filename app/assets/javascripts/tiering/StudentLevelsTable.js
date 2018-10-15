@@ -12,6 +12,7 @@ import DownloadCsvLink from '../components/DownloadCsvLink';
 import ReactModal from 'react-modal';
 import {
   firstMatch,
+  firstMatchWithGrades,
   ENGLISH_OR_CORE_ELL,
   MATH,
   SOCIAL_STUDIES,
@@ -290,7 +291,7 @@ export default class StudentLevelsTable extends React.Component {
 
   renderGradeFor(patterns, {rowData}) {
     const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
+    const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
     return (assignment)
       ? this.renderGrade(assignment.grade_letter)
       : null;
