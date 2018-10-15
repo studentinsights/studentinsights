@@ -12,9 +12,9 @@ import DownloadCsvLink from '../components/DownloadCsvLink';
 import ReactModal from 'react-modal';
 import {
   firstMatch,
-  EN_OR_ELL,
+  ENGLISH_OR_CORE_ELL,
   MATH,
-  HISTORY,
+  SOCIAL_STUDIES,
   SCIENCE,
   CREDIT_RECOVERY,
   ACADEMIC_SUPPORT,
@@ -72,15 +72,15 @@ export default class StudentLevelsTable extends React.Component {
       width: numericCellWidth,
       cellRenderer: this.renderDisciplineIncidents
     }, {
-      dataKey: 'en_or_ell',
+      dataKey: 'english_or_core_ell',
       label: <span><br />EN/ELL</span>,
       width: gradeCellWidth,
-      cellRenderer: this.renderGradeFor.bind(this, EN_OR_ELL)
+      cellRenderer: this.renderGradeFor.bind(this, ENGLISH_OR_CORE_ELL)
     }, {
-      dataKey: 'history',
+      dataKey: 'social_studies',
       label: <span>Social<br/>Studies</span>,
       width: gradeCellWidth,
-      cellRenderer: this.renderGradeFor.bind(this, HISTORY)
+      cellRenderer: this.renderGradeFor.bind(this, SOCIAL_STUDIES)
     }, {
       dataKey: 'math',
       label: <span><br />Math</span>,
@@ -139,8 +139,8 @@ export default class StudentLevelsTable extends React.Component {
       level(student) { return student.tier.level; },
       absence(student) { return student.tier.data.recent_absence_rate; },
       discipline(student) { return student.tier.data.recent_discipline_actions; },
-      en_or_ell(student) { return sortByGrade(EN_OR_ELL, student); },
-      history(student) { return sortByGrade(HISTORY, student); },
+      english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
+      social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
       math(student) { return sortByGrade(MATH, student); },
       science(student) { return sortByGrade(SCIENCE, student); },
       nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
