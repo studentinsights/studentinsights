@@ -8,7 +8,7 @@ import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
 import {
-  labelAssignment,
+  labelDepartmentKey,
   firstMatch,
   CREDIT_RECOVERY,
   ACADEMIC_SUPPORT,
@@ -229,12 +229,12 @@ export default class TieringView extends React.Component {
         linkStyle={{...styles.summary, padding: 0}}
         teaser="Breakdown"
         title="Breakdown"
-        content={this.renderSummary(filteredStudents)}
+        content={this.renderBreakdown(filteredStudents)}
       />
     );
   }
 
-  renderSummary(studentsWithTiering) {
+  renderBreakdown(studentsWithTiering) {
     return (
       <div>
         {this.renderSystemsAndSupportsLink()}
@@ -263,24 +263,21 @@ export default class TieringView extends React.Component {
     );
   }
 
+  // Unused, but for internal debugging
   renderUnlabeledCourses(studentsWithTiering) {
     const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments_right_now));
     const labeledAssignments = assignments.map(assignment => {
       return {
         ...assignment,
-        label: labelAssignment(assignment)
+        departmentKey: labelDepartmentKey(assignment)
       };
     });
 
-    const missing = _.uniq(labeledAssignments
-      .filter(a => a.label === 'unknown')
-      .map(a => a.section.course_description))
-      .slice(0, 10);
+    const unlabeledCourses = _.uniq(labeledAssignments
+      .filter(a => a.departmentKey === 'unknown')
+      .map(a => a.section.course_description));
 
-    return <div>
-      <pre>{JSON.stringify(_.countBy(labeledAssignments, 'label'), null, 2)}</pre>
-      <pre>{JSON.stringify(missing, null, 2)}</pre>
-    </div>;
+    return <pre>{JSON.stringify(unlabeledCourses(studentsWithTiering), null, 2)}</pre>;
   }
 
   renderTierCount(studentsWithTiering, n) {
@@ -308,10 +305,10 @@ export default class TieringView extends React.Component {
     return this.renderSummaryBit(text, count, percentage);
   }
 
-  renderSummaryBit(label, count, percentage) {
+  renderSummaryBit(labelText, count, percentage) {
     return (
-      <div key={label}>
-        <div><b>{label}</b>:</div>
+      <div key={labelText}>
+        <div><b>{labelText}</b>:</div>
         <div style={{marginLeft: 10, marginBottom: 5}}>{percentage}% ({count} students)</div>
       </div>
     );
