@@ -56,6 +56,10 @@ const CORE_ELL_IN_PLACE_OF_ENGLISH = [
   'ESL'
 ];
 
+// Depending on the persective, courses might be considered ELL or
+// within another department (eg, "ESL - Semester SS" would be ESL if asking
+// which department "owns" the course, or would be Social Studies if asking
+// for a student's grade in a particular type of subject).
 const ELL = CORE_ELL_IN_PLACE_OF_ENGLISH.concat([
   'ALCS - GENERAL SUPPORT',
   'GOAL PROGRAM DAILY SEMINAR',
