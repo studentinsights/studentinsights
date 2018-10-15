@@ -10,7 +10,7 @@ import {rankedByLetterGrade, hasLetterGrade} from '../helpers/SortHelpers';
 // and then take the lowest grade (since the idea here is to help educators
 // find where students would benefit from more supports).
 export function firstMatchWithGrades(assignments, patterns) {
-  const matchingAssignments = firstMatch(assignments, patterns);
+  const matchingAssignments = matchingAssignmentsByPattern(assignments, patterns);
   const matchingAssignmentsWithGrades = matchingAssignments.filter(assignment => {
     return hasLetterGrade(assignment.grade_letter);
   });
@@ -21,6 +21,10 @@ export function firstMatchWithGrades(assignments, patterns) {
 }
 
 export function firstMatch(assignments, patterns) {
+  return _.first(matchingAssignmentsByPattern(assignments, patterns));
+}
+
+function matchingAssignmentsByPattern(assignments, patterns) {
   return assignments.filter(assignment => {
     const text = assignment.section.course_description;
     return _.some(patterns, pattern => text.indexOf(pattern) !== -1);
