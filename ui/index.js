@@ -6,15 +6,14 @@ import StudentSearchbar, {clearStorage} from '../app/assets/javascripts/componen
 import App from './App';
 
 
-// Extra guard that there's no browser storage if not signed in
+// Clear browser cache on sign out, and add extra guard that
+// there's no browser storage if not signed in.
+$('.navbar-sign-out').click(clearStorage);
 if (!$('body').hasClass('educator-signed-in')) {
   clearStorage(); 
 }
 
-// Clear browser cache on sign out
-$('.navbar-sign-out').click(clearStorage);
-
-// Add interactive elements to navbar and districtwide page (eg, student searchbar)
+// Make searchbar interactive
 document.querySelectorAll('.StudentSearchbar-root').forEach(el => {
   ReactDOM.render(<StudentSearchbar />, el);
 });
