@@ -2,23 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 import {readEnv} from '../app/assets/javascripts/envForJs';
-import {initSearchBar, clearStorage} from '../app/assets/javascripts/studentSearchbar';
+import StudentSearchbar, {clearStorage} from '../app/assets/javascripts/components/StudentSearchbar';
 import legacyRouteHandler from './legacyRouteHandler';
 import App from './App';
 
-
-// Student searchbar
-if ($('.student-searchbar').length > 0) {
-  initSearchBar();
-}
-
-// Clear browser cache on sign out
-$('.navbar-sign-out').click(clearStorage);
 
 // Extra guard that there's no browser storage if not signed in
 if (!$('body').hasClass('educator-signed-in')) {
   clearStorage(); 
 }
+
+// Clear browser cache on sign out
+$('.navbar-sign-out').click(clearStorage);
+
+// Add interactive elements to navbar and districtwide page (eg, student searchbar)
+document.querySelectorAll('.StudentSearchbar-root').forEach(el => {
+  ReactDOM.render(<StudentSearchbar />, el);
+});
 
 
 // Routing

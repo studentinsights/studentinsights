@@ -44,6 +44,7 @@
     "query-string": "^5.1.0",
     "rc-slider": "^8.3.2",
     "react": "15.4.2",
+    "react-autocomplete": "^1.8.1",
     "react-beautiful-dnd": "6.0.2",
     "react-dom": "15.4.2",
     "react-modal": "3.1.10",

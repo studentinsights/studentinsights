@@ -36,8 +36,7 @@
   <%= link_to "My notes", educators_notes_feed_path %>
   <%= link_to 'My students', educators_my_students_path %>
   <span class="navbar-spacer"></span>
-  <p class="search-label">Search:</p>
-  <input class="student-searchbar" />
+  <div class="StudentSearchbar-root"><input class="StudentSearchbar-placeholder" /></div>
   <span class="navbar-spacer"></span>
   <div>
     <% if masquerade.authorized? %>
