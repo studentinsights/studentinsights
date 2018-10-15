@@ -65,7 +65,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {selectedChart, selectedCategory, house} = this.state;
     return students.filter(student => {
       if (house !== ALL && student.house !== house) return false;
-      if (shouldFilterSelectedCategory) { //used by the student list when a user selects a category within a chart
+      if (selectedCategory && shouldFilterSelectedCategory) { //used by the student list when a user selects a category within a chart
         if (selectedChart === 'grade' && student.grade !== selectedCategory) return false;
         if (selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
         if (!this.filterIncidents(student.discipline_incidents, true).length) return false;
@@ -196,7 +196,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   studentTableRows(students) {
-    const filteredStudents = this.filterStudents(students);
+    const filteredStudents = this.filterStudents(students, true);
     const {selectedCategory} = this.state;
     return filteredStudents.map(student => {
       return {
@@ -223,7 +223,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   onHouseChanged(house) {
-    this.setState({house, electedCategory: null});
+    this.setState({house, selectedCategory: null});
   }
 
   onTimeRangeKeyChanged(timeRangeKey) {
@@ -326,8 +326,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderStudentDisciplineTable(students) {
-    const selectedStudents = this.filterStudents(students, true);
-    const rows = this.studentTableRows(selectedStudents);
+    const rows = this.studentTableRows(students);
     return (
       <StudentsTable
         rows = {rows}
@@ -344,7 +343,9 @@ SchoolDisciplineDashboard.contextTypes = {
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   school: PropTypes.shape({
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    local_id: PropTypes.string.isRequired,
+    school_type: PropTypes.string.isRequired
   }).isRequired
 };
 
