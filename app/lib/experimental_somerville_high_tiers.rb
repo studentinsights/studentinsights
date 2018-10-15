@@ -7,9 +7,6 @@
 class ExperimentalSomervilleHighTiers
   FAILING_GRADE = 65
 
-  class Tier < Struct.new(:level, :triggers, :data)
-  end
-
   def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(@educator)
@@ -62,7 +59,7 @@ class ExperimentalSomervilleHighTiers
         section_assignments_right_now: student_section_assignments_by_student_id.fetch(student.id, [])
       }
       tiering_data = calculate_tiering_data(query_results_for_student, @time_interval)
-      tiers_by_student_id[student.id] = decide_tier(tiering_data)
+      tiers_by_student_id[student.id] = ShsTiers.new.decide_tier(tiering_data)
     end
 
     # Optimized batch query for latest event_notes
@@ -102,50 +99,6 @@ class ExperimentalSomervilleHighTiers
       })
     end
     students_with_tiering.as_json
-  end
-
-  # See internal SHS doc at https://docs.google.com/document/d/10Rm-FMeQsj_ArxqVWefa6bz8-cs2zsCEubaP3iR24KA/edit
-  def decide_tier(data, options = {})
-    # Level 4: At least 4 F's
-    #   OR less than 80% attendance over last 45 school days
-    #   OR 7 or more discipline actions over the last 45 school days
-    tier_four_triggers = [
-      (:academic if data[:course_failures] >= 4),
-      (:absence if data[:recent_absence_rate] < 0.80),
-      (:discipline if data[:recent_discipline_actions] >= 7)
-    ].compact
-    return Tier.new(4, tier_four_triggers, data) if tier_four_triggers.size > 0
-
-    # Level 3: 3 F's
-    #   OR less than 85% attendance over last 45
-    #   OR 5-6 discipline actions over the last 45 school days
-    tier_three_triggers = [
-      (:academic if data[:course_failures] >= 3),
-      (:absence if data[:recent_absence_rate] < 0.85),
-      (:discipline if data[:recent_discipline_actions] >= 5)
-    ].compact
-    return Tier.new(3, tier_three_triggers, data) if tier_three_triggers.size > 0
-
-    # Level 2: 2 F's
-    #  OR less than 90% attendance over last 45
-    #  (no discipline involved in calculation)
-    tier_two_triggers = [
-      (:academic if data[:course_failures] >= 2),
-      (:absence if data[:recent_absence_rate] < 0.90)
-    ].compact
-    return Tier.new(2, tier_two_triggers, data) if tier_two_triggers.size > 0
-
-    # Level 1: 1 F and 2 Ds
-    #   OR less than 95% attendance over last 45 days
-    #   (no discipline involved)
-    tier_one_triggers = [
-      (:academic if data[:course_failures] == 1 && data[:course_ds] >= 2),
-      (:absence if data[:recent_absence_rate] < 0.95)
-    ].compact
-    return Tier.new(1, tier_one_triggers, data) if tier_one_triggers.size > 0
-
-    # Level 0: Not any of the other levels
-    return Tier.new(0, [], data)
   end
 
   private
@@ -221,12 +174,12 @@ class ExperimentalSomervilleHighTiers
     absences_count_in_period = query_results_for_student.fetch(:absences_count_in_period)
     discipline_incident_count_in_period = query_results_for_student.fetch(:discipline_incident_count_in_period)
     section_assignments_right_now = query_results_for_student.fetch(:section_assignments_right_now)
-    {
+    ShsTiers.tiering_inputs({
       course_failures: course_failures(section_assignments_right_now),
       course_ds: course_ds(section_assignments_right_now),
       recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),
       recent_discipline_actions: discipline_incident_count_in_period
-    }
+    })
   end
 
   def current_term_local_ids(time_now)
