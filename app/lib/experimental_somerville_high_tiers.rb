@@ -59,8 +59,6 @@ class ExperimentalSomervilleHighTiers
         section_assignments_right_now: student_section_assignments_by_student_id.fetch(student.id, [])
       }
       tiering_data = calculate_tiering_data(query_results_for_student, @time_interval)
-      puts 'tiering_data'
-      puts tiering_data.inspect
       tiers_by_student_id[student.id] = ShsTiers.new.decide_tier(tiering_data)
     end
 
