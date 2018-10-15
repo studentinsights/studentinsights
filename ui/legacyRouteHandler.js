@@ -1,6 +1,7 @@
 import renderStudentMain from '../app/assets/javascripts/student_profile/main';
 import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main';
+import renderDistrictPageMain from '../app/assets/javascripts/district/main';
 
 
 // Placeholder routing (not fully client-side, just on page load).

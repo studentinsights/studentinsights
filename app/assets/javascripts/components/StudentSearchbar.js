@@ -54,7 +54,7 @@ export default class StudentSearchbar extends React.Component {
 
   render() {
     const {students, text} = this.state;
-    const {autocompleteProps} = this.props;
+    const {autocompleteProps, inputStyles} = this.props;
     
     return (
       <Autocomplete
@@ -66,7 +66,7 @@ export default class StudentSearchbar extends React.Component {
         shouldItemRender={matchStateToTerm}
         onChange={(event, text) => this.setState({text})}
         onSelect={(text, item) => this.onStudentSelected(item.id)}
-        renderInput={props => <input style={styles.input} placeholder="Find student..." {...props} />}
+        renderInput={props => <input style={{...styles.input, ...inputStyles}} placeholder="Find student..." {...props} />}
         menuStyle={styles.menu}
         renderItem={(item, isHighlighted) => (
           <div style={{
@@ -90,6 +90,7 @@ export default class StudentSearchbar extends React.Component {
 }
 StudentSearchbar.propTypes = {
   autocompleteProps: PropTypes.object,
+  inputStyles: PropTypes.object,
   onStudentSelected: PropTypes.object // eg, for testing
 };
 
