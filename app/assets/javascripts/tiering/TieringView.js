@@ -158,8 +158,13 @@ export default class TieringView extends React.Component {
   }
 
   renderSystemsAndSupportsLink() {
-    const {systemsAndSupportsUrl} = this.props;
-    return <a href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>;
+    const {systemsAndSupportsUrl, sourceCodeUrl} = this.props;
+    return (
+      <div>
+        <a style={{display: 'block'}} href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>
+        <a style={{display: 'block'}} href={sourceCodeUrl} target="_blank">Open source code</a>
+      </div>
+    );
   }
 
   renderExperienceGaps(filteredStudents) {
@@ -324,6 +329,7 @@ export default class TieringView extends React.Component {
 }
 TieringView.propTypes = {
   systemsAndSupportsUrl: PropTypes.string.isRequired,
+  sourceCodeUrl: PropTypes.string.isRequired,
   studentsWithTiering: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
