@@ -174,7 +174,7 @@ class ExperimentalSomervilleHighTiers
     absences_count_in_period = query_results_for_student.fetch(:absences_count_in_period)
     discipline_incident_count_in_period = query_results_for_student.fetch(:discipline_incident_count_in_period)
     section_assignments_right_now = query_results_for_student.fetch(:section_assignments_right_now)
-    ::ShsTiers::TieringInputs.new({
+    ShsTiers.tiering_inputs({
       course_failures: course_failures(section_assignments_right_now),
       course_ds: course_ds(section_assignments_right_now),
       recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),

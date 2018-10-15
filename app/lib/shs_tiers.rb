@@ -1,4 +1,8 @@
 class ShsTiers
+  def self.tiering_inputs(options = {})
+    TieringInputs.new(options)
+  end
+
   # See internal SHS doc at https://docs.google.com/document/d/10Rm-FMeQsj_ArxqVWefa6bz8-cs2zsCEubaP3iR24KA/edit
   def decide_tier(tiering_inputs_data)
     course_ds = tiering_inputs_data.course_ds
@@ -48,6 +52,7 @@ class ShsTiers
     return Tier.new(0, [], tiering_inputs_data)
   end
 
+  private
   # Inputs to deciding
   class TieringInputs
     attr_reader :course_failures

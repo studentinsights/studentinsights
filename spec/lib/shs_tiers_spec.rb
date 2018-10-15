@@ -5,8 +5,8 @@ RSpec.describe ShsTiers do
   let!(:time_now) { pals.time_now }
 
   describe '#decide_tier' do
-    def decide_tier_output(data)
-      tiering_inputs = TieringInputs.new(tiering_inputs_data)
+    def decide_tier_output(tiering_inputs_data)
+      tiering_inputs = ShsTiers.tiering_inputs(tiering_inputs_data)
       tier = ShsTiers.new.decide_tier(tiering_inputs)
       [tier.level, tier.triggers]
     end
