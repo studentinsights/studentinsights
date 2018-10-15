@@ -195,7 +195,7 @@ export default class StudentLevelsTable extends React.Component {
     const students = this.orderedStudents();
     
     return (
-      <div className="StudentLevelsTable" style={{flex: 1, display: 'block', flexDirection: 'column'}}>
+      <div className="StudentLevelsTable" style={styles.root}>
         {this.renderDownloadLink(columns, students)}
         <AutoSizer>
           {({height, width}) => (
@@ -360,6 +360,15 @@ StudentLevelsTable.propTypes = {
 const warningColor = 'rgb(255, 222, 198)';
 const strengthColor = '#4d884d';
 const styles = {
+  root: {
+    flex: 1,
+    display: 'block',
+    flexDirection: 'column',
+    // works around bug with the way `react-virtualized` resizes that impacts
+    // Windows 10 Chromebooks in particular, and I haven't been able to reproduce
+    // in a VM
+    overflow: 'hidden'
+  },
   tableHeaderStyle: {
     display: 'flex',
     fontSize: 12,
