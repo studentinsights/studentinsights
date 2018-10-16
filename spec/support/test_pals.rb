@@ -449,6 +449,7 @@ class TestPals
       grade_letter: 'F'
     )
 
+
     add_team_memberships unless skip_team_memberships
 
     reindex!
