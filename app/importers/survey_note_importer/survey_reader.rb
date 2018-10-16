@@ -1,5 +1,4 @@
-# Takes a CSV processes each row into the shape of
-# a "survey note".
+# Takes a CSV processes each row to join keys with Insights (eg, from say a survey).
 #
 # The shape is:
 #  1) `source_key` describes what this is
@@ -8,28 +7,10 @@
 #  4) there are some fields for importing (eg, LASID)
 #  5) other fields are stored as a map of field>value in `source_json`
 #  
-# The semantics for import here are:
+# The semantics for data flow here are:
 #  1) rows aren't guaranteed to be unique in the source data
 #  2) in-place edits are unlikely, but will update records in-place
-#
-class SurveyNoteImporter
-  STUDENT_MEETING = 'student_meeting'
-
-  def self.student_meeting(file_text, options = {})
-    SurveyNoteImporter.new(file_text, options.merge({
-      source_key: STUDENT_MEETING,
-      config: {
-        student_local_id: 'Local Student ID Number',
-        educator_email: 'Username',
-        timestamp: 'Timestamp',
-        ignore_keys: [
-          'Student First and Last Name',
-          'Q1 IPR meeting with (add teacher name below)'
-        ]
-      }
-    }))
-  end
-
+class SurveyReader
   def initialize(file_text, options = {})
     @file_text = file_text
     @source_key = options[:source_key]
@@ -62,7 +43,7 @@ class SurveyNoteImporter
     row = raw_row.to_h
 
     # student?
-    student_local_id = row[config[:student_local_id]]
+    student_local_id = row[config[:student_local_id]].strip
     student_id = Student.find_by_local_id(student_local_id).try(:id)
     if student_id.nil?
       @invalid_rows_count += 1
@@ -71,7 +52,7 @@ class SurveyNoteImporter
     end
 
     # educator?
-    educator_email = row[config[:educator_email]]
+    educator_email = row[config[:educator_email]].strip
     educator_id = Educator.find_by_email(educator_email).try(:id)
     if educator_id.nil?
       @invalid_rows_count += 1
