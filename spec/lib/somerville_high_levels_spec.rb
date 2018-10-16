@@ -16,8 +16,8 @@ RSpec.describe SomervilleHighLevels do
         event_note_type_id: 305,
         recorded_at: time_now - 6.days
       })
-      levels = SomervilleHighLevels.new(pals.uri)
-      students_with_levels_json = levels.students_with_levels_json([pals.shs.id], time_now)
+      levels = SomervilleHighLevels.new
+      students_with_levels_json = levels.students_with_levels_json(pals.uri, [pals.shs.id], time_now)
       expect(students_with_levels_json).to contain_exactly(*[{
         "id"=>pals.shs_freshman_mari.id,
         "grade"=>"9",
