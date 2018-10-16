@@ -7,8 +7,8 @@ class LevelsController < ApplicationController
     school_id = (School.find_by_slug(params[:school_id]) || School.find_by_id(params[:school_id])).id
     time_now = time_now_or_param(params[:time_now])
 
-    levels = SomervilleHighLevels.new(current_educator)
-    students_with_levels_json = levels.students_with_levels_json([school_id], time_now)
+    levels = SomervilleHighLevels.new
+    students_with_levels_json = levels.students_with_levels_json(current_educator, [school_id], time_now)
     render json: {
       students_with_levels: students_with_levels_json
     }

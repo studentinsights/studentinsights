@@ -5,25 +5,27 @@
 class SomervilleHighLevels
   FAILING_GRADE = 65
 
-  def initialize(educator, options = {})
-    @educator = educator
-    @authorizer = Authorizer.new(@educator)
+  def initialize(options = {})
     @time_interval = options.fetch(:time_interval, 45.days)
-
     if !PerDistrict.new.enabled_high_school_levels?
       raise 'not enabled: PerDistrict.new.enabled_high_school_levels?'
     end
   end
 
-  def students_with_levels_json(school_ids, time_now)
-    cutoff_time = time_now - @time_interval
-
+  # with authorization scoped to `educator`
+  def students_with_levels_json(educator, school_ids, time_now)
     # query for students, enforce authorization
-    students = @authorizer.authorized do
+    students = Authorizer.new(educator).authorized do
       Student.active
         .where(school_id: school_ids)
         .to_a # because of AuthorizedDispatcher#filter_relation
     end
+    unsafe_students_with_levels_json(students, time_now)
+  end
+
+  # Query for the students given, without an authorization check
+  def unsafe_students_with_levels_json(students, time_now)
+    cutoff_time = time_now - @time_interval
     student_ids = students.map(&:id)
 
     # query for absences and discipline events in batch
