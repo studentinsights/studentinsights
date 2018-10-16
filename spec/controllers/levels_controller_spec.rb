@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe TieringController, :type => :controller do
+describe LevelsController, :type => :controller do
   before { request.env['HTTPS'] = 'on' }
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
@@ -24,8 +24,8 @@ describe TieringController, :type => :controller do
         expect(response.status).to eq 200
 
         json = JSON.parse(response.body)
-        expect(json['students_with_tiering'].size).to be <= authorized_students.size
-        expect(authorized_students.map(&:id)).to include(*json['students_with_tiering'].map {|s| s['id'] })
+        expect(json['students_with_levels'].size).to be <= authorized_students.size
+        expect(authorized_students.map(&:id)).to include(*json['students_with_levels'].map {|s| s['id'] })
       end
     end
 
@@ -36,9 +36,9 @@ describe TieringController, :type => :controller do
         json = JSON.parse(response.body)
 
         # check shape of data
-        expect(json.keys).to eq ['students_with_tiering']
-        expect(json['students_with_tiering'].size).to eq 3
-        expect(json['students_with_tiering'].map(&:keys).flatten.uniq).to contain_exactly(*[
+        expect(json.keys).to eq ['students_with_levels']
+        expect(json['students_with_levels'].size).to eq 3
+        expect(json['students_with_levels'].map(&:keys).flatten.uniq).to contain_exactly(*[
           "id",
           "grade",
           "first_name",
@@ -48,19 +48,19 @@ describe TieringController, :type => :controller do
           "sped_placement",
           "house",
           "student_section_assignments_right_now",
-          "tier",
+          "level",
           "notes"
         ])
-        expect(json['students_with_tiering'].map {|s| s['notes'].keys }.flatten.uniq).to eq([
+        expect(json['students_with_levels'].map {|s| s['notes'].keys }.flatten.uniq).to eq([
           "last_sst_note",
           "last_experience_note",
           "last_other_note"
         ])
 
         # time_now is in Q3, so this includes one D for mari and one failure for kylo
-        expect(json['students_with_tiering'].map {|student| student['tier']}).to contain_exactly(*[
+        expect(json['students_with_levels'].map {|student| student['level']}).to contain_exactly(*[
         { # mari
-          "level"=>0,
+          "level_number"=>0,
           "triggers"=>[],
           "data"=>{
             "course_failures"=>0,
@@ -69,7 +69,7 @@ describe TieringController, :type => :controller do
             "recent_discipline_actions"=>0
           }
         }, { # amir
-          "level"=>0,
+          "level_number"=>0,
           "triggers"=>[],
           "data"=>{
             "course_failures"=>0,
@@ -78,7 +78,7 @@ describe TieringController, :type => :controller do
             "recent_discipline_actions"=>0
           }
         }, { # kylo
-          "level"=>0,
+          "level_number"=>0,
           "triggers"=>[],
           "data"=>{
             "course_failures"=>1,

@@ -1,4 +1,4 @@
-class TieringController < ApplicationController
+class LevelsController < ApplicationController
   before_action :ensure_feature_enabled_for_district!
 
   def show_json
@@ -7,12 +7,12 @@ class TieringController < ApplicationController
     school_id = (School.find_by_slug(params[:school_id]) || School.find_by_id(params[:school_id])).id
     time_now = time_now_or_param(params[:time_now])
 
-    tiers = ExperimentalSomervilleHighTiers.new(current_educator)
-    students_with_tiering_json = tiers.students_with_tiering_json([school_id], time_now)
+    levels = SomervilleHighLevels.new(current_educator)
+    students_with_levels_json = levels.students_with_levels_json([school_id], time_now)
     # render json: {
-    #   students_with_tiering: students_with_tiering_json
+    #   students_with_levels: students_with_levels_json
     # }
-    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER/tiers.json'))
+    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER/levels.json'))
   end
 
   private
@@ -26,6 +26,6 @@ class TieringController < ApplicationController
   end
 
   def ensure_feature_enabled_for_district!
-    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_high_school_tiering?
+    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_high_school_levels?
   end
 end

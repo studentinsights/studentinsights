@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import TieringView from './TieringView';
-import tieringShowJson from './tieringShowJson.fixture';
+import LevelsView from './LevelsView';
+import levelsShowJson from './levelsShowJson.fixture';
 
 function testProps(props = {}) {
   return {
     systemsAndSupportsUrl: 'https://example.com/foo',
     sourceCodeUrl: 'https://example.com/source',
-    studentsWithTiering: tieringShowJson.students_with_tiering,
+    studentsWithLevels: levelsShowJson.students_with_levels,
     ...props
   };
 }
@@ -18,7 +18,7 @@ it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(
-    <PerDistrictContainer districtKey="somerville"><TieringView {...props} /></PerDistrictContainer>
+    <PerDistrictContainer districtKey="somerville"><LevelsView {...props} /></PerDistrictContainer>
   ), el);
 
   expect($(el).html()).toContain('Search 74 students...');

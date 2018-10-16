@@ -96,7 +96,7 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def enabled_high_school_tiering?
+  def enabled_high_school_levels?
     @district_key == SOMERVILLE || @district_key == DEMO
   end
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {Table, Column, AutoSizer, SortDirection, SortIndicator} from 'react-virtualized';
+import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {rankedByLetterGrade} from '../helpers/SortHelpers';
@@ -41,7 +41,7 @@ export default class StudentLevelsTable extends React.Component {
   render() {
     const {nowFn} = this.context;
     const nowMoment = nowFn();
-    const {orderedStudentsWithTiering, sortBy, sortDirection} = this.props;
+    const {orderedStudentsWithLevels, sortBy, sortDirection} = this.props;
     const columns = describeColumns(nowMoment);
     
     return (
@@ -54,8 +54,8 @@ export default class StudentLevelsTable extends React.Component {
               headerHeight={40}
               headerStyle={styles.tableHeaderStyle}
               height={height}
-              rowCount={orderedStudentsWithTiering.length}
-              rowGetter={({index}) => orderedStudentsWithTiering[index]}
+              rowCount={orderedStudentsWithLevels.length}
+              rowGetter={({index}) => orderedStudentsWithLevels[index]}
               rowHeight={40}
               rowStyle={{display: 'flex', alignItems: 'center'}}
               sort={this.onTableSort}
@@ -73,7 +73,7 @@ StudentLevelsTable.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 StudentLevelsTable.propTypes = {
-  orderedStudentsWithTiering: PropTypes.array.isRequired,
+  orderedStudentsWithLevels: PropTypes.array.isRequired,
   sortBy: PropTypes.string.isRequired,
   sortDirection: PropTypes.oneOf([
     SortDirection.ASC,
@@ -142,78 +142,83 @@ export function describeColumns(nowMoment) {
 
   return [{
     dataKey: 'student',
-    label: "Student",
+    label: 'Student',
     width: 120,
     flexGrow:1,
     cellRenderer: renderStudent
   }, {
     dataKey: 'level',
-    label: "Level",
+    label: 'Level',
     width: gradeCellWidth,
     cellRenderer: renderLevel
   }, {
     dataKey: 'absence',
-    label: "Attendance Rate",
+    label: 'Attendance Rate',
     width: numericCellWidth,
     cellRenderer: renderAbsenceRate
   }, {
     dataKey: 'discipline',
-    label: "Discipline Incidents",
+    label: 'Discipline Incidents',
     width: numericCellWidth,
     cellRenderer: renderDisciplineIncidents
   }, {
     dataKey: 'english_or_core_ell',
-    label: "EN/ELL",
+    label: 'EN/ELL',
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, ENGLISH_OR_CORE_ELL)
   }, {
     dataKey: 'social_studies',
-    label: "Social Studies",
+    label: 'Social Studies',
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, SOCIAL_STUDIES)
   }, {
     dataKey: 'math',
-    label: "Math",
+    label: 'Math',
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, MATH)
   }, {
     dataKey: 'science',
-    label: "Science",
+    label: 'Science',
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, SCIENCE)
   }, {
     dataKey: 'nge',
-    label: "Last NGE/ 10GE/NEST",
+    label: 'Last NGE/10GE/NEST',
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_experience_note')
   }, {
     dataKey: 'sst',
-    label: "Last SST",
+    label: 'Last SST',
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_sst_note')
   }, {
+    dataKey: 'other_note',
+    label: 'Last other note',
+    width: supportCellWidth,
+    cellRenderer: renderNotes.bind(null, nowMoment, 'last_other_note')
+  }, {
     dataKey: 'study',
-    label: "Study skills",
+    label: 'Study skills',
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, STUDY_SKILLS, 'study')
   }, {
     dataKey: 'support',
-    label: "Academic Support",
+    label: 'Academic Support',
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, ACADEMIC_SUPPORT, 'support')
   }, {
     dataKey: 'redirect',
-    label: "Redirect",
+    label: 'Redirect',
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, REDIRECT, 'redirect')
   }, {
     dataKey: 'recovery',
-    label: "Credit Recovery",
+    label: 'Credit Recovery',
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, CREDIT_RECOVERY, 'recovery')
   }, {
     dataKey: 'program_assigned',
-    label: "Program or SPED",
+    label: 'Program or SPED',
     width: supportCellWidth,
     cellRenderer: renderProgram
   }];
@@ -228,22 +233,22 @@ function renderStudent({rowData}) {
 }
 
 function renderLevel({rowData}) {
-  return <span style={{textAlign: 'center'}}>{rowData.tier.level}</span>;
+  return <span style={{textAlign: 'center'}}>{rowData.level.level_number}</span>;
 }
 
 function renderDisciplineIncidents({rowData}) {
-  const {tier} = rowData;
-  const count = tier.data.recent_discipline_actions;
-  const style = (tier.triggers.indexOf('discipline') !== -1)
+  const {level} = rowData;
+  const count = level.data.recent_discipline_actions;
+  const style = (level.triggers.indexOf('discipline') !== -1)
     ? styles.warn
     : styles.plain;
   return <span style={style}>{count}</span>; 
 }
 
 function renderAbsenceRate({rowData}) {
-  const {tier} = rowData;
-  const percentage = Math.round(tier.data.recent_absence_rate * 100);
-  const style = (tier.triggers.indexOf('absence') !== -1)
+  const {level} = rowData;
+  const percentage = Math.round(level.data.recent_absence_rate * 100);
+  const style = (level.triggers.indexOf('absence') !== -1)
     ? styles.warn
     : styles.plain;
   return <span style={style}>{percentage}%</span>; 
@@ -309,13 +314,13 @@ function renderNotes(nowMoment, key, {rowData}) {
 // This is used both for react-virtualized and interpreted to make the CSV export.
 // It's not called in this component, but is defined here since it's so coupled to the implementation
 // of the columns.
-export function orderedStudents(studentsWithTiering, sortBy, sortDirection) {
+export function orderedStudents(studentsWithLevels, sortBy, sortDirection) {
   // map dataKey to an accessor/sort function
   const sortFns = {
     student(student) { return `${student.last_name}, ${student.first_name}`; },
-    level(student) { return student.tier.level; },
-    absence(student) { return student.tier.data.recent_absence_rate; },
-    discipline(student) { return student.tier.data.recent_discipline_actions; },
+    level(student) { return student.level.level_number; },
+    absence(student) { return student.level.data.recent_absence_rate; },
+    discipline(student) { return student.level.data.recent_discipline_actions; },
     english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
     social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
     math(student) { return sortByGrade(MATH, student); },
@@ -332,11 +337,11 @@ export function orderedStudents(studentsWithTiering, sortBy, sortDirection) {
 
   // "Natural" sort order, before table sorting
   const sortFn = sortFns[sortBy] || sortFns.fallback;
-  const sortedRows = _.sortBy(studentsWithTiering, [
+  const sortedRows = _.sortBy(studentsWithLevels, [
     (s => sortFn(s)),
-    (s => s.tier.level),
-    (s => s.tier.triggers.length),
-    (s => s.tier.triggers.sort()),
+    (s => s.level.level_number),
+    (s => s.level.triggers.length),
+    (s => s.level.triggers.sort()),
     (s => s.last_name),
     (s => s.first_name)
   ]);

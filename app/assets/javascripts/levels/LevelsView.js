@@ -12,18 +12,18 @@ import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
 import HelpBubble, {modalFromRight} from '../components/HelpBubble';
-import TieringBreakdown from './TieringBreakdown';
+import LevelsBreakdown from './LevelsBreakdown';
 import StudentLevelsTable, {
   orderedStudents,
   describeColumns
 } from './StudentLevelsTable';
 
 
-// UI for HS tiering prototype.  Contains a filter and button bar,
+// UI for HS Levels page.  Contains a filter and button bar,
 // and a table of students.  This components tracks state for the sorting
 // and filtering within table, so that it can re-use that in the button
 // bar to export as a CSV.
-export default class TieringView extends React.Component {
+export default class LevelsView extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState();
@@ -32,7 +32,7 @@ export default class TieringView extends React.Component {
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onEnglishProficiencyChanged = this.onEnglishProficiencyChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
-    this.onTierChanged = this.onTierChanged.bind(this);
+    this.onLevelChanged = this.onLevelChanged.bind(this);
     this.onTriggerChanged = this.onTriggerChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
@@ -40,19 +40,19 @@ export default class TieringView extends React.Component {
   }
 
   areFiltersApplied() {
-    const {studentsWithTiering} = this.props;
-    return (this.filteredStudents().length !== studentsWithTiering.length);
+    const {studentsWithLevels} = this.props;
+    return (this.filteredStudents().length !== studentsWithLevels.length);
   }
 
   filteredStudents() {
-    const {studentsWithTiering} = this.props;
-    const {grade, house, tier, trigger, englishProficiency, search} = this.state;
-    return studentsWithTiering.filter(s => {
+    const {studentsWithLevels} = this.props;
+    const {grade, house, level, trigger, englishProficiency, search} = this.state;
+    return studentsWithLevels.filter(s => {
       if (grade !== ALL && s.grade !== grade) return false;
       if (englishProficiency !== ALL && s.limited_english_proficiency !== englishProficiency) return false;
       if (house !== ALL && s.house !== house) return false;
-      if (tier !== ALL && s.tier.level !== parseInt(tier, 0)) return false;
-      if (trigger !== ALL && s.tier.triggers.indexOf(trigger) === -1) return false;
+      if (level !== ALL && s.level.level_number !== parseInt(level, 0)) return false;
+      if (trigger !== ALL && s.level.triggers.indexOf(trigger) === -1) return false;
       
       if (search !== '') {
         const tokens = search.toLowerCase().split(' ');
@@ -103,8 +103,8 @@ export default class TieringView extends React.Component {
     this.setState({house});
   }
 
-  onTierChanged(tier) {
-    this.setState({tier});
+  onLevelChanged(level) {
+    this.setState({level});
   }
 
   onTriggerChanged(trigger) {
@@ -114,7 +114,7 @@ export default class TieringView extends React.Component {
   render() {
     const filteredStudents = this.orderedStudents(this.filteredStudents());
     return (
-      <EscapeListener className="TieringView" style={{...styles.root, ...styles.flexVertical}} onEscape={this.onEscape}>
+      <EscapeListener className="LevelsView" style={{...styles.root, ...styles.flexVertical}} onEscape={this.onEscape}>
         {this.renderSelection(filteredStudents)}
         {this.renderTable(filteredStudents)}
       </EscapeListener>
@@ -122,10 +122,10 @@ export default class TieringView extends React.Component {
   }
 
   renderSelection(filteredStudents) {
-    const {grade, house, englishProficiency, tier, trigger, search} = this.state;
+    const {grade, house, englishProficiency, level, trigger, search} = this.state;
 
     const nullOption = [{ value: ALL, label: 'All' }];
-    const possibleTiers = ['0', '1', '2', '3', '4'];
+    const possibleLevelNumbers = ['0', '1', '2', '3', '4'];
     const possibleTriggers = ['academic', 'absence', 'discipline'];
     return (
       <FilterBar style={styles.filterBar} barStyle={{flex: 1}} labelText="Filter">
@@ -150,9 +150,9 @@ export default class TieringView extends React.Component {
         <SimpleFilterSelect
           style={{...styles.select, width: '8em'}}
           placeholder="Level..."
-          value={tier}
-          onChange={this.onTierChanged}
-          options={nullOption.concat(possibleTiers.map(value => {
+          value={level}
+          onChange={this.onLevelChanged}
+          options={nullOption.concat(possibleLevelNumbers.map(value => {
             return { value, label: `Level ${value}` };
           }))} />
         <SimpleFilterSelect
@@ -165,7 +165,7 @@ export default class TieringView extends React.Component {
           }))} />
         <div style={styles.textBar}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
-            <div style={styles.tieringInfo}>Last 45 days</div>
+            <div style={styles.timePeriodText}>Last 45 days</div>
             {this.renderBreakdownLink(filteredStudents)}
           </div>
           <div style={{display: 'flex', flexDirection: 'column', paddingLeft: 10}}>
@@ -202,8 +202,8 @@ export default class TieringView extends React.Component {
         teaser="Breakdown"
         title="Breakdown"
         content={
-          <TieringBreakdown
-            studentsWithTiering={filteredStudents}
+          <LevelsBreakdown
+            studentsWithLevels={filteredStudents}
             messageEl={this.renderFilterWarningMessage(filteredStudents)}
             levelsLinksEl={this.renderLevelsLinks()}
           />
@@ -269,12 +269,12 @@ export default class TieringView extends React.Component {
     );
   }
 
-  renderTable(orderedStudentsWithTiering) {
+  renderTable(orderedStudentsWithLevels) {
     const {sortBy, sortDirection} = this.state;
     return (
       <div style={{...styles.tableContainer, ...styles.flexVertical}}>
         <StudentLevelsTable
-          orderedStudentsWithTiering={orderedStudentsWithTiering}
+          orderedStudentsWithLevels={orderedStudentsWithLevels}
           sortBy={sortBy}
           sortDirection={sortDirection}
           onTableSort={this.onTableSort}
@@ -283,13 +283,13 @@ export default class TieringView extends React.Component {
     );
   }
 }
-TieringView.contextTypes = {
+LevelsView.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
-TieringView.propTypes = {
+LevelsView.propTypes = {
   systemsAndSupportsUrl: PropTypes.string.isRequired,
   sourceCodeUrl: PropTypes.string.isRequired,
-  studentsWithTiering: PropTypes.arrayOf(PropTypes.shape({
+  studentsWithLevels: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
@@ -342,7 +342,7 @@ const styles = {
     fontSize: 12,
     marginLeft: 15
   },
-  tieringInfo: {
+  timePeriodText: {
     fontSize: 12,
     color: '#666'
   },
@@ -384,7 +384,7 @@ function initialState() {
     grade: ALL,
     englishProficiency: ALL,
     house: ALL,
-    tier: ALL,
+    level: ALL,
     trigger: ALL,
     sortBy: 'level',
     sortDirection: SortDirection.ASC,
