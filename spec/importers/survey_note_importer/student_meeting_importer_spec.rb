@@ -34,10 +34,10 @@ RSpec.describe StudentMeetingImporter do
         :validation_failure_counts_by_field => {},
       })
     end
-  
+
     it 'does not update unchanged records from previous import' do
       pals = TestPals.create!
-      
+
       # first run
       first_survey, first_syncer = StudentMeetingImporter.new.import(fixture_file_text)
       expect(first_syncer.send(:stats)).to eq({
@@ -52,7 +52,7 @@ RSpec.describe StudentMeetingImporter do
       })
       first_records_json = EventNote.all.as_json
       expect(first_records_json.size).to eq 2
-      
+
       # second run
       second_survey, second_syncer = StudentMeetingImporter.new.import(fixture_file_text)
       expect(second_syncer.send(:stats)).to eq({
@@ -72,7 +72,7 @@ RSpec.describe StudentMeetingImporter do
     it 'does not impact other existing notes' do
       pals = TestPals.create!
       4.times { FactoryBot.create(:event_note) }
-      
+
       survey, syncer = StudentMeetingImporter.new.import(fixture_file_text)
       expect(syncer.send(:stats)).to eq({
         :created_rows_count => 2,

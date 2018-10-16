@@ -14,7 +14,7 @@ class StudentMeetingImporter
     # Read the CSV
     survey = parse_rows(file_text, options)
     log "reader#stats: #{survey[:stats]}"
-    
+
     # Translate survey to generic EventNote hashes, and then do an exact sync
     importer = FlatNoteImporter.new(log: @log)
     hashes_for_notes = importer.generic_hashes_for_notes(note_title, survey[:parsed_rows])

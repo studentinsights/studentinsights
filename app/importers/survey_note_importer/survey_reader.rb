@@ -6,7 +6,7 @@
 #  3) the importer might skip some rows
 #  4) there are some fields for importing (eg, LASID)
 #  5) other fields are stored as a map of field>value in `source_json`
-#  
+#
 # The semantics for data flow here are:
 #  1) rows aren't guaranteed to be unique in the source data
 #  2) in-place edits are unlikely, but will update records in-place
