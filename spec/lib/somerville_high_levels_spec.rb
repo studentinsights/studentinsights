@@ -16,8 +16,8 @@ RSpec.describe SomervilleHighLevels do
         event_note_type_id: 305,
         recorded_at: time_now - 6.days
       })
-      levels = SomervilleHighLevels.new(pals.uri)
-      students_with_levels_json = levels.students_with_levels_json([pals.shs.id], time_now)
+      levels = SomervilleHighLevels.new
+      students_with_levels_json = levels.students_with_levels_json(pals.uri, [pals.shs.id], time_now)
       expect(students_with_levels_json).to contain_exactly(*[{
         "id"=>pals.shs_freshman_mari.id,
         "grade"=>"9",
@@ -124,7 +124,7 @@ RSpec.describe SomervilleHighLevels do
 
   describe '#current_term_local_ids' do
     it 'works at different times' do
-      levels = SomervilleHighLevels.new(pals.uri)
+      levels = SomervilleHighLevels.new
       expect(levels.send(:current_term_local_ids, time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
       expect(levels.send(:current_term_local_ids, DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
       expect(levels.send(:current_term_local_ids, DateTime.new(2018, 11, 21))).to eq  ['Q2', 'S1', '1', '9', 'FY']

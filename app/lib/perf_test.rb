@@ -14,8 +14,8 @@ class PerfTest
     time_now = options.fetch(:time_now, Time.at(1529067553))
     school_id = 9
     PerfTest.new.simple(percentage, options) do |educator|
-      levels = SomervilleHighLevels.new(educator)
-      levels.students_with_levels_json([school_id], time_now)
+      levels = SomervilleHighLevels.new
+      levels.students_with_levels_json(educator, [school_id], time_now)
     end
   end
 
