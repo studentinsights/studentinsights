@@ -5,6 +5,13 @@
 class SomervilleHighLevels
   FAILING_GRADE = 65
 
+  # Show the link for teachers in SHS only
+  def self.is_link_relevant_for_educator?(educator)
+    shs_school_id = School.find_by_local_id('SHS').try(:id)
+    return false if shs_school_id.nil?
+    educator.school_id == shs_school_id
+  end
+
   def initialize(options = {})
     @time_interval = options.fetch(:time_interval, 45.days)
     if !PerDistrict.new.enabled_high_school_levels?
