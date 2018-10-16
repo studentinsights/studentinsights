@@ -11,6 +11,14 @@ export default class EscapeListener extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.onKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.onKeyDown);
+  }
+
   onKeyDown(e) {
     const {onEscape} = this.props;
     if (e.which === 27) onEscape();
