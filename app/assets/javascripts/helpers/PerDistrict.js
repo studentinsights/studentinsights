@@ -153,6 +153,13 @@ export function supportsExcusedAbsences(districtKey) {
   return false;
 }
 
+// In high school, homeroom is a logical administrative assignment,
+// but isn't meaningful to teachers or educators.  If there is
+// a homeroom, it might not necessarily be worth showing.
+export function isHomeroomMeaningful(schoolType) {
+  return (schoolType !== 'HS');
+}
+
 // What is the eventNoteTypeId to use in user-facing text about how to support
 // students with high absences?
 export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {

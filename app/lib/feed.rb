@@ -52,7 +52,7 @@ class Feed
       .where('recorded_at < ?', from_time)
       .order(recorded_at: :desc)
       .limit(limit)
-      .includes(student: :homeroom)
+      .includes(student: [:homeroom, :school])
     recent_event_notes.map {|event_note| event_note_card(event_note) }
   end
 
@@ -79,7 +79,7 @@ class Feed
       .where('occurred_at < ?', time_now)
       .order(occurred_at: :desc)
       .limit(limit)
-      .includes(student: :homeroom)
+      .includes(student: [:homeroom, :school])
     incidents.map {|incident| incident_card(incident) }
   end
 
@@ -99,6 +99,9 @@ class Feed
         :student => {
           :only => [:id, :email, :first_name, :last_name, :grade, :house],
           :include => {
+            :school => {
+              :only => [:local_id, :school_type]
+            },
             :homeroom => {
               :only => [:id, :name],
               :include => {
@@ -127,6 +130,9 @@ class Feed
         :student => {
           :only => [:id, :email, :first_name, :last_name, :grade, :house],
           :include => {
+            :school => {
+              :only => [:local_id, :school_type]
+            },
             :homeroom => {
               :only => [:id, :name],
               :include => {
