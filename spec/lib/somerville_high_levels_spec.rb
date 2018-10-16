@@ -124,7 +124,7 @@ RSpec.describe SomervilleHighLevels do
 
   describe '#current_term_local_ids' do
     it 'works at different times' do
-      levels = SomervilleHighLevels.new(pals.uri)
+      levels = SomervilleHighLevels.new
       expect(levels.send(:current_term_local_ids, time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
       expect(levels.send(:current_term_local_ids, DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
       expect(levels.send(:current_term_local_ids, DateTime.new(2018, 11, 21))).to eq  ['Q2', 'S1', '1', '9', 'FY']
