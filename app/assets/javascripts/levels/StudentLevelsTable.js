@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
+import {Table, Column, AutoSizer, SortDirection, SortIndicator} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {rankedByLetterGrade} from '../helpers/SortHelpers';
@@ -29,6 +29,7 @@ export default class StudentLevelsTable extends React.Component {
   constructor(props) {
     super(props);
 
+    this.renderHeaderCell = this.renderHeaderCell.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
   }
 
@@ -43,7 +44,8 @@ export default class StudentLevelsTable extends React.Component {
     const nowMoment = nowFn();
     const {orderedStudentsWithLevels, sortBy, sortDirection} = this.props;
     const columns = describeColumns(nowMoment);
-    
+    const rowHeight = 40;
+
     return (
       <div className="StudentLevelsTable" style={styles.root}>
         <AutoSizer>
@@ -51,22 +53,46 @@ export default class StudentLevelsTable extends React.Component {
             <Table
               ref={el => this.tableEl = el}
               width={width}
-              headerHeight={40}
+              headerHeight={rowHeight}
               headerStyle={styles.tableHeaderStyle}
               height={height}
               rowCount={orderedStudentsWithLevels.length}
               rowGetter={({index}) => orderedStudentsWithLevels[index]}
-              rowHeight={40}
+              rowHeight={rowHeight}
               rowStyle={{display: 'flex', alignItems: 'center'}}
               sort={this.onTableSort}
               sortBy={sortBy}
               sortDirection={sortDirection}
-            >{columns.map(column => <Column key={column.dataKey} {...column} />)}
+            >{columns.map(column => <Column key={column.dataKey} headerRenderer={this.renderHeaderCell} {...column} />)}
             </Table>
           )}
         </AutoSizer>
       </div>
     );
+  }
+
+  // Replacing https://github.com/bvaughn/react-virtualized/blob/master/source/Table/defaultHeaderRenderer.js
+  renderHeaderCell(params) {
+    const {dataKey, label, sortBy, sortDirection} = params;
+    const showSortIndicator = sortBy === dataKey;
+
+    const children = [
+      <span
+        className="ReactVirtualized__Table__headerTruncatedText"
+        style={{verticalAlign: 'top'}} // this is the meaningful change
+        key="label"
+        title={label}>
+        {label}
+      </span>
+    ];
+
+    if (showSortIndicator) {
+      children.push(
+        <SortIndicator key="SortIndicator" sortDirection={sortDirection} />
+      );
+    }
+
+    return children;
   }
 }
 StudentLevelsTable.contextTypes = {
@@ -140,13 +166,13 @@ const styles = {
 // This is used both for react-virtualized and interpreted to make the CSV export.
 export function describeColumns(nowMoment) {
   const gradeCellWidth = 50;
-  const numericCellWidth = 70;
-  const supportCellWidth = 70;
+  const numericCellWidth = 60;
+  const supportCellWidth = 60;
 
   return [{
     dataKey: 'student',
     label: 'Student',
-    width: 120,
+    width: 140,
     flexGrow:1,
     cellRenderer: renderStudent
   }, {
@@ -166,7 +192,7 @@ export function describeColumns(nowMoment) {
     cellRenderer: renderDisciplineIncidents
   }, {
     dataKey: 'english_or_core_ell',
-    label: 'EN/ELL',
+    label: 'EN or ELL',
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, ENGLISH_OR_CORE_ELL)
   }, {
@@ -186,7 +212,7 @@ export function describeColumns(nowMoment) {
     cellRenderer: renderGradeFor.bind(null, SCIENCE)
   }, {
     dataKey: 'nge',
-    label: 'Last NGE, 10GE, NEST',
+    label: 'Last xGE or NEST',
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_experience_note')
   }, {
@@ -196,7 +222,7 @@ export function describeColumns(nowMoment) {
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_sst_note')
   }, {
     dataKey: 'other_note',
-    label: 'Last other note',
+    label: 'Other notes',
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_other_note')
   }, {

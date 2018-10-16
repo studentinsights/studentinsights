@@ -9,10 +9,9 @@ class LevelsController < ApplicationController
 
     levels = SomervilleHighLevels.new(current_educator)
     students_with_levels_json = levels.students_with_levels_json([school_id], time_now)
-    # render json: {
-    #   students_with_levels: students_with_levels_json
-    # }
-    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER/levels.json'))
+    render json: {
+      students_with_levels: students_with_levels_json
+    }
   end
 
   private
