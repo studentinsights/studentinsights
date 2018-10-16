@@ -23,8 +23,7 @@ export default class StudentsTable extends React.Component {
     this.state = {
       sortBy: 'events',
       sortType: 'number',
-      sortDesc: true,
-      selectedCategory: null,
+      sortDesc: true
     };
 
     this.onTableSort = this.onTableSort.bind(this);
@@ -211,7 +210,6 @@ StudentsTable.propTypes = {
     events: PropTypes.number.isRequired,
     latest_note: InsightsPropTypes.nullableWithKey(PropTypes.object)
   })).isRequired,
-  selectedCategory: PropTypes.string,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
   resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
   forcedSizeForTesting: PropTypes.object
