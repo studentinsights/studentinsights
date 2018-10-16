@@ -5,7 +5,7 @@
   "alwaysNotifyForPaths": [
     {
       "name": "kevinrobinson",
-      "files": ["config/**/*.rb", "Procfile", ".eslintrc"],
+      "files": ["config/**/*.rb", "Procfile", ".eslintrc", "app/lib/shs_tiers.rb"],
       "skipTeamPrs": false
     }
   ],

@@ -22,6 +22,10 @@ function testProps(props = {}) {
         last_name: 'Skywalker',
         grade: '9',
         house: 'Beacon',
+        school: {
+          local_id: 'SHS',
+          school_type: 'HS'
+        },
         homeroom: {
           id: 13,
           name: 'SHS-052',

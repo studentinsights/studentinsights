@@ -20,6 +20,10 @@ export function testProps(props = {}) {
         "first_name": "Mowgli",
         "last_name": "Pan",
         "house": "Beacon",
+        "school": {
+          "local_id": "SHS",
+          "school_type": "HS"
+        },
         "homeroom": {
           "id": 4,
           "name": "SHS ALL"
@@ -34,6 +38,13 @@ it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(<IncidentCard {...props} />), el);
+});
+
+it('does not render homeroom for HS since it is not meaningful', () => {
+  const props = testProps();
+  const el = document.createElement('div');
+  ReactDOM.render(withDefaultNowContext(<IncidentCard {...props} />), el);
+  expect($(el).text()).not.toContain('SHS ALL');
 });
 
 it('matches snapshot', () => {
