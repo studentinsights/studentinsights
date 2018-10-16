@@ -7,9 +7,6 @@ import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {rankedByLetterGrade} from '../helpers/SortHelpers';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
-import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
-import DownloadCsvLink from '../components/DownloadCsvLink';
-import ReactModal from 'react-modal';
 import {
   firstMatch,
   firstMatchWithGrades,
@@ -30,104 +27,8 @@ export default class StudentLevelsTable extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isDownloadOpen: false
-    };
-
-    this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
-    this.renderStudent = this.renderStudent.bind(this);
-    this.renderLevel = this.renderLevel.bind(this);
-    this.renderAbsenceRate = this.renderAbsenceRate.bind(this);
-    this.renderDisciplineIncidents = this.renderDisciplineIncidents.bind(this);
-    this.renderProgram = this.renderProgram.bind(this);
   }
-
-  // This is used both for react-virtualized and interpreted to make the CSV export.
-  columns() {
-    const gradeCellWidth = 50;
-    const numericCellWidth = 70;
-    const supportCellWidth = 70;
-
-    return [{
-      dataKey: 'student',
-      label: <span><br />Student</span>,
-      width: 120,
-      flexGrow:1,
-      cellRenderer: this.renderStudent
-    }, {
-      dataKey: 'level',
-      label: <span><br />Level</span>,
-      width: gradeCellWidth,
-      cellRenderer: this.renderLevel
-    }, {
-      dataKey: 'absence',
-      label: <span>Attendance<br/>Rate</span>,
-      width: numericCellWidth,
-      cellRenderer: this.renderAbsenceRate
-    }, {
-      dataKey: 'discipline',
-      label: <span>Discipline<br/>Incidents</span>,
-      width: numericCellWidth,
-      cellRenderer: this.renderDisciplineIncidents
-    }, {
-      dataKey: 'english_or_core_ell',
-      label: <span><br />EN/ELL</span>,
-      width: gradeCellWidth,
-      cellRenderer: this.renderGradeFor.bind(this, ENGLISH_OR_CORE_ELL)
-    }, {
-      dataKey: 'social_studies',
-      label: <span>Social<br/>Studies</span>,
-      width: gradeCellWidth,
-      cellRenderer: this.renderGradeFor.bind(this, SOCIAL_STUDIES)
-    }, {
-      dataKey: 'math',
-      label: <span><br />Math</span>,
-      width: gradeCellWidth,
-      cellRenderer: this.renderGradeFor.bind(this, MATH)
-    }, {
-      dataKey: 'science',
-      label: <span><br />Science</span>,
-      width: gradeCellWidth,
-      cellRenderer: this.renderGradeFor.bind(this, SCIENCE)
-    }, {
-      dataKey: 'nge',
-      label: <span>Last NGE/<br/>10GE/NEST</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderNotes.bind(this, 'last_experience_note')
-    }, {
-      dataKey: 'sst',
-      label: <span>Last SST</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderNotes.bind(this, 'last_sst_note')
-    }, {
-      dataKey: 'study',
-      label: <span>Study<br/>skills</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderIfEnrolled.bind(this, STUDY_SKILLS, 'study')
-    }, {
-      dataKey: 'support',
-      label: <span>Academic<br/>Support</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderIfEnrolled.bind(this, ACADEMIC_SUPPORT, 'support')
-    }, {
-      dataKey: 'redirect',
-      label: <span><br/>Redirect</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderIfEnrolled.bind(this, REDIRECT, 'redirect')
-    }, {
-      dataKey: 'recovery',
-      label: <span>Credit<br/>Recovery</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderIfEnrolled.bind(this, CREDIT_RECOVERY, 'recovery')
-    }, {
-      dataKey: 'program_assigned',
-      label: <span>Program<br/>or SPED</span>,
-      width: supportCellWidth,
-      cellRenderer: this.renderProgram
-    }];
-  }
-
 
   onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
     const {onTableSort} = this.props;
@@ -135,18 +36,14 @@ export default class StudentLevelsTable extends React.Component {
     this.tableEl.scrollToRow(0);
   }
 
-  onDownloadDialogToggled() {
-    const {isDownloadOpen} = this.state;
-    this.setState({isDownloadOpen: !isDownloadOpen});
-  }
-
   render() {
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
     const {orderedStudentsWithTiering, sortBy, sortDirection} = this.props;
-    const columns = this.columns();
+    const columns = describeColumns(nowMoment);
     
     return (
       <div className="StudentLevelsTable" style={styles.root}>
-        {this.renderDownloadLink(columns, orderedStudentsWithTiering)}
         <AutoSizer>
           {({height, width}) => (
             <Table
@@ -168,136 +65,6 @@ export default class StudentLevelsTable extends React.Component {
         </AutoSizer>
       </div>
     );
-  }
-
-  // This tracks the modal state on its own rather than using <HelpBubble /> so that it
-  // can be lazy about rendering the actual download link (which is expensive) and defer that
-  // until the user expresses intent to download.  This adds an extra UX step to the download to do that.
-  renderDownloadLink(columns, students) {
-    const {isDownloadOpen} = this.state;
-    return (
-      <div>
-        <div onClick={this.onDownloadDialogToggled} style={styles.downloadLink}>
-          {isDownloadOpen
-            ? <ReactModal isOpen={true} onRequestClose={this.onDownloadDialogToggled} style={styles.downloadLink}>
-                {this.renderLinkWithCsvDataInline(columns, students)}
-              </ReactModal>
-            : <svg style={{fill: "#3177c9", opacity: 0.5, cursor: 'pointer'}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-          }
-        </div>
-      </div>
-    );
-  }
-
-  // This is expensive to render, since it unrolls the whole spreadsheet into a string
-  // and writes it inline to the link.
-  renderLinkWithCsvDataInline(columns, students) {
-    const csvText = toCsvTextFromTable(columns, students);
-    const {nowFn} = this.context;
-    const now = nowFn();
-    const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
-    return (
-      <div style={{fontSize: 14}}>
-        <h1 style={{
-          borderBottom: '1px solid #333',
-          paddingBottom: 10,
-          marginBottom: 20
-        }}>Export as spreadsheet</h1>
-        <div style={{marginBottom: 20}}>This will include data for {students.length} students.</div>
-        <DownloadCsvLink filename={filename} style={{color: 'white'}} csvText={csvText}>
-          Download CSV
-        </DownloadCsvLink>
-      </div>
-    );
-  }
-
-  renderStudent({rowData}) {
-    const student = rowData;
-    return <a style={styles.person} target="_blank" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
-  }
-
-  renderLevel({rowData}) {
-    return <span style={{textAlign: 'center'}}>{rowData.tier.level}</span>;
-  }
-
-  renderDisciplineIncidents({rowData}) {
-    const {tier} = rowData;
-    const count = tier.data.recent_discipline_actions;
-    const style = (tier.triggers.indexOf('discipline') !== -1)
-      ? styles.warn
-      : styles.plain;
-    return <span style={style}>{count}</span>; 
-  }
-
-  renderAbsenceRate({rowData}) {
-    const {tier} = rowData;
-    const percentage = Math.round(tier.data.recent_absence_rate * 100);
-    const style = (tier.triggers.indexOf('absence') !== -1)
-      ? styles.warn
-      : styles.plain;
-    return <span style={style}>{percentage}%</span>; 
-  }
-
-  renderGradeFor(patterns, {rowData}) {
-    const student = rowData;
-    const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
-    return (assignment)
-      ? this.renderGrade(assignment.grade_letter)
-      : null;
-  }
-
-  renderIfEnrolled(patterns, el, {rowData}) {
-    const student = rowData;
-    const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
-    return (assignment)
-      ? <span style={styles.support}>{el}</span>
-      : null;
-  }
-
-  renderTriggerIf(trigger, {rowData}) {
-    return (rowData.tier.triggers.indexOf(trigger) !== -1)
-      ? trigger
-      : null;
-  }
-
-  renderProgram({rowData}) {
-    const student = rowData;
-    const programText = prettyProgramOrPlacementText(student);
-
-    return (programText !== null)
-      ? <span style={{...styles.support, fontSize: 12}}>{programText}</span>
-      : null;
-  }
-
-  renderGrade(gradeLetter) {
-    if (!gradeLetter) return null;
-
-    if (gradeLetter.indexOf('F') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
-    } else if (gradeLetter.indexOf('D') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
-    } else if (gradeLetter.indexOf('B') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
-    } else if (gradeLetter.indexOf('A') !== -1) {
-      return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
-    }
-    return <span style={styles.grade}>{gradeLetter}</span>;
-  }
-
-  renderNotes(key, {rowData}) {
-    const {nowFn} = this.context;
-    const now = nowFn();
-    const eventNote = rowData.notes[key];
-    if (eventNote === undefined) return null;
-    if (eventNote.recorded_at === undefined) return null;
-
-    const noteMoment = toMomentFromTimestamp(eventNote.recorded_at);
-    const daysAgo = now.clone().diff(noteMoment, 'days');
-    if (daysAgo > 45) return null;
-    const daysAgoText = (daysAgo === 0)
-      ? 'today'
-      : (daysAgo === 1) ? 'yesterday' : `${daysAgo} days`;
-    return <span style={{...styles.support, fontSize: 12}}>{daysAgoText}</span>;
   }
 }
 StudentLevelsTable.contextTypes = {
@@ -362,17 +129,11 @@ const styles = {
   plain: {
     display: 'inline-block',
     padding: 8
-  },
-  downloadLink: {
-    color: 'white',
-    position: 'absolute',
-    right: 10,
-    top: -60 // workaround to appear in bar above
   }
 };
 
 
-
+// This is used both for react-virtualized and interpreted to make the CSV export.
 export function orderedStudents(studentsWithTiering, sortBy, sortDirection) {
   // map dataKey to an accessor/sort function
   const sortFns = {
@@ -427,4 +188,177 @@ function sortTimestamp(maybeString) {
   return (maybeString)
     ? moment.utc(maybeString).unix()
     : Number.NEGATIVE_INFINITY;
+}
+
+
+// This is used both for react-virtualized and interpreted to make the CSV export.
+export function describeColumns(nowMoment) {
+  const gradeCellWidth = 50;
+  const numericCellWidth = 70;
+  const supportCellWidth = 70;
+
+  return [{
+    dataKey: 'student',
+    label: <span><br />Student</span>,
+    width: 120,
+    flexGrow:1,
+    cellRenderer: renderStudent
+  }, {
+    dataKey: 'level',
+    label: <span><br />Level</span>,
+    width: gradeCellWidth,
+    cellRenderer: renderLevel
+  }, {
+    dataKey: 'absence',
+    label: <span>Attendance<br/>Rate</span>,
+    width: numericCellWidth,
+    cellRenderer: renderAbsenceRate
+  }, {
+    dataKey: 'discipline',
+    label: <span>Discipline<br/>Incidents</span>,
+    width: numericCellWidth,
+    cellRenderer: renderDisciplineIncidents
+  }, {
+    dataKey: 'english_or_core_ell',
+    label: <span><br />EN/ELL</span>,
+    width: gradeCellWidth,
+    cellRenderer: renderGradeFor.bind(null, ENGLISH_OR_CORE_ELL)
+  }, {
+    dataKey: 'social_studies',
+    label: <span>Social<br/>Studies</span>,
+    width: gradeCellWidth,
+    cellRenderer: renderGradeFor.bind(null, SOCIAL_STUDIES)
+  }, {
+    dataKey: 'math',
+    label: <span><br />Math</span>,
+    width: gradeCellWidth,
+    cellRenderer: renderGradeFor.bind(null, MATH)
+  }, {
+    dataKey: 'science',
+    label: <span><br />Science</span>,
+    width: gradeCellWidth,
+    cellRenderer: renderGradeFor.bind(null, SCIENCE)
+  }, {
+    dataKey: 'nge',
+    label: <span>Last NGE/<br/>10GE/NEST</span>,
+    width: supportCellWidth,
+    cellRenderer: renderNotes.bind(null, nowMoment, 'last_experience_note')
+  }, {
+    dataKey: 'sst',
+    label: <span>Last SST</span>,
+    width: supportCellWidth,
+    cellRenderer: renderNotes.bind(null, nowMoment, 'last_sst_note')
+  }, {
+    dataKey: 'study',
+    label: <span>Study<br/>skills</span>,
+    width: supportCellWidth,
+    cellRenderer: renderIfEnrolled.bind(null, STUDY_SKILLS, 'study')
+  }, {
+    dataKey: 'support',
+    label: <span>Academic<br/>Support</span>,
+    width: supportCellWidth,
+    cellRenderer: renderIfEnrolled.bind(null, ACADEMIC_SUPPORT, 'support')
+  }, {
+    dataKey: 'redirect',
+    label: <span><br/>Redirect</span>,
+    width: supportCellWidth,
+    cellRenderer: renderIfEnrolled.bind(null, REDIRECT, 'redirect')
+  }, {
+    dataKey: 'recovery',
+    label: <span>Credit<br/>Recovery</span>,
+    width: supportCellWidth,
+    cellRenderer: renderIfEnrolled.bind(null, CREDIT_RECOVERY, 'recovery')
+  }, {
+    dataKey: 'program_assigned',
+    label: <span>Program<br/>or SPED</span>,
+    width: supportCellWidth,
+    cellRenderer: renderProgram
+  }];
+}
+
+function renderStudent({rowData}) {
+  const student = rowData;
+  return <a style={styles.person} target="_blank" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
+}
+
+function renderLevel({rowData}) {
+  return <span style={{textAlign: 'center'}}>{rowData.tier.level}</span>;
+}
+
+function renderDisciplineIncidents({rowData}) {
+  const {tier} = rowData;
+  const count = tier.data.recent_discipline_actions;
+  const style = (tier.triggers.indexOf('discipline') !== -1)
+    ? styles.warn
+    : styles.plain;
+  return <span style={style}>{count}</span>; 
+}
+
+function renderAbsenceRate({rowData}) {
+  const {tier} = rowData;
+  const percentage = Math.round(tier.data.recent_absence_rate * 100);
+  const style = (tier.triggers.indexOf('absence') !== -1)
+    ? styles.warn
+    : styles.plain;
+  return <span style={style}>{percentage}%</span>; 
+}
+
+function renderGradeFor(patterns, {rowData}) {
+  const student = rowData;
+  const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
+  return (assignment)
+    ? renderGrade(assignment.grade_letter)
+    : null;
+}
+
+function renderIfEnrolled(patterns, el, {rowData}) {
+  const student = rowData;
+  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
+  return (assignment)
+    ? <span style={styles.support}>{el}</span>
+    : null;
+}
+
+function renderTriggerIf(trigger, {rowData}) {
+  return (rowData.tier.triggers.indexOf(trigger) !== -1)
+    ? trigger
+    : null;
+}
+
+function renderProgram({rowData}) {
+  const student = rowData;
+  const programText = prettyProgramOrPlacementText(student);
+
+  return (programText !== null)
+    ? <span style={{...styles.support, fontSize: 12}}>{programText}</span>
+    : null;
+}
+
+function renderGrade(gradeLetter) {
+  if (!gradeLetter) return null;
+
+  if (gradeLetter.indexOf('F') !== -1) {
+    return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
+  } else if (gradeLetter.indexOf('D') !== -1) {
+    return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
+  } else if (gradeLetter.indexOf('B') !== -1) {
+    return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
+  } else if (gradeLetter.indexOf('A') !== -1) {
+    return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
+  }
+  return <span style={styles.grade}>{gradeLetter}</span>;
+}
+
+function renderNotes(nowMoment, key, {rowData}) {
+  const eventNote = rowData.notes[key];
+  if (eventNote === undefined) return null;
+  if (eventNote.recorded_at === undefined) return null;
+
+  const noteMoment = toMomentFromTimestamp(eventNote.recorded_at);
+  const daysAgo = nowMoment.clone().diff(noteMoment, 'days');
+  if (daysAgo > 45) return null;
+  const daysAgoText = (daysAgo === 0)
+    ? 'today'
+    : (daysAgo === 1) ? 'yesterday' : `${daysAgo} days`;
+  return <span style={{...styles.support, fontSize: 12}}>{daysAgoText}</span>;
 }

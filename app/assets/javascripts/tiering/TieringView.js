@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {SortDirection} from 'react-virtualized';
+import ReactModal from 'react-modal';
+import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
+import DownloadCsvLink from '../components/DownloadCsvLink';
 import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
@@ -9,9 +12,11 @@ import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
 import HelpBubble, {modalFromRight} from '../components/HelpBubble';
-import StudentLevelsTable, {orderedStudents} from './StudentLevelsTable';
+import StudentLevelsTable, {
+  orderedStudents,
+  describeColumns
+} from './StudentLevelsTable';
 import {
-  labelDepartmentKey,
   firstMatch,
   CREDIT_RECOVERY,
   ACADEMIC_SUPPORT,
@@ -20,7 +25,10 @@ import {
 } from './Courses';
 
 
-// Experimental UI for HS tiering prototype
+// UI for HS tiering prototype.  Contains a filter and button bar,
+// and a table of students.  This components tracks state for the sorting
+// and filtering within table, so that it can re-use that in the button
+// bar to export as a CSV.
 export default class TieringView extends React.Component {
   constructor(props) {
     super(props);
@@ -34,6 +42,7 @@ export default class TieringView extends React.Component {
     this.onTriggerChanged = this.onTriggerChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
+    this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
   }
 
   filteredStudents() {
@@ -69,8 +78,18 @@ export default class TieringView extends React.Component {
     this.setState({sortBy, sortDirection});
   }
 
+  onDownloadDialogToggled() {
+    const {isDownloadOpen} = this.state;
+    this.setState({isDownloadOpen: !isDownloadOpen});
+  }
+
   onEscape() {
     this.setState(initialState());
+  }
+
+  onSearchChanged(e) {
+    const search = e.target.value;
+    this.setState({search});
   }
 
   onGradeChanged(grade) {
@@ -91,11 +110,6 @@ export default class TieringView extends React.Component {
 
   onTriggerChanged(trigger) {
     this.setState({trigger});
-  }
-
-  onSearchChanged(e) {
-    const search = e.target.value;
-    this.setState({search});
   }
 
   render() {
@@ -155,8 +169,8 @@ export default class TieringView extends React.Component {
             <div style={styles.tieringInfo}>Last 45 days</div>
             {this.renderStats(filteredStudents)}
           </div>
-          <div style={{display: 'flex', flexDirection: 'column'}}>
-            download!
+          <div style={{display: 'flex', flexDirection: 'column', paddingLeft: 10}}>
+            {this.renderDownloadLink(filteredStudents)}
           </div>
         </div>
       </FilterBar>
@@ -173,16 +187,15 @@ export default class TieringView extends React.Component {
     );
   }
 
-
   //<div>There are <b>{uncoveredStudents.length} students</b> with absence or discipline triggers recently who haven't been mentioned in SST.</div>
-  renderSupportGapsMessageWithFilterWarning(message) {
-    return (
-      <div>
-        <div>{message}</div>
-        {!_.isEqual(initialState(), this.state) && <div style={{color: 'darkorange', fontWeight: 'bold'}}>Filters are applied.</div>}
-      </div>
-    );
-  }
+  // renderSupportGapsMessageWithFilterWarning(message) {
+  //   return (
+  //     <div>
+  //       <div>{message}</div>
+  //       {!_.isEqual(initialState(), this.state) && <div style={{color: 'darkorange', fontWeight: 'bold'}}>Filters are applied.</div>}
+  //     </div>
+  //   );
+  // }
 
   renderStats(filteredStudents) {
     return (
@@ -227,21 +240,21 @@ export default class TieringView extends React.Component {
   }
 
   // Unused, but for internal debugging
-  renderUnlabeledCourses(studentsWithTiering) {
-    const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments_right_now));
-    const labeledAssignments = assignments.map(assignment => {
-      return {
-        ...assignment,
-        departmentKey: labelDepartmentKey(assignment)
-      };
-    });
+  // renderUnlabeledCourses(studentsWithTiering) {
+  //   const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments_right_now));
+  //   const labeledAssignments = assignments.map(assignment => {
+  //     return {
+  //       ...assignment,
+  //       departmentKey: labelDepartmentKey(assignment)
+  //     };
+  //   });
 
-    const unlabeledCourses = _.uniq(labeledAssignments
-      .filter(a => a.departmentKey === 'unknown')
-      .map(a => a.section.course_description));
+  //   const unlabeledCourses = _.uniq(labeledAssignments
+  //     .filter(a => a.departmentKey === 'unknown')
+  //     .map(a => a.section.course_description));
 
-    return <pre>{JSON.stringify(unlabeledCourses(studentsWithTiering), null, 2)}</pre>;
-  }
+  //   return <pre>{JSON.stringify(unlabeledCourses(studentsWithTiering), null, 2)}</pre>;
+  // }
 
   renderTierCount(studentsWithTiering, n) {
     const count = studentsWithTiering.filter(s => s.tier.level === n).length;
@@ -277,6 +290,49 @@ export default class TieringView extends React.Component {
     );
   }
 
+  // This tracks the modal state on its own rather than using <HelpBubble /> so that it
+  // can be lazy about rendering the actual download link (which is expensive) and defer that
+  // until the user expresses intent to download.  This adds an extra UX step to the download to do that.
+  renderDownloadLink(students) {
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
+    const columns = describeColumns(nowMoment);
+    const {isDownloadOpen} = this.state;
+
+    return (
+      <div onClick={this.onDownloadDialogToggled}>
+        {isDownloadOpen
+          ? <ReactModal isOpen={true} onRequestClose={this.onDownloadDialogToggled} style={styles.downloadLink}>
+              {this.renderLinkWithCsvDataInline(columns, students)}
+            </ReactModal>
+          : <svg style={{fill: "#3177c9", opacity: 0.5, cursor: 'pointer'}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+        }
+      </div>
+    );
+  }
+  
+  // This is expensive to render, since it unrolls the whole spreadsheet into a string
+  // and writes it inline to the link.
+  renderLinkWithCsvDataInline(columns, students) {
+    const csvText = toCsvTextFromTable(columns, students);
+    const {nowFn} = this.context;
+    const now = nowFn();
+    const filename = `SHSLevelsPrototype-${now.format('YYYY-MM-DD')}.csv`;
+    return (
+      <div style={{fontSize: 14}}>
+        <h1 style={{
+          borderBottom: '1px solid #333',
+          paddingBottom: 10,
+          marginBottom: 20
+        }}>Export as spreadsheet</h1>
+        <div style={{marginBottom: 20}}>This will include data for {students.length} students.</div>
+        <DownloadCsvLink filename={filename} style={{color: 'white'}} csvText={csvText}>
+          Download CSV
+        </DownloadCsvLink>
+      </div>
+    );
+  }
+
   renderTable(orderedStudentsWithTiering) {
     const {sortBy, sortDirection} = this.state;
     return (
@@ -291,6 +347,9 @@ export default class TieringView extends React.Component {
     );
   }
 }
+TieringView.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 TieringView.propTypes = {
   systemsAndSupportsUrl: PropTypes.string.isRequired,
   sourceCodeUrl: PropTypes.string.isRequired,
@@ -328,7 +387,9 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20
   },
   search: {
     display: 'inline-block',
@@ -381,8 +442,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginRight: 30 // for download button
+    alignItems: 'center'
   }
 };
 
@@ -395,7 +455,8 @@ function initialState() {
     tier: ALL,
     trigger: ALL,
     sortBy: 'level',
-    sortDirection: SortDirection.ASC
+    sortDirection: SortDirection.ASC,
+    isDownloadOpen: false
   };
 }
 
