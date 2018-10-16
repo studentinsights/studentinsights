@@ -82,8 +82,10 @@ StudentLevelsTable.propTypes = {
   onTableSort: PropTypes.func.isRequired
 };
 
-const warningColor = 'rgb(255, 222, 198)';
-const strengthColor = '#4d884d';
+const supportColor = 'rgb(74, 143, 225)';
+const warningColor = 'rgb(255, 231, 214)';
+const strengthColor = 'rgb(77, 136, 77, 0.9)';
+const structureColor = 'rgba(51, 51, 51, 0.5)';
 const styles = {
   root: {
     flex: 1,
@@ -106,7 +108,8 @@ const styles = {
     display: 'inline-block',
     width: 35,
     textAlign: 'center',
-    padding: 8
+    padding: 8,
+    cursor: 'default'
   },
   person: {
     fontWeight: 'bold',
@@ -116,7 +119,7 @@ const styles = {
     display: 'inline-block',
     textAlign: 'center',
     padding: 4,
-    backgroundColor: '#3177c9',
+    backgroundColor: supportColor,
     color: 'white',
     fontSize: 12,
     width: '95%',
@@ -183,7 +186,7 @@ export function describeColumns(nowMoment) {
     cellRenderer: renderGradeFor.bind(null, SCIENCE)
   }, {
     dataKey: 'nge',
-    label: 'Last NGE/10GE/NEST',
+    label: 'Last NGE, 10GE, NEST',
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_experience_note')
   }, {
@@ -258,7 +261,7 @@ function renderGradeFor(patterns, {rowData}) {
   const student = rowData;
   const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
   return (assignment)
-    ? renderGrade(assignment.grade_letter)
+    ? renderGrade(assignment, assignment.grade_letter)
     : null;
 }
 
@@ -266,7 +269,7 @@ function renderIfEnrolled(patterns, el, {rowData}) {
   const student = rowData;
   const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
   return (assignment)
-    ? <span style={styles.support}>{el}</span>
+    ? <span style={{...styles.support, backgroundColor: structureColor}}>{el}</span>
     : null;
 }
 
@@ -275,23 +278,30 @@ function renderProgram({rowData}) {
   const programText = prettyProgramOrPlacementText(student);
 
   return (programText !== null)
-    ? <span style={{...styles.support, fontSize: 12}}>{programText}</span>
+    ? <span style={{...styles.support, backgroundColor: structureColor}}>{programText}</span>
     : null;
 }
 
-function renderGrade(gradeLetter) {
+function renderGrade(assignment, gradeLetter) {
   if (!gradeLetter) return null;
 
+  var gradeStyles = {}; // eslint-disable-line no-var
   if (gradeLetter.indexOf('F') !== -1) {
-    return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
+    gradeStyles = { backgroundColor: warningColor, color: '#666'};
   } else if (gradeLetter.indexOf('D') !== -1) {
-    return <span style={{...styles.grade, backgroundColor: warningColor}}>{gradeLetter}</span>;
+    gradeStyles = { backgroundColor: warningColor, color: '#666'};
   } else if (gradeLetter.indexOf('B') !== -1) {
-    return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
+    gradeStyles = { backgroundColor: strengthColor, color: 'white'};
   } else if (gradeLetter.indexOf('A') !== -1) {
-    return <span style={{...styles.grade, backgroundColor: strengthColor, color: 'white'}}>{gradeLetter}</span>;
+    gradeStyles = { backgroundColor: strengthColor, color: 'white'};
   }
-  return <span style={styles.grade}>{gradeLetter}</span>;
+  return (
+    <span
+      title={assignment.section.course_description}
+      style={{...styles.grade, ...gradeStyles}}>
+      {gradeLetter}
+    </span>
+  );
 }
 
 function renderNotes(nowMoment, key, {rowData}) {
@@ -327,6 +337,7 @@ export function orderedStudents(studentsWithLevels, sortBy, sortDirection) {
     science(student) { return sortByGrade(SCIENCE, student); },
     nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
     sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
+    other_note(student) { return sortTimestamp(student.notes.last_other_note.recorded_at); },
     study(student) { return sortIfEnrolled(STUDY_SKILLS, student); },
     support(student) { return sortIfEnrolled(ACADEMIC_SUPPORT, student); },
     redirect(student) { return sortIfEnrolled(REDIRECT, student); },

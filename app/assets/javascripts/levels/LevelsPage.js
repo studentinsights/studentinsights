@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
-import ExperimentalBanner from '../components/ExperimentalBanner';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {
@@ -35,10 +34,9 @@ export default class LevelsPage extends React.Component {
   render() {
     return (
       <div className="LevelsPage" style={styles.flexVertical}>
-        <ExperimentalBanner />
         <div style={{margin: 10}}>
           <SectionHeading titleStyle={styles.title}>
-            <div>HS Levels: v1 prototype</div>
+            <div>Levels for SHS Systems and Supports</div>
             <div style={styles.headerLinkContainer}>
               <a style={styles.headerLink} href={SYSTEMS_AND_SUPPORTS_URL} target="_blank">SHS Systems and Supports doc</a>
               <a style={styles.headerLink} href={SOURCE_CODE_URL} target="_blank">Source code</a>
