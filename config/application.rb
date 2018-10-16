@@ -31,9 +31,10 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/helpers",
         "#{config.root}/app/importers/iep_import",
         "#{config.root}/app/importers/photo_import",
-        "#{config.root}/app/importers/form_import",
-        "#{config.root}/app/importers/team_membership_import",
         "#{config.root}/app/importers/rows",
+        "#{config.root}/app/importers/survey_note_importer",
+        "#{config.root}/app/importers/team_membership_import",
+        "#{config.root}/app/importers/tools",
         "#{config.root}/lib"
       ]
 
