@@ -309,7 +309,7 @@ class PerDistrict
     elsif @district_key == BEDFORD
       ['Limited English', 'Not Capable'].include?(student.limited_english_proficiency)
     else
-      raise_not_handled!  
+      raise_not_handled!
     end
   end
 
