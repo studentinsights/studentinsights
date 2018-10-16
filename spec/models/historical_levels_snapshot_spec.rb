@@ -19,7 +19,7 @@ RSpec.describe HistoricalLevelsSnapshot do
         pals.shs_freshman_amir.id,
         pals.shs_senior_kylo.id
       ])
-      
+
       expect(snapshot.students_with_levels_json.size).to eq 3
       expect(snapshot.students_with_levels_json.first.keys).to contain_exactly(*[
         'id',
