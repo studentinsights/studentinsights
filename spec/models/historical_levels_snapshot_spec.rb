@@ -20,13 +20,20 @@ RSpec.describe HistoricalLevelsSnapshot do
         pals.shs_senior_kylo.id
       ])
       
-      course_descriptions = snapshot.students_with_levels_json.flat_map do |student_json|
-        student_json['student_section_assignments_right_now'].map do |assignment_json|
-          assignment_json['section']['course_description']
-        end
-      end
       expect(snapshot.students_with_levels_json.size).to eq 3
-      expect(course_descriptions).to eq 'rew'
+      expect(snapshot.students_with_levels_json.first.keys).to contain_exactly(*[
+        'id',
+        'grade',
+        'first_name',
+        'last_name',
+        'program_assigned',
+        'sped_placement',
+        'limited_english_proficiency',
+        'house',
+        'level',
+        'notes',
+        'student_section_assignments_right_now'
+      ])
     end
   end
 end
