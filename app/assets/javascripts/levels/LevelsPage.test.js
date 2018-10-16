@@ -33,7 +33,7 @@ it('renders without crashing', () => {
 it('renders everything after fetch', done => {
   const props = testProps();
   const el = testRender(props);
-  expect($(el).text()).toContain('HS Levels: v1 prototype');
+  expect($(el).text()).toContain('Levels for SHS Systems and Supports');
 
   setTimeout(() => {
     expect($(el).find('.LevelsView').length).toEqual(1);
