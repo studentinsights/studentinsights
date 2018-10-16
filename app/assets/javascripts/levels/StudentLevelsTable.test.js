@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {SortDirection} from 'react-virtualized';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import StudentLevelsTable from './StudentLevelsTable';
-import tieringShowJson from './tieringShowJson.fixture';
+import levelsShowJson from './levelsShowJson.fixture';
 
 function testProps(props = {}) {
   return {
-    studentsWithTiering: tieringShowJson.students_with_tiering,
+    orderedStudentsWithLevels: levelsShowJson.students_with_levels,
+    sortBy: 'levels',
+    sortDirection: SortDirection.ASC,
+    onTableSort: jest.fn(),
     ...props
   };
 }

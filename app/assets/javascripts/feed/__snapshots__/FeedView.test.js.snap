@@ -55,7 +55,7 @@ exports[`FeedView pure component matches snapshot 1`] = `
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -65,54 +65,54 @@ exports[`FeedView pure component matches snapshot 1`] = `
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/18"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/18"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
+              }
+            >
+              Winnie
+               
+              Disney
+            </a>
+          </div>
+          <div>
+            Kindergarten
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/1"
               >
-                Winnie
-                 
-                Disney
+                HEA 003
               </a>
-            </div>
-            <div>
-              Kindergarten
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/1"
-                >
-                  HEA 003
-                </a>
+              <span>
                 <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:vivian@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Vivian Teacher
-                  </a>
+                   
                 </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:vivian@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Vivian Teacher
+                </a>
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div
@@ -233,7 +233,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -243,42 +243,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/103"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/103"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Donald
-                 
-                Duck
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Donald
+               
+              Duck
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -410,7 +399,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -420,42 +409,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/72"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/72"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Rapunzel
-                 
-                White
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Rapunzel
+               
+              White
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -587,7 +565,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -597,54 +575,54 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/18"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/18"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
+              }
+            >
+              Winnie
+               
+              Disney
+            </a>
+          </div>
+          <div>
+            Kindergarten
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/1"
               >
-                Winnie
-                 
-                Disney
+                HEA 003
               </a>
-            </div>
-            <div>
-              Kindergarten
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/1"
-                >
-                  HEA 003
-                </a>
+              <span>
                 <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:vivian@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Vivian Teacher
-                  </a>
+                   
                 </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:vivian@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Vivian Teacher
+                </a>
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div
@@ -763,7 +741,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -773,42 +751,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/38"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/38"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Winnie
-                 
-                Disney
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Winnie
+               
+              Disney
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -940,7 +907,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -950,42 +917,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/69"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/69"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Rapunzel
-                 
-                Skywalker
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Rapunzel
+               
+              Skywalker
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -1117,7 +1073,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -1127,55 +1083,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/51"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/51"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Daisy
-                 
-                Poppins
-              </a>
-            </div>
-            <div>
-              9th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/5"
-                >
-                  SHS 942
-                </a>
-                <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:jodi@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Jodi Teacher
-                  </a>
-                </span>
-              </span>
-            </div>
+              }
+            >
+              Daisy
+               
+              Poppins
+            </a>
           </div>
+          <div>
+            9th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -1307,7 +1239,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -1317,54 +1249,54 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/13"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/13"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
+              }
+            >
+              Rapunzel
+               
+              Poppins
+            </a>
+          </div>
+          <div>
+            Kindergarten
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/1"
               >
-                Rapunzel
-                 
-                Poppins
+                HEA 003
               </a>
-            </div>
-            <div>
-              Kindergarten
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/1"
-                >
-                  HEA 003
-                </a>
+              <span>
                 <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:vivian@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Vivian Teacher
-                  </a>
+                   
                 </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:vivian@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Vivian Teacher
+                </a>
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div
@@ -1483,7 +1415,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -1493,54 +1425,54 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/6"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/6"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
+              }
+            >
+              Snow
+               
+              Kenobi
+            </a>
+          </div>
+          <div>
+            5th grade
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/2"
               >
-                Snow
-                 
-                Kenobi
+                HEA 500
               </a>
-            </div>
-            <div>
-              5th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/2"
-                >
-                  HEA 500
-                </a>
+              <span>
                 <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:sarah@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Sarah Teacher
-                  </a>
+                   
                 </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:sarah@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Sarah Teacher
+                </a>
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div
@@ -1659,7 +1591,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -1669,42 +1601,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/103"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/103"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Donald
-                 
-                Duck
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Donald
+               
+              Duck
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -1836,7 +1757,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -1846,55 +1767,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/56"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/56"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Rapunzel
-                 
-                Skywalker
-              </a>
-            </div>
-            <div>
-              9th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/5"
-                >
-                  SHS 942
-                </a>
-                <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:jodi@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Jodi Teacher
-                  </a>
-                </span>
-              </span>
-            </div>
+              }
+            >
+              Rapunzel
+               
+              Skywalker
+            </a>
           </div>
+          <div>
+            9th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -2026,7 +1923,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -2036,55 +1933,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/53"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/53"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Olaf
-                 
-                Mouse
-              </a>
-            </div>
-            <div>
-              9th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/5"
-                >
-                  SHS 942
-                </a>
-                <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:jodi@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Jodi Teacher
-                  </a>
-                </span>
-              </span>
-            </div>
+              }
+            >
+              Olaf
+               
+              Mouse
+            </a>
           </div>
+          <div>
+            9th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -2216,7 +2089,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -2226,54 +2099,54 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/21"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/21"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
+              }
+            >
+              Elsa
+               
+              Kenobi
+            </a>
+          </div>
+          <div>
+            5th grade
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/3"
               >
-                Elsa
-                 
-                Kenobi
+                WSNS 501
               </a>
-            </div>
-            <div>
-              5th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/3"
-                >
-                  WSNS 501
-                </a>
+              <span>
                 <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:marcus@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Marcus Teacher
-                  </a>
+                   
                 </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:marcus@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Marcus Teacher
+                </a>
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div
@@ -2392,7 +2265,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -2402,42 +2275,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/72"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/72"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Rapunzel
-                 
-                White
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Rapunzel
+               
+              White
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -2569,7 +2431,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -2579,42 +2441,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/114"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/114"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Rapunzel
-                 
-                Pan
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Rapunzel
+               
+              Pan
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -2746,7 +2597,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -2756,42 +2607,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/109"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/109"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Donald
-                 
-                Pan
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Donald
+               
+              Pan
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -2923,7 +2763,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -2933,42 +2773,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/99"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/99"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Aladdin
-                 
-                White
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Aladdin
+               
+              White
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={
@@ -3100,7 +2929,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -3110,54 +2939,54 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/18"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/18"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
+              }
+            >
+              Winnie
+               
+              Disney
+            </a>
+          </div>
+          <div>
+            Kindergarten
+          </div>
+          <div>
+            <span
+              className="Homeroom"
+              style={Object {}}
+            >
+              <a
+                href="/homerooms/1"
               >
-                Winnie
-                 
-                Disney
+                HEA 003
               </a>
-            </div>
-            <div>
-              Kindergarten
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/1"
-                >
-                  HEA 003
-                </a>
+              <span>
                 <span>
-                  <span>
-                     
-                  </span>
-                   with 
-                  <a
-                    className="Educator"
-                    href="mailto:vivian@demo.studentinsights.org"
-                    style={Object {}}
-                  >
-                    Vivian Teacher
-                  </a>
+                   
                 </span>
+                 with 
+                <a
+                  className="Educator"
+                  href="mailto:vivian@demo.studentinsights.org"
+                  style={Object {}}
+                >
+                  Vivian Teacher
+                </a>
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div
@@ -3276,7 +3105,7 @@ Philis is meeting with parent next week and will present an attendance contract.
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
             "flexDirection": "row",
             "justifyContent": "space-between",
@@ -3286,42 +3115,31 @@ Philis is meeting with parent next week and will present an attendance contract.
         <div
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
           }
         >
           <div>
-            <div>
-              <a
-                href="/students/70"
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
+            <a
+              href="/students/70"
+              style={
+                Object {
+                  "fontWeight": "bold",
                 }
-              >
-                Mowgli
-                 
-                Pan
-              </a>
-            </div>
-            <div>
-              10th grade
-            </div>
-            <div>
-              <span
-                className="Homeroom"
-                style={Object {}}
-              >
-                <a
-                  href="/homerooms/4"
-                >
-                  SHS ALL
-                </a>
-              </span>
-            </div>
+              }
+            >
+              Mowgli
+               
+              Pan
+            </a>
           </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
         <div
           style={

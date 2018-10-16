@@ -100,8 +100,9 @@ const ORDERED_LETTER_GRADES = {
   'D-': 220,
   'F': 230
 };
+
 export function rankedByLetterGrade(letterGrade) {
-  return hasLetterGrade(letterGrade) ? 0 : ORDERED_LETTER_GRADES[letterGrade];
+  return hasLetterGrade(letterGrade) ? ORDERED_LETTER_GRADES[letterGrade] : 0;
 }
 
 export function hasLetterGrade(letterGrade) {

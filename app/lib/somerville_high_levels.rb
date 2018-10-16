@@ -1,31 +1,31 @@
-# This class is for expressing the different tiers
+# This class is for expressing the different levels
 # of support that students should be receiving, to help
-# educators catch and verify that students are getting
+# educators find gaps and take action to provide students with
 # the level of support and service they need.
-#
-# This is at experimental prototype quality.
-class ExperimentalSomervilleHighTiers
+class SomervilleHighLevels
   FAILING_GRADE = 65
 
-  def initialize(educator, options = {})
-    @educator = educator
-    @authorizer = Authorizer.new(@educator)
+  def initialize(options = {})
     @time_interval = options.fetch(:time_interval, 45.days)
-
-    if !PerDistrict.new.enabled_high_school_tiering?
-      raise 'not enabled: PerDistrict.new.enabled_high_school_tiering?'
+    if !PerDistrict.new.enabled_high_school_levels?
+      raise 'not enabled: PerDistrict.new.enabled_high_school_levels?'
     end
   end
 
-  def students_with_tiering_json(school_ids, time_now)
-    cutoff_time = time_now - @time_interval
-
+  # with authorization scoped to `educator`
+  def students_with_levels_json(educator, school_ids, time_now)
     # query for students, enforce authorization
-    students = @authorizer.authorized do
+    students = Authorizer.new(educator).authorized do
       Student.active
         .where(school_id: school_ids)
         .to_a # because of AuthorizedDispatcher#filter_relation
     end
+    unsafe_students_with_levels_json(students, time_now)
+  end
+
+  # Query for the students given, without an authorization check
+  def unsafe_students_with_levels_json(students, time_now)
+    cutoff_time = time_now - @time_interval
     student_ids = students.map(&:id)
 
     # query for absences and discipline events in batch
@@ -50,23 +50,20 @@ class ExperimentalSomervilleHighTiers
       .where(section_id: section_ids)
       .group_by(&:student_id)
 
-    # Compute tiers for each student, with some querying in here still
-    tiers_by_student_id = {}
+    # Compute levels for each student, with some querying in here still
+    levels_by_student_id = {}
     students.each do |student|
       query_results_for_student = {
         absences_count_in_period: absence_counts_by_student_id.fetch(student.id, 0),
         discipline_incident_count_in_period: discipline_incident_counts_by_student_id.fetch(student.id, 0),
         section_assignments_right_now: student_section_assignments_by_student_id.fetch(student.id, [])
       }
-      tiering_data = calculate_tiering_data(query_results_for_student, @time_interval)
-      tiers_by_student_id[student.id] = ShsTiers.new.decide_tier(tiering_data)
+      levels_data = calculate_levels_data(query_results_for_student, @time_interval)
+      levels_by_student_id[student.id] = SomervilleHighLevelsDefinitions.new.decide_level(levels_data)
     end
 
     # Optimized batch query for latest event_notes
-    notes_by_student_id = most_recent_event_notes_by_student_id(student_ids, cutoff_time, {
-      last_sst_note: [300],
-      last_experience_note: [305, 306, 307]
-    })
+    notes_by_student_id = most_recent_event_notes_by_student_id(student_ids, cutoff_time, notes_query_map)
 
     # Serialize student fields
     students_json = students.as_json(only: [
@@ -81,11 +78,11 @@ class ExperimentalSomervilleHighTiers
     ])
 
     # Merge it all back together
-    students_with_tiering = students_json.map do |student_json|
+    students_with_levels = students_json.map do |student_json|
       student_id = student_json['id']
       student_section_assignments_right_now = student_section_assignments_by_student_id.fetch(student_id, [])
       student_json.merge({
-        tier: tiers_by_student_id[student_id],
+        level: levels_by_student_id[student_id],
         notes: notes_by_student_id[student_id],
         student_section_assignments_right_now: student_section_assignments_right_now.as_json({
           only: [:id, :grade_letter, :grade_numeric],
@@ -98,10 +95,21 @@ class ExperimentalSomervilleHighTiers
         })
       })
     end
-    students_with_tiering.as_json
+    students_with_levels.as_json
   end
 
   private
+  def notes_query_map
+    sst_event_note_type_ids = [300]
+    experience_event_note_type_ids = [305, 306, 307]
+    other_event_note_type_ids = EventNoteType.all.pluck(:id) - sst_event_note_type_ids - experience_event_note_type_ids
+    {
+      last_sst_note: sst_event_note_type_ids,
+      last_experience_note: experience_event_note_type_ids,
+      last_other_note: other_event_note_type_ids
+    }
+  end
+
   # query_map is {:result_key => [event_note_type_id]}
   def most_recent_event_notes_by_student_id(student_ids, cutoff_time, query_map)
     notes_by_student_id = {}
@@ -133,13 +141,11 @@ class ExperimentalSomervilleHighTiers
           notes_for_student[key] = {}
         else
           notes_for_student[key] = {
-            # TODO(kr) maybe need id here?
             event_note_type_id: matching_partial_note.event_note_type_id,
             recorded_at: matching_partial_note.most_recent_recorded_at
           }
         end
       end
-      notes_for_student[:last_other_note] = {} # TODO(kr) remove
       notes_by_student_id[student_id] = notes_for_student
     end
     notes_by_student_id
@@ -170,11 +176,11 @@ class ExperimentalSomervilleHighTiers
 
   # This doesn't actually check actions for discipline; it only looks at
   # events since we don't have actions from Aspen yet.
-  def calculate_tiering_data(query_results_for_student, time_interval)
+  def calculate_levels_data(query_results_for_student, time_interval)
     absences_count_in_period = query_results_for_student.fetch(:absences_count_in_period)
     discipline_incident_count_in_period = query_results_for_student.fetch(:discipline_incident_count_in_period)
     section_assignments_right_now = query_results_for_student.fetch(:section_assignments_right_now)
-    ShsTiers.tiering_inputs({
+    SomervilleHighLevelsDefinitions.levels_input({
       course_failures: course_failures(section_assignments_right_now),
       course_ds: course_ds(section_assignments_right_now),
       recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),

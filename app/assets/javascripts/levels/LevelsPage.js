@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
-import ExperimentalBanner from '../components/ExperimentalBanner';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {
   updateGlobalStylesToTakeFullHeight,
   updateGlobalStylesToRemoveHorizontalScrollbars
 } from '../helpers/globalStylingWorkarounds';
-import TieringView from './TieringView';
+import LevelsView from './LevelsView';
 
 
-// Experimental page for looking at HS support tiers (Somerville only)
+// Page for looking at HS support levels (Somerville only)
 export const SYSTEMS_AND_SUPPORTS_URL = 'https://docs.google.com/document/d/10Rm-FMeQsj_ArxqVWefa6bz8-cs2zsCEubaP3iR24KA/edit';
-export const SOURCE_CODE_URL = 'https://github.com/studentinsights/studentinsights/blob/master/app/lib/shs_tiers.rb';
-export default class TieringPage extends React.Component {
+export const SOURCE_CODE_URL = 'https://github.com/studentinsights/studentinsights/blob/master/app/lib/somerville_high_levels_definitions.rb';
+export default class LevelsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchTiering = this.fetchTiering.bind(this);
-    this.renderTiering = this.renderTiering.bind(this);
+    this.fetchJson = this.fetchJson.bind(this);
+    this.renderJson = this.renderJson.bind(this);
   }
 
   componentDidMount() {
@@ -26,19 +25,18 @@ export default class TieringPage extends React.Component {
     updateGlobalStylesToTakeFullHeight();
   }
 
-  fetchTiering() {
+  fetchJson() {
     const {schoolId} = this.props;
-    const url = `/api/tiering/${schoolId}/show_json`;
-    return apiFetchJson(url).then(json => json.students_with_tiering);
+    const url = `/api/levels/${schoolId}/show_json`;
+    return apiFetchJson(url).then(json => json.students_with_levels);
   }
 
   render() {
     return (
-      <div className="TieringPage" style={styles.flexVertical}>
-        <ExperimentalBanner />
+      <div className="LevelsPage" style={styles.flexVertical}>
         <div style={{margin: 10}}>
           <SectionHeading titleStyle={styles.title}>
-            <div>HS Levels: v1 prototype</div>
+            <div>Levels for SHS Systems and Supports</div>
             <div style={styles.headerLinkContainer}>
               <a style={styles.headerLink} href={SYSTEMS_AND_SUPPORTS_URL} target="_blank">SHS Systems and Supports doc</a>
               <a style={styles.headerLink} href={SOURCE_CODE_URL} target="_blank">Source code</a>
@@ -46,24 +44,24 @@ export default class TieringPage extends React.Component {
           </SectionHeading>
         </div>
         <GenericLoader
-          promiseFn={this.fetchTiering}
+          promiseFn={this.fetchJson}
           style={styles.flexVertical}
-          render={this.renderTiering} />
+          render={this.renderJson} />
       </div>
     );
   }
 
-  renderTiering(studentsWithTiering) {
+  renderJson(studentsWithLevels) {
     return (
-      <TieringView
+      <LevelsView
         systemsAndSupportsUrl={SYSTEMS_AND_SUPPORTS_URL}
         sourceCodeUrl={SOURCE_CODE_URL}
-        studentsWithTiering={studentsWithTiering}
+        studentsWithLevels={studentsWithLevels}
       />
     );
   }
 }
-TieringPage.propTypes = {
+LevelsPage.propTypes = {
   schoolId: PropTypes.string.isRequired
 };
 

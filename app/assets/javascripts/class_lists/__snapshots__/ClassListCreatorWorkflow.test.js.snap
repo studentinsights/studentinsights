@@ -4349,7 +4349,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                     "textDecoration": "none",
                   }
                 }
-                target="_blank"
+                target="_self"
               >
                 Download class lists spreadsheet
               </a>

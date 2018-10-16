@@ -1,14 +1,24 @@
 require 'spec_helper'
 
-RSpec.describe ExperimentalSomervilleHighTiers do
+RSpec.describe SomervilleHighLevels do
   let!(:pals) { TestPals.create! }
   let!(:time_now) { pals.time_now }
 
-  describe '#students_with_tiering_json' do
+  describe '#students_with_levels_json' do
     it 'works correctly' do
-      tiers = ExperimentalSomervilleHighTiers.new(pals.uri)
-      students_with_tiering_json = tiers.students_with_tiering_json([pals.shs.id], time_now)
-      expect(students_with_tiering_json).to contain_exactly(*[{
+      FactoryBot.create(:event_note, {
+        student: pals.shs_senior_kylo,
+        event_note_type_id: 304,
+        recorded_at: time_now - 4.days
+      })
+      FactoryBot.create(:event_note, {
+        student: pals.shs_freshman_mari,
+        event_note_type_id: 305,
+        recorded_at: time_now - 6.days
+      })
+      levels = SomervilleHighLevels.new
+      students_with_levels_json = levels.students_with_levels_json(pals.uri, [pals.shs.id], time_now)
+      expect(students_with_levels_json).to contain_exactly(*[{
         "id"=>pals.shs_freshman_mari.id,
         "grade"=>"9",
         "first_name"=>"Mari",
@@ -27,8 +37,8 @@ RSpec.describe ExperimentalSomervilleHighTiers do
             "course_description"=>"BIOLOGY 1 HONORS"
           }
         }],
-        "tier"=>{
-          "level"=>0,
+        "level"=>{
+          "level_number"=>0,
           "triggers"=>[],
           "data"=>{
             "course_failures"=>0,
@@ -39,7 +49,10 @@ RSpec.describe ExperimentalSomervilleHighTiers do
         },
         "notes"=>{
           "last_sst_note"=>{},
-          "last_experience_note"=>{},
+          "last_experience_note"=>{
+            "event_note_type_id"=>305,
+            "recorded_at"=>"2018-03-07T11:03:00.000Z"
+          },
           "last_other_note"=>{}
         }
       }, {
@@ -52,8 +65,8 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "sped_placement"=>nil,
           "house"=>"Broadway",
           "student_section_assignments_right_now"=>[],
-          "tier"=>{
-            "level"=>0,
+          "level"=>{
+            "level_number"=>0,
             "triggers"=>[],
             "data"=>{
               "course_failures"=>0,
@@ -86,8 +99,8 @@ RSpec.describe ExperimentalSomervilleHighTiers do
               "course_description"=>"ART MAJOR FOUNDATIONS"
             }
           }],
-          "tier"=>{
-            "level"=>0,
+          "level"=>{
+            "level_number"=>0,
             "triggers"=>[],
             "data"=>{
               "course_failures"=>1,
@@ -99,7 +112,10 @@ RSpec.describe ExperimentalSomervilleHighTiers do
           "notes"=>{
             "last_sst_note"=>{},
             "last_experience_note"=>{},
-            "last_other_note"=>{}
+            "last_other_note"=>{
+              "event_note_type_id"=>304,
+              "recorded_at"=>"2018-03-09T11:03:00.000Z"
+            }
           }
         }
       ])
@@ -108,11 +124,11 @@ RSpec.describe ExperimentalSomervilleHighTiers do
 
   describe '#current_term_local_ids' do
     it 'works at different times' do
-      tiers = ExperimentalSomervilleHighTiers.new(pals.uri)
-      expect(tiers.send(:current_term_local_ids, time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
-      expect(tiers.send(:current_term_local_ids, DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
-      expect(tiers.send(:current_term_local_ids, DateTime.new(2018, 11, 21))).to eq  ['Q2', 'S1', '1', '9', 'FY']
-      expect(tiers.send(:current_term_local_ids, DateTime.new(2019, 6, 26))).to eq  []
+      levels = SomervilleHighLevels.new
+      expect(levels.send(:current_term_local_ids, time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
+      expect(levels.send(:current_term_local_ids, DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
+      expect(levels.send(:current_term_local_ids, DateTime.new(2018, 11, 21))).to eq  ['Q2', 'S1', '1', '9', 'FY']
+      expect(levels.send(:current_term_local_ids, DateTime.new(2019, 6, 26))).to eq  []
     end
   end
 end
