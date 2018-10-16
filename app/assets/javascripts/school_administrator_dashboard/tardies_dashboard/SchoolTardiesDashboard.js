@@ -211,7 +211,6 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <StudentsTable
         rows={rows}
-        selectedCategory={this.state.selectedHomeroom}
         incidentType='Tardies'
         incidentSubtitle={this.timeRangeText()}
         resetFn={this.resetStudentList}/>
