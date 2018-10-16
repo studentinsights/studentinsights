@@ -37,6 +37,7 @@ it('renders everything after fetch', done => {
 
   setTimeout(() => {
     expect($(el).find('.LevelsView').length).toEqual(1);
+    expect($(el).find('.ReactVirtualized__Table__row').length).toEqual(29); // tied to the dimensions used in test
     done();
   }, 0);
 });

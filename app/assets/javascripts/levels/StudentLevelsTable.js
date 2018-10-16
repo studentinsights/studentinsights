@@ -52,10 +52,10 @@ export default class StudentLevelsTable extends React.Component {
           {({height, width}) => (
             <Table
               ref={el => this.tableEl = el}
-              width={width}
+              width={width || 1024} /* for test, since sizing doesn't work in jsdom */
+              height={height || 768} /* for test, since sizing doesn't work in jsdom */
               headerHeight={rowHeight}
               headerStyle={styles.tableHeaderStyle}
-              height={height}
               rowCount={orderedStudentsWithLevels.length}
               rowGetter={({index}) => orderedStudentsWithLevels[index]}
               rowHeight={rowHeight}
