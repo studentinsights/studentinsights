@@ -81,10 +81,6 @@ export default class StudentsTable extends React.Component {
   render() {
     return (
       <div className="StudentsTable" style={styles.root}>
-        <div style={styles.caption}>
-          {this.renderCaption()}
-          <DashResetButton clearSelection={this.props.resetFn} selectedCategory={this.props.selectedCategory}/>
-        </div>
         <div style={{flex: 1}}>
           {this.renderTableWithSizing()}
         </div>
@@ -197,12 +193,6 @@ export default class StudentsTable extends React.Component {
     return <span style={{color}}>{text}</span>;
   }
 
-  renderCaption() {
-    const {selectedCategory} = this.props;
-
-    return selectedCategory ? selectedCategory : 'All Students';
-  }
-
   renderTotalEvents() {
     let total = 0;
     this.props.rows.forEach((student) => {
@@ -254,11 +244,6 @@ const styles = {
   },
   totalEvents: {
     paddingTop: 10
-  },
-  caption: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    paddingBottom: 5
   },
   incidentSubtitle: {
     fontWeight: 'normal',

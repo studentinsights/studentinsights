@@ -172,7 +172,9 @@ export default class SchoolTardiesDashboard extends React.Component {
       return homeroomTardyEvents[b] - homeroomTardyEvents[a];
     });
     const homeroomSeries = homerooms.map((homeroom) => {
-      return homeroomTardyEvents[homeroom];
+      const color = (homeroom === this.state.selectedHomeroom)? 'orange' : null;
+      const y = homeroomTardyEvents[homeroom];
+      return {homeroom, y, color};
     });
 
     return (
