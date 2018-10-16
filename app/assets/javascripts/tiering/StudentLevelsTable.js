@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
+import {Table, Column, AutoSizer, SortDirection, SortIndicator} from 'react-virtualized';
 import 'react-select/dist/react-select.css';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {rankedByLetterGrade} from '../helpers/SortHelpers';
@@ -52,12 +52,12 @@ export default class StudentLevelsTable extends React.Component {
               ref={el => this.tableEl = el}
               width={width}
               headerHeight={40}
+              headerStyle={styles.tableHeaderStyle}
               height={height}
               rowCount={orderedStudentsWithTiering.length}
               rowGetter={({index}) => orderedStudentsWithTiering[index]}
               rowHeight={40}
               rowStyle={{display: 'flex', alignItems: 'center'}}
-              headerStyle={styles.tableHeaderStyle}
               sort={this.onTableSort}
               sortBy={sortBy}
               sortDirection={sortDirection}
@@ -95,13 +95,12 @@ const styles = {
     overflow: 'hidden'
   },
   tableHeaderStyle: {
-    display: 'flex',
     fontSize: 12,
     fontWeight: 'normal',
-    alignContent: 'flex-start',
     borderBottom: '1px solid #aaa',
     paddingBottom: 3,
-    height: '100%'
+    height: '100%',
+    cursor: 'pointer'
   },
   grade: {
     display: 'inline-block',
@@ -143,78 +142,78 @@ export function describeColumns(nowMoment) {
 
   return [{
     dataKey: 'student',
-    label: <span><br />Student</span>,
+    label: "Student",
     width: 120,
     flexGrow:1,
     cellRenderer: renderStudent
   }, {
     dataKey: 'level',
-    label: <span><br />Level</span>,
+    label: "Level",
     width: gradeCellWidth,
     cellRenderer: renderLevel
   }, {
     dataKey: 'absence',
-    label: <span>Attendance<br/>Rate</span>,
+    label: "Attendance Rate",
     width: numericCellWidth,
     cellRenderer: renderAbsenceRate
   }, {
     dataKey: 'discipline',
-    label: <span>Discipline<br/>Incidents</span>,
+    label: "Discipline Incidents",
     width: numericCellWidth,
     cellRenderer: renderDisciplineIncidents
   }, {
     dataKey: 'english_or_core_ell',
-    label: <span><br />EN/ELL</span>,
+    label: "EN/ELL",
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, ENGLISH_OR_CORE_ELL)
   }, {
     dataKey: 'social_studies',
-    label: <span>Social<br/>Studies</span>,
+    label: "Social Studies",
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, SOCIAL_STUDIES)
   }, {
     dataKey: 'math',
-    label: <span><br />Math</span>,
+    label: "Math",
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, MATH)
   }, {
     dataKey: 'science',
-    label: <span><br />Science</span>,
+    label: "Science",
     width: gradeCellWidth,
     cellRenderer: renderGradeFor.bind(null, SCIENCE)
   }, {
     dataKey: 'nge',
-    label: <span>Last NGE/<br/>10GE/NEST</span>,
+    label: "Last NGE/ 10GE/NEST",
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_experience_note')
   }, {
     dataKey: 'sst',
-    label: <span>Last SST</span>,
+    label: "Last SST",
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_sst_note')
   }, {
     dataKey: 'study',
-    label: <span>Study<br/>skills</span>,
+    label: "Study skills",
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, STUDY_SKILLS, 'study')
   }, {
     dataKey: 'support',
-    label: <span>Academic<br/>Support</span>,
+    label: "Academic Support",
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, ACADEMIC_SUPPORT, 'support')
   }, {
     dataKey: 'redirect',
-    label: <span><br/>Redirect</span>,
+    label: "Redirect",
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, REDIRECT, 'redirect')
   }, {
     dataKey: 'recovery',
-    label: <span>Credit<br/>Recovery</span>,
+    label: "Credit Recovery",
     width: supportCellWidth,
     cellRenderer: renderIfEnrolled.bind(null, CREDIT_RECOVERY, 'recovery')
   }, {
     dataKey: 'program_assigned',
-    label: <span>Program<br/>or SPED</span>,
+    label: "Program or SPED",
     width: supportCellWidth,
     cellRenderer: renderProgram
   }];
