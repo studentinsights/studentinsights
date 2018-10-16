@@ -13,7 +13,6 @@ import {
 import * as Routes from '../helpers/Routes';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
-import DashResetButton from './DashResetButton';
 
 
 export default class StudentsTable extends React.Component {
