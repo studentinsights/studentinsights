@@ -22,7 +22,9 @@ import {
 
 
 // Render a virtualized table, with information and triggers on the
-// left columns and supports on the right.
+// left columns and supports on the right.  Exports the description
+// of the column and the ordering functions for re-use in exporting
+// this data as a CSV.
 export default class StudentLevelsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -134,64 +136,6 @@ const styles = {
 
 
 // This is used both for react-virtualized and interpreted to make the CSV export.
-export function orderedStudents(studentsWithTiering, sortBy, sortDirection) {
-  // map dataKey to an accessor/sort function
-  const sortFns = {
-    student(student) { return `${student.last_name}, ${student.first_name}`; },
-    level(student) { return student.tier.level; },
-    absence(student) { return student.tier.data.recent_absence_rate; },
-    discipline(student) { return student.tier.data.recent_discipline_actions; },
-    english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
-    social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
-    math(student) { return sortByGrade(MATH, student); },
-    science(student) { return sortByGrade(SCIENCE, student); },
-    nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
-    sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
-    study(student) { return sortIfEnrolled(STUDY_SKILLS, student); },
-    support(student) { return sortIfEnrolled(ACADEMIC_SUPPORT, student); },
-    redirect(student) { return sortIfEnrolled(REDIRECT, student); },
-    recovery(student) { return sortIfEnrolled(CREDIT_RECOVERY, student); },
-    program_assigned(student) { return prettyProgramOrPlacementText(student); },
-    fallback(student) { return student[sortBy]; }
-  };
-
-  // "Natural" sort order, before table sorting
-  const sortFn = sortFns[sortBy] || sortFns.fallback;
-  const sortedRows = _.sortBy(studentsWithTiering, [
-    (s => sortFn(s)),
-    (s => s.tier.level),
-    (s => s.tier.triggers.length),
-    (s => s.tier.triggers.sort()),
-    (s => s.last_name),
-    (s => s.first_name)
-  ]);
-
-  // sort and respect direction
-  return (sortDirection === SortDirection.DESC) 
-    ? sortedRows.reverse()
-    : sortedRows;
-}
-
-function sortByGrade(patterns, student) {
-  const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
-  return (assignment && assignment.grade_letter)
-    ? rankedByLetterGrade(assignment.grade_letter)
-    : Number.POSITIVE_INFINITY;
-}
-
-function sortIfEnrolled(patterns, student) {
-  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
-  return (assignment) ? 1 : 0;
-}
-
-function sortTimestamp(maybeString) {
-  return (maybeString)
-    ? moment.utc(maybeString).unix()
-    : Number.NEGATIVE_INFINITY;
-}
-
-
-// This is used both for react-virtualized and interpreted to make the CSV export.
 export function describeColumns(nowMoment) {
   const gradeCellWidth = 50;
   const numericCellWidth = 70;
@@ -276,6 +220,9 @@ export function describeColumns(nowMoment) {
   }];
 }
 
+// The linter wants propTypes for all these now that they're factored out from
+// methods into functions; adding these isn't particularly helpful.
+/* eslint-disable react/prop-types */
 function renderStudent({rowData}) {
   const student = rowData;
   return <a style={styles.person} target="_blank" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
@@ -319,12 +266,6 @@ function renderIfEnrolled(patterns, el, {rowData}) {
     : null;
 }
 
-function renderTriggerIf(trigger, {rowData}) {
-  return (rowData.tier.triggers.indexOf(trigger) !== -1)
-    ? trigger
-    : null;
-}
-
 function renderProgram({rowData}) {
   const student = rowData;
   const programText = prettyProgramOrPlacementText(student);
@@ -361,4 +302,66 @@ function renderNotes(nowMoment, key, {rowData}) {
     ? 'today'
     : (daysAgo === 1) ? 'yesterday' : `${daysAgo} days`;
   return <span style={{...styles.support, fontSize: 12}}>{daysAgoText}</span>;
+}
+/* eslint-enable react/prop-types */
+
+
+
+// This is used both for react-virtualized and interpreted to make the CSV export.
+// It's not called in this component, but is defined here since it's so coupled to the implementation
+// of the columns.
+export function orderedStudents(studentsWithTiering, sortBy, sortDirection) {
+  // map dataKey to an accessor/sort function
+  const sortFns = {
+    student(student) { return `${student.last_name}, ${student.first_name}`; },
+    level(student) { return student.tier.level; },
+    absence(student) { return student.tier.data.recent_absence_rate; },
+    discipline(student) { return student.tier.data.recent_discipline_actions; },
+    english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
+    social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
+    math(student) { return sortByGrade(MATH, student); },
+    science(student) { return sortByGrade(SCIENCE, student); },
+    nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
+    sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
+    study(student) { return sortIfEnrolled(STUDY_SKILLS, student); },
+    support(student) { return sortIfEnrolled(ACADEMIC_SUPPORT, student); },
+    redirect(student) { return sortIfEnrolled(REDIRECT, student); },
+    recovery(student) { return sortIfEnrolled(CREDIT_RECOVERY, student); },
+    program_assigned(student) { return prettyProgramOrPlacementText(student); },
+    fallback(student) { return student[sortBy]; }
+  };
+
+  // "Natural" sort order, before table sorting
+  const sortFn = sortFns[sortBy] || sortFns.fallback;
+  const sortedRows = _.sortBy(studentsWithTiering, [
+    (s => sortFn(s)),
+    (s => s.tier.level),
+    (s => s.tier.triggers.length),
+    (s => s.tier.triggers.sort()),
+    (s => s.last_name),
+    (s => s.first_name)
+  ]);
+
+  // sort and respect direction
+  return (sortDirection === SortDirection.DESC) 
+    ? sortedRows.reverse()
+    : sortedRows;
+}
+
+function sortByGrade(patterns, student) {
+  const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
+  return (assignment && assignment.grade_letter)
+    ? rankedByLetterGrade(assignment.grade_letter)
+    : Number.POSITIVE_INFINITY;
+}
+
+function sortIfEnrolled(patterns, student) {
+  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
+  return (assignment) ? 1 : 0;
+}
+
+function sortTimestamp(maybeString) {
+  return (maybeString)
+    ? moment.utc(maybeString).unix()
+    : Number.NEGATIVE_INFINITY;
 }

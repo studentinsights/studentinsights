@@ -12,17 +12,11 @@ import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
 import HelpBubble, {modalFromRight} from '../components/HelpBubble';
+import TieringBreakdown from './TieringBreakdown';
 import StudentLevelsTable, {
   orderedStudents,
   describeColumns
 } from './StudentLevelsTable';
-import {
-  firstMatch,
-  CREDIT_RECOVERY,
-  ACADEMIC_SUPPORT,
-  REDIRECT,
-  STUDY_SKILLS
-} from './Courses';
 
 
 // UI for HS tiering prototype.  Contains a filter and button bar,
@@ -43,6 +37,11 @@ export default class TieringView extends React.Component {
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onTableSort = this.onTableSort.bind(this);
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
+  }
+
+  areFiltersApplied() {
+    const {studentsWithTiering} = this.props;
+    return (this.filteredStudents().length !== studentsWithTiering.length);
   }
 
   filteredStudents() {
@@ -167,7 +166,7 @@ export default class TieringView extends React.Component {
         <div style={styles.textBar}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={styles.tieringInfo}>Last 45 days</div>
-            {this.renderStats(filteredStudents)}
+            {this.renderBreakdownLink(filteredStudents)}
           </div>
           <div style={{display: 'flex', flexDirection: 'column', paddingLeft: 10}}>
             {this.renderDownloadLink(filteredStudents)}
@@ -177,27 +176,24 @@ export default class TieringView extends React.Component {
     );
   }
 
-  renderSystemsAndSupportsLink() {
-    const {systemsAndSupportsUrl, sourceCodeUrl} = this.props;
-    return (
-      <div>
-        <a style={{display: 'block'}} href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>
-        <a style={{display: 'block'}} href={sourceCodeUrl} target="_blank">Open source code</a>
-      </div>
-    );
+  renderFilterWarningMessage(students) {
+    const messageStyles = { marginBottom: 20};
+    if (this.areFiltersApplied()) {
+      return (
+        <div style={{...messageStyles, fontWeight: 'bold', color: 'darkorange'}}>
+          Filters are applied, so this only includes data for {students.length} students.
+        </div>
+      );
+    } else {
+      return (
+        <div style={messageStyles}>
+          This includes data for all {students.length} students.
+        </div>
+      );
+    }
   }
 
-  //<div>There are <b>{uncoveredStudents.length} students</b> with absence or discipline triggers recently who haven't been mentioned in SST.</div>
-  // renderSupportGapsMessageWithFilterWarning(message) {
-  //   return (
-  //     <div>
-  //       <div>{message}</div>
-  //       {!_.isEqual(initialState(), this.state) && <div style={{color: 'darkorange', fontWeight: 'bold'}}>Filters are applied.</div>}
-  //     </div>
-  //   );
-  // }
-
-  renderStats(filteredStudents) {
+  renderBreakdownLink(filteredStudents) {
     return (
       <HelpBubble
         modalStyle={modalFromRight}
@@ -205,90 +201,27 @@ export default class TieringView extends React.Component {
         linkStyle={{...styles.summary, padding: 0}}
         teaser="Breakdown"
         title="Breakdown"
-        content={this.renderBreakdown(filteredStudents)}
+        content={
+          <TieringBreakdown
+            studentsWithTiering={filteredStudents}
+            messageEl={this.renderFilterWarningMessage(filteredStudents)}
+            levelsLinksEl={this.renderLevelsLinks()}
+          />
+        }
       />
     );
   }
 
-  renderBreakdown(studentsWithTiering) {
+  renderLevelsLinks(filteredStudents) {
+    const {systemsAndSupportsUrl, sourceCodeUrl} = this.props;
     return (
-      <div>
-        {this.renderSystemsAndSupportsLink()}
-        <div style={styles.summaryContainer}>
-          <div style={styles.summaryColumn}>
-            <h4 style={{marginBottom: 10}}>by levels</h4>
-            {this.renderTierCount(studentsWithTiering, 0)}
-            {this.renderTierCount(studentsWithTiering, 1)}
-            {this.renderTierCount(studentsWithTiering, 2)}
-            {this.renderTierCount(studentsWithTiering, 3)}
-            {this.renderTierCount(studentsWithTiering, 4)}
-          </div>
-          <div style={styles.summaryColumn}>
-            <h4 style={{marginBottom: 10}}>by triggers</h4>
-            {this.renderTriggerCount(studentsWithTiering)}
-          </div>
-          <div style={styles.summaryColumn}>
-            <h4 style={{marginBottom: 10}}>by supports</h4>
-            {this.renderServiceCount(studentsWithTiering, 'Credit recovery', CREDIT_RECOVERY)}
-            {this.renderServiceCount(studentsWithTiering, 'Academic support', ACADEMIC_SUPPORT)}
-            {this.renderServiceCount(studentsWithTiering, 'Redirect', REDIRECT)}
-            {this.renderServiceCount(studentsWithTiering, 'Study skills', STUDY_SKILLS)}
-          </div>
-        </div>
+      <div style={{marginTop: 20}}>
+        <a style={{display: 'block'}} href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>
+        <a style={{display: 'block'}} href={sourceCodeUrl} target="_blank">Open source code</a>
       </div>
     );
   }
 
-  // Unused, but for internal debugging
-  // renderUnlabeledCourses(studentsWithTiering) {
-  //   const assignments = _.flatten(studentsWithTiering.map(s => s.student_section_assignments_right_now));
-  //   const labeledAssignments = assignments.map(assignment => {
-  //     return {
-  //       ...assignment,
-  //       departmentKey: labelDepartmentKey(assignment)
-  //     };
-  //   });
-
-  //   const unlabeledCourses = _.uniq(labeledAssignments
-  //     .filter(a => a.departmentKey === 'unknown')
-  //     .map(a => a.section.course_description));
-
-  //   return <pre>{JSON.stringify(unlabeledCourses(studentsWithTiering), null, 2)}</pre>;
-  // }
-
-  renderTierCount(studentsWithTiering, n) {
-    const count = studentsWithTiering.filter(s => s.tier.level === n).length;
-    const percentage = Math.round(100 * count / studentsWithTiering.length);
-    return this.renderSummaryBit(`Level ${n}`, count, percentage);
-  }
-
-  renderTriggerCount(studentsWithTiering) {
-    const triggers = _.uniq(_.flatten(studentsWithTiering.map(s => s.tier.triggers)));
-    return (
-      <div>{triggers.map(trigger => {
-        const count = studentsWithTiering.filter(s => s.tier.triggers.indexOf(trigger) !== -1).length;
-        const percentage = Math.round(100 * count / studentsWithTiering.length);
-        return this.renderSummaryBit(trigger, count, percentage);
-      })}</div>
-    );
-  }
-
-  renderServiceCount(studentsWithTiering, text, patterns) {
-    const count = studentsWithTiering.filter(s => {
-      return firstMatch(s.student_section_assignments_right_now, patterns) !== undefined;
-    }).length;
-    const percentage = Math.round(100 * count / studentsWithTiering.length);
-    return this.renderSummaryBit(text, count, percentage);
-  }
-
-  renderSummaryBit(labelText, count, percentage) {
-    return (
-      <div key={labelText}>
-        <div><b>{labelText}</b>:</div>
-        <div style={{marginLeft: 10, marginBottom: 5}}>{percentage}% ({count} students)</div>
-      </div>
-    );
-  }
 
   // This tracks the modal state on its own rather than using <HelpBubble /> so that it
   // can be lazy about rendering the actual download link (which is expensive) and defer that
@@ -302,7 +235,10 @@ export default class TieringView extends React.Component {
     return (
       <div onClick={this.onDownloadDialogToggled}>
         {isDownloadOpen
-          ? <ReactModal isOpen={true} onRequestClose={this.onDownloadDialogToggled} style={styles.downloadLink}>
+          ? <ReactModal
+              isOpen={true}
+              onRequestClose={this.onDownloadDialogToggled}
+              style={modalFromRight}>
               {this.renderLinkWithCsvDataInline(columns, students)}
             </ReactModal>
           : <svg style={{fill: "#3177c9", opacity: 0.5, cursor: 'pointer'}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
@@ -325,8 +261,8 @@ export default class TieringView extends React.Component {
           paddingBottom: 10,
           marginBottom: 20
         }}>Export as spreadsheet</h1>
-        <div style={{marginBottom: 20}}>This will include data for {students.length} students.</div>
-        <DownloadCsvLink filename={filename} style={{color: 'white'}} csvText={csvText}>
+        {this.renderFilterWarningMessage(students)}
+        <DownloadCsvLink filename={filename} style={styles.downloadButton} csvText={csvText}>
           Download CSV
         </DownloadCsvLink>
       </div>
@@ -406,15 +342,6 @@ const styles = {
     fontSize: 12,
     marginLeft: 15
   },
-  summaryContainer: {
-    display: 'flex',
-    margin: 10,
-    fontSize: 14
-  },
-  summaryColumn: {
-    flex: 1,
-    margin: 10
-  },
   tieringInfo: {
     fontSize: 12,
     color: '#666'
@@ -443,6 +370,11 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center'
+  },
+  downloadButton: {
+    display: 'inline-block',
+    marginBottom: 10,
+    color: 'white'
   }
 };
 
