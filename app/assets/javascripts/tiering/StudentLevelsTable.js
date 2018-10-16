@@ -31,9 +31,7 @@ export default class StudentLevelsTable extends React.Component {
     super(props);
 
     this.state = {
-      isDownloadOpen: false,
-      sortBy: 'level',
-      sortDirection: SortDirection.ASC,
+      isDownloadOpen: false
     };
 
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
@@ -106,22 +104,22 @@ export default class StudentLevelsTable extends React.Component {
       dataKey: 'study',
       label: <span>Study<br/>skills</span>,
       width: supportCellWidth,
-      cellRenderer: this.renderIf.bind(this, STUDY_SKILLS, 'study')
+      cellRenderer: this.renderIfEnrolled.bind(this, STUDY_SKILLS, 'study')
     }, {
       dataKey: 'support',
       label: <span>Academic<br/>Support</span>,
       width: supportCellWidth,
-      cellRenderer: this.renderIf.bind(this, ACADEMIC_SUPPORT, 'support')
+      cellRenderer: this.renderIfEnrolled.bind(this, ACADEMIC_SUPPORT, 'support')
     }, {
       dataKey: 'redirect',
       label: <span><br/>Redirect</span>,
       width: supportCellWidth,
-      cellRenderer: this.renderIf.bind(this, REDIRECT, 'redirect')
+      cellRenderer: this.renderIfEnrolled.bind(this, REDIRECT, 'redirect')
     }, {
       dataKey: 'recovery',
       label: <span>Credit<br/>Recovery</span>,
       width: supportCellWidth,
-      cellRenderer: this.renderIf.bind(this, CREDIT_RECOVERY, 'recovery')
+      cellRenderer: this.renderIfEnrolled.bind(this, CREDIT_RECOVERY, 'recovery')
     }, {
       dataKey: 'program_assigned',
       label: <span>Program<br/>or SPED</span>,
@@ -130,58 +128,10 @@ export default class StudentLevelsTable extends React.Component {
     }];
   }
 
-  orderedStudents() {
-    const {studentsWithTiering} = this.props;
-    const {sortBy, sortDirection} = this.state;
-
-    // map dataKey to an accessor/sort function
-    const sortFns = {
-      student(student) { return `${student.last_name}, ${student.first_name}`; },
-      level(student) { return student.tier.level; },
-      absence(student) { return student.tier.data.recent_absence_rate; },
-      discipline(student) { return student.tier.data.recent_discipline_actions; },
-      english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
-      social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
-      math(student) { return sortByGrade(MATH, student); },
-      science(student) { return sortByGrade(SCIENCE, student); },
-      nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
-      sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
-      study(student) { return sortIfCourse(STUDY_SKILLS, student); },
-      support(student) { return sortIfCourse(ACADEMIC_SUPPORT, student); },
-      redirect(student) { return sortIfCourse(REDIRECT, student); },
-      recovery(student) { return sortIfCourse(CREDIT_RECOVERY, student); },
-      program_assigned(student) { return prettyProgramOrPlacementText(student); },
-      fallback(student) { return student[sortBy]; }
-    };
-
-    // "Natural" sort order, before table sorting
-    const sortFn = sortFns[sortBy] || sortFns.fallback;
-    const sortedRows = _.sortBy(studentsWithTiering, [
-      (s => sortFn(s)),
-      (s => s.tier.level),
-      (s => s.tier.triggers.length),
-      (s => s.tier.triggers.sort()),
-      (s => s.last_name),
-      (s => s.first_name)
-    ]);
-    // sort and respect direction
-    
-    // const sortedRows = _.sortBy(studentsWithTiering, sortFn);
-    return (sortDirection === SortDirection.DESC) 
-      ? sortedRows.reverse()
-      : sortedRows;
-  }
 
   onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
-    if (sortBy === this.state.sortBy) {
-      const oppositeSortDirection = (this.state.sortDirection == SortDirection.DESC)
-        ? SortDirection.ASC
-        : SortDirection.DESC;
-      this.setState({ sortDirection: oppositeSortDirection });
-    } else {
-      this.setState({sortBy});
-    }
-
+    const {onTableSort} = this.props;
+    onTableSort({sortBy, sortDirection});
     this.tableEl.scrollToRow(0);
   }
 
@@ -191,13 +141,12 @@ export default class StudentLevelsTable extends React.Component {
   }
 
   render() {
-    const {sortDirection, sortBy} = this.state;
+    const {orderedStudentsWithTiering, sortBy, sortDirection} = this.props;
     const columns = this.columns();
-    const students = this.orderedStudents();
     
     return (
       <div className="StudentLevelsTable" style={styles.root}>
-        {this.renderDownloadLink(columns, students)}
+        {this.renderDownloadLink(columns, orderedStudentsWithTiering)}
         <AutoSizer>
           {({height, width}) => (
             <Table
@@ -205,8 +154,8 @@ export default class StudentLevelsTable extends React.Component {
               width={width}
               headerHeight={40}
               height={height}
-              rowCount={students.length}
-              rowGetter={({index}) => students[index]}
+              rowCount={orderedStudentsWithTiering.length}
+              rowGetter={({index}) => orderedStudentsWithTiering[index]}
               rowHeight={40}
               rowStyle={{display: 'flex', alignItems: 'center'}}
               headerStyle={styles.tableHeaderStyle}
@@ -297,7 +246,7 @@ export default class StudentLevelsTable extends React.Component {
       : null;
   }
 
-  renderIf(patterns, el, {rowData}) {
+  renderIfEnrolled(patterns, el, {rowData}) {
     const student = rowData;
     const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
     return (assignment)
@@ -355,7 +304,13 @@ StudentLevelsTable.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 StudentLevelsTable.propTypes = {
-  studentsWithTiering: PropTypes.array.isRequired
+  orderedStudentsWithTiering: PropTypes.array.isRequired,
+  sortBy: PropTypes.string.isRequired,
+  sortDirection: PropTypes.oneOf([
+    SortDirection.ASC,
+    SortDirection.DESC
+  ]).isRequired,
+  onTableSort: PropTypes.func.isRequired
 };
 
 const warningColor = 'rgb(255, 222, 198)';
@@ -416,14 +371,54 @@ const styles = {
   }
 };
 
+
+
+export function orderedStudents(studentsWithTiering, sortBy, sortDirection) {
+  // map dataKey to an accessor/sort function
+  const sortFns = {
+    student(student) { return `${student.last_name}, ${student.first_name}`; },
+    level(student) { return student.tier.level; },
+    absence(student) { return student.tier.data.recent_absence_rate; },
+    discipline(student) { return student.tier.data.recent_discipline_actions; },
+    english_or_core_ell(student) { return sortByGrade(ENGLISH_OR_CORE_ELL, student); },
+    social_studies(student) { return sortByGrade(SOCIAL_STUDIES, student); },
+    math(student) { return sortByGrade(MATH, student); },
+    science(student) { return sortByGrade(SCIENCE, student); },
+    nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
+    sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
+    study(student) { return sortIfEnrolled(STUDY_SKILLS, student); },
+    support(student) { return sortIfEnrolled(ACADEMIC_SUPPORT, student); },
+    redirect(student) { return sortIfEnrolled(REDIRECT, student); },
+    recovery(student) { return sortIfEnrolled(CREDIT_RECOVERY, student); },
+    program_assigned(student) { return prettyProgramOrPlacementText(student); },
+    fallback(student) { return student[sortBy]; }
+  };
+
+  // "Natural" sort order, before table sorting
+  const sortFn = sortFns[sortBy] || sortFns.fallback;
+  const sortedRows = _.sortBy(studentsWithTiering, [
+    (s => sortFn(s)),
+    (s => s.tier.level),
+    (s => s.tier.triggers.length),
+    (s => s.tier.triggers.sort()),
+    (s => s.last_name),
+    (s => s.first_name)
+  ]);
+
+  // sort and respect direction
+  return (sortDirection === SortDirection.DESC) 
+    ? sortedRows.reverse()
+    : sortedRows;
+}
+
 function sortByGrade(patterns, student) {
-  const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
+  const assignment = firstMatchWithGrades(student.student_section_assignments_right_now, patterns);
   return (assignment && assignment.grade_letter)
     ? rankedByLetterGrade(assignment.grade_letter)
     : Number.POSITIVE_INFINITY;
 }
 
-function sortIfCourse(patterns, student) {
+function sortIfEnrolled(patterns, student) {
   const assignment = firstMatch(student.student_section_assignments_right_now, patterns);
   return (assignment) ? 1 : 0;
 }

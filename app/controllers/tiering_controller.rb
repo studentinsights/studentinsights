@@ -9,9 +9,10 @@ class TieringController < ApplicationController
 
     tiers = ExperimentalSomervilleHighTiers.new(current_educator)
     students_with_tiering_json = tiers.students_with_tiering_json([school_id], time_now)
-    render json: {
-      students_with_tiering: students_with_tiering_json
-    }
+    # render json: {
+    #   students_with_tiering: students_with_tiering_json
+    # }
+    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER/tiers.json'))
   end
 
   private
