@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 2018_10_16_215409) do
     t.index ["student_id"], name: "index_historical_grades_on_student_id"
   end
 
-  create_table "historical_levels_snapshot", force: :cascade do |t|
+  create_table "historical_levels_snapshots", force: :cascade do |t|
     t.datetime "time_now"
     t.json "student_ids"
     t.json "students_with_levels_json"

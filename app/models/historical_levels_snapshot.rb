@@ -2,12 +2,12 @@
 class HistoricalLevelsSnapshot < ApplicationRecord
   def self.snapshot!(options = {})
     raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.enabled_high_school_levels?
-    school_id = options.fetch(:school_id, 'SHS')
+    school_id = options.fetch(:school_id, School.find_by_local_id('SHS').try(:id))
     time_now = options.fetch(:time_now, Time.now)
     log = options.fetch(:log, STDOUT)
 
     levels = SomervilleHighLevels.new
-    students = Student.active.where(school_id: school_ids)
+    students = Student.active.where(school_id: school_id)
     students_with_levels_json = levels.unsafe_students_with_levels_json(students, time_now)
     HistoricalLevelsSnapshot.create!({
       time_now: time_now,
