@@ -310,8 +310,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        incidentType={"Incidents"}
-        resetFn={this.onResetStudentList}/>
+        incidentType={"Incidents"}/>
     );
   }
 }

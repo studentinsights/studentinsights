@@ -211,7 +211,6 @@ StudentsTable.propTypes = {
     latest_note: InsightsPropTypes.nullableWithKey(PropTypes.object)
   })).isRequired,
   incidentType: PropTypes.string.isRequired, // Specific incident type being displayed
-  resetFn: PropTypes.func.isRequired, // Function to reset student list to display all students
   forcedSizeForTesting: PropTypes.object
 };
 
