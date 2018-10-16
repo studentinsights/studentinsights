@@ -343,9 +343,7 @@ SchoolDisciplineDashboard.contextTypes = {
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
   school: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    local_id: PropTypes.string.isRequired,
-    school_type: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired
   }).isRequired
 };
 
