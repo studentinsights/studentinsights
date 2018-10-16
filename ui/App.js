@@ -15,7 +15,7 @@ import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import SchoolRosterPage from '../app/assets/javascripts/school_overview/SchoolRosterPage';
 import SectionPage from '../app/assets/javascripts/section/SectionPage';
-import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
+import LevelsPage from '../app/assets/javascripts/levels/LevelsPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
@@ -101,7 +101,7 @@ export default class App extends React.Component {
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-        <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
+        <Route exact path="/levels/:school_id" render={this.renderLevelsPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
         <Route exact path='/login_activity' render={this.renderLoginActivity.bind(this)}/>
         <Route exact path='/service_uploads' render={this.renderServiceUploads.bind(this)}/>
@@ -249,10 +249,10 @@ export default class App extends React.Component {
     return <DistrictEnrollmentPage />;
   }
 
-  renderTieringPage(routeProps) {
+  renderLevelsPage(routeProps) {
     const schoolId = routeProps.match.params.school_id;
-    this.trackVisit(routeProps, 'TIERING_PAGE');
-    return <TieringPage schoolId={schoolId} />;
+    this.trackVisit(routeProps, 'LEVELS_PAGE');
+    return <LevelsPage schoolId={schoolId} />;
   }
 
   renderIsServiceWorking(routeProps) {

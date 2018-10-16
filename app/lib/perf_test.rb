@@ -10,12 +10,12 @@ class PerfTest
     end
   end
 
-  def self.tiering(percentage, options = {})
+  def self.levels_shs(percentage, options = {})
     time_now = options.fetch(:time_now, Time.at(1529067553))
     school_id = 9
     PerfTest.new.simple(percentage, options) do |educator|
-      tiers = ExperimentalSomervilleHighTiers.new(educator)
-      tiers.students_with_tiering_json([school_id], time_now)
+      levels = SomervilleHighLevels.new(educator)
+      levels.students_with_levels_json([school_id], time_now)
     end
   end
 

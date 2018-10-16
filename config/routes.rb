@@ -66,10 +66,8 @@ Rails.application.routes.draw do
   get '/api/event_notes/:id/restricted_note_json' => 'event_notes#restricted_note_json'
   delete '/api/event_notes/attachments/:event_note_attachment_id' => 'event_notes#destroy_attachment'
 
-
-  ### experimental
-  # HS tiers
-  get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
+  # HS levels
+  get '/api/levels/:school_id/show_json' => 'levels#show_json'
 
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
@@ -100,7 +98,7 @@ Rails.application.routes.draw do
   # home page
   get '/home' => 'ui#ui'
 
-  # tiering
+  # SHS levels
   get '/levels/:school_id' => 'ui#ui'
 
   # login activity security monitoring

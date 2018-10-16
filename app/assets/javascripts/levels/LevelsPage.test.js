@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import fetchMock from 'fetch-mock/es5/client';
-import TieringPage from './TieringPage';
-import tieringShowJson from './tieringShowJson.fixture';
+import LevelsPage from './LevelsPage';
+import levelsShowJson from './levelsShowJson.fixture';
 
 function testProps(props = {}) {
   return {
@@ -16,14 +16,14 @@ function testProps(props = {}) {
 function testRender(props) {
   const el = document.createElement('div');
   ReactDOM.render(withDefaultNowContext(<PerDistrictContainer districtKey="somerville">
-    <TieringPage {...props} />
+    <LevelsPage {...props} />
   </PerDistrictContainer>), el);
   return el;
 }
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/api/tiering/shs/show_json', tieringShowJson);
+  fetchMock.get('/api/levels/shs/show_json', levelsShowJson);
 });
 
 it('renders without crashing', () => {
@@ -33,10 +33,11 @@ it('renders without crashing', () => {
 it('renders everything after fetch', done => {
   const props = testProps();
   const el = testRender(props);
-  expect($(el).text()).toContain('HS Levels: v1 prototype');
+  expect($(el).text()).toContain('Levels for SHS Systems and Supports');
 
   setTimeout(() => {
-    expect($(el).find('.TieringView').length).toEqual(1);
+    expect($(el).find('.LevelsView').length).toEqual(1);
+    expect($(el).find('.ReactVirtualized__Table__row').length).toEqual(29); // tied to the dimensions used in test
     done();
   }, 0);
 });
