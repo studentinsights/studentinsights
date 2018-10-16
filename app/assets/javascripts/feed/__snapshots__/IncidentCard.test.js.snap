@@ -17,7 +17,7 @@ exports[`matches snapshot 1`] = `
     <div
       style={
         Object {
-          "alignItems": "center",
+          "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -27,42 +27,31 @@ exports[`matches snapshot 1`] = `
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
           }
         }
       >
         <div>
-          <div>
-            <a
-              href="/students/100"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
+          <a
+            href="/students/100"
+            style={
+              Object {
+                "fontWeight": "bold",
               }
-            >
-              Mowgli
-               
-              Pan
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
+            }
+          >
+            Mowgli
+             
+            Pan
+          </a>
         </div>
+        <div>
+          10th grade
+        </div>
+        <div />
       </div>
       <div
         style={
@@ -168,7 +157,7 @@ exports[`matches when no location 1`] = `
     <div
       style={
         Object {
-          "alignItems": "center",
+          "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -178,42 +167,31 @@ exports[`matches when no location 1`] = `
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
           }
         }
       >
         <div>
-          <div>
-            <a
-              href="/students/100"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
+          <a
+            href="/students/100"
+            style={
+              Object {
+                "fontWeight": "bold",
               }
-            >
-              Mowgli
-               
-              Pan
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
+            }
+          >
+            Mowgli
+             
+            Pan
+          </a>
         </div>
+        <div>
+          10th grade
+        </div>
+        <div />
       </div>
       <div
         style={
