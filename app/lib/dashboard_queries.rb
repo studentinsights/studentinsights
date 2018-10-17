@@ -97,7 +97,8 @@ class DashboardQueries
       :last_name,
       :grade,
       :id,
-      :house
+      :house,
+      :counselor
     ]).merge({
       homeroom_label: homeroom_label(student.homeroom),
       latest_note: student.latest_note
