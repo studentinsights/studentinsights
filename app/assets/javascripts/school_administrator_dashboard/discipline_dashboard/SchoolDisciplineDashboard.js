@@ -295,6 +295,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
                 onChange={this.onIncidentTypeChange}
                 types={incidentTypes} />
               <SelectGrade
+                style={styles.narrowSelect}
                 grade={grade}
                 grades={this.allGrades()}
                 onChange={this.onGradeChanged} />
@@ -414,6 +415,9 @@ const styles = {
     justifyContent: 'space-between',
     width: '100%',
     padding: 10
+  },
+  narrowSelect: {
+    width: '8em'
   }
 };
 
