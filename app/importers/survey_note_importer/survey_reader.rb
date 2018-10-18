@@ -11,11 +11,17 @@
 #  1) rows aren't guaranteed to be unique in the source data
 #  2) in-place edits are unlikely, but will update records in-place
 class SurveyReader
+  # Timestamps have differnet formats if you download a Google Form as a CSV
+  # versus if you export that same form to Sheets (and then download that).
+  GOOGLE_FORM_CSV_TIMESTAMP_FORMAT = '%Y/%m/%d %l:%M:%S %p %Z'
+  GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT = '%m/%d/%Y %k:%M:%S'
+
   def initialize(file_text, options = {})
     @file_text = file_text
     @source_key = options[:source_key]
     @config = options[:config]
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
+    @strptime_format = options.fetch(:strptime_format, GOOGLE_FORM_CSV_TIMESTAMP_FORMAT)
     reset_counters!
   end
 
@@ -60,6 +66,9 @@ class SurveyReader
       return nil
     end
 
+    # parse timestamp into DateTime
+    source_timestamp = DateTime.strptime(row[config[:timestamp]], config[:strptime_format])
+
     # grab other fields, filtering out special ones and `ignore_keys`
     special_keys = [config[:student_local_id], config[:educator_email], config[:timestamp]]
     keep_keys = row.keys - special_keys - config[:ignore_keys]
@@ -70,7 +79,7 @@ class SurveyReader
       source_index: source_index,
       student_id: student_id,
       educator_id: educator_id,
-      source_timestamp: row[config[:timestamp]],
+      source_timestamp: source_timestamp,
       source_json: source_json
     }
   end
