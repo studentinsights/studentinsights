@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import {SortDirection} from 'react-virtualized';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import StudentLevelsTable from './StudentLevelsTable';
+import StudentLevelsTable, {orderedStudents} from './StudentLevelsTable';
 import levelsShowJson from './levelsShowJson.fixture';
 
 function testProps(props = {}) {
@@ -22,6 +23,19 @@ it('renders without crashing', () => {
     <StudentLevelsTable {...props} />
   ), el);
   expect($(el).find('.StudentLevelsTable').length).toEqual(1);
+});
+
+describe('orderedStudents', () => {
+  it('works', () => {
+    const filteredStudents = levelsShowJson.students_with_levels;
+    const orderedStudentsList = orderedStudents(filteredStudents, 'science', SortDirection.ASC);
+    const orderedGrades = _.compact(_.flatten(orderedStudentsList.map(student => {
+      return student.student_section_assignments_right_now.filter(assignment => {
+        return assignment.section.id == 6;
+      }).map(assignment => assignment.grade_letter);
+    })));
+    expect(orderedGrades).toEqual(['A', 'C', 'C', 'C', 'F', 'F', 'F', 'F', 'F']);
+  });
 });
 
 // can't add snapshots with react-virtualized without

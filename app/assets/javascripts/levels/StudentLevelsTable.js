@@ -110,7 +110,7 @@ StudentLevelsTable.propTypes = {
 
 const supportColor = 'rgb(74, 143, 225)';
 const warningColor = 'rgb(255, 231, 214)';
-const strengthColor = 'rgb(77, 136, 77, 0.9)';
+const strengthColor = 'rgba(77, 136, 77, 0.9)';
 const structureColor = 'rgba(51, 51, 51, 0.5)';
 const styles = {
   root: {
