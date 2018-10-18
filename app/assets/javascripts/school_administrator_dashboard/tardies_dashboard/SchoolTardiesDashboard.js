@@ -172,7 +172,9 @@ export default class SchoolTardiesDashboard extends React.Component {
       return homeroomTardyEvents[b] - homeroomTardyEvents[a];
     });
     const homeroomSeries = homerooms.map((homeroom) => {
-      return homeroomTardyEvents[homeroom];
+      const color = (homeroom === this.state.selectedHomeroom)? 'orange' : null;
+      const y = homeroomTardyEvents[homeroom];
+      return {y, color};
     });
 
     return (
@@ -209,10 +211,8 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <StudentsTable
         rows={rows}
-        selectedCategory={this.state.selectedHomeroom}
         incidentType='Tardies'
-        incidentSubtitle={this.timeRangeText()}
-        resetFn={this.resetStudentList}/>
+        incidentSubtitle={this.timeRangeText()}/>
     );
   }
 }
