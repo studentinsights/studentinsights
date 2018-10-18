@@ -8,6 +8,11 @@
     <span class="navbar-spacer"></span>
   <% end %>
 
+  <% if links.has_key?(:levels_shs) %>
+    <%= link_to 'Levels', links[:levels_shs] %>
+    <span class="navbar-spacer"></span>
+  <% end %>
+
   <% if links.has_key?(:district) %>
     <%= link_to 'District', links[:district] %>
     <span class="navbar-spacer"></span>
