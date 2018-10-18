@@ -14,7 +14,7 @@ class FlatNoteImporter
       {
         student_id: row[:student_id],
         educator_id: row[:educator_id],
-        recorded_at: Time.parse(row[:source_timestamp]),
+        recorded_at: row[:source_timestamp],
         is_restricted: false,
         event_note_type_id: 304,
         text: text
