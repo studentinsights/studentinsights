@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_16_215409) do
+ActiveRecord::Schema.define(version: 2018_10_19_125605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -429,6 +429,17 @@ ActiveRecord::Schema.define(version: 2018_10_16_215409) do
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_student_section_assignments_on_section_id"
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
+  end
+
+  create_table "student_section_changes", force: :cascade do |t|
+    t.string "syncer_key"
+    t.integer "student_id"
+    t.json "student_section_assignment_json"
+    t.json "section_json"
+    t.json "course_json"
+    t.json "student_json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "student_voice_completed_surveys", force: :cascade do |t|
