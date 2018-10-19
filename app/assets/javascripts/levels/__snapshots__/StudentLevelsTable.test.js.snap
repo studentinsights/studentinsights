@@ -1,0 +1,6125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots with unvirtualized render 1`] = `
+<div
+  className="StudentLevelsTable"
+  style={
+    Object {
+      "display": "block",
+      "flex": 1,
+      "flexDirection": "column",
+      "overflow": "hidden",
+    }
+  }
+>
+  <div
+    className="Mock-AutoSizer"
+  >
+    <table
+      className="MockReactVirtualized"
+    >
+      <thead>
+        <tr>
+          <td>
+            Student
+          </td>
+          <td>
+            Level
+          </td>
+          <td>
+            Attendance Rate
+          </td>
+          <td>
+            Discipline Incidents
+          </td>
+          <td>
+            EN or ELL
+          </td>
+          <td>
+            Social Studies
+          </td>
+          <td>
+            Math
+          </td>
+          <td>
+            Science
+          </td>
+          <td>
+            Last xGE or NEST
+          </td>
+          <td>
+            Last SST
+          </td>
+          <td>
+            Other notes
+          </td>
+          <td>
+            Study skills
+          </td>
+          <td>
+            Academic Support
+          </td>
+          <td>
+            Redirect
+          </td>
+          <td>
+            Credit Recovery
+          </td>
+          <td>
+            Program or SPED
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a
+              href="/students/3"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mari
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/4"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Amir
+               
+              Solo
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              B
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/5"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Kylo
+               
+              Ren
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/24"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Duck
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/25"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Daisy
+               
+              Duck
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/26"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Donald
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Partial Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/29"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pocahontas
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/30"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Private Separate
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/32"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Chip
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Partial Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/33"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mowgli
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Full Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/34"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pocahontas
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/37"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mowgli
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/39"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/40"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Olaf
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/42"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pocahontas
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              1
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/43"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Elsa
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/44"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Donald
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/46"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mickey
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/47"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mowgli
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/48"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Olaf
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              1
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/50"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Elsa
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/101"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Elsa
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/70"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Chip
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/72"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mickey
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/73"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Donald
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/75"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Snow
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              1
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/76"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Minnie
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/77"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Snow
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              2
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Private Separate
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/78"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mickey
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/81"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mickey
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/82"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Daisy
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/83"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Minnie
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/85"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mowgli
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/86"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/87"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/89"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Daisy
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/90"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/93"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Partial Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/94"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Olaf
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/97"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Elsa
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/98"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Chip
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/99"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Daisy
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Full Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/100"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Snow
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/104"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Snow
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/105"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Elsa
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              D
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Private Separate
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/106"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              C
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Full Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/107"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pocahontas
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              A
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/108"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pluto
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              C
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/109"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              A
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Private Separate
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/110"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Chip
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              A
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/111"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Winnie
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              B
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/112"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Donald
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              D
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/113"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Winnie
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              B
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Full Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/114"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Snow
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              F
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/115"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Chip
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              F
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/116"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pluto
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(77, 136, 77, 0.9)",
+                  "color": "white",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              A
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/117"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Snow
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              C
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Full Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/118"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Minnie
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              F
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/119"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Minnie
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              F
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Partial Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/120"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgb(255, 231, 214)",
+                  "color": "#666",
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              F
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/121"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Disney
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              C
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/27"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pluto
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/31"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mowgli
+               
+              Duck
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/35"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pocahontas
+               
+              Poppins
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/41"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Winnie
+               
+              White
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/45"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/49"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Chip
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/69"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Winnie
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Partial Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/80"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Mouse
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/84"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Aladdin
+               
+              Kenobi
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way Spanish
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/88"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Mowgli
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              97
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/92"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Pocahontas
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/96"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Rapunzel
+               
+              Pan
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              1
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              Full Inclusion
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="/students/122"
+              style={
+                Object {
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                }
+              }
+              target="_blank"
+            >
+              Donald
+               
+              Skywalker
+            </a>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              0
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              100
+              %
+            </span>
+          </td>
+          <td>
+            <span
+              style={
+                Object {
+                  "display": "inline-block",
+                  "padding": 8,
+                }
+              }
+            >
+              1
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "cursor": "default",
+                  "display": "inline-block",
+                  "padding": 8,
+                  "textAlign": "center",
+                  "width": 35,
+                }
+              }
+              title="PHYSICS 1"
+            >
+              C
+            </span>
+          </td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td>
+            <span
+              style={
+                Object {
+                  "backgroundColor": "rgba(51, 51, 51, 0.5)",
+                  "color": "white",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "height": "95%",
+                  "padding": 4,
+                  "textAlign": "center",
+                  "width": "95%",
+                }
+              }
+            >
+              2Way English
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
