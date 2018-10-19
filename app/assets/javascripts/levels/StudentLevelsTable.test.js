@@ -1,10 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import _ from 'lodash';
-import {SortDirection} from 'react-virtualized';
+import * as Virtualized from 'react-virtualized';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import unvirtualize from '../testing/unvirtualize';
 import StudentLevelsTable, {orderedStudents} from './StudentLevelsTable';
 import levelsShowJson from './levelsShowJson.fixture';
+const {SortDirection} = Virtualized;
+
+
+// can't add snapshots with react-virtualized without
+// some work, see https://github.com/bvaughn/react-virtualized/issues/1117
+// instead, we stub these implementations with naive simple unvirtualized
+// ones, to verify the substance of the rendering works
+jest.mock('react-virtualized');
+unvirtualize(Virtualized, jest.fn);
+
 
 function testProps(props = {}) {
   return {
@@ -38,5 +50,11 @@ describe('orderedStudents', () => {
   });
 });
 
-// can't add snapshots with react-virtualized without
-// some work, see https://github.com/bvaughn/react-virtualized/issues/1117
+
+it('snapshots with unvirtualized render', () => {
+  const props = testProps();
+  const tree = renderer
+    .create(withDefaultNowContext(<StudentLevelsTable {...props} />))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});

@@ -20,7 +20,6 @@ import {
   STUDY_SKILLS
 } from './Courses';
 
-
 // Render a virtualized table, with information and triggers on the
 // left columns and supports on the right.  Exports the description
 // of the column and the ordering functions for re-use in exporting
