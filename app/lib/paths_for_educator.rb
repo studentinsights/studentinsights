@@ -12,7 +12,7 @@ class PathsForEducator
       links[:classlists] = '/classlists'
     end
 
-    if PerDistrict.new.enabled_high_school_levels? && SomervilleHighLevels.is_link_relevant_for_educator?(@educator)
+    if PerDistrict.new.enabled_high_school_levels? && @educator.labels.include?('should_show_levels_shs_link')
       links[:levels_shs] = '/levels/shs'
     end
 
