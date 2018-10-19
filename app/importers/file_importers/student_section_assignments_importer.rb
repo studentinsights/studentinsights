@@ -86,7 +86,19 @@ class StudentSectionAssignmentsImporter
     end
 
     maybe_assignment_record = matching_insights_record_for_row(row)
-    @syncer.validate_mark_and_sync!(maybe_assignment_record)
+    action_key = @syncer.validate_mark_and_sync!(maybe_assignment_record)
+
+    # Also write out the diffs, when a student adds or drops a course
+    if [:updated, :created].include?(action_key)
+      parent_student_section_assignment_id = action_key == :updated ? maybe_assignment_record.id : nil
+      StudentSectionChange.create!({
+        student_id: maybe_assignment_record.student_id,
+        section_id: maybe_assignment_record.section_id,
+        parent_student_section_assignment_id: parent_student_section_assignment_id
+      })
+    end
+
+    nil
   end
 
   # Matches a row from a CSV export with an existing or new (unsaved) Insights record
