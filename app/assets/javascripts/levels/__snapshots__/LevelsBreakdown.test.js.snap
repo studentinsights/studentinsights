@@ -1,0 +1,266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div>
+  <div>
+    message!
+  </div>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "fontSize": 14,
+        "margin": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "flex": 1,
+          "margin": 10,
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "marginBottom": 10,
+          }
+        }
+      >
+        by levels
+      </h4>
+      <div>
+        <div>
+          <b>
+            Level 0
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          100
+          % (
+          74
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Level 1
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Level 2
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Level 3
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Level 4
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 1,
+          "margin": 10,
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "marginBottom": 10,
+          }
+        }
+      >
+        by triggers
+      </h4>
+      <div />
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 1,
+          "margin": 10,
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "marginBottom": 10,
+          }
+        }
+      >
+        by supports
+      </h4>
+      <div>
+        <div>
+          <b>
+            Credit recovery
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Academic support
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Redirect
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+      <div>
+        <div>
+          <b>
+            Study skills
+          </b>
+          :
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginLeft": 10,
+            }
+          }
+        >
+          0
+          % (
+          0
+           students)
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    links!
+  </div>
+</div>
+`;

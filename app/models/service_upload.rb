@@ -1,7 +1,7 @@
-class ServiceUpload < ActiveRecord::Base
+class ServiceUpload < ApplicationRecord
   belongs_to :uploaded_by_educator, class_name: 'Educator'
   has_many :services, dependent: :destroy
 
-  validates_presence_of :file_name
-  validates_uniqueness_of :file_name
+  validates :uploaded_by_educator, presence: true
+  validates :file_name, presence: true, uniqueness: true
 end

@@ -1,6 +1,6 @@
 # Logs when the user masquerades as another other
 # or clears.
-class MasqueradingLog < ActiveRecord::Base
+class MasqueradingLog < ApplicationRecord
   belongs_to :educator
   belongs_to :masquerading_as_educator, class_name: 'Educator'
 

@@ -71,7 +71,6 @@ export function sortByGrade(gradeA, gradeB) {
 export function rankedByGradeLevel(gradeLevel) {
   return ORDERED_GRADES[gradeLevel];
 }
-
 const ORDERED_SCHOOL_TYPES = {
   'ES': 200,
   'ESMS': 300,
@@ -84,4 +83,28 @@ const ORDERED_SCHOOL_TYPES = {
 
 export function rankedBySchoolType(schoolType) {
   return ORDERED_SCHOOL_TYPES[schoolType];
+}
+
+const ORDERED_LETTER_GRADES = {
+  'A+': 100,
+  'A': 120,
+  'A-': 120,
+  'B+': 130,
+  'B': 150,
+  'B-': 160,
+  'C+': 170,
+  'C': 180,
+  'C-': 190,
+  'D+': 200,
+  'D': 210,
+  'D-': 220,
+  'F': 230
+};
+
+export function rankedByLetterGrade(letterGrade) {
+  return hasLetterGrade(letterGrade) ? ORDERED_LETTER_GRADES[letterGrade] : 0;
+}
+
+export function hasLetterGrade(letterGrade) {
+  return (ORDERED_LETTER_GRADES[letterGrade] !== undefined);
 }

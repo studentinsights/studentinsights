@@ -27,12 +27,78 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     }
   end
 
+  describe '#authenticate! integration tests across districts, with is_authorized_by_ldap mocked' do
+    def mocked_test_strategy(options = {})
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: { login_text: options[:login_text] },
+        password: options[:password]
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, options[:ldap_login], options[:password]).and_return options[:is_authorized_by_ldap?]
+      strategy
+    end
+
+    # just sugar
+    def outcomes_after_authenticate!(strategy)
+      strategy.authenticate!
+      [strategy.result, strategy.message, strategy.user]
+    end
+
+    it 'works for Somerville' do
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
+      strategy = mocked_test_strategy({
+        login_text: 'uri@k12.somerville.ma.us',
+        password: 'supersecure',
+        ldap_login: 'uri@k12.somerville.ma.us',
+        is_authorized_by_ldap?: true
+      })
+      expect(outcomes_after_authenticate!(strategy)).to eq [:success, nil, pals.uri]
+    end
+
+    it 'works for New Bedford' do
+      pals = TestPals.create!(email_domain: 'newbedfordschools.org')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
+      strategy = mocked_test_strategy({
+        login_text: 'uri@newbedfordschools.org',
+        password: 'supersecure',
+        ldap_login: 'uri@newbedfordschools.org',
+        is_authorized_by_ldap?: true
+      })
+      expect(outcomes_after_authenticate!(strategy)).to eq [:success, nil, pals.uri]
+    end
+
+    it 'works for Bedford' do
+      pals = TestPals.create!(email_domain: 'bedfordps.org')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      strategy = mocked_test_strategy({
+        login_text: 'uri',
+        password: 'supersecure',
+        ldap_login: 'uri@bedford.k12.ma.us',
+        is_authorized_by_ldap?: true
+      })
+      expect(outcomes_after_authenticate!(strategy)).to eq [:success, nil, pals.uri]
+    end
+
+    it 'works for demo' do
+      pals = TestPals.create!
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
+      strategy = mocked_test_strategy({
+        login_text: 'uri@demo.studentinsights.org',
+        password: 'supersecure',
+        ldap_login: 'uri@demo.studentinsights.org',
+        is_authorized_by_ldap?: true
+      })
+      expect(outcomes_after_authenticate!(strategy)).to eq [:success, nil, pals.uri]
+    end
+  end
+
   describe '#authenticate! when methods are mocked' do
     let!(:pals) { TestPals.create! }
 
     it 'calls fail when email not found' do
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { email: 'foo@demo.studentinsights.org' } }
+      allow(strategy).to receive(:authentication_hash) { { login_text: 'foo@demo.studentinsights.org' } }
       strategy.authenticate!
 
       expect(strategy.result).to eq :failure
@@ -42,7 +108,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
     it 'calls fail when email found but not is_authorized_by_ldap?' do
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
+      allow(strategy).to receive(:authentication_hash) { { login_text: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
       allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return false
 
@@ -56,7 +122,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect(Rollbar).to receive(:error).with(any_args)
 
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
+      allow(strategy).to receive(:authentication_hash) { { login_text: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
       allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_raise(Net::LDAP::Error)
       strategy.authenticate!
@@ -68,9 +134,9 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
     it 'calls success! even when cases are different' do
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { email: 'URI@demo.studentinsights.org' } }
+      allow(strategy).to receive(:authentication_hash) { { login_text: 'URI@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'URI@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
@@ -80,7 +146,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
 
     it 'calls success! when valid Educator and is_authorized_by_ldap?' do
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { email: 'uri@demo.studentinsights.org' } }
+      allow(strategy).to receive(:authentication_hash) { { login_text: 'uri@demo.studentinsights.org' } }
       allow(strategy).to receive(:password) { 'supersecure' }
       allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
       strategy.authenticate!

@@ -43,6 +43,37 @@ RSpec.describe InsightStudentsWithLowGrades do
         }]
       }]
     end
+
+    it 'finds students in any course, not just NGE or 10GE' do
+      time_threshold = time_now - 45.days
+      grade_threshold = 69
+      insight = InsightStudentsWithLowGrades.new(pals.shs_hugo_art_teacher)
+      students_with_low_grades = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
+      expect(students_with_low_grades).to eq [{
+        "student"=>{
+          "id"=>pals.shs_senior_kylo.id,
+          "first_name"=>'Kylo',
+          "last_name"=>'Ren',
+          "grade"=>'12',
+          "house"=>'Broadway'
+        },
+        "assignments"=>[{
+          "id"=>pals.shs_senior_kylo.student_section_assignments.first.id,
+          "grade_numeric"=>'61.0',
+          "grade_letter"=>"F",
+          "section"=>{
+            "id"=>pals.shs_second_period_ceramics.id,
+            "section_number"=>"ART-302A",
+            "course_description"=>'ART MAJOR FOUNDATIONS',
+            "educators"=>[{
+              "id"=>pals.shs_hugo_art_teacher.id,
+              "email"=>"hugo@demo.studentinsights.org",
+              "full_name"=>"Teacher, Hugo"
+            }]
+          }
+        }]
+      }]
+    end
   end
 
   describe '#assignments_below_threshold' do
@@ -114,14 +145,6 @@ RSpec.describe InsightStudentsWithLowGrades do
       expect(json.keys).to eq(['id', 'grade_numeric', 'grade_letter', 'section'])
       expect(json['section'].keys).to eq(['id', 'section_number', 'course_description', 'educators'])
       expect(json['section']['educators'].first.keys).to eq(['id', 'email', 'full_name'])
-    end
-  end
-
-  describe '#included_in_experience_team?' do
-    let!(:insight) { InsightStudentsWithLowGrades.new(pals.shs_bill_nye) }
-    it 'filters out students by grade' do
-      expect(insight.send(:included_in_experience_team?, pals.shs_freshman_mari)).to eq true
-      expect(insight.send(:included_in_experience_team?, pals.healey_kindergarten_student)).to eq false
     end
   end
 end

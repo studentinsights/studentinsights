@@ -6,6 +6,7 @@ import HomePage from '../app/assets/javascripts/home/HomePage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
+import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -18,6 +19,7 @@ jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
+jest.mock('../app/assets/javascripts/school_absences/SchoolAbsencesPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
@@ -74,10 +76,10 @@ it('render SchoolCoursesPage without crashing', () => {
   )).toEqual(true);
 });
 
-it('renders Absences Dashboard without crashing', () => {
+it('renders SchoolAbsencesPage without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/absences'));
   expect(wrapper.contains(
-    <DashboardLoader schoolId="hea" dashboardTarget="absences"/>
+    <SchoolAbsencesPage schoolIdOrSlug="hea" />
   )).toEqual(true);
 });
 
@@ -85,6 +87,13 @@ it('renders Tardies Dashboard without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/tardies'));
   expect(wrapper.contains(
     <DashboardLoader schoolId="hea" dashboardTarget="tardies"/>
+  )).toEqual(true);
+});
+
+it('renders Discipline Dashboard without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/discipline'));
+  expect(wrapper.contains(
+    <DashboardLoader schoolId="hea" dashboardTarget="discipline"/>
   )).toEqual(true);
 });
 

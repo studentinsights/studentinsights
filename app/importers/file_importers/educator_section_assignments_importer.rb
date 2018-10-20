@@ -59,9 +59,7 @@ class EducatorSectionAssignmentsImporter
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch(
-      'FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT', nil
-    )
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT')
   end
 
   def filter
@@ -104,8 +102,7 @@ class EducatorSectionAssignmentsImporter
 
   def find_educator_id(row)
     return nil if row[:login_name].nil?
-    email = PerDistrict.new.from_import_login_name_to_email(row[:login_name])
-    Educator.find_by(email: email).try(:id)
+    Educator.find_by(login_name: row[:login_name]).try(:id)
   end
 
   def log(msg)

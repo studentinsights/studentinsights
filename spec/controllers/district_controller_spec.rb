@@ -23,6 +23,16 @@ describe DistrictController, :type => :controller do
             "slug"=>"hea"
           }
         }, {
+          "enrollment"=>1,
+          "grade"=>"8",
+          "school"=>
+           {"id"=>pals.west.id,
+            "school_type"=>"ESMS",
+            "name"=>"West Somerville Neighborhood",
+            "local_id"=>"WSNS",
+            "slug"=>"wsns"
+          }
+        }, {
           "enrollment"=>2,
           "grade"=>"9",
           "school"=>{
@@ -33,14 +43,13 @@ describe DistrictController, :type => :controller do
             "slug"=>"shs"}
         }, {
           "enrollment"=>1,
-          "grade"=>"8",
-          "school"=>
-           {"id"=>pals.west.id,
-            "school_type"=>"ESMS",
-            "name"=>"West Somerville Neighborhood",
-            "local_id"=>"WSNS",
-            "slug"=>"wsns"
-          }
+          "grade"=>"12",
+          "school"=>{
+            "id"=>pals.shs.id,
+            "school_type"=>"HS",
+            "name"=>"Somerville High",
+            "local_id"=>"SHS",
+            "slug"=>"shs"}
         }
       ])
     end

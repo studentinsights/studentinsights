@@ -164,7 +164,8 @@ describe ProfileController, :type => :controller do
             'educators_index',
             'profile_insights',
             'access',
-            'iep_document',
+            'teams',
+            'latest_iep_document',
             'sections',
             'current_educator_allowed_sections',
             'attendance_data'
@@ -202,6 +203,10 @@ describe ProfileController, :type => :controller do
             '512' => {'id'=>512, 'name'=>"Freedom School"},
             '513' => {'id'=>513, 'name'=>"Community Schools"},
             '514' => {'id'=>514, 'name'=>"X-Block"},
+            '515' => {'id'=>515, 'name'=>"Calculus Project"},
+            '516' => {'id'=>516, 'name'=>"Boston Breakthrough"},
+            '517' => {'id'=>517, 'name'=>"Summer Explore"},
+            '518' => {'id'=>518, 'name'=>"Focused Math Intervention"}
           })
 
           expect(json['educators_index']).to include({

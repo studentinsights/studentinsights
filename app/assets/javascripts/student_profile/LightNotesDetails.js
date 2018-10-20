@@ -65,6 +65,7 @@ export default class LightNotesDetails extends React.Component {
         <div>
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
+            currentEducatorId={currentEducator.id}
             feed={this.props.feed}
             canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
             educatorsIndex={this.props.educatorsIndex}

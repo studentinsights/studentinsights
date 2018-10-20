@@ -1,85 +1,144 @@
-remote_filenames:
+sftp_filenames:
   FILENAME_FOR_EDUCATORS_IMPORT:      ../newbedford/istaff.csv
   FILENAME_FOR_STUDENTS_IMPORT:       ../newbedford/istudent.csv
   FILENAME_FOR_BEHAVIOR_IMPORT:       ../newbedford/iconduct.csv
   FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv
   FILENAME_FOR_ATTENDANCE_IMPORT:     ../newbedford/iattendance.csv
+
+
+star_filenames:
   FILENAME_FOR_STAR_READING_IMPORT:   SR.csv
   FILENAME_FOR_STAR_MATH_IMPORT:      SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:         New Bedford Public Schools.zip
-schools:
-  -
-    name: Charles S. Ashley
-    local_id: '010'
-  -
-    name: Elizabeth Carter Brooks
-    local_id: '015'
-  -
-    name: Elwyn G. Campbell
-    local_id: '020'
-  -
-    name: Sgt. William Carney Memorial Academy
-    local_id: '045'
-  -
-    name: James B. Congdon
-    local_id: '040'
-  -
-    name: John B. DeValles
-    local_id: '050'
-  -
-    name: Alfred J. Gomes
-    local_id: '063'
-  -
-    name: Irwin M. Jacobs
-    local_id: '070'
-  -
-    name: Ellen R. Hathaway
-    local_id: '075'
-  -
-    name: Hayden-McFadden
-    local_id: '078'
-  -
-    name: Abraham Lincoln
-    local_id: '095'
-  -
-    name: Carlos Pacheco
-    local_id: '105'
-  -
-    name: John A. Parker
+
+
+school_definitions_for_import:
+  # First pilot schools
+  - name: John A. Parker
+    slug: parker
     local_id: '115'
-  -
-    name: Casimir Pulaski
+    school_type: ES
+
+  - name: Casimir Pulaski
+    slug: pulaski
     local_id: '123'
-  -
-    name: Renaissance
-    local_id: '124'
-  -
-    name: Thomas R. Rodman
-    local_id: '125'
-  -
-    name: Jireh Swift
-    local_id: '130'
-  -
-    name: William H. Taylor
-    local_id: '135'
-  -
-    name: Betsey B. Winslow
-    local_id: '140'
-  -
-    name: Keith Middle
+    school_type: ES
+
+  # Second wave, start of 2018
+  - name: James B. Congdon
+    slug: congdon
+    local_id: '040'
+    school_type: ES
+
+  - name: John B. DeValles
+    slug: devalles
+    local_id: '050'
+    school_type: ES
+
+  - name: Alfred J. Gomes
+    slug: gomes
+    local_id: '063'
+    school_type: ES
+
+  - name: Sgt. William Carney Memorial Academy
+    slug: carney
+    local_id: '045'
+    school_type: ES
+
+  - name: Hayden-McFadden
+    slug: hayden-mcfadden
+    local_id: '078'
+    school_type: ES
+
+  - name: Keith Middle
+    slug: keith
     local_id: '405'
-  -
-    name: Normandin Middle
+    school_type: MS
+
+  - name: Normandin Middle
+    slug: normandin
     local_id: '410'
-  -
-    name: Roosevelt Middle
+    school_type: MS
+
+  - name: Roosevelt Middle
+    slug: roosevelt
     local_id: '415'
-  -
-    name: New Bedford High
+    school_type: MS
+
+  # Third wave, start of 2018
+  - name: Charles S. Ashley
+    slug: ashley
+    local_id: '010'
+    school_type: ES
+
+  - name: Elizabeth Carter Brooks
+    slug: brooks
+    local_id: '015'
+    school_type: ES
+
+  - name: Elwyn G. Campbell
+    slug: campbell
+    local_id: '020'
+    school_type: ES
+
+  - name: Carlos Pacheco
+    slug: pacheco
+    local_id: '105'
+    school_type: ES
+
+
+school_definitions_not_yet_used:
+  - name: Irwin M. Jacobs
+    slug: jacobs
+    local_id: '070'
+    school_type: ES
+
+  - name: Ellen R. Hathaway
+    slug: hathaway
+    local_id: '075'
+    school_type: ES
+
+  - name: Abraham Lincoln
+    slug: lincoln
+    local_id: '095'
+    school_type: ES
+
+  - name: Renaissance
+    slug: renaissance
+    local_id: '124'
+    school_type: ES
+
+  - name: Thomas R. Rodman
+    slug: rodman
+    local_id: '125'
+    school_type: ES
+
+  - name: Jireh Swift
+    slug: swift
+    local_id: '130'
+    school_type: ES
+
+  - name: William H. Taylor
+    slug: taylor
+    local_id: '135'
+    school_type: ES
+
+  - name: Betsey B. Winslow
+    slug: winslow
+    local_id: '140'
+    school_type: ES
+
+  - name: New Bedford High
+    slug: new-bedford-high
     local_id: '505'
-  -
-    name: Trinity Day Academy
+    school_type: HS
+
+  - name: Trinity Day Academy
+    slug: trinity-day
     local_id: '510'
-  -
-    name: Whaling City Jr./Sr. High
+    school_type: HS # actually 7-12
+
+  - name: Whaling City Jr./Sr. High
+    slug: whaling
     local_id: '515'
+    school_type: HS # actually 6-12

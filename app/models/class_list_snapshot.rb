@@ -1,4 +1,4 @@
-class ClassListSnapshot < ActiveRecord::Base
+class ClassListSnapshot < ApplicationRecord
   belongs_to :class_list
 
   validates :class_list, presence: true

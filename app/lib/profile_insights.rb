@@ -1,10 +1,11 @@
 class ProfileInsights
-  def initialize(student)
+  def initialize(student, options = {})
     @student = student
+    @time_now = options.fetch(:time_now, Time.now)
   end
 
   def as_json
-    student_voice_survey_insights + transition_note_profile_insights
+    student_voice_survey_insights + transition_note_profile_insights + team_membership_insights
   end
 
   private
@@ -48,6 +49,12 @@ class ProfileInsights
     return [] if most_recent_survey.nil?
 
     profile_insights_from_survey(most_recent_survey)
+  end
+
+  def team_membership_insights
+    @student.teams(time_now: @time_now).map do |team|
+      ProfileInsight.new('team_membership', team.as_json(only: [:activity_text, :coach_text]))
+    end
   end
 
   # Unroll each question from the survey into a separate insight

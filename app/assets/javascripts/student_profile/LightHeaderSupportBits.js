@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {prettyEnglishProficiencyText} from '../helpers/language';
+import {prettyEnglishProficiencyText, hasAnyAccessData} from '../helpers/language';
 import {
   hasInfoAbout504Plan,
   supportsSpedLiaison
@@ -19,6 +19,7 @@ import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
 } from '../components/HelpBubble';
+import Team from '../components/Team';
 import AccessPanel from './AccessPanel';
 import Pdf from './Pdf';
 
@@ -73,6 +74,7 @@ export default class LightHeaderSupportBits extends React.Component {
         <div style={styles.contactItem}>
           {this.renderSpedLiaison()}
         </div>
+        {this.renderCoaches()}
         {this.renderOtherStaff()}
       </div>
     );
@@ -103,6 +105,21 @@ export default class LightHeaderSupportBits extends React.Component {
       <div style={styles.contactItem}>
         <div>SPED liaison:</div>
         <div>{maybeCapitalize(spedLiaison)}</div>
+      </div>
+    );
+  }
+
+  renderCoaches() {
+    const {teams} = this.props;
+    const coachNames = _.uniq(_.compact(teams.map(team => team.coach_text)));
+    if (coachNames.length === 0) return null;
+
+    return (
+      <div style={styles.contactItem}>
+        <div>Team coaches:</div>
+        {teams.map(team=> (
+          <div key={team.activity_text}>{team.coach_text} for <Team team={team} /></div>
+        ))}
       </div>
     );
   }
@@ -186,16 +203,16 @@ export default class LightHeaderSupportBits extends React.Component {
         )}
         {iepDocument && (
           <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
-            <a href={`/iep_documents/${iepDocument.id}`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
-            {this.renderPdfInline(iepDocument.id)}
+            <a href={`/students/${student.id}/latest_iep_document`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
+            {this.renderPdfInline(student.id)}
           </div>
         )}
       </div>
     );
   }
 
-  renderPdfInline(iepDocumentId) {
-    const url = `/iep_documents/${iepDocumentId}#view=FitBH`;
+  renderPdfInline(studentId) {
+    const url = `/students/${studentId}/latest_iep_document#view=FitBH`;
     return (
       <Pdf
         style={styles.pdfInline}
@@ -220,15 +237,21 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderLanguage() {
     const {student, access} = this.props;
-    const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency)}</div>;
+    const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency, access)}</div>;
 
-    if (!access) return el;
+    if (!hasAnyAccessData(access)) return el;
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
         teaser={el}
         linkStyle={styles.subtitleItem}
-        modalStyle={modalFromLeft}
+        modalStyle={{
+          ...modalFromLeft,
+          content: {
+            ...modalFromLeft.content,
+            width: 750
+          }
+        }}
         title="Language learning"
         content={<AccessPanel access={access} />}
       />
@@ -239,6 +262,10 @@ export default class LightHeaderSupportBits extends React.Component {
 LightHeaderSupportBits.propTypes = {
   iepDocument: PropTypes.object,
   access: PropTypes.object,
+  teams: PropTypes.arrayOf(PropTypes.shape({
+    activity_text: PropTypes.string.isRequired,
+    coach_text: PropTypes.string.isRequired
+  })).isRequired,
   activeServices: PropTypes.arrayOf(PropTypes.shape({
     provided_by_educator_name: PropTypes.string
   })).isRequired,

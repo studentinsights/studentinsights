@@ -7,7 +7,7 @@ import {
   testPropsForPlutoPoppins,
   testPropsForOlafWhite,
   testPropsForAladdinMouse
-} from './StudentProfilePage.test';
+} from './profileTestProps.fixture';
 
 function storifyProps(props) {
   return {

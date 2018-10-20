@@ -1,6 +1,6 @@
 # For tagging educators with particular labels (eg, for
 # membership into different educators cohorts like NGE).
-class EducatorLabel < ActiveRecord::Base
+class EducatorLabel < ApplicationRecord
   belongs_to :educator
   validates :educator, presence: true
   validates :label_key, {
@@ -13,6 +13,9 @@ class EducatorLabel < ActiveRecord::Base
         'high_school_house_master',
         'class_list_maker_finalizer_principal',
         'use_counselor_based_feed',
+        'use_housemaster_based_feed',
+        'use_section_based_feed',
+        'use_ell_based_feed',
         'enable_class_lists_override',
         'can_upload_student_voice_surveys'
       ]

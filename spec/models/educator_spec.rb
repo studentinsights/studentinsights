@@ -2,32 +2,31 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe 'has Devise hooks' do
+    it 'allow writing password but not reading, only for Devise' do
+      educator = FactoryBot.build(:educator)
+      educator.password = 'foo'
+      expect(educator.respond_to?(:password)).to eq false
+      expect(educator.attributes.has_key?(:password)). to eq false
+    end
+
+    it 'allow writing login_text but not reading, only for Devise' do
+      educator = FactoryBot.build(:educator)
+      educator.login_text = 'foo'
+      expect(educator.respond_to?(:login_text)).to eq false
+      expect(educator.attributes.has_key?(:login_text)). to eq false
+    end
+  end
+
   describe '#as_json' do
     it 'does not include student_searchbar_json' do
       educator = FactoryBot.build(:educator)
       expect(educator.as_json.has_key?('student_searchbar_json')).to be false
     end
   end
-  describe '#has_school_unless_districtwide' do
-    context 'no school assigned' do
-      context 'has districtwide_access' do
-        let(:educator) {
-          FactoryBot.build(:educator, school: nil, districtwide_access: true)
-        }
-        it 'is valid' do
-          expect(educator).to be_valid
-        end
-      end
 
-      context 'does not have districtwide_access' do
-        let(:educator) {
-          FactoryBot.build(:educator, school: nil, districtwide_access: false)
-        }
-        it 'is not valid' do
-          expect(educator).to be_invalid
-        end
-      end
-    end
+  it 'allows creating Educator without a school, so we can whitelist import admin users outside pilot schools' do
+    expect(FactoryBot.build(:educator, school: nil)).to be_valid
   end
 
   describe '#admin_gets_access_to_all_students' do

@@ -8,6 +8,7 @@ import {serializedData} from './NotesFeedPage.fixture';
 export function testProps(props = {}) {
   const {educatorsIndex, notes, totalNotesCount} = serializedData;
   return {
+    currentEducatorId: 999999,
     educatorsIndex,
     totalNotesCount,
     eventNotes: notes,

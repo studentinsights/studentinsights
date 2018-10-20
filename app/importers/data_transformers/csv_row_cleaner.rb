@@ -1,10 +1,8 @@
 class CsvRowCleaner < Struct.new :row
   DATE_HEADERS = [:event_date, :date_taken, :assessment_date]
-  BOOLEAN_VALUES = [true, false, '1', '0', 1, 0, 'true', 'false']
-  BOOLEAN_HEADER_NAMES = [:absence, :tardy, :has_exact_time]
 
   def dirty_data?
-    !clean_date? || !clean_booleans?
+    !clean_date?
   end
 
   def transform_row
@@ -19,14 +17,6 @@ class CsvRowCleaner < Struct.new :row
     return false unless parsed_date         # <= Column can't be parsed
     return false if date_out_of_range       # <= Column is out of range
     return true                             # <= Column is a parsable, reasonable date
-  end
-
-  def clean_booleans?
-    headers.each do |header|
-      next unless header.in? BOOLEAN_HEADER_NAMES
-      return false unless row[header].in? BOOLEAN_VALUES
-    end
-    true
   end
 
   def headers
@@ -44,7 +34,7 @@ class CsvRowCleaner < Struct.new :row
   def parsed_date
     @parsed_date ||= begin
       return date_from_row if date_from_row.is_a?(DateTime)
-      Date.strptime(date_from_row, '%Y-%m-%d')
+      PerDistrict.new.parse_date_during_import(date_from_row)
     rescue ArgumentError
       false
     end

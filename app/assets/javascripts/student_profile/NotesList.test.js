@@ -10,6 +10,7 @@ import NotesList from './NotesList';
 
 function testProps(props = {}) {
   return {
+    currentEducatorId: 1,
     feed: feedForTestingNotes,
     educatorsIndex: studentProfile.educatorsIndex,
     onSaveNote: jest.fn(),
@@ -18,34 +19,38 @@ function testProps(props = {}) {
   };
 }
 
+function feedWithEventNotesJson(eventNotesJson) {
+  return {
+    transition_notes: [],
+    services: {
+      active: [],
+      discontinued: []
+    },
+    deprecated: {
+      interventions: []
+    },
+    event_notes: eventNotesJson
+  };
+}
+
 function testPropsForRestrictedNote(props = {}) {
   return testProps({
-    feed: {
-      transition_notes: [],
-      services: {
-        active: [],
-        discontinued: []
-      },
-      deprecated: {
-        interventions: []
-      },
-      event_notes: [{
-        "id": 3,
-        "student_id": 5,
-        "educator_id": 1,
-        "event_note_type_id": 301,
-        "text": "RESTRICTED-this-is-the-note-text",
-        "recorded_at": "2018-02-26T22:20:55.398Z",
-        "created_at": "2018-02-26T22:20:55.416Z",
-        "updated_at": "2018-02-26T22:20:55.416Z",
-        "is_restricted": true,
-        "event_note_revisions_count": 0,
-        "attachments": [
-          { id: 42, url: "https://www.example.com/studentwork" },
-          { id: 47, url: "https://www.example.com/morestudentwork" }
-        ]
-      }]
-    },
+    feed: feedWithEventNotesJson([{
+      "id": 3,
+      "student_id": 5,
+      "educator_id": 1,
+      "event_note_type_id": 301,
+      "text": "RESTRICTED-this-is-the-note-text",
+      "recorded_at": "2018-02-26T22:20:55.398Z",
+      "created_at": "2018-02-26T22:20:55.416Z",
+      "updated_at": "2018-02-26T22:20:55.416Z",
+      "is_restricted": true,
+      "event_note_revisions_count": 0,
+      "attachments": [
+        { id: 42, url: "https://www.example.com/studentwork" },
+        { id: 47, url: "https://www.example.com/morestudentwork" }
+      ]
+    }]),
     ...props
   });
 }
@@ -98,6 +103,48 @@ it('allows anyone to click and see older notes', () => {
   expect($(el).find('.NoteCard').length).toEqual(1);
   ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage a').get(0));
   expect($(el).find('.NoteCard').length).toEqual(5);
+});
+
+it('allows editing a note you wrote', () => {
+  const el = testRender(testProps({
+    currentEducatorId: 1,
+    feed: feedWithEventNotesJson([{
+      "id": 3,
+      "student_id": 5,
+      "educator_id": 1,
+      "event_note_type_id": 301,
+      "text": "hello-text",
+      "recorded_at": "2018-02-26T22:20:55.398Z",
+      "created_at": "2018-02-26T22:20:55.416Z",
+      "updated_at": "2018-02-26T22:20:55.416Z",
+      "is_restricted": false,
+      "event_note_revisions_count": 0,
+      "attachments": []
+    }]
+  )}));
+  expect($(el).find('.NoteText').length).toEqual(0);
+  expect($(el).find('.EditableNoteText').length).toEqual(1);
+});
+
+it('does not allow editing notes written by someone else', () => {
+  const el = testRender(testProps({
+    currentEducatorId: 999,
+    feed: feedWithEventNotesJson([{
+      "id": 3,
+      "student_id": 5,
+      "educator_id": 1,
+      "event_note_type_id": 301,
+      "text": "hello-text",
+      "recorded_at": "2018-02-26T22:20:55.398Z",
+      "created_at": "2018-02-26T22:20:55.416Z",
+      "updated_at": "2018-02-26T22:20:55.416Z",
+      "is_restricted": false,
+      "event_note_revisions_count": 0,
+      "attachments": []
+    }]
+  )}));
+  expect($(el).find('.NoteText').length).toEqual(1);
+  expect($(el).find('.EditableNoteText').length).toEqual(0);
 });
 
 describe('props impacting restricted notes', () => {

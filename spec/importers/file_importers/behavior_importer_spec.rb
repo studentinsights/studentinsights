@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BehaviorImporter do
   let(:base_behavior_importer) {
     described_class.new(options: {
-      school_scope: LoadDistrictConfig.new.schools.map { |school| school['local_id'] },
+      school_scope: PerDistrict.new.school_definitions_for_import.map { |school| school['local_id'] },
       log: LogHelper::FakeLog.new,
       skip_old_records: false
     })

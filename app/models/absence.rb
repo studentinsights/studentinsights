@@ -1,4 +1,4 @@
-class Absence < ActiveRecord::Base
+class Absence < ApplicationRecord
   belongs_to :student
 
   # The database enforces more constraints, since adding them

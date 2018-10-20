@@ -68,9 +68,7 @@ class StudentSectionAssignmentsImporter
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch(
-      'FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT', nil
-    )
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT')
   end
 
   def filter

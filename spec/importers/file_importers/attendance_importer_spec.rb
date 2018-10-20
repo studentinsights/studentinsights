@@ -102,7 +102,7 @@ RSpec.describe AttendanceImporter do
 
         before do
           # Default ENV['DISTRICT_KEY'] for test suite is 'somerville', see test.rb
-          expect(ENV).to receive(:[]).with('DISTRICT_KEY').and_return("new_bedford")
+          allow(ENV).to receive(:[]).with('DISTRICT_KEY').and_return("new_bedford")
         end
 
         it 'sets the right attributes' do
@@ -113,6 +113,37 @@ RSpec.describe AttendanceImporter do
           expect(absence.reason).to eq nil
           expect(absence.excused).to eq nil
           expect(absence.comment).to eq nil
+        end
+      end
+
+      context 'row with absence (Bedford)' do
+        let!(:student) { FactoryBot.create(:student, local_id: '1') }
+        let(:date) { Date.parse('2005-09-16') }
+        let(:row) {
+          { event_date: date, local_id: '1', absence: 'true', tardy: 'false',
+            dismissed: 'false', reason: 'Medical', excused: '0', comment: 'Received doctor note.' }
+        }
+
+        before do
+          allow(ENV).to receive(:[]).with('DISTRICT_KEY').and_return('bedford')
+        end
+
+        it 'creates an absence, parsing true/false correctly' do
+          expect {
+            attendance_importer.send(:import_row, row)
+          }.to change {
+            Absence.count
+          }.by 1
+        end
+
+        it 'sets the right attributes for defailed fields' do
+          attendance_importer.send(:import_row, row)
+          absence = Absence.first
+
+          expect(absence.dismissed).to eq false
+          expect(absence.reason).to eq 'Medical'
+          expect(absence.excused).to eq false
+          expect(absence.comment).to eq 'Received doctor note.'
         end
       end
 

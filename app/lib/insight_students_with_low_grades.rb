@@ -1,6 +1,4 @@
 class InsightStudentsWithLowGrades
-  EXPERIENCE_TEAM_GRADES = ['9', '10']
-
   def initialize(educator, options = {})
     @educator = educator
     @authorizer = Authorizer.new(@educator)
@@ -8,8 +6,8 @@ class InsightStudentsWithLowGrades
   end
 
   # High-school only.  Returns a list of students in the educator's
-  # sections that have low grades, but haven't been commented on in
-  # NGE or 10GE yet.  The intention is that this information is immediately
+  # sections that have low grades, but haven't been commented on anywhere yet.
+  # The intention is that this information is immediately
   # actionable for high school teachers.
   #
   # This method returns hashes that are the shape of what is needed
@@ -29,13 +27,9 @@ class InsightStudentsWithLowGrades
   private
   def assignments(time_now, time_threshold, grade_threshold)
     # This is high-school only, only look at students the educator
-    # has in their own sections.  And only look at students in the
-    # experience team program.
+    # has in their own sections.
     students = @authorizer.authorized { @educator.section_students }
-    nge_or_10ge_students = students.select do |student|
-      included_in_experience_team?(student)
-    end
-    student_ids = nge_or_10ge_students.map(&:id)
+    student_ids = students.map(&:id)
 
     # Query for low grades and uncommented students, then join both
     # This query structure came to be after some optimizations to reduce
@@ -87,15 +81,5 @@ class InsightStudentsWithLowGrades
         }
       }
     })
-  end
-
-  # This is an imprecise heuristic in general but works here.
-  # In reality, it's more nuanced than this in reality; the NGE and
-  # 10GE teams are defined by the teachers who are in it, not the
-  # students.  The more precise way to answer this is to look at that
-  # list of teachers, and then the list of students who are in their
-  # sections and also in NGE and 10GE.
-  def included_in_experience_team?(student)
-    EXPERIENCE_TEAM_GRADES.include?(student.grade)
   end
 end

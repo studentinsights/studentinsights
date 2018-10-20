@@ -21,10 +21,15 @@ export function prettyIepTextForSpecialEducationStudent(student) {
 
 export function prettyLevelOfNeedText(levelOfNeedValue) {
   switch (levelOfNeedValue) {
+  // somerville
   case 'Low < 2': return 'less than 2 hours / week';
   case 'Low >= 2': return '2-5 hours / week';
   case 'Moderate': return '6-14 hours / week';
   case 'High': return '15+ hours / week';
+
+  // bedford variants
+  case 'Low (2 hours or less)': return 'less than 2 hours / week';
+  case 'Low (2 or more hours)': return '2-5 hours / week';
   default: return null;
   }
 }
@@ -62,8 +67,12 @@ function prettyIepText({levelOfNeed, disability, placement}) {
   return 'IEP';
 }
 
+// One edge case here is "Exited this year"  This function treats that as
+// worth telling the user about, and not a "null" value.
 function isNullPlacement(placement) {
-  return (['None', 'Not Enrolled', 'Not special ed', null].indexOf(placement) !== -1);
+  if (['None', 'Not Enrolled', 'Not special ed', null].indexOf(placement) !== -1) return true;
+  if (['Not SPED Was Earlier', 'Not Sped Student 6-21'].indexOf(placement) !== -1) return true; // additional Bedford variants
+  return false;
 }
 
 function isNullDisability(disability) {
@@ -74,9 +83,10 @@ function isNullLevelOfNeed(levelOfNeed) {
   return (['Does Not Apply', null].indexOf(levelOfNeed) !== -1);
 }
 
-// This field is only used in Somerville
 function isNullProgram(program) {
-  return (['Reg Ed', null].indexOf(program) !== -1);
+  if (['Reg Ed', null].indexOf(program) !== -1) return true; // Somerville
+  if (['Not Enrolled', '(NULL)'].indexOf(program) !== -1) return true; // Bedford
+  return false;
 }
 
 function isSpecialEducationProgram(program) {

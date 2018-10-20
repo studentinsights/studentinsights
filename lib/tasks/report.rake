@@ -4,11 +4,6 @@ namespace :report do
     AssessmentsReport.new(STDOUT).print_report
   end
 
-  desc 'Run data integrity check'
-  task assessment_integrity: :environment do
-    StudentAssessmentIntegrityCheck.new.check_assessments
-  end
-
   desc 'Generate & email weekly Mixpanel usage report'
   task email_mixpanel_usage: :environment do
     # Heroku scheduler can only trigger daily, so this only emails

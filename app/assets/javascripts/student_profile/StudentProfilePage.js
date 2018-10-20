@@ -280,7 +280,7 @@ export default class StudentProfilePage extends React.Component {
   renderLanguage(student, access) {
     const accessEl = (access === undefined || access === null)
       ? null
-      : <span>ACCESS Composite: {access.composite}</span>;
+      : <span>ACCESS Composite: {access.composite && access.composite.performance_level}</span>;
     return (
       <SummaryList title="Language" elements={_.compact([
         <span>{student.limited_english_proficiency}</span>,

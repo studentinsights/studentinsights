@@ -27,6 +27,8 @@ RSpec.describe DashboardQueries do
         :absences,
         :first_name,
         :grade,
+        :house,
+        :counselor,
         :homeroom_label,
         :id,
         :last_name,

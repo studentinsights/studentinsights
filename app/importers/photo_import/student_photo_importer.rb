@@ -61,7 +61,7 @@ class StudentPhotoImporter
 
   private
   def remote_filename
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_PHOTOS_ZIP', nil)
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_PHOTOS_ZIP')
   end
 
   def sftp_client

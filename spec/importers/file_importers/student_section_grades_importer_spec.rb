@@ -152,5 +152,44 @@ RSpec.describe StudentSectionGradesImporter do
         expect(StudentSectionAssignment.count).to eq(1)
       end
     end
+
+    context 'stores historical grades' do
+      it 'creates new HistoricalGrade records' do
+        expect {
+          student_section_grades_importer.import_row({
+            section_number: section.section_number,
+            student_local_id: student.local_id,
+            course_number: section.course_number,
+            school_local_id: 'SHS',
+            term_local_id: 'FY',
+            grade: '85.0 B+'
+          })
+          student_section_grades_importer.import_row({
+            section_number: section.section_number,
+            student_local_id: student.local_id,
+            course_number: section.course_number,
+            school_local_id: 'SHS',
+            term_local_id: 'FY',
+            grade: '94.0 A'
+          })
+        }.to change(HistoricalGrade, :count).by(2)
+
+        historical_grades = HistoricalGrade.all.order(created_at: :asc).as_json
+        expect(historical_grades[0]).to include({
+          'student_id' => student.id,
+          'section_id' => section.id,
+          'course_number' => section.course_number,
+          'section_number' => section.section_number,
+          'grade' => '85.0 B+'
+        })
+        expect(historical_grades[1]).to include({
+          'student_id' => student.id,
+          'section_id' => section.id,
+          'course_number' => section.course_number,
+          'section_number' => section.section_number,
+          'grade' => '94.0 A'
+        })
+      end
+    end
   end
 end

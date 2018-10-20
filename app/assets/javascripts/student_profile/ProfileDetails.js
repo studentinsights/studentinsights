@@ -56,10 +56,11 @@ export default class ProfileDetails extends React.Component {
   }
 
   renderIepDocuments() {
-    const iepDocument = this.props.iepDocument;
+    const {student, iepDocument} = this.props;
     if (!iepDocument) return null;
 
-    const url = `/iep_documents/${iepDocument.id}`;
+
+    const url = `/students/${student.id}/latest_iep_document`;
 
     return (
       <div style={{...styles.column, display: 'flex', flex: 1}}>

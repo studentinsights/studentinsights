@@ -1,4 +1,8 @@
 module MockAwsS3
+  def self.with_put_mocked
+    MockClientForPut.new
+  end
+
   def self.with_student_photo_mocked
     MockedAwsS3.create_with_read_block do |key, bucket|
       small_photo = 'demo-student-photo-small-172x207.jpg'
@@ -45,6 +49,12 @@ module MockAwsS3
 
     def read
       @closed_read_block.call
+    end
+  end
+
+  class MockClientForPut
+    def put_object(args = {})
+      { echo_back_put_object_arguments: args }
     end
   end
 end

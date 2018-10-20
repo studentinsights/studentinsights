@@ -1,17 +1,26 @@
 class ServiceUploadsController < ApplicationController
-  # Authentication by default inherited from ApplicationController.
+  before_action :ensure_authorized_for_project_lead!
 
-  before_action :authorize_for_districtwide_access_admin # Extra authentication layer
+  # Used to validate student local ids
+  # LASID => "locally assigned ID"
+  def lasids
+    render json: Student.all.pluck(:local_id) # not just active students
+  end
 
-  def authorize_for_districtwide_access_admin
-    unless current_educator.admin? && current_educator.districtwide_access?
-      render json: { error: "You don't have the correct authorization." }
-    end
+  def service_types
+    render json: ServiceType.pluck(:name).sort
   end
 
   def create
+    safe_params = params.permit(*[
+      :file_name,
+      :service_type_name,
+      :date_started,
+      :date_ended,
+      { student_lasids: [] }
+    ])
     service_upload = ServiceUpload.new(
-      file_name: params['file_name'],
+      file_name: safe_params[:file_name],
       uploaded_by_educator_id: current_educator.id
     )
 
@@ -23,7 +32,7 @@ class ServiceUploadsController < ApplicationController
 
     service_upload.save!
 
-    service_type = ServiceType.find_by_name(params['service_type_name'])
+    service_type = ServiceType.find_by_name(safe_params[:service_type_name])
 
     if service_type.nil?
       return render json: {
@@ -33,16 +42,18 @@ class ServiceUploadsController < ApplicationController
 
     errors = []
 
-    params['student_lasids'].map do |student_lasid|
+    safe_params[:student_lasids].map do |student_lasid|
       student = Student.find_by_local_id(student_lasid)
 
+      date_started = Date.strptime(safe_params['date_started'],  "%m/%d/%Y")
+      date_ended = Date.strptime(safe_params['date_ended'],  "%m/%d/%Y")
       if student.present?
         service = Service.create!(
           student: student,
           service_upload: service_upload,
           recorded_by_educator: current_educator,
           service_type: service_type,
-          recorded_at: recorded_at,
+          recorded_at: DateTime.current,
           date_started: date_started
         )
 
@@ -72,16 +83,8 @@ class ServiceUploadsController < ApplicationController
     )}.merge({ errors: errors })
   end
 
-  def index
-    @serialized_data = {
-      current_educator: current_educator,
-      service_type_names: ServiceType.pluck(:name)
-    }
-    render 'shared/serialized_data'
-  end
-
   def past
-    render json: past_service_upload_json and return
+    render json: past_service_upload_json
   end
 
   def destroy
@@ -97,37 +100,29 @@ class ServiceUploadsController < ApplicationController
   end
 
   private
+  def ensure_authorized_for_project_lead!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
+  end
 
-    def past_service_upload_json
-      ServiceUpload.includes(services: [:student, :service_type])
-                   .order(created_at: :desc)
-                   .as_json(only: [:created_at, :file_name, :id],
-                     include: {
-                       services: {
-                         only: [],
-                         include: {
-                           student: {
-                             only: [:first_name, :last_name, :id]
-                           },
-                           service_type: {
-                             only: [:name]
-                           }
-                         }
-                       }
-                     }
-                   )
-    end
-
-    def recorded_at
-      DateTime.current
-    end
-
-    def date_started
-      Date.strptime(params['date_started'],  "%m/%d/%Y")
-    end
-
-    def date_ended
-      Date.strptime(params['date_ended'],  "%m/%d/%Y")
-    end
-
+  def past_service_upload_json
+    ServiceUpload.all
+      .includes(services: [:student, :service_type])
+      .order(created_at: :desc)
+      .as_json({
+        only: [:created_at, :file_name, :id],
+        include: {
+          services: {
+            only: [],
+            include: {
+              student: {
+                only: [:first_name, :last_name, :id]
+              },
+              service_type: {
+                only: [:name]
+              }
+            }
+          }
+        }
+      })
+  end
 end

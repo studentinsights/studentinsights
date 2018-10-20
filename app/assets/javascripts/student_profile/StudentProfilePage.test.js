@@ -3,25 +3,15 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import {studentProfile, nowMoment} from './fixtures/fixtures';
-import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
-import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
-import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
-import {initialState} from './PageContainer';
+import {studentProfile} from './fixtures/fixtures';
 import StudentProfilePage from './StudentProfilePage';
+import {
+  testPropsFromSerializedData,
+  testPropsForPlutoPoppins,
+  testPropsForOlafWhite,
+  testPropsForAladdinMouse
+} from './profileTestProps.fixture';
 
-
-export function testPropsForOlafWhite() {
-  return testPropsFromSerializedData(serializedDataForOlafWhite);
-}
-
-export function testPropsForPlutoPoppins() {
-  return testPropsFromSerializedData(serializedDataForPlutoPoppins);
-}
-
-export function testPropsForAladdinMouse() {
-  return testPropsFromSerializedData(serializedDataForAladdinMouse);
-}
 
 function testSerializedData(patches) {
   const {
@@ -71,25 +61,6 @@ function testSerializedData(patches) {
 
 function testPropsFromPatches(patches = {}) {
   return testPropsFromSerializedData(testSerializedData(patches));
-}
-
-function testPropsFromSerializedData(serializedData, queryParams = {}) {
-  return {
-    ...initialState({serializedData, queryParams}),
-    nowMomentFn() { return nowMoment; },
-    actions: {
-      onColumnClicked: jest.fn(),
-      onClickSaveNotes: jest.fn(),
-      onClickSaveTransitionNote: jest.fn(),
-      onDeleteEventNoteAttachment: jest.fn(),
-      onClickSaveService: jest.fn(),
-      onClickDiscontinueService: jest.fn(),
-      onChangeNoteInProgressText: jest.fn(),
-      onClickNoteType: jest.fn(),
-      onChangeAttachmentUrl: jest.fn()
-    },
-    districtKey: 'somerville'
-  };
 }
 
 function testRender(props) {

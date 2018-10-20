@@ -15,8 +15,9 @@ import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import SchoolRosterPage from '../app/assets/javascripts/school_overview/SchoolRosterPage';
 import SectionPage from '../app/assets/javascripts/section/SectionPage';
-import TieringPage from '../app/assets/javascripts/tiering/TieringPage';
+import LevelsPage from '../app/assets/javascripts/levels/LevelsPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
+import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -31,6 +32,8 @@ import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage
 import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
+import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/ServiceUploadsPage';
+
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -86,7 +89,7 @@ export default class App extends React.Component {
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
-        <Route exact path="/schools/:id/absences" render={this.renderAbsencesDashboard.bind(this)}/>
+        <Route exact path="/schools/:id_or_slug/absences" render={this.renderAbsencesPage.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
@@ -98,9 +101,10 @@ export default class App extends React.Component {
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
-        <Route exact path="/levels/:school_id" render={this.renderTieringPage.bind(this)}/>
+        <Route exact path="/levels/:school_id" render={this.renderLevelsPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
         <Route exact path='/login_activity' render={this.renderLoginActivity.bind(this)}/>
+        <Route exact path='/service_uploads' render={this.renderServiceUploads.bind(this)}/>
         <Route render={() => this.renderNotFound()} />
       </Switch>
     );
@@ -222,10 +226,10 @@ export default class App extends React.Component {
     return <SchoolRosterPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
-  renderAbsencesDashboard(routeProps) {
-    const schoolId = routeProps.match.params.id;
-    this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id: schoolId});
-    return <DashboardLoader schoolId={schoolId} dashboardTarget={'absences'} />;
+  renderAbsencesPage(routeProps) {
+    const schoolIdOrSlug = routeProps.match.params.id_or_slug;
+    this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id_or_slug: schoolIdOrSlug});
+    return <SchoolAbsencesPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
   renderTardiesDashboard(routeProps) {
@@ -245,10 +249,10 @@ export default class App extends React.Component {
     return <DistrictEnrollmentPage />;
   }
 
-  renderTieringPage(routeProps) {
+  renderLevelsPage(routeProps) {
     const schoolId = routeProps.match.params.school_id;
-    this.trackVisit(routeProps, 'TIERING_PAGE');
-    return <TieringPage schoolId={schoolId} />;
+    this.trackVisit(routeProps, 'LEVELS_PAGE');
+    return <LevelsPage schoolId={schoolId} />;
   }
 
   renderIsServiceWorking(routeProps) {
@@ -257,6 +261,11 @@ export default class App extends React.Component {
 
   renderLoginActivity(routeProps) {
     return <LoginActivityPageContainer />;
+  }
+
+  renderServiceUploads(routeProps) {
+    this.trackVisit(routeProps, 'SERVICE_UPLOADS_PAGE');
+    return <ServiceUploadsPage />;
   }
 
   // Ignore this, since we're hybrid client/server and perhaps the

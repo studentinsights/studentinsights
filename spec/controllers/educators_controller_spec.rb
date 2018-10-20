@@ -64,13 +64,27 @@ describe EducatorsController, :type => :controller do
       expect(included_student_ids(response)).to contain_exactly(*Student.all.map(&:id))
     end
 
-    it 'works for Harry as an example, showing he is authorized for 8th graders' do
+    it 'works for Harry as an example with dev setup' do
+      response = get_my_students(pals.shs_harry_housemaster)
+      expect(response).to be_successful
+      expect(included_student_ids(response)).to contain_exactly(*[
+        pals.shs_freshman_mari.id,
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
+      ])
+    end
+
+    it 'works for Harry as an example, showing he is authorized for 8th graders when HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8' do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8').and_return('true')
+
       response = get_my_students(pals.shs_harry_housemaster)
       expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.west_eighth_ryan.id,
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
 
@@ -82,7 +96,8 @@ describe EducatorsController, :type => :controller do
       expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
   end

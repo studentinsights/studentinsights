@@ -1,4 +1,4 @@
-class Tardy < ActiveRecord::Base
+class Tardy < ApplicationRecord
   belongs_to :student
 
   # The database enforces more constraints, since adding them

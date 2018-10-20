@@ -4,8 +4,8 @@
   "message": "@pullRequester, this looks like it might be worth double-checking! @reviewers might be able to help.",
   "alwaysNotifyForPaths": [
     {
-      "name": "alexsoble",
-      "files": ["config/**/*.rb", "Procfile", ".eslintrc"],
+      "name": "kevinrobinson",
+      "files": ["config/**/*.rb", "Procfile", ".eslintrc", "app/lib/shs_tiers.rb"],
       "skipTeamPrs": false
     }
   ],

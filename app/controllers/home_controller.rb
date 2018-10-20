@@ -17,18 +17,18 @@ class HomeController < ApplicationController
   end
 
   # Returns a list of `StudentSectionAssignments` with low grades where
-  # the student hasn't been commented on in NGE or 10GE yet.  High-school only.
+  # the student hasn't been commented on in Insights yet.
+  # Somerville-only and SHS only.
   # Response should include everything UI needs.
   def students_with_low_grades_json
-    safe_params = params.permit(:educator_id, :time_now, :limit, :event_note_type_ids)
+    safe_params = params.permit(:educator_id, :time_now, :limit)
     educator = current_educator_or_doppleganger(safe_params[:educator_id])
     time_now = time_now_or_param(safe_params[:time_now])
     limit = safe_params[:limit].to_i
     time_threshold = time_now - 45.days
     grade_threshold = 69
-    event_note_type_ids = safe_params[:event_note_type_ids] || [305, 306]
 
-    insight = InsightStudentsWithLowGrades.new(educator, event_note_type_ids: event_note_type_ids)
+    insight = InsightStudentsWithLowGrades.new(educator)
     students_with_low_grades_json = insight.students_with_low_grades_json(time_now, time_threshold, grade_threshold)
     render json: {
       limit: limit,

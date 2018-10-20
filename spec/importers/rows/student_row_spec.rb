@@ -25,6 +25,22 @@ RSpec.describe StudentRow do
       end
     end
 
+    context 'invalid registration_date' do
+      let(:row) { { full_name: 'Hoag, George', registration_date: '02' } }
+
+      it 'sets it as nil' do
+        expect(student.registration_date).to eq nil
+      end
+    end
+
+    context 'empty string sped_placement' do
+      let(:row) { { full_name: 'Hoag, George', sped_placement: '' } }
+
+      it 'sets it as nil' do
+        expect(student.sped_placement).to eq nil
+      end
+    end
+
     context 'grade level KF' do
       let(:row) { { grade: 'KF', full_name: 'Lee, Nico' } }
 
@@ -67,11 +83,11 @@ RSpec.describe StudentRow do
 
     context 'when PerDistrict attributes are not exported' do
       before do
-        mock_per_district = instance_double(PerDistrict)
-        expect(mock_per_district).to receive(:import_student_house?).and_return(false)
-        expect(mock_per_district).to receive(:import_student_counselor?).and_return(false)
-        expect(mock_per_district).to receive(:import_student_sped_liaison?).and_return(false)
-        expect(PerDistrict).to receive(:new).and_return(mock_per_district)
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:import_student_house?).and_return(false)
+        allow(mock_per_district).to receive(:import_student_counselor?).and_return(false)
+        allow(mock_per_district).to receive(:import_student_sped_liaison?).and_return(false)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
       end
 
       it 'does not try to read and leaves them as nil' do

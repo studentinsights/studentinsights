@@ -1,4 +1,4 @@
-class EventNote < ActiveRecord::Base
+class EventNote < ApplicationRecord
   belongs_to :educator
   belongs_to :student
   belongs_to :event_note_type
@@ -7,7 +7,7 @@ class EventNote < ActiveRecord::Base
   has_many :event_note_attachments, dependent: :destroy
   accepts_nested_attributes_for :event_note_attachments
 
-  validates :educator, :student, :event_note_type, :recorded_at, presence: true
+  validates :educator, :student, :event_note_type, :recorded_at, :text, presence: true
   validates :is_restricted, inclusion: { in: [true, false] }
 
   REDACTED = '<redacted>'

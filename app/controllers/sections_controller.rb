@@ -28,7 +28,7 @@ class SectionsController < ApplicationController
 
   def section_json
     current_section = authorized_section(params[:id])
-    students = authorized { current_section.students } # extra layer while transitioning K8 to use sections
+    students = authorized { current_section.students.active } # extra layer while transitioning K8 to use sections
 
     students_json = serialize_students(students.map(&:id), current_section)
     section = serialize_section(current_section)
@@ -65,6 +65,7 @@ class SectionsController < ApplicationController
   # Include grade for section as well
   def serialize_students(student_ids, section)
     students = Student
+      .active
       .where(id: student_ids)
       .includes(:student_section_assignments)
 

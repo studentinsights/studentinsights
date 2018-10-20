@@ -1,17 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 
 // Component for all charts in the dashboard page.
 export default class DashboardBarChart extends React.Component{
-
-  //Because the highcharts wrapper redraws the charts whether or not the props
-  //have changed, this is necessary to prevent rerendering the charts when the
-  //user only wanted to select a homeroom.
-  shouldComponentUpdate(nextProps) {
-    return !_.isEqual(this.props.seriesData, nextProps.seriesData);
-  }
 
   render() {
     return (
@@ -28,7 +20,8 @@ export default class DashboardBarChart extends React.Component{
           xAxis={[this.props.categories]}
           plotOptions={{
             series: {
-              cursor: 'pointer',
+              animation: this.props.animation,
+              cursor: (this.props.onColumnClick) ? 'pointer' : 'default',
               events: {
                 click: this.props.onColumnClick
               }
@@ -45,7 +38,8 @@ export default class DashboardBarChart extends React.Component{
           series={[
             {
               showInLegend: false,
-              data: this.props.seriesData
+              data: this.props.seriesData,
+              ...(this.props.series || {})
             }
           ]} />
       </div>
@@ -62,8 +56,13 @@ DashboardBarChart.propTypes = {
   titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
   tooltip: PropTypes.object.isRequired,
+  animation: PropTypes.bool,
   onColumnClick: PropTypes.func,
-  onBackgroundClick: PropTypes.func
+  onBackgroundClick: PropTypes.func,
+  series: PropTypes.object
+};
+DashboardBarChart.defaultProps = {
+  animation: true
 };
 
 const styles = {

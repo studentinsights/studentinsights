@@ -317,7 +317,6 @@ exports[`snapshots works for aladdin 1`] = `
                 <li>
                   <span>
                     ACCESS Composite: 
-                    6
                   </span>
                 </li>
               </ul>
@@ -2262,13 +2261,13 @@ exports[`snapshots works for olaf 1`] = `
               >
                 <li>
                   <span>
-                    FLEP-Transitioning
+                    Limited
                   </span>
                 </li>
                 <li>
                   <span>
                     ACCESS Composite: 
-                    8
+                    4.7
                   </span>
                 </li>
               </ul>
@@ -4212,13 +4211,12 @@ exports[`snapshots works for pluto 1`] = `
               >
                 <li>
                   <span>
-                    Limited
+                    Fluent
                   </span>
                 </li>
                 <li>
                   <span>
                     ACCESS Composite: 
-                    9
                   </span>
                 </li>
               </ul>

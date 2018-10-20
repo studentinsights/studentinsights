@@ -5,7 +5,7 @@ import NotesList from '../student_profile/NotesList';
 
 export default class NotesFeedPage extends React.Component {
   render() {
-    const {eventNotes, educatorsIndex, canUserAccessRestrictedNotes} = this.props;
+    const {currentEducatorId, eventNotes, educatorsIndex, canUserAccessRestrictedNotes} = this.props;
     const feed = {
       event_notes: eventNotes,
       deprecated: {
@@ -28,6 +28,7 @@ export default class NotesFeedPage extends React.Component {
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
             <NotesList
+              currentEducatorId={currentEducatorId}
               includeStudentPanel={true}
               forceShowingAllNotes={true}
               canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
@@ -56,6 +57,7 @@ export default class NotesFeedPage extends React.Component {
   }
 }
 NotesFeedPage.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClickLoadMoreNotes: PropTypes.func.isRequired,

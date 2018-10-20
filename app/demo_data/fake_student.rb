@@ -113,8 +113,9 @@ class FakeStudent
       first_name: DISNEY_FIRST_NAMES.sample,
       last_name: DISNEY_LAST_NAMES.sample,
       local_id: unique_local_id,
-      limited_english_proficiency: ["Fluent", "FLEP-Transitioning", "Limited", "FLEP"].sample,
-      free_reduced_lunch: ["Free Lunch", "Not Eligible", "Reduced Lunch", nil].sample,
+      state_id: "99#{unique_local_id}",
+      limited_english_proficiency: ["Fluent", "Limited", "FLEP"].sample,
+      free_reduced_lunch: Student::VALID_FREE_REDUCED_LUNCH_VALUES.sample,
       home_language: ["Spanish", "English", "Portuguese", "Haitian-Creole"].sample,
       race: ['Black', 'White', 'Asian'].sample,
       hispanic_latino: [true, false].sample,
@@ -342,9 +343,14 @@ class FakeStudent
 
   def add_ieps
     15.in(100) do
-      IepDocument.create(
-        file_name: "IEP_Document_for_#{@student.last_name}_#{@student.first_name}.pdf",
-        student: @student
+      file_name = "#{@student.local_id}_IEPAtAGlance_{@student.first_name}_#{@student.last_name}.pdf"
+      file_digest = SecureRandom.hex
+      IepDocument.create!(
+        student: @student,
+        file_name: file_name,
+        file_digest: file_digest,
+        file_size: 1000 + SecureRandom.random_number(100000),
+        s3_filename: "#{SecureRandom.hex}/#{Time.now.strftime('%Y-%m-%d')}/#{file_digest}"
       )
     end
     nil

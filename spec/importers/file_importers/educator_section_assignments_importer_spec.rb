@@ -24,16 +24,16 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     let!(:section) { FactoryBot.create(:section) }
     let!(:educator) { FactoryBot.create(:educator) }
     let!(:high_school) do
-      School.seed_somerville_schools
+      TestPals.seed_somerville_schools_for_test!
       School.find_by_local_id('SHS')
     end
 
     before do
-      FactoryBot.create(:educator, local_id: nil, email: 'oguillen@k12.somerville.ma.us')
-      FactoryBot.create(:educator, local_id: nil, email: 'arodriguez@k12.somerville.ma.us')
-      FactoryBot.create(:educator, local_id: '9111', email: 'djeter@k12.somerville.ma.us')
-      FactoryBot.create(:educator, local_id: '9222', email: 'ngarciaparra@k12.somerville.ma.us')
-      FactoryBot.create(:educator, local_id: '9333', email: 'mtejada@k12.somerville.ma.us')
+      FactoryBot.create(:educator, local_id: nil, login_name: 'oguillen')
+      FactoryBot.create(:educator, local_id: nil, login_name: 'arodriguez')
+      FactoryBot.create(:educator, local_id: '9111', login_name: 'djeter')
+      FactoryBot.create(:educator, local_id: '9222', login_name: 'ngarciaparra')
+      FactoryBot.create(:educator, local_id: '9333', login_name: 'mtejada')
     end
 
     let!(:shs_history) { FactoryBot.create(:course, course_number: 'SOC6', school: high_school) }
@@ -60,12 +60,12 @@ RSpec.describe EducatorSectionAssignmentsImporter do
     it 'syncs when existing records' do
       # will be unchanged
       EducatorSectionAssignment.create!({
-        educator: Educator.find_by_email('ngarciaparra@k12.somerville.ma.us'),
+        educator: Educator.find_by_login_name('ngarciaparra'),
         section: shs_history_section
       })
       # will be deleted
       EducatorSectionAssignment.create!({
-        educator: Educator.find_by_email('mtejada@k12.somerville.ma.us'),
+        educator: Educator.find_by_login_name('mtejada'),
         section: shs_history_section
       })
       expect(EducatorSectionAssignment.count).to eq 2
@@ -82,7 +82,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   describe '#import_row' do
     let!(:school) { FactoryBot.create(:shs) }
     let!(:section) { FactoryBot.create(:section) }
-    let!(:educator) { FactoryBot.create(:educator, email: 'pmartinez@k12.somerville.ma.us') }
+    let!(:educator) { FactoryBot.create(:educator, login_name: 'pmartinez') }
 
     context 'happy path' do
       let(:row) {
@@ -188,7 +188,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
       let(:log) { LogHelper::Redirect.instance.file }
       let!(:school) { FactoryBot.create(:shs) }
       let!(:section) { FactoryBot.create(:section) }
-      let!(:educator) { FactoryBot.create(:educator, email: 'pmartinez@k12.somerville.ma.us') }
+      let!(:educator) { FactoryBot.create(:educator, login_name: 'pmartinez') }
       let(:row) { {
         login_name: 'pmartinez',
         course_number:section.course.course_number,
@@ -236,7 +236,7 @@ RSpec.describe EducatorSectionAssignmentsImporter do
   end
 
   describe '#matching_insights_record_for_row' do
-    let!(:educator) { FactoryBot.create(:educator, email: 'pmartinez@k12.somerville.ma.us') }
+    let!(:educator) { FactoryBot.create(:educator, login_name: 'pmartinez') }
     let!(:section) { FactoryBot.create(:section) }
     let!(:importer) { make_importer }
 
