@@ -49,8 +49,8 @@ class SurveyReader
     row = raw_row.to_h
 
     # student?
-    student_local_id = row[config[:student_local_id]].strip
-    student_id = Student.find_by_local_id(student_local_id).try(:id)
+    student_local_id = row[config[:student_local_id]].try(:strip)
+    student_id = Student.find_by_local_id(student_local_id).try(:id) unless student_local_id.nil?
     if student_id.nil?
       @invalid_rows_count += 1
       @invalid_student_local_ids = (@invalid_student_local_ids + [student_local_id]).uniq
@@ -58,8 +58,8 @@ class SurveyReader
     end
 
     # educator?
-    educator_email = row[config[:educator_email]].strip
-    educator_id = Educator.find_by_email(educator_email).try(:id)
+    educator_email = row[config[:educator_email]].try(:strip)
+    educator_id = Educator.find_by_email(educator_email).try(:id) unless student_local_id.nil?
     if educator_id.nil?
       @invalid_rows_count += 1
       @invalid_educator_emails = (@invalid_educator_emails + [educator_email]).uniq

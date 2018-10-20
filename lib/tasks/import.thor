@@ -24,17 +24,9 @@ class Import
       type: :boolean,
       default: false,
       desc: "Skip updating indexes after the import task is completed (not recommended except for when profiling)"
-    class_option :background,
-      type: :boolean,
-      default: false,
-      desc: "Import data in a background job"
 
     def import
-      if options.fetch(:background)
-        Delayed::Job.enqueue ImportJob.new(options: options)
-      else
-        ImportTask.new(options: options).connect_transform_import
-      end
+      ImportTask.new(options: options).connect_transform_import
     end
   end
 end
