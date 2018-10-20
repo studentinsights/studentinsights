@@ -95,6 +95,10 @@ class TestPals
       educator: @uri,
       label_key: 'can_upload_student_voice_surveys'
     )
+    EducatorLabel.create!(
+      educator: @uri,
+      label_key: 'should_show_levels_shs_link'
+    )
 
     # Rich works in the central office and has districwide access, but
     # not project lead access.

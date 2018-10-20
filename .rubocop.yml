@@ -31,13 +31,13 @@ Layout/EmptyLines:
 Layout/Tab:
   Enabled: true
 
+Layout/ConditionPosition:
+  Enabled: true
+
 Layout/SpaceInsideStringInterpolation:
   Enabled: true
 
 Lint/AssignmentInCondition:
-  Enabled: true
-
-Lint/ConditionPosition:
   Enabled: true
 
 Lint/Debugger:
