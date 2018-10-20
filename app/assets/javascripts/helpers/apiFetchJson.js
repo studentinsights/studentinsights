@@ -71,5 +71,5 @@ export function apiDeleteJson(url, options = {}) {
       ...(options.headers || {})
     },
     ...options
-  });
+  }).then(response => response.json());
 }
