@@ -1,5 +1,6 @@
 import Api from './Api';
 import fetchMock from 'fetch-mock/es5/client';
+import mockCsrfForTest from '../testing/mockCsrfForTest';
 
 function createTestApi() {
   const api = new Api();
@@ -39,5 +40,29 @@ describe('#saveNotes', () => {
       expect(createNoteSpy).not.toHaveBeenCalled();
       expect(updateNoteSpy).toHaveBeenCalled();
     });
+  });
+});
+
+it('#deleteEventNoteAttachment', done => {
+  fetchMock.delete('express:/api/event_notes/attachments/:id', {});
+  mockCsrfForTest('mocked-csrf-token');
+
+  const {api} = createTestApi();
+  api.deleteEventNoteAttachment(42).then(json => {
+    expect(fetchMock.calls()).toEqual([[
+      '/api/event_notes/attachments/42',
+      {
+        "body": "{\"_method\":\"delete\",\"authenticity_token\":\"mocked-csrf-token\"}",
+        "credentials": "same-origin",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "X-CSRF-Token": 'mocked-csrf-token'
+        },
+        "method": "DELETE"
+      }
+    ]]);
+    expect(json).toEqual({});
+    done();
   });
 });

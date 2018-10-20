@@ -38,7 +38,7 @@ export default class Api {
   }
 
   deleteEventNoteAttachment(eventNoteAttachmentId) {
-    const url = `/event_notes/attachment/${eventNoteAttachmentId}`;
+    const url = `/api/event_notes/attachments/${eventNoteAttachmentId}`;
     return apiDeleteJson(url);
   }
 

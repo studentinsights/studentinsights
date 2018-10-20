@@ -5,14 +5,12 @@ import {
   apiPatchJson,
   apiDeleteJson
 } from './apiFetchJson';
+import mockCsrfForTest from '../testing/mockCsrfForTest';
+
 
 beforeEach(() => {
   fetchMock.restore();
-
-  // Mock global CSRF token, which is an implicit dependency for these
-  // fetch functions
-  const jQuery = jest.spyOn(window, '$');
-  jQuery.mockReturnValue({ attr: () => 'mocked-csrf-token' });
+  mockCsrfForTest('mocked-csrf-token');
 });
 
 
