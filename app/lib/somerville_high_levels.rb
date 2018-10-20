@@ -4,7 +4,7 @@
 # the level of support and service they need.
 class SomervilleHighLevels
   FAILING_GRADE = 65
-  
+
   def initialize(options = {})
     @time_interval = options.fetch(:time_interval, 45.days)
     if !PerDistrict.new.enabled_high_school_levels?
