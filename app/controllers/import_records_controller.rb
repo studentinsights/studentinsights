@@ -14,8 +14,7 @@ class ImportRecordsController < ApplicationController
     import_records = recent_records.map { |record| import_record_for_page(record) }
 
     return render json: {
-      import_records: import_records,
-      queued_jobs: Delayed::Job.all
+      import_records: import_records
     }
   end
 
