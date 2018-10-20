@@ -76,7 +76,6 @@ export default class ServicesList extends React.Component {
   }
 
   renderService(service) {
-    console.log(service);
     const wasDiscontinued = this.wasDiscontinued(service);
     const serviceText = this.props.serviceTypesIndex[service.service_type_id].name;
     const providedByEducatorName = service.provided_by_educator_name;

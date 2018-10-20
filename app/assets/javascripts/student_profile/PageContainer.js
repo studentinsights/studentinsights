@@ -253,7 +253,6 @@ export default class PageContainer extends React.Component {
   }
 
   onDiscontinueServiceDone(serviceId, response) {
-    console.log('onDiscontinueServiceDone', serviceId, response);
     const updatedStateOfRequests = this.mergedDiscontinueService(this.state, serviceId, null);
     const updatedFeed = merge(this.state.feed, {
       services: merge(this.state.feed.services, {
