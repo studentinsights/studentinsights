@@ -1,4 +1,4 @@
-class StudentSectionAssignment < ActiveRecord::Base
+class StudentSectionAssignment < ApplicationRecord
   belongs_to :student
   belongs_to :section
   validates :student_id, presence: true

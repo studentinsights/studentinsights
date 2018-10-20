@@ -4339,7 +4339,7 @@ exports[`exportProps snapshots with teachers 1`] = `
               <a
                 className="DownloadCsvLink btn"
                 download="Class list: 1st grade at E Somerville Community 2018-03-13.csv"
-                href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Uri%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Uri%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Alex%22"
+                href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Uri%22"
                 onClick={[Function]}
                 style={
                   Object {
@@ -4349,7 +4349,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                     "textDecoration": "none",
                   }
                 }
-                target="_blank"
+                target="_self"
               >
                 Download class lists spreadsheet
               </a>
@@ -6831,7 +6831,7 @@ exports[`snapshots 1`] = `
       <a
         className="DownloadCsvLink btn"
         download="Class list: 1st grade at Awesome school 2018-03-13.csv"
-        href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Uri%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Kevin%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Uri%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Alex%22"
+        href="data:attachment/csv,%22Student%20name%22%2C%22LASID%22%2C%22Grade%20level%20next%20year%22%2C%22Room%20next%20year%22%0A%22Disney%2C%20Donald%22%2C%22000752%22%2C%221%22%2C%22Kevin%22%0A%22Kenobi%2C%20Minnie%22%2C%22000276%22%2C%221%22%2C%22Alex%22%0A%22Pan%2C%20Chip%22%2C%22000134%22%2C%221%22%2C%22Alex%22%0A%22Skywalker%2C%20Garfield%22%2C%22111111111%22%2C%221%22%2C%22Kevin%22%0A%22Skywalker%2C%20Mowgli%22%2C%22000234%22%2C%221%22%2C%22Uri%22%0A%22Skywalker%2C%20Snow%22%2C%22000525%22%2C%221%22%2C%22Kevin%22%0A%22White%2C%20Mowgli%22%2C%22000472%22%2C%221%22%2C%22Uri%22"
         onClick={[Function]}
         style={
           Object {
@@ -6841,7 +6841,7 @@ exports[`snapshots 1`] = `
             "textDecoration": "none",
           }
         }
-        target="_blank"
+        target="_self"
       >
         Download class lists spreadsheet
       </a>

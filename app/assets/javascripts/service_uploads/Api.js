@@ -5,13 +5,16 @@ import {
 } from '../helpers/apiFetchJson';
 
 class Api {
-
   createServiceUploads(params = {}) {
     return apiPostJson('/service_uploads.json', params);
   }
 
   deleteServiceUpload(id) {
     return apiDeleteJson('/service_uploads/' + id + '.json');
+  }
+
+  fetchServiceTypeNames() {
+    return apiFetchJson('/service_uploads/service_types');
   }
 
   getPastServiceUploads(onSucceed) {
@@ -22,7 +25,7 @@ class Api {
   }
 
   validateLasidsInUploadFile (uploadLasids, onSucceed, onError) {
-    const url = '/students/lasids.json';
+    const url = '/service_uploads/lasids';
 
     return apiFetchJson(url)
              .then(allLasids => {

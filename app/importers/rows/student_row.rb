@@ -40,7 +40,8 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
   end
 
   def demographic_attributes
-    row.to_h.slice(
+    attrs = {}
+    [
       :state_id,
       :enrollment_status,
       :home_language,
@@ -51,15 +52,24 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
       :sped_level_of_need,
       :plan_504,
       :student_address,
-      :registration_date,
       :free_reduced_lunch,
-      :date_of_birth,
       :race,
       :hispanic_latino,
       :gender,
       :primary_phone,
       :primary_email,
-    )
+    ].map do |key|
+      value = row[key]
+      if value.nil? # set nil if column not in import
+        attrs[key] = nil
+      elsif value == '' # set nil if column is in import, but there's an empty string value
+        attrs[key] = nil
+      else
+        attrs[key] = value
+      end
+    end
+
+    attrs
   end
 
   def school_attributes
@@ -84,8 +94,13 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
 
   # These are different based on the district configuration and export
   def per_district_attributes
-    included_attributes = {}
     per_district = PerDistrict.new
+
+    # date parsing
+    included_attributes = {
+      registration_date: per_district.parse_date_during_import(row[:registration_date]),
+      date_of_birth: per_district.parse_date_during_import(row[:date_of_birth])
+    }
 
     if per_district.import_student_house?
       included_attributes.merge!(house: row[:house])

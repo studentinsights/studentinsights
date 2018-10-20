@@ -1,7 +1,6 @@
 import renderStudentMain from '../app/assets/javascripts/student_profile/main';
 import renderNotesFeedMain from '../app/assets/javascripts/notes_feed/main';
 import renderRestrictedNotesMain from '../app/assets/javascripts/restricted_notes/main';
-import renderServiceUploadsMain from '../app/assets/javascripts/service_uploads/main';
 
 
 // Placeholder routing (not fully client-side, just on page load).
@@ -19,11 +18,6 @@ export default function legacyRouteHandler(el) {
   // deprecated
   if ($('body').hasClass('students') && $('body').hasClass('restricted_notes')) {
     renderRestrictedNotesMain(el);
-    return true;
-  }
-
-  if ($('body').hasClass('service_uploads') && $('body').hasClass('index')) {
-    renderServiceUploadsMain(el);
     return true;
   }
 

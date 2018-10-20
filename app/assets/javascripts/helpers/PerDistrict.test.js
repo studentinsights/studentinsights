@@ -1,13 +1,13 @@
 import {
-  inExperienceTeam,
+  shouldShowLowGradesBox,
   sortSchoolSlugsByGrade,
   studentTableEventNoteTypeIds
 } from './PerDistrict';
 
-it('#inExperienceTeam', () => {
-  expect(inExperienceTeam([])).toEqual(false);
-  expect(inExperienceTeam(['foo'])).toEqual(false);
-  expect(inExperienceTeam(['foo', 'shs_experience_team'])).toEqual(true);
+it('#shouldShowLowGradesBox', () => {
+  expect(shouldShowLowGradesBox([])).toEqual(false);
+  expect(shouldShowLowGradesBox(['foo'])).toEqual(false);
+  expect(shouldShowLowGradesBox(['foo', 'should_show_low_grades_box'])).toEqual(true);
 });
 
 it('#sortSchoolSlugsByGrade', () => {
@@ -19,7 +19,7 @@ describe('#studentTableEventNoteTypeIds', () => {
   it('handles somerville HS correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', 'HS');
 
-    expect(eventNoteTypeIds).toEqual([300, 305, 306]);
+    expect(eventNoteTypeIds).toEqual([300, 305, 306, 307]);
   });
   it('handles somerville elementary school correctly', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', 'ESMS');

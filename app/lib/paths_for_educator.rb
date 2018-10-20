@@ -12,6 +12,10 @@ class PathsForEducator
       links[:classlists] = '/classlists'
     end
 
+    if PerDistrict.new.enabled_high_school_levels? && SomervilleHighLevels.is_link_relevant_for_educator?(@educator)
+      links[:levels_shs] = '/levels/shs'
+    end
+
     if @educator.districtwide_access?
       links[:district] = url_helpers.educators_districtwide_path
     end

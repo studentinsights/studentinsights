@@ -6,16 +6,11 @@ RSpec.describe StudentSectionAssignmentsImporter do
       school_scope: nil,
       log: LogHelper::Redirect.instance.file
     }.merge(options))
-    importer.instance_variable_set(:@skipped_from_school_filter, 0)
-    importer.instance_variable_set(:@invalid_student_count, 0)
-    importer.instance_variable_set(:@invalid_course_count, 0)
-    importer.instance_variable_set(:@invalid_section_count, 0)
-    importer.instance_variable_get(:@student_ids_map).reset!
     importer.instance_variable_set(:@school_ids_dictionary, importer.send(:build_school_ids_dictionary))
     importer
   end
 
-  before { School.seed_somerville_schools }
+  before { TestPals.seed_somerville_schools_for_test! }
   let(:high_school) { School.find_by_local_id('SHS') }
   let(:student_section_assignments_importer) { make_importer_with_initialization }
 

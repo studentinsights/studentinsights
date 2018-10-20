@@ -54,6 +54,7 @@ class NotesDetails extends React.Component {
 
   render() {
     const {
+      currentEducator,
       student,
       title,
       feed,
@@ -75,6 +76,7 @@ class NotesDetails extends React.Component {
         </SectionHeading>
         {this.renderTakeNotesSection()}
         <NotesList
+          currentEducatorId={currentEducator.id}
           feed={feed}
           educatorsIndex={educatorsIndex}
           showRestrictedNoteContent={showRestrictedNoteContent}

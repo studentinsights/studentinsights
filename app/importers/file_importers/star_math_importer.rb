@@ -3,6 +3,7 @@ class StarMathImporter
   def initialize(options:)
     @school_scope = options.fetch(:school_scope)
     @log = options.fetch(:log)
+    @invalid_rows_count = 0
   end
 
   def import
@@ -25,6 +26,8 @@ class StarMathImporter
         import_row(row) if filter.include?(row.fetch('SchoolLocalID'))
         @log.puts("processed #{index} rows.") if index % 1000 == 0
       end
+
+      log("skipped #{@invalid_rows_count} invalid rows.")
     end
   end
 
@@ -33,11 +36,11 @@ class StarMathImporter
   end
 
   def zip_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_ZIP_FILE')
+    PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_ZIP_FILE')
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STAR_MATH_IMPORT', nil)
+    PerDistrict.new.try_star_filename('FILENAME_FOR_STAR_MATH_IMPORT')
   end
 
   def data_transformer
@@ -82,6 +85,12 @@ class StarMathImporter
       grade_equivalent: row.fetch('GradeEquivalent'),
       total_time: row.fetch('TotalTime'),
     )
+
+    if test_result.invalid?
+      @invalid_rows_count += 1
+      log("error: #{test_result.errors.full_messages}")
+      return nil
+    end
 
     test_result.save!
   end

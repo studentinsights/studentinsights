@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_27_211838) do
+ActiveRecord::Schema.define(version: 2018_10_16_215409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.string "course_description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "school_id"
+    t.integer "school_id", null: false
   end
 
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   end
 
   create_table "educator_section_assignments", force: :cascade do |t|
-    t.integer "section_id"
-    t.integer "educator_id"
+    t.integer "section_id", null: false
+    t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id"
@@ -150,7 +150,10 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.boolean "districtwide_access", default: false, null: false
     t.boolean "can_set_districtwide_access", default: false, null: false
     t.text "student_searchbar_json"
+    t.text "login_name", null: false
+    t.index ["email"], name: "index_educators_on_email", unique: true
     t.index ["grade_level_access"], name: "index_educators_on_grade_level_access", using: :gin
+    t.index ["login_name"], name: "index_educators_on_login_name", unique: true
   end
 
   create_table "event_note_attachments", id: :serial, force: :cascade do |t|
@@ -161,14 +164,14 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   end
 
   create_table "event_note_revisions", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "educator_id"
-    t.integer "event_note_type_id"
-    t.text "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "event_note_id"
-    t.integer "version"
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.integer "event_note_type_id", null: false
+    t.text "text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "event_note_id", null: false
+    t.integer "version", null: false
   end
 
   create_table "event_note_types", id: :serial, force: :cascade do |t|
@@ -178,14 +181,14 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   end
 
   create_table "event_notes", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "educator_id"
-    t.integer "event_note_type_id"
-    t.text "text"
-    t.datetime "recorded_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean "is_restricted", default: false
+    t.integer "student_id", null: false
+    t.integer "educator_id", null: false
+    t.integer "event_note_type_id", null: false
+    t.text "text", null: false
+    t.datetime "recorded_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_restricted", default: false, null: false
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -198,6 +201,26 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "historical_grades", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "section_id"
+    t.text "section_number"
+    t.text "course_number"
+    t.text "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_historical_grades_on_section_id"
+    t.index ["student_id"], name: "index_historical_grades_on_student_id"
+  end
+
+  create_table "historical_levels_snapshots", force: :cascade do |t|
+    t.datetime "time_now"
+    t.json "student_ids"
+    t.json "students_with_levels_json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "homerooms", id: :serial, force: :cascade do |t|
@@ -214,11 +237,21 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
   end
 
-  create_table "iep_documents", id: :serial, force: :cascade do |t|
-    t.string "file_name"
-    t.integer "student_id"
+  create_table "house_educator_mappings", force: :cascade do |t|
+    t.text "house_field_text", null: false
+    t.integer "educator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "iep_documents", id: :serial, force: :cascade do |t|
+    t.string "file_name", null: false
+    t.integer "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "file_digest", null: false
+    t.integer "file_size", null: false
+    t.string "s3_filename", null: false
     t.index ["student_id"], name: "index_iep_documents_on_student_id"
   end
 
@@ -239,14 +272,14 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   end
 
   create_table "interventions", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "intervention_type_id"
+    t.integer "student_id", null: false
+    t.integer "intervention_type_id", null: false
     t.text "comment"
     t.date "start_date"
     t.date "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "educator_id"
+    t.integer "educator_id", null: false
     t.integer "number_of_hours"
     t.text "goal"
     t.string "custom_intervention_name"
@@ -291,25 +324,23 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   end
 
   create_table "schools", id: :serial, force: :cascade do |t|
-    t.integer "state_id"
-    t.string "school_type"
-    t.string "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "local_id"
-    t.string "slug"
+    t.string "school_type", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "local_id", null: false
+    t.string "slug", null: false
     t.index ["local_id"], name: "index_schools_on_local_id"
-    t.index ["state_id"], name: "index_schools_on_state_id"
   end
 
   create_table "sections", id: :serial, force: :cascade do |t|
-    t.string "section_number"
-    t.string "term_local_id"
+    t.string "section_number", null: false
+    t.string "term_local_id", null: false
     t.string "schedule"
     t.string "room_number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "course_id"
+    t.integer "course_id", null: false
   end
 
   create_table "service_types", id: :serial, force: :cascade do |t|
@@ -320,20 +351,20 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   end
 
   create_table "service_uploads", id: :serial, force: :cascade do |t|
-    t.integer "uploaded_by_educator_id"
+    t.integer "uploaded_by_educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file_name"
   end
 
   create_table "services", id: :serial, force: :cascade do |t|
-    t.integer "student_id"
-    t.integer "recorded_by_educator_id"
-    t.integer "service_type_id"
-    t.datetime "recorded_at"
-    t.datetime "date_started"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "student_id", null: false
+    t.integer "recorded_by_educator_id", null: false
+    t.integer "service_type_id", null: false
+    t.datetime "recorded_at", null: false
+    t.datetime "date_started", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "provided_by_educator_name"
     t.integer "service_upload_id"
     t.datetime "estimated_end_date"
@@ -369,21 +400,21 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.integer "growth_percentile"
     t.string "performance_level"
     t.datetime "date_taken"
-    t.integer "student_id"
+    t.integer "student_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "percentile_rank"
     t.decimal "instructional_reading_level"
-    t.integer "assessment_id"
+    t.integer "assessment_id", null: false
     t.string "grade_equivalent"
     t.index ["student_id"], name: "index_student_assessments_on_student_id"
   end
 
   create_table "student_photos", force: :cascade do |t|
     t.bigint "student_id"
-    t.string "file_digest"
-    t.integer "file_size"
-    t.string "s3_filename"
+    t.string "file_digest", null: false
+    t.integer "file_size", null: false
+    t.string "s3_filename", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_student_photos_on_student_id"
@@ -400,22 +431,48 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
 
+  create_table "student_voice_completed_surveys", force: :cascade do |t|
+    t.integer "student_voice_survey_upload_id", null: false
+    t.integer "student_id", null: false
+    t.datetime "form_timestamp", null: false
+    t.text "first_name", null: false
+    t.text "student_lasid", null: false
+    t.text "proud", null: false
+    t.text "best_qualities", null: false
+    t.text "activities_and_interests", null: false
+    t.text "nervous_or_stressed", null: false
+    t.text "learn_best", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "student_voice_survey_uploads", force: :cascade do |t|
+    t.text "file_name", null: false
+    t.integer "file_size", default: 0, null: false
+    t.text "file_digest", null: false
+    t.integer "uploaded_by_educator_id", null: false
+    t.boolean "completed", default: false, null: false
+    t.json "stats", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", id: :serial, force: :cascade do |t|
     t.string "grade"
     t.boolean "hispanic_latino"
     t.string "race"
     t.string "free_reduced_lunch"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "homeroom_id"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "state_id"
     t.string "home_language"
-    t.integer "school_id"
+    t.integer "school_id", null: false
     t.string "student_address"
     t.datetime "registration_date"
-    t.string "local_id"
+    t.string "local_id", null: false
     t.string "program_assigned"
     t.string "sped_placement"
     t.string "disability"
@@ -438,8 +495,9 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.text "house"
     t.text "counselor"
     t.text "sped_liaison"
+    t.boolean "missing_from_last_export", default: false, null: false
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
-    t.index ["local_id"], name: "index_students_on_local_id"
+    t.index ["local_id"], name: "index_students_on_local_id", unique: true
     t.index ["school_id"], name: "index_students_on_school_id"
     t.index ["state_id"], name: "index_students_on_state_id"
   end
@@ -455,6 +513,15 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
     t.string "comment"
     t.index ["student_id", "occurred_at"], name: "index_tardies_on_student_id_and_occurred_at", unique: true
     t.index ["student_id"], name: "index_tardies_on_student_id"
+  end
+
+  create_table "team_memberships", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.text "activity_text", null: false
+    t.text "coach_text", null: false
+    t.text "school_year_text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transition_notes", force: :cascade do |t|
@@ -492,10 +559,13 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   add_foreign_key "event_notes", "event_note_types"
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
   add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
+  add_foreign_key "historical_grades", "sections", name: "historical_grades_section_id_fk"
+  add_foreign_key "historical_grades", "students", name: "historical_grades_student_id_fk"
   add_foreign_key "homerooms", "educators", name: "homerooms_educator_id_fk"
   add_foreign_key "homerooms", "educators", name: "homerooms_for_educator_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_for_school_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_school_id_fk"
+  add_foreign_key "house_educator_mappings", "educators", name: "house_educator_mappings_educator_id_fk"
   add_foreign_key "iep_documents", "students", name: "iep_documents_student_id_fk"
   add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"
   add_foreign_key "interventions", "intervention_types", name: "interventions_intervention_type_id_fk"
@@ -517,9 +587,13 @@ ActiveRecord::Schema.define(version: 2018_08_27_211838) do
   add_foreign_key "student_section_assignments", "sections", name: "student_section_assignments_section_id_fk"
   add_foreign_key "student_section_assignments", "students"
   add_foreign_key "student_section_assignments", "students", name: "student_section_assignments_student_id_fk"
+  add_foreign_key "student_voice_completed_surveys", "student_voice_survey_uploads", name: "student_voice_completed_surveys_for_student_voice_survey_upload"
+  add_foreign_key "student_voice_completed_surveys", "students", name: "student_voice_completed_surveys_for_student_id_fk"
+  add_foreign_key "student_voice_survey_uploads", "educators", column: "uploaded_by_educator_id", name: "student_voice_survey_uploads_for_uploaded_by_educator_id_fk"
   add_foreign_key "students", "homerooms", name: "students_homeroom_id_fk"
   add_foreign_key "students", "schools", name: "students_school_id_fk"
   add_foreign_key "tardies", "students"
+  add_foreign_key "team_memberships", "students"
   add_foreign_key "transition_notes", "educators"
   add_foreign_key "transition_notes", "students"
 end

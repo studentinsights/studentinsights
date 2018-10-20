@@ -11,11 +11,14 @@ function loadStories() {
   require('../../../app/assets/javascripts/components/Button.story');
   require('../../../app/assets/javascripts/components/Circle.story');
   require('../../../app/assets/javascripts/components/DibelsBreakdownBar.story');
+  require('../../../app/assets/javascripts/components/FitText.story');
+  require('../../../app/assets/javascripts/components/NoteBadge.story');
   require('../../../app/assets/javascripts/components/ReactSelect.story');
   require('../../../app/assets/javascripts/components/Stack.story');
 
   // home
   require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story');
+  require('../../../app/assets/javascripts/feed/IncidentCard.story');
 
   // student profile
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
@@ -26,9 +29,13 @@ function loadStories() {
   // student profile v3
   require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
   require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
+  require('../../../app/assets/javascripts/student_profile/AccessPanel.story');
 
   // my notes
   require('../../../app/assets/javascripts/notes_feed/NotesFeedPage.story');
+
+  // absences
+  require('../../../app/assets/javascripts/school_absences/SchoolAbsencesPage.story');
   
   // classlists
   require('../../../app/assets/javascripts/class_lists/ClassListsViewPage.story');

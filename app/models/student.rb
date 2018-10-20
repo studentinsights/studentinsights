@@ -1,4 +1,11 @@
-class Student < ActiveRecord::Base
+class Student < ApplicationRecord
+  VALID_FREE_REDUCED_LUNCH_VALUES = [
+    "Free Lunch",
+    "Not Eligible",
+    "Reduced Lunch",
+    nil
+  ].freeze
+
   # Model for a student in the district, backed by information in the database.
   # Class methods (self.active) concern collections of students,
   # and instance methods (latest_mcas_mathematics) concern a single student.
@@ -8,7 +15,7 @@ class Student < ActiveRecord::Base
 
   belongs_to :homeroom, optional: true, counter_cache: true
   belongs_to :school
-  has_many :student_photos
+
   has_many :student_assessments, dependent: :destroy
   has_many :assessments, through: :student_assessments
   has_many :interventions, dependent: :destroy
@@ -18,72 +25,86 @@ class Student < ActiveRecord::Base
   has_many :tardies, dependent: :destroy
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
-  has_one :iep_document, dependent: :destroy
-  has_many :student_section_assignments
-  has_many :sections, through: :student_section_assignments
-
+  has_many :iep_documents, dependent: :destroy
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
+  has_many :student_photos
+  has_many :student_section_assignments
+  has_many :sections, through: :student_section_assignments
 
-  has_many :dashboard_tardies, -> {
-    where('occurred_at >= ?', 1.year.ago)
-  }, class_name: "Tardy"
-  has_many :dashboard_absences, -> {
-    where('occurred_at >= ?', 1.year.ago)
-  }, class_name: "Absence"
-
-  validates_presence_of :local_id
-  validates_uniqueness_of :local_id
+  validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validate :validate_grade
+  validates :school, presence: true
+  validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
+  validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
+  validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }
   validate :validate_registration_date_cannot_be_in_future
-  validate :validate_free_reduced_lunch
 
-  VALID_GRADES = [
-    'PPK', 'PK', 'KF', 'SP', 'TK', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
-  ].freeze
-
-  VALID_FREE_REDUCED_LUNCH_VALUES = [
-    "Free Lunch",
-    "Not Eligible",
-    "Reduced Lunch",
-    nil
-  ]
+  # nullable but not empty strings
+  validates :enrollment_status, exclusion: { in: ['']}
+  validates :home_language, exclusion: { in: ['']}
+  validates :program_assigned, exclusion: { in: ['']}
+  validates :limited_english_proficiency, exclusion: { in: ['']}
+  validates :sped_placement, exclusion: { in: ['']}
+  validates :disability, exclusion: { in: ['']}
+  validates :sped_level_of_need, exclusion: { in: ['']}
+  validates :plan_504, exclusion: { in: ['']}
+  validates :student_address, exclusion: { in: ['']}
+  validates :free_reduced_lunch, exclusion: { in: ['']}
+  validates :race, exclusion: { in: ['']}
+  validates :hispanic_latino, exclusion: { in: ['']}
+  validates :gender, exclusion: { in: ['']}
+  validates :primary_phone, exclusion: { in: ['']}
+  validates :primary_email, exclusion: { in: ['']}
 
   def self.with_school
     where.not(school: nil)
   end
 
+  # `enrollment_status` is from the SIS export, while `missing_from_last_export`
+  # indicates the student was missing from the last export where we expected to
+  # find them, so we treat them as no longer active.
+  #
+  # All product features should be scoped to `active` students only.
   def self.active
-    where(enrollment_status: 'Active')
+    where(enrollment_status: 'Active', missing_from_last_export: false)
   end
 
   def active?
-    enrollment_status == 'Active'
+    enrollment_status == 'Active' && !missing_from_last_export
+  end
+
+  def teams(options = {})
+    TeamMembership.where(student_id: self.id).active(options)
+  end
+
+  def latest_iep_document
+    self.iep_documents.order(created_at: :desc).limit(1).first
   end
 
   ## ABSENCES / TARDIES ##
 
   def most_recent_school_year_discipline_incidents_count
     discipline_incidents.where(
-      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
+      'occurred_at >= ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
   def most_recent_school_year_absences_count
     absences.where(
-      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
+      'occurred_at >= ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
   def most_recent_school_year_tardies_count
     tardies.where(
-      'occurred_at > ?', SchoolYear.first_day_of_school_for_time(Time.now)
+      'occurred_at >= ?', SchoolYear.first_day_of_school_for_time(Time.now)
     ).count
   end
 
+  # deprecated
   # Maybe include a restricted note, but cannot return any restricted data
   def latest_note
     event_notes.order(recorded_at: :desc).limit(1).first.as_json(only: [:event_note_type_id, :recorded_at])
@@ -128,6 +149,19 @@ class Student < ActiveRecord::Base
 
   def latest_dibels
     dibels_results.first  # Sorted by descending date_taken by default
+  end
+
+  def access
+    access_data_points = self.student_assessments.by_family('ACCESS').order_by_date_taken_asc
+    grouped_by_subject = access_data_points.group_by(&:subject)
+
+    pairs = [:composite, :comprehension, :literacy, :oral, :listening, :reading, :speaking, :writing].map do |category|
+      subject = category.to_s.capitalize
+      latest_data_point = grouped_by_subject[subject].try(:last)
+      data_point_json = latest_data_point.try(:as_json, only: [:performance_level, :date_taken])
+      [category, data_point_json]
+    end
+    pairs.to_h
   end
 
   def latest_access_results
@@ -257,15 +291,4 @@ class Student < ActiveRecord::Base
     end
   end
 
-  def validate_free_reduced_lunch
-    errors.add(:free_reduced_lunch, "unexpected value: #{free_reduced_lunch}") unless free_reduced_lunch.in?(VALID_FREE_REDUCED_LUNCH_VALUES)
-  end
-
-  def validate_grade
-    errors.add(:grade, "invalid grade: #{grade}") unless grade.in?(VALID_GRADES)
-  end
-
-  def validate_plan_504
-    errors.add(:plan_504, "invalid plan_504: #{plan_504}") unless grade.in?(PerDistrict.new.valid_plan_504_values)
-  end
 end

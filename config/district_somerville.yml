@@ -1,4 +1,4 @@
-remote_filenames:
+sftp_filenames:
   FILENAME_FOR_EDUCATORS_IMPORT:                    /home/jbreslin/data/educators_export.txt
   FILENAME_FOR_STUDENTS_IMPORT:                     /home/jbreslin/data/students_export.txt
   FILENAME_FOR_BEHAVIOR_IMPORT:                     /home/jbreslin/data/behavior_export.txt
@@ -8,9 +8,11 @@ remote_filenames:
   FILENAME_FOR_COURSE_SECTION_IMPORT:               /home/jbreslin/data/courses_sections_export.txt
   FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/student_section_assignment_export.txt
   FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/educator_section_assignment_export.txt
-  FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
-  FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
-  FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
+  
+  # student photos, one-time batch
+  FILENAME_FOR_PHOTOS_ZIP:                          /home/jbreslin/data/photos.zip
+
+  # iep at a glance PDFs
   FILENAMES_FOR_IEP_PDF_ZIPS:   # order is important here, these need to be oldest > newest
     - /home/jbreslin/data/student-documents-6.zip
     - /home/jbreslin/data/student-documents-5.zip
@@ -18,53 +20,98 @@ remote_filenames:
     - /home/jbreslin/data/student-documents-3.zip
     - /home/jbreslin/data/student-documents-2.zip
     - /home/jbreslin/data/student-documents-1.zip
-schools:
-  -
-    local_id: BRN
+
+
+star_filenames:
+  FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
+  FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
+  FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
+
+
+school_definitions_for_import:
+  - local_id: BRN
+    slug: brn
     name: Benjamin G Brown
     school_type: ES
-  -
-    local_id: HEA
+
+  - local_id: HEA
+    slug: hea
     name: Arthur D Healey
     school_type: ESMS
-  -
-    local_id: KDY
+
+  - local_id: KDY
+    slug: kdy
     name: John F Kennedy
     school_type: ESMS
-  -
-    local_id: AFAS
+
+  - local_id: AFAS
+    slug: afas
     name: Albert F. Argenziano School
     school_type: ESMS
-  -
-    local_id: ESCS
+
+  - local_id: ESCS
+    slug: escs
     name: E Somerville Community
     school_type: ESMS
-  -
-    local_id: WSNS
+
+  - local_id: WSNS
+    slug: wsns
     name: West Somerville Neighborhood
     school_type: ESMS
-  -
-    local_id: WHCS
+
+  - local_id: WHCS
+    slug: whcs
     name: Winter Hill Community
     school_type: ESMS
-  -
-    local_id: NW
+
+  - local_id: NW
+    slug: nw
     name: Next Wave Junior High
     school_type: MS
-  -
-    local_id: SHS
+
+  - local_id: SHS
+    slug: shs
     name: Somerville High
     school_type: HS
-  -
-    local_id: FC
+
+  - local_id: FC
+    slug: fc
     name: Full Circle High School
     school_type: HS
-  -
-    local_id: CAP
+
+  - local_id: CAP
+    slug: cap
     name: Capuano Early Childhood Center
-  -
-    local_id: PIC
+    school_type: ECS
+
+  - local_id: PIC
+    slug: pic
     name: Parent Information Center
-  -
-    local_id: SPED
-    name: Special Education
+    school_type: OTHER
+
+  - local_id: SPED
+    slug: sped
+    name: SPED Outplacement and Walk-in
+    school_type: OTHER
+
+
+school_definitions_not_yet_used:
+  - local_id: CUM
+    slug: CUM
+    name: Cummings School
+    school_type: OTHER
+
+  - local_id: PHCS
+    slug: PHCS
+    name: Powerhouse Community School
+    school_type: OTHER
+
+  - local_id: SCALE
+    slug: SCALE
+    name: Somerville Center for Adult Learning Experiences
+    school_type: OTHER
+
+  - local_id: HIST
+    slug: HIST
+    name: (Historical, marker for students who have graduated, withdrawn, etc.)
+    school_type: OTHER

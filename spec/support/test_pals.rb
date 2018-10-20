@@ -5,10 +5,17 @@
 # many tests, so the intention is that these should not change frequently.
 # If new attributes are added to models, update the factories instead.
 class TestPals
-  def self.create!
+  def self.create!(options = {})
     pals = TestPals.new
-    pals.create!
+    pals.create!(options)
     pals
+  end
+
+  # This uses the YAML config
+  def self.seed_somerville_schools_for_test!
+    per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
+    school_definitions = per_district.school_definitions_for_import
+    School.create!(school_definitions)
   end
 
   # schools
@@ -21,6 +28,7 @@ class TestPals
   attr_reader :west_eighth_ryan
   attr_reader :shs_freshman_mari
   attr_reader :shs_freshman_amir
+  attr_reader :shs_senior_kylo
 
   # educators
   attr_reader :uri
@@ -59,14 +67,18 @@ class TestPals
   attr_reader :shs_third_period_physics
   attr_reader :shs_fifth_period_physics
 
-  def create!
-    School.seed_somerville_schools
+  def create!(options = {})
+    TestPals.seed_somerville_schools_for_test!
+
+    email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
+    skip_team_memberships = options.fetch(:skip_team_memberships, false)
 
     # Uri works in the central office, and is the admin for the
     # project at the district.
     @uri = Educator.create!(
       id: 999999,
-      email: 'uri@demo.studentinsights.org',
+      login_name: 'uri',
+      email: "uri@#{email_domain}",
       full_name: 'Disney, Uri',
       staff_type: 'Administrator',
       can_set_districtwide_access: true,
@@ -79,11 +91,16 @@ class TestPals
       can_view_restricted_notes: true,
       school: School.find_by_local_id('HEA')
     )
+    EducatorLabel.create!(
+      educator: @uri,
+      label_key: 'can_upload_student_voice_surveys'
+    )
 
     # Rich works in the central office and has districwide access, but
     # not project lead access.
     @rich_districtwide = Educator.create!(
-      email: 'rich@demo.studentinsights.org',
+      login_name: 'rich',
+      email: "rich@#{email_domain}",
       full_name: 'Districtwide, Rich',
       staff_type: 'Administrator',
       can_set_districtwide_access: false,
@@ -111,7 +128,8 @@ class TestPals
     )
 
     @healey_vivian_teacher = Educator.create!(
-      email: 'vivian@demo.studentinsights.org',
+      login_name: 'vivian',
+      email: "vivian@#{email_domain}",
       full_name: 'Teacher, Vivian',
       password: 'demo-password',
       staff_type: nil,
@@ -120,19 +138,22 @@ class TestPals
     )
 
     @healey_ell_teacher = Educator.create!(
-      email: 'alonso@demo.studentinsights.org',
+      login_name: 'alonso',
+      email: "alonso@#{email_domain}",
       full_name: 'Teacher, Alonso',
       restricted_to_english_language_learners: true,
       school: @healey
     )
     @healey_sped_teacher = Educator.create!(
-      email: 'silva@demo.studentinsights.org',
+      login_name: 'silva',
+      email: "silva@#{email_domain}",
       full_name: 'Teacher, Silva',
       restricted_to_sped_students: true,
       school: @healey
     )
     @healey_laura_principal = Educator.create!(
-      email: 'laura@demo.studentinsights.org',
+      login_name: 'laura',
+      email: "laura@#{email_domain}",
       full_name: 'Principal, Laura',
       school: @healey,
       staff_type: 'Principal',
@@ -146,7 +167,8 @@ class TestPals
       label_key: 'class_list_maker_finalizer_principal'
     )
     @healey_sarah_teacher = Educator.create!(
-      email: "sarah@demo.studentinsights.org",
+      login_name: 'sarah',
+      email: "sarah@#{email_domain}",
       full_name: 'Teacher, Sarah',
       homeroom: @healey_fifth_homeroom,
       school: @healey,
@@ -159,6 +181,7 @@ class TestPals
       homeroom: @healey_kindergarten_homeroom,
       grade: 'KF',
       local_id: '111111111',
+      state_id: '991111111',
       enrollment_status: 'Active'
     )
 
@@ -170,14 +193,16 @@ class TestPals
       school: @west
     )
     @west_marcus_teacher = Educator.create!(
-      email: "marcus@demo.studentinsights.org",
+      login_name: 'marcus',
+      email: "marcus@#{email_domain}",
       full_name: 'Teacher, Marcus',
       local_id: '550',
       homeroom: @west_fifth_homeroom,
       school: @west
     )
     @west_counselor = Educator.create!(
-      email: "les@demo.studentinsights.org",
+      login_name: 'les',
+      email: "les@#{email_domain}",
       full_name: "Counselor, Les",
       local_id: '551',
       school: @west,
@@ -194,13 +219,15 @@ class TestPals
       school: @west,
       grade: '8',
       local_id: '333333333',
+      state_id: '993333333',
       enrollment_status: 'Active'
     )
 
     # high school
     @shs = School.find_by_local_id!('SHS')
     @shs_sofia_counselor = Educator.create!(
-      email: 'sofia@demo.studentinsights.org',
+      login_name: 'sofia',
+      email: "sofia@#{email_domain}",
       full_name: 'Counselor, Sofia',
       school: @shs,
       schoolwide_access: true
@@ -223,7 +250,8 @@ class TestPals
       school: @shs
     )
     @shs_jodi = Educator.create!(
-      email: 'jodi@demo.studentinsights.org',
+      login_name: 'jodi',
+      email: "jodi@#{email_domain}",
       full_name: 'Teacher, Jodi',
       school: @shs,
       homeroom: @shs_jodi_homeroom
@@ -232,9 +260,14 @@ class TestPals
       educator: @shs_jodi,
       label_key: 'shs_experience_team'
     })
+    EducatorLabel.create!(
+      educator: @shs_jodi,
+      label_key: 'can_upload_student_voice_surveys'
+    )
 
     @shs_harry_housemaster = Educator.create!(
-      email: 'harry@demo.studentinsights.org',
+      login_name: 'harry',
+      email: "harry@#{email_domain}",
       full_name: 'Housemaster, Harry',
       school: @shs,
       schoolwide_access: true,
@@ -243,6 +276,14 @@ class TestPals
     EducatorLabel.create!({
       educator: @shs_harry_housemaster,
       label_key: 'high_school_house_master'
+    })
+    EducatorLabel.create!({
+      educator: @shs_harry_housemaster,
+      label_key: 'use_housemaster_based_feed'
+    })
+    HouseEducatorMapping.create!({
+      house_field_text: 'broadway',
+      educator_id: @shs_harry_housemaster.id
     })
 
     # Bill Nye is a biology teacher at Somerville High School.  He teaches sections
@@ -253,7 +294,8 @@ class TestPals
       school: @shs
     )
     @shs_bill_nye = Educator.create!(
-      email: 'bill@demo.studentinsights.org',
+      login_name: 'bill',
+      email: "bill@#{email_domain}",
       full_name: 'Teacher, Bill',
       school: @shs,
       homeroom: @shs_bill_nye_homeroom
@@ -265,10 +307,14 @@ class TestPals
     })
     create_section_assignment(@shs_bill_nye, [
       @shs_tuesday_biology_section = Section.create!(
-        course: @shs_biology_course, section_number: 'SHS-BIO-TUES'
+        course: @shs_biology_course,
+        section_number: 'SHS-BIO-TUES',
+        term_local_id: 'Q3',
       ),
       @shs_thursday_biology_section = Section.create!(
-        course: @shs_biology_course, section_number: 'SHS-BIO-THUR'
+        course: @shs_biology_course,
+        section_number: 'SHS-BIO-THUR',
+        term_local_id: 'Q4',
       )
     ])
     EducatorLabel.create!({
@@ -278,7 +324,8 @@ class TestPals
 
     # Hugo teachers two sections of ceramics at the high school.
     @shs_hugo_art_teacher = Educator.create!(
-      email: "hugo@demo.studentinsights.org",
+      login_name: 'hugo',
+      email: "hugo@#{email_domain}",
       full_name: 'Teacher, Hugo',
       local_id: '650',
       school: @shs
@@ -306,11 +353,20 @@ class TestPals
     ])
 
     # Fatima teaches two sections of physics at the high school.
+    # She's a data coordinator, so has schoolwide access also, but
+    # wants her feed and other views to be focused on students in her
+    # courses.
     @shs_fatima_science_teacher = Educator.create!(
-      email: "fatima@demo.studentinsights.org",
+      login_name: 'fatima',
+      email: "fatima@#{email_domain}",
       full_name: 'Teacher, Fatima',
+      schoolwide_access: true,
       local_id: '750',
       school: @shs
+    )
+    EducatorLabel.create!(
+      educator: @shs_fatima_science_teacher,
+      label_key: 'use_section_based_feed'
     )
     @shs_physics_course = Course.create!({
       school: @shs,
@@ -344,7 +400,8 @@ class TestPals
       counselor: 'SOFIA',
       grade: '9',
       date_of_birth: '2004-03-12',
-      local_id: '2222222222',
+      local_id: '111222222',
+      state_id: '991222222',
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
@@ -358,11 +415,12 @@ class TestPals
       last_name: 'Solo',
       school: @shs,
       homeroom: @shs_jodi_homeroom,
-      house: 'Elm',
+      house: 'Broadway',
       counselor: 'FISHMAN',
       grade: '9',
       date_of_birth: '2003-02-07',
       local_id: '2222222211',
+      state_id: '9922222211',
       enrollment_status: 'Active'
     )
     StudentSectionAssignment.create!(
@@ -371,6 +429,27 @@ class TestPals
       grade_numeric: 84,
       grade_letter: 'B'
     )
+    @shs_senior_kylo = Student.create!(
+      first_name: 'Kylo',
+      last_name: 'Ren',
+      school: @shs,
+      homeroom: nil,
+      house: 'Broadway',
+      counselor: 'FISHMAN',
+      grade: '12',
+      date_of_birth: '2001-02-07',
+      local_id: '2225555555',
+      state_id: '9925555555',
+      enrollment_status: 'Active'
+    )
+    StudentSectionAssignment.create!(
+      student: @shs_senior_kylo,
+      section: @shs_second_period_ceramics,
+      grade_numeric: 61,
+      grade_letter: 'F'
+    )
+
+    add_team_memberships unless skip_team_memberships
 
     reindex!
     self
@@ -381,6 +460,36 @@ class TestPals
   end
 
   private
+  def add_team_memberships
+    # "now" in time_now for test
+    TeamMembership.create!({
+      student_id: shs_freshman_mari.id,
+      activity_text: 'Competitive Cheerleading Varsity',
+      school_year_text: '2017-18',
+      coach_text: 'Fatima Teacher'
+    })
+    TeamMembership.create!({
+      student_id: shs_senior_kylo.id,
+      activity_text: 'Cross Country - Boys Varsity',
+      school_year_text: '2017-18',
+      coach_text: 'Jonathan Fishman'
+    })
+
+    # now in wall clock
+    TeamMembership.create!({
+      student_id: shs_freshman_mari.id,
+      activity_text: 'Competitive Cheerleading Varsity',
+      school_year_text: '2018-19',
+      coach_text: 'Fatima Teacher'
+    })
+    TeamMembership.create!({
+      student_id: shs_senior_kylo.id,
+      activity_text: 'Cross Country - Boys Varsity',
+      school_year_text: '2018-19',
+      coach_text: 'Jonathan Fishman'
+    })
+  end
+
   def create_section_assignment(educator, sections)
     sections.each do |section|
       EducatorSectionAssignment.create!(educator: educator, section: section)

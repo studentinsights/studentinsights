@@ -6,6 +6,7 @@ import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScroll
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
+import {isStudentActive} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
@@ -44,9 +45,11 @@ export default class LightProfilePage extends React.Component {
   render() {
     const {student, districtKey} = this.props;
     const isHighSchool = (student.school_type === 'HS');
+    
     return (
       <PerDistrictContainer districtKey={districtKey}>
         <div className="LightProfilePage" style={styles.root}>
+          {this.renderInactiveOverlay()}
           {this.renderHeader()}
           <div style={styles.tabsContainer}>
             <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
@@ -65,24 +68,38 @@ export default class LightProfilePage extends React.Component {
     );
   }
 
+  renderInactiveOverlay() {
+    const {student, districtKey} = this.props;
+    const isActive = isStudentActive(districtKey, student);
+    if (isActive) return null;
+
+    return (
+      <div className="LightProfilePage-inactive-overlay" style={styles.inactiveOverlay}>
+        <div style={styles.inactiveOverlayMessage}>
+          {student.first_name} is no longer actively enrolled
+        </div>
+      </div>
+    );
+  }
+
   renderHeader() {
     const {
       student,
-      districtKey,
       access,
-      transitionNotes,
-      educatorsIndex,
-      iepDocument
+      teams,
+      profileInsights,
+      iepDocument,
+      feed
     } = this.props;
-    
+    const activeServices = feed.services.active;
     return (
       <LightProfileHeader
         student={student}
         access={access}
+        teams={teams}
         iepDocument={iepDocument}
-        transitionNotes={transitionNotes}
-        educatorsIndex={educatorsIndex}
-        districtKey={districtKey}
+        profileInsights={profileInsights}
+        activeServices={activeServices}
         renderFullCaseHistory={this.renderFullCaseHistory.bind(this)}
       />
     );
@@ -417,7 +434,7 @@ LightProfilePage.propTypes = {
   // data
   student: PropTypes.object.isRequired,
   feed: PropTypes.object.isRequired,
-  transitionNotes: PropTypes.array.isRequired,
+  profileInsights: PropTypes.array.isRequired,
   dibels: PropTypes.array.isRequired,
   chartData: PropTypes.shape({
     // ela
@@ -446,6 +463,7 @@ LightProfilePage.propTypes = {
     PropTypes.string
   ).isRequired,
   access: PropTypes.object,
+  teams: PropTypes.array.isRequired,
   iepDocument: PropTypes.object,
   sections: PropTypes.array,
   currentEducatorAllowedSections: PropTypes.array,
@@ -459,6 +477,25 @@ LightProfilePage.propTypes = {
 const styles = {
   root: {
     fontSize: 14
+  },
+  inactiveOverlay: {
+    position: 'fixed',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    background: '#6669',
+    zIndex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  inactiveOverlayMessage: {
+    background: 'white',
+    padding: 50,
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'black'
   },
   tabsContainer: {
     display: 'flex',

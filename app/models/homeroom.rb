@@ -1,4 +1,4 @@
-class Homeroom < ActiveRecord::Base
+class Homeroom < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 

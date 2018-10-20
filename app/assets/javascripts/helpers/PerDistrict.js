@@ -11,6 +11,8 @@ export function hasStudentPhotos(districtKey) {
   return false;
 }
 
+
+// See also specialEducation.js
 const ORDERED_DISABILITY_VALUES_MAP = {
   [NEW_BEDFORD]: [
     "Does Not Apply",
@@ -23,6 +25,13 @@ const ORDERED_DISABILITY_VALUES_MAP = {
     // also include null
     'Low < 2',
     'Low >= 2',
+    'Moderate',
+    'High'
+  ],
+  [BEDFORD]: [    
+    'Does Not Apply',
+    'Low (2 hours or less)',
+    'Low (2 or more hours)',
     'Moderate',
     'High'
   ]
@@ -46,6 +55,8 @@ export function hasInfoAbout504Plan(maybeStudent504Field) {
   return true;
 }
 
+
+
 // Renders a table for `SlicePanels` that works differently for different
 // districts.
 export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
@@ -56,19 +67,17 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
     return createItemFn(value, Filters.Equal(key, value));
   });
 
-  // Somerville uses a null value for no disability, while New Bedford
-  // uses a separate value to describe that explicitly.
+  // Somerville uses a null value for no disability instead of an explicit value.
   const items = (districtKey === SOMERVILLE)
     ? [createItemFn('None', Filters.Null(key))].concat(itemsFromValues)
     : itemsFromValues;
   return renderTableFn({items, title: 'Disability'});
 }
 
-// Check educator labels to see if the educator belongs to
-// the NGE and 10GE experience teams.  This label only applies to
-// Somerville.
-export function inExperienceTeam(educatorLabels) {
-  return (educatorLabels.indexOf('shs_experience_team') !== -1);
+// Check educator labels to see if the educator should be shown 
+// info about students in their courses with low grades.
+export function shouldShowLowGradesBox(educatorLabels) {
+  return (educatorLabels.indexOf('should_show_low_grades_box') !== -1);
 }
 
 
@@ -98,6 +107,7 @@ export function sortSchoolSlugsByGrade(districtKey, slugA, slugB) {
 
 export function supportsHouse(districtKey) {
   if (districtKey === SOMERVILLE) return true;
+  if (districtKey === BEDFORD) return true;
   if (districtKey === DEMO) return true;
   return false;
 }
@@ -134,34 +144,46 @@ export function supportsSpedLiaison(districtKey) {
 }
 
 export function supportsExcusedAbsences(districtKey) {
+  if (districtKey === NEW_BEDFORD) return false;
+  
+  if (districtKey === BEDFORD) return true;
   if (districtKey === SOMERVILLE) return true;
   if (districtKey === DEMO) return true;
+  
   return false;
 }
 
-// This returns user-facing text to describe their program and placement
-// in one label.
-export function prettyProgramText(programAssigned, spedPlacement) {
-  return (programAssigned && programAssigned !== 'Reg Ed')
-    ? programAssigned === 'Sp Ed' ? spedPlacement : programAssigned
-    : null;
+// In high school, homeroom is a logical administrative assignment,
+// but isn't meaningful to teachers or educators.  If there is
+// a homeroom, it might not necessarily be worth showing.
+export function isHomeroomMeaningful(schoolType) {
+  return (schoolType !== 'HS');
 }
 
 // What is the eventNoteTypeId to use in user-facing text about how to support
 // students with high absences?
 export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
+  if (districtKey === BEDFORD) return 500; // stat
   if (districtKey === NEW_BEDFORD) return 400; // bbst
   if (districtKey === SOMERVILLE) return 300; // sst
 
   return 300;
 }
 
+
 // What choices do educators have for taking notes in the product?
 export function takeNotesChoices(districtKey) {
   if (districtKey === SOMERVILLE || districtKey === DEMO) {
     return {
-      leftEventNoteTypeIds: [300, 301, 302],
-      rightEventNoteTypeIds: [305, 306, 304]
+      leftEventNoteTypeIds: [300, 301, 302, 304],
+      rightEventNoteTypeIds: [305, 306, 307]
+    };
+  }
+
+  if (districtKey === BEDFORD) {
+    return {
+      leftEventNoteTypeIds: [500, 302, 304],
+      rightEventNoteTypeIds: []
     };
   }
 
@@ -178,11 +200,24 @@ export function takeNotesChoices(districtKey) {
 // In tables of students, what eventNoteTypeIds should be shown as columns with notes
 // about those students?
 export function studentTableEventNoteTypeIds(districtKey, schoolType) {
+  if (districtKey === BEDFORD) return [500];
   if (districtKey === NEW_BEDFORD) return [400];
+  
   const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
-  if (!isSomervilleOrDemo) throw new Error(`unsupported districtKey: ${districtKey}`);
+  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306, 307];
+  // Includes elementary/middle, Capuano early childhood, and SPED.
+  if (isSomervilleOrDemo) return [300, 301];
 
-  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306];
-  if (isSomervilleOrDemo) return [300, 301];  // Includes elementary/middle, Capuano early childhood,
-                                              // and SPED.
+  throw new Error(`unsupported districtKey: ${districtKey}`);
+}
+
+
+// See PerDistrict.rb#does_students_export_include_rows_for_inactive_students?
+export function isStudentActive(districtKey, student) {
+  if (districtKey === BEDFORD) return !student.missing_from_last_export;
+  if (districtKey === NEW_BEDFORD) return !student.missing_from_last_export;
+  if (districtKey === SOMERVILLE) return student.enrollment_status === 'Active';
+
+  // Check both as fallback
+  return student.enrollment_status === 'Active' && !student.missing_from_last_export;
 }

@@ -17,7 +17,7 @@ exports[`matches snapshot 1`] = `
     <div
       style={
         Object {
-          "alignItems": "center",
+          "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -27,42 +27,31 @@ exports[`matches snapshot 1`] = `
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
           }
         }
       >
         <div>
-          <div>
-            <a
-              href="/students/100"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
+          <a
+            href="/students/100"
+            style={
+              Object {
+                "fontWeight": "bold",
               }
-            >
-              Mowgli
-               
-              Pan
-            </a>
-          </div>
-          <div>
-            10th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/4"
-              >
-                SHS ALL
-              </a>
-            </span>
-          </div>
+            }
+          >
+            Mowgli
+             
+            Pan
+          </a>
         </div>
+        <div>
+          10th grade
+        </div>
+        <div />
       </div>
       <div
         style={
@@ -80,6 +69,141 @@ exports[`matches snapshot 1`] = `
             Locker room/gym
           </div>
         </div>
+        <div>
+          <div
+            className="Timestamp"
+            style={Object {}}
+          >
+            13 days ago
+             on 
+            2/28
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 20,
+          "marginTop": 20,
+        }
+      }
+    >
+      <div>
+        Earlier today something happened with the student that was concerning and we did this to de-escalate and support them in the moment, and then took these steps to understand the underlying challenges they're facing, and adapt how we're working with them moving forward.
+         (code: 
+        OT
+        )
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "flex-end",
+          "marginBottom": 5,
+        }
+      }
+    >
+      <div>
+        <span
+          className="HouseBadge"
+          style={
+            Object {
+              "backgroundColor": "#333",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          Beacon house
+        </span>
+        <span
+          className="Badge"
+          style={
+            Object {
+              "backgroundColor": "rgb(255, 140, 0)",
+              "color": "white",
+              "marginLeft": 5,
+              "opacity": 0.5,
+              "padding": 5,
+            }
+          }
+        >
+          Incident
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches when no location 1`] = `
+<div
+  className="IncidentCard"
+>
+  <div
+    className="Card FeedCardFrame"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
+          }
+        }
+      >
+        <div>
+          <a
+            href="/students/100"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Mowgli
+             
+            Pan
+          </a>
+        </div>
+        <div>
+          10th grade
+        </div>
+        <div />
+      </div>
+      <div
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "display": "flex",
+            "flexDirection": "column",
+          }
+        }
+      >
+        <div />
+        <div />
         <div>
           <div
             className="Timestamp"

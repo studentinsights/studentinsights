@@ -8,7 +8,7 @@ import {
   testPropsForPlutoPoppins,
   testPropsForOlafWhite,
   testPropsForAladdinMouse
-} from './StudentProfilePage.test';
+} from './profileTestProps.fixture';
 
 
 function testingTabTextLines(el) {
@@ -128,4 +128,48 @@ it('#countEventsSince works', () => {
     {id: 216, occurred_at: "2018-05-11", student_id:42}
   ];
   expect(countEventsSince(toMoment('8/28/2018'), absences, 45)).toEqual(1);
+});
+
+describe('inactive overlay', () => {
+  it('is shown for inactive students in Somerville', () => {
+    const defaultProps = testPropsForOlafWhite();
+    const el = testRender({
+      ...defaultProps,
+      districtKey: 'somerville',
+      student: {
+        ...defaultProps.student,
+        enrollment_status: 'Withdrawn'
+      }
+    });
+    expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
+    expect($(el).text()).toContain('no longer actively enrolled');
+  });
+
+  it('is shown for students missing from export in New Bedford', () => {
+    const defaultProps = testPropsForOlafWhite();
+    const el = testRender({
+      ...defaultProps,
+      districtKey: 'new-bedford',
+      student: {
+        ...defaultProps.student,
+        missing_from_last_export: true
+      }
+    });
+    expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
+    expect($(el).text()).toContain('no longer actively enrolled');
+  });
+
+  it('is shown for students missing from export in Bedford', () => {
+    const defaultProps = testPropsForOlafWhite();
+    const el = testRender({
+      ...defaultProps,
+      districtKey: 'bedford',
+      student: {
+        ...defaultProps.student,
+        missing_from_last_export: true
+      }
+    });
+    expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
+    expect($(el).text()).toContain('no longer actively enrolled');
+  });
 });

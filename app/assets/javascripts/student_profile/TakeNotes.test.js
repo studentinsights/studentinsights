@@ -4,7 +4,7 @@ import {
   nowMoment,
   currentEducator
 } from './fixtures/fixtures';
-import {SOMERVILLE, NEW_BEDFORD} from '../helpers/PerDistrict';
+import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import TakeNotes from './TakeNotes';
 
@@ -49,7 +49,7 @@ it('renders without crashing', () => {
   expect(el.innerHTML).toContain('February 11, 2016');
   expect(el.innerHTML).toContain('demo@example.com');
   expect($(el).find('textarea').length).toEqual(1);
-  expect($(el).find('.btn.note-type').length).toEqual(6);
+  expect($(el).find('.btn.note-type').length).toEqual(7);
   expect($(el).find('.btn.save').length).toEqual(1);
   expect($(el).find('.btn.cancel').length).toEqual(1);
 });
@@ -62,9 +62,10 @@ describe('buttons for taking notes', () => {
       'SST Meeting',
       'MTSS Meeting',
       'Parent conversation',
+      'Something else',
       '9th Grade Experience',
       '10th Grade Experience',
-      'Something else'
+      'NEST'
     ]);
   });
 
@@ -72,6 +73,15 @@ describe('buttons for taking notes', () => {
     const {el} = renderTestEl(testProps(), { districtKey: NEW_BEDFORD });
     expect(buttonTexts(el)).toEqual([
       'BBST Meeting',
+      'Parent conversation',
+      'Something else'
+    ]);
+  });
+
+  it('works for New Bedford', () => {
+    const {el} = renderTestEl(testProps(), { districtKey: BEDFORD });
+    expect(buttonTexts(el)).toEqual([
+      'STAT Meeting',
       'Parent conversation',
       'Something else'
     ]);

@@ -1,4 +1,4 @@
-class ImportRecord < ActiveRecord::Base
+class ImportRecord < ApplicationRecord
 
   def completed?
     time_ended.present?

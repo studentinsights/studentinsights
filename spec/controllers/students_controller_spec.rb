@@ -90,6 +90,10 @@ describe StudentsController, :type => :controller do
             512 => {:id=>512, :name=>"Freedom School"},
             513 => {:id=>513, :name=>"Community Schools"},
             514 => {:id=>514, :name=>"X-Block"},
+            515 => {:id=>515, :name=>"Calculus Project"},
+            516 => {:id=>516, :name=>"Boston Breakthrough"},
+            517 => {:id=>517, :name=>"Summer Explore"},
+            518 => {:id=>518, :name=>"Focused Math Intervention"}
           })
 
           expect(serialized_data[:educators_index]).to include({
@@ -601,41 +605,96 @@ describe StudentsController, :type => :controller do
     end
   end
 
-  describe '#lasids' do
-    def make_request
+  describe '#latest_iep_document' do
+    let!(:pals) { TestPals.create! }
+
+    def create_iep_student
+      FactoryBot.create(:student, {
+        first_name: 'Alexander',
+        last_name: 'Hamilton',
+        local_id: '124046632'
+      })
+    end
+
+    def create_iep_document(params = {})
+      IepDocument.create!({
+        student_id: nil,
+        file_name: nil,
+        file_digest: SecureRandom.hex,
+        file_size: 1000 + SecureRandom.random_number(100000),
+        s3_filename: SecureRandom.hex
+      }.merge(params))
+    end
+
+    def get_latest_iep_document_pdf(student_id)
       request.env['HTTPS'] = 'on'
-      get :lasids, params: { format: :json }
+      get :latest_iep_document, params: { id: student_id, format: :pdf }
     end
 
-    before do
-      FactoryBot.create(:student, local_id: '111')
-      FactoryBot.create(:student, local_id: '222')
+    it 'works on the happy path' do
+      iep_student = create_iep_student
+      iep_document = create_iep_document({
+        student_id: iep_student.id,
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+        created_at: '2018-03-04'
+      })
+      mock_s3 = MockAwsS3::MockedAwsS3.create_with_read_block {|key, bucket| '<pdfbytes>' }
+      allow(Aws::S3::Client).to receive(:new).and_return mock_s3
+
+      sign_in(pals.uri)
+      get_latest_iep_document_pdf(iep_student.id)
+      expect(response.status).to eq 200
+      expect(response.body).to eq '<pdfbytes>'
+      expect(response.headers['Content-Type']).to eq ('application/pdf')
+      expect(response.headers['Content-Disposition']).to eq ("inline; filename=\"IEP_HamiltonAlexander_20180304_#{iep_student.id}_#{iep_document.id}.pdf\"")
     end
 
-    let(:parsed_response) { JSON.parse(response.body) }
+    it 'works to get latest document when there are multiple' do
+      iep_student = create_iep_student
+      newer_iep_document = create_iep_document({
+        student_id: iep_student.id,
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+        created_at: '2018-03-04'
+      })
+      older_iep_document = create_iep_document({
+        student_id: iep_student.id,
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+        created_at: '2017-02-24'
+      })
+      allow(IepStorer).to receive(:unsafe_read_bytes_from_s3).with(anything(), newer_iep_document).and_return '<newbytes>'
+      allow(IepStorer).to receive(:unsafe_read_bytes_from_s3).with(anything(), older_iep_document).and_return '<oldbytes>'
 
-    context 'admin with districtwide access' do
-      let(:educator) { FactoryBot.create(:educator, districtwide_access: true, admin: true) }
-      it 'returns an array of student lasids' do
-        sign_in(educator)
-        make_request
-        expect(parsed_response).to eq ["111", "222"]
+      sign_in(pals.uri)
+      get_latest_iep_document_pdf(iep_student.id)
+      expect(response.status).to eq 200
+      expect(response.body).to eq '<newbytes>'
+      expect(response.headers['Content-Type']).to eq ('application/pdf')
+      expect(response.headers['Content-Disposition']).to eq ("inline; filename=\"IEP_HamiltonAlexander_20180304_#{iep_student.id}_#{newer_iep_document.id}.pdf\"")
+    end
+
+    context 'student has no IEP' do
+      it 'returns 404' do
+        iep_student = create_iep_student
+
+        sign_in(pals.uri)
+        get_latest_iep_document_pdf(iep_student.id)
+        expect(response.status).to eq 404
+        expect(response.body).to eq 'PDF not found'
       end
     end
 
-    context 'non-admin' do
-      let(:educator) { FactoryBot.create(:educator) }
-      it 'does not return any lasids' do
-        sign_in(educator)
-        make_request
-        expect(parsed_response).to eq({ "error"=>"You don't have the correct authorization." })
+    context 'guards authorization' do
+      it 'guards access by student' do
+        sign_in(pals.shs_jodi)
+        get_latest_iep_document_pdf(pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 403
+        expect(response.body).to eq 'Not authorized'
       end
-    end
 
-    context 'no educator logged in' do
-      it 'returns an error' do
-        make_request
-        expect(parsed_response).to eq({ "error"=>"You need to sign in before continuing." })
+      it 'guards when not signed in' do
+        get_latest_iep_document_pdf(pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 401
+        expect(response.body).to eq 'You need to sign in before continuing.'
       end
     end
   end

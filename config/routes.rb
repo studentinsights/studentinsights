@@ -10,11 +10,15 @@ Rails.application.routes.draw do
   end
 
   scope '/admin' do
-    get 'import_records' => 'ui#ui'
+    get '/import_records' => 'ui#ui'
     get '/api/import_records' => 'import_records#import_records_json'
     
-    get 'sample_students' => 'ui#ui'
+    get '/sample_students' => 'ui#ui'
     get '/api/sample_students_json' => 'students#sample_students_json'
+
+    get '/student_voice_survey_uploads' => 'ui#ui'
+    post '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#upload'
+    get '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#index'
   end
 
   get '/api/educators/view/:id' => 'educators#show'
@@ -62,10 +66,8 @@ Rails.application.routes.draw do
   get '/api/event_notes/:id/restricted_note_json' => 'event_notes#restricted_note_json'
   delete '/api/event_notes/attachments/:event_note_attachment_id' => 'event_notes#destroy_attachment'
 
-
-  ### experimental
-  # HS tiers
-  get '/api/tiering/:school_id/show_json' => 'tiering#show_json'
+  # HS levels
+  get '/api/levels/:school_id/show_json' => 'levels#show_json'
 
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
@@ -76,12 +78,12 @@ Rails.application.routes.draw do
   get '/api/login_activity' => 'login_activities#index_json'
 
 
-  devise_for :educators
+  devise_for :educators, controllers: { sessions: 'educators/sessions' }
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
   end
   devise_scope :educator do
-    root to: "devise/sessions#new"
+    root to: "educators/sessions#new"
   end
 
   get '/educators/view/:id' => 'ui#ui'
@@ -96,7 +98,7 @@ Rails.application.routes.draw do
   # home page
   get '/home' => 'ui#ui'
 
-  # tiering
+  # SHS levels
   get '/levels/:school_id' => 'ui#ui'
 
   # login activity security monitoring
@@ -113,7 +115,6 @@ Rails.application.routes.draw do
   get '/homerooms/:id' => 'ui#ui', as: :homeroom
 
   get '/students/names' => 'students#names'
-  get '/students/lasids' => 'students#lasids'
 
   resources :students, only: [:show] do
     member do
@@ -121,21 +122,22 @@ Rails.application.routes.draw do
       get '/student_report' => 'profile_pdf#student_report'
       get :restricted_notes
       get :photo
+      get :latest_iep_document
       post :service
     end
   end
   resources :services, only: [:destroy]
-  resources :service_types, only: [:index]
-  resources :service_uploads, only: [:create, :index, :destroy] do
+  resources :service_uploads, only: [:create, :destroy] do
     collection do
+      get '' => 'ui#ui'
       get :past
+      get :lasids
+      get :service_types
     end
   end
 
   resources :sections, only: [:index]
   get '/sections/:id' => 'ui#ui', as: :section
-
-  resources :iep_documents, only: [:show]
 
   resource :classlists, only: [] do
     member do

@@ -29,10 +29,26 @@ class StudentsImporter
 
     # We don't want to remove old `Student` records, since notes and other records
     # refence them, and this is important information we want to preserve even if
-    # a `Student` is no longer attending the district.  We'll remove these records in
+    # a `Student` is no longer attending the district.  We'll remove those records in
     # a separate retention policy sweep.
-    log('Skipping the call to  RecordSyncer#delete_unmarked_records, to preserve references to older Student records.')
+    #
+    # But in some districts, if the student withdraws, they just stop exporting data for them.
+    # In these cases, we don't want those students to keep appearing as active in Insights and
+    # in rosters, etc.
+    #
+    # So for Student records that were in-scope for the import but were missing from the export,
+    # set a separate `no_longer_exported` bit that we can filter out by as well.
+    if PerDistrict.new.does_students_export_include_rows_for_inactive_students?
+      log('Skipping RecordSyncer#process_unmarked_records! since district export includes rows for inactive students.')
+    else
+      log('RecordSyncer#process_unmarked_records! to set missing_from_last_export...')
+      @syncer.process_unmarked_records!(records_within_scope) do |student, index|
+        student.update!(missing_from_last_export: true)
+        @missing_from_last_export_count += 1
+      end
+    end
     log("RecordSyncer#stats: #{@syncer.stats}")
+    log("@missing_from_last_export_count: #{@missing_from_last_export_count}")
   end
 
   private
@@ -41,6 +57,11 @@ class StudentsImporter
     @setting_nil_homeroom_because_not_active_count = 0
     @nil_homeroom_count = 0
     @could_not_match_homeroom_name_count = 0
+    @missing_from_last_export_count = 0
+  end
+
+  def records_within_scope
+    Student.joins(:school).where(schools: {local_id: @school_scope})
   end
 
   def download_csv
@@ -55,7 +76,7 @@ class StudentsImporter
   end
 
   def remote_file_name
-    LoadDistrictConfig.new.remote_filenames.fetch('FILENAME_FOR_STUDENTS_IMPORT', nil)
+    PerDistrict.new.try_sftp_filename('FILENAME_FOR_STUDENTS_IMPORT')
   end
 
   def filter

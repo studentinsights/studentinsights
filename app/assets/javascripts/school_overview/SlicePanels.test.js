@@ -165,6 +165,21 @@ describe('high-level integration tests', () => {
         "High"
       ]);
     });
+
+    it('renders explicit values only for Bedford', () => {
+      const {el} = testRender(testProps({
+        districtKey: 'bedford',
+        students: FixtureStudents,
+        allStudents: FixtureStudents
+      }));
+      expect(helpers.disabilityFilters(el)).toEqual([
+        'Does Not Apply',
+        'Low (2 hours or less)',
+        'Low (2 or more hours)',
+        'Moderate',
+        'High'
+      ]);
+    });
   });
 });
 

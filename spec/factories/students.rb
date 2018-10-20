@@ -6,6 +6,7 @@ FactoryBot.define do
 
   factory :student do
     local_id { generate(:student_local_id) }
+    sequence(:state_id) { |n| "99#{n}000" }
     first_name { FakeNames.deterministic_sample(FakeNames::FIRST_NAMES) }
     last_name { FakeNames.deterministic_sample(FakeNames::LAST_NAMES) }
     grade { generate(:valid_grade_level) }

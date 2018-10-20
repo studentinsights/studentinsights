@@ -5,7 +5,7 @@ import IncidentCard from './IncidentCard';
 import {withDefaultNowContext} from '../testing/NowContainer';
 
 
-function testProps(props = {}) {
+export function testProps(props = {}) {
   return {
     incidentCard: {
       "id": 21,
@@ -20,6 +20,10 @@ function testProps(props = {}) {
         "first_name": "Mowgli",
         "last_name": "Pan",
         "house": "Beacon",
+        "school": {
+          "local_id": "SHS",
+          "school_type": "HS"
+        },
         "homeroom": {
           "id": 4,
           "name": "SHS ALL"
@@ -36,8 +40,25 @@ it('renders without crashing', () => {
   ReactDOM.render(withDefaultNowContext(<IncidentCard {...props} />), el);
 });
 
+it('does not render homeroom for HS since it is not meaningful', () => {
+  const props = testProps();
+  const el = document.createElement('div');
+  ReactDOM.render(withDefaultNowContext(<IncidentCard {...props} />), el);
+  expect($(el).text()).not.toContain('SHS ALL');
+});
+
 it('matches snapshot', () => {
   const props = testProps();
+  const tree = renderer
+    .create(withDefaultNowContext(<IncidentCard {...props} />))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+
+it('matches when no location', () => {
+  const props = testProps();
+  props.incidentCard.incident_location = '';
   const tree = renderer
     .create(withDefaultNowContext(<IncidentCard {...props} />))
     .toJSON();

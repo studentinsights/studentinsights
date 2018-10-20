@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {merge} from '../helpers/merge';
@@ -6,12 +5,13 @@ import PastServiceUploads from '../service_uploads/PastServiceUploads';
 import NewServiceUpload from '../service_uploads/NewServiceUpload';
 import Api from './Api';
 
-class ServiceUploadsPage extends React.Component {
+export default class ServiceUploadsPage extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
+      serviceTypeNames: null,
       serviceUploads: null,
       formData: {},
 
@@ -26,6 +26,7 @@ class ServiceUploadsPage extends React.Component {
       uploadingInProgress: false,
     };
 
+    this.onServiceTypesNamesLoaded = this.onServiceTypesNamesLoaded.bind(this);
     this.onGetPastServiceUploads = this.onGetPastServiceUploads.bind(this);
     this.onFileReaderLoaded = this.onFileReaderLoaded.bind(this);
     this.onSelectStartDate = this.onSelectStartDate.bind(this);
@@ -50,6 +51,7 @@ class ServiceUploadsPage extends React.Component {
     const onSucceed = this.onGetPastServiceUploads;
 
     this.api.getPastServiceUploads(onSucceed);
+    this.api.fetchServiceTypeNames().then(this.onServiceTypesNamesLoaded);
   }
 
   isMissingRequiredFields() {
@@ -70,6 +72,10 @@ class ServiceUploadsPage extends React.Component {
     });  // Clear out any errors
 
     this.api.createServiceUploads(this.state.formData).then(this.onUpload);
+  }
+
+  onServiceTypesNamesLoaded(serviceTypeNames) {
+    this.setState({serviceTypeNames: serviceTypeNames});
   }
 
   onGetPastServiceUploads(json) {
@@ -170,7 +176,7 @@ class ServiceUploadsPage extends React.Component {
     const rows = text.split("\n");
     const headerRow = rows.shift().split(",");
 
-    if (headerRow[0].trim() !== 'LASID') {
+    if (headerRow[0].trim().toUpperCase() !== 'LASID') {
       this.setState({ missingLasidHeader: true });
       return;
     }
@@ -226,7 +232,7 @@ class ServiceUploadsPage extends React.Component {
         formData={this.state.formData}
         serverSideErrors={this.state.serverSideErrors}
         uploadingInProgress={this.state.uploadingInProgress}
-        serviceTypeNames={this.props.serializedData.serviceTypeNames} />
+        serviceTypeNames={this.state.serviceTypeNames} />
     );
   }
 
@@ -243,8 +249,3 @@ class ServiceUploadsPage extends React.Component {
 
 }
 
-ServiceUploadsPage.propTypes = {
-  serializedData: PropTypes.object.isRequired,
-};
-
-export default ServiceUploadsPage;

@@ -24,7 +24,7 @@ export default class DownloadCsvLink extends React.Component {
           className="DownloadCsvLink btn"
           href={`data:attachment/csv,${encodeURIComponent(csvText)}`}
           onClick={this.onClickDownload.bind(this, csvText, filename)}
-          target="_blank"
+          target="_self"
           download={filename}
           style={style}>{children}</a>;
   }

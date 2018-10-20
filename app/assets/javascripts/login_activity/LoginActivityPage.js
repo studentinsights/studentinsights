@@ -50,11 +50,14 @@ export default class LoginActivityPage extends React.Component {
   }
 
   pastThirtyDaysArray() {
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
     const emptyArray = new Array(30);
     emptyArray.fill(0);
 
+
     const pastThirtyDays = emptyArray.map((value, index) => {
-      return moment.utc().subtract(index, 'days').startOf('day').format();
+      return nowMoment.clone().subtract(index, 'days').startOf('day').format();
     });
 
     return pastThirtyDays;
@@ -138,13 +141,8 @@ export default class LoginActivityPage extends React.Component {
   }
 
   renderCellForDay(email, index, data, day) {
-    /*
-    We're using lodash 3.10.1, so this uses 3.10.1 syntax for _.filter.
-    The most up-to-date syntax is different.
-    See https://lodash.com/docs/3.10.1#filter.
-    */
-    const successfulAttempts = _.filter(data, _.bind('success', true));
-    const failedAttempts = _.filter(data, _.bind('success', false));
+    const successfulAttempts = data.filter(d => d.success);
+    const failedAttempts = data.filter(d => !d.success);
 
     return (
       <div key={index}
@@ -243,10 +241,12 @@ export default class LoginActivityPage extends React.Component {
     return (<div key={index} style={{...style.cell, ...style.squareCell}}></div>);
   }
 }
-
 LoginActivityPage.propTypes = {
   queryStartTimestamp: PropTypes.string.isRequired,
   queryEndTimestamp: PropTypes.string.isRequired,
+};
+LoginActivityPage.contextTypes = {
+  nowFn: PropTypes.func.isRequired
 };
 
 const style = {

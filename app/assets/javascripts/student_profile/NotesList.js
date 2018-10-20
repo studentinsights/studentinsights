@@ -8,7 +8,7 @@ import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import NoteCard from './NoteCard';
-import {parseAndReRender} from './lightTransitionNotes';
+import {parseAndReRender} from './transitionNoteParser';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage from './CleanSlateMessage';
 
@@ -81,12 +81,14 @@ export default class NotesList extends React.Component {
       onEventNoteAttachmentDeleted,
       showRestrictedNoteContent,
       allowDirectEditingOfRestrictedNoteText,
-      canUserAccessRestrictedNotes
+      canUserAccessRestrictedNotes,
+      currentEducatorId
     } = this.props;
     const isRedacted = eventNote.is_restricted && !showRestrictedNoteContent;
     const isReadonly = (
       !onSaveNote ||
       !onEventNoteAttachmentDeleted ||
+      (currentEducatorId !== eventNote.educator_id) ||
       isRedacted ||
       (eventNote.is_restricted && !allowDirectEditingOfRestrictedNoteText)
     );
@@ -167,6 +169,7 @@ export default class NotesList extends React.Component {
   }
 }
 NotesList.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   includeStudentPanel: PropTypes.bool,

@@ -62,4 +62,38 @@ describe('filterDates', () => {
     const result = DashboardHelpers.filterDates(range, moment.utc().subtract(4, 'months'), moment.utc());
     expect(result.length).toEqual(3);
   });
+
+  it('inclusive of first day of the school year', () => {
+    const fullYearDateRange = [
+      '2018-08-15',
+      '2018-08-16',
+      '2018-08-17',
+      '2018-08-20',
+      '2018-08-21',
+      '2018-08-22',
+      '2018-08-23',
+      '2018-08-24',
+      '2018-08-28'
+    ];
+    const schoolYearStart = '2018-08-15';
+    const today = moment.utc('2018-08-29T07:16:47.123Z');
+    expect(DashboardHelpers.filterDates(fullYearDateRange, schoolYearStart, today)).toEqual([
+      '2018-08-15',
+      '2018-08-16',
+      '2018-08-17',
+      '2018-08-20',
+      '2018-08-21',
+      '2018-08-22',
+      '2018-08-23',
+      '2018-08-24',
+      '2018-08-28'
+    ]);
+  });
+});
+
+
+it('#getFirstDateIndex works', () => {
+  const dateTexts = ['2018-08-15', '2018-08-16'];
+  expect(DashboardHelpers.getFirstDateIndex(dateTexts, '2018-08-15')).toEqual(0);
+  expect(DashboardHelpers.getFirstDateIndex(dateTexts, '2018-08-16')).toEqual(1);
 });

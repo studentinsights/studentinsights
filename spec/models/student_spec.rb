@@ -271,7 +271,7 @@ RSpec.describe Student do
       was_successful = student.update(grade: 'foo')
       expect(was_successful).to eq false
       expect(student.errors.details).to eq({
-        grade: [{:error=>"invalid grade: foo"}]
+        grade: [{error: :inclusion, value: 'foo'}]
       })
     end
   end

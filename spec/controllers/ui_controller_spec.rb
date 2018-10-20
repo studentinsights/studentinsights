@@ -18,7 +18,7 @@ describe UiController, :type => :controller do
           "id" => pals.uri.id,
           "admin" => true,
           "school_id" => pals.healey.id,
-          "labels" => []
+          "labels" => ['can_upload_student_voice_surveys']
         }
       }.deep_stringify_keys)
     end
@@ -32,7 +32,7 @@ describe UiController, :type => :controller do
           "id" => pals.shs_bill_nye.id,
           "admin" => false,
           "school_id" => pals.shs.id,
-          "labels" => ['shs_experience_team']
+          "labels" => ['shs_experience_team', 'should_show_low_grades_box']
         }
       }.deep_stringify_keys)
     end

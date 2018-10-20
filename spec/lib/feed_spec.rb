@@ -27,12 +27,14 @@ RSpec.describe Feed do
     end
 
     it 'does not filter when counselor-based feed switch is disabled globally' do
-      mock_per_district = instance_double(PerDistrict, enable_counselor_based_feed?: false)
+      mock_per_district = PerDistrict.new
+      allow(mock_per_district).to receive(:enable_counselor_based_feed?).and_return(false)
       allow(PerDistrict).to receive(:new).and_return(mock_per_district)
       students = Feed.students_for_feed(pals.shs_sofia_counselor)
       expect(students.map(&:id)).to contain_exactly(*[
         pals.shs_freshman_mari.id,
-        pals.shs_freshman_amir.id
+        pals.shs_freshman_amir.id,
+        pals.shs_senior_kylo.id
       ])
     end
   end
@@ -100,6 +102,10 @@ RSpec.describe Feed do
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "house"=>"Beacon",
+            "school"=>{
+              "local_id"=>"SHS",
+              "school_type"=>"HS"
+            },
             "homeroom"=>{
               "id"=>pals.shs_jodi_homeroom.id,
               "name"=>"SHS 942",
@@ -130,6 +136,10 @@ RSpec.describe Feed do
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "house"=>'Beacon',
+            "school"=>{
+              "local_id"=>"SHS",
+              "school_type"=>"HS"
+            },
             "homeroom"=>{
               "id"=>pals.shs_jodi_homeroom.id,
               "name"=>"SHS 942",
@@ -213,6 +223,10 @@ RSpec.describe Feed do
           "first_name"=>"Mari",
           "last_name"=>"Kenobi",
           "house"=>"Beacon",
+          "school"=>{
+            "local_id"=>"SHS",
+            "school_type"=>"HS"
+          },
           "homeroom"=>{
             "id"=>pals.shs_jodi_homeroom.id,
             "name"=>"SHS 942",

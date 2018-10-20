@@ -13,6 +13,8 @@ import FilterBar from '../../components/FilterBar';
 import DashboardHelpers from '../DashboardHelpers';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import * as dashboardStyles from '../dashboardStyles';
+
 
 export default class SchoolTardiesDashboard extends React.Component {
 
@@ -113,18 +115,18 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <EscapeListener className="SchoolTardiesDashboard" style={styles.root} onEscape={this.onResetFilters}>
         <SectionHeading>Tardies at {school.name}</SectionHeading>
-        <div className="SchoolDashboard-filter-bar">
+        <div style={dashboardStyles.filterBar}>
           <FilterBar labelText="Time range" style={styles.timeRange}>
             <SelectTimeRange
               timeRangeKey={timeRangeKey}
               onChange={this.onTimeRangeKeyChanged} />
           </FilterBar>
         </div>
-        <div className="SchoolDashboard-columns">
-          <div className="SchoolDashboard-roster-column">
+        <div style={dashboardStyles.columns}>
+          <div style={dashboardStyles.rosterColumn}>
             {this.renderStudentTardiesTable()}
           </div>
-          <div className="SchoolDashboard-charts-column">
+          <div style={dashboardStyles.chartsColumn}>
             {this.renderMonthlyTardiesChart()}
             {this.renderHomeroomTardiesChart()}
           </div>
@@ -145,21 +147,22 @@ export default class SchoolTardiesDashboard extends React.Component {
 
     return (
       <DashboardBarChart
-        id = {'string'}
-        categories = {{
+        id={'string'}
+        animation={false}
+        categories={{
           offset: 0,
           linkedTo: 0,
           categories: monthCategories,
           tickPositions: tickPositions,
           tickmarkPlacement: "on"
         }}
-        seriesData = {seriesData}
-        titleText = {`Schoolwide Tardies (${this.timeRangeText()})`}
-        measureText = {'Number of Tardies'}
-        tooltip = {{
+        seriesData={seriesData}
+        titleText={`Schoolwide Tardies (${this.timeRangeText()})`}
+        measureText={'Number of Tardies'}
+        tooltip={{
           pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-        onColumnClick = {this.resetStudentList}
-        onBackgroundClick = {this.resetStudentList}/>
+        onColumnClick={this.resetStudentList}
+        onBackgroundClick={this.resetStudentList}/>
     );
   }
 
@@ -169,20 +172,23 @@ export default class SchoolTardiesDashboard extends React.Component {
       return homeroomTardyEvents[b] - homeroomTardyEvents[a];
     });
     const homeroomSeries = homerooms.map((homeroom) => {
-      return homeroomTardyEvents[homeroom];
+      const color = (homeroom === this.state.selectedHomeroom)? 'orange' : null;
+      const y = homeroomTardyEvents[homeroom];
+      return {y, color};
     });
 
     return (
         <DashboardBarChart
-          id = {'string'}
-          categories = {{categories: homerooms}}
-          seriesData = {homeroomSeries}
-          titleText = {`Tardies by Homeroom (${this.timeRangeText()})`}
-          measureText = {'Number of Tardies'}
-          tooltip = {{
+          id={'string'}
+          animation={false}
+          categories={{categories: homerooms}}
+          seriesData={homeroomSeries}
+          titleText={`Tardies by Homeroom (${this.timeRangeText()})`}
+          measureText={'Number of Tardies'}
+          tooltip= {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-          onColumnClick = {this.setStudentList}
-          onBackgroundClick = {this.resetStudentList}/>
+          onColumnClick={this.setStudentList}
+          onBackgroundClick={this.resetStudentList}/>
     );
   }
 
@@ -205,10 +211,8 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <StudentsTable
         rows={rows}
-        selectedCategory={this.state.selectedHomeroom}
         incidentType='Tardies'
-        incidentSubtitle={this.timeRangeText()}
-        resetFn={this.resetStudentList}/>
+        incidentSubtitle={this.timeRangeText()}/>
     );
   }
 }

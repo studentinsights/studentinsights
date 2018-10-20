@@ -1,0 +1,2508 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+      "fontSize": 14,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "fontSize": 14,
+        "marginBottom": 30,
+      }
+    }
+  >
+    <div>
+      <b>
+        Overall proficiency: 
+        Expanding English, level 4
+      </b>
+    </div>
+    <div>
+      This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
+    </div>
+    <div>
+      <a
+        href="https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf"
+        style={
+          Object {
+            "fontSize": 14,
+          }
+        }
+        target="_blank"
+      >
+        WIDA interpretive guide
+      </a>
+    </div>
+  </div>
+  <table
+    style={
+      Object {
+        "borderCollapse": "collapse",
+      }
+    }
+  >
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div>
+            Overall Score
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="4"
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div>
+            Oral Language
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="5.1"
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Listening
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="4"
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Speaking
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="4"
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div>
+            Literacy
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="3.6"
+          >
+            3.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5.5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Reading
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="4.8"
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Comprehension
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="3.1"
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "paddingRight": 20,
+              "width": 100,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "paddingLeft": 10,
+              }
+            }
+          >
+            Writing
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            1
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            2
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            3
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            4
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#4A90E2",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "white",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": true,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title="5.3"
+          >
+            5
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "#eee",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          />
+        </td>
+        <td
+          style={
+            Object {
+              "backgroundColor": "white",
+              "border": "1px solid #666",
+              "width": 35,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "#ccc",
+                "cursor": "default",
+                "display": "flex",
+                "fontWeight": false,
+                "height": 30,
+                "justifyContent": "center",
+              }
+            }
+            title={null}
+          >
+            6
+          </div>
+        </td>
+        <td
+          style={
+            Object {
+              "paddingLeft": 20,
+            }
+          }
+        >
+          6 months ago
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

@@ -1,4 +1,10 @@
-import {sortByCustomEnum, sortByNumber} from './SortHelpers';
+import _ from 'lodash';
+import {
+  sortByCustomEnum,
+  sortByNumber,
+  rankedByLetterGrade
+} from './SortHelpers';
+
 
 describe('#sortByCustomEnum', () => {
   const customEnum = ['One', 'Two', 'Three', 'Four', 'Five'];
@@ -79,4 +85,16 @@ describe('#sortByNumber', () => {
     expect(match).toBe(true);
     
   });
+});
+
+
+describe('#rankedByLetterGrade', () => {
+  expect(_.sortBy(['A-', 'F', 'C+', 'D', 'B', 'B+'], rankedByLetterGrade)).toEqual([
+    'A-',
+    'B+',
+    'B',
+    'C+',
+    'D',
+    'F'
+  ]);
 });

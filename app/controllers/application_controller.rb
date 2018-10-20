@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  # Order matters here a lot.
   protect_from_forgery with: :exception
 
   force_ssl unless Rails.env.development?
@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound do
     if request.format.json?
       render_not_found_json!
+    elsif request.format.pdf?
+      render plain: 'PDF not found', status: 404
     else
       redirect_to home_path
     end
@@ -20,6 +22,8 @@ class ApplicationController < ActionController::Base
   rescue_from Exceptions::EducatorNotAuthorized do
     if request.format.json?
       render_unauthorized_json!
+    elsif request.format.pdf?
+      render_unauthorized_plain!
     else
       redirect_unauthorized!
     end
@@ -50,16 +54,23 @@ class ApplicationController < ActionController::Base
   end
 
   def render_unauthorized_json!
+    Rollbar.error('render_unauthorized_json!')
     render json: { error: 'unauthorized' }, status: 403
   end
 
+  def render_unauthorized_plain!
+    Rollbar.error('render_unauthorized_plain!')
+    render plain: 'Not authorized', status: 403
+  end
+
   def render_not_found_json!
+    Rollbar.error('render_not_found_json!')
     render json: { error: 'not_found' }, status: 404
   end
 
   # For redirecting requests directly from the Heroku domain to the canonical domain name
   def redirect_domain!
-    canonical_domain = LoadDistrictConfig.new.canonical_domain
+    canonical_domain = PerDistrict.new.canonical_domain
     return if canonical_domain == nil
     return if request.host == canonical_domain
     redirect_to "#{request.protocol}#{canonical_domain}#{request.fullpath}", :status => :moved_permanently

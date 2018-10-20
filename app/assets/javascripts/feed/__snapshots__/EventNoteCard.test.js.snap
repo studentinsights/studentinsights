@@ -17,7 +17,7 @@ exports[`matches snapshot 1`] = `
     <div
       style={
         Object {
-          "alignItems": "center",
+          "alignItems": "flex-start",
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
@@ -27,55 +27,31 @@ exports[`matches snapshot 1`] = `
       <div
         style={
           Object {
-            "alignItems": "center",
+            "alignItems": "flex-start",
             "display": "flex",
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
           }
         }
       >
         <div>
-          <div>
-            <a
-              href="/students/55"
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
+          <a
+            href="/students/55"
+            style={
+              Object {
+                "fontWeight": "bold",
               }
-            >
-              Mari
-               
-              Skywalker
-            </a>
-          </div>
-          <div>
-            9th grade
-          </div>
-          <div>
-            <span
-              className="Homeroom"
-              style={Object {}}
-            >
-              <a
-                href="/homerooms/13"
-              >
-                SHS-052
-              </a>
-              <span>
-                <span>
-                   
-                </span>
-                 with 
-                <a
-                  className="Educator"
-                  href="mailto:lt@demo.studentinsights.org"
-                  style={Object {}}
-                >
-                  Lois Teacher
-                </a>
-              </span>
-            </span>
-          </div>
+            }
+          >
+            Mari
+             
+            Skywalker
+          </a>
         </div>
+        <div>
+          9th grade
+        </div>
+        <div />
       </div>
       <div
         style={
@@ -131,6 +107,7 @@ exports[`matches snapshot 1`] = `
       }
     >
       <div
+        className="NoteText"
         style={
           Object {
             "border": "1px solid transparent",

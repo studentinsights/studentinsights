@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import {proficiencyTextForScore} from '../helpers/language';
 
 
 // Renders latest ACCESS score with subtests
@@ -7,43 +9,142 @@ export default class AccessPanel extends React.Component {
   render() {
     const {showTitle, access, style} = this.props;
 
+    const proficiencyText = proficiencyTextForScore(access['composite']);
     return (
       <div style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>ACCESS</h4>}
-        <table>
-          <thead>
-            <tr>
-              <th style={styles.tableHeader}>
-                Subject
-              </th>
-              <th style={styles.tableHeader}>
-                Score
-              </th>
-            </tr>
-          </thead>
+        <div style={styles.explanation}>
+          <div><b>Overall proficiency: {proficiencyText}</b></div>
+          <div>
+            This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
+          </div>
+          <div><a style={{fontSize: 14}} href="https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf" target="_blank">WIDA interpretive guide</a></div>
+        </div>
+        <table style={{borderCollapse: 'collapse'}}>
           <tbody>
-            {Object.keys(access).map(subject => (
-              <tr key={subject}>
-                <td style={styles.accessLeftTableCell}>
-                  {subject}
-                </td>
-                <td>
-                  {access[subject] || '—'}
-                </td>
-              </tr>
-            ))}
+            {this.renderCompositeRow({
+              label: 'Overall Score',
+              dataPoint: access['composite']
+            })}
+            {this.renderCompositeRow({
+              label: 'Oral Language',
+              dataPoint: access['oral']
+            })}
+            {this.renderSubtestRow({
+              label: 'Listening',
+              dataPoint: access['listening']
+            })}
+            {this.renderSubtestRow({
+              label: 'Speaking',
+              dataPoint: access['speaking']
+            })}
+            {this.renderCompositeRow({
+              label: 'Literacy',
+              dataPoint: access['literacy']
+            })}
+            {this.renderSubtestRow({
+              label: 'Reading',
+              dataPoint: access['reading']
+            })}
+            {this.renderSubtestRow({
+              label: 'Comprehension',
+              dataPoint: access['comprehension']
+            })}
+            {this.renderSubtestRow({
+              label: 'Writing',
+              dataPoint: access['writing']
+            })}
           </tbody>
         </table>
-        <div />
-        <div style={styles.accessTableFootnote}>
-          Most recent ACCESS scores shown.
-        </div>
       </div>
     );
   }
+
+  renderCompositeRow(options = {}) {
+    return this.renderRow({
+      ...options,
+      label: <div>{options.label}</div>,
+      shouldRenderFractions: true
+    });
+  }
+
+  renderSubtestRow(options = {}) {
+    return this.renderRow({
+      ...options,
+      label: <div style={{paddingLeft: 10}}>{options.label}</div>,
+      shouldRenderFractions: false
+    });
+  }
+
+  // Sized for ~700px wide
+  renderRow(options = {}) {
+    const label = options.label;
+    const dataPoint = options.dataPoint;
+    const shouldRenderFractions = options.shouldRenderFractions || false;
+    
+    const {nowFn} = this.context;    
+    const nDaysText = (dataPoint)
+      ? moment.utc(dataPoint.date_taken).from(nowFn())
+      : '-';
+    const performanceLevel = dataPoint && dataPoint.performance_level;
+
+    // See WIDA interpretive guide
+    // https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf
+    const roundedScore = (shouldRenderFractions)
+      ? Math.floor(performanceLevel*2)/2
+      : Math.floor(performanceLevel);
+    const scores = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
+    const cellWidth = 35;
+    const cellHeight = 30;
+    return (
+      <tr>
+        <td style={{width: 100, paddingRight: 20}}>{label}</td>
+        {scores.map((score, index) => (
+          <td
+            key={score}
+            style={{
+              border: '1px solid #666',
+              width: cellWidth,
+              backgroundColor: (score === roundedScore)
+                ? '#4A90E2'
+                : shouldRenderFractions || score === Math.round(score) ? 'white' : '#eee'
+            }}
+          >
+            <div
+              title={(score === roundedScore) ? performanceLevel : null}
+              style={{
+                ...styles.cell,
+                height: cellHeight,
+                color: (score === roundedScore) ? 'white' : '#ccc',
+                fontWeight: (score === roundedScore) ? true : false
+              }}>
+              {shouldRenderFractions || score === Math.round(score) ? score : null}
+            </div>
+          </td>
+        ))}
+        <td style={{paddingLeft: 20}}>{nDaysText}</td>
+      </tr>
+    );
+  }
 }
+AccessPanel.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
+const accessDataPointPropType = PropTypes.shape({
+  date_taken: PropTypes.string.isRequired,
+  performance_level: PropTypes.string.isRequired
+});
 AccessPanel.propTypes = {
-  access: PropTypes.object.isRequired,
+  access: PropTypes.shape({
+    composite: accessDataPointPropType,
+    comprehension: accessDataPointPropType,
+    listening: accessDataPointPropType,
+    oral: accessDataPointPropType,
+    literacy: accessDataPointPropType,
+    reading: accessDataPointPropType,
+    speaking: accessDataPointPropType,
+    writing: accessDataPointPropType
+  }).isRequired,
   showTitle: PropTypes.bool,
   style: PropTypes.object
 };
@@ -52,7 +153,8 @@ const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
+    fontSize: 14
   },
   title: {
     borderBottom: '1px solid #333',
@@ -61,18 +163,14 @@ const styles = {
     paddingLeft: 0,
     marginBottom: 10
   },
-  tableHeader: {
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginBottom: 10
+  explanation: {
+    marginBottom: 30,
+    fontSize: 14
   },
-  accessLeftTableCell: {
-    paddingRight: 25
-  },
-  accessTableFootnote: {
-    fontStyle: 'italic',
-    fontSize: 13,
-    marginTop: 15,
-    marginBottom: 20
+  cell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'default'
   }
 };

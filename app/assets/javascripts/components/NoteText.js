@@ -24,7 +24,7 @@ export const exportedNoteText = {
 function NoteText(props) {
   const {text, style} = props;
   return (
-    <div style={{...exportedNoteText, ...style}}>
+    <div className="NoteText" style={{...exportedNoteText, ...style}}>
       {text}
     </div>
   );
