@@ -34,7 +34,7 @@ RSpec.describe PrecomputeStudentHashesJob do
     it 'writes the expected document shape' do
       log = LogHelper::FakeLog.new
       job = PrecomputeStudentHashesJob.new(log)
-      doc = job.send(:precompute_and_write_doc!, [pals.west_eighth_ryan.id])
+      doc = job.send(:precompute_and_write_doc!, { authorized_student_ids: [pals.west_eighth_ryan.id] })
       
       expect(PrecomputedQueryDoc.all.size).to eq(1)
       expect(doc.as_json(only: [:key, :json, :authorized_students_digest])).to include({
@@ -153,19 +153,25 @@ RSpec.describe PrecomputeStudentHashesJob do
       healey_student_hashes = PrecomputedQueryDoc.latest_precomputed_student_hashes_for([pals.healey_kindergarten_student.id])
       expect(healey_student_hashes).to contain_exactly(*[
         include({
-          id: 1,
+          id: pals.healey_kindergarten_student.id,
           grade: "KF",
-          hispanic_latino: nil,
-          race: nil,
-          free_reduced_lunch: nil,
-          homeroom_id: 1,
+          homeroom_id: pals.healey_kindergarten_student.homeroom_id,
           first_name: "Garfield",
           last_name: "Skywalker",
           state_id: "991111111",
-          home_language: nil,
-          school_id: 2,
-          registration_date: nil,
+          school_id: pals.healey.id,
           local_id: "111111111",
+          enrollment_status: "Active",
+          missing_from_last_export: false,
+          discipline_incidents_count: 0,
+          absences_count: 0,
+          tardies_count: 0,
+          homeroom_name: "HEA 003",
+          registration_date: nil,
+          home_language: nil,
+          hispanic_latino: nil,
+          race: nil,
+          free_reduced_lunch: nil,
           program_assigned: nil,
           sped_placement: nil,
           disability: nil,
@@ -180,17 +186,11 @@ RSpec.describe PrecomputeStudentHashesJob do
           most_recent_mcas_ela_scaled: nil,
           most_recent_star_reading_percentile: nil,
           most_recent_star_math_percentile: nil,
-          enrollment_status: "Active",
           date_of_birth: nil,
           gender: nil,
           house: nil,
           counselor: nil,
-          sped_liaison: nil,
-          missing_from_last_export: false,
-          discipline_incidents_count: 0,
-          absences_count: 0,
-          tardies_count: 0,
-          homeroom_name: "HEA 003"
+          sped_liaison: nil
         })
       ])
     end

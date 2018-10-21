@@ -38,12 +38,11 @@ describe SchoolsController, :type => :controller do
     let!(:pals) { TestPals.create! }
 
     it 'is successful when not precomputed, when precomputed, and the data is the same' do
-      # Verify we log to Rollbar when falling through, and that this test case does fall through only
-      # once
+      # Verify we log to Rollbar when falling through, and that this test case does fall through only once
       allow(Rollbar).to receive(:error)
       expect(Rollbar).to receive(:error).once.with("falling back to full load_precomputed_student_hashes query for current_educator: #{pals.uri.id}")
 
-      # clear any precomputing
+      # clear any precomputing to force on-demand querying
       PrecomputedQueryDoc.all.each {|doc| doc.destroy! }
 
       # querying on demand should work

@@ -3,10 +3,20 @@ class PrecomputedQueryDoc < ApplicationRecord
   # or wants to use arbitrary Ruby code).  It's intended to be precomputed and durable, not a
   # read-through cache (since the computations are expensive).
 
-  # Read back precomputed hashes for students
-  def self.latest_precomputed_student_hashes_for(authorized_student_ids)
+  # Read back precomputed hashes for students.  Return nil if the most recent document is more
+  # stale than a specific window.
+  def self.latest_precomputed_student_hashes_for(authorized_student_ids, options = {})
+    time_now = options.fetch(:time_now, Time.now)
+    is_fresh_window = options.fetch(:is_fresh_window, 48.hours)
+    
     key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
-    doc = PrecomputedQueryDoc.where(key: key).order(created_at: :desc).limit(1).first
+    doc = PrecomputedQueryDoc
+      .where(key: key)
+      .where('created_at > ?', time_now - is_fresh_window)
+      .order(created_at: :desc)
+      .limit(1)
+      .first
+
     return nil if doc.nil?
     JSON.parse(doc.json).deep_symbolize_keys![:student_hashes]
   end
