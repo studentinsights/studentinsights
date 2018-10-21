@@ -100,25 +100,17 @@ class SchoolsController < ApplicationController
   # Results an array of student_hashes.
   def load_precomputed_student_hashes(authorized_student_ids)
     begin
-      key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
-      logger.warn "load_precomputed_student_hashes querying key: #{key}..."
-      doc = PrecomputedQueryDoc.where(key: key).order(created_at: :desc).limit(1).first(1)
-      return parse_hashes_from_doc(doc) unless doc.nil?
+      PrecomputedQueryDoc.latest_precomputed_student_hashes_for(authorized_student_ids)
     rescue ActiveRecord::StatementInvalid => err
-      logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
+      Rollbar.error("load_precomputed_student_hashes raised error for #{current_educator.id}", err)
     end
 
     # Fallback to performing the full query if something went wrong reading the
     # precomputed value
-    fallback_message = "falling back to full load_precomputed_student_hashes query for key: #{key}"
-    logger.error fallback_message
+    fallback_message = "falling back to full load_precomputed_student_hashes query for current_educator: #{current_educator.id}"
     Rollbar.error(fallback_message)
     authorized_students = Student.where(id: authorized_student_ids)
     authorized_students.map {|student| student_hash_for_slicing(student) }
-  end
-
-  def parse_hashes_from_doc(doc)
-    JSON.parse(doc.json).deep_symbolize_keys![:student_hashes]
   end
 
   # Serialize what are essentially constants stored in the database down

@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe PrecomputedQueryDoc do
+  describe '.latest_precomputed_student_hashes_for' do
+    let!(:pals) { TestPals.create! }
+    
+    it 'returns nil when no documents have been precomputed ' do
+      doc = PrecomputedQueryDoc.latest_precomputed_student_hashes_for([pals.shs_freshman_mari.id])
+      expect(doc).to eq nil
+    end
+  end
+
   describe '.authorized_students_digest' do
     it 'hashes a list of ids as a set down into a consistent space' do
       expect(PrecomputedQueryDoc.authorized_students_digest([2,1])).to eq '17f8af97ad4a7f7639a4c9171d5185cbafb85462877a4746c21bdb0a4f940ca0'

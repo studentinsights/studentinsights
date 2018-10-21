@@ -2,45 +2,197 @@ require 'rails_helper'
 
 RSpec.describe PrecomputeStudentHashesJob do
 
-  let(:outcome) { PrecomputedQueryDoc.all }
-  let(:first_json_blob) { JSON.parse!(outcome.first.json) }
-  let(:log) { LogHelper::Redirect.instance.file }
-
-  describe '#school_overview_precompute_jobs' do
-
-    context 'educator with students' do
-      let!(:school) { FactoryBot.create(:healey) }
-      let!(:educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true) }
-      let!(:student) { FactoryBot.create(:student, school: school) }
-
-      before { PrecomputeStudentHashesJob.new(log).precompute_all! }
-
-      let(:first_json_blob_key) { first_json_blob.keys.first }
-      let(:first_json_blob_value) { first_json_blob[first_json_blob_key] }
-
-      it 'creates a doc with the correct key and correct data inside' do
-        expect(outcome.size).to eq 1
-        expect(outcome.first.key.split(':')[0]).to eq "short"
-        expect(outcome.first.key.split(':')[1]).to eq "1498104000"
-        expect(outcome.first.key.split(':')[2]).to eq "1"
-
-        expect(first_json_blob_key).to eq "student_hashes"
-        expect(first_json_blob_value.first["id"]).to eq student.id
-      end
-    end
-
-    context 'educators without students' do
-      let!(:school) { FactoryBot.create(:healey) }
-      let!(:educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true) }
-      let!(:educator_not_schoolwide) { FactoryBot.create(:educator, school: school) }
-
-      before { PrecomputeStudentHashesJob.new(log).precompute_all! }
-
-      it 'returns an empty array' do
-        expect(outcome).to eq []
-      end
-    end
-
+  def create_job
+    log = LogHelper::FakeLog.new
+    PrecomputeStudentHashesJob.new(log)
   end
 
+  describe '#school_overview_precompute_jobs' do
+    let!(:pals) { TestPals.create! }
+
+    it 'creates one job for TestPals as expected, with one job for each set of students in a school' do
+      jobs = create_job.send(:school_overview_precompute_jobs)
+      expect(jobs).to contain_exactly(*[
+        {
+          authorized_student_ids: [pals.healey_kindergarten_student.id]
+        }, {
+          authorized_student_ids: [pals.west_eighth_ryan.id]
+        }, {
+          authorized_student_ids: contain_exactly(*[
+            pals.shs_freshman_mari.id,
+            pals.shs_freshman_amir.id,
+            pals.shs_senior_kylo.id
+          ])
+        }
+      ])
+    end
+  end
+
+  describe '#precompute_and_write_doc!' do
+    let!(:pals) { TestPals.create! }
+
+    it 'writes the expected document shape' do
+      log = LogHelper::FakeLog.new
+      job = PrecomputeStudentHashesJob.new(log)
+      doc = job.send(:precompute_and_write_doc!, [pals.west_eighth_ryan.id])
+      
+      expect(PrecomputedQueryDoc.all.size).to eq(1)
+      expect(doc.as_json(only: [:key, :json, :authorized_students_digest])).to include({
+        'key' => a_kind_of(String),
+        'json' => a_kind_of(String),
+        'authorized_students_digest' => a_kind_of(String)
+      })
+      student_hashes = JSON.parse(doc.json)['student_hashes']
+      expect(student_hashes.size).to eq 1
+      expect(student_hashes.first.keys).to contain_exactly(*[
+        'id',
+        'grade',
+        'hispanic_latino',
+        'race',
+        'free_reduced_lunch',
+        'created_at',
+        'updated_at',
+        'homeroom_id',
+        'first_name',
+        'last_name',
+        'state_id',
+        'home_language',
+        'school_id',
+        'registration_date',
+        'local_id',
+        'program_assigned',
+        'sped_placement',
+        'disability',
+        'sped_level_of_need',
+        'plan_504',
+        'limited_english_proficiency',
+        'most_recent_mcas_math_growth',
+        'most_recent_mcas_ela_growth',
+        'most_recent_mcas_math_performance',
+        'most_recent_mcas_ela_performance',
+        'most_recent_mcas_math_scaled',
+        'most_recent_mcas_ela_scaled',
+        'most_recent_star_reading_percentile',
+        'most_recent_star_math_percentile',
+        'enrollment_status',
+        'date_of_birth',
+        'gender',
+        'house',
+        'counselor',
+        'sped_liaison',
+        'missing_from_last_export',
+        'discipline_incidents_count',
+        'absences_count',
+        'tardies_count',
+        'homeroom_name'
+      ])
+    end
+  end
+
+  describe 'integration test, from job to read path' do
+    let!(:pals) { TestPals.create! }
+
+    it 'works end-to-end for TestPals' do
+      log = LogHelper::FakeLog.new
+      job = PrecomputeStudentHashesJob.new(log)
+      job.precompute_all!
+
+      # check the shape for each school with students
+      expect(PrecomputedQueryDoc.all.size).to eq(3)
+      schools_with_students = School.all.select {|school| school.students.active.size > 0 }
+      expect(schools_with_students.size).to eq 3
+      schools_with_students.each do |school|
+        student_ids = school.students.active.map(&:id)
+        student_hashes = PrecomputedQueryDoc.latest_precomputed_student_hashes_for(student_ids)
+        expect(student_hashes.first.keys).to contain_exactly(*[
+          :id,
+          :created_at,
+          :updated_at,
+          :grade,
+          :hispanic_latino,
+          :race,
+          :free_reduced_lunch,
+          :homeroom_id,
+          :first_name,
+          :last_name,
+          :state_id,
+          :home_language,
+          :school_id,
+          :registration_date,
+          :local_id,
+          :program_assigned,
+          :sped_placement,
+          :disability,
+          :sped_level_of_need,
+          :plan_504,
+          :limited_english_proficiency,
+          :most_recent_mcas_math_growth,
+          :most_recent_mcas_ela_growth,
+          :most_recent_mcas_math_performance,
+          :most_recent_mcas_ela_performance,
+          :most_recent_mcas_math_scaled,
+          :most_recent_mcas_ela_scaled,
+          :most_recent_star_reading_percentile,
+          :most_recent_star_math_percentile,
+          :enrollment_status,
+          :date_of_birth,
+          :gender,
+          :house,
+          :counselor,
+          :sped_liaison,
+          :missing_from_last_export,
+          :discipline_incidents_count,
+          :absences_count,
+          :tardies_count,
+          :homeroom_name
+        ])
+
+      end
+
+      # check the actual data for one school
+      healey_student_hashes = PrecomputedQueryDoc.latest_precomputed_student_hashes_for([pals.healey_kindergarten_student.id])
+      expect(healey_student_hashes).to contain_exactly(*[
+        include({
+          id: 1,
+          grade: "KF",
+          hispanic_latino: nil,
+          race: nil,
+          free_reduced_lunch: nil,
+          homeroom_id: 1,
+          first_name: "Garfield",
+          last_name: "Skywalker",
+          state_id: "991111111",
+          home_language: nil,
+          school_id: 2,
+          registration_date: nil,
+          local_id: "111111111",
+          program_assigned: nil,
+          sped_placement: nil,
+          disability: nil,
+          sped_level_of_need: nil,
+          plan_504: nil,
+          limited_english_proficiency: nil,
+          most_recent_mcas_math_growth: nil,
+          most_recent_mcas_ela_growth: nil,
+          most_recent_mcas_math_performance: nil,
+          most_recent_mcas_ela_performance: nil,
+          most_recent_mcas_math_scaled: nil,
+          most_recent_mcas_ela_scaled: nil,
+          most_recent_star_reading_percentile: nil,
+          most_recent_star_math_percentile: nil,
+          enrollment_status: "Active",
+          date_of_birth: nil,
+          gender: nil,
+          house: nil,
+          counselor: nil,
+          sped_liaison: nil,
+          missing_from_last_export: false,
+          discipline_incidents_count: 0,
+          absences_count: 0,
+          tardies_count: 0,
+          homeroom_name: "HEA 003"
+        })
+      ])
+    end
+  end
 end

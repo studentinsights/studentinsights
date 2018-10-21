@@ -2,7 +2,15 @@ class PrecomputedQueryDoc < ApplicationRecord
   # A key-value store for holding a precomputed JSON doc (eg, for a query that's hard to optimize
   # or wants to use arbitrary Ruby code).  It's intended to be precomputed and durable, not a
   # read-through cache (since the computations are expensive).
-  #
+
+  # Read back precomputed hashes for students
+  def self.latest_precomputed_student_hashes_for(authorized_student_ids)
+    key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
+    doc = PrecomputedQueryDoc.where(key: key).order(created_at: :desc).limit(1).first
+    return nil if doc.nil?
+    JSON.parse(doc.json).deep_symbolize_keys![:student_hashes]
+  end
+
   # The primary key means nothing, and reads and writes should be done based on the `key` column.
   #
   # There are a few variations on this over time.
