@@ -125,36 +125,6 @@ RSpec.describe Educator do
     end
   end
 
-  describe '#students_for_school_overview' do
-    let!(:school) { FactoryBot.create(:school) }
-
-    context 'schoolwide_access' do
-      let(:educator) { FactoryBot.create(:educator, schoolwide_access: true, school: school) }
-      let!(:include_me) { FactoryBot.create(:student, school: school) }
-      let!(:include_me_too) { FactoryBot.create(:student, school: school) }
-      let!(:include_me_not) { FactoryBot.create(:student) }
-
-      let(:students_for_school_overview) { educator.students_for_school_overview }
-
-      it 'returns all students in the school' do
-        expect(students_for_school_overview).to include include_me
-        expect(students_for_school_overview).to include include_me_too
-      end
-    end
-
-    context 'has_access_to_grade_levels' do
-      let(:educator) { FactoryBot.create(:educator, grade_level_access: ['2'], school: school) }
-      let!(:include_me) { FactoryBot.create(:student, school: school, grade: '2') }
-      let!(:include_me_not) { FactoryBot.create(:student, school: school, grade: '1') }
-      let!(:include_me_not) { FactoryBot.create(:student, grade: '2') }
-
-      it 'returns students at the appropriate grade levels' do
-        expect(educator.students_for_school_overview).to include include_me
-      end
-    end
-
-  end
-
   describe '#allowed_homerooms' do
     let!(:school) { FactoryBot.create(:healey) }
     let!(:other_school) { FactoryBot.create(:brown) }
