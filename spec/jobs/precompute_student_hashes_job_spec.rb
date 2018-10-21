@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe PrecomputeStudentHashesJob do
 
-  # set time at 2017-06-22 10:07:42
-  let(:time_now) { Time.at(1498126062) }
   let(:outcome) { PrecomputedQueryDoc.all }
   let(:first_json_blob) { JSON.parse!(outcome.first.json) }
   let(:log) { LogHelper::Redirect.instance.file }
@@ -15,7 +13,7 @@ RSpec.describe PrecomputeStudentHashesJob do
       let!(:educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true) }
       let!(:student) { FactoryBot.create(:student, school: school) }
 
-      before { PrecomputeStudentHashesJob.new(log).precompute_all!(time_now) }
+      before { PrecomputeStudentHashesJob.new(log).precompute_all! }
 
       let(:first_json_blob_key) { first_json_blob.keys.first }
       let(:first_json_blob_value) { first_json_blob[first_json_blob_key] }
@@ -36,7 +34,7 @@ RSpec.describe PrecomputeStudentHashesJob do
       let!(:educator) { FactoryBot.create(:educator, school: school, schoolwide_access: true) }
       let!(:educator_not_schoolwide) { FactoryBot.create(:educator, school: school) }
 
-      before { PrecomputeStudentHashesJob.new(log).precompute_all!(Time.now) }
+      before { PrecomputeStudentHashesJob.new(log).precompute_all! }
 
       it 'returns an empty array' do
         expect(outcome).to eq []

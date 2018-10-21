@@ -163,6 +163,11 @@ class ImportTask
     begin
       log('Calling Student.update_recent_student_assessments...')
       Student.update_recent_student_assessments
+
+      log('Calling PrecomputeStudentHashesJob.precompute_all!...')
+      PrecomputeStudentHashesJob.new(@log).precompute_all!
+
+      log('Done index updates.')
     rescue => error
       Rollbar.error('ImportTask#run_update_tasks', error)
       raise error

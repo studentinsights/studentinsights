@@ -113,7 +113,7 @@ class SchoolsController < ApplicationController
     fallback_message = "falling back to full load_precomputed_student_hashes query for key: #{key}"
     logger.error fallback_message
     Rollbar.error(fallback_message)
-    authorized_students = Student.find(authorized_student_ids)
+    authorized_students = Student.where(id: authorized_student_ids)
     authorized_students.map {|student| student_hash_for_slicing(student) }
   end
 
