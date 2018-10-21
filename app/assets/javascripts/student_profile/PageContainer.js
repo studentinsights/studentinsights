@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import qs from 'querystring';
 import MixpanelUtils from '../helpers/MixpanelUtils';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
@@ -63,7 +64,7 @@ export default class PageContainer extends React.Component {
     const {selectedColumnKey, student} = this.state;
     const queryParams = { column: selectedColumnKey };
     const path = (shouldUseLightProfilePage)
-      ? `/students/${student.id}/v3?${$.param(queryParams)}`
+      ? `/students/${student.id}/v3?${qs.stringify(queryParams)}`
       : Routes.studentProfile(student.id, queryParams);
 
     this.props.history.replaceState({}, null, path);
@@ -127,8 +128,8 @@ export default class PageContainer extends React.Component {
   onClickSaveNotes(eventNoteParams) {
     this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
     this.api.saveNotes(this.state.student.id, eventNoteParams)
-      .done(this.onSaveNotesDone)
-      .fail(this.onSaveNotesFail);
+      .then(this.onSaveNotesDone)
+      .catch(this.onSaveNotesFail);
   }
 
   onClickSaveTransitionNote(noteParams) {
@@ -138,8 +139,8 @@ export default class PageContainer extends React.Component {
 
     this.setState({ requests: merge(this.state.requests, requestState) });
     this.api.saveTransitionNote(this.state.student.id, noteParams)
-      .done(this.onSaveTransitionNoteDone.bind(this, noteParams))
-      .fail(this.onSaveTransitionNoteFail.bind(this, noteParams));
+      .then(this.onSaveTransitionNoteDone.bind(this, noteParams))
+      .catch(this.onSaveTransitionNoteFail.bind(this, noteParams));
   }
 
   onSaveTransitionNoteDone(noteParams, response) {
@@ -219,8 +220,8 @@ export default class PageContainer extends React.Component {
     if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
       this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
       this.api.saveService(this.state.student.id, serviceParams)
-          .done(this.onSaveServiceDone)
-          .fail(this.onSaveServiceFail);
+          .then(this.onSaveServiceDone)
+          .catch(this.onSaveServiceFail);
     } else {
       this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
     }
@@ -247,8 +248,8 @@ export default class PageContainer extends React.Component {
   onClickDiscontinueService(serviceId) {
     this.setState(this.mergedDiscontinueService(this.state, serviceId, 'pending'));
     this.api.discontinueService(serviceId)
-      .done(this.onDiscontinueServiceDone.bind(this, serviceId))
-      .fail(this.onDiscontinueServiceFail.bind(this, serviceId));
+      .then(this.onDiscontinueServiceDone.bind(this, serviceId))
+      .catch(this.onDiscontinueServiceFail.bind(this, serviceId));
   }
 
   onDiscontinueServiceDone(serviceId, response) {
