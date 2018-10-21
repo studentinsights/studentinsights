@@ -97,13 +97,9 @@ class SchoolsController < ApplicationController
   # Results an array of student_hashes.
   def load_precomputed_student_hashes(time_now, authorized_student_ids)
     begin
-      # the precompute job runs at 8am UTC, and takes a few minutes to run,
-      # so keep a buffer that makes sure the import task and precompute job
-      # can finish before cutting over to the next day.
-      query_time = time_now - 9.hours
-      key = PrecomputedQueryDoc.precomputed_student_hashes_key(query_time, authorized_student_ids)
+      key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
       logger.warn "load_precomputed_student_hashes querying key: #{key}..."
-      doc = PrecomputedQueryDoc.find_by_key(key)
+      doc = PrecomputedQueryDoc.where(key: key).order(created_at: :desc).limit(1).first(1)
       return parse_hashes_from_doc(doc) unless doc.nil?
     rescue ActiveRecord::StatementInvalid => err
       logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
