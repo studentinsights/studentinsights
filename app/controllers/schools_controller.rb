@@ -74,8 +74,8 @@ class SchoolsController < ApplicationController
 
   def json_for_overview(school)
     authorized_students = authorized { school.students.active }
-    if authorized_students.size
-      Rollbar.warn("json_for_overview found 0 authorized students for educator_id: #{current_educator.id}")
+    if authorized_students.size == 0
+      Rollbar.error("json_for_overview found 0 authorized students for educator_id: #{current_educator.id}")
     end
 
     student_hashes = log_timing('schools#show student_hashes') do

@@ -431,17 +431,6 @@ ActiveRecord::Schema.define(version: 2018_10_21_171958) do
     t.index ["student_id"], name: "index_student_section_assignments_on_student_id"
   end
 
-  create_table "student_section_changes", force: :cascade do |t|
-    t.string "syncer_key"
-    t.integer "student_id"
-    t.json "student_section_assignment_json"
-    t.json "section_json"
-    t.json "course_json"
-    t.json "student_json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "student_voice_completed_surveys", force: :cascade do |t|
     t.integer "student_voice_survey_upload_id", null: false
     t.integer "student_id", null: false
