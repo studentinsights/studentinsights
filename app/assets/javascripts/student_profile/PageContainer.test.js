@@ -174,7 +174,8 @@ describe('integration tests', () => {
     const instance = wrapper.instance();
 
     // Simulate that the server call is still pending
-    props.api.saveService.mockReturnValue($.Deferred());
+    const unresolvedPromise = new Promise((resolve, reject) => {});
+    props.api.saveService.mockReturnValue(unresolvedPromise);
     instance.onClickSaveService({
       providedByEducatorName: 'badinput'
     });

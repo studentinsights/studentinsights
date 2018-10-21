@@ -30,7 +30,7 @@ const helpers = {
       saveNotes: jest.fn()
     };
     mockApi.saveNotes.mockImplementation(() =>
-      $.Deferred().resolve({
+      Promise.resolve({
         id: 9999,
         text: 'RESTRICTED-something-sensitive-original',
         is_restricted: true,
