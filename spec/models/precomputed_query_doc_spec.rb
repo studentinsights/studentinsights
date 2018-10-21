@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PrecomputedQueryDoc do
   describe '.latest_precomputed_student_hashes_for' do
     let!(:pals) { TestPals.create! }
-    
+
     it 'returns nil when no documents have been precomputed' do
       doc = PrecomputedQueryDoc.latest_precomputed_student_hashes_for([pals.shs_freshman_mari.id])
       expect(doc).to eq nil
@@ -12,7 +12,7 @@ RSpec.describe PrecomputedQueryDoc do
     it 'does not return if document is outside freshness window' do
       time_now = Time.now
       authorized_student_ids = [pals.shs_freshman_mari.id]
-      
+
       key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
       authorized_students_digest = PrecomputedQueryDoc.authorized_students_digest(authorized_student_ids)
       json_string = '{"student_hashes":"foo"}'

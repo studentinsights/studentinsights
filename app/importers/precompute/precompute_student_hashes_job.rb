@@ -30,11 +30,11 @@ class PrecomputeStudentHashesJob < Struct.new :log
     School.all.each do |school|
       # Skip if they're not authorized for the school
       next unless authorizer.is_authorized_for_school?(school)
-    
+
       # Skip if they're not authorized for any students within that school
       authorized_students = authorizer.authorized { school.students.active.to_a }
       next unless authorized_students.size > 0
-      
+
       # Add a job for students that we need to compute for them within that school
       jobs << { authorized_student_ids: authorized_students.map(&:id) }
     end
@@ -43,7 +43,7 @@ class PrecomputeStudentHashesJob < Struct.new :log
 
   def precompute_and_write_doc!(job)
     authorized_student_ids = job[:authorized_student_ids]
-    
+
     # compute
     authorized_students = Student.where(id: authorized_student_ids)
     student_hashes = authorized_students.map {|student| student_hash_for_slicing(student) }

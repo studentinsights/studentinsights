@@ -8,7 +8,7 @@ class PrecomputedQueryDoc < ApplicationRecord
   def self.latest_precomputed_student_hashes_for(authorized_student_ids, options = {})
     time_now = options.fetch(:time_now, Time.now)
     is_fresh_window = options.fetch(:is_fresh_window, 48.hours)
-    
+
     key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
     doc = PrecomputedQueryDoc
       .where(key: key)
@@ -33,10 +33,10 @@ class PrecomputedQueryDoc < ApplicationRecord
   # 2) short / :force_deprecated_day_based_key
   # This hashes all the student_ids, since plain concatenation led to really long strings that
   # were outside the length limit for the key column.
-  # 
+  #
   # 3) continuous_for_student_ids
   # originally we ran the import every day, and scheduled the precompute task to come after,
-  # so it made sense for the key to be "give me the value for this day"  but running more 
+  # so it made sense for the key to be "give me the value for this day"  but running more
   # frequent imports means this doesn't fit as well, and then complicates the fallback from
   # simply "last computed value".  this no longer uses the "date" as a key, and we add this
   # precompute task to the end of the import job.

@@ -35,7 +35,7 @@ RSpec.describe PrecomputeStudentHashesJob do
       log = LogHelper::FakeLog.new
       job = PrecomputeStudentHashesJob.new(log)
       doc = job.send(:precompute_and_write_doc!, { authorized_student_ids: [pals.west_eighth_ryan.id] })
-      
+
       expect(PrecomputedQueryDoc.all.size).to eq(1)
       expect(doc.as_json(only: [:key, :json, :authorized_students_digest])).to include({
         'key' => a_kind_of(String),
