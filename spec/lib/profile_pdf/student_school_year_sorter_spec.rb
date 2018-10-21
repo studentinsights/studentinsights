@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProfilePdfStudentSchoolYearSorter do
+RSpec.describe ProfilePdf::StudentSchoolYearSorter do
 
   describe "#sort" do
     let(:student) { FactoryBot.create(:student) }
