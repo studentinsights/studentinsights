@@ -73,10 +73,13 @@ class SchoolsController < ApplicationController
   end
 
   def json_for_overview(school)
-    authorized_students = authorized_students_for_overview(school)
+    authorized_students = authorized { school.students.active }
+    if authorized_students.size
+      Rollbar.warn("json_for_overview found 0 authorized students for educator_id: #{current_educator.id}")
+    end
 
     student_hashes = log_timing('schools#show student_hashes') do
-      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
+      load_precomputed_student_hashes(authorized_students.map(&:id))
     end
 
     merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
@@ -95,7 +98,7 @@ class SchoolsController < ApplicationController
   # This should always find a record, but if it doesn't we fall back to the
   # raw query.
   # Results an array of student_hashes.
-  def load_precomputed_student_hashes(time_now, authorized_student_ids)
+  def load_precomputed_student_hashes(authorized_student_ids)
     begin
       key = PrecomputedQueryDoc.precomputed_student_hashes_key(authorized_student_ids)
       logger.warn "load_precomputed_student_hashes querying key: #{key}..."
@@ -124,14 +127,6 @@ class SchoolsController < ApplicationController
     {
       service_types_index: ServiceSerializer.service_types_index
     }
-  end
-
-  def authorized_students_for_overview(school)
-    if current_educator.districtwide_access?
-      school.students.active
-    else
-      current_educator.students_for_school_overview
-    end
   end
 
   def dashboard_queries

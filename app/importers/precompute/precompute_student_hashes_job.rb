@@ -22,20 +22,21 @@ class PrecomputeStudentHashesJob < Struct.new :log
     Educator.all.order(:id).flat_map { |educator| educator_to_jobs(educator) }.uniq
   end
 
-  # Educators with district-wide access will have different authorization
-  # for each school than other users.
+  # Educators may have access to this for multiple schools, and with different
+  # sets of students within each school.
   def educator_to_jobs(educator)
-    if educator.districtwide_access?
-      return School.all.map do |school|
-        {
-          authorized_student_ids: school.students.active.map(&:id)
-        }
-      end
+    authorizer = Authorizer.new(educator)
+    School.all.flat_map do |school|
+      # Nothing if they're not authorized for the school
+      return [] unless authorizer.is_authorized_for_school?(school)
+    
+      # Nothing if they're not authorized for any students within that school
+      authorized_students = authorizer.authorized { school.students.active.to_a }
+      return [] if authorized_students.size == 0
+      
+      # The students that we need to compute for them for that school
+      [{ authorized_student_ids: authorized_students.map(&:id) }]
     end
-
-    student_ids = educator.students_for_school_overview.map(&:id)
-    return [] if student_ids.size == 0
-    return [{ authorized_student_ids: student_ids }]
   end
 
   def precompute_and_write_student_hashes!(authorized_student_ids)
