@@ -34,6 +34,53 @@ describe SchoolsController, :type => :controller do
     end
   end
 
+  describe '#overview_json precomputing integration tests' do
+    let!(:pals) { TestPals.create! }
+
+    it 'is successful when not precomputed, when precomputed, and the data is the same' do
+      # Verify we log to Rollbar when falling through, and that this test case does fall through only
+      # once
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with("falling back to full load_precomputed_student_hashes query for current_educator: #{pals.uri.id}")
+
+      # clear any precomputing
+      PrecomputedQueryDoc.all.each {|doc| doc.destroy! }
+
+      # querying on demand should work
+      on_demand_response = get_overview_json('hea', educator: pals.uri)
+      expect(on_demand_response.status).to eq 200
+      on_demand_json = JSON.parse(on_demand_response.body)
+      expect(on_demand_json.keys).to contain_exactly(*[
+        "students",
+        "school",
+        "district_key",
+        "current_educator",
+        "constant_indexes"
+      ])
+
+      # precompute
+      log = LogHelper::FakeLog.new
+      job = PrecomputeStudentHashesJob.new(log)
+      job.precompute_all!
+      expect(PrecomputedQueryDoc.all.size).to eq(3)
+
+      # querying precomputed should work
+      precomputed_response = get_overview_json('hea', educator: pals.uri)
+      expect(precomputed_response.status).to eq 200
+      precomputed_json = JSON.parse(precomputed_response.body)
+      expect(precomputed_json.keys).to contain_exactly(*[
+        "students",
+        "school",
+        "district_key",
+        "current_educator",
+        "constant_indexes"
+      ])
+
+      # and the data should be the same
+      expect(precomputed_json).to eq(on_demand_json)
+    end
+  end
+
   describe '#overview_json combinations' do
     context 'districtwide access' do
       before { FactoryBot.create(:homeroom) }

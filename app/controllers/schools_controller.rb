@@ -100,16 +100,17 @@ class SchoolsController < ApplicationController
   # Results an array of student_hashes.
   def load_precomputed_student_hashes(authorized_student_ids)
     begin
-      PrecomputedQueryDoc.latest_precomputed_student_hashes_for(authorized_student_ids)
+      doc = PrecomputedQueryDoc.latest_precomputed_student_hashes_for(authorized_student_ids)
+      return doc if doc.present?
     rescue ActiveRecord::StatementInvalid => err
       Rollbar.error("load_precomputed_student_hashes raised error for #{current_educator.id}", err)
     end
 
     # Fallback to performing the full query if something went wrong reading the
-    # precomputed value
+    # precomputed value, or the precomputed response couldn't be found.
     fallback_message = "falling back to full load_precomputed_student_hashes query for current_educator: #{current_educator.id}"
     Rollbar.error(fallback_message)
-    authorized_students = Student.where(id: authorized_student_ids)
+    authorized_students = Student.active.where(id: authorized_student_ids)
     authorized_students.map {|student| student_hash_for_slicing(student) }
   end
 
