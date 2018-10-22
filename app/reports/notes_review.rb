@@ -2,11 +2,16 @@
 # Aimed at not identifying individual teachers, avoiding accountability,
 # thinking about groups and support systems or reflecting as a group.
 class NotesReview
+  def initialize(options = {})
+    @log = options.fetch(:log, STDOUT)
+  end
+
   def high_school_teachers
     ensure_somerville_only!
+    school_id = School.find_by_local_id('SHS')
     compute_and_printout({
-      educator_id: Educator.where(school_id: 9, schoolwide_access: false),
-      student_id: Student.active.where(school_id: 9)
+      educator_id: Educator.where(school_id: school_id, schoolwide_access: false).map(&:id),
+      student_id: Student.active.where(school_id: school_id).map(&:id)
     })
   end
 
@@ -61,7 +66,7 @@ class NotesReview
     lines << section("What does the quality look like?")
     lines << event_notes.map(&:text).join("\n\n---------------\n\n")
 
-    puts lines.join("\n")
+    @log.puts lines.join("\n")
     nil
   end
 end
