@@ -41,7 +41,9 @@ class ProfileController < ApplicationController
     per_district_fields = {
       house: student.house,
       counselor: student.counselor,
-      sped_liaison: student.sped_liaison
+      sped_liaison: student.sped_liaison,
+      ell_entry_date: student.ell_entry_date,
+      ell_transition_date: student.ell_transition_date
     }
 
     student.as_json.merge(per_district_fields).merge({
