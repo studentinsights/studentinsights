@@ -271,6 +271,12 @@ class PerDistrict
     false
   end
 
+  def import_student_ell_dates?
+    return true if @district_key == SOMERVILLE
+    return true if @district_key == DEMO
+    false
+  end
+
   def import_student_photos?
     @district_key == SOMERVILLE
   end

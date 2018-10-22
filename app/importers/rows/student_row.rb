@@ -115,6 +115,13 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
       included_attributes.merge!(sped_liaison: row[:sped_liaison])
     end
 
+    if per_district.import_student_ell_dates?
+      included_attributes.merge!({
+        ell_entry_date: per_district.parse_date_during_import(row[:ell_entry_date]),
+        ell_transition_date: per_district.parse_date_during_import(row[:ell_transition_date])
+      })
+    end
+
     included_attributes
   end
 end

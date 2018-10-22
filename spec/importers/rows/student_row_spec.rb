@@ -81,6 +81,38 @@ RSpec.describe StudentRow do
       end
     end
 
+    context 'ELL date fields' do
+      let(:row) do
+        {
+          ell_entry_date: '2013-09-24',
+          ell_transition_date: '2015-06-28',
+          limited_english_proficiency: 'FLEP',
+          full_name: 'Martinez, Juan'
+        } 
+      end
+
+      it 'correctly sets ELL date fields on the Student record' do
+        expect(student.ell_entry_date).to eq Date.parse('2013-09-24')
+        expect(student.ell_transition_date).to eq Date.parse('2015-06-28')
+        expect(student.limited_english_proficiency).to eq 'FLEP'
+      end
+    end
+
+    context 'when no ELL date fields' do
+      let(:row) do
+        {
+          limited_english_proficiency: 'FLEP',
+          full_name: 'Martinez, Juan'
+        } 
+      end
+
+      it 'does not raise and sets the ELL date fields as nil on the Student record' do
+        expect(student.ell_entry_date).to eq nil
+        expect(student.ell_transition_date).to eq nil
+        expect(student.limited_english_proficiency).to eq 'FLEP'
+      end
+    end
+
     context 'when PerDistrict attributes are not exported' do
       before do
         mock_per_district = PerDistrict.new
