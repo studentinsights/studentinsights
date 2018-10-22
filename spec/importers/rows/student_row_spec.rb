@@ -88,7 +88,7 @@ RSpec.describe StudentRow do
           ell_transition_date: '2015-06-28',
           limited_english_proficiency: 'FLEP',
           full_name: 'Martinez, Juan'
-        } 
+        }
       end
 
       it 'correctly sets ELL date fields on the Student record' do
@@ -103,7 +103,7 @@ RSpec.describe StudentRow do
         {
           limited_english_proficiency: 'FLEP',
           full_name: 'Martinez, Juan'
-        } 
+        }
       end
 
       it 'does not raise and sets the ELL date fields as nil on the Student record' do
