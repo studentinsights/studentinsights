@@ -7,7 +7,7 @@ RSpec.describe NotesReview do
     pals.shs.students.each do |student|
       4.times do
         FactoryBot.create(:event_note, {
-          student: student, 
+          student: student,
           educator: educator,
           text: text,
           recorded_at: Time.now - (40 * rand()).to_i.days
