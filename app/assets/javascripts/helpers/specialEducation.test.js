@@ -40,7 +40,12 @@ describe('#prettyProgramOrPlacementText', () => {
     expect(prettyProgramOrPlacementText({
       program_assigned: 'SEIP',
       sped_placement: null
-    })).toEqual('SEIP');
+    })).toEqual(null);
+
+    expect(prettyProgramOrPlacementText({
+      program_assigned: 'Wavered SEIP',
+      sped_placement: null
+    })).toEqual(null);
 
     expect(prettyProgramOrPlacementText({
       program_assigned: '2Way Spanish',
