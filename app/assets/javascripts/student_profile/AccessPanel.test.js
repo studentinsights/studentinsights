@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import AccessPanel from './AccessPanel';
 
 export function testProps(props = {}) {
   return {
+    "studentFirstName": "Mari",
     "access": {
       "composite": {
         "performance_level": "4",
@@ -43,9 +45,18 @@ export function testProps(props = {}) {
   };
 }
 
+function testEl(props, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      <AccessPanel {...props} />
+    </PerDistrictContainer>
+  );
+}
+
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<AccessPanel {...props} />), el);
+  ReactDOM.render(testEl(props), el);
   return el;
 }
 
@@ -56,7 +67,7 @@ it('renders without crashing', () => {
 describe('snapshots', () => {
   const props = testProps();
   const tree = renderer
-    .create(withDefaultNowContext(<AccessPanel {...props} />))
+    .create(testEl(props))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

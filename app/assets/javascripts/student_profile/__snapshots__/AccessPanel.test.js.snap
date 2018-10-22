@@ -15,22 +15,31 @@ exports[` 1`] = `
     style={
       Object {
         "fontSize": 14,
-        "marginBottom": 30,
+        "marginBottom": 20,
       }
     }
   >
     <div>
       <b>
-        Overall proficiency: 
-        Expanding English, level 4
+        Overall status: 
+        No English Learner data
       </b>
     </div>
-    <div>
-      This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
+    <div
+      style={
+        Object {
+          "paddingTop": 20,
+        }
+      }
+    >
+      This reflects 
+      Mari
+      's latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
     </div>
     <div>
+      See the 
       <a
-        href="https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf"
+        href="https://wida.wisc.edu/sites/default/files/resource/Speaking-Writing-Interpretive-Rubrics.pdf"
         style={
           Object {
             "fontSize": 14,
@@ -38,8 +47,9 @@ exports[` 1`] = `
         }
         target="_blank"
       >
-        WIDA interpretive guide
+        WIDA Speaking and Writing Interpretive Rubrics
       </a>
+       to learn more.
     </div>
   </div>
   <table
