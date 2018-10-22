@@ -240,6 +240,7 @@ export default class LightHeaderSupportBits extends React.Component {
     const limitedEnglishProficiency = student.limited_english_proficiency;
     return (
       <LanguageStatusLink
+        studentFirstName={student.first_name}
         limitedEnglishProficiency={limitedEnglishProficiency}
         access={access} 
       />

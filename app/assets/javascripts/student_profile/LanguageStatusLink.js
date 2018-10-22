@@ -13,11 +13,11 @@ import AccessPanel from './AccessPanel';
 export default class LanguageStatusLink extends React.Component {
   render() {
     const {districtKey} = this.context;
-    const {limitedEnglishProficiency, access, style} = this.props;
+    const {studentFirstName, limitedEnglishProficiency, access, style} = this.props;
     const el = <div style={style}>{prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {access})}</div>;
 
     // Link to scores also if any access data (even if old)
-    if (!hasAnyAccessData(districtKey, limitedEnglishProficiency)) return el;
+    if (!hasAnyAccessData(access)) return el;
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
@@ -31,7 +31,13 @@ export default class LanguageStatusLink extends React.Component {
           }
         }}
         title="Language learning"
-        content={<AccessPanel access={access} />}
+        content={
+          <AccessPanel
+            studentFirstName={studentFirstName}
+            limitedEnglishProficiency={limitedEnglishProficiency}
+            access={access}
+          />
+        }
       />
     );
   }
@@ -40,6 +46,7 @@ LanguageStatusLink.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 LanguageStatusLink.propTypes = {
+  studentFirstName: PropTypes.string.isRequired,
   limitedEnglishProficiency: PropTypes.string,
   access: PropTypes.object,
   style: PropTypes.object

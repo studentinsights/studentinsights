@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import {proficiencyTextForScore} from '../helpers/language';
+import {prettyEnglishProficiencyText} from '../helpers/language';
 
 
 // Renders latest ACCESS score with subtests
 export default class AccessPanel extends React.Component {
   render() {
-    const {showTitle, access, style} = this.props;
+    const {districtKey} = this.context;
+    const {showTitle, studentFirstName, limitedEnglishProficiency, access, style} = this.props;
 
-    const proficiencyText = proficiencyTextForScore(access['composite']);
+    const proficiencyText = prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {access});
     return (
       <div style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>ACCESS</h4>}
         <div style={styles.explanation}>
-          <div><b>Overall proficiency: {proficiencyText}</b></div>
-          <div>
-            This reflect the latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
+          <div><b>Overall status: {proficiencyText}</b></div>
+          <div style={{paddingTop: 20}}>
+            This reflects {studentFirstName}'s latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
           </div>
-          <div><a style={{fontSize: 14}} href="https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf" target="_blank">WIDA interpretive guide</a></div>
+          <div>See the <a style={{fontSize: 14}} href="https://wida.wisc.edu/sites/default/files/resource/Speaking-Writing-Interpretive-Rubrics.pdf" target="_blank">WIDA Speaking and Writing Interpretive Rubrics</a> to learn more.</div>
         </div>
         <table style={{borderCollapse: 'collapse'}}>
           <tbody>
@@ -128,13 +129,16 @@ export default class AccessPanel extends React.Component {
   }
 }
 AccessPanel.contextTypes = {
-  nowFn: PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired,
+  districtKey: PropTypes.string.isRequired
 };
 const accessDataPointPropType = PropTypes.shape({
   date_taken: PropTypes.string.isRequired,
   performance_level: PropTypes.string.isRequired
 });
 AccessPanel.propTypes = {
+  studentFirstName: PropTypes.string.isRequired,
+  limitedEnglishProficiency: PropTypes.string,
   access: PropTypes.shape({
     composite: accessDataPointPropType,
     comprehension: accessDataPointPropType,
@@ -164,7 +168,7 @@ const styles = {
     marginBottom: 10
   },
   explanation: {
-    marginBottom: 30,
+    marginBottom: 20,
     fontSize: 14
   },
   cell: {

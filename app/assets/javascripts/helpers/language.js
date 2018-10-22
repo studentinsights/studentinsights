@@ -7,28 +7,6 @@ export const FORMER_ENGLISH_LEARNER_KEY = 'Former English Learner';
 export const PRETTY_FLUENT_ENGLISH = 'Fluent English';
 
 
-// These describe all values, mapping them into discrete buckets that Insights uses in the UI.
-const SOMERVILLE_MAP = {
-  'Limited': STATUS.ENGLISH_LEARNER,
-  'Fluent': STATUS.FLUENT_ENGLISH,
-  'FLEP': STATUS.FORMER_ENGLISH_LEARNER
-};
-
-const NEW_BEDFORD_MAP = {
-  'Limited English': STATUS.ENGLISH_LEARNER,
-  'Non-English': STATUS.ENGLISH_LEARNER,
-  'Redesignated': STATUS.FORMER_ENGLISH_LEARNER,
-  'Fluent': STATUS.FLUENT_ENGLISH,
-  'Native': STATUS.FLUENT_ENGLISH
-};
-
-const BEDFORD_MAP = {
-  'Capable': STATUS.FLUENT_ENGLISH,
-  'Limited English': STATUS.ENGLISH_LEARNER,
-  'Not Capable': STATUS.ENGLISH_LEARNER
-};
-
-
 // These are the categories Insights uses in the UI, with functions to figure this out below.
 const STATUS = {
   ENGLISH_LEARNER: 'ENGLISH_LEARNER',
@@ -40,7 +18,34 @@ const PRETTY_STATUS_TEXT = {
   [STATUS.ENGLISH_LEARNER]: 'English Learner',
   [STATUS.FORMER_ENGLISH_LEARNER]: 'Former English Learner',
   [STATUS.FLUENT_ENGLISH]: 'Fluent English',
-  [STATUS.UNKNOWN]: 'No English Learner status'
+  [STATUS.UNKNOWN]: 'No English Learner data'
+};
+
+
+// These describe all values, mapping them into discrete buckets that Insights uses in the UI.
+const SOMERVILLE_MAP = {
+  'Limited': STATUS.ENGLISH_LEARNER,
+  'FLEP': STATUS.FORMER_ENGLISH_LEARNER,
+  'Fluent': STATUS.FLUENT_ENGLISH
+};
+
+const NEW_BEDFORD_MAP = {
+  'Limited English': STATUS.ENGLISH_LEARNER,
+  'Non-English': STATUS.ENGLISH_LEARNER,
+  'Redesignated': STATUS.FORMER_ENGLISH_LEARNER,
+  'Fluent': STATUS.FLUENT_ENGLISH,
+  'Native': STATUS.FLUENT_ENGLISH
+};
+
+const BEDFORD_MAP = {
+  'Limited English': STATUS.ENGLISH_LEARNER,
+  'Not Capable': STATUS.ENGLISH_LEARNER,
+  'Capable': STATUS.FLUENT_ENGLISH
+};
+export const ALL_LANGUAGE_MAPS_FOR_TEST = {
+  [SOMERVILLE]: SOMERVILLE_MAP,
+  [BEDFORD]: BEDFORD_MAP,
+  [NEW_BEDFORD]: NEW_BEDFORD_MAP
 };
 
 
@@ -76,11 +81,8 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
 
   // If ELL now, show level if we can find it from a recent assessment
   if (status === STATUS.ENGLISH_LEARNER) {
-    const compositeAccess = (options.access && hasAnyAccessData(options.access) && options.access.composite)
-      ? options.composite
-      : null;
-    const levelText = (compositeAccess) ? proficiencyTextForScore(compositeAccess) : null;
-    return (levelText) ? `${statusText}, ${levelText}` : statusText;
+    const levelNumber = accessLevelNumber(options.access);
+    return (levelNumber === null) ? statusText : `${statusText}, level ${levelNumber}`;
   }
 
   // If FLEP, add designation date also (TODO)
@@ -108,20 +110,13 @@ export function englishProficiencyOptions(districtKey) {
 
 
 export function hasAnyAccessData(access) {
-  return _.some(Object.keys(access), key => access[key]);
+  if (access === undefined || access === null) return false;
+  return _.some(Object.keys(access), key => access[key] !== null && access[key] !== undefined);
 }
 
-export function proficiencyTextForScore(compositeDataPoint, options = {}) {
-  if (!compositeDataPoint || !compositeDataPoint.performance_level) return 'No data';
-  const englishText = options.withoutEnglishText ? '' : ' English';
-  const scoreNumber = parseFloat(compositeDataPoint.performance_level);
-  if (!scoreNumber) return 'No data';
-  if (scoreNumber < 2) return `Entering${englishText}, level 1`;
-  if (scoreNumber < 3) return `Emerging${englishText}, level 2`;
-  if (scoreNumber < 4) return `Developing${englishText}, level 3`;
-  if (scoreNumber < 5) return `Expanding${englishText}, level 4`;
-  if (scoreNumber < 6) return `Bridging${englishText}, level 5`;
-  if (scoreNumber === 6) return `Reaching${englishText}, level 6`;
-
-  return 'Unknown';
+export function accessLevelNumber(access) {
+  if (!hasAnyAccessData(access)) return null;
+  const compositeDataPoint = access.composite;
+  if (!compositeDataPoint || !compositeDataPoint.performance_level) return null;
+  return parseFloat(compositeDataPoint.performance_level);
 }
