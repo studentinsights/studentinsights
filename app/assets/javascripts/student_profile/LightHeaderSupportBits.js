@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {prettyEnglishProficiencyText, hasAnyAccessData} from '../helpers/language';
 import {
   hasInfoAbout504Plan,
   supportsSpedLiaison
@@ -20,8 +19,9 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import Team from '../components/Team';
-import AccessPanel from './AccessPanel';
 import Pdf from './Pdf';
+import LanguageStatusLink from './LanguageStatusLink';
+
 
 /*
 UI component for seconds column with extra bits about the
@@ -237,25 +237,14 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderLanguage() {
     const {student, access} = this.props;
-    const el = <div style={styles.subtitleItem}>{prettyEnglishProficiencyText(student.limited_english_proficiency, access)}</div>;
-
-    if (!hasAnyAccessData(access)) return el;
+    const limitedEnglishProficiency = student.limited_english_proficiency;
     return (
-      <HelpBubble
-        style={{marginLeft: 0, display: 'block'}}
-        teaser={el}
-        linkStyle={styles.subtitleItem}
-        modalStyle={{
-          ...modalFromLeft,
-          content: {
-            ...modalFromLeft.content,
-            width: 750
-          }
-        }}
-        title="Language learning"
-        content={<AccessPanel access={access} />}
+      <LanguageStatusLink
+        limitedEnglishProficiency={limitedEnglishProficiency}
+        access={access} 
       />
     );
+
   }
 }
 
