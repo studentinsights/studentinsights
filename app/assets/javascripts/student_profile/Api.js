@@ -1,8 +1,14 @@
-class Api {
+import {
+  apiPatchJson,
+  apiPostJson,
+  apiDeleteJson
+} from '../helpers/apiFetchJson';
+
+export default class Api {
 
   saveNotes(studentId, eventNoteParams) {
     if (eventNoteParams.id) {
-      return this._updateNote(studentId, eventNoteParams);
+      return this._updateNote(eventNoteParams);
     }
     else {
       return this._createNote(studentId, eventNoteParams);
@@ -10,7 +16,7 @@ class Api {
   }
 
   _createNote(studentId, eventNoteParams) {
-    return this._post('/api/event_notes', {
+    return apiPostJson('/api/event_notes', {
       event_note: {
         event_note_type_id: eventNoteParams.eventNoteTypeId,
         text: eventNoteParams.text,
@@ -21,10 +27,10 @@ class Api {
     });
   }
 
-  _updateNote(studentId, eventNoteParams) {
+  _updateNote(eventNoteParams) {
     const id = eventNoteParams.id;
 
-    return this._patch(`/api/event_notes/${id}`, {
+    return apiPatchJson(`/api/event_notes/${id}`, {
       event_note: {
         text: eventNoteParams.text
       }
@@ -32,12 +38,13 @@ class Api {
   }
 
   deleteEventNoteAttachment(eventNoteAttachmentId) {
-    const url = `/event_notes/attachment/${eventNoteAttachmentId}`;
-    return this._delete(url);
+    const url = `/api/event_notes/attachments/${eventNoteAttachmentId}`;
+    return apiDeleteJson(url);
   }
 
   saveTransitionNote(studentId, noteParams) {
-    return this._post('/api/students/' + studentId + '/update_transition_note', {
+    const url = `/api/students/${studentId}/update_transition_note`;
+    return apiPostJson(url, {
       text: noteParams.text,
       is_restricted: noteParams.is_restricted,
     });
@@ -55,40 +62,11 @@ class Api {
       }
     };
 
-    return this._post(url, body);
+    return apiPostJson(url, body);
   }
 
   discontinueService(serviceId) {
     const url = '/services/' + serviceId;
-    return this._delete(url);
-  }
-
-  _post(url, body) {
-    return $.ajax({
-      url: url,
-      method: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
-      data: JSON.stringify(body)
-    });
-  }
-
-  _patch(url, body) {
-    return $.ajax({
-      url: url,
-      method: 'PATCH',
-      contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
-      data: JSON.stringify(body)
-    });
-  }
-
-  _delete(url) {
-    return $.ajax({
-      url: url,
-      method: 'DELETE'
-    });
+    return apiDeleteJson(url);
   }
 }
-
-export default Api;

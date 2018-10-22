@@ -104,7 +104,7 @@ class ProfilePdfController < ApplicationController
   end
 
   def events_by_student_school_years(student, filter_to_date, filter_from_date)
-    sorter = ProfilePdfStudentSchoolYearSorter.new(student: student)
+    sorter = ProfilePdf::StudentSchoolYearSorter.new(student: student)
 
     sorter.sort_and_filter(filter_to_date, filter_from_date)
   end

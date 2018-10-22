@@ -1,14 +1,6 @@
 require 'digest'
 
 module StudentsQueryHelper
-  INCLUDE_FOR_STUDENTS = Student.column_names.map(&:to_sym) - [
-    :primary_phone,
-    :primary_email,
-    :student_address,
-    :risk_level  # Hacky fix for risk level not clearing from column names
-                 # cache after deploying https://github.com/studentinsights/studentinsights/pull/1892.
-  ]
-
   # include notes that are is_restricted, but without their content
   INCLUDE_FOR_EVENT_NOTES = [
     :id,
@@ -23,16 +15,18 @@ module StudentsQueryHelper
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def student_hash_for_slicing(student)
-    student_fields = Student.active.where(id: student.id).select(INCLUDE_FOR_STUDENTS)
-
-    HashWithIndifferentAccess.new(
-      student_fields.first.as_json.merge({
-        discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
-        absences_count: student.most_recent_school_year_absences_count,
-        tardies_count: student.most_recent_school_year_tardies_count,
-        homeroom_name: student.try(:homeroom).try(:name)
-      })
-    )
+    HashWithIndifferentAccess.new(student.as_json({
+      except: [
+        :primary_phone,
+        :primary_email,
+        :student_address
+      ]
+    }).merge({
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+      absences_count: student.most_recent_school_year_absences_count,
+      tardies_count: student.most_recent_school_year_tardies_count,
+      homeroom_name: student.try(:homeroom).try(:name)
+    }))
   end
 
   # Queries for Services and EventNotes for each student, and merges the results

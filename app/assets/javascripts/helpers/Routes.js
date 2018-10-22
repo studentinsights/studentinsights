@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import qs from 'querystring';
 
 // Routing functions
 export function studentProfile(id, queryParams) {
   const queryString = _.isObject(queryParams)
-    ? '?' + $.param(queryParams)
+    ? '?' + qs.stringify(queryParams)
     : '';
   return '/students/' + id + queryString;
 }

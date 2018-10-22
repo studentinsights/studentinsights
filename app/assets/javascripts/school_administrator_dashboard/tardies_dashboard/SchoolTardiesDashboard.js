@@ -147,21 +147,22 @@ export default class SchoolTardiesDashboard extends React.Component {
 
     return (
       <DashboardBarChart
-        id = {'string'}
-        categories = {{
+        id={'string'}
+        animation={false}
+        categories={{
           offset: 0,
           linkedTo: 0,
           categories: monthCategories,
           tickPositions: tickPositions,
           tickmarkPlacement: "on"
         }}
-        seriesData = {seriesData}
-        titleText = {`Schoolwide Tardies (${this.timeRangeText()})`}
-        measureText = {'Number of Tardies'}
-        tooltip = {{
+        seriesData={seriesData}
+        titleText={`Schoolwide Tardies (${this.timeRangeText()})`}
+        measureText={'Number of Tardies'}
+        tooltip={{
           pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-        onColumnClick = {this.resetStudentList}
-        onBackgroundClick = {this.resetStudentList}/>
+        onColumnClick={this.resetStudentList}
+        onBackgroundClick={this.resetStudentList}/>
     );
   }
 
@@ -171,20 +172,23 @@ export default class SchoolTardiesDashboard extends React.Component {
       return homeroomTardyEvents[b] - homeroomTardyEvents[a];
     });
     const homeroomSeries = homerooms.map((homeroom) => {
-      return homeroomTardyEvents[homeroom];
+      const color = (homeroom === this.state.selectedHomeroom)? 'orange' : null;
+      const y = homeroomTardyEvents[homeroom];
+      return {y, color};
     });
 
     return (
         <DashboardBarChart
-          id = {'string'}
-          categories = {{categories: homerooms}}
-          seriesData = {homeroomSeries}
-          titleText = {`Tardies by Homeroom (${this.timeRangeText()})`}
-          measureText = {'Number of Tardies'}
-          tooltip = {{
+          id={'string'}
+          animation={false}
+          categories={{categories: homerooms}}
+          seriesData={homeroomSeries}
+          titleText={`Tardies by Homeroom (${this.timeRangeText()})`}
+          measureText={'Number of Tardies'}
+          tooltip= {{
             pointFormat: 'Total tardies: <b>{point.y}</b>'}}
-          onColumnClick = {this.setStudentList}
-          onBackgroundClick = {this.resetStudentList}/>
+          onColumnClick={this.setStudentList}
+          onBackgroundClick={this.resetStudentList}/>
     );
   }
 
@@ -207,10 +211,8 @@ export default class SchoolTardiesDashboard extends React.Component {
     return (
       <StudentsTable
         rows={rows}
-        selectedCategory={this.state.selectedHomeroom}
         incidentType='Tardies'
-        incidentSubtitle={this.timeRangeText()}
-        resetFn={this.resetStudentList}/>
+        incidentSubtitle={this.timeRangeText()}/>
     );
   }
 }

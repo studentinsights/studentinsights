@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  # Order matters here a lot.
   protect_from_forgery with: :exception
 
   force_ssl unless Rails.env.development?
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     if request.format.json?
       render_unauthorized_json!
     elsif request.format.pdf?
-      render plain: 'Not authorized', status: 403
+      render_unauthorized_plain!
     else
       redirect_unauthorized!
     end
@@ -54,10 +54,17 @@ class ApplicationController < ActionController::Base
   end
 
   def render_unauthorized_json!
+    Rollbar.error('render_unauthorized_json!')
     render json: { error: 'unauthorized' }, status: 403
   end
 
+  def render_unauthorized_plain!
+    Rollbar.error('render_unauthorized_plain!')
+    render plain: 'Not authorized', status: 403
+  end
+
   def render_not_found_json!
+    Rollbar.error('render_not_found_json!')
     render json: { error: 'not_found' }, status: 404
   end
 

@@ -96,7 +96,7 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def enabled_high_school_tiering?
+  def enabled_high_school_levels?
     @district_key == SOMERVILLE || @district_key == DEMO
   end
 
@@ -109,6 +109,11 @@ class PerDistrict
     else
       false
     end
+  end
+
+  # Controls feed filter based on ELL status
+  def enable_ell_based_feed?
+    EnvironmentVariable.is_true('ENABLE_ELL_BASED_FEED')
   end
 
   # If this is enabled, filter students on the home page feed
@@ -293,6 +298,19 @@ class PerDistrict
 
   def is_research_matters_analysis_supported?
     @district_key == SOMERVILLE
+  end
+
+  # See also language.js
+  def is_student_english_learner_now?(student)
+    if @district_key == SOMERVILLE
+      ['Limited'].include?(student.limited_english_proficiency)
+    elsif @district_key == NEW_BEDFORD
+      ['Limited English' || 'Non-English'].include?(student.limited_english_proficiency)
+    elsif @district_key == BEDFORD
+      ['Limited English', 'Not Capable'].include?(student.limited_english_proficiency)
+    else
+      raise_not_handled!
+    end
   end
 
   def current_quarter(date_time)

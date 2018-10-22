@@ -9,6 +9,7 @@ RSpec.describe FeedFilter do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with('ENABLE_COUNSELOR_BASED_FEED').and_return(nil)
       allow(ENV).to receive(:[]).with('ENABLE_SECTION_BASED_FEED').and_return(nil)
+      allow(ENV).to receive(:[]).with('ENABLE_ELL_BASED_FEED').and_return(nil)
     end
 
     it 'does not filter for anyone when disabled globally' do
@@ -47,6 +48,7 @@ RSpec.describe FeedFilter do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with('ENABLE_HOUSEMASTER_BASED_FEED').and_return(nil)
       allow(ENV).to receive(:[]).with('ENABLE_SECTION_BASED_FEED').and_return(nil)
+      allow(ENV).to receive(:[]).with('ENABLE_ELL_BASED_FEED').and_return(nil)
     end
 
     it 'does not filter for anyone when disabled globally' do
@@ -84,6 +86,7 @@ RSpec.describe FeedFilter do
       allow(ENV).to receive(:[]).and_call_original
       allow(ENV).to receive(:[]).with('ENABLE_COUNSELOR_BASED_FEED').and_return(nil)
       allow(ENV).to receive(:[]).with('ENABLE_HOUSEMASTER_BASED_FEED').and_return(nil)
+      allow(ENV).to receive(:[]).with('ENABLE_ELL_BASED_FEED').and_return(nil)
     end
 
     it 'when disabled globally, does not filter for anyone' do
@@ -112,6 +115,51 @@ RSpec.describe FeedFilter do
       )
       expect(FeedFilter.new(pals.shs_fatima_science_teacher).filter_for_educator(unfiltered_students)).to contain_exactly(*[
         pals.shs_freshman_amir
+      ])
+    end
+  end
+
+  describe 'English language learner-based feed only' do
+    before do
+      allow(ENV).to receive(:[]).and_call_original
+      allow(ENV).to receive(:[]).with('ENABLE_COUNSELOR_BASED_FEED').and_return(nil)
+      allow(ENV).to receive(:[]).with('ENABLE_HOUSEMASTER_BASED_FEED').and_return(nil)
+      allow(ENV).to receive(:[]).with('ENABLE_SECTION_BASED_FEED').and_return(nil)
+
+      # for this test case, make Kylo ELL and set the flag for Fatima
+      pals.shs_senior_kylo.update!(limited_english_proficiency: 'Limited') # per district, Somerville
+      EducatorLabel.create!(
+        educator: pals.shs_fatima_science_teacher,
+        label_key: 'use_ell_based_feed'
+      )
+    end
+
+    it 'when disabled globally, does not filter for anyone' do
+      allow(ENV).to receive(:[]).with('ENABLE_ELL_BASED_FEED').and_return(nil)
+      Educator.all.each do |educator|
+        unfiltered_students = Authorizer.new(educator).authorized { Student.active.to_a }
+        expect(FeedFilter.new(educator).filter_for_educator(unfiltered_students)).to contain_exactly(*unfiltered_students)
+      end
+    end
+
+    it 'does not filter without mapping for educator' do
+      allow(ENV).to receive(:[]).with('ENABLE_ELL_BASED_FEED').and_return('true')
+      (Educator.all - [pals.shs_fatima_science_teacher]).each do |educator|
+        unfiltered_students = Authorizer.new(educator).authorized { Student.active.to_a }
+        expect(FeedFilter.new(educator).filter_for_educator(unfiltered_students)).to contain_exactly(*unfiltered_students)
+      end
+    end
+
+    it 'filters to only ELL students when enabled globally' do
+      allow(ENV).to receive(:[]).with('ENABLE_ELL_BASED_FEED').and_return('true')
+      unfiltered_students = Authorizer.new(pals.shs_fatima_science_teacher).authorized { Student.active.to_a }
+      expect(unfiltered_students).to contain_exactly(
+        pals.shs_freshman_mari,
+        pals.shs_freshman_amir,
+        pals.shs_senior_kylo
+      )
+      expect(FeedFilter.new(pals.shs_fatima_science_teacher).filter_for_educator(unfiltered_students)).to contain_exactly(*[
+        pals.shs_senior_kylo
       ])
     end
   end

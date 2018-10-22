@@ -73,10 +73,13 @@ class SchoolsController < ApplicationController
   end
 
   def json_for_overview(school)
-    authorized_students = authorized_students_for_overview(school)
+    authorized_students = authorized { school.students.active }
+    if authorized_students.size == 0
+      Rollbar.error("json_for_overview found 0 authorized students for educator_id: #{current_educator.id}")
+    end
 
     student_hashes = log_timing('schools#show student_hashes') do
-      load_precomputed_student_hashes(Time.now, authorized_students.map(&:id))
+      load_precomputed_student_hashes(authorized_students.map(&:id))
     end
 
     merged_student_hashes = log_timing('schools#show merge_mutable_fields_for_slicing') do
@@ -95,31 +98,20 @@ class SchoolsController < ApplicationController
   # This should always find a record, but if it doesn't we fall back to the
   # raw query.
   # Results an array of student_hashes.
-  def load_precomputed_student_hashes(time_now, authorized_student_ids)
+  def load_precomputed_student_hashes(authorized_student_ids)
     begin
-      # the precompute job runs at 8am UTC, and takes a few minutes to run,
-      # so keep a buffer that makes sure the import task and precompute job
-      # can finish before cutting over to the next day.
-      query_time = time_now - 9.hours
-      key = PrecomputedQueryDoc.precomputed_student_hashes_key(query_time, authorized_student_ids)
-      logger.warn "load_precomputed_student_hashes querying key: #{key}..."
-      doc = PrecomputedQueryDoc.find_by_key(key)
-      return parse_hashes_from_doc(doc) unless doc.nil?
+      doc = PrecomputedQueryDoc.latest_precomputed_student_hashes_for(authorized_student_ids)
+      return doc if doc.present?
     rescue ActiveRecord::StatementInvalid => err
-      logger.error "load_precomputed_student_hashes raised error #{err.inspect}"
+      Rollbar.error("load_precomputed_student_hashes raised error for #{current_educator.id}", err)
     end
 
     # Fallback to performing the full query if something went wrong reading the
-    # precomputed value
-    fallback_message = "falling back to full load_precomputed_student_hashes query for key: #{key}"
-    logger.error fallback_message
+    # precomputed value, or the precomputed response couldn't be found.
+    fallback_message = "falling back to full load_precomputed_student_hashes query for current_educator: #{current_educator.id}"
     Rollbar.error(fallback_message)
-    authorized_students = Student.find(authorized_student_ids)
+    authorized_students = Student.active.where(id: authorized_student_ids)
     authorized_students.map {|student| student_hash_for_slicing(student) }
-  end
-
-  def parse_hashes_from_doc(doc)
-    JSON.parse(doc.json).deep_symbolize_keys![:student_hashes]
   end
 
   # Serialize what are essentially constants stored in the database down
@@ -128,14 +120,6 @@ class SchoolsController < ApplicationController
     {
       service_types_index: ServiceSerializer.service_types_index
     }
-  end
-
-  def authorized_students_for_overview(school)
-    if current_educator.districtwide_access?
-      school.students.active
-    else
-      current_educator.students_for_school_overview
-    end
   end
 
   def dashboard_queries
