@@ -6,17 +6,9 @@ import PerDistrictContainer from '../components/PerDistrictContainer';
 import _ from 'lodash';
 import {SOMERVILLE, BEDFORD, NEW_BEDFORD} from '../helpers/PerDistrict';
 import {TESTING_ONLY_ALL_LANGUAGE_MAPS} from '../helpers/language';
+import {testProps as accessTestProps} from './AccessPanel.test';
 import LanguageStatusLink from './LanguageStatusLink';
 
-
-export function allCombinations() {
-  return _.flatMap([SOMERVILLE, NEW_BEDFORD, BEDFORD], districtKey => {
-    const mapForDistrict = TESTING_ONLY_ALL_LANGUAGE_MAPS[districtKey];
-    return Object.keys(mapForDistrict).concat([null]).map(limitedEnglishProficiency => {
-      return {districtKey, limitedEnglishProficiency};
-    });
-  });
-}
 
 export function testProps(props = {}) {
   return {
@@ -45,14 +37,57 @@ function testRender(props) {
   return el;
 }
 
+// Render across all districts and all possible values for language proficiency
+// This lets us see them all at once visually in the story, and to snapshot all the combinations
+export function renderAcrossAllCombinations() {
+  const valuesByDistrictKey = _.groupBy(allCombinations(), 'districtKey');
+  return (
+    <div style={{display: 'flex', flexDirection: 'row', width: 800, fontSize: 14, padding: 10}}>
+      {Object.keys(valuesByDistrictKey).map(districtKey => (
+        <div key={districtKey} style={{flex: 1}}>
+          <h4>{districtKey}</h4>
+          <div>
+            {valuesByDistrictKey[districtKey].map(({limitedEnglishProficiency}) => (
+              <div key={limitedEnglishProficiency} style={{padding: 10, margin: 10, marginLeft: 0, border: '1px solid #ccc'}}>
+                <div>{limitedEnglishProficiency === null ? '(null)' : `"${limitedEnglishProficiency}"`}</div>
+                <div style={{padding: 10}}>
+                  {testEl(testProps({limitedEnglishProficiency}), {districtKey})}
+                  {testEl(testProps({limitedEnglishProficiency, access: accessTestProps().access}), {districtKey})}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function allCombinations() {
+  return _.flatMap([SOMERVILLE, NEW_BEDFORD, BEDFORD], districtKey => {
+    const mapForDistrict = TESTING_ONLY_ALL_LANGUAGE_MAPS[districtKey];
+    return Object.keys(mapForDistrict).concat([null]).map(limitedEnglishProficiency => {
+      return {districtKey, limitedEnglishProficiency};
+    });
+  });
+}
+
+
 it('renders without crashing', () => {
   testRender(testProps());
 });
 
-describe('snapshots', () => {
+it('snapshots', () => {
   const props = testProps();
   const tree = renderer
     .create(testEl(props))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots across all combinations', () => {
+  const tree = renderer
+    .create(renderAcrossAllCombinations())
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -64,7 +64,7 @@ it('renders without crashing', () => {
   testRender(testProps());
 });
 
-describe('snapshots', () => {
+it('snapshots', () => {
   const props = testProps();
   const tree = renderer
     .create(testEl(props))
