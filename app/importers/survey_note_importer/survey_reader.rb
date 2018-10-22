@@ -22,6 +22,7 @@ class SurveyReader
     @config = options[:config]
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @strptime_format = options.fetch(:strptime_format, GOOGLE_FORM_CSV_TIMESTAMP_FORMAT)
+    @google_email_address_mapping = options.fetch(:google_email_address_mapping, PerDistrict.new.google_email_address_mapping)
     reset_counters!
   end
 
@@ -57,8 +58,9 @@ class SurveyReader
       return nil
     end
 
-    # educator?
-    educator_email = row[config[:educator_email]].try(:strip)
+    # educator? also support mapping from Google email to SIS/LDAP/Insights email
+    google_educator_email = row[config[:educator_email]].try(:strip)
+    educator_email = @google_email_address_mapping.fetch(google_educator_email, google_educator_email)
     educator_id = Educator.find_by_email(educator_email).try(:id) unless student_local_id.nil?
     if educator_id.nil?
       @invalid_rows_count += 1
