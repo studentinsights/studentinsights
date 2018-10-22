@@ -33,7 +33,7 @@ function storyRender(props, context) {
   );
 }
 
-storiesOf('profile/LanguageStatusLink', module) // eslint-disable-line no-undef
+storiesOf('profile-v3/LanguageStatusLink', module) // eslint-disable-line no-undef
   .add('all combinations', () => {
     // Add all districts and all possible values for language proficiency
     const valuesByDistrictKey = _.groupBy(allCombinations(), 'districtKey');
