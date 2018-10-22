@@ -41,6 +41,8 @@ RSpec.describe StudentsSpreadsheet do
            'sped_level_of_need',
            'plan_504',
            'limited_english_proficiency',
+           'ell_entry_date',
+           'ell_transition_date',
            'most_recent_mcas_math_growth',
            'most_recent_mcas_ela_growth',
            'most_recent_mcas_math_performance',
