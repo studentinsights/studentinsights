@@ -2,10 +2,6 @@ import _ from 'lodash';
 import {SOMERVILLE, NEW_BEDFORD, BEDFORD, DEMO} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 
-export const PRETTY_ENGLISH_LEARNER = 'English Learner';
-export const FORMER_ENGLISH_LEARNER_KEY = 'Former English Learner';
-export const PRETTY_FLUENT_ENGLISH = 'Fluent English';
-
 
 // These are the categories Insights uses in the UI, with functions to figure this out below.
 const STATUS = {
@@ -42,7 +38,8 @@ const BEDFORD_MAP = {
   'Not Capable': STATUS.ENGLISH_LEARNER,
   'Capable': STATUS.FLUENT_ENGLISH
 };
-export const ALL_LANGUAGE_MAPS_FOR_TEST = {
+// Exported only for testing
+export const TESTING_ONLY_ALL_LANGUAGE_MAPS = {
   [SOMERVILLE]: SOMERVILLE_MAP,
   [BEDFORD]: BEDFORD_MAP,
   [NEW_BEDFORD]: NEW_BEDFORD_MAP
@@ -96,16 +93,14 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
 
 // For use in Select dropdowns
 export function englishProficiencyOptions(districtKey) {
-  if (districtKey === SOMERVILLE) {
-    return [
-      { value: ALL, label: 'All' },
-      { value: 'Fluent', label: PRETTY_FLUENT_ENGLISH },
-      { value: 'Limited', label: PRETTY_ENGLISH_LEARNER },
-      { value: 'FLEP', label: 'FLEP' }
-    ];
-  }
+  const districtMap = TESTING_ONLY_ALL_LANGUAGE_MAPS[districtKey];
+  if (!districtMap) throw new Error(`unsupported districtKey: ${districtKey}`);
 
-  throw new Error(`unsupported districtKey: ${districtKey}`);
+  return [{ value: ALL, label: 'All' }].concat(Object.keys(districtMap).map(value => {
+    const status = districtMap[value];
+    const label = PRETTY_STATUS_TEXT[status];
+    return {value, label};
+  }));
 }
 
 
