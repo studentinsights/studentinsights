@@ -13,8 +13,12 @@ import AccessPanel from './AccessPanel';
 export default class LanguageStatusLink extends React.Component {
   render() {
     const {districtKey} = this.context;
-    const {studentFirstName, limitedEnglishProficiency, access, style} = this.props;
-    const el = <div style={style}>{prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {access})}</div>;
+    const {studentFirstName, limitedEnglishProficiency, ellEntryDate, ellTransitionDate, access, style} = this.props;
+    const prettyLanguageText = prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {
+      access,
+      ellTransitionDate
+    });
+    const el = <div style={style}>{prettyLanguageText}</div>;
 
     // Link to scores also if any access data (even if old)
     if (!hasAnyAccessData(access)) return el;
@@ -48,6 +52,8 @@ LanguageStatusLink.contextTypes = {
 LanguageStatusLink.propTypes = {
   studentFirstName: PropTypes.string.isRequired,
   limitedEnglishProficiency: PropTypes.string,
+  ellEntryDate: PropTypes.string,
+  ellTransitionDate: PropTypes.string,
   access: PropTypes.object,
   style: PropTypes.object
 };

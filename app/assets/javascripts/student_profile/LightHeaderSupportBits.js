@@ -242,6 +242,8 @@ export default class LightHeaderSupportBits extends React.Component {
       <LanguageStatusLink
         style={styles.subtitleItem}
         studentFirstName={student.first_name}
+        ellEntryDate={student.ell_entry_date}
+        ellTransitionDate={student.ell_transition_date}
         limitedEnglishProficiency={limitedEnglishProficiency}
         access={access} 
       />
@@ -269,6 +271,8 @@ LightHeaderSupportBits.propTypes = {
     sped_placement: PropTypes.string,
     plan_504: PropTypes.string,
     limited_english_proficiency: PropTypes.string,
+    ell_entry_date: PropTypes.string,
+    ell_transition_date: PropTypes.string,
     enrollment_status: PropTypes.string,
     home_language: PropTypes.string,
     date_of_birth: PropTypes.string,
