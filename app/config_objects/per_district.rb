@@ -336,7 +336,7 @@ class PerDistrict
   # as the in the district SIS or LDAP system (eg, a name change happens in one system
   # but not the other).  This allow mapping one way from Google email > Educator#email
   def google_email_address_mapping
-    JSON.parse(ENV['GOOGLE_EMAIL_ADDRESS_MAPPING'] || '{}')
+    JSON.parse(ENV.fetch('GOOGLE_EMAIL_ADDRESS_MAPPING_JSON', '{}'))
   end
 
   private
