@@ -59,7 +59,7 @@ describe('#prettyEnglishProficiencyText', () => {
   });
 
   it('shows FLEP transition date if possible in Somerville', () => {
-    expect(prettyEnglishProficiencyText('somerville', 'FLEP', { ellTransitionDate: '2017-06-28' })).toEqual('Former English Learner, since 6/2017');
+    expect(prettyEnglishProficiencyText('somerville', 'FLEP', { ellTransitionDate: '2017-06-28' })).toEqual('Former English Learner, 2017');
     expect(prettyEnglishProficiencyText('somerville', 'FLEP', { ellTransitionDate: null })).toEqual('Former English Learner');
     expect(prettyEnglishProficiencyText('somerville', 'FLEP')).toEqual('Former English Learner');
   });

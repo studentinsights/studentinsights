@@ -96,9 +96,9 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
   // If FLEP, add transition date if we can
   if (status === STATUS.FORMER_ENGLISH_LEARNER) {
     const transitionDateText = (options.ellTransitionDate)
-      ? toMomentFromRailsDate(options.ellTransitionDate).format('M/YYYY')
+      ? toMomentFromRailsDate(options.ellTransitionDate).format('YYYY')
       : null;
-    return (transitionDateText === null) ? statusText: `${statusText}, since ${transitionDateText}`;
+    return (transitionDateText === null) ? statusText: `${statusText}, ${transitionDateText}`;
   }
   
   // Unknown
