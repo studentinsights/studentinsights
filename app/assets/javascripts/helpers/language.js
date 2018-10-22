@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {SOMERVILLE, NEW_BEDFORD, BEDFORD, DEMO} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 
@@ -92,9 +93,12 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
     return (levelNumber === null) ? statusText : `${statusText}, level ${levelNumber}`;
   }
 
-  // If FLEP, add designation date also (TODO)
+  // If FLEP, add transition date if we can
   if (status === STATUS.FORMER_ENGLISH_LEARNER) {
-    return statusText;
+    const transitionDateText = (options.ellTransitionDate)
+      ? toMomentFromRailsDate(options.ellTransitionDate).format('YYYY')
+      : null;
+    return (transitionDateText === null) ? statusText: `${statusText}, ${transitionDateText}`;
   }
   
   // Unknown

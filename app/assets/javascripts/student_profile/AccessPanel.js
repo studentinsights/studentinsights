@@ -8,9 +8,16 @@ import {prettyEnglishProficiencyText, roundedWidaLevel} from '../helpers/languag
 export default class AccessPanel extends React.Component {
   render() {
     const {districtKey} = this.context;
-    const {showTitle, studentFirstName, limitedEnglishProficiency, access, style} = this.props;
+    const {
+      showTitle,
+      studentFirstName,
+      limitedEnglishProficiency,
+      ellTransitionDate,
+      access,
+      style
+    } = this.props;
 
-    const proficiencyText = prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {access});
+    const proficiencyText = prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {access, ellTransitionDate});
     return (
       <div style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>ACCESS</h4>}
@@ -136,6 +143,7 @@ const accessDataPointPropType = PropTypes.shape({
 AccessPanel.propTypes = {
   studentFirstName: PropTypes.string.isRequired,
   limitedEnglishProficiency: PropTypes.string,
+  ellTransitionDate: PropTypes.string,
   access: PropTypes.shape({
     composite: accessDataPointPropType,
     comprehension: accessDataPointPropType,

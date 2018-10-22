@@ -47,14 +47,22 @@ it('#hasAnyAccessData', () => {
 });
 
 // This is more exhaustively tested in UI snapshot tests
-it('#prettyEnglishProficiencyText for Somerville', () => {
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(1.2) })).toEqual('English Learner, level 1');
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(2.1) })).toEqual('English Learner, level 2');
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(3.5) })).toEqual('English Learner, level 3');
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(4.7) })).toEqual('English Learner, level 4');
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(5.4) })).toEqual('English Learner, level 5');
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(6) })).toEqual('English Learner, level 6');
-  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: nullAccess() })).toEqual('English Learner');
+describe('#prettyEnglishProficiencyText', () => {
+  it('works for Limited in Somerville', () => {
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(1.2) })).toEqual('English Learner, level 1');
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(2.1) })).toEqual('English Learner, level 2');
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(3.5) })).toEqual('English Learner, level 3');
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(4.7) })).toEqual('English Learner, level 4');
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(5.4) })).toEqual('English Learner, level 5');
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(6) })).toEqual('English Learner, level 6');
+    expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: nullAccess() })).toEqual('English Learner');
+  });
+
+  it('shows FLEP transition date if possible in Somerville', () => {
+    expect(prettyEnglishProficiencyText('somerville', 'FLEP', { ellTransitionDate: '2017-06-28' })).toEqual('Former English Learner, 2017');
+    expect(prettyEnglishProficiencyText('somerville', 'FLEP', { ellTransitionDate: null })).toEqual('Former English Learner');
+    expect(prettyEnglishProficiencyText('somerville', 'FLEP')).toEqual('Former English Learner');
+  });
 });
 
 

@@ -315,7 +315,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                   }
                 }
               >
-                Former English Learner
+                Former English Learner, 2016
               </div>
               <div
                 style={
@@ -1389,7 +1389,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 }
               >
-                Former English Learner
+                Former English Learner, 2016
               </div>
               <div
                 style={
@@ -2463,7 +2463,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                   }
                 }
               >
-                Former English Learner
+                Former English Learner, 2016
               </div>
               <div
                 style={

@@ -41,7 +41,7 @@ function testRender(props) {
 export function renderAcrossAllCombinations() {
   const valuesByDistrictKey = _.groupBy(allCombinationsForTest(), 'districtKey');
   return (
-    <div style={{display: 'flex', flexDirection: 'row', width: 800, fontSize: 14, padding: 10}}>
+    <div style={{display: 'flex', flexDirection: 'row', width: 900, fontSize: 14, padding: 10}}>
       {Object.keys(valuesByDistrictKey).map(districtKey => (
         <div key={districtKey} style={{flex: 1}}>
           <h4>{districtKey}</h4>
@@ -51,7 +51,15 @@ export function renderAcrossAllCombinations() {
                 <div>{limitedEnglishProficiency === null ? '(null)' : `"${limitedEnglishProficiency}"`}</div>
                 <div style={{padding: 10}}>
                   {testEl(testProps({limitedEnglishProficiency}), {districtKey})}
-                  {testEl(testProps({limitedEnglishProficiency, access: accessTestProps().access}), {districtKey})}
+                  {testEl(testProps({
+                    limitedEnglishProficiency,
+                    access: accessTestProps().access
+                  }), {districtKey})}
+                  {testEl(testProps({
+                    limitedEnglishProficiency,
+                    access: accessTestProps().access,
+                    ellTransitionDate: '2018-06-28'
+                  }), {districtKey})}
                 </div>
               </div>
             ))}
