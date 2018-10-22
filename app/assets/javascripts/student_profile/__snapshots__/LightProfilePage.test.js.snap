@@ -315,7 +315,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                   }
                 }
               >
-                FLEP
+                Former English Learner
               </div>
               <div
                 style={
@@ -1389,7 +1389,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 }
               >
-                FLEP
+                Former English Learner
               </div>
               <div
                 style={
@@ -2463,7 +2463,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                   }
                 }
               >
-                FLEP
+                Former English Learner
               </div>
               <div
                 style={
@@ -3501,7 +3501,7 @@ exports[`snapshots works for olaf math 1`] = `
                       }
                     }
                   >
-                    Expanding English, level 4
+                    English Learner, level 4
                   </div>
                 </a>
               </div>
@@ -4522,7 +4522,7 @@ exports[`snapshots works for olaf notes 1`] = `
                       }
                     }
                   >
-                    Expanding English, level 4
+                    English Learner, level 4
                   </div>
                 </a>
               </div>
@@ -5543,7 +5543,7 @@ exports[`snapshots works for olaf reading 1`] = `
                       }
                     }
                   >
-                    Expanding English, level 4
+                    English Learner, level 4
                   </div>
                 </a>
               </div>

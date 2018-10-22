@@ -4,8 +4,7 @@ import renderer from 'react-test-renderer';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import _ from 'lodash';
-import {SOMERVILLE, BEDFORD, NEW_BEDFORD} from '../helpers/PerDistrict';
-import {TESTING_ONLY_ALL_LANGUAGE_MAPS} from '../helpers/language';
+import {allCombinationsForTest} from '../helpers/language';
 import {testProps as accessTestProps} from './AccessPanel.test';
 import LanguageStatusLink from './LanguageStatusLink';
 
@@ -40,7 +39,7 @@ function testRender(props) {
 // Render across all districts and all possible values for language proficiency
 // This lets us see them all at once visually in the story, and to snapshot all the combinations
 export function renderAcrossAllCombinations() {
-  const valuesByDistrictKey = _.groupBy(allCombinations(), 'districtKey');
+  const valuesByDistrictKey = _.groupBy(allCombinationsForTest(), 'districtKey');
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: 800, fontSize: 14, padding: 10}}>
       {Object.keys(valuesByDistrictKey).map(districtKey => (
@@ -61,15 +60,6 @@ export function renderAcrossAllCombinations() {
       ))}
     </div>
   );
-}
-
-function allCombinations() {
-  return _.flatMap([SOMERVILLE, NEW_BEDFORD, BEDFORD], districtKey => {
-    const mapForDistrict = TESTING_ONLY_ALL_LANGUAGE_MAPS[districtKey];
-    return Object.keys(mapForDistrict).concat([null]).map(limitedEnglishProficiency => {
-      return {districtKey, limitedEnglishProficiency};
-    });
-  });
 }
 
 

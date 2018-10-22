@@ -33,17 +33,27 @@ const NEW_BEDFORD_MAP = {
   'Native': STATUS.FLUENT_ENGLISH
 };
 
-const BEDFORD_MAP = {
+const BEDFORD_MAP = { // Bedford doesn't appear to track FLEP the same way
   'Limited English': STATUS.ENGLISH_LEARNER,
   'Not Capable': STATUS.ENGLISH_LEARNER,
   'Capable': STATUS.FLUENT_ENGLISH
 };
-// Exported only for testing
-export const TESTING_ONLY_ALL_LANGUAGE_MAPS = {
+
+const LANGUAGE_MAPS_BY_DISTRICT_KEY = {
   [SOMERVILLE]: SOMERVILLE_MAP,
   [BEDFORD]: BEDFORD_MAP,
   [NEW_BEDFORD]: NEW_BEDFORD_MAP
 };
+
+// Exported only for testing
+export function allCombinationsForTest() {
+  return _.flatMap([SOMERVILLE, NEW_BEDFORD, BEDFORD], districtKey => {
+    const mapForDistrict = LANGUAGE_MAPS_BY_DISTRICT_KEY[districtKey];
+    return Object.keys(mapForDistrict).concat([null]).map(limitedEnglishProficiency => {
+      return {districtKey, limitedEnglishProficiency};
+    });
+  });
+}
 
 
 // Bedford doesn't appear to track this the same way
@@ -93,9 +103,9 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
 
 // For use in Select dropdowns
 export function englishProficiencyOptions(districtKey) {
-  const districtMap = TESTING_ONLY_ALL_LANGUAGE_MAPS[districtKey];
-  if (!districtMap) throw new Error(`unsupported districtKey: ${districtKey}`);
-
+  if (districtKey !== SOMERVILLE) throw new Error(`unsupported districtKey: ${districtKey}`);
+  
+  const districtMap = LANGUAGE_MAPS_BY_DISTRICT_KEY[districtKey];
   return [{ value: ALL, label: 'All' }].concat(Object.keys(districtMap).map(value => {
     const status = districtMap[value];
     const label = PRETTY_STATUS_TEXT[status];
@@ -120,7 +130,7 @@ export function accessLevelNumber(access, options = {}) {
 
 // See WIDA interpretive guide for info about rounding
 // https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf
-export function roundedWidaLevel(performanceLevel, options) {
+export function roundedWidaLevel(performanceLevel, options = {}) {
   const performanceLevelFloat = parseFloat(performanceLevel);
 
   return (options.shouldRenderFractions)
