@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_21_171958) do
+ActiveRecord::Schema.define(version: 2018_10_22_191915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -496,6 +496,8 @@ ActiveRecord::Schema.define(version: 2018_10_21_171958) do
     t.text "counselor"
     t.text "sped_liaison"
     t.boolean "missing_from_last_export", default: false, null: false
+    t.date "ell_entry_date"
+    t.date "ell_transition_date"
     t.index ["homeroom_id"], name: "index_students_on_homeroom_id"
     t.index ["local_id"], name: "index_students_on_local_id", unique: true
     t.index ["school_id"], name: "index_students_on_school_id"
