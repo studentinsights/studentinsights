@@ -43,7 +43,7 @@ describe('#prettyProgramOrPlacementText', () => {
     })).toEqual(null);
 
     expect(prettyProgramOrPlacementText({
-      program_assigned: 'Wavered SEIP',
+      program_assigned: 'Waivered SEIP',
       sped_placement: null
     })).toEqual(null);
 
