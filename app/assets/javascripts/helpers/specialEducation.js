@@ -84,7 +84,14 @@ function isNullLevelOfNeed(levelOfNeed) {
 }
 
 function isNullProgram(program) {
-  if (['Reg Ed', null].indexOf(program) !== -1) return true; // Somerville
+  // Somerville only.  In Someville, educators at SHS asked to remove references to SEIP and Wavered SEIP
+  // and to only use the formal LEP designation.  The thought is that this would come off as jargony and
+  // confusing to non-ELL teachers, and if it were included in the description of special education, this would
+  // be misleading since it may inaccurately suggest these ELL students are involved in special education,
+  // and that the program status in the SIS won't be accurate for dually-diagnosed students, who are only coded
+  // as SPED for the program.  So these values are excluded here.
+  if (['Reg Ed', 'SEIP', 'Wavered SEIP', null].indexOf(program) !== -1) return true;
+
   if (['Not Enrolled', '(NULL)'].indexOf(program) !== -1) return true; // Bedford
   return false;
 }

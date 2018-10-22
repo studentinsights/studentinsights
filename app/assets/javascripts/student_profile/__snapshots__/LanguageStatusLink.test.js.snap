@@ -2516,3 +2516,909 @@ exports[`snapshots 1`] = `
   </table>
 </div>
 `;
+
+exports[`snapshots 2`] = `
+<div
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  English Learner
+</div>
+`;
+
+exports[`snapshots across all combinations 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "row",
+      "fontSize": 14,
+      "padding": 10,
+      "width": 800,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <h4>
+      somerville
+    </h4>
+    <div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Limited"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                English Learner, level 4
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "FLEP"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            Former English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Former English Learner
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Fluent"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            Fluent English
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Fluent English
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          (null)
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            No English Learner data
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                No English Learner data
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <h4>
+      new_bedford
+    </h4>
+    <div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Limited English"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                English Learner, level 4
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Non-English"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                English Learner, level 4
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Redesignated"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            Former English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Former English Learner
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Fluent"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            Fluent English
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Fluent English
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Native"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            Fluent English
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Fluent English
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          (null)
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            No English Learner data
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                No English Learner data
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <h4>
+      bedford
+    </h4>
+    <div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Limited English"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                English Learner, level 4
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Not Capable"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            English Learner
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                English Learner, level 4
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          "Capable"
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            Fluent English
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Fluent English
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "margin": 10,
+            "marginLeft": 0,
+            "padding": 10,
+          }
+        }
+      >
+        <div>
+          (null)
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 14,
+              }
+            }
+          >
+            No English Learner data
+          </div>
+          <div
+            style={
+              Object {
+                "display": "block",
+                "marginLeft": 0,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 14,
+                  "outline": "none",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                No English Learner data
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

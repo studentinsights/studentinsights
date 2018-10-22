@@ -149,7 +149,7 @@ describe('inactive overlay', () => {
     const defaultProps = testPropsForOlafWhite();
     const el = testRender({
       ...defaultProps,
-      districtKey: 'new-bedford',
+      districtKey: 'new_bedford',
       student: {
         ...defaultProps.student,
         missing_from_last_export: true

@@ -1,5 +1,8 @@
 import {
-  prettyEnglishProficiencyText
+  hasAnyAccessData,
+  prettyEnglishProficiencyText,
+  roundedWidaLevel,
+  englishProficiencyOptions
 } from './language';
 
 
@@ -38,12 +41,43 @@ function accessWithComposite(performanceLevel) {
   };
 }
 
-it('#prettyEnglishProficiencyText', () => {
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(1.2))).toEqual('Entering English, level 1');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(2.1))).toEqual('Emerging English, level 2');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(3.5))).toEqual('Developing English, level 3');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(4.7))).toEqual('Expanding English, level 4');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(5.4))).toEqual('Bridging English, level 5');
-  expect(prettyEnglishProficiencyText('Limited', accessWithComposite(6))).toEqual('Reaching English, level 6');
-  expect(prettyEnglishProficiencyText('Limited', nullAccess())).toEqual('Limited English');
+it('#hasAnyAccessData', () => {
+  expect(hasAnyAccessData(nullAccess())).toEqual(false);
+  expect(hasAnyAccessData(accessWithComposite(3.2))).toEqual(true);
+});
+
+// This is more exhaustively tested in UI snapshot tests
+it('#prettyEnglishProficiencyText for Somerville', () => {
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(1.2) })).toEqual('English Learner, level 1');
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(2.1) })).toEqual('English Learner, level 2');
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(3.5) })).toEqual('English Learner, level 3');
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(4.7) })).toEqual('English Learner, level 4');
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(5.4) })).toEqual('English Learner, level 5');
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: accessWithComposite(6) })).toEqual('English Learner, level 6');
+  expect(prettyEnglishProficiencyText('somerville', 'Limited', { access: nullAccess() })).toEqual('English Learner');
+});
+
+
+describe('#roundedWidaLevel', () => {
+  it('works', () => {
+    expect(roundedWidaLevel(4)).toEqual(4);
+    expect(roundedWidaLevel(4.1)).toEqual(4);
+    expect(roundedWidaLevel(4.7)).toEqual(4);
+  });
+
+  it('allows fractional renderings for specific tests', () => {
+    expect(roundedWidaLevel(3.1, {shouldRenderFractions: true})).toEqual(3.0);
+    expect(roundedWidaLevel(3.7, {shouldRenderFractions: true})).toEqual(3.5);
+  });
+});
+
+describe('#englishProficiencyOptions', () => {
+  it('works for Somerville', () => {
+    expect(englishProficiencyOptions('somerville')).toEqual([
+      {"label": "All", "value": "ALL"},
+      {"label": "English Learner", "value": "Limited"},
+      {"label": "Former English Learner", "value": "FLEP"},
+      {"label": "Fluent English", "value": "Fluent"}
+    ]);
+  });
 });
