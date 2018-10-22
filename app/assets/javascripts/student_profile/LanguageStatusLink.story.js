@@ -1,34 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
-import PerDistrictContainer from '../components/PerDistrictContainer';
-import {withDefaultNowContext} from '../testing/NowContainer';
-import LanguageStatusLink from './LanguageStatusLink';
-import {allCombinations} from './LanguageStatusLink.test';
+import {allCombinations, testProps, testEl} from './LanguageStatusLink.test';
 import {testProps as accessTestProps} from './AccessPanel.test';
 
 
-function storyProps(props = {}) {
-  return {
-    studentFirstName: 'Mari',
-    limitedEnglishProficiency: 'Limited',
-    access: null,
-    style: {
-      fontSize: 14
-    },
-    ...props
-  };
-}
-
 function storyRender(props, context) {
-  const {districtKey} = context;
   return (
     <div style={{display: 'flex', flexDirection: 'column', margin: 20}}>
-      {withDefaultNowContext(
-        <PerDistrictContainer districtKey={districtKey}>
-          <LanguageStatusLink {...props} />
-        </PerDistrictContainer>
-      )}
+      {testEl(props, context)}
     </div>
   );
 }
@@ -46,8 +26,8 @@ storiesOf('profile-v3/LanguageStatusLink', module) // eslint-disable-line no-und
               {valuesByDistrictKey[districtKey].map(({limitedEnglishProficiency}) => (
                 <div key={limitedEnglishProficiency}>
                   <div>{limitedEnglishProficiency === null ? '(null)' : limitedEnglishProficiency}</div>
-                  {storyRender(storyProps({limitedEnglishProficiency}), {districtKey})}
-                  {storyRender(storyProps({limitedEnglishProficiency, access: accessTestProps().access}), {districtKey})}
+                  {storyRender(testProps({limitedEnglishProficiency}), {districtKey})}
+                  {storyRender(testProps({limitedEnglishProficiency, access: accessTestProps().access}), {districtKey})}
                 </div>
               ))}
             </div>

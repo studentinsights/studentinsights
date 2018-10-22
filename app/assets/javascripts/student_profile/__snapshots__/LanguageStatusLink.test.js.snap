@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  style={
+    Object {
+      "fontSize": 14,
+    }
+  }
+>
+  English Learner
+</div>
+`;
