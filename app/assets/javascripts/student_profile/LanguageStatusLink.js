@@ -13,7 +13,7 @@ import AccessPanel from './AccessPanel';
 export default class LanguageStatusLink extends React.Component {
   render() {
     const {districtKey} = this.context;
-    const {studentFirstName, limitedEnglishProficiency, ellEntryDate, ellTransitionDate, access, style} = this.props;
+    const {studentFirstName, limitedEnglishProficiency, ellTransitionDate, access, style} = this.props;
     const prettyLanguageText = prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {
       access,
       ellTransitionDate
@@ -38,6 +38,7 @@ export default class LanguageStatusLink extends React.Component {
         content={
           <AccessPanel
             studentFirstName={studentFirstName}
+            ellTransitionDate={ellTransitionDate}
             limitedEnglishProficiency={limitedEnglishProficiency}
             access={access}
           />
@@ -52,7 +53,6 @@ LanguageStatusLink.contextTypes = {
 LanguageStatusLink.propTypes = {
   studentFirstName: PropTypes.string.isRequired,
   limitedEnglishProficiency: PropTypes.string,
-  ellEntryDate: PropTypes.string,
   ellTransitionDate: PropTypes.string,
   access: PropTypes.object,
   style: PropTypes.object
