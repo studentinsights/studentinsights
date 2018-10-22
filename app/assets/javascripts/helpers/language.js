@@ -109,9 +109,21 @@ export function hasAnyAccessData(access) {
   return _.some(Object.keys(access), key => access[key] !== null && access[key] !== undefined);
 }
 
-export function accessLevelNumber(access) {
+
+// This includes rounding
+export function accessLevelNumber(access, options = {}) {
   if (!hasAnyAccessData(access)) return null;
   const compositeDataPoint = access.composite;
   if (!compositeDataPoint || !compositeDataPoint.performance_level) return null;
-  return parseFloat(compositeDataPoint.performance_level);
+  return roundedWidaLevel(compositeDataPoint.performance_level, options);
+}
+
+// See WIDA interpretive guide for info about rounding
+// https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf
+export function roundedWidaLevel(performanceLevel, options) {
+  const performanceLevelFloat = parseFloat(performanceLevel);
+
+  return (options.shouldRenderFractions)
+    ? Math.floor(performanceLevelFloat*2)/2
+    : Math.floor(performanceLevelFloat);
 }

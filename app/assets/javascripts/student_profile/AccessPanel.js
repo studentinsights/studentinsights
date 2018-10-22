@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import {prettyEnglishProficiencyText} from '../helpers/language';
+import {prettyEnglishProficiencyText, roundedWidaLevel} from '../helpers/language';
 
 
 // Renders latest ACCESS score with subtests
@@ -89,11 +89,8 @@ export default class AccessPanel extends React.Component {
       : '-';
     const performanceLevel = dataPoint && dataPoint.performance_level;
 
-    // See WIDA interpretive guide
-    // https://wida.wisc.edu/sites/default/files/resource/WIDA-Screener-Interpretive-Guide.pdf
-    const roundedScore = (shouldRenderFractions)
-      ? Math.floor(performanceLevel*2)/2
-      : Math.floor(performanceLevel);
+    // Rounding is meaningful educationally; see `roundedWidaLevel` for more
+    const roundedScore = roundedWidaLevel(performanceLevel, {shouldRenderFractions});
     const scores = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6];
     const cellWidth = 35;
     const cellHeight = 30;
