@@ -1,9 +1,16 @@
-export function testSchool() {
-  return {
-    local_id: 'HEA',
-    name: 'Arthur D. Healey'
-  };
-}
+export const testSchool = {
+  local_id: 'HEA',
+  name: 'Arthur D. Healey'
+};
+
+export const testHighSchool = {
+  id: 9,
+  local_id: "SHS",
+  name: "Somerville High",
+  school_type: "HS",
+  slug: "shs"
+};
+
 
 // Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {

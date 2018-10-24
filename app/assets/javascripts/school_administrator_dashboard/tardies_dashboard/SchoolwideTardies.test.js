@@ -8,7 +8,7 @@ import SchoolwideTardies from './SchoolwideTardies';
 it('renders the school tardies dashboard', () => {
   const tardies = shallow(
     <SchoolwideTardies
-      school={testSchool()}
+      school={testSchool}
       dashboardStudents={createStudents(moment.utc())} />
   );
   expect(tardies.find('SchoolTardiesDashboard').length).toEqual(1);
