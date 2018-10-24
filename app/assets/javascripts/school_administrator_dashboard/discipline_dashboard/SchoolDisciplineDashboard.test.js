@@ -48,7 +48,7 @@ it('displays house for SHS', () => {
   expect(dash.find('SelectHouse').length > 0).toEqual(true);
 });
 
-it('does not display house for Healy', () => {
+it('does not display house for Healey', () => {
   const context = testContext({districtKey: 'somerville'});
   const props = {school: testSchool};
   const el = testEl(props);
@@ -64,7 +64,7 @@ it('displays counselor for SHS', () => {
   expect(dash.find('SelectCounselor').length > 0).toEqual(true);
 });
 
-it('does not display counselor for Healy', () => {
+it('does not display counselor for Healey', () => {
   const context = testContext({districtKey: 'somerville'});
   const props = {school: testSchool};
   const el = testEl(props);
@@ -80,7 +80,7 @@ it('displays grade for SHS', () => {
   expect(dash.find('SelectGrade').length > 0).toEqual(true);
 });
 
-it('displays grade for Healy', () => {
+it('displays grade for Healey', () => {
   const context = testContext({districtKey: 'somerville'});
   const props = {school: testSchool};
   const el = testEl(props);
