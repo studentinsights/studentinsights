@@ -7,6 +7,7 @@
 class RecordSyncer
   def initialize(options = {})
     @log = options.fetch(:log)
+    @alert_threshold = options.fetch(:alert_threshold, 0.05)
 
     @passed_nil_record_count = 0
     @invalid_rows_count = 0
@@ -103,6 +104,13 @@ class RecordSyncer
       log("  processed #{index} rows.") if index > 0 && index % 100 == 0
     end
 
+    log('  checking if stats seem outside expected bounds...')
+    alerts = compute_alerts
+    if alerts.size > 0
+      log("  notifying about #{alerts.size} alerts.")
+      notify!(alerts)
+    end
+
     log("process_unmarked_records done.")
     records_to_process.size
   end
@@ -129,6 +137,26 @@ class RecordSyncer
   end
 
   private
+  # Alert if any of these counts are more than x% of total records
+  def compute_alerts
+    computed_stats = stats
+    stat_keys = [
+      :passed_nil_record_count,
+      :invalid_rows_count,
+      :updated_rows_count,
+      :created_rows_count,
+      :destroyed_records_count
+    ]
+    total_records_count = stat_keys.map {|key| computed_stats[key] }.sum
+    stat_keys.select do |key|
+      (computed_stats[key]/total_records_count*1.0) > @alert_threshold
+    end
+  end
+
+  def notify!(alerts)
+    Rollbar.error("RecordSyncer#notify!", nil, alerts: alerts)
+  end
+
   # Mark which Insights records match a row in the CSV.
   # We'll delete the ones that don't (with the scope of the import) afterward.
   def mark_insights_record(insights_record)
