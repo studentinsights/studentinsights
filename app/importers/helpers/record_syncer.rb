@@ -107,6 +107,13 @@ class RecordSyncer
     records_to_process.size
   end
 
+  def process_marked_records!(&block)
+    log('process_marked_records! starting...')
+    block.call(@marked_ids)
+    log('process_marked_records! done.')
+    @marked_ids.size
+  end
+
   # For debugging and testing - total counts for instance lifetime
   def stats
     {

@@ -131,6 +131,26 @@ RSpec.describe StudentRow do
         expect(student.sped_liaison).to eq nil
       end
     end
+
+    it 'updates missing_from_last_export to false' do
+      expect(StudentRow.build({ full_name: 'Hoag, George' }).missing_from_last_export).to eq false
+    end
+  end
+
+  describe '#import_metadata_attributes' do
+    it 'sets missing_from_last_export when district does not always export all rows' do
+      mock_per_district = PerDistrict.new
+      allow(mock_per_district).to receive(:does_students_export_include_rows_for_inactive_students?).and_return(false)
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      expect(StudentRow.new({ full_name: 'Hoag, George' }).send(:import_metadata_attributes)).to eq(missing_from_last_export: false)
+    end
+
+    it 'does not set missing_from_last_export if district always exports all rows' do
+      mock_per_district = PerDistrict.new
+      allow(mock_per_district).to receive(:does_students_export_include_rows_for_inactive_students?).and_return(true)
+      allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      expect(StudentRow.new({ full_name: 'Hoag, George' }).send(:import_metadata_attributes)).to eq({})
+    end
   end
 
 end
