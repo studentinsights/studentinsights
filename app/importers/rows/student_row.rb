@@ -52,24 +52,26 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
       :sped_level_of_need,
       :plan_504,
       :student_address,
-      :free_reduced_lunch,
       :race,
       :hispanic_latino,
       :gender,
       :primary_phone,
       :primary_email,
     ].map do |key|
-      value = row[key]
-      if value.nil? # set nil if column not in import
-        attrs[key] = nil
-      elsif value == '' # set nil if column is in import, but there's an empty string value
-        attrs[key] = nil
-      else
-        attrs[key] = value
-      end
+      attrs[key] = map_empty_to_nil(row[key])
     end
 
     attrs
+  end
+
+  def map_empty_to_nil(value)
+    if value.nil? # set nil if column not in import
+      nil
+    elsif value == '' # set nil if column is in import, but there's an empty string value
+      nil
+    else
+      value
+    end
   end
 
   def school_attributes
@@ -99,7 +101,8 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
     # date parsing
     included_attributes = {
       registration_date: per_district.parse_date_during_import(row[:registration_date]),
-      date_of_birth: per_district.parse_date_during_import(row[:date_of_birth])
+      date_of_birth: per_district.parse_date_during_import(row[:date_of_birth]),
+      free_reduced_lunch: per_district.map_free_reduced_lunch_value_as_workaround(map_empty_to_nil(row[:free_reduced_lunch]))
     }
 
     if per_district.import_student_house?
