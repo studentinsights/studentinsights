@@ -21,11 +21,24 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
 
   def attributes
     demographic_attributes
+      .merge(import_metadata_attributes)
       .merge(name_attributes)
       .merge(school_attributes)
       .merge(per_district_attributes)
       .merge({ grade: grade })
       .merge({ homeroom_id: homeroom_id })
+  end
+
+  # If the district does not always send all student records in the export,
+  # update any rows we read in to indicate that they were present in this
+  # export.
+  # See also the way `RecordSyncer#process_unmarked_records` is used in `StudentsImporter`.
+  def import_metadata_attributes
+    if PerDistrict.new.does_students_export_include_rows_for_inactive_students?
+      {}
+    else
+      { missing_from_last_export: false }
+    end
   end
 
   def name_attributes
