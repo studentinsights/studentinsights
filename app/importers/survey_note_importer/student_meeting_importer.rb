@@ -18,7 +18,7 @@ class StudentMeetingImporter
   READER_OPTIONS = {
     source_key: 'student_meeting',
     config: {
-      student_local_id: 'Student ID Number',
+      student_local_id: 'Student Local ID Number',
       educator_email: 'Email Address',
       timestamp: 'Timestamp',
       strptime_format: SurveyReader::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT,
