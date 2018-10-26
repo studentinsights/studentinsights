@@ -339,6 +339,15 @@ class PerDistrict
     JSON.parse(ENV.fetch('GOOGLE_EMAIL_ADDRESS_MAPPING_JSON', '{}'))
   end
 
+  # For Bedford, we should fix this upstream with them
+  def map_free_reduced_lunch_value_as_workaround(free_reduced_lunch_value)
+    if @district_key == BEDFORD && free_reduced_lunch_value == 'Not Eligibile'
+      'Not Eligible'
+    else
+      free_reduced_lunch_value
+    end
+  end
+
   private
   def yaml
     config_map = {
