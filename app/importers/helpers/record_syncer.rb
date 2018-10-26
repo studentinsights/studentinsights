@@ -7,7 +7,6 @@
 class RecordSyncer
   def initialize(options = {})
     @log = options.fetch(:log)
-    @alert_threshold = options.fetch(:alert_threshold, 0.05)
 
     @passed_nil_record_count = 0
     @invalid_rows_count = 0
@@ -105,7 +104,7 @@ class RecordSyncer
     end
 
     log('  checking if stats seem outside expected bounds...')
-    alerts = compute_alerts
+    alerts = determine_alerts_after_processing
     if alerts.size > 0
       log("  notifying about #{alerts.size} alerts.")
       notify!(alerts)
@@ -137,8 +136,11 @@ class RecordSyncer
   end
 
   private
-  # Alert if any of these counts are more than x% of total records
-  def compute_alerts
+  # Alert if any of these counts are strange
+  def determine_alerts_after_processing
+    alerts = []
+
+    # Find the total records processed
     computed_stats = stats
     stat_keys = [
       :passed_nil_record_count,
@@ -148,9 +150,24 @@ class RecordSyncer
       :destroyed_records_count
     ]
     total_records_count = stat_keys.map {|key| computed_stats[key] }.sum
-    stat_keys.select do |key|
-      (computed_stats[key]/total_records_count*1.0) > @alert_threshold
+
+    # Check each stat
+    stat_keys.each do |key|
+      count = computed_stats[key]
+      next if count == 0
+      
+      percentage = (count.to_f / total_records_count)
+      next unless meets_alert_threshold?(key, count, percentage)
+
+      alerts << { key: key, count: count, percentage: percentage }
     end
+
+    alerts
+  end
+
+  # For tuning alerts
+  def meets_alert_threshold?(key, count, percentage)
+    count > 10 && percentage > 0.05
   end
 
   def notify!(alerts)

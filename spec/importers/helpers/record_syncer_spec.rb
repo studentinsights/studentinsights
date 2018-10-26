@@ -195,6 +195,7 @@ RSpec.describe RecordSyncer do
         RecordSyncer:   @marked_ids.size = 2 from this import
         RecordSyncer:   unmarked_ids: [#{c.id}]
         RecordSyncer:   records_to_process.size: 1 within scope
+        RecordSyncer:   checking if stats seem outside expected bounds...
         RecordSyncer: process_unmarked_records done.
         RecordSyncer: delete_unmarked_records done.
       HEREDOC
