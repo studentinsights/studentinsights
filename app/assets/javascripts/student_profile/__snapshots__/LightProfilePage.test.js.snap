@@ -128,9 +128,7 @@ exports[`snapshots works for aladdin grades 1`] = `
           >
             Aladdin Mouse
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/4"
+          <span
             style={
               Object {
                 "display": "inline-block",
@@ -139,7 +137,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           >
             Homeroom SHS ALL
-          </a>
+          </span>
           <div
             style={
               Object {
@@ -1202,9 +1200,7 @@ exports[`snapshots works for aladdin notes 1`] = `
           >
             Aladdin Mouse
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/4"
+          <span
             style={
               Object {
                 "display": "inline-block",
@@ -1213,7 +1209,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             }
           >
             Homeroom SHS ALL
-          </a>
+          </span>
           <div
             style={
               Object {
@@ -2276,9 +2272,7 @@ exports[`snapshots works for aladdin testing 1`] = `
           >
             Aladdin Mouse
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/4"
+          <span
             style={
               Object {
                 "display": "inline-block",
@@ -2287,7 +2281,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           >
             Homeroom SHS ALL
-          </a>
+          </span>
           <div
             style={
               Object {
