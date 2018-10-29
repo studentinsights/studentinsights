@@ -37,7 +37,7 @@ class RecordSyncer
     raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
 
     # Always count this
-    @total_sync_calls_count += 1 
+    @total_sync_calls_count += 1
 
     # Passed nil, something failed upstream
     if insights_record.nil?
@@ -184,7 +184,7 @@ class RecordSyncer
     @alert_on_stats.each do |key|
       count = computed_stats[key]
       next if count == 0
-      
+
       percentage = (count.to_f / @total_sync_calls_count)
       next unless @alert_tuning.should_alert?(key, count, percentage)
 
