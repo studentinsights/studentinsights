@@ -69,7 +69,7 @@ class SchoolOverviewQueries
       }))
     end
   end
-  
+
   private
   # Queries for Services and EventNotes for each student, and merges the results
   # into the list of student hashes.
