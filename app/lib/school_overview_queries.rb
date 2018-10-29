@@ -62,9 +62,9 @@ class SchoolOverviewQueries
     # Merge
     authorized_students.each_with_index.map do |student, index|
       HashWithIndifferentAccess.new(students_json[index].merge({
-        discipline_incidents_count: aggregates[:discipline_incidents_count][student.id],
-        absences_count: aggregates[:absences_count][student.id],
-        tardies_count: aggregates[:tardies_count][student.id],
+        discipline_incidents_count: aggregates[:discipline_incidents_count].fetch(student.id, 0),
+        absences_count: aggregates[:absences_count].fetch(student.id, 0),
+        tardies_count: aggregates[:tardies_count].fetch(student.id, 0),
         homeroom_name: student.try(:homeroom).try(:name)
       }))
     end
