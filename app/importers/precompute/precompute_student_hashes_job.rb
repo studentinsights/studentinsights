@@ -1,6 +1,4 @@
 class PrecomputeStudentHashesJob < Struct.new :log
-  include StudentsQueryHelper
-
   # Runs the job for a particular day, querying for all educators' authorizations,
   # precomputing the `student_hashes` for them and writing them to the database.
   def precompute_all!
@@ -45,8 +43,8 @@ class PrecomputeStudentHashesJob < Struct.new :log
     authorized_student_ids = job[:authorized_student_ids]
 
     # compute
-    authorized_students = Student.where(id: authorized_student_ids)
-    student_hashes = authorized_students.map {|student| student_hash_for_slicing(student) }
+    query = SchoolOverviewQueries.new
+    student_hashes = query.compute_student_hashes(authorized_student_ids)
 
     # write
     create_document!(authorized_student_ids, student_hashes)
