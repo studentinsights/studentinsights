@@ -4,7 +4,7 @@ import SimpleFilterSelect from './SimpleFilterSelect';
 import {englishProficiencyOptions} from '../helpers/language';
 
 
-// For selecting students by English proficiency (Somerville only)
+// For selecting students by English proficiency
 export default class SelectEnglishProficiency extends React.Component {
   render() {
     const {districtKey} = this.context;

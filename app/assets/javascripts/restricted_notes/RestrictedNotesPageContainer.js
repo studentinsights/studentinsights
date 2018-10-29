@@ -63,8 +63,8 @@ class RestrictedNotesPageContainer extends React.Component {
     const eventNoteParams = merge(inputEventNoteParams, {isRestricted: true});
     this.setState({ requests: merge(this.state.requests, { saveNote: 'pending'}) });
     this.api.saveNotes(this.state.student.id, eventNoteParams)
-      .done(this.onSaveNotesDone)
-      .fail(this.onSaveNotesFail);
+      .then(this.onSaveNotesDone)
+      .catch(this.onSaveNotesFail);
   }
 
   // TODO(kr) suspect bug here with merging in notes.  Should factor out this

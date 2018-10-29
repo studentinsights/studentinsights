@@ -21,11 +21,24 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
 
   def attributes
     demographic_attributes
+      .merge(import_metadata_attributes)
       .merge(name_attributes)
       .merge(school_attributes)
       .merge(per_district_attributes)
       .merge({ grade: grade })
       .merge({ homeroom_id: homeroom_id })
+  end
+
+  # If the district does not always send all student records in the export,
+  # update any rows we read in to indicate that they were present in this
+  # export.
+  # See also the way `RecordSyncer#process_unmarked_records` is used in `StudentsImporter`.
+  def import_metadata_attributes
+    if PerDistrict.new.does_students_export_include_rows_for_inactive_students?
+      {}
+    else
+      { missing_from_last_export: false }
+    end
   end
 
   def name_attributes
@@ -52,24 +65,26 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
       :sped_level_of_need,
       :plan_504,
       :student_address,
-      :free_reduced_lunch,
       :race,
       :hispanic_latino,
       :gender,
       :primary_phone,
       :primary_email,
     ].map do |key|
-      value = row[key]
-      if value.nil? # set nil if column not in import
-        attrs[key] = nil
-      elsif value == '' # set nil if column is in import, but there's an empty string value
-        attrs[key] = nil
-      else
-        attrs[key] = value
-      end
+      attrs[key] = map_empty_to_nil(row[key])
     end
 
     attrs
+  end
+
+  def map_empty_to_nil(value)
+    if value.nil? # set nil if column not in import
+      nil
+    elsif value == '' # set nil if column is in import, but there's an empty string value
+      nil
+    else
+      value
+    end
   end
 
   def school_attributes
@@ -99,7 +114,8 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
     # date parsing
     included_attributes = {
       registration_date: per_district.parse_date_during_import(row[:registration_date]),
-      date_of_birth: per_district.parse_date_during_import(row[:date_of_birth])
+      date_of_birth: per_district.parse_date_during_import(row[:date_of_birth]),
+      free_reduced_lunch: per_district.map_free_reduced_lunch_value_as_workaround(map_empty_to_nil(row[:free_reduced_lunch]))
     }
 
     if per_district.import_student_house?
@@ -113,6 +129,13 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
 
     if per_district.import_student_sped_liaison?
       included_attributes.merge!(sped_liaison: row[:sped_liaison])
+    end
+
+    if per_district.import_student_ell_dates?
+      included_attributes.merge!({
+        ell_entry_date: per_district.parse_date_during_import(row[:ell_entry_date]),
+        ell_transition_date: per_district.parse_date_during_import(row[:ell_transition_date])
+      })
     end
 
     included_attributes

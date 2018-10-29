@@ -1,4 +1,5 @@
 import MixpanelUtils from './helpers/MixpanelUtils';
+import {apiFetchJson} from './helpers/apiFetchJson';
 
 
 function setupSearchBarAutocomplete (names) {
@@ -12,16 +13,13 @@ function setupSearchBarAutocomplete (names) {
 }
 
 function downloadStudentNames () {
-  $.get({
-    url: '/students/names',
-    success(data) {
-      setupSearchBarAutocomplete(data);
+  apiFetchJson('/students/names').then(data => {
+    setupSearchBarAutocomplete(data);
 
-      if (window.sessionStorage) {
-        window.sessionStorage.student_names_cache = JSON.stringify(data);
-      } else {
-        throw 'no session storage';
-      }
+    if (window.sessionStorage) {
+      window.sessionStorage.student_names_cache = JSON.stringify(data);
+    } else {
+      throw 'no session storage';
     }
   });
 }

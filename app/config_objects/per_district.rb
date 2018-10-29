@@ -96,7 +96,7 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
-  def enabled_high_school_tiering?
+  def enabled_high_school_levels?
     @district_key == SOMERVILLE || @district_key == DEMO
   end
 
@@ -109,6 +109,11 @@ class PerDistrict
     else
       false
     end
+  end
+
+  # Controls feed filter based on ELL status
+  def enable_ell_based_feed?
+    EnvironmentVariable.is_true('ENABLE_ELL_BASED_FEED')
   end
 
   # If this is enabled, filter students on the home page feed
@@ -266,6 +271,12 @@ class PerDistrict
     false
   end
 
+  def import_student_ell_dates?
+    return true if @district_key == SOMERVILLE
+    return true if @district_key == DEMO
+    false
+  end
+
   def import_student_photos?
     @district_key == SOMERVILLE
   end
@@ -295,6 +306,19 @@ class PerDistrict
     @district_key == SOMERVILLE
   end
 
+  # See also language.js
+  def is_student_english_learner_now?(student)
+    if @district_key == SOMERVILLE
+      ['Limited'].include?(student.limited_english_proficiency)
+    elsif @district_key == NEW_BEDFORD
+      ['Limited English' || 'Non-English'].include?(student.limited_english_proficiency)
+    elsif @district_key == BEDFORD
+      ['Limited English', 'Not Capable'].include?(student.limited_english_proficiency)
+    else
+      raise_not_handled!
+    end
+  end
+
   def current_quarter(date_time)
     raise_not_handled! unless @district_key == SOMERVILLE
 
@@ -306,6 +330,22 @@ class PerDistrict
     return 'Q3' if date_time < DateTime.new(year + 1, 4, 3)
     return 'Q4' if date_time < DateTime.new(year + 1, 6, 12)
     'SUMMER'
+  end
+
+  # When importing data from Google Forms, educator emails may not be the same
+  # as the in the district SIS or LDAP system (eg, a name change happens in one system
+  # but not the other).  This allow mapping one way from Google email > Educator#email
+  def google_email_address_mapping
+    JSON.parse(ENV.fetch('GOOGLE_EMAIL_ADDRESS_MAPPING_JSON', '{}'))
+  end
+
+  # For Bedford, we should fix this upstream with them
+  def map_free_reduced_lunch_value_as_workaround(free_reduced_lunch_value)
+    if @district_key == BEDFORD && free_reduced_lunch_value == 'Not Eligibile'
+      'Not Eligible'
+    else
+      free_reduced_lunch_value
+    end
   end
 
   private

@@ -369,9 +369,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedCategory = {this.state.selectedCategory}
-        incidentType={"Incidents"}
-        resetFn={this.onResetStudentList}/>
+        incidentType={"Incidents"}/>
     );
   }
 }

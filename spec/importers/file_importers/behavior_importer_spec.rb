@@ -1,24 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe BehaviorImporter do
-  let(:base_behavior_importer) {
-    described_class.new(options: {
+  def create_behavior_importer(options = {})
+    BehaviorImporter.new(options: {
       school_scope: PerDistrict.new.school_definitions_for_import.map { |school| school['local_id'] },
       log: LogHelper::FakeLog.new,
       skip_old_records: false
-    })
-  }
-
-  let(:behavior_importer) {
-    base_behavior_importer.instance_variable_set(:@skipped_from_school_filter, 0)
-    base_behavior_importer.instance_variable_set(:@skipped_old_rows_count, 0)
-    base_behavior_importer.instance_variable_set(:@touched_rows_count, 0)
-    base_behavior_importer.instance_variable_set(:@invalid_rows_count, 0)
-    base_behavior_importer
-  }
+    }.merge(options))
+  end
 
   describe '#import_row' do
-    let(:importer) { behavior_importer }
+    let(:importer) { create_behavior_importer }
     before { importer.send(:import_row, row) }
     let(:incidents) { student.discipline_incidents }
     let(:incident) { incidents.last }
@@ -170,7 +162,7 @@ RSpec.describe BehaviorImporter do
 
     context 'no discipline records in database' do
       it 'creates three new records' do
-        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 3
+        expect { create_behavior_importer.import }.to change { DisciplineIncident.count }.by 3
       end
     end
 
@@ -181,12 +173,12 @@ RSpec.describe BehaviorImporter do
       let(:discipline_incident_id) { discipline_incident.id }
 
       it 'creates three new rows, but destroys record not found in CSV' do
-        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 2
+        expect { create_behavior_importer.import }.to change { DisciplineIncident.count }.by 2
       end
 
       it 'deletes the record in scope but not found in CSV' do
         expect(DisciplineIncident.find_by_id(discipline_incident_id)).not_to be_nil
-        behavior_importer.import
+        create_behavior_importer.import
         expect(DisciplineIncident.find_by_id(discipline_incident_id)).to be_nil
       end
     end
@@ -196,23 +188,17 @@ RSpec.describe BehaviorImporter do
       let(:student) { FactoryBot.create(:student, school: hea) }
       let!(:discipline_incident) { FactoryBot.create(:discipline_incident, student: student) }
       let(:discipline_incident_id) { discipline_incident.id }
-
-      let(:base_behavior_importer) {
-        described_class.new(options: {
-          school_scope: ['SHS'],  # All students in fake_behavior_export.txt are SHS
-          log: LogHelper::FakeLog.new,
-          skip_old_records: false
-        })
-      }
+      let!(:school_scope) { ['SHS'] }  # All students in fake_behavior_export.txt are SHS
 
       it 'creates three new rows, destroys zero' do
-        expect { behavior_importer.import }.to change { DisciplineIncident.count }.by 3
+        expect { create_behavior_importer(school_scope: school_scope).import }.to change { DisciplineIncident.count }.by 3
       end
 
       it 'does not delete the existing record that\'s out of scope and not found in CSV' do
-        behavior_importer.import
+        create_behavior_importer(school_scope: school_scope).import
         expect(DisciplineIncident.find_by_id(discipline_incident_id)).not_to be_nil
-        behavior_importer.import
+
+        create_behavior_importer(school_scope: school_scope).import
         expect(DisciplineIncident.find_by_id(discipline_incident_id)).not_to be_nil
       end
     end

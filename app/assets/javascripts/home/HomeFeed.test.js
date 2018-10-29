@@ -43,6 +43,10 @@ function moreCardsJson() {
           "first_name": "Winnie",
           "last_name": "Disney",
           "house": null,
+          "school": {
+            "local_id": "SHS",
+            "school_type": "HS"
+          },
           "homeroom": {
             "id": 1,
             "name": "HEA 003",

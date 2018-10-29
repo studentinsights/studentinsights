@@ -19,11 +19,11 @@ module SomervilleTeacherTool
     # -- all .rb files in that directory are automatically loaded.
 
     # --- Student Insights additions below ---
+    # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoload-paths-and-eager-load-paths
+    # This needs all sub-folders in app that are referenced without
+    # a containing module.
     Rails.application.config.tap do |config|
       class_paths = [
-        "#{config.root}/app/models",
-        "#{config.root}/app/jobs",
-        "#{config.root}/app/serializers",
         "#{config.root}/app/importers/clients",
         "#{config.root}/app/importers/constants",
         "#{config.root}/app/importers/data_transformers",
@@ -31,8 +31,11 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/helpers",
         "#{config.root}/app/importers/iep_import",
         "#{config.root}/app/importers/photo_import",
+        "#{config.root}/app/importers/precompute",
         "#{config.root}/app/importers/rows",
-        "#{config.root}/lib"
+        "#{config.root}/app/importers/survey_note_importer",
+        "#{config.root}/app/importers/team_membership_import",
+        "#{config.root}/app/importers/tools"
       ]
 
       # The intention here is that we compress server responses
