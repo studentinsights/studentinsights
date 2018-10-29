@@ -163,6 +163,13 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       return {categories, seriesData};
     }
+    case 'heatmap': {
+      const incidents = this.getIncidentsFromStudents(students);
+      const groupedIncidents = _.groupBy(incidents, incident => {
+        return moment.utc(incident.occurred_at).format("ddd");
+      });
+      const categories = this.sortedDays();
+    }
     }
   }
 
@@ -279,7 +286,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       {value: 'time', label: 'Time'},
       {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
-      {value: 'day', label: 'Day'}
+      {value: 'day', label: 'Day'},
+      {value: 'heatmap', label: 'heatmap'}
     ];
     const incidentTypes = this.allIncidentTypes(dashboardStudents);
 
