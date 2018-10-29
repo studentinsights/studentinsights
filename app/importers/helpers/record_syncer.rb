@@ -23,16 +23,19 @@ class RecordSyncer
     @created_rows_count = 0
     @destroyed_records_count = 0
     @total_sync_calls_count = 0
-
     @validation_failure_counts_by_field = {}
-
     @marked_ids = []
+
+    # only allow one-time use
+    @has_processed_unmarked_records = false
   end
 
   # Given a new or persisted record, with attributes updated in memory
   # based on the CSV, update it in the Insights database.
   # Also track that the Insights record still exists in the current CSV snapshot.
   def validate_mark_and_sync!(insights_record)
+    raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
+
     # Always count this
     @total_sync_calls_count += 1 
 
@@ -83,6 +86,8 @@ class RecordSyncer
   # The caller has to describe what records are in scope of the import (eg,
   # particular schools, date ranges, etc.) and this returns the count of deleted records.
   def delete_unmarked_records!(records_within_import_scope)
+    raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
+
     log('delete_unmarked_records starting...')
 
     # This is slow, but intentionally runs validations, hooks, etc. on each record
@@ -100,6 +105,8 @@ class RecordSyncer
   # The caller has to describe what records they expected to be in scope of the import (eg,
   # particular schools, date ranges, etc.).  Returns the count of processed records.
   def process_unmarked_records!(records_within_import_scope, &block)
+    raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
+
     log("process_unmarked_records starting...")
     log("  records_within_import_scope.size: #{records_within_import_scope.size} in Insights")
     log("  @marked_ids.size = #{@marked_ids.size} from this import")
@@ -122,11 +129,17 @@ class RecordSyncer
       notify!(alerts)
     end
 
+    # Set this to only allow calling in proper order, and only allow
+    # one-time use.
+    @has_processed_unmarked_records = true
     log("process_unmarked_records done.")
     records_to_process.size
   end
 
+  # This has to be called after `process_unmarked_records!`
   def process_marked_records!(&block)
+    raise 'already set has_processed_unmarked_records' unless @has_processed_unmarked_records
+
     log('process_marked_records! starting...')
     block.call(@marked_ids)
     log('process_marked_records! done.')
@@ -144,6 +157,7 @@ class RecordSyncer
       created_rows_count: @created_rows_count,
       destroyed_records_count: @destroyed_records_count,
       unchanged_rows_count: @unchanged_rows_count,
+      has_processed_unmarked_records: @has_processed_unmarked_records,
       marked_ids_count: @marked_ids.size
     }
   end

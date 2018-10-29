@@ -24,14 +24,16 @@ RSpec.describe StudentMeetingImporter do
         }
       ])
       expect(syncer.send(:stats)).to eq({
-        :created_rows_count => 2,
-        :destroyed_records_count => 0,
-        :invalid_rows_count => 0,
-        :marked_ids_count => 2,
-        :passed_nil_record_count => 0,
-        :unchanged_rows_count => 0,
-        :updated_rows_count => 0,
-        :validation_failure_counts_by_field => {},
+        total_sync_calls_count: 2,
+        created_rows_count: 2,
+        destroyed_records_count: 0,
+        invalid_rows_count: 0,
+        marked_ids_count: 2,
+        passed_nil_record_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        has_processed_unmarked_records: true,
+        validation_failure_counts_by_field: {},
       })
     end
 
@@ -41,14 +43,16 @@ RSpec.describe StudentMeetingImporter do
       # first run
       first_survey, first_syncer = StudentMeetingImporter.new.import(fixture_file_text)
       expect(first_syncer.send(:stats)).to eq({
-        :created_rows_count => 2,
-        :destroyed_records_count => 0,
-        :invalid_rows_count => 0,
-        :marked_ids_count => 2,
-        :passed_nil_record_count => 0,
-        :unchanged_rows_count => 0,
-        :updated_rows_count => 0,
-        :validation_failure_counts_by_field => {},
+        total_sync_calls_count: 2,
+        created_rows_count: 2,
+        destroyed_records_count: 0,
+        invalid_rows_count: 0,
+        marked_ids_count: 2,
+        passed_nil_record_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        has_processed_unmarked_records: true,
+        validation_failure_counts_by_field: {},
       })
       first_records_json = EventNote.all.as_json
       expect(first_records_json.size).to eq 2
@@ -56,14 +60,16 @@ RSpec.describe StudentMeetingImporter do
       # second run
       second_survey, second_syncer = StudentMeetingImporter.new.import(fixture_file_text)
       expect(second_syncer.send(:stats)).to eq({
-        :created_rows_count => 0,
-        :destroyed_records_count => 0,
-        :invalid_rows_count => 0,
-        :marked_ids_count => 2,
-        :passed_nil_record_count => 0,
-        :unchanged_rows_count => 2,
-        :updated_rows_count => 0,
-        :validation_failure_counts_by_field => {},
+        total_sync_calls_count: 2,
+        created_rows_count: 0,
+        destroyed_records_count: 0,
+        invalid_rows_count: 0,
+        marked_ids_count: 2,
+        passed_nil_record_count: 0,
+        unchanged_rows_count: 2,
+        updated_rows_count: 0,
+        has_processed_unmarked_records: true,
+        validation_failure_counts_by_field: {},
       })
       second_records_json = EventNote.all.as_json
       expect(second_records_json).to eq first_records_json
@@ -75,14 +81,16 @@ RSpec.describe StudentMeetingImporter do
 
       survey, syncer = StudentMeetingImporter.new.import(fixture_file_text)
       expect(syncer.send(:stats)).to eq({
-        :created_rows_count => 2,
-        :destroyed_records_count => 0,
-        :invalid_rows_count => 0,
-        :marked_ids_count => 2,
-        :passed_nil_record_count => 0,
-        :unchanged_rows_count => 0,
-        :updated_rows_count => 0,
-        :validation_failure_counts_by_field => {},
+        total_sync_calls_count: 2,
+        created_rows_count: 2,
+        destroyed_records_count: 0,
+        invalid_rows_count: 0,
+        marked_ids_count: 2,
+        passed_nil_record_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        has_processed_unmarked_records: true,
+        validation_failure_counts_by_field: {},
       })
       expect(EventNote.all.size).to eq 6
     end
@@ -98,14 +106,16 @@ RSpec.describe StudentMeetingImporter do
       file_text = fixture_file_text.split("\n").first + "\n" + '"03/05/2018 08:11:11","fatima_google@demo.studentinsights.org","Amir Solo","Fatima Teacher","2222222211   ","Biology, Spanish","one","two","three","four","five","six","seven"'
       survey, syncer = StudentMeetingImporter.new.import(file_text)
       expect(syncer.send(:stats)).to eq({
-        :created_rows_count => 1,
-        :destroyed_records_count => 0,
-        :invalid_rows_count => 0,
-        :marked_ids_count => 1,
-        :passed_nil_record_count => 0,
-        :unchanged_rows_count => 0,
-        :updated_rows_count => 0,
-        :validation_failure_counts_by_field => {},
+        total_sync_calls_count: 1,
+        created_rows_count: 1,
+        destroyed_records_count: 0,
+        invalid_rows_count: 0,
+        marked_ids_count: 1,
+        passed_nil_record_count: 0,
+        unchanged_rows_count: 0,
+        updated_rows_count: 0,
+        has_processed_unmarked_records: true,
+        validation_failure_counts_by_field: {},
       })
       expect(EventNote.all.size).to eq 1
       expect(EventNote.first.educator_id).to eq pals.shs_fatima_science_teacher.id

@@ -28,12 +28,14 @@ RSpec.describe RecordSyncer do
       syncer = make_syncer
       expect(syncer.validate_mark_and_sync!(nil)).to eq(:nil)
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 1,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
+        has_processed_unmarked_records: false,
         marked_ids_count: 0,
         destroyed_records_count: 0
       })
@@ -43,6 +45,7 @@ RSpec.describe RecordSyncer do
       syncer = make_syncer
       expect(syncer.validate_mark_and_sync!(Absence.new)).to eq(:invalid)
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 1,
         validation_failure_counts_by_field: {
@@ -52,6 +55,7 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
+        has_processed_unmarked_records: false,
         marked_ids_count: 0,
         destroyed_records_count: 0
       })
@@ -63,6 +67,7 @@ RSpec.describe RecordSyncer do
       absence.assign_attributes(student: nil)
       expect(syncer.validate_mark_and_sync!(absence)).to eq(:invalid)
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 1,
         validation_failure_counts_by_field: {
@@ -71,6 +76,7 @@ RSpec.describe RecordSyncer do
         unchanged_rows_count: 0,
         updated_rows_count: 0,
         created_rows_count: 0,
+        has_processed_unmarked_records: false,
         marked_ids_count: 0,
         destroyed_records_count: 0
       })
@@ -81,6 +87,7 @@ RSpec.describe RecordSyncer do
       absence = create_test_absence!
       expect(syncer.validate_mark_and_sync!(absence)).to eq(:unchanged)
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -88,6 +95,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 1,
+        has_processed_unmarked_records: false,
         destroyed_records_count: 0
       })
     end
@@ -98,6 +106,7 @@ RSpec.describe RecordSyncer do
       absence.assign_attributes(reason: 'new reason added!')
       expect(syncer.validate_mark_and_sync!(absence)).to eq(:updated)
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -105,6 +114,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 1,
         created_rows_count: 0,
         marked_ids_count: 1,
+        has_processed_unmarked_records: false,
         destroyed_records_count: 0
       })
     end
@@ -114,6 +124,7 @@ RSpec.describe RecordSyncer do
       absence = new_test_absence
       expect(syncer.validate_mark_and_sync!(absence)).to eq(:created)
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -121,6 +132,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 1,
         marked_ids_count: 1,
+        has_processed_unmarked_records: false,
         destroyed_records_count: 0
       })
       expect(syncer.instance_variable_get(:@marked_ids)).to eq [absence.id]
@@ -163,6 +175,7 @@ RSpec.describe RecordSyncer do
       expect(Absence.count).to eq(1)
 
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 0,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -170,6 +183,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
+        has_processed_unmarked_records: true,
         destroyed_records_count: 0
       })
     end
@@ -202,6 +216,7 @@ RSpec.describe RecordSyncer do
       expect(log.output).to eq expected_log_output.strip
 
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 2,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -209,6 +224,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 2,
+        has_processed_unmarked_records: true,
         destroyed_records_count: 1
       })
     end
@@ -223,6 +239,7 @@ RSpec.describe RecordSyncer do
       expect(Absence.count).to eq(0)
 
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 0,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -230,6 +247,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
+        has_processed_unmarked_records: true,
         destroyed_records_count: 5
       })
     end
@@ -243,6 +261,7 @@ RSpec.describe RecordSyncer do
       expect(syncer.delete_unmarked_records!(Absence.all)).to eq(0)
 
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 0,
         validation_failure_counts_by_field: {},
@@ -250,6 +269,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 1,
         marked_ids_count: 1,
+        has_processed_unmarked_records: true,
         destroyed_records_count: 0
       })
     end
@@ -265,6 +285,7 @@ RSpec.describe RecordSyncer do
       expect(Absence.count).to eq(0)
 
       expect(syncer.stats).to eq({
+        total_sync_calls_count: 1,
         passed_nil_record_count: 0,
         invalid_rows_count: 1,
         validation_failure_counts_by_field: {
@@ -274,6 +295,7 @@ RSpec.describe RecordSyncer do
         updated_rows_count: 0,
         created_rows_count: 0,
         marked_ids_count: 0,
+        has_processed_unmarked_records: true,
         destroyed_records_count: 1
       })
     end
@@ -326,6 +348,7 @@ RSpec.describe RecordSyncer do
         created_rows_count: 13,
         marked_ids_count: 83,
         destroyed_records_count: 0,
+        has_processed_unmarked_records: true,
         validation_failure_counts_by_field: {
           student_id: 17
         }
@@ -354,6 +377,7 @@ RSpec.describe RecordSyncer do
         created_rows_count: 6,
         marked_ids_count: 96,
         destroyed_records_count: 0,
+        has_processed_unmarked_records: true,
         validation_failure_counts_by_field: {
           student_id: 4
         }
