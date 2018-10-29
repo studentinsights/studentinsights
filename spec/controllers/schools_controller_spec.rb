@@ -28,6 +28,7 @@ describe SchoolsController, :type => :controller do
         "students",
         "school",
         "district_key",
+        "force_querying_on_demand",
         "current_educator",
         "constant_indexes"
       ])
@@ -53,6 +54,7 @@ describe SchoolsController, :type => :controller do
         "students",
         "school",
         "district_key",
+        "force_querying_on_demand",
         "current_educator",
         "constant_indexes"
       ])
@@ -71,6 +73,7 @@ describe SchoolsController, :type => :controller do
         "students",
         "school",
         "district_key",
+        "force_querying_on_demand",
         "current_educator",
         "constant_indexes"
       ])
