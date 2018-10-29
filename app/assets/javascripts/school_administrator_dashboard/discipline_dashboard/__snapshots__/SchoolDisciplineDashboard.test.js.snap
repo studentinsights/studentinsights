@@ -416,29 +416,6 @@ exports[`snapshots works for bedford 1`] = `
               <div
                 style={
                   Object {
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "paddingBottom": 5,
-                  }
-                }
-              >
-                All Students
-                <div
-                  className="DashResetButton"
-                >
-                  <a
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "backgroundColor": "#FFA500",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
                     "flex": 1,
                   }
                 }
@@ -1013,29 +990,6 @@ exports[`snapshots works for demo 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "paddingBottom": 5,
-                  }
-                }
-              >
-                All Students
-                <div
-                  className="DashResetButton"
-                >
-                  <a
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "backgroundColor": "#FFA500",
-                      }
-                    }
-                  />
-                </div>
-              </div>
               <div
                 style={
                   Object {
@@ -1616,29 +1570,6 @@ exports[`snapshots works for new_bedford 1`] = `
               <div
                 style={
                   Object {
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "paddingBottom": 5,
-                  }
-                }
-              >
-                All Students
-                <div
-                  className="DashResetButton"
-                >
-                  <a
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "backgroundColor": "#FFA500",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
                     "flex": 1,
                   }
                 }
@@ -2213,29 +2144,6 @@ exports[`snapshots works for somerville 1`] = `
                 }
               }
             >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                    "justifyContent": "space-between",
-                    "paddingBottom": 5,
-                  }
-                }
-              >
-                All Students
-                <div
-                  className="DashResetButton"
-                >
-                  <a
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "backgroundColor": "#FFA500",
-                      }
-                    }
-                  />
-                </div>
-              </div>
               <div
                 style={
                   Object {
