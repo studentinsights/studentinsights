@@ -269,11 +269,11 @@ class PerDistrict
   # the full name).
   def parse_counselor_during_import(value)
     if @district_key == SOMERVILLE # eg, Robinson, Kevin
-      if row[:counselor] then row[:counselor].split(',').first else nil end
+      if value then value.split(',').first else nil end
     elsif @district_key == BEDFORD # eg, Kevin Robinson
-      if row[:counselor] then row[:counselor].split(' ').last else nil end
+      if value then value.split(' ').last else nil end
     else
-      if row[:counselor] == '' then nil else row[:counselor] end
+      raise_not_handled!
     end
   end
 
@@ -283,6 +283,7 @@ class PerDistrict
     false
   end
 
+  # Bedford exports "N/A" for all students
   def parse_sped_liaison_during_import(value)
     if @district_key == BEDFORD
       if value.try(:upcase) == "N/A" then nil else value end
