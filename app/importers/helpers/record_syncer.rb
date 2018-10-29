@@ -7,6 +7,14 @@
 class RecordSyncer
   def initialize(options = {})
     @log = options.fetch(:log)
+    @alert_tuning = options.fetch(:alert_tuning, AlertTuning.new(10, 0.10))
+    @alert_on_stats = options.fetch(:alert_on_stats, [
+      :passed_nil_record_count,
+      :invalid_rows_count,
+      :updated_rows_count,
+      :created_rows_count,
+      :destroyed_records_count
+    ])
 
     @passed_nil_record_count = 0
     @invalid_rows_count = 0
@@ -14,6 +22,7 @@ class RecordSyncer
     @updated_rows_count = 0
     @created_rows_count = 0
     @destroyed_records_count = 0
+    @total_sync_calls_count = 0
 
     @validation_failure_counts_by_field = {}
 
@@ -24,6 +33,9 @@ class RecordSyncer
   # based on the CSV, update it in the Insights database.
   # Also track that the Insights record still exists in the current CSV snapshot.
   def validate_mark_and_sync!(insights_record)
+    # Always count this
+    @total_sync_calls_count += 1 
+
     # Passed nil, something failed upstream
     if insights_record.nil?
       @passed_nil_record_count += 1
@@ -124,15 +136,28 @@ class RecordSyncer
   # For debugging and testing - total counts for instance lifetime
   def stats
     {
+      total_sync_calls_count: @total_sync_calls_count,
       passed_nil_record_count: @passed_nil_record_count,
       invalid_rows_count: @invalid_rows_count,
-      unchanged_rows_count: @unchanged_rows_count,
+      validation_failure_counts_by_field: @validation_failure_counts_by_field,
       updated_rows_count: @updated_rows_count,
       created_rows_count: @created_rows_count,
-      marked_ids_count: @marked_ids.size,
       destroyed_records_count: @destroyed_records_count,
-      validation_failure_counts_by_field: @validation_failure_counts_by_field
+      unchanged_rows_count: @unchanged_rows_count,
+      marked_ids_count: @marked_ids.size
     }
+  end
+
+  # For tuning alerts
+  class AlertTuning
+    def initialize(count_threshold, percentage_threshold)
+      @count_threshold = count_threshold
+      @percentage_threshold = percentage_threshold
+    end
+
+    def should_alert?(key, count, percentage)
+      count > @count_threshold && percentage > @percentage_threshold
+    end
   end
 
   private
@@ -140,24 +165,14 @@ class RecordSyncer
   def determine_alerts_after_processing
     alerts = []
 
-    # Find the total records processed
-    computed_stats = stats
-    stat_keys = [
-      :passed_nil_record_count,
-      :invalid_rows_count,
-      :updated_rows_count,
-      :created_rows_count,
-      :destroyed_records_count
-    ]
-    total_records_count = stat_keys.map {|key| computed_stats[key] }.sum
-
     # Check each stat
-    stat_keys.each do |key|
+    computed_stats = stats
+    @alert_on_stats.each do |key|
       count = computed_stats[key]
       next if count == 0
       
-      percentage = (count.to_f / total_records_count)
-      next unless meets_alert_threshold?(key, count, percentage)
+      percentage = (count.to_f / @total_sync_calls_count)
+      next unless @alert_tuning.should_alert?(key, count, percentage)
 
       alerts << { key: key, count: count, percentage: percentage }
     end
@@ -165,13 +180,8 @@ class RecordSyncer
     alerts
   end
 
-  # For tuning alerts
-  def meets_alert_threshold?(key, count, percentage)
-    count > 10 && percentage > 0.05
-  end
-
   def notify!(alerts)
-    Rollbar.error("RecordSyncer#notify!", nil, alerts: alerts)
+    Rollbar.error('RecordSyncer#notify!', nil, alerts: alerts)
   end
 
   # Mark which Insights records match a row in the CSV.
