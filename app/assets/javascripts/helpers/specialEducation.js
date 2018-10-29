@@ -9,7 +9,7 @@ export function hasAnySpecialEducationData(student, maybeIepDocument) {
   if (disability) return true;
   if (levelOfNeed) return true;
 
-  if (student.sped_liaison) return true;
+  // Do not consider `sped_liaison` here.
   
   return false;
 }
@@ -92,7 +92,12 @@ function isNullProgram(program) {
   // as SPED for the program.  So these values are excluded here.
   if (['Reg Ed', 'SEIP', 'Waivered SEIP', null].indexOf(program) !== -1) return true;
 
-  if (['Not Enrolled', '(NULL)'].indexOf(program) !== -1) return true; // Bedford
+  // Bedford only.  We blacklist the similar value for ELL here as well
+  if (['Not Enrolled', 'Sheltered Immersion', null].indexOf(program) !== -1) return true;
+
+  // New Bedford only
+  if ([null].indexOf(program) !== -1) return true;
+
   return false;
 }
 
