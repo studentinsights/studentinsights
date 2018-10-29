@@ -119,16 +119,15 @@ class StudentRow < Struct.new(:row, :homeroom_id, :school_ids_dictionary, :log)
     }
 
     if per_district.import_student_house?
-      included_attributes.merge!(house: row[:house])
+      included_attributes.merge!(house: map_empty_to_nil(row[:house]))
     end
 
     if per_district.import_student_counselor?
-      counselor_last_name = if row[:counselor] then row[:counselor].split(",")[0] else nil end
-      included_attributes.merge!(counselor: counselor_last_name)
+      included_attributes.merge!(counselor: per_district.parse_counselor_during_import(row[:counselor]))
     end
 
     if per_district.import_student_sped_liaison?
-      included_attributes.merge!(sped_liaison: row[:sped_liaison])
+      included_attributes.merge!(sped_liaison: per_district.parse_sped_liaison_during_import(row[:sped_liaison]))
     end
 
     if per_district.import_student_ell_dates?

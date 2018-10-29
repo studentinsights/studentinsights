@@ -264,11 +264,32 @@ class PerDistrict
     false
   end
 
+  # This always gets just the last name (there's no reason for this, it's just
+  # historical for what this did in Somerville and could be changed to import
+  # the full name).
+  def parse_counselor_during_import(value)
+    if @district_key == SOMERVILLE # eg, Robinson, Kevin
+      if value then value.split(',').first else nil end
+    elsif @district_key == BEDFORD # eg, Kevin Robinson
+      if value then value.split(' ').last else nil end
+    else
+      raise_not_handled!
+    end
+  end
+
   def import_student_sped_liaison?
     return true if @district_key == SOMERVILLE
-    return true if @district_key == BEDFORD
     return true if @district_key == DEMO
     false
+  end
+
+  # Bedford exports "N/A" for all students
+  def parse_sped_liaison_during_import(value)
+    if @district_key == BEDFORD
+      if value.try(:upcase) == "N/A" then nil else value end
+    else
+      value
+    end
   end
 
   def import_student_ell_dates?

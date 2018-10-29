@@ -58,6 +58,9 @@ class Student < ApplicationRecord
   validates :gender, exclusion: { in: ['']}
   validates :primary_phone, exclusion: { in: ['']}
   validates :primary_email, exclusion: { in: ['']}
+  validates :sped_liaison, exclusion: { in: ['']}
+  validates :house, exclusion: { in: ['']}
+  validates :counselor, exclusion: { in: ['']}
 
   def self.with_school
     where.not(school: nil)

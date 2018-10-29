@@ -129,4 +129,19 @@ RSpec.describe PerDistrict do
       expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 24))).to eq 'SUMMER'
     end
   end
+
+  describe '#parse_counselor_during_import' do
+    it 'works' do
+      expect(for_somerville.parse_counselor_during_import('Robinson, Kevin')).to eq 'Robinson'
+      expect(for_bedford.parse_counselor_during_import('Kevin Robinson')).to eq 'Robinson'
+      expect { for_new_bedford.parse_counselor_during_import('Kevin Robinson') }.to raise_error Exceptions::DistrictKeyNotHandledError
+    end
+  end
+
+  describe '#parse_sped_liaison_during_import' do
+    it 'works' do
+      expect(for_somerville.parse_sped_liaison_during_import('N/a')).to eq 'N/a'
+      expect(for_bedford.parse_sped_liaison_during_import('N/a')).to eq nil
+    end
+  end
 end
