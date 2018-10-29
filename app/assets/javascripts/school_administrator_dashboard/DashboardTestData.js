@@ -5,6 +5,16 @@ export function testSchool() {
   };
 }
 
+export function testHighSchool() {
+  return {
+    id: 9,
+    local_id: "SHS",
+    name: "Somerville High",
+    school_type: "HS",
+    slug: "shs"
+  };
+}
+
 // Stubbed events for dashboard specs
 export function createTestEvents(nowMoment) {
   return {

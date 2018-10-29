@@ -9,7 +9,16 @@ import SelectTimeRange, {
   TIME_RANGE_45_DAYS_AGO
 } from '../../components/SelectTimeRange';
 import {ALL} from '../../components/SimpleFilterSelect';
+import {
+  supportsHouse,
+  shouldDisplayHouse,
+  supportsCounselor,
+  shouldDisplayCounselor
+} from '../../helpers/PerDistrict';
 import SelectDisciplineIncidentType from '../../components/SelectDisciplineIncidentType';
+import SelectGrade from '../../components/SelectGrade';
+import SelectHouse from '../../components/SelectHouse';
+import SelectCounselor from '../../components/SelectCounselor';
 import memoizer from '../../helpers/memoizer';
 import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
@@ -28,6 +37,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.state = initialState();
     this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
     this.onIncidentTypeChange = this.onIncidentTypeChange.bind(this);
+    this.onGradeChanged = this.onGradeChanged.bind(this);
+    this.onHouseChanged = this.onHouseChanged.bind(this);
+    this.onCounselorChanged = this.onCounselorChanged.bind(this);
     this.onResetFilters = this.onResetFilters.bind(this);
     this.onColumnClick = this.onColumnClick.bind(this);
     this.onResetStudentList = this.onResetStudentList.bind(this);
@@ -35,10 +47,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.memoize = memoizer();
   }
 
-  filterIncidents(disciplineIncidents, shouldFilterSelectedCategory) {
+  filterIncidents(disciplineIncidents, options = {}) {
     return this.memoize(['filteredIncidents', this.state, arguments], () => {
       if (!disciplineIncidents) return [];
       const {nowFn} = this.context;
+      const {shouldFilterSelectedCategory} = options;
       const {timeRangeKey, selectedIncidentCode, selectedChart, selectedCategory} = this.state;
       const range = momentRange(timeRangeKey, nowFn());
       return disciplineIncidents.filter(incident => {
@@ -55,13 +68,19 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
-  filterStudents(students) {
-    const {selectedChart, selectedCategory} = this.state;
+  filterStudents(students, options = {}) {
+    const {selectedChart, selectedCategory, grade, house, counselor} = this.state;
+    const {shouldFilterSelectedCategory} = options;
     return students.filter(student => {
-      if (selectedCategory && selectedChart === 'grade' && student.grade !== selectedCategory) return false;
-      if (selectedCategory && selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
-      if (selectedCategory && !this.filterIncidents(student.discipline_incidents, true).length) return false;
-      if (!this.filterIncidents(student.discipline_incidents, false).length) return false;
+      if (grade !== ALL && student.grade !== grade) return false;
+      if (house !== ALL && student.house !== house) return false;
+      if (counselor !== ALL && student.counselor !== counselor) return false;
+      if (selectedCategory && shouldFilterSelectedCategory) { //used by the student list when a user selects a category within a chart
+        if (selectedChart === 'grade' && student.grade !== selectedCategory) return false;
+        if (selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
+        if (!this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: true}).length) return false;
+      }
+      if (!this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: false}).length) return false;
       return true;
     });
   }
@@ -82,7 +101,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   getIncidentsFromStudents(students) {
     //for chart data, does not filter on selected categories
-    return _.flatten(students.map(student => this.filterIncidents(student.discipline_incidents, false)));
+    return _.flatten(students.map(student => this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: false})));
   }
 
   //Depending on the chart, incidents are grouped either by student attribute or incident attribute. Any future
@@ -187,7 +206,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   studentTableRows(students) {
-    const filteredStudents = this.filterStudents(students);
+    const filteredStudents = this.filterStudents(students, {shouldFilterSelectedCategory: true});
     const {selectedCategory} = this.state;
     return filteredStudents.map(student => {
       return {
@@ -196,21 +215,41 @@ export default class SchoolDisciplineDashboard extends React.Component {
         last_name: student.last_name,
         grade: student.grade,
         latest_note: student.latest_note,
-        events: this.filterIncidents(student.discipline_incidents, selectedCategory).length
+        events: this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: selectedCategory}).length
       };
     });
   }
 
-  allIncidentTypes(students) {
-    const incidents = students.map(student => {
-      return student.discipline_incidents ? student.discipline_incidents : [];
-    });
-    return _.uniqBy(_.flatten(incidents), 'incident_code')
-    .map(incident => incident.incident_code);
+  allIncidentTypes() {
+    const {dashboardStudents} = this.props;
+    const incidents = _.uniqBy(_.compact(_.flatten(dashboardStudents.map(student => student.discipline_incidents))), 'incident_code');
+    return incidents.map(incident => incident.incident_code).sort();
+  }
+
+  allGrades() {
+    const {dashboardStudents} = this.props;
+    return _.uniq(dashboardStudents.map(student => student.grade)).sort();
+  }
+
+  allCounselors() {
+    const {dashboardStudents} = this.props;
+    return _.uniq(dashboardStudents.map(student => student.counselor)).sort();
   }
 
   onIncidentTypeChange(incidentType) {
     this.setState({selectedIncidentCode: incidentType, selectedCategory: null});
+  }
+
+  onGradeChanged(grade) {
+    this.setState({grade, selectedCategory: null});
+  }
+
+  onHouseChanged(house) {
+    this.setState({house, selectedCategory: null});
+  }
+
+  onCounselorChanged(counselor) {
+    this.setState({counselor, selectedCategory: null});
   }
 
   onTimeRangeKeyChanged(timeRangeKey) {
@@ -234,7 +273,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   render() {
-    const {timeRangeKey, selectedChart} = this.state;
+    const {districtKey} = this.context;
+    const {timeRangeKey, selectedChart, grade, house, counselor} = this.state;
     const {school, dashboardStudents} = this.props;
     const chartOptions = [
       {value: 'incident_location', label: 'Location'},
@@ -255,7 +295,25 @@ export default class SchoolDisciplineDashboard extends React.Component {
               <SelectDisciplineIncidentType
                 type={this.state.selectedIncidentCode || 'All'}
                 onChange={this.onIncidentTypeChange}
-                types={incidentTypes}/>
+                types={incidentTypes} />
+              <SelectGrade
+                style={styles.narrowSelect}
+                grade={grade}
+                grades={this.allGrades()}
+                onChange={this.onGradeChanged} />
+              {supportsHouse(districtKey) && shouldDisplayHouse(school) && (
+                <SelectHouse
+                  style={styles.narrowSelect}
+                  house={house}
+                  onChange={this.onHouseChanged} />
+              )}
+              {supportsCounselor(districtKey) && shouldDisplayCounselor(school) && (
+                <SelectCounselor
+                  style={styles.narrowSelect}
+                  counselor={counselor}
+                  counselors={this.allCounselors()}
+                  onChange={this.onCounselorChanged} />
+              )}
             </FilterBar>
             <FilterBar style={styles.timeRange}>
               <SelectTimeRange
@@ -289,7 +347,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderDisciplineChart(students, selectedChart) {
-    const {categories, seriesData} = this.getChartData(students, selectedChart);
+    const selectedStudents = this.filterStudents(students, {shouldFilterSelectedCategory: false});
+    const {categories, seriesData} = this.getChartData(selectedStudents, selectedChart);
     return (
         <DashboardBarChart
           id = "String"
@@ -315,7 +374,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 }
 SchoolDisciplineDashboard.contextTypes = {
-  nowFn: PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired,
+  districtKey: PropTypes.string.isRequired
 };
 SchoolDisciplineDashboard.propTypes = {
   dashboardStudents: PropTypes.array.isRequired,
@@ -355,6 +415,9 @@ const styles = {
     justifyContent: 'space-between',
     width: '100%',
     padding: 10
+  },
+  narrowSelect: {
+    width: '8em'
   }
 };
 
@@ -363,6 +426,9 @@ function initialState() {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
     selectedChart: 'incident_location',
     selectedIncidentCode: ALL,
-    selectedCategory: null
+    selectedCategory: null,
+    grade: ALL,
+    house: ALL,
+    counselor: ALL
   };
 }
