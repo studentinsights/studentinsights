@@ -1,6 +1,4 @@
 class HomeroomsController < ApplicationController
-  include StudentsQueryHelper
-
   def homeroom_json
     homeroom_id_or_slug = params.permit(:id)[:id]
     homeroom = authorize_and_assign_homeroom!(homeroom_id_or_slug)
@@ -40,10 +38,20 @@ class HomeroomsController < ApplicationController
   # filtering and slicing in the UI).
   # This may be slow if you're doing it for many students without eager includes.
   def fat_student_hash(student)
-    HashWithIndifferentAccess.new(student_hash_for_slicing(student).merge({
+    HashWithIndifferentAccess.new(student.as_json({
+      except: [
+        :primary_phone,
+        :primary_email,
+        :student_address
+      ]
+    }).merge({
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+      absences_count: student.most_recent_school_year_absences_count,
+      tardies_count: student.most_recent_school_year_tardies_count,
+      homeroom_name: student.try(:homeroom).try(:name),
       event_notes_without_restricted: student.event_notes_without_restricted,
       interventions: student.interventions,
-      sped_data: student.sped_data,
+      sped_data: student.sped_data
     }))
   end
 
