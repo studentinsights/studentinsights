@@ -37,7 +37,7 @@ class SchoolOverviewQueries
       district_key: PerDistrict.new.district_key,
       current_educator: educator,
       constant_indexes: constant_indexes,
-      force_querying_on_demand: force_querying_on_demand
+      force_querying_on_demand: @force_querying_on_demand
     }
   end
 
