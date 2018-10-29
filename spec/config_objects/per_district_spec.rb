@@ -136,7 +136,7 @@ RSpec.describe PerDistrict do
       expect(for_bedford.parse_counselor_during_import('Kevin Robinson')).to eq 'Robinson'
       expect { for_new_bedford.parse_counselor_during_import('Kevin Robinson') }.to raise_error Exceptions::DistrictKeyNotHandledError
     end
-  end   
+  end
 
   describe '#parse_sped_liaison_during_import' do
     it 'works' do
