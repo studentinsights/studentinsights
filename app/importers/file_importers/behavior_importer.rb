@@ -5,6 +5,7 @@ class BehaviorImporter
     @log = options.fetch(:log)
     @inclusive_date_range = create_inclusive_date_range(options)
     @record_syncer = ::RecordSyncer.new(log: @log)
+    reset_counters!
   end
 
   def import
@@ -15,11 +16,7 @@ class BehaviorImporter
     ).get_data
 
     log('Starting loop...')
-    @skipped_from_school_filter = 0
-    @skipped_from_invalid_student_id = 0
-    @skipped_old_rows_count = 0
-    @invalid_rows_count = 0
-    @touched_rows_count = 0
+    reset_counters!
 
     streaming_csv.each_with_index do |row, index|
       import_row(row)
@@ -40,6 +37,14 @@ class BehaviorImporter
   end
 
   private
+  def reset_counters!
+    @skipped_from_school_filter = 0
+    @skipped_from_invalid_student_id = 0
+    @skipped_old_rows_count = 0
+    @invalid_rows_count = 0
+    @touched_rows_count = 0
+  end
+
   def create_inclusive_date_range(options)
     time_window = options.fetch(:time_window, 90.days)
     time_now = options.fetch(:time_now, Time.now)
