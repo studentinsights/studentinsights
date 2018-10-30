@@ -1,5 +1,5 @@
 class McasRow < Struct.new :row, :student_id, :assessments_array
-  # Represents a row in a CSV export from Somerville's Aspen X2 student information system.
+  # Represents a row in a CSV export from the district's export
 
   def build
     assessment_id = find_assessment_id

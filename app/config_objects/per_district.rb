@@ -369,6 +369,46 @@ class PerDistrict
     end
   end
 
+  # Different districts export assessment data in different ways, and 
+  # import different specific assessments.
+  def choose_assessment_importer_row_class(row)
+    if @district_key == SOMERVILLE
+      case row[:assessment_test]
+        when 'MCAS' then McasRow
+        when 'ACCESS', 'WIDA', 'WIDA-ACCESS' then AccessRow
+        when 'DIBELS' then DibelsRow
+        else nil
+      end
+    elsif @district_key == BEDFORD
+      if row[:assessment_test].upcase.include?('MCAS')
+        McasRow
+      else
+        nil
+      end
+    else
+      raise_not_handled!
+    end
+  end
+
+  # Map the row of an MCAS row to a normalized Insights Assessment subject field.
+  def normalized_subject_from_mcas_export(row)
+    if @district_key == SOMERVILLE
+      if 'English Language Arts'.in?(row[:assessment_name])
+        'ELA'
+      else
+        row[:assessment_subject]
+      end
+    elsif @district_key == BEDFORD
+      if row[:assessment_subject] == 'Math'
+        'Mathematics'
+      else
+        row[:assessment_subject]
+      end
+    else
+      raise_not_handled!
+    end
+  end
+
   private
   def yaml
     config_map = {

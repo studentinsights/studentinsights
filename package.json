@@ -18,7 +18,7 @@
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
     "jest": "TZ='America/New_York' jest --config jest.json",
     "t": "yarn test",
-    "test": "yarn jest -- --watch",
+    "test": "yarn jest --watch",
     "test-cli": "yarn lint-cli && yarn jest",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
