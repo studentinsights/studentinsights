@@ -17,7 +17,7 @@ describe('#toMomentFromTimestamp', () => {
   it('works as expected because local timezone is set as expected', () => {
     const string = '2018-05-09T12:03:26.664Z';
     expect(toMomentFromTimestamp(string).local().format('dddd M/D, h:mma')).toEqual('Wednesday 5/9, 8:03am');
-    expect(toMomentFromTimestamp(string).toDate().toLocaleTimeString()).toEqual('08:03:26');
+    expect(toMomentFromTimestamp(string).toDate().toLocaleTimeString('en-US')).toEqual('8:03:26 AM');
   });
 
   it('works on example string', () => {

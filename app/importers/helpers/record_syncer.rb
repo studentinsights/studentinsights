@@ -195,7 +195,7 @@ class RecordSyncer
   end
 
   def notify!(alerts)
-    Rollbar.error('RecordSyncer#notify!', nil, alerts: alerts)
+    Rollbar.error('RecordSyncer#notify!', nil, {alerts: alerts, caller: caller})
   end
 
   # Mark which Insights records match a row in the CSV.
