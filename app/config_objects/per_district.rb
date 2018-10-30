@@ -370,7 +370,8 @@ class PerDistrict
   end
 
   # Different districts export assessment data in different ways, and 
-  # import different specific assessments.
+  # import different specific assessments or use different code to process
+  # it.
   def choose_assessment_importer_row_class(row)
     if @district_key == SOMERVILLE
       case row[:assessment_test]

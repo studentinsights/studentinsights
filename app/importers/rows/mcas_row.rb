@@ -1,15 +1,12 @@
 class McasRow < Struct.new :row, :student_id, :assessments_array
-  # Represents a row in a CSV export from the district's export
-
   def build
-    assessment_id = find_assessment_id
+    assessment_id = find_assessment_id(row)
     return nil if assessment_id.nil?
-    return nil unless subject.in?(Assessment::VALID_MCAS_SUBJECTS)
 
     student_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student_id,
       assessment_id: assessment_id,
-      date_taken: row[:assessment_date]
+      date_taken: PerDistrict.new.parse_date_during_import(row[:assessment_date])
     )
 
     student_assessment.assign_attributes(
@@ -22,28 +19,30 @@ class McasRow < Struct.new :row, :student_id, :assessments_array
   end
 
   private
+  def find_assessment_id(row)
+    family = normalized_family(row)
+    return nil unless family.in?(Assessment::VALID_FAMILY_VALUES)
 
-  def find_assessment_id
+    subject = normalized_subject(row)
+    return nil unless subject.in?(Assessment::VALID_MCAS_SUBJECTS)
+
     assessments_array.find do |assessment|
       assessment.subject == subject && assessment.family == family
     end.try(:id)
   end
 
-  def subject
-    if "English Language Arts".in?(row[:assessment_name])
-      'ELA'
-    else
-      row[:assessment_subject]
-    end
-  end
-
-  # Next generation MCAS isn't tagged differently in the export, but the name has the year
-  # and the score is on a different scale.
-  def family
+  # Next generation MCAS isn't tagged differently in the export, but the score is on a different
+  # scale so we can infer from that.
+  def normalized_family(row)
     if row[:assessment_scale_score].present? && row[:assessment_scale_score].to_i > 399
       'Next Gen MCAS'
     else
       'MCAS'
     end
+  end
+
+  # Map from district to Insights subject name
+  def normalized_subject(row)
+    PerDistrict.new.normalized_subject_from_mcas_export(row)
   end
 end
