@@ -90,9 +90,6 @@ class X2AssessmentImporter
       return
     end
 
-    # Some kind of cleanup
-    row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
-
     # Find out how to interpret the record based on `assessment_test`
     # and ignore unexpected ones.
     # Be aware that there may be export-side logic and transformations being

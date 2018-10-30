@@ -1,14 +1,9 @@
 class McasRow < Struct.new :row, :student_id, :assessments_array
   def build
-    puts
-    puts
-    puts "McasRow: #{row}"
     assessment_id = find_assessment_id(row)
-    puts "  assessment_id: #{assessment_id}"
     return nil if assessment_id.nil?
 
     date_taken = PerDistrict.new.parse_date_during_import(row[:assessment_date])
-    puts "  date_taken: #{date_taken}"
     return nil if date_taken.nil?
 
     student_assessment = StudentAssessment.find_or_initialize_by(
