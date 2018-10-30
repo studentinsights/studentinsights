@@ -21,11 +21,26 @@ sftp_filenames:
     - /home/jbreslin/data/student-documents-2.zip
     - /home/jbreslin/data/student-documents-1.zip
 
-
 star_filenames:
   FILENAME_FOR_STAR_READING_IMPORT:                 SR.csv
   FILENAME_FOR_STAR_MATH_IMPORT:                    SM.csv
   FILENAME_FOR_STAR_ZIP_FILE:                       Somerville Public Schools.zip
+
+
+# See FeedFilter::CommunitySchoolFilter
+# Manual through console
+community_schools_educators_sheet:
+  https://docs.google.com/spreadsheets/d/1Xw33bKWJZ-rikGizO5CDfjMUeWJ0Rd23dWgN0xtHTxI/edit
+
+# See StudentVoiceSurveyUploadsPage.js
+# Semi-automated through web
+student_voice_survey_form:
+  https://docs.google.com/forms/d/180P2BFHK4TBgFC_7PLCW_AynhJP6ktBeKTJEQeTT44U/edit
+
+# See StudentMeetingImporter.rb
+# Semi-automated through console
+student_meeting_sheet:
+  https://docs.google.com/spreadsheets/d/1eMTJD8w-9R2NXtcYfiPRydQR-HDiH5fIydi1PA7-CU8/edit
 
 
 school_definitions_for_import:
