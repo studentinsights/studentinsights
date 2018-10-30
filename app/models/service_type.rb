@@ -1,6 +1,8 @@
 class ServiceType < ApplicationRecord
   has_many :services
 
+  COMMUNITY_SCHOOLS = 513
+  
   def self.seed_for_all_districts
     ServiceType.destroy_all
     ServiceType.create([
