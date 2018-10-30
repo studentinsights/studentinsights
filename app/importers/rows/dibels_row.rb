@@ -9,9 +9,12 @@ class DibelsRow < Struct.new :row, :student_id, :log
     return nil unless benchmark.present?
     subtest_results = extract_subtest_results_from_string(raw_result_string)
 
+    date_taken = PerDistrict.new.parse_date_during_import(row[:assessment_date])
+    return nil if date_taken.nil?
+
     DibelsResult.find_or_initialize_by(
       student_id: student_id,
-      date_taken: row[:assessment_date],
+      date_taken: date_taken,
       benchmark: benchmark,
       subtest_results: subtest_results,
     )

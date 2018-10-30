@@ -144,4 +144,28 @@ RSpec.describe PerDistrict do
       expect(for_bedford.parse_sped_liaison_during_import('N/a')).to eq nil
     end
   end
+
+  describe '#choose_assessment_importer_row_class' do
+    it 'works for Somerville' do
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'MCAS')).to eq McasRow
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'ACCESS')).to eq AccessRow
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'WIDA')).to eq AccessRow
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'WIDA-ACCESS')).to eq AccessRow
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'DIBELS')).to eq DibelsRow
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'wat')).to eq nil
+      expect(for_somerville.choose_assessment_importer_row_class(assessment_test: 'W-APT')).to eq nil
+    end
+
+    it 'works for Bedford' do
+      expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS Gr 8 Math')).to eq McasRow
+      expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS Gr 10 ELA')).to eq McasRow
+      expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS Gr 8 Science')).to eq nil
+      expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS')).to eq nil
+      expect(for_bedford.choose_assessment_importer_row_class(assessment_test: 'ACCESS')).to eq nil
+    end
+
+    it 'raises for New Bedford' do
+      expect { for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS') }.to raise_error Exceptions::DistrictKeyNotHandledError
+    end
+  end
 end

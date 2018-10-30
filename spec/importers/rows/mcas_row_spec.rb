@@ -2,6 +2,45 @@ require 'rails_helper'
 
 RSpec.describe McasRow do
 
+  context 'integration test for Bedford' do
+    let!(:pals) { TestPals.create! }
+
+    before do
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      Assessment.seed_for_all_districts
+    end
+
+    it 'works for happy path test case' do
+      row = {
+        local_id: pals.shs_freshman_mari.local_id,
+        assessment_test: 'Gr 10 Math',
+        assessment_subject: 'Math',
+        assessment_name: 'Gr 10 Math',
+        assessment_date: '5/15/2018',
+        assessment_scale_score: '239.0',
+        assessment_performance_level: 'NI',
+        assessment_growth: '31.0'
+      }
+      record = McasRow.new(row, pals.shs_freshman_mari.id, Assessment.all.to_a).build
+      record.save!
+      expect(StudentAssessment.count).to eq 1
+      expect(record.assessment.family).to eq 'MCAS'
+      expect(record.assessment.subject).to eq 'Mathematics'
+      expect(record.as_json(except: [:created_at, :updated_at])).to include({
+        'id' => a_kind_of(Integer),
+        'assessment_id' => a_kind_of(Integer),
+        'student_id' => pals.shs_freshman_mari.id,
+        'date_taken' => Time.zone.local(2018, 5, 15),
+        'instructional_reading_level' => nil,
+        'percentile_rank' => nil,
+        'grade_equivalent' => nil,
+        'scale_score' => 239,
+        'performance_level' => 'NI',
+        'growth_percentile' => 31
+      })
+    end
+  end
+
   context 'with no Assessment records in the database' do
     before { Assessment.seed_for_all_districts }
     let(:student) { FactoryBot.create(:student) }
@@ -13,7 +52,7 @@ RSpec.describe McasRow do
           assessment_subject: 'Technology',
           assessment_name: 'MCAS 2016 Technology',
           local_id: student.local_id,
-          assessment_date: Date.today
+          assessment_date: Date.today.strftime('%Y-%m-%d')
         }
       }
 
@@ -30,7 +69,7 @@ RSpec.describe McasRow do
           assessment_subject: 'Mathematics',
           assessment_name: 'MCAS 2016 Mathematics',
           local_id: student.local_id,
-          assessment_date: Date.today
+          assessment_date: Date.today.strftime('%Y-%m-%d')
         }
       }
 
@@ -51,7 +90,7 @@ RSpec.describe McasRow do
           assessment_subject: 'Arts',
           assessment_name: 'MCAS 2016 English Language Arts',
           local_id: student.local_id,
-          assessment_date: Date.today
+          assessment_date: Date.today.strftime('%Y-%m-%d')
         }
       }
 
@@ -68,7 +107,7 @@ RSpec.describe McasRow do
           assessment_subject: 'Arts',
           assessment_name: 'MCAS 2016 English Language Arts',
           local_id: student.local_id,
-          assessment_date: Date.today,
+          assessment_date: Date.today.strftime('%Y-%m-%d'),
           assessment_scale_score: "550.0"
         }
       }
