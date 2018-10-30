@@ -12,7 +12,6 @@ class McasRow < Struct.new :row, :student_id, :assessments_array
       date_taken: date_taken
     )
 
-
     student_assessment.assign_attributes(
       scale_score: row[:assessment_scale_score], # may be nil if "absent"
       performance_level: row[:assessment_performance_level],

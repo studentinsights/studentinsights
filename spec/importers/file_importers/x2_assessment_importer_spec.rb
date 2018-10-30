@@ -159,7 +159,7 @@ RSpec.describe X2AssessmentImporter do
         "growth_percentile"=>56,
         "percentile_rank"=>nil,
         "instructional_reading_level"=>nil,
-        "grade_equivalent"=>nil    
+        "grade_equivalent"=>nil
       })
 
       # Ryan is example of properly parsed Next Generation MCAS
@@ -172,7 +172,7 @@ RSpec.describe X2AssessmentImporter do
         "growth_percentile"=>34,
         "percentile_rank"=>nil,
         "instructional_reading_level"=>nil,
-        "grade_equivalent"=>nil    
+        "grade_equivalent"=>nil
       })
     end
   end

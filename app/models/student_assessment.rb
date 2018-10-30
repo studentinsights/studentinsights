@@ -13,7 +13,7 @@ class StudentAssessment < ApplicationRecord
   delegate :grade, to: :student
   validates_presence_of :date_taken, :student, :assessment
   validates :student, uniqueness: { scope: [:assessment_id, :date_taken] }
-  
+
   validates :growth_percentile, exclusion: { in: [0]}
 
   # TODO: Add validation for MCAS and ACCESS assessments.

@@ -378,7 +378,7 @@ class PerDistrict
     end
   end
 
-  # Different districts export assessment data in different ways, and 
+  # Different districts export assessment data in different ways, and
   # import different specific assessments or use different code to process
   # it.
   def choose_assessment_importer_row_class(row)
