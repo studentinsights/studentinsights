@@ -327,7 +327,8 @@ RSpec.describe RecordSyncer do
         alerts: [
           {key: :invalid_rows_count, count: 17, percentage: 0.17},
           {key: :created_rows_count, count: 13, percentage: 0.13}
-        ]
+        ],
+        caller: a_kind_of(Array)
       })
 
       # Should trigger on so many invalid and so many newly created
