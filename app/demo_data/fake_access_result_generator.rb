@@ -15,7 +15,7 @@ class FakeAccessResultGenerator
       date_taken: DateTime.new(@dates.pop, 5, 15),
       scale_score: rand(300..400),
       performance_level: rand(10),
-      growth_percentile: rand(100),
+      growth_percentile: 1+rand(99),
       student_id: @student.id
     }
   end
