@@ -116,6 +116,15 @@ class PerDistrict
     EnvironmentVariable.is_true('ENABLE_ELL_BASED_FEED')
   end
 
+  # For Somerville after school programs
+  def enable_community_school_based_feed?
+    if @district_key == SOMERVILLE || @district_key == DEMO
+      EnvironmentVariable.is_true('ENABLE_COMMUNITY_SCHOOL_BASED_FEED')
+    else
+      false
+    end
+  end
+
   # If this is enabled, filter students on the home page feed
   # based on a mapping of the `house` field on the student and a specific
   # `Educator`.  It may be individually feature switched as well.

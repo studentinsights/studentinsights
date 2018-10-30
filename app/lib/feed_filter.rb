@@ -9,7 +9,8 @@ class FeedFilter
       CounselorFilter.new(@educator),
       HouseFilter.new(@educator),
       SectionsFilter.new(@educator),
-      EnglishLanguageLearnerFilter.new(@educator)
+      EnglishLanguageLearnerFilter.new(@educator),
+      CommunitySchoolFilter.new(@educator)
     ]
 
     filtered_students = students
@@ -22,6 +23,23 @@ class FeedFilter
   end
 
   private
+  # For Community School Coordinators who are working with students in after
+  # school programs.
+  class CommunitySchoolFilter
+    def initialize(educator)
+      @educator = educator
+    end
+
+    def should_use?
+      return false unless PerDistrict.new.enable_community_school_based_feed?
+      EducatorLabel.has_static_label?(@educator.id, 'use_community_school_based_feed')
+    end
+
+    def keep?(student)
+      Service.has_active_service?(student.id, ServiceType::COMMUNITY_SCHOOLS)
+    end
+  end
+
   # For building-level ELL teachers, who have schoolwide access, but only
   # want to see students actively learning English in their feed (on their
   # caseload).
