@@ -124,4 +124,31 @@ RSpec.describe X2AssessmentImporter do
       end
     end
   end
+
+  describe 'integration tests for Bedford MCAS' do
+    let!(:pals) { TestPals.create! }
+    let!(:csv) { test_csv_from_file("#{Rails.root}/spec/fixtures/assessment_bedford_format_fixture.csv") }
+
+    before do
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      Assessment.seed_for_all_districts
+    end
+
+    it 'works' do
+      log = LogHelper::FakeLog.new
+      importer = X2AssessmentImporter.new(options: {
+        school_scope: nil,
+        log: log,
+        skip_old_records: true,
+        time_now: Time.parse('2018-06-12')
+      })
+      allow(importer).to receive(:download_csv).and_return(csv)
+      importer.import
+
+      puts log.output
+      expect(log.output).to include('skipped_old_rows_count: 3')
+      expect(log.output).to include('created_rows_count: 3')
+      expect(StudentAssessment.count).to eq(3)
+    end
+  end
 end

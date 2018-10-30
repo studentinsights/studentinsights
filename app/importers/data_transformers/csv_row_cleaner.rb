@@ -1,5 +1,5 @@
 class CsvRowCleaner < Struct.new :row
-  DATE_HEADERS = [:event_date, :date_taken, :assessment_date]
+  DATE_HEADERS = [:event_date, :date_taken]
 
   def dirty_data?
     !clean_date?

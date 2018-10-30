@@ -381,7 +381,7 @@ class PerDistrict
         else nil
       end
     elsif @district_key == BEDFORD
-      if row[:assessment_test].upcase.include?('MCAS')
+      if /MCAS Gr (\d+) (Math|ELA)/.match(row[:assessment_test]).present?
         McasRow
       else
         nil

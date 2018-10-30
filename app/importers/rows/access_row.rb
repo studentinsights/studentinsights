@@ -5,10 +5,13 @@ class AccessRow < Struct.new :row, :student_id, :assessments_array
     assessment_id = find_assessment_id
     return nil if assessment_id.nil?
 
+    date_taken = PerDistrict.new.parse_date_during_import(row[:assessment_date])
+    return nil if date_taken.nil?
+    
     student_assessment = StudentAssessment.find_or_initialize_by(
       student_id: student_id,
       assessment_id: assessment_id,
-      date_taken: row[:assessment_date]
+      date_taken: date_taken
     )
 
     student_assessment.assign_attributes(
