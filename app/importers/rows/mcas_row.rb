@@ -12,10 +12,11 @@ class McasRow < Struct.new :row, :student_id, :assessments_array
       date_taken: date_taken
     )
 
+
     student_assessment.assign_attributes(
       scale_score: row[:assessment_scale_score], # may be nil if "absent"
       performance_level: row[:assessment_performance_level],
-      growth_percentile: row[:assessment_growth]
+      growth_percentile: parse_growth_percentile(row[:assessment_growth])
     )
 
     student_assessment
@@ -47,5 +48,10 @@ class McasRow < Struct.new :row, :student_id, :assessments_array
   # Map from district to Insights subject name
   def normalized_subject(row)
     PerDistrict.new.normalized_subject_from_mcas_export(row)
+  end
+
+  # Missing or unparseable values are ignored and converted to nil
+  def parse_growth_percentile(value)
+    if value.nil? || value.to_i == 0 then nil else value.to_i end
   end
 end
