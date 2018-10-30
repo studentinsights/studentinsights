@@ -7,24 +7,12 @@ class Service < ApplicationRecord
   validates_presence_of :recorded_by_educator_id, :student_id, :service_type_id, :recorded_at, :date_started
   validate :must_be_discontinued_after_service_start_date
 
-  def discontinued?
-    discontinued_at.present? && (DateTime.current > discontinued_at)
-  end
-
-  def active?
-    !discontinued?
-  end
-
-  def must_be_discontinued_after_service_start_date
-    unless discontinued_at.nil?
-      if date_started > discontinued_at
-        errors.add(:discontinued_at, "must be after service start date")
-      end
-    end
+  def self.has_active_service?(student_id, service_type_id)
+    Service.where(student_id: student_id, service_type_id: service_type_id).active.count > 0
   end
 
   def self.active
-    future_discontinue + never_discontinued
+    where('discontinued_at IS NULL OR discontinued_at > ?', Time.now)
   end
 
   def self.never_discontinued
@@ -32,15 +20,31 @@ class Service < ApplicationRecord
   end
 
   def self.future_discontinue
-    where('discontinued_at > ?', DateTime.current)
+    where('discontinued_at > ?', Time.now)
   end
 
   def self.discontinued
-    where('discontinued_at < ?', DateTime.current)
+    where('discontinued_at < ?', Time.now)
   end
 
   def self.provider_names
     pluck(:provided_by_educator_name)
   end
 
+  def discontinued?
+    discontinued_at.present? && (Time.now > discontinued_at)
+  end
+
+  def active?
+    !discontinued?
+  end
+
+  private
+  def must_be_discontinued_after_service_start_date
+    unless discontinued_at.nil?
+      if date_started > discontinued_at
+        errors.add(:discontinued_at, "must be after service start date")
+      end
+    end
+  end
 end
