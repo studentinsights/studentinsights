@@ -16,14 +16,14 @@
   <% if links.has_key?(:levels_shs) %>
     <%= link_to 'Levels', links[:levels_shs] %>
   <% end %>
-  <% if links.has_key?(:school) %>
-    <%= link_to 'Overview', links[:school] %>
-  <% end %>
   <% if links.has_key?(:absences) %>
     <%= link_to "Absences", links[:absences] %>
   <% end %>
   <% if links.has_key?(:tardies) %>
     <%= link_to "Tardies", links[:tardies] %>
+  <% end %>
+  <% if links.has_key?(:school) %>
+    <%= link_to 'Overview', links[:school] %>
     <span class="navbar-spacer"></span>
   <% end %>
 
