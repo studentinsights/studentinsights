@@ -405,6 +405,8 @@ describe ProfileController, :type => :controller do
         'house',
         'counselor',
         'sped_liaison',
+        'ell_entry_date',
+        'ell_transition_date',
         'discipline_incidents_count'
       ])
     end

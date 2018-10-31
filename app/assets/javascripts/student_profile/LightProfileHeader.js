@@ -5,7 +5,8 @@ import {AutoSizer} from 'react-virtualized';
 import * as Routes from '../helpers/Routes';
 import {
   hasStudentPhotos,
-  supportsHouse
+  supportsHouse,
+  isHomeroomMeaningful
 } from '../helpers/PerDistrict';
 import HelpBubble, {
   modalFromLeft,
@@ -128,22 +129,33 @@ export default class LightProfileHeader extends React.Component {
 
   renderHomeroomOrEnrollmentStatus() {
     const student =  this.props.student;
-    if (student.enrollment_status === 'Active') {
-      if (student.homeroom_name) return (
+
+    // Not enrolled
+    if (student.enrollment_status !== 'Active') {
+      return (
+        <span style={styles.subtitleItem}>
+          {student.enrollment_status}
+        </span>
+      );
+    }
+
+    // No homeroom set
+    if (!student.homeroom_name) {
+      return <span style={styles.subtitleItem}>No homeroom</span>;
+    }
+
+    // Render as link or plain text (HS homeroom doesn't mean anything, and authorization
+    // rules are more complex).
+    if (!isHomeroomMeaningful(student.school_type)) {
+      return <span style={styles.subtitleItem}>{'Homeroom ' + student.homeroom_name}</span>;
+    } else {
+      return (
         <a
           className="homeroom-link"
           href={Routes.homeroom(student.homeroom_id)}
           style={styles.subtitleItem}>
           {'Homeroom ' + student.homeroom_name}
         </a>
-      );
-
-      return (<span style={styles.subtitleItem}>No homeroom</span>);
-    } else {
-      return (
-        <span style={styles.subtitleItem}>
-          {student.enrollment_status}
-        </span>
       );
     }
   }
@@ -279,6 +291,8 @@ LightProfileHeader.propTypes = {
     sped_placement: PropTypes.string,
     plan_504: PropTypes.string,
     limited_english_proficiency: PropTypes.string,
+    ell_entry_date: PropTypes.string,
+    ell_transition_date: PropTypes.string,
     enrollment_status: PropTypes.string,
     home_language: PropTypes.string,
     date_of_birth: PropTypes.string,
@@ -290,6 +304,7 @@ LightProfileHeader.propTypes = {
     sped_liaison: PropTypes.string,
     homeroom_id: PropTypes.number,
     school_name: PropTypes.string,
+    school_type: PropTypes.string,
     school_local_id: PropTypes.string,
     homeroom_name: PropTypes.string,
     has_photo: PropTypes.bool

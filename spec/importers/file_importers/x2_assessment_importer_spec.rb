@@ -124,4 +124,56 @@ RSpec.describe X2AssessmentImporter do
       end
     end
   end
+
+  describe 'integration tests for Bedford MCAS' do
+    let!(:pals) { TestPals.create! }
+    let!(:csv) { test_csv_from_file("#{Rails.root}/spec/fixtures/assessment_bedford_format_fixture.csv") }
+
+    before do
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::BEDFORD))
+      Assessment.seed_for_all_districts
+    end
+
+    it 'works' do
+      log = LogHelper::FakeLog.new
+      importer = X2AssessmentImporter.new(options: {
+        school_scope: nil,
+        log: log,
+        skip_old_records: true,
+        time_now: Time.parse('2018-06-12')
+      })
+      allow(importer).to receive(:download_csv).and_return(csv)
+      importer.import
+
+      expect(log.output).to include('skipped_because_of_test_type: 3')
+      expect(log.output).to include('created_rows_count: 8')
+      expect(StudentAssessment.count).to eq(8)
+
+      # Mari as an example of properly parsed Old MCAS
+      expect(pals.shs_freshman_mari.student_assessments.as_json(except: [:id, :created_at, :updated_at]).first).to include({
+        "student_id"=>pals.shs_freshman_mari.id,
+        "assessment_id"=> Assessment.find_by(family: 'MCAS', subject: 'ELA').id,
+        "date_taken"=> Time.parse('2018-05-15 00:00:00 +0000'),
+        "scale_score"=>255,
+        "performance_level"=>"P",
+        "growth_percentile"=>56,
+        "percentile_rank"=>nil,
+        "instructional_reading_level"=>nil,
+        "grade_equivalent"=>nil
+      })
+
+      # Ryan is example of properly parsed Next Generation MCAS
+      expect(pals.west_eighth_ryan.student_assessments.as_json(except: [:id, :created_at, :updated_at]).first).to include({
+        "student_id"=>pals.west_eighth_ryan.id,
+        "assessment_id"=> Assessment.find_by(family: 'Next Gen MCAS', subject: 'Mathematics').id,
+        "date_taken"=> Time.parse('2018-05-15 00:00:00 +0000'),
+        "scale_score"=>507,
+        "performance_level"=>"M",
+        "growth_percentile"=>34,
+        "percentile_rank"=>nil,
+        "instructional_reading_level"=>nil,
+        "grade_equivalent"=>nil
+      })
+    end
+  end
 end

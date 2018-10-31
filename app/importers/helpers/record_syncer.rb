@@ -7,6 +7,14 @@
 class RecordSyncer
   def initialize(options = {})
     @log = options.fetch(:log)
+    @alert_tuning = options.fetch(:alert_tuning, AlertTuning.new(10, 0.10))
+    @alert_on_stats = options.fetch(:alert_on_stats, [
+      :passed_nil_record_count,
+      :invalid_rows_count,
+      :updated_rows_count,
+      :created_rows_count,
+      :destroyed_records_count
+    ])
 
     @passed_nil_record_count = 0
     @invalid_rows_count = 0
@@ -14,16 +22,23 @@ class RecordSyncer
     @updated_rows_count = 0
     @created_rows_count = 0
     @destroyed_records_count = 0
-
+    @total_sync_calls_count = 0
     @validation_failure_counts_by_field = {}
-
     @marked_ids = []
+
+    # only allow one-time use
+    @has_processed_unmarked_records = false
   end
 
   # Given a new or persisted record, with attributes updated in memory
   # based on the CSV, update it in the Insights database.
   # Also track that the Insights record still exists in the current CSV snapshot.
   def validate_mark_and_sync!(insights_record)
+    raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
+
+    # Always count this
+    @total_sync_calls_count += 1
+
     # Passed nil, something failed upstream
     if insights_record.nil?
       @passed_nil_record_count += 1
@@ -71,6 +86,8 @@ class RecordSyncer
   # The caller has to describe what records are in scope of the import (eg,
   # particular schools, date ranges, etc.) and this returns the count of deleted records.
   def delete_unmarked_records!(records_within_import_scope)
+    raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
+
     log('delete_unmarked_records starting...')
 
     # This is slow, but intentionally runs validations, hooks, etc. on each record
@@ -88,6 +105,8 @@ class RecordSyncer
   # The caller has to describe what records they expected to be in scope of the import (eg,
   # particular schools, date ranges, etc.).  Returns the count of processed records.
   def process_unmarked_records!(records_within_import_scope, &block)
+    raise 'already set has_processed_unmarked_records' if @has_processed_unmarked_records
+
     log("process_unmarked_records starting...")
     log("  records_within_import_scope.size: #{records_within_import_scope.size} in Insights")
     log("  @marked_ids.size = #{@marked_ids.size} from this import")
@@ -103,25 +122,82 @@ class RecordSyncer
       log("  processed #{index} rows.") if index > 0 && index % 100 == 0
     end
 
+    log('  checking if stats seem outside expected bounds...')
+    alerts = determine_alerts_after_processing
+    if alerts.size > 0
+      log("  notifying about #{alerts.size} alerts.")
+      notify!(alerts)
+    end
+
+    # Set this to only allow calling in proper order, and only allow
+    # one-time use.
+    @has_processed_unmarked_records = true
     log("process_unmarked_records done.")
     records_to_process.size
+  end
+
+  # This has to be called after `process_unmarked_records!`
+  def process_marked_records!(&block)
+    raise 'already set has_processed_unmarked_records' unless @has_processed_unmarked_records
+
+    log('process_marked_records! starting...')
+    block.call(@marked_ids)
+    log('process_marked_records! done.')
+    @marked_ids.size
   end
 
   # For debugging and testing - total counts for instance lifetime
   def stats
     {
+      total_sync_calls_count: @total_sync_calls_count,
       passed_nil_record_count: @passed_nil_record_count,
       invalid_rows_count: @invalid_rows_count,
-      unchanged_rows_count: @unchanged_rows_count,
+      validation_failure_counts_by_field: @validation_failure_counts_by_field,
       updated_rows_count: @updated_rows_count,
       created_rows_count: @created_rows_count,
-      marked_ids_count: @marked_ids.size,
       destroyed_records_count: @destroyed_records_count,
-      validation_failure_counts_by_field: @validation_failure_counts_by_field
+      unchanged_rows_count: @unchanged_rows_count,
+      has_processed_unmarked_records: @has_processed_unmarked_records,
+      marked_ids_count: @marked_ids.size
     }
   end
 
+  # For tuning alerts
+  class AlertTuning
+    def initialize(count_threshold, percentage_threshold)
+      @count_threshold = count_threshold
+      @percentage_threshold = percentage_threshold
+    end
+
+    def should_alert?(key, count, percentage)
+      count > @count_threshold && percentage > @percentage_threshold
+    end
+  end
+
   private
+  # Alert if any of these counts are strange
+  def determine_alerts_after_processing
+    alerts = []
+
+    # Check each stat
+    computed_stats = stats
+    @alert_on_stats.each do |key|
+      count = computed_stats[key]
+      next if count == 0
+
+      percentage = (count.to_f / @total_sync_calls_count)
+      next unless @alert_tuning.should_alert?(key, count, percentage)
+
+      alerts << { key: key, count: count, percentage: percentage }
+    end
+
+    alerts
+  end
+
+  def notify!(alerts)
+    Rollbar.error('RecordSyncer#notify!', nil, {alerts: alerts, caller: caller})
+  end
+
   # Mark which Insights records match a row in the CSV.
   # We'll delete the ones that don't (with the scope of the import) afterward.
   def mark_insights_record(insights_record)

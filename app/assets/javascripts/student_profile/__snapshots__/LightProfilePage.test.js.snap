@@ -128,9 +128,7 @@ exports[`snapshots works for aladdin grades 1`] = `
           >
             Aladdin Mouse
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/4"
+          <span
             style={
               Object {
                 "display": "inline-block",
@@ -139,7 +137,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             }
           >
             Homeroom SHS ALL
-          </a>
+          </span>
           <div
             style={
               Object {
@@ -315,7 +313,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                   }
                 }
               >
-                FLEP
+                Former English Learner, 2016
               </div>
               <div
                 style={
@@ -1202,9 +1200,7 @@ exports[`snapshots works for aladdin notes 1`] = `
           >
             Aladdin Mouse
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/4"
+          <span
             style={
               Object {
                 "display": "inline-block",
@@ -1213,7 +1209,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             }
           >
             Homeroom SHS ALL
-          </a>
+          </span>
           <div
             style={
               Object {
@@ -1389,7 +1385,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 }
               >
-                FLEP
+                Former English Learner, 2016
               </div>
               <div
                 style={
@@ -2276,9 +2272,7 @@ exports[`snapshots works for aladdin testing 1`] = `
           >
             Aladdin Mouse
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/4"
+          <span
             style={
               Object {
                 "display": "inline-block",
@@ -2287,7 +2281,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             }
           >
             Homeroom SHS ALL
-          </a>
+          </span>
           <div
             style={
               Object {
@@ -2463,7 +2457,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                   }
                 }
               >
-                FLEP
+                Former English Learner, 2016
               </div>
               <div
                 style={
@@ -3501,7 +3495,7 @@ exports[`snapshots works for olaf math 1`] = `
                       }
                     }
                   >
-                    Expanding English, level 4
+                    English Learner, level 4
                   </div>
                 </a>
               </div>
@@ -4522,7 +4516,7 @@ exports[`snapshots works for olaf notes 1`] = `
                       }
                     }
                   >
-                    Expanding English, level 4
+                    English Learner, level 4
                   </div>
                 </a>
               </div>
@@ -5543,7 +5537,7 @@ exports[`snapshots works for olaf reading 1`] = `
                       }
                     }
                   >
-                    Expanding English, level 4
+                    English Learner, level 4
                   </div>
                 </a>
               </div>

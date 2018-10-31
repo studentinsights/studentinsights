@@ -28,7 +28,7 @@ describe('SchoolTardiesDashboard', () => {
   const context = testContext({nowMoment});
   const dash = shallow(
     <SchoolTardiesDashboard
-      school={testSchool}
+      school={testSchool()}
       schoolTardyEvents={schoolTardyEvents}
       homeroomTardyEvents={homeroomTardyEvents}
       dashboardStudents={students}/>

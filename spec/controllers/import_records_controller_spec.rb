@@ -22,8 +22,7 @@ RSpec.describe ImportRecordsController, type: :controller do
             make_request
             expect(response).to be_successful
             expect(JSON.parse(response.body)).to eq({
-              "import_records" => [],
-              "queued_jobs" => [],
+              "import_records" => []
             })
           end
         end
@@ -43,7 +42,6 @@ RSpec.describe ImportRecordsController, type: :controller do
             make_request
             expect(response).to be_successful
             expect(JSON.parse(response.body)["import_records"].size).to eq 1
-            expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
           end
         end
 
@@ -61,7 +59,6 @@ RSpec.describe ImportRecordsController, type: :controller do
             make_request
             expect(response).to be_successful
             expect(JSON.parse(response.body)["import_records"].size).to eq 1
-            expect(JSON.parse(response.body)["queued_jobs"].size).to eq 0
           end
         end
 

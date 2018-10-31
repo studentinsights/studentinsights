@@ -71,14 +71,7 @@ export default class ServiceUploadsPage extends React.Component {
       uploadingInProgress: true,
     });  // Clear out any errors
 
-    $.ajax({
-      url: '/service_uploads.json',
-      method: 'POST',
-      contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
-      data: JSON.stringify(this.state.formData),
-      success: this.onUpload
-    });
+    this.api.createServiceUploads(this.state.formData).then(this.onUpload);
   }
 
   onServiceTypesNamesLoaded(serviceTypeNames) {
@@ -134,13 +127,7 @@ export default class ServiceUploadsPage extends React.Component {
   }
 
   onClickDeleteServiceUpload(id) {
-    return $.ajax({
-      url: '/service_uploads/' + id + '.json',
-      method: 'DELETE',
-      contentType: 'application/json; charset=UTF-8',
-      dataType: 'json',
-      success: this.onDeleteUpload
-    });
+    this.api.deleteServiceUpload(id).then(this.onDeleteUpload);
   }
 
   onSelectStartDate(event) {

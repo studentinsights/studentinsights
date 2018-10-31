@@ -1,0 +1,2309 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots works for bedford 1`] = `
+<div
+  style={
+    Object {
+      "background": "#333",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "background": "white",
+        "border": "5px solid #333",
+        "display": "flex",
+        "flexDirection": "column",
+        "height": 768,
+        "width": 1024,
+      }
+    }
+  >
+    <div
+      className="SchoolDisciplineDashboard EscapeListener"
+      onKeyDown={[Function]}
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "red",
+            "color": "white",
+            "fontWeight": "bold",
+            "padding": 20,
+          }
+        }
+      >
+        <span>
+          This is an experimental prototype page!
+        </span>
+        <span
+          style={
+            Object {
+              "marginLeft": 10,
+            }
+          }
+        >
+          Please try it out and share your feedback.
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            Discipline incidents at 
+            Arthur D. Healey
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #ccc",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "padding": 10,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-56--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Incident Type...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-56--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "8em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-57--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Grade...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-57--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select has-value Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-58--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-58--value-item"
+                        role="option"
+                      >
+                        Last 45 days
+                      </span>
+                    </div>
+                    <div
+                      aria-activedescendant="react-select-58--value"
+                      aria-disabled="false"
+                      aria-expanded={false}
+                      aria-owns=""
+                      className="Select-input"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      role="combobox"
+                      style={
+                        Object {
+                          "border": 0,
+                          "display": "inline-block",
+                          "width": 1,
+                        }
+                      }
+                      tabIndex={0}
+                    />
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": "1",
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignContent": "flex-start",
+                "display": "flex",
+                "width": 450,
+              }
+            }
+          >
+            <div
+              className="StudentsTable"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "paddingTop": 10,
+                  }
+                }
+              >
+                Total Incidents:  0
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "flex": "1",
+                "flexDirection": "column",
+                "paddingLeft": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "center",
+                  "marginTop": "20px",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "fontSize": "18px",
+                    "marginRight": "10px",
+                  }
+                }
+              >
+                Break down by:
+              </div>
+              <div
+                className="Select has-value is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "width": "200px",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-59--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-59--value-item"
+                        role="option"
+                      >
+                        Location
+                      </span>
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-59--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="DashboardBarChart"
+              id="String"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "padding": 10,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="HighchartsWrapper"
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots works for demo 1`] = `
+<div
+  style={
+    Object {
+      "background": "#333",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "background": "white",
+        "border": "5px solid #333",
+        "display": "flex",
+        "flexDirection": "column",
+        "height": 768,
+        "width": 1024,
+      }
+    }
+  >
+    <div
+      className="SchoolDisciplineDashboard EscapeListener"
+      onKeyDown={[Function]}
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "red",
+            "color": "white",
+            "fontWeight": "bold",
+            "padding": 20,
+          }
+        }
+      >
+        <span>
+          This is an experimental prototype page!
+        </span>
+        <span
+          style={
+            Object {
+              "marginLeft": 10,
+            }
+          }
+        >
+          Please try it out and share your feedback.
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            Discipline incidents at 
+            Arthur D. Healey
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #ccc",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "padding": 10,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-44--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Incident Type...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-44--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "8em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-45--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Grade...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-45--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select has-value Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-46--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-46--value-item"
+                        role="option"
+                      >
+                        Last 45 days
+                      </span>
+                    </div>
+                    <div
+                      aria-activedescendant="react-select-46--value"
+                      aria-disabled="false"
+                      aria-expanded={false}
+                      aria-owns=""
+                      className="Select-input"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      role="combobox"
+                      style={
+                        Object {
+                          "border": 0,
+                          "display": "inline-block",
+                          "width": 1,
+                        }
+                      }
+                      tabIndex={0}
+                    />
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": "1",
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignContent": "flex-start",
+                "display": "flex",
+                "width": 450,
+              }
+            }
+          >
+            <div
+              className="StudentsTable"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "paddingTop": 10,
+                  }
+                }
+              >
+                Total Incidents:  0
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "flex": "1",
+                "flexDirection": "column",
+                "paddingLeft": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "center",
+                  "marginTop": "20px",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "fontSize": "18px",
+                    "marginRight": "10px",
+                  }
+                }
+              >
+                Break down by:
+              </div>
+              <div
+                className="Select has-value is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "width": "200px",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-47--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-47--value-item"
+                        role="option"
+                      >
+                        Location
+                      </span>
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-47--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="DashboardBarChart"
+              id="String"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "padding": 10,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="HighchartsWrapper"
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots works for new_bedford 1`] = `
+<div
+  style={
+    Object {
+      "background": "#333",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "background": "white",
+        "border": "5px solid #333",
+        "display": "flex",
+        "flexDirection": "column",
+        "height": 768,
+        "width": 1024,
+      }
+    }
+  >
+    <div
+      className="SchoolDisciplineDashboard EscapeListener"
+      onKeyDown={[Function]}
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "red",
+            "color": "white",
+            "fontWeight": "bold",
+            "padding": 20,
+          }
+        }
+      >
+        <span>
+          This is an experimental prototype page!
+        </span>
+        <span
+          style={
+            Object {
+              "marginLeft": 10,
+            }
+          }
+        >
+          Please try it out and share your feedback.
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            Discipline incidents at 
+            Arthur D. Healey
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #ccc",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "padding": 10,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-52--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Incident Type...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-52--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "8em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-53--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Grade...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-53--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select has-value Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-54--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-54--value-item"
+                        role="option"
+                      >
+                        Last 45 days
+                      </span>
+                    </div>
+                    <div
+                      aria-activedescendant="react-select-54--value"
+                      aria-disabled="false"
+                      aria-expanded={false}
+                      aria-owns=""
+                      className="Select-input"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      role="combobox"
+                      style={
+                        Object {
+                          "border": 0,
+                          "display": "inline-block",
+                          "width": 1,
+                        }
+                      }
+                      tabIndex={0}
+                    />
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": "1",
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignContent": "flex-start",
+                "display": "flex",
+                "width": 450,
+              }
+            }
+          >
+            <div
+              className="StudentsTable"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "paddingTop": 10,
+                  }
+                }
+              >
+                Total Incidents:  0
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "flex": "1",
+                "flexDirection": "column",
+                "paddingLeft": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "center",
+                  "marginTop": "20px",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "fontSize": "18px",
+                    "marginRight": "10px",
+                  }
+                }
+              >
+                Break down by:
+              </div>
+              <div
+                className="Select has-value is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "width": "200px",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-55--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-55--value-item"
+                        role="option"
+                      >
+                        Location
+                      </span>
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-55--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="DashboardBarChart"
+              id="String"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "padding": 10,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="HighchartsWrapper"
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots works for somerville 1`] = `
+<div
+  style={
+    Object {
+      "background": "#333",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "background": "white",
+        "border": "5px solid #333",
+        "display": "flex",
+        "flexDirection": "column",
+        "height": 768,
+        "width": 1024,
+      }
+    }
+  >
+    <div
+      className="SchoolDisciplineDashboard EscapeListener"
+      onKeyDown={[Function]}
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "red",
+            "color": "white",
+            "fontWeight": "bold",
+            "padding": 20,
+          }
+        }
+      >
+        <span>
+          This is an experimental prototype page!
+        </span>
+        <span
+          style={
+            Object {
+              "marginLeft": 10,
+            }
+          }
+        >
+          Please try it out and share your feedback.
+        </span>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            Discipline incidents at 
+            Arthur D. Healey
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #ccc",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "padding": 10,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-48--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Incident Type...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-48--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+              <div
+                className="Select is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "8em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-49--value"
+                  >
+                    <div
+                      className="Select-placeholder"
+                    >
+                      Grade...
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-49--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="FilterBar"
+            style={
+              Object {
+                "display": "flex",
+                "justifyContent": "center",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                }
+              }
+            >
+              <span
+                style={
+                  Object {
+                    "display": "inline-block",
+                    "marginRight": 10,
+                  }
+                }
+              >
+                Filter by
+              </span>
+              <div
+                className="Select has-value Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "marginLeft": 10,
+                      "width": "10em",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-50--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-50--value-item"
+                        role="option"
+                      >
+                        Last 45 days
+                      </span>
+                    </div>
+                    <div
+                      aria-activedescendant="react-select-50--value"
+                      aria-disabled="false"
+                      aria-expanded={false}
+                      aria-owns=""
+                      className="Select-input"
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      role="combobox"
+                      style={
+                        Object {
+                          "border": 0,
+                          "display": "inline-block",
+                          "width": 1,
+                        }
+                      }
+                      tabIndex={0}
+                    />
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": "1",
+              "padding": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignContent": "flex-start",
+                "display": "flex",
+                "width": 450,
+              }
+            }
+          >
+            <div
+              className="StudentsTable"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "column",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "paddingTop": 10,
+                  }
+                }
+              >
+                Total Incidents:  0
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "display": "flex",
+                "flex": "1",
+                "flexDirection": "column",
+                "paddingLeft": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": "flex",
+                  "justifyContent": "center",
+                  "marginTop": "20px",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "fontSize": "18px",
+                    "marginRight": "10px",
+                  }
+                }
+              >
+                Break down by:
+              </div>
+              <div
+                className="Select has-value is-searchable Select--single"
+              >
+                <div
+                  className="Select-control"
+                  onKeyDown={[Function]}
+                  onMouseDown={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  style={
+                    Object {
+                      "width": "200px",
+                    }
+                  }
+                >
+                  <span
+                    className="Select-multi-value-wrapper"
+                    id="react-select-51--value"
+                  >
+                    <div
+                      className="Select-value"
+                    >
+                      <span
+                        aria-selected="true"
+                        className="Select-value-label"
+                        id="react-select-51--value-item"
+                        role="option"
+                      >
+                        Location
+                      </span>
+                    </div>
+                    <div
+                      className="Select-input"
+                      style={
+                        Object {
+                          "display": "inline-block",
+                        }
+                      }
+                    >
+                      <input
+                        aria-activedescendant="react-select-51--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        role="combobox"
+                        style={
+                          Object {
+                            "boxSizing": "content-box",
+                            "width": "5px",
+                          }
+                        }
+                        value=""
+                      />
+                      <div
+                        style={
+                          Object {
+                            "height": 0,
+                            "left": 0,
+                            "overflow": "scroll",
+                            "position": "absolute",
+                            "top": 0,
+                            "visibility": "hidden",
+                            "whiteSpace": "pre",
+                          }
+                        }
+                      >
+                        
+                      </div>
+                    </div>
+                  </span>
+                  <span
+                    className="Select-arrow-zone"
+                    onMouseDown={[Function]}
+                  >
+                    <span
+                      className="Select-arrow"
+                      onMouseDown={[Function]}
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="DashboardBarChart"
+              id="String"
+              style={
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "padding": 10,
+                  "width": "100%",
+                }
+              }
+            >
+              <div
+                className="HighchartsWrapper"
+                style={
+                  Object {
+                    "flex": 1,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

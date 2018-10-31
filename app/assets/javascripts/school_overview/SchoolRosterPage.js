@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import qs from 'query-string';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import SchoolRoster from './SchoolRoster';
@@ -17,7 +18,11 @@ export default class SchoolRosterPage extends React.Component {
 
   fetchJson() {
     const {schoolIdOrSlug} = this.props;
-    const url = `/schools/${schoolIdOrSlug}/overview_json`;
+    const queryParams = qs.parse(window.location.search.slice(1));
+    const queryString = queryParams.force_querying_on_demand
+      ? `?${qs.stringify({ force_querying_on_demand: true })}`
+      : '';
+    const url = `/schools/${schoolIdOrSlug}/overview_json${queryString}`;
     return apiFetchJson(url);
   }
 

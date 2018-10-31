@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TeamMembershipImporter, type: :controller do
+RSpec.describe TeamMembershipImporter do
   describe 'integration test' do
     it 'works for importing teams for Mari and Kylo' do
       pals = TestPals.create!(skip_team_memberships: true)

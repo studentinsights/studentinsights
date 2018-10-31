@@ -13,6 +13,16 @@ describe('#hasAnySpecialEducationData', () => {
       sped_level_of_need: null,
     }, null)).toEqual(false);
   });
+
+  it('ignores sped_liaison value', () => {
+    expect(hasAnySpecialEducationData({
+      program_assigned: 'Reg Ed',
+      sped_placement: null,
+      disability: null,
+      sped_level_of_need: null,
+      sped_liaison: 'Concepcion'
+    }, null)).toEqual(false);
+  });
 });
 
 describe('#prettyProgramOrPlacementText', () => {
@@ -40,7 +50,17 @@ describe('#prettyProgramOrPlacementText', () => {
     expect(prettyProgramOrPlacementText({
       program_assigned: 'SEIP',
       sped_placement: null
-    })).toEqual('SEIP');
+    })).toEqual(null);
+
+    expect(prettyProgramOrPlacementText({
+      program_assigned: 'Waivered SEIP',
+      sped_placement: null
+    })).toEqual(null);
+
+    expect(prettyProgramOrPlacementText({
+      program_assigned: 'Sheltered Immersion',
+      sped_placement: null
+    })).toEqual(null);
 
     expect(prettyProgramOrPlacementText({
       program_assigned: '2Way Spanish',

@@ -53,6 +53,10 @@ EventNoteCard.propTypes = {
       last_name: PropTypes.string.isRequired,
       grade: PropTypes.string.isRequired,
       house: PropTypes.string,
+      school: PropTypes.shape({
+        local_id: PropTypes.string.isRequired,
+        school_type: PropTypes.string.isRequired
+      }),
       homeroom: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,

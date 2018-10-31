@@ -3,24 +3,27 @@
   <% # Show different links based on role and access %>
   <% links = PathsForEducator.new(educator).navbar_links %>
 
-  <% if links.has_key?(:classlists) %>
-    <%= link_to 'Class lists', links[:classlists] %>
-    <span class="navbar-spacer"></span>
-  <% end %>
-
   <% if links.has_key?(:district) %>
     <%= link_to 'District', links[:district] %>
     <span class="navbar-spacer"></span>
   <% end %>
 
-  <% if links.has_key?(:school) %>
-    <%= link_to 'Roster', links[:school] %>
+  <% if links.has_key?(:classlists) %>
+    <%= link_to 'Class lists', links[:classlists] %>
+    <span class="navbar-spacer"></span>
+  <% end %>
+  
+  <% if links.has_key?(:levels_shs) %>
+    <%= link_to 'Levels', links[:levels_shs] %>
   <% end %>
   <% if links.has_key?(:absences) %>
     <%= link_to "Absences", links[:absences] %>
   <% end %>
   <% if links.has_key?(:tardies) %>
     <%= link_to "Tardies", links[:tardies] %>
+  <% end %>
+  <% if links.has_key?(:school) %>
+    <%= link_to 'Overview', links[:school] %>
     <span class="navbar-spacer"></span>
   <% end %>
 

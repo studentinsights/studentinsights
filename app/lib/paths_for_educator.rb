@@ -12,6 +12,10 @@ class PathsForEducator
       links[:classlists] = '/classlists'
     end
 
+    if PerDistrict.new.enabled_high_school_levels? && @educator.labels.include?('should_show_levels_shs_link')
+      links[:levels_shs] = '/levels/shs'
+    end
+
     if @educator.districtwide_access?
       links[:district] = url_helpers.educators_districtwide_path
     end

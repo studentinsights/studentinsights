@@ -25,7 +25,9 @@ SELECT
   'primary_email',
   'house',
   'counselor',
-  'sped_liaison'
+  'sped_liaison',
+  'ell_entry_date',
+  'ell_transition_date'
 UNION ALL
 SELECT
   STD_ID_STATE,
@@ -53,7 +55,9 @@ SELECT
   PSN_EMAIL_01,
   STD_FIELDB_008, -- House - SHS
   STD_FIELDB_027, -- Counselor, text of staff last name - SPS
-  STD_FIELDB_054 -- Special education liaison, text of staff last name - SPS
+  STD_FIELDB_054, -- Special education liaison, text of staff last name - SPS
+  STD_FIELDA_079, -- ELL entry date - SPS
+  STD_FIELDA_080 -- ELL transition data - SPS
 FROM student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID

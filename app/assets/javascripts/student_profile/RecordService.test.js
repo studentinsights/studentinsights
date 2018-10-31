@@ -32,7 +32,7 @@ const helpers = {
 
   serviceTypes(el) {
     return $(el).find('.btn.service-type').toArray().map(el => {
-      return $.trim(el.innerHTML);
+      return el.innerHTML.trim();
     });
   },
 

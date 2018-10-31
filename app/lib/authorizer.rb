@@ -169,21 +169,6 @@ class Authorizer
   end
 
   # TODO(kr) remove implementation
-  def students_for_school_overview
-    return [] unless @educator.school.present?
-
-    if @educator.schoolwide_access?
-      @educator.school.students.active
-    elsif @educator.has_access_to_grade_levels?
-      @educator.school.students
-        .active
-        .where(grade: @educator.grade_level_access)
-    else
-      []
-    end
-  end
-
-  # TODO(kr) remove implementation
   def homerooms
     if @educator.districtwide_access?
       Homeroom.all

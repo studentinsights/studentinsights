@@ -7,7 +7,7 @@ RSpec.describe DibelsRow do
     {
       assessment_test: 'DIBELS',
       local_id: student.local_id,
-      assessment_date: Date.today,
+      assessment_date: '2017-03-14'
     }
   }
 
@@ -17,6 +17,11 @@ RSpec.describe DibelsRow do
 
   def parse_and_build_row(benchmark)
     DibelsRow.new(make_row(benchmark), student.id, LogHelper::FakeLog.new).build
+  end
+
+  it 'parses the date correctly' do
+    dibels_built_row = parse_and_build_row('CORE')
+    expect(dibels_built_row.date_taken).to eq 'Tue, 14 Mar 2017 00:00:00 UTC +00:00'
   end
 
   it 'parses a row with benchmark CORE and saves a new record' do

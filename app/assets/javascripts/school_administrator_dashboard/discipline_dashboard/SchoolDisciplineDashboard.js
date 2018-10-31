@@ -47,10 +47,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.memoize = memoizer();
   }
 
-  filterIncidents(disciplineIncidents, shouldFilterSelectedCategory) {
+  filterIncidents(disciplineIncidents, options = {}) {
     return this.memoize(['filteredIncidents', this.state, arguments], () => {
       if (!disciplineIncidents) return [];
       const {nowFn} = this.context;
+      const {shouldFilterSelectedCategory} = options;
       const {timeRangeKey, selectedIncidentCode, selectedChart, selectedCategory} = this.state;
       const range = momentRange(timeRangeKey, nowFn());
       return disciplineIncidents.filter(incident => {
@@ -67,8 +68,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
-  filterStudents(students, shouldFilterSelectedCategory) {
+  filterStudents(students, options = {}) {
     const {selectedChart, selectedCategory, grade, house, counselor} = this.state;
+    const {shouldFilterSelectedCategory} = options;
     return students.filter(student => {
       if (grade !== ALL && student.grade !== grade) return false;
       if (house !== ALL && student.house !== house) return false;
@@ -76,9 +78,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
       if (selectedCategory && shouldFilterSelectedCategory) { //used by the student list when a user selects a category within a chart
         if (selectedChart === 'grade' && student.grade !== selectedCategory) return false;
         if (selectedChart === 'homeroom_label' && student.homeroom_label !== selectedCategory) return false;
-        if (!this.filterIncidents(student.discipline_incidents, true).length) return false;
+        if (!this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: true}).length) return false;
       }
-      if (!this.filterIncidents(student.discipline_incidents, false).length) return false;
+      if (!this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: false}).length) return false;
       return true;
     });
   }
@@ -99,7 +101,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   getIncidentsFromStudents(students) {
     //for chart data, does not filter on selected categories
-    return _.flatten(students.map(student => this.filterIncidents(student.discipline_incidents, false)));
+    return _.flatten(students.map(student => this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: false})));
   }
 
   //Depending on the chart, incidents are grouped either by student attribute or incident attribute. Any future
@@ -211,7 +213,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   studentTableRows(students) {
-    const filteredStudents = this.filterStudents(students, true);
+    const filteredStudents = this.filterStudents(students, {shouldFilterSelectedCategory: true});
     const {selectedCategory} = this.state;
     return filteredStudents.map(student => {
       return {
@@ -220,7 +222,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
         last_name: student.last_name,
         grade: student.grade,
         latest_note: student.latest_note,
-        events: this.filterIncidents(student.discipline_incidents, selectedCategory).length
+        events: this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: selectedCategory}).length
       };
     });
   }
@@ -353,7 +355,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderDisciplineChart(students, selectedChart) {
-    const selectedStudents = this.filterStudents(students, false);
+    const selectedStudents = this.filterStudents(students, {shouldFilterSelectedCategory: false});
     const {categories, seriesData} = this.getChartData(selectedStudents, selectedChart);
     return (
         <DashboardBarChart
@@ -375,9 +377,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return (
       <StudentsTable
         rows = {rows}
-        selectedCategory = {this.state.selectedCategory}
-        incidentType={"Incidents"}
-        resetFn={this.onResetStudentList}/>
+        incidentType={"Incidents"}/>
     );
   }
 }

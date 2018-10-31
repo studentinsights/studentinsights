@@ -1,4 +1,3 @@
-
 class EventNoteType < ApplicationRecord
   def self.seed_for_all_districts
     EventNoteType.destroy_all
@@ -25,5 +24,9 @@ class EventNoteType < ApplicationRecord
 
   def self.TENGE
     EventNoteType.find(306)
+  end
+
+  def self.NEST
+    EventNoteType.find(307)
   end
 end

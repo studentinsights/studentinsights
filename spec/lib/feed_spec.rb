@@ -102,6 +102,10 @@ RSpec.describe Feed do
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "house"=>"Beacon",
+            "school"=>{
+              "local_id"=>"SHS",
+              "school_type"=>"HS"
+            },
             "homeroom"=>{
               "id"=>pals.shs_jodi_homeroom.id,
               "name"=>"SHS 942",
@@ -132,6 +136,10 @@ RSpec.describe Feed do
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "house"=>'Beacon',
+            "school"=>{
+              "local_id"=>"SHS",
+              "school_type"=>"HS"
+            },
             "homeroom"=>{
               "id"=>pals.shs_jodi_homeroom.id,
               "name"=>"SHS 942",
@@ -215,6 +223,10 @@ RSpec.describe Feed do
           "first_name"=>"Mari",
           "last_name"=>"Kenobi",
           "house"=>"Beacon",
+          "school"=>{
+            "local_id"=>"SHS",
+            "school_type"=>"HS"
+          },
           "homeroom"=>{
             "id"=>pals.shs_jodi_homeroom.id,
             "name"=>"SHS 942",

@@ -48,19 +48,6 @@ class Educator < ApplicationRecord
     Authorizer.new(self).is_authorized_for_section?(section)
   end
 
-  def students_for_school_overview(*additional_includes)
-    students = Authorizer.new(self).students_for_school_overview
-
-    if students.respond_to?(:includes)
-      students.includes(additional_includes || [])
-    elsif students.size == 0
-      logger.warn("Fell through to empty array in #students_for_school_overview for educator_id: #{self.id}")
-      []
-    else
-      students
-    end
-  end
-
   def labels
     EducatorLabel.labels(self)
   end

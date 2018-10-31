@@ -90,21 +90,12 @@ class X2AssessmentImporter
       return
     end
 
-    # Some kind of cleanup
-    row[:assessment_growth] = nil if !/\D/.match(row[:assessment_growth]).nil?
-
     # Find out how to interpret the record based on `assessment_test`
     # and ignore unexpected ones.
     # Be aware that there may be export-side logic and transformations being
     # applied here as well (eg. https://github.com/studentinsights/studentinsights/blob/f331db10b723fc181a736edacb13b16b3080e889/x2_export/assessment_export.sql#L23)
     tick_test_type_counter(row[:assessment_test])
-    row_class = case row[:assessment_test]
-      when 'MCAS' then McasRow
-      when 'ACCESS', 'WIDA', 'WIDA-ACCESS' then AccessRow
-      when 'DIBELS' then DibelsRow
-      else nil
-    end
-
+    row_class = PerDistrict.new.choose_assessment_importer_row_class(row)
     if row_class.nil?
       @skipped_because_of_test_type += 1
       return
@@ -150,7 +141,7 @@ class X2AssessmentImporter
   end
 
   def is_old?(row)
-    row[:assessment_date] < @time_now - 90.days
+    PerDistrict.new.parse_date_during_import(row[:assessment_date]) < @time_now - 90.days
   end
 
   # Prevent repeated queries to this table, which is only ~10-100 records

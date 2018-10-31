@@ -2,7 +2,7 @@
   "name": "studentinsights",
   "version": "0.1.0",
   "engines": {
-    "node": "^8.11.1"
+    "node": "^10.13.0"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
     "start": "concurrently --kill-others \"bundle exec rails s\" \"yarn dev\"",
     "jest": "TZ='America/New_York' jest --config jest.json",
     "t": "yarn test",
-    "test": "yarn jest -- --watch",
+    "test": "yarn jest --watch",
     "test-cli": "yarn lint-cli && yarn jest",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
@@ -50,7 +50,7 @@
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
     "react-test-renderer": "15.4.2",
-    "react-virtualized": "^9.18.5",
+    "react-virtualized": "9.20",
     "rollbar-browser": "^1.9.5",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^2.0.3"
