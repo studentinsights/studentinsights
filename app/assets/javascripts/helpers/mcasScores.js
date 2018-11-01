@@ -30,10 +30,10 @@ export function shortLabelFromOldMcasScore(score) {
 }
 
 
-export function nextGenMcasScoreRangeFor(code) {
+export function nextGenMcasScoreRange(code) {
   return NEXT_GEN_MCAS_RANGES[code];
 }
 
-export function oldMcasScoreRangeFor(code) {
+export function oldMcasScoreRange(code) {
   return OLD_MCAS_RANGES[code];
 }

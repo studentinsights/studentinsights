@@ -92,7 +92,7 @@ class SlicePanels extends React.Component {
       this.createItem('Not Meeting Expectations', Filters.Range(key, nextGenMcasScoreRange('NM'))),
       this.createItem('Partially Meeting', Filters.Range(key, nextGenMcasScoreRange('PM'))),
       this.createItem('Meeting Expectations', Filters.Range(key, nextGenMcasScoreRange('M'))),
-      this.createItem('Exceeding Expectations', Filters.Range(key, nextGenMcasScoreRange('EE')))
+      this.createItem('Exceeding Expectations', Filters.Range(key, nextGenMcasScoreRange('E')))
     ];
     const oldMCASFilters = [
       this.createItem('Warning', Filters.Range(key, oldMcasScoreRange('W'))),
