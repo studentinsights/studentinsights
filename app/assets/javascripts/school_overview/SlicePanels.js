@@ -5,9 +5,11 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
+import {nextGenMcasScoreRange, oldMcasScoreRange} from '../helpers/mcasScores';
 import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
+
 
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different
@@ -87,16 +89,16 @@ class SlicePanels extends React.Component {
   MCASFilterItems(key) {
     const nullItem = [this.createItem('None', Filters.Null(key))];
     const nextGenMCASFilters = [
-      this.createItem('Not Meeting Expectations', Filters.Range(key, [400, 450])),
-      this.createItem('Partially Meeting', Filters.Range(key, [450, 500])),
-      this.createItem('Meeting Expectations', Filters.Range(key, [500, 550])),
-      this.createItem('Exceeding Expectations', Filters.Range(key, [260, 281]))
+      this.createItem('Not Meeting Expectations', Filters.Range(key, nextGenMcasScoreRange('NM'))),
+      this.createItem('Partially Meeting', Filters.Range(key, nextGenMcasScoreRange('PM'))),
+      this.createItem('Meeting Expectations', Filters.Range(key, nextGenMcasScoreRange('M'))),
+      this.createItem('Exceeding Expectations', Filters.Range(key, nextGenMcasScoreRange('E')))
     ];
     const oldMCASFilters = [
-      this.createItem('Warning', Filters.Range(key, [200, 220])),
-      this.createItem('Needs Improvement', Filters.Range(key, [220, 240])),
-      this.createItem('Proficient', Filters.Range(key, [240, 260])),
-      this.createItem('Advanced', Filters.Range(key, [260, 281])),
+      this.createItem('Warning', Filters.Range(key, oldMcasScoreRange('W'))),
+      this.createItem('Needs Improvement', Filters.Range(key, oldMcasScoreRange('NI'))),
+      this.createItem('Proficient', Filters.Range(key, oldMcasScoreRange('P'))),
+      this.createItem('Advanced', Filters.Range(key, oldMcasScoreRange('A'))),
     ];
 
     const sortedScores = _.compact(_.map(this.props.students, key)).sort();

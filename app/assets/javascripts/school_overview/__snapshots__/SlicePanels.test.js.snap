@@ -2551,7 +2551,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                4%
+                20%
               </td>
               <td
                 style={
@@ -2566,7 +2566,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "2%",
+                      "width": "10%",
                     }
                   }
                 />
@@ -3586,7 +3586,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                4%
+                24%
               </td>
               <td
                 style={
@@ -3601,7 +3601,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "2%",
+                      "width": "12%",
                     }
                   }
                 />
