@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {toMoment} from './QuadConverter';
-import {shortLabelFromNextGenMcasScore, shortLabelFromOldMcasScore} from './mcasScores';
+import {shortLabelFromNextGenMcasScore, shortLabelFromOldMcasScore} from '../helpers/mcasScores';
 
 
 // Look at ELA and Math next gen MCAS scores and make the different texts for the 'testing'
