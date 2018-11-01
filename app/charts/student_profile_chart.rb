@@ -36,8 +36,8 @@ class StudentProfileChart < Struct.new :student
       next_gen_mcas_ela_scaled: scale_scores_to_highcharts(data[:next_gen_mcas_ela_results]),
       mcas_series_math_scaled: scale_scores_to_highcharts(data[:mcas_mathematics_results]),
       mcas_series_ela_scaled: scale_scores_to_highcharts(data[:mcas_ela_results]),
-      mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_mathematics_results]),
-      mcas_series_ela_growth: growth_percentiles_to_highcharts(data[:mcas_ela_results]),
+      mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_mathematics_results] + data[:next_gen_mcas_mathematics_results]),
+      mcas_series_ela_growth: growth_percentiles_to_highcharts(data[:mcas_ela_results] + data[:next_gen_mcas_ela_results]),
       interventions: interventions_to_highcharts
     }
   end
