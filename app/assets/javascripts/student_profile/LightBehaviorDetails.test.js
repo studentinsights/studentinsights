@@ -17,7 +17,24 @@ function testProps(props = {}) {
 }
 
 function testIncidents() {
+  const student = {
+    "id": 42,
+    "grade": "10",
+    "first_name": "Mowgli",
+    "last_name": "Pan",
+    "house": "Beacon",
+    "school": {
+      "local_id": "SHS",
+      "school_type": "HS"
+    },
+    "homeroom": {
+      "id": 4,
+      "name": "SHS ALL"
+    }
+  };
+  
   return [{
+    student,
     "id": 45,
     "incident_code": "ABC",
     "created_at": "2018-03-01T14:22:11.437Z",
@@ -28,6 +45,7 @@ function testIncidents() {
     "has_exact_time": true,
     "student_id": 42
   }, {
+    student,
     "id": 46,
     "incident_code": "XYZ",
     "created_at": "2016-02-22T14:22:11.437Z",

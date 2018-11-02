@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import ProfileBarChart, {tooltipEventTextFn, createUnsafeTooltipFormatter} from './ProfileBarChart';
-import IncidentCard from '../components/IncidentCard';
+import IncidentCard from '../feed/IncidentCard';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 
 
@@ -119,7 +119,7 @@ export default class AttendanceDetails extends React.Component {
     return (
       <div style={{paddingTop: 60}}>
         {this.props.disciplineIncidents.map(incident => {
-          return <IncidentCard key={incident.id} incident={incident} />;
+          return <IncidentCard key={incident.id} incidentCard={incident} />;
         })}
       </div>
     );
