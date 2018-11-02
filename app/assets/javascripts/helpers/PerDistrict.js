@@ -176,20 +176,20 @@ export function takeNotesChoices(districtKey) {
   if (districtKey === SOMERVILLE || districtKey === DEMO) {
     return {
       leftEventNoteTypeIds: [300, 301, 302, 304],
-      rightEventNoteTypeIds: [305, 306, 307]
+      rightEventNoteTypeIds: [305, 306, 307, 308]
     };
   }
 
   if (districtKey === BEDFORD) {
     return {
-      leftEventNoteTypeIds: [500, 302, 304],
+      leftEventNoteTypeIds: [500, 302, 304, 308],
       rightEventNoteTypeIds: []
     };
   }
 
   if (districtKey === NEW_BEDFORD) {
     return {
-      leftEventNoteTypeIds: [400, 302, 304],
+      leftEventNoteTypeIds: [400, 302, 304, 308],
       rightEventNoteTypeIds: []
     };
   }
@@ -204,7 +204,7 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   if (districtKey === NEW_BEDFORD) return [400];
   
   const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
-  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306, 307];
+  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306, 307, 308];
   // Includes elementary/middle, Capuano early childhood, and SPED.
   if (isSomervilleOrDemo) return [300, 301];
 

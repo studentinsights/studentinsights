@@ -9,6 +9,7 @@ class EventNoteType < ApplicationRecord
       { id: 305, name: '9th Grade Experience' },
       { id: 306, name: '10th Grade Experience' },
       { id: 307, name: 'NEST' },
+      { id: 308, name: 'Counselor meeting' },
       { id: 400, name: 'BBST Meeting' },
       { id: 500, name: 'STAT Meeting' }
     ])
