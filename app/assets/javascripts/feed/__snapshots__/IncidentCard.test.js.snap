@@ -77,6 +77,7 @@ exports[`matches snapshot 1`] = `
             13 days ago
              on 
             2/28
+            , 5:00am
           </div>
         </div>
       </div>
@@ -124,7 +125,7 @@ exports[`matches snapshot 1`] = `
           className="Badge"
           style={
             Object {
-              "backgroundColor": "rgb(255, 140, 0)",
+              "backgroundColor": "rgb(49, 171, 57)",
               "color": "white",
               "marginLeft": 5,
               "opacity": 0.5,
@@ -212,6 +213,7 @@ exports[`matches when no location 1`] = `
             13 days ago
              on 
             2/28
+            , 5:00am
           </div>
         </div>
       </div>
@@ -259,7 +261,7 @@ exports[`matches when no location 1`] = `
           className="Badge"
           style={
             Object {
-              "backgroundColor": "rgb(255, 140, 0)",
+              "backgroundColor": "rgb(49, 171, 57)",
               "color": "white",
               "marginLeft": 5,
               "opacity": 0.5,

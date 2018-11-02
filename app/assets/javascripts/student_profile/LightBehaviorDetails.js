@@ -123,9 +123,13 @@ export default class LightBehaviorDetails extends React.Component {
   renderIncidents(filteredDisciplineIncidents) {
     return (
       <div style={{width: '50%'}}>
-        {filteredDisciplineIncidents.map(incident => {
-          return <IncidentCard key={incident.id} style={{background: '#eee', marginBottom: 20}} incidentCard={incident} />;
-        })}
+        {filteredDisciplineIncidents.map(incident => (
+          <IncidentCard
+            key={incident.id}
+            style={{background: '#eee', marginBottom: 20}}
+            incidentCard={incident}
+          />
+        ))}
       </div>
     );
   }

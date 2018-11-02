@@ -249,6 +249,14 @@ describe ProfileController, :type => :controller do
             )
           }
 
+          it 'sends the expected shape' do
+            make_request(educator, student.id)
+            json = parse_json(response.body)
+            expect(json['attendance_data']['discipline_incidents'].first.keys).to contain_exactly(*[
+              'foo'
+            ])
+          end
+
           it 'sets the correct order' do
             make_request(educator, student.id)
             json = parse_json(response.body)
