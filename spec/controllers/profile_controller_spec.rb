@@ -253,7 +253,13 @@ describe ProfileController, :type => :controller do
             make_request(educator, student.id)
             json = parse_json(response.body)
             expect(json['attendance_data']['discipline_incidents'].first.keys).to contain_exactly(*[
-              'foo'
+              'has_exact_time',
+              'id',
+              'incident_code',
+              'incident_description',
+              'incident_location',
+              'occurred_at',
+              'student'
             ])
           end
 
