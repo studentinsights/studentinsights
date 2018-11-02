@@ -21,10 +21,10 @@ class IncidentCard extends React.Component {
             ? null
             : <div>in {incidentCard.incident_location}</div>
           }
-          whenEl={<Timestamp railsTimestamp={incidentCard.occurred_at} />}
+          whenEl={<Timestamp shouldIncludeTime={true} railsTimestamp={incidentCard.occurred_at} />}
           badgesEl={<div>
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
-            <Badge style={styles.footerBadge} text="Incident" backgroundColor="rgb(255, 140, 0)" />
+            <Badge style={styles.footerBadge} text="Incident" backgroundColor="rgb(49, 171, 57)" />
           </div>}
         >
           <div>{incidentCard.incident_description} (code: {incidentCard.incident_code})</div>

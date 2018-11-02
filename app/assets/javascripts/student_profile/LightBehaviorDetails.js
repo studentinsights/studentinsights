@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {toMomentFromTimestamp, toMomentFromRailsDate} from '../helpers/toMoment';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
-import IncidentCard from '../components/IncidentCard';
+import IncidentCard from '../feed/IncidentCard';
 import DetailsSection from './DetailsSection';
 import ProfileBarChart, {servicePhaselines} from './ProfileBarChart';
 import CleanSlateMessage from './CleanSlateMessage';
@@ -118,11 +118,13 @@ export default class LightBehaviorDetails extends React.Component {
     );
   }
 
+  // Render these with a slightly different visual style than the feed (the background
+  // color), just to mark this as different.
   renderIncidents(filteredDisciplineIncidents) {
     return (
-      <div>
+      <div style={{width: '50%'}}>
         {filteredDisciplineIncidents.map(incident => {
-          return <IncidentCard key={incident.id} incident={incident} />;
+          return <IncidentCard key={incident.id} style={{background: '#eee', marginBottom: 20}} incidentCard={incident} />;
         })}
       </div>
     );
