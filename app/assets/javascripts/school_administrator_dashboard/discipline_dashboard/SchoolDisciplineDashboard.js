@@ -27,6 +27,7 @@ import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import DashboardScatterPlot from '../DashboardScatterPlot';
 import * as dashboardStyles from '../dashboardStyles';
 
 
@@ -93,6 +94,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
     if (!incident.has_exact_time) return "Not Logged";
     if (!moment.utc(hour, timeFormat).isBetween(schoolStart, schoolEnd)) return "Other";
     return hour;
+  }
+
+  getExactTime(incident) {
+    console.log(parseInt(moment.utc(incident.occurred_at).format("HHmmss")));
+    return parseInt(moment.utc(incident.occurred_at).format("HHMMSS"));
   }
 
   timeStampToDay(incident) {
@@ -165,12 +171,15 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       return {categories, seriesData};
     }
-    case 'heatmap': {
+    case 'scatter': {
       const incidents = this.getIncidentsFromStudents(students);
-      const groupedIncidents = _.groupBy(incidents, incident => {
-        return moment.utc(incident.occurred_at).format("ddd");
-      });
       const categories = this.sortedDays();
+      const seriesData = incidents.map(incident => {
+        const x = moment.utc(incident.occurred_at).format("ddd");
+        const y = this.getExactTime(incident);
+        return {x, y};
+      });
+      return {categories, seriesData};
     }
     }
   }
@@ -289,7 +298,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
-      {value: 'heatmap', label: 'heatmap'}
+      {value: 'scatter', label: 'heatmap'}
     ];
     const incidentTypes = this.allIncidentTypes(dashboardStudents);
 
@@ -357,18 +366,31 @@ export default class SchoolDisciplineDashboard extends React.Component {
   renderDisciplineChart(students, selectedChart) {
     const selectedStudents = this.filterStudents(students, {shouldFilterSelectedCategory: false});
     const {categories, seriesData} = this.getChartData(selectedStudents, selectedChart);
+    const commonProps = {
+      id: "String",
+      animation: false,
+      categories: {categories: categories},
+      seriesData: seriesData,
+      titleText: null
+    };
+    const barChartProps = {
+      ...commonProps,
+      measureText: "Number of Incidents",
+      tooltip: {pointFormat: 'Total incidents: <b>{point.y}</b>'},
+      onColumnClick: this.onColumnClick,
+      onBackgroundClick: this.onResetStudentList
+    };
+    const scatterPlotProps = {
+      ...commonProps,
+      measureText: "Time of Incident",
+      tooltip: {pointFormat: '<b>{point.x}, {point.y}</b>'},
+    };
     return (
-        <DashboardBarChart
-          id = "String"
-          animation = {false}
-          categories = {{categories: categories}}
-          seriesData = {seriesData}
-          titleText = {null}
-          measureText = {'Number of Incidents'}
-          tooltip = {{
-            pointFormat: 'Total incidents: <b>{point.y}</b>'}}
-          onColumnClick = {this.onColumnClick}
-          onBackgroundClick = {this.onResetStudentList}/>
+      (selectedChart === 'scatter') ? (
+      <DashboardScatterPlot {...scatterPlotProps}/>
+      ) : (
+      <DashboardBarChart {...barChartProps}/>
+      )
     );
   }
 

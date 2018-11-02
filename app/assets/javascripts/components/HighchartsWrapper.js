@@ -19,6 +19,8 @@ export default class HighchartsWrapper extends React.Component {
   }
 
   render() {
+    console.log("here");
+    console.log($(this.chartEl).highcharts(this.props));
     const {style} = this.props;
     return <div className="HighchartsWrapper" style={style} ref={el => this.chartEl = el} />;
   }
