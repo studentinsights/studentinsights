@@ -27,7 +27,7 @@ export function firstMatch(assignments, patterns) {
 function matchingAssignmentsByPattern(assignments, patterns) {
   return assignments.filter(assignment => {
     const text = assignment.section.course_description;
-    return _.some(patterns, pattern => text.toUpperCase90.match(pattern) !== null);
+    return _.some(patterns, pattern => text.toUpperCase().match(pattern) !== null);
   });
 }
 
