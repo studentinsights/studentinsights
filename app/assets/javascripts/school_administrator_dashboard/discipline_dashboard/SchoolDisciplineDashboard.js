@@ -97,8 +97,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   getExactTime(incident) {
-    console.log(parseInt(moment.utc(incident.occurred_at).format("HHmmss")));
-    return parseInt(moment.utc(incident.occurred_at).format("HHMMSS"));
+    return parseInt(moment.utc(incident.occurred_at).format("HHmmss"));
   }
 
   timeStampToDay(incident) {
@@ -175,9 +174,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const incidents = this.getIncidentsFromStudents(students);
       const categories = this.sortedDays();
       const seriesData = incidents.map(incident => {
-        const x = moment.utc(incident.occurred_at).format("ddd");
+        const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
         const y = this.getExactTime(incident);
-        return {x, y};
+        const name = moment.utc(incident.occurred_at).format("HH:mm a");
+        return {x, y, name};
       });
       return {categories, seriesData};
     }
@@ -383,7 +383,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const scatterPlotProps = {
       ...commonProps,
       measureText: "Time of Incident",
-      tooltip: {pointFormat: '<b>{point.x}, {point.y}</b>'},
+      tooltip: {pointFormat: '<b>{point.name}</b>'},
+      yAxisMin: 0,
+      yAxisMax: 245959
     };
     return (
       (selectedChart === 'scatter') ? (
