@@ -68,13 +68,14 @@ it('renders the correct roster headers', () => {
 
   const headers = $(el).find('#roster-header th').toArray().map(el => $(el).text());
 
-  expect(headers.length).toEqual(20);
+  expect(headers.length).toEqual(21);
   expect(headers).toEqual([
     'Name',
     'Last SST',
     'Last NGE',
     'Last 10GE',
     'Last NEST',
+    'Last Counselor',
     'Program Assigned',
     'Disability',
     '504 Plan',

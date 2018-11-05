@@ -182,14 +182,14 @@ export function takeNotesChoices(districtKey) {
 
   if (districtKey === BEDFORD) {
     return {
-      leftEventNoteTypeIds: [500, 302, 304, 308],
+      leftEventNoteTypeIds: [500, 302, 304],
       rightEventNoteTypeIds: []
     };
   }
 
   if (districtKey === NEW_BEDFORD) {
     return {
-      leftEventNoteTypeIds: [400, 302, 304, 308],
+      leftEventNoteTypeIds: [400, 302, 304],
       rightEventNoteTypeIds: []
     };
   }
