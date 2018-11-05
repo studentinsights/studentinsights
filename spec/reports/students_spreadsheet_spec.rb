@@ -87,6 +87,7 @@ RSpec.describe StudentsSpreadsheet do
            'X-Block (active_service_date_started)',
            '10th Grade Experience (last_event_note_recorded_at)',
            'NEST (last_event_note_recorded_at)',
+           'Counselor Meeting (last_event_note_recorded_at)',
            'STAT Meeting (last_event_note_recorded_at)'
          ].sort
         )
