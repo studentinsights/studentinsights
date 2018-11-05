@@ -15,21 +15,25 @@ RSpec.describe HomeworkHelpImporter do
     it 'works for importing notes' do
       log = LogHelper::FakeLog.new
       importer = HomeworkHelpImporter.new(log: log)
-      rows = importer.import(fixture_file_text)
-      expect(rows).to contain_exactly(*[{
-        student_id: pals.shs_freshman_mari.id,
-        form_timestamp: Time.parse('Tue, 25 Sep 2018 13:41:43.000000000 +0000'),
-        course_ids: [history.id, algebra.id]
+      homework_help_sessions = importer.import(fixture_file_text)
+      expect(HomeworkHelpSession.all.size).to eq 3
+      expect(homework_help_sessions.as_json(except: [:id, :created_at, :updated_at])).to contain_exactly(*[{
+        'student_id' => pals.shs_freshman_mari.id,
+        'form_timestamp' => Time.parse('Tue, 25 Sep 2018 13:41:43.000000000 +0000'),
+        'course_ids' => [history.id, algebra.id]
       }, {
-        student_id: pals.shs_freshman_amir.id,
-        form_timestamp: Time.parse('Mon, 01 Oct 2018 13:25:23.000000000 +0000'),
-        course_ids: [english.id, history.id, algebra.id]
+        'student_id' => pals.shs_freshman_amir.id,
+        'form_timestamp' => Time.parse('Mon, 01 Oct 2018 13:25:23.000000000 +0000'),
+        'course_ids' => [english.id, history.id, algebra.id]
       }, {
-        student_id: pals.shs_senior_kylo.id,
-        form_timestamp: Time.parse('Mon, 01 Oct 2018 13:45:12.000000000 +0000'),
-        course_ids: [geometry.id]
+        'student_id' => pals.shs_senior_kylo.id,
+        'form_timestamp' => Time.parse('Mon, 01 Oct 2018 13:45:12.000000000 +0000'),
+        'course_ids' => [geometry.id]
       }])
       expect(log.output).to include('valid_rows_count=>3')
+
+      expect(homework_help_sessions.first.courses.map(&:class).uniq).to eq [Course]
+      expect(HomeworkHelpSession.where(student_id: pals.shs_freshman_mari.id).size).to eq 1
     end
   end
 end

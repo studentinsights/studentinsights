@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_22_191915) do
+ActiveRecord::Schema.define(version: 2018_11_05_192430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,14 @@ ActiveRecord::Schema.define(version: 2018_10_22_191915) do
     t.index ["educator_id"], name: "index_homerooms_on_educator_id"
     t.index ["school_id", "name"], name: "index_homerooms_on_school_id_and_name", unique: true
     t.index ["slug"], name: "index_homerooms_on_slug", unique: true
+  end
+
+  create_table "homework_help_sessions", force: :cascade do |t|
+    t.integer "student_id"
+    t.datetime "form_timestamp"
+    t.json "course_ids"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "house_educator_mappings", force: :cascade do |t|

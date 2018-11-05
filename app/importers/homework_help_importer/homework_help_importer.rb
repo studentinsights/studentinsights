@@ -16,16 +16,12 @@ class HomeworkHelpImporter
     log "matcher#stats: #{@matcher.stats}"
 
     # write to database
-    
-
-    # # Translate survey to generic EventNote hashes, and then do an exact sync
-    # importer = FlatNoteImporter.new(log: @log)
-    # hashes_for_notes = importer.generic_hashes_for_notes(note_title, survey[:parsed_rows])
-    # syncer = importer.exact_sync_using_note_title(note_title, hashes_for_notes)
-    # log "syncer#stats: #{syncer.stats}"
-
-    # [survey, syncer] # return for debugging
-    rows
+    homework_help_sessions = nil
+    HomeworkHelpSession.transaction do
+      HomeworkHelpSession.destroy_all
+      homework_help_sessions = rows.map {|row| HomeworkHelpSession.create!(row) }
+    end
+    homework_help_sessions
   end
 
   private
@@ -68,11 +64,7 @@ class HomeworkHelpImporter
     })
     csv_transformer.transform(file_text)
   end
-
-  # def note_title
-  #   'NGE/10GE/NEST Student Meeting'
-  # end
-
+  
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
     @log.puts "HomeworkHelpImporter: #{text}"
