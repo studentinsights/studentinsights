@@ -1,3 +1,5 @@
+# Helper functions for doing an import, and matching different values in an imported row to
+# the database.
 class ImportMatcher
   # Timestamps have differnet formats if you download a Google Form as a CSV
   # versus if you export that same form to Sheets (and then download that).

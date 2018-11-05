@@ -58,6 +58,7 @@ export default class NotesList extends React.Component {
             case 'event_notes': return this.renderEventNote(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+            case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
             }
           })}
         {this.renderCleanSlateMessage()}
@@ -149,6 +150,22 @@ export default class NotesList extends React.Component {
         educatorsIndex={this.props.educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
+        attachments={[]} />
+    );
+  }
+
+  renderHomeworkHelpSession(homeworkHelpSession) {
+    const text = 'Went to homework help for ' + homeworkHelpSession.courses.map(course => course.course_description).join(' and ') + '.';
+    return (
+      <NoteCard
+        key={['homework_help_session', homeworkHelpSession.id].join()}
+        noteMoment={toMomentFromRailsDate(homeworkHelpSession.form_timestamp)}
+        badge={<span style={styles.badge}>Homework Help</span>}
+        educatorId={homeworkHelpSession.recorded_by_educator_id}
+        text={text}
+        educatorsIndex={this.props.educatorsIndex}
+        showRestrictedNoteRedaction={false}
+        urlForRestrictedNoteContent={null}
         attachments={[]} />
     );
   }

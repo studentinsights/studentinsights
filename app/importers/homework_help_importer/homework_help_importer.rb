@@ -1,7 +1,16 @@
+# Used on the console to import data about homework help sessions.
+#
+# Usage:
+# file_text = <<EOD
+# ...
+# EOD
+# educator = Educator.find_by_login_name('...')
+# output = HomeworkHelpImporter.new(educator.id).import(file_text);nil
 class HomeworkHelpImporter
-  def initialize(options = {})
+  def initialize(educator_id, options = {})
+    @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
-    @matcher = options.fetch(:matcher, ImportMatcher.new(strptime_format: ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT))
+    @matcher = options.fetch(:matcher, ::ImportMatcher.new(strptime_format: ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT))
   end
 
   def import(file_text, options = {})
@@ -33,6 +42,7 @@ class HomeworkHelpImporter
     end
 
     {
+      recorded_by_educator_id: @educator_id,
       student_id: @matcher.find_student_id(row['Student Local ID Number']),
       form_timestamp: @matcher.parse_timestamp(row['Timestamp']),
       course_ids: course_ids
@@ -64,7 +74,7 @@ class HomeworkHelpImporter
     })
     csv_transformer.transform(file_text)
   end
-  
+
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
     @log.puts "HomeworkHelpImporter: #{text}"
