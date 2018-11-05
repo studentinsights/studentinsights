@@ -27,7 +27,7 @@ export function firstMatch(assignments, patterns) {
 function matchingAssignmentsByPattern(assignments, patterns) {
   return assignments.filter(assignment => {
     const text = assignment.section.course_description;
-    return _.some(patterns, pattern => text.indexOf(pattern) !== -1);
+    return _.some(patterns, pattern => text.toUpperCase90.match(pattern) !== null);
   });
 }
 
@@ -71,15 +71,18 @@ const CORE_ELL_IN_PLACE_OF_ENGLISH = [
 //
 // core ELL classes are considered part of the English dept. in the levels UI
 // others are considered part of another department
+//
+// See also Somerville doc:
+// https://docs.google.com/document/d/1Tkqm178Oh6_-zCepZn-KMsMZ8xN9Lf10gYYHicko-60/edit#
 export const ENGLISH_OR_CORE_ELL = CORE_ELL_IN_PLACE_OF_ENGLISH.concat(ENGLISH);
 
 export const SOCIAL_STUDIES = [
   'HISTORY',
-  'GOVT and POLITICS AP',
+  'GOVT AND POLITICS AP',
   'AMERICAN IDENTITIES HONORS',
   'CURRENT EVENTS',
   'GOVT and POLITICS',
-  'ESL - Semester SS'
+  'ESL - SEMESTER SS'
 ];
 
 export const MATH = [
