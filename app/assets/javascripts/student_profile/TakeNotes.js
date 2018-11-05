@@ -39,9 +39,9 @@ export default class TakeNotes extends React.Component {
   }
 
   disabledSaveButton() {
-    const {noteInProgressType} = this.props;
+    const {noteInProgressText, noteInProgressType} = this.props;
 
-    return (noteInProgressType === null || !this.isValidAttachmentUrls());
+    return (noteInProgressText === '' || noteInProgressType === null || !this.isValidAttachmentUrls());
   }
 
   isValidAttachmentUrls() {

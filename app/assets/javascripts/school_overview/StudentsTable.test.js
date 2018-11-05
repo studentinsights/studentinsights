@@ -73,6 +73,7 @@ describe('high-level integration test', () => {
       "LastNGE", // also has NGE
       "Last10GE", // also has 10GE
       "LastNEST", // also has NEST
+      'LastCounselor', // also counselor meeting
       "Grade",
       "House",
       "Counselor",
