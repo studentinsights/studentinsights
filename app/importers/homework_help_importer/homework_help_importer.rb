@@ -58,15 +58,14 @@ class HomeworkHelpImporter
       row['Social Studies classes'].try(:split, ','),
       row['Math classes'].try(:split, ',')
     ].flatten.compact
-    
+
     course_numbers = course_names.flat_map do |course_name|
       match = course_name.match(/\((\d+)\)/)
       if match.nil? then [] else [match[1]] end
     end
-    
+
     course_numbers.map {|course_number| @matcher.find_course_id(course_number) }.compact
   end
-
 
   def create_streaming_csv(file_text)
     csv_transformer = StreamingCsvTransformer.new(@log, {

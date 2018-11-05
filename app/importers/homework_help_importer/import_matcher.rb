@@ -38,7 +38,7 @@ class ImportMatcher
   end
 
   # HS course?
-  def find_course_id(value)    
+  def find_course_id(value)
     course_number = value.try(:strip).upcase
     course_id = Course.find_by_course_number(course_number).try(:id)
     if course_id.nil?
