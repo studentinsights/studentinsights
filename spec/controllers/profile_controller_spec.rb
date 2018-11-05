@@ -177,9 +177,10 @@ describe ProfileController, :type => :controller do
           expect(json['student']).not_to have_key('restricted_notes_count')
 
           expect(json['dibels']).to eq []
-          expect(json['feed']).to eq ({
+          expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],
+            'homework_help_sessions' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -434,7 +435,7 @@ describe ProfileController, :type => :controller do
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to contain_exactly(:event_notes, :services, :deprecated, :transition_notes)
+      expect(feed.keys).to contain_exactly(:event_notes, :services, :deprecated, :transition_notes, :homework_help_sessions)
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end

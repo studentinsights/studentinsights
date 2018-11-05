@@ -67,6 +67,7 @@ class ProfileController < ApplicationController
       event_notes: student.event_notes
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes,
+      homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
