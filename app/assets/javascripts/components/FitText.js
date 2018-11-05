@@ -70,7 +70,7 @@ export default class FitText extends React.Component {
   }
 }
 FitText.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.node.isRequired,
   maxFontSize: PropTypes.number,
   minFontSize: PropTypes.number,
   fontSizeStep: PropTypes.number,
