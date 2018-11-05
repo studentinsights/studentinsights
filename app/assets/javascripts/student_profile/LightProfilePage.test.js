@@ -11,8 +11,8 @@ import {
 } from './profileTestProps.fixture';
 
 
-function testingTabTextLines(el) {
-  const leafEls = $(el).find('.LightProfileTab:eq(2) *:not(:has(*))').toArray(); // magic selector from https://stackoverflow.com/questions/4602431/what-is-the-most-efficient-way-to-get-leaf-nodes-with-jquery#4602476
+function testingTabTextLines(tabIndex, el) {
+  const leafEls = $(el).find('.LightProfileTab:eq(' + tabIndex+ ') *:not(:has(*))').toArray(); // magic selector from https://stackoverflow.com/questions/4602431/what-is-the-most-efficient-way-to-get-leaf-nodes-with-jquery#4602476
   return leafEls.map(el => $(el).text());
 }
 
@@ -52,7 +52,7 @@ describe('HS testing tab', () => {
   it('works when missing', () => {
     const props = testPropsForAladdinMouse();
     const el = testRender(props);
-    expect(testingTabTextLines(el)).toEqual([
+    expect(testingTabTextLines(2, el)).toEqual([
       'Testing',
       '-',
       'ELA and Math MCAS',
@@ -73,7 +73,7 @@ describe('HS testing tab', () => {
       }
     };
     const el = testRender(props);
-    expect(testingTabTextLines(el)).toEqual([
+    expect(testingTabTextLines(2, el)).toEqual([
       'Testing',
       'M',
       'ELA and Math MCAS',
@@ -95,11 +95,41 @@ describe('HS testing tab', () => {
       }
     };
     const el = testRender(props);
-    expect(testingTabTextLines(el)).toEqual([
+    expect(testingTabTextLines(2, el)).toEqual([
       'Testing',
       'NI',
       'ELA and Math MCAS',
       '9 months ago'
+    ]);
+  });
+});
+
+describe('reading and math can show MCAS if STAR not enabled', () => {
+  it('for Bedford, shows MCAS in place of STAR', () => {
+    const olafProps = testPropsForOlafWhite();
+    const props = {
+      ...olafProps,
+      districtKey: 'bedford',
+      chartData: {
+        ...olafProps.chartData,
+        "next_gen_mcas_mathematics_scaled": [[2014,5,15,537]],
+        "next_gen_mcas_ela_scaled": [[2015,5,15,536]],
+        "mcas_series_math_scaled": [],
+        "mcas_series_ela_scaled": []
+      }
+    };
+    const el = testRender(props);
+    expect(testingTabTextLines(1, el)).toEqual([
+      'Reading',
+      'M',
+      'MCAS ELA',
+      '9 months ago'
+    ]);
+    expect(testingTabTextLines(2, el)).toEqual([
+      'Math',
+      'M',
+      'MCAS Math',
+      '2 years ago'
     ]);
   });
 });

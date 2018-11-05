@@ -6,7 +6,7 @@ import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScroll
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
-import {isStudentActive} from '../helpers/PerDistrict';
+import {isStudentActive, useStarForProfileColumns} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
@@ -21,7 +21,7 @@ import StudentSectionsRoster from './StudentSectionsRoster';
 import {tags} from './lightTagger';
 import DetailsSection from './DetailsSection';
 import FullCaseHistory from './FullCaseHistory';
-import testingColumnTexts from './testingColumnTexts';
+import testingColumnTexts, {interpretEla, interpretMath} from './testingColumnTexts';
 
 
 // Prototype of profile v3
@@ -216,9 +216,37 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderReadingColumn() {
-    const {chartData, nowMomentFn, selectedColumnKey} = this.props;
-    const columnKey = 'reading';
+    const {districtKey} = this.props;
+    return (useStarForProfileColumns(districtKey))
+      ? this.renderReadingColumnAsStar()
+      : this.renderReadingColumnAsMcas();
+  }
+
+  renderReadingColumnAsMcas() {
+    const {chartData, nowMomentFn} = this.props;
+    const nowMoment = nowMomentFn();
+    const {scoreText, dateText} = interpretEla(nowMoment, chartData);
+    return this.renderReadingColumnUI({
+      number: scoreText,
+      firstLine: 'MCAS ELA',
+      secondLine: dateText
+    });
+  }
+
+  renderReadingColumnAsStar() {
+    const {chartData, nowMomentFn} = this.props;
     const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowMomentFn());
+    return this.renderReadingColumnUI({
+      number: percentileText,
+      firstLine: 'STAR percentile',
+      secondLine: nDaysText
+    });
+  }
+
+  // Just the UI, regardless of content
+  renderReadingColumnUI({number, firstLine, secondLine}) {
+    const {selectedColumnKey} = this.props;
+    const columnKey = 'reading';
     return (
       <LightProfileTab
         style={styles.tab}
@@ -227,18 +255,46 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#ff7f00"
         fadedColor="hsl(24, 100%, 92%)"
         text="Reading">
-          <LightShoutNumber number={percentileText}>
-            <div>STAR percentile</div>
-            <div>{nDaysText}</div>
+          <LightShoutNumber number={number}>
+            <div>{firstLine}</div>
+            <div>{secondLine}</div>
           </LightShoutNumber>
         </LightProfileTab>
     );
   }
 
   renderMathColumn() {
-    const {selectedColumnKey, chartData, nowMomentFn} = this.props;
-    const columnKey = 'math';
+    const {districtKey} = this.props;
+    return (useStarForProfileColumns(districtKey))
+      ? this.renderMathColumnAsStar()
+      : this.renderMathColumnAsMcas();
+  }
+
+  renderMathColumnAsMcas() {
+    const {chartData, nowMomentFn} = this.props;
+    const nowMoment = nowMomentFn();
+    const {scoreText, dateText} = interpretMath(nowMoment, chartData);
+    return this.renderMathColumnUI({
+      number: scoreText,
+      firstLine: 'MCAS Math',
+      secondLine: dateText
+    });
+  }
+
+  renderMathColumnAsStar() {
+    const {chartData, nowMomentFn} = this.props;
     const {nDaysText, percentileText} = latestStar(chartData.star_series_math_percentile, nowMomentFn());
+    return this.renderMathColumnUI({
+      number: percentileText,
+      firstLine: 'STAR percentile',
+      secondLine: nDaysText
+    });
+  }
+
+  // Just the UI
+  renderMathColumnUI({number, firstLine, secondLine}) {
+    const {selectedColumnKey} = this.props;
+    const columnKey = 'math';
     return (
       <LightProfileTab
         style={styles.tab}
@@ -247,9 +303,9 @@ export default class LightProfilePage extends React.Component {
         intenseColor="#6A2987"
         fadedColor="hsl(237,80%,95%)"
         text="Math">
-          <LightShoutNumber number={percentileText}>
-            <div>STAR percentile</div>
-            <div>{nDaysText}</div>
+          <LightShoutNumber number={number}>
+            <div>{firstLine}</div>
+            <div>{secondLine}</div>
           </LightShoutNumber>
         </LightProfileTab>
     );
