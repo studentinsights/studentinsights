@@ -61,20 +61,16 @@ const ENGLISH = [
 ];
 
 const CORE_ELL_IN_PLACE_OF_ENGLISH = [
-  'ESL'
+  /^ESL$/ // full exact match only
 ];
 
 // Depending on the persective, courses might be considered ELL or
 // within another department (eg, "ESL - Semester SS" would be ESL if asking
 // which department "owns" the course, or would be Social Studies if asking
 // for a student's grade in a particular type of subject).
-const ELL = CORE_ELL_IN_PLACE_OF_ENGLISH.concat([
-  'ALCS - GENERAL SUPPORT',
-  'GOAL PROGRAM DAILY SEMINAR',
-  'ACADEMIC LITERACY'
-]);
-
- // core ELL classes are considered part of the English dept. in the levels UI
+//
+// core ELL classes are considered part of the English dept. in the levels UI
+// others are considered part of another department
 export const ENGLISH_OR_CORE_ELL = CORE_ELL_IN_PLACE_OF_ENGLISH.concat(ENGLISH);
 
 export const SOCIAL_STUDIES = [
@@ -82,7 +78,8 @@ export const SOCIAL_STUDIES = [
   'GOVT and POLITICS AP',
   'AMERICAN IDENTITIES HONORS',
   'CURRENT EVENTS',
-  'GOVT and POLITICS'
+  'GOVT and POLITICS',
+  'ESL - Semester SS'
 ];
 
 export const MATH = [
@@ -103,146 +100,8 @@ export const SCIENCE = [
   'HUMAN BEHAVIOR',
   'OCEANOGRAPHY',
   'PSYCHOLOGY',
-  'ENVIRONMENTAL SCIENCE AP',
   'ENVIRONMENTAL SCIENCE',
   'BIOTECHNOLOGY',
   'ASTRONOMY'
 ];
 
-
-const BUSINESS = [
-  'ACCOUNTING',
-  'ENTREPRENEURSHIP',
-  'MARKETING',
-  'PRACTICAL LAW',
-  'FINANCE',
-];
-
-const WORLD_LANGUAGES = [
-  'FRENCH',
-  'PORTUGUESE',
-  'SPANISH',
-  'ITALIAN'
-];
-
-const HEALTH = [
-  'HEALTH',
-  'FITNESS EDUCATION',
-  'TEAM ACTIVITIES PE',
-  'DANCE',
-  'WEIGHT TRAINING',
-  'COMPETITIVE ACTIVITIES PE',
-  'SPORTS MEDICINE',
-  'FOUNDATION PHYS ED',
-  'NON-COMPET PE'
-];
-
-const MUSIC = [
-  'PIANO',
-  'BAND',
-  'TEAM ACTIVITIES PE',
-  'CHORUS',
-  'ORCHESTRA',
-  'MUSIC',
-  'GUITAR',
-  'DRUM LINE',
-  'PERCUSSION'
-];
-
-const ART = [
-  'ART',
-  'CERAMICS',
-  'PHOTOGRAPHY',
-  'FILM',
-  'GRAPHIC COMM',
-  'CALLIGRAPHY',
-  'DRAMA WORKSHOP',
-  'ARCHITECTURAL DRAWING'
-];
-
-const CTE = [];
-const LIBRARY = [];
-const PHYSICAL_EDUCATION = [];
-
-// const ENROOT = [
-//   'ENROOT'
-// ];
-
-// const PATH_PROGRAM = [
-//   'PATH PROGRAM ROSTER',
-//   'PATH PROGRAM SUPPORT'
-// ];
-
-// const OTHER_SUPPORT = [
-//   'STUDENT MENTOR',
-//   'TRANSITION SKILLS',
-//   'GRADUATION PLAN'
-// ];
-
-// const ENGINEERING = [
-//   'COMPUTER SCIENCE',
-//   'ELECTRICAL',
-//   'ENGINEERING',
-//   'MACHINE TECH',
-//   'AUTO TECHNOLOGY',
-//   'METAL FABRICATION',
-//   'COMPUTER ASST DRAFTING'
-// ];
-
-// const LIFE_SKILLS = [
-//   'ADAPTIVE LIFE SKILLS',
-//   'LIFE SKILLS PRE-WORK',
-//   'LIFE SKILLS SOCIAL SCIENCE',
-//   'LIFE SKILLS READING',
-//   'LIFE SKILLS - semester'
-// ];
-
-// const OTHER = [
-//   'JOURNALISM',
-//   'TV/MEDIA PROD',
-//   'Extended Learning Program',
-//   'CHILD DEVELOPMENT',
-//   'INTERNSHIP',
-//   'VOC',
-//   'DENTAL',
-//   'CARPENTRY',
-//   'COSMETOLOGY',
-//   'COMPUTER PRIN/REP'
-// ];
-
-const SPECIAL_PROGRAMS = []
-  .concat(REDIRECT)
-  .concat(ADVISORY)
-  .concat(ACADEMIC_SUPPORT)
-  .concat(CREDIT_RECOVERY);
-
-const SPECIAL_EDUCATION = []
-  .concat(STUDY_SKILLS);
-
-export function labelDepartmentKey(assignment) {
-  const text = assignment.section.course_description;
-
-  if (matches(text, ENGLISH)) return 'english';
-  if (matches(text, MATH)) return 'math';
-  if (matches(text, SCIENCE)) return 'science';
-  if (matches(text, SOCIAL_STUDIES)) return 'social_studies';
-
-  if (matches(text, ART)) return 'art';
-  if (matches(text, BUSINESS)) return 'business';
-  if (matches(text, CTE)) return 'cte';
-  if (matches(text, ELL)) return 'ell';
-  if (matches(text, HEALTH)) return 'health';
-  if (matches(text, LIBRARY)) return 'library';  
-  if (matches(text, MUSIC)) return 'music';
-  if (matches(text, HEALTH)) return 'health';
-  if (matches(text, PHYSICAL_EDUCATION)) return 'physical_education';
-  if (matches(text, SPECIAL_EDUCATION)) return 'special_education';
-  if (matches(text, WORLD_LANGUAGES)) return 'world_languages';
-  if (matches(text, SPECIAL_PROGRAMS)) return 'special_programs';
-
-  return 'unknown';
-}
-
-function matches(text, patterns) {
-  return _.some(patterns, pattern => text.indexOf(pattern) !== -1);
-}
