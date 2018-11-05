@@ -576,6 +576,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_204625) do
   add_foreign_key "homerooms", "educators", name: "homerooms_for_educator_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_for_school_id_fk"
   add_foreign_key "homerooms", "schools", name: "homerooms_school_id_fk"
+  add_foreign_key "homework_help_sessions", "educators", column: "recorded_by_educator_id", name: "homework_help_sessions_recorded_by_educator_id_fk"
   add_foreign_key "homework_help_sessions", "students", name: "homework_help_sessions_student_id_fk"
   add_foreign_key "house_educator_mappings", "educators", name: "house_educator_mappings_educator_id_fk"
   add_foreign_key "iep_documents", "students", name: "iep_documents_student_id_fk"
