@@ -221,3 +221,14 @@ export function isStudentActive(districtKey, student) {
   // Check both as fallback
   return student.enrollment_status === 'Active' && !student.missing_from_last_export;
 }
+
+
+// Should STAR be used instead of MCAS in K8 student profiles?
+export function useStarForProfileColumns(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  if (districtKey === NEW_BEDFORD) return true;
+  if (districtKey === BEDFORD) return false; // no STAR data
+
+  return false;
+}
