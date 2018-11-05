@@ -36,15 +36,18 @@ class HomeworkHelpImporter
   private
   def maybe_parse_row(row, index)
     course_ids = parse_and_match_courses(row)
-    if course_ids.size == 0
-      @matcher.count_invalid_row
-      return nil
-    end
+    return nil if course_ids.nil?
+
+    student_id = @matcher.find_student_id(row['Student Local ID Number'])
+    return nil if student_id.nil?
+
+    form_timestamp = @matcher.parse_timestamp(row['Timestamp'])
+    return nil if form_timestamp.nil?
 
     {
       recorded_by_educator_id: @educator_id,
-      student_id: @matcher.find_student_id(row['Student Local ID Number']),
-      form_timestamp: @matcher.parse_timestamp(row['Timestamp']),
+      student_id: student_id,
+      form_timestamp: form_timestamp,
       course_ids: course_ids
     }
   end
@@ -64,7 +67,13 @@ class HomeworkHelpImporter
       if match.nil? then [] else [match[1]] end
     end
 
-    course_numbers.map {|course_number| @matcher.find_course_id(course_number) }.compact
+    course_ids = course_numbers.map {|course_number| @matcher.find_course_id(course_number) }.compact
+    if course_ids.size == 0
+      @matcher.count_invalid_row
+      return nil
+    end
+
+    course_ids
   end
 
   def create_streaming_csv(file_text)
