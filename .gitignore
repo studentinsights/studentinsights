@@ -34,3 +34,8 @@ public/dev
 
 # For qgsocksify
 socks.conf
+
+# Specifically for gh-pages and jekyll
+_site/
+.sass-cache/
+.jekyll-metadata
