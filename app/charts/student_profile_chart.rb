@@ -1,32 +1,5 @@
 class StudentProfileChart < Struct.new :student
 
-  def percentile_ranks_to_highcharts(star_results)
-    return nil unless star_results
-
-    star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent, :total_time)
-  end
-
-  def interventions_to_highcharts
-    return if student.interventions.blank?
-    student.interventions.with_start_and_end_dates.map do |intervention|
-      intervention.to_highcharts
-    end
-  end
-
-  def growth_percentiles_to_highcharts(student_assessments)
-    return if student_assessments.blank?
-    student_assessments.map do |s|
-      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.growth_percentile]
-    end
-  end
-
-  def scale_scores_to_highcharts(student_assessments)
-    return if student_assessments.blank?
-    student_assessments.map do |s|
-      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.scale_score]
-    end
-  end
-
   def chart_data
     data = serialize_student_for_profile_chart(student)
     {
@@ -42,6 +15,7 @@ class StudentProfileChart < Struct.new :student
     }
   end
 
+  private
   def serialize_student_for_profile_chart(student)
     {
       student: student,
@@ -54,5 +28,32 @@ class StudentProfileChart < Struct.new :student
       next_gen_mcas_ela_results: student.next_gen_mcas_ela_results,
       interventions: student.interventions
     }
+  end
+
+  def percentile_ranks_to_highcharts(star_results)
+    return nil unless star_results
+
+    star_results.select(:id, :date_taken, :percentile_rank, :grade_equivalent, :total_time)
+  end
+
+  def interventions_to_highcharts
+    return if student.interventions.blank?
+    student.interventions.with_start_and_end_dates.map do |intervention|
+      intervention.to_highcharts
+    end
+  end
+
+  def growth_percentiles_to_highcharts(student_assessments)
+    return if student_assessments.blank?
+    student_assessments.select {|a| a.growth_percentile.present? }.map do |s|
+      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.growth_percentile]
+    end
+  end
+
+  def scale_scores_to_highcharts(student_assessments)
+    return if student_assessments.blank?
+    student_assessments.select {|a| a.scale_score.present? }.map do |s|
+      [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.scale_score]
+    end
   end
 end
