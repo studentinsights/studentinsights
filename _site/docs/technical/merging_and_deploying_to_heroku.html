@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Merging code and deploying to Heroku | studentinsights</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Merging code and deploying to Heroku" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<meta property="og:description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<link rel="canonical" href="http://localhost:4000/docs/technical/merging_and_deploying_to_heroku.html" />
+<meta property="og:url" content="http://localhost:4000/docs/technical/merging_and_deploying_to_heroku.html" />
+<meta property="og:site_name" content="studentinsights" />
+<script type="application/ld+json">
+{"description":"Student Insights for Somerville, New Bedford and Bedford educators","@type":"WebPage","headline":"Merging code and deploying to Heroku","url":"http://localhost:4000/docs/technical/merging_and_deploying_to_heroku.html","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=2760c14739b5959ce83dd773e348cba390b242a8">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://localhost:4000/">studentinsights</a></h1>
+      
+
+      
+<h1 id="merging-code-and-deploying-to-heroku">Merging code and deploying to Heroku</h1>
+
+<p>This is meant to be a quick walk through to the mental checklists we go through when we merge and deploy code.</p>
+
+<h2 id="merging">Merging</h2>
+
+<p>Two rules of thumb:</p>
+
+<ul>
+  <li>
+    <p><strong>“Merge early and often.”</strong></p>
+
+    <p>It’s easier to complete a big feature by breaking it into a bunch of smaller pieces, merging them in one step at a time, and testing in production at each step. It also avoids dealing with big merge conflicts.  For large features with interdependent changes, another tactic is to deploy code “dark,” meaning that it is in production but disabled from running via a flag or environment variable.</p>
+  </li>
+  <li>
+    <p><strong>“Make sure specs pass and do some local QA, <em>especially</em> when you touch authorization or authentication.”</strong></p>
+
+    <p>That said, we don’t want to be merging in code willy-nilly. Specs are an important way to make sure the code we’re writing does what we think it does. If you’re adding a new feature, add specs along with the feature before you merge it in. And when I write a PR that touches authorization or authentication logic, I exercise it extensively in my local environment first before merging.</p>
+  </li>
+</ul>
+
+<p>To merge in code, all you need to do is push a button on the GitHub website:</p>
+
+<p><img src="https://github.com/studentinsights/studentinsights/blob/master/docs/readme_images/merge-button.png" alt="Merge button on GitHub" /></p>
+
+<p>If you realize you’ve made a mistake after you merged, GitHub offers a Revert button to create a new PR that will reverse the changes:</p>
+
+<p><img src="https://github.com/studentinsights/studentinsights/blob/master/docs/readme_images/revert-button.png" alt="Revert button on GitHub" /></p>
+
+<p>There’s no automatic deployment set up, so your code will not go into production until you or another dev deploy it.</p>
+
+<h2 id="deploying">Deploying</h2>
+
+<h3 id="commands">Commands</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./scripts/deploy/deploy.sh  
+</code></pre></div></div>
+
+<h3 id="after-deploying">After deploying</h3>
+
+<ul>
+  <li><strong>Manual QA</strong>. Poke around the production project to triple-check that everything looks right.</li>
+  <li><strong>Keep an eye on the logs</strong>. We use Logentries and Rollbar for monitoring.</li>
+</ul>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="http://github.com/studentinsights/studentinsights/edit/gh-pages/docs/technical/merging_and_deploying_to_heroku.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

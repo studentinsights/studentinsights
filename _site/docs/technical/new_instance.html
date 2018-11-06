@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Creating a new Insights instance | studentinsights</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Creating a new Insights instance" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<meta property="og:description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<link rel="canonical" href="http://localhost:4000/docs/technical/new_instance.html" />
+<meta property="og:url" content="http://localhost:4000/docs/technical/new_instance.html" />
+<meta property="og:site_name" content="studentinsights" />
+<script type="application/ld+json">
+{"description":"Student Insights for Somerville, New Bedford and Bedford educators","@type":"WebPage","headline":"Creating a new Insights instance","url":"http://localhost:4000/docs/technical/new_instance.html","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=2760c14739b5959ce83dd773e348cba390b242a8">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://localhost:4000/">studentinsights</a></h1>
+      
+
+      <h1 id="creating-a-new-insights-instance">Creating a new Insights instance</h1>
+<p>The overall idea is strong isolation across districts, which means some initial setup overhead.  Here’s how you do it!  More detailed notes for various steps are below.</p>
+
+<h3 id="1-stand-up-an-instance">1: Stand up an instance</h3>
+<p>Goal: Visit the home page signed-out</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />New Heroku app with Node/Ruby buildpacks, grant access to team</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review and set environment variables (minimally)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review and update <code class="highlighter-rouge">PerDistrict.rb</code> class &amp; district config YML (minimally)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Update <code class="highlighter-rouge">scripts/deploy/all.sh</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up Postgres and seed database (minimally, i.e. just schools)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up Logentries</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up Rollbar (server)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up Rollbar (JS)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up Mixpanel</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up CSP and CSP logger</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Add domain</li>
+</ul>
+
+<h3 id="2-sign-in-with-ldap-connection">2: Sign in with LDAP connection</h3>
+<p>Goal: Sign in as developer, see empty home page, roster page, districtwide pages</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />If district needs static IPs for whitelisting, setup and send static IPs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Point to district LDAP server for authentication</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Ask district to set up developer account on their network, share password securely</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Make developer record manually in educator table</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Verify LDAP login to empty app with developer account</li>
+</ul>
+
+<h3 id="3-import-first-data">3: Import first data</h3>
+<p>Goal: Sign in as districtwide educator, use the home page, roster page, student profile page, take notes for students in support meetings</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Create a new EC2 instance for receiving data (maybe with static IPs, grant access to team): ask teammates for <code class="highlighter-rouge">new_sftp.md</code> doc</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set <code class="highlighter-rouge">SIS_SFTP_HOST</code>, <code class="highlighter-rouge">SIS_SFTP_USER</code>, <code class="highlighter-rouge">SIS_SFTP_KEY</code> or <code class="highlighter-rouge">STAR_SFTP_PASSWORD</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="highlighter-rouge">EducatorsImporter</code> and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="highlighter-rouge">StudentsImporter</code> and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review permissions with district partner</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set up Mailgun and enable usage emails</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Add Heroku scheduler jobs for import</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Add Heroku scheduler jobs for cached background tasks</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Test Heroku scheduler jobs</li>
+</ul>
+
+<h3 id="4-enable-additional-features-or-ensure-disabled">4: Enable additional features, or ensure disabled</h3>
+<p>Goal: Educators using additional feature (eg, “insights box” for absences) or using additional data within support meetings (eg BBST).</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Student photos (with AWS config, grant access to team)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />IEP PDFs (with AWS config, grant access to team)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="highlighter-rouge">AttendanceImporter</code> and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="highlighter-rouge">BehaviorImporter</code> and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />ACCESS and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Next Gen MCAS and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Old school MCAS and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />DIBELS and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />STAR and validate</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />HS Courses and Sections for authorization</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />HS grades</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Class lists</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review <code class="highlighter-rouge">PerDistrict</code></li>
+</ul>
+
+<h3 id="5-final-review">5: Final review</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review ENV variables</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review <code class="highlighter-rouge">PerDistrict</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review scheduled jobs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Review Puma tuning (eg, WEB_CONCURRENCY)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Load test or scale accordingly</li>
+</ul>
+
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="http://github.com/studentinsights/studentinsights/edit/gh-pages/docs/technical/new_instance.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>

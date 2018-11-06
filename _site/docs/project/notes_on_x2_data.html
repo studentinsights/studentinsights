@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Notes | studentinsights</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Notes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<meta property="og:description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<link rel="canonical" href="http://localhost:4000/docs/project/notes_on_x2_data.html" />
+<meta property="og:url" content="http://localhost:4000/docs/project/notes_on_x2_data.html" />
+<meta property="og:site_name" content="studentinsights" />
+<script type="application/ld+json">
+{"description":"Student Insights for Somerville, New Bedford and Bedford educators","@type":"WebPage","headline":"Notes","url":"http://localhost:4000/docs/project/notes_on_x2_data.html","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=2760c14739b5959ce83dd773e348cba390b242a8">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://localhost:4000/">studentinsights</a></h1>
+      
+
+      <h1 id="notes">Notes</h1>
+
+<ul>
+  <li>
+    <p>Somerville’s Student Information System is <a href="http://www.follettlearning.com/technology/products/student-information-system">Aspen X2</a>.</p>
+  </li>
+  <li>
+    <p>X2 doesn’t offer much in the way of visualization, doesn’t integrate with STAR assessment results, and doesn’t let staff enter interventions, which is why we are building out Student Insights on top of it.</p>
+  </li>
+  <li>
+    <p>This file aims to track what we learn about data in X2.</p>
+  </li>
+</ul>
+
+<h2 id="grade-levels">Grade levels</h2>
+
+<ul>
+  <li>
+    <p>Aspen X2 stores only the current grade level for each student. From John Breslin, Somerville schools IT department:</p>
+
+    <blockquote>
+      <p>The grade levels stored are their current.  When I need to check for retentions, I compare current grade levels or YOGs to a prior year snapshot to determine retentions.  While there are some logs in the enrollment table, it’s tough to rely on that as some kids are bumped up and down during a year creating a wash in terms of retention.  There are very few retentions k-8.  If you based your axis on 12-(YOG – CURRENT SCHOOL YEAR END) and then prior years use 12-(CURRENT YOG – HISTORICAL SCHOOL YEAR END) that would give you grade levels for any given school year.  If you are able to store annual YOG snapshots, you could use those in your previous school year grade level calcs.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="staff-activeinactive-status">Staff active/inactive status</h2>
+
+<ul>
+  <li>
+    <p>Each school is responsible for maintaining its list of staff in X2.</p>
+  </li>
+  <li>
+    <p>If principals says that the staff list from X2 is out of date (inactive educators listed as active, for example), the school secretary can update the list in X2.</p>
+  </li>
+</ul>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="http://github.com/studentinsights/studentinsights/edit/gh-pages/docs/project/notes_on_x2_data.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>
