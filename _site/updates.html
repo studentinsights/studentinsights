@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>studentinsights | Student Insights for Somerville, New Bedford and Bedford educators</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="studentinsights" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<meta property="og:description" content="Student Insights for Somerville, New Bedford and Bedford educators" />
+<link rel="canonical" href="http://localhost:4000/updates.html" />
+<meta property="og:url" content="http://localhost:4000/updates.html" />
+<meta property="og:site_name" content="studentinsights" />
+<script type="application/ld+json">
+{"description":"Student Insights for Somerville, New Bedford and Bedford educators","@type":"WebPage","headline":"studentinsights","url":"http://localhost:4000/updates.html","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=2760c14739b5959ce83dd773e348cba390b242a8">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://localhost:4000/">studentinsights</a></h1>
+      
+
+      <div style="display: flex; margin: 0; padding: 0; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+  <div>
+    <div style="display: inline-block;"><a href="about-us.html">About us</a></div>
+    <div style="display: inline-block; padding-left: 10px;"><a href="our-work.html">Our work</a></div>
+    <div style="display: inline-block; padding-left: 10px;"><a href="trainings-and-videos.html">Trainings and Videos</a></div>
+    <div style="display: inline-block; padding-left: 10px;"><a href="school-partnerships.html">School partnerships</a></div>
+    <div style="display: inline-block; padding-left: 10px;"><a href="https://somerville-teacher-tool-demo.herokuapp.com/"><b>Demo site</b></a></div>
+  </div>
+  <div>
+    <div style="display: inline-block; padding-left: 10px;"><a href="updates.html">Updates</a></div>
+    <div style="display: inline-block; padding-left: 10px;"><a href="todo.html"><b>Email</b></a></div>
+  </div>
+</div>
+
+<h1 id="updates">Updates</h1>
+<p>Student Insights is entirely open source, which means that all code and all changes are published in the open.  We also aim to build in the open, and so much of our discussion about what to build and why is also published openly as well.  You can also read about how we protect the security and privacy of student data while building in the open and releasing all code publicly as open source.</p>
+
+<p>This is stored on GitHub, and if you’re new to open source a good starting point is to browse through recent pull requests to see what this looks like.  For most educators, this is too much information, so we also release a shorter summary of changes each week as a changelog.  We also use a work board to communicate about what we’re working on right now, what’s coming up soon, and potential projects a few months out.</p>
+
+<p>If you’d like to collaborate with us, the best way to do this is to reach out over email and we can help you get started.  You can also join the local Code for Boston brigade on Tuesday nights, either in person or remotely.</p>
+
+<hr />
+<h3 id="work-board">Work board</h3>
+<h4 id="in-progress-now">In progress now</h4>
+<ul>
+  <li><strong>Discipline data</strong>: Adding heatmap/scatterplot for day/time patterns</li>
+  <li><strong>Homework help</strong>: Importing data about students joining homework help sessions</li>
+  <li><strong>Website</strong>: Release new website</li>
+</ul>
+
+<h4 id="next-up">Next up</h4>
+<ul>
+  <li><strong>Searching notes</strong>: Prototyping this for all users across districts (eg, SHS counselors, MTSS in Somerville K8, BBST in New Bedford)</li>
+  <li><strong>Warnings about sensitive topics in notes</strong>: Prompts about things like “51a” or “depression”</li>
+</ul>
+
+<h4 id="maybe-next-month">Maybe next month</h4>
+<ul>
+  <li><strong>K8 reading</strong>: Helping classroom teachers, reading specialists and coaches visualize reading progress on F&amp;P and DIBELS</li>
+  <li><strong>Services and supports</strong>: Possibly looking into tracking and showing all the services that counselors and K8 SST/MTSS teams are connecting students with, and making that visible in Insights.</li>
+  <li><strong>HS grades</strong>: Grade distributions?</li>
+  <li><strong>Equity</strong>: Potentially looking at class list assignments, grade 2/3 reading, PowerBI for achievement vs. SGP broken down by student characteristics.</li>
+</ul>
+
+<hr />
+<h3 id="changelog">Changelog</h3>
+
+<p>Friday 11/2 updates:</p>
+<ul>
+  <li><strong>Profile page homeroom link bug</strong>: Remove links to SHS homerooms that aren’t meaningful and led to error pages <a href="https://github.com/studentinsights/studentinsights/pull/2214">#2214</a></li>
+  <li><strong>Discipline analysis</strong>: Add dropdown to filter by Grade, house and Counselor <a href="https://github.com/studentinsights/studentinsights/pull/1661">#1661</a></li>
+  <li><strong>Discipline</strong>: Starting HS conversation next week about major/minor incidents</li>
+  <li><strong>Community Schools</strong>: Add community schools-based feed filter <a href="https://github.com/studentinsights/studentinsights/pull/2221">#2221</a></li>
+  <li><strong>Bedford MCAS</strong>: Import MCAS data for Bedford, but not 3rd grade math yet <a href="https://github.com/studentinsights/studentinsights/pull/2223">#2223</a></li>
+  <li><strong>Fix MCAS bugs</strong>: SGP for Next Gen tests, E filter on overview <a href="https://github.com/studentinsights/studentinsights/pull/2228">#2228</a> <a href="https://github.com/studentinsights/studentinsights/pull/2226">#2226</a></li>
+  <li><strong>Improve SPED and ELL profile for Bedford</strong>: Removing some data that isn’t meaningful <a href="https://github.com/studentinsights/studentinsights/pull/2217">#2217</a></li>
+  <li><strong>New Bedford AssessmentImporter disabled</strong>: While fixing upstream data problems in SIS</li>
+  <li><strong>Alerting</strong>: Notify developers on import changes outside expected norms <a href="https://github.com/studentinsights/studentinsights/pull/2213">#2213</a></li>
+</ul>
+
+<p>Friday 10/26 updates:</p>
+<ul>
+  <li><strong>Training with Community Schools after school coordinators</strong>: Training on writing notes and best light to grant access</li>
+  <li><strong>Speed up Roster page</strong>: Rework precomputing, but some requests are still falling through</li>
+  <li><strong>Somerville student photos</strong>: One-time import, added photos for 104 active students</li>
+  <li><strong>Improved display ELL data</strong>: ELL designations and levels, program enrollment, rubric, transition date for former English learners</li>
+  <li><strong>Improved student meeting importer</strong>: For name changes between Google/SIS/LDAP and limiting to district email addresses</li>
+  <li><strong>Fix issues with export and import for students in Bedford</strong>: Worked around export bug and improved underlying issue</li>
+</ul>
+
+<p>Friday 10/19 updates:</p>
+<ul>
+  <li><strong>Sports teams</strong> show up in Insights with emoji ⚽!</li>
+  <li><strong>NGE/10GE/NEST Student Meetings</strong> show up as notes in Insights as well</li>
+  <li><strong>Levels for SHS Systems and Supports</strong> is released to all SHS teachers, link at the top of any page</li>
+  <li><strong>Snapshots of grade and levels</strong> are now taken behind the scenes so we can look at changes over time in a month or two</li>
+  <li><strong>ELL-based home page feed</strong> for HS ELL admin</li>
+</ul>
+
+<p><a href="https://github.com/studentinsights/studentinsights/issues?q=is%3Apr+is%3Aclosed" style="background: #4A90E2; color: white; padding: 10px; display: inline-block">See all changes on github.com</a></p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="http://github.com/studentinsights/studentinsights/edit/gh-pages/updates.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
+</html>
