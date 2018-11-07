@@ -175,10 +175,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const incidents = this.getIncidentsFromStudents(students);
       const categories = this.sortedDays();
       const seriesData = incidents.map(incident => {
-        const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
+        const category = moment.utc(incident.occurred_at).format("ddd");
+        const x = categories.indexOf(category);
         const y = this.getincidentTimeAsFloat(incident);
         const name = moment.utc(incident.occurred_at).format("hh:mm a");
-        return {x, y, name};
+        return {x, y, name, category};
       });
       return {categories, seriesData};
     }
