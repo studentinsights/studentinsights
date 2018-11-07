@@ -12,7 +12,7 @@
       <p>The next generation of data systems needs to help us beyond just counting numbers and <b>tackle bigger issues</b>.</p>
     </div>
     <div>
-      <a href="about-us.html" style="background: #4A90E2; color: white; padding: 10px; display: inline-block">Learn more</a>
+      <a href="about-us.html" class="btn">Learn more</a>
     </div>
   </div>
 </div>

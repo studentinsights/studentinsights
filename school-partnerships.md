@@ -34,4 +34,4 @@ When we start working with a new district, one of the places we start the conver
 - slow sustainable growth is the best growth
 - forcing things usually doesn't work; ask why instead
 
-<a href="our-work.html" style="background: #4A90E2; color: white; padding: 10px; display: inline-block">More about our work</a>
+<a href="our-work.html" class="btn">More about our work</a>

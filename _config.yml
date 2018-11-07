@@ -1,4 +1,15 @@
 theme: jekyll-theme-primer
 
+# for primer
+title: Student Insights
+description: Working with educators to build student-centered data systems
+
+# our own
 links:
-  demo_url: https://somerville-teacher-tool-demo.herokuapp.com/
+  email: mailto://uharel@k12.somerville.ma.us
+  demo: https://somerville-teacher-tool-demo.herokuapp.com/
+  code_for_america: https://www.codeforamerica.org/
+  code_for_boston: https://www.codeforboston.org/
+  oneville: http://wiki.oneville.org/main/The_OneVille_Project
+  oneville_dashboards: http://wiki.oneville.org/main/Expanded_story:_Data_dashboards
+  schooltalk: https://schooltalking.org/

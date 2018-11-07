@@ -1,0 +1,34 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+a.btn {
+  background: #4A90E2;
+  color: white;
+  padding: 10px;
+  display: inline-block;
+}
+
+.Section-title {
+  margin-top: 40px;
+}
+
+.Section-container {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.Section-left {
+  flex: 2;
+  padding-right: 15px;
+  font-size: 18px;
+}
+
+.Section-right {
+  flex: 4;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

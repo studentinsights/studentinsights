@@ -53,4 +53,4 @@ Friday 10/19 updates:
 - **Snapshots of grade and levels** are now taken behind the scenes so we can look at changes over time in a month or two
 - **ELL-based home page feed** for HS ELL admin
 
-<a href="https://github.com/studentinsights/studentinsights/issues?q=is%3Apr+is%3Aclosed" style="background: #4A90E2; color: white; padding: 10px; display: inline-block">See all changes on github.com</a>
+<a class="btn" href="https://github.com/studentinsights/studentinsights/issues?q=is%3Apr+is%3Aclosed">See all changes on github.com</a>
