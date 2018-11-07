@@ -96,8 +96,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return hour;
   }
 
-  getExactTime(incident) {
-    return parseInt(moment.utc(incident.occurred_at).format("HHmmss"));
+  //highcharts will only accept number values as data. These are reformatted as time in the chart itself.
+  getincidentTimeAsFloat(incident) {
+    return parseFloat(moment.utc(incident.occurred_at).format("HH.mm"));
   }
 
   timeStampToDay(incident) {
@@ -175,8 +176,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const categories = this.sortedDays();
       const seriesData = incidents.map(incident => {
         const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
-        const y = this.getExactTime(incident);
-        const name = moment.utc(incident.occurred_at).format("HH:mm a");
+        const y = this.getincidentTimeAsFloat(incident);
+        const name = moment.utc(incident.occurred_at).format("hh:mm a");
         return {x, y, name};
       });
       return {categories, seriesData};
@@ -384,8 +385,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
       ...commonProps,
       measureText: "Time of Incident",
       tooltip: {pointFormat: '<b>{point.name}</b>'},
-      yAxisMin: 0,
-      yAxisMax: 245959
+      yAxisMin: 7,
+      yAxisMax: 17,
+      yAxisLabels: {format: '{value}'}
     };
     return (
       (selectedChart === 'scatter') ? (

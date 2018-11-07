@@ -5,6 +5,14 @@ import HighchartsWrapper from '../components/HighchartsWrapper';
 // Component for all charts in the dashboard page.
 export default class DashboardScatterPlot extends React.Component{
 
+  formatter() { //time is sent as a number in HH.mm format.
+    const string = this.value.toString().split("."); //
+    const hour = string[0] % 12 || 12;
+    const minute = string[1] || "00";
+    const a = string[0] < 12 ? 'AM' : 'PM';
+    return `${hour}:${minute} ${a}`;
+  }
+
   render() {
     return (
       <div id={this.props.id} className="DashboardScatterPlot" style={styles.root}>
@@ -25,7 +33,8 @@ export default class DashboardScatterPlot extends React.Component{
             min: this.props.yAxisMin,
             max: this.props.yAxisMax,
             allowDecimals: true,
-            title: {text: this.props.measureText}
+            title: {text: this.props.measureText},
+            labels: {formatter: this.formatter}
           }}
           tooltip={this.props.tooltip}
           series={[
