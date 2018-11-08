@@ -45,6 +45,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.onColumnClick = this.onColumnClick.bind(this);
     this.onResetStudentList = this.onResetStudentList.bind(this);
     this.onSelectChart = this.onSelectChart.bind(this);
+    this.onZoom = this.onZoom.bind(this);
     this.memoize = memoizer();
   }
 
@@ -84,6 +85,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
       if (!this.filterIncidents(student.discipline_incidents, {shouldFilterSelectedCategory: false}).length) return false;
       return true;
     });
+  }
+
+  filterToZoomedStudents(students) {
+    const {visibleIds} = this.state;
+    return students.filter(student => visibleIds.includes(student.id));
   }
 
   timeStampToHour(incident) {
@@ -175,10 +181,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const incidents = this.getIncidentsFromStudents(students);
       const categories = this.sortedDays();
       const seriesData = incidents.map(incident => {
+        const student_id = incident.student_id;
         const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
         const y = this.getincidentTimeAsFloat(incident);
         const name = moment.utc(incident.occurred_at).format("hh:mm a");
-        return {x, y, name};
+        return {x, y, name, student_id};
       });
       return {categories, seriesData};
     }
@@ -223,7 +230,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   studentTableRows(students) {
-    const filteredStudents = this.filterStudents(students, {shouldFilterSelectedCategory: true});
+    const filteredStudents = this.state.zoomed ? this.filterToZoomedStudents(students) : this.filterStudents(students, {shouldFilterSelectedCategory: true});
     const {selectedCategory} = this.state;
     return filteredStudents.map(student => {
       return {
@@ -279,6 +286,22 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   onResetFilters() {
     this.setState(initialState());
+  }
+
+  onZoom(highchartsEvent) {
+    if (highchartsEvent.xAxis && highchartsEvent.yAxis) { //highcharts sends different events when user is making and resetting a selection
+      const zoomed = true;
+      const xMin = highchartsEvent.xAxis[0].min;
+      const yMin = highchartsEvent.yAxis[0].min;
+      const xMax = highchartsEvent.xAxis[0].max;
+      const yMax = highchartsEvent.yAxis[0].max;
+      const points = highchartsEvent.target.series[0].points;
+      const displayedPoints = points.filter(point => {
+        return (xMin < point.x && point.x < xMax && yMin < point.y && point.y < yMax);
+      });
+      const visibleIds = displayedPoints.map(incident => incident.student_id);
+      this.setState({zoomed, visibleIds});
+    } else this.setState({zoomed: false});
   }
 
   onColumnClick(highchartsEvent) {
@@ -387,7 +410,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       tooltip: {pointFormat: '<b>{point.name}</b>'},
       yAxisMin: 7,
       yAxisMax: 17,
-      yAxisLabels: {format: '{value}'}
+      yAxisLabels: {format: '{value}'},
+      onZoom: this.onZoom
     };
     return (
       (selectedChart === 'scatter') ? (
@@ -463,6 +487,8 @@ function initialState() {
     selectedCategory: null,
     grade: ALL,
     house: ALL,
-    counselor: ALL
+    counselor: ALL,
+    visibleIds: [],
+    zoomed: false
   };
 }

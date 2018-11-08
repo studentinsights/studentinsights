@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HighchartsWrapper from '../components/HighchartsWrapper';
+import  hash from 'object-hash';
 
 // Component for all charts in the dashboard page.
 export default class DashboardScatterPlot extends React.Component{
+
+//highcharts has trouble combining zoom with a render, so rendering is prevented unless the displayed data changes
+  shouldComponentUpdate(nextProps) {
+    return hash.MD5(nextProps.seriesData)!==hash.MD5(this.props.seriesData);
+  }
 
   formatter() { //time is sent as a number in HH.mm format.
     const string = this.value.toString().split("."); //
@@ -19,7 +25,9 @@ export default class DashboardScatterPlot extends React.Component{
         <HighchartsWrapper
           style={{flex: 1}}
           chart={{
-            type: 'scatter'
+            type: 'scatter',
+            events: {selection:this.props.onZoom},
+            zoomType: 'xy'
           }}
           credits={false}
           xAxis={[this.props.categories]}
@@ -58,8 +66,9 @@ DashboardScatterPlot.propTypes = {
   titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
   tooltip: PropTypes.object.isRequired,
+  onZoom: PropTypes.func.isRequired,
   animation: PropTypes.bool,
-  series: PropTypes.object
+  series: PropTypes.object,
 };
 DashboardScatterPlot.defaultProps = {
   animation: true
