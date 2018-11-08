@@ -176,7 +176,7 @@ export function takeNotesChoices(districtKey) {
   if (districtKey === SOMERVILLE || districtKey === DEMO) {
     return {
       leftEventNoteTypeIds: [300, 301, 302, 304],
-      rightEventNoteTypeIds: [305, 306, 307]
+      rightEventNoteTypeIds: [305, 306, 307, 308]
     };
   }
 
@@ -204,7 +204,7 @@ export function studentTableEventNoteTypeIds(districtKey, schoolType) {
   if (districtKey === NEW_BEDFORD) return [400];
   
   const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
-  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306, 307];
+  if (isSomervilleOrDemo && schoolType === 'HS') return [300, 305, 306, 307, 308];
   // Includes elementary/middle, Capuano early childhood, and SPED.
   if (isSomervilleOrDemo) return [300, 301];
 
@@ -220,4 +220,15 @@ export function isStudentActive(districtKey, student) {
 
   // Check both as fallback
   return student.enrollment_status === 'Active' && !student.missing_from_last_export;
+}
+
+
+// Should STAR be used instead of MCAS in K8 student profiles?
+export function useStarForProfileColumns(districtKey) {
+  if (districtKey === SOMERVILLE) return true;
+  if (districtKey === DEMO) return true;
+  if (districtKey === NEW_BEDFORD) return true;
+  if (districtKey === BEDFORD) return false; // no STAR data
+
+  return false;
 }

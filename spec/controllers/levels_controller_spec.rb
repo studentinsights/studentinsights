@@ -54,6 +54,7 @@ describe LevelsController, :type => :controller do
         expect(json['students_with_levels'].map {|s| s['notes'].keys }.flatten.uniq).to eq([
           "last_sst_note",
           "last_experience_note",
+          "last_counselor_note",
           "last_other_note"
         ])
 

@@ -53,6 +53,7 @@ RSpec.describe SomervilleHighLevels do
             "event_note_type_id"=>305,
             "recorded_at"=>"2018-03-07T11:03:00.000Z"
           },
+          "last_counselor_note"=>{},
           "last_other_note"=>{}
         }
       }, {
@@ -78,6 +79,7 @@ RSpec.describe SomervilleHighLevels do
           "notes"=>{
             "last_sst_note"=>{},
             "last_experience_note"=>{},
+            "last_counselor_note"=>{},
             "last_other_note"=>{}
           }
         }, {
@@ -112,6 +114,7 @@ RSpec.describe SomervilleHighLevels do
           "notes"=>{
             "last_sst_note"=>{},
             "last_experience_note"=>{},
+            "last_counselor_note"=>{},
             "last_other_note"=>{
               "event_note_type_id"=>304,
               "recorded_at"=>"2018-03-09T11:03:00.000Z"

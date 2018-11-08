@@ -221,9 +221,9 @@ export function describeColumns(nowMoment) {
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_sst_note')
   }, {
     dataKey: 'other_note',
-    label: 'Other notes',
+    label: 'Last Counselor',
     width: supportCellWidth,
-    cellRenderer: renderNotes.bind(null, nowMoment, 'last_other_note')
+    cellRenderer: renderNotes.bind(null, nowMoment, 'last_counselor_note')
   }, {
     dataKey: 'study',
     label: 'Study skills',

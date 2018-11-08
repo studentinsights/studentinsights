@@ -6,6 +6,7 @@ const textMap =  {
   305: '9th Grade Experience',
   306: '10th Grade Experience',
   307: 'NEST',
+  308: 'Counselor Meeting',
   400: 'BBST Meeting',
   500: 'STAT Meeting'
 };
@@ -21,6 +22,7 @@ const miniTextMap = {
   305: 'NGE',
   306: '10GE',
   307: 'NEST',
+  308: 'Counselor',
   400: 'BBST',
   500: 'STAT'
 };
@@ -39,6 +41,7 @@ const colorMap =  {
   305: BLUE,
   306: BLUE,
   307: BLUE,
+  308: GREEN,
   400: GREEN,
   500: GREEN
 };

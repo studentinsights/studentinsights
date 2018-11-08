@@ -163,6 +163,9 @@ export default class MathDetails extends React.Component {
   }
 
   renderMCASMathGrowth() {
+    const data = this.props.chartData.mcas_series_math_growth;
+    if (!data || data.length === 0) return null;
+
     return (
       <DetailsSection anchorId="MCASMathGrowth" title="MCAS Math SGPs, last 4 years">
         <ProfileChart

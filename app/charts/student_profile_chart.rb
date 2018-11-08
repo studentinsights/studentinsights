@@ -1,5 +1,25 @@
 class StudentProfileChart < Struct.new :student
 
+  def chart_data
+    mcas_mathematics_results = student.mcas_mathematics_results
+    mcas_ela_results = student.mcas_ela_results
+    next_gen_mcas_mathematics_results = student.next_gen_mcas_mathematics_results
+    next_gen_mcas_ela_results = student.next_gen_mcas_ela_results
+
+    {
+      star_series_math_percentile: percentile_ranks_to_highcharts(student.star_math_results),
+      star_series_reading_percentile: percentile_ranks_to_highcharts(student.star_reading_results),
+      next_gen_mcas_mathematics_scaled: scale_scores_to_highcharts(next_gen_mcas_mathematics_results),
+      next_gen_mcas_ela_scaled: scale_scores_to_highcharts(next_gen_mcas_ela_results),
+      mcas_series_math_scaled: scale_scores_to_highcharts(mcas_mathematics_results),
+      mcas_series_ela_scaled: scale_scores_to_highcharts(mcas_ela_results),
+      mcas_series_math_growth: growth_percentiles_to_highcharts(mcas_mathematics_results + next_gen_mcas_mathematics_results),
+      mcas_series_ela_growth: growth_percentiles_to_highcharts(mcas_ela_results + next_gen_mcas_ela_results),
+      interventions: interventions_to_highcharts
+    }
+  end
+
+  private
   def percentile_ranks_to_highcharts(star_results)
     return nil unless star_results
 
@@ -15,44 +35,15 @@ class StudentProfileChart < Struct.new :student
 
   def growth_percentiles_to_highcharts(student_assessments)
     return if student_assessments.blank?
-    student_assessments.map do |s|
+    student_assessments.select {|a| a.growth_percentile.present? }.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.growth_percentile]
     end
   end
 
   def scale_scores_to_highcharts(student_assessments)
     return if student_assessments.blank?
-    student_assessments.map do |s|
+    student_assessments.select {|a| a.scale_score.present? }.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.scale_score]
     end
-  end
-
-  def chart_data
-    data = serialize_student_for_profile_chart(student)
-    {
-      star_series_math_percentile: percentile_ranks_to_highcharts(data[:star_math_results]),
-      star_series_reading_percentile: percentile_ranks_to_highcharts(data[:star_reading_results]),
-      next_gen_mcas_mathematics_scaled: scale_scores_to_highcharts(data[:next_gen_mcas_mathematics_results]),
-      next_gen_mcas_ela_scaled: scale_scores_to_highcharts(data[:next_gen_mcas_ela_results]),
-      mcas_series_math_scaled: scale_scores_to_highcharts(data[:mcas_mathematics_results]),
-      mcas_series_ela_scaled: scale_scores_to_highcharts(data[:mcas_ela_results]),
-      mcas_series_math_growth: growth_percentiles_to_highcharts(data[:mcas_mathematics_results]),
-      mcas_series_ela_growth: growth_percentiles_to_highcharts(data[:mcas_ela_results]),
-      interventions: interventions_to_highcharts
-    }
-  end
-
-  def serialize_student_for_profile_chart(student)
-    {
-      student: student,
-      student_assessments: student.student_assessments,
-      star_math_results: student.star_math_results,
-      star_reading_results: student.star_reading_results,
-      mcas_mathematics_results: student.mcas_mathematics_results,
-      mcas_ela_results: student.mcas_ela_results,
-      next_gen_mcas_mathematics_results: student.next_gen_mcas_mathematics_results,
-      next_gen_mcas_ela_results: student.next_gen_mcas_ela_results,
-      interventions: student.interventions
-    }
   end
 end

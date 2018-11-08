@@ -102,10 +102,12 @@ class SomervilleHighLevels
   def notes_query_map
     sst_event_note_type_ids = [300]
     experience_event_note_type_ids = [305, 306, 307]
+    counselor_event_note_type_ids = [308]
     other_event_note_type_ids = EventNoteType.all.pluck(:id) - sst_event_note_type_ids - experience_event_note_type_ids
     {
       last_sst_note: sst_event_note_type_ids,
       last_experience_note: experience_event_note_type_ids,
+      last_counselor_note: counselor_event_note_type_ids,
       last_other_note: other_event_note_type_ids
     }
   end

@@ -177,9 +177,10 @@ describe ProfileController, :type => :controller do
           expect(json['student']).not_to have_key('restricted_notes_count')
 
           expect(json['dibels']).to eq []
-          expect(json['feed']).to eq ({
+          expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],
+            'homework_help_sessions' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -248,6 +249,20 @@ describe ProfileController, :type => :controller do
               occurred_at: Time.now - 2.days
             )
           }
+
+          it 'sends the expected shape' do
+            make_request(educator, student.id)
+            json = parse_json(response.body)
+            expect(json['attendance_data']['discipline_incidents'].first.keys).to contain_exactly(*[
+              'has_exact_time',
+              'id',
+              'incident_code',
+              'incident_description',
+              'incident_location',
+              'occurred_at',
+              'student'
+            ])
+          end
 
           it 'sets the correct order' do
             make_request(educator, student.id)
@@ -420,7 +435,7 @@ describe ProfileController, :type => :controller do
 
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to contain_exactly(:event_notes, :services, :deprecated, :transition_notes)
+      expect(feed.keys).to contain_exactly(:event_notes, :services, :deprecated, :transition_notes, :homework_help_sessions)
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end

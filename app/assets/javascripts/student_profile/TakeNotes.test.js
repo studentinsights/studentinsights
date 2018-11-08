@@ -49,7 +49,7 @@ it('renders without crashing', () => {
   expect(el.innerHTML).toContain('February 11, 2016');
   expect(el.innerHTML).toContain('demo@example.com');
   expect($(el).find('textarea').length).toEqual(1);
-  expect($(el).find('.btn.note-type').length).toEqual(7);
+  expect($(el).find('.btn.note-type').length).toEqual(8);
   expect($(el).find('.btn.save').length).toEqual(1);
   expect($(el).find('.btn.cancel').length).toEqual(1);
 });
@@ -65,7 +65,8 @@ describe('buttons for taking notes', () => {
       'Something else',
       '9th Grade Experience',
       '10th Grade Experience',
-      'NEST'
+      'NEST',
+      'Counselor Meeting'
     ]);
   });
 

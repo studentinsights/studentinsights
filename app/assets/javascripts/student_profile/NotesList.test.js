@@ -22,6 +22,7 @@ function testProps(props = {}) {
 function feedWithEventNotesJson(eventNotesJson) {
   return {
     transition_notes: [],
+    homework_help_sessions: [],
     services: {
       active: [],
       discontinued: []
@@ -51,6 +52,33 @@ function testPropsForRestrictedNote(props = {}) {
         { id: 47, url: "https://www.example.com/morestudentwork" }
       ]
     }]),
+    ...props
+  });
+}
+
+function testPropsForHomeworkHelp(props = {}) {
+  return testProps({
+    feed: {
+      ...feedWithEventNotesJson([]),
+      homework_help_sessions: [{
+        "id": 5,
+        "student_id": 5,
+        "form_timestamp": "2018-09-25T13:41:43.000Z",
+        "recorded_by_educator_id": 1,
+        "courses": [
+          {
+            "id": 4,
+            "course_number": "111",
+            "course_description": "US HISTORY 1 HONORS"
+          },
+          {
+            "id": 5,
+            "course_number": "212",
+            "course_description": "ALGEBRA 1 CP"
+          }
+        ]
+      }]
+    },
     ...props
   });
 }
@@ -171,5 +199,16 @@ describe('props impacting restricted notes', () => {
     expect(el.innerHTML).toContain('https://www.example.com/');
     expect(el.innerHTML).not.toContain('marked this note as restricted');
     expect($(el).find('.EditableNoteText').length).toEqual(1);
+  });
+});
+
+
+describe('homework help', () => {
+  it('works on happy path', () => {
+    const el = testRender(testPropsForHomeworkHelp());
+    expect($(el).find('.NoteText').length).toEqual(1);
+    expect($(el).find('.EditableNoteText').length).toEqual(0);
+    expect($(el).text()).toContain('Homework Help');
+    expect($(el).find('.NoteText').text()).toEqual('Went to homework help for US HISTORY 1 HONORS and ALGEBRA 1 CP.');
   });
 });

@@ -14,6 +14,7 @@ export function mergedNotes(feed) {
       sort_timestamp: intervention.start_date_timestamp
     };
   });
+
   const eventNotes = feed.event_notes.map(eventNote => {
     return {
       ...eventNote,
@@ -31,10 +32,20 @@ export function mergedNotes(feed) {
     };
   });
 
+  // SHS
+  const homeworkHelpSessions = (feed.homework_help_sessions || []).map(homeworkHelpSession => {
+    return {
+      ...homeworkHelpSession,
+      type: 'homework_help_sessions',
+      sort_timestamp: homeworkHelpSession.form_timestamp
+    };
+  });
+
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
-    ...transitionNotes
+    ...transitionNotes,
+    ...homeworkHelpSessions
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }

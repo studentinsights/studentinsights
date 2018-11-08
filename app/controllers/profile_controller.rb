@@ -22,7 +22,7 @@ class ProfileController < ApplicationController
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),
       attendance_data: {
-        discipline_incidents: filtered_events(student.discipline_incidents),
+        discipline_incidents: discipline_incidents_as_json(student),
         tardies: filtered_events(student.tardies),
         absences: filtered_events(student.absences)
       }
@@ -67,6 +67,7 @@ class ProfileController < ApplicationController
       event_notes: student.event_notes
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes,
+      homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
@@ -82,5 +83,12 @@ class ProfileController < ApplicationController
     months_back = options.fetch(:months_back, 48)
     cutoff_time = time_now - months_back.months
     mixed_events.where('occurred_at >= ? ', cutoff_time).order(occurred_at: :desc)
+  end
+
+  def discipline_incidents_as_json(student, options = {})
+    time_now = options.fetch(:time_now, Time.now)
+    limit = options.fetch(:limit, 100)
+    incident_cards = Feed.new([student]).incident_cards(time_now, limit)
+    incident_cards.map {|incident_card| incident_card.json }
   end
 end

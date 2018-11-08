@@ -162,12 +162,15 @@ export default class ElaDetails extends React.Component {
   }
 
   renderMCASELAGrowth() {
+    const data = this.props.chartData.mcas_series_ela_growth;
+    if (!data || data.length === 0) return null;
+    
     return (
       <DetailsSection anchorId="SGPs" title="Student growth percentile (SGP), last 4 years">
         <ProfileChart
           quadSeries={[{
             name: '',
-            data: this.props.chartData.mcas_series_ela_growth
+            data,
           }]}
           titleText="MCAS ELA SGPs, last 4 years"
           student={this.props.student}

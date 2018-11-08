@@ -26,6 +26,7 @@ class Student < ApplicationRecord
   has_many :absences, dependent: :destroy
   has_many :discipline_incidents, dependent: :destroy
   has_many :iep_documents, dependent: :destroy
+  has_many :homework_help_sessions, dependent: :destroy
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy

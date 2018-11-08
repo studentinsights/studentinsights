@@ -29,6 +29,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
         "#{config.root}/app/importers/helpers",
+        "#{config.root}/app/importers/homework_help_importer",
         "#{config.root}/app/importers/iep_import",
         "#{config.root}/app/importers/photo_import",
         "#{config.root}/app/importers/precompute",

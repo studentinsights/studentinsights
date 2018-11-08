@@ -38,6 +38,7 @@ storiesOf('profile-v3/LightProfilePage', module) // eslint-disable-line no-undef
   .add('K8, wide: Pluto Poppins', () => storyRender(testPropsForPlutoPoppins()))
   .add('K8, no photo: Pluto Poppins', () => widthFrame(storyRender(testPropsForPlutoPoppins())))
   .add('K8: Olaf White', () => widthFrame(storyRender(testPropsForOlafWhite())))
+  .add('K8, Bedford: Olaf White', () => widthFrame(storyRender({...testPropsForOlafWhite(), districtKey: 'bedford' })))
   .add('K8, New Bedford: Olaf White', () => widthFrame(storyRender({...testPropsForOlafWhite(), districtKey: 'new_bedford' })))
   .add('HS: Aladdin Mouse', () => widthFrame(storyRender(testPropsForAladdinMouse())));
 
