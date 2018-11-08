@@ -175,11 +175,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const incidents = this.getIncidentsFromStudents(students);
       const categories = this.sortedDays();
       const seriesData = incidents.map(incident => {
-        const category = moment.utc(incident.occurred_at).format("ddd");
-        const x = categories.indexOf(category);
+        const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
         const y = this.getincidentTimeAsFloat(incident);
         const name = moment.utc(incident.occurred_at).format("hh:mm a");
-        return {x, y, name, category};
+        return {x, y, name};
       });
       return {categories, seriesData};
     }
@@ -300,7 +299,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
       {value: 'day', label: 'Day'},
-      {value: 'scatter', label: 'heatmap'}
+      {value: 'scatter', label: 'Day & Time'}
     ];
     const incidentTypes = this.allIncidentTypes(dashboardStudents);
 
