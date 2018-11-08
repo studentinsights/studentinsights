@@ -1,6 +1,6 @@
 {% include navbar.html %}
 
-# Updates
+# What's next?
 Student Insights is entirely open source, which means that all code and all changes are published in the open.  We also aim to build in the open, and so much of our discussion about what to build and why is also published openly as well.  You can also read about how we protect the security and privacy of student data while building in the open and releasing all code publicly as open source.
 
 This is stored on GitHub, and if you're new to open source a good starting point is to browse through recent pull requests to see what this looks like.  For most educators, this is too much information, so we also release a shorter summary of changes each week as a changelog.  We also use a work board to communicate about what we're working on right now, what's coming up soon, and potential projects a few months out.

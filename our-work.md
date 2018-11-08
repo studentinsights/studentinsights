@@ -10,7 +10,7 @@ Our work on Student Insights built on work the community had done before [...One
       <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="todo.html" style="display: block;">- Django Paris</a></p>
     </div>
     <div>
-      <a href="todo.html" class="btn">More about profiles</a>
+      <a href="profile.html" class="btn">More about profiles</a>
     </div>
   </div>
   <div class="Section-right">
