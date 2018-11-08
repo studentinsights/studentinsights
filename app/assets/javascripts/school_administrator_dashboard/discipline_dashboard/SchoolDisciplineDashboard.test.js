@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import moment from 'moment';
 import renderer from 'react-test-renderer';
 import {toMomentFromTimestamp} from '../../helpers/toMoment';
@@ -40,6 +40,12 @@ function elWrappedInContext(el, context) {
   return withNowMoment(nowFn(), (
     <PerDistrictContainer districtKey={districtKey}>{el}</PerDistrictContainer>
   ));
+}
+
+function renderShallow(props = {}) {
+  const context = testContext();
+  const el = testEl(props);
+  return shallow(el, {context});
 }
 
 it('displays house for SHS', () => {
@@ -98,6 +104,14 @@ it('renders at least one bar chart', () => {
   expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
 });
 
+it('can render a scatter plot', () => {
+  const context = testContext({districtKey: 'somerville'});
+  const props = {school: testSchool()};
+  const el = testEl(props);
+  const dash = mount(elWrappedInContext(el, context));
+  expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
+});
+
 it('renders a student list', () => {
   const context = testContext({districtKey: 'somerville'});
   const props = {school: testSchool()};
@@ -112,6 +126,12 @@ it('renders a date range selector', () => {
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectTimeRange').length > 0).toEqual(true);
+});
+
+it('can render a scatter plot', () => {
+  const dash = renderShallow({school: testSchool()});
+  dash.setState({selectedChart: 'scatter'});
+  expect(dash.find('DashboardScatterPlot').length > 0).toEqual(true);
 });
 
 function snapshotJson(districtKey) {
