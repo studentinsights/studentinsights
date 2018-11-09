@@ -101,18 +101,21 @@ Student Insight is open source software, which means anyone can see exactly how 
   </div>
 </div>
 
-### More project history
-- [codeforamerica/somerville-teacher-tool](https://github.com/codeforamerica/somerville-teacher-tool/)
-- CfA: Somerville Fellowship team – 21st Century Tools: How Technology Encodes Values – CfA Summit (2015)
-- CfA: #CfASummit Day 1 from the Main Stage
-- CfA: Team Somerville
-- [2015-05-05 Code for Boston + Somerville fellows](https://docs.google.com/presentation/d/10SNXrZRwEIEC2CRn_mGS-V3KwtSuKUYkhGxYVa_moBE/edit#slide=id.g9acc1481b_0_0)
-- CfA: What Is Hack Night Good For? A Somerville Schools Example
-- CfA: IGNITE Boston, NDoCH 2015: Alex Soble
-- CfB: Demo night slides
-- [Microsoft: Using Data to Transform Somerville Public Schools](https://blogs.microsoft.com/newengland/2017/08/17/using-data-to-transform-somerville-public-schools/)
-- [Somerville: Create, Innovate & Educate: with the Somerville Public School - Nov 20, 2017](http://www.somerville.k12.ma.us/files/create-innovate-educate-somerville-public-school-nov-20-2017)
-- [Somerville Times: The Boston Foundation awards Somerville Public Schools a two-year $200K grant](http://www.thesomervilletimes.com/archives/78104)
+### Older writing, code and talks
+In the spirit of building in the open, here are links to how we've thought about our work along the way, including old code, blog posts, talks, presentations and interviews.  This also reveals how the work has evolved - you'll see some things we worked on that we no longer work on, some areas of focus that we've invested in much more heavily in the time since, and hopefully we'll continue to grow as we build deeper relationships within school communities and find more ways to help create more opportunity for students.
+
+- January 2015, [github.com/codeforamerica/somerville-teacher-tool](https://github.com/codeforamerica/somerville-teacher-tool/) is created!
+- May 2015, [Code for Boston + Somerville fellows](https://docs.google.com/presentation/d/10SNXrZRwEIEC2CRn_mGS-V3KwtSuKUYkhGxYVa_moBE/edit#slide=id.g9acc1481b_0_0)
+- June 2015, [**Code for America: Team Somerville's Story**](http://codeforamerica.github.io/somerville-story/)
+- June 2015, [IGNITE Boston, NDoCH 2015](https://www.youtube.com/watch?v=CEZnDKtkhyI)
+- October 2015, [**How Technology Encodes Values – Code for America Summit 2015**](https://www.youtube.com/watch?v=MzhKX49Pi0Q)
+- February 2016, [github.com/studentinsights/studentinsights](https://github.com/studentinsights/studentinsights) is created
+- May 2016, [Code for Boston Demo night: Student Insights](https://docs.google.com/presentation/d/1El6ByztkdkCuYnV7KLehV7zBvcfk-vUDL5vF_YxIcVE/edit#slide=id.p)
+- June 2016, [What Is Hack Night Good For? A Somerville Schools Example](http://www.alexsoble.com/2016/06/06/what-hack-night-is-good-for-somerville.html)
+- August 2017, [Microsoft: Using Data to Transform Somerville Public Schools](https://blogs.microsoft.com/newengland/2017/08/17/using-data-to-transform-somerville-public-schools/)
+- November 2017, [**Somerville: Create, Innovate & Educate: with the Somerville Public Schools**](http://www.somerville.k12.ma.us/files/create-innovate-educate-somerville-public-school-nov-20-2017)
+- August 2017, [Somerville Times: The Boston Foundation awards Somerville Public Schools a two-year $200K grant](http://www.thesomervilletimes.com/archives/78104)
+
 
 
 <a href="our-work.html" class="btn">Learn more about our work</a>
