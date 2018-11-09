@@ -7,8 +7,12 @@
     padding-bottom: 10px;
   }
 
-  .Home-image {
+  .Home-image-container {
     margin: 10px;
+  }
+
+  .Home-image {
+    border: 1px solid #eee;
   }
 }
 
@@ -29,10 +33,17 @@
     font-size: 18px;
   }
 
-  .Home-image {
+  .Home-image-container {
     flex: 2;
     padding-right: 15px;
     display: flex;
+    height: 100%;
+  }
+
+  .Home-image {
+    border: 1px solid #eee;
+    height: 100%;
+    width: 100%;
   }
 
   .Home-text {

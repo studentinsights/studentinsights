@@ -7,14 +7,27 @@
   padding-bottom: 15px;
 }
 
+.Navbar-left {
+  flex: 1;
+}
+
 .Navbar-left-item { 
   display: inline-block;
   padding-right: 10px;
 }
 
 .Navbar-right {
-  width: 16em;
   text-align: right;
+}
+@media (max-width: 600px) {
+  .Navbar-right {
+    width: 6em;
+  }
+}
+@media (min-width: 600px) {
+  .Navbar-right {
+    width: 12em;
+  }
 }
 
 .Navbar-right-item {

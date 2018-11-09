@@ -8,16 +8,26 @@
     align-items: center;
   }
 
-  .Footer-image {
+  .Footer-wrapper {
     flex: 1;
-    margin: 5px;
+    height: 100%;
+  }
+  @media (max-width: 600px) {
+    .Footer-wrapper {
+      margin: 5px;
+    }
+  }
+  @media (min-width: 600px) {
+    .Footer-wrapper {
+      margin: 15px;
+    }
   }
 </style>
 <div class="Footer">
-  <img class="Footer-image" height="100%" width="100%" src="img/somerville-schools.jpg" />
-  <img class="Footer-image" height="100%" width="100%" src="img/logos/cfa-logo-color.png" />
-  <img class="Footer-image" height="100%" width="100%" src="img/logos/microsoft-new-england.png" />
-  <img class="Footer-image" height="100%" width="100%" src="img/logos/boston-foundation.png" />
-  <img class="Footer-image" height="100%" width="100%" src="img/new-bedford-schools.jpg" />
-  <img class="Footer-image" height="100%" width="100%" src="img/bedford-schools.png" />
+  <div class="Footer-wrapper"><img class="Footer-image" src="img/somerville-schools.jpg" /></div>
+  <div class="Footer-wrapper"><img class="Footer-image" src="img/logos/cfa-logo-color.png" /></div>
+  <div class="Footer-wrapper"><img class="Footer-image" src="img/logos/microsoft-new-england-stacked.png" /></div>
+  <div class="Footer-wrapper"><img class="Footer-image" src="img/logos/boston-foundation.png" /></div>
+  <div class="Footer-wrapper"><img class="Footer-image" src="img/new-bedford-schools.jpg" /></div>
+  <div class="Footer-wrapper"><img class="Footer-image" src="img/bedford-schools.png" /></div>
 </div>
