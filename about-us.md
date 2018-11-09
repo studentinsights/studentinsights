@@ -146,7 +146,7 @@ Student Insight is open source software, which means anyone can see exactly how 
 </section>
 
 
-### Older writing, code and talks
+## Older writing, code and talks
 In the spirit of building in the open, here are links to how we've thought about our work along the way, including old code, blog posts, talks, presentations and interviews.  This also reveals how the work has evolved - you'll see some things we worked on that we no longer work on, some areas of focus that we've invested in much more heavily in the time since, and hopefully we'll continue to grow as we build deeper relationships within school communities and find more ways to help create more opportunity for students.
 
 - January 2015, [github.com/codeforamerica/somerville-teacher-tool](https://github.com/codeforamerica/somerville-teacher-tool/commit/599e6ac6d78dbecf25eed3ad4d916ff557c34fbd) is created!
