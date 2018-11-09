@@ -11,7 +11,7 @@ export default class DashboardScatterPlot extends React.Component{
     return hash.MD5(nextProps.seriesData)!==hash.MD5(this.props.seriesData);
   }
 
-  formatter() { //time is sent as a number in HH.mm format.
+  formatter() { //time is sent as minutes from midnight on each day
     const minutes = this.value;
     const hour = Math.floor(minutes/60);
     const minute = minutes % 60 || "00";

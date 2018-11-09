@@ -182,7 +182,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const incidents = this.getIncidentsFromStudents(students);
       const categories = this.sortedDays();
       const seriesData = incidents.map(incident => {
-        const student_id = incident.student_id;
+        const student_id = incident.student_id; //used to identify which points are in view when zoomed
         const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
         const y = this.getincidentTimeAsMinutes(incident);
         const name = moment.utc(incident.occurred_at).format("hh:mm a");
