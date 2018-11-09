@@ -1,72 +1,66 @@
 {% include navbar.html %}
 
-<h1>
-  <div>We work with educators to build student-centered data systems</div>
-</h1>
-
-<div style="display: flex; margin-bottom: 40px;">
-  <div style="flex: 4; padding-right: 15px; display: flex;"><img src="img/teachers-working.jpg" style="border: 1px solid #eee;" /></div>
-  <div style="flex: 2; padding-left: 15px; font-size: 18px; display: flex; flex-direction: column; justify-content: space-between;">
-    <div>
-      <p>It’s people closest to the work, <b>within school communities</b> - teachers, young people, families - who will be able to build the next generation of school data systems that they need.</p>
-      <p>We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle <b>what matters for our students.</b></p>
+<section>
+  <div class="Home-title">We work with educators to build student-centered data systems</div>
+  <div class="Home-container">
+    <div class="Home-image">
+      <img src="img/teachers-working.jpg" style="border: 1px solid #eee;" />
     </div>
-    <div>
-      <a href="about-us.html" class="btn">Learn more about us</a>
+    <div class="Home-text">
+      <div>
+        <p>It’s people closest to the work, <b>within school communities</b> - teachers, young people, families - who will be able to build the next generation of school data systems that they need.</p>
+        <p>We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle <b>what matters for our students.</b></p>
+      </div>
+      <div>
+        <a href="about-us.html" class="btn">Learn more about us</a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 ## Our work
 Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work is built.
 
-<h2 class="Section-title">Student-centered profile</h2>
-<div class="Section-container">
-  <div class="Section-left">
-    <div>
-      <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="pals.html" style="display: block;">- Django Paris</a></p>
-    </div>
-    <div>
-      <a href="profile.html" class="btn">More about profiles</a>
-    </div>
-  </div>
-  <div class="Section-right">
+<section>
+  {% capture profile_quote %}
+    <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="pals.html" style="display: block;">- Django Paris</a></p>
+  {% endcapture %}
+  {% capture profile_image %}
     <img src="img/profile.png" style="border: 1px solid #eee;" />
-  </div>
-</div>
+  {% endcapture %}
+  {% capture profile_button %}
+    <a href="profile.html" class="btn">More about profiles</a>
+  {% endcapture %}
+  {% include panel.html title="Student-centered profile" quote=profile_quote image=profile_image button=profile_button %}
+</section>
 
-<h2 class="Section-title">Student-centered notes</h2>
-<div class="Section-container">
-  <div class="Section-left">
-    <div>
-      <p>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a></p>
-    </div>
-    <div>
-      <a href="todo.html" class="btn">More about notes</a>
-    </div>
-  </div>
-  <div class="Section-right">
-    <div style="display: flex;">
-      <img style="flex: 1;" src="img/feed.png" />
-      <img style="flex: 1;" src="img/feed2.png" />
-    </div>
-  </div>
-</div>
 
-<h2 class="Section-title">Privacy and access</h2>
-<div class="Section-container">
-  <div class="Section-left">
-    <div>
-      <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<a style="display: block;" href="pals.html">- Audrey Waters</a></p>
-    </div>
-    <div>
-      <a href="todo.html" class="btn">More about privacy</a>
-    </div>
-  </div>
-  <div class="Section-right">
+<section>
+  {% capture notes_quote %}
+    <p>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a></p>
+  {% endcapture %}
+  {% capture notes_image %}
+    <img src="img/feed-simple.png" />
+  {% endcapture %}
+  {% capture notes_button %}
+    <a href="todo.html" class="btn">More about notes</a>
+  {% endcapture %}
+  {% include panel.html title="Student-centered notes" quote=notes_quote image=notes_image button=notes_button %}
+</section>
+
+<section>
+  {% assign privacy_title = 'Privacy and access' %}
+  {% capture privacy_quote %}
+    <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<a style="display: block;" href="pals.html">- Audrey Waters</a></p>
+  {% endcapture %}
+  {% capture privacy_image %}
     <img src="img/data.png" />
-  </div>
-</div>
+  {% endcapture %}
+  {% capture privacy_button %}
+    <a href="todo.html" class="btn">More about privacy</a>
+  {% endcapture %}
+  {% include panel.html title=privacy_title quote=privacy_quote image=privacy_image button=privacy_button %}
+</section>
 
 
 
