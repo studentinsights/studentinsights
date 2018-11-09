@@ -12,11 +12,11 @@ export default class DashboardScatterPlot extends React.Component{
   }
 
   formatter() { //time is sent as a number in HH.mm format.
-    const string = this.value.toString().split("."); //
-    const hour = string[0] % 12 || 12;
-    const minute = string[1] || "00";
-    const a = string[0] < 12 ? 'AM' : 'PM';
-    return `${hour}:${minute} ${a}`;
+    const minutes = this.value;
+    const hour = Math.floor(minutes/60);
+    const minute = minutes % 60 || "00";
+    const a = hour < 12 ? 'AM' : 'PM';
+    return `${hour % 12}:${minute} ${a}`;
   }
 
   render() {
