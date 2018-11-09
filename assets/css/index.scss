@@ -1,0 +1,45 @@
+/* home */
+/* Home mobile */
+@media (max-width: 600px) {
+  .Home-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  .Home-image {
+    margin: 10px;
+  }
+}
+
+/* Home desktop */
+@media (min-width: 600px) {
+  .Home-container {
+    display: flex;
+    margin-bottom: 40px;
+  }
+
+  .Home-title {
+    font-size: 32px;
+    font-weight: bold;
+    padding-bottom: 15px;
+  }
+
+  .Home-text {
+    font-size: 18px;
+  }
+
+  .Home-image {
+    flex: 4;
+    padding-right: 15px;
+    display: flex;
+  }
+
+  .Home-text {
+    flex: 2;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

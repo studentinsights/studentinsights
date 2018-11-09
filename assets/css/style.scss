@@ -2,9 +2,11 @@
 ---
 
 
-@import "./navbar";
-
 @import "{{ site.theme }}";
+@import "navbar";
+@import "panel";
+@import "index";
+
 
 a.btn {
   background: #4A90E2;
@@ -12,66 +14,6 @@ a.btn {
   padding: 10px;
   display: inline-block;
 }
-
-
-
-
-
-
-
-
-
-
-
-/* home */
-/* Home mobile */
-@media (max-width: 600px) {
-  .Home-title {
-    font-size: 24px;
-    font-weight: bold;
-    padding-bottom: 10px;
-  }
-
-  .Home-image {
-    margin: 10px;
-  }
-}
-
-/* Home desktop */
-@media (min-width: 600px) {
-  .Home-container {
-    display: flex;
-    margin-bottom: 40px;
-  }
-
-  .Home-title {
-    font-size: 32px;
-    font-weight: bold;
-    padding-bottom: 15px;
-  }
-
-  .Home-text {
-    font-size: 18px;
-  }
-
-  .Home-image {
-    flex: 4;
-    padding-right: 15px;
-    display: flex;
-  }
-
-  .Home-text {
-    flex: 2;
-    padding-left: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-
-
-
-
 
 
 @media (max-width: 600px) {
@@ -85,109 +27,6 @@ a.btn {
     display: none;
   }
 }
-
-
-.Panel-title {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-/* Panel mobile */
-@media (max-width: 600px) {
-  .Panel {
-    padding-top: 5px;
-  }
-
-  .Panel-title {
-    font-size: 20px;
-  }
-
-  .Panel-quote {
-    padding-bottom: 5px;
-  }
-
-  .Panel-image {
-    padding-bottom: 10px;
-  }
-}
-
-/* Panel desktop */
-@media (min-width: 600px) {
-  .Panel-container {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 15px;
-  }
-
-  .Panel-title {
-    font-size: 24px;
-  }
-
-  .Panel-quote {
-    flex: 2;
-    padding-right: 15px;
-    font-size: 18px;
-  }
-
-  .Panel-image {
-    flex: 4;
-    padding-left: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-
-
-.Section-title {
-  margin-top: 40px;
-}
-@media (max-width: 600px) {
-  
-
-  .Section-container {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-  }
-
-  .Section-left {
-    flex: 2;
-    padding-right: 15px;
-    font-size: 18px;
-  }
-
-  .Section-right {
-  }
-}
-
-@media (min-width: 600px) {
-  .Section-title {
-    margin-top: 40px;
-  }
-
-  .Section-container {
-    display: flex;
-    margin-bottom: 15px;
-  }
-
-  .Section-left {
-    flex: 2;
-    padding-right: 15px;
-    font-size: 18px;
-  }
-
-  .Section-right {
-    flex: 4;
-    padding-left: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-
 
 ul.PlainList {
   list-style: none;

@@ -1,0 +1,52 @@
+.Panel-title {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* Panel mobile */
+@media (max-width: 600px) {
+  .Panel {
+    padding-top: 5px;
+  }
+
+  .Panel-title {
+    font-size: 20px;
+  }
+
+  .Panel-quote {
+    padding-bottom: 5px;
+  }
+
+  .Panel-image {
+    padding-bottom: 10px;
+  }
+}
+
+/* Panel desktop */
+@media (min-width: 600px) {
+  .Panel-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+  }
+
+  .Panel-title {
+    font-size: 24px;
+  }
+
+  .Panel-quote {
+    flex: 2;
+    padding-right: 15px;
+    font-size: 18px;
+  }
+
+  .Panel-image {
+    flex: 4;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
