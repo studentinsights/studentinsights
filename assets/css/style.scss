@@ -10,25 +10,39 @@ a.btn {
   display: inline-block;
 }
 
-.Section-title {
-  margin-top: 40px;
+
+@media (min-width: 600px) {
+  .Section-title {
+    margin-top: 40px;
+  }
+
+  .Section-container {
+    display: flex;
+    margin-bottom: 15px;
+  }
+
+  .Section-left {
+    flex: 2;
+    padding-right: 15px;
+    font-size: 18px;
+  }
+
+  .Section-right {
+    flex: 4;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 
-.Section-container {
-  display: flex;
-  margin-bottom: 15px;
+
+ul.PlainList {
+  list-style: none;
+  padding-left: 1em;
 }
 
-.Section-left {
-  flex: 2;
-  padding-right: 15px;
-  font-size: 18px;
-}
-
-.Section-right {
-  flex: 4;
-  padding-left: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+li.PlainList-item {
+  margin: 0;
+  padding: 0;  
 }

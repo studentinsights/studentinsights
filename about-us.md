@@ -5,95 +5,114 @@ Our team approaches these problems with one core value: we work to create more e
 
 What teachers and young people need are often very specific to their own community, school and classroom.  Different communities have different values, and different communities make different choices about what's important to them in education.  While many communities share common values, some emphasize preparation for achievement in college, others emphasize new ways of including all students in the classroom community, while still others emphasize more holistic forms of assessment.  These communities should be empowered to build around these core values, and make the school data systems that they need.
 
+It'll take work, but what if our school data systems...
+
+<ul class="PlainList">
+  <li class="PlainList-item">...centered student strengths?</li>
+  <li class="PlainList-item">...were built with educators, young people and families as equal partners?</li>
+  <li class="PlainList-item">...proactively connected students with community and scholarship opportunities?</li>
+  <li class="PlainList-item">...helped teams transiting to restorative justice approaches?</li>
+  <li class="PlainList-item">...encouraged taking concrete actions in the face of "educational debt"?</li>
+  <li class="PlainList-item">...helped educators as they make new assessment systems centered on learning instead of filtering?</li>
+</ul>
+
+### Who we are
+Student Insights comes from the effort of many people over time, some working as educators, some as designers and engineers, and many volunteering their time to help.
+
+As Mica Pollock said before us, [it takes a network]({{site.links.takes_a_network}}).
+
+<img src="https://avatars0.githubusercontent.com/u/3209501?s=115&v=4" />
+<img src="https://avatars3.githubusercontent.com/u/1334815?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/4615904?s=115&v=4" />
+<img src="img/uri-talk.png" width="115" />
+<img src="https://avatars1.githubusercontent.com/u/1056957?s=115&v=4" />
+<img src="https://avatars1.githubusercontent.com/u/1514487?s=115&v=4" />
+<img src="https://avatars1.githubusercontent.com/u/2595259?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/8533377?s=115&v=4" />
+<img src="img/jill.jpg" width="115" />
+<img src="https://avatars0.githubusercontent.com/u/1547934?s=115&v=4" />
+<img src="https://avatars2.githubusercontent.com/u/638809?s=115&v=4" />
+<img src="https://avatars2.githubusercontent.com/u/2916661?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/19398192?s=115&v=4" />
+<img src="https://avatars2.githubusercontent.com/u/4649503?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/3846783?s=115&v=4" />
+<img src="img/ihsaan.jpg" width="115" />
+<img src="img/aaron.jpg" width="115" />
+<img src="https://avatars3.githubusercontent.com/u/1735650?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/14283667?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/10509931?s=115&v=4" />
+<img src="https://avatars2.githubusercontent.com/u/11449339?s=115&v=4" />
+<img src="https://avatars1.githubusercontent.com/u/330247?s=115&v=4" />
+<img src="https://avatars1.githubusercontent.com/u/7103652?s=115&v=4" />
+<img src="https://avatars2.githubusercontent.com/u/13981224?s=115&v=4" />
+<img src="https://avatars0.githubusercontent.com/u/2357755?s=115&v=4" />
+
+
 
 ### How we work
 While we work, we're committed to being open and transparent.  This involves a commitment to fully open-source software, and working collaboratively with school communities rather than selling anything to them.
 
-Student Insight is open source software, which means anyone can see exactly how it works, or propose changes.  Local educators define any heuristics or algorithms themselves, so that they fully understand how the system works.  We welcome working with community volunteers, and being a part of our local [Code for Boston brigade]({{site.link.code_for_boston}}).
+Student Insight is open source software, which means anyone can see exactly how it works, or propose changes.  Local educators define any heuristics or algorithms themselves, so that they fully understand how the system works.  The project started in Somerville, and we're based there, but we've also built [partnerships with other school communities](school-partnerships.md).  We welcome working with community volunteers, and being a part of our local [Code for Boston brigade]({{site.link.code_for_boston}}) too.
 
 <div class="Section-container">
   <div class="Section-left"><img src="img/github.png" /></div>
   <div class="Section-right"><img src="img/code.png" /></div>
 </div>
 
-### What could be possible?
-It might be hard, but what is school data systems...
-- centered student strengths
-- were built for educators, young people and families as equal partners
-- proactively connected students with community and scholarship opportunities
-- helped teams transiting to restorative justice approaches
-- encouraged taking concrete actions in the face of "educational debt"
-- helped educators as they make new assessment systems centered on learning instead of filtering
-
 
 ## Project history
-<h2 class="Section-title">OneVille</h2>
+<h3 class="Section-title">OneVille</h3>
 <div class="Section-container">
   <div class="Section-left">
-    <a href="{{site.links.oneville}}">OneVille</a> is an separate project altogether that started years before our work, but we  see these folks as allies and our spiritual ancestors. :)  Check out the project wiki section on <a href="{{site.links.oneville_dashboards}}">data dashboards</a>, or the sections about this work in the book <a href="{{site.links.schooltalk}}">Schooltalk</a>.
+    <a href="{{site.links.oneville}}">OneVille</a> is an separate project that started in Somerville years before our work, but we see it as our spiritual ancestor.  Their work on <a href="{{site.links.oneville_dashboards}}">data dashboards</a> and about <a href="{{site.links.schooltalk}}">how we talk about students</a> are particularly meaningful.
+    <div>2009-2011</div>
   </div>
   <div class="Section-right"><img src="img/oneville.jpg" /></div>
 </div>
 
-<h2 class="Section-title">Code for America</h2>
+<h3 class="Section-title">Code for America and Volunteers</h3>
 <div class="Section-container">
   <div class="Section-left">
-    A <a href="{{site.links.code_for_america}}">Code for America</a> fellowship connected with educators in Somerville to create the first version of Student Insights.
+    A <a href="{{site.links.code_for_america}}">Code for America</a> fellowship created a small team that connected with educators in Somerville to create the first version of Student Insights.
+    <div>2014-2016</div>
   </div>
   <div class="Section-right"><img src="img/escs-early-childhood.png" /></div>
 </div>
 
-<h2 class="Section-title">Partnering with other districts</h2>
+<h3 class="Section-title">Somerville and the Boston Foundation</h3>
 <div class="Section-container">
   <div class="Section-left">
-    With a match from the Boston Foundation, Somerville continued work on Student Insights, and partnered with educators in New Bedford and Bedford as well.
+    With a match from the <a href="{{site.links.boston_foundation}}">Boston Foundation</a>, Somerville continued work on Student Insights, growing to all schools in the district and starting work with high school educators.
+    <div>2017-present</div>
   </div>
   <div class="Section-right">
+    <div class="Section-right"><img src="img/escs-early-childhood.png" /></div>
+  </div>
+</div>
+
+<h3 class="Section-title">Partnering with other districts</h3>
+<div class="Section-container">
+  <div class="Section-left">
+    We've also used the match from the <a href="{{site.links.boston_foundation}}">Boston Foundation</a> to build partnerships with New Bedford and Bedford to freely share the work we've done in Somerville.  We're excited to work alongside more schools and districts as we build this together, ourselves.
+    <div>2017-present</div>
+  </div>
+  <div class="Section-right">
+    <div class="Section-right"><img src="img/escs-early-childhood.png" /></div>
   </div>
 </div>
 
 ### More project history
+- [codeforamerica/somerville-teacher-tool](https://github.com/codeforamerica/somerville-teacher-tool/)
 - CfA: Somerville Fellowship team – 21st Century Tools: How Technology Encodes Values – CfA Summit (2015)
 - CfA: #CfASummit Day 1 from the Main Stage
 - CfA: Team Somerville
+- [2015-05-05 Code for Boston + Somerville fellows](https://docs.google.com/presentation/d/10SNXrZRwEIEC2CRn_mGS-V3KwtSuKUYkhGxYVa_moBE/edit#slide=id.g9acc1481b_0_0)
 - CfA: What Is Hack Night Good For? A Somerville Schools Example
 - CfA: IGNITE Boston, NDoCH 2015: Alex Soble
 - CfB: Demo night slides
-- Microsoft: Using Data to Transform Somerville Public Schools
-- SCAT: Create, Innovate & Educate: with the Somerville Public School - Nov 20, 2017
-- Somerville Times: The Boston Foundation awards Somerville Public Schools a two-year $200K grant
+- [Microsoft: Using Data to Transform Somerville Public Schools](https://blogs.microsoft.com/newengland/2017/08/17/using-data-to-transform-somerville-public-schools/)
+- [Somerville: Create, Innovate & Educate: with the Somerville Public School - Nov 20, 2017](http://www.somerville.k12.ma.us/files/create-innovate-educate-somerville-public-school-nov-20-2017)
+- [Somerville Times: The Boston Foundation awards Somerville Public Schools a two-year $200K grant](http://www.thesomervilletimes.com/archives/78104)
 
-## Contributors
-Student Insights comes from the effort of many people over time, some working as educators, some as designers and engineers, and many volunteering their time to help.
-
-<img src="https://avatars0.githubusercontent.com/u/3209501?s=230&v=4" />
-<img src="https://avatars3.githubusercontent.com/u/1334815?s=230&v=4" />
-<img src="https://avatars0.githubusercontent.com/u/4615904?s=230&v=4" />
-<img src="img/uri-talk.png" />
-
-<img src="https://avatars1.githubusercontent.com/u/1056957?s=230&v=4" />
-<img src="https://avatars1.githubusercontent.com/u/1514487?s=230&v=4" />
-<img src="https://avatars1.githubusercontent.com/u/2595259?s=230&v=4" />
-<img src="https://avatars0.githubusercontent.com/u/8533377?s=230&v=4" />
-
-<img src="https://avatars0.githubusercontent.com/u/1547934?s=230&v=4" />
-<img src="https://avatars2.githubusercontent.com/u/638809?s=230&v=4" />
-<img src="https://avatars2.githubusercontent.com/u/2916661?s=230&v=4" />
-<img src="https://avatars0.githubusercontent.com/u/19398192?s=230&v=4" />
-
-<img src="img/jill.jpg" />
-<img src="https://avatars2.githubusercontent.com/u/4649503?s=230&v=4" />
-<img src="https://avatars0.githubusercontent.com/u/3846783?s=230&v=4" />
-<img src="https://avatars3.githubusercontent.com/u/1735650?s=230&v=4" />
-
-<img src="https://avatars0.githubusercontent.com/u/14283667?s=230&v=4" />
-<img src="https://avatars0.githubusercontent.com/u/10509931?s=230&v=4" />
-<img src="https://avatars2.githubusercontent.com/u/11449339?s=230&v=4" />
-<img src="https://avatars1.githubusercontent.com/u/330247?s=230&v=4" />
-
-<img src="https://avatars2.githubusercontent.com/u/13981224?s=230&v=4" />
-<img src="https://avatars0.githubusercontent.com/u/2357755?s=230&v=4" />
-<img src="https://avatars1.githubusercontent.com/u/7103652?s=230&v=4" />
 
 <a href="our-work.html" class="btn">Learn more about our work</a>
-<div><a href="our-work.html">See all GitHub contributors</a></div>
