@@ -17,7 +17,7 @@ It'll take work, but what if our school data systems...
 </ul>
 
 ### Who we are
-Student Insights comes from the effort of many people over time, some working as educators, some as designers and engineers, and many volunteering their time to help.
+Student Insights comes from the effort of many people over time, some working as educators and community leaders, some as designers and engineers, and many volunteering their time to help.
 
 As Mica Pollock said before us, [it takes a network]({{site.links.takes_a_network}}).
 
@@ -76,7 +76,7 @@ Student Insight is open source software, which means anyone can see exactly how 
 <section class="ProjectHistory-section">
   {% assign oneville_title = 'OneVille' %}
   {% capture oneville_quote %}
-    <p><a href="{{site.links.oneville}}">OneVille</a> is an separate project that started in Somerville years before our work, but we see it as our spiritual ancestor.  Their work on <a href="{{site.links.oneville_dashboards}}">data dashboards</a> and about <a href="{{site.links.schooltalk}}">how we talk about students</a> are particularly meaningful. (2009-2011)</p>
+    <p><a href="{{site.links.oneville}}">OneVille</a> is an separate project supported by the MacArthur foundation.  The project started in Somerville years before our work, but we see that team as our spiritual ancestor.  Their work on <a href="{{site.links.oneville_dashboards}}">data dashboards</a> and about <a href="{{site.links.schooltalk}}">how we talk about students</a> are particularly meaningful. (2009-2011)</p>
     <div style="margin: 20px;"><img src="img/logos/macfound.svg" /></div>
   {% endcapture %}
   {% capture oneville_image %}
@@ -86,7 +86,7 @@ Student Insight is open source software, which means anyone can see exactly how 
 </section>
 
 <section class="ProjectHistory-section">
-  {% assign cfa_title = 'Code for America and Volunteers' %}
+  {% assign cfa_title = 'Code for America Fellows and Volunteers' %}
   {% capture cfa_quote %}
     <p>A <a href="{{site.links.code_for_america}}">Code for America</a> fellowship created a small team that connected with educators in Somerville to create the first version of Student Insights.  We also connected with many awesome people in our local <a href="{{site.links.code_for_boston}}">Code for Boston brigade</a>, one of the largest and most awesome in the country. (2014-2016)</p>
     <div style="margin: 20px;"><img src="img/logos/cfa-logo-color.png" /></div>
@@ -104,6 +104,21 @@ Student Insight is open source software, which means anyone can see exactly how 
     </div>
   {% endcapture %}
   {% include panel.html title=cfa_title quote=cfa_quote image=cfa_image %}
+</section>
+
+<section class="ProjectHistory-section">
+  {% assign microsoft_fellows_title = 'Microsoft Civic Fellows' %}
+  {% capture microsoft_fellows_quote %}
+    <p>We worked with <a href="{{site.links.microsoft_new_england}}">Microsoft New England</a> Civic Fellows on using data visualization tools as part of Somerville's data dives.  And we also started work on exploring how software tools might help K8 educators see potential equity issues while they're <a href="todo.html">creating class lists</a>. (2017)</p>
+    <div style="margin: 20px;"><img src="img/logos/microsoft-new-england.png" /></div>
+  {% endcapture %}
+  {% capture microsoft_fellows_image %}
+    <div class="DoubleImage">
+      <div class="DoubleImage-small"><img src="img/uri-charts.jpg" /></div>
+      <div class="DoubleImage-small"><img src="img/class-list-prototype.png" style="border: 1px solid #ccc;" /></div>
+    </div>
+  {% endcapture %}
+  {% include panel.html title=microsoft_fellows_title quote=microsoft_fellows_quote image=microsoft_fellows_image %}
 </section>
 
 <section class="ProjectHistory-section">
