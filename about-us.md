@@ -54,57 +54,87 @@ While we work, we're committed to being open and transparent.  This involves a c
 
 Student Insight is open source software, which means anyone can see exactly how it works, or propose changes.  Local educators define any heuristics or algorithms themselves, so that they fully understand how the system works.  The project started in Somerville, and we're based there, but we've also built [partnerships with other school communities](school-partnerships.md).  We welcome working with community volunteers, and being a part of our local [Code for Boston brigade]({{site.link.code_for_boston}}) too.
 
-<div class="Section-container">
-  <div class="Section-left"><img src="img/github.png" /></div>
-  <div class="Section-right"><img src="img/code.png" /></div>
+<div class="DoubleImage">
+  <div class="DoubleImage-small"><img src="img/github.png" /></div>
+  <div class="DoubleImage-big"><img src="img/code.png" /></div>
 </div>
 
 
 ## Project history
-<h3 class="Section-title">OneVille</h3>
-<div class="Section-container">
-  <div class="Section-left">
-    <a href="{{site.links.oneville}}">OneVille</a> is an separate project that started in Somerville years before our work, but we see it as our spiritual ancestor.  Their work on <a href="{{site.links.oneville_dashboards}}">data dashboards</a> and about <a href="{{site.links.schooltalk}}">how we talk about students</a> are particularly meaningful.
-    <div>2009-2011</div>
-  </div>
-  <div class="Section-right"><img src="img/oneville.jpg" /></div>
-</div>
+<style>
+  @media (max-width: 600px) {
+    .ProjectHistory-section {
+      margin-bottom: 20px;
+    }
+  }
+  @media (min-width: 600px) {
+    .ProjectHistory-section {
+      margin-bottom: 50px;
+    }
+  }
+</style>
+<section class="ProjectHistory-section">
+  {% assign oneville_title = 'OneVille' %}
+  {% capture oneville_quote %}
+    <p><a href="{{site.links.oneville}}">OneVille</a> is an separate project that started in Somerville years before our work, but we see it as our spiritual ancestor.  Their work on <a href="{{site.links.oneville_dashboards}}">data dashboards</a> and about <a href="{{site.links.schooltalk}}">how we talk about students</a> are particularly meaningful. (2009-2011)</p>
+    <div style="margin: 20px;"><img src="img/logos/macfound.svg" /></div>
+  {% endcapture %}
+  {% capture oneville_image %}
+    <img src="img/oneville.jpg" />
+  {% endcapture %}
+  {% include panel.html title=oneville_title quote=oneville_quote image=oneville_image %}
+</section>
 
-<h3 class="Section-title">Code for America and Volunteers</h3>
-<div class="Section-container">
-  <div class="Section-left">
-    A <a href="{{site.links.code_for_america}}">Code for America</a> fellowship created a small team that connected with educators in Somerville to create the first version of Student Insights.
-    <div>2014-2016</div>
-  </div>
-  <div class="Section-right"><img src="img/escs-early-childhood.png" /></div>
-</div>
+<section class="ProjectHistory-section">
+  {% assign cfa_title = 'Code for America and Volunteers' %}
+  {% capture cfa_quote %}
+    <p>A <a href="{{site.links.code_for_america}}">Code for America</a> fellowship created a small team that connected with educators in Somerville to create the first version of Student Insights.  We also connected with many awesome people in our local <a href="{{site.links.code_for_boston}}">Code for Boston brigade</a>, one of the largest and most awesome in the country. (2014-2016)</p>
+    <div style="margin: 20px;"><img src="img/logos/cfa-logo-color.png" /></div>
+  {% endcapture %}
+  {% capture cfa_image %}
+    <div class="QuadImage">
+      <div class="DoubleImage">
+        <div class="DoubleImage-small"><img src="img/cfa-crew.png" /></div>
+        <div class="DoubleImage-small"><img src="img/escs-early-childhood.png" /></div>
+      </div>
+      <div class="DoubleImage">
+        <div class="DoubleImage-small"><img src="img/somerstat.jpg" /></div>
+        <div class="DoubleImage-small"><img src="img/cfb2.jpg" /></div>
+      </div>
+    </div>
+  {% endcapture %}
+  {% include panel.html title=cfa_title quote=cfa_quote image=cfa_image %}
+</section>
 
-<h3 class="Section-title">Somerville and the Boston Foundation</h3>
-<div class="Section-container">
-  <div class="Section-left">
-    With a match from the <a href="{{site.links.boston_foundation}}">Boston Foundation</a>, Somerville continued work on Student Insights, growing to all schools in the district and starting work with high school educators.
-    <div>2017-present</div>
-  </div>
-  <div class="Section-right">
-    <div class="Section-right"><img src="img/escs-early-childhood.png" /></div>
-  </div>
-</div>
+<section class="ProjectHistory-section">
+  {% assign somerville_tbf_title = 'Somerville and the Boston Foundation' %}
+  {% capture somerville_tbf_quote %}
+    With a match from the <a href="{{site.links.boston_foundation}}">Boston Foundation</a>, Somerville continued work on Student Insights, growing to all schools in the district and starting work with high school educators. (2017-present)
+    <div style="margin: 20px;"><img src="img/logos/boston-foundation.png" /></div>
+  {% endcapture %}
+  {% capture somerville_tbf_image %}
+    <img src="img/alex-and-uri.png" />
+  {% endcapture %}
+  {% include panel.html title=somerville_tbf_title quote=somerville_tbf_quote image=somerville_tbf_image %}
+</section>
 
-<h3 class="Section-title">Partnering with other districts</h3>
-<div class="Section-container">
-  <div class="Section-left">
-    We've also used the match from the <a href="{{site.links.boston_foundation}}">Boston Foundation</a> to build partnerships with New Bedford and Bedford to freely share the work we've done in Somerville.  We're excited to work alongside more schools and districts as we build this together, ourselves.
-    <div>2017-present</div>
-  </div>
-  <div class="Section-right">
-    <div class="Section-right"><img src="img/escs-early-childhood.png" /></div>
-  </div>
-</div>
+<section class="ProjectHistory-section">
+  {% assign partnering_title = 'Partnering with other districts' %}
+  {% capture partnering_quote %}
+    We've also used the match from the <a href="{{site.links.boston_foundation}}">Boston Foundation</a> to build partnerships with <a href="school-partnerships.html">New Bedford and Bedford</a> to collaborate and freely share the work we've done in Somerville.  We're excited to work alongside more schools and districts as we build this together, ourselves. (2017-present)
+    <div style="margin: 20px;"><img src="img/logos/boston-foundation.png" /></div>
+  {% endcapture %}
+  {% capture partnering_image %}
+    <img src="img/escs-early-childhood.png" />
+  {% endcapture %}
+  {% include panel.html title=partnering_title quote=partnering_quote image=partnering_image %}
+</section>
+
 
 ### Older writing, code and talks
 In the spirit of building in the open, here are links to how we've thought about our work along the way, including old code, blog posts, talks, presentations and interviews.  This also reveals how the work has evolved - you'll see some things we worked on that we no longer work on, some areas of focus that we've invested in much more heavily in the time since, and hopefully we'll continue to grow as we build deeper relationships within school communities and find more ways to help create more opportunity for students.
 
-- January 2015, [github.com/codeforamerica/somerville-teacher-tool](https://github.com/codeforamerica/somerville-teacher-tool/) is created!
+- January 2015, [github.com/codeforamerica/somerville-teacher-tool](https://github.com/codeforamerica/somerville-teacher-tool/commit/599e6ac6d78dbecf25eed3ad4d916ff557c34fbd) is created!
 - May 2015, [Code for Boston + Somerville fellows](https://docs.google.com/presentation/d/10SNXrZRwEIEC2CRn_mGS-V3KwtSuKUYkhGxYVa_moBE/edit#slide=id.g9acc1481b_0_0)
 - June 2015, [**Code for America: Team Somerville's Story**](http://codeforamerica.github.io/somerville-story/)
 - June 2015, [IGNITE Boston, NDoCH 2015](https://www.youtube.com/watch?v=CEZnDKtkhyI)
@@ -118,4 +148,4 @@ In the spirit of building in the open, here are links to how we've thought about
 
 
 
-<a href="our-work.html" class="btn">Learn more about our work</a>
+<a href="our-work.html" class="btn">Our work</a>

@@ -22,6 +22,7 @@
 Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work is built.
 
 <section>
+  {% assign profile_title = 'Student-centered profile' %}
   {% capture profile_quote %}
     <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="pals.html" style="display: block;">- Django Paris</a></p>
   {% endcapture %}
@@ -31,11 +32,11 @@ Our work on Student Insights built on the work that has [come before](about-us.h
   {% capture profile_button %}
     <a href="profile.html" class="btn">More about profiles</a>
   {% endcapture %}
-  {% include panel.html title="Student-centered profile" quote=profile_quote image=profile_image button=profile_button %}
+  {% include panel.html title=profile_title quote=profile_quote image=profile_image button=profile_button %}
 </section>
 
-
 <section>
+  {% assign notes_title = 'Student-centered notes' %}
   {% capture notes_quote %}
     <p>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a></p>
   {% endcapture %}
@@ -45,7 +46,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
   {% capture notes_button %}
     <a href="todo.html" class="btn">More about notes</a>
   {% endcapture %}
-  {% include panel.html title="Student-centered notes" quote=notes_quote image=notes_image button=notes_button %}
+  {% include panel.html title=notes_title quote=notes_quote image=notes_image button=notes_button %}
 </section>
 
 <section>

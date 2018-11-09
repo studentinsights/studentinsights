@@ -30,16 +30,42 @@
   }
 
   .Home-image {
-    flex: 4;
+    flex: 2;
     padding-right: 15px;
     display: flex;
   }
 
   .Home-text {
-    flex: 2;
+    flex: 1;
     padding-left: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+}
+
+
+.DoubleImage {
+  display: flex;
+}
+.DoubleImage > div {
+  margin: 5px;
+}
+.DoubleImage-small {
+  flex: 1;
+}
+.DoubleImage-big{
+  flex: 2;
+}
+
+
+.QuadImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.QuadImage > div {
+  margin: 5px;
 }
