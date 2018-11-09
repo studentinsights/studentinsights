@@ -16,7 +16,7 @@ export default class DashboardScatterPlot extends React.Component{
     const hour = Math.floor(minutes/60);
     const minute = minutes % 60 || "00";
     const a = hour < 12 ? 'AM' : 'PM';
-    return `${hour % 12}:${minute} ${a}`;
+    return `${hour % 12 || 12}:${minute} ${a}`;
   }
 
   render() {

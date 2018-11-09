@@ -409,8 +409,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       ...commonProps,
       measureText: "Time of Incident",
       tooltip: {pointFormat: '<b>{point.name}</b>'},
-      yAxisMin: 0,
-      yAxisMax: 1440,
+      yAxisMin: 420,
+      yAxisMax: 1140,
       yAxisLabels: {format: '{value}'},
       onZoom: this.onZoom
     };
