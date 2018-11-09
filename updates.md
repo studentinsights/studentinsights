@@ -7,22 +7,86 @@ This is stored on GitHub, and if you're new to open source a good starting point
 
 If you'd like to collaborate with us, the best way to do this is to reach out over email and we can help you get started.  You can also join the local Code for Boston brigade on Tuesday nights, either in person or remotely.
 
+<style>
+.Board {
+  display: flex;
+}
+@media (max-width: 600px) {
+  .Board {
+    flex-direction: column;
+  }
+}
+@media (min-width: 600px) {
+  .Board {
+    flex-direction: row;
+  }
+}
+
+
+.Board-category {
+  flex: 1;
+}
+
+.Board-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+@media (max-width: 600px) {
+  .Board-title {
+    margin-top: 20px;
+  }
+}
+
+
+.Card {
+  display: inline-block;
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+@media (max-width: 600px) {
+  .Card {
+    width: 100%;
+    min-height: 120px;
+  }
+}
+@media (min-width: 600px) {
+  .Card {
+    width: 300px;
+    height: 120px;
+    overflow-y: scroll;
+  }
+}
+
+
+</style>
 ------------------------
 ### Work board
-#### In progress now
-- **Discipline data**: Adding heatmap/scatterplot for day/time patterns
-- **Homework help**: Importing data about students joining homework help sessions
-- **Website**: Release new website
+<div class="Board">
 
-#### Next up
-- **Searching notes**: Prototyping this for all users across districts (eg, SHS counselors, MTSS in Somerville K8, BBST in New Bedford)
-- **Warnings about sensitive topics in notes**: Prompts about things like "51a" or "depression"
+  <div class="Board-category">
+    <div class="Board-title">In progress now</div>
+    <div class="Card"><b>Discipline data</b>: Adding heatmap/scatterplot for day/time patterns
+    </div>
+    <div class="Card"><b>Homework help</b>: Importing data about students joining homework help sessions</div>
+    <div class="Card"><b>Website</b>: Release new website</div>
+  </div>
 
-#### Maybe next month
-- **K8 reading**: Helping classroom teachers, reading specialists and coaches visualize reading progress on F&P and DIBELS
-- **Services and supports**: Possibly looking into tracking and showing all the services that counselors and K8 SST/MTSS teams are connecting students with, and making that visible in Insights.
-- **HS grades**: Grade distributions?
-- **Equity**: Potentially looking at class list assignments, grade 2/3 reading, PowerBI for achievement vs. SGP broken down by student characteristics.
+  <div class="Board-category">
+    <div class="Board-title">Next up</div>
+    <div class="Card"><b>Searching notes</b>: Prototyping this for all users across districts (eg, SHS counselors, MTSS in Somerville K8, BBST in New Bedford) </div>
+    <div class="Card"><b>Warnings about sensitive topics in notes</b>: Prompts about things like "51a" or "depression"</div>
+  </div>
+
+  <div class="Board-category">
+    <div class="Board-title">Maybe next month</div>
+    <div class="Card"><b>K8 reading</b>: Helping classroom teachers, reading specialists and coaches visualize reading progress on F&P and DIBELS</div>
+    <div class="Card"><b>Services and supports</b>: Possibly looking into tracking and showing the services that counselors and K8 SST/MTSS teams are connecting students with, and making that visible in Insights.</div>
+    <div class="Card"><b>HS grades</b>: Grade distributions?</div>
+    <div class="Card"><b>Equity</b>: Potentially looking at class list assignments, grade 2/3 reading, PowerBI for achievement vs. SGP broken down by student characteristics.</div>
+  </div>
+</div>
 
 ------------------------
 ### Changelog
