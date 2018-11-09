@@ -75,4 +75,6 @@ Our work on Student Insights built on the work that has [come before](about-us.h
 
 <h6 class="Section-title">Systems of Supports</h6>
 
-<a href="updates.html" class="btn">See what we're working on right now</a>
+<a href="updates.html" class="btn">What are we working on right now?</a>
+
+{% include footer.html %}

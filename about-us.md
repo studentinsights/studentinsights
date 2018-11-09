@@ -1,20 +1,31 @@
 {% include navbar.html %}
 
 # About us
-Our team approaches these problems with one core value: we work to create more educational opportunity for young people, we don't just build software.  We believe that by building with communities, we all can be more creative, move more quickly, and be more empathetic than other models striving for scale.  We believe this "last mile" is where innovation really occurs, and it's precisely the place where most edtech business models can't reach.
+Our team approaches these problems with one core value: we work to create more educational opportunity for young people, we don't just build software.  We believe that by building with communities, we all can be more creative, move more quickly, and be more empathetic than other models striving for scale.  We believe this "last mile" is where innovation really occurs, and it's precisely the place where most edtech business models and philanthropic initiatives can't reach.  Even institutions like the [Gates Foundation](https://www.educationnext.org/develop-validate-scale-lessons-gates-foundation-effective-teaching-strategy/) have started to come around:
 
-What teachers and young people need are often very specific to their own community, school and classroom.  Different communities have different values, and different communities make different choices about what's important to them in education.  While many communities share common values, some emphasize preparation for achievement in college, others emphasize new ways of including all students in the classroom community, while still others emphasize more holistic forms of assessment.  These communities should be empowered to build around these core values, and make the school data systems that they need.
+<div style="margin: 20px;"><i>
+  <p>"The people closest to the work (teachers, principals, district leaders) are in the best position to identify the challenges to be solved... Instead of providing large, multi-year grants for districtwide scale-up, the foundation should have invited applications to conduct pilot programs on a smaller scale first."<a href="pals.html" style="display: block;">- Thomas Kane</a></p>
+</i>
+</div>
+
+
+What teachers and young people need are often very specific to their own community, school and classroom.  Different communities have different values, and different communities make different choices about what's important to them in education.  While many communities share common values, some emphasize preparation for achievement in college, others emphasize new ways of including all students in the classroom community, while still others emphasize more holistic forms of assessment.  These communities should be empowered to build around these core values, and make the school data systems that they need, while confronting the fundamental ethical issues in data systems related to [privacy](https://www.studentprivacymatters.org/) and [algorithmic bias](https://www.ajlunited.org/).
 
 It'll take work, but what if our school data systems...
 
 <ul class="PlainList">
-  <li class="PlainList-item">...centered student strengths?</li>
-  <li class="PlainList-item">...were built with educators, young people and families as equal partners?</li>
-  <li class="PlainList-item">...proactively connected students with community and scholarship opportunities?</li>
-  <li class="PlainList-item">...helped teams transiting to restorative justice approaches?</li>
-  <li class="PlainList-item">...encouraged taking concrete actions in the face of "educational debt"?</li>
-  <li class="PlainList-item">...helped educators as they make new assessment systems centered on learning instead of filtering?</li>
+  <li class="PlainList-item">centered student strengths?</li>
+  <li class="PlainList-item">helped adults get to know students more deeply?</li>
+  <li class="PlainList-item">were built with educators, young people and families as equal partners?</li>
+  <li class="PlainList-item">surfaced structural equity issues more prominently?</li>
+  <li class="PlainList-item">proactively connected students with community and scholarship opportunities?</li>
+  <li class="PlainList-item">helped bring interdisciplinary teams together?</li>
+  <li class="PlainList-item">helped teams transiting to restorative justice approaches?</li>
+  <li class="PlainList-item">encouraged taking concrete actions in the face of "educational debt"?</li>
+  <li class="PlainList-item">helped educators as they make new assessment systems centered on learning instead of filtering?</li>
 </ul>
+
+We'll need to build this ourselves, together.
 
 ### Who we are
 Student Insights comes from the effort of many people over time, some working as educators and community leaders, some as designers and engineers, and many volunteering their time to help.
@@ -163,4 +174,4 @@ In the spirit of building in the open, here are links to how we've thought about
 
 
 
-<a href="our-work.html" class="btn">Our work</a>
+<a href="our-work.html" class="btn">Learn more about our work</a>
