@@ -89,7 +89,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   filterToZoomedStudents(students) {
     const {visibleIds} = this.state;
-    return students.filter(student => visibleIds.includes(student.id));
+    return students.filter(student => visibleIds.indexOf(student.id) >= 0);
   }
 
   timeStampToHour(incident) {
