@@ -33,7 +33,11 @@ export default class DashboardScatterPlot extends React.Component{
           xAxis={[this.props.categories]}
           plotOptions={{
             series: {
-              animation: this.props.animation
+              animation: this.props.animation,
+              marker: {
+                radius: 12,
+                fillColor: 'rgba(47,226,216,0.5)'
+              }
             }
           }}
           title={{text: this.props.titleText}}
