@@ -30,7 +30,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
     <img src="img/profile.png" style="border: 1px solid #eee;" />
   {% endcapture %}
   {% capture profile_button %}
-    <a href="profile.html" class="btn">More about profiles</a>
+    <a href="our-work.html#student-centered-profile" class="btn">More about profiles</a>
   {% endcapture %}
   {% include panel.html title=profile_title quote=profile_quote image=profile_image button=profile_button %}
 </section>
@@ -44,13 +44,13 @@ Our work on Student Insights built on the work that has [come before](about-us.h
     <img src="img/feed-simple.png" />
   {% endcapture %}
   {% capture notes_button %}
-    <a href="todo.html" class="btn">More about notes</a>
+    <a href="our-work.html#student-centered-notes" class="btn">More about notes</a>
   {% endcapture %}
   {% include panel.html title=notes_title quote=notes_quote image=notes_image button=notes_button %}
 </section>
 
 <section>
-  {% assign privacy_title = 'Privacy and access' %}
+  {% assign privacy_title = 'Trust, access, and privacy' %}
   {% capture privacy_quote %}
     <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<a style="display: block;" href="pals.html">- Audrey Waters</a></p>
   {% endcapture %}
@@ -58,22 +58,24 @@ Our work on Student Insights built on the work that has [come before](about-us.h
     <img src="img/data.png" />
   {% endcapture %}
   {% capture privacy_button %}
-    <a href="todo.html" class="btn">More about privacy</a>
+    <a href="our-work.html#trust-access-and-privacy" class="btn">More about trust</a>
   {% endcapture %}
   {% include panel.html title=privacy_title quote=privacy_quote image=privacy_image button=privacy_button %}
 </section>
 
-
-
-<h6 class="Section-title">Transitions</h6>
-
-<h6 class="Section-title">Attendance</h6>
-
-<h6 class="Section-title">Class lists</h6>
-
-<h6 class="Section-title">High school grades</h6>
-
-<h6 class="Section-title">Systems of Supports</h6>
+<section style="margin-top: 60px; margin-bottom: 30px;">
+  <h2>Additional projects</h2>
+  <div class="TripleCard-row">
+    {% include triple-card.html href="our-work.html#transitions" title="Transitions" line="In partnership with 8th and 9th grade counselor educators" image="img/transition-plain-form.png" %}
+    {% include triple-card.html href="our-work.html#attendance-supports" title="Attendance supports" line="In partnership with assistance principals and family liaisons" image="img/absences.png" %}
+    {% include triple-card.html href="our-work.html#class-lists" title="Class lists" line="In partnership with K-6 classroom teachers" image="img/class-list.png" %}
+  </div>
+  <div class="TripleCard-row">
+    {% include triple-card.html href="our-work.html#grades-and-academic-supports" title="Grades and classroom supports" line="In partnership with 9th and 10th grade teachers" image="img/grades.png" %}
+    {% include triple-card.html href="our-work.html#systems-of-supports" title="Triggers for Systems of Supports" line="In partnership with department heads and HS admin team" image="img/systems.png" %}
+    <div class="TripleCard-card TripleCard-empty"></div>
+  </div>
+</section>
 
 <a href="updates.html" class="btn">What are we working on right now?</a>
 

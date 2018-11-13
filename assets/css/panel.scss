@@ -26,6 +26,10 @@
 
 /* Panel desktop */
 @media (min-width: 600px) {
+  .Panel {
+    padding-top: 20px;
+  }
+
   .Panel-container {
     display: flex;
     flex-direction: row;
