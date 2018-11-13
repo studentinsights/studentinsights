@@ -1,14 +1,29 @@
 {% include navbar.html %}
 
 # Our work
-Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work is built.
+Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work has been built.
 
 ## Student-centered profile
-Each student has multiple staff members working with them who knows different pieces of information.  Each student has a range of data points such as demographic information, standardized test scores, grades, and attendance records, .  Students participate in various programs and have different interventions.  Each student has their strengths, weaknesses, interests, and things that motivate them.  Students Insights helps you see all of this, so you can best support your students.
+Student Insights started with an effort to get disparate data about students from different students all onto one screen.  We've done this for a variety of data points - MCAS scores, STAR scores, IEP data, English learner assessments, attendance, discipline data to name some of the most commonly used.
 
-Last Spring, as usage greatly increased across schools, rather than build more features, we decided to focus our design and development efforts for a few months to address this problem: *With all the information being generated and compiled in Student Insights, how do we ensure that students are seen in the best possible light?*
+<img src="img/profile.png" class="InlineImage" />
 
-This is best stated by the Parent Coalition for Student Privacy's [Educator Toolkit](https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf).  One of the top concerns of educators surveyed was that "They are worried that as the use of ed tech grows in the classroom, human interaction and individualism are being undermined."  This is a real concern that is in the forefront of our work, and the opportuntity to create a new way of tackling these problems is one of the things that drive us.  So far we have taken these steps, but also see this as a fundamental tension in the work, and know there is a lot of work still to be done.
+But along the way we started asking more questions with educators about how we should be representing students, and whether what was in a student's profile reflected the values of our school community.  That led us to recognize that while pulling in multiple data sources can really help, but can also serve to define and limit young people.  Striking the right balance here is especially important at the start of the school year, when there's a transition point and the profile in Student Insights may be one of the first ways an educator might be introduced to a student.
+
+We approached this by first doing an internal audit of the notes we saw in Student Insights, just on our project team.  Then, we shared some of the overall impressions we had within the school community, and these are some questions that we raised together:
+
+> I really don’t want to know anything about them.  Can you just let me have them?
+
+> What if it showed their last year’s teacher, so at least I know who to go ask if there’s an issue or I need to know more?
+
+> Can I at least see their IEP and 504?
+
+> What bothers me is when a teacher tells me ‘these kids are really smart’ - it biases me the other way, when really I want to figure out where they need to grow.
+
+These concerns aren't just ours - this also came up in a national survey described in the Parent Coalition for Student Privacy's [Educator Toolkit](https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf).  One of the top concerns of educators surveyed was that "They are worried that as the use of ed tech grows in the classroom, human interaction and individualism are being undermined."  This is a real concern that is in the forefront of our work, and the opportunity to create a new way of tackling these problems is one of the things that drives us.
+
+We'll share a few of the steps that we've taken to this point, but we also see this as a fundamental tension in our work, and know there will always be work to strike the right balance.
+
 
 #### "Best light" principle
 There can be a lot of benefit in sharing educational records between educators, and particularly at times of [transition](our-work.html#transitions).  This can help young people get the services and supports they need, and can help educators learn from what has worked well for that student in the past.
@@ -20,27 +35,32 @@ At the same time, this creates risks that educators will be biased by the studen
 The guiding principle that we use on Student Insights is that we need to strike a balance that allows educators to share information about students, but that we aim to do so in a way that helps educators see young people in their "best light."  We've approached this in a few different ways.
 
 #### Centering student voice
-<div class="DoubleImage">
-  <div class="DoubleImage-big">
-    <p>One step is to elevate student voice, and give young people power over how they are represented within their Student Insights profile.  To start this, we worked with a group of students to design a set of questions they'd want to be visible on the student profile page to all the adults working with them.</p>
-    <p>At the high school level, the English department was excited about this, and worked to have all students at the high school take this survey to start the school year.  have taken a brief survey where they outline what they are proud of, what their interests are, how they best learn, and what stresses them.  This survey was designed by students and we are excited to keep developing this tool based on their feedback.</p>
-  </div>
-  <div class="DoubleImage-small"><img src="img/survey.png" /></div>
-</div>
+<img src="img/survey.png" class="InlineImage" />
+
+One step is to elevate student voice, and give young people power over how they are represented within their Student Insights profile.  To start this, we worked with a group of students to design a set of questions they'd want to be visible on the student profile page to all the adults working with them.
+
+At the high school level, the English department was excited about this, and worked to have all students at the high school take this survey to start the school year.  have taken a brief survey where they outline what they are proud of, what their interests are, how they best learn, and what stresses them.  This survey was designed by students and we are excited to keep developing this tool based on their feedback.
 
 We are finding that seeing the voices of students in the student profile page along with other student data, helps educators to see students in a different light than just numbers.
 
-#### More "whole child" data
-![Sports](img/cheerleading.png)
+#### More holistic "whole child" data
+<div class="InlineImage">
+  <img src="img/cheerleading.png" />
+  <img src="img/cheerleading.png" />
+</div>
 
 IEP
 
 ACCESS data
 
+Sports
+
+
+
 #### "Clean slate"
 In the main student profile, educators see data relevant for the last 45 days of school.  They can click into tabs and see more longitudinal information, but we want their first experience to be less prone to bias. (add about discipline)
 
-![A note about privacy](img/privacy-note.png)
+<img src="img/privacy-note.png" class="InlineImage" />
 
 #### Intentionality in what is shown
 - Photo more prominent
@@ -62,11 +82,13 @@ If you are a K-8 teacher, clicking in the reading tabwindow, will show basic inf
 ## Student-centered notes
 How can we use notes to communicate important information and insights, but also to see students in the best possible and most helpful light?
 
+<img src="img/feed-simple.png" class="InlineImage" />
+
 When we originally launched Student Insights, we had no idea how popular and powerful the Notes feature was going to be.
 
-![Take notes](img/take-notes.png)
-
 The notes feature lets educators share information and insights with other teachers so everyone can know what’s going on with a student.   This includes what other teachers have tried, what’s worked, and what hasn’t worked.   This is particularly important for student support team structures where there's a interdisciplinary team that evolves over time.  Districts have a variety of names for these such as SST, BBST, MTSS, Wellness, and NGE.
+
+<img src="img/note-types.png" class="InlineImage InlineImage-left" />
 
 Finally, just as we want to put a lot of effort into writing effective notes, we want to think for ourselves how we want to read the notes that others are written, so that we can get the most helpful information, give students the clean slate they need from year to year, and see the student in the best possible light.    I can only imagine what my 6th grade teachers would’ve thought if they’d closely read all my notes from 4th grade!
 
@@ -83,8 +105,9 @@ Also note that you can add a link to a document from your Google Drive here.  Yo
 If we want to take our notes to the next level and make them amazing:
 Explore a root cause (what could possibly at the root of the reading or homework completion issue?  Maybe an inability to visually follow the lines on the page?  Having to take care of siblings at home afterschool?)
 
-Provides helpful information for people to know in supporting student in the future (maybe the student loves anything to do with art or needs to read aloud their writing in a whisper voice in order to edit)
+<img src="img/home-feed.png" alt="Home page feed" class="InlineImage" />
 
+Provides helpful information for people to know in supporting student in the future (maybe the student loves anything to do with art or needs to read aloud their writing in a whisper voice in order to edit)
 
 Contains other data sources such as progress-monitoring or student work
 
@@ -178,8 +201,8 @@ Like most organizations, we do rely on third-party services to operate Student I
 ------------------------------------------------
 
 ## Transitions
-![Transition note form](img/transition-form.png)
-![Transition note strength](img/transition-example.png)
+<img src="img/transition-form.png" class="InlineImage" />
+<img src="img/transition-example.png" class="InlineImage" />
 
 - folks starting using this for transitions between schools
 - targeted 8th to 9th grade, brown folder
@@ -192,6 +215,8 @@ Like most organizations, we do rely on third-party services to operate Student I
 
 ## Class lists
 This project started from the needs of a few teachers to make the class list process easier and has become so much more meaningful as we think about equity in schools.  In many schools, teams of teachers gathered in the Spring to create class lists for their students as they move to the next grade.  Typically, each student’s name is written on a card, possibly with some extra information on it such as gender, special education/ELL status, academic proficiency, and behavior.  The cards were then moved around until the teams determined that they had created the best possible lists.  Many educators felt that not only was this incredibly time-consuming and inefficient, but also prone to errors, biases, and favoritism.
+
+<img src="img/class-list.png" class="InlineImage" />
 
 So we worked with several teams of teachers to mock-up, design, and test a new way to do it.  By dragging and dropping names into different possible classes, teachers could see how the composition changed on a variety of measures.  Teachers could then also write notes to their principal about their thinking behind their decisions (Who should be together?  Who shouldn’t?  What combinations work best for service delivery?  What should be the mix of high, middle, low academically performing students in a classroom?)  The tool was rolled out to all Somerville grades 1-5 teachers in June of 2017, with teachers reporting that it saved them an enormous amount of time, allowing better conversations to happen about class make-ups and leading to more balanced/equitable classrooms.
 

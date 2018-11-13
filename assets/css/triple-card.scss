@@ -1,0 +1,47 @@
+.TripleCard-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+@media (max-width: 600px) {
+  .TripleCard-row {
+    flex-direction: column;
+  }
+}
+@media (min-width: 600px) {
+  .TripleCard-row {
+    flex-direction: row;
+  }
+}
+
+.TripleCard-card {
+  flex: 1;
+  margin: 5px;
+  padding: 15px;
+  height: 300px;
+  overflow-y: hidden;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:not(.TripleCard-empty) {
+    border: 1px solid #eee;
+  }
+
+  &:not(.TripleCard-empty):hover {
+    cursor: pointer;
+    border: 1px solid #aaa;
+    text-decoration: none;
+  }
+}
+
+.TripleCard-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.TripleCard-line {
+  margin-bottom: 10px; 
+  color: #333;
+}
