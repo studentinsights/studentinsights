@@ -14,9 +14,10 @@ What teachers and young people need are often very specific to their own communi
 It'll take work, but what if our school data systems...
 
 <ul class="PlainList">
-  <li class="PlainList-item">centered student strengths?</li>
+  <li class="PlainList-item">centered student strengths and interests?</li>
   <li class="PlainList-item">helped adults get to know students more deeply?</li>
   <li class="PlainList-item">were built with educators, young people and families as equal partners?</li>
+  <li class="PlainList-item">centered students' and families' funds of knowledge, in their own words?</li>
   <li class="PlainList-item">surfaced structural equity issues more prominently?</li>
   <li class="PlainList-item">proactively connected students with community and scholarship opportunities?</li>
   <li class="PlainList-item">helped bring interdisciplinary teams together?</li>
