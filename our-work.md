@@ -98,36 +98,27 @@ When we originally built Student Insights, we had no idea how popular and powerf
 
 Writing notes lets educators share information and insights with other so everyone can know what’s going on with a student.   This includes what other teachers have tried, what’s worked, and what hasn’t worked.   This is particularly important for student support team structures where there's a interdisciplinary team that evolves over time.  Districts have a variety of names for these such as SST, BBST, MTSS, Wellness, and NGE.
 
-<div class="DoubleImage">
-  <div class="DoubleImage-small"><img src="img/our-work/take-notes-long.png" style="border: 1px solid #eee;"/></div>
-  <div class="DoubleImage-small"><img src="img/our-work/feed.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/feed2.png" /></div>
+<div class="DoubleImage" style="margin-left: 60px; margin-right: 60px;">
+  <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/take-notes-long.png" style="border: 1px solid #eee;"/></div>
+  <div class="DoubleImage-small"><img src="img/our-work/notes-guidelines.png" /></div>
 </div>
 
 [Educators leading trainings](trainings-and-videos.html) have chosen to focus on how to write effective notes, but also highlight how to *read* the notes that others are written, so that adults can get the most helpful information, give students the clean slate they need from year to year, and see the student in the best light.  One of the questions educators ask in trainings is: "What would you have wanted your own 6th grade teacher to know about you to best teach and support you?"  or "I wonder what’s really going on for the student, what motivates them, and where their areas for growth are?"  We've found this framing grounds the conversation in the human side of our work and makes space for talking about the assumptions and bias that can arise when reading student educational records.  From here, we work with educators to think more deeply how to effectively read and write notes about students, so that student data is used in a positive way to help maximize student growth and achievement.
 
-<div class="DoubleImage">
-  <div class="DoubleImage-small"><img src="img/our-work/notes-guidelines.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/why-insights.png" /></div>
+<div class="DoubleImage" style="margin-left: 60px; margin-right: 60px;">
+  <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/feed.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/feed2.png" /></div>
 </div>
 
 Notes about a student are also visible to other educators who are authorized to access that student's data (see [trust, access and privacy](our-work.html#trust-access-and-privacy) for more about how we approach these important issues).  This is especially for interdisciplinary teams, and teams of educators that work with students across diverse roles (eg, science teacher, writing teacher, social-emotional support, college and career counselor, etc).  When signing into Student Insights, the home page shows teachers what's going on for all their students.  This isn't a replacement for talking in person, or for email, or for structured reporting like Progress Reports or amendments to an IEP.  It's also not a chat app sending notices during class.  It's a space for educators to share what's important as they do their work with students each day, and to check in whenever they want to see what's going on with students more holistically.
 
-<img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" />
+<img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" style="width: 45%;" />
 
 When working with educators teams deciding how they want to use Student Insights, one experience we share is how this has been most effective in Somerville for structure support teams or PLCs teams that are already up and running.  Within support structures like MTSS or SST, there is often an interdisciplinary team, and taking notes about what's going on with the student holistically and what actions the team is taking can be a helpful starting point.  Educators have also found [transitions](our-work.html#transitions) between classes or grades can be a helpful place to start, and that's a project we've worked on separately as well.
 
-Finally, there are certain kinds of notes about students that are already 
+Educators have also developed thoughtful protocols around specific kinds of conversations, or how to take notes about them.  This has come up with ["What I want my teacher to know about me"](#what-i-want-my-teachers-to-know-about-me), [student meetings](#student-meetings) and also with [transitions](#transitions).  In those cases, we've built integrations to other data sources like forms and spreadsheets, so that educators can fully own and shape these however they think is best, while we do the work on Student Insights to sync those notes and conversations with students.
 
-#### Recommendations for meetings
-
-#### Adding guardrails
-- prototyping this
-
-
-
-
-
+Finally, educators also asked to be able to further restrict access to notes beyond the normal access roles.  Administrators and counselors can mark a note as "restricted" to respect a student's privacy and limit access even further.  When working with older students, counselors also use these moments to tangibly demonstrate their respect of student privacy - asking to share certain topic with other educators, sharing some topics that are "restricted" a more limited way, and keeping some topics entirely confidential and never entered into any school data system but only in their own counseling notebook.
 
 
 
