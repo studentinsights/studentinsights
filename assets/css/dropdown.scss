@@ -1,0 +1,35 @@
+@media (min-width: 600px) {
+  .Dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .Dropdown-items {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 320px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+
+  .Dropdown:hover .Dropdown-items {
+    display: block;
+  }
+
+  .Dropdown-caret {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 600px) {
+  .Dropdown-caret {
+    display: none;
+  }
+
+  .Dropdown-items {
+    display: none;
+  }
+}

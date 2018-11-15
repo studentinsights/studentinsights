@@ -1,7 +1,7 @@
 {% include navbar.html %}
 
 <section>
-  <div class="Home-title">We work with educators to build student-centered data systems</div>
+  <div class="Home-title">We work with students to make robots</div>
   <div class="Home-container">
     <div class="Home-image-container">
       <img src="img/teachers-working.jpg" class="Home-image" />
