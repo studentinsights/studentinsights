@@ -4,76 +4,86 @@
 Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work has been built.
 
 ## Student-centered profile
-Student Insights started with an effort to get disparate data about students from different students all onto one screen.  We've done this for a variety of data points - MCAS scores, STAR scores, IEP data, English learner assessments, attendance, discipline data to name some of the most commonly used.
+Student Insights started as an effort to pull together student data from different sources all onto one screen.  We've done this with a variety of data points - and we started with some standard things like IEP goals, English learner assessments, attendance, discipline data, MCAS scores, STAR reading and math scores, and DIBELS subtests for reading.
 
-<img src="img/profile.png" class="InlineImage" />
+<img src="img/our-work/profile.png" class="InlineImage" style="width: 60%;"/>
 
-But along the way we started asking more questions with educators about how we should be representing students, and whether what was in a student's profile reflected the values of our school community.  That led us to recognize that while pulling in multiple data sources can really help, but can also serve to define and limit young people.  Striking the right balance here is especially important at the start of the school year, when there's a transition point and the profile in Student Insights may be one of the first ways an educator might be introduced to a student.
+But along the way we started asking more questions with educators about how we should be representing students, and whether our work on this profile was really was reflecting the values of our school community.  We cam eto see that while pulling in multiple data sources can help students get what they need, it can also serve to define and limit young people.  Striking the right balance here is challenging but important, most especially at the transition point at the start of the school year.  When teachers get their classroom rosters, it's possible that the profile in Student Insights may be one of the first ways an educator is introduced to a student.
 
-We approached this by first doing an internal audit of the notes we saw in Student Insights, just on our project team.  Then, we shared some of the overall impressions we had within the school community, and these are some questions that we raised together:
-
-> I really don’t want to know anything about them.  Can you just let me have them?
-
-> What if it showed their last year’s teacher, so at least I know who to go ask if there’s an issue or I need to know more?
-
-> Can I at least see their IEP and 504?
-
-> What bothers me is when a teacher tells me ‘these kids are really smart’ - it biases me the other way, when really I want to figure out where they need to grow.
-
-These concerns aren't just ours - this also came up in a national survey described in the Parent Coalition for Student Privacy's [Educator Toolkit](https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf).  One of the top concerns of educators surveyed was that "They are worried that as the use of ed tech grows in the classroom, human interaction and individualism are being undermined."  This is a real concern that is in the forefront of our work, and the opportunity to create a new way of tackling these problems is one of the things that drives us.
+We also came to see that by building from the data points that were *easy for us*, our actions were drifting out of alignment with our values.  This is not a unique concern with educational technology - in a national survey described in the Parent Coalition for Student Privacy's [Educator Toolkit](https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf), one of the top concerns of educators surveyed was that *"They are worried that as the use of ed tech grows in the classroom, human interaction and individualism are being undermined."*  We aim to bring this tension to the forefront of our work, to explore opportunities to create a new way of tackling these problems by embedding more closely within school communities, and try to build a new kind of school data systems where the values of our school community come first.
 
 We'll share a few of the steps that we've taken to this point, but we also see this as a fundamental tension in our work, and know there will always be work to strike the right balance.
 
 
-#### "Best light" principle
+### "Best light" principle
 There can be a lot of benefit in sharing educational records between educators, and particularly at times of [transition](our-work.html#transitions).  This can help young people get the services and supports they need, and can help educators learn from what has worked well for that student in the past.
 
-At the same time, this creates risks that educators will be biased by the student's past, and that educational records may lead educators to make a set of assumptions about the student that shapes their relationship before even meeting the student.  As the [Educator Toolkit](https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf) says:
+<p style="float: right; width: 55%; border: 1px solid #eee; padding: 10px; margin: 10px; font-size: 14px;">
+  <i>“When educators over-rely on secondhand information about students’ past academic or behavior records, this may lead to self-fulfilling prophecies. If teachers hear that students have excelled in the past or are predicted to do so in the future, research shows that even if that information is false, it tends to lead to more investment in those students, which enhances their chance of success. This is called the “Pygmalion effect.” Conversely, if teachers learn that their students have spotty histories, either in terms of their grades or behavior, they may suffer from the “Golem effect,” causing teachers to lower their expectations and disengage, which may in turn cause their students  to struggle even more.”</i>
+  <a style="display: block; margin-top: 10px;" href="https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf">Educator Toolkit, Parent Coalition for Student Privacy</a>
+</p>
 
-  > “When educators over-rely on secondhand information about students’ past academic or behavior records, this may lead to self-fulfilling prophecies. If teachers hear that students have excelled in the past or are predicted to do so in the future, research shows that even if that information is false, it tends to lead to more investment in those students, which enhances their chance of success. This is called the “Pygmalion effect.” Conversely, if teachers learn that their students have spotty histories, either in terms of their grades or behavior, they may suffer from the “Golem effect,” causing teachers to lower their expectations and disengage, which may in turn cause their students  to struggle even more.”
+At the same time, this creates risks that educators will be biased by the student's past, and that educational records may lead educators to make a set of assumptions about the student that shapes their relationship before even meeting the student.
 
-The guiding principle that we use on Student Insights is that we need to strike a balance that allows educators to share information about students, but that we aim to do so in a way that helps educators see young people in their "best light."  We've approached this in a few different ways.
+One of our guiding principles on Student Insights is that we need to strike a balance that allows educators to share information about students, but that we aim to do so in a way that helps educators see young people in their "best light."  We've approached this in a few different ways in student profiles.
 
-#### Centering student voice
-<img src="img/survey.png" class="InlineImage" />
+### "What I want my teachers to know about me"
+<img src="img/our-work/survey-small.png" class="InlineImage" style="border: 1px solid rgb(203, 197, 211);" />
 
-One step is to elevate student voice, and give young people power over how they are represented within their Student Insights profile.  To start this, we worked with a group of students to design a set of questions they'd want to be visible on the student profile page to all the adults working with them.
+To elevate student voice, and give young people power over how they are represented within their Student Insights profile, we revised the layout of the page and reserved the most prominent space on the page for students themselves.
 
-At the high school level, the English department was excited about this, and worked to have all students at the high school take this survey to start the school year.  have taken a brief survey where they outline what they are proud of, what their interests are, how they best learn, and what stresses them.  This survey was designed by students and we are excited to keep developing this tool based on their feedback.
+To start this, counselor educators worked with a group of middle school students to design a set of questions that the students would want to be visible on the student profile page to all the adults working with them.
 
-We are finding that seeing the voices of students in the student profile page along with other student data, helps educators to see students in a different light than just numbers.
+At the high school level, educators in the English department got excited about this, and worked to have all students at the high school take this survey to start the school year.  Students share whatever they want in response to prompts about what they are proud of, what stresses them, and how they best learn.
 
-#### More holistic "whole child" data
-<div class="InlineImage">
-  <img src="img/cheerleading.png" />
-  <img src="img/cheerleading.png" />
+We've heard from educators that seeing a student's perspective influences the way they experience Student Insights, and can help support educators in seeing students from a "whole child" perspective.
+
+Here are some examples of the kinds of things students have chosen to share, and how this shows up front and center on their profile page:
+
+<div class="DoubleImage" style="clear: both;">
+  <div class="DoubleImage-small"><img src="img/our-work/proud-computer-science.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/best-qualitities-babysitting.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/interests-podcasts.png" /></div>
+</div>
+<div class="DoubleImage">
+  <div class="DoubleImage-small"><img src="img/our-work/best-qualities-thoughtful.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/learn-best-kind.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/proud-immigrant.png" /></div>
 </div>
 
-IEP
+### Student meetings
+Within Somerville High School, there are a few student support structures aimed at helping students who are not thriving with the transition from middle school, and for supporting English learners in particular.  SOme educators had developed a practice of of using a school data system, exporting academic data into excel, and doing additional analysis, and then identifying students who were struggling across courses in a way that wouldn't be obvious to any one classroom teacher.  They then convened to discuss who had the best relationship with those students, and had 1:1 meetings to talk with the student about how they could support them.
 
-ACCESS data
+These conversations embedded a strengths-based perspective and started with asking students about where they felt successful, and what supported them in those parts of their school experience.  We worked with these educators so that these conversations would be visible to all classroom teachers and educators working with the student in Student Insights.
 
-Sports
+<div class="DoubleImage">
+  <div class="DoubleImage-small"><img src="img/student-meeting-one.png" /></div>
+  <div class="DoubleImage-small"><img src="img/student-meeting-two.png" /></div>
+</div>
 
 
+### More holistic "whole child" data
+Beyond creating space for student voice, we've also worked with educators around what other kinds of data there is about students that could more fully describe their experience at school.  One theme that came up consistently for many students in student voice surveys when we asked what they wanted teachers to know was how important sports were.  In talking with the athletic director at the high school, we collaborated to add sports team membership into the student profile, and to add the contact for coaches.  Experienced teachers, and teachers with strong relationships often already know this about their students.  But this let us update our school data system to reflect this important aspect of students' school life, and make it immediately visible to all educators, and displayed more prominently than things like their scores on state testing.
 
-#### "Clean slate"
-In the main student profile, educators see data relevant for the last 45 days of school.  They can click into tabs and see more longitudinal information, but we want their first experience to be less prone to bias. (add about discipline)
+<div class="DoubleImage">
+  <div class="DoubleImage-small"><img src="img/our-work/cheerleading.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/soccer.png" /></div>
+</div>
+
+We also worked with folks in the central office who coordinate summer services, so that when educators came back in the fall, they could see what services the student experienced during the summertime.  This let us collaborate closely with one educator, rather than trying to roll out the burden of a new data entry procedure with educators across the district.  We've also explored automated syncs to create hybrid data systems where educators can fully control the data in tools like online spreadsheets that they are already comfortable with, and we can do the work to sync changes to Student Insights in real time.
+
+<div class="DoubleImage">
+  <div class="DoubleImage-small"><img src="img/our-work/upload-services.png" /></div>
+  <div class="DoubleImage-big"><img src="img/our-work/services.png" /></div>
+</div>
+
+
+### "Clean slate"
+The "clean slate" concept came from a team of educators discussing concerns about how past data systems have labeled students in ways that student with them and never changed.  Some examples were students who traveled to visit family at the beginning of the school year, and were marked as "at risk" for absence the rest of the school year.  Another was students who would be marked "at risk" because of a standardized test score from a year and a half ago, even if other data points suggested they were thriving at school.
 
 <img src="img/privacy-note.png" class="InlineImage" />
 
-#### Intentionality in what is shown
-- Photo more prominent
-- Remove free and reduced lunch
-- Add home language as a way to highlight strength
-- Adding sports team memberships
-- For HS, highlighting class grades over standardized test scores
-
-#### Differences by grade and district
-If you are a K-8 teacher, clicking in the reading tabwindow, will show basic information such as MCAS, STAR, and DIBELS scores.  If I click on the window and scroll down, I can see detailed graphs for each of these measures.  If I hover over any of these data points, you can see more detailed information, such as date or grade level equivalent.  If you hover over a STAR data point, you can also see how long the student spent on the test.
-
-
-
+To strike the right balance here, within Student Insights most numeric data in a student's profile is focused on the last 45 days of school or the current school year, and all these data points have context about when the data point was from.  Educators can click into tabs and see more historical information, but there is also a prompt about this core tension in how educators use school data systems.  This is a central them in all of the Student Insights [trainings that educators lead](trainings-and-videos.html) as well.
 
 
 
