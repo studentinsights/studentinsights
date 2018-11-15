@@ -68,6 +68,12 @@
 .DoubleImage-big{
   flex: 2;
 }
+@media (min-width: 600px) {
+  .DoubleImage.DoubleImage-side-margin {
+    margin-left: 60px;
+    margin-right: 60px;
+  }
+}
 
 
 .QuadImage {

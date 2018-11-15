@@ -58,7 +58,7 @@ Within Somerville High School, there are a few student support structures aimed 
 
 These conversations embedded a strengths-based perspective and started with asking students about where they felt successful, and what supported them in those parts of their school experience.  We worked with these educators so that these conversations would be visible to all classroom teachers and educators working with the student in Student Insights.
 
-<div class="DoubleImage">
+<div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small"><img src="img/student-meeting-one.png" /></div>
   <div class="DoubleImage-small"><img src="img/student-meeting-two.png" /></div>
 </div>
@@ -67,14 +67,14 @@ These conversations embedded a strengths-based perspective and started with aski
 ### More holistic "whole child" perspectives
 Beyond creating space for student voice, we've also worked with educators around what other kinds of data there is about students that could more fully describe their experience at school.  One theme that came up consistently for many students in student voice surveys when we asked what they wanted teachers to know was how important sports were.  In talking with the athletic director at the high school, we collaborated to add sports team membership into the student profile, and to add the contact for coaches.  Experienced teachers, and teachers with strong relationships often already know this about their students.  But this let us update our school data system to reflect this important aspect of students' school life, and make it immediately visible to all educators, and displayed more prominently than things like their scores on state testing.
 
-<div class="DoubleImage">
+<div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small"><img src="img/our-work/cheerleading.png" /></div>
   <div class="DoubleImage-small"><img src="img/our-work/soccer.png" /></div>
 </div>
 
 We also worked with folks in the central office who coordinate summer services, so that when educators came back in the fall, they could see what services the student experienced during the summertime.  This let us collaborate closely with one educator, rather than trying to roll out the burden of a new data entry procedure with educators across the district.  We've also explored automated syncs to create hybrid data systems where educators can fully control the data in tools like online spreadsheets that they are already comfortable with, and we can do the work to sync changes to Student Insights in real time.
 
-<div class="DoubleImage">
+<div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small"><img src="img/our-work/upload-services.png" /></div>
   <div class="DoubleImage-big"><img src="img/our-work/services.png" /></div>
 </div>
@@ -98,14 +98,14 @@ When we originally built Student Insights, we had no idea how popular and powerf
 
 Writing notes lets educators share information and insights with other so everyone can know what’s going on with a student.   This includes what other teachers have tried, what’s worked, and what hasn’t worked.   This is particularly important for student support team structures where there's a interdisciplinary team that evolves over time.  Districts have a variety of names for these such as SST, BBST, MTSS, Wellness, and NGE.
 
-<div class="DoubleImage" style="margin-left: 60px; margin-right: 60px;">
+<div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/take-notes-long.png" style="border: 1px solid #eee;"/></div>
   <div class="DoubleImage-small"><img src="img/our-work/notes-guidelines.png" /></div>
 </div>
 
 [Educators leading trainings](trainings-and-videos.html) have chosen to focus on how to write effective notes, but also highlight how to *read* the notes that others are written, so that adults can get the most helpful information, give students the clean slate they need from year to year, and see the student in the best light.  One of the questions educators ask in trainings is: "What would you have wanted your own 6th grade teacher to know about you to best teach and support you?"  or "I wonder what’s really going on for the student, what motivates them, and where their areas for growth are?"  We've found this framing grounds the conversation in the human side of our work and makes space for talking about the assumptions and bias that can arise when reading student educational records.  From here, we work with educators to think more deeply how to effectively read and write notes about students, so that student data is used in a positive way to help maximize student growth and achievement.
 
-<div class="DoubleImage" style="margin-left: 60px; margin-right: 60px;">
+<div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/feed.png" /></div>
   <div class="DoubleImage-small"><img src="img/our-work/feed2.png" /></div>
 </div>
