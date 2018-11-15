@@ -22,7 +22,7 @@
 Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work is built.
 
 <section>
-  {% assign profile_title = 'Student-centered profile' %}
+  {% assign profile_title = 'Whole-child profile' %}
   {% capture profile_quote %}
     <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="pals.html" style="display: block;">- Django Paris</a></p>
   {% endcapture %}
@@ -30,7 +30,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
     <img src="img/profile.png" style="border: 1px solid #eee;" />
   {% endcapture %}
   {% capture profile_button %}
-    <a href="our-work.html#student-centered-profile" class="btn">More about profiles</a>
+    <a href="our-work.html#whole-child-profile" class="btn">More about profiles</a>
   {% endcapture %}
   {% include panel.html title=profile_title quote=profile_quote image=profile_image button=profile_button %}
 </section>
