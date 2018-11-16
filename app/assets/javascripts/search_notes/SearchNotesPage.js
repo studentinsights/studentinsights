@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
@@ -57,6 +58,11 @@ export default class SearchNotesPage extends React.Component {
 
   renderResultsSection() {
     const {query} = this.state;
+
+    if (_.isEqual(query, initialQuery())) {
+      return <div style={styles.searchAway}>What do you want to know about?</div>;
+    }
+
     return (
       <SearchQueryFetcher
         key={JSON.stringify(query)}
@@ -68,15 +74,29 @@ export default class SearchNotesPage extends React.Component {
 
   renderQueryResults(json) {
     const feedCards = json.event_note_cards;
+    const allResultsSize = json.meta.all_results_size;
     return (
       <div style={styles.queryResults}>
-        {(json.meta.all_results_size === feedCards.length)
-          ? <div style={styles.meta}>Showing all {feedCards.length} results.</div>
-          : <div style={styles.meta}>About {json.meta.all_results_size} results total, showing first {feedCards.length}.</div>
-        }
+        {this.renderMeta(allResultsSize, feedCards)}
         <FeedView feedCards={feedCards} />
       </div>
     );
+  }
+
+  renderMeta(allResultsSize, feedCards) {
+    if (allResultsSize === 0) {
+      return <div style={styles.meta}>No results.</div>;
+    }
+
+    if (allResultsSize === 1) {
+      return <div style={styles.meta}>Showing the only result.</div>;
+    }
+
+    if (allResultsSize === feedCards.length) {
+      return <div style={styles.meta}>Showing all {oneOrMoreResult(feedCards.length)}.</div>;
+    }
+
+    return <div style={styles.meta}>About {oneOrMoreResult(allResultsSize)} total, showing first {oneOrMoreResult(feedCards.length)}.</div>;
   }
 }
 SearchNotesPage.propTypes = {
@@ -95,10 +115,16 @@ const styles = {
   },
   queryResults: {
     fontSize: 14,
-    width: '50%'
+    width: '50%',
+    paddingLeft: 10
   },
   meta: {
     paddingTop: 5,
+    color: '#aaa'
+  },
+  searchAway: {
+    paddingLeft: 10,
+    paddingTop: 20,
     color: '#aaa'
   }
 };
@@ -112,4 +138,13 @@ function initialQuery() {
     scopeKeyf: ALL,
     limit: null
   };
+}
+
+function oneOrMoreResult(value) {
+  return oneOrMore(value, 'result', 'results');
+}
+
+function oneOrMore(value, singular, plural) {
+  if (value === 1) return `${value} ${singular}`;
+  return `${value} ${plural}`;
 }
