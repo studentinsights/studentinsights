@@ -45,6 +45,7 @@ export default class SearchNotesPage extends React.Component {
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading>Search notes</SectionHeading>
         <SearchNotesBar
+          style={styles.searchBar}
           query={query}
           debounceInputMs={300}
           onQueryChanged={this.onQueryChanged}
@@ -69,9 +70,11 @@ export default class SearchNotesPage extends React.Component {
     const feedCards = json.event_note_cards;
     return (
       <div style={styles.queryResults}>
-        <pre>{JSON.stringify(json.query, null, 2)}</pre>
-        <pre>{JSON.stringify(json.meta, null, 2)}</pre>
-        <FeedView feedCards={feedCards} style={{width: '50%'}} />
+        {(json.meta.all_results_size === feedCards.length)
+          ? <div style={styles.meta}>Showing all {feedCards.length} results.</div>
+          : <div style={styles.meta}>About {json.meta.all_results_size} results total, showing first {feedCards.length}.</div>
+        }
+        <FeedView feedCards={feedCards} />
       </div>
     );
   }
@@ -87,8 +90,16 @@ const styles = {
     flex: 1,
     flexDirection: 'column'
   },
+  searchBar: {
+    padding: 10
+  },
   queryResults: {
-    fontSize: 14
+    fontSize: 14,
+    width: '50%'
+  },
+  meta: {
+    paddingTop: 5,
+    color: '#aaa'
   }
 };
 

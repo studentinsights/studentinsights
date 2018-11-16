@@ -42,7 +42,7 @@ export default class SearchNotesBar extends React.Component {
     const {style} = this.props;
 
     return (
-      <FilterBar className="SearchNotesBar" style={style}>
+      <FilterBar className="SearchNotesBar" style={style} labelText="Search for">
         {this.renderSearch()}
         {this.renderGradeSelect()}
         {this.renderHouseSelect()}
@@ -60,7 +60,7 @@ export default class SearchNotesBar extends React.Component {
         debounceTimeout={debounceInputMs}
         style={styles.search}
         inputRef={el => this.searchInputEl = el}
-        placeholder={`Search...`}
+        placeholder={`Note text...`}
         value={searchText}
         onChange={this.onSearchChanged} />
     );
