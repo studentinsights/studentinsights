@@ -11,6 +11,7 @@ import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
 import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
 import HomePage from '../app/assets/javascripts/home/HomePage';
+import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import HomeroomPage from '../app/assets/javascripts/homeroom/HomeroomPage';
 import SchoolRosterPage from '../app/assets/javascripts/school_overview/SchoolRosterPage';
@@ -88,6 +89,7 @@ export default class App extends React.Component {
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
+        <Route exact path="/search/notes" render={this.renderSearchNotesPage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug/absences" render={this.renderAbsencesPage.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
@@ -117,6 +119,17 @@ export default class App extends React.Component {
     return <HomePage
       educatorId={id}
       educatorLabels={labels} />;
+  }
+
+  renderSearchNotesPage(routeProps) {
+    const {currentEducator} = this.props;
+    const {id, labels} = currentEducator;
+    this.trackVisit(routeProps, 'SEARCH_NOTES_PAGE');
+    return (
+      <SearchNotesPage
+        educatorId={id}
+        educatorLabels={labels} />
+    );
   }
 
   renderMyStudentsPage(routeProps) {

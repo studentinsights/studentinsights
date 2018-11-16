@@ -53,7 +53,7 @@ class Feed
       .order(recorded_at: :desc)
       .limit(limit)
       .includes(student: [:homeroom, :school])
-    recent_event_notes.map {|event_note| event_note_card(event_note) }
+    recent_event_notes.map {|event_note| FeedCard.event_note_card(event_note) }
   end
 
   # This looks both ahead and behind for birthdays.
@@ -90,31 +90,6 @@ class Feed
   end
 
   private
-  # Create json for exactly what UI needs and return as `FeedCard`
-  def event_note_card(event_note)
-    json = event_note.as_json({
-      :only => [:id, :recorded_at, :event_note_type_id, :text],
-      :include => {
-        :educator => {:only => [:id, :full_name, :email]},
-        :student => {
-          :only => [:id, :email, :first_name, :last_name, :grade, :house],
-          :include => {
-            :school => {
-              :only => [:local_id, :school_type]
-            },
-            :homeroom => {
-              :only => [:id, :name],
-              :include => {
-                :educator => {:only => [:id, :full_name, :email]}
-              }
-            }
-          }
-        }
-      }
-    })
-    FeedCard.new(:event_note_card, event_note.recorded_at, json)
-  end
-
   def birthday_card(student, time_now)
     json = student.as_json({
       :only => [:id, :email, :first_name, :last_name, :date_of_birth]

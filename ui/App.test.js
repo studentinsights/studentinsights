@@ -3,6 +3,7 @@ import {mount} from 'enzyme';
 import {NEW_BEDFORD} from '../app/assets/javascripts/helpers/PerDistrict';
 import App from './App';
 import HomePage from '../app/assets/javascripts/home/HomePage';
+import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
@@ -16,6 +17,7 @@ import {MemoryRouter} from 'react-router-dom';
 
 
 jest.mock('../app/assets/javascripts/home/HomePage');
+jest.mock('../app/assets/javascripts/search_notes/SearchNotesPage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
@@ -56,6 +58,14 @@ it('renders HomePage without crashing', () => {
     <HomePage educatorId={9999} educatorLabels={[]} />
   )).toEqual(true);
 });
+
+it('renders SearchNotesPage without crashing', () => {
+  const wrapper = mount(renderPath('/search/notes'));
+  expect(wrapper.contains(
+    <SearchNotesPage educatorId={9999} educatorLabels={[]} />
+  )).toEqual(true);
+});
+
 
 it('renders MyStudentsPage without crashing', () => {
   const wrapper = mount(renderPath('/educators/my_students'));
