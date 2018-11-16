@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {mount} from 'enzyme';
 import fetchMock from 'fetch-mock/es5/client';
+import changeTextValue from '../testing/changeTextValue';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import SearchNotesPage from './SearchNotesPage';
 import searchJson from './searchJson.fixture';
+
 
 function testProps() {
   return {
@@ -25,6 +26,7 @@ function testEl(props = {}) {
 beforeEach(() => {
   fetchMock.restore();
   fetchMock.get('/api/search_notes/query_json?event_note_type_id&grade&limit&scope_key&text=', searchJson);
+
 });
 
 it('renders without crashing', () => {
@@ -35,15 +37,26 @@ it('renders without crashing', () => {
 
 describe('integration tests', () => {
   it('renders after fetch', done => {
-    const props = testProps();
-    const wrapper = mount(testEl(props));
-    expect(wrapper.text()).toContain('Loading...');
+    fetchMock.get('/api/search_notes/query_json?event_note_type_id&grade&limit&scope_key&text=read', searchJson);
 
+    // renders, without fetching yet
+    const props = testProps();
+    const el = document.createElement('div');
+    ReactDOM.render(testEl(props), el);
+    expect($(el).text()).toContain('What do you want to know about?');
+    
+    // change text, wait for debounce, fetch, render
+    changeTextValue($(el).find('input:first').get(0), 'read');
     setTimeout(() => {
-      expect(wrapper.html()).toContain('Search notes');
-      expect(wrapper.text()).toContain('Showing all 2 results.');
-      expect($(wrapper.html()).find('.EventNoteCard').length).toEqual(2);
-      done();
-    }, 0);
+      expect($(el).html()).not.toContain('Loading');
+      expect($(el).html()).not.toContain('Showing all 2 results.');
+    
+      setTimeout(() => {
+        expect($(el).html()).toContain('Search notes');
+        expect($(el).text()).toContain('Showing all 2 results.');
+        expect($(el).find('.EventNoteCard').length).toEqual(2);
+        done();
+      }, 400);
+    });
   });
 });
