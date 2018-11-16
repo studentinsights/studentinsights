@@ -13,7 +13,7 @@ class SearchNotesController < ApplicationController
       :from_time,
       :limit
     ]))
-    
+
     results = SearchNotesQueries.new(current_educator).query(query)
     event_note_cards_json, all_results_size, query_with_defaults = results
     render json: {

@@ -1,7 +1,8 @@
 import {
   shouldShowLowGradesBox,
   sortSchoolSlugsByGrade,
-  studentTableEventNoteTypeIds
+  studentTableEventNoteTypeIds,
+  eventNoteTypeIdsForSearch
 } from './PerDistrict';
 
 it('#shouldShowLowGradesBox', () => {
@@ -30,5 +31,19 @@ describe('#studentTableEventNoteTypeIds', () => {
     const eventNoteTypeIds = studentTableEventNoteTypeIds('somerville', null);
 
     expect(eventNoteTypeIds).toEqual([300, 301]);
+  });
+});
+
+describe('#eventNoteTypeIdsForSearch', () => {
+  it('handles somerville', () => {
+    expect(eventNoteTypeIdsForSearch('somerville')).toEqual([300, 301, 302, 304, 305, 306, 307, 308]);
+  });
+
+  it('handles new_bedford', () => {
+    expect(eventNoteTypeIdsForSearch('new_bedford')).toEqual([400, 302, 304]);
+  });
+
+  it('handles beford', () => {
+    expect(eventNoteTypeIdsForSearch('bedford')).toEqual([500, 302, 304]);
   });
 });

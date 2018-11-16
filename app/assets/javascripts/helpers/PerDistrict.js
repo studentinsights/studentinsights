@@ -175,7 +175,7 @@ export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
 // For searching notes, derived from choices for taking notes
 export function eventNoteTypeIdsForSearch(districtKey) {
   const {leftEventNoteTypeIds, rightEventNoteTypeIds} = takeNotesChoices(districtKey);
-  return _.uniq(leftEventNoteTypeIds, rightEventNoteTypeIds);
+  return _.uniq(leftEventNoteTypeIds.concat(rightEventNoteTypeIds));
 }
 
 

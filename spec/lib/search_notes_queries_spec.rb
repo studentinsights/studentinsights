@@ -63,7 +63,6 @@ RSpec.describe SearchNotesQueries do
       expect(all_results_size).to eq 0
     end
 
-
     it 'can filter out by note type' do
       setup!
       query = { event_note_type_id: EventNoteType.NGE.id }

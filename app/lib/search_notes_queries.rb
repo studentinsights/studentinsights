@@ -20,7 +20,7 @@ class SearchNotesQueries
 
     # query for both the total number of records, and then limit
     # what is actually returned.
-    # 
+    #
     # by deferring the `limit` until after the authorization scoping,
     # this fetches much more data than would be fetched otherwise,
     # and this is a good place to optimize if we need to
@@ -53,7 +53,7 @@ class SearchNotesQueries
       qs = qs.joins(:student).where(students: {house: house}) if house.present?
       qs = qs.where(event_note_type_id: event_note_type_id) if event_note_type_id.present?
       qs = qs.where('text LIKE ?', "%#{text}%") if text.present?
-      
+
       # adjust scope
       qs = qs.where(educator_id: @educator.id) if scope_key == SCOPE_MY_NOTES_ONLY
       qs = qs.where(student_id: feed_student_ids(qs)) if scope_key == SCOPE_FEED_STUDENTS
