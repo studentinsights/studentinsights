@@ -1,4 +1,6 @@
 import * as Filters from './Filters';
+import _ from 'lodash';
+
 
 export const SOMERVILLE = 'somerville';
 export const NEW_BEDFORD = 'new_bedford';
@@ -168,6 +170,12 @@ export function eventNoteTypeIdForAbsenceSupportMeeting(districtKey) {
   if (districtKey === SOMERVILLE) return 300; // sst
 
   return 300;
+}
+
+// For searching notes, derived from choices for taking notes
+export function eventNoteTypeIdsForSearch(districtKey) {
+  const {leftEventNoteTypeIds, rightEventNoteTypeIds} = takeNotesChoices(districtKey);
+  return _.uniq(leftEventNoteTypeIds, rightEventNoteTypeIds);
 }
 
 
