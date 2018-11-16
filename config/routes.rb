@@ -46,6 +46,9 @@ Rails.application.routes.draw do
   get '/api/home/feed_json' => 'home#feed_json'
   get '/api/district/enrollment_json' => 'district#enrollment_json'
 
+  # notes search
+  get '/api/search_notes/query_json' => 'search_notes#query_json'
+
   # homeroom
   get '/api/homerooms/:id/homeroom_json' => 'homerooms#homeroom_json'
 
@@ -97,6 +100,9 @@ Rails.application.routes.draw do
 
   # home page
   get '/home' => 'ui#ui'
+
+  # search notes
+  get '/search/notes' => 'ui#ui'
 
   # SHS levels
   get '/levels/:school_id' => 'ui#ui'

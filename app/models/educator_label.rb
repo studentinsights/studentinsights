@@ -19,7 +19,8 @@ class EducatorLabel < ApplicationRecord
         'use_community_school_based_feed',
         'enable_class_lists_override',
         'can_upload_student_voice_surveys',
-        'should_show_levels_shs_link'
+        'should_show_levels_shs_link',
+        'enable_searching_notes'
       ]
     }
   }
