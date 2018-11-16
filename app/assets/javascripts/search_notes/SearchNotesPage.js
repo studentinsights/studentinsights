@@ -4,6 +4,7 @@ import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkar
 import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 import SectionHeading from '../components/SectionHeading';
+import FeedView from '../feed/FeedView';
 import SearchNotesBar from './SearchNotesBar';
 import SearchQueryFetcher from './SearchQueryFetcher';
 
@@ -18,7 +19,8 @@ export default class SearchNotesPage extends React.Component {
     };
 
     this.onQueryChanged = this.onQueryChanged.bind(this);
-    this.renderResults = this.renderResults.bind(this);
+    this.renderResultsSection = this.renderResultsSection.bind(this);
+    this.renderQueryResults = this.renderQueryResults.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +46,7 @@ export default class SearchNotesPage extends React.Component {
         <SectionHeading>Search notes</SectionHeading>
         <SearchNotesBar
           query={query}
+          debounceInputMs={300}
           onQueryChanged={this.onQueryChanged}
           includeHouse={supportsHouse(districtKey)} />
         {this.renderResultsSection()}
@@ -57,13 +60,20 @@ export default class SearchNotesPage extends React.Component {
       <SearchQueryFetcher
         key={JSON.stringify(query)}
         query={query}
-        renderFn={this.renderResults}
+        renderFn={this.renderQueryResults}
       />
     );
   }
 
-  renderResults(json) {
-    return <pre>{JSON.stringify(json, null, 2)}</pre>;
+  renderQueryResults(json) {
+    const feedCards = json.event_note_cards;
+    return (
+      <div style={styles.queryResults}>
+        <pre>{JSON.stringify(json.query, null, 2)}</pre>
+        <pre>{JSON.stringify(json.meta, null, 2)}</pre>
+        <FeedView feedCards={feedCards} style={{width: '50%'}} />
+      </div>
+    );
   }
 }
 SearchNotesPage.propTypes = {
@@ -76,6 +86,9 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
+  },
+  queryResults: {
+    fontSize: 14
   }
 };
 

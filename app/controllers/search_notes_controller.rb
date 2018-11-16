@@ -9,27 +9,32 @@ class SearchNotesController < ApplicationController
       :scope_key,
       :grade,
       :house,
-      :event_note_type_ids,
-      :time_now,
+      :event_note_type_id,
+      :from_time,
       :limit
     ]))
     
-    event_notes_json = []
+    event_note_cards_json, all_results_size = SearchNotesQueries.new(current_educator).event_note_cards_json(query)
     render json: {
       query: query,
-      notes: event_notes_json
+      event_note_cards: event_note_cards_json,
+      meta: {
+        returned_size: event_note_cards_json.size,
+        all_results_size: all_results_size
+      }
     }
   end
 
   private
   def query_from_safe_params(safe_params)
     {
-      time_now: safe_params.fetch(:time_now, Time.now),
-      limit: safe_params.fetch(:limit, 20),
-      grade: safe_params.fetch(:grade, nil),
-      house: safe_params.fetch(:house, nil),
-      event_note_type_ids: safe_params.fetch(:event_note_type_ids, EventNoteType.pluck(:id)),
-      scope_key: safe_params.fetch(:scope_key, SearchNotesQueries::SCOPE_ALL_STUDENTS)
+      from_time: safe_params[:from_time] || Time.now,
+      limit: safe_params[:limit] || 20,
+      text: safe_params[:text] || nil,
+      grade: safe_params[:grade] || nil,
+      house: safe_params[:house] || nil,
+      event_note_type_id: safe_params[:event_note_type_id] || nil,
+      scope_key: safe_params[:scope_key] || SearchNotesQueries::SCOPE_ALL_STUDENTS
     }
   end
 

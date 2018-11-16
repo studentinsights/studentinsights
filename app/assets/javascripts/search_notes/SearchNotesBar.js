@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {DebounceInput} from 'react-debounce-input';
 import FilterBar from '../components/FilterBar';
 import SelectHouse from '../components/SelectHouse';
 import SelectGrade from '../components/SelectGrade';
@@ -52,10 +53,13 @@ export default class SearchNotesBar extends React.Component {
 
   renderSearch() {
     const {searchText} = this.props.query;
+    const {debounceInputMs} = this.props;
     return (
-      <input
+      <DebounceInput
+        minLength={3}
+        debounceTimeout={debounceInputMs}
         style={styles.search}
-        ref={el => this.searchInputEl = el}
+        inputRef={el => this.searchInputEl = el}
         placeholder={`Search...`}
         value={searchText}
         onChange={this.onSearchChanged} />
@@ -101,6 +105,7 @@ SearchNotesBar.propTypes = {
   }).isRequired,
   onQueryChanged: PropTypes.func.isRequired,
   includeHouse: PropTypes.bool.isRequired,
+  debounceInputMs: PropTypes.number.isRequired,
   style: PropTypes.object
 };
 

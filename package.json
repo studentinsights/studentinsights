@@ -45,6 +45,7 @@
     "rc-slider": "^8.3.2",
     "react": "15.4.2",
     "react-beautiful-dnd": "6.0.2",
+    "react-debounce-input": "^3.2.0",
     "react-dom": "15.4.2",
     "react-modal": "3.1.10",
     "react-router-dom": "^4.2.2",
