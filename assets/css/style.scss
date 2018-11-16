@@ -44,10 +44,14 @@ body {
 }
 
 
+/* our work page */
 h2.SectionTitle {
   background: #0366d6;
+  outline: 5px solid #0366d6;
+  padding: 5px;
+  border: 0;
   color: white;
   opacity: 0.8;
   margin-top: 40px;
-  padding: 10px;
+  margin-bottom: 15px;
 }

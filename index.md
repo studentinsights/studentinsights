@@ -27,7 +27,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
     <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="pals.html" style="display: block;">- Django Paris</a></p>
   {% endcapture %}
   {% capture profile_image %}
-    <img src="img/profile.png" style="border: 1px solid #eee;" />
+    <img src="img/profile-2.png" style="border: 1px solid #eee;" />
   {% endcapture %}
   {% capture profile_button %}
     <a href="our-work.html#whole-child-profile" class="btn">More about profiles</a>

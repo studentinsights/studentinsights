@@ -186,13 +186,23 @@ Previously, 8th grade counselors would write out a "transition packet" for all s
   <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" ><img src="img/our-work/transition-right.png" /></div>
 </div>
 
+
 We also worked with counselors so that some transition information would be widely visible to all educators working with students, so that these could help to introduce students by way of their strengths and interests.  For other important confidential information, counselors designed a separate box that would clearly indicate the information was confidential, and access for this part of the transition packet would be restricted.
 
 
 ## Attendance supports
-- focus was on taking action, not analysis
-- connecting to SST support structures
+School attendance is a challenge for many students and families for a variety of reasons, and educators have different ways to support students after they've missed a period of school, or to problem solve around morning transitions and routines.  Within Somerville, interdisciplinary student support teams (SST) meet regularly to talk about what's going on with students and how to best support them.
 
+As part of this work, one idea we explored together was whether a "dashboard" showing school attendance over time would help, or whether there were ways to create visualizations for finding different patterns in attendance data (eg, by grade level).  We worked with principals and assistant principals looking at this, and using data analyst tools like Tableau and PowerBI.  Over time we found this narrow anlaytic approach wasn't a natural fit for the kinds of complexity that these teams were already considering and discussing.  We found that these visualizations might feel fun to explore, and they seem interesting to people who weren't in the school day-to-day.  But for most educators building close relationships with students and families, these visualizations rarely led to true insights.
+
+Another challenge that came up was in conversations where we looked at full year counts of absences.  Educators had developed a sense of when this indicated a significant issue, but existing data systems were aimed at counting whole-year totals since they were first developed for other purposes like accountability reporting.  We found that later in the school year, students who had great attendance all year but only just recently started missing school would slip through.  When looking at the count for the whole year, those students might miss more than a week of school and not be immediately visible to educators.
+
+<div class="DoubleImage DoubleImage-side-margin">
+  <div class="DoubleImage-small"><img src="img/our-work/absences-analysis.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/absences-home.png" /></div>
+</div>
+
+This led us to shift from a goal of "analysis" and "finding patterns" to a goal of supporting educators to see what's happening with students recently and to take action to support those students.  This involved building a notice for all educators on the home page about recent absences for their students.  And for building a more focused visualization looking at absence data, and highlighting gaps where students have missed school recently but haven't yet been discussed in SST or other support meetings.  In this way, educators can open the page and immediately see students who could use support.
 
 ## Class lists
 This project started from the needs of a few teachers to make the class list process easier and became even more meaningful as we started talking with folks about equity in the process.  In many schools, teams of teachers gathered in the spring to create class lists for their students as they move to the next grade.  Typically, each student's name would be written on a card, possibly with some extra information on it such as gender, special education or English learner designation, academic proficiency, and behavior.  The cards were then moved around until the teams determined that each list had the makings of a strong classroom community.  Many educators felt that not only was this incredibly time-consuming and inefficient, but also prone to errors, biases, and favoritism.
@@ -210,8 +220,16 @@ This also created an interesting research question that we're working on ahead o
 - fitting into NGE/10GE/NEST support structure
 - locally defined, couldn't query across their courses
 
+<div class="DoubleImage DoubleImage-side-margin">
+  <div class="DoubleImage-small"><img src="img/grades.png" /></div>
+  <div class="DoubleImage-small"></div>
+</div>
+
 ## Triggers for Systems of Supports
-- ...
+<div class="DoubleImage DoubleImage-side-margin">
+  <div class="DoubleImage-small"><img src="img/systems.png" /></div>
+  <div class="DoubleImage-small"></div>
+</div>
 
 
 <a href="updates.html" class="btn">What's next?</a>
