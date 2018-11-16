@@ -14,9 +14,10 @@ class SearchNotesController < ApplicationController
       :limit
     ]))
     
-    event_note_cards_json, all_results_size = SearchNotesQueries.new(current_educator).query(query)
+    results = SearchNotesQueries.new(current_educator).query(query)
+    event_note_cards_json, all_results_size, query_with_defaults = results
     render json: {
-      query: query,
+      query: query_with_defaults,
       event_note_cards: event_note_cards_json,
       meta: {
         returned_size: event_note_cards_json.size,
@@ -26,7 +27,7 @@ class SearchNotesController < ApplicationController
   end
 
   private
-  # Defaults are set in the query object
+  # Defaults are set in the query class
   def query_from_safe_params(safe_params)
     {
       from_time: safe_params[:from_time],

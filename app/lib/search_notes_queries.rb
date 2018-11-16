@@ -4,20 +4,20 @@ class SearchNotesQueries
   SCOPE_MY_NOTES_ONLY = 'SCOPE_MY_NOTES_ONLY'
 
   def self.with_defaults(query = {})
-    {
-      from_time: Time.now,
-      limit: 20,
-      scope_key: SearchNotesQueries::SCOPE_ALL_STUDENTS
-    }.merge(query)
+    query.merge({
+      from_time: query[:from_time] || Time.now,
+      limit: query[:limit] || 20,
+      scope_key: query[:scope_key] || SearchNotesQueries::SCOPE_ALL_STUDENTS
+    })
   end
 
   def initialize(educator)
     @educator = educator
   end
 
-  def query(passed_query)
+  def query(passed_query = {})
     query_with_defaults = SearchNotesQueries.with_defaults(passed_query)
-    
+
     # query for both the total number of records, and then limit
     # what is actually returned.
     # 
@@ -31,7 +31,7 @@ class SearchNotesQueries
     # serialize, and return both actual data and metadata about
     # total other records
     event_note_cards_json = event_notes.map {|event_note| FeedCard.event_note_card(event_note) }
-    [event_note_cards_json, all_results_size]
+    [event_note_cards_json, all_results_size, query_with_defaults]
   end
 
   private
