@@ -98,9 +98,6 @@ SearchNotesBar.propTypes = {
     grade: PropTypes.string,
     house: PropTypes.string,
     eventNoteTypeId: PropTypes.any.isRequired, // number, but magic ALL string also
-    studentScopeKey: PropTypes.string,
-    limit: PropTypes.number,
-    fromTimetamp: PropTypes.number
   }).isRequired,
   onQueryChanged: PropTypes.func.isRequired,
   includeHouse: PropTypes.bool.isRequired,

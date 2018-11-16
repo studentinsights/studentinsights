@@ -6,7 +6,7 @@ class SearchNotesController < ApplicationController
   def query_json
     query = query_from_safe_params(params.permit(*[
       :text,
-      :student_scope_key,
+      :scope_key,
       :grade,
       :house,
       :event_note_type_ids,
@@ -26,10 +26,10 @@ class SearchNotesController < ApplicationController
     {
       time_now: safe_params.fetch(:time_now, Time.now),
       limit: safe_params.fetch(:limit, 20),
-      grade: safe_params.fetch(:grade, SearchNoteQueries::ALL),
-      house: safe_params.fetch(:house, SearchNoteQueries::ALL),
-      event_note_type_ids: safe_params.fetch(:event_note_type_ids, SearchNoteQueries::ALL),
-      student_scope_key: safe_params.fetch(:student_scope_key, SearchNoteQueries::ALL)
+      grade: safe_params.fetch(:grade, nil),
+      house: safe_params.fetch(:house, nil),
+      event_note_type_ids: safe_params.fetch(:event_note_type_ids, EventNoteType.pluck(:id)),
+      scope_key: safe_params.fetch(:scope_key, SearchNotesQueries::SCOPE_ALL_STUDENTS)
     }
   end
 

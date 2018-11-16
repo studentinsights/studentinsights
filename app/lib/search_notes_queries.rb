@@ -1,3 +1,5 @@
-class SearchNoteQueries
-  ALL = 'ALL'
+class SearchNotesQueries
+  SCOPE_ALL_STUDENTS = 'SCOPE_ALL_STUDENTS'
+  SCOPE_FEED_STUDENTS = 'SCOPE_FEED_STUDENTS'
+  SCOPE_MY_NOTES = 'SCOPE_MY_NOTES'
 end

@@ -5,6 +5,7 @@ import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 import SectionHeading from '../components/SectionHeading';
 import SearchNotesBar from './SearchNotesBar';
+import SearchQueryFetcher from './SearchQueryFetcher';
 
 
 // Page for searching notes
@@ -17,6 +18,7 @@ export default class SearchNotesPage extends React.Component {
     };
 
     this.onQueryChanged = this.onQueryChanged.bind(this);
+    this.renderResults = this.renderResults.bind(this);
   }
 
   componentDidMount() {
@@ -44,14 +46,24 @@ export default class SearchNotesPage extends React.Component {
           query={query}
           onQueryChanged={this.onQueryChanged}
           includeHouse={supportsHouse(districtKey)} />
-        {this.renderResults()}
+        {this.renderResultsSection()}
       </div>
     );
   }
 
-  renderResults() {
+  renderResultsSection() {
     const {query} = this.state;
-    return <pre>{JSON.stringify(query, null, 2)}</pre>;
+    return (
+      <SearchQueryFetcher
+        key={JSON.stringify(query)}
+        query={query}
+        renderFn={this.renderResults}
+      />
+    );
+  }
+
+  renderResults(json) {
+    return <pre>{JSON.stringify(json, null, 2)}</pre>;
   }
 }
 SearchNotesPage.propTypes = {
@@ -73,7 +85,7 @@ function initialQuery() {
     grade: ALL,
     house: ALL,
     eventNoteTypeId: ALL,
-    studentScopeKey: ALL,
-    limit: 20
+    scopeKeyf: ALL,
+    limit: null
   };
 }
