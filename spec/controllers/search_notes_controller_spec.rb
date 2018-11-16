@@ -31,7 +31,7 @@ describe SearchNotesController, :type => :controller do
     def create_test_note(params = {})
       FactoryBot.create(:event_note, {
         student_id: pals.shs_senior_kylo.id,
-        event_note_type: EventNoteType.NGE,
+        event_note_type: EventNoteType.SST,
         educator_id: pals.shs_jodi.id,
         text: 'this is about reading, he is doing great this semester!',
         is_restricted: false
@@ -63,7 +63,7 @@ describe SearchNotesController, :type => :controller do
             "timestamp"=>"2018-02-28T11:03:00.000Z",
             "json"=>{
               "id"=>event_note.id,
-              "event_note_type_id"=>EventNoteType.NGE.id,
+              "event_note_type_id"=>EventNoteType.SST.id,
               "text"=>"this is about reading, he is doing great this semester!",
               "recorded_at"=>"2018-02-28T11:03:00.000Z",
               "educator"=>{

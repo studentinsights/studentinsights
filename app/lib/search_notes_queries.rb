@@ -3,20 +3,30 @@ class SearchNotesQueries
   SCOPE_FEED_STUDENTS = 'SCOPE_FEED_STUDENTS'
   SCOPE_MY_NOTES_ONLY = 'SCOPE_MY_NOTES_ONLY'
 
+  def self.with_defaults(query = {})
+    {
+      from_time: Time.now,
+      limit: 20,
+      scope_key: SearchNotesQueries::SCOPE_ALL_STUDENTS
+    }.merge(query)
+  end
+
   def initialize(educator)
     @educator = educator
   end
 
-  def event_note_cards_json(query)
+  def query(passed_query)
+    query_with_defaults = SearchNotesQueries.with_defaults(passed_query)
+    
     # query for both the total number of records, and then limit
     # what is actually returned.
     # 
     # by deferring the `limit` until after the authorization scoping,
     # this fetches much more data than would be fetched otherwise,
     # and this is a good place to optimize if we need to
-    query_scope = authorized_query_scope(query)
+    query_scope = authorized_query_scope(query_with_defaults)
     all_results_size = query_scope.size
-    event_notes = query_scope.first(query[:limit])
+    event_notes = query_scope.first(query_with_defaults[:limit])
 
     # serialize, and return both actual data and metadata about
     # total other records
@@ -25,16 +35,16 @@ class SearchNotesQueries
   end
 
   private
-  def authorized_query_scope(query)
-    from_time, text, grade, house, event_note_type_id, scope_key = query.values_at(*[
-      :from_time, :text, :grade, :house, :event_note_type_id, :scope_key
+  def authorized_query_scope(query_with_defaults)
+    from_time, scope_key, text, grade, house, event_note_type_id = query_with_defaults.values_at(*[
+      :from_time, :scope_key, :text, :grade, :house, :event_note_type_id
     ])
 
     authorizer = Authorizer.new(@educator)
     authorizer.authorized do
       qs = EventNote.all
         .where(is_restricted: false)
-        .where('recorded_at < ?', query[:from_time])
+        .where('recorded_at < ?', from_time)
         .order(recorded_at: :desc)
         .includes(:educator, student: [:homeroom, :school])
 
