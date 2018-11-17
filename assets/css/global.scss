@@ -62,6 +62,7 @@ blockquote {
 
 .SingleImage {
   display: block;
+  text-align: center;
 }
 .SingleImage > img {
   margin: 5px;
@@ -70,6 +71,9 @@ blockquote {
   .SingleImage.SingleImage-side-margin {
     margin-left: 60px;
     margin-right: 60px;
+  }
+  .SingleImage.SingleImage-cap-size > img {
+    max-width: 520px;
   }
 }
 
@@ -100,6 +104,28 @@ blockquote {
 @media (min-width: 600px) {
   .InlineImage {
     width: 50%;
+    min-width: 400px;
+    float: right;
+    margin: 10px;
+  }
+}
+
+.InlineLongQuote {
+  border: 1px solid #eee;
+  background-color: #fafafa;
+  padding: 15px;
+  font-size: 14px;
+}
+@media (max-width: 600px) {
+  .InlineLongQuote {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 600px) {
+  .InlineLongQuote {
+    width: 55%;
     min-width: 400px;
     float: right;
     margin: 10px;

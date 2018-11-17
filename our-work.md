@@ -8,7 +8,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
 
 Student Insights started as an effort to pull together student data from different sources all onto one screen.  We've done this with a variety of data points - and we started with some standard things like IEP goals, English learner assessments, course enrollments and grades, attendance, discipline data, MCAS scores, STAR reading and math scores, and DIBELS subtests for reading.
 
-<img src="img/our-work/profile.png" class="InlineImage" style="width: 60%;"/>
+<img src="img/our-work/profile.png" class="InlineImage OurWork-InlineImage-profile" />
 
 But along the way we started asking more questions with educators about how we should be representing students, and whether our work on this profile was really was reflecting the values of our school community.  We cam eto see that while pulling in multiple data sources can help students get what they need, it can also serve to define and limit young people.  Striking the right balance here is challenging but important, most especially at the transition point at the start of the school year.  When teachers get their classroom rosters, it's possible that the profile in Student Insights may be one of the first ways an educator is introduced to a student.
 
@@ -20,9 +20,9 @@ We'll share a few of the steps that we've taken to this point, but we also see t
 ### "Best light" principle
 There can be a lot of benefit in sharing educational records between educators, and particularly at times of [transition](our-work.html#transitions).  This can help young people get the services and supports they need, and can help educators learn from what has worked well for that student in the past.
 
-<p style="float: right; width: 55%; border: 1px solid #eee; padding: 10px; margin: 10px; font-size: 14px;">
+<p class="InlineLongQuote">
   <i>“When educators over-rely on secondhand information about students’ past academic or behavior records, this may lead to self-fulfilling prophecies. If teachers hear that students have excelled in the past or are predicted to do so in the future, research shows that even if that information is false, it tends to lead to more investment in those students, which enhances their chance of success. This is called the “Pygmalion effect.” Conversely, if teachers learn that their students have spotty histories, either in terms of their grades or behavior, they may suffer from the “Golem effect,” causing teachers to lower their expectations and disengage, which may in turn cause their students  to struggle even more.”</i>
-  <a style="display: block; margin-top: 10px;" href="https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf">Educator Toolkit, Parent Coalition for Student Privacy</a>
+  <a style="display: block; margin-top: 10px;" href="https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf">- Parent Coalition for Student Privacy</a>
 </p>
 
 At the same time, this creates risks that educators will be biased by the student's past, and that educational records may lead educators to make a set of assumptions about the student that shapes their relationship before even meeting the student.
@@ -42,15 +42,13 @@ We've heard from educators that seeing a student's perspective influences the wa
 
 Here are some examples of the kinds of things students have chosen to share, and how this shows up front and center on their profile page:
 
-<div class="DoubleImage" style="clear: both;">
-  <div class="DoubleImage-small"><img src="img/our-work/proud-computer-science.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/best-qualitities-babysitting.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/interests-podcasts.png" /></div>
-</div>
-<div class="DoubleImage">
-  <div class="DoubleImage-small"><img src="img/our-work/best-qualities-thoughtful.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/learn-best-kind.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/proud-immigrant.png" /></div>
+<div class="OurWork-QuoteGrid" style="clear: both;">
+  <img src="img/our-work/proud-computer-science.png" />
+  <img src="img/our-work/best-qualitities-babysitting.png" />
+  <img src="img/our-work/interests-podcasts.png" />
+  <img src="img/our-work/best-qualities-thoughtful.png" />
+  <img src="img/our-work/learn-best-kind.png" />
+  <img src="img/our-work/proud-immigrant.png" />
 </div>
 
 ### Student meetings
@@ -74,9 +72,8 @@ Beyond creating space for student voice, we've also worked with educators around
 
 We also worked with folks in the central office who coordinate summer services, so that when educators came back in the fall, they could see what services the student experienced during the summertime.  This let us collaborate closely with one educator, rather than trying to roll out the burden of a new data entry procedure with educators across the district.  We've also explored automated syncs to create hybrid data systems where educators can fully control the data in tools like online spreadsheets that they are already comfortable with, and we can do the work to sync changes to Student Insights in real time.
 
-<div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/our-work/upload-services.png" /></div>
-  <div class="DoubleImage-big"><img src="img/our-work/services.png" /></div>
+<div class="SingleImage SingleImage-side-margin SingleImage-cap-size">
+  <img src="img/our-work/services.png" />
 </div>
 
 
@@ -109,7 +106,7 @@ Writing notes lets educators share information and insights with other so everyo
 
 Notes about a student are also visible to other educators who are authorized to access that student's data (see [trust, access and privacy](our-work.html#trust-access-and-privacy) for more about how we approach these important issues).  This is especially for interdisciplinary teams, and teams of educators that work with students across diverse roles (eg, science teacher, writing teacher, social-emotional support, college and career counselor, etc).  When signing into Student Insights, the home page shows teachers what's going on for all their students.  This isn't a replacement for talking in person, or for email, or for structured reporting like Progress Reports or amendments to an IEP.  It's also not a chat app sending notices during class.  It's a space for educators to share what's important as they do their work with students each day, and to check in whenever they want to see what's going on with students more holistically.
 
-<img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" style="width: 45%;" />
+<img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" />
 
 When working with educators teams deciding how they want to use Student Insights, one experience we share is how this has been most effective in Somerville for structure support teams or PLCs teams that are already up and running.  Within support structures like MTSS or SST, there is often an interdisciplinary team, and taking notes about what's going on with the student holistically and what actions the team is taking can be a helpful starting point.  Educators have also found [transitions](our-work.html#transitions) between classes or grades can be a helpful place to start, and that's a project we've worked on separately as well.
 

@@ -1,5 +1,7 @@
-.OurWork-PrivacyList {
-  
+@media (min-width: 600px) {
+  .OurWork-InlineImage-profile {
+    width: 60% !important;
+  }
 }
 
 h2.OurWork-SectionTitle {
@@ -10,20 +12,36 @@ h2.OurWork-SectionTitle {
 }
 
 
+.OurWork-QuoteGrid {
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .OurWork-QuoteGrid > img {
+    width: 48%;
+  }
+}
+@media (min-width: 600px) {
+  .OurWork-QuoteGrid > img {
+    width: 31%;
+  }
+}
+
+
+.OurWork-PrivacyList {
+  padding-top: 15px;
+  margin-bottom: 0 !important;
+}
 .OurWork-PrivacyList-Container {
   background: #333;
   color: #f8f8f8;
   padding: 20px;
   margin-bottom: 20px;
 }
-.OurWork-PrivacyList {
-  padding-top: 15px;
-  margin-bottom: 0 !important;
+@media (max-width: 600px) {
 }
-
-
 @media (min-width: 600px) {
   .OurWork-PrivacyList-Container {
+    padding: 20px;
     margin-left: 60px;
     margin-right: 60px;
   }
