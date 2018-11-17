@@ -3,6 +3,7 @@ require 'capybara/rspec'
 
 describe 'educator sign in', type: :feature do
   let!(:pals) { TestPals.create! }
+  before { Rack::Attack.cache.store.clear }
 
   def grants_access?(educator)
     sign_in_attempt(educator.email, 'demo-password')
