@@ -1,0 +1,30 @@
+.OurWork-PrivacyList {
+  
+}
+
+h2.OurWork-SectionTitle {
+  padding: 5px;
+  border-bottom: 1px solid #eaecef; // from markdown
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+
+.OurWork-PrivacyList-Container {
+  background: #333;
+  color: #f8f8f8;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.OurWork-PrivacyList {
+  padding-top: 15px;
+  margin-bottom: 0 !important;
+}
+
+
+@media (min-width: 600px) {
+  .OurWork-PrivacyList-Container {
+    margin-left: 60px;
+    margin-right: 60px;
+  }
+}

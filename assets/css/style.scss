@@ -3,55 +3,10 @@
 
 
 @import "{{ site.theme }}";
+@import "global";
 @import "navbar";
 @import "panel";
 @import "dropdown";
 @import "triple-card";
-@import "index";
-
-
-a.btn {
-  background: #4A90E2;
-  color: white;
-  padding: 10px;
-  display: inline-block;
-}
-
-
-@media (max-width: 600px) {
-  .Desktop-only {
-    display: none;
-  }
-}
-
-@media (min-width: 600px) {
-  .Mobile-only {
-    display: none;
-  }
-}
-
-ul.PlainList {
-  padding-left: 1.5em;
-}
-
-li.PlainList-item {
-  margin: 0;
-  padding: 0;  
-}
-
-body {
-  color: #333;
-}
-
-
-/* our work page */
-h2.SectionTitle {
-  background: #0366d6;
-  outline: 5px solid #0366d6;
-  padding: 5px;
-  border: 0;
-  color: white;
-  opacity: 0.8;
-  margin-top: 40px;
-  margin-bottom: 15px;
-}
+@import "our-work";
+@import "home";
