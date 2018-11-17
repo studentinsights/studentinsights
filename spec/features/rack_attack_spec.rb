@@ -4,7 +4,7 @@ require 'capybara/rspec'
 describe 'Rack::Attack respects example development config', type: :feature do
   let!(:pals) { TestPals.create! }
 
-  before { Rack::Attack.cache.store.clear }
+  before(:each) { Rack::Attack.cache.store.clear }
 
   it 'blocks repeated login attempts by IP' do
     5.times do
