@@ -44,6 +44,7 @@ blockquote {
 .DoubleImage {
   display: flex;
 }
+
 .DoubleImage > div {
   margin: 5px;
 }
@@ -52,6 +53,11 @@ blockquote {
 }
 .DoubleImage-big {
   flex: 2;
+}
+@media (max-width: 600px) {
+  .DoubleImage.DoubleImage-unroll {
+    flex-direction: column;
+  }
 }
 @media (min-width: 600px) {
   .DoubleImage.DoubleImage-side-margin {
@@ -110,21 +116,21 @@ blockquote {
   }
 }
 
-.InlineLongQuote {
+.LongQuote {
   border: 1px solid #eee;
   background-color: #fafafa;
   padding: 15px;
   font-size: 14px;
 }
 @media (max-width: 600px) {
-  .InlineLongQuote {
+  .LongQuote.LongQuote-Inline {
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 }
 @media (min-width: 600px) {
-  .InlineLongQuote {
+  .LongQuote.LongQuote-Inline {
     width: 55%;
     min-width: 400px;
     float: right;

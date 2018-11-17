@@ -20,7 +20,7 @@ We'll share a few of the steps that we've taken to this point, but we also see t
 ### "Best light" principle
 There can be a lot of benefit in sharing educational records between educators, and particularly at times of [transition](our-work.html#transitions).  This can help young people get the services and supports they need, and can help educators learn from what has worked well for that student in the past.
 
-<p class="InlineLongQuote">
+<p class="LongQuote LongQuote-Inline">
   <i>“When educators over-rely on secondhand information about students’ past academic or behavior records, this may lead to self-fulfilling prophecies. If teachers hear that students have excelled in the past or are predicted to do so in the future, research shows that even if that information is false, it tends to lead to more investment in those students, which enhances their chance of success. This is called the “Pygmalion effect.” Conversely, if teachers learn that their students have spotty histories, either in terms of their grades or behavior, they may suffer from the “Golem effect,” causing teachers to lower their expectations and disengage, which may in turn cause their students  to struggle even more.”</i>
   <a style="display: block; margin-top: 10px;" href="https://www.studentprivacymatters.org/wp-content/uploads/2018/10/PCSP_BATS-Educator-Toolkit.pdf">- Parent Coalition for Student Privacy</a>
 </p>
@@ -80,7 +80,16 @@ We also worked with folks in the central office who coordinate summer services, 
 ### "Clean slate"
 The "clean slate" concept came from a team of educators discussing concerns about how past data systems have labeled students in ways that student with them and never changed.  Some examples were students who traveled to visit family at the beginning of the school year, and were marked as "at risk" for absence the rest of the school year.  Another was students who would be marked "at risk" because of a standardized test score from a year and a half ago, even if other data points suggested they were thriving at school.
 
-<img src="img/privacy-note.png" class="InlineImage" />
+<div class="DoubleImage DoubleImage-side-margin DoubleImage-unroll">
+  <div class="DoubleImage-small">
+    <p class="LongQuote">
+      <i>"Often I’ll go into a workshop with teachers and write on the board, or whatever they have there for me to scribble on: “high blood pressure,” “high cholesterol,” “stroke,” “asthma,” “cancer,” and I will say, “I’m at risk for all of these things. But nobody calls me ‘at risk.’"</i>
+      <a style="display: block; margin-top: 10px;" href="docs/glb.pdf" target="_blank" rel="noopener noreferrer">- Gloria Ladson-Billings</a>
+    </p>
+  </div>
+  <div class="DoubleImage-big"><img src="img/privacy-note.png" /></div>
+</div>
+
 
 To strike the right balance here, within Student Insights most numeric data in a student's profile is focused on the last 45 days of school or the current school year, and all these data points have context about when the data point was from.  Educators can click into tabs and see more historical information, but there is also a prompt about this core tension in how educators use school data systems.  This is a central theme in all of the Student Insights [trainings that educators lead](trainings-and-videos.html) as well.
 
@@ -232,8 +241,7 @@ We initially collaborated with this team to create a [new home page](#student-ce
 To make this as simple as possible, and to fit this within the existing meeting flow for this support structure, we added this right onto the home page for high school teachers as soon as they sign in to Student Insights.  There's no querying, no filtering or anything else - if there are students in their courses who need more academic support or if a particular unit or assessment ends up influencing grades for many students, educators can see that right away and get to work on collaboraing to try other instructional strategies.
 
 ### Triggers for Systems of Supports
-One opportunity that came up working with educators at Somerville High School was around how the team adapts the supports it provides to students.  In the HS, there's a diverse range of services for students focused on all kinds of things like study skills, academic supports, social emotional supports, wraparound services, health services, the transition to high school from middle school, English learning services and many others.  To help with matching students to the services they need, the team had put together a document describing the systems of supports and services, and different "triggers" that students might reach as a way to facilitate adapting services.  But there was no data system that coudl show what supports a student was getting across all educators, or to find when a student should be getting a support but the team hadn't responded yet.
-
+One opportunity that came up working with educators at Somerville High School was around how the team adapts the supports it provides to students.  In the HS, there's a diverse range of services for students focused on all kinds of things like study skills, academic supports, social emotional supports, wraparound services, health services, the transition to high school from middle school, English learning services and many others.  To help with matching students to the services they need, the team had put together a document describing the systems of supports and services, and different "triggers" that students might reach as a way to facilitate adapting services.  But there was no data system that could show what supports a student was getting across all educators, or to find when a student should be getting a support but the team hadn't responded yet.
 
 <div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small"><img src="img/our-work/triggers2.png" /></div>
