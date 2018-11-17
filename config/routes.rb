@@ -80,7 +80,6 @@ Rails.application.routes.draw do
   # login activity security monitoring
   get '/api/login_activity' => 'login_activities#index_json'
 
-
   devise_for :educators, controllers: { sessions: 'educators/sessions' }
   authenticated :educator do
     root to: 'educators#homepage', as: 'educator_homepage'
@@ -88,6 +87,8 @@ Rails.application.routes.draw do
   devise_scope :educator do
     root to: "educators/sessions#new"
   end
+
+  post '/educators/two_factor' => 'two_factor#send_two_factor'
 
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'

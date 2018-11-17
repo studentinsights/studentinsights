@@ -25,18 +25,32 @@
           <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
         <% else %>
           <div class="sign-in-container">
-            <%= form_tag session_path(resource_name) do %>
-              <div class="sign-in-item">
-                <%= label_tag :login_text, 'Login' %>
-                <%= text_field_tag 'educator[login_text]', nil, class: 'sign-in-text', autofocus: true %>
-              </div>
-              <div class="sign-in-item">
-                <%= label_tag :password, 'Password' %>
-                <%= password_field_tag 'educator[password]', nil, class: 'sign-in-text', autocomplete: "off" %>
-              </div>
-              <div class="sign-in-item">
-                <%= submit_tag "Log in", class: "btn btn-primary" %>
-              </div>
+            <% # same old for existing %>
+            <% if true # for two factor, phase one %>
+              <%= form_tag educators_two_factor_path, remote: true do %>
+                <div class="sign-in-item">
+                  <%= label_tag :login_text, 'Login' %>
+                  <%= text_field_tag :login_text, nil, class: 'sign-in-text', autofocus: true %>
+                </div>
+                <div class="sign-in-item">
+                  <%= submit_tag "Text login code", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            <% end %>
+            <% if false # for two factor, phase two %>
+              <%= form_tag educators_two_factor_path do %>
+                <div class="sign-in-item">
+                  <%= label_tag :login_code, 'Code in text' %>
+                  <%= password_field_tag 'educator[login_code]', nil, class: 'sign-in-text', style: 'width: 12em', autocomplete: "off" %>
+                </div>
+                <div class="sign-in-item">
+                  <%= label_tag :password, 'Password' %>
+                  <%= password_field_tag 'educator[password]', nil, class: 'sign-in-text', style: 'width: 12em', autocomplete: "off" %>
+                </div>
+                <div class="sign-in-item">
+                  <%= submit_tag "Sign in", class: "btn btn-primary" %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         <% end %>

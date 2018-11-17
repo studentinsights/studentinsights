@@ -5,6 +5,8 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.0'
 gem 'pg'
 gem 'puma'
+gem 'rotp'
+gem 'twilio-ruby'
 
 gem 'administrate', '~> 0.10.0'
 gem 'authtrail'
