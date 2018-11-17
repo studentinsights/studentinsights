@@ -26,6 +26,8 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 end
 
 describe 'with Mock LDAP, integration tests work across districts' do
+  before(:each) { Rack::Attack.cache.store.clear }
+  
   it 'works for Somerville using email' do
     TestPals.create!(email_domain: 'k12.somerville.ma.us')
     allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
