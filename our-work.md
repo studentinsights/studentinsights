@@ -210,7 +210,7 @@ This led us to shift from a goal of "analysis" and "finding patterns" to a goal 
 This project started from the needs of a few teachers to make the class list process easier and became even more meaningful as we started talking with folks about equity in the process.  In many schools, teams of teachers gathered in the spring to create class lists for their students as they move to the next grade.  Typically, each student's name would be written on a card, possibly with some extra information on it such as gender, special education or English learner designation, academic proficiency, and behavior.  The cards were then moved around until the teams determined that each list had the makings of a strong classroom community.  Many educators felt that not only was this incredibly time-consuming and inefficient, but also prone to errors, biases, and favoritism.
 
 <div class="SingleImage SingleImage-side-margin">
-  <img src="img/our-work/class-list3.png" />
+  <img src="img/our-work/class-list5.png" />
 </div>
 
 So we worked with several teams of teachers to mock-up, design, and test a new way to do it.  By dragging and dropping names into different possible classes, teachers could see how the composition changed on a variety of measures.  In the process, we worked with teams across K8 schools to put together guidelines for how this process works at it's best.  The first recommendation was for teams to start the process by asking: *What's our plan for creating classroom communitites?*  and writing their thinking out.  We found that some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
