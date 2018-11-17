@@ -152,7 +152,7 @@ Student Insight is open source software, which means anyone can see exactly how 
     <div style="margin: 20px;"><img src="img/logos/boston-foundation.png" /></div>
   {% endcapture %}
   {% capture partnering_image %}
-    <img src="img/escs-early-childhood.png" />
+    <img src="img/visitor-pass.png" />
   {% endcapture %}
   {% include panel.html title=partnering_title quote=partnering_quote image=partnering_image %}
 </section>
