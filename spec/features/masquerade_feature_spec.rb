@@ -4,7 +4,7 @@ require 'capybara/rspec'
 describe 'masquerading, testing only in Somerville', type: :feature do
   let!(:pals) { TestPals.create! }
 
-  before { Rack::Attack.cache.store.clear }
+  before(:each) { Rack::Attack.cache.store.clear }
 
   def sign_in_as(educator)
     sign_in_attempt(educator.email, 'demo-password')
