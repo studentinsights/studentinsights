@@ -4,6 +4,8 @@ require 'capybara/rspec'
 describe 'educator sign in using Mock LDAP', type: :feature do
   let!(:pals) { TestPals.create! }
 
+  before(:each) { Rack::Attack.cache.store.clear }
+
   context 'teacher signs in' do
     def expect_successful_sign_in_for(educator)
       sign_in_attempt(educator.email, 'demo-password')
@@ -24,6 +26,8 @@ describe 'educator sign in using Mock LDAP', type: :feature do
 end
 
 describe 'with Mock LDAP, integration tests work across districts' do
+  before(:each) { Rack::Attack.cache.store.clear }
+
   it 'works for Somerville using email' do
     TestPals.create!(email_domain: 'k12.somerville.ma.us')
     allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
