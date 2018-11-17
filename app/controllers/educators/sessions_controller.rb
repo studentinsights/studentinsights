@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class Educators::SessionsController < Devise::SessionsController
-  # GET /resource/sign_in
+  # GET /educator/sign_in
   # def new
   #   super
   # end
 
-  # POST /resource/sign_in
+  # changes here impact Rack::Attack setup
+  # POST /educator/sign_in
   # def create
   #   super
   # end
 
-  # # DELETE /resource/sign_out
+  # # DELETE /educator/sign_out
   # def destroy
   #   super
   # end

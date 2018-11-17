@@ -14,6 +14,9 @@ module SomervilleTeacherTool
     # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
     Rails.application.config.active_record.belongs_to_required_by_default = false
 
+    # see rack_attack.md and https://github.com/kickstarter/rack-attack and 
+    config.middleware.use Rack::Attack
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

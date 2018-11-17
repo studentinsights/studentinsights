@@ -5,7 +5,14 @@
   "alwaysNotifyForPaths": [
     {
       "name": "kevinrobinson",
-      "files": ["config/**/*.rb", "Procfile", ".eslintrc", "app/lib/shs_tiers.rb"],
+      "files": [
+        "Procfile",
+        ".eslintrc",
+        "config/**/*.rb",
+        "app/controlleers/educators/sessions_controller.rb",
+        "lib/ldap_authenticatable_tiny/*.rb",
+        "app/lib/shs_tiers.rb"
+      ],
       "skipTeamPrs": false
     }
   ],
