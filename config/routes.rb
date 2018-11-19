@@ -88,6 +88,7 @@ Rails.application.routes.draw do
   devise_scope :educator do
     root to: "educators/sessions#new"
   end
+  post '/educators/multifactor/send_code' => 'multifactor#send_code'
 
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'

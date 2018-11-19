@@ -23,7 +23,7 @@ describe 'educator sign in using Mock LDAP', type: :feature do
     context 'person without authorization attempts to sign in' do
       it 'cannot access students page' do
         sign_in_attempt('educatorname', 'password')
-        expect(page).to have_content 'Invalid login or password.'
+        expect(page).to have_content LoginTests.failed_login_message
       end
     end
   end

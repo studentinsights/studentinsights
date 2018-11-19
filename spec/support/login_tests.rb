@@ -3,6 +3,10 @@
 # and in all tests, but this allows particular specs to opt-out of these
 # to speed up testing (assuming these are tested in other specs).
 class LoginTests
+  def self.failed_login_message
+    'Invalid login, password, or code.'
+  end
+
   def self.before_set_login_timing!(milliseconds)
     @store_CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS = ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS']
     ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = milliseconds.to_s

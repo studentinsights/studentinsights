@@ -14,14 +14,14 @@ pre, code {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 body {
   min-width: 1024px;
 }
 
-.info-area {
+.Pages-info-area {
   position: relative;
   width: 80%;
   padding: 30px;
@@ -36,82 +36,8 @@ body {
   clear: both;
 }
 
-.schools .info-area {
-  margin-top: 55px;
-}
-
-.index .info-area {
-  margin-top: 0;
-}
-
-.risk-0 {
-  background-color: $risk-0;
-
-  &:hover {
-    background-color: darken($risk-0, 10%);
-  }
-}
-
-.risk-1 {
-  background-color: $risk-1;
-
-  &:hover {
-    background-color: darken($risk-1, 10%);
-  }
-}
-
-.risk-2 {
-  background-color: $risk-2;
-
-  &:hover {
-    background-color: darken($risk-2, 10%);
-  }
-}
-
-.risk-3 {
-  background-color: $risk-3;
-
-  &:hover {
-    background-color: darken($risk-3, 10%);
-  }
-}
-
-.risk-na {
-  background-color: $gray;
-}
-
-.sped-risk-bubble {
-  background-color: #773c96;
-
-  &:hover {
-    background-color: darken(#773c96, 10%);
-  }
-}
-
 .hide {
   display: none;
-}
-
-.sessions {
-  .info-area {
-    margin-top: 40px;
-  }
-}
-
-.about {
-  .info-area {
-    margin-top: 40px;
-  }
-}
-
-#log-in {
-  margin: auto auto;
-  width: 134px;
-
-  h2 {
-    margin-bottom: 20px;
-    border-bottom: 1px solid $light-line;
-  }
 }
 
 .underline {

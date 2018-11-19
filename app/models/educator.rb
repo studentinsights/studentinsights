@@ -1,5 +1,5 @@
 class Educator < ApplicationRecord
-  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text]
+  devise :ldap_authenticatable_tiny, :rememberable, :trackable, :timeoutable, authentication_keys: [:login_text, :login_code]
 
   belongs_to  :school, optional: true # districtwide admin often don't have schools assigned
   has_one     :homeroom

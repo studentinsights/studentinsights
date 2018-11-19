@@ -10,7 +10,7 @@ describe 'Rack::Attack respects example development config', type: :feature do
   it 'blocks repeated login attempts by IP' do
     5.times do
       sign_in_attempt(rand().to_s, 'password')
-      expect(page).to have_content 'Invalid login or password.'
+      expect(page).to have_content LoginTests.failed_login_message
     end
     sign_in_attempt(rand().to_s, 'password')
     expect(page).to have_content 'Hello! This request has been blocked.'
@@ -19,7 +19,7 @@ describe 'Rack::Attack respects example development config', type: :feature do
   it 'blocks repeated login attempts by login name' do
     3.times do
       sign_in_attempt('sameeducatorname', 'password')
-      expect(page).to have_content 'Invalid login or password.'
+      expect(page).to have_content LoginTests.failed_login_message
     end
     sign_in_attempt('sameeducatorname', 'password')
     expect(page).to have_content 'Hello! This request has been blocked.'

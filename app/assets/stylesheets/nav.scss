@@ -76,42 +76,6 @@
     }
   }
 
-  .flash {
-    position: absolute;
-    right: 20px;
-    top: 65px; /* just below bar */
-  }
-
-  /* SIGN IN FLOW & MESSAGES */
-
-  .alert {
-    color: $warning-red;
-    font-weight: 700;
-  }
-
-  .sign-in-container {
-    flex: 1;
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
-
-    .sign-in-item {
-      display: inline-block;
-      bottom: 10px;
-    }
-
-    .sign-in-text {
-      width: 20em;
-      border: 3px inset #4a90e2
-    }
-
-    label {
-      margin-bottom: 0;
-    }
-  }
-
   .big_warning {
     padding: 20px;
     background-color: red;

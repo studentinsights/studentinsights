@@ -38,7 +38,7 @@ describe 'masquerading, testing only in Somerville', type: :feature do
     expect(current_path).to eq('/')
     expect(page).to have_content('Login')
     expect(page).to have_content('Password')
-    expect(page).to have_css('.sign-in-container')
+    expect(page).to have_css('.SignInPage')
     expect(page).not_to have_content('Sign Out')
   end
 

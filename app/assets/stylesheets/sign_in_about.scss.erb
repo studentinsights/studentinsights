@@ -1,0 +1,107 @@
+.SignInPage-About {
+
+	.info-area {
+	  position: relative;
+	  width: 80%;
+	  padding: 30px;
+	  margin: auto auto;
+	  background-color: $white;
+	  border-radius: 9px;
+	  border: solid 1px $light-line;
+	  margin-bottom: 50px;
+	  overflow: auto;
+	  padding: 0 0 30px 0;
+	  margin-top: 0;
+	  clear: both;
+	}
+
+	.about-page {
+		text-align: center;
+
+		.about-big, h4 {
+		  font-size: 24px;
+		  font-weight: 300;
+		  color: $blue;
+		}
+
+		.about-head, h5 {
+		  font-size: 14px;
+		  font-weight: 700;
+		  color: $gray;
+		  text-transform: uppercase;
+		  margin-bottom: 10px;
+		}
+
+		.detailed-content-area {
+		  padding: 60px 0 0 0;
+		}
+	}
+
+	#roster {
+		background: url('<%= asset_path("roster_pillar.png") %>') no-repeat;
+	}
+
+	#profile {
+		background: url('<%= asset_path("profile_pillar.png") %>') no-repeat;
+	}
+
+	#interventions {
+		background: url('<%= asset_path("interventions_pillar.png") %>') no-repeat;
+	}
+
+	#data-binder {
+		display: inline-block;
+		width: 80%;
+		height: 160px;
+		border-radius: 8px;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		background: url('<%= asset_path("teachers.png") %>') no-repeat;
+		@media screen and (min-width: 1200px) {
+			width: 750px;
+		}
+	}
+
+	.circular {
+		display: inline-block;
+		width: 150px;
+		height: 150px;
+		border-radius: 75px;
+		-webkit-border-radius: 150px;
+		-moz-border-radius: 150px;
+		border: 3px solid $light-line;
+	}
+
+	.logo-list {
+		li {
+			display: inline;
+			list-style-type: none;
+		}
+	}
+
+	.teacher-photo, .logos {
+		margin-top: 40px;
+	}
+
+	.somerville-logo {
+		margin-right: 30px;
+	}
+
+	#pillars {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.pillar {
+		width: 30%;
+	  display: inline-block;
+	  padding: 10px;
+	  @media screen and (max-width: $phase1) {
+	  	display: inline;
+	  	width: 80%;
+	  }
+	  p {
+	  	margin-bottom: 25px;
+	  }
+	}
+}
