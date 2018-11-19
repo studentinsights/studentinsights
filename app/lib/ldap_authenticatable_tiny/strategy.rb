@@ -1,24 +1,6 @@
 module Devise
   module Strategies
     class LdapAuthenticatableTiny < Authenticatable
-      # This is the entry point, and we wrap it to prevent timing attacks
-      # that could result from the different execution times of the different
-      # code paths.
-      def authenticate!
-        desired_milliseconds = parse_desired_milliseconds
-        ConsistentTiming.new.enforce_timing(desired_milliseconds) do
-          authenticate_with_variable_timing!
-        end
-      end
-
-      private
-      def parse_desired_milliseconds
-        default_value_in_milliseconds = 5
-        desired_milliseconds = ENV.fetch('CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS', default_value_in_milliseconds.to_s).to_i
-        return default_value_in_milliseconds if desired_milliseconds == 0
-        desired_milliseconds
-      end
-
       # Check that we have that user in the database, then check
       # credentials against LDAP, and return success if both succeed.
       # This method ultimately calls `fail` or `success!`
@@ -30,7 +12,7 @@ module Devise
       # see what's going on here.
       # https://github.com/wardencommunity/warden/blob/master/lib/warden/strategies/base.rb#L8
       # https://github.com/plataformatec/devise/blob/master/lib/devise/models/authenticatable.rb
-      def authenticate_with_variable_timing!
+      def authenticate!
         login_text = authentication_hash[:login_text].downcase.strip
         ldap_class = MockLDAP.should_use? ? MockLDAP : Net::LDAP
 
@@ -51,6 +33,7 @@ module Devise
         nil
       end
 
+      private
       # Create a Net::LDAP instance, `bind` to it and close.
       # Return true or false if they're authorized.
       def is_authorized_by_ldap?(ldap_class, login, password)
