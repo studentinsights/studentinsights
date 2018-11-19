@@ -6,7 +6,7 @@ class ConsistentTiming
     return block.call if disabled_for_test?
 
     return_value, actual_milliseconds = measure_timing_only(&block)
-    sleep((desired_milliseconds - actual_milliseconds)/1000.0)
+    wait_for_milliseconds_or_alert(desired_milliseconds - actual_milliseconds)
     return_value
   end
 
@@ -19,6 +19,12 @@ class ConsistentTiming
   end
 
   private
+  def wait_for_milliseconds_or_alert(milliseconds_to_wait)
+    return sleep(milliseconds_to_wait/1000.0) if milliseconds_to_wait > 0
+
+    Rollbar.warn('ConsistentTiming#wait_for_milliseconds_or_alert was negative', milliseconds_to_wait: milliseconds_to_wait)
+  end
+
   def read_monotonic_milliseconds
     Process.clock_gettime(Process::CLOCK_MONOTONIC, :millisecond)
   end
