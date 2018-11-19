@@ -62,11 +62,14 @@ class Rack::Attack
     IPCat.datacenter?(req.ip)
   end
 
-  # Block things attacking WordPress, just to remove that noise
-  blocklist('req/wordpress') do |request|
+  # Block things attacking WordPress and ASP, just to remove that noise
+  blocklist('req/noise') do |request|
     request.path.start_with?('/wp-') ||
     request.path.include?('wp-admin') ||
-    request.path.include?('wp-login')
+    request.path.include?('wp-login') ||
+    request.path.include?('.php') ||
+    request.path.include?('.asp') ||
+    request.path.include?('.aspx')
   end
 
   # Throttle all requests by IP
@@ -100,10 +103,14 @@ class Rack::Attack
     end
   end
 
-  # Send back 503
-  response_lambda = lambda do |env|
+  # Log throttle and blocks, and send back 503
+  log_and_respond = lambda do |action_key, env|
+    internal_log_message = "Rack::Attack: #{action_key} the request"
+    Rails.logger.warn internal_log_message
+    Rollbar.warn(internal_log_message)
+
     [503, {}, ["Hello!  This request has been blocked.\n\nWe apologize for the incovenience, but this is an important layer of security.  Please talk to your school project lead and we'll get you up and running again."]]
   end
-  Rack::Attack.throttled_response = response_lambda
-  Rack::Attack.blocklisted_response = response_lambda
+  Rack::Attack.throttled_response = lambda {|env| log_and_respond.call(:throttled, env) }
+  Rack::Attack.blocklisted_response = lambda {|env| log_and_respond.call(:blocklisted, env) }
 end
