@@ -5,6 +5,7 @@ describe 'educator sign in using Mock LDAP', type: :feature do
   let!(:pals) { TestPals.create! }
 
   before(:each) { Rack::Attack.cache.store.clear }
+  before(:each) { ENV['UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING'] = 'true' }
 
   context 'teacher signs in' do
     def expect_successful_sign_in_for(educator)
