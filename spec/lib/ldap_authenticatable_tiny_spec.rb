@@ -1,4 +1,9 @@
 RSpec.describe 'LdapAuthenticatableTiny' do
+  before(:each) do
+    @timing = ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS']
+    ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = '500'
+  end
+  after(:each) { ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = @timing }
 
   def test_strategy
     warden_env = nil

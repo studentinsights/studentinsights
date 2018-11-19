@@ -4,7 +4,9 @@ require 'capybara/rspec'
 describe 'masquerading, testing only in Somerville', type: :feature do
   let!(:pals) { TestPals.create! }
 
-  before(:each) { Rack::Attack.cache.store.clear }
+  before(:each) { LoginTests.reset_rack_attack! }
+  before(:each) { LoginTests.before_disable_consistent_timing! }
+  after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   def sign_in_as(educator)
     sign_in_attempt(educator.email, 'demo-password')
@@ -83,8 +85,7 @@ describe 'masquerading, testing only in Somerville', type: :feature do
 
   it 'does not work for any other users to masquerade as Uri or anyone else' do
     (Educator.all - [pals.uri]).each do |educator|
-      # Sidestep repeated login throttling
-      Rack::Attack.cache.store.clear
+      LoginTests.reset_rack_attack! # sidestep repeated login throttling
 
       # We test trying to masquerade as Uri, and as one other user we sample
       # (none of these should work, and we sample since it's slow to test every
@@ -95,6 +96,7 @@ describe 'masquerading, testing only in Somerville', type: :feature do
         expect_not_to_be_masquerading(page)
         sign_out
         expect_to_be_logged_out(page)
+        print('✓') # a nice progress indicator since these are slower tests
       end
     end
   end

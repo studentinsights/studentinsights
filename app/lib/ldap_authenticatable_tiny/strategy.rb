@@ -13,7 +13,7 @@ module Devise
 
       private
       def parse_desired_milliseconds
-        default_value_in_milliseconds = 5
+        default_value_in_milliseconds = 10000
         desired_milliseconds = ENV.fetch('CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS', default_value_in_milliseconds.to_s).to_i
         return default_value_in_milliseconds if desired_milliseconds == 0
         desired_milliseconds

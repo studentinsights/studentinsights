@@ -3,8 +3,9 @@ require 'capybara/rspec'
 
 describe 'Rack::Attack respects example development config', type: :feature do
   let!(:pals) { TestPals.create! }
-
-  before(:each) { Rack::Attack.cache.store.clear }
+  before(:each) { LoginTests.reset_rack_attack! }
+  before(:each) { LoginTests.before_disable_consistent_timing! }
+  after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   it 'blocks repeated login attempts by IP' do
     5.times do

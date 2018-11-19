@@ -3,7 +3,10 @@ require 'capybara/rspec'
 
 describe 'educator sign in', type: :feature do
   let!(:pals) { TestPals.create! }
-  before(:each) { Rack::Attack.cache.store.clear }
+
+  before(:each) { LoginTests.reset_rack_attack! }
+  before(:each) { LoginTests.before_disable_consistent_timing! }
+  after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   def grants_access?(educator)
     sign_in_attempt(educator.email, 'demo-password')

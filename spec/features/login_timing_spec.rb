@@ -3,7 +3,7 @@ require 'capybara/rspec'
 
 describe 'login timing', type: :feature do
   let!(:pals) { TestPals.create! }
-  before(:each) { Rack::Attack.cache.store.clear }
+  before(:each) { LoginTests.reset_rack_attack! }
 
   def sample_educator(seed)
     Educator.all.sample(random: Random.new(seed))
@@ -30,6 +30,22 @@ describe 'login timing', type: :feature do
     sign_out if page.has_content?('Sign Out')
   end
 
+  # simulate a really slow response from an LDAP #bind
+  def mock_slow_ldap_bind!(username, password, delay_milliseconds)
+    slow_mock_ldap = MockLDAP.new({
+      auth: {
+        username: username,
+        password: password
+      }
+    })
+    allow(slow_mock_ldap).to receive(:bind) do
+      sleep(delay_milliseconds/1000.0)
+      false
+    end
+    allow(MockLDAP).to receive(:new).and_return(slow_mock_ldap)
+    nil
+  end
+
   def puts_debug(login, password, elapsed_milliseconds)
     # puts '---------'
     # puts "login: #{login}"
@@ -43,26 +59,13 @@ describe 'login timing', type: :feature do
     _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
       sign_in_attempt('', 'foo')
     end
+    reset_login_attempt!
     expect(elapsed_milliseconds).to be < 1000
   end
 
   context 'when longer than expected' do
-    before(:each) { @timing = ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS']}
-    before(:each) { ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = '500' }
-    after(:each) { ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = @timing }
-
-    # simulate a really slow response from #bind
-    def mock_slow_ldap_bind!(login, password, delay_milliseconds)
-      slow_mock_ldap = MockLDAP.new({
-        auth: {
-          username: login,
-          password: password
-        }
-      })
-      allow(slow_mock_ldap).to receive(:bind) { sleep(delay_milliseconds/1000.0); false }
-      allow(MockLDAP).to receive(:new).and_return(slow_mock_ldap)
-      nil
-    end
+    before(:each) { LoginTests.before_set_login_timing!(500) }
+    after(:each) { LoginTests.after_reset_loging_timing! }
 
     it 'tolerates and warns' do
       allow(Rollbar).to receive(:warn)
@@ -70,31 +73,34 @@ describe 'login timing', type: :feature do
         milliseconds_to_wait: anything
       })
 
+      login, password = [pals.uri.email, 'wrong-password']
       _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
-        mock_slow_ldap_bind!(pals.uri.email, 'wrong-password', 1000)
-        sign_in_attempt(pals.uri.email, 'wrong-password')
+        mock_slow_ldap_bind!(login, password, 1000)
+        sign_in_attempt(login, password)
       end
+      reset_login_attempt!
+
+      puts_debug(login, password, elapsed_milliseconds)
       expect(elapsed_milliseconds).to be > 1000
     end
   end
 
   context 'across all execution paths' do
     let!(:expected_timing_in_milliseconds) { 500 }
-
-    before(:each) { @timing = ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS']}
-    before(:each) { ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = expected_timing_in_milliseconds.to_s }
-    after(:each) { ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = @timing }
+    before(:each) { LoginTests.before_set_login_timing!(expected_timing_in_milliseconds) }
+    after(:each) { LoginTests.after_reset_loging_timing! }
 
     it 'has consistent timing within range' do
-      # allow untimed warm-up (eg, seed 6996)
+      # allow untimed sign-in as a warm-up (eg, seed 6996)
       sign_in_attempt(pals.uri.email, 'demo-password')
       reset_login_attempt!
 
-      # test a sampling of attempts in random order; none should leak timing info
+      # test a sampling of attempts in random order; none should leak what's
+      # happening on the server-side through response timing
       create_multiple_attempts(2, RSpec.configuration.seed).each do |attempt|
         login, password = attempt
         _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
-          print('✓')
+          print('✓') # a nice progress indicator since these are slower tests
           sign_in_attempt(login, password)
         end
         reset_login_attempt! # not measured
