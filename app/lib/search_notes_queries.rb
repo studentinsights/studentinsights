@@ -5,8 +5,6 @@ class SearchNotesQueries
 
   def self.with_defaults(query = {})
     query.merge({
-      from_time: query[:from_time] || Time.now,
-      limit: query[:limit] || 20,
       scope_key: query[:scope_key] || SearchNotesQueries::SCOPE_ALL_STUDENTS
     })
   end
@@ -36,15 +34,16 @@ class SearchNotesQueries
 
   private
   def authorized_query_scope(query_with_defaults)
-    from_time, scope_key, text, grade, house, event_note_type_id = query_with_defaults.values_at(*[
-      :from_time, :scope_key, :text, :grade, :house, :event_note_type_id
+    start_time, end_time, scope_key, text, grade, house, event_note_type_id = query_with_defaults.values_at(*[
+      :start_time, :from_time, :scope_key, :text, :grade, :house, :event_note_type_id
     ])
 
     authorizer = Authorizer.new(@educator)
     authorizer.authorized do
       qs = EventNote.all
         .where(is_restricted: false)
-        .where('recorded_at < ?', from_time)
+        .where('recorded_at > ?', start_time)
+        .where('recorded_at < ?', end_time)
         .order(recorded_at: :desc)
         .includes(:educator, student: [:homeroom, :school])
 

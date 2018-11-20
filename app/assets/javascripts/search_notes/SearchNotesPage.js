@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
+import {TIME_RANGE_SCHOOL_YEAR} from '../components/SelectTimeRange';
 import SectionHeading from '../components/SectionHeading';
 import FeedView from '../feed/FeedView';
 import SearchNotesBar from './SearchNotesBar';
@@ -99,7 +100,7 @@ export default class SearchNotesPage extends React.Component {
       return <div style={styles.meta}>Showing all {oneOrMoreResult(feedCards.length)}.</div>;
     }
 
-    return <div style={styles.meta}>About {oneOrMoreResult(allResultsSize)} total, showing first {oneOrMoreResult(feedCards.length)}.</div>;
+    return <div style={styles.meta}>Showing the first {oneOrMoreResult(feedCards.length)} of {oneOrMoreResult(allResultsSize)} total.</div>;
   }
 }
 SearchNotesPage.propTypes = {
@@ -138,8 +139,9 @@ function initialQuery() {
     grade: ALL,
     house: ALL,
     eventNoteTypeId: ALL,
-    scopeKeyf: ALL,
-    limit: null
+    scopeKey: ALL,
+    timeRangeKey: TIME_RANGE_SCHOOL_YEAR,
+    limit: 50
   };
 }
 

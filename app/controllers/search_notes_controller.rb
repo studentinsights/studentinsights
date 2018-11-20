@@ -10,7 +10,7 @@ class SearchNotesController < ApplicationController
       :grade,
       :house,
       :event_note_type_id,
-      :from_time,
+      :time_range_key,
       :limit
     ]))
 
@@ -30,8 +30,9 @@ class SearchNotesController < ApplicationController
   # Defaults are set in the query class
   def query_from_safe_params(safe_params)
     {
-      from_time: safe_params[:from_time],
-      limit: safe_params[:limit],
+      start_time: Time.at(safe_params[:start_time].to_i),
+      end_time: Time.at(safe_params[:end_time].to_i),
+      limit: safe_params[:limit].to_i,
       text: safe_params[:text],
       grade: safe_params[:grade],
       house: safe_params[:house],
