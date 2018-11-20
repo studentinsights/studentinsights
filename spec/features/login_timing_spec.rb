@@ -55,12 +55,16 @@ describe 'login timing', type: :feature do
     # puts
   end
 
-  it 'does not have consistent timing for empty login, since Devise short-circuits' do
-    _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
-      sign_in_attempt('', 'foo')
+  context 'when login is empty' do
+    before(:each) { LoginTests.before_set_login_timing!(10000) }
+    after(:each) { LoginTests.after_reset_loging_timing! }
+
+    it 'does not have consistent timing since Devise short-circuits' do
+      _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
+        sign_in_attempt('', 'foo')
+      end
+      expect(elapsed_milliseconds).to be < 1000
     end
-    reset_login_attempt!
-    expect(elapsed_milliseconds).to be < 1000
   end
 
   context 'when longer than expected' do
