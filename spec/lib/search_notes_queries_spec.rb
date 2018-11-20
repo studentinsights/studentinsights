@@ -19,11 +19,11 @@ RSpec.describe SearchNotesQueries do
   end
 
   def make_query(params = {})
-    params.merge({
+    {
       end_time: Time.now,
       start_time: Time.now - 45.days,
       limit: 50
-    })
+    }.merge(params)
   end
 
   describe '#queries' do
@@ -85,6 +85,26 @@ RSpec.describe SearchNotesQueries do
       event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 0
       expect(all_results_size).to eq 0
+    end
+
+    it 'clamps start_time, so notes are unqueryable past server-set threshold' do
+      setup!
+      create_test_note(text: 'foo', recorded_at: Time.now - 6.years)
+      query = make_query(text: 'foo', start_time: Time.now - 10.years)
+      event_note_cards_json, all_results_size, clamped_query = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      expect(event_note_cards_json.size).to eq 0
+      expect(all_results_size).to eq 0
+      expect(clamped_query[:start_time].year).to eq(Time.now.year - 4)
+    end
+
+    it 'clamps limit' do
+      setup!
+      103.times.each {|i| create_test_note(text: "foo #{i}", recorded_at: Time.now - i.minutes) }
+      query = make_query(text: 'foo', limit: 999)
+      event_note_cards_json, all_results_size, clamped_query = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      expect(all_results_size).to eq 103
+      expect(event_note_cards_json.size).to eq 100
+      expect(clamped_query[:limit]).to eq 100
     end
   end
 end
