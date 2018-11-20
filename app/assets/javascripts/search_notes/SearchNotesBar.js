@@ -56,7 +56,6 @@ export default class SearchNotesBar extends React.Component {
     const {debounceInputMs} = this.props;
     return (
       <DebounceInput
-        minLength={3}
         debounceTimeout={debounceInputMs}
         style={styles.search}
         inputRef={el => this.searchInputEl = el}

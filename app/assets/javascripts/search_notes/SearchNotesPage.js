@@ -58,10 +58,7 @@ export default class SearchNotesPage extends React.Component {
 
   renderResultsSection() {
     const {query} = this.state;
-
-    if (_.isEqual(query, initialQuery())) {
-      return <div style={styles.searchAway}>What do you want to know about?</div>;
-    }
+    if (_.isEqual(query, initialQuery())) return this.renderPrompt();
 
     return (
       <SearchQueryFetcher
@@ -73,6 +70,8 @@ export default class SearchNotesPage extends React.Component {
   }
 
   renderQueryResults(json) {
+    if (!json) return this.renderPrompt();
+    
     const feedCards = json.event_note_cards;
     const allResultsSize = json.meta.all_results_size;
     return (
@@ -81,6 +80,10 @@ export default class SearchNotesPage extends React.Component {
         <FeedView feedCards={feedCards} />
       </div>
     );
+  }
+
+  renderPrompt() {
+    return <div style={styles.searchAway}>What do you want to know about?</div>;
   }
 
   renderMeta(allResultsSize, feedCards) {
