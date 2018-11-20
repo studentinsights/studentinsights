@@ -191,7 +191,7 @@ export function takeNotesChoices(districtKey) {
   if (districtKey === BEDFORD) {
     return {
       leftEventNoteTypeIds: [500, 302, 304],
-      rightEventNoteTypeIds: []
+      rightEventNoteTypeIds: [501, 502, 503]
     };
   }
 
@@ -208,7 +208,7 @@ export function takeNotesChoices(districtKey) {
 // In tables of students, what eventNoteTypeIds should be shown as columns with notes
 // about those students?
 export function studentTableEventNoteTypeIds(districtKey, schoolType) {
-  if (districtKey === BEDFORD) return [500];
+  if (districtKey === BEDFORD) return [500, 501, 502, 503];
   if (districtKey === NEW_BEDFORD) return [400];
   
   const isSomervilleOrDemo = (districtKey === SOMERVILLE || districtKey === DEMO);
