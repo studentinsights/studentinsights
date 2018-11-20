@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_11_20_195819) do
+=======
+ActiveRecord::Schema.define(version: 2018_11_20_225344) do
+>>>>>>> WIP, hard disk is dying
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +118,15 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
     t.text "label_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "educator_multifactor_text_numbers", force: :cascade do |t|
+    t.integer "educator_id", null: false
+    t.string "sms_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["educator_id"], name: "index_educator_multifactor_text_numbers_on_educator_id", unique: true
+    t.index ["sms_number"], name: "index_educator_multifactor_text_numbers_on_sms_number", unique: true
   end
 
   create_table "educator_section_assignments", force: :cascade do |t|
@@ -566,6 +579,7 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
   add_foreign_key "dibels_results", "students"
   add_foreign_key "discipline_incidents", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
+  add_foreign_key "educator_multifactor_text_numbers", "educators"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
   add_foreign_key "educator_two_factor_numbers", "educators"

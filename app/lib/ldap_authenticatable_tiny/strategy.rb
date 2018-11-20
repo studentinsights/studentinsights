@@ -71,11 +71,11 @@ module Devise
       end
 
       def is_multifactor_required?(educator)
-        false
+        MultifactorAuthenticator.new(educator).is_multifactor_required?
       end
 
       def is_multifactor_code_valid?(educator, login_code)
-        false
+        MultifactorAuthenticator.new(educator).is_multifactor_code_valid?(login_code)
       end
 
       # Devise requires that a value is always sent

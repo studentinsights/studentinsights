@@ -10,12 +10,14 @@ class Env
     # instance config
     default_env['DISTRICT_KEY'] = 'somerville'
     default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
+    default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_seed":"student-insights-multifactor-authenticator-educator","secret_base32":"FAKE777700001111111100007777FAKE"}'
 
     # service config
     default_env['USE_MOCK_LDAP'] = 'true'
     default_env['MOCK_LDAP_PASSWORD'] = 'demo-password'
     default_env['AWS_REGION'] = 'us-west-2'
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
+    default_env['TWILIO_CONFIG_JSON'] = '{"account_sid":"twilio-sid-foo","auth_token":"twilio-auth-token-foo","sending_number":"555-555-1234"}'
 
     # feature switches
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'
@@ -32,5 +34,7 @@ class Env
       next if ENV.has_key?(key)
       ENV[key] = value
     end
+
+    raise '45555321123'
   end
 end
