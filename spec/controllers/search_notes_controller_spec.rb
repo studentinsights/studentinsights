@@ -5,10 +5,13 @@ describe SearchNotesController, :type => :controller do
   let!(:pals) { TestPals.create! }
 
   describe '#query_json' do
-    def get_query_json(educator, params = {})
+    def get_query_json(time_now, educator, params = {})
       sign_in(educator)
       get :query_json, params: {
         format: :json,
+        start_time: (time_now - 45.days).to_i,
+        end_time: time_now.to_i,
+        limit: 10
       }.merge(params)
       sign_out(educator)
       response
@@ -42,13 +45,14 @@ describe SearchNotesController, :type => :controller do
       with_time_frozen do |time_now|
         enable_for_educator!(pals.uri)
         event_note = create_test_note(recorded_at: time_now - 13.days)
-        response = get_query_json(pals.uri, text: 'read')
+        response = get_query_json(time_now, pals.uri, text: 'read')
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq({
           'query' => {
-            'from_time'=>time_now.localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
+            'start_time'=>(time_now - 45.days).localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
+            'end_time'=>time_now.localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
             'text'=>'read',
-            'limit'=>20,
+            'limit'=>10,
             'grade'=>nil,
             'house'=>nil,
             'event_note_type_id'=>nil,
@@ -91,11 +95,11 @@ describe SearchNotesController, :type => :controller do
     it 'does not return restricted notes, even if user has access to view' do
       with_time_frozen do |time_now|
         enable_for_educator!(pals.uri)
-        event_note = create_test_note({
+        create_test_note({
           recorded_at: time_now - 13.days,
           is_restricted: true
         })
-        response = get_query_json(pals.uri, text: 'read')
+        response = get_query_json(time_now, pals.uri, text: 'read')
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)['meta']['all_results_size']).to eq(0)
         expect(JSON.parse(response.body)['event_note_cards']).to eq([])
@@ -114,8 +118,8 @@ describe SearchNotesController, :type => :controller do
         ]
         unauthorized_educators.each do |educator|
           enable_for_educator!(educator)
-          event_note = create_test_note(recorded_at: time_now - 13.days)
-          response = get_query_json(educator, text: 'read')
+          create_test_note(recorded_at: time_now - 13.days)
+          response = get_query_json(time_now, educator, text: 'read')
           expect(response.status).to eq 200
           expect(JSON.parse(response.body)['meta']['all_results_size']).to eq(0)
           expect(JSON.parse(response.body)['event_note_cards']).to eq([])

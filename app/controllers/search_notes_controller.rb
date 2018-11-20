@@ -5,13 +5,14 @@ class SearchNotesController < ApplicationController
   # to what the caller asks for
   def query_json
     query = query_from_safe_params(params.permit(*[
-      :text,
+      :start_time,
+      :end_time,
+      :limit,
       :scope_key,
+      :text,
       :grade,
       :house,
-      :event_note_type_id,
-      :from_time,
-      :limit
+      :event_note_type_id
     ]))
 
     results = SearchNotesQueries.new(current_educator).query(query)
@@ -30,13 +31,14 @@ class SearchNotesController < ApplicationController
   # Defaults are set in the query class
   def query_from_safe_params(safe_params)
     {
-      from_time: safe_params[:from_time],
-      limit: safe_params[:limit],
+      start_time: Time.at(safe_params[:start_time].to_i),
+      end_time: Time.at(safe_params[:end_time].to_i),
+      limit: safe_params[:limit].to_i,
+      scope_key: safe_params[:scope_key],
       text: safe_params[:text],
       grade: safe_params[:grade],
       house: safe_params[:house],
       event_note_type_id: safe_params[:event_note_type_id],
-      scope_key: safe_params[:scope_key]
     }
   end
 
