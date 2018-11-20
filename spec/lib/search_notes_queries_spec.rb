@@ -18,6 +18,14 @@ RSpec.describe SearchNotesQueries do
     }.merge(params))
   end
 
+  def make_query(params = {})
+    params.merge({
+      end_time: Time.now,
+      start_time: Time.now - 45.days,
+      limit: 50
+    })
+  end
+
   describe '#queries' do
     let!(:pals) { TestPals.create! }
 
@@ -28,53 +36,53 @@ RSpec.describe SearchNotesQueries do
 
     it 'can find notes' do
       setup!
-      query = {
+      query = make_query({
         text: 'read',
         grade: '12',
         house: 'Broadway',
         event_note_type_id: EventNoteType.SST.id,
-      }
-      event_note_cards_json, all_results_size, query_with_defaults = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 1
       expect(all_results_size).to eq 1
     end
 
     it 'can filter out by text' do
       setup!
-      query = { text: 'nonexistent-search-text' }
-      event_note_cards_json, all_results_size, query_with_defaults = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      query = make_query({ text: 'nonexistent-search-text' })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 0
       expect(all_results_size).to eq 0
     end
 
     it 'can filter out by grade' do
       setup!
-      query = { grade: '9' }
-      event_note_cards_json, all_results_size, query_with_defaults = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      query = make_query({ grade: '9' })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 0
       expect(all_results_size).to eq 0
     end
 
     it 'can filter out by house' do
       setup!
-      query = { house: 'Elm' }
-      event_note_cards_json, all_results_size, query_with_defaults = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      query = make_query({ house: 'Elm' })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 0
       expect(all_results_size).to eq 0
     end
 
     it 'can filter out by note type' do
       setup!
-      query = { event_note_type_id: EventNoteType.NGE.id }
-      event_note_cards_json, all_results_size, query_with_defaults = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      query = make_query({ event_note_type_id: EventNoteType.NGE.id })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 0
       expect(all_results_size).to eq 0
     end
 
     it 'can filter out by time' do
       setup!
-      query = { house: 'Elm' }
-      event_note_cards_json, all_results_size, query_with_defaults = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      query = make_query({ house: 'Elm' })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
       expect(event_note_cards_json.size).to eq 0
       expect(all_results_size).to eq 0
     end

@@ -35,7 +35,13 @@ class SearchNotesQueries
   private
   def authorized_query_scope(query_with_defaults)
     start_time, end_time, scope_key, text, grade, house, event_note_type_id = query_with_defaults.values_at(*[
-      :start_time, :from_time, :scope_key, :text, :grade, :house, :event_note_type_id
+      :start_time,
+      :end_time,
+      :scope_key,
+      :text,
+      :grade,
+      :house,
+      :event_note_type_id
     ])
 
     authorizer = Authorizer.new(@educator)
