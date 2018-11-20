@@ -15,7 +15,10 @@ export default class SearchQueryFetcher extends React.Component {
   }
 
   fetchNotes() {
+    const MIN_SEARCH_LENGTH = 3;
     const {searchText, grade, eventNoteTypeId, scopeKey, limit} = this.props.query;
+    if (searchText.length < MIN_SEARCH_LENGTH) return Promise.resolve(null);
+
     const queryString = qs.stringify({
       text: searchText,
       grade: valueOrNull(grade),
