@@ -64,7 +64,8 @@ class EducatorsController < ApplicationController
   end
 
   def districtwide_admin_homepage
-    @schools = School.all.sort_by do |school|
+    schools_with_active_students = School.all.includes(:students).select {|school| school.students.active.size > 0 }
+    @schools = schools_with_active_students.sort_by do |school|
       [School::ORDERED_SCHOOL_TYPES.find_index(school.school_type), school.name]
     end
   end
