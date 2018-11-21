@@ -216,8 +216,8 @@ export default class LevelsView extends React.Component {
     const {systemsAndSupportsUrl, sourceCodeUrl} = this.props;
     return (
       <div style={{marginTop: 20}}>
-        <a style={{display: 'block'}} href={systemsAndSupportsUrl} target="_blank">Open SHS Systems and Supports doc</a>
-        <a style={{display: 'block'}} href={sourceCodeUrl} target="_blank">Open source code</a>
+        <a style={{display: 'block'}} href={systemsAndSupportsUrl} target="_blank" rel="noopener noreferrer">Open SHS Systems and Supports doc</a>
+        <a style={{display: 'block'}} href={sourceCodeUrl} target="_blank" rel="noopener noreferrer">Open source code</a>
       </div>
     );
   }

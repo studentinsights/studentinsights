@@ -12,6 +12,7 @@ exports[`snapshots 1`] = `
   <h4>
     <a
       href="/students/1"
+      rel="noopener noreferrer"
       style={
         Object {
           "fontSize": 24,

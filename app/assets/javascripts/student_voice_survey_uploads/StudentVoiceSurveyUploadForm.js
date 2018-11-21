@@ -62,7 +62,7 @@ export default class StudentVoiceSurveyUploadForm extends React.Component {
         {this.renderUploadArea()}
         <div style={{padding: 5}}>
           This upload is intended to work
-          with <a href={surveyFormUrl} target="_blank">this
+          with <a href={surveyFormUrl} target="_blank" rel="noopener noreferrer">this
           survey form</a>.
         </div>
       </div>
