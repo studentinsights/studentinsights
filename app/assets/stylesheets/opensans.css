@@ -175,17 +175,17 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 300;
-  src: local('Open Sans Light'), local('OpenSans-Light'), url(https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN_r8OUuhv.woff) format('woff');
+  src: local('Open Sans Light'), local('OpenSans-Light'), url(/fonts/opensans/v15/mem5YaGs126MiZpBA-UN_r8OUuhv.woff) format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0d.woff) format('woff');
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(/fonts/opensans/v15/mem8YaGs126MiZpBA-UFVZ0d.woff) format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN7rgOUuhv.woff) format('woff');
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(/fonts/opensans/v15/mem5YaGs126MiZpBA-UN7rgOUuhv.woff) format('woff');
 }
