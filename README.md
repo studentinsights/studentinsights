@@ -1,5 +1,14 @@
 # Student Insights
 
+<div style="height: 2em; display: flex; flex-direction: row: justify-content: flex-start;">
+  <a style="padding-right: 10px; href="https://travis-ci.org/studentinsights/studentinsights">
+    <img src="https://travis-ci.org/studentinsights/studentinsights.svg?branch=master" alt="Build Statu">
+  </a>
+  <a style="padding-right: 10px; href="https://heroku.com/deploy">
+    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy your own">
+  </a>
+</div>
+
 [![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
 [![Deploy your own](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
