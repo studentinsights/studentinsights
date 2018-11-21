@@ -25,7 +25,13 @@ class MockTwilioClient
       raise 'invalid from' unless params.has_key?(:from)
 
       message = FakeMessage.new
-      puts "MockTwilioClient created a message! #{params}, message.id: #{message.sid}"
+      puts '--------------------------'
+      puts 'MockTwilioClient created a message!'
+      puts "   sid: #{message.sid}"
+      puts "  from: #{params[:from]}"
+      puts "    to: #{params[:to]}"
+      puts "  body: #{params[:body]}"
+      puts '--------------------------'
       message
     end
   end

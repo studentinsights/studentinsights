@@ -21,6 +21,7 @@ export function multifactorMain(options = {}) {
   const sentLoginCodeMessage = el.querySelector('.SignInPage-multifactor-sent-code');
   const simpleLogin = simpleForm.querySelector('.SignInPage-input-login');
   const simplePassword = simpleForm.querySelector('.SignInPage-input-password');
+  const flashMessage = el.querySelector('.SignInPage-alert');
   const listeners = {};
   const shared = {
     el,
@@ -34,6 +35,7 @@ export function multifactorMain(options = {}) {
     simpleForm,
     simpleLogin,
     simplePassword,
+    flashMessage,
     listeners
   };
   
@@ -57,7 +59,7 @@ function allowSwitchToMultiFactor(shared) {
 }
 
 function switchToMultiFactor(shared) {
-  const {el, switchModeLink, multiFactorForm, loginCode, listeners} = shared;
+  const {el, switchModeLink, multiFactorForm, loginCode, flashMessage, listeners} = shared;
   
   // copy any values already typed into fields over
   copyFromSimpleToMultiFactor(shared);
@@ -71,6 +73,7 @@ function switchToMultiFactor(shared) {
   switchModeLink.innerText = 'Use simple login';
   switchModeLink.href = '/educators/sign_in';
   switchModeLink.removeEventListener('click', listeners.link);
+  flashMessage.innerText = '';
 
   // Listeners (never removed)
   multiFactorForm.addEventListener('submit', (event, data) => {

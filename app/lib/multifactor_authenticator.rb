@@ -15,10 +15,14 @@ class MultifactorAuthenticator
     return false unless is_multifactor_enabled?
 
     totp = create_totp!
-    return false if totp.verify(login_code, after: multifactor_record.last_verification_at, drift: 15).nil?
+    verified_password_timestamp = totp.verify(login_code, {
+      after: multifactor_record.last_verification_at,
+      drift_behind: 15
+    })
+    return false if verified_password_timestamp.nil?
 
     # If we authenticated the user, burn the login_code for this time window
-    multifactor_record.update!(last_verification_at: Time.now)
+    multifactor_record.update!(last_verification_at: verified_password_timestamp)
     true
   end
 
@@ -27,9 +31,9 @@ class MultifactorAuthenticator
     return nil unless is_multifactor_enabled?
 
     login_code = get_login_code()
-    message_with_login_code = "Sign in code for Student Insights: #{login_code}.\n\nIf you did not request this, please reply to let us know so we can secure your account!"
+    message_with_login_code = "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please reply to let us know so we can secure your account!"
     twilio_message = send_twilio_message!(message_with_login_code)
-    @logger.info("MultifactorAuthenticator#send_sms! send Twilio message #{twilio_message.sid}")
+    @logger.info("MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message, sid:#{twilio_message.sid}")
     twilio_message
   end
 
