@@ -1,9 +1,6 @@
 # Student Insights
 
 <div>
-  <a style="margin-right: 5px; padding: 2px 8px; background: #4A90E2; color: white; border-radius: 4px; height: 24px; vertical-align: top; font-size: 14px; display: inline-block;" href="https://somerville-teacher-tool-demo.herokuapp.com/">
-    Demo site
-  </a>
   <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://travis-ci.org/studentinsights/studentinsights">
     <img height="24" src="https://travis-ci.org/studentinsights/studentinsights.svg?branch=master" alt="Build Statu">
   </a>
@@ -14,7 +11,7 @@
 
 Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings.
 
-Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
+Check out the [**demo site**](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
 
   - District admin: `uri@demo.studentinsights.org`
   - K8 principal: `laura@demo.studentinsights.org`
