@@ -5,22 +5,13 @@
   "scripts": {
     "postdeploy": "rake db:migrate db:seed"
   },
-  "env": {
-    "SHOULD_REPORT_ANALYTICS": "false",
-    "DEMO_SITE": "true",
-    "RACK_ENV": {},
-    "RAILS_ENV": {},
-    "SECRET_KEY_BASE": {
-      "description": "verifies integrity of signed cookies",
-      "generator": "secret"
-    }
-  },
+  "env": {},
   "formation": {
     "web": {
       "quantity": 1
     },
     "worker": {
-      "quantity": 1
+      "quantity": 0
     }
   },
   "addons": ["heroku-postgresql"],
