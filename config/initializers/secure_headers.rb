@@ -20,7 +20,7 @@ SecureHeaders::Configuration.default do |config|
     manifest_src: %w('self' https:),
     connect_src: %w('self' https:),
     form_action: %w('self' https:),
-    script_src: %w('self' https: api.mixpanel.com),
+    script_src: %w('self'),
 
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd
     # see https://github.com/JedWatson/react-select/issues/2030

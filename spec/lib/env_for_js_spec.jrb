@@ -8,7 +8,6 @@ RSpec.describe EnvForJs do
       'DEPLOYMENT_KEY' => 'production',
       'DEMO_SITE' => 'false',
       'SHOULD_REPORT_ERRORS' => 'true',
-      'MIXPANEL_TOKEN' => 'abc',
       'ROLLBAR_JS_ACCESS_TOKEN' => 'xyz'
     }
   end

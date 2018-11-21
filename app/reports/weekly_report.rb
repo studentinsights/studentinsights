@@ -137,7 +137,6 @@ class WeeklyReport
     elsif !options[:include_project_leads]
       logins = logins.where.not(user_id: @project_lead_educator_ids)
     end
-    
 
     # for joining notes
     notes_by_week = notes_per_week(options)
@@ -155,11 +154,11 @@ class WeeklyReport
         blank_if_zero(writers),
         blank_if_zero(notes_that_week.size),
         blank_if_zero(writers == 0 ? 0 : (notes_that_week.size/writers.to_f).round(1)),
-        blank_if_zero_percent(uniques == 0 ? 0 : (100*writers/uniques.to_f).round(0).to_s + '%'),
         '|',
         blank_if_zero(uniques),
         blank_if_zero(logins_that_week.size),
         blank_if_zero(uniques == 0 ? 0 : (logins_that_week.size/uniques.to_f).round(1)),
+        blank_if_zero_percent(uniques == 0 ? 0 : (100*writers/uniques.to_f).round(0).to_s + '%'),
         '|'
       ]
     end
