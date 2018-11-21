@@ -19,7 +19,7 @@
     "DISTRICT_KEY": "demo",
     "DISTRICT_NAME": "Demo Public Schools",
     "WARNING_BANNER_MESSAGE": "This is a newly created example site!  It's filled with fake data.",
-    "CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS": 2000,
+    "CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS": "2000",
     "USE_MOCK_LDAP": "true",
     "MOCK_LDAP_PASSWORD": "demo-password",
     "ENABLE_COUNSELOR_BASED_FEED": "true",
