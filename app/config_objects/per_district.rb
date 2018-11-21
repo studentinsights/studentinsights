@@ -35,8 +35,9 @@ class PerDistrict
   end
 
   def warning_banner_message
+    return ENV['WARNING_BANNER_MESSAGE'] if ENV['WARNING_BANNER_MESSAGE'].present?
     return "This is a demo site!  It's filled with fake data." if @district_key == DEMO
-    ENV['WARNING_BANNER_MESSAGE']
+    nil
   end
 
   def school_definitions_for_import
