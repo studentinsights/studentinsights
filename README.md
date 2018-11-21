@@ -1,16 +1,16 @@
 # Student Insights
 
-<div style="height: 2em;">
-  <a href="https://travis-ci.org/studentinsights/studentinsights">
-    <img height="32" src="https://travis-ci.org/studentinsights/studentinsights.svg?branch=master" alt="Build Statu">
+<div>
+  <a style="margin-right: 5px; padding: 2px 8px; background: #4A90E2; color: white; border-radius: 4px; height: 24px; vertical-align: top; font-size: 14px; display: inline-block;" href="https://somerville-teacher-tool-demo.herokuapp.com/">
+    Demo site
   </a>
-  <a href="https://heroku.com/deploy">
-    <img height="32" src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy your own">
+  <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://travis-ci.org/studentinsights/studentinsights">
+    <img height="24" src="https://travis-ci.org/studentinsights/studentinsights.svg?branch=master" alt="Build Statu">
+  </a>
+  <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://heroku.com/deploy">
+    <img height="24" src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku">
   </a>
 </div>
-
-[![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
-[![Deploy your own](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings.
 
