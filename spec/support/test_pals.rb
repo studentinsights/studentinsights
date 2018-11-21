@@ -99,6 +99,10 @@ class TestPals
       educator: @uri,
       label_key: 'should_show_levels_shs_link'
     )
+    EducatorMultifactorTextNumber.create!({
+      educator: pals.uri,
+      sms_number: '+15555550007'
+    })
 
     # Rich works in the central office and has districwide access, but
     # not project lead access.
@@ -117,6 +121,10 @@ class TestPals
       can_view_restricted_notes: true,
       school: nil
     )
+    EducatorMultifactorTextNumber.create!({
+      educator: pals.rich_districtwide,
+      sms_number: '+15555550009'
+    })
 
     # Healey is a K8 school.
     @healey = School.find_by_local_id!('HEA')

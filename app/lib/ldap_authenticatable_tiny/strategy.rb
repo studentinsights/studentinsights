@@ -50,7 +50,7 @@ module Devise
           # Next, check if we got an actual multifactor code.
           # If they have multifactor enabled, check the code, if they don't fail unless
           # this is an expected placeholder value (we need to pass something for Devise interop).
-          if is_multifactor_required?(educator)
+          if is_multifactor_enabled?(educator)
             return fail!(:invalid_multifactor) unless is_multifactor_code_valid?(educator, login_code)
           elsif !is_placeholder_multifactor_login_code?(login_code)
             return fail!(:unexpected_multifactor)
@@ -70,17 +70,20 @@ module Devise
         nil
       end
 
-      def is_multifactor_required?(educator)
-        MultifactorAuthenticator.new(educator).is_multifactor_required?
+      # This has to do with Devise - it always requires that a value is always sent
+      # for all `authentication_keys` fields and enforces that even before calling
+      # into our strategy.  So so for educators without multifactor authentication
+      # enabled, our form sends this placeholder value.
+      def is_placeholder_multifactor_login_code?(login_code)
+         login_code.downcase.strip == 'no_code'
+      end
+
+      def is_multifactor_enabled?(educator)
+        MultifactorAuthenticator.new(educator).is_multifactor_enabled?
       end
 
       def is_multifactor_code_valid?(educator, login_code)
         MultifactorAuthenticator.new(educator).is_multifactor_code_valid?(login_code)
-      end
-
-      # Devise requires that a value is always sent
-      def is_placeholder_multifactor_login_code?(login_code)
-         login_code.downcase.strip == 'no_code'
       end
 
       def is_authorized_by_ldap?(ldap_login, password_text)

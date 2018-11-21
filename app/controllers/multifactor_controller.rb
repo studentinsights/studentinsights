@@ -6,20 +6,20 @@ class MultifactorController < ApplicationController
     raise Exceptions::EducatorNotAuthorized if signed_in?
     safe_params = params.permit(:login_text)
 
+    # Keep consistent response times for security
     desired_milliseconds = 3000
     ConsistentTiming.new.enforce_timing(desired_milliseconds) do
       maybe_send_code!(safe_params[:login_text])
     end
 
-    render json: { status: 'ok' }, status: 201 # no feedback
+    render json: { status: 'ok' }, status: 201 # no feedback for security
   end
 
   private
-  def maybe_send_login_code!(login_text)    
+  # no feedback for security
+  def maybe_send_login_code!(login_text)
     educator = PerDistrict.new.find_educator_by_login_text(safe_params[:login_text].downcase.strip)
-    if educator.present?
-      # if no number, tell them in UI and email them
-      TwoFactorEducator.new.send!(educator.id) # handle errors
-    end
+    return if educator.nil?
+    MultifactorAuthenticator.new(educator).send_login_code_via_sms!
   end
 end
