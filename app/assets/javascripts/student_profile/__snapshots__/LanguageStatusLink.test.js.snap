@@ -40,6 +40,7 @@ exports[`snapshots 1`] = `
       See the 
       <a
         href="https://wida.wisc.edu/sites/default/files/resource/Speaking-Writing-Interpretive-Rubrics.pdf"
+        rel="noopener noreferrer"
         style={
           Object {
             "fontSize": 14,

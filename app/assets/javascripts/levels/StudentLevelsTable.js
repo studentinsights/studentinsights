@@ -257,7 +257,7 @@ export function describeColumns(nowMoment) {
 /* eslint-disable react/prop-types */
 function renderStudent({rowData}) {
   const student = rowData;
-  return <a style={styles.person} target="_blank" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
+  return <a style={styles.person} target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
 }
 
 function renderLevel({rowData}) {

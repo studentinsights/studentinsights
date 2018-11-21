@@ -94,8 +94,8 @@ export class SampleStudentsPageView extends React.Component {
               <td style={tableStyles.cell}>{student.first_name} {student.last_name}</td>
               <td style={tableStyles.cell}>{student.grade}</td>
               <td style={tableStyles.cell}>{student.school.name}</td>
-              <td style={tableStyles.cell}><a target="_blank" href={`/students/${student.id}`}>{`/students/${student.id}`}</a></td>
-              <td style={tableStyles.cell}><a target="_blank" href={`/students/${student.id}/v3`}>{`/students/${student.id}/v3`}</a></td>
+              <td style={tableStyles.cell}><a target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{`/students/${student.id}`}</a></td>
+              <td style={tableStyles.cell}><a target="_blank" rel="noopener noreferrer" href={`/students/${student.id}/v3`}>{`/students/${student.id}/v3`}</a></td>
             </tr>
           ))}
         </tbody>
