@@ -6,7 +6,6 @@
     "postdeploy": "rake db:migrate db:seed"
   },
   "env": {
-    "SHOULD_REPORT_ANALYTICS": "false",
     "DEMO_SITE": "true",
     "RACK_ENV": {},
     "RAILS_ENV": {},

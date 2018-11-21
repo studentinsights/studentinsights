@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import MixpanelUtils from '../helpers/MixpanelUtils';
 import NowContainer from '../testing/NowContainer';
 import PageContainer from './PageContainer';
 
@@ -17,8 +16,6 @@ export default function renderNotesFeedMain(el) {
 }
   
 function render(el, json) {
-  MixpanelUtils.registerUser(json.currentEducator);
-  MixpanelUtils.track('PAGE_VISIT', { page_key: 'NOTES_FEED' });
   ReactDOM.render(
     <NowContainer nowFn={() => moment.utc()}>
       <PageContainer

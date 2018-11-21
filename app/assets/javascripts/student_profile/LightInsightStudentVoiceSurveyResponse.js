@@ -35,7 +35,7 @@ export default class LightInsightStudentVoiceSurveyResponse extends React.Compon
         }
         sourceEl={
           <div>
-            <div>from <a style={fontSizeStyle} href={Routes.studentProfile(student.id)} target="_blank">{student.first_name} {student.last_name}</a></div>
+            <div>from <a style={fontSizeStyle} href={Routes.studentProfile(student.id)} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a></div>
             <div>
               <span>in </span>
               <HelpBubble

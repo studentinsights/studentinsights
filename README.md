@@ -60,8 +60,6 @@ Our presentation at [Code for Boston demo night](docs/readme_images/Student%20In
 - [Ops](#ops)
   - [Response latency](#response-latency)
   - [Postgres](#postgres)
-- [Other Tools](#other-tools)
-  - [Mixpanel](#mixpanel)
 - [More information](#more-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -249,12 +247,6 @@ Look in the Heroku metrics panel.
 
 ## Postgres
 You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to get helpful diagnostic information about slow queries, index usage, and table scans.
-
-# Other Tools
-
-## Mixpanel
-
-We use [Mixpanel](https://mixpanel.com) to track user interactions on the client side. It gives us nice graphs so we can see who's using the app and how.
 
 # More information
 

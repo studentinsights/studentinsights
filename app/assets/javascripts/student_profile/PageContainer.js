@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import qs from 'querystring';
-import MixpanelUtils from '../helpers/MixpanelUtils';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
 import Api from './Api';
@@ -90,10 +89,6 @@ export default class PageContainer extends React.Component {
   }
 
   onColumnClicked(columnKey) {
-    MixpanelUtils.track('STUDENT_PROFILE_CLICKED_COLUMN', {
-      page_key: 'STUDENT_PROFILE',
-      column_key: columnKey
-    });
     this.setState({ selectedColumnKey: columnKey });
   }
 

@@ -38,8 +38,8 @@ export default class LevelsPage extends React.Component {
           <SectionHeading titleStyle={styles.title}>
             <div>Levels for SHS Systems and Supports</div>
             <div style={styles.headerLinkContainer}>
-              <a style={styles.headerLink} href={SYSTEMS_AND_SUPPORTS_URL} target="_blank">SHS Systems and Supports doc</a>
-              <a style={styles.headerLink} href={SOURCE_CODE_URL} target="_blank">Source code</a>
+              <a style={styles.headerLink} href={SYSTEMS_AND_SUPPORTS_URL} target="_blank" rel="noopener noreferrer">SHS Systems and Supports doc</a>
+              <a style={styles.headerLink} href={SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer">Source code</a>
             </div>
           </SectionHeading>
         </div>

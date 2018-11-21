@@ -11,7 +11,7 @@ export default function IntroCopy() {
   return (
     <div style={styles.introCopy}>
       {text}
-      <div style={{marginTop: 20}}>This <a href={videoUrl} target="_blank">Video Walkthrough</a> and a <a href={onePageGuideUrl} target="_blank">Quick Guide</a> show the steps to use this tool.</div>
+      <div style={{marginTop: 20}}>This <a href={videoUrl} target="_blank" rel="noopener noreferrer">Video Walkthrough</a> and a <a href={onePageGuideUrl} target="_blank" rel="noopener noreferrer">Quick Guide</a> show the steps to use this tool.</div>
     </div>
   );
 }

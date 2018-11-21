@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import moment from 'moment';
 import qs from 'query-string';
-import MixpanelUtils from '../app/assets/javascripts/helpers/MixpanelUtils';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
 import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
@@ -40,16 +39,6 @@ import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/Servic
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 export default class App extends React.Component {
-  // Read which educator Rails wrote inline in the HTML page,
-  // and report routing activity for analytics (eg, MixPanel)
-  // TODO(kr) could do this as a higher-order component
-  // to remove having to do this manually for each route.
-  trackVisit(routeProps, pageKey, params = {}) {
-    const {currentEducator} = this.props;
-    MixpanelUtils.registerUser(currentEducator);
-    MixpanelUtils.track('PAGE_VISIT', {...params, page_key: pageKey });
-  }
-
   // `NowContainer` provides a fn to read the time
   // in any deeply nested component,
   // `PerDistrictContainer` provides `districtKey`.
@@ -115,7 +104,6 @@ export default class App extends React.Component {
   renderHomePage(routeProps) {
     const {currentEducator} = this.props;
     const {id, labels} = currentEducator;
-    this.trackVisit(routeProps, 'HOME_PAGE');
     return <HomePage
       educatorId={id}
       educatorLabels={labels} />;
@@ -124,7 +112,6 @@ export default class App extends React.Component {
   renderSearchNotesPage(routeProps) {
     const {currentEducator} = this.props;
     const {id, labels} = currentEducator;
-    this.trackVisit(routeProps, 'SEARCH_NOTES_PAGE');
     return (
       <SearchNotesPage
         educatorId={id}
@@ -133,21 +120,16 @@ export default class App extends React.Component {
   }
 
   renderMyStudentsPage(routeProps) {
-    this.trackVisit(routeProps, 'MY_STUDENTS_PAGE');
     return <MyStudentsPage />;
   }
 
   renderMySectionsPage(routeProps) {
     const {currentEducator} = this.props;
-    this.trackVisit(routeProps, 'MY_SECTIONS_PAGE');
     return <MySectionsPage currentEducatorId={currentEducator.id} />;
   }
 
   renderStudentProfilePage(routeProps) {
     const studentId = parseInt(routeProps.match.params.id, 10);
-    this.trackVisit(routeProps, 'STUDENT_PROFILE_V3', {
-      student_id: studentId
-    });
     const queryParams = qs.parse(routeProps.location.search.slice(1));
     return (
       <StudentProfilePageRoute
@@ -159,63 +141,49 @@ export default class App extends React.Component {
 
   renderExploreSchoolEquityPage(routeProps) {
     const schoolId = routeProps.match.params.id;
-    this.trackVisit(routeProps, 'EXPLORE_SCHOOL_EQUITY_PAGE');
     return <ExploreSchoolEquityPage schoolId={schoolId} />;
   }
 
   renderClassListsViewPage(routeProps) {
     const {currentEducator} = this.props;
-    this.trackVisit(routeProps, 'CLASSROOM_LISTS_VIEW_PAGE');
     return <ClassListsViewPage currentEducatorId={currentEducator.id} />;
   }
 
   renderExperimentalClassListsEquityPage(routeProps) {
-    this.trackVisit(routeProps, 'CLASSROOM_LISTS_EQUITY_PAGE');
     return <ClassListsEquityPage />;
   }
 
   renderClassListCreatorEdit(routeProps) {
     const {currentEducator} = this.props;
     const workspaceId = routeProps.match.params.workspace_id;
-    this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
     return <ClassListCreatorPage currentEducator={currentEducator} defaultWorkspaceId={workspaceId} />;
   }
   renderClassListCreatorNew(routeProps) {
     const {currentEducator} = this.props;
-    this.trackVisit(routeProps, 'CLASSROOM_LIST_CREATOR_PAGE');
     return <ClassListCreatorPage currentEducator={currentEducator} />;
   }
 
   renderHomeroomPage(routeProps) {
     const homeroomIdOrSlug = routeProps.match.params.id_or_slug;
-    this.trackVisit(routeProps, 'ROSTER_PAGE', {
-      homeroom_id_or_slug: homeroomIdOrSlug
-    });
     return <HomeroomPage homeroomIdOrSlug={homeroomIdOrSlug} />;
   }
 
   renderSectionPage(routeProps) {
     const sectionId = parseInt(routeProps.match.params.id, 10);
-    this.trackVisit(routeProps, 'SECTION', {
-      section_id: sectionId
-    });
     return <SectionPage sectionId={sectionId} />;
   }
 
   renderSchoolCoursesPage(routeProps) {
     const schoolId = routeProps.match.params.id;
-    this.trackVisit(routeProps, 'SCHOOL_COURSES_PAGE');
     return <SchoolCoursesPage schoolId={schoolId} />;
   }
 
   renderEducatorPage(routeProps) {
     const educatorId = parseInt(routeProps.match.params.id, 10);
-    this.trackVisit(routeProps, 'EDUCATOR_PAGE');
     return <EducatorPage educatorId={educatorId} />;
   }
 
   renderImportRecordsPage(routeProps) {
-    this.trackVisit(routeProps, 'IMPORT_RECORDS_PAGE');
     return <ImportRecordsPage />;
   }
 
@@ -223,48 +191,40 @@ export default class App extends React.Component {
     const queryParams = qs.parse(routeProps.location.search.slice(1));
     const n = parseInt(queryParams.n || '50', 10);
     const seed = parseInt(queryParams.seed || '42', 10);
-    this.trackVisit(routeProps, 'SAMPLE_STUDENTS_PAGE');
     return <SampleStudentsPage n={n} seed={seed} />; 
   }
 
   renderStudentVoiceSurveyUploadsPage(routeProps) {
     const {currentEducator} = this.props;
-    this.trackVisit(routeProps, 'STUDENT_VOICE_SURVEY_UPLOADS_AGE');
     return <StudentVoiceSurveyUploadsPage currentEducatorId={currentEducator.id} />;
   }
 
   renderSchoolRosterPage(routeProps) {
     const schoolIdOrSlug = routeProps.match.params.id_or_slug;
-    this.trackVisit(routeProps, 'SCHOOL_OVERVIEW_DASHBOARD', { school_id_or_slug: schoolIdOrSlug});
     return <SchoolRosterPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
   renderAbsencesPage(routeProps) {
     const schoolIdOrSlug = routeProps.match.params.id_or_slug;
-    this.trackVisit(routeProps, 'ABSENCES_DASHBOARD', { school_id_or_slug: schoolIdOrSlug});
     return <SchoolAbsencesPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
   renderTardiesDashboard(routeProps) {
     const schoolId = routeProps.match.params.id;
-    this.trackVisit(routeProps, 'TARDIES_DASHBOARD', { school_id: schoolId});
     return <DashboardLoader schoolId={schoolId} dashboardTarget={'tardies'}/>;
   }
 
   renderDisciplineDashboard(routeProps) {
     const schoolId = routeProps.match.params.id;
-    this.trackVisit(routeProps, 'DISCIPLINE_DASHBOARD', { school_id: schoolId});
     return <DashboardLoader schoolId={schoolId} dashboardTarget={'discipline'}/>;
   }
 
   renderDistrictEnrollmentPage(routeProps) {
-    this.trackVisit(routeProps, 'DISTRICT_ENROLLMENT_PAGE');
     return <DistrictEnrollmentPage />;
   }
 
   renderLevelsPage(routeProps) {
     const schoolId = routeProps.match.params.school_id;
-    this.trackVisit(routeProps, 'LEVELS_PAGE');
     return <LevelsPage schoolId={schoolId} />;
   }
 
@@ -277,7 +237,6 @@ export default class App extends React.Component {
   }
 
   renderServiceUploads(routeProps) {
-    this.trackVisit(routeProps, 'SERVICE_UPLOADS_PAGE');
     return <ServiceUploadsPage />;
   }
 
