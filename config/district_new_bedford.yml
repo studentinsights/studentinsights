@@ -3,7 +3,7 @@ sftp_filenames:
   FILENAME_FOR_STUDENTS_IMPORT:       ../newbedford/istudent.csv
   FILENAME_FOR_BEHAVIOR_IMPORT:       ../newbedford/iconduct.csv
   FILENAME_FOR_ATTENDANCE_IMPORT:     ../newbedford/iattendance.csv
-  # FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv # disabled 11/2/18
+  FILENAME_FOR_ASSESSMENT_IMPORT:     ../newbedford/iassessments.csv
 
 
 star_filenames:
