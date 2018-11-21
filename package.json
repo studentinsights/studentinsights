@@ -35,7 +35,7 @@
     "highcharts": "^6.0.2",
     "jest-fetch-mock": "^1.4.2",
     "jquery": "^3.2.1",
-    "lodash": "4.17.10",
+    "lodash": "^4.17.11",
     "mixpanel-browser": "^2.22.4",
     "moment": "2.19.3",
     "object-assign": "^4.1.1",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.3",
-    "@storybook/react": "^3.4.0",
+    "@storybook/react": "3.4.11",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
