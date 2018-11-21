@@ -168,10 +168,8 @@ class WeeklyReport
   end
 
   def notes_per_week(options = {})
-     school_id = options.fetch(:school_id, nil)
-
-    # Allow querying for a school or all schools
-    where_school = if school_id then {:students => { school_id: school_id }} else {} end
+    # Allow querying for a school or all schools or `nil` school
+    where_school = if options.has_key?(:school_id) then {:students => { school_id: options[:school_id] }} else {} end
     event_notes = EventNote
       .joins(:student)
       .where(where_school)
