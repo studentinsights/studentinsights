@@ -7,7 +7,6 @@ class EnvForJs
       sessionTimeoutInSeconds: Devise.timeout_in.to_i,
       districtKey: EnvironmentVariable.value('DISTRICT_KEY'),
       deploymentKey: EnvironmentVariable.value('DEPLOYMENT_KEY'),
-      isDemoSite: EnvironmentVariable.is_true('DEMO_SITE'),
       shouldReportErrors: EnvironmentVariable.is_true('SHOULD_REPORT_ERRORS'),
       rollbarJsAccessToken: EnvironmentVariable.value('ROLLBAR_JS_ACCESS_TOKEN')
     }

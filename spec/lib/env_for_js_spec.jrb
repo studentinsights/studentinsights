@@ -6,7 +6,6 @@ RSpec.describe EnvForJs do
     {
       'DISTRICT_KEY' => 'demo',
       'DEPLOYMENT_KEY' => 'production',
-      'DEMO_SITE' => 'false',
       'SHOULD_REPORT_ERRORS' => 'true',
       'ROLLBAR_JS_ACCESS_TOKEN' => 'xyz'
     }
@@ -27,7 +26,6 @@ RSpec.describe EnvForJs do
       railsEnvironment: "test",
       deploymentKey: "production",
       districtKey: "demo",
-      isDemoSite: false,
       rollbarJsAccessToken: "xyz",
       sessionTimeoutInSeconds: 21600,
       shouldReportErrors: true,

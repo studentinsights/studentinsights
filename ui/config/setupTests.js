@@ -28,7 +28,6 @@ window.ENV_FOR_JS = {
   sessionTimeoutInSeconds: 21600,
   districtKey: 'demo',
   deploymentKey: 'demo',
-  isDemoSite: true,
   shouldReportErrors: false,
   rollbarJsAccessToken: null
 };
