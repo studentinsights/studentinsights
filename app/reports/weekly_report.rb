@@ -76,7 +76,7 @@ class WeeklyReport
       post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
         :from => "Student Insights job <kevin.robinson.0@gmail.com>",
         :to => target_email,
-        :subject => "#{PerDistrict.new.districtKey} - Student Insights Usage Report for #{date_text}",
+        :subject => "#{PerDistrict.new.district_key} - Student Insights Usage Report for #{date_text}",
         :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{report_text}</pre>"
       })
       log "  response status: #{post_data.code}"
