@@ -1,0 +1,41 @@
+.DS_Store
+**.orig
+/log
+/tmp
+/sketch
+/data
+coverage
+spec/logs/logs.txt
+dump.rdb
+
+# Node.js
+node_modules
+yarn-debug.log*
+yarn-error.log*
+
+# This holds configuration for testing production import scripts locally, so it shouldn't be checked into
+# source control.
+config/local_env.yml
+
+## Environment normalisation:
+/.bundle
+# these should all be checked in to normalise the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
+
+# Editor configuration
+studentinsights.sublime-workspace
+.dir-locals.el
+
+public/build
+public/dev
+
+# For qgsocksify
+socks.conf
+
+# Specifically for gh-pages and jekyll
+_site/
+.sass-cache/
+.jekyll-metadata
