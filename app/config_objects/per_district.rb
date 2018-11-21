@@ -34,6 +34,12 @@ class PerDistrict
     ENV['CANONICAL_DOMAIN']
   end
 
+  def warning_banner_message
+    return ENV['WARNING_BANNER_MESSAGE'] if ENV['WARNING_BANNER_MESSAGE'].present?
+    return "This is a demo site!  It's filled with fake data." if @district_key == DEMO
+    nil
+  end
+
   def school_definitions_for_import
     yaml.fetch('school_definitions_for_import')
   end

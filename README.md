@@ -1,11 +1,17 @@
 # Student Insights
 
-[![Build Status](https://travis-ci.org/studentinsights/studentinsights.svg?branch=master)](https://travis-ci.org/studentinsights/studentinsights)
-[![Code Climate](https://codeclimate.com/github/studentinsights/studentinsights/badges/gpa.svg)](https://codeclimate.com/github/studentinsights/studentinsights)
+<div>
+  <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://travis-ci.org/studentinsights/studentinsights">
+    <img height="24" src="https://travis-ci.org/studentinsights/studentinsights.svg?branch=master" alt="Build Statu">
+  </a>
+  <a style="margin-right: 5px; vertical-align: top; display: inline-block;" href="https://heroku.com/deploy">
+    <img height="24" src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku">
+  </a>
+</div>
 
 Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings.
 
-Check out the [demo site](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
+Check out the [**demo site**](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
 
   - District admin: `uri@demo.studentinsights.org`
   - K8 principal: `laura@demo.studentinsights.org`
