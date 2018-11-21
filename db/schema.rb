@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2018_11_20_225344) do
   create_table "educator_multifactor_text_numbers", force: :cascade do |t|
     t.integer "educator_id", null: false
     t.string "sms_number", null: false
+    t.datetime "last_verification_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["educator_id"], name: "index_educator_multifactor_text_numbers_on_educator_id", unique: true
