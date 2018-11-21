@@ -26,7 +26,7 @@ SecureHeaders::Configuration.default do |config|
     # see https://github.com/JedWatson/react-select/issues/2030
     # and https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
     # and https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/style-marshal/style-marshal.js#L46
-    style_src: %w('unsafe-inline'),
+    style_src: %w('self' 'unsafe-inline'),
     font_src: %w('self' https: data:),
     img_src: %w('self' https: data:),
     report_uri: [report_uri],
