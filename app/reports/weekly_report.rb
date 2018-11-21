@@ -16,9 +16,9 @@ class WeeklyReport
   def run
     @buffer = []
 
-    output 'Hello!'
+    output "Hello #{PerDistrict.new.district_name}!"
     output
-    output 'This is the usage report for Student Insights.'
+    output "This is the usage report for Student Insights in #{PerDistrict.new.district_name}."
     output 'It shows the number of visits and the number of unique users each week.'
     output 'It also shows the number of notes created in Student Insights, and the number '
     output 'of unique users creating them each week.'
@@ -34,15 +34,14 @@ class WeeklyReport
 
     output
     output
-    output 175.times.map { '~' }.join('')
+    output
+    output "#{PerDistrict.new.district_name}: Student Insights usage (n=#{Educator.all.size})"
+    output usage_table(include_project_leads: true)
     output
     output
-    indent "#{PerDistrict.new.district_name}: Student Insights usage (n=#{Educator.all.size})"
-    indent usage_table(include_project_leads: true)
-    indent line_break
     output
+    output line_break('_')
     output
-    output 175.times.map { '~' }.join('')
     output
     output
 
@@ -77,7 +76,7 @@ class WeeklyReport
       post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
         :from => "Student Insights job <kevin.robinson.0@gmail.com>",
         :to => target_email,
-        :subject => "Student Insights Usage Report for #{date_text}",
+        :subject => "#{PerDistrict.new.districtKey} - Student Insights Usage Report for #{date_text}",
         :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{report_text}</pre>"
       })
       log "  response status: #{post_data.code}"
@@ -104,8 +103,8 @@ class WeeklyReport
     nil
   end
 
-  def line_break
-    '--------------------------------------------------------------------------------------------------------------------------------------------------------'
+  def line_break(char = '-')
+    70.times.map { char }.join('')
   end
 
   def blank_if_zero(value)
@@ -153,33 +152,18 @@ class WeeklyReport
       [
         week_start_date.strftime('%Y-%m-%d'),
         blank_if_zero(writers),
-        blank_if_zero(notes_that_week.size),
-        blank_if_zero(writers == 0 ? 0 : (notes_that_week.size/writers.to_f).round(1)),
-        '|',
         blank_if_zero(uniques),
-        blank_if_zero(logins_that_week.size),
-        blank_if_zero(uniques == 0 ? 0 : (logins_that_week.size/uniques.to_f).round(1)),
         blank_if_zero_percent(uniques == 0 ? 0 : (100*writers/uniques.to_f).round(0).to_s + '%'),
-        '|'
+        blank_if_zero(notes_that_week.size),
+        blank_if_zero(logins_that_week.size)
       ]
     end
 
     # with header
     [
       line_break,
-      [
-        "Date\t",
-        'Writers',
-        'Notes',
-        'xNotes',
-        '|',
-        'Users',
-        'Logins',
-        'xLogins',
-        '%Writer',
-        '|'
-      ].join("\t\t"),
-      weekly_metrics.map {|line| line.join("\t\t") }
+      ["Date\t", 'Writers', 'Users', '%Writer', 'Notes', 'Logins'].join("\t"),
+      weekly_metrics.map {|line| line.first(6).join("\t") }
     ].flatten.join("\n")
   end
 
@@ -210,7 +194,7 @@ class WeeklyReport
     notes_per_week
   end
 
-  def log(msg)
+  def log(msg = '')
     @log.puts msg
   end
 end
