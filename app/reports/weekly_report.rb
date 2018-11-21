@@ -7,6 +7,7 @@ class WeeklyReport
     @reporting_period_in_days = @weeks_count * 7
     @schools = options.fetch(:schools, School.all)
     @project_lead_educator_ids = options.fetch(:project_lead_educator_ids, default_project_lead_educator_ids)
+    @log = options.fetch(:log, STDOUT)
 
     @buffer = []
   end
@@ -65,12 +66,12 @@ class WeeklyReport
 
   # Prints to stdout and sends an email to each address in `target_emails`
   def run_and_email!(mailgun_url, target_emails)
-    puts 'Running report...'
+    log 'Running report...'
     report_text = run()
-    puts 'Done.'
-    puts
+    log 'Done.'
+    log
 
-    puts "Sending #{target_emails.size} emails..."
+    log "Sending #{target_emails.size} emails..."
     target_emails.each do |target_email|
       date_text = @time_now.beginning_of_day.strftime('%B %e, %Y')
       post_data = Net::HTTP.post_form(URI.parse(mailgun_url), {
@@ -79,9 +80,9 @@ class WeeklyReport
         :subject => "Student Insights Usage Report for #{date_text}",
         :html => "<html><body><pre style='font: monospace; font-size: 12px;'>#{report_text}</pre>"
       })
-      puts "  response status: #{post_data.code}"
+      log "  response status: #{post_data.code}"
     end
-    puts 'Done.'
+    log 'Done.'
   end
 
   private
@@ -175,7 +176,7 @@ class WeeklyReport
         'Users',
         'Logins',
         'xLogins',
-        '%Writers',
+        '%Writer',
         '|'
       ].join("\t\t"),
       weekly_metrics.map {|line| line.join("\t\t") }
@@ -207,5 +208,9 @@ class WeeklyReport
       notes_per_week[monday] = [] unless notes_per_week.has_key?(monday)
     end
     notes_per_week
+  end
+
+  def log(msg)
+    @log.puts msg
   end
 end
