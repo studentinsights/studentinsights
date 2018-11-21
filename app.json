@@ -33,5 +33,5 @@
       "description": "verifies integrity of signed cookies",
       "generator": "secret"
     }
-  },
+  }
 }
