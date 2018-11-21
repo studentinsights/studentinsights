@@ -27,7 +27,6 @@ window.ENV_FOR_JS = {
   railsEnvironment: 'production',
   sessionTimeoutInSeconds: 21600,
   districtKey: 'demo',
-  deploymentKey: 'demo',
   shouldReportErrors: false,
   rollbarJsAccessToken: null
 };

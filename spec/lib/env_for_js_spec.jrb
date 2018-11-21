@@ -24,7 +24,6 @@ RSpec.describe EnvForJs do
   it 'works' do
     expect(EnvForJs.new.as_json).to eq({
       railsEnvironment: "test",
-      deploymentKey: "production",
       districtKey: "demo",
       rollbarJsAccessToken: "xyz",
       sessionTimeoutInSeconds: 21600,
