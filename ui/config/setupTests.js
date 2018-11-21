@@ -29,9 +29,7 @@ window.ENV_FOR_JS = {
   districtKey: 'demo',
   deploymentKey: 'demo',
   isDemoSite: true,
-  shouldReportAnalytics: false,
   shouldReportErrors: false,
-  mixpanelToken: null,
   rollbarJsAccessToken: null
 };
 

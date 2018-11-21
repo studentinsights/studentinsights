@@ -36,7 +36,6 @@
     "jest-fetch-mock": "^1.4.2",
     "jquery": "^3.2.1",
     "lodash": "4.17.10",
-    "mixpanel-browser": "^2.22.4",
     "moment": "2.19.3",
     "object-assign": "^4.1.1",
     "percentile": "^1.2.0",

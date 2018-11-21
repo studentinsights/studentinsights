@@ -15,7 +15,6 @@ class Env
     default_env['USE_MOCK_LDAP'] = 'true'
     default_env['MOCK_LDAP_PASSWORD'] = 'demo-password'
     default_env['AWS_REGION'] = 'us-west-2'
-    default_env['MIXPANEL_TOKEN'] = 'foo';
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
 
     # feature switches

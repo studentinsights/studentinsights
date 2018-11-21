@@ -12,7 +12,7 @@ Goal: Visit the home page signed-out
 - [ ] Set up Logentries
 - [ ] Set up Rollbar (server)
 - [ ] Set up Rollbar (JS)
-- [ ] Set up Mixpanel
+- [ ] Set up usage reports
 - [ ] Set up CSP and CSP logger
 - [ ] Add domain
 
