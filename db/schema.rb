@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_195819) do
+ActiveRecord::Schema.define(version: 2018_11_22_033724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,15 +123,6 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
     t.datetime "updated_at", null: false
     t.index ["educator_id"], name: "index_educator_section_assignments_on_educator_id"
     t.index ["section_id"], name: "index_educator_section_assignments_on_section_id"
-  end
-
-  create_table "educator_two_factor_numbers", force: :cascade do |t|
-    t.integer "educator_id", null: false
-    t.string "two_factor_number", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["educator_id"], name: "index_educator_two_factor_numbers_on_educator_id", unique: true
-    t.index ["two_factor_number"], name: "index_educator_two_factor_numbers_on_two_factor_number", unique: true
   end
 
   create_table "educators", id: :serial, force: :cascade do |t|
@@ -390,6 +381,15 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
     t.integer "discontinued_by_educator_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
   create_table "star_math_results", force: :cascade do |t|
     t.integer "percentile_rank", null: false
     t.string "grade_equivalent", null: false
@@ -568,7 +568,6 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
-  add_foreign_key "educator_two_factor_numbers", "educators"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
   add_foreign_key "event_note_attachments", "event_notes", name: "event_note_attachments_event_note_id_fk"
   add_foreign_key "event_note_revisions", "educators", name: "event_note_revisions_educator_id_fk"

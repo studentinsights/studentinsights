@@ -8,6 +8,7 @@ gem 'puma'
 gem 'rack-attack'
 gem 'ipcat'
 gem 'dalli'
+gem 'activerecord-session_store'
 
 gem 'administrate', '~> 0.10.0'
 gem 'authtrail'
