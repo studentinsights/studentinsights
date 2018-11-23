@@ -33,35 +33,35 @@ export default class DashboardScatterPlot extends React.Component{
           xAxis={{
             ...this.props.categories,
             plotBands: [{
-              color: '#1ebbd7',
+              color: '#A5FFD6',
               from: -0.5,
               to: 0.5
             },{
-              color: '#348AA7',
+              color: '#84DCC6',
               from: 0.5,
               to: 1.5
             },
             {
-              color: '#1ebbd7',
+              color: '#A5FFD6',
               from: 1.5,
               to: 2.5
             },
             {
-              color: '#348AA7',
+              color: '#84DCC6',
               from: 2.5,
               to: 3.5
             },{
-              color: '#1ebbd7',
+              color: '#A5FFD6',
               from: 3.5,
               to: 4.5
             },
             {
-              color: '#348AA7',
+              color: '#84DCC6',
               from: 4.5,
               to: 5.5
             },
             {
-              color: '#1ebbd7',
+              color: '#A5FFD6',
               from: 5.5,
               to: 6.5
             }
@@ -71,7 +71,7 @@ export default class DashboardScatterPlot extends React.Component{
               animation: this.props.animation,
               marker: {
                 radius: 12,
-                fillColor: 'rgba(47,226,216,0.5)'
+                fillColor: 'rgba(255, 166, 158,0.5)'
               }
             }
           }}
@@ -79,6 +79,7 @@ export default class DashboardScatterPlot extends React.Component{
           yAxis={{
             min: this.props.yAxisMin,
             max: this.props.yAxisMax,
+            tickInterval: 60,
             allowDecimals: true,
             title: {text: this.props.measureText},
             labels: {formatter: this.formatter}
