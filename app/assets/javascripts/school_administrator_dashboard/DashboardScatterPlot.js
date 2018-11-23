@@ -30,7 +30,42 @@ export default class DashboardScatterPlot extends React.Component{
             zoomType: 'xy'
           }}
           credits={false}
-          xAxis={[this.props.categories]}
+          xAxis={{
+            ...this.props.categories,
+            plotBands: [{
+              color: '#1ebbd7',
+              from: -0.5,
+              to: 0.5
+            },{
+              color: '#348AA7',
+              from: 0.5,
+              to: 1.5
+            },
+            {
+              color: '#1ebbd7',
+              from: 1.5,
+              to: 2.5
+            },
+            {
+              color: '#348AA7',
+              from: 2.5,
+              to: 3.5
+            },{
+              color: '#1ebbd7',
+              from: 3.5,
+              to: 4.5
+            },
+            {
+              color: '#348AA7',
+              from: 4.5,
+              to: 5.5
+            },
+            {
+              color: '#1ebbd7',
+              from: 5.5,
+              to: 6.5
+            }
+            ]}}
           plotOptions={{
             series: {
               animation: this.props.animation,
