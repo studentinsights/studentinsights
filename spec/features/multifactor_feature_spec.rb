@@ -104,7 +104,9 @@ describe 'Multifactor', type: :feature do
 
         # test a sampling of attempts in random order; none should leak what's
         # happening on the server-side through response timing
-        create_multiple_login_texts(2, RSpec.configuration.seed).each do |login_text|
+        login_text_attempts = create_multiple_login_texts(3, RSpec.configuration.seed)
+        expect(login_text_attempts.size).to be >= 6
+        login_text_attempts.each do |login_text|
           _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
             print('✓') # a nice progress indicator since these are slower tests
             request_login_code(login_text)
