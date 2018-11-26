@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe StudentsController, :type => :controller do
+  # eg, for testing send_data_log_subscriber.rb
+  def mock_subscribers_log!
+    log = LogHelper::RailsLogger.new
+    ActiveSupport::Subscriber.subscribers.each do |subscriber|
+      allow(subscriber).to receive(:logger).and_return(log)
+    end
+    log
+  end
+
   def create_service(student, educator)
     FactoryBot.create(:service, {
       student: student,
@@ -699,7 +708,7 @@ describe StudentsController, :type => :controller do
     end
 
     it 'does not log the student name because of send_data_log_subscriber patch' do
-      expect(Rails.logger).to receive(:info).with(/Sent data \[FILTERED\]/).and_call_original
+      log = mock_subscribers_log!
       iep_student = create_iep_student
       create_iep_document({
         student_id: iep_student.id,
@@ -712,6 +721,7 @@ describe StudentsController, :type => :controller do
       sign_in(pals.uri)
       get_latest_iep_document_pdf(iep_student.id)
       expect(response.status).to eq 200
+      expect(log.output).to include('Sent data [FILTERED]')
     end
   end
 

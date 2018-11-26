@@ -26,7 +26,7 @@ RSpec.describe PhotoStorer do
       local_id: student.local_id,
       path_to_file: '/path/to/file',
       s3_client: FakeAwsClient,
-      logger: LogHelper::QuietLogger.new,
+      logger: LogHelper::RailsLogger.new,
       time_now: Time.new(2017, 5, 11)
     }
     PhotoStorer.new(default_attributes.merge(attributes))
@@ -102,7 +102,7 @@ RSpec.describe PhotoStorer do
       end
 
       it 'logs the right error messages and doesn\'t blow up' do
-        logger = LogHelper::QuietLogger.new
+        logger = LogHelper::RailsLogger.new
         photo_storer(logger: logger).store_only_new
         expect(logger.msgs.as_json).to contain_exactly(*[
           {"type"=>"info", "message"=>"storing photo for student_id: ##{student.id} to s3..."},

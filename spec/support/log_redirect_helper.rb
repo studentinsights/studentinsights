@@ -39,28 +39,57 @@ module LogHelper
     end
   end
 
-  # Rails logger
-  class QuietLogger
+  # Rails logger, at INFO level
+  class RailsLogger
     attr_reader :msgs
 
     def initialize
       @msgs = []
     end
 
+    def debug?
+      false
+    end
+
     def debug(message)
-      @msgs << {type: :debug, message: message }
+      log_with(:debug, if block_given? then yield else message end)
+    end
+
+    def info?
+      true
     end
 
     def info(message)
-      @msgs << {type: :info, message: message }
+      log_with(:info, if block_given? then yield else message end)
+    end
+
+    def warn?
+      true
     end
 
     def warn(message)
-      @msgs << {type: :warn, message: message }
+      log_with(:warn, if block_given? then yield else message end)
+    end
+
+    def error?
+      true
     end
 
     def error(message)
-      @msgs << {type: :error, message: message }
+      log_with(:error, if block_given? then yield else message end)
+    end
+
+    def calls
+      @msgs
+    end
+
+    def output
+      @msgs.map {|msg| msg[:message] }.join("\n")
+    end
+
+    private
+    def log_with(level, message)
+      @msgs << {type: level, message: message }
     end
   end
 end
