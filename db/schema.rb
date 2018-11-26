@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_225344) do
+ActiveRecord::Schema.define(version: 2018_11_26_205313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,7 +122,9 @@ ActiveRecord::Schema.define(version: 2018_11_20_225344) do
     t.datetime "last_verification_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "rotp_secret", null: false
     t.index ["educator_id"], name: "index_educator_multifactor_text_numbers_on_educator_id", unique: true
+    t.index ["rotp_secret"], name: "index_educator_multifactor_text_numbers_on_rotp_secret", unique: true
     t.index ["sms_number"], name: "index_educator_multifactor_text_numbers_on_sms_number", unique: true
   end
 
@@ -389,6 +391,15 @@ ActiveRecord::Schema.define(version: 2018_11_20_225344) do
     t.datetime "estimated_end_date"
     t.datetime "discontinued_at"
     t.integer "discontinued_by_educator_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "star_math_results", force: :cascade do |t|

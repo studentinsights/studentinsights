@@ -14,6 +14,8 @@ class MultifactorAuthenticator
   def is_multifactor_code_valid?(login_code)
     return false unless is_multifactor_enabled?
 
+    # Check the code, enforcing that it comes after the last verification, but
+    # allowing 15 seconds of drift if the code hasn't been used yet.
     totp = create_totp!
     verified_password_timestamp = totp.verify(login_code, {
       after: multifactor_record.last_verification_at,
@@ -22,7 +24,7 @@ class MultifactorAuthenticator
     return false if verified_password_timestamp.nil?
 
     # If we authenticated the user, burn the login_code for this time window
-    multifactor_record.update!(last_verification_at: verified_password_timestamp)
+    multifactor_record.reload.update!(last_verification_at: Time.at(verified_password_timestamp))
     true
   end
 
@@ -32,9 +34,9 @@ class MultifactorAuthenticator
 
     login_code = get_login_code()
     message_with_login_code = "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please reply to let us know so we can secure your account!"
-    twilio_message = send_twilio_message!(message_with_login_code)
-    @logger.info("MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message, sid:#{twilio_message.sid}")
-    twilio_message
+    twilio_message_sid = send_twilio_message!(message_with_login_code)
+    @logger.info("MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message, sid:#{twilio_message_sid}")
+    nil
   end
 
   private
@@ -48,19 +50,21 @@ class MultifactorAuthenticator
   end
 
   def create_totp!
+    rotp_secret = validated_rotp_secret_for_educator!
     rotp_config = validated_rotp_config!(ENV)
-    issuer = [
-      rotp_config['issuer_seed'],
-      PerDistrict.new.district_key,
-      Digest::SHA256.hexdigest(@educator.id.to_s)
-    ].join(':')
-    ROTP::TOTP.new(rotp_config['secret_base32'], issuer: issuer)
+    issuer = [rotp_config['issuer_base'], PerDistrict.new.district_key].join('-')
+    ROTP::TOTP.new(rotp_secret, issuer: issuer)
+  end
+
+  def validated_rotp_secret_for_educator!
+    rotp_secret = multifactor_record.rotp_secret
+    raise Exceptions::InvalidConfiguration if rotp_secret.nil?
+    rotp_secret
   end
 
   def validated_rotp_config!(env)
     rotp_config = JSON.parse(env.fetch('MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON', '{}'))
-    raise Exceptions::InvalidConfiguration if rotp_config['issuer_seed'].nil?
-    raise Exceptions::InvalidConfiguration if rotp_config['secret_base32'].nil?
+    raise Exceptions::InvalidConfiguration if rotp_config['issuer_base'].nil?
     rotp_config
   end
 
@@ -75,10 +79,11 @@ class MultifactorAuthenticator
   def send_twilio_message!(message)
     twilio_config = validated_twilio_config!(ENV)
     client = @twilio_client_class.new(twilio_config['account_sid'], twilio_config['auth_token'])
-    client.messages.create({
+    twilio_message = client.messages.create({
       body: message,
       to: multifactor_record.sms_number,
       from: twilio_config['sending_number']
     })
+    twilio_message.try(:sid)
   end
 end

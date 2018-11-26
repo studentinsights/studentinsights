@@ -21,5 +21,6 @@ class MultifactorController < ApplicationController
     educator = PerDistrict.new.find_educator_by_login_text(login_text.downcase.strip)
     return if educator.nil?
     MultifactorAuthenticator.new(educator).send_login_code_via_sms!
+    nil
   end
 end

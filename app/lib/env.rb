@@ -10,7 +10,7 @@ class Env
     # instance config
     default_env['DISTRICT_KEY'] = 'somerville'
     default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
-    default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_seed":"student-insights-multifactor-authenticator-educator","secret_base32":"fake7777lllloooolllloooo7777fake"}'
+    default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_base":"student-insights-multifactor-authenticator-educator"}'
 
     # service config
     default_env['USE_MOCK_LDAP'] = 'true'

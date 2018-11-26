@@ -13,6 +13,13 @@ class MockTwilioClient
   end
 
   class FakeMessage
+    def initialize(params = {})
+      raise 'invalid body' unless params.has_key?(:body)
+      raise 'invalid to' unless params.has_key?(:to)
+      raise 'invalid from' unless params.has_key?(:from)
+      @params = params
+    end
+
     def sid
       @sid ||= Digest::SHA256.hexdigest(rand().to_s)
     end
@@ -24,15 +31,25 @@ class MockTwilioClient
       raise 'invalid to' unless params.has_key?(:to)
       raise 'invalid from' unless params.has_key?(:from)
 
-      message = FakeMessage.new
-      puts '--------------------------'
-      puts 'MockTwilioClient created a message!'
-      puts "   sid: #{message.sid}"
-      puts "  from: #{params[:from]}"
-      puts "    to: #{params[:to]}"
-      puts "  body: #{params[:body]}"
-      puts '--------------------------'
+      message = FakeMessage.new(params)
+      logger.puts 'MockTwilioClient created a message!'
+      logger.puts "   sid: #{message.sid}"
+      logger.puts "  from: #{params[:from]}"
+      logger.puts "    to: #{params[:to]}"
+      logger.puts '--------------------------'
+      logger.puts params[:body]
+      logger.puts '--------------------------'
       message
+    end
+
+    def log(msg)
+      logger.puts msg
+    end
+
+    def logger
+      return STDOUT if Rails.env.development?
+      return LogHelper::FakeLog.new if Rails.env.test?
+      raise 'invalid'
     end
   end
 

@@ -101,7 +101,8 @@ class TestPals
     )
     EducatorMultifactorTextNumber.create!({
       educator: @uri,
-      sms_number: '+15555550007'
+      sms_number: '+15555550007',
+      rotp_secret: ROTP::Base32.random_base32
     })
 
     # Rich works in the central office and has districwide access, but
@@ -123,7 +124,8 @@ class TestPals
     )
     EducatorMultifactorTextNumber.create!({
       educator: @rich_districtwide,
-      sms_number: '+15555550009'
+      sms_number: '+15555550009',
+      rotp_secret: ROTP::Base32.random_base32
     })
 
     # Healey is a K8 school.
