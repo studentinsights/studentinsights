@@ -64,7 +64,6 @@ class StudentsController < ApplicationController
     send_data object.body.read, filename: @s3_filename, type: 'image/jpeg'
   end
 
-  # Using `send_data` logs the filename; see send_data_log_subscriber.rb
   def latest_iep_document
     # guard
     safe_params = params.permit(:id)

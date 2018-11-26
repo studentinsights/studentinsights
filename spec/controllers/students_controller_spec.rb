@@ -697,6 +697,22 @@ describe StudentsController, :type => :controller do
         expect(response.body).to eq 'You need to sign in before continuing.'
       end
     end
+
+    it 'does not log the student name because of send_data_log_subscriber patch' do
+      expect(Rails.logger).to receive(:info).with(/Sent data \[FILTERED\]/).and_call_original
+      iep_student = create_iep_student
+      create_iep_document({
+        student_id: iep_student.id,
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+        created_at: '2018-03-04'
+      })
+      mock_s3 = MockAwsS3::MockedAwsS3.create_with_read_block {|key, bucket| '<pdfbytes>' }
+      allow(Aws::S3::Client).to receive(:new).and_return mock_s3
+
+      sign_in(pals.uri)
+      get_latest_iep_document_pdf(iep_student.id)
+      expect(response.status).to eq 200
+    end
   end
 
   describe '#sample_students_json' do
