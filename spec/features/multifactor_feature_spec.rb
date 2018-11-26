@@ -14,12 +14,20 @@ describe 'Multifactor', type: :feature do
     ENV['CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS'] = @store_CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS
   end
 
+  def sample_educator(seed)
+    Educator.all.sample(random: Random.new(seed))
+  end
+
   # the first sign in during the test run can take ~2500ms, so
   # for any specs that are testing timing, do a "warm up" before
   # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
   def warm_up!
     sign_in_attempt(pals.uri.email, 'demo-password')
     reset_login_attempt!
+  end
+
+  def reset_login_attempt!
+    sign_out if page.has_content?('Sign Out')
   end
 
   def request_login_code(login_text)
@@ -92,7 +100,7 @@ describe 'Multifactor', type: :feature do
       after(:each) { after_reset_timing! }
 
       it 'has consistent timing within range (after warm-up)' do
-        LoginTests.warm_up!
+        warm_up!
 
         # test a sampling of attempts in random order; none should leak what's
         # happening on the server-side through response timing
@@ -101,7 +109,7 @@ describe 'Multifactor', type: :feature do
             print('✓') # a nice progress indicator since these are slower tests
             request_login_code(login_text)
           end
-          sign_out if page.has_content?('Sign Out')
+          reset_login_attempt!
 
           tolerance_ms = 100
           expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), "unexpected timing for login_text='#{login_text}'  timing: #{elapsed_milliseconds}"
