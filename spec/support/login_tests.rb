@@ -12,17 +12,17 @@ class LoginTests
     ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = milliseconds.to_s
   end
 
-  def self.after_reset_loging_timing!
+  def self.after_reset_login_timing!
     ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = @store_CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS
   end
 
   def self.before_disable_consistent_timing!
-    @store_UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING = ENV['UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING']
-    ENV['UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING'] = 'true'
+    @store_UNSAFE_DISABLE_CONSISTENT_TIMING = ENV['UNSAFE_DISABLE_CONSISTENT_TIMING']
+    ENV['UNSAFE_DISABLE_CONSISTENT_TIMING'] = 'true'
   end
 
   def self.after_reenable_consistent_timing!
-    ENV['UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING'] = @store_UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING
+    ENV['UNSAFE_DISABLE_CONSISTENT_TIMING'] = @store_UNSAFE_DISABLE_CONSISTENT_TIMING
   end
 
   def self.reset_rack_attack!

@@ -7,7 +7,6 @@ class MultifactorController < ApplicationController
     safe_params = params.require(:multifactor).permit(:login_text)
 
     # Keep consistent response times for security
-    desired_milliseconds = 3000
     ConsistentTiming.new.enforce_timing(desired_milliseconds) do
       maybe_send_login_code!(safe_params[:login_text])
     end
@@ -16,11 +15,19 @@ class MultifactorController < ApplicationController
   end
 
   private
+  def desired_milliseconds
+    ENV.fetch('CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS', 3000.to_s).to_i
+  end
+
   # no feedback for security
   def maybe_send_login_code!(login_text)
     educator = PerDistrict.new.find_educator_by_login_text(login_text.downcase.strip)
-    return if educator.nil?
-    MultifactorAuthenticator.new(educator).send_login_code_via_sms!
+    return nil if educator.nil?
+
+    authenticator = MultifactorAuthenticator.new(educator)
+    return nil unless authenticator.is_multifactor_enabled?
+
+    authenticator.send_login_code_via_sms!
     nil
   end
 end

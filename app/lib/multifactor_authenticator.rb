@@ -6,7 +6,7 @@ class MultifactorAuthenticator
   end
 
   def is_multifactor_enabled?
-    multifactor_record.try(:sms_number).present?
+    multifactor_record.try(:sms_number)
   end
 
   # Returns true/false and burns the login_code if it is accepted,

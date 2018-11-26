@@ -65,7 +65,7 @@ describe 'login timing', type: :feature do
 
   context 'when login is empty' do
     before(:each) { LoginTests.before_set_login_timing!(5000) }
-    after(:each) { LoginTests.after_reset_loging_timing! }
+    after(:each) { LoginTests.after_reset_login_timing! }
 
     it 'does not have consistent timing since Devise short-circuits (after warm-up)' do
       warm_up!
@@ -78,7 +78,7 @@ describe 'login timing', type: :feature do
 
   context 'when longer than expected' do
     before(:each) { LoginTests.before_set_login_timing!(500) }
-    after(:each) { LoginTests.after_reset_loging_timing! }
+    after(:each) { LoginTests.after_reset_login_timing! }
 
     it 'tolerates and warns' do
       allow(Rollbar).to receive(:warn)
@@ -101,7 +101,7 @@ describe 'login timing', type: :feature do
   context 'across all execution paths' do
     let!(:expected_timing_in_milliseconds) { 500 }
     before(:each) { LoginTests.before_set_login_timing!(expected_timing_in_milliseconds) }
-    after(:each) { LoginTests.after_reset_loging_timing! }
+    after(:each) { LoginTests.after_reset_login_timing! }
 
     it 'has consistent timing within range (after warm-up)' do
       warm_up!

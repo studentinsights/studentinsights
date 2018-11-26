@@ -30,6 +30,6 @@ class ConsistentTiming
   end
 
   def disabled_for_test?
-    Rails.env.test? && EnvironmentVariable.is_true('UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING')
+    Rails.env.test? && EnvironmentVariable.is_true('UNSAFE_DISABLE_CONSISTENT_TIMING')
   end
 end
