@@ -45,7 +45,7 @@ RSpec.describe 'checking authentication guards around all routes', :type => :req
       expect(response.status).to eq(302), failure_message
       expect(response.body).to eq('<html><body>You are being <a href="https://www.example.com/educators/sign_in">redirected</a>.</body></html>'), failure_message
     end
-    expect(endpoints_to_check.size).to >= MINIMUM_EXPECTED_ENDPOINTS_COUNT
+    expect(endpoints_to_check.size).to be >= MINIMUM_EXPECTED_ENDPOINTS_COUNT
   end
 
   it 'guards all endpoints when requested as JSON' do
@@ -56,6 +56,6 @@ RSpec.describe 'checking authentication guards around all routes', :type => :req
       expect(response.status).to eq(401), failure_message
       expect(response.body).to eq('{"error":"You need to sign in before continuing."}'), failure_message
     end
-    expect(endpoints_to_check.size).to >= MINIMUM_EXPECTED_ENDPOINTS_COUNT
+    expect(endpoints_to_check.size).to be >= MINIMUM_EXPECTED_ENDPOINTS_COUNT
   end
 end
