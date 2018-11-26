@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe ProfilePdfController, :type => :controller do
+  # eg, for testing send_data_log_subscriber.rb
+  def mock_subscribers_log!
+    log = LogHelper::RailsLogger.new
+    ActiveSupport::Subscriber.subscribers.each do |subscriber|
+      allow(subscriber).to receive(:logger).and_return(log)
+    end
+    log
+  end
+
   def create_event_note(student, educator, params = {})
     FactoryBot.create(:event_note, {
       student: student,
@@ -83,9 +92,9 @@ describe ProfilePdfController, :type => :controller do
 
         it 'assigns the student\'s assesments correctly' do
           assessment = FactoryBot.create(:assessment, :access)
-          student_assessment = FactoryBot.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
+          FactoryBot.create(:access, student: student, assessment: assessment, date_taken: '2016-08-16')
 
-          student_assessment = StarMathResult.create!(
+          StarMathResult.create!(
             student: student,
             date_taken: '2017-02-16',
             percentile_rank: 57,
@@ -125,6 +134,14 @@ describe ProfilePdfController, :type => :controller do
         "Content-Transfer-Encoding" => "binary",
         "Cache-Control" => "private"
       })
+    end
+
+    it 'scrubs filename from log output' do
+      log = mock_subscribers_log!
+      sign_in(educator)
+      get_student_report_pdf(student.id)
+      expect(response).to be_successful
+      expect(log.output).to include('Sent data [FILTERED]')
     end
   end
 end

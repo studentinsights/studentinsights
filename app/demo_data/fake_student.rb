@@ -343,7 +343,7 @@ class FakeStudent
 
   def add_ieps
     15.in(100) do
-      file_name = "#{@student.local_id}_IEPAtAGlance_{@student.first_name}_#{@student.last_name}.pdf"
+      file_name = "#{@student.local_id}_IEPAtAGlance_#{@student.first_name}_#{@student.last_name}.pdf"
       file_digest = SecureRandom.hex
       IepDocument.create!(
         student: @student,

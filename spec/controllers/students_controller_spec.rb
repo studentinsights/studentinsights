@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe StudentsController, :type => :controller do
+  # eg, for testing send_data_log_subscriber.rb
+  def mock_subscribers_log!
+    log = LogHelper::RailsLogger.new
+    ActiveSupport::Subscriber.subscribers.each do |subscriber|
+      allow(subscriber).to receive(:logger).and_return(log)
+    end
+    log
+  end
+
   def create_service(student, educator)
     FactoryBot.create(:service, {
       student: student,
@@ -696,6 +705,23 @@ describe StudentsController, :type => :controller do
         expect(response.status).to eq 401
         expect(response.body).to eq 'You need to sign in before continuing.'
       end
+    end
+
+    it 'does not log the student name because of send_data_log_subscriber patch' do
+      log = mock_subscribers_log!
+      iep_student = create_iep_student
+      create_iep_document({
+        student_id: iep_student.id,
+        file_name: '124046632_IEPAtAGlance_Alexander_Hamilton.pdf',
+        created_at: '2018-03-04'
+      })
+      mock_s3 = MockAwsS3::MockedAwsS3.create_with_read_block {|key, bucket| '<pdfbytes>' }
+      allow(Aws::S3::Client).to receive(:new).and_return mock_s3
+
+      sign_in(pals.uri)
+      get_latest_iep_document_pdf(iep_student.id)
+      expect(response.status).to eq 200
+      expect(log.output).to include('Sent data [FILTERED]')
     end
   end
 
