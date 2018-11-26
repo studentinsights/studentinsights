@@ -193,7 +193,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderName(cellProps) {
     const student = cellProps.rowData;
-    return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank">{student.first_name} {student.last_name}</a>;
+    return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>;
   }
 
   renderSchool(cellProps) {

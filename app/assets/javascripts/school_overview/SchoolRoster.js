@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import MixpanelUtils from '../helpers/MixpanelUtils';
 import {styles} from '../helpers/Theme';
 import SlicePanels from './SlicePanels';
 import SliceButtons from './SliceButtons';
@@ -154,11 +153,6 @@ export default class SchoolRoster extends React.Component {
   }
 
   onFilterToggled(toggledFilter) {
-    MixpanelUtils.track('SCHOOL_OVERVIEW_TOGGLED_FILTER', {
-      page_key: 'SCHOOL_OVERVIEW_DASHBOARD',
-      filter_identifier: toggledFilter.identifier
-    });
-
     const withoutToggledFilter = this.state.filters.filter(filter => {
       return filter.identifier !== toggledFilter.identifier;
     });

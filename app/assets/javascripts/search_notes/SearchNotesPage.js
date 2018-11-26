@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
+import {TIME_RANGE_SCHOOL_YEAR} from '../components/SelectTimeRange';
 import SectionHeading from '../components/SectionHeading';
 import FeedView from '../feed/FeedView';
 import SearchNotesBar from './SearchNotesBar';
@@ -58,10 +59,7 @@ export default class SearchNotesPage extends React.Component {
 
   renderResultsSection() {
     const {query} = this.state;
-
-    if (_.isEqual(query, initialQuery())) {
-      return <div style={styles.searchAway}>What do you want to know about?</div>;
-    }
+    if (_.isEqual(query, initialQuery())) return this.renderPrompt();
 
     return (
       <SearchQueryFetcher
@@ -73,6 +71,8 @@ export default class SearchNotesPage extends React.Component {
   }
 
   renderQueryResults(json) {
+    if (!json) return this.renderPrompt();
+    
     const feedCards = json.event_note_cards;
     const allResultsSize = json.meta.all_results_size;
     return (
@@ -81,6 +81,10 @@ export default class SearchNotesPage extends React.Component {
         <FeedView feedCards={feedCards} />
       </div>
     );
+  }
+
+  renderPrompt() {
+    return <div style={styles.searchAway}>What do you want to know about?</div>;
   }
 
   renderMeta(allResultsSize, feedCards) {
@@ -96,7 +100,7 @@ export default class SearchNotesPage extends React.Component {
       return <div style={styles.meta}>Showing all {oneOrMoreResult(feedCards.length)}.</div>;
     }
 
-    return <div style={styles.meta}>About {oneOrMoreResult(allResultsSize)} total, showing first {oneOrMoreResult(feedCards.length)}.</div>;
+    return <div style={styles.meta}>Showing the first {oneOrMoreResult(feedCards.length)} of {oneOrMoreResult(allResultsSize)} total.</div>;
   }
 }
 SearchNotesPage.propTypes = {
@@ -135,8 +139,9 @@ function initialQuery() {
     grade: ALL,
     house: ALL,
     eventNoteTypeId: ALL,
-    scopeKeyf: ALL,
-    limit: null
+    scopeKey: ALL,
+    timeRangeKey: TIME_RANGE_SCHOOL_YEAR,
+    limit: 50
   };
 }
 

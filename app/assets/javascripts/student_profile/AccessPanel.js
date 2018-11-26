@@ -26,7 +26,7 @@ export default class AccessPanel extends React.Component {
           <div style={{paddingTop: 20}}>
             This reflects {studentFirstName}'s latest scores in each category across ACCESS, WIDA Model Test and WIDA Screener tests.
           </div>
-          <div>See the <a style={{fontSize: 14}} href="https://wida.wisc.edu/sites/default/files/resource/Speaking-Writing-Interpretive-Rubrics.pdf" target="_blank">WIDA Speaking and Writing Interpretive Rubrics</a> to learn more.</div>
+          <div>See the <a style={{fontSize: 14}} href="https://wida.wisc.edu/sites/default/files/resource/Speaking-Writing-Interpretive-Rubrics.pdf" target="_blank" rel="noopener noreferrer">WIDA Speaking and Writing Interpretive Rubrics</a> to learn more.</div>
         </div>
         <table style={{borderCollapse: 'collapse'}}>
           <tbody>

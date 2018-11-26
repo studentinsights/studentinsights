@@ -57,6 +57,7 @@ class SliceButtons extends React.Component {
         <a
           href={this.props.filtersHash}
           target="_blank"
+          rel="noopener noreferrer"
           style={{ fontSize: styles.fontSize }}>
           Link to save these filters
         </a>

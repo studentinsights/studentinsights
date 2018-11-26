@@ -27,11 +27,7 @@ window.ENV_FOR_JS = {
   railsEnvironment: 'production',
   sessionTimeoutInSeconds: 21600,
   districtKey: 'demo',
-  deploymentKey: 'demo',
-  isDemoSite: true,
-  shouldReportAnalytics: false,
   shouldReportErrors: false,
-  mixpanelToken: null,
   rollbarJsAccessToken: null
 };
 

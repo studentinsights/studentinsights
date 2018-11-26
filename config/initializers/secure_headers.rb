@@ -20,14 +20,14 @@ SecureHeaders::Configuration.default do |config|
     manifest_src: %w('self' https:),
     connect_src: %w('self' https:),
     form_action: %w('self' https:),
-    script_src: %w('self' https: api.mixpanel.com),
+    script_src: %w('self'),
 
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd
     # see https://github.com/JedWatson/react-select/issues/2030
     # and https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
     # and https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/style-marshal/style-marshal.js#L46
-    style_src: %w('unsafe-inline' https: fonts.googleapis.com),
-    font_src: %w('self' https: data: fonts.gstatic.com),
+    style_src: %w('self' 'unsafe-inline'),
+    font_src: %w('self' https: data:),
     img_src: %w('self' https: data:),
     report_uri: [report_uri],
 

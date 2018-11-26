@@ -66,7 +66,7 @@ class StudentsController < ApplicationController
 
   def latest_iep_document
     # guard
-    safe_params = params.permit(:id)
+    safe_params = params.permit(:id, :format)
     student = authorized_or_raise! { Student.find(safe_params[:id]) }
     iep_document = student.latest_iep_document
     raise ActiveRecord::RecordNotFound if iep_document.nil?

@@ -84,7 +84,10 @@ describe('buttons for taking notes', () => {
     expect(buttonTexts(el)).toEqual([
       'STAT Meeting',
       'Parent conversation',
-      'Something else'
+      'Something else',
+      'CAT Meeting',
+      '504 Meeting',
+      'SPED Meeting'
     ]);
   });
 });

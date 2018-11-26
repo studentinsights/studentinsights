@@ -176,6 +176,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/63"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/63
@@ -193,6 +194,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/63/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/63/v3
@@ -250,6 +252,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/65"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/65
@@ -267,6 +270,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/65/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/65/v3
@@ -324,6 +328,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/61"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/61
@@ -341,6 +346,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/61/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/61/v3
@@ -398,6 +404,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/18"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/18
@@ -415,6 +422,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/18/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/18/v3
@@ -472,6 +480,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/20"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/20
@@ -489,6 +498,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/20/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/20/v3
@@ -546,6 +556,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/14"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/14
@@ -563,6 +574,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/14/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/14/v3
@@ -620,6 +632,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/17"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/17
@@ -637,6 +650,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/17/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/17/v3
@@ -694,6 +708,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/53"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/53
@@ -711,6 +726,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/53/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/53/v3
@@ -768,6 +784,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/3
@@ -785,6 +802,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/3/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/3/v3
@@ -842,6 +860,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/24"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/24
@@ -859,6 +878,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/24/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/24/v3
@@ -916,6 +936,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/30"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/30
@@ -933,6 +954,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/30/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/30/v3
@@ -990,6 +1012,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/4"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/4
@@ -1007,6 +1030,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/4/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/4/v3
@@ -1064,6 +1088,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/77"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/77
@@ -1081,6 +1106,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/77/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/77/v3
@@ -1138,6 +1164,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/80"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/80
@@ -1155,6 +1182,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/80/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/80/v3
@@ -1212,6 +1240,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/117"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/117
@@ -1229,6 +1258,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/117/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/117/v3
@@ -1286,6 +1316,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/111"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/111
@@ -1303,6 +1334,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/111/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/111/v3
@@ -1360,6 +1392,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/95"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/95
@@ -1377,6 +1410,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/95/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/95/v3
@@ -1434,6 +1468,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/107"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/107
@@ -1451,6 +1486,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/107/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/107/v3
@@ -1508,6 +1544,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/69"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/69
@@ -1525,6 +1562,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/69/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/69/v3
@@ -1582,6 +1620,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/120"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/120
@@ -1599,6 +1638,7 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           <a
             href="/students/120/v3"
+            rel="noopener noreferrer"
             target="_blank"
           >
             /students/120/v3

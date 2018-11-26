@@ -44,6 +44,6 @@ describe('#eventNoteTypeIdsForSearch', () => {
   });
 
   it('handles beford', () => {
-    expect(eventNoteTypeIdsForSearch('bedford')).toEqual([500, 302, 304]);
+    expect(eventNoteTypeIdsForSearch('bedford')).toEqual([500, 302, 304, 501, 502, 503]);
   });
 });

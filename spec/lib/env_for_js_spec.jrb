@@ -6,10 +6,7 @@ RSpec.describe EnvForJs do
     {
       'DISTRICT_KEY' => 'demo',
       'DEPLOYMENT_KEY' => 'production',
-      'DEMO_SITE' => 'false',
-      'SHOULD_REPORT_ANALYTICS' => 'true',
       'SHOULD_REPORT_ERRORS' => 'true',
-      'MIXPANEL_TOKEN' => 'abc',
       'ROLLBAR_JS_ACCESS_TOKEN' => 'xyz'
     }
   end
@@ -27,13 +24,9 @@ RSpec.describe EnvForJs do
   it 'works' do
     expect(EnvForJs.new.as_json).to eq({
       railsEnvironment: "test",
-      deploymentKey: "production",
       districtKey: "demo",
-      isDemoSite: false,
-      mixpanelToken: "abc",
       rollbarJsAccessToken: "xyz",
       sessionTimeoutInSeconds: 21600,
-      shouldReportAnalytics: true,
       shouldReportErrors: true,
     })
   end

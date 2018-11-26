@@ -13,7 +13,7 @@ export default class InlineStudentProfile extends React.Component {
     return (
       <div className="InlineStudentProfile" style={styles.root}>
         <h4>
-          <a style={{fontSize: 24}} href={`/students/${student.id}`} target="_blank">{student.first_name} {student.last_name}</a>
+          <a style={{fontSize: 24}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
         </h4>
         <div style={styles.columns}>
           <div style={styles.column}>

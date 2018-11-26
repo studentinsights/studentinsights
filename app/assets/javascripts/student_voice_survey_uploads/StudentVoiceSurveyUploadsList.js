@@ -79,7 +79,7 @@ export default class StudentVoiceSurveyUploadsList extends React.Component {
         title={`Students for ${upload.file_digest.slice(0, 8)}:${upload.id}`}
         content={
           <div>{students.map(student => (
-            <a key={student.id} href={Routes.studentProfile(student.id)} target="_blank">
+            <a key={student.id} href={Routes.studentProfile(student.id)} target="_blank" rel="noopener noreferrer">
               {student.last_name}, {student.first_name}
             </a>
           ))}</div>

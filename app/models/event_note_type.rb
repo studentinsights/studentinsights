@@ -11,7 +11,10 @@ class EventNoteType < ApplicationRecord
       { id: 307, name: 'NEST' },
       { id: 308, name: 'Counselor Meeting' },
       { id: 400, name: 'BBST Meeting' },
-      { id: 500, name: 'STAT Meeting' }
+      { id: 500, name: 'STAT Meeting' },
+      { id: 501, name: 'CAT Meeting' },
+      { id: 502, name: '504 Meeting' },
+      { id: 503, name: 'SPED Meeting' }
     ])
   end
 

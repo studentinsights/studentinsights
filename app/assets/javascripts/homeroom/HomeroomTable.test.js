@@ -97,6 +97,9 @@ describe('high-level integration test', () => {
     expect(headerTexts(el)).toEqual([
       'Name',
       'Last STAT',
+      'Last CAT',
+      'Last 504',
+      'Last SPED',
       'Program Assigned',
       'Disability',
       'Level of Need',

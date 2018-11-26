@@ -88,7 +88,10 @@ RSpec.describe StudentsSpreadsheet do
            '10th Grade Experience (last_event_note_recorded_at)',
            'NEST (last_event_note_recorded_at)',
            'Counselor Meeting (last_event_note_recorded_at)',
-           'STAT Meeting (last_event_note_recorded_at)'
+           'STAT Meeting (last_event_note_recorded_at)',
+           'CAT Meeting (last_event_note_recorded_at)',
+           '504 Meeting (last_event_note_recorded_at)',
+           'SPED Meeting (last_event_note_recorded_at)'
          ].sort
         )
       end

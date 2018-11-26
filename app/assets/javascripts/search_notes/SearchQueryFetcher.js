@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import qs from 'query-string';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
+import {momentRange} from '../components/SelectTimeRange';
 import {ALL} from '../components/SimpleFilterSelect';
 
 
@@ -15,8 +16,17 @@ export default class SearchQueryFetcher extends React.Component {
   }
 
   fetchNotes() {
-    const {searchText, grade, eventNoteTypeId, scopeKey, limit} = this.props.query;
+    const MIN_SEARCH_LENGTH = 3;
+    
+    const {searchText, grade, eventNoteTypeId, scopeKey, timeRangeKey, limit} = this.props.query;
+    if (searchText.length < MIN_SEARCH_LENGTH) return Promise.resolve(null); // minimum search text length
+
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
+    const startTimestamp = momentRange(timeRangeKey, nowMoment)[0].unix();
     const queryString = qs.stringify({
+      start_time: startTimestamp,
+      end_time: nowMoment.unix(),
       text: searchText,
       grade: valueOrNull(grade),
       event_note_type_id: valueOrNull(eventNoteTypeId),
@@ -43,6 +53,9 @@ export default class SearchQueryFetcher extends React.Component {
     return renderFn(json);
   }
 }
+SearchQueryFetcher.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 SearchQueryFetcher.propTypes = {
   query: PropTypes.shape({
     searchText: PropTypes.string.isRequired,
@@ -50,8 +63,8 @@ SearchQueryFetcher.propTypes = {
     house: PropTypes.string,
     eventNoteTypeId: PropTypes.any.isRequired, // number, but magic ALL string also
     scopeKey: PropTypes.string,
-    limit: PropTypes.number,
-    fromTimetamp: PropTypes.number
+    limit: PropTypes.number.isRequired,
+    timeRangeKey: PropTypes.string.isRequired
   }).isRequired,
   renderFn: PropTypes.func.isRequired
 };

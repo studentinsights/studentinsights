@@ -5,7 +5,11 @@ import FilterBar from '../components/FilterBar';
 import SelectHouse from '../components/SelectHouse';
 import SelectGrade from '../components/SelectGrade';
 import SelectEventNoteType from '../components/SelectEventNoteType';
-
+import SelectTimeRange, {
+  TIME_RANGE_45_DAYS_AGO,
+  TIME_RANGE_SCHOOL_YEAR,
+  TIME_RANGE_FOUR_YEARS
+} from '../components/SelectTimeRange';
 
 // UI for expressing a query for searching notes.
 export default class SearchNotesBar extends React.Component {
@@ -16,6 +20,7 @@ export default class SearchNotesBar extends React.Component {
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
     this.onEventNoteTypeIdChanged = this.onEventNoteTypeIdChanged.bind(this);
+    this.onTimeRangeKeyChanged = this.onTimeRangeKeyChanged.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +43,10 @@ export default class SearchNotesBar extends React.Component {
     this.props.onQueryChanged({eventNoteTypeId});
   }
 
+  onTimeRangeKeyChanged(timeRangeKey) {
+    this.props.onQueryChanged({timeRangeKey});
+  }
+
   render() {
     const {style} = this.props;
 
@@ -47,6 +56,9 @@ export default class SearchNotesBar extends React.Component {
         {this.renderGradeSelect()}
         {this.renderHouseSelect()}
         {this.renderEventNoteTypeSelect()}
+        <div style={{display: 'flex', flex: 1, justifyContent: 'flex-end'}}>
+          {this.renderTimeRangeSelect()}
+        </div>
       </FilterBar>
     );
   }
@@ -56,7 +68,6 @@ export default class SearchNotesBar extends React.Component {
     const {debounceInputMs} = this.props;
     return (
       <DebounceInput
-        minLength={3}
         debounceTimeout={debounceInputMs}
         style={styles.search}
         inputRef={el => this.searchInputEl = el}
@@ -95,6 +106,20 @@ export default class SearchNotesBar extends React.Component {
         onChange={this.onEventNoteTypeIdChanged} />
     );
   }
+
+  renderTimeRangeSelect() {
+    const {timeRangeKey} = this.props.query;
+    return (
+      <SelectTimeRange
+        timeRangeKey={timeRangeKey}
+        timeRangeKeys={[
+          TIME_RANGE_45_DAYS_AGO,
+          TIME_RANGE_SCHOOL_YEAR,
+          TIME_RANGE_FOUR_YEARS
+        ]}
+        onChange={this.onTimeRangeKeyChanged} />
+    );
+  }
 }
 SearchNotesBar.propTypes = {
   query: PropTypes.shape({
@@ -102,6 +127,7 @@ SearchNotesBar.propTypes = {
     grade: PropTypes.string,
     house: PropTypes.string,
     eventNoteTypeId: PropTypes.any.isRequired, // number, but magic ALL string also
+    timeRangeKey: PropTypes.string.isRequired
   }).isRequired,
   onQueryChanged: PropTypes.func.isRequired,
   includeHouse: PropTypes.bool.isRequired,

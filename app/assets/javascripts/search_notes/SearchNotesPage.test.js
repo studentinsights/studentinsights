@@ -25,8 +25,6 @@ function testEl(props = {}) {
 
 beforeEach(() => {
   fetchMock.restore();
-  fetchMock.get('/api/search_notes/query_json?event_note_type_id&grade&limit&scope_key&text=', searchJson);
-
 });
 
 it('renders without crashing', () => {
@@ -37,7 +35,7 @@ it('renders without crashing', () => {
 
 describe('integration tests', () => {
   it('renders after fetch', done => {
-    fetchMock.get('/api/search_notes/query_json?event_note_type_id&grade&limit&scope_key&text=read', searchJson);
+    fetchMock.get('/api/search_notes/query_json?end_time=1520899200&event_note_type_id&grade&limit=50&scope_key&start_time=1502755200&text=read', searchJson);
 
     // renders, without fetching yet
     const props = testProps();
@@ -45,18 +43,34 @@ describe('integration tests', () => {
     ReactDOM.render(testEl(props), el);
     expect($(el).text()).toContain('What do you want to know about?');
     
-    // change text, wait for debounce, fetch, render
+    // change text, wait for debounce
     changeTextValue($(el).find('input:first').get(0), 'read');
     setTimeout(() => {
-      expect($(el).html()).not.toContain('Loading');
       expect($(el).html()).not.toContain('Showing all 2 results.');
     
+      // wait for fetch and render
       setTimeout(() => {
         expect($(el).html()).toContain('Search notes');
         expect($(el).text()).toContain('Showing all 2 results.');
         expect($(el).find('.EventNoteCard').length).toEqual(2);
         done();
-      }, 400);
-    });
+      }, 0);
+    }, 400);
+  });
+
+  it('enforces minimum search length', done => {
+    const props = testProps();
+    const el = document.createElement('div');
+    ReactDOM.render(testEl(props), el);
+    
+    changeTextValue($(el).find('input:first').get(0), 're');
+
+    // wait for debounce
+    setTimeout(() => {
+      expect($(el).html()).not.toContain('Loading');
+      expect($(el).html()).not.toContain('Showing all 2 results.');
+      expect($(el).text()).toContain('What do you want to know about?');
+      done();
+    }, 400);
   });
 });

@@ -37,6 +37,5 @@ function loadRollbar() {
 // Add in Rails env info to payload if we're reporting and it exists.
 function transform(payload) {
   payload.environment = readEnv().railsEnvironment;
-  payload.deploymentKey = readEnv().deploymentKey;
   payload.districtKey = readEnv().districtKey;
 }

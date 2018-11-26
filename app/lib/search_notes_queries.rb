@@ -3,11 +3,14 @@ class SearchNotesQueries
   SCOPE_FEED_STUDENTS = 'SCOPE_FEED_STUDENTS'
   SCOPE_MY_NOTES_ONLY = 'SCOPE_MY_NOTES_ONLY'
 
-  def self.with_defaults(query = {})
+  MAX_YEARS_BACK = 4
+  MAX_LIMIT = 100
+
+  def self.clamped_with_defaults(query = {})
     query.merge({
-      from_time: query[:from_time] || Time.now,
-      limit: query[:limit] || 20,
-      scope_key: query[:scope_key] || SearchNotesQueries::SCOPE_ALL_STUDENTS
+      scope_key: query[:scope_key] || SearchNotesQueries::SCOPE_ALL_STUDENTS,
+      start_time: [query[:start_time], Time.now - MAX_YEARS_BACK.years].max, # clamp
+      limit: [query[:limit], MAX_LIMIT].min # clamp
     })
   end
 
@@ -16,7 +19,7 @@ class SearchNotesQueries
   end
 
   def query(passed_query = {})
-    query_with_defaults = SearchNotesQueries.with_defaults(passed_query)
+    clamped_query = SearchNotesQueries.clamped_with_defaults(passed_query)
 
     # query for both the total number of records, and then limit
     # what is actually returned.
@@ -24,27 +27,34 @@ class SearchNotesQueries
     # by deferring the `limit` until after the authorization scoping,
     # this fetches much more data than would be fetched otherwise,
     # and this is a good place to optimize if we need to
-    query_scope = authorized_query_scope(query_with_defaults)
+    query_scope = authorized_query_scope(clamped_query)
     all_results_size = query_scope.size
-    event_notes = query_scope.first(query_with_defaults[:limit])
+    event_notes = query_scope.first(clamped_query[:limit])
 
     # serialize, and return both actual data and metadata about
     # total other records
     event_note_cards_json = event_notes.map {|event_note| FeedCard.event_note_card(event_note) }
-    [event_note_cards_json, all_results_size, query_with_defaults]
+    [event_note_cards_json, all_results_size, clamped_query]
   end
 
   private
-  def authorized_query_scope(query_with_defaults)
-    from_time, scope_key, text, grade, house, event_note_type_id = query_with_defaults.values_at(*[
-      :from_time, :scope_key, :text, :grade, :house, :event_note_type_id
+  def authorized_query_scope(clamped_query)
+    start_time, end_time, scope_key, text, grade, house, event_note_type_id = clamped_query.values_at(*[
+      :start_time,
+      :end_time,
+      :scope_key,
+      :text,
+      :grade,
+      :house,
+      :event_note_type_id
     ])
 
     authorizer = Authorizer.new(@educator)
     authorizer.authorized do
       qs = EventNote.all
         .where(is_restricted: false)
-        .where('recorded_at < ?', from_time)
+        .where('recorded_at > ?', start_time)
+        .where('recorded_at < ?', end_time)
         .order(recorded_at: :desc)
         .includes(:educator, student: [:homeroom, :school])
 
@@ -52,7 +62,7 @@ class SearchNotesQueries
       qs = qs.joins(:student).where(students: {grade: grade}) if grade.present?
       qs = qs.joins(:student).where(students: {house: house}) if house.present?
       qs = qs.where(event_note_type_id: event_note_type_id) if event_note_type_id.present?
-      qs = qs.where('text LIKE ?', "%#{text}%") if text.present?
+      qs = qs.where('to_tsvector(text) @@ plainto_tsquery(?)', text) if text.present?
 
       # adjust scope
       qs = qs.where(educator_id: @educator.id) if scope_key == SCOPE_MY_NOTES_ONLY

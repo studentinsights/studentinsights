@@ -55,12 +55,25 @@ describe 'login timing', type: :feature do
     # puts
   end
 
-  it 'does not have consistent timing for empty login, since Devise short-circuits' do
-    _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
-      sign_in_attempt('', 'foo')
-    end
+  # the first sign in during the test run can take ~2500ms, so
+  # for any specs that are testing timing, do a "warm up" before
+  # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
+  def warm_up!
+    sign_in_attempt(pals.uri.email, 'demo-password')
     reset_login_attempt!
-    expect(elapsed_milliseconds).to be < 1000
+  end
+
+  context 'when login is empty' do
+    before(:each) { LoginTests.before_set_login_timing!(5000) }
+    after(:each) { LoginTests.after_reset_loging_timing! }
+
+    it 'does not have consistent timing since Devise short-circuits (after warm-up)' do
+      warm_up!
+      _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
+        sign_in_attempt('', 'foo')
+      end
+      expect(elapsed_milliseconds).to be < 1000
+    end
   end
 
   context 'when longer than expected' do
@@ -90,10 +103,8 @@ describe 'login timing', type: :feature do
     before(:each) { LoginTests.before_set_login_timing!(expected_timing_in_milliseconds) }
     after(:each) { LoginTests.after_reset_loging_timing! }
 
-    it 'has consistent timing within range' do
-      # allow untimed sign-in as a warm-up (eg, seed 6996)
-      sign_in_attempt(pals.uri.email, 'demo-password')
-      reset_login_attempt!
+    it 'has consistent timing within range (after warm-up)' do
+      warm_up!
 
       # test a sampling of attempts in random order; none should leak what's
       # happening on the server-side through response timing

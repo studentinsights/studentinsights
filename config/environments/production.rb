@@ -94,20 +94,10 @@ Rails.application.configure do
 
 
   # ---- Student Insights additions ----
+  # disable ActionMailer emails; use Mailgun HTTP API instead
   config.action_mailer.raise_delivery_errors = true
-
-  config.action_mailer.default_url_options = {
-    host: "https://#{PerDistrict.new.canonical_domain}/"
-  }
-
-  ActionMailer::Base.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => "https://#{PerDistrict.new.canonical_domain}/",
-    :authentication => :plain,
-  }
-
-  ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = false
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = {}
+  ActionMailer::Base.smtp_settings = nil
 end
