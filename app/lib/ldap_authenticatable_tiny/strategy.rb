@@ -47,9 +47,9 @@ module Devise
           educator = PerDistrict.new.find_educator_by_login_text(login_text)
           return fail!(:not_found_in_database) unless educator.present?
 
-          # Next, check if we got an actual multifactor code.
-          # If they have multifactor enabled, check the code, if they don't fail unless
-          # this is an expected placeholder value (we need to pass something for Devise interop).
+          # Next, check if login code if multifactor is enabled for their account.
+          # Also fail if they passed something unexpected for login code when it isn't enabled
+          # for their account.
           if is_multifactor_enabled?(educator)
             return fail!(:invalid_multifactor) unless is_multifactor_code_valid?(educator, login_code)
           elsif !is_placeholder_multifactor_login_code?(login_code)

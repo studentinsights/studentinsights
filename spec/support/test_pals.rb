@@ -100,7 +100,7 @@ class TestPals
       label_key: 'should_show_levels_shs_link'
     )
     EducatorMultifactorTextNumber.create!({
-      educator: pals.uri,
+      educator: @uri,
       sms_number: '+15555550007'
     })
 
@@ -122,7 +122,7 @@ class TestPals
       school: nil
     )
     EducatorMultifactorTextNumber.create!({
-      educator: pals.rich_districtwide,
+      educator: @rich_districtwide,
       sms_number: '+15555550009'
     })
 
