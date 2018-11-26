@@ -61,10 +61,18 @@ module Devise
 
         if !is_authorized
           ldap_error = ldap.get_operation_result
-          logger.error "LdapAuthenticatableTiny, ldap_error from get_operation_result: #{ldap_error}"
+          if should_log_ldap_error?(ldap_error)
+            Rollbar.error("LdapAuthenticatableTiny, ldap_error from get_operation_result: #{ldap_error}")
+            logger.error "LdapAuthenticatableTiny, ldap_error from get_operation_result: #{ldap_error}"
+          end
         end
 
         is_authorized
+      end
+
+      def should_log_ldap_error?(ldap_error)
+        return false if ldap_error.code == 49 && ldap_error.error_message.includes?('comment: AcceptSecurityContext error, data 52e') # normal authentication failure because of invalid credentials
+        true
       end
 
       # Read config and create options for a Net::LDAP instance
