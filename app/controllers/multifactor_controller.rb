@@ -11,7 +11,7 @@ class MultifactorController < ApplicationController
       maybe_send_login_code!(safe_params[:login_text])
     end
 
-    render json: { status: 'ok' }, status: 201 # no feedback for security
+    head :no_content # no feedback for security
   end
 
   private
