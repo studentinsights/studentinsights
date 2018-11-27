@@ -92,6 +92,7 @@ class MultifactorAuthenticator
     raise Exceptions::InvalidConfiguration if twilio_config['account_sid'].nil?
     raise Exceptions::InvalidConfiguration if twilio_config['auth_token'].nil?
     raise Exceptions::InvalidConfiguration if twilio_config['sending_number'].nil?
+    raise Exceptions::InvalidConfiguration if twilio_config['sending_number'].match(/\A\+1\d{10}\z/).nil?
     twilio_config
   end
 end

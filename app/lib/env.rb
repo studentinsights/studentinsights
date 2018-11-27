@@ -18,7 +18,7 @@ class Env
     default_env['MOCK_LDAP_PASSWORD'] = 'demo-password'
     default_env['AWS_REGION'] = 'us-west-2'
     default_env['ROLLBAR_JS_ACCESS_TOKEN'] = 'foo';
-    default_env['TWILIO_CONFIG_JSON'] = '{"account_sid":"fake-twilio-sid-foo","auth_token":"fake-twilio-auth-token-foo","sending_number":"555-555-1234"}'
+    default_env['TWILIO_CONFIG_JSON'] = '{"account_sid":"fake-twilio-sid-foo","auth_token":"fake-twilio-auth-token-foo","sending_number":"+15555551234"}'
 
     # feature switches
     default_env['ENABLE_COUNSELOR_BASED_FEED'] = 'true'

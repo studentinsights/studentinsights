@@ -4,7 +4,22 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
   let!(:pals) { TestPals.create! }
 
   describe 'validations' do
-    it 'allows creating records, with SMS' do
+    it 'requires a rotp_secret' do
+      expect(EducatorMultifactorConfig.create({
+        educator_id: pals.shs_jodi.id,
+        sms_number: '+15555550077',
+      }).errors.details).to eq(rotp_secret:[{error: :blank}])
+    end
+
+    it 'requires valid base32 rotp_secret' do
+      expect(EducatorMultifactorConfig.create({
+        educator_id: pals.shs_jodi.id,
+        sms_number: '+15555550077',
+        rotp_secret: '1'
+      }).errors.details).to eq(rotp_secret: [{error: 'not valid base32'}])
+    end
+
+    it 'allows creating records for Jodi, with SMS' do
       expect(EducatorMultifactorConfig.create({
         educator_id: pals.shs_jodi.id,
         sms_number: '+15555550077',
@@ -12,14 +27,14 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
       }).errors.details).to eq({})
     end
 
-    it 'allows creating records, without SMS' do
+    it 'allows creating records for Jodi, without SMS' do
       expect(EducatorMultifactorConfig.create({
         educator_id: pals.shs_jodi.id,
         rotp_secret: ROTP::Base32.random_base32
       }).errors.details).to eq({})
     end
 
-    it 'does not allow duplicate records for educator' do
+    it 'does not allow duplicate records for Uri' do
       expect(EducatorMultifactorConfig.create({
         educator_id: pals.uri.id,
         sms_number: '+15555553333',
@@ -27,7 +42,7 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
       }).errors.details[:educator].first[:error]).to eq(:taken)
     end
 
-    it 'does not allow duplicate ROTP secrets per user' do
+    it 'does not allow duplicate ROTP secrets for another user' do
       existing_secret = EducatorMultifactorConfig.first.rotp_secret
       expect(EducatorMultifactorConfig.create({
         educator_id: pals.shs_jodi.id,

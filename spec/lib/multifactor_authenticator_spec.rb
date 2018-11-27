@@ -31,6 +31,20 @@ RSpec.describe 'MultifactorAuthenticator' do
     end
   end
 
+  describe 'Twilio config validates sending_number' do
+    before do
+      @twilio_config_json = ENV['TWILIO_CONFIG_JSON']
+      ENV['TWILIO_CONFIG_JSON'] = '{"sending_number":"555-555-1234","account_sid":"fake","auth_token":"fake"}'
+    end
+    after do
+      ENV['TWILIO_CONFIG_JSON'] = @twilio_config_json
+    end
+
+    it 'raises because of invalid sending_number' do
+      expect { MultifactorAuthenticator.new(pals.rich_districtwide).send_login_code_if_necessary! }.to raise_error(Exceptions::InvalidConfiguration)
+    end
+  end
+
   describe 'ROTP config missing' do
     before do
       @rotp_config_json = ENV['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON']
@@ -139,7 +153,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       fake_creator = MockTwilioClient::FakeCreator.new
       allow(MockTwilioClient::FakeCreator).to receive(:new).and_return fake_creator
       expect(fake_creator).to receive(:create).with({
-        from: '555-555-1234',
+        from: '+15555551234',
         to: '+15555550009',
         body: "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please reply to let us know so we can secure your account!"
       })
@@ -152,7 +166,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       authenticator = MultifactorAuthenticator.new(pals.rich_districtwide)
       login_code = authenticator.send(:get_login_code)
       authenticator.send_login_code_if_necessary!
-      expect(log.output).to include('from: 555-555-1234')
+      expect(log.output).to include('from: +15555551234')
       expect(log.output).to include('to: +15555550009')
       expect(log.output).to include("Sign in code for Student Insights: #{login_code}")
       expect(log.output).to include('If you did not request this, please reply to let us know so we can secure your account!')
@@ -167,7 +181,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       expect(rails_logger.output).to include('MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message')
       expect(rails_logger.output).not_to include(login_code)
       expect(rails_logger.output).not_to include(pals.uri.email)
-      expect(rails_logger.output).not_to include('555-555-1234')
+      expect(rails_logger.output).not_to include('+15555551234')
       expect(rails_logger.output).not_to include('+15555550009')
     end
   end

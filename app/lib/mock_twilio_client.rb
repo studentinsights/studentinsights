@@ -1,5 +1,5 @@
-# fragile minimal implementation of `Twilio::REST::Client`
-# puts the message and fake id
+# Fragile minimal implementation of `Twilio::REST::Client`
+# puts the message and fake id to the logger
 class MockTwilioClient
   def self.should_use?
     return true if Rails.env.development? || Rails.env.test?
