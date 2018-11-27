@@ -25,6 +25,8 @@ class MultifactorController < ApplicationController
 
   # no feedback for security
   def maybe_send_login_code!(login_text)
+    return nil if login_text.nil?
+
     educator = PerDistrict.new.find_educator_by_login_text(login_text.downcase.strip)
     return nil if educator.nil?
 

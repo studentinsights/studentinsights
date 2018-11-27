@@ -100,7 +100,7 @@ describe 'login timing', type: :feature do
       attempts.shuffle(random: Random.new(seed)).first(limit)
     end
 
-    let!(:expected_timing_in_milliseconds) { 300 }
+    let!(:expected_timing_in_milliseconds) { 300 } # for faster tests
     before(:each) { LoginTests.before_set_login_timing!(expected_timing_in_milliseconds) }
     after(:each) { LoginTests.after_reset_login_timing! }
 
@@ -116,8 +116,10 @@ describe 'login timing', type: :feature do
           feature_plain_sign_in(login, password, options)
         end
         feature_reset_login_attempt!
+
         tolerance_ms = 100
-        expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), "unexpected timing for login='#{login}', password='#{password}', options='#{options}'  timing: #{elapsed_milliseconds}"
+        failure_message = "unexpected timing for login='#{login}', password='#{password}', options='#{options}'  timing: #{elapsed_milliseconds}"
+        expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), failure_message
         print('✓') # a nice progress indicator since these are slower tests
       end
       expect(attempts.size).to eq(50)

@@ -36,9 +36,10 @@ describe 'Rack::Attack respects example development config', type: :feature do
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `throttle multifactor/ip/1`')
       5.times do
-        expect(feature_submit_multifactor_form_manually(page, rand().to_s).status).to eq 204
+        feature_request_multifactor(rand().to_s)
+        expect(page.html).to eq ''
       end
-      feature_submit_multifactor_form_manually(page, rand().to_s)
+      feature_request_multifactor(rand().to_s)
       expect(page).to have_content 'Hello! This request has been blocked.'
     end
 
@@ -46,9 +47,10 @@ describe 'Rack::Attack respects example development config', type: :feature do
       allow(Rollbar).to receive(:warn)
       expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `throttle multifactor/login_text`')
       3.times do
-        expect(feature_submit_multifactor_form_manually(page, 'sameeducatorname').status).to eq 204
+        feature_request_multifactor('sameeducatorname')
+        expect(page.html).to eq ''
       end
-      feature_submit_multifactor_form_manually(page, 'sameeducatorname')
+      feature_request_multifactor('sameeducatorname')
       expect(page).to have_content 'Hello! This request has been blocked.'
     end
   end

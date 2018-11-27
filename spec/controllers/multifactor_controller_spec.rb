@@ -14,9 +14,17 @@ describe MultifactorController, :type => :controller do
     before { LoginTests.before_disable_consistent_timing! }
     after { LoginTests.after_reenable_consistent_timing! }
 
+    it 'requires multifactor param' do
+      expect { post_multifactor({}) }.to raise_error ActionController::ParameterMissing
+    end
+
+    it 'requires login_text param' do
+      expect { post_multifactor(multifactor: {}) }.to raise_error ActionController::ParameterMissing
+    end
+
     it 'always returns the same value regardless of execution path' do
       [nil, '', 'foo-login', 'uri@demo.studentinsights.org', 'jodi@studentinsights.org', 'invalid-login'].each do |login_text|
-        post_multifactor(multifactor: { login_text: 'foo' })
+        post_multifactor(multifactor: { login_text: login_text })
         expect(response.status).to eq 204
       end
     end
