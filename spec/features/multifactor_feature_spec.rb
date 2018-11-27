@@ -18,17 +18,17 @@ describe 'Multifactor', type: :feature do
     Educator.all.sample(random: Random.new(seed))
   end
 
-  # the first sign in during the test run can take ~2500ms, so
-  # for any specs that are testing timing, do a "warm up" before
-  # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
-  def warm_up!
-    sign_in_attempt(pals.uri.email, 'demo-password')
-    reset_login_attempt!
-  end
+  # # the first sign in during the test run can take ~2500ms, so
+  # # for any specs that are testing timing, do a "warm up" before
+  # # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
+  # def warm_up!
+  #   feature_sign_in(pals.uri)
+  #   reset_login_attempt!
+  # end
 
-  def reset_login_attempt!
-    FeatureTests.sign_out if page.has_content?('Sign Out')
-  end
+  # def reset_login_attempt!
+  #   FeatureTests.sign_out if page.has_content?('Sign Out')
+  # end
 
   def request_login_code(login_text)
     visit root_url

@@ -1,6 +1,5 @@
 # This is a mixin becasue I couldn't get it to be able to call `allow` as a standalone class.
 module FeatureHelpers
-
   # Sign in by either standard or MFA methods
   def feature_sign_in(educator, options = {})
     authenticator = MultifactorAuthenticator.new(educator)
@@ -47,6 +46,20 @@ module FeatureHelpers
     form_params = { multifactor: { login_text: login_text} }
     env_params = { 'HTTPS' => 'on', 'HTTP_ACCEPT' => 'application/json' }
     page.driver.browser.process :post, '/educators/multifactor', form_params, env_params
+  end
+
+  # The first sign in during the test run can take ~2500ms, so
+  # For any specs that are testing timing, do a "warm up" before
+  # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
+  def feature_timing_warm_up!(educator)
+    feature_sign_in(educator)
+    feature_reset_login_attempt!
+  end
+
+  # For timing specs that sign in and out repeatedly in the same test example
+  def feature_reset_login_attempt!
+    Rack::Attack.cache.store.clear
+    feature_sign_out if page.has_content?('Sign Out')
   end
 
   # This makes the sign out requests manually, since it's a delete request
