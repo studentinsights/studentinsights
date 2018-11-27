@@ -7,6 +7,7 @@ class Rack::Attack
     @parsed_config ||= JSON.parse(ENV.fetch('RACK_ATTACK_CONFIG', '{
       "memcache_servers_list": [],
       "login_path":"/educators/sign_in",
+      "whitelisted_ips": ["127.0.0.77"],
       "req/ip": {
         "limit": 300,
         "period_seconds": 300
@@ -32,6 +33,10 @@ class Rack::Attack
 
   def self.is_login_request?(req)
     req.path == parsed_config['login_path'] && req.post?
+  end
+
+  def self.is_whitelisted_ip?(req)
+    parsed_config['whitelisted_ips'].include?(req.ip)
   end
 
   # Use a separate cache that the standard Rails cache;
@@ -78,7 +83,7 @@ class Rack::Attack
   # don't deserve to hog all of the app server's CPU. Cut them off!
   read_throttle_config('req/ip') do |key, limit, period_seconds|
     throttle(key, limit: limit, period: period_seconds.seconds) do |req|
-      hash_for_cache(req.ip) unless req.path.start_with?('/assets')
+      hash_for_cache(req.ip) if !req.path.start_with?('/assets') && !is_whitelisted_ip?(req)
     end
   end
   
@@ -88,7 +93,7 @@ class Rack::Attack
   read_throttle_config('logins/ip') do |key, limit, period_seconds|
     (1..5).each do |level|
       throttle("#{key}/#{level}", :limit => (limit * level), :period => (period_seconds ** level).seconds) do |req|
-        hash_for_cache(req.ip) if is_login_request?(req)
+        hash_for_cache(req.ip) if is_login_request?(req) && !is_whitelisted_ip?(req)
       end
     end
   end
