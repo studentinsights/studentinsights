@@ -4,10 +4,17 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
   let!(:pals) { TestPals.create! }
 
   describe 'validations' do
-    it 'allows creating valid records' do
+    it 'allows creating records, with SMS' do
       expect(EducatorMultifactorConfig.create({
         educator_id: pals.shs_jodi.id,
         sms_number: '+15555550077',
+        rotp_secret: ROTP::Base32.random_base32
+      }).errors.details).to eq({})
+    end
+
+    it 'allows creating records, without SMS' do
+      expect(EducatorMultifactorConfig.create({
+        educator_id: pals.shs_jodi.id,
         rotp_secret: ROTP::Base32.random_base32
       }).errors.details).to eq({})
     end
@@ -33,13 +40,13 @@ RSpec.describe EducatorMultifactorConfig, type: :model do
       expect(EducatorMultifactorConfig.pluck(:rotp_secret).uniq.size).to eq EducatorMultifactorConfig.all.size
     end
 
-    it 'does not allow phone number collisions across educators' do
+    it 'does not allow SMS collisions across educators' do
       expect(EducatorMultifactorConfig.create({
         educator_id: pals.shs_jodi.id,
-        sms_number: '+15555550007',
+        sms_number: '+15555550009',
         rotp_secret: ROTP::Base32.random_base32
       }).errors.details).to eq({
-        sms_number: [{:error=>:taken, :value=>'+15555550007'}]
+        sms_number: [{:error=>:taken, :value=>'+15555550009'}]
       })
     end
 

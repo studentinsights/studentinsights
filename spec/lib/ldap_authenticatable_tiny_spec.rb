@@ -10,7 +10,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     Devise::Strategies::LdapAuthenticatableTiny.new(warden_env)
   end
 
-  describe '#authenticate! integration tests across districts, with is_authorized_by_ldap mocked' do
+  describe '#authenticate! across districts, with is_authorized_by_ldap and is_multifactor_enabled mocked' do
     def mocked_test_strategy(options = {})
       strategy = test_strategy
       allow(strategy).to receive_messages({
@@ -22,6 +22,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       })
 
       allow(strategy).to receive(:is_authorized_by_ldap?).with(options[:ldap_login], options[:password]).and_return options[:is_authorized_by_ldap?]
+      allow(strategy).to receive(:is_multifactor_enabled?).and_return(false)
       strategy
     end
 
@@ -80,7 +81,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     end
   end
 
-  describe '#authenticate! when methods are mocked' do
+  describe '#authenticate! when no multifactor and methods and mocked' do
     def expect_failure(strategy, symbol)
       expect(strategy.result).to eq :failure
       expect(strategy.message).to eq symbol
@@ -110,12 +111,12 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'jodi@demo.studentinsights.org',
           login_code: ''
         },
         password: 'correct-password'
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'correct-password').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_return true
 
       strategy.authenticate!
       expect_failure(strategy, :invalid)
@@ -126,27 +127,27 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'jodi@demo.studentinsights.org',
           login_code: 'NO_CODE'
         },
         password: ''
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', '').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', '').and_return true
 
       strategy.authenticate!
       expect_failure(strategy, :invalid)
     end
 
-    it 'fails if user tries to sign in with login code when multifactor is not enabled' do
+    it 'fails if user tries to sign in with login code when multifactor is not enabled, and does not query LDAP' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'jodi@demo.studentinsights.org',
           login_code: '123456'
         },
         password: 'demo-password'
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', '').and_return true
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
 
       strategy.authenticate!
       expect_failure(strategy, :unexpected_multifactor)
@@ -170,12 +171,12 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'jodi@demo.studentinsights.org',
           login_code: 'NO_CODE'
         },
         password: 'wrong-password'
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'wrong-password').and_return false
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'wrong-password').and_return false
 
       strategy.authenticate!
       expect_failure(strategy, :invalid)
@@ -187,12 +188,12 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'jodi@demo.studentinsights.org',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'correct-password').and_raise(Net::LDAP::Error)
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_raise(Net::LDAP::Error)
       strategy.authenticate!
 
       expect_failure(strategy, :error)
@@ -202,48 +203,95 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'jodi@demo.studentinsights.org',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'correct-password').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
       expect(strategy.message).to eq nil
-      expect(strategy.user).to eq pals.uri
+      expect(strategy.user).to eq pals.shs_jodi
     end
 
     it 'calls success! even when login cases are different' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'URI@demo.STUDENTINSIGHTS.org',
+          login_text: 'JODI@demo.STUDENTINSIGHTS.org',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'correct-password').and_return true
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
       expect(strategy.message).to eq nil
+      expect(strategy.user).to eq pals.shs_jodi
+    end
+  end
+
+  describe '#authenticate! through multifactor' do
+    let!(:pals) { TestPals.create! }
+
+    def peek_at_correct_multifactor_code(educator)
+      MultifactorAuthenticator.new(educator).send(:get_login_code)
+    end
+
+    it 'success! for Uri through authenticator app when login_code is correct' do
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'uri@demo.studentinsights.org',
+          login_code: peek_at_correct_multifactor_code(pals.uri)
+        },
+        password: 'demo-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'demo-password').and_return true
+
+      strategy.authenticate!
+      expect(strategy.result).to eq :success
+      expect(strategy.message).to eq nil
       expect(strategy.user).to eq pals.uri
     end
-  end
 
-  describe '#is_multifactor_required?' do
-    it 'always returns false' do
+    it 'success! for Rich over SMS when login_code is correct' do
       strategy = test_strategy
-      expect(strategy.send(:is_multifactor_required?, Educator.all.sample)).to eq false
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'rich@demo.studentinsights.org',
+          login_code: peek_at_correct_multifactor_code(pals.rich_districtwide)
+        },
+        password: 'demo-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('rich@demo.studentinsights.org', 'demo-password').and_return true
+
+      strategy.authenticate!
+      expect(strategy.result).to eq :success
+      expect(strategy.message).to eq nil
+      expect(strategy.user).to eq pals.rich_districtwide
     end
-  end
 
-  describe '#is_multifactor_code_valid?' do
-    it 'always returns false' do
-      strategy = test_strategy
-      expect(strategy.send(:is_multifactor_code_valid?, Educator.all.sample, 'demo-password')).to eq false
+    it 'fail! for all users if wrong login_code' do
+      Educator.all.each do |educator|
+        login_text = "#{educator.login_name}@demo.studentinsights.org"
+        strategy = test_strategy
+        allow(strategy).to receive_messages({
+          authentication_hash: {
+            login_text: login_text,
+            login_code: '123456'
+          },
+          password: 'demo-password'
+        })
+        allow(strategy).to receive(:is_authorized_by_ldap?).with(login_text, 'demo-password').and_return true
+
+        strategy.authenticate!
+        expect(strategy.result).to eq :failure
+        expect(strategy.user).to eq nil
+      end
     end
   end
 end

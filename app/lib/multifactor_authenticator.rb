@@ -6,7 +6,7 @@ class MultifactorAuthenticator
   end
 
   def is_multifactor_enabled?
-    multifactor_config.nil?
+    multifactor_config.present?
   end
 
   # Returns true/false and burns the login_code if it is accepted,
@@ -30,7 +30,7 @@ class MultifactorAuthenticator
 
   # If multifactor is enabled, and they are using SMS, send a login code.
   # Otherwise do nothing (eg, they get login code from authenticator app).
-  def maybe_send_login_code!
+  def send_login_code_if_necessary!
     return nil unless is_multifactor_enabled?
     send_login_code_via_sms! if multifactor_config.sms_number.present?
     nil
@@ -76,14 +76,6 @@ class MultifactorAuthenticator
     rotp_config
   end
 
-  def validated_twilio_config!(env)
-    twilio_config = JSON.parse(env.fetch('TWILIO_CONFIG_JSON', '{}'))
-    raise Exceptions::InvalidConfiguration if twilio_config['account_sid'].nil?
-    raise Exceptions::InvalidConfiguration if twilio_config['auth_token'].nil?
-    raise Exceptions::InvalidConfiguration if twilio_config['sending_number'].nil?
-    twilio_config
-  end
-
   def send_twilio_message!(message, to_sms_number)
     twilio_config = validated_twilio_config!(ENV)
     client = @twilio_client_class.new(twilio_config['account_sid'], twilio_config['auth_token'])
@@ -93,5 +85,13 @@ class MultifactorAuthenticator
       from: twilio_config['sending_number']
     })
     twilio_message.try(:sid)
+  end
+
+  def validated_twilio_config!(env)
+    twilio_config = JSON.parse(env.fetch('TWILIO_CONFIG_JSON', '{}'))
+    raise Exceptions::InvalidConfiguration if twilio_config['account_sid'].nil?
+    raise Exceptions::InvalidConfiguration if twilio_config['auth_token'].nil?
+    raise Exceptions::InvalidConfiguration if twilio_config['sending_number'].nil?
+    twilio_config
   end
 end

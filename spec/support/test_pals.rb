@@ -101,7 +101,7 @@ class TestPals
     )
     EducatorMultifactorConfig.create!({
       educator: @uri,
-      rotp_secret: ROTP::Base32.random_base32
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret
     })
 
     # Rich works in the central office and has districwide access, but
@@ -124,7 +124,7 @@ class TestPals
     EducatorMultifactorConfig.create!({
       educator: @rich_districtwide,
       sms_number: '+15555550009',
-      rotp_secret: ROTP::Base32.random_base32
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret
     })
 
     # Healey is a K8 school.
