@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  devise_for :educators, controllers: { sessions: 'educators/sessions' }
+  authenticated :educator do
+    root to: 'educators#homepage', as: 'educator_homepage'
+  end
+  devise_scope :educator do
+    root to: "educators/sessions#new"
+  end
+
   namespace :admin do
     resources :educators
     get '/authorization' => 'educators#authorization'
@@ -80,15 +88,7 @@ Rails.application.routes.draw do
   # login activity security monitoring
   get '/api/login_activity' => 'login_activities#index_json'
 
-
-  devise_for :educators, controllers: { sessions: 'educators/sessions' }
-  authenticated :educator do
-    root to: 'educators#homepage', as: 'educator_homepage'
-  end
-  devise_scope :educator do
-    root to: "educators/sessions#new"
-  end
-
+  # home and profile and pages
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/my_students'=> 'ui#ui'
