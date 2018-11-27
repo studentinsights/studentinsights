@@ -41,28 +41,7 @@ module FeatureHelpers
     click_button 'Log in'
   end
 
-  # Since the multifactor form uses JS, and the RackTest::Driver can't run JS, this simulates
-  # making that request through the browser directly, and returns the response object.
-  # def feature_submit_multifactor_form_manually(page, login_text)
-  #   form_params = { multifactor: { login_text: login_text} }
-  #   env_params = { 'HTTPS' => 'on', 'HTTP_ACCEPT' => 'application/json' }
-  #   page.driver.browser.process :post, '/educators/multifactor', form_params, env_params
-  # end
-
-  # The first sign in during the test run can take ~2500ms, so
-  # For any specs that are testing timing, do a "warm up" before
-  # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
-  def feature_timing_warm_up!(educator)
-    feature_sign_in(educator)
-    feature_reset_login_attempt!
-  end
-
-  # For timing specs that sign in and out repeatedly in the same test example
-  def feature_reset_login_attempt!
-    Rack::Attack.cache.store.clear
-    page.reset!
-  end
-
+  # Submit the form to ask for a login code via SMS
   def feature_request_multifactor(login_text)
     visit '/'
     fill_in 'multifactor_login_text', with: login_text
@@ -84,5 +63,19 @@ module FeatureHelpers
 
     # Follow redirection back to root.
     page.visit page.driver.response.location
+  end
+
+  # The first sign in during the test run can take ~2500ms, so
+  # For any specs that are testing timing, do a "warm up" before
+  # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
+  def feature_timing_warm_up!(educator)
+    feature_sign_in(educator)
+    feature_reset_login_attempt!
+  end
+
+  # For timing specs that sign in and out repeatedly in the same test example
+  def feature_reset_login_attempt!
+    Rack::Attack.cache.store.clear
+    page.reset!
   end
 end
