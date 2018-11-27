@@ -77,7 +77,7 @@ RSpec.describe 'MultifactorAuthenticator' do
         authenticator = MultifactorAuthenticator.new(pals.uri)
         login_code = authenticator.send(:get_login_code)
         expect(authenticator.is_multifactor_code_valid?(login_code)).to eq true
-        expect(EducatorMultifactorTextNumber.find_by(educator_id: pals.uri.id).last_verification_at.to_i).to eq(time_now.to_i)
+        expect(EducatorMultifactorConfig.find_by(educator_id: pals.uri.id).last_verification_at.to_i).to eq(time_now.to_i)
       end
     end
 

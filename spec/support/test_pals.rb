@@ -99,9 +99,8 @@ class TestPals
       educator: @uri,
       label_key: 'should_show_levels_shs_link'
     )
-    EducatorMultifactorTextNumber.create!({
+    EducatorMultifactorConfig.create!({
       educator: @uri,
-      sms_number: '+15555550007',
       rotp_secret: ROTP::Base32.random_base32
     })
 
@@ -122,7 +121,7 @@ class TestPals
       can_view_restricted_notes: true,
       school: nil
     )
-    EducatorMultifactorTextNumber.create!({
+    EducatorMultifactorConfig.create!({
       educator: @rich_districtwide,
       sms_number: '+15555550009',
       rotp_secret: ROTP::Base32.random_base32

@@ -6,7 +6,7 @@ class MultifactorAuthenticator
   end
 
   def is_multifactor_enabled?
-    multifactor_record.try(:sms_number)
+    multifactor_config.nil?
   end
 
   # Returns true/false and burns the login_code if it is accepted,
@@ -18,35 +18,43 @@ class MultifactorAuthenticator
     # allowing 15 seconds of drift if the code hasn't been used yet.
     totp = create_totp!
     verified_password_timestamp = totp.verify(login_code, {
-      after: multifactor_record.last_verification_at,
+      after: multifactor_config.last_verification_at,
       drift_behind: 15
     })
     return false if verified_password_timestamp.nil?
 
     # If we authenticated the user, burn the login_code for this time window
-    multifactor_record.reload.update!(last_verification_at: Time.at(verified_password_timestamp))
+    multifactor_config.reload.update!(last_verification_at: Time.at(verified_password_timestamp))
     true
   end
 
-  # Send SMS with login code, if multifactor is required
-  def send_login_code_via_sms!
+  # If multifactor is enabled, and they are using SMS, send a login code.
+  # Otherwise do nothing (eg, they get login code from authenticator app).
+  def maybe_send_login_code!
     return nil unless is_multifactor_enabled?
-
-    login_code = get_login_code()
-    message_with_login_code = "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please reply to let us know so we can secure your account!"
-    twilio_message_sid = send_twilio_message!(message_with_login_code)
-    @logger.info("MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message, sid:#{twilio_message_sid}")
+    send_login_code_via_sms! if multifactor_config.sms_number.present?
     nil
   end
 
   private
+  def send_login_code_via_sms!
+    return nil unless is_multifactor_enabled?
+    return nil unless multifactor_config.sms_number.present?
+
+    login_code = get_login_code()
+    message_with_login_code = "Sign in code for Student Insights: #{login_code}\n\nIf you did not request this, please reply to let us know so we can secure your account!"
+    twilio_message_sid = send_twilio_message!(message_with_login_code, multifactor_config.sms_number)
+    @logger.info("MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message, sid:#{twilio_message_sid}")
+    nil
+  end
+
   def get_login_code
     totp = create_totp!
     totp.now
   end
 
-  def multifactor_record
-    @multifactor_record ||= EducatorMultifactorTextNumber.find_by(educator_id: @educator.id)
+  def multifactor_config
+    @multifactor_config ||= EducatorMultifactorConfig.find_by(educator_id: @educator.id)
   end
 
   def create_totp!
@@ -57,7 +65,7 @@ class MultifactorAuthenticator
   end
 
   def validated_rotp_secret_for_educator!
-    rotp_secret = multifactor_record.rotp_secret
+    rotp_secret = multifactor_config.rotp_secret
     raise Exceptions::InvalidConfiguration if rotp_secret.nil?
     rotp_secret
   end
@@ -76,12 +84,12 @@ class MultifactorAuthenticator
     twilio_config
   end
 
-  def send_twilio_message!(message)
+  def send_twilio_message!(message, to_sms_number)
     twilio_config = validated_twilio_config!(ENV)
     client = @twilio_client_class.new(twilio_config['account_sid'], twilio_config['auth_token'])
     twilio_message = client.messages.create({
       body: message,
-      to: multifactor_record.sms_number,
+      to: to_sms_number,
       from: twilio_config['sending_number']
     })
     twilio_message.try(:sid)

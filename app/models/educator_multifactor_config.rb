@@ -1,4 +1,4 @@
-class EducatorMultifactorTextNumber < ApplicationRecord
+class EducatorMultifactorConfig < ApplicationRecord
   belongs_to :educator
 
   validates :rotp_secret, presence: true, uniqueness: true

@@ -27,7 +27,7 @@ class MultifactorController < ApplicationController
     authenticator = MultifactorAuthenticator.new(educator)
     return nil unless authenticator.is_multifactor_enabled?
 
-    authenticator.send_login_code_via_sms!
+    authenticator.maybe_send_login_code!
     nil
   end
 end
