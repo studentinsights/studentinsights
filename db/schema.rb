@@ -125,15 +125,6 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
     t.index ["section_id"], name: "index_educator_section_assignments_on_section_id"
   end
 
-  create_table "educator_two_factor_numbers", force: :cascade do |t|
-    t.integer "educator_id", null: false
-    t.string "two_factor_number", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["educator_id"], name: "index_educator_two_factor_numbers_on_educator_id", unique: true
-    t.index ["two_factor_number"], name: "index_educator_two_factor_numbers_on_two_factor_number", unique: true
-  end
-
   create_table "educators", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.datetime "remember_created_at"
@@ -568,7 +559,6 @@ ActiveRecord::Schema.define(version: 2018_11_20_195819) do
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
-  add_foreign_key "educator_two_factor_numbers", "educators"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
   add_foreign_key "event_note_attachments", "event_notes", name: "event_note_attachments_event_note_id_fk"
   add_foreign_key "event_note_revisions", "educators", name: "event_note_revisions_educator_id_fk"
