@@ -7,11 +7,17 @@ class LdapAuthenticator
   # Create a Net::LDAP instance, `bind` to it and close.
   # Return true or false if they're authorized.
   def is_authorized_by_ldap?(ldap_login, ldap_password)
+    # Guard for bad calls
+    if ldap_login.nil? || ldap_login == ''
+      @logger.error 'LdapAuthenticator#is_authorized_by_ldap? aborting because of empty login.'
+      return false
+    end
     if ldap_password.nil? || ldap_password == ''
       @logger.error 'LdapAuthenticator#is_authorized_by_ldap? aborting because of empty password.'
       return false
     end
 
+    # Perform bind
     options = ldap_options_for(ldap_login, ldap_password)
     ldap = @ldap_class.new(options)
     is_authorized = ldap.bind

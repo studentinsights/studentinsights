@@ -33,7 +33,7 @@ module Devise
       def authenticate_without_consistent_timing!
         begin
           # Get parameters user sent via superclass, and validate them.
-          # Devise also enforces taht all parameters are present before our strategy runs.
+          # Devise also enforces that all parameters are present before our strategy runs.
           login_text = authentication_hash.fetch(:login_text, '').downcase.strip
           login_code = authentication_hash.fetch(:login_code, '').downcase.strip
           password_text = password()

@@ -52,9 +52,14 @@ RSpec.describe 'LdapAuthenticator' do
       expect(is_authorized_by_ldap?('uri@demo.studentinsights.org', nil)).to eq false
     end
 
-    it 'guards nil password, without network call' do
+    it 'guards empty login, without network call' do
       expect_bind_not_to_be_called
-      expect(is_authorized_by_ldap?('uri@demo.studentinsights.org', nil)).to eq false
+      expect(is_authorized_by_ldap?('', 'demo-password')).to eq false
+    end
+
+    it 'guards nil login, without network call' do
+      expect_bind_not_to_be_called
+      expect(is_authorized_by_ldap?(nil, 'demo-password')).to eq false
     end
   end
 
