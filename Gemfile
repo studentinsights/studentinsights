@@ -49,12 +49,10 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'descriptive-statistics'
-  gem 'launchy'
   gem 'pry' # Set a breakpoint in your ruby code by adding `binding.pry`
   gem 'rack-test'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'timecop'
   gem 'brakeman'

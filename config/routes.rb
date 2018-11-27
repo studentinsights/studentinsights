@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # Devise and authentication
+  devise_for :educators, controllers: { sessions: 'educators/sessions' }
+  authenticated :educator do
+    root to: 'educators#homepage', as: 'educator_homepage'
+  end
+  devise_scope :educator do
+    root to: "educators/sessions#new"
+  end
+  post '/educators/multifactor/send_code' => 'multifactor#send_code'
+
+
+  # Admin
   namespace :admin do
     resources :educators
     get '/authorization' => 'educators#authorization'
@@ -8,7 +20,6 @@ Rails.application.routes.draw do
     post '/masquerade/clear' => 'masquerade#clear'
     root to: "educators#index"
   end
-
   scope '/admin' do
     get '/import_records' => 'ui#ui'
     get '/api/import_records' => 'import_records#import_records_json'
@@ -20,6 +31,7 @@ Rails.application.routes.draw do
     post '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#upload'
     get '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#index'
   end
+
 
   get '/api/educators/view/:id' => 'educators#show'
   get '/api/educators/my_students_json' => 'educators#my_students_json'
@@ -80,16 +92,7 @@ Rails.application.routes.draw do
   # login activity security monitoring
   get '/api/login_activity' => 'login_activities#index_json'
 
-
-  devise_for :educators, controllers: { sessions: 'educators/sessions' }
-  authenticated :educator do
-    root to: 'educators#homepage', as: 'educator_homepage'
-  end
-  devise_scope :educator do
-    root to: "educators/sessions#new"
-  end
-  post '/educators/multifactor/send_code' => 'multifactor#send_code'
-
+  # home and profile and pages
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
   get '/educators/my_students'=> 'ui#ui'

@@ -3,14 +3,12 @@ require 'rails_helper'
 RSpec.describe Absence, type: :model do
   let!(:student) { FactoryBot.create(:student) }
 
-  subject(:absence) {
+  def create_absence
     Absence.create!(
       occurred_at: Time.now,
       student_id: student.id
     )
-  }
+  end
 
-  it { is_expected.to belong_to :student }
-  it { is_expected.to validate_presence_of :student_id }
-  it { is_expected.to validate_presence_of :occurred_at }
+  it { expect(create_absence.valid?).to eq true }
 end
