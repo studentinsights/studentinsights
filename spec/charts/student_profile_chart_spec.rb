@@ -19,13 +19,13 @@ RSpec.describe StudentProfileChart do
     end
 
     it 'filters assessments with null SGP' do
-      with_growth_percentile = FactoryBot.create(:student_assessment, {
+      FactoryBot.create(:student_assessment, {
         student: student,
         scale_score: 504,
         growth_percentile: 26,
         assessment: Assessment.find_by(family: 'Next Gen MCAS', subject: 'Mathematics')
       })
-      without_growth_percentile = FactoryBot.create(:student_assessment, {
+      FactoryBot.create(:student_assessment, {
         student: student,
         scale_score: 502,
         growth_percentile: nil,

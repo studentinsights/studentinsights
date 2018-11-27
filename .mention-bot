@@ -9,7 +9,7 @@
         "Procfile",
         ".eslintrc",
         "config/**/*.rb",
-        "app/controlleers/educators/sessions_controller.rb",
+        "app/controllers/educators/sessions_controller.rb",
         "lib/ldap_authenticatable_tiny/*.rb",
         "app/lib/shs_tiers.rb",
         "spec/lib/route_guards_spec.rb"

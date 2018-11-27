@@ -71,6 +71,23 @@ describe 'Rack::Attack respects example development config', type: :feature do
     end
   end
 
+  describe 'from datacenter IP' do
+    before do
+      allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return('52.95.252.0')
+    end
+
+    it 'blocks the request and logs the datacenter name' do
+      rails_logger = LogHelper::RailsLogger.new
+      allow(Rails).to receive(:logger).and_return(rails_logger)
+
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/datacenter`')
+      visit '/'
+      expect(page).to have_content 'Hello! This request has been blocked.'
+      expect(rails_logger.output).to include('Rack::Attack req/datacenter matched `Amazon AWS`')
+    end
+  end
+
   describe 'when from whitelisted IP' do
     before do
       allow_any_instance_of(Rack::Attack::Request).to receive(:ip).and_return('127.0.0.77')

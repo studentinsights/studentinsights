@@ -366,6 +366,40 @@ RSpec.describe Authorizer do
     end
   end
 
+  describe '#is_authorized_for_section?' do
+    let!(:test_section) { pals.shs_tuesday_biology_section }
+
+    it 'allows access to own sections' do
+      expect(Authorizer.new(pals.shs_bill_nye).is_authorized_for_section?(test_section)).to eq true
+    end
+
+    it 'allows districtwide access' do
+      expect(Authorizer.new(pals.uri).is_authorized_for_section?(test_section)).to eq true
+      expect(Authorizer.new(pals.rich_districtwide).is_authorized_for_section?(test_section)).to eq true
+    end
+
+    it 'allows schoolwide access' do
+      expect(Authorizer.new(pals.shs_fatima_science_teacher).is_authorized_for_section?(test_section)).to eq true
+      expect(Authorizer.new(pals.shs_sofia_counselor).is_authorized_for_section?(test_section)).to eq true
+      expect(Authorizer.new(pals.shs_harry_housemaster).is_authorized_for_section?(test_section)).to eq true
+    end
+
+    it 'guards access from others reading' do
+      unauthorized_educators = Educator.all - [
+        pals.shs_bill_nye,
+        pals.uri,
+        pals.rich_districtwide,
+        pals.shs_fatima_science_teacher,
+        pals.shs_sofia_counselor,
+        pals.shs_harry_housemaster
+      ]
+      expect(unauthorized_educators.size).to be >= 1
+      unauthorized_educators.each do |educator|
+        expect(Authorizer.new(educator).is_authorized_for_section?(test_section)).to eq(false), "failed for #{educator.email}"
+      end
+    end
+  end
+
   describe '#is_authorized_to_write_transition_notes?' do
     it 'only allows K8 counselor with label and access to restricted notes' do
       expect(Authorizer.new(pals.west_counselor).is_authorized_to_write_transition_notes?).to eq true
@@ -382,7 +416,7 @@ RSpec.describe Authorizer do
         expect(Authorizer.new(educator).is_authorized_for_deprecated_transition_note_ui?).to eq true
       end
       (Educator.all - authorized_educators).each do |educator|
-        expect(Authorizer.new(educator).is_authorized_to_write_transition_notes?).to eq false
+        expect(Authorizer.new(educator).is_authorized_for_deprecated_transition_note_ui?).to eq false
       end
     end
   end

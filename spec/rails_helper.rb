@@ -1,7 +1,6 @@
-# ---- Student Insights ----
+# This can't be moved and has to be run first.  See https://github.com/colszowka/simplecov#troubleshooting
 require 'simplecov'
 SimpleCov.start
-# --- end Student Insights
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
@@ -76,3 +75,6 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
 end
+
+# Test coverage checker
+CoverageChecker.new.setup!

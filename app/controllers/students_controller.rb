@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
   # deprecated
   def show
     student = Student.find(params[:id])
-    return redirect_to(v3_student_path(student)) if should_redirect_to_profile_v3?(params)
+    return redirect_to(v4_student_path(student)) if should_redirect_to_profile_v4?(params)
 
     can_access_restricted_transition_notes = authorizer.is_authorized_for_deprecated_transition_note_ui?
     chart_data = StudentProfileChart.new(student).chart_data
@@ -151,9 +151,9 @@ class StudentsController < ApplicationController
     end
   end
 
-  def should_redirect_to_profile_v3?(params)
+  def should_redirect_to_profile_v4?(params)
     return false if params.has_key?(:please)
-    !EnvironmentVariable.is_true('DISABLE_STUDENT_PROFILE_V3')
+    !EnvironmentVariable.is_true('DISABLE_STUDENT_PROFILE_V4')
   end
 
   def serialize_student_for_profile(student)

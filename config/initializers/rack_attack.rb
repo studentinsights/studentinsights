@@ -88,7 +88,11 @@ class Rack::Attack
   # Block all requests from known data centers
   # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
   blocklist('req/datacenter') do |req|
-    IPCat.datacenter?(req.ip)
+    datacenter_name = IPCat.datacenter?(req.ip).try(:name)
+    if datacenter_name.present?
+      Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
+      true
+    end
   end
 
   # Block things attacking WordPress and ASP, just to remove that noise
