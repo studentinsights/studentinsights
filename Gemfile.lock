@@ -153,8 +153,6 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    launchy (2.4.3)
-      addressable (~> 2.3)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -287,8 +285,6 @@ GEM
     secure_headers (5.0.5)
       useragent (>= 0.15.0)
     selectize-rails (0.12.4.1)
-    shoulda-matchers (3.1.2)
-      activesupport (>= 4.0.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -346,7 +342,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails (~> 5.0.3)
   json-diff
-  launchy
   memory_profiler
   net-ldap
   net-sftp
@@ -372,7 +367,6 @@ DEPENDENCIES
   rubyzip (~> 1.2.2)
   sass-rails (~> 5.0)
   secure_headers
-  shoulda-matchers
   simplecov
   spring
   sprockets
