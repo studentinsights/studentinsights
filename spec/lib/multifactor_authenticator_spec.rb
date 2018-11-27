@@ -13,7 +13,7 @@ RSpec.describe 'MultifactorAuthenticator' do
     [pals.uri, pals.rich_districtwide]
   end
 
-  describe 'Twilio config' do
+  describe 'Twilio config missing' do
     before do
       @twilio_config_json = ENV['TWILIO_CONFIG_JSON']
       ENV.delete('TWILIO_CONFIG_JSON')
@@ -31,7 +31,7 @@ RSpec.describe 'MultifactorAuthenticator' do
     end
   end
 
-  describe 'ROTP config' do
+  describe 'ROTP config missing' do
     before do
       @rotp_config_json = ENV['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON']
       ENV.delete('MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON')

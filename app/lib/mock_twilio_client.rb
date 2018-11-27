@@ -3,13 +3,13 @@
 class MockTwilioClient
   def self.should_use?
     return true if Rails.env.development? || Rails.env.test?
-    return true if PerDistrict.new.district_key == 'demo'
+    return true if PerDistrict.new.district_key == PerDistrict::DEMO
     return false
   end
 
   def initialize(sid, token)
-    raise 'invalid sid' if sid.nil?
-    raise 'invalid token' if token.nil?
+    raise Exceptions::InvalidConfiguration if sid.nil?
+    raise Exceptions::InvalidConfiguration if token.nil?
   end
 
   class FakeMessage
@@ -49,7 +49,8 @@ class MockTwilioClient
     def logger
       return STDOUT if Rails.env.development?
       return LogHelper::FakeLog.new if Rails.env.test?
-      raise 'invalid'
+      return Rails.logger if PerDistrict.new.district_key == PerDistrict::DEMO
+      raise 'invalid' # avoid possibly logging codes in real production site
     end
   end
 
