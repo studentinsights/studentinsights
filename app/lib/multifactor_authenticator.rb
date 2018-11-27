@@ -1,3 +1,9 @@
+# Performs multifactor authentication for either an authenticator app
+# or from an OTP send via SMS.  This does not handle provisioning for
+# either case, and assumes that is already set.
+#
+# Note that these have different security and UX profiles (short version:
+# authenticator is more secure, but SMS is lower barrier to entry for users).
 class MultifactorAuthenticator
   def initialize(educator, options = {})
     @educator = educator
@@ -57,6 +63,7 @@ class MultifactorAuthenticator
     @multifactor_config ||= EducatorMultifactorConfig.find_by(educator_id: @educator.id)
   end
 
+  # Create a TOTP for this educator
   def create_totp!
     rotp_secret = validated_rotp_secret_for_educator!
     rotp_config = validated_rotp_config!(ENV)

@@ -65,8 +65,9 @@ RSpec.describe 'MultifactorAuthenticator' do
 
   describe '#is_multifactor_enabled?' do
     it 'is enabled for Uri and Rich' do
-      expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_enabled?).to eq true
-      expect(MultifactorAuthenticator.new(pals.rich_districtwide).is_multifactor_enabled?).to eq true
+      enabled_educators.each do |educator|
+        expect(MultifactorAuthenticator.new(educator).is_multifactor_enabled?).to eq true
+      end
     end
 
     it 'is not enabled for anyone else' do
@@ -78,24 +79,23 @@ RSpec.describe 'MultifactorAuthenticator' do
 
   describe 'is_multifactor_code_valid?' do
     it 'can verify correct code' do
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
       authenticator = MultifactorAuthenticator.new(pals.uri)
-      login_code = authenticator.send(:get_login_code)
       expect(authenticator.is_multifactor_code_valid?(login_code)).to eq true
     end
 
     it 'does not work when using codes from another user' do
-      rich_authenticator = MultifactorAuthenticator.new(pals.rich_districtwide)
-      rich_login_code = rich_authenticator.send(:get_login_code)
-      uri_authenticator = MultifactorAuthenticator.new(pals.uri)
-      uri_login_code = uri_authenticator.send(:get_login_code)
+      rich_login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
+      uri_login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
 
-      expect(uri_authenticator.is_multifactor_code_valid?(rich_login_code)).to eq false
-      expect(rich_authenticator.is_multifactor_code_valid?(uri_login_code)).to eq false
+      expect(MultifactorAuthenticator.new(pals.rich_districtwide).is_multifactor_code_valid?(uri_login_code)).to eq false
+      expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(rich_login_code)).to eq false
     end
 
     it 'does not work a second time after code has already been used' do
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
+
       authenticator = MultifactorAuthenticator.new(pals.uri)
-      login_code = authenticator.send(:get_login_code)
       expect(authenticator.is_multifactor_code_valid?(login_code)).to eq true
       expect(authenticator.is_multifactor_code_valid?(login_code)).to eq false
     end
@@ -103,8 +103,8 @@ RSpec.describe 'MultifactorAuthenticator' do
     it 'stores last_verification_at after successful verification' do
       time_now = Time.parse('2017-03-16T11:12:00.000Z')
       Timecop.freeze(time_now) do
+        login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
         authenticator = MultifactorAuthenticator.new(pals.uri)
-        login_code = authenticator.send(:get_login_code)
         expect(authenticator.is_multifactor_code_valid?(login_code)).to eq true
         expect(EducatorMultifactorConfig.find_by(educator_id: pals.uri.id).last_verification_at.to_i).to eq(time_now.to_i)
       end
@@ -113,7 +113,9 @@ RSpec.describe 'MultifactorAuthenticator' do
     it 'allows drift under 15 seconds' do
       time_now = Time.parse('2017-03-16T11:12:00.000Z')
       login_code = nil
-      Timecop.freeze(time_now) { login_code = MultifactorAuthenticator.new(pals.uri).send(:get_login_code) }
+      Timecop.freeze(time_now) do
+        login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
+      end
       Timecop.freeze(time_now + 30.seconds + 14.seconds) do
         expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(login_code)).to eq true
       end
@@ -122,7 +124,9 @@ RSpec.describe 'MultifactorAuthenticator' do
     it 'guards against drift of 15 seconds or more' do
       time_now = Time.parse('2017-03-16T11:12:00.000Z')
       login_code = nil
-      Timecop.freeze(time_now) { login_code = MultifactorAuthenticator.new(pals.uri).send(:get_login_code) }
+      Timecop.freeze(time_now) do
+        login_code = LoginTests.peek_at_correct_multifactor_code(pals.uri)
+      end
       Timecop.freeze(time_now + 30.seconds + 15.seconds) do
         expect(MultifactorAuthenticator.new(pals.uri).is_multifactor_code_valid?(login_code)).to eq false
       end
@@ -134,6 +138,7 @@ RSpec.describe 'MultifactorAuthenticator' do
       log = log_for_mock_twilio_client
       (Educator.all - enabled_educators).each do |educator|
         authenticator = MultifactorAuthenticator.new(educator)
+        expect(authenticator).not_to receive(:send_twilio_message!)
         authenticator.send_login_code_if_necessary!
         expect(log.output).to eq ''
       end
@@ -142,13 +147,14 @@ RSpec.describe 'MultifactorAuthenticator' do
     it 'does nothing when no SMS number (authenticator app)' do
       log = log_for_mock_twilio_client
       authenticator = MultifactorAuthenticator.new(pals.uri)
+      expect(authenticator).not_to receive(:send_twilio_message!)
       authenticator.send_login_code_if_necessary!
       expect(log.output).to eq ''
     end
 
     it 'works for Rich when verifying params sent to MockTwilioClient' do
       authenticator = MultifactorAuthenticator.new(pals.rich_districtwide)
-      login_code = authenticator.send(:get_login_code)
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
 
       fake_creator = MockTwilioClient::FakeCreator.new
       allow(MockTwilioClient::FakeCreator).to receive(:new).and_return fake_creator
@@ -164,7 +170,7 @@ RSpec.describe 'MultifactorAuthenticator' do
     it 'works for Rich when verifying log output for development' do
       log = log_for_mock_twilio_client
       authenticator = MultifactorAuthenticator.new(pals.rich_districtwide)
-      login_code = authenticator.send(:get_login_code)
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
       authenticator.send_login_code_if_necessary!
       expect(log.output).to include('from: +15555551234')
       expect(log.output).to include('to: +15555550009')
@@ -172,10 +178,10 @@ RSpec.describe 'MultifactorAuthenticator' do
       expect(log.output).to include('If you did not request this, please reply to let us know so we can secure your account!')
     end
 
-    it 'logs to Rails that a message was sent, without any sensitive information' do
+    it 'logs to Rails that a message was sent, without any sensitive information (eg, when MockTwilioClient is not logging)' do
       rails_logger = LogHelper::RailsLogger.new
       authenticator = MultifactorAuthenticator.new(pals.rich_districtwide, logger: rails_logger)
-      login_code = authenticator.send(:get_login_code)
+      login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
       authenticator.send_login_code_if_necessary!
 
       expect(rails_logger.output).to include('MultifactorAuthenticator#send_login_code_via_sms! sent Twilio message')
