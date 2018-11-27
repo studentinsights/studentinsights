@@ -51,7 +51,7 @@ module LogHelper
       false
     end
 
-    def debug(message)
+    def debug(message = nil)
       log_with(:debug, if block_given? then yield else message end)
     end
 
@@ -59,7 +59,7 @@ module LogHelper
       true
     end
 
-    def info(message)
+    def info(message = nil)
       log_with(:info, if block_given? then yield else message end)
     end
 
@@ -67,7 +67,7 @@ module LogHelper
       true
     end
 
-    def warn(message)
+    def warn(message = nil)
       log_with(:warn, if block_given? then yield else message end)
     end
 
@@ -75,7 +75,7 @@ module LogHelper
       true
     end
 
-    def error(message)
+    def error(message = nil)
       log_with(:error, if block_given? then yield else message end)
     end
 
