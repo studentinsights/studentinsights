@@ -27,8 +27,8 @@ describe('simple login', () => {
     expect($(el).text()).toContain('Password');
     expect(el.querySelectorAll('.btn').length).toEqual(2);
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
+    expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(false);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(true);
-    expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(true);
   });
 });
 

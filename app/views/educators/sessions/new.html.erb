@@ -13,13 +13,11 @@
         </div>
         <div class="SignInPage-item">
           <%= label_tag :multifactor_password, 'Password' %>
-          <input
-            id="multifactor_password"
-            type="password"
-            class="SignInPage-input-text SignInPage-input-password"
-            autocomplete="off"
-            required="true"
-          />
+          <%= password_field_tag('multifactor[password]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-password',
+            autocomplete: 'off',
+            required: true
+          }) %>
         </div>
         <div class="SignInPage-item">
           <%= submit_tag "Send code", class: "btn btn-primary SignInPage-send-code-button" %>
