@@ -137,8 +137,8 @@ it('renders list of classlists', () => {
   )).toEqual(true);
 });
 
-it('renders student profile v3', () => {
-  const wrapper = mount(renderPath('/students/42/v3?foo=bar'));
+it('renders student profile v4', () => {
+  const wrapper = mount(renderPath('/students/42/v4?foo=bar'));
   expect(wrapper.contains(
     <StudentProfilePageRoute
       studentId={42}
