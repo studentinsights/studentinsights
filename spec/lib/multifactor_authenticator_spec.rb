@@ -34,7 +34,7 @@ RSpec.describe 'MultifactorAuthenticator' do
   describe 'ROTP config' do
     before do
       @rotp_config_json = ENV['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON']
-      ENV['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{}'
+      ENV.delete('MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON')
     end
     after do
       ENV['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = @rotp_config_json

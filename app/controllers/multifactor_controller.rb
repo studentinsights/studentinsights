@@ -20,7 +20,10 @@ class MultifactorController < ApplicationController
 
   private
   def desired_milliseconds
-    ENV.fetch('CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS', 5000.to_s).to_i
+    default_value_in_milliseconds = 3000
+    milliseconds = ENV.fetch('CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS', default_value_in_milliseconds.to_s).to_i
+    return default_value_in_milliseconds if milliseconds == 0
+    milliseconds
   end
 
   # no feedback for security

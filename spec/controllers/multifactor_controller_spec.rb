@@ -10,6 +10,28 @@ describe MultifactorController, :type => :controller do
     response
   end
 
+  describe 'when ENV config is missing' do
+    before do
+      @store_CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS = ENV['CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS']
+      ENV.delete('CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS')
+    end
+
+    after do
+      ENV['CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS'] = @store_CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS
+    end
+
+    it 'does not raise' do
+      post_multifactor(multifactor: { login_text: 'uri@demo.studentinsights.org' })
+    end
+
+    it 'enforces default timing' do
+      _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
+        post_multifactor(multifactor: { login_text: 'uri@demo.studentinsights.org' })
+      end
+      expect(elapsed_milliseconds).to be_within(100).of(3000)
+    end
+  end
+
   describe '#multifactor, with consistent timing disabled' do
     before { LoginTests.before_disable_consistent_timing! }
     after { LoginTests.after_reenable_consistent_timing! }
