@@ -74,14 +74,4 @@ RSpec.configure do |config|
 
   # Devise helpers for controller tests (eg., `sign_in`)
   config.include Devise::Test::ControllerHelpers, type: :controller
-
-  # Register shoulda-matchers manually in Rails 5
-  # See https://github.com/thoughtbot/shoulda-matchers/issues/951
-  config.include(Shoulda::Matchers::ActiveModel, type: :model)
-  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
-  Shoulda::Matchers.configure do |shoulda_config|
-    shoulda_config.integrate do |with|
-      with.test_framework :rspec
-    end
-  end
 end
