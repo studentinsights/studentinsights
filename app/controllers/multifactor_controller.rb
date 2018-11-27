@@ -20,7 +20,7 @@ class MultifactorController < ApplicationController
 
   private
   def desired_milliseconds
-    ENV.fetch('CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS', 2000.to_s).to_i
+    ENV.fetch('CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS', 5000.to_s).to_i
   end
 
   # no feedback for security
