@@ -33,5 +33,5 @@ script:
   - ./scripts/ci/detect_package_lock.sh
   - rubocop
   - bundle exec brakeman -z
-  - bundle exec rspec spec
+  - ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
   - yarn test-cli
