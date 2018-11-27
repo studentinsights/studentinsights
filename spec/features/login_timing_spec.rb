@@ -27,7 +27,7 @@ describe 'login timing', type: :feature do
 
   def reset_login_attempt!
     Rack::Attack.cache.store.clear
-    sign_out if page.has_content?('Sign Out')
+    FeatureTests.sign_out if page.has_content?('Sign Out')
   end
 
   # simulate a really slow response from an LDAP #bind

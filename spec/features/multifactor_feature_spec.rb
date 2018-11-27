@@ -27,7 +27,7 @@ describe 'Multifactor', type: :feature do
   end
 
   def reset_login_attempt!
-    sign_out if page.has_content?('Sign Out')
+    FeatureTests.sign_out if page.has_content?('Sign Out')
   end
 
   def request_login_code(login_text)
