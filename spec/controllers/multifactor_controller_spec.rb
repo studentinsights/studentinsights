@@ -3,20 +3,20 @@ require 'rails_helper'
 describe MultifactorController, :type => :controller do
   let!(:pals) { TestPals.create! }
 
-  def post_send_code(params = {})
+  def post_multifactor(params = {})
     request.env['HTTPS'] = 'on'
     request.env['HTTP_ACCEPT'] = 'application/json'
-    post :send_code, params: { format: :json }.merge(params)
+    post :multifactor, params: { format: :json }.merge(params)
     response
   end
 
-  describe '#send_code, with consistent timing disabled' do
+  describe '#multifactor, with consistent timing disabled' do
     before { LoginTests.before_disable_consistent_timing! }
     after { LoginTests.after_reenable_consistent_timing! }
 
     it 'always returns the same value regardless of execution path' do
       [nil, '', 'foo-login', 'uri@demo.studentinsights.org', 'jodi@studentinsights.org', 'invalid-login'].each do |login_text|
-        post_send_code(multifactor: { login_text: 'foo' })
+        post_multifactor(multifactor: { login_text: 'foo' })
         expect(response.status).to eq 204
       end
     end
@@ -26,7 +26,7 @@ describe MultifactorController, :type => :controller do
       allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
       expect(fake_authenticator).to receive(:send_login_code_if_necessary!)
 
-      post_send_code(multifactor: { login_text: 'uri@demo.studentinsights.org' })
+      post_multifactor(multifactor: { login_text: 'uri@demo.studentinsights.org' })
       expect(response.status).to eq 204
     end
 
@@ -35,7 +35,7 @@ describe MultifactorController, :type => :controller do
       allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
       expect(fake_authenticator).to receive(:send_login_code_if_necessary!)
 
-      post_send_code(multifactor: { login_text: 'rich@demo.studentinsights.org' })
+      post_multifactor(multifactor: { login_text: 'rich@demo.studentinsights.org' })
       expect(response.status).to eq 204
     end
 
@@ -44,7 +44,7 @@ describe MultifactorController, :type => :controller do
       allow(MultifactorAuthenticator).to receive(:new).and_return(fake_authenticator)
       expect(fake_authenticator).not_to receive(:send_login_code_if_necessary!)
 
-      post_send_code(multifactor: { login_text: 'jodi@demo.studentinsights.org' })
+      post_multifactor(multifactor: { login_text: 'jodi@demo.studentinsights.org' })
       expect(response.status).to eq 204
     end
 
@@ -53,7 +53,7 @@ describe MultifactorController, :type => :controller do
       sign_in(pals.uri)
 
       request.env['HTTP_ACCEPT'] = 'application/json'
-      post :send_code, params: {
+      post :multifactor, params: {
         format: :json,
         multifactor: { login_text: 'uri@demo.studentinsights.org' }
       }

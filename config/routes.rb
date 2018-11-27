@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_scope :educator do
     root to: "educators/sessions#new"
   end
-  post '/educators/multifactor/send_code' => 'multifactor#send_code'
+  post '/educators/multifactor' => 'multifactor#multifactor'
 
 
   # Admin

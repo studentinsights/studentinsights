@@ -1,8 +1,12 @@
 class MultifactorController < ApplicationController
-  skip_before_action :authenticate_educator!, only: [:send_code]
+  skip_before_action :authenticate_educator!, only: [:multifactor]
 
   # POST
-  def send_code
+  # If it's an educator, and if they have multifactor enabled, and if the
+  # multifactor form is SMS, then send a login code via SMS.
+  # Aborts early if the user is already authenticated, but other than that there
+  # is no no feedback to the client for security.
+  def multifactor
     raise Exceptions::EducatorNotAuthorized if signed_in?
     safe_params = params.require(:multifactor).permit(:login_text)
 

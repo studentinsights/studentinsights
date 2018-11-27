@@ -2,7 +2,7 @@
   <div class="SignInPage-container">
     <div class="SignInPage-form-row">
       <a href="/" class="SignInPage-logo"></a>
-      <%= form_tag educators_multifactor_send_code_path, class: 'SignInPage-multifactor-form hidden', remote: true do %> 
+      <%= form_tag educators_multifactor_path, class: 'SignInPage-multifactor-form hidden', remote: true do %> 
         <div class="SignInPage-item">
           <%= label_tag :multifactor_login_text, 'Login' %>
           <%= text_field_tag('multifactor[login_text]', nil, {
@@ -76,7 +76,6 @@
           <p>a tool for <%= ENV.fetch('DISTRICT_NAME') %> educators</p>
         </div>
 
-<<<<<<< HEAD
         <div class="detailed-content-area">
           <h1 class="about-head">What's it supposed to fix?</h1>
           <p>Databases that don't talk to each other.</p>
