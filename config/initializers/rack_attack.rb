@@ -87,7 +87,7 @@ class Rack::Attack
   # decreasing their request rate
   read_throttle_config('logins/ip') do |key, limit, period_seconds|
     (1..5).each do |level|
-      throttle("key/#{level}", :limit => (limit * level), :period => (period_seconds ** level).seconds) do |req|
+      throttle("#{key}/#{level}", :limit => (limit * level), :period => (period_seconds ** level).seconds) do |req|
         hash_for_cache(req.ip) if is_login_request?(req)
       end
     end
@@ -104,13 +104,15 @@ class Rack::Attack
   end
 
   # Log throttle and blocks, and send back 503
-  log_and_respond = lambda do |action_key, env|
-    internal_log_message = "Rack::Attack: #{action_key} the request"
+  log_and_respond = lambda do |env|
+    matched = env['rack.attack.matched']
+    match_type = env['rack.attack.match_type']
+    internal_log_message = "Rack::Attack matched `#{match_type} #{matched}`"
     Rails.logger.warn internal_log_message
     Rollbar.warn(internal_log_message)
 
     [503, {}, ["Hello!  This request has been blocked.\n\nWe apologize for the incovenience, but this is an important layer of security.  Please talk to your school project lead and we'll get you up and running again."]]
   end
-  Rack::Attack.throttled_response = lambda {|env| log_and_respond.call(:throttled, env) }
-  Rack::Attack.blocklisted_response = lambda {|env| log_and_respond.call(:blocklisted, env) }
+  Rack::Attack.throttled_response = lambda {|env| log_and_respond.call(env) }
+  Rack::Attack.blocklisted_response = lambda {|env| log_and_respond.call(env) }
 end

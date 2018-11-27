@@ -7,9 +7,9 @@ describe 'Rack::Attack respects example development config', type: :feature do
   before(:each) { LoginTests.before_disable_consistent_timing! }
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
-  it 'blocks repeated login attempts by IP' do
+  it 'throttles repeated login attempts by IP' do
     allow(Rollbar).to receive(:warn)
-    expect(Rollbar).to receive(:warn).once.with('Rack::Attack: throttled the request')
+    expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `throttle logins/ip/1`')
     5.times do
       sign_in_attempt(rand().to_s, 'password')
       expect(page).to have_content 'Invalid login or password.'
@@ -18,9 +18,9 @@ describe 'Rack::Attack respects example development config', type: :feature do
     expect(page).to have_content 'Hello! This request has been blocked.'
   end
 
-  it 'blocks repeated login attempts by login name' do
+  it 'throttles repeated login attempts by login name' do
     allow(Rollbar).to receive(:warn)
-    expect(Rollbar).to receive(:warn).once.with('Rack::Attack: throttled the request')
+    expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `throttle logins/login_text`')
     3.times do
       sign_in_attempt('sameeducatorname', 'password')
       expect(page).to have_content 'Invalid login or password.'
@@ -31,14 +31,14 @@ describe 'Rack::Attack respects example development config', type: :feature do
 
   it 'blocks requests for PHP' do
     allow(Rollbar).to receive(:warn)
-    expect(Rollbar).to receive(:warn).once.with('Rack::Attack: blocklisted the request')
+    expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/noise`')
     visit '/hacking.php?hacking=hacking'
     expect(page).to have_content 'Hello! This request has been blocked.'
   end
 
   it 'blocks requests for ASP' do
     allow(Rollbar).to receive(:warn)
-    expect(Rollbar).to receive(:warn).once.with('Rack::Attack: blocklisted the request')
+    expect(Rollbar).to receive(:warn).once.with('Rack::Attack matched `blocklist req/noise`')
     visit '/hacking.aspx?hacking=hacking'
     expect(page).to have_content 'Hello! This request has been blocked.'
   end
