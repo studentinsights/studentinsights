@@ -28,4 +28,11 @@ class LoginTests
   def self.reset_rack_attack!
     Rack::Attack.cache.store.clear
   end
+
+  # For exercising tests end-to-end, the login code needs to be correct for users with MFA.
+  # This calls the private method to peek at the correct code, which lets us run this full
+  # code without mocking it out.  Where possible, prefer this over mocking for login specs.
+  def self.peek_at_correct_multifactor_code(educator)
+    MultifactorAuthenticator.new(educator).send(:get_login_code)
+  end
 end

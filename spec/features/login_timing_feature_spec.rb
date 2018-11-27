@@ -27,7 +27,7 @@ describe 'login timing', type: :feature do
 
   def reset_login_attempt!
     Rack::Attack.cache.store.clear
-    FeatureTests.sign_out if page.has_content?('Sign Out')
+    feature_sign_out if page.has_content?('Sign Out')
   end
 
   # simulate a really slow response from an LDAP #bind
@@ -46,20 +46,11 @@ describe 'login timing', type: :feature do
     nil
   end
 
-  def puts_debug(login, password, elapsed_milliseconds)
-    # puts '---------'
-    # puts "login: #{login}"
-    # puts "password: #{password}"
-    # puts "elapsed_milliseconds: #{elapsed_milliseconds}"
-    # puts
-    # puts
-  end
-
   # the first sign in during the test run can take ~2500ms, so
   # for any specs that are testing timing, do a "warm up" before
   # measuring timing for reals (eg https://travis-ci.org/studentinsights/studentinsights/builds/458182204#L2665)
   def warm_up!
-    sign_in_attempt(pals.uri.email, 'demo-password')
+    feature_plain_sign_in(pals.uri.email, 'demo-password')
     reset_login_attempt!
   end
 
@@ -70,7 +61,7 @@ describe 'login timing', type: :feature do
     it 'does not have consistent timing since Devise short-circuits (after warm-up)' do
       warm_up!
       _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
-        sign_in_attempt('', 'foo')
+        feature_plain_sign_in('', 'foo')
       end
       expect(elapsed_milliseconds).to be < 1000
     end
@@ -89,11 +80,10 @@ describe 'login timing', type: :feature do
       login, password = [pals.uri.email, 'wrong-password']
       _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
         mock_slow_ldap_bind!(login, password, 1000)
-        sign_in_attempt(login, password)
+        feature_plain_sign_in(login, password)
       end
       reset_login_attempt!
 
-      puts_debug(login, password, elapsed_milliseconds)
       expect(elapsed_milliseconds).to be > 1000
     end
   end
@@ -112,12 +102,11 @@ describe 'login timing', type: :feature do
         login, password = attempt
         _, elapsed_milliseconds = ConsistentTiming.new.measure_timing_only do
           print('✓') # a nice progress indicator since these are slower tests
-          sign_in_attempt(login, password)
+          feature_plain_sign_in(login, password)
         end
         reset_login_attempt! # not measured
 
         tolerance_ms = 100
-        puts_debug(login, password, elapsed_milliseconds)
         expect(elapsed_milliseconds).to be_within(tolerance_ms).of(expected_timing_in_milliseconds), "unexpected timing for login='#{login}' and password='#{password}'  timing: #{elapsed_milliseconds}"
       end
     end

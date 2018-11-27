@@ -16,7 +16,7 @@ module FeatureHelpers
   # Sign in via multifactor (by peeking at correct code, which means that it can
   # only be used once).
   def feature_multifactor_sign_in_by_peeking(educator)
-    login_code = MultifactorAuthenticator.new(educator).send(:get_login_code)
+    login_code = LoginTests.peek_at_correct_multifactor_code(educator)
     feature_plain_sign_in(educator.email, 'demo-password', login_code: login_code)
   end
 

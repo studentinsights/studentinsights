@@ -237,16 +237,12 @@ RSpec.describe 'LdapAuthenticatableTiny' do
   describe '#authenticate! through multifactor' do
     let!(:pals) { TestPals.create! }
 
-    def peek_at_correct_multifactor_code(educator)
-      MultifactorAuthenticator.new(educator).send(:get_login_code)
-    end
-
     it 'success! for Uri through authenticator app when login_code is correct' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
           login_text: 'uri@demo.studentinsights.org',
-          login_code: peek_at_correct_multifactor_code(pals.uri)
+          login_code: LoginTests.peek_at_correct_multifactor_code(pals.uri)
         },
         password: 'demo-password'
       })
@@ -263,7 +259,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       allow(strategy).to receive_messages({
         authentication_hash: {
           login_text: 'rich@demo.studentinsights.org',
-          login_code: peek_at_correct_multifactor_code(pals.rich_districtwide)
+          login_code: LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
         },
         password: 'demo-password'
       })
