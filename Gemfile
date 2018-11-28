@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 gem 'rails', '~> 5.2.0'
+gem 'bootsnap', require: false
 gem 'pg'
 gem 'puma'
 gem 'rack-attack'
