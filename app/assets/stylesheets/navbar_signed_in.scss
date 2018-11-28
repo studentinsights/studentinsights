@@ -1,0 +1,44 @@
+.NavbarSignedIn {
+  border-bottom: 1px solid $light-line;
+  background-color: $white;
+  padding: 5px 20px 5px 20px;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  .NavbarSignedIn-logo {
+    display: inline-block;
+    width: 135px;
+    height: 40px;
+    margin-top: 5px;
+    background: url(asset-path("student-insights-logo-small.png")) no-repeat;
+  }
+
+  .NavbarSignedIn-options {
+    flex: 1;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    > * {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+
+  .NavbarSignedIn-spacer {
+    display: inline-block;
+    width: 15px;
+  }
+
+  .NavbarSignedIn-student-searchbar .student-searchbar {
+    font-size: 14px;
+    padding: 3px 5px;
+    margin-top: 1px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+}

@@ -9,25 +9,25 @@ describe 'masquerading, testing only in Somerville', type: :feature do
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   def expect_to_allow_masquerading(page)
-    expect(page).not_to have_css('.masquerade-is-masquerading-warning')
+    expect(page).not_to have_css('.Masquerade-is-masquerading-warning')
     expect(page).to have_content('Sign Out')
-    expect(page).to have_css('.nav-options-masquerade-link-to-become-page')
-    expect(page).not_to have_css('.nav-options-clear-masquerade')
+    expect(page).to have_css('.NavbarSignedIn-masquerade-link-to-become-page')
+    expect(page).not_to have_css('.NavbarSignedIn-clear-masquerade')
   end
 
   def expect_to_be_masquerading_as(page, educator)
-    expect(page).to have_css('.masquerade-is-masquerading-warning')
+    expect(page).to have_css('.Masquerade-is-masquerading-warning')
     expect(page).to have_content('Sign Out')
     expect(page).to have_content("#{educator.email.split('@')[0]}@")
-    expect(page).to have_css('.nav-options-clear-masquerade')
+    expect(page).to have_css('.NavbarSignedIn-clear-masquerade')
   end
 
   def expect_not_to_be_masquerading(page)
-    expect(page).not_to have_css('.masquerade-is-masquerading-warning')
+    expect(page).not_to have_css('.Masquerade-is-masquerading-warning')
     expect(current_path).to eq('/not_authorized')
     expect(page).to have_content('Sign Out')
-    expect(page).not_to have_css('.nav-options-masquerade-link-to-become-page')
-    expect(page).not_to have_css('.nav-options-clear-masquerade')
+    expect(page).not_to have_css('.NavbarSignedIn-masquerade-link-to-become-page')
+    expect(page).not_to have_css('.NavbarSignedIn-clear-masquerade')
   end
 
   def expect_to_be_logged_out(page)

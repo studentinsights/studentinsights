@@ -14,19 +14,25 @@ function isHidden(el) {
 }
 
 
+beforeEach(() => {
+  window.location.hash = '';
+});
+
 it('passes html sanity check', () => {
   const el = testEl();
   expect(el.querySelectorAll('form').length).toEqual(2);
 });
 
 describe('simple login', () => {
-  it('works without other JS', () => {
+  it('renders as expected and can submit form without other JS', () => {
     const el = testEl();
 
     expect($(el).text()).toContain('Login');
     expect($(el).text()).toContain('Password');
     expect(el.querySelectorAll('.btn').length).toEqual(2);
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
+    expect(el.querySelector('.SignInPage-form').method).toEqual('post');
+    expect(el.querySelector('.SignInPage-form').action).toEqual('http://localhost/educators/sign_in');
     expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(false);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(true);
   });
@@ -51,6 +57,7 @@ describe('multifactorMain', () => {
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(true);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(false);
     expect(el.querySelector('.SignInPage-authentication-type-link').href).toEqual('http://localhost/educators/sign_in');
+    expect(window.location.hash).toEqual('#multifactor');
   });
 
   it('copies over anything already entered', () => {

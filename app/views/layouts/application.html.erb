@@ -5,22 +5,19 @@
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <%= render('shared/masquerade') %>
-    <div class="nav">
+    <div class="Layout">
       <% if PerDistrict.new.warning_banner_message.present? %>
-        <div class="big_warning"><%= PerDistrict.new.warning_banner_message %></div>
+        <div class="Layout-message Layout-big-warning">
+          <%= PerDistrict.new.warning_banner_message %>
+        </div>
       <% end %>
       <% if ENV['STATUS_MESSAGE'] %>
-        <div class="status_message"><%= ENV['STATUS_MESSAGE'] %></div>
+        <div class=" Layout-message Layout-status-message">
+          <%= ENV['STATUS_MESSAGE'] %>
+        </div>
       <% end %>
       <% if educator_signed_in? %>
-        <div class="navwrap">
-          <a class="logo-container" href="/">
-            <div class="logo">
-              <div class="title" alt="Student Insights"></div>
-            </div>
-          </a>
-          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
-        </div>
+        <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
       <% end %>
     </div>
     <%= yield %>

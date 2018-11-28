@@ -83,7 +83,7 @@ function switchToMultiFactor(shared) {
   });
 
   // hash
-  window.location = '#multifactor';
+  window.location.hash = '#multifactor';
 }
 
 export function afterSubmitMultiFactorStepOne(shared) {

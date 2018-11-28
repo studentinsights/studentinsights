@@ -1,57 +1,63 @@
-<div class="nav-options">
+<div class="NavbarSignedIn">
+  <a href="/">
+    <div class="NavbarSignedIn-logo">
+      <div alt="Student Insights"></div>
+    </div>
+  </a>
+  <div class="NavbarSignedIn-options">
+    <% # Show different links based on role and access %>
+    <% links = PathsForEducator.new(educator).navbar_links %>
 
-  <% # Show different links based on role and access %>
-  <% links = PathsForEducator.new(educator).navbar_links %>
-
-  <% if links.has_key?(:district) %>
-    <%= link_to 'District', links[:district] %>
-    <span class="navbar-spacer"></span>
-  <% end %>
-
-  <% if links.has_key?(:classlists) %>
-    <%= link_to 'Class lists', links[:classlists] %>
-    <span class="navbar-spacer"></span>
-  <% end %>
-  
-  <% if links.has_key?(:levels_shs) %>
-    <%= link_to 'Levels', links[:levels_shs] %>
-  <% end %>
-  <% if links.has_key?(:absences) %>
-    <%= link_to "Absences", links[:absences] %>
-  <% end %>
-  <% if links.has_key?(:tardies) %>
-    <%= link_to "Tardies", links[:tardies] %>
-  <% end %>
-  <% if links.has_key?(:school) %>
-    <%= link_to 'Overview', links[:school] %>
-    <span class="navbar-spacer"></span>
-  <% end %>
-
-  <% if links.has_key?(:section) %>
-    <%= link_to 'My sections', links[:section] %>
-  <% end %>
-
-  <% if links.has_key?(:homeroom) %>
-  <%= link_to 'Homeroom', links[:homeroom] %>
-  <% end %>
-
-  <% # Everyone has these %>
-  <%= link_to "My notes", educators_notes_feed_path %>
-  <%= link_to 'My students', educators_my_students_path %>
-  <span class="navbar-spacer"></span>
-  <p class="search-label">Search:</p>
-  <input class="student-searchbar" />
-  <span class="navbar-spacer"></span>
-  <div>
-    <% if masquerade.authorized? %>
-      <% username = "#{educator.email.split('@')[0]}@" %>
-      <% if masquerade.is_masquerading? %>
-        <%= link_to username, admin_masquerade_clear_url, { method: :post, class: 'nav-options-clear-masquerade' } %>
-      <% else %>
-        <%= link_to username, admin_authorization_url, class: 'nav-options-masquerade-link-to-become-page' %>
-      <% end %>
-      <br/>
+    <% if links.has_key?(:district) %>
+      <%= link_to 'District', links[:district] %>
+      <span class="NavbarSignedIn-spacer"></span>
     <% end %>
-    <%= link_to "Sign Out", destroy_educator_session_path, method: :delete, class: 'navbar-sign-out' %>
+
+    <% if links.has_key?(:classlists) %>
+      <%= link_to 'Class lists', links[:classlists] %>
+      <span class="NavbarSignedIn-spacer"></span>
+    <% end %>
+    
+    <% if links.has_key?(:levels_shs) %>
+      <%= link_to 'Levels', links[:levels_shs] %>
+    <% end %>
+    <% if links.has_key?(:absences) %>
+      <%= link_to "Absences", links[:absences] %>
+    <% end %>
+    <% if links.has_key?(:tardies) %>
+      <%= link_to "Tardies", links[:tardies] %>
+    <% end %>
+    <% if links.has_key?(:school) %>
+      <%= link_to 'Overview', links[:school] %>
+      <span class="NavbarSignedIn-spacer"></span>
+    <% end %>
+
+    <% if links.has_key?(:section) %>
+      <%= link_to 'My sections', links[:section] %>
+    <% end %>
+
+    <% if links.has_key?(:homeroom) %>
+    <%= link_to 'Homeroom', links[:homeroom] %>
+    <% end %>
+
+    <% # Everyone has these %>
+    <%= link_to "My notes", educators_notes_feed_path %>
+    <%= link_to 'My students', educators_my_students_path %>
+    <span class="NavbarSignedIn-spacer"></span>
+    <p>Search:</p>
+    <input class="NavbarSignedIn-student-searchbar student-searchbar" />
+    <span class="NavbarSignedIn-spacer"></span>
+    <div>
+      <% if masquerade.authorized? %>
+        <% username = "#{educator.email.split('@')[0]}@" %>
+        <% if masquerade.is_masquerading? %>
+          <%= link_to username, admin_masquerade_clear_url, { method: :post, class: 'NavbarSignedIn-clear-masquerade' } %>
+        <% else %>
+          <%= link_to username, admin_authorization_url, class: 'NavbarSignedIn-masquerade-link-to-become-page' %>
+        <% end %>
+        <br/>
+      <% end %>
+      <%= link_to "Sign Out", destroy_educator_session_path, method: :delete, class: 'NavbarSignedIn-sign-out' %>
+    </div>
   </div>
 </div>
