@@ -105,7 +105,13 @@ export default class SchoolDisciplineDashboard extends React.Component {
   //highcharts will only accept number values as data this returns minutes since the day began.
   getincidentTimeAsMinutes(incident) {
     const time = moment.utc(incident.occurred_at).format("HH.mm").split(".");
-    return time[0] * 60 + time[1] * 1;
+    const minutes = time[0] * 60 + time[1] * 1;
+    //Group all times outside of school hours or not recorded into one spot for a "gutter" category in highcharts
+    return this.areMinutesWithinSchoolHours(minutes) ? minutes : 390; // 6:30
+  }
+
+  areMinutesWithinSchoolHours(minutes) {
+    return 420 < minutes && minutes < 1140;
   }
 
   timeStampToDay(incident) {
@@ -409,8 +415,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       ...commonProps,
       measureText: "Time of Incident",
       tooltip: {pointFormat: '<b>{point.name}</b>'},
-      yAxisMin: 420,
-      yAxisMax: 1140,
+      yAxisMin: 360, //6 AM
+      yAxisMax: 1140, // 7PM
       yAxisLabels: {format: '{value}'},
       onZoom: this.onZoom
     };

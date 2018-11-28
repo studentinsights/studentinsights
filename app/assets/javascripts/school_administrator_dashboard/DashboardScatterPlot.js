@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HighchartsWrapper from '../components/HighchartsWrapper';
-import  hash from 'object-hash';
+import hash from 'object-hash';
 
 // Component for all charts in the dashboard page.
 export default class DashboardScatterPlot extends React.Component{
@@ -27,7 +27,8 @@ export default class DashboardScatterPlot extends React.Component{
           chart={{
             type: 'scatter',
             events: {selection:this.props.onZoom},
-            zoomType: 'xy'
+            zoomType: 'xy',
+            alignTicks: false
           }}
           credits={false}
           xAxis={{
@@ -71,7 +72,7 @@ export default class DashboardScatterPlot extends React.Component{
               animation: this.props.animation,
               marker: {
                 radius: 12,
-                fillColor: 'rgba(255, 166, 158,0.5)'
+                fillColor: 'rgba(255, 104, 107, 0.5)'
               }
             }
           }}
@@ -79,18 +80,31 @@ export default class DashboardScatterPlot extends React.Component{
           yAxis={{
             min: this.props.yAxisMin,
             max: this.props.yAxisMax,
+            reversed: true,
+            showFirstLabel: false,
             tickInterval: 60,
             allowDecimals: true,
             title: {text: this.props.measureText},
             labels: {formatter: this.formatter}
-          }}
+          }
+          // {
+          //   linkedTo: 0,
+          //   min: 0,
+          //   max: this.props.yAxisMax
+          // }
+          }
           tooltip={this.props.tooltip}
           series={[
             {
               showInLegend: false,
               data: this.props.seriesData,
               ...(this.props.series || {})
-            }
+            },
+            // {
+            //   howInLegend: false,
+            //   data: this.props.seriesData,
+            //   ...(this.props.series || {})
+            // }
           ]} />
       </div>
     );
