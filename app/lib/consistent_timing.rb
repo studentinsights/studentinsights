@@ -17,6 +17,7 @@ class ConsistentTiming
       return_value = block.call()
     rescue => err
       Rollbar.error('ConsistentTiming#measure_timing_only caught an error', err: err)
+      Rollbar.error(err)
       return_value = nil
     end
     end_milliseconds = read_monotonic_milliseconds()

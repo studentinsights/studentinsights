@@ -1,5 +1,5 @@
 # Filter all parameters from the log file, since whitelists are hard to
-# maintain accurately as you build things over time.
+# maintain accurately as you build things over time.  See also the Rollbar config.
 #
 # For background, some known sensitive parameters included:
 # - :login_text, :password, :login_code (in the login process)
