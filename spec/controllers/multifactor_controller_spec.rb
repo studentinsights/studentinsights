@@ -90,5 +90,23 @@ describe MultifactorController, :type => :controller do
       expect(response.status).to eq 403
       expect(JSON.parse(response.body)).to eq({'error' => 'unauthorized'})
     end
+
+    context 'with logger spied' do
+      def mock_subscribers_log!
+        log = LogHelper::RailsLogger.new
+        ActiveSupport::Subscriber.subscribers.each do |subscriber|
+          allow(subscriber).to receive(:logger).and_return(log)
+        end
+        log
+      end
+
+      it 'scrubs parameters from log' do
+        log = mock_subscribers_log!
+        post_multifactor(multifactor: { login_text: 'uri@demo.studentinsights.org' })
+        expect(response.status).to eq 204
+        expect(log.output).not_to include('uri@demo.studentinsights.org')
+        expect(log.output).to include('Parameters: {"multifactor"=>"[FILTERED]"}')
+      end
+    end
   end
 end

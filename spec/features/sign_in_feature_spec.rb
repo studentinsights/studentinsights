@@ -117,4 +117,26 @@ describe 'educator sign in using Mock LDAP', type: :feature do
       expect(page).to have_content 'Search:'
     end
   end
+
+  describe 'with logger spied' do
+    def mock_subscribers_log!
+      log = LogHelper::RailsLogger.new
+      ActiveSupport::Subscriber.subscribers.each do |subscriber|
+        allow(subscriber).to receive(:logger).and_return(log)
+      end
+      log
+    end
+
+    it 'scrubs parameters from log' do
+      log = mock_subscribers_log!
+      pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
+      allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      feature_multifactor_sign_in_by_peeking(pals.rich_districtwide)
+      expect(page).to have_content 'Search:'
+
+      expect(log.output).not_to include('rich@')
+      expect(log.output).not_to include('k12.somerville.ma.us')
+      expect(log.output).to include('Parameters: {"utf8"=>"[FILTERED]", "educator"=>"[FILTERED]"}')
+    end
+  end
 end
