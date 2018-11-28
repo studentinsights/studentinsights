@@ -13,7 +13,6 @@ en:
       not_found_in_database: "Invalid login, password, or code."
       invalid_multifactor: "Invalid login, password, or code."
       unexpected_multifactor: "Invalid login, password, or code."
-      unexpected: "Invalid login, password, or code."
       error: "Sorry, there was an error with signing you in."
       locked: "Your account is locked."
       last_attempt: "You have one more attempt before your account is locked."
