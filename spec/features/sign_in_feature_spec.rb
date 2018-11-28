@@ -131,11 +131,16 @@ describe 'educator sign in using Mock LDAP', type: :feature do
       log = mock_subscribers_log!
       pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
+      peeked_login_code = LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
       feature_multifactor_sign_in_by_peeking(pals.rich_districtwide)
       expect(page).to have_content 'Search:'
 
       expect(log.output).not_to include('rich@')
       expect(log.output).not_to include('k12.somerville.ma.us')
+      expect(log.output).not_to include(peeked_login_code)
+      expect(log.output).not_to include('login_code')
+      expect(log.output).not_to include('password')
+      expect(log.output).not_to include('demo-password')
       expect(log.output).to include('Parameters: {"utf8"=>"[FILTERED]", "educator"=>"[FILTERED]"}')
     end
   end
