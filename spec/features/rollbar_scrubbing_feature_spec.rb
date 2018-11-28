@@ -28,6 +28,12 @@ describe 'Rollbar scrubs properly', type: :feature do
     cleanup!
   end
 
+  def visit_test_page
+    visit '/hacking.aspx?foo=SENSITIVE-param'
+    string = IO.read(rollbar_filepath)
+    [string, JSON.parse(string)]
+  end
+
   describe 'with Rollbar enabled' do
     before(:each) { LoginTests.reset_rack_attack! }
     before(:each) { LoginTests.before_disable_consistent_timing! }
@@ -39,26 +45,36 @@ describe 'Rollbar scrubs properly', type: :feature do
 
     it 'does not log sensitive data in cookies or querystring' do
       page.driver.browser.set_cookie('_example_cookie=SENSITIVE-cookie-value')
-      visit '/hacking.aspx?foo=SENSITIVE-param'
-      expect(IO.read(rollbar_filepath)).not_to include('SENSITIVE')
-      url = JSON.parse(IO.read(rollbar_filepath))['data']['request']['url']
-      expect(url.starts_with?'http://www.example.com/hacking.aspx?foo=***').to eq true # Rollbar randomizes length of scrubbed string
+      rollbar_string, rollbar_json = visit_test_page
+      expect(rollbar_string).not_to include('SENSITIVE')
+      expect(rollbar_json['data']['request']['url'].starts_with?('http://www.example.com/hacking.aspx?foo=***')).to eq true # Rollbar randomizes length of scrubbed string
     end
 
-    it 'does not log session data' do
-      feature_sign_in(pals.uri)
-      visit '/hacking.aspx?foo=SENSITIVE-param'
-      expect(IO.read(rollbar_filepath)).not_to include('SENSITIVE')
-      expect(IO.read(rollbar_filepath)).not_to include(pals.uri.email)
-      expect(IO.read(rollbar_filepath)).not_to include(pals.uri.login_name)
+    it 'does not log sensitive session data when signed in' do
+      educator = Educator.all.sample
+      feature_sign_in(educator)
+      rollbar_string, rollbar_json = visit_test_page
+
+      expect(rollbar_string).not_to include('SENSITIVE')
+      expect(rollbar_string).not_to include(educator.email)
+      expect(rollbar_string).not_to include(educator.login_name)
+      expect(rollbar_json['data']['request']['session']['session_id'].starts_with?('***')).to eq true
+    end
+
+    it 'does log educator_id, for debugging and support' do
+      educator = Educator.all.sample
+      feature_sign_in(educator)
+      rollbar_string, rollbar_json = visit_test_page
+
+      expect(rollbar_string).not_to include('SENSITIVE')
+      expect(rollbar_json['data']['request']['session']['warden.user.educator.key']).to eq [[educator.id], nil]
     end
 
     it 'does log IP, so we can use it to investigate attacks' do
       feature_sign_in(pals.uri)
-      visit '/hacking.aspx?foo=SENSITIVE-param'
-      expect(IO.read(rollbar_filepath)).not_to include('SENSITIVE')
-      user_ip = JSON.parse(IO.read(rollbar_filepath))['data']['request']['user_ip']
-      expect(user_ip).to eq '127.0.0.1'
+      rollbar_string, rollbar_json = visit_test_page
+      expect(rollbar_string).not_to include('SENSITIVE')
+      expect(rollbar_json['data']['request']['user_ip']).to eq '127.0.0.1'
     end
   end
 end
