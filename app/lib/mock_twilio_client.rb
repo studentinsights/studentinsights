@@ -3,7 +3,8 @@
 class MockTwilioClient
   def self.should_use?
     return true if Rails.env.development? || Rails.env.test?
-    return true if PerDistrict.new.district_key == PerDistrict::DEMO
+    return true if ::EnvironmentVariable.is_true('USE_MOCK_TWILIO')
+    return true if !ENV.has_key?('TWILIO_CONFIG_JSON')
     return false
   end
 
@@ -49,7 +50,7 @@ class MockTwilioClient
     def logger
       return STDOUT if Rails.env.development?
       return LogHelper::FakeLog.new if Rails.env.test?
-      return Rails.logger if PerDistrict.new.district_key == PerDistrict::DEMO
+      return STDOUT if PerDistrict.new.district_key == PerDistrict::DEMO
       raise 'invalid' # avoid possibly logging codes in real production site
     end
   end
