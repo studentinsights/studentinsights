@@ -38,14 +38,14 @@ module FeatureHelpers
     if options[:login_code]
       fill_in 'educator_login_code', with: options[:login_code]
     end
-    click_button 'Log in'
+    click_button 'Sign in'
   end
 
   # Submit the form to ask for a login code via SMS
   def feature_request_multifactor(login_text)
     visit '/'
     fill_in 'multifactor_login_text', with: login_text
-    click_button 'Send code'
+    click_button 'Next'
   end
 
   # This makes the sign out requests manually, since it's a delete request
