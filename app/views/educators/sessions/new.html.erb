@@ -16,11 +16,12 @@
           <%= password_field_tag('multifactor[password]', nil, {
             class: 'SignInPage-input-text SignInPage-input-password',
             autocomplete: 'off',
-            required: true
+            required: true,
+            name: nil # do not submit
           }) %>
         </div>
         <div class="SignInPage-item">
-          <%= submit_tag 'Next', class: "btn btn-primary SignInPage-send-code-button" %>
+          <%= submit_tag 'Next', class: "btn btn-primary SignInPage-send-code-button", name: nil %>
         </div>
       <% end %>
       <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
@@ -49,7 +50,7 @@
           }) %>
         </div>
         <div class="SignInPage-item">
-          <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button" %>
+          <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button", name: nil %>
         </div>
       <% end %>
     </div>
