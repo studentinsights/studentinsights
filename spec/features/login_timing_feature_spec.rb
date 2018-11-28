@@ -100,7 +100,7 @@ describe 'login timing', type: :feature do
       attempts.shuffle(random: Random.new(seed)).first(limit)
     end
 
-    let!(:expected_timing_in_milliseconds) { 400 } # for faster tests
+    let!(:expected_timing_in_milliseconds) { 500 } # for faster tests
     before(:each) { LoginTests.before_set_login_timing!(expected_timing_in_milliseconds) }
     after(:each) { LoginTests.after_reset_login_timing! }
 

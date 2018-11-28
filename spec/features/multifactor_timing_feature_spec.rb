@@ -22,7 +22,7 @@ describe 'Multifactor', type: :feature do
   end
 
   describe 'across all execution paths' do
-    let!(:expected_timing_in_milliseconds) { 400 } # for faster tests
+    let!(:expected_timing_in_milliseconds) { 500 } # for faster tests
     before(:each) { LoginTests.reset_rack_attack! }
     before(:each) { before_set_timing!(expected_timing_in_milliseconds) }
     after(:each) { after_reset_timing! }
