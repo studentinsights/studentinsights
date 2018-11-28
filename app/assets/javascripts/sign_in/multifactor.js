@@ -39,7 +39,7 @@ export function multifactorMain(options = {}) {
     listeners
   };
   
-  if (windowHash.indexOf('multiFactor') !== -1) {
+  if (windowHash.indexOf('multifactor') !== -1) {
     switchToMultiFactor(shared);
   } else {
     allowSwitchToMultiFactor(shared);
@@ -59,7 +59,7 @@ function allowSwitchToMultiFactor(shared) {
 }
 
 function switchToMultiFactor(shared) {
-  const {el, switchModeLink, multiFactorForm, loginCode, flashMessage, listeners} = shared;
+  const {el, switchModeLink, multiFactorForm, loginCode, flashMessage, multiFactorLogin, listeners} = shared;
   
   // copy any values already typed into fields over
   copyFromSimpleToMultiFactor(shared);
@@ -74,38 +74,19 @@ function switchToMultiFactor(shared) {
   switchModeLink.href = '/educators/sign_in';
   switchModeLink.removeEventListener('click', listeners.link);
   flashMessage.innerText = '';
+  multiFactorLogin.focus();
 
   // Listeners (never removed)
+  // This updates the UI optimistically.
   multiFactorForm.addEventListener('submit', (event, data) => {
-    $(multiFactorForm).on('ajax:success', afterSubmitMultiFactorStepOne.bind(null, shared));
+    $(multiFactorForm).on('ajax:send', afterSubmitMultiFactorStepOne.bind(null, shared));
   });
+
+  // hash
+  window.location = '#multifactor';
 }
 
-// If we copy empty strings, it triggers browser validations
-function copyIfValue(fromEl, toEl) {
-  if (fromEl.value === '') return;
-  toEl.value = fromEl.value;
-}
-
-function copyFromSimpleToMultiFactor(shared) {
-  const {simplePassword, simpleLogin, multiFactorLogin, multiFactorPassword} = shared;
-  
-  copyIfValue(simpleLogin, multiFactorLogin);
-  copyIfValue(simplePassword, multiFactorPassword);
-  simpleLogin.value = '';
-  simplePassword.value = '';
-}
-
-function copyFromMultiFactorToSimple(shared) {
-  const {simplePassword, simpleLogin, multiFactorLogin, multiFactorPassword} = shared;
-  copyIfValue(multiFactorLogin, simpleLogin);
-  copyIfValue(multiFactorPassword, simplePassword);
-
-  multiFactorLogin.value = '';
-  multiFactorPassword.value = '';
-}
-
-export function afterSubmitMultiFactorStepOne(shared, event, data) {
+export function afterSubmitMultiFactorStepOne(shared) {
   const {
     simpleLogin,
     simplePassword,
@@ -131,4 +112,29 @@ export function afterSubmitMultiFactorStepOne(shared, event, data) {
   sentLoginCodeMessage.classList.remove('hidden');
 
   loginCode.focus();
+}
+
+
+// If we copy empty strings, it triggers browser validations
+function copyIfValue(fromEl, toEl) {
+  if (fromEl.value === '') return;
+  toEl.value = fromEl.value;
+}
+
+function copyFromSimpleToMultiFactor(shared) {
+  const {simplePassword, simpleLogin, multiFactorLogin, multiFactorPassword} = shared;
+  
+  copyIfValue(simpleLogin, multiFactorLogin);
+  copyIfValue(simplePassword, multiFactorPassword);
+  simpleLogin.value = '';
+  simplePassword.value = '';
+}
+
+function copyFromMultiFactorToSimple(shared) {
+  const {simplePassword, simpleLogin, multiFactorLogin, multiFactorPassword} = shared;
+  
+  copyIfValue(multiFactorLogin, simpleLogin);
+  copyIfValue(multiFactorPassword, simplePassword);
+  multiFactorLogin.value = '';
+  multiFactorPassword.value = '';
 }
