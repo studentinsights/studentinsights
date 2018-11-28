@@ -56,4 +56,23 @@
       padding-bottom: 5px;
     }
   }
+
+  .HomeroomTable-sped-risk-bubble {
+    background-color: #773c96;
+    &:hover {
+      background-color: darken(#773c96, 10%);
+    }
+  }
+
+  .HomeroomTable-warning-bubble {
+    width: 30px;
+    height: 30px;
+    color: $white;
+    border-radius: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin: auto auto;
+  }
+
 }

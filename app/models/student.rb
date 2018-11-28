@@ -243,7 +243,7 @@ class Student < ApplicationRecord
     when "High"
       "4"
     else
-      "—"
+      "—" # long hyphen
     end
   end
 
@@ -264,10 +264,10 @@ class Student < ApplicationRecord
 
   def sped_bubble_class
     case sped_level
-    when "—"
-      "sped"
+    when '—' # long hyphen
+      ''
     else
-      "warning-bubble sped-risk-bubble tooltip"
+      'HomeroomTable-warning-bubble HomeroomTable-sped-risk-bubble tooltip'
     end
   end
 
