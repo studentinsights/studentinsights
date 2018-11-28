@@ -7,8 +7,9 @@
           <%= label_tag :multifactor_login_text, 'Login' %>
           <%= text_field_tag('multifactor[login_text]', nil, {
             class: 'SignInPage-input-text SignInPage-input-login',
-            autofocus: true,
-            required: true
+            autocomplete: 'off',
+            required: true,
+            autofocus: true
           }) %>
         </div>
         <div class="SignInPage-item">
@@ -29,8 +30,9 @@
           <%= label_tag :login_text, 'Login' %>
           <%= text_field_tag('educator[login_text]', nil, {
             class: 'SignInPage-input-text SignInPage-input-login',
-            autofocus: true,
-            required: true
+            autocomplete: 'off',
+            required: true,
+            autofocus: true
           }) %>
         </div>
         <div class="SignInPage-item">
@@ -45,8 +47,9 @@
           <%= label_tag :login_code, 'Sign in code' %>
           <%= text_field_tag('educator[login_code]', nil, {
             class: 'SignInPage-input-text SignInPage-input-login-code',
-            value: 'NO_CODE', # Devise requires a value
-            required: true
+            autocomplete: 'off',
+            required: true,
+            value: 'NO_CODE' # Devise requires a value
           }) %>
         </div>
         <div class="SignInPage-item">

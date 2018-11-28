@@ -144,7 +144,6 @@ class TestPals
       login_name: 'vivian',
       email: "vivian@#{email_domain}",
       full_name: 'Teacher, Vivian',
-      password: 'demo-password',
       staff_type: nil,
       school: @healey,
       homeroom: @healey_kindergarten_homeroom
