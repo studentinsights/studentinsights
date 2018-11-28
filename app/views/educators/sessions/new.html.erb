@@ -1,60 +1,130 @@
-<div class="info-area">
-
-  <div class="about-page">
-
-    <div class="detailed-content-area">
-      <h1 class="about-head">What is this?</h1>
-      <h2 class="about-big">Student Insights</h2>
-      <p>a tool for <%= ENV.fetch('DISTRICT_NAME') %> educators</p>
+<div class="SignInPage">
+  <div class="SignInPage-container">
+    <div class="SignInPage-form-row">
+      <a href="/" class="SignInPage-logo"></a>
+      <%= form_tag educators_multifactor_path, class: 'SignInPage-multifactor-form hidden', remote: true do %> 
+        <div class="SignInPage-item">
+          <%= label_tag :multifactor_login_text, 'Login' %>
+          <%= text_field_tag('multifactor[login_text]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-login',
+            autocomplete: 'off',
+            required: true,
+            autofocus: true
+          }) %>
+        </div>
+        <div class="SignInPage-item">
+          <%= label_tag :multifactor_password, 'Password' %>
+          <%= password_field_tag('multifactor[password]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-password',
+            autocomplete: 'off',
+            required: true,
+            name: nil # do not submit
+          }) %>
+        </div>
+        <div class="SignInPage-item">
+          <%= submit_tag 'Next', class: "btn btn-primary SignInPage-send-code-button", name: nil %>
+        </div>
+      <% end %>
+      <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
+        <div class="SignInPage-item">
+          <%= label_tag :login_text, 'Login' %>
+          <%= text_field_tag('educator[login_text]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-login',
+            autocomplete: 'off',
+            required: true,
+            autofocus: true
+          }) %>
+        </div>
+        <div class="SignInPage-item">
+          <%= label_tag :password, 'Password' %>
+          <%= password_field_tag('educator[password]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-password',
+            autocomplete: 'off',
+            required: true
+          }) %>
+        </div>
+        <div class="SignInPage-item SignInPage-item-containing-login-code hidden">
+          <%= label_tag :login_code, 'Sign in code' %>
+          <%= text_field_tag('educator[login_code]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-login-code',
+            autocomplete: 'off',
+            required: true,
+            value: 'NO_CODE' # Devise requires a value
+          }) %>
+        </div>
+        <div class="SignInPage-item">
+          <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button", name: nil %>
+        </div>
+      <% end %>
     </div>
-
-    <div class="detailed-content-area">
-      <h1 class="about-head">What's it supposed to fix?</h1>
-      <p>Databases that don't talk to each other.</p>
-      <p>Big gaps in student records that make you hunt down information.</p>
-      <p>Having to print out student data and store it in big binders.</p>
-
-      <div class="teacher-photo">
-        <div id="data-binder"></div>
+    <div class="SignInPage-messages-row">
+      <div class="SignInPage-multifactor">
+        <%= link_to('Use multifactor login', "#{new_educator_session_url}#multifactor", class: 'SignInPage-authentication-type-link') %>
+      </div>
+      <div class="SignInPage-multifactor-sent-code hidden">Enter login code</div>
+      <div class="SignInPage-flash">
+        <p class="SignInPage-alert"><%= alert %></p>
       </div>
     </div>
-
-    <div class="detailed-content-area">
-      <h1 class="about-head">What does it do?</h1>
-      <div id="pillars">
-        <div class="pillar">
-          <div class="circular" id="roster"></div>
-          <h2 class="about-big">Roster</h2>
-            <p>Giving teachers a current snapshot of their classroom that shows which students are  most at risk.</p>
-        </div>
-        <div class="pillar">
-          <div class="circular" id="profile"></div>
-          <h2 class="about-big">Profile</h2>
-            <p>A deep yearly history of the teacher's current students over time, both academic and behavioural.</p>
-        </div>
-        <div class="pillar">
-          <div class="circular" id="interventions"></div>
-          <h2 class="about-big">Interventions</h2>
-            <p>Showing teachers which students are most in need of interventions and giving the ability to log interventions.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="detailed-content-area">
-      <h1 class="about-head">How is it going?</h1>
-      <h2 class="about-big">We are in development</h2>
-      <p>This is currently an <strong>alpha product</strong>.</p>
-      <p>We are still working out bugs and building out new features.</p>
-      <p>See the code for this teacher tool and leave a comment on <a href="https://github.com/studentinsights/studentinsights" target="_blank" rel="noopener noreferrer">GitHub.</a></p>
-
-      <div class="logos">
-        <ul class="logo-list">
-          <li><a href="http://www.somervillema.gov/" target="_blank" rel="noopener noreferrer" class="somerville-logo"><%= image_tag "somerville_logo.png" %></a></li>
-          <li><a href="https://www.codeforamerica.org/" target="_blank" rel="noopener noreferrer" class="cfa-logo"><%= image_tag "cfa_logo.png" %></a></li>
-          <ul>
-      </div>
-    </div>
-
+    <%= javascript_include_tag Webpack.bundle('sign_in.js') %>
   </div>
 
+  <div class="SignInPage-About">
+    <div class="info-area">
+      <div class="about-page">
+        <div class="detailed-content-area">
+          <h1 class="about-head">What is this?</h1>
+          <h2 class="about-big">Student Insights</h2>
+          <p>a tool for <%= ENV.fetch('DISTRICT_NAME') %> educators</p>
+        </div>
+
+        <div class="detailed-content-area">
+          <h1 class="about-head">What's it supposed to fix?</h1>
+          <p>Databases that don't talk to each other.</p>
+          <p>Big gaps in student records that make you hunt down information.</p>
+          <p>Having to print out student data and store it in big binders.</p>
+
+          <div class="teacher-photo">
+            <div id="data-binder"></div>
+          </div>
+        </div>
+
+        <div class="detailed-content-area">
+          <h1 class="about-head">What does it do?</h1>
+          <div id="pillars">
+            <div class="pillar">
+              <div class="circular" id="roster"></div>
+              <h2 class="about-big">Roster</h2>
+                <p>Giving teachers a current snapshot of their classroom that shows which students are  most at risk.</p>
+            </div>
+            <div class="pillar">
+              <div class="circular" id="profile"></div>
+              <h2 class="about-big">Profile</h2>
+                <p>A deep yearly history of the teacher's current students over time, both academic and behavioural.</p>
+            </div>
+            <div class="pillar">
+              <div class="circular" id="interventions"></div>
+              <h2 class="about-big">Interventions</h2>
+                <p>Showing teachers which students are most in need of interventions and giving the ability to log interventions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="detailed-content-area">
+          <h1 class="about-head">How is it going?</h1>
+          <h2 class="about-big">We are in development</h2>
+          <p>This is currently an <strong>alpha product</strong>.</p>
+          <p>We are still working out bugs and building out new features.</p>
+          <p>See the code for this teacher tool and leave a comment on <a href="https://github.com/studentinsights/studentinsights" target="_blank" rel="noopener noreferrer">GitHub.</a></p>
+
+          <div class="logos">
+            <ul class="logo-list">
+              <li><a href="http://www.somervillema.gov/" target="_blank" rel="noopener noreferrer" class="somerville-logo"><%= image_tag "somerville_logo.png" %></a></li>
+              <li><a href="https://www.codeforamerica.org/" target="_blank" rel="noopener noreferrer" class="cfa-logo"><%= image_tag "cfa_logo.png" %></a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

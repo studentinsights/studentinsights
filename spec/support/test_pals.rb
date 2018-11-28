@@ -99,6 +99,10 @@ class TestPals
       educator: @uri,
       label_key: 'should_show_levels_shs_link'
     )
+    EducatorMultifactorConfig.create!({
+      educator: @uri,
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret
+    })
 
     # Rich works in the central office and has districwide access, but
     # not project lead access.
@@ -117,6 +121,11 @@ class TestPals
       can_view_restricted_notes: true,
       school: nil
     )
+    EducatorMultifactorConfig.create!({
+      educator: @rich_districtwide,
+      sms_number: '+15555550009',
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret
+    })
 
     # Healey is a K8 school.
     @healey = School.find_by_local_id!('HEA')
@@ -135,7 +144,6 @@ class TestPals
       login_name: 'vivian',
       email: "vivian@#{email_domain}",
       full_name: 'Teacher, Vivian',
-      password: 'demo-password',
       staff_type: nil,
       school: @healey,
       homeroom: @healey_kindergarten_homeroom

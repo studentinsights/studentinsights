@@ -73,6 +73,7 @@ RSpec.configure do |config|
 
   # Devise helpers for controller tests (eg., `sign_in`)
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include FeatureHelpers, type: :feature
 end
 
 # Test coverage checker

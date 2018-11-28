@@ -10,9 +10,16 @@ class ConsistentTiming
     return_value
   end
 
+  # This catches exceptions to enforce timing, and sends a Rollbar error for each one.
   def measure_timing_only(&block)
     start_milliseconds = read_monotonic_milliseconds()
-    return_value = block.call()
+    begin
+      return_value = block.call()
+    rescue => err
+      Rollbar.error('ConsistentTiming#measure_timing_only caught an error', err: err)
+      Rollbar.error(err)
+      return_value = nil
+    end
     end_milliseconds = read_monotonic_milliseconds()
 
     [return_value, end_milliseconds - start_milliseconds]
@@ -30,6 +37,6 @@ class ConsistentTiming
   end
 
   def disabled_for_test?
-    Rails.env.test? && EnvironmentVariable.is_true('UNSAFE_LDAP_AUTHENTICATABLE_TINY_TIMING')
+    Rails.env.test? && EnvironmentVariable.is_true('UNSAFE_DISABLE_CONSISTENT_TIMING')
   end
 end

@@ -6,7 +6,9 @@ class Rack::Attack
     # most of these code paths are exercised in local development.
     @parsed_config ||= JSON.parse(ENV.fetch('RACK_ATTACK_CONFIG', '{
       "memcache_servers_list": [],
+      "hash_seed": "foo-hash-seed",
       "login_path":"/educators/sign_in",
+      "multifactor_path":"/educators/multifactor",
       "whitelisted_ips": ["127.0.0.77"],
       "req/ip": {
         "limit": 300,
@@ -17,6 +19,14 @@ class Rack::Attack
         "period_seconds": 600
       },
       "logins/login_text": {
+        "limit": 3,
+        "period_seconds": 600
+      },
+      "multifactor/ip": {
+        "limit": 5,
+        "period_seconds": 600
+      },
+      "multifactor/login_text": {
         "limit": 3,
         "period_seconds": 600
       }
@@ -33,6 +43,10 @@ class Rack::Attack
 
   def self.is_login_request?(req)
     req.path == parsed_config['login_path'] && req.post?
+  end
+
+  def self.is_multifactor_request?(req)
+    req.path == parsed_config['multifactor_path'] && req.post?
   end
 
   def self.is_whitelisted_ip?(req)
@@ -53,9 +67,19 @@ class Rack::Attack
     end
   end
 
-  # Avoid putting any actual user data or IPs in the cache
+  # Avoid putting any actual user data or IPs on the cache servers
   def self.hash_for_cache(value)
-    Digest::SHA256.hexdigest(value)
+    Digest::SHA256.hexdigest("#{value}-#{parsed_config['hash_seed']}")
+  end
+
+  # Do this in layers sort of like exponential backoff, continually
+  # decreasing their request rate
+  def self.layered_throttle(key, limit, period_seconds, &block)
+    (1..5).each do |level|
+      throttle("#{key}/#{level}", :limit => (limit * level), :period => (period_seconds ** level).seconds) do |req|
+        block.call(req)
+      end
+    end
   end
 
   # Throttling requires a cache
@@ -91,22 +115,35 @@ class Rack::Attack
     end
   end
   
-  # Throttle login requests by IP address
-  # Do this in layers sort of like exponential backoff, continually
-  # decreasing their request rate
+  # Throttle login requests by IP
   read_throttle_config('logins/ip') do |key, limit, period_seconds|
-    (1..5).each do |level|
-      throttle("#{key}/#{level}", :limit => (limit * level), :period => (period_seconds ** level).seconds) do |req|
-        hash_for_cache(req.ip) if is_login_request?(req) && !is_whitelisted_ip?(req)
-      end
+    layered_throttle(key, limit, period_seconds) do |req|
+      hash_for_cache(req.ip) if is_login_request?(req) && !is_whitelisted_ip?(req)
     end
   end
-    
+
+  # Throttle multifactor requests by IP
+  read_throttle_config('multifactor/ip') do |key, limit, period_seconds|
+    layered_throttle(key, limit, period_seconds) do |req|
+      hash_for_cache(req.ip) if is_multifactor_request?(req) && !is_whitelisted_ip?(req)
+    end
+  end
+
   # Throttle login requests by username
   read_throttle_config('logins/login_text') do |key, limit, period_seconds|
     throttle(key, limit: limit, period: period_seconds) do |req|
       if is_login_request?(req)
         login_text = req.params.fetch('educator', {}).fetch('login_text', nil)
+        hash_for_cache(login_text) unless login_text.nil?
+      end
+    end
+  end
+
+  # Throttle multifactor requests by username
+  read_throttle_config('multifactor/login_text') do |key, limit, period_seconds|
+    throttle(key, limit: limit, period: period_seconds) do |req|
+      if is_multifactor_request?(req)
+        login_text = req.params.fetch('multifactor', {}).fetch('login_text', nil)
         hash_for_cache(login_text) unless login_text.nil?
       end
     end

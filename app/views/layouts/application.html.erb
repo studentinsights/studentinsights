@@ -5,43 +5,20 @@
   </head>
   <body class="<%= controller_name %> <%= action_name %> <%= if educator_signed_in? then "educator-signed-in" end %>">
     <%= render('shared/masquerade') %>
-    <div class="nav">
+    <div class="Layout">
       <% if PerDistrict.new.warning_banner_message.present? %>
-        <div class="big_warning"><%= PerDistrict.new.warning_banner_message %>
+        <div class="Layout-message Layout-big-warning">
+          <%= PerDistrict.new.warning_banner_message %>
         </div>
       <% end %>
       <% if ENV['STATUS_MESSAGE'] %>
-        <div class="status_message"><%= ENV['STATUS_MESSAGE'] %></div>
+        <div class=" Layout-message Layout-status-message">
+          <%= ENV['STATUS_MESSAGE'] %>
+        </div>
       <% end %>
-      <div class="navwrap">
-        <a class="logo-container" href="/">
-          <div class="logo">
-            <div class="title" alt="Student Insights"></div>
-          </div>
-        </a>
-        <% if educator_signed_in? %>
-          <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
-        <% else %>
-          <div class="sign-in-container">
-            <%= form_tag session_path(resource_name) do %>
-              <div class="sign-in-item">
-                <%= label_tag :login_text, 'Login' %>
-                <%= text_field_tag 'educator[login_text]', nil, class: 'sign-in-text', autofocus: true %>
-              </div>
-              <div class="sign-in-item">
-                <%= label_tag :password, 'Password' %>
-                <%= password_field_tag 'educator[password]', nil, class: 'sign-in-text', autocomplete: "off" %>
-              </div>
-              <div class="sign-in-item">
-                <%= submit_tag "Log in", class: "btn btn-primary" %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-      <div class="flash">
-        <p class="alert"><%= alert %></p>
-      </div>
+      <% if educator_signed_in? %>
+        <%= render partial: 'shared/navbar_signed_in', locals: { educator: current_educator, masquerade: masquerade } %>
+      <% end %>
     </div>
     <%= yield %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>

@@ -51,7 +51,7 @@ class HomeroomsController < ApplicationController
       homeroom_name: student.try(:homeroom).try(:name),
       event_notes_without_restricted: student.event_notes_without_restricted,
       interventions: student.interventions,
-      sped_data: student.sped_data
+      sped_data: sped_data(student)
     }))
   end
 
@@ -82,5 +82,53 @@ class HomeroomsController < ApplicationController
     return homeroom_by_slug unless homeroom_by_slug.nil?
 
     raise ActiveRecord::RecordNotFound
+  end
+
+  # SpEd Data as defined by Somerville Schools
+  def sped_data(student)
+    {
+      sped_level: sped_level(student),
+      sped_tooltip_message: sped_tooltip_message(student),
+      sped_bubble_class: sped_bubble_class(student)
+    }
+  end
+
+  def sped_level(student)
+    case student.sped_level_of_need
+    when "Low < 2"
+      "1"
+    when "Low >= 2"
+      "2"
+    when "Moderate"
+      "3"
+    when "High"
+      "4"
+    else
+      "—" # long hyphen
+    end
+  end
+
+  def sped_tooltip_message(student)
+    case sped_level(student)
+    when "1"
+      "#{student.first_name} receives 0-2 hours of special education services per week."
+    when "2"
+      "#{student.first_name} receives 2-5 hours of special education services per week."
+    when "3"
+      "#{student.first_name} receives 6-14 hours of special education services per week."
+    when "4"
+      "#{student.first_name} receives 15+ hours of special education services per week."
+    else
+      nil
+    end
+  end
+
+  def sped_bubble_class(student)
+    case sped_level(student)
+    when '—' # long hyphen
+      ''
+    else
+      'HomeroomTable-warning-bubble HomeroomTable-sped-risk-bubble tooltip'
+    end
   end
 end

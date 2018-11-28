@@ -15,6 +15,9 @@ module Devise
       # but we don't want to persist this on the model at all,
       # so we just accept this when Devise calls it and drop it.
       def login_text=(login_text) end
+
+      # Same here
+      def login_code=(login_code) end
     end
   end
 end

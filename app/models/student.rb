@@ -222,55 +222,6 @@ class Student < ApplicationRecord
     where(most_recent_mcas_ela_performance: 'W')
   end
 
-  # SpEd Data as defined by Somerville Schools
-
-  def sped_data
-    {
-      sped_level: sped_level,
-      sped_tooltip_message: sped_tooltip_message,
-      sped_bubble_class: sped_bubble_class
-    }
-  end
-
-  def sped_level
-    case self.sped_level_of_need
-    when "Low < 2"
-      "1"
-    when "Low >= 2"
-      "2"
-    when "Moderate"
-      "3"
-    when "High"
-      "4"
-    else
-      "—"
-    end
-  end
-
-  def sped_tooltip_message
-    case sped_level
-    when "1"
-      "#{self.first_name} receives 0-2 hours of special education services per week."
-    when "2"
-      "#{self.first_name} receives 2-5 hours of special education services per week."
-    when "3"
-      "#{self.first_name} receives 6-14 hours of special education services per week."
-    when "4"
-      "#{self.first_name} receives 15+ hours of special education services per week."
-    else
-      nil
-    end
-  end
-
-  def sped_bubble_class
-    case sped_level
-    when "—"
-      "sped"
-    else
-      "warning-bubble sped-risk-bubble tooltip"
-    end
-  end
-
   def event_notes_without_restricted
     event_notes.where(is_restricted: false)
   end
@@ -294,5 +245,4 @@ class Student < ApplicationRecord
       errors.add(:registration_date, "cannot be in future for student local id ##{local_id}")
     end
   end
-
 end

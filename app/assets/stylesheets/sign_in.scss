@@ -1,0 +1,106 @@
+.SignInPage {
+  font-size: 14px;
+
+  .SignInPage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    padding-top: 20px;
+    padding-bottom: 0;
+  }
+
+  .SignInPage-form-row {
+    width: 80%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .SignInPage-logo {
+    width: 135px;
+    height: 40px;
+    background: url(asset-path("student-insights-logo-small.png")) no-repeat;
+  }
+
+  .SignInPage-form, .SignInPage-multifactor-form {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .SignInPage-item {
+    display: inline-block;
+    margin-left: 15px;
+  }
+
+  .SignInPage-item .btn {
+    width: 8em;
+  }
+
+  .SignInPage-input-text {
+    font-size: 14px;
+    padding: 6px;
+    border: 1px solid #ccc;
+
+    &:invalid, &:required {
+      box-shadow: 0 0 1px 1px #eee;
+    }
+
+    &[readonly] {
+      background: #ccc;
+    }
+  }
+
+  .SignInPage-input-login {
+    width: 20em;
+  }
+
+  .SignInPage-input-password {
+    width: 10em;
+  }
+
+  .SignInPage-input-login-code {
+    width: 6em;
+  }
+
+  .SignInPage-label {
+    margin-bottom: 5px;
+  }
+
+  .SignInPage-messages-row {
+    width: 80%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    min-height: 3.1em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .SignInPage-flash {
+    display: block;
+  }
+
+  .SignInPage-alert {
+    color: $warning-red;
+    font-weight: 700;
+  }
+
+  .SignInPage-multifactor {
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+
+  .SignInPage-multifactor-sent-code {
+    color: orange;
+    font-weight: bold;
+  }
+}

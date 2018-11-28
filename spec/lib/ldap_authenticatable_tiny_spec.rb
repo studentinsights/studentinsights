@@ -10,36 +10,25 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     Devise::Strategies::LdapAuthenticatableTiny.new(warden_env)
   end
 
-  def test_tls_options_text
-    '{"tls_foo": "tls_bar"}'
+  def expect_failure(strategy, symbol)
+    expect(strategy.result).to eq :failure
+    expect(strategy.message).to eq symbol
+    expect(strategy.user).to eq nil
   end
 
-  def test_options(login, password)
-    {
-      :auth => {
-        :method=>:simple,
-        :username=>login,
-        :password=>password
-      },
-      :encryption => {
-        :method=>:simple_tls,
-        :tls_options=>{
-          :tls_foo => 'tls_bar'
-        }
-      },
-      :host => 'foo.com',
-      :port => 12345
-    }
-  end
-
-  describe '#authenticate! integration tests across districts, with is_authorized_by_ldap mocked' do
+  describe '#authenticate! across districts, mocking everything without multifactor' do
     def mocked_test_strategy(options = {})
       strategy = test_strategy
       allow(strategy).to receive_messages({
-        authentication_hash: { login_text: options[:login_text] },
+        authentication_hash: {
+          login_text: options[:login_text],
+          login_code: options.fetch(:login_code, 'NO_CODE')
+        },
         password: options[:password]
       })
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, options[:ldap_login], options[:password]).and_return options[:is_authorized_by_ldap?]
+
+      allow(strategy).to receive(:is_authorized_by_ldap?).with(options[:ldap_login], options[:password]).and_return options[:is_authorized_by_ldap?]
+      allow(strategy).to receive(:is_multifactor_enabled?).and_return(false)
       strategy
     end
 
@@ -98,152 +87,228 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     end
   end
 
-  describe '#authenticate! when methods are mocked' do
+  describe '#authenticate! when no multifactor and methods and mocked' do
     let!(:pals) { TestPals.create! }
 
-    it 'calls fail when email not found' do
+    it 'fails and alerts if a) upstream bug allows empty login_text and b) downstream bug would allow it to authenticate' do
+      expect(Rollbar).to receive(:error).with('LdapAuthenticatableTiny called with invalid params')
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { login_text: 'foo@demo.studentinsights.org' } }
-      strategy.authenticate!
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: '',
+          login_code: 'NO_CODE'
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('', 'correct-password').and_return true
 
-      expect(strategy.result).to eq :failure
-      expect(strategy.message).to eq :not_found_in_database
-      expect(strategy.user).to eq nil
+      strategy.authenticate!
+      expect_failure(strategy, :invalid)
+    end
+
+    it 'fails and alerts if a) upstream bug allows empty login_code and b) downstream bug would allow it to authenticate' do
+      expect(Rollbar).to receive(:error).with('LdapAuthenticatableTiny called with invalid params')
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi@demo.studentinsights.org',
+          login_code: ''
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_return true
+
+      strategy.authenticate!
+      expect_failure(strategy, :invalid)
+    end
+
+    it 'fails and alerts if a) upstream bug allows empty password and b) downstream bug would allow it to authenticate' do
+      expect(Rollbar).to receive(:error).with('LdapAuthenticatableTiny called with invalid params')
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi@demo.studentinsights.org',
+          login_code: 'NO_CODE'
+        },
+        password: ''
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', '').and_return true
+
+      strategy.authenticate!
+      expect_failure(strategy, :invalid)
+    end
+
+    it 'fails if user tries to sign in with login code when multifactor is not enabled, and does not query LDAP' do
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi@demo.studentinsights.org',
+          login_code: '123456'
+        },
+        password: 'demo-password'
+      })
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
+
+      strategy.authenticate!
+      expect_failure(strategy, :unexpected_multifactor)
+    end
+
+    it 'calls fail when email not found without querying LDAP' do
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'foo@demo.studentinsights.org',
+          login_code: 'NO_CODE'
+        },
+        password: 'correct-password'
+      })
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
+
+      strategy.authenticate!
+      expect_failure(strategy, :not_found_in_database)
     end
 
     it 'calls fail when email found but not is_authorized_by_ldap?' do
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { login_text: 'uri@demo.studentinsights.org' } }
-      allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return false
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi@demo.studentinsights.org',
+          login_code: 'NO_CODE'
+        },
+        password: 'wrong-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'wrong-password').and_return false
 
       strategy.authenticate!
-      expect(strategy.result).to eq :failure
-      expect(strategy.message).to eq :invalid
-      expect(strategy.user).to eq nil
+      expect_failure(strategy, :invalid)
     end
 
     it 'reports error and calls fail! when is_authorized_by_ldap? times out' do
       expect(Rollbar).to receive(:error).with(any_args)
 
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { login_text: 'uri@demo.studentinsights.org' } }
-      allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_raise(Net::LDAP::Error)
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi@demo.studentinsights.org',
+          login_code: 'NO_CODE'
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_raise(Net::LDAP::Error)
       strategy.authenticate!
 
-      expect(strategy.result).to eq :failure
-      expect(strategy.message).to eq :error
-      expect(strategy.user).to eq nil
-    end
-
-    it 'calls success! even when cases are different' do
-      strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { login_text: 'URI@demo.studentinsights.org' } }
-      allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
-      strategy.authenticate!
-
-      expect(strategy.result).to eq :success
-      expect(strategy.message).to eq nil
-      expect(strategy.user).to eq pals.uri
+      expect_failure(strategy, :error)
     end
 
     it 'calls success! when valid Educator and is_authorized_by_ldap?' do
       strategy = test_strategy
-      allow(strategy).to receive(:authentication_hash) { { login_text: 'uri@demo.studentinsights.org' } }
-      allow(strategy).to receive(:password) { 'supersecure' }
-      allow(strategy).to receive(:is_authorized_by_ldap?).with(MockLDAP, 'uri@demo.studentinsights.org', 'supersecure').and_return true
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'jodi@demo.studentinsights.org',
+          login_code: 'NO_CODE'
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_return true
       strategy.authenticate!
 
       expect(strategy.result).to eq :success
       expect(strategy.message).to eq nil
-      expect(strategy.user).to eq pals.uri
+      expect(strategy.user).to eq pals.shs_jodi
     end
-  end
 
-  describe '#ldap_options_for' do
-    before do
-      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_HOST').and_return('foo.com')
-      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_PORT').and_return('12345.com')
-      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_ENCRYPTION_TLS_OPTIONS_JSON').and_return(test_tls_options_text)
-      allow(ENV).to receive(:[]).with('DISTRICT_LDAP_TIMEOUT_IN_SECONDS').and_return('30')
-   end
-
-    it 'respects environment variables' do
+    it 'calls success! even when login cases are different' do
       strategy = test_strategy
-      expect(strategy.send(:ldap_options_for, 'foo', 'bar')).to eq({
-        :auth => {
-          :method=>:simple,
-          :username=>"foo",
-          :password=>"bar"
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'JODI@demo.STUDENTINSIGHTS.org',
+          login_code: 'NO_CODE'
         },
-        :connect_timeout => 30,
-        :encryption => {
-          :method=>:simple_tls,
-          :tls_options=>{
-            :tls_foo => 'tls_bar'
-          }
-        },
-        :host => 'foo.com',
-        :port => 12345
+        password: 'correct-password'
       })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('jodi@demo.studentinsights.org', 'correct-password').and_return true
+      strategy.authenticate!
+
+      expect(strategy.result).to eq :success
+      expect(strategy.message).to eq nil
+      expect(strategy.user).to eq pals.shs_jodi
     end
   end
 
-  describe '#is_authorized_by_ldap? calls Net::LDAP correctly' do
+  describe '#authenticate! through multifactor' do
     let!(:pals) { TestPals.create! }
 
-    it 'returns false and locks for invalid credentials' do
+    it 'success! for Uri through authenticator app when login_code is correct' do
       strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'uri@demo.studentinsights.org',
+          login_code: LoginTests.peek_at_correct_multifactor_code(pals.uri)
+        },
+        password: 'demo-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('uri@demo.studentinsights.org', 'demo-password').and_return true
 
-      args = [
-        :is_authorized_by_ldap?,
-        MockLDAP,
-        'uri@demo.studentinsights.org',
-        'bar'
-      ]
-
-      expect(strategy.send(*args)).to eq false
+      strategy.authenticate!
+      expect(strategy.result).to eq :success
+      expect(strategy.message).to eq nil
+      expect(strategy.user).to eq pals.uri
     end
 
-    it 'returns true for valid credentials' do
+    it 'success! for Rich over SMS when login_code is correct' do
       strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'rich@demo.studentinsights.org',
+          login_code: LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
+        },
+        password: 'demo-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('rich@demo.studentinsights.org', 'demo-password').and_return true
 
-      args = [
-        :is_authorized_by_ldap?,
-        MockLDAP,
-        'uri@demo.studentinsights.org',
-        'demo-password'
-      ]
-
-      expect(strategy.send(*args)).to eq true
+      strategy.authenticate!
+      expect(strategy.result).to eq :success
+      expect(strategy.message).to eq nil
+      expect(strategy.user).to eq pals.rich_districtwide
     end
 
-    it 'returns false for nil password regardless' do
+    it 'reports error and calls fail! when is_multifactor_code_valid? raises and does not query LDAP' do
+      expect(Rollbar).to receive(:error).with(any_args)
+
       strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'rich@demo.studentinsights.org',
+          login_code: '123456'
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_multifactor_code_valid?).with(pals.rich_districtwide, '123456').and_raise(Twilio::REST::TwilioError)
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
 
-      args = [
-        :is_authorized_by_ldap?,
-        MockLDAP,
-        'uri@demo.studentinsights.org',
-        nil
-      ]
+      strategy.authenticate!
 
-      expect(strategy.send(*args)).to eq false
+      expect_failure(strategy, :error)
     end
 
-    it 'returns false for empty password regardless' do
-      strategy = test_strategy
+    it 'fail! for all users if wrong login_code and does not query LDAP' do
+      Educator.all.each do |educator|
+        login_text = "#{educator.login_name}@demo.studentinsights.org"
+        strategy = test_strategy
+        allow(strategy).to receive_messages({
+          authentication_hash: {
+            login_text: login_text,
+            login_code: '123456'
+          },
+          password: 'demo-password'
+        })
+        allow(strategy).to receive(:is_authorized_by_ldap?).with(login_text, 'demo-password').and_return true
+        expect(strategy).not_to receive(:is_authorized_by_ldap?)
 
-      args = [
-        :is_authorized_by_ldap?,
-        MockLDAP,
-        'uri@demo.studentinsights.org',
-        ''
-      ]
-
-      expect(strategy.send(*args)).to eq false
+        strategy.authenticate!
+        expect(strategy.result).to eq :failure
+        expect(strategy.user).to eq nil
+      end
     end
   end
 end

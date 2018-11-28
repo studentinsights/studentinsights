@@ -115,6 +115,8 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
+    faraday (0.15.3)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
@@ -141,6 +143,7 @@ GEM
       railties (>= 3.2.16)
     json (2.1.0)
     json-diff (0.4.1)
+    jwt (2.1.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -170,6 +173,7 @@ GEM
       railties (>= 3.1)
     moneta (0.8.1)
     multi_json (1.13.1)
+    multipart-post (2.0.0)
     net-ldap (0.16.1)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
@@ -244,6 +248,8 @@ GEM
       railties (>= 4.2.0, < 5.3)
     rollbar (2.15.5)
       multi_json
+    rotp (4.0.2)
+      addressable (~> 2.5)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -303,6 +309,10 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
+    twilio-ruby (5.16.0)
+      faraday (~> 0.9)
+      jwt (>= 1.5, <= 2.5)
+      nokogiri (>= 1.6, < 2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.9)
@@ -362,6 +372,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-erd
   rollbar
+  rotp
   rspec-rails
   rubocop
   rubyzip (~> 1.2.2)
@@ -372,6 +383,7 @@ DEPENDENCIES
   sprockets
   thor
   timecop
+  twilio-ruby
   uglifier (>= 1.3.0)
   wicked_pdf
   wkhtmltopdf-binary

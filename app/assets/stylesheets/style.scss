@@ -4,8 +4,8 @@
 @import 'overall';
 @import 'type';
 @import 'table';
-@import 'nav';
 @import 'opensans';
+@import 'layout';
 
 @import 'components/slice_panels';
 @import 'components/fixed_table';
@@ -15,7 +15,6 @@
 @import 'components/EditableNoteText';
 
 @import 'loader';
-@import 'about';
 @import 'tooltip';
 @import 'override';
 @import 'buttons';
@@ -24,3 +23,6 @@
 @import 'rc_slider';
 @import 'StudentProfilePage';
 @import 'HomeroomTable';
+@import 'sign_in';
+@import 'sign_in_about';
+@import 'navbar_signed_in';

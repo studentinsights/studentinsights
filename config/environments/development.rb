@@ -8,7 +8,8 @@ Rails.application.configure do
   ENV['ENABLE_CLASS_LISTS'] = 'false'
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
   ENV['USE_PLACEHOLDER_IEP_DOCUMENT'] = 'true'
-
+  ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = '2000'
+  
   config.cache_classes = false
 
   # Do not eager load code on boot.

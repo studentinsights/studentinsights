@@ -7,7 +7,8 @@ RSpec.describe 'checking authentication guards around all routes', :type => :req
     [:get, '/'],
     [:get, '/educators/sign_in'],
     [:post, '/educators/sign_in'],
-    [:delete, '/educators/sign_out'],
+    [:post, '/educators/multifactor'],
+    [:delete, '/educators/sign_out']
   ]
 
   # We don't want noise updating this on every route change, but also want to verify

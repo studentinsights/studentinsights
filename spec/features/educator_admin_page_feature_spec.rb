@@ -9,7 +9,7 @@ describe 'educator sign in', type: :feature do
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
   def grants_access?(educator)
-    sign_in_attempt(educator.email, 'demo-password')
+    feature_sign_in(educator)
     visit admin_root_url
 
     checks = []

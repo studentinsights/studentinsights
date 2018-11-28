@@ -3,7 +3,8 @@ module.exports = {
   entry: {
     bundle: ['./ui/polyfills.js', './ui/index.js'], // force polyfills to be first
     student_report_pdf: './ui/student_report_pdf.js',
-    rollbar: './ui/rollbar.js'
+    rollbar: './ui/rollbar.js',
+    sign_in: ['./ui/polyfills.js', './ui/sign_in.js']
   },
   module: {
     rules: [

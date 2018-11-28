@@ -20,10 +20,15 @@ Rollbar.configure do |config|
   # provide a lambda like the following. It should return a hash.
   config.custom_data_method = lambda {
     {
-      deployment_key: ENV["DEPLOYMENT_KEY"],
-      district_key: ENV["DISTRICT_KEY"],
+      district_key: ENV["DISTRICT_KEY"]
     }
   }
+
+  # For privacy and security, do not log any parameters to Rollbar other than the URL,
+  # since whitelists are hard to maintain accurately as you build things over time.
+  # Similer to filter_parameter_logging.rb.
+  # See https://docs.rollbar.com/docs/ruby#section-scrubbing-items 
+  config.scrub_fields = :scrub_all
 
   # Add exception class names to the exception_level_filters hash to
   # change the level that exception is reported at. Note that if an exception
@@ -57,5 +62,5 @@ Rollbar.configure do |config|
   # environment variable like this: `ROLLBAR_ENV=staging`. This is a recommended
   # setup for Heroku. See:
   # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
-  config.environment = ENV['DEPLOYMENT_KEY'] || Rails.env
+  # config.environment = Rails.env
 end

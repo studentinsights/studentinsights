@@ -8,42 +8,38 @@ describe 'masquerading, testing only in Somerville', type: :feature do
   before(:each) { LoginTests.before_disable_consistent_timing! }
   after(:each) { LoginTests.after_reenable_consistent_timing! }
 
-  def sign_in_as(educator)
-    sign_in_attempt(educator.email, 'demo-password')
-  end
-
   def expect_to_allow_masquerading(page)
-    expect(page).not_to have_css('.masquerade-is-masquerading-warning')
+    expect(page).not_to have_css('.Masquerade-is-masquerading-warning')
     expect(page).to have_content('Sign Out')
-    expect(page).to have_css('.nav-options-masquerade-link-to-become-page')
-    expect(page).not_to have_css('.nav-options-clear-masquerade')
+    expect(page).to have_css('.NavbarSignedIn-masquerade-link-to-become-page')
+    expect(page).not_to have_css('.NavbarSignedIn-clear-masquerade')
   end
 
   def expect_to_be_masquerading_as(page, educator)
-    expect(page).to have_css('.masquerade-is-masquerading-warning')
+    expect(page).to have_css('.Masquerade-is-masquerading-warning')
     expect(page).to have_content('Sign Out')
     expect(page).to have_content("#{educator.email.split('@')[0]}@")
-    expect(page).to have_css('.nav-options-clear-masquerade')
+    expect(page).to have_css('.NavbarSignedIn-clear-masquerade')
   end
 
   def expect_not_to_be_masquerading(page)
-    expect(page).not_to have_css('.masquerade-is-masquerading-warning')
+    expect(page).not_to have_css('.Masquerade-is-masquerading-warning')
     expect(current_path).to eq('/not_authorized')
     expect(page).to have_content('Sign Out')
-    expect(page).not_to have_css('.nav-options-masquerade-link-to-become-page')
-    expect(page).not_to have_css('.nav-options-clear-masquerade')
+    expect(page).not_to have_css('.NavbarSignedIn-masquerade-link-to-become-page')
+    expect(page).not_to have_css('.NavbarSignedIn-clear-masquerade')
   end
 
   def expect_to_be_logged_out(page)
     expect(current_path).to eq('/')
     expect(page).to have_content('Login')
     expect(page).to have_content('Password')
-    expect(page).to have_css('.sign-in-container')
+    expect(page).to have_css('.SignInPage')
     expect(page).not_to have_content('Sign Out')
   end
 
   def expect_masquerading_to_fail(educator)
-    sign_in_as(educator)
+    feature_sign_in(educator)
     simulate_clicking_become_link(page, pals.uri.id)
     expect_not_to_be_masquerading(page)
   end
@@ -69,17 +65,17 @@ describe 'masquerading, testing only in Somerville', type: :feature do
   end
 
   it 'works for Uri to become another user' do
-    sign_in_as(pals.uri)
+    feature_sign_in(pals.uri)
     expect_to_allow_masquerading(page)
     simulate_clicking_become_link(page, pals.shs_jodi.id)
     expect_to_be_masquerading_as(page, pals.shs_jodi)
   end
 
   it 'does not work for Jodi to become another user' do
-    sign_in_as(pals.shs_jodi)
+    feature_sign_in(pals.shs_jodi)
     simulate_clicking_become_link(page, pals.uri.id)
     expect_not_to_be_masquerading(page)
-    sign_out
+    feature_sign_out
     expect_to_be_logged_out(page)
   end
 
@@ -91,10 +87,10 @@ describe 'masquerading, testing only in Somerville', type: :feature do
       # (none of these should work, and we sample since it's slow to test every
       # possible permutation).
       ([pals.uri] + Educator.all.sample(1)).each do |target|
-        sign_in_as(educator)
+        feature_sign_in(educator, multifactor_cheating: true)
         simulate_clicking_become_link(page, target.id)
         expect_not_to_be_masquerading(page)
-        sign_out
+        feature_sign_out
         expect_to_be_logged_out(page)
         print('✓') # a nice progress indicator since these are slower tests
       end
