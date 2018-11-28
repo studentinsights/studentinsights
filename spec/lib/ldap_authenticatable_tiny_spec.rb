@@ -10,7 +10,13 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     Devise::Strategies::LdapAuthenticatableTiny.new(warden_env)
   end
 
-  describe '#authenticate! across districts, with is_authorized_by_ldap and is_multifactor_enabled mocked' do
+  def expect_failure(strategy, symbol)
+    expect(strategy.result).to eq :failure
+    expect(strategy.message).to eq symbol
+    expect(strategy.user).to eq nil
+  end
+
+  describe '#authenticate! across districts, mocking everything without multifactor' do
     def mocked_test_strategy(options = {})
       strategy = test_strategy
       allow(strategy).to receive_messages({
@@ -82,12 +88,6 @@ RSpec.describe 'LdapAuthenticatableTiny' do
   end
 
   describe '#authenticate! when no multifactor and methods and mocked' do
-    def expect_failure(strategy, symbol)
-      expect(strategy.result).to eq :failure
-      expect(strategy.message).to eq symbol
-      expect(strategy.user).to eq nil
-    end
-
     let!(:pals) { TestPals.create! }
 
     it 'fails and alerts if a) upstream bug allows empty login_text and b) downstream bug would allow it to authenticate' do
@@ -153,7 +153,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect_failure(strategy, :unexpected_multifactor)
     end
 
-    it 'calls fail when email not found' do
+    it 'calls fail when email not found without querying LDAP' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
@@ -162,6 +162,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
         },
         password: 'correct-password'
       })
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
 
       strategy.authenticate!
       expect_failure(strategy, :not_found_in_database)
@@ -271,7 +272,26 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       expect(strategy.user).to eq pals.rich_districtwide
     end
 
-    it 'fail! for all users if wrong login_code' do
+    it 'reports error and calls fail! when is_multifactor_code_valid? raises and does not query LDAP' do
+      expect(Rollbar).to receive(:error).with(any_args)
+
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'rich@demo.studentinsights.org',
+          login_code: '123456'
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_multifactor_code_valid?).with(pals.rich_districtwide, '123456').and_raise(Twilio::REST::TwilioError)
+      expect(strategy).not_to receive(:is_authorized_by_ldap?)
+
+      strategy.authenticate!
+
+      expect_failure(strategy, :error)
+    end
+
+    it 'fail! for all users if wrong login_code and does not query LDAP' do
       Educator.all.each do |educator|
         login_text = "#{educator.login_name}@demo.studentinsights.org"
         strategy = test_strategy
@@ -283,6 +303,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
           password: 'demo-password'
         })
         allow(strategy).to receive(:is_authorized_by_ldap?).with(login_text, 'demo-password').and_return true
+        expect(strategy).not_to receive(:is_authorized_by_ldap?)
 
         strategy.authenticate!
         expect(strategy.result).to eq :failure
