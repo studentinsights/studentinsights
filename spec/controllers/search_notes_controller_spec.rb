@@ -7,8 +7,8 @@ describe SearchNotesController, :type => :controller do
   describe '#query_json' do
     def get_query_json(time_now, educator, params = {})
       sign_in(educator)
+      request.env['HTTP_ACCEPT'] = 'application/json'
       get :query_json, params: {
-        format: :json,
         start_time: (time_now - 45.days).to_i,
         end_time: time_now.to_i,
         limit: 10

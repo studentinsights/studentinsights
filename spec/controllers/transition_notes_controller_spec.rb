@@ -7,7 +7,6 @@ RSpec.describe TransitionNotesController, type: :controller do
 
   let(:params) {
     {
-      format: :json,
       student_id: student.id,
       text: 'foo',
       is_restricted: false
@@ -19,8 +18,8 @@ RSpec.describe TransitionNotesController, type: :controller do
 
     def get_restricted_transition_note_json(student_id)
       request.env['HTTPS'] = 'on'
+      request.env['HTTP_ACCEPT'] = 'application/json'
       get :restricted_transition_note_json, params: {
-        format: :json,
         student_id: student_id
       }
     end

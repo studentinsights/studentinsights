@@ -22,7 +22,10 @@ module SomervilleTeacherTool
     config.load_defaults 5.1
 
     # see https://blog.bigbinary.com/2016/02/15/rails-5-makes-belong-to-association-required-by-default.html
-    Rails.application.config.active_record.belongs_to_required_by_default = false
+    config.active_record.belongs_to_required_by_default = false
+
+    # raise on controllers that use strong params if they get extra params they don't expect
+    config.action_controller.action_on_unpermitted_parameters = :raise
 
     # see rack_attack.md and https://github.com/kickstarter/rack-attack and 
     config.middleware.use Rack::Attack
@@ -35,7 +38,7 @@ module SomervilleTeacherTool
     # See https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#autoload-paths-and-eager-load-paths
     # This needs all sub-folders in app that are referenced without
     # a containing module.
-    Rails.application.config.tap do |config|
+    config.tap do |config|
       class_paths = [
         "#{config.root}/app/importers/clients",
         "#{config.root}/app/importers/constants",
