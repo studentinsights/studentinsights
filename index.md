@@ -5,7 +5,7 @@
   <div class="Home-container">
     <div class="Home-image-container">
       <img src="img/teachers-working.jpg" alt="Teachers working together" class="Home-image" />
-        <div style="color: rgb(97, 101, 104);">
+        <div class="Home-image-caption">
         Teachers working together
         </div>
     </div>
@@ -31,7 +31,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
   {% endcapture %}
   {% capture profile_image %}
     <img src="img/profile-2.png" alt="A student profile example" style="border: 1px solid #eee;" />
-      <div style="color: rgb(97, 101, 104);">
+      <div class="Home-image-caption">
         A student profile example
       </div>
   {% endcapture %}
@@ -48,7 +48,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
   {% endcapture %}
   {% capture notes_image %}
     <img src="img/feed-simple.png" alt="A note about Ryan Martinez in 5th grade by Maria Kelly in SST Meeting 4 minutes ago on 11/8: &quot;Ryan's really motivated by working with a younger student as a mentor. Set up a weekly system with LM so he read with as a way to build reading stamina.&quot;"/>
-      <div style="color: rgb(97, 101, 104);">
+      <div class="Home-image-caption">
         A note created by a teacher about a student in a SST meeting.
       </div>
   {% endcapture %}
@@ -66,7 +66,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
   {% capture privacy_image %}
     <div>
       <img src="img/data.png" alt="Sensitive encrypted information of a student to secure the student's safety."/>
-      <div style="color: rgb(97, 101, 104);">
+      <div class="Home-image-caption">
         Sensitive encrypted information of a student to secure the student's safety.
       </div>
     </div>
