@@ -42,6 +42,27 @@ class MultifactorAuthenticator
     nil
   end
 
+  # Returns a string of ANSI rendering of a QR code, used for provisioning
+  # an MFA authenticator app with the educator's ROTP secret.
+  #
+  # By default, it rotates the educator's secret beforehand as a guardrail
+  # for this method only being called once for any given TOTP secret.
+  #
+  # Do this in a transaction so that if generating the QR code fails, it
+  # doesn't rotate the secret.
+  def ansi_qr_code_for_provisioning(totp)
+    ActiveRecord::Base.transaction do
+      begin
+        rotate_rotp_secret!
+        create_ansi_qr_code_string
+      rescue => err
+        Rails.logger.error('Provisioner#{ansi_qr_code_for_provisioning caught an exception, rolling back...', err: err)
+        Rollbar.error('Provisioner#{ansi_qr_code_for_provisioning caught an exception, rolling back...', err: err)
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
   private
   def send_login_code_via_sms!
     return nil unless is_multifactor_enabled?
@@ -57,6 +78,40 @@ class MultifactorAuthenticator
   def get_login_code
     totp = create_totp!
     totp.now
+  end
+
+  def send_twilio_message!(message, to_sms_number)
+    twilio_config = validated_twilio_config!(ENV)
+    client = @twilio_client_class.new(twilio_config['account_sid'], twilio_config['auth_token'])
+    twilio_message = client.messages.create({
+      body: message,
+      to: to_sms_number,
+      from: twilio_config['sending_number']
+    })
+    twilio_message.try(:sid)
+  end
+
+  # For provisioning an authenticator app
+  def create_ansi_qr_code_string
+    name_within_authenticator_app = "Student Insights #{PerDistrict.district_name}"
+    totp = create_totp!
+    url = totp.provisioning_uri(name_within_authenticator_app)
+    RQRCode::QRCode.new(url).as_ansi({
+      light: "\033[47m",
+      dark: "\033[40m",
+      fill_character: '  ',
+      quiet_zone_size: 4
+    })
+  end
+
+  # Rotate the ROTP secret; this will lock out the user until they provision again.
+  def rotate_rotp_secret!
+    return nil unless is_multifactor_enabled?
+    multifactor_config.reload.update!({
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret,
+      last_verification_at: nil
+    })
+    nil
   end
 
   def multifactor_config
@@ -81,17 +136,6 @@ class MultifactorAuthenticator
     rotp_config = JSON.parse(env.fetch('MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON', '{}'))
     raise Exceptions::InvalidConfiguration if rotp_config['issuer_base'].nil?
     rotp_config
-  end
-
-  def send_twilio_message!(message, to_sms_number)
-    twilio_config = validated_twilio_config!(ENV)
-    client = @twilio_client_class.new(twilio_config['account_sid'], twilio_config['auth_token'])
-    twilio_message = client.messages.create({
-      body: message,
-      to: to_sms_number,
-      from: twilio_config['sending_number']
-    })
-    twilio_message.try(:sid)
   end
 
   def validated_twilio_config!(env)

@@ -10,6 +10,7 @@ gem 'ipcat'
 gem 'dalli'
 gem 'rotp'
 gem 'twilio-ruby'
+gem 'rqrcode'
 
 gem 'administrate', '~> 0.10.0'
 gem 'authtrail'
