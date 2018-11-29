@@ -8,7 +8,7 @@ Our work on Student Insights built on the work that has [come before](about-us.h
 
 Student Insights started as an effort to pull together student data from different sources all onto one screen.  We've done this with a variety of data points - and we started with some standard things like IEP goals, English learner assessments, course enrollments and grades, attendance, discipline data, MCAS scores, STAR reading and math scores, and DIBELS subtests for reading.
 
-<img src="img/our-work/profile.png" class="InlineImage OurWork-InlineImage-profile" />
+<img src="img/our-work/profile.png" class="InlineImage OurWork-InlineImage-profile" alt="Student Profile Example" />
 
 But along the way we started asking more questions with educators about how we should be representing students, and whether our work on this profile was really was reflecting the values of our school community.  We cam eto see that while pulling in multiple data sources can help students get what they need, it can also serve to define and limit young people.  Striking the right balance here is challenging but important, most especially at the transition point at the start of the school year.  When teachers get their classroom rosters, it's possible that the profile in Student Insights may be one of the first ways an educator is introduced to a student.
 
