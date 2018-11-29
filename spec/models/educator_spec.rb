@@ -2,6 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Educator do
 
+  describe 'validations' do
+    it 'fails empty string email' do
+      expect(FactoryBot.build(:educator, email: '')).to be_invalid
+    end
+
+    it 'fails nil email' do
+      expect(FactoryBot.build(:educator, email: nil)).to be_invalid
+    end
+  end
+
   describe 'has Devise hooks' do
     it 'allow writing password but not reading, only for Devise' do
       educator = FactoryBot.build(:educator)
@@ -115,14 +125,6 @@ RSpec.describe Educator do
       end
     end
 
-  end
-
-  describe '#local_email' do
-    context 'no email' do
-      it 'is invalid' do
-        expect(FactoryBot.build(:educator, :without_email)).to be_invalid
-      end
-    end
   end
 
   describe '#allowed_homerooms' do
