@@ -94,7 +94,7 @@ The "clean slate" concept came from a team of educators discussing concerns abou
 To strike the right balance here, within Student Insights most numeric data in a student's profile is focused on the last 45 days of school or the current school year, and all these data points have context about when the data point was from.  Educators can click into tabs and see more historical information, but there is also a prompt about this core tension in how educators use school data systems.  This is a central theme in all of the Student Insights [trainings that educators lead](trainings-and-videos.html) as well.
 
 
-<h2 class="OurWork-SectionTitle">Student-centered notes</h2>
+<h2 class="OurWork-SectionTitle">Student-centered narratives</h2>
 > "What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a>
 
 When we originally built Student Insights, we had no idea how popular and powerful it would be to add the simple ability for educators to say something about what was going on with a student.
@@ -231,7 +231,7 @@ This also created an interesting research question that we're working on ahead o
 ### Grades and academic supports
 At Somerville High school, one of the support structures focused particularly on helping ninth grade students make the transition from middle school to high school.  This support functions both as an interdisciplinary team PLC for teachers, and a space where they can collaborate on how to support students outside of traditional disciplinary boundaries, and grow together around specific instructional strategies or changes in practice.
 
-We initially collaborated with this team to create a [new home page](#student-centered-notes) showing what's going on with all students that an educator works with.  But one challenge that came up is that they wanted the data system to support them in seeing all the students across their courses that were struggling with their grades.  This was something they could look at a few times during the school year at the end of each quarter - after students received final grades - and they wanted to be able to respond more quickly as students grades changed from week to week.
+We initially collaborated with this team to create a [new home page](#student-centered-narratives) showing what's going on with all students that an educator works with.  But one challenge that came up is that they wanted the data system to support them in seeing all the students across their courses that were struggling with their grades.  This was something they could look at a few times during the school year at the end of each quarter - after students received final grades - and they wanted to be able to respond more quickly as students grades changed from week to week.
 
 <div class="DoubleImage DoubleImage-side-margin">
   <div class="DoubleImage-small"><img src="img/our-work/communication-and-actions.png" /></div>
@@ -260,3 +260,5 @@ Importantly, the process of thinking through and creating these triggers and lev
 This work also led to conversations across the HS admin team about some of the challenges in flexibly adapting in response to what students need, and different supports and services that aren't yet visible in these data systems.  We're excited to keep working on this and help with making the full "menu" of services and supports in the school system visible to everyone, and be a part of helping students get what they need when they need it.
 
 <a href="updates.html" class="btn">What's next?</a>
+
+{% include footer.html %}

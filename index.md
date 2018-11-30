@@ -5,9 +5,6 @@
   <div class="Home-container">
     <div class="Home-image-container">
       <img src="img/teachers-working.jpg" alt="Teachers working together" class="Home-image" />
-        <div class="Home-image-caption">
-        Teachers working together
-        </div>
     </div>
     <div class="Home-text">
       <div>
@@ -15,19 +12,20 @@
         <p>We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle <b>what matters for our students.</b></p>
       </div>
       <div>
-        <a href="about-us.html" class="btn">Learn more about us</a>
+        <a href="about-us.html" class="btn Home-main-button">Learn more about us</a>
       </div>
     </div>
   </div>
 </section>
 
-## Our work
+<h2 style="margin-top: 30px;">Our work</h2>
 Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work is built.
 
 <section>
   {% assign profile_title = 'Whole-child profile' %}
+  {% assign profile_href = 'our-work.html#whole-child-profile' %}
   {% capture profile_quote %}
-    <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<a href="pals.html" style="display: block;">- Django Paris</a></p>
+    <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<div>- Django Paris</div></p>
   {% endcapture %}
   {% capture profile_image %}
     <img src="img/profile-2.png" alt="A student profile example" style="border: 1px solid #eee;" />
@@ -36,15 +34,16 @@ Our work on Student Insights built on the work that has [come before](about-us.h
       </div>
   {% endcapture %}
   {% capture profile_button %}
-    <a href="our-work.html#whole-child-profile" class="btn">More about profiles</a>
+    <a href="{{profile_href}}" class="btn">More about profiles</a>
   {% endcapture %}
-  {% include panel.html title=profile_title quote=profile_quote image=profile_image button=profile_button %}
+  {% include panel.html title=profile_title quote=profile_quote image=profile_image button=profile_button href=profile_href %}
 </section>
 
 <section>
-  {% assign notes_title = 'Student-centered notes' %}
+  {% assign notes_title = 'Student-centered narratives' %}
+  {% assign notes_href = 'our-work.html#student-centered-narratives' %}
   {% capture notes_quote %}
-    <p>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a></p>
+    <p>"What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<div class="Home-quoted-person">- Mica Pollock</div></p>
   {% endcapture %}
   {% capture notes_image %}
     <img src="img/feed-simple.png" alt="A note about Ryan Martinez in 5th grade by Maria Kelly in SST Meeting 4 minutes ago on 11/8: &quot;Ryan's really motivated by working with a younger student as a mentor. Set up a weekly system with LM so he read with as a way to build reading stamina.&quot;"/>
@@ -53,15 +52,16 @@ Our work on Student Insights built on the work that has [come before](about-us.h
       </div>
   {% endcapture %}
   {% capture notes_button %}
-    <a href="our-work.html#student-centered-notes" class="btn">More about notes</a>
+    <a href="{{notes_href}}" class="btn">More about narratives</a>
   {% endcapture %}
-  {% include panel.html title=notes_title quote=notes_quote image=notes_image button=notes_button %}
+  {% include panel.html title=notes_title quote=notes_quote image=notes_image button=notes_button href=notes_href %}
 </section>
 
 <section>
   {% assign privacy_title = 'Trust, access, and privacy' %}
+  {% assign privacy_href = 'our-work.html#trust-access-and-privacy' %}
   {% capture privacy_quote %}
-    <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<a style="display: block;" href="pals.html">- Audrey Waters</a></p>
+    <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<div class="Home-quoted-person">- Audrey Waters</div></p>
   {% endcapture %}
   {% capture privacy_image %}
     <div>
@@ -72,9 +72,9 @@ Our work on Student Insights built on the work that has [come before](about-us.h
     </div>
   {% endcapture %}
   {% capture privacy_button %}
-    <a href="our-work.html#trust-access-and-privacy" class="btn">More about trust</a>
+    <a href="{{privacy_href}}" class="btn">More about trust</a>
   {% endcapture %}
-  {% include panel.html title=privacy_title quote=privacy_quote image=privacy_image button=privacy_button %}
+  {% include panel.html title=privacy_title quote=privacy_quote image=privacy_image button=privacy_button href=privacy_href %}
 </section>
 
 <section style="margin-top: 60px; margin-bottom: 30px;">

@@ -4,6 +4,12 @@ a.btn {
   color: white;
   padding: 10px;
   display: inline-block;
+
+  &.btn-narrow {
+    padding-top: 0;
+    padding-bottom: 0;
+    outline: 5px solid #4A90E2;
+  }
 }
 
 

@@ -34,7 +34,7 @@
   }
 
   .Home-image-container {
-    flex: 2;
+    flex: 3;
     padding-right: 15px;
     display: flex;
     height: 100%;
@@ -48,8 +48,8 @@
   }
 
   .Home-text {
-    flex: 1;
-    padding-left: 15px;
+    flex: 2;
+    padding-left: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

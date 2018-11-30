@@ -176,3 +176,5 @@ In the spirit of building in the open, here are links to how we've thought about
 
 
 <a href="our-work.html" class="btn">Learn more about our work</a>
+
+{% include footer.html %}

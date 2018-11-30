@@ -118,3 +118,5 @@ Friday 10/19 updates:
 - **ELL-based home page feed** for HS ELL admin
 
 <a class="btn" href="https://github.com/studentinsights/studentinsights/issues?q=is%3Apr+is%3Aclosed">See all changes on github.com</a>
+
+{% include footer.html %}

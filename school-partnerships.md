@@ -35,3 +35,5 @@ When we start working with a new district, one of the places we start the conver
 - forcing things usually doesn't work; ask why instead
 
 <a href="our-work.html" class="btn">More about our work</a>
+
+{% include footer.html %}

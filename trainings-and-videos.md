@@ -28,3 +28,5 @@ As we've built Student Insights, we've created different training materials ours
 
 ### Documentation
 - [Student Insights: Roles and Permissions](https://docs.google.com/document/d/1THekg_5gFdm5dIHANJgcoxEajlH4UjL4U0-nYJjI2WY/edit?usp=drive_web&ouid=114364589315833815880)
+
+{% include footer.html %}

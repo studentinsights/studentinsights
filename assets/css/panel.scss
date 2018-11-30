@@ -6,6 +6,10 @@
   border-bottom: 1px solid #eaecef; // markdown
 }
 
+.Panel-image:hover {
+  text-decoration: none;
+}
+
 /* Panel mobile */
 @media (max-width: 600px) {
   .Panel {
@@ -19,6 +23,10 @@
   .Panel-quote {
     padding-bottom: 5px;
   }
+  
+  .Panel-quote > p {
+    margin-bottom: 10px;
+  }
 
   .Panel-image {
     padding-bottom: 10px;
@@ -28,7 +36,7 @@
 /* Panel desktop */
 @media (min-width: 600px) {
   .Panel {
-    padding-top: 20px;
+    padding-bottom: 30px;
   }
 
   .Panel-container {
@@ -48,13 +56,18 @@
 
   .Panel-quote > p {
     font-size: 18px;
+    margin-bottom: 10px;
   }
 
   .Panel-image {
     flex: 4;
-    padding-left: 15px;
+    padding-left: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .Panel-button {
+    margin-top: 20px;
   }
 }

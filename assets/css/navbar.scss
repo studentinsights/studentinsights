@@ -19,14 +19,21 @@
 .Navbar-right {
   text-align: right;
 }
+@media (min-width: 600px) {
+  .Navbar {
+    align-items: center;
+  }
+  
+  .Navbar-right {
+    width: 12em;
+  }
+}
 @media (max-width: 600px) {
   .Navbar-right {
     width: 6em;
-  }
-}
-@media (min-width: 600px) {
-  .Navbar-right {
-    width: 12em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
@@ -38,3 +45,4 @@
 .Navbar-work-item {
   display: block;
 }
+
