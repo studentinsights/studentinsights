@@ -25,7 +25,13 @@
   }
   
   .Navbar-right {
-    width: 12em;
+    width: 14em;
+  }
+
+  .btn-narrow {
+    position: relative;
+    left: -10px;
+    margin-left: 15px;
   }
 }
 @media (max-width: 600px) {
