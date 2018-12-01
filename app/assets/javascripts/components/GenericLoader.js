@@ -28,9 +28,9 @@ class GenericLoader extends React.Component {
 
   renderGeneric(promiseState) {
     const {isPending, reject, resolve} = promiseState;
-    const {render, style} = this.props;
+    const {render, style, loadingEl} = this.props;
 
-    if (isPending) return <Loading style={{padding: 10}} />;
+    if (isPending) return loadingEl || <Loading style={{padding: 10}} />;
 
     // Throw and provide the original stack trace if a global flag is set for test mode.
     if (reject) {
@@ -47,7 +47,8 @@ class GenericLoader extends React.Component {
 GenericLoader.propTypes = {
   promiseFn: PropTypes.func.isRequired,
   render: PropTypes.func.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  loadingEl: PropTypes.node
 };
 
 export default GenericLoader;

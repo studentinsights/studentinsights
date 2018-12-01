@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards
+  get '/api/schools/:id/chronically_absent_json' => 'schools#chronically_absent_json'
   get '/api/schools/:id/absences/data' => 'schools#absence_dashboard_data'
   get '/api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
@@ -165,6 +166,7 @@ Rails.application.routes.draw do
     member do
       get :overview_json # also used by internal equity page
       get :csv
+      get 'chronically_absent' => 'ui#ui'
       get 'absences' => 'ui#ui'
       get 'tardies' => 'ui#ui'
       get 'discipline' => 'ui#ui'

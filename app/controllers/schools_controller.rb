@@ -21,6 +21,10 @@ class SchoolsController < ApplicationController
     })
   end
 
+  def chronically_absent_json
+    render json: ChronicallyAbsentQueries.new(@educator, @school).json
+  end
+
   def absence_dashboard_data
     render json: dashboard_queries.absence_dashboard_data(@school)
   end

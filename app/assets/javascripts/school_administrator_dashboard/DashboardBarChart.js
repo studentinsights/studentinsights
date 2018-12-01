@@ -11,7 +11,7 @@ export default class DashboardBarChart extends React.Component{
         <HighchartsWrapper
           style={{flex: 1}}
           chart={{
-            type: 'column',
+            type: this.props.type,
             events: {
               click: this.props.onBackgroundClick
             }
@@ -59,10 +59,12 @@ DashboardBarChart.propTypes = {
   animation: PropTypes.bool,
   onColumnClick: PropTypes.func,
   onBackgroundClick: PropTypes.func,
-  series: PropTypes.object
+  series: PropTypes.object,
+  type: PropTypes.string
 };
 DashboardBarChart.defaultProps = {
-  animation: true
+  animation: true,
+  type: 'column'
 };
 
 const styles = {

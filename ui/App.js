@@ -18,6 +18,7 @@ import SectionPage from '../app/assets/javascripts/section/SectionPage';
 import LevelsPage from '../app/assets/javascripts/levels/LevelsPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
+import SchoolChronicallyAbsentPage from '../app/assets/javascripts/school_chronically_absent/SchoolChronicallyAbsentPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -81,6 +82,7 @@ export default class App extends React.Component {
         <Route exact path="/search/notes" render={this.renderSearchNotesPage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug" render={this.renderSchoolRosterPage.bind(this)}/>
         <Route exact path="/schools/:id_or_slug/absences" render={this.renderAbsencesPage.bind(this)}/>
+        <Route exact path="/schools/:id_or_slug/chronically_absent" render={this.renderChronicallyAbsentPage.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
@@ -208,6 +210,11 @@ export default class App extends React.Component {
   renderAbsencesPage(routeProps) {
     const schoolIdOrSlug = routeProps.match.params.id_or_slug;
     return <SchoolAbsencesPage schoolIdOrSlug={schoolIdOrSlug} />;
+  }
+
+  renderChronicallyAbsentPage(routeProps) {
+    const schoolIdOrSlug = routeProps.match.params.id_or_slug;
+    return <SchoolChronicallyAbsentPage schoolIdOrSlug={schoolIdOrSlug} />;
   }
 
   renderTardiesDashboard(routeProps) {
