@@ -30,4 +30,14 @@ class SchoolYear
       year - 1
     end
   end
+
+  # Figure out what values of `term_local_id` are within the current quarter
+  def self.current_term_local_ids(time_now)
+    current_quarter = PerDistrict.new.current_quarter(time_now)
+    return ['Q1', 'S1', '1', '9', 'FY'] if current_quarter == 'Q1'
+    return ['Q2', 'S1', '1', '9', 'FY'] if current_quarter == 'Q2'
+    return ['Q3', 'S2', '2', '9', 'FY'] if current_quarter == 'Q3'
+    return ['Q4', 'S2', '2', '9', 'FY'] if current_quarter == 'Q4'
+    []
+  end
 end

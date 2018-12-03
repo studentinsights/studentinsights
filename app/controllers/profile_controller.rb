@@ -58,8 +58,14 @@ class ProfileController < ApplicationController
     }).stringify_keys
   end
 
+  # Include all courses, not just in the current term.
   def serialize_student_sections_for_profile(student)
-    student.sections_with_grades.as_json({:include => { :educators => {:only => :full_name}}, :methods => :course_description})
+    student.sections.select('sections.*, student_section_assignments.grade_numeric').as_json({
+      include: {
+        educators: {only: :full_name}
+      },
+      methods: :course_description
+    })
   end
 
   def student_feed(student)

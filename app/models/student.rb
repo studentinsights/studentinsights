@@ -226,11 +226,6 @@ class Student < ApplicationRecord
     event_notes.where(is_restricted: false)
   end
 
-  # Sections
-  def sections_with_grades
-    sections.select("sections.*, student_section_assignments.grade_numeric")
-  end
-
   private
   def registration_date_in_future?
     return false if registration_date.nil?

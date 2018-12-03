@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get '/api/import_records' => 'import_records#import_records_json'
     
     get '/sample_students' => 'ui#ui'
-    get '/api/sample_students_json' => 'students#sample_students_json'
+    get '/api/sample_students_json' => 'sample_students#sample_students_json'
 
     get '/student_voice_survey_uploads' => 'ui#ui'
     post '/api/student_voice_survey_uploads' => 'student_voice_survey_uploads#upload'
@@ -126,8 +126,9 @@ Rails.application.routes.draw do
 
   get '/students/names' => 'students#names'
 
-  resources :students, only: [:show] do
+  resources :students, only: [] do
     member do
+      get '/' => 'ui#ui'
       get '/v3' => 'ui#ui'
       get '/v4' => 'ui#ui'
       get '/student_report' => 'profile_pdf#student_report'
