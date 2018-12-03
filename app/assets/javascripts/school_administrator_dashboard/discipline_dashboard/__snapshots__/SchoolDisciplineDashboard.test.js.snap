@@ -85,7 +85,7 @@ exports[`snapshots works for bedford 1`] = `
               }
             }
           >
-            Discipline incidents at 
+            Recent Discipline incidents at 
             Arthur D. Healey
           </h4>
         </div>
@@ -662,7 +662,7 @@ exports[`snapshots works for demo 1`] = `
               }
             }
           >
-            Discipline incidents at 
+            Recent Discipline incidents at 
             Arthur D. Healey
           </h4>
         </div>
@@ -1239,7 +1239,7 @@ exports[`snapshots works for new_bedford 1`] = `
               }
             }
           >
-            Discipline incidents at 
+            Recent Discipline incidents at 
             Arthur D. Healey
           </h4>
         </div>
@@ -1816,7 +1816,7 @@ exports[`snapshots works for somerville 1`] = `
               }
             }
           >
-            Discipline incidents at 
+            Recent Discipline incidents at 
             Arthur D. Healey
           </h4>
         </div>

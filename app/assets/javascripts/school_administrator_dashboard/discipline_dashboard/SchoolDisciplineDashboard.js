@@ -289,7 +289,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
         <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
-          <SectionHeading>Discipline incidents at {school.name}</SectionHeading>
+          <SectionHeading>Recent Discipline incidents at {school.name}</SectionHeading>
           <div style={styles.filterBarContainer}>
             <FilterBar style={styles.timeRange} >
               <SelectDisciplineIncidentType
