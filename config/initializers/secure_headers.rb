@@ -6,7 +6,7 @@ SecureHeaders::Configuration.default do |config|
   config.x_content_type_options = 'nosniff'
   config.x_xss_protection = '1; mode=block'
   config.x_permitted_cross_domain_policies = 'none'
-  config.referrer_policy = %w(origin-when-cross-origin strict-origin-when-cross-origin)
+  config.referrer_policy = %w(no-referrer)
 
   # Unblock PDF downloading for student report and for IEP-at-a-glance
   config.x_download_options = nil
