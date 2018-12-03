@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 import hash from 'object-hash';
 
-// Component for all charts in the dashboard page.
+// Component for all charts in the dashboard page. Displays incidents by Day of Week and Time
 export default class DashboardScatterPlot extends React.Component{
 
 //highcharts has trouble combining zoom with a render, so rendering is prevented unless the displayed data changes
@@ -11,12 +11,16 @@ export default class DashboardScatterPlot extends React.Component{
     return hash.MD5(nextProps.seriesData)!==hash.MD5(this.props.seriesData);
   }
 
-  formatter() { //time is sent as minutes from midnight on each day
+  hourFormatter() { //time is sent as minutes from midnight on each day
     const minutes = this.value;
     const hour = Math.floor(minutes/60);
     const minute = minutes % 60 || "00";
     const a = hour < 12 ? 'AM' : 'PM';
     return `${hour % 12 || 12}:${minute} ${a}`;
+  }
+
+  gutterFormatter() {
+    return "After Hours / Not Recorded";
   }
 
   render() {
@@ -34,35 +38,35 @@ export default class DashboardScatterPlot extends React.Component{
           xAxis={{
             ...this.props.categories,
             plotBands: [{
-              color: '#A5FFD6',
+              color: '#eee',
               from: -0.5,
               to: 0.5
             },{
-              color: '#84DCC6',
+              color: '#ccc',
               from: 0.5,
               to: 1.5
             },
             {
-              color: '#A5FFD6',
+              color: '#eee',
               from: 1.5,
               to: 2.5
             },
             {
-              color: '#84DCC6',
+              color: '#ccc',
               from: 2.5,
               to: 3.5
             },{
-              color: '#A5FFD6',
+              color: '#eee',
               from: 3.5,
               to: 4.5
             },
             {
-              color: '#84DCC6',
+              color: '#ccc',
               from: 4.5,
               to: 5.5
             },
             {
-              color: '#A5FFD6',
+              color: '#eee',
               from: 5.5,
               to: 6.5
             }
@@ -72,39 +76,44 @@ export default class DashboardScatterPlot extends React.Component{
               animation: this.props.animation,
               marker: {
                 radius: 12,
-                fillColor: 'rgba(255, 104, 107, 0.5)'
+                fillColor: 'rgba(124, 181, 236, 0.5)'
               }
             }
           }}
           title={{text: this.props.titleText}}
-          yAxis={{
+          yAxis={[{
             min: this.props.yAxisMin,
             max: this.props.yAxisMax,
             reversed: true,
-            showFirstLabel: false,
+            showLastLabel: false,
             tickInterval: 60,
-            allowDecimals: true,
             title: {text: this.props.measureText},
-            labels: {formatter: this.formatter}
-          }
-          // {
-          //   linkedTo: 0,
-          //   min: 0,
-          //   max: this.props.yAxisMax
-          // }
-          }
+            labels: {formatter: this.hourFormatter},
+            plotBands: [{
+              color: 'rgba(241, 254, 198, 0.5)',
+              from: 900,
+              to: 960,
+              // label: {text: "After Hours / Not Recorded"}
+            }]
+          },
+          {
+            min: this.props.yAxisMin,
+            max: this.props.yAxisMax,
+            gridLineWidth: 0,
+            linkedTo: 0,
+            opposite: true,
+            reversed: true,
+            tickPositions: [930],
+            labels: {formatter: this.gutterFormatter},
+            title: {text: undefined}
+          }]}
           tooltip={this.props.tooltip}
           series={[
             {
               showInLegend: false,
               data: this.props.seriesData,
               ...(this.props.series || {})
-            },
-            // {
-            //   howInLegend: false,
-            //   data: this.props.seriesData,
-            //   ...(this.props.series || {})
-            // }
+            }
           ]} />
       </div>
     );
