@@ -137,6 +137,17 @@ it('renders list of classlists', () => {
   )).toEqual(true);
 });
 
+it('renders student profile', () => {
+  const wrapper = mount(renderPath('/students/42?foo=bar'));
+  expect(wrapper.contains(
+    <StudentProfilePageRoute
+      studentId={42}
+      queryParams={{foo: 'bar'}}
+      history={window.history}
+    />
+  )).toEqual(true);
+});
+
 it('renders student profile v4', () => {
   const wrapper = mount(renderPath('/students/42/v4?foo=bar'));
   expect(wrapper.contains(

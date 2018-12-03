@@ -129,10 +129,9 @@ Rails.application.routes.draw do
   resources :students, only: [] do
     member do
       get '/' => 'ui#ui'
-      get '/v3' => 'ui#ui'
-      get '/v4' => 'ui#ui'
+      get '/v3' => 'ui#ui' # deprecated
+      get '/v4' => 'ui#ui' # deprecated
       get '/student_report' => 'profile_pdf#student_report'
-      get :restricted_notes
       get :photo
       get :latest_iep_document
       post :service

@@ -86,6 +86,7 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
         <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
+        <Route exact path="/students/:id" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/students/:id/v3" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/students/:id/v4" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>

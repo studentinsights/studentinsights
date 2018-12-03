@@ -59,12 +59,9 @@ export default class PageContainer extends React.Component {
   }
 
   componentDidUpdate(props, state) {
-    const {shouldUseLightProfilePage} = this.props;
     const {selectedColumnKey, student} = this.state;
     const queryParams = { column: selectedColumnKey };
-    const path = (shouldUseLightProfilePage)
-      ? `/students/${student.id}/v4?${qs.stringify(queryParams)}`
-      : Routes.studentProfile(student.id, queryParams);
+    const path = Routes.studentProfile(student.id, queryParams);
 
     this.props.history.replaceState({}, null, path);
   }
