@@ -52,7 +52,6 @@ export default class StudentProfilePageRoute extends React.Component {
     };
     return (
       <PageContainer
-        shouldUseLightProfilePage={true}
         districtKey={districtKey}
         nowMomentFn={nowFn}
         serializedData={serializedData}

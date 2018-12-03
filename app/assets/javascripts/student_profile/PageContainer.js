@@ -6,7 +6,6 @@ import {merge} from '../helpers/merge';
 import Api from './Api';
 import * as Routes from '../helpers/Routes';
 import LightProfilePage from './LightProfilePage';
-import StudentProfilePage from './StudentProfilePage';
 
 
 // in place of updating lodash to v4
@@ -259,7 +258,7 @@ export default class PageContainer extends React.Component {
   }
 
   render() {
-    const {shouldUseLightProfilePage, districtKey, nowMomentFn} = this.props;
+    const {districtKey, nowMomentFn} = this.props;
     const propsFromState = _.pick(this.state,
       'currentEducator',
       'educatorsIndex',
@@ -302,10 +301,7 @@ export default class PageContainer extends React.Component {
     };
     return (
       <div className="PageContainer">
-        {shouldUseLightProfilePage
-          ? <LightProfilePage {...profilePageProps} />
-          : <StudentProfilePage {...profilePageProps} />
-        }
+        <LightProfilePage {...profilePageProps} />
       </div>
     );
   }
@@ -316,7 +312,6 @@ PageContainer.childContextTypes = {
   nowFn: PropTypes.func
 };
 PageContainer.propTypes = {
-  shouldUseLightProfilePage: PropTypes.bool,
   nowMomentFn: PropTypes.func.isRequired,
   serializedData: PropTypes.object.isRequired,
   queryParams: PropTypes.object.isRequired,
@@ -330,8 +325,8 @@ PageContainer.propTypes = {
 
 // Exported for test and story
 export function initialState(props) {
-  const {serializedData, queryParams, shouldUseLightProfilePage} = props;
-  const defaultColumnKey = (shouldUseLightProfilePage) ? 'notes' : 'interventions';
+  const {serializedData, queryParams} = props;
+  const defaultColumnKey = 'notes';
 
   return {
     // context
