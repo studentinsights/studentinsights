@@ -1,5 +1,6 @@
 # See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-#
-# To ban all spiders from the entire site uncomment the next two lines:
-# User-agent: *
-# Disallow: /
+
+# This says "please don't index anything except for the root / page"
+User-agent: *
+Allow: /$
+Disallow: /
