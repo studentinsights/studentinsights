@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import qs from 'querystring';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
 import Api from './Api';
