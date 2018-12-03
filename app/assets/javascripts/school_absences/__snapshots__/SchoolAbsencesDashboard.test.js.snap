@@ -52,7 +52,7 @@ exports[`snapshots works for bedford 1`] = `
             }
           }
         >
-          Absences at 
+          Recent Absences at 
           Somerville High
         </h4>
       </div>
@@ -614,7 +614,7 @@ exports[`snapshots works for demo 1`] = `
             }
           }
         >
-          Absences at 
+          Recent Absences at 
           Somerville High
         </h4>
       </div>
@@ -1256,7 +1256,7 @@ exports[`snapshots works for new_bedford 1`] = `
             }
           }
         >
-          Absences at 
+          Recent Absences at 
           Somerville High
         </h4>
       </div>
@@ -1651,7 +1651,7 @@ exports[`snapshots works for somerville 1`] = `
             }
           }
         >
-          Absences at 
+          Recent Absences at 
           Somerville High
         </h4>
       </div>

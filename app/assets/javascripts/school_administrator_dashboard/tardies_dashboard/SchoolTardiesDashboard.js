@@ -114,7 +114,7 @@ export default class SchoolTardiesDashboard extends React.Component {
     const {school} = this.props;
     return (
       <EscapeListener className="SchoolTardiesDashboard" style={styles.root} onEscape={this.onResetFilters}>
-        <SectionHeading>Tardies at {school.name}</SectionHeading>
+        <SectionHeading>Recent Tardies at {school.name}</SectionHeading>
         <div style={dashboardStyles.filterBar}>
           <FilterBar labelText="Time range" style={styles.timeRange}>
             <SelectTimeRange

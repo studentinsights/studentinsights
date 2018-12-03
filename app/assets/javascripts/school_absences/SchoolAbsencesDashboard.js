@@ -213,7 +213,7 @@ export default class SchoolAbsencesDashboard extends React.Component {
         style={styles.root}
         onEscape={this.onResetFilters}
       >
-        <SectionHeading>Absences at {school.name}</SectionHeading>
+        <SectionHeading>Recent Absences at {school.name}</SectionHeading>
         <div style={dashboardStyles.filterBar}>
           {this.renderFilterBar()}
         </div>
