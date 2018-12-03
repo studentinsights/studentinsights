@@ -42,7 +42,7 @@ class SomervilleHighLevels
 
     # query for sections within the current term
     section_ids = Section
-      .where(term_local_id: current_term_local_ids(time_now))
+      .where(term_local_id: SchoolYear.current_term_local_ids(time_now))
       .pluck(:id)
     student_section_assignments_by_student_id = StudentSectionAssignment
       .includes(section: :course)
@@ -188,14 +188,5 @@ class SomervilleHighLevels
       recent_absence_rate: recent_absence_rate(absences_count_in_period, time_interval),
       recent_discipline_actions: discipline_incident_count_in_period
     })
-  end
-
-  def current_term_local_ids(time_now)
-    current_quarter = PerDistrict.new.current_quarter(time_now)
-    return ['Q1', 'S1', '1', '9', 'FY'] if current_quarter == 'Q1'
-    return ['Q2', 'S1', '1', '9', 'FY'] if current_quarter == 'Q2'
-    return ['Q3', 'S2', '2', '9', 'FY'] if current_quarter == 'Q3'
-    return ['Q4', 'S2', '2', '9', 'FY'] if current_quarter == 'Q4'
-    []
   end
 end

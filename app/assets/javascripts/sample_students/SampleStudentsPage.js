@@ -85,7 +85,6 @@ export class SampleStudentsPageView extends React.Component {
             <th style={tableStyles.headerCell}>Grade</th>
             <th style={tableStyles.headerCell}>School</th>
             <th style={tableStyles.headerCell}>profile</th>
-            <th style={tableStyles.headerCell}>v3</th>
           </tr>
         </thead>
         <tbody>
@@ -95,7 +94,6 @@ export class SampleStudentsPageView extends React.Component {
               <td style={tableStyles.cell}>{student.grade}</td>
               <td style={tableStyles.cell}>{student.school.name}</td>
               <td style={tableStyles.cell}><a target="_blank" rel="noopener noreferrer" href={`/students/${student.id}`}>{`/students/${student.id}`}</a></td>
-              <td style={tableStyles.cell}><a target="_blank" rel="noopener noreferrer" href={`/students/${student.id}/v4`}>{`/students/${student.id}/v4`}</a></td>
             </tr>
           ))}
         </tbody>

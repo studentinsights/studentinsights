@@ -108,20 +108,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
         >
           profile
         </th>
-        <th
-          style={
-            Object {
-              "backgroundColor": "#ccc",
-              "border": "1px solid #eee",
-              "fontWeight": "bold",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          v3
-        </th>
       </tr>
     </thead>
     <tbody>
@@ -182,24 +168,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/63
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/63/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/63/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -256,24 +224,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/65
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/65/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/65/v4
           </a>
         </td>
       </tr>
@@ -334,24 +284,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/61
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/61/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/61/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -408,24 +340,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/18
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/18/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/18/v4
           </a>
         </td>
       </tr>
@@ -486,24 +400,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/20
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/20/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/20/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -560,24 +456,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/14
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/14/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/14/v4
           </a>
         </td>
       </tr>
@@ -638,24 +516,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/17
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/17/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/17/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -712,24 +572,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/53
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/53/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/53/v4
           </a>
         </td>
       </tr>
@@ -790,24 +632,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/3
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/3/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/3/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -864,24 +688,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/24
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/24/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/24/v4
           </a>
         </td>
       </tr>
@@ -942,24 +748,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/30
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/30/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/30/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -1016,24 +804,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/4
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/4/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/4/v4
           </a>
         </td>
       </tr>
@@ -1094,24 +864,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/77
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/77/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/77/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -1168,24 +920,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/80
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/80/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/80/v4
           </a>
         </td>
       </tr>
@@ -1246,24 +980,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/117
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/117/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/117/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -1320,24 +1036,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/111
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/111/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/111/v4
           </a>
         </td>
       </tr>
@@ -1398,24 +1096,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/95
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/95/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/95/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -1472,24 +1152,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/107
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/107/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/107/v4
           </a>
         </td>
       </tr>
@@ -1550,24 +1212,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             /students/69
           </a>
         </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/69/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/69/v4
-          </a>
-        </td>
       </tr>
       <tr>
         <td
@@ -1624,24 +1268,6 @@ exports[`SampleStudentsPageView pure component matches snapshot 1`] = `
             target="_blank"
           >
             /students/120
-          </a>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <a
-            href="/students/120/v4"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            /students/120/v4
           </a>
         </td>
       </tr>
