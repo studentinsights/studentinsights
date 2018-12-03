@@ -21,7 +21,7 @@ RSpec.describe SchoolYear do
   describe '.current_term_local_ids' do
     let!(:pals) { TestPals.create! }
     let!(:time_now) { pals.time_now }
-    
+
     it 'works at different times' do
       expect(SchoolYear.current_term_local_ids(time_now)).to eq  ['Q3', 'S2', '2', '9', 'FY']
       expect(SchoolYear.current_term_local_ids(DateTime.new(2018, 10, 2))).to eq  ['Q1', 'S1', '1', '9', 'FY']
