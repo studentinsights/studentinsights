@@ -4,3 +4,6 @@
 <%= content_tag('div', '', id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
 <%= javascript_include_tag Webpack.bundle('rollbar.js') %>
 <%= csrf_meta_tags %>
+<% if educator_signed_in? %>
+  <meta name="robots" content="noindex" />
+<% end %>
