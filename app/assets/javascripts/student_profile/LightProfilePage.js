@@ -7,7 +7,6 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {isStudentActive, useStarForProfileColumns} from '../helpers/PerDistrict';
-import PerDistrictContainer from '../components/PerDistrictContainer';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import LightAttendanceDetails from './LightAttendanceDetails';
@@ -33,8 +32,8 @@ export default class LightProfilePage extends React.Component {
   }
 
   countEventsSince(events, daysBack) {
-    const {nowMomentFn} = this.props;
-    const nowMoment = nowMomentFn();
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
     return countEventsSince(nowMoment, events, daysBack);
   }
 
@@ -43,33 +42,32 @@ export default class LightProfilePage extends React.Component {
   }
 
   render() {
-    const {student, districtKey} = this.props;
+    const {student} = this.props;
     const isHighSchool = (student.school_type === 'HS');
     
     return (
-      <PerDistrictContainer districtKey={districtKey}>
-        <div className="LightProfilePage" style={styles.root}>
-          {this.renderInactiveOverlay()}
-          {this.renderHeader()}
-          <div style={styles.tabsContainer}>
-            <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
-            {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
-            {isHighSchool && <div style={styles.tabLayout}>{this.renderTestingColumn()}</div>}
-            {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
-            {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
-            <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
-            <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
-          </div>
-          <div style={styles.detailsContainer}>
-            {this.renderSectionDetails()}
-          </div>
+      <div className="LightProfilePage" style={styles.root}>
+        {this.renderInactiveOverlay()}
+        {this.renderHeader()}
+        <div style={styles.tabsContainer}>
+          <div style={styles.tabLayout}>{this.renderNotesColumn()}</div>
+          {isHighSchool && <div style={styles.tabLayout}>{this.renderGradesColumn()}</div>}
+          {isHighSchool && <div style={styles.tabLayout}>{this.renderTestingColumn()}</div>}
+          {!isHighSchool && <div style={styles.tabLayout}>{this.renderReadingColumn()}</div>}
+          {!isHighSchool && <div style={styles.tabLayout}>{this.renderMathColumn()}</div>}
+          <div style={styles.tabLayout}>{this.renderAttendanceColumn()}</div>
+          <div style={styles.tabLayout}>{this.renderBehaviorColumn()}</div>
         </div>
-      </PerDistrictContainer>
+        <div style={styles.detailsContainer}>
+          {this.renderSectionDetails()}
+        </div>
+      </div>
     );
   }
 
   renderInactiveOverlay() {
-    const {student, districtKey} = this.props;
+    const {districtKey} = this.context;
+    const {student} = this.props;
     const isActive = isStudentActive(districtKey, student);
     if (isActive) return null;
 
@@ -124,11 +122,12 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotesColumnWithCount() {
-    const {feed, nowMomentFn, selectedColumnKey} = this.props;
+    const {nowFn} = this.context;
+    const {feed, selectedColumnKey} = this.props;
     const columnKey = 'notes';
 
     // Recent notes of any kind
-    const recentMomentCutoff = nowMomentFn().clone().subtract(DAYS_AGO, 'days');
+    const recentMomentCutoff = nowFn().clone().subtract(DAYS_AGO, 'days');
     const mergedNotes = FeedHelpers.mergedNotes(feed);
     const recentNotes = mergedNotes.filter(mergedNote => {
       return toMomentFromTimestamp(mergedNote.sort_timestamp).isAfter(recentMomentCutoff);
@@ -150,9 +149,10 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotesColumnWithTags() {
-    const {feed, nowMomentFn, selectedColumnKey} = this.props;
+    const {nowFn} = this.context;
+    const {feed, selectedColumnKey} = this.props;
     const columnKey = 'notes';
-    const topRecentTags = findTopRecentTags(feed.event_notes, nowMomentFn());
+    const topRecentTags = findTopRecentTags(feed.event_notes, nowFn());
 
     return (
       <LightProfileTab
@@ -194,10 +194,11 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderTestingColumn() {
-    const {selectedColumnKey, chartData, nowMomentFn} = this.props;
+    const {nowFn} = this.context;
+    const {selectedColumnKey, chartData} = this.props;
     const columnKey = 'testing';
 
-    const nowMoment = nowMomentFn();
+    const nowMoment = nowFn();
     const {scoreText, testText, dateText} = testingColumnTexts(nowMoment, chartData);
     return (
       <LightProfileTab
@@ -216,15 +217,16 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderReadingColumn() {
-    const {districtKey} = this.props;
+    const {districtKey} = this.context;
     return (useStarForProfileColumns(districtKey))
       ? this.renderReadingColumnAsStar()
       : this.renderReadingColumnAsMcas();
   }
 
   renderReadingColumnAsMcas() {
-    const {chartData, nowMomentFn} = this.props;
-    const nowMoment = nowMomentFn();
+    const {nowFn} = this.context;
+    const {chartData} = this.props;
+    const nowMoment = nowFn();
     const {scoreText, dateText} = interpretEla(nowMoment, chartData);
     return this.renderReadingColumnUI({
       number: scoreText,
@@ -234,8 +236,9 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderReadingColumnAsStar() {
-    const {chartData, nowMomentFn} = this.props;
-    const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowMomentFn());
+    const {nowFn} = this.context;
+    const {chartData} = this.props;
+    const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowFn());
     return this.renderReadingColumnUI({
       number: percentileText,
       firstLine: 'STAR percentile',
@@ -264,15 +267,16 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderMathColumn() {
-    const {districtKey} = this.props;
+    const {districtKey} = this.context;
     return (useStarForProfileColumns(districtKey))
       ? this.renderMathColumnAsStar()
       : this.renderMathColumnAsMcas();
   }
 
   renderMathColumnAsMcas() {
-    const {chartData, nowMomentFn} = this.props;
-    const nowMoment = nowMomentFn();
+    const {nowFn} = this.context;
+    const {chartData} = this.props;
+    const nowMoment = nowFn();
     const {scoreText, dateText} = interpretMath(nowMoment, chartData);
     return this.renderMathColumnUI({
       number: scoreText,
@@ -282,8 +286,9 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderMathColumnAsStar() {
-    const {chartData, nowMomentFn} = this.props;
-    const {nDaysText, percentileText} = latestStar(chartData.star_series_math_percentile, nowMomentFn());
+    const {nowFn} = this.context;
+    const {chartData} = this.props;
+    const {nDaysText, percentileText} = latestStar(chartData.star_series_math_percentile, nowFn());
     return this.renderMathColumnUI({
       number: percentileText,
       firstLine: 'STAR percentile',
@@ -471,23 +476,23 @@ export default class LightProfilePage extends React.Component {
     );
   }
 }
+LightProfilePage.contextTypes = {
+  nowFn: PropTypes.func.isRequired,
+  districtKey: PropTypes.string.isRequired
+};
 LightProfilePage.propTypes = {
   // UI
   selectedColumnKey: PropTypes.string.isRequired,
-
-  // context
-  nowMomentFn: PropTypes.func.isRequired,
-  currentEducator: PropTypes.shape({
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-    can_view_restricted_notes: PropTypes.bool.isRequired
-  }).isRequired,
-  districtKey: PropTypes.string.isRequired,
 
   // constants
   educatorsIndex: PropTypes.object.isRequired,
   serviceTypesIndex: PropTypes.object.isRequired,
 
   // data
+  currentEducator: PropTypes.shape({
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+    can_view_restricted_notes: PropTypes.bool.isRequired
+  }).isRequired,
   student: PropTypes.object.isRequired,
   feed: PropTypes.object.isRequired,
   profileInsights: PropTypes.array.isRequired,

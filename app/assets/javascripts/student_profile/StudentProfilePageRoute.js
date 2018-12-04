@@ -31,32 +31,29 @@ export default class StudentProfilePageRoute extends React.Component {
   }
 
   renderJson(json) {
-    const {districtKey, nowFn} = this.context;
     const {queryParams, history} = this.props;
-    const serializedData = {
-      currentEducator: json.current_educator,
-      student: json.student,
-      feed: json.feed,
-      chartData: json.chart_data,
-      dibels: json.dibels,
-      serviceTypesIndex: json.service_types_index,
-      educatorsIndex: json.educators_index,
-      access: json.access,
-      transitionNotes: json.transition_notes,
-      profileInsights: json.profile_insights,
-      teams: json.teams,
-      iepDocument: json.latest_iep_document,
-      sections: json.sections,
-      currentEducatorAllowedSections: json.current_educator_allowed_sections,
-      attendanceData: json.attendance_data
-    };
     return (
       <PageContainer
-        districtKey={districtKey}
-        nowMomentFn={nowFn}
-        serializedData={serializedData}
         queryParams={queryParams}
-        history={history} />
+        history={history} 
+        defaultFeed={json.feed}
+        profileJson={{
+          currentEducator: json.current_educator,
+          student: json.student,
+          chartData: json.chart_data,
+          dibels: json.dibels,
+          serviceTypesIndex: json.service_types_index,
+          educatorsIndex: json.educators_index,
+          access: json.access,
+          transitionNotes: json.transition_notes,
+          profileInsights: json.profile_insights,
+          teams: json.teams,
+          iepDocument: json.latest_iep_document,
+          sections: json.sections,
+          currentEducatorAllowedSections: json.current_educator_allowed_sections,
+          attendanceData: json.attendance_data
+        }}
+      />
     );
   }
 }
@@ -67,10 +64,6 @@ StudentProfilePageRoute.propTypes = {
     pushState: PropTypes.func.isRequired,
     replaceState: PropTypes.func.isRequired.isRequired
   }).isRequired
-};
-StudentProfilePageRoute.contextTypes = {
-  districtKey: PropTypes.string.isRequired,
-  nowFn: PropTypes.func.isRequired
 };
 
 const styles = {
