@@ -35,14 +35,14 @@ class StudentProfileChart < Struct.new :student
 
   def growth_percentiles_to_highcharts(student_assessments)
     return if student_assessments.blank?
-    student_assessments.select {|a| a.growth_percentile.present? }.map do |s|
+    student_assessments.sort_by(&:date_taken).select {|a| a.growth_percentile.present? }.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.growth_percentile]
     end
   end
 
   def scale_scores_to_highcharts(student_assessments)
     return if student_assessments.blank?
-    student_assessments.select {|a| a.scale_score.present? }.map do |s|
+    student_assessments.sort_by(&:date_taken).select {|a| a.scale_score.present? }.map do |s|
       [s.date_taken.year, s.date_taken.month, s.date_taken.day, s.scale_score]
     end
   end
