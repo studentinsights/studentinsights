@@ -5,7 +5,7 @@ import fetchMock from 'fetch-mock/es5/client';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockHistory from '../testing/mockHistory';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import StudentProfilePageRoute from './StudentProfilePageRoute';
+import StudentProfilePage from './StudentProfilePage';
 import profileJsonForRyanRodriguez from './fixtures/profileJsonForRyanRodriguez.fixture';
 
 
@@ -21,7 +21,7 @@ function testProps(props = {}) {
 function testEl(props = {}) {
   return withDefaultNowContext(
     <PerDistrictContainer districtKey="somerville">
-      <StudentProfilePageRoute {...props} />
+      <StudentProfilePage {...props} />
     </PerDistrictContainer>
   );
 }

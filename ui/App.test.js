@@ -12,7 +12,7 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
-import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
+import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
 import {MemoryRouter} from 'react-router-dom';
 
 
@@ -26,7 +26,7 @@ jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoa
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListsViewPage');
-jest.mock('../app/assets/javascripts/student_profile/StudentProfilePageRoute');
+jest.mock('../app/assets/javascripts/student_profile/StudentProfilePage');
 
 
 function renderPath(path, options = {}) {
@@ -140,7 +140,7 @@ it('renders list of classlists', () => {
 it('renders student profile', () => {
   const wrapper = mount(renderPath('/students/42?foo=bar'));
   expect(wrapper.contains(
-    <StudentProfilePageRoute
+    <StudentProfilePage
       studentId={42}
       queryParams={{foo: 'bar'}}
       history={window.history}
@@ -151,7 +151,7 @@ it('renders student profile', () => {
 it('renders student profile v4', () => {
   const wrapper = mount(renderPath('/students/42/v4?foo=bar'));
   expect(wrapper.contains(
-    <StudentProfilePageRoute
+    <StudentProfilePage
       studentId={42}
       queryParams={{foo: 'bar'}}
       history={window.history}
