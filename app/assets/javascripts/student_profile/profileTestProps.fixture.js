@@ -20,7 +20,6 @@ export function testPropsForAladdinMouse() {
 export function testPropsFromSerializedData(serializedData, queryParams = {}) {
   return {
     ...initialState({serializedData, queryParams}),
-    nowMomentFn() { return nowMoment; },
     actions: {
       onColumnClicked: jest.fn(),
       onClickSaveNotes: jest.fn(),
@@ -31,7 +30,6 @@ export function testPropsFromSerializedData(serializedData, queryParams = {}) {
       onChangeNoteInProgressText: jest.fn(),
       onClickNoteType: jest.fn(),
       onChangeAttachmentUrl: jest.fn()
-    },
-    districtKey: 'somerville'
+    }
   };
 }
