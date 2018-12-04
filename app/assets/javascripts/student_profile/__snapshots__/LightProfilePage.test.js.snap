@@ -618,7 +618,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -626,11 +626,11 @@ exports[`snapshots works for aladdin grades 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -935,7 +935,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                 }
               }
             >
-              0
+              1
             </div>
             <div
               style={
@@ -955,7 +955,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                 }
               >
                 <div>
-                  absences
+                  absence
                 </div>
                 <div>
                   last 
@@ -1068,7 +1068,313 @@ exports[`snapshots works for aladdin grades 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Aladdin
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No services
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -1690,7 +1996,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -1698,11 +2004,11 @@ exports[`snapshots works for aladdin notes 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -2007,7 +2313,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                 }
               }
             >
-              0
+              1
             </div>
             <div
               style={
@@ -2027,7 +2333,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                 }
               >
                 <div>
-                  absences
+                  absence
                 </div>
                 <div>
                   last 
@@ -2140,7 +2446,313 @@ exports[`snapshots works for aladdin notes 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Aladdin
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No services
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -2762,7 +3374,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -2770,11 +3382,11 @@ exports[`snapshots works for aladdin testing 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -3079,7 +3691,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                 }
               }
             >
-              0
+              1
             </div>
             <div
               style={
@@ -3099,7 +3711,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                 }
               >
                 <div>
-                  absences
+                  absence
                 </div>
                 <div>
                   last 
@@ -3212,7 +3824,313 @@ exports[`snapshots works for aladdin testing 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Aladdin
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No services
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -3783,7 +4701,7 @@ exports[`snapshots works for olaf math 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -3791,11 +4709,11 @@ exports[`snapshots works for olaf math 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -3941,7 +4859,7 @@ exports[`snapshots works for olaf math 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -4032,7 +4950,7 @@ exports[`snapshots works for olaf math 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -4100,7 +5018,7 @@ exports[`snapshots works for olaf math 1`] = `
                 }
               }
             >
-              0
+              1
             </div>
             <div
               style={
@@ -4120,7 +5038,7 @@ exports[`snapshots works for olaf math 1`] = `
                 }
               >
                 <div>
-                  absences
+                  absence
                 </div>
                 <div>
                   last 
@@ -4233,7 +5151,313 @@ exports[`snapshots works for olaf math 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Olaf
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No services
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -4962,7 +6186,7 @@ exports[`snapshots works for olaf notes 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -5053,7 +6277,7 @@ exports[`snapshots works for olaf notes 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -5121,7 +6345,7 @@ exports[`snapshots works for olaf notes 1`] = `
                 }
               }
             >
-              0
+              1
             </div>
             <div
               style={
@@ -5141,7 +6365,7 @@ exports[`snapshots works for olaf notes 1`] = `
                 }
               >
                 <div>
-                  absences
+                  absence
                 </div>
                 <div>
                   last 
@@ -6131,7 +7355,7 @@ exports[`snapshots works for olaf reading 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -6139,11 +7363,11 @@ exports[`snapshots works for olaf reading 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -6289,7 +7513,7 @@ exports[`snapshots works for olaf reading 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -6380,7 +7604,7 @@ exports[`snapshots works for olaf reading 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -6448,7 +7672,7 @@ exports[`snapshots works for olaf reading 1`] = `
                 }
               }
             >
-              0
+              1
             </div>
             <div
               style={
@@ -6468,7 +7692,7 @@ exports[`snapshots works for olaf reading 1`] = `
                 }
               >
                 <div>
-                  absences
+                  absence
                 </div>
                 <div>
                   last 
@@ -6581,7 +7805,313 @@ exports[`snapshots works for olaf reading 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Olaf
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No services
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -7144,7 +8674,7 @@ exports[`snapshots works for pluto attendance 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -7152,11 +8682,11 @@ exports[`snapshots works for pluto attendance 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -7302,7 +8832,7 @@ exports[`snapshots works for pluto attendance 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -7393,7 +8923,7 @@ exports[`snapshots works for pluto attendance 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -7594,7 +9124,665 @@ exports[`snapshots works for pluto attendance 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Pluto
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    X-Block
+                  </div>
+                  <div>
+                    With Districtwide, Rich
+                  </div>
+                  <div>
+                    Started 
+                    March 11, 2018
+                  </div>
+                  <div>
+                    a day
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Reading intervention
+                  </div>
+                  <div>
+                    With Districtwide, Rich
+                  </div>
+                  <div>
+                    Started 
+                    February 20, 2018
+                  </div>
+                  <div>
+                    20 days
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Summer Program for English Language Learners
+                  </div>
+                  <div>
+                    Started 
+                    January 14, 2018
+                  </div>
+                  <div>
+                    2 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Attendance Officer
+                  </div>
+                  <div>
+                    Started 
+                    November 24, 2017
+                  </div>
+                  <div>
+                    4 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Behavior Contract
+                  </div>
+                  <div>
+                    Started 
+                    October 14, 2017
+                  </div>
+                  <div>
+                    5 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -8157,7 +10345,7 @@ exports[`snapshots works for pluto behavior 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -8165,11 +10353,11 @@ exports[`snapshots works for pluto behavior 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -8315,7 +10503,7 @@ exports[`snapshots works for pluto behavior 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -8406,7 +10594,7 @@ exports[`snapshots works for pluto behavior 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -8607,7 +10795,665 @@ exports[`snapshots works for pluto behavior 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Pluto
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    X-Block
+                  </div>
+                  <div>
+                    With Districtwide, Rich
+                  </div>
+                  <div>
+                    Started 
+                    March 11, 2018
+                  </div>
+                  <div>
+                    a day
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Reading intervention
+                  </div>
+                  <div>
+                    With Districtwide, Rich
+                  </div>
+                  <div>
+                    Started 
+                    February 20, 2018
+                  </div>
+                  <div>
+                    20 days
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Summer Program for English Language Learners
+                  </div>
+                  <div>
+                    Started 
+                    January 14, 2018
+                  </div>
+                  <div>
+                    2 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Attendance Officer
+                  </div>
+                  <div>
+                    Started 
+                    November 24, 2017
+                  </div>
+                  <div>
+                    4 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Behavior Contract
+                  </div>
+                  <div>
+                    Started 
+                    October 14, 2017
+                  </div>
+                  <div>
+                    5 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
@@ -9170,7 +12016,7 @@ exports[`snapshots works for pluto notes 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -9178,11 +12024,11 @@ exports[`snapshots works for pluto notes 1`] = `
         <div
           style={
             Object {
-              "background": "#6f8fc2",
+              "background": "#4A90E2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -9328,7 +12174,7 @@ exports[`snapshots works for pluto notes 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -9419,7 +12265,7 @@ exports[`snapshots works for pluto notes 1`] = `
                   STAR percentile
                 </div>
                 <div>
-                  in 2 years
+                  a month ago
                 </div>
               </div>
             </div>
@@ -9620,6 +12466,664 @@ exports[`snapshots works for pluto notes 1`] = `
         "margin": 20,
       }
     }
-  />
+  >
+    <div
+      className="LightProfilePage-notes"
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <div
+        className="LightNotesDetails"
+        style={
+          Object {
+            "marginRight": 20,
+            "width": "50%",
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Notes
+                 for 
+                Pluto
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn take-notes"
+              onClick={[Function]}
+              style={
+                Object {
+                  "display": "inline-block",
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  note
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="NotesList"
+          >
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              No notes
+            </div>
+            <div
+              className="CleanSlateMessage"
+              style={
+                Object {
+                  "padding": 10,
+                  "paddingBottom": 0,
+                  "paddingTop": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                A note about student privacy
+              </div>
+              <span>
+                To respect student privacy, this page only includes 
+                one year of data
+                 by default.  
+              </span>
+              <span>
+                <span>
+                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+                </span>
+                <a
+                  className="CleanSlateMessage-show-history-link"
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "color": "#999",
+                      "cursor": "pointer",
+                      "display": "inline-block",
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  show full case history
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ServicesDetails"
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "alignItems": "center",
+                "color": "black",
+                "display": "flex",
+                "justifyContent": "space-between",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "padding": 2,
+                }
+              }
+            >
+              <span>
+                Services
+              </span>
+              <div
+                style={
+                  Object {
+                    "display": "inline",
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "display": "flex",
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <svg
+                    height={20}
+                    style={
+                      Object {
+                        "fill": "#ddd",
+                      }
+                    }
+                    viewBox="0 0 24 24"
+                    width={20}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0 0h24v24H0z"
+                      fill="none"
+                    />
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <button
+              className="btn record-service"
+              onClick={[Function]}
+              style={
+                Object {
+                  "margin": 0,
+                }
+              }
+            >
+              <span>
+                <span
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                      "paddingRight": 5,
+                    }
+                  }
+                >
+                  +
+                </span>
+                <span>
+                  service
+                </span>
+              </span>
+            </button>
+          </h4>
+        </div>
+        <div>
+          <div
+            className="ServicesList"
+          >
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    X-Block
+                  </div>
+                  <div>
+                    With Districtwide, Rich
+                  </div>
+                  <div>
+                    Started 
+                    March 11, 2018
+                  </div>
+                  <div>
+                    a day
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Reading intervention
+                  </div>
+                  <div>
+                    With Districtwide, Rich
+                  </div>
+                  <div>
+                    Started 
+                    February 20, 2018
+                  </div>
+                  <div>
+                    20 days
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Summer Program for English Language Learners
+                  </div>
+                  <div>
+                    Started 
+                    January 14, 2018
+                  </div>
+                  <div>
+                    2 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Attendance Officer
+                  </div>
+                  <div>
+                    Started 
+                    November 24, 2017
+                  </div>
+                  <div>
+                    4 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "background": "#eee",
+                  "border": "1px solid #eee",
+                  "marginBottom": 10,
+                  "marginTop": 10,
+                  "opacity": 1,
+                  "padding": 15,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    Behavior Contract
+                  </div>
+                  <div>
+                    Started 
+                    October 14, 2017
+                  </div>
+                  <div>
+                    5 months
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    style={
+                      Object {
+                        "background": "white",
+                        "border": "1px solid #ccc",
+                        "color": "#666",
+                        "opacity": 0.5,
+                      }
+                    }
+                  >
+                    Discontinue
+                  </button>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingTop": 15,
+                    "whiteSpace": "pre-wrap",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

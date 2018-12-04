@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import FullCaseHistory from './FullCaseHistory';
 import {testTimeMoment} from '../testing/NowContainer';
-import {
-  testPropsForPlutoPoppins,
-  testPropsForOlafWhite,
-  testPropsForAladdinMouse
-} from './LightProfilePage.fixture';
+
 
 function testProps(props = {}) {
   return {
