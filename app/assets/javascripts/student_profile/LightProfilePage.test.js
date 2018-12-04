@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
+import {mergeAtPath} from '../helpers/mergeAtPath';
 import {toMoment, toMomentFromTimestamp} from '../helpers/toMoment';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import LightProfilePage, {latestStar, countEventsSince} from './LightProfilePage';
@@ -180,31 +181,3 @@ describe('inactive overlay', () => {
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 });
-
-it('mergeAtPath', () => {
-  const obj = {
-    foo: {
-      bar: {
-        baz: 'hi'
-      }
-    }
-  };
-  expect(mergeAtPath(obj, ['foo', 'bar'], { mib: 'yah'})).toEqual({
-    "foo":{
-      "bar": {
-        "baz": "hi",
-        "mib": "yah"
-      }
-    }
-  });
-});
-
-// For immutable merging into an object path
-function mergeAtPath(object, path, patch) {
-  if (path.length === 0) return {...object, ...patch};
-  const [head, ...tail] = path;
-  return {
-    ...object,
-    [head]: mergeAtPath(object[head], tail, patch)
-  };
-}
