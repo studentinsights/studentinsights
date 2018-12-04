@@ -7,9 +7,10 @@ import {gradeText} from '../helpers/gradeText';
 
 
 // Render a card in the feed for an EventNote
+// Pure UI, like a template.
 class FeedCardFrame extends React.Component {
   render() {
-    const {style, student, byEl, whereEl, whenEl, children, badgesEl} = this.props;
+    const {style, student, byEl, whereEl, whenEl, children, restrictedEl, badgesEl} = this.props;
     const {homeroom, school} = student;
     const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
     return (
@@ -37,6 +38,7 @@ class FeedCardFrame extends React.Component {
           {children}
         </div>
         <div style={styles.footer}>
+          {restrictedEl}
           {badgesEl}
         </div>
       </Card>
@@ -68,6 +70,7 @@ FeedCardFrame.propTypes = {
   whereEl: PropTypes.node,
   whenEl: PropTypes.node,
   badgesEl: PropTypes.node,
+  restrictedEl: PropTypes.node,
   style: PropTypes.object
 };
 
@@ -96,7 +99,7 @@ const styles = {
   },
   footer: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginBottom: 5
   },
   person: {
