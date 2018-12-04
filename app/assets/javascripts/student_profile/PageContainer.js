@@ -277,7 +277,7 @@ export default class PageContainer extends React.Component {
     return (
       <div className="PageContainer">
         <LightProfilePage
-          {...profileJson}
+          profileJson={profileJson}
           feed={feed}
           actions={actions}
           selectedColumnKey={selectedColumnKey}
