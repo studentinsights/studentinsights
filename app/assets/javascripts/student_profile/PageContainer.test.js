@@ -3,21 +3,14 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {mount} from 'enzyme';
 import ReactTestUtils from 'react-addons-test-utils';
-import {studentProfile} from './fixtures/fixtures';
 import {withDefaultNowContext, testTimeMoment} from '../testing/NowContainer';
-import {mergeAtPath} from '../helpers/mergeAtPath';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
-import {parseProfileJson} from './StudentProfilePage';
-import {
-  testPropsForPlutoPoppins,
-  // testPropsForOlafWhite,
-  testPropsForAladdinMouse
-} from './LightProfilePage.fixture';
+import {testPropsForPlutoPoppins} from './LightProfilePage.fixture';
 
 function testProps(props = {}) {
   const {feed, profileJson} = testPropsForPlutoPoppins();
