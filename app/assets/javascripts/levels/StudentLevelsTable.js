@@ -220,7 +220,7 @@ export function describeColumns(nowMoment) {
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_sst_note')
   }, {
-    dataKey: 'other_note',
+    dataKey: 'last_counselor_note',
     label: 'Last Counselor',
     width: supportCellWidth,
     cellRenderer: renderNotes.bind(null, nowMoment, 'last_counselor_note')
@@ -362,7 +362,7 @@ export function orderedStudents(studentsWithLevels, sortBy, sortDirection) {
     science(student) { return sortByGrade(SCIENCE, student); },
     nge(student) { return sortTimestamp(student.notes.last_experience_note.recorded_at); },
     sst(student) { return sortTimestamp(student.notes.last_sst_note.recorded_at); },
-    other_note(student) { return sortTimestamp(student.notes.last_other_note.recorded_at); },
+    last_counselor_note(student) { return sortTimestamp(student.notes.last_counselor_note.recorded_at); },
     study(student) { return sortIfEnrolled(STUDY_SKILLS, student); },
     support(student) { return sortIfEnrolled(ACADEMIC_SUPPORT, student); },
     redirect(student) { return sortIfEnrolled(REDIRECT, student); },
