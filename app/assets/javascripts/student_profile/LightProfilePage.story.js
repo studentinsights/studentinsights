@@ -38,7 +38,7 @@ function storyRender(props, context = {}) {
   );
 }
 
-storiesOf('profile-v3/LightProfilePage', module) // eslint-disable-line no-undef
+storiesOf('profile/LightProfilePage', module) // eslint-disable-line no-undef
   .add('K8, wide: Pluto Poppins', () => storyRender(testPropsForPlutoPoppins()))
   .add('K8, no photo: Pluto Poppins', () => widthFrame(storyRender(testPropsForPlutoPoppins())))
   .add('K8: Olaf White', () => widthFrame(storyRender(testPropsForOlafWhite())))

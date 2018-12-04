@@ -11,7 +11,7 @@ function storyRender(props) {
   );
 }
 
-storiesOf('profile-v3/RestrictedNotePresence', module) // eslint-disable-line no-undef
+storiesOf('profile/RestrictedNotePresence', module) // eslint-disable-line no-undef
   .add('default', () => storyRender(testProps()))
   .add('allowViewing', () => {
     mockFetch();
