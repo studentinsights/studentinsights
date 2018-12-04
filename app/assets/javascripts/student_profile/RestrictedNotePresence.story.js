@@ -13,7 +13,9 @@ function storyRender(props) {
 
 storiesOf('profile/RestrictedNotePresence', module) // eslint-disable-line no-undef
   .add('default', () => storyRender(testProps()))
-  .add('allowViewing', () => {
+  .add('allows viewing', () => {
     mockFetch();
-    return storyRender(testProps({allowViewing: true}));
+    return storyRender(testProps({
+      urlForRestrictedNoteContent: '/api/event_notes/42/restricted_note_json'
+    }));
   });
