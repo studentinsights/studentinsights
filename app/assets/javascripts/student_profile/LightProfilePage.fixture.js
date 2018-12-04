@@ -1,5 +1,4 @@
 import {initialState} from './PageContainer';
-import {parseProfileJson} from './StudentProfilePage';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
 import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
