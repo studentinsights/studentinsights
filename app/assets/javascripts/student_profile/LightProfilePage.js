@@ -411,16 +411,14 @@ export default class LightProfilePage extends React.Component {
       <div className="LightProfilePage-testing">
         <ElaDetails
           className="LightProfilePage-ela"
-          hideNavbar={true}
           hideStar={true}
           chartData={chartData}
-          student={student} />
+          studentGrade={student.grade} />
         <MathDetails
           className="LightProfilePage-math"
           hideStar={true}
-          hideNavbar={true}
           chartData={chartData}
-          student={student} />
+          studentGrade={student.grade} />
       </div>
     );
   }
@@ -430,9 +428,8 @@ export default class LightProfilePage extends React.Component {
     return (
       <ElaDetails
         className="LightProfilePage-ela"
-        hideNavbar={true}
         chartData={chartData}
-        student={student} />
+        studentGrade={student.grade} />
     );
   }
 
@@ -441,9 +438,8 @@ export default class LightProfilePage extends React.Component {
     return (
       <MathDetails
         className="LightProfilePage-math"
-        hideNavbar={true}
         chartData={chartData}
-        student={student} />
+        studentGrade={student.grade} />
     );
   }
 

@@ -10,13 +10,6 @@ import { toMomentFromTimestamp } from '../helpers/toMoment';
 // The first three elements are (year, month, date) and the last is the value.
 // Months are 1-indexed (the way humans write months) and not 0-indexed like Date.getMonth.
 
-// These functions are provided for getting data out of quads.
-function allSchoolYearStarts(dateRange) {
-  // dateRange: A 2-element array of Moment objects.
-  // returns: An array of integers, each school year in the range.
-  const schoolYearStarts = _.map(dateRange, toSchoolYear);
-  return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
-}
 
 // The Sparkline component expects this form; not going to re-write Sparkline
 // since student profile is being redesigned. So let's give Sparklines what
@@ -46,27 +39,20 @@ export function toValue(quad) {
   return quad[3];
 }
 
-export function toPair(quad){
-  return [toMoment(quad).valueOf(), toValue(quad)];
-}
-
-export function toStarObject(starObject) {
-  const {date_taken} = starObject;
-
-  return {
-    x: toMomentFromTimestamp(date_taken).valueOf(),
-    y: starObject.percentile_rank,
-    gradeLevelEquivalent: starObject.grade_equivalent,
-    totalTime: starObject.total_time,
-  };
-}
-
 // These functions are provided for constructing quads.
 export function fromMoment(momentObj, value){
   const year = momentObj.year();
   const month = momentObj.month() + 1;
   const date = momentObj.date();
   return [year, month, date, value];
+}
+
+// These functions are provided for getting data out of quads.
+function allSchoolYearStarts(dateRange) {
+  // dateRange: A 2-element array of Moment objects.
+  // returns: An array of integers, each school year in the range.
+  const schoolYearStarts = _.map(dateRange, toSchoolYear);
+  return _.range(schoolYearStarts[0], schoolYearStarts[1] + 1);
 }
 
 export function schoolYearStartDates(dateRange){

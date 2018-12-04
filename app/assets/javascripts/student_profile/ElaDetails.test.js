@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import ElaDetails from './ElaDetails';
+
 
 describe('data', () => {
   it('renders without crashing', () => {
@@ -17,10 +19,11 @@ describe('data', () => {
       mcas_series_ela_growth: [0, 0, 0],
     };
 
-    ReactDOM.render(
+    ReactDOM.render(withDefaultNowContext(
       <ElaDetails
         chartData={chartData}
-        student={{}}
-      />, div);
+        studentGrade="3"
+      />
+    ), div);
   });
 });
