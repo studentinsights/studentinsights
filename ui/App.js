@@ -29,7 +29,7 @@ import StudentVoiceSurveyUploadsPage from '../app/assets/javascripts/student_voi
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
-import StudentProfilePageRoute from '../app/assets/javascripts/student_profile/StudentProfilePageRoute';
+import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
 import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/ServiceUploadsPage';
@@ -134,7 +134,7 @@ export default class App extends React.Component {
     const studentId = parseInt(routeProps.match.params.id, 10);
     const queryParams = qs.parse(routeProps.location.search.slice(1));
     return (
-      <StudentProfilePageRoute
+      <StudentProfilePage
         studentId={studentId}
         queryParams={queryParams}
         history={window.history} />

@@ -6,7 +6,7 @@ import PageContainer from './PageContainer';
 
 
 // React entrypoint for student profile v3 page
-export default class StudentProfilePageRoute extends React.Component {
+export default class StudentProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.fetchJson = this.fetchJson.bind(this);
@@ -21,7 +21,7 @@ export default class StudentProfilePageRoute extends React.Component {
 
   render() {
     return (
-      <div className="StudentProfilePageRoute" style={styles.flexVertical}>
+      <div className="StudentProfilePage" style={styles.flexVertical}>
         <GenericLoader
           promiseFn={this.fetchJson}
           style={styles.flexVertical}
@@ -57,7 +57,7 @@ export default class StudentProfilePageRoute extends React.Component {
     );
   }
 }
-StudentProfilePageRoute.propTypes = {
+StudentProfilePage.propTypes = {
   studentId: PropTypes.number.isRequired,
   queryParams: PropTypes.object.isRequired,
   history: PropTypes.shape({
