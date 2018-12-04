@@ -7,7 +7,7 @@ import {
   testPropsForPlutoPoppins,
   testPropsForOlafWhite,
   testPropsForAladdinMouse
-} from './profileTestProps.fixture';
+} from './LightProfilePage.fixture';
 
 function testProps(props = {}) {
   return {

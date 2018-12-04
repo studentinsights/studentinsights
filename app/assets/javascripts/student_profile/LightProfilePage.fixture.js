@@ -1,5 +1,5 @@
 import {initialState} from './PageContainer';
-import {nowMoment} from './fixtures/fixtures';
+import {parseProfileJson} from './StudentProfilePage';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
 import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
@@ -19,8 +19,12 @@ export function testPropsForAladdinMouse() {
 
 export function testPropsFromSerializedData(serializedData, queryParams = {}) {
   return {
-    ...initialState({serializedData, queryParams}),
-    actions: {
+    ...initialState({
+      queryParams,
+      defaultFeed: serializedData.feed,
+    }),
+    profileJson: serializedData,
+    actions: {      
       onColumnClicked: jest.fn(),
       onClickSaveNotes: jest.fn(),
       onClickSaveTransitionNote: jest.fn(),

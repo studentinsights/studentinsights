@@ -37,22 +37,7 @@ export default class StudentProfilePage extends React.Component {
         queryParams={queryParams}
         history={history} 
         defaultFeed={json.feed}
-        profileJson={{
-          currentEducator: json.current_educator,
-          student: json.student,
-          chartData: json.chart_data,
-          dibels: json.dibels,
-          serviceTypesIndex: json.service_types_index,
-          educatorsIndex: json.educators_index,
-          access: json.access,
-          transitionNotes: json.transition_notes,
-          profileInsights: json.profile_insights,
-          teams: json.teams,
-          iepDocument: json.latest_iep_document,
-          sections: json.sections,
-          currentEducatorAllowedSections: json.current_educator_allowed_sections,
-          attendanceData: json.attendance_data
-        }}
+        profileJson={parseProfileJson(json)}
       />
     );
   }
@@ -73,3 +58,24 @@ const styles = {
     flexDirection: 'column'
   }
 };
+
+
+// ignore feed, handle that separately since it's mutable
+export function parseProfileJson(json) {
+  return {
+    currentEducator: json.current_educator,
+    student: json.student,
+    chartData: json.chart_data,
+    dibels: json.dibels,
+    serviceTypesIndex: json.service_types_index,
+    educatorsIndex: json.educators_index,
+    access: json.access,
+    transitionNotes: json.transition_notes,
+    profileInsights: json.profile_insights,
+    teams: json.teams,
+    iepDocument: json.latest_iep_document,
+    sections: json.sections,
+    currentEducatorAllowedSections: json.current_educator_allowed_sections,
+    attendanceData: json.attendance_data
+  };
+}

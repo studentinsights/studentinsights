@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import {toMoment, toMomentFromTimestamp} from '../helpers/toMoment';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import LightProfilePage, {latestStar, countEventsSince} from './LightProfilePage';
@@ -8,7 +9,7 @@ import {
   testPropsForPlutoPoppins,
   testPropsForOlafWhite,
   testPropsForAladdinMouse
-} from './profileTestProps.fixture';
+} from './LightProfilePage.fixture';
 
 
 function testingTabTextLines(tabIndex, el) {
@@ -16,9 +17,17 @@ function testingTabTextLines(tabIndex, el) {
   return leafEls.map(el => $(el).text());
 }
 
-function testRender(props) {
+function testEl(props, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      <LightProfilePage {...props} />
+    </PerDistrictContainer>
+  );
+}
+function testRender(props, context = {}) {
   const el = document.createElement('div');
-  ReactDOM.render(<LightProfilePage {...props} />, el);
+  ReactDOM.render(testEl(props, context), el);
   return el;
 }
 
@@ -27,9 +36,9 @@ it('renders without crashing', () => {
 });
 
 describe('snapshots', () => {
-  function expectSnapshot(props) {
+  function expectSnapshot(props, context = {}) {
     const tree = renderer
-      .create(withDefaultNowContext(<LightProfilePage {...props} />))
+      .create(testEl(props, context))
       .toJSON();
     expect(tree).toMatchSnapshot();
   }
@@ -61,69 +70,52 @@ describe('HS testing tab', () => {
   });
 
   it('takes next gen when there are both', () => {
-    const aladdinProps = testPropsForAladdinMouse();
-    const props = {
-      ...aladdinProps,
-      chartData: {
-        ...aladdinProps.chartData,
-        "next_gen_mcas_mathematics_scaled": [[2014,5,15,537]],
-        "next_gen_mcas_ela_scaled": [[2015,5,15,536]],
-        "mcas_series_math_scaled": [[2015,5,15,225]],
-        "mcas_series_ela_scaled": [[2015,5,15,225]]
-      }
-    };
+    const props = mergeAtPath(testPropsForAladdinMouse(), ['profileJson', 'chartData'], {
+      "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
+      "next_gen_mcas_ela_scaled": [[2017,5,15,536]],
+      "mcas_series_math_scaled": [[2017,5,15,225]],
+      "mcas_series_ela_scaled": [[2017,5,15,225]]
+    });
     const el = testRender(props);
     expect(testingTabTextLines(2, el)).toEqual([
       'Testing',
       'M',
       'ELA and Math MCAS',
-      '9 months ago / 2 years ago'
+      '10 months ago / 2 years ago'
     ]);
   });
 
   it('falls back to old MCAS when no next gen', () => {
-    const aladdinProps = testPropsForAladdinMouse();
-    const props = {
-      ...aladdinProps,
-      chartData: {
-        ...aladdinProps.chartData,
-        "next_gen_mcas_mathematics_scaled": [],
-        "next_gen_mcas_ela_scaled": [],
-        
-        "mcas_series_math_scaled": [[2015,5,15,225]],
-        "mcas_series_ela_scaled": [[2015,5,15,225]]
-      }
-    };
+    const props = mergeAtPath(testPropsForAladdinMouse(), ['profileJson', 'chartData'], {
+      "next_gen_mcas_mathematics_scaled": [],
+      "next_gen_mcas_ela_scaled": [],
+      "mcas_series_math_scaled": [[2017,5,15,225]],
+      "mcas_series_ela_scaled": [[2017,5,15,225]]
+    });
     const el = testRender(props);
     expect(testingTabTextLines(2, el)).toEqual([
       'Testing',
       'NI',
       'ELA and Math MCAS',
-      '9 months ago'
+      '10 months ago'
     ]);
   });
 });
 
 describe('reading and math can show MCAS if STAR not enabled', () => {
   it('for Bedford, shows MCAS in place of STAR', () => {
-    const olafProps = testPropsForOlafWhite();
-    const props = {
-      ...olafProps,
-      districtKey: 'bedford',
-      chartData: {
-        ...olafProps.chartData,
-        "next_gen_mcas_mathematics_scaled": [[2014,5,15,537]],
-        "next_gen_mcas_ela_scaled": [[2015,5,15,536]],
-        "mcas_series_math_scaled": [],
-        "mcas_series_ela_scaled": []
-      }
-    };
-    const el = testRender(props);
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'chartData'], {
+      "next_gen_mcas_mathematics_scaled": [[2016,5,15,537]],
+      "next_gen_mcas_ela_scaled": [[2017,5,15,536]],
+      "mcas_series_math_scaled": [],
+      "mcas_series_ela_scaled": []
+    });
+    const el = testRender(props, {districtKey: 'bedford'});
     expect(testingTabTextLines(1, el)).toEqual([
       'Reading',
       'M',
       'MCAS ELA',
-      '9 months ago'
+      '10 months ago'
     ]);
     expect(testingTabTextLines(2, el)).toEqual([
       'Math',
@@ -162,44 +154,57 @@ it('#countEventsSince works', () => {
 
 describe('inactive overlay', () => {
   it('is shown for inactive students in Somerville', () => {
-    const defaultProps = testPropsForOlafWhite();
-    const el = testRender({
-      ...defaultProps,
-      districtKey: 'somerville',
-      student: {
-        ...defaultProps.student,
-        enrollment_status: 'Withdrawn'
-      }
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'student'], {
+      enrollment_status: 'Withdrawn'
     });
+    const el = testRender(props, {districtKey: 'somerville'});
     expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 
   it('is shown for students missing from export in New Bedford', () => {
-    const defaultProps = testPropsForOlafWhite();
-    const el = testRender({
-      ...defaultProps,
-      districtKey: 'new_bedford',
-      student: {
-        ...defaultProps.student,
-        missing_from_last_export: true
-      }
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'student'], {
+      missing_from_last_export: true
     });
+    const el = testRender(props, {districtKey: 'new_bedford'});
     expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 
   it('is shown for students missing from export in Bedford', () => {
-    const defaultProps = testPropsForOlafWhite();
-    const el = testRender({
-      ...defaultProps,
-      districtKey: 'bedford',
-      student: {
-        ...defaultProps.student,
-        missing_from_last_export: true
-      }
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'student'], {
+      missing_from_last_export: true
     });
+    const el = testRender(props, {districtKey: 'bedford'});
     expect($(el).find('.LightProfilePage-inactive-overlay').length).toEqual(1);
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 });
+
+it('mergeAtPath', () => {
+  const obj = {
+    foo: {
+      bar: {
+        baz: 'hi'
+      }
+    }
+  };
+  expect(mergeAtPath(obj, ['foo', 'bar'], { mib: 'yah'})).toEqual({
+    "foo":{
+      "bar": {
+        "baz": "hi",
+        "mib": "yah"
+      }
+    }
+  });
+});
+
+// For immutable merging into an object path
+function mergeAtPath(object, path, patch) {
+  if (path.length === 0) return {...object, ...patch};
+  const [head, ...tail] = path;
+  return {
+    ...object,
+    [head]: mergeAtPath(object[head], tail, patch)
+  };
+}

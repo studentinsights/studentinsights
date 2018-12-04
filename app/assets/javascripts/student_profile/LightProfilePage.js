@@ -42,7 +42,7 @@ export default class LightProfilePage extends React.Component {
   }
 
   render() {
-    const {student} = this.props;
+    const {student} = this.props.profileJson;
     const isHighSchool = (student.school_type === 'HS');
     
     return (
@@ -67,7 +67,7 @@ export default class LightProfilePage extends React.Component {
 
   renderInactiveOverlay() {
     const {districtKey} = this.context;
-    const {student} = this.props;
+    const {student} = this.props.profileJson;
     const isActive = isStudentActive(districtKey, student);
     if (isActive) return null;
 
@@ -81,14 +81,14 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderHeader() {
+    const {feed} = this.props;
     const {
       student,
       access,
       teams,
       profileInsights,
-      iepDocument,
-      feed
-    } = this.props;
+      iepDocument
+    } = this.props.profileJson;
     const activeServices = feed.services.active;
     return (
       <LightProfileHeader
@@ -105,14 +105,13 @@ export default class LightProfilePage extends React.Component {
 
   renderSectionDetails() {
     const {selectedColumnKey} = this.props;
-    if (selectedColumnKey === 'notes') return this.renderNotes();
     if (selectedColumnKey === 'grades') return this.renderGrades();
     if (selectedColumnKey === 'testing') return this.renderTesting();
     if (selectedColumnKey === 'reading') return this.renderReading();
     if (selectedColumnKey === 'math') return this.renderMath();
     if (selectedColumnKey === 'attendance') return this.renderAttendance();
     if (selectedColumnKey === 'behavior') return this.renderBehavior();
-    return null;
+    return this.renderNotes();
   }
 
   renderNotesColumn() {
@@ -170,7 +169,8 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderGradesColumn() {
-    const {sections, selectedColumnKey} = this.props;
+    const {selectedColumnKey} = this.props;
+    const {sections} = this.props.profileJson;
     const columnKey = 'grades';
     const strugglingSectionsCount = sections.filter(section => {
       if (section.grade_numeric === null) return false;
@@ -195,7 +195,8 @@ export default class LightProfilePage extends React.Component {
 
   renderTestingColumn() {
     const {nowFn} = this.context;
-    const {selectedColumnKey, chartData} = this.props;
+    const {selectedColumnKey} = this.props;
+    const {chartData} = this.props.profileJson;
     const columnKey = 'testing';
 
     const nowMoment = nowFn();
@@ -225,7 +226,7 @@ export default class LightProfilePage extends React.Component {
 
   renderReadingColumnAsMcas() {
     const {nowFn} = this.context;
-    const {chartData} = this.props;
+    const {chartData} = this.props.profileJson;
     const nowMoment = nowFn();
     const {scoreText, dateText} = interpretEla(nowMoment, chartData);
     return this.renderReadingColumnUI({
@@ -237,7 +238,7 @@ export default class LightProfilePage extends React.Component {
 
   renderReadingColumnAsStar() {
     const {nowFn} = this.context;
-    const {chartData} = this.props;
+    const {chartData} = this.props.profileJson;
     const {nDaysText, percentileText} = latestStar(chartData.star_series_reading_percentile, nowFn());
     return this.renderReadingColumnUI({
       number: percentileText,
@@ -275,7 +276,7 @@ export default class LightProfilePage extends React.Component {
 
   renderMathColumnAsMcas() {
     const {nowFn} = this.context;
-    const {chartData} = this.props;
+    const {chartData} = this.props.profileJson;
     const nowMoment = nowFn();
     const {scoreText, dateText} = interpretMath(nowMoment, chartData);
     return this.renderMathColumnUI({
@@ -287,7 +288,7 @@ export default class LightProfilePage extends React.Component {
 
   renderMathColumnAsStar() {
     const {nowFn} = this.context;
-    const {chartData} = this.props;
+    const {chartData} = this.props.profileJson;
     const {nDaysText, percentileText} = latestStar(chartData.star_series_math_percentile, nowFn());
     return this.renderMathColumnUI({
       number: percentileText,
@@ -318,8 +319,9 @@ export default class LightProfilePage extends React.Component {
 
   renderAttendanceColumn() {
     const {selectedColumnKey} = this.props;
+    const {attendanceData} = this.props.profileJson;
     const columnKey = 'attendance';
-    const count = this.countEventsSince(this.props.attendanceData.absences, DAYS_AGO);
+    const count = this.countEventsSince(attendanceData.absences, DAYS_AGO);
     return (
       <LightProfileTab
         style={styles.tab}
@@ -338,8 +340,9 @@ export default class LightProfilePage extends React.Component {
 
   renderBehaviorColumn() {
     const {selectedColumnKey} = this.props;
+    const {attendanceData} = this.props.profileJson;
     const columnKey = 'behavior';
-    const count = this.countEventsSince(this.props.attendanceData.discipline_incidents, DAYS_AGO);
+    const count = this.countEventsSince(attendanceData.discipline_incidents, DAYS_AGO);
 
     return (
       <LightProfileTab
@@ -358,112 +361,121 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotes() {
+    const {feed, actions, requests, noteInProgressText, noteInProgressType, noteInProgressAttachmentUrls} = this.props;
+    const {student, educatorsIndex, serviceTypesIndex, currentEducator} = this.props.profileJson;
     return (
       <div className="LightProfilePage-notes" style={{display: 'flex', flexDirection: 'row'}}>
         <LightNotesDetails
-          student={this.props.student}
-          educatorsIndex={this.props.educatorsIndex}
-          currentEducator={this.props.currentEducator}
-          feed={this.props.feed}
-          actions={this.props.actions}
-          requests={this.props.requests}
+          student={student}
+          educatorsIndex={educatorsIndex}
+          currentEducator={currentEducator}
+          feed={feed}
+          actions={actions}
+          requests={requests}
           helpContent={<LightNotesHelpContext />}
           helpTitle="What is a Note?"
           title="Notes"
-          noteInProgressText={this.props.noteInProgressText}
-          noteInProgressType={this.props.noteInProgressType}
-          noteInProgressAttachmentUrls={this.props.noteInProgressAttachmentUrls }/>
+          noteInProgressText={noteInProgressText}
+          noteInProgressType={noteInProgressType}
+          noteInProgressAttachmentUrls={noteInProgressAttachmentUrls }/>
         <LightServiceDetails
-          student={this.props.student}
-          serviceTypesIndex={this.props.serviceTypesIndex}
-          educatorsIndex={this.props.educatorsIndex}
-          currentEducator={this.props.currentEducator}
-          feed={this.props.feed}
-          actions={this.props.actions}
-          requests={this.props.requests} />
+          student={student}
+          serviceTypesIndex={serviceTypesIndex}
+          educatorsIndex={educatorsIndex}
+          currentEducator={currentEducator}
+          feed={feed}
+          actions={actions}
+          requests={requests} />
       </div>
     );
   }
 
   renderGrades() {
-    const sections = this.props.sections;
+    const {sections, currentEducatorAllowedSections} = this.props.profileJson;
     const hasSections = (sections && sections.length > 0);
 
     return (
       <DetailsSection anchorId="sections-roster" className="roster" title="Sections">
         {hasSections
           ? <StudentSectionsRoster
-              sections={this.props.sections}
-              linkableSections={this.props.currentEducatorAllowedSections} />
+              sections={sections}
+              linkableSections={currentEducatorAllowedSections} />
           : <div>Not enrolled in any sections</div>}
       </DetailsSection>
     );
   }
 
   renderTesting() {
+    const {student, chartData} = this.props.profileJson;
     return (
       <div className="LightProfilePage-testing">
         <ElaDetails
           className="LightProfilePage-ela"
           hideNavbar={true}
           hideStar={true}
-          chartData={this.props.chartData}
-          student={this.props.student} />
+          chartData={chartData}
+          student={student} />
         <MathDetails
           className="LightProfilePage-math"
           hideStar={true}
           hideNavbar={true}
-          chartData={this.props.chartData}
-          student={this.props.student} />
+          chartData={chartData}
+          student={student} />
       </div>
     );
   }
 
   renderReading() {
+    const {student, chartData} = this.props.profileJson;
     return (
       <ElaDetails
         className="LightProfilePage-ela"
         hideNavbar={true}
-        chartData={this.props.chartData}
-        student={this.props.student} />
+        chartData={chartData}
+        student={student} />
     );
   }
 
   renderMath() {
+    const {student, chartData} = this.props.profileJson;
     return (
       <MathDetails
         className="LightProfilePage-math"
         hideNavbar={true}
-        chartData={this.props.chartData}
-        student={this.props.student} />
+        chartData={chartData}
+        student={student} />
     );
   }
 
   renderAttendance() {
+    const {feed} = this.props;
+    const {attendanceData, serviceTypesIndex} = this.props.profileJson;
     return (
       <LightAttendanceDetails
         className="LightProfilePage-attendance"
-        absences={this.props.attendanceData.absences}
-        tardies={this.props.attendanceData.tardies}
-        activeServices={this.props.feed.services.active}
-        serviceTypesIndex={this.props.serviceTypesIndex} />
+        absences={attendanceData.absences}
+        tardies={attendanceData.tardies}
+        activeServices={feed.services.active}
+        serviceTypesIndex={serviceTypesIndex} />
     );
   }
 
   renderBehavior() {
-    const {currentEducator} = this.props;
+    const {feed} = this.props;
+    const {currentEducator, attendanceData, serviceTypesIndex} = this.props.profileJson;
     return (
       <LightBehaviorDetails
         className="LightProfilePage-behavior"
-        disciplineIncidents={this.props.attendanceData.discipline_incidents}
+        disciplineIncidents={attendanceData.discipline_incidents}
         canViewFullHistory={currentEducator.can_view_restricted_notes}
-        activeServices={this.props.feed.services.active}
-        serviceTypesIndex={this.props.serviceTypesIndex} />
+        activeServices={feed.services.active}
+        serviceTypesIndex={serviceTypesIndex} />
     );
   }
 
   renderFullCaseHistory() {
-    const {student, feed, chartData, dibels, attendanceData, serviceTypesIndex} = this.props;
+    const {feed} = this.props;
+    const {student, chartData, dibels, attendanceData, serviceTypesIndex} = this.props.profileJson;
     return (
       <FullCaseHistory
         student={student}
@@ -481,57 +493,58 @@ LightProfilePage.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 LightProfilePage.propTypes = {
-  // UI
+  // UI and network state
   selectedColumnKey: PropTypes.string.isRequired,
+  requests: InsightsPropTypes.requests,
+  actions: InsightsPropTypes.actions,
 
-  // constants
-  educatorsIndex: PropTypes.object.isRequired,
-  serviceTypesIndex: PropTypes.object.isRequired,
-
-  // data
-  currentEducator: PropTypes.shape({
-    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-    can_view_restricted_notes: PropTypes.bool.isRequired
-  }).isRequired,
-  student: PropTypes.object.isRequired,
+  // mutable data
   feed: PropTypes.object.isRequired,
-  profileInsights: PropTypes.array.isRequired,
-  dibels: PropTypes.array.isRequired,
-  chartData: PropTypes.shape({
-    // ela
-    most_recent_star_reading_percentile: PropTypes.number,
-    most_recent_mcas_ela_scaled: PropTypes.number,
-    most_recent_mcas_ela_growth: PropTypes.number,
-    star_series_reading_percentile: PropTypes.array,
-    mcas_series_ela_scaled: PropTypes.array,
-    mcas_series_ela_growth: PropTypes.array,
-    // math
-    most_recent_star_math_percentile: PropTypes.number,
-    most_recent_mcas_math_scaled: PropTypes.number,
-    most_recent_mcas_math_growth: PropTypes.number,
-    star_series_math_percentile: PropTypes.array,
-    mcas_series_math_scaled: PropTypes.array,
-    mcas_series_math_growth: PropTypes.array
-  }),
-  attendanceData: PropTypes.shape({
-    discipline_incidents: PropTypes.array,
-    tardies: PropTypes.array,
-    absences: PropTypes.array
-  }),
   noteInProgressText: PropTypes.string.isRequired,
   noteInProgressType: PropTypes.number,
   noteInProgressAttachmentUrls: PropTypes.arrayOf(
     PropTypes.string
   ).isRequired,
-  access: PropTypes.object,
-  teams: PropTypes.array.isRequired,
-  iepDocument: PropTypes.object,
-  sections: PropTypes.array,
-  currentEducatorAllowedSections: PropTypes.array,
 
-  // flux-y bits
-  requests: InsightsPropTypes.requests,
-  actions: InsightsPropTypes.actions
+  // static data
+  profileJson: PropTypes.shape({
+    educatorsIndex: PropTypes.object.isRequired,
+    serviceTypesIndex: PropTypes.object.isRequired,
+    currentEducator: PropTypes.shape({
+      labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+      can_view_restricted_notes: PropTypes.bool.isRequired
+    }).isRequired,
+    student: PropTypes.object.isRequired,
+    
+    profileInsights: PropTypes.array.isRequired,
+    dibels: PropTypes.array.isRequired,
+    chartData: PropTypes.shape({
+      // ela
+      most_recent_star_reading_percentile: PropTypes.number,
+      most_recent_mcas_ela_scaled: PropTypes.number,
+      most_recent_mcas_ela_growth: PropTypes.number,
+      star_series_reading_percentile: PropTypes.array,
+      mcas_series_ela_scaled: PropTypes.array,
+      mcas_series_ela_growth: PropTypes.array,
+      // math
+      most_recent_star_math_percentile: PropTypes.number,
+      most_recent_mcas_math_scaled: PropTypes.number,
+      most_recent_mcas_math_growth: PropTypes.number,
+      star_series_math_percentile: PropTypes.array,
+      mcas_series_math_scaled: PropTypes.array,
+      mcas_series_math_growth: PropTypes.array
+    }),
+    attendanceData: PropTypes.shape({
+      discipline_incidents: PropTypes.array,
+      tardies: PropTypes.array,
+      absences: PropTypes.array
+    }),
+    access: PropTypes.object,
+    teams: PropTypes.array.isRequired,
+    iepDocument: PropTypes.object,
+    sections: PropTypes.array,
+    currentEducatorAllowedSections: PropTypes.array
+  }).isRequired
 };
 
 
