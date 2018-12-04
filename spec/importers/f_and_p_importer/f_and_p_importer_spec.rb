@@ -1,0 +1,33 @@
+require 'rails_helper'
+
+RSpec.describe FAndPImporter do
+  def fixture_file_text
+    IO.read("#{Rails.root}/spec/importers/f_and_p_importer/f_and_p_importer_fixture.csv")
+  end
+
+  describe 'integration test' do
+    it 'works on happy path' do
+      pals = TestPals.create!
+      benchmark_date = Date.parse('2018/12/19')
+      matcher = ImportMatcher.new
+      importer = FAndPImporter.new(benchmark_date, pals.uri.id, matcher: matcher)
+      f_and_ps = importer.import(fixture_file_text)
+
+      expect(f_and_ps.size).to eq 1
+      expect(FAndPAssessment.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        "student_id"=>pals.healey_kindergarten_student.id,
+        "benchmark_date"=>benchmark_date,
+        "instructional_level"=>"A",
+        "f_and_p_code"=>"WC",
+        "uploaded_by_educator_id"=>pals.uri.id
+      }])
+      expect(matcher.stats).to eq({
+        :invalid_course_numbers => [],
+        :invalid_educator_emails => [],
+        :invalid_rows_count => 0,
+        :invalid_student_local_ids => [],
+        :valid_rows_count => 1,
+      })
+    end
+  end
+end

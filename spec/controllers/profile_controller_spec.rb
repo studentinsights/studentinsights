@@ -78,6 +78,32 @@ describe ProfileController, :type => :controller do
       end
     end
 
+    describe 'f_and_p_assessments' do
+      let!(:pals) { TestPals.create! }
+      let!(:f_and_p) do
+        FAndPAssessment.create!({
+          student_id: pals.healey_kindergarten_student.id,
+          benchmark_date: Date.parse('2018-02-22'),
+          instructional_level: 'B',
+          f_and_p_code: 'WC',
+          uploaded_by_educator_id: pals.uri.id
+        })
+      end
+
+      it 'works' do
+        sign_in(pals.uri)
+        make_request(pals.uri, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['f_and_p_assessments']).to eq([{
+          "id"=>f_and_p.id,
+          "benchmark_date"=>"2018-02-22",
+          "instructional_level"=>"B",
+          "f_and_p_code"=>"WC"
+        }])
+      end
+    end
+
     describe 'integration test for profile_insights' do
       let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
       let!(:transition_note_text) do
@@ -160,6 +186,7 @@ describe ProfileController, :type => :controller do
             'feed',
             'chart_data',
             'dibels',
+            'f_and_p_assessments',
             'service_types_index',
             'educators_index',
             'profile_insights',
@@ -177,6 +204,7 @@ describe ProfileController, :type => :controller do
           expect(json['student']).not_to have_key('restricted_notes_count')
 
           expect(json['dibels']).to eq []
+          expect(json['f_and_p_assessments']).to eq []
           expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],

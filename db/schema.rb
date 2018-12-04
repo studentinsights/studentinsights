@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_27_123632) do
+ActiveRecord::Schema.define(version: 2018_12_04_010645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,6 +201,18 @@ ActiveRecord::Schema.define(version: 2018_11_27_123632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_restricted", default: false, null: false
+  end
+
+  create_table "f_and_p_assessments", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.date "benchmark_date", null: false
+    t.string "instructional_level", null: false
+    t.string "f_and_p_code"
+    t.integer "uploaded_by_educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id", "benchmark_date"], name: "index_f_and_p_assessments_on_student_id_and_benchmark_date"
+    t.index ["student_id"], name: "index_f_and_p_assessments_on_student_id", unique: true
   end
 
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
@@ -583,6 +595,8 @@ ActiveRecord::Schema.define(version: 2018_11_27_123632) do
   add_foreign_key "event_notes", "event_note_types"
   add_foreign_key "event_notes", "event_note_types", name: "event_notes_event_note_type_id_fk"
   add_foreign_key "event_notes", "students", name: "event_notes_student_id_fk"
+  add_foreign_key "f_and_p_assessments", "educators", column: "uploaded_by_educator_id"
+  add_foreign_key "f_and_p_assessments", "students"
   add_foreign_key "historical_grades", "sections", name: "historical_grades_section_id_fk"
   add_foreign_key "historical_grades", "students", name: "historical_grades_student_id_fk"
   add_foreign_key "homerooms", "educators", name: "homerooms_educator_id_fk"

@@ -30,6 +30,7 @@ class Student < ApplicationRecord
   has_many :star_math_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :star_reading_results, -> { order(date_taken: :desc) }, dependent: :destroy
   has_many :dibels_results, -> { order(date_taken: :desc) }, dependent: :destroy
+  has_many :f_and_p_assessments, dependent: :destroy
   has_many :student_photos
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments

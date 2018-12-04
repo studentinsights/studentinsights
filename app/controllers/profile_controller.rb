@@ -12,7 +12,8 @@ class ProfileController < ApplicationController
       student: serialize_student_for_profile(student),          # School homeroom, most recent school year attendance/discipline counts
       feed: student_feed(student),
       chart_data: chart_data,                                   # STAR, MCAS, discipline, attendance charts
-      dibels: student.dibels_results.select(:id, :date_taken, :benchmark),
+      dibels: student.dibels_results.as_json(only: [:id, :date_taken, :benchmark]),
+      f_and_p_assessments: student.f_and_p_assessments.as_json(only: [:id, :benchmark_date, :instructional_level, :f_and_p_code]),
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.access,
