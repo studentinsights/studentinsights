@@ -67,6 +67,7 @@ export function parseProfileJson(json) {
     student: json.student,
     chartData: json.chart_data,
     dibels: json.dibels,
+    fAndPs: json.f_and_p_assessments,
     serviceTypesIndex: json.service_types_index,
     educatorsIndex: json.educators_index,
     access: json.access,
