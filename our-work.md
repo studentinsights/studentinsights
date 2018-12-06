@@ -30,7 +30,7 @@ At the same time, this creates risks that educators will be biased by the studen
 One of our guiding principles on Student Insights is that we need to strike a balance that allows educators to share information about students, but that we aim to do so in a way that helps educators see young people in their "best light."  We've approached this in a few different ways in student profiles.
 
 ### "What I want my teachers to know about me"
-<img src="img/our-work/survey-small.png" class="InlineImage" style="border: 1px solid rgb(203, 197, 211);" />
+<img src="img/our-work/survey-small.png" class="InlineImage" alt="Google form that allows students to inform their what they should know about them. &quot;What I want my teachers to know about me..... &quot; Below are three exmaple questions like &quot;I am proud that I...&quot;" style="border: 1px solid rgb(203, 197, 211);" />
 
 To elevate student voice, and give young people power over how they are represented within their Student Insights profile, we revised the layout of the page and reserved the most prominent space on the page for students themselves.
 
@@ -43,12 +43,12 @@ We've heard from educators that seeing a student's perspective influences the wa
 Here are some examples of the kinds of things students have chosen to share, and how this shows up front and center on their profile page:
 
 <div class="OurWork-QuoteGrid" style="clear: both;">
-  <img src="img/our-work/proud-computer-science.png" />
-  <img src="img/our-work/best-qualitities-babysitting.png" />
-  <img src="img/our-work/interests-podcasts.png" />
-  <img src="img/our-work/best-qualities-thoughtful.png" />
-  <img src="img/our-work/learn-best-kind.png" />
-  <img src="img/our-work/proud-immigrant.png" />
+  <img src="img/our-work/proud-computer-science.png" alt="I am proud that I... &quot;gathered the courage to take AP Computer Science&quot;"/>
+  <img src="img/our-work/best-qualitities-babysitting.png" alt="My best qualities are... &quot;just started babysitting for my neighbors&quot;"/>
+  <img src="img/our-work/interests-podcasts.png" alt="My acitivities and interests outside of school are... &quot;Making podcasts, teaching my sister songs&quot;"/>
+  <img src="img/our-work/best-qualities-thoughtful.png" alt="My best qualities are...&quot;Thoughtful and tihnk before I just open my mouth&quot;" />
+  <img src="img/our-work/learn-best-kind.png" alt="I learn best when my teachers... &quot;are kind and explain what we need to do to get good grades&quot;"/>
+  <img src="img/our-work/proud-immigrant.png" alt="I am proud that I... &quot;am an immigrant trying to my future in the USA&quot;"/>
 </div>
 
 ### Student meetings
@@ -57,8 +57,8 @@ Within Somerville High School, there are a few student support structures aimed 
 These conversations embedded a strengths-based perspective and started with asking students about where they felt successful, and what supported them in those parts of their school experience.  We worked with these educators so that these conversations would be visible to all classroom teachers and educators working with the student in Student Insights.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/student-meeting-one.png" /></div>
-  <div class="DoubleImage-small"><img src="img/student-meeting-two.png" /></div>
+  <div class="DoubleImage-small"><img src="img/student-meeting-one.png" alt="Google form NGE/10GE/NEST Student Meeting, this form has questions like &quot;What classes are you doing well in?&quot;" /></div>
+  <div class="DoubleImage-small"><img src="img/student-meeting-two.png" alt="Google form NGE/10GE/NEST Student Meeting continuation, this form has questions like &quot;When you are struggling, who do you go to for support, encouragement, advice, etc?&quot;"/></div>
 </div>
 
 
@@ -66,14 +66,14 @@ These conversations embedded a strengths-based perspective and started with aski
 Beyond creating space for student voice, we've also worked with educators around what other kinds of data there is about students that could more fully describe their experience at school.  One theme that came up consistently for many students in student voice surveys when we asked what they wanted teachers to know was how important sports were.  In talking with the athletic director at the high school, we collaborated to add sports team membership into the student profile, and to add the contact for coaches.  Experienced teachers, and teachers with strong relationships often already know this about their students.  But this let us update our school data system to reflect this important aspect of students' school life, and make it immediately visible to all educators, and displayed more prominently than things like their scores on state testing.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/our-work/cheerleading.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/soccer.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/cheerleading.png" alt="Description of a student on a sports team by a coach: &quot;Mari is on the Varsity Competitive Cheerleading team&quot;" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/soccer.png" alt="Description of a student on a sports team by another coach: &quot;Michael is on the JV Soccer team&quot;" /></div>
 </div>
 
 We also worked with folks in the central office who coordinate summer services, so that when educators came back in the fall, they could see what services the student experienced during the summertime.  This let us collaborate closely with one educator, rather than trying to roll out the burden of a new data entry procedure with educators across the district.  We've also explored automated syncs to create hybrid data systems where educators can fully control the data in tools like online spreadsheets that they are already comfortable with, and we can do the work to sync changes to Student Insights in real time.
 
 <div class="SingleImage SingleImage-side-margin SingleImage-cap-size">
-  <img src="img/our-work/services.png" />
+  <img src="img/our-work/services.png" alt="Student involvement/Services, an example is &quot;Boston Breakthrough, started July 2, 2018 a month and ended August 10, 2018&quot;"/>
 </div>
 
 
@@ -87,7 +87,7 @@ The "clean slate" concept came from a team of educators discussing concerns abou
       <a style="display: block; margin-top: 10px;" href="docs/glb.pdf" target="_blank" rel="noopener noreferrer">- Gloria Ladson-Billings</a>
     </p>
   </div>
-  <div class="DoubleImage-big"><img src="img/privacy-note.png" /></div>
+  <div class="DoubleImage-big"><img src="img/privacy-note.png" alt="A note about student privacy" /></div>
 </div>
 
 
@@ -102,20 +102,20 @@ When we originally built Student Insights, we had no idea how popular and powerf
 Writing notes lets educators share information and insights with other so everyone can know what’s going on with a student.   This includes what other teachers have tried, what’s worked, and what hasn’t worked.   This is particularly important for student support team structures where there's a interdisciplinary team that evolves over time.  Districts have a variety of names for these such as SST, BBST, MTSS, Wellness, and NGE.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/take-notes-long.png" style="border: 1px solid #eee;"/></div>
-  <div class="DoubleImage-small"><img src="img/our-work/notes-guidelines.png" /></div>
+  <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/take-notes-long.png" alt="Note to another educator: &quot;Ryan's really motivated by&quot; showing that the notes are from an SST Meeting" style="border: 1px solid #eee;"/></div>
+  <div class="DoubleImage-small"><img src="img/our-work/notes-guidelines.png" alt="An Amazing Note... &quot;Is concise and professional, Explores the root cause, and Contains a follow-up action&quot;" /></div>
 </div>
 
 [Educators leading trainings](trainings-and-videos.html) have chosen to focus on how to write effective notes, but also highlight how to *read* the notes that others are written, so that adults can get the most helpful information, give students the clean slate they need from year to year, and see the student in the best light.  One of the questions educators ask in trainings is: "What would you have wanted your own 6th grade teacher to know about you to best teach and support you?"  or "I wonder what’s really going on for the student, what motivates them, and where their areas for growth are?"  We've found this framing grounds the conversation in the human side of our work and makes space for talking about the assumptions and bias that can arise when reading student educational records.  From here, we work with educators to think more deeply how to effectively read and write notes about students, so that student data is used in a positive way to help maximize student growth and achievement.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/feed.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/feed2.png" /></div>
+  <div class="DoubleImage-small" style="margin-right: 20px;"><img src="img/our-work/feed.png" alt="Various student note examples such as &quot;Ryan's really motivated by working with a younger student as a mentor. Set up a weekly system with LM so he read with as a way to build reading stamina.&quot;" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/feed2.png" alt="Various student note examples such as &quot;Sunil lost a parent two years ago in October, and is open about this but still struggles with it. At times he'll ask for breaks in class and can benefit from that, Art is a real strength and a good outlet.&quot;"/></div>
 </div>
 
 Notes about a student are also visible to other educators who are authorized to access that student's data (see [trust, access and privacy](our-work.html#trust-access-and-privacy) for more about how we approach these important issues).  This is especially for interdisciplinary teams, and teams of educators that work with students across diverse roles (eg, science teacher, writing teacher, social-emotional support, college and career counselor, etc).  When signing into Student Insights, the home page shows teachers what's going on for all their students.  This isn't a replacement for talking in person, or for email, or for structured reporting like Progress Reports or amendments to an IEP.  It's also not a chat app sending notices during class.  It's a space for educators to share what's important as they do their work with students each day, and to check in whenever they want to see what's going on with students more holistically.
 
-<img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" />
+<img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" alt="What's Happening? A few photos of how students are doing at school"/>
 
 When working with educators teams deciding how they want to use Student Insights, one experience we share is how this has been most effective in Somerville for structure support teams or PLCs teams that are already up and running.  Within support structures like MTSS or SST, there is often an interdisciplinary team, and taking notes about what's going on with the student holistically and what actions the team is taking can be a helpful starting point.  Educators have also found [transitions](our-work.html#transitions) between classes or grades can be a helpful place to start, and that's a project we've worked on separately as well.
 
@@ -190,8 +190,8 @@ These transitions come up at various times: when a student moves from one school
 Previously, 8th grade counselors would write out a "transition packet" for all students.  To make sure important information traveled up to the high school, in the past this had also included writing out things from the student's educational record that had since been made more visible in Student Insights.  So we worked with counselor educators and the district student support services team to streamline the process to a few key questions.  This cut down the time counselor educators had to spend on doing paper data integration, and focus their in-person discussion time with the 9th grade counseling team on the most important aspects of their counseling relationships.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" ><img src="img/our-work/transition-left.png" /></div>
-  <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" ><img src="img/our-work/transition-right.png" /></div>
+  <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" ><img src="img/our-work/transition-left.png" alt="What are this student's strengths? Below are various questions about the student." /></div>
+  <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" ><img src="img/our-work/transition-right.png" alt="Is this student receiving Social Services and if so, what is the name and contact of their social worker? Followed with an example response and other questions related to health." /></div>
 </div>
 
 
@@ -206,8 +206,8 @@ As part of this work, one idea we explored together was whether a "dashboard" sh
 Another challenge that came up was in conversations where we looked at full year counts of absences.  Educators had developed a sense of when this indicated a significant issue, but existing data systems were aimed at counting whole-year totals since they were first developed for other purposes like accountability reporting.  We found that later in the school year, students who had great attendance all year but only just recently started missing school would slip through.  When looking at the count for the whole year, those students might miss more than a week of school and not be immediately visible to educators.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/our-work/absences-analysis.png" /></div>
-  <div class="DoubleImage-small"><img src="img/our-work/absences-home.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/absences-analysis.png" alt="Absences at Washington School followed by a list of students and a graph of each students' attendance rate."/></div>
+  <div class="DoubleImage-small"><img src="img/our-work/absences-home.png" alt="How can we adapt? Below are the students who are missing school recently and haven't been mentioned." /></div>
 </div>
 
 This led us to shift from a goal of "analysis" and "finding patterns" to a goal of supporting educators to see what's happening with students recently and to take action to support those students.  This involved building a notice for all educators on the home page about recent absences for their students.  And for building a more focused visualization looking at absence data, and highlighting gaps where students have missed school recently but haven't yet been discussed in SST or other support meetings.  In this way, educators can open the page and immediately see students who could use support.
@@ -216,12 +216,12 @@ This led us to shift from a goal of "analysis" and "finding patterns" to a goal 
 This project started from the needs of a few teachers to make the class list process easier and became even more meaningful as we started talking with folks about equity in the process.  In many schools, teams of teachers gathered in the spring to create class lists for their students as they move to the next grade.  Typically, each student's name would be written on a card, possibly with some extra information on it such as gender, special education or English learner designation, academic proficiency, and behavior.  The cards were then moved around until the teams determined that each list had the makings of a strong classroom community.  Many educators felt that not only was this incredibly time-consuming and inefficient, but also prone to errors, biases, and favoritism.
 
 <div class="SingleImage SingleImage-side-margin">
-  <img src="img/our-work/class-list5.png" />
+  <img src="img/our-work/class-list5.png" alt="Students categorized into rooms and which students aren't in a room. Above the table displays how many students are in each room based off of their gender, STAR test results, etc."/>
 </div>
 
 So we worked with several teams of teachers to mock-up, design, and test a new way to do it.  By dragging and dropping names into different possible classes, teachers could see how the composition changed on a variety of measures.  In the process, we worked with teams across K8 schools to put together guidelines for how this process works at it's best.  The first recommendation was for teams to start the process by asking: *What's our plan for creating classroom communitites?*  and writing their thinking out.  We found that some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
 
-<img src="img/our-work/class-list6.png" class="InlineImage" />
+<img src="img/our-work/class-list6.png" class="InlineImage" alt="Next year's 6th grade which displays questions such as &quot;Have all students been placed?&quot; or &quot;Have you reviewed the teaching team's plan and notes before making changes&quot; to assist the principal before downloading the final class lists spreadsheet."/>
 
 We then did a training with all Somerville teachers grades 1-5 who were interested, and almost all classroom teams used Student Insights to make their classroom lists.  To finish, they submitted their final class lists to the building principal along with any other notes about their rationale.  Over the summer, as enrollment changed or other issues came up, principals could look back at the intent of the teaching teams and consider that when making any changes.  Finally, these changes would be visible to the classroom teaching teams as well to close the feedback loop.  In collecting feedback afterward, educators found that the new process encouraged better conversations during the process, saved time, and helped them create more equitable communities.
 
@@ -234,8 +234,8 @@ At Somerville High school, one of the support structures focused particularly on
 We initially collaborated with this team to create a [new home page](#student-centered-narratives) showing what's going on with all students that an educator works with.  But one challenge that came up is that they wanted the data system to support them in seeing all the students across their courses that were struggling with their grades.  This was something they could look at a few times during the school year at the end of each quarter - after students received final grades - and they wanted to be able to respond more quickly as students grades changed from week to week.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/our-work/communication-and-actions.png" /></div>
-  <div class="DoubleImage-small"><img src="img/grades.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/communication-and-actions.png" alt="Two column table with the category of &quot;Communications&quot; and &quot;Common Practice&quot;"/></div>
+  <div class="DoubleImage-small"><img src="img/grades.png" alt="Students to check in on displays what students and how many have a D or an F who hasn't been mentioned." /></div>
 </div>
 
 To make this as simple as possible, and to fit this within the existing meeting flow for this support structure, we added this right onto the home page for high school teachers as soon as they sign in to Student Insights.  There's no querying, no filtering or anything else - if there are students in their courses who need more academic support or if a particular unit or assessment ends up influencing grades for many students, educators can see that right away and get to work on collaboraing to try other instructional strategies.
@@ -244,8 +244,8 @@ To make this as simple as possible, and to fit this within the existing meeting 
 One opportunity that came up working with educators at Somerville High School was around how the team adapts the supports it provides to students.  In the HS, there's a diverse range of services for students focused on all kinds of things like study skills, academic supports, social emotional supports, wraparound services, health services, the transition to high school from middle school, English learning services and many others.  To help with matching students to the services they need, the team had put together a document describing the systems of supports and services, and different "triggers" that students might reach as a way to facilitate adapting services.  But there was no data system that could show what supports a student was getting across all educators, or to find when a student should be getting a support but the team hadn't responded yet.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/our-work/triggers2.png" /></div>
-  <div class="DoubleImage-small"><img style="border: 1px solid #eee;" src="img/our-work/levels4.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/triggers2.png" alt="Two way table displaying different things a teacher can do to support their students who are failing or missing school."/></div>
+  <div class="DoubleImage-small"><img style="border: 1px solid #eee;" src="img/our-work/levels4.png" alt="A table displaying the students who have or have not received attention for need of support."/></div>
 </div>
 
 We collaborated with a team of teachers, department heads and admins to create a way for everyone in the school could see the same picture of these triggers and what students need, and to make this visible every day instead of just at the end of every quarter.  This way educators could just sign in, see what students needed more supports, and get to work figuring out how to do that together.
@@ -253,8 +253,8 @@ We collaborated with a team of teachers, department heads and admins to create a
 Importantly, the process of thinking through and creating these triggers and levels was entirely driven by educators and not by a data scientist or a machine learning researcher.  This means that the educator team is in control of the data system, and understands exactly what it's doing.  Within Student Insights there's a link directly to the educator documents describing the triggers and levels, and right next to it there's a link to see the open source code.
 
 <div class="DoubleImage DoubleImage-side-margin">
-  <div class="DoubleImage-small"><img src="img/our-work/levels-filter.png" /></div>
-  <div class="DoubleImage-small"><img src="img/code.png" /></div>
+  <div class="DoubleImage-small"><img src="img/our-work/levels-filter.png" alt="Filtering options allowing teachers to filter what they want to see." /></div>
+  <div class="DoubleImage-small"><img src="img/code.png" alt="An open source code that displays three triggers: academic, absence and discipline."/></div>
 </div>
 
 This work also led to conversations across the HS admin team about some of the challenges in flexibly adapting in response to what students need, and different supports and services that aren't yet visible in these data systems.  We're excited to keep working on this and help with making the full "menu" of services and supports in the school system visible to everyone, and be a part of helping students get what they need when they need it.
