@@ -3,25 +3,26 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {mount} from 'enzyme';
 import ReactTestUtils from 'react-addons-test-utils';
-import {nowMoment, studentProfile} from './fixtures/fixtures';
+import {withDefaultNowContext, testTimeMoment} from '../testing/NowContainer';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
+import {testPropsForPlutoPoppins} from './LightProfilePage.fixture';
 
 function testProps(props = {}) {
+  const {feed, profileJson} = testPropsForPlutoPoppins();
   return {
-    nowMomentFn: () => { return nowMoment; },
-    serializedData: studentProfile,
+    profileJson,
+    defaultFeed: feed,
     queryParams: {},
     history: mockHistory(),
     actions: helpers.createSpyActions(),
     api: helpers.createSpyApi(),
     noteInProgressText: '',
     noteInProgressType: null,
-    districtKey: 'somerville',
     ...props
   };
 }
@@ -31,21 +32,36 @@ function mountWithContext(props) {
   const wrapper = mount(<PageContainer {...props} />, {
     attachTo: el,
     context: {
-      districtKey: SOMERVILLE
+      districtKey: SOMERVILLE,
+      nowFn: testTimeMoment
     },
     childContextTypes: {
-      districtKey: PropTypes.string.isRequired
+      districtKey: PropTypes.string.isRequired,
+      nowFn: PropTypes.func.isRequired
     }
   });
 
   return {wrapper, el};
 }
 
-const helpers = {
-  findColumns(el) {
-    return $(el).find('.summary-container > div');
-  },
+function patchNotesToBeWrittenByCurrentUser(fixtureProps) {
+  const {currentEducator} = fixtureProps.profileJson;
+  const {defaultFeed} = fixtureProps;
+  return {
+    ...fixtureProps,
+    defaultFeed: {
+      ...fixtureProps.defaultFeed,
+      event_notes: defaultFeed.event_notes.map(eventNote => {
+        return {
+          ...eventNote,
+          educator_id: currentEducator.id
+        };
+      })
+    }
+  };
+}
 
+const helpers = {
   interventionSummaryLists(el) {
     return $(el).find('.interventions-column .SummaryList').toArray();
   },
@@ -74,9 +90,11 @@ const helpers = {
     const mergedProps = testProps(props);
     const el = document.createElement('div');
     const instance = ReactDOM.render( //eslint-disable-line react/no-render-return-value
-      <PerDistrictContainer districtKey={SOMERVILLE}>
-        <PageContainer {...mergedProps} />
-      </PerDistrictContainer>
+      withDefaultNowContext(
+        <PerDistrictContainer districtKey={SOMERVILLE}>
+          <PageContainer {...mergedProps} />
+        </PerDistrictContainer>
+      )
     , el);
     return {el, instance};
   },
@@ -88,8 +106,12 @@ const helpers = {
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   },
 
-  editNoteAndSave(el, uiParams) {
-    const $noteCard = $(el).find('.NotesList .NoteCard').first();
+  showFullCaseHistory(el) {
+    ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage-show-history-link').get(0));
+  },
+
+  editNoteAndSave(el, noteIndex, uiParams) {
+    const $noteCard = $(el).find('.NotesList .NoteCard').eq(noteIndex);
     const $text = $noteCard.find('.EditableTextComponent');
     $text.html(uiParams.text);
     ReactTestUtils.Simulate.input($text.get(0));
@@ -106,19 +128,9 @@ const helpers = {
 };
 
 describe('integration tests', () => {
-  it('renders everything on the happy path', () => {
+  it('renders everything without raising on the happy path', () => {
     const {el} = helpers.renderInto();
-
-    expect($(el).text()).toContain('Daisy Poppins');
-    expect(helpers.findColumns(el).length).toEqual(5);
-    expect($(el).find('.Sparkline').length).toEqual(9);
-    expect($(el).find('.InterventionsDetails').length).toEqual(1);
-
-    const interventionLists = helpers.interventionSummaryLists(el);
-    expect(interventionLists.length).toEqual(3);
-    expect(interventionLists[0].innerHTML).toContain('Reg Ed');
-    expect(interventionLists[1].innerHTML).toContain('Counseling, outside');
-    expect(interventionLists[1].innerHTML).toContain('Attendance Contract');
+    expect($(el).text()).toContain('Pluto Poppins');
   });
 
   it('opens dialog when clicking Take Notes button', () => {
@@ -133,7 +145,7 @@ describe('integration tests', () => {
     const {el} = helpers.renderInto();
 
     ReactTestUtils.Simulate.click($(el).find('.btn.record-service').get(0));
-    expect($(el).text()).toContain('Who is working with Daisy?');
+    expect($(el).text()).toContain('Who is working with Pluto?');
     expect($(el).text()).toContain('Record service');
   });
 
@@ -148,21 +160,27 @@ describe('integration tests', () => {
     expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
       eventNoteTypeId: 300,
       text: 'hello!',
+      isRestricted: false,
       eventNoteAttachments: []
     });
   });
 
-  it('can edit notes for SST meetings, mocking the action handlers', () => {
-    const props = testProps();
+  it('can edit own notes for SST meetings, mocking the action handlers', () => {
+    const props = patchNotesToBeWrittenByCurrentUser(testProps());
     const {el} = helpers.renderInto(props);
 
-    helpers.editNoteAndSave(el, {
-      eventNoteTypeText: 'SST Meeting',
+    // click open full history
+    helpers.showFullCaseHistory(el);
+    expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
+
+    // edit note and blur to save
+    const noteIndex = 1;
+    helpers.editNoteAndSave(el, noteIndex, {
       text: 'world!'
     });
 
     expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
-      id: 3,
+      id: 26,
       eventNoteTypeId: 300,
       text: 'world!'
     });

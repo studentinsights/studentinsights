@@ -6,7 +6,6 @@ import {merge} from '../helpers/merge';
 import Api from './Api';
 import * as Routes from '../helpers/Routes';
 import LightProfilePage from './LightProfilePage';
-import StudentProfilePage from './StudentProfilePage';
 
 
 // in place of updating lodash to v4
@@ -44,21 +43,13 @@ export default class PageContainer extends React.Component {
     this.onDiscontinueServiceFail = this.onDiscontinueServiceFail.bind(this);
   }
 
-  // This is a workaround to provide a consistent API to child components until
-  // this is migrated within App.js.
-  getChildContext() {
-    const {nowMomentFn} = this.props;
-    return {
-      nowFn() { return nowMomentFn(); }
-    };
-  }
-
   componentWillMount(props, state) {
     this.api = this.props.api || new Api();
   }
 
   componentDidUpdate(props, state) {
-    const {selectedColumnKey, student} = this.state;
+    const {student} = this.props.profileJson;
+    const {selectedColumnKey} = this.state;
     const queryParams = { column: selectedColumnKey };
     const path = Routes.studentProfile(student.id, queryParams);
 
@@ -77,11 +68,6 @@ export default class PageContainer extends React.Component {
         discontinueService: updatedDiscontinueService
       })
     });
-  }
-
-  dateRange() {
-    const nowMoment = this.props.nowMomentFn();
-    return [nowMoment.clone().subtract(1, 'year').toDate(), nowMoment.toDate()];
   }
 
   onColumnClicked(columnKey) {
@@ -117,19 +103,21 @@ export default class PageContainer extends React.Component {
   }
 
   onClickSaveNotes(eventNoteParams) {
+    const {student} = this.props.profileJson;
     this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
-    this.api.saveNotes(this.state.student.id, eventNoteParams)
+    this.api.saveNotes(student.id, eventNoteParams)
       .then(this.onSaveNotesDone)
       .catch(this.onSaveNotesFail);
   }
 
   onClickSaveTransitionNote(noteParams) {
+    const {student} = this.props.profileJson;
     const requestState = (noteParams.is_restricted)
       ? { saveRestrictedTransitionNote: 'pending' }
       : { saveTransitionNote: 'pending' };
 
     this.setState({ requests: merge(this.state.requests, requestState) });
-    this.api.saveTransitionNote(this.state.student.id, noteParams)
+    this.api.saveTransitionNote(student.id, noteParams)
       .then(this.onSaveTransitionNoteDone.bind(this, noteParams))
       .catch(this.onSaveTransitionNoteFail.bind(this, noteParams));
   }
@@ -207,10 +195,11 @@ export default class PageContainer extends React.Component {
   }
 
   onClickSaveService(serviceParams) {
+    const {student} = this.props.profileJson;
     // Very quick name validation, just check for a comma between two words
     if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
       this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
-      this.api.saveService(this.state.student.id, serviceParams)
+      this.api.saveService(student.id, serviceParams)
           .then(this.onSaveServiceDone)
           .catch(this.onSaveServiceFail);
     } else {
@@ -259,29 +248,19 @@ export default class PageContainer extends React.Component {
   }
 
   render() {
-    const {shouldUseLightProfilePage, districtKey, nowMomentFn} = this.props;
-    const propsFromState = _.pick(this.state,
-      'currentEducator',
-      'educatorsIndex',
-      'serviceTypesIndex',
-      'student',
-      'feed',
-      'transitionNotes',
-      'profileInsights',
-      'access',
-      'teams',
-      'chartData',
-      'dibels',
-      'attendanceData',
-      'selectedColumnKey',
-      'iepDocument',
-      'sections',
-      'currentEducatorAllowedSections',
-      'requests',
-      'noteInProgressText',
-      'noteInProgressType',
-      'noteInProgressAttachmentUrls'
-    );
+    const {
+      profileJson
+    } = this.props;
+    
+    const {
+      feed,
+      selectedColumnKey,
+      requests,
+      noteInProgressText,
+      noteInProgressType,
+      noteInProgressAttachmentUrls
+    } = this.state;
+
     const actions = {
       onColumnClicked: this.onColumnClicked,
       onClickSaveNotes: this.onClickSaveNotes,
@@ -292,36 +271,40 @@ export default class PageContainer extends React.Component {
       onChangeNoteInProgressText: this.onChangeNoteInProgressText,
       onClickNoteType: this.onClickNoteType,
       onChangeAttachmentUrl: this.onChangeAttachmentUrl,
-      ...this.props.actions
+      ...(this.props.actions || {}) // for test
     };
-    const profilePageProps = {
-      districtKey,
-      nowMomentFn,
-      actions,
-      ...propsFromState
-    };
+
     return (
       <div className="PageContainer">
-        {shouldUseLightProfilePage
-          ? <LightProfilePage {...profilePageProps} />
-          : <StudentProfilePage {...profilePageProps} />
-        }
+        <LightProfilePage
+          profileJson={profileJson}
+          feed={feed}
+          actions={actions}
+          selectedColumnKey={selectedColumnKey}
+          requests={requests}
+          noteInProgressText={noteInProgressText}
+          noteInProgressType={noteInProgressType}
+          noteInProgressAttachmentUrls={noteInProgressAttachmentUrls}
+        />
       </div>
     );
   }
 }
-// This is a workaround to keep a consistent API for child components until we migrate
-// this from legacyRouteHandler to App.js.
-PageContainer.childContextTypes = {
-  nowFn: PropTypes.func
-};
 PageContainer.propTypes = {
-  shouldUseLightProfilePage: PropTypes.bool,
-  nowMomentFn: PropTypes.func.isRequired,
-  serializedData: PropTypes.object.isRequired,
   queryParams: PropTypes.object.isRequired,
   history: InsightsPropTypes.history.isRequired,
-  districtKey: PropTypes.string.isRequired,
+
+  profileJson: PropTypes.object.isRequired,
+  defaultFeed: PropTypes.shape({
+    event_notes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      attachments: PropTypes.array.isRequired
+    })).isRequired,
+    services: PropTypes.shape({
+      active: PropTypes.array.isRequired,
+      discontinued: PropTypes.array.isRequired
+    }).isRequired
+  }).isRequired,
 
   // for testing
   actions: InsightsPropTypes.actions,
@@ -330,30 +313,12 @@ PageContainer.propTypes = {
 
 // Exported for test and story
 export function initialState(props) {
-  const {serializedData, queryParams, shouldUseLightProfilePage} = props;
-  const defaultColumnKey = (shouldUseLightProfilePage) ? 'notes' : 'interventions';
+  const {defaultFeed, queryParams} = props;
+  const defaultColumnKey = 'notes';
 
   return {
-    // context
-    currentEducator: serializedData.currentEducator,
-
-    // constants
-    educatorsIndex: serializedData.educatorsIndex,
-    serviceTypesIndex: serializedData.serviceTypesIndex,
-
-    // data
-    student: serializedData.student,
-    feed: serializedData.feed,
-    transitionNotes: serializedData.transitionNotes,
-    profileInsights: serializedData.profileInsights,
-    teams: serializedData.teams,
-    chartData: serializedData.chartData,
-    attendanceData: serializedData.attendanceData,
-    access: serializedData.access,
-    dibels: serializedData.dibels,
-    iepDocument: serializedData.iepDocument,
-    sections: serializedData.sections,
-    currentEducatorAllowedSections: serializedData.currentEducatorAllowedSections,
+    // we'll mutate this over time
+    feed: defaultFeed,
 
     // ui
     noteInProgressText: '',

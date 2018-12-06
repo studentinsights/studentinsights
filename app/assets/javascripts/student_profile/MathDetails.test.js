@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import MathDetails from './MathDetails';
 
 describe('data', () => {
@@ -17,10 +18,11 @@ describe('data', () => {
       mcas_series_math_growth: [0, 0, 0],
     };
 
-    ReactDOM.render(
+    ReactDOM.render(withDefaultNowContext(
       <MathDetails
         chartData={chartData}
-        student={{}}
-      />, div);
+        studentGrade="3"
+      />
+    ), div);
   });
 });

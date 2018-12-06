@@ -2,6 +2,7 @@ import moment from 'moment';
 import serviceTypesIndex from '../../testing/fixtures/serviceTypesIndex';
 
 // assuming static time for specs
+// deprecated, use <NowContainer /> instead
 export const nowMoment = moment('2016-02-11T10:15:00');
 
 export const feedForTestingNotes = {

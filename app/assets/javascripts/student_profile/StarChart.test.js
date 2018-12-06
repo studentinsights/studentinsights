@@ -1,8 +1,7 @@
-import ProfileChartSettings from './ProfileChartSettings';
+import {starChartTooltip} from './StarChart';
 
-describe('#star_chart_base_options tooltip formatter', () => {
+describe('#starChartTooltip', () => {
   it('works when time is in minutes', () => {
-    const formatter = ProfileChartSettings.star_chart_base_options.tooltip.formatter;
     const data = {
       y: 90,             // Percentile rank
       x: 1463961600000,  // Time
@@ -16,7 +15,7 @@ describe('#star_chart_base_options tooltip formatter', () => {
       ]
     };
 
-    expect(formatter.bind(data)()).toEqual(
+    expect(starChartTooltip().formatter.bind(data)()).toEqual(
       'May 22nd 2016, 8:00:00 pm<br/>'
        + 'Percentile Rank: <b>90</b><br>'
        + 'Time Taking Test: <b>23 minutes and 40 seconds</b><br>'
@@ -25,7 +24,6 @@ describe('#star_chart_base_options tooltip formatter', () => {
   });
 
   it('works when time is less than a minute', () => {
-    const formatter = ProfileChartSettings.star_chart_base_options.tooltip.formatter;
     const data = {
       y: 90,             // Percentile rank
       x: 1463961600000,  // Time
@@ -39,7 +37,7 @@ describe('#star_chart_base_options tooltip formatter', () => {
       ]
     };
 
-    expect(formatter.bind(data)()).toEqual(
+    expect(starChartTooltip().formatter.bind(data)()).toEqual(
       'May 22nd 2016, 8:00:00 pm<br/>'
        + 'Percentile Rank: <b>90</b><br>'
        + 'Time Taking Test: <b>24 seconds</b><br>'
@@ -47,4 +45,3 @@ describe('#star_chart_base_options tooltip formatter', () => {
     );
   });
 });
-

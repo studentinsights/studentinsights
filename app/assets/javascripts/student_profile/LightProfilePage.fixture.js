@@ -1,5 +1,4 @@
 import {initialState} from './PageContainer';
-import {nowMoment} from './fixtures/fixtures';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
 import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
@@ -19,9 +18,12 @@ export function testPropsForAladdinMouse() {
 
 export function testPropsFromSerializedData(serializedData, queryParams = {}) {
   return {
-    ...initialState({serializedData, queryParams}),
-    nowMomentFn() { return nowMoment; },
-    actions: {
+    ...initialState({
+      queryParams,
+      defaultFeed: serializedData.feed,
+    }),
+    profileJson: serializedData,
+    actions: {      
       onColumnClicked: jest.fn(),
       onClickSaveNotes: jest.fn(),
       onClickSaveTransitionNote: jest.fn(),
@@ -31,7 +33,6 @@ export function testPropsFromSerializedData(serializedData, queryParams = {}) {
       onChangeNoteInProgressText: jest.fn(),
       onClickNoteType: jest.fn(),
       onChangeAttachmentUrl: jest.fn()
-    },
-    districtKey: 'somerville'
+    }
   };
 }
