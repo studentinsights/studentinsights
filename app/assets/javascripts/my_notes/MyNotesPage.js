@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Api from './Api';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 import NotesFeedPage from './NotesFeedPage';
 
-class PageContainer extends React.Component {
-
+export default class MyNotesPage extends React.Component {
   constructor(props) {
-
     super(props);
 
     this.state = {
-      educatorsIndex: this.props.educatorsIndex,
-      eventNotes: this.props.eventNotes,
+      educatorsIndex: null,
+      eventNotes: null,
+      totalNotesCount: null,
       batchSizeMultiplier: 2,
     };
 
@@ -20,49 +20,49 @@ class PageContainer extends React.Component {
     this.onClickLoadMoreNotes = this.onClickLoadMoreNotes.bind(this);
   }
 
-  componentWillMount(props, state) {
-    this.api = new Api(); 
+  componentDidMount() {
+    this.doFetchMore();
+  }
+  
+  doFetchMore() {
+    const {batchSizeMultiplier} = this.state;
+    const batchSize = 30 * multiplier;    
+    const url = '/educators/notes_feed_json?batch_size=' + batchSize;
+    apiFetchJson(url).then(this.onDataFetched);
   }
 
-  getEventNotes(json) {
-    this.setState({ eventNotes: json.notes });
-  }
-
-  incrementMultiplier() {
-    let previousMultiplier = this.state.batchSizeMultiplier;
-    this.setState({ batchSizeMultiplier: previousMultiplier + 1 });
+  onDataFetched(json) {
+    const previousMultiplier = this.state.batchSizeMultiplier;
+    this.setState({
+      eventNotes: json.notes,
+      educatorsIndex: json.educators_index,
+      totalNotesCount: json.total_notes_count,
+      batchSizeMultiplier: previousMultiplier + 1
+    });
   }
 
   onClickLoadMoreNotes() {
-    const onSucceed = this.getEventNotes;
-    const incrementMultiplier = this.incrementMultiplier;
-  
-    this.api.getEventNotesData(this.state.batchSizeMultiplier, onSucceed, incrementMultiplier);
+    this.doFetchMore();
   }
 
   render() {
     const {currentEducator} = this.props;
-    return(
+    return (
       <NotesFeedPage
         currentEducatorId={currentEducator.id}
         canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
         educatorsIndex={this.state.educatorsIndex}
         eventNotes={this.state.eventNotes}
         onClickLoadMoreNotes={this.onClickLoadMoreNotes}
-        totalNotesCount={this.props.totalNotesCount} />
+        totalNotesCount={this.state.totalNotesCount} />
     );
   }
 
 }
 
-PageContainer.propTypes = {
+MyNotesPage.propTypes = {
   currentEducator: PropTypes.shape({
     id: PropTypes.number.iRequired,
     can_view_restricted_notes: PropTypes.bool.isRequired
-  }).isRequired,
-  educatorsIndex: PropTypes.object.isRequired,
-  eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  totalNotesCount: PropTypes.number.isRequired
+  }).isRequired
 };
-
-export default PageContainer;

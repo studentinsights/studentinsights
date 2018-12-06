@@ -82,14 +82,9 @@ class EducatorsController < ApplicationController
   end
 
   def notes_feed_json
-    batch_size = params["batch_size"].to_i
+    batch_size = params['batch_size'].to_i
     serialized_data = notes_feed_data(batch_size)
     render json: serialized_data
-  end
-
-  def notes_feed
-    @serialized_data = notes_feed_data(DEFAULT_BATCH_SIZE)
-    render 'shared/serialized_data'
   end
 
   def notes_feed_data(batch_size)

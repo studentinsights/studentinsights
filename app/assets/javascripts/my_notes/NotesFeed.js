@@ -3,7 +3,7 @@ import React from 'react';
 import NotesList from '../student_profile/NotesList';
 
 
-export default class NotesFeedPage extends React.Component {
+export default class NotesFeed extends React.Component {
   render() {
     const {currentEducatorId, eventNotes, educatorsIndex, canUserAccessRestrictedNotes} = this.props;
     const feed = {
@@ -18,7 +18,7 @@ export default class NotesFeedPage extends React.Component {
     };
 
     return (
-      <div className="NotesFeedPage" style={styles.root}>
+      <div className="NotesFeed" style={styles.root}>
         <div className="header" style={styles.header}>
           <div className="title" style={styles.title}>
             My Notes
@@ -56,7 +56,7 @@ export default class NotesFeedPage extends React.Component {
     }
   }
 }
-NotesFeedPage.propTypes = {
+NotesFeed.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
