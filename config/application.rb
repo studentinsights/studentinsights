@@ -37,8 +37,6 @@ module SomervilleTeacherTool
     # a containing module.
     Rails.application.config.tap do |config|
       class_paths = [
-        "#{config.root}/app/importers/clients",
-        "#{config.root}/app/importers/constants",
         "#{config.root}/app/importers/data_transformers",
         "#{config.root}/app/importers/file_importers",
         "#{config.root}/app/importers/helpers",

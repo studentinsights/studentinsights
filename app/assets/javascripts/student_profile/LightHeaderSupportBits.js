@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
   hasInfoAbout504Plan,
-  supportsSpedLiaison
+  supportsSpedLiaison,
+  shouldShowIepLink
 } from '../helpers/PerDistrict';
 import {
   hasAnySpecialEducationData,
@@ -20,6 +21,7 @@ import HelpBubble, {
 } from '../components/HelpBubble';
 import Team from '../components/Team';
 import Pdf from './Pdf';
+import EdPlansPanel from './EdPlansPanel';
 import LanguageStatusLink from './LanguageStatusLink';
 
 
@@ -139,10 +141,13 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderIEP() {
+    const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
     const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
+    if (!shouldShowIepLink(districtKey)) return specialEducationText;
+
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
@@ -175,7 +180,7 @@ export default class LightHeaderSupportBits extends React.Component {
     const spedLiaison = student.sped_liaison;
     const {program, placement, levelOfNeed, disability} = cleanSpecialEducationValues(student);
     return (
-      <div style={styles.iepDialog}>
+      <div style={styles.dialog}>
         {supportsSpedLiaison(districtKey) && spedLiaison && (
           <div style={styles.contactItem}>
             <div>SPED liaison: {spedLiaison}</div>
@@ -228,11 +233,36 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   render504() {
-    const {student} = this.props;
+    const {student, educatorLabels} = this.props;
     const plan504 = student.plan_504;
-    return (hasInfoAbout504Plan(plan504))
-      ? <div style={styles.subtitleItem}>504 plan</div>
-      : null;
+    if (!hasInfoAbout504Plan(plan504)) return null;
+
+    const plan504El = <div style={styles.subtitleItem}>504 plan</div>;
+    if (educatorLabels.indexOf('enable_viewing_504_data_in_profile') === -1) return plan504El;
+
+    return (
+      <HelpBubble
+        style={{marginLeft: 0, display: 'block'}}
+        teaser="504 plan"
+        linkStyle={styles.subtitleItem}
+        modalStyle={modalFullScreenFlex}
+        dialogStyle={dialogFullScreenFlex}
+        title={`${student.first_name}'s 504 plan`}
+        withoutSpacer={true}
+        withoutContentWrapper={true}
+        content={this.render504Dialog()}
+      />
+    );
+  }
+
+  render504Dialog() {
+    const {edPlans} = this.props;
+
+    return (
+      <div style={styles.dialog}>
+        <EdPlansPanel edPlans={edPlans} />
+      </div>
+    );
   }
 
   renderLanguage() {
@@ -252,6 +282,7 @@ export default class LightHeaderSupportBits extends React.Component {
 }
 
 LightHeaderSupportBits.propTypes = {
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   iepDocument: PropTypes.object,
   access: PropTypes.object,
   teams: PropTypes.arrayOf(PropTypes.shape({
@@ -261,6 +292,7 @@ LightHeaderSupportBits.propTypes = {
   activeServices: PropTypes.arrayOf(PropTypes.shape({
     provided_by_educator_name: PropTypes.string
   })).isRequired,
+  edPlans: PropTypes.arrayOf(PropTypes.object).isRequired,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -317,7 +349,7 @@ const styles = {
     flex: 1,
     display: 'flex'
   },
-  iepDialog: {
+  dialog: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',

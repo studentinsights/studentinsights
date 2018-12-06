@@ -1,0 +1,101 @@
+require 'rails_helper'
+
+RSpec.describe EdPlanImporter do
+  def fixture_file_text
+    IO.read("#{Rails.root}/spec/importers/file_importers/ed_plan_importer_fixture.csv")
+  end
+
+  def create_importer(options = {})
+    log = LogHelper::FakeLog.new
+    matcher = ImportMatcher.new
+    importer = EdPlanImporter.new(options: {
+      log: log,
+      matcher: matcher,
+      school_scope: nil,
+      file_text: nil
+    }.merge(options))
+    [importer, matcher, log]
+  end
+
+  def mock_importer_download!(importer)
+    mock_per_district = PerDistrict.new
+    allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+    allow(mock_per_district).to receive(:try_sftp_filename).with('FILENAME_FOR_ED_PLAN_IMPORT').and_return('test_filename_for_ed_plan_import.txt')
+    allow(importer).to receive(:download_csv_file_text).with('test_filename_for_ed_plan_import.txt').and_return(fixture_file_text)
+  end
+
+  describe 'integration test' do
+    let!(:pals) { TestPals.create! }
+
+    it 'works on happy path, with SFTP download mocked' do
+      importer, matcher, log = create_importer
+      mock_importer_download!(importer)
+      importer.import
+
+      expect(log.output).to include(':created_rows_count=>2')
+      expect(importer.instance_variable_get(:@syncer).stats[:created_rows_count]).to eq 2
+      expect(matcher.stats).to eq({
+        :invalid_course_numbers => [],
+        :invalid_educator_emails => [],
+        :invalid_rows_count => 0,
+        :invalid_student_local_ids => [],
+        :valid_rows_count => 2,
+      })
+
+      expect(EdPlan.all.size).to eq 2
+      expect(EdPlan.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        "sep_oid"=>"fake-sep-oid-1",
+        "student_id"=>pals.healey_kindergarten_student.id,
+        "sep_grade_level"=>nil,
+        "sep_status"=>"2",
+        "sep_effective_date"=>Date.parse('Tue, 15 Sep 2015'),
+        "sep_review_date"=>Date.parse('Thu, 15 Oct 2015'),
+        "sep_last_meeting_date"=>nil,
+        "sep_district_signed_date"=>nil,
+        "sep_parent_signed_date"=>Date.parse('Tue, 15 Sep 2015'),
+        "sep_end_date"=>Date.parse('Thu, 15 Oct 2015'),
+        "sep_last_modified"=>nil,
+        "sep_fieldd_001"=> "These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.",
+        "sep_fieldd_002"=>"",
+        "sep_fieldd_003"=>"",
+        "sep_fieldd_004"=>"Team Members Present:  Rich Districtwide, Laura Principal\\\nEmail with 504 sent to teachers, guidance counselor, principal on 9/15/15.",
+        "sep_fieldd_005"=>"Category",
+        "sep_fieldd_006"=>nil,
+        "sep_fieldd_007"=>nil,
+        "sep_fieldd_008"=>nil,
+        "sep_fieldd_009"=>nil,
+        "sep_fieldd_010"=>nil,
+        "sep_fieldd_011"=>nil,
+        "sep_fieldd_012"=>nil,
+        "sep_fieldd_013"=>nil,
+        "sep_fieldd_014"=>nil
+      }, {
+        "sep_oid"=>"fake-sep-oid-2",
+        "student_id"=>pals.west_eighth_ryan.id,
+        "sep_grade_level"=>nil,
+        "sep_status"=>"4",
+        "sep_effective_date"=>Date.parse('Sun, 23 Aug 2015'),
+        "sep_review_date"=>Date.parse('Fri, 02 Oct 2015'),
+        "sep_last_meeting_date"=>nil,
+        "sep_district_signed_date"=>nil,
+        "sep_parent_signed_date"=>nil,
+        "sep_end_date"=>Date.parse('Mon, 22 Feb 2016'),
+        "sep_last_modified"=>nil,
+        "sep_fieldd_001"=>"",
+        "sep_fieldd_002"=>"",
+        "sep_fieldd_003"=>"",
+        "sep_fieldd_004"=>"",
+        "sep_fieldd_005"=>"",
+        "sep_fieldd_006"=>"ADHD\\\nGeneral Anxiety Disorder",
+        "sep_fieldd_007"=>"",
+        "sep_fieldd_008"=>nil,
+        "sep_fieldd_009"=>nil,
+        "sep_fieldd_010"=>nil,
+        "sep_fieldd_011"=>nil,
+        "sep_fieldd_012"=>nil,
+        "sep_fieldd_013"=>nil,
+        "sep_fieldd_014"=>nil
+      }])
+    end
+  end
+end

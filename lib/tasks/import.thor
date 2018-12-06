@@ -11,7 +11,7 @@ class Import
     class_option :source,
       type: :array,
       default: ['x2', 'star'],  # This runs all X2 and STAR importers
-      desc: "Import data from one of #{FileImporterOptions.keys}"
+      desc: "Import data from one of #{FileImporterOptions.new.all_importer_keys}"
     class_option :only_recent_attendance,
       type: :boolean,
       default: false,

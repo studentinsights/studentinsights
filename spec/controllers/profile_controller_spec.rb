@@ -104,6 +104,54 @@ describe ProfileController, :type => :controller do
       end
     end
 
+    describe 'ed_plans' do
+      let!(:pals) { TestPals.create! }
+      let!(:f_and_p) do
+        EdPlan.create!({
+          student_id: pals.healey_kindergarten_student.id,
+          sep_oid: 'test-sep-oid'
+        })
+      end
+
+      it 'works' do
+        sign_in(pals.uri)
+        make_request(pals.uri, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['ed_plans'].size).to eq(1)
+        expect(json['ed_plans'].first.keys).to contain_exactly(*[
+          'id',
+          'sep_oid',
+          'student_id',
+          'sep_grade_level',
+          'sep_status',
+          'sep_effective_date',
+          'sep_review_date',
+          'sep_last_meeting_date',
+          'sep_district_signed_date',
+          'sep_parent_signed_date',
+          'sep_end_date',
+          'sep_last_modified',
+          'sep_fieldd_001',
+          'sep_fieldd_002',
+          'sep_fieldd_003',
+          'sep_fieldd_004',
+          'sep_fieldd_005',
+          'sep_fieldd_006',
+          'sep_fieldd_007',
+          'sep_fieldd_008',
+          'sep_fieldd_009',
+          'sep_fieldd_010',
+          'sep_fieldd_011',
+          'sep_fieldd_012',
+          'sep_fieldd_013',
+          'sep_fieldd_014',
+          'created_at',
+          'updated_at'
+        ])
+      end
+    end
+
     describe 'integration test for profile_insights' do
       let!(:educator) { FactoryBot.create(:educator, :admin, school: school, full_name: "Teacher, Karen") }
       let!(:transition_note_text) do
@@ -187,6 +235,7 @@ describe ProfileController, :type => :controller do
             'chart_data',
             'dibels',
             'f_and_p_assessments',
+            'ed_plans',
             'service_types_index',
             'educators_index',
             'profile_insights',

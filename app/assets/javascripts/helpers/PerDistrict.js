@@ -39,6 +39,11 @@ const ORDERED_DISABILITY_VALUES_MAP = {
   ]
 };
 
+export function shouldShowIepLink(districtKey) {
+  if (districtKey === BEDFORD) return false;
+  return true;
+}
+
 export function orderedDisabilityValues(districtKey) {
   return ORDERED_DISABILITY_VALUES_MAP[districtKey] || [];
 }

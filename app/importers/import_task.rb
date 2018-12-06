@@ -5,8 +5,8 @@ class ImportTask
     # options["school"] is an optional filter; imports all schools if nil
     @school = @options.fetch("school", nil)
 
-    # options["source"] describes which external data sources to import from
-    @source = @options.fetch("source", ["x2", "star"])
+    # options["source"] describes the list of importers to run
+    @importer_keys = @options.fetch("source", ["x2", "star"])
 
     # This option controls whether older data is ignored.  Different importers
     # respond differently to these options (some do not respect them).
@@ -116,7 +116,7 @@ class ImportTask
   # This is the main method doing all the work
   def import_all_the_data
     log('Starting #import_all_the_data...')
-    file_import_classes = UnwrapFileImporterOptions.new(@source).sort_file_import_classes
+    file_import_classes = FileImporterOptions.new.prioritized_file_importer_classes(@importer_keys)
     log("file_import_classes = [\n  #{file_import_classes.join("\n  ")}\n]")
     timing_log = []
 

@@ -87,17 +87,20 @@ export default class LightProfilePage extends React.Component {
       access,
       teams,
       profileInsights,
-      iepDocument
+      iepDocument,
+      currentEducator,
+      edPlans
     } = this.props.profileJson;
-    const activeServices = feed.services.active;
     return (
       <LightProfileHeader
+        educatorLabels={currentEducator.labels}
         student={student}
         access={access}
         teams={teams}
         iepDocument={iepDocument}
         profileInsights={profileInsights}
-        activeServices={activeServices}
+        activeServices={feed.services.active}
+        edPlans={edPlans}
         renderFullCaseHistory={this.renderFullCaseHistory.bind(this)}
       />
     );
@@ -546,6 +549,7 @@ LightProfilePage.propTypes = {
     teams: PropTypes.array.isRequired,
     iepDocument: PropTypes.object,
     sections: PropTypes.array,
+    edPlans: PropTypes.array.isRequired,
     currentEducatorAllowedSections: PropTypes.array
   }).isRequired
 };

@@ -29,7 +29,7 @@ describe('integration tests', () => {
   it('renders everything after fetch', done => {
     const props = testProps();
     const wrapper = mount(withDefaultNowContext(<EducatorPage {...props} />));
-    expect(wrapper.html()).toContain('This is an experimental prototype page!');
+    expect(wrapper.html()).toContain('This is an experimental prototype!');
 
     setTimeout(() => {
       const text = wrapper.text();
