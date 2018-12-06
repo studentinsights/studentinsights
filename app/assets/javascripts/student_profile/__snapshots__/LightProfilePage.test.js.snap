@@ -4802,7 +4802,7 @@ exports[`snapshots works for olaf math 1`] = `
               }
             }
           >
-            MCAS Next Gen Math Scores
+            MCAS Math Scores (Next Gen), last 4 years
           </h4>
           <span
             style={
@@ -4918,7 +4918,7 @@ exports[`snapshots works for olaf math 1`] = `
               }
             }
           >
-            MCAS Math SGPs, last 4 years
+            MCAS Math growth percentile (SGP), last 4 years
           </h4>
           <span
             style={
@@ -7387,7 +7387,7 @@ exports[`snapshots works for olaf reading 1`] = `
               }
             }
           >
-            MCAS Next Gen ELA Scores, last 4 years
+            MCAS ELA Scores (Next Gen), last 4 years
           </h4>
           <span
             style={
@@ -7503,7 +7503,7 @@ exports[`snapshots works for olaf reading 1`] = `
               }
             }
           >
-            Student growth percentile (SGP), last 4 years
+            MCAS ELA growth percentile (SGP), last 4 years
           </h4>
           <span
             style={

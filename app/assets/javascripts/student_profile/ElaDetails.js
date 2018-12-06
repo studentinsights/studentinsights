@@ -43,7 +43,7 @@ export default class ElaDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
 
     return (
-      <DetailsSection title="MCAS Next Gen ELA Scores, last 4 years">
+      <DetailsSection title="MCAS ELA Scores (Next Gen), last 4 years">
         <McasNextGenChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
@@ -73,7 +73,7 @@ export default class ElaDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
     
     return (
-      <DetailsSection title="Student growth percentile (SGP), last 4 years">
+      <DetailsSection title="MCAS ELA growth percentile (SGP), last 4 years">
         <McasSgpChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
