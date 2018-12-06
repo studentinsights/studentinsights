@@ -57,9 +57,11 @@ export default class ElaDetails extends React.Component {
     const maybeCode = (fAndP.f_and_p_code) ? ` with ${fAndP.f_and_p_code} code` : null;
     
     return (
-      <DetailsSection title="Fountass and Pinnell (F&P), latest score">
-        <pre>{JSON.stringify(fAndP)}</pre>
-        <div>Level {fAndP.instructional_level}{maybeCode} on {toMomentFromRailsDate(fAndP.benchmark_date).format('M/D/YY')}</div>
+      <DetailsSection title="Fountas and Pinnell (F&P), latest score">
+        <div>
+          <span style={{padding: 5, backgroundColor: '#ccc', fontWeight: 'bold'}}>Level {fAndP.instructional_level}{maybeCode}</span>
+          <span> on {toMomentFromRailsDate(fAndP.benchmark_date).format('M/D/YY')}</span>
+        </div>
       </DetailsSection>
     );
   }
