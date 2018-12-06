@@ -47,7 +47,7 @@ export default class ElaDetails extends React.Component {
       'STRATEGIC': medium,
       'CORE': high
     }[score] || '#ccc';
-    return <span style={{padding: 10, color: 'white', backgroundColor}}>{score}</span>;
+    return <span style={{padding: 5, opacity: 0.85, fontWeight: 'bold', color: 'white', backgroundColor}}>{score}</span>;
   }
 
   renderFAndPs() {
