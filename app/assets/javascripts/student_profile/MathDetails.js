@@ -87,10 +87,10 @@ export default class MathDetails extends React.Component {
 
 MathDetails.propTypes = {
   chartData: PropTypes.shape({
-    star_series_math_percentile: PropTypes.array.isRequired,
+    star_series_math_percentile: PropTypes.array,
     mcas_series_math_scaled: PropTypes.array,
     next_gen_mcas_mathematics_scaled: PropTypes.array,
-    mcas_series_math_growth: PropTypes.array.isRequired
+    mcas_series_math_growth: PropTypes.array
   }).isRequired,
   studentGrade: PropTypes.string.isRequired,
   hideStar: PropTypes.bool

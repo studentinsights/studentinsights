@@ -85,10 +85,10 @@ export default class ElaDetails extends React.Component {
 
 ElaDetails.propTypes = {
   chartData: PropTypes.shape({
-    star_series_reading_percentile: PropTypes.array.isRequired,
+    star_series_reading_percentile: PropTypes.array,
     mcas_series_ela_scaled: PropTypes.array,
     next_gen_mcas_ela_scaled: PropTypes.array,
-    mcas_series_ela_growth: PropTypes.array.isRequired
+    mcas_series_ela_growth: PropTypes.array
   }).isRequired,
   studentGrade: PropTypes.string.isRequired,
   hideStar: PropTypes.bool

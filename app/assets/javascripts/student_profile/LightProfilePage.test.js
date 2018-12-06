@@ -44,17 +44,17 @@ describe('snapshots', () => {
     expect(tree).toMatchSnapshot();
   }
 
-  it('works for olaf notes', () => expectSnapshot(testPropsForOlafWhite({selectedColumnKey: 'notes'})));
-  it('works for olaf reading', () => expectSnapshot(testPropsForOlafWhite({selectedColumnKey: 'reading'})));
-  it('works for olaf math', () => expectSnapshot(testPropsForOlafWhite({selectedColumnKey: 'math'})));
+  it('works for olaf notes', () => expectSnapshot({...testPropsForOlafWhite(), selectedColumnKey: 'notes'}));
+  it('works for olaf reading', () => expectSnapshot({...testPropsForOlafWhite(), selectedColumnKey: 'reading'}));
+  it('works for olaf math', () => expectSnapshot({...testPropsForOlafWhite(), selectedColumnKey: 'math'}));
 
-  it('works for pluto notes', () => expectSnapshot(testPropsForPlutoPoppins({selectedColumnKey: 'notes'})));
-  it('works for pluto attendance', () => expectSnapshot(testPropsForPlutoPoppins({selectedColumnKey: 'attendance'})));
-  it('works for pluto behavior', () => expectSnapshot(testPropsForPlutoPoppins({selectedColumnKey: 'behavior'})));
+  it('works for pluto notes', () => expectSnapshot({...testPropsForPlutoPoppins(), selectedColumnKey: 'notes'}));
+  it('works for pluto attendance', () => expectSnapshot({...testPropsForPlutoPoppins(), selectedColumnKey: 'attendance'}));
+  it('works for pluto behavior', () => expectSnapshot({...testPropsForPlutoPoppins(), selectedColumnKey: 'behavior'}));
 
-  it('works for aladdin notes', () => expectSnapshot(testPropsForAladdinMouse({selectedColumnKey: 'notes'})));
-  it('works for aladdin grades', () => expectSnapshot(testPropsForAladdinMouse({selectedColumnKey: 'grades'})));
-  it('works for aladdin testing', () => expectSnapshot(testPropsForAladdinMouse({selectedColumnKey: 'testing'})));
+  it('works for aladdin notes', () => expectSnapshot({...testPropsForAladdinMouse(), selectedColumnKey: 'notes'}));
+  it('works for aladdin grades', () => expectSnapshot({...testPropsForAladdinMouse(), selectedColumnKey: 'grades'}));
+  it('works for aladdin testing', () => expectSnapshot({...testPropsForAladdinMouse(), selectedColumnKey: 'testing'}));
 });
 
 

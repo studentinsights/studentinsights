@@ -618,7 +618,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 1,
+            "opacity": 0.6,
             "textAlign": "center",
           }
         }
@@ -626,11 +626,11 @@ exports[`snapshots works for aladdin grades 1`] = `
         <div
           style={
             Object {
-              "background": "#4A90E2",
+              "background": "#6f8fc2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 1,
+              "opacity": 0.6,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -711,7 +711,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -719,11 +719,11 @@ exports[`snapshots works for aladdin grades 1`] = `
         <div
           style={
             Object {
-              "background": "#f18837",
+              "background": "#ff7f00",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -1070,308 +1070,159 @@ exports[`snapshots works for aladdin grades 1`] = `
     }
   >
     <div
-      className="LightProfilePage-notes"
+      className="DetailsSection roster"
+      id="sections-roster"
       style={
         Object {
-          "display": "flex",
-          "flexDirection": "row",
+          "border": "1px solid #ccc",
+          "marginLeft": "auto",
+          "marginRight": "auto",
+          "marginTop": 50,
+          "padding": "30px 30px 30px 30px",
+          "position": "relative",
+          "width": "100%",
         }
       }
     >
       <div
-        className="LightNotesDetails"
         style={
           Object {
-            "marginRight": 20,
-            "width": "50%",
+            "bottom": 10,
+            "display": "flex",
+            "justifyContent": "space-between",
+            "position": "relative",
           }
         }
       >
-        <div
-          className="SectionHeading"
+        <h4
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "color": "black",
+              "fontSize": 24,
+              "paddingBottom": 20,
             }
           }
         >
-          <h4
-            style={
-              Object {
-                "alignItems": "center",
-                "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
-              }
+          Sections
+        </h4>
+        <span
+          style={
+            Object {
+              "textAlign": "right",
+              "verticalAlign": "text-top",
             }
+          }
+        >
+          <a
+            href="#"
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Notes
-                 for 
-                Aladdin
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  note
-                </span>
-              </span>
-            </button>
-          </h4>
-        </div>
-        <div>
-          <div
-            className="NotesList"
-          >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
-            >
-              No notes
-            </div>
-            <div
-              className="CleanSlateMessage"
-              style={
-                Object {
-                  "padding": 10,
-                  "paddingBottom": 0,
-                  "paddingTop": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                A note about student privacy
-              </div>
-              <span>
-                To respect student privacy, this page only includes 
-                one year of data
-                 by default.  
-              </span>
-              <span>
-                <span>
-                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
-                </span>
-                <a
-                  className="CleanSlateMessage-show-history-link"
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "#999",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "paddingLeft": 5,
-                    }
-                  }
-                >
-                  show full case history
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
+            Back to top
+          </a>
+        </span>
       </div>
       <div
-        className="ServicesDetails"
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
+        className="FlexibleRoster"
       >
-        <div
-          className="SectionHeading"
+        <table
+          className="roster-table"
+          id="roster-table"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "width": "100%",
             }
           }
         >
-          <h4
-            style={
-              Object {
-                "alignItems": "center",
-                "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
+          <thead>
+            <tr
+              className="column-groups"
+            />
+            <tr
+              id="roster-header"
             >
-              <span>
-                Services
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
+              <th
+                className="sort-header"
+                onClick={[Function]}
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn record-service"
-              onClick={[Function]}
-              style={
-                Object {
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  service
-                </span>
-              </span>
-            </button>
-          </h4>
-        </div>
-        <div>
-          <div
-            className="ServicesList"
+                Section Number
+              </th>
+              <th
+                className="sort-header"
+                onClick={[Function]}
+              >
+                Course Description
+              </th>
+              <th
+                className="sort-header"
+                onClick={[Function]}
+              >
+                Grade
+              </th>
+              <th
+                className="sort-header"
+                onClick={[Function]}
+              >
+                Schedule
+              </th>
+              <th
+                className="sort-header"
+                onClick={[Function]}
+              >
+                Educators
+              </th>
+              <th
+                className="sort-header"
+                onClick={[Function]}
+              >
+                Room
+              </th>
+              <th
+                className="sort-header sort-down"
+                onClick={[Function]}
+              >
+                Term
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            id="roster-data"
           >
-            <div
+            <tr
               style={
                 Object {
-                  "margin": 10,
+                  "backgroundColor": "#FFFFFF",
                 }
               }
             >
-              No services
-            </div>
-          </div>
-        </div>
+              <td>
+                <a
+                  href="/sections/5"
+                >
+                  SCI-201A
+                </a>
+              </td>
+              <td>
+                PHYSICS 1
+              </td>
+              <td>
+                71.0
+              </td>
+              <td>
+                3(M,W,F)
+              </td>
+              <td>
+                <p>
+                  Teacher, Fatima
+                </p>
+              </td>
+              <td>
+                306W
+              </td>
+              <td>
+                S1
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -3374,7 +3225,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 1,
+            "opacity": 0.6,
             "textAlign": "center",
           }
         }
@@ -3382,11 +3233,11 @@ exports[`snapshots works for aladdin testing 1`] = `
         <div
           style={
             Object {
-              "background": "#4A90E2",
+              "background": "#6f8fc2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 1,
+              "opacity": 0.6,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -3558,7 +3409,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -3566,11 +3417,11 @@ exports[`snapshots works for aladdin testing 1`] = `
         <div
           style={
             Object {
-              "background": "#613574",
+              "background": "#6A2987",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -3826,309 +3677,14 @@ exports[`snapshots works for aladdin testing 1`] = `
     }
   >
     <div
-      className="LightProfilePage-notes"
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
-      }
+      className="LightProfilePage-testing"
     >
       <div
-        className="LightNotesDetails"
-        style={
-          Object {
-            "marginRight": 20,
-            "width": "50%",
-          }
-        }
-      >
-        <div
-          className="SectionHeading"
-          style={
-            Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
-            }
-          }
-        >
-          <h4
-            style={
-              Object {
-                "alignItems": "center",
-                "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Notes
-                 for 
-                Aladdin
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  note
-                </span>
-              </span>
-            </button>
-          </h4>
-        </div>
-        <div>
-          <div
-            className="NotesList"
-          >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
-            >
-              No notes
-            </div>
-            <div
-              className="CleanSlateMessage"
-              style={
-                Object {
-                  "padding": 10,
-                  "paddingBottom": 0,
-                  "paddingTop": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                A note about student privacy
-              </div>
-              <span>
-                To respect student privacy, this page only includes 
-                one year of data
-                 by default.  
-              </span>
-              <span>
-                <span>
-                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
-                </span>
-                <a
-                  className="CleanSlateMessage-show-history-link"
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "#999",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "paddingLeft": 5,
-                    }
-                  }
-                >
-                  show full case history
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+        className="ElaDetails"
+      />
       <div
-        className="ServicesDetails"
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
-        <div
-          className="SectionHeading"
-          style={
-            Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
-            }
-          }
-        >
-          <h4
-            style={
-              Object {
-                "alignItems": "center",
-                "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Services
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn record-service"
-              onClick={[Function]}
-              style={
-                Object {
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  service
-                </span>
-              </span>
-            </button>
-          </h4>
-        </div>
-        <div>
-          <div
-            className="ServicesList"
-          >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
-            >
-              No services
-            </div>
-          </div>
-        </div>
-      </div>
+        className="MathDetails"
+      />
     </div>
   </div>
 </div>
@@ -4701,7 +4257,7 @@ exports[`snapshots works for olaf math 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 1,
+            "opacity": 0.6,
             "textAlign": "center",
           }
         }
@@ -4709,11 +4265,11 @@ exports[`snapshots works for olaf math 1`] = `
         <div
           style={
             Object {
-              "background": "#4A90E2",
+              "background": "#6f8fc2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 1,
+              "opacity": 0.6,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -4885,7 +4441,7 @@ exports[`snapshots works for olaf math 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -4893,11 +4449,11 @@ exports[`snapshots works for olaf math 1`] = `
         <div
           style={
             Object {
-              "background": "#613574",
+              "background": "#6A2987",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -5153,307 +4709,238 @@ exports[`snapshots works for olaf math 1`] = `
     }
   >
     <div
-      className="LightProfilePage-notes"
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
-      }
+      className="MathDetails"
     >
       <div
-        className="LightNotesDetails"
+        className="DetailsSection"
         style={
           Object {
-            "marginRight": 20,
-            "width": "50%",
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Notes
-                 for 
-                Olaf
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  note
-                </span>
-              </span>
-            </button>
+            STAR Math, last 4 years
           </h4>
-        </div>
-        <div>
-          <div
-            className="NotesList"
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
           >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
+            <a
+              href="#"
             >
-              No notes
-            </div>
-            <div
-              className="CleanSlateMessage"
-              style={
-                Object {
-                  "padding": 10,
-                  "paddingBottom": 0,
-                  "paddingTop": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                A note about student privacy
-              </div>
-              <span>
-                To respect student privacy, this page only includes 
-                one year of data
-                 by default.  
-              </span>
-              <span>
-                <span>
-                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
-                </span>
-                <a
-                  className="CleanSlateMessage-show-history-link"
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "#999",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "paddingLeft": 5,
-                    }
-                  }
-                >
-                  show full case history
-                </a>
-              </span>
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="StarChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
         </div>
       </div>
       <div
-        className="ServicesDetails"
+        className="DetailsSection"
         style={
           Object {
-            "flex": 1,
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Services
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn record-service"
-              onClick={[Function]}
-              style={
-                Object {
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  service
-                </span>
-              </span>
-            </button>
+            MCAS Next Gen Math Scores
           </h4>
-        </div>
-        <div>
-          <div
-            className="ServicesList"
-          >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
               }
+            }
+          >
+            <a
+              href="#"
             >
-              No services
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="McasChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
+        </div>
+      </div>
+      <div
+        className="DetailsSection"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "fontSize": 24,
+                "paddingBottom": 20,
+              }
+            }
+          >
+            MCAS Math Scores, last 4 years
+          </h4>
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
+          >
+            <a
+              href="#"
+            >
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="McasChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
+        </div>
+      </div>
+      <div
+        className="DetailsSection"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "fontSize": 24,
+                "paddingBottom": 20,
+              }
+            }
+          >
+            MCAS Math SGPs, last 4 years
+          </h4>
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
+          >
+            <a
+              href="#"
+            >
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="McasChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
         </div>
       </div>
     </div>
@@ -7355,7 +6842,7 @@ exports[`snapshots works for olaf reading 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 1,
+            "opacity": 0.6,
             "textAlign": "center",
           }
         }
@@ -7363,11 +6850,11 @@ exports[`snapshots works for olaf reading 1`] = `
         <div
           style={
             Object {
-              "background": "#4A90E2",
+              "background": "#6f8fc2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 1,
+              "opacity": 0.6,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -7448,7 +6935,7 @@ exports[`snapshots works for olaf reading 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -7456,11 +6943,11 @@ exports[`snapshots works for olaf reading 1`] = `
         <div
           style={
             Object {
-              "background": "#f18837",
+              "background": "#ff7f00",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -7807,307 +7294,238 @@ exports[`snapshots works for olaf reading 1`] = `
     }
   >
     <div
-      className="LightProfilePage-notes"
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
-      }
+      className="ElaDetails"
     >
       <div
-        className="LightNotesDetails"
+        className="DetailsSection"
         style={
           Object {
-            "marginRight": 20,
-            "width": "50%",
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Notes
-                 for 
-                Olaf
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  note
-                </span>
-              </span>
-            </button>
+            STAR Reading, last 4 years
           </h4>
-        </div>
-        <div>
-          <div
-            className="NotesList"
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
           >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
+            <a
+              href="#"
             >
-              No notes
-            </div>
-            <div
-              className="CleanSlateMessage"
-              style={
-                Object {
-                  "padding": 10,
-                  "paddingBottom": 0,
-                  "paddingTop": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                A note about student privacy
-              </div>
-              <span>
-                To respect student privacy, this page only includes 
-                one year of data
-                 by default.  
-              </span>
-              <span>
-                <span>
-                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
-                </span>
-                <a
-                  className="CleanSlateMessage-show-history-link"
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "#999",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "paddingLeft": 5,
-                    }
-                  }
-                >
-                  show full case history
-                </a>
-              </span>
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="StarChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
         </div>
       </div>
       <div
-        className="ServicesDetails"
+        className="DetailsSection"
         style={
           Object {
-            "flex": 1,
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Services
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn record-service"
-              onClick={[Function]}
-              style={
-                Object {
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  service
-                </span>
-              </span>
-            </button>
+            MCAS Next Gen ELA Scores, last 4 years
           </h4>
-        </div>
-        <div>
-          <div
-            className="ServicesList"
-          >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
               }
+            }
+          >
+            <a
+              href="#"
             >
-              No services
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="McasChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
+        </div>
+      </div>
+      <div
+        className="DetailsSection"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "fontSize": 24,
+                "paddingBottom": 20,
+              }
+            }
+          >
+            MCAS ELA Scores, last 4 years
+          </h4>
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
+          >
+            <a
+              href="#"
+            >
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="McasChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
+        </div>
+      </div>
+      <div
+        className="DetailsSection"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "fontSize": 24,
+                "paddingBottom": 20,
+              }
+            }
+          >
+            Student growth percentile (SGP), last 4 years
+          </h4>
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
+          >
+            <a
+              href="#"
+            >
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="McasChart"
+        >
+          <div
+            className="HighchartsWrapper"
+          />
         </div>
       </div>
     </div>
@@ -8674,7 +8092,7 @@ exports[`snapshots works for pluto attendance 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 1,
+            "opacity": 0.6,
             "textAlign": "center",
           }
         }
@@ -8682,11 +8100,11 @@ exports[`snapshots works for pluto attendance 1`] = `
         <div
           style={
             Object {
-              "background": "#4A90E2",
+              "background": "#6f8fc2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 1,
+              "opacity": 0.6,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -8949,7 +8367,7 @@ exports[`snapshots works for pluto attendance 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -8957,11 +8375,11 @@ exports[`snapshots works for pluto attendance 1`] = `
         <div
           style={
             Object {
-              "background": "#b14d6c",
+              "background": "#c8326b",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -9126,660 +8544,117 @@ exports[`snapshots works for pluto attendance 1`] = `
     }
   >
     <div
-      className="LightProfilePage-notes"
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
-      }
+      className="LightAttendanceDetails"
     >
       <div
-        className="LightNotesDetails"
+        className="DetailsSection ProfileBarChart"
+        id="absences"
         style={
           Object {
-            "marginRight": 20,
-            "width": "50%",
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Notes
-                 for 
-                Pluto
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  note
-                </span>
-              </span>
-            </button>
+            Absences, last 4 years
           </h4>
-        </div>
-        <div>
-          <div
-            className="NotesList"
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
           >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
+            <a
+              href="#"
             >
-              No notes
-            </div>
-            <div
-              className="CleanSlateMessage"
-              style={
-                Object {
-                  "padding": 10,
-                  "paddingBottom": 0,
-                  "paddingTop": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                A note about student privacy
-              </div>
-              <span>
-                To respect student privacy, this page only includes 
-                one year of data
-                 by default.  
-              </span>
-              <span>
-                <span>
-                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
-                </span>
-                <a
-                  className="CleanSlateMessage-show-history-link"
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "#999",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "paddingLeft": 5,
-                    }
-                  }
-                >
-                  show full case history
-                </a>
-              </span>
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
         </div>
+        <div
+          className="HighchartsWrapper"
+        />
       </div>
       <div
-        className="ServicesDetails"
+        className="DetailsSection ProfileBarChart"
+        id="tardies"
         style={
           Object {
-            "flex": 1,
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Services
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn record-service"
-              onClick={[Function]}
-              style={
-                Object {
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  service
-                </span>
-              </span>
-            </button>
+            Tardies, last 4 years
           </h4>
-        </div>
-        <div>
-          <div
-            className="ServicesList"
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
           >
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
+            <a
+              href="#"
             >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    X-Block
-                  </div>
-                  <div>
-                    With Districtwide, Rich
-                  </div>
-                  <div>
-                    Started 
-                    March 11, 2018
-                  </div>
-                  <div>
-                    a day
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Reading intervention
-                  </div>
-                  <div>
-                    With Districtwide, Rich
-                  </div>
-                  <div>
-                    Started 
-                    February 20, 2018
-                  </div>
-                  <div>
-                    20 days
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Summer Program for English Language Learners
-                  </div>
-                  <div>
-                    Started 
-                    January 14, 2018
-                  </div>
-                  <div>
-                    2 months
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Attendance Officer
-                  </div>
-                  <div>
-                    Started 
-                    November 24, 2017
-                  </div>
-                  <div>
-                    4 months
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Behavior Contract
-                  </div>
-                  <div>
-                    Started 
-                    October 14, 2017
-                  </div>
-                  <div>
-                    5 months
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
         </div>
+        <div
+          className="HighchartsWrapper"
+        />
       </div>
     </div>
   </div>
@@ -10345,7 +9220,7 @@ exports[`snapshots works for pluto behavior 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 1,
+            "opacity": 0.6,
             "textAlign": "center",
           }
         }
@@ -10353,11 +9228,11 @@ exports[`snapshots works for pluto behavior 1`] = `
         <div
           style={
             Object {
-              "background": "#4A90E2",
+              "background": "#6f8fc2",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 1,
+              "opacity": 0.6,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -10713,7 +9588,7 @@ exports[`snapshots works for pluto behavior 1`] = `
             "cursor": "pointer",
             "flex": 1,
             "fontSize": 14,
-            "opacity": 0.6,
+            "opacity": 1,
             "textAlign": "center",
           }
         }
@@ -10721,11 +9596,11 @@ exports[`snapshots works for pluto behavior 1`] = `
         <div
           style={
             Object {
-              "background": "#56a752",
+              "background": "#31AB39",
               "color": "white",
               "fontWeight": "bold",
               "margin": 0,
-              "opacity": 0.6,
+              "opacity": 1,
               "padding": 10,
               "textAlign": "center",
               "width": "100%",
@@ -10797,659 +9672,216 @@ exports[`snapshots works for pluto behavior 1`] = `
     }
   >
     <div
-      className="LightProfilePage-notes"
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
-      }
+      className="LightBehaviorDetails"
     >
       <div
-        className="LightNotesDetails"
+        className="DetailsSection ProfileBarChart"
+        id="disciplineChart"
         style={
           Object {
-            "marginRight": 20,
-            "width": "50%",
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
           <h4
             style={
               Object {
-                "alignItems": "center",
                 "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
             }
           >
-            <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
-                }
-              }
-            >
-              <span>
-                Notes
-                 for 
-                Pluto
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <button
-              className="btn take-notes"
-              onClick={[Function]}
-              style={
-                Object {
-                  "display": "inline-block",
-                  "margin": 0,
-                }
-              }
-            >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  note
-                </span>
-              </span>
-            </button>
+            Discipline Incidents, last 4 years
           </h4>
-        </div>
-        <div>
-          <div
-            className="NotesList"
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
           >
-            <div
-              style={
-                Object {
-                  "margin": 10,
-                }
-              }
+            <a
+              href="#"
             >
-              No notes
-            </div>
-            <div
-              className="CleanSlateMessage"
-              style={
-                Object {
-                  "padding": 10,
-                  "paddingBottom": 0,
-                  "paddingTop": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                A note about student privacy
-              </div>
-              <span>
-                To respect student privacy, this page only includes 
-                one year of data
-                 by default.  
-              </span>
-              <span>
-                <span>
-                  Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
-                </span>
-                <a
-                  className="CleanSlateMessage-show-history-link"
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "color": "#999",
-                      "cursor": "pointer",
-                      "display": "inline-block",
-                      "paddingLeft": 5,
-                    }
-                  }
-                >
-                  show full case history
-                </a>
-              </span>
-            </div>
-          </div>
+              Back to top
+            </a>
+          </span>
         </div>
+        <div
+          className="HighchartsWrapper"
+        />
       </div>
       <div
-        className="ServicesDetails"
+        className="CleanSlateMessage"
         style={
           Object {
-            "flex": 1,
+            "padding": 10,
+            "paddingBottom": 0,
+            "paddingTop": 15,
           }
         }
       >
         <div
-          className="SectionHeading"
           style={
             Object {
-              "borderBottom": "1px solid #333",
-              "padding": 10,
+              "fontWeight": "bold",
             }
           }
         >
-          <h4
+          A note about student privacy
+        </div>
+        <span>
+          To respect student privacy, this page only includes 
+          one year of data
+           by default.  
+        </span>
+        <span>
+          <span>
+            Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+          </span>
+          <a
+            className="CleanSlateMessage-show-history-link"
+            href="#"
+            onClick={[Function]}
             style={
               Object {
-                "alignItems": "center",
-                "color": "black",
-                "display": "flex",
-                "justifyContent": "space-between",
+                "color": "#999",
+                "cursor": "pointer",
+                "display": "inline-block",
+                "paddingLeft": 5,
               }
             }
           >
-            <div
+            show full case history
+          </a>
+        </span>
+      </div>
+      <div>
+        <div
+          className="DetailsSection"
+          id="history"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "marginLeft": "auto",
+              "marginRight": "auto",
+              "marginTop": 50,
+              "padding": "30px 30px 30px 30px",
+              "position": "relative",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "bottom": 10,
+                "display": "flex",
+                "justifyContent": "space-between",
+                "position": "relative",
+              }
+            }
+          >
+            <h4
               style={
                 Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "padding": 2,
+                  "color": "black",
+                  "fontSize": 24,
+                  "paddingBottom": 20,
                 }
               }
             >
-              <span>
-                Services
-              </span>
-              <div
-                style={
-                  Object {
-                    "display": "inline",
-                    "marginLeft": 10,
-                  }
+              Incident History
+            </h4>
+            <span
+              style={
+                Object {
+                  "textAlign": "right",
+                  "verticalAlign": "text-top",
                 }
+              }
+            >
+              <a
+                href="#"
               >
-                <a
-                  href="#"
-                  onClick={[Function]}
-                  style={
-                    Object {
-                      "display": "flex",
-                      "fontSize": 12,
-                      "outline": "none",
-                    }
-                  }
-                >
-                  <svg
-                    height={20}
-                    style={
-                      Object {
-                        "fill": "#ddd",
-                      }
-                    }
-                    viewBox="0 0 24 24"
-                    width={20}
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 0h24v24H0z"
-                      fill="none"
-                    />
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-                    />
-                  </svg>
-                </a>
-              </div>
+                Back to top
+              </a>
+            </span>
+          </div>
+          <div
+            style={
+              Object {
+                "paddingTop": 20,
+              }
+            }
+          >
+            <div>
+              No incident data.
             </div>
-            <button
-              className="btn record-service"
+          </div>
+        </div>
+        <div
+          className="CleanSlateMessage"
+          style={
+            Object {
+              "padding": 10,
+              "paddingBottom": 0,
+              "paddingTop": 15,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            A note about student privacy
+          </div>
+          <span>
+            To respect student privacy, this page only includes 
+            one year of data
+             by default.  
+          </span>
+          <span>
+            <span>
+              Before accessing older data, consider the balance between learning from these records and giving students a chance to start each year with a clean slate.
+            </span>
+            <a
+              className="CleanSlateMessage-show-history-link"
+              href="#"
               onClick={[Function]}
               style={
                 Object {
-                  "margin": 0,
+                  "color": "#999",
+                  "cursor": "pointer",
+                  "display": "inline-block",
+                  "paddingLeft": 5,
                 }
               }
             >
-              <span>
-                <span
-                  style={
-                    Object {
-                      "fontWeight": "bold",
-                      "paddingRight": 5,
-                    }
-                  }
-                >
-                  +
-                </span>
-                <span>
-                  service
-                </span>
-              </span>
-            </button>
-          </h4>
-        </div>
-        <div>
-          <div
-            className="ServicesList"
-          >
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    X-Block
-                  </div>
-                  <div>
-                    With Districtwide, Rich
-                  </div>
-                  <div>
-                    Started 
-                    March 11, 2018
-                  </div>
-                  <div>
-                    a day
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Reading intervention
-                  </div>
-                  <div>
-                    With Districtwide, Rich
-                  </div>
-                  <div>
-                    Started 
-                    February 20, 2018
-                  </div>
-                  <div>
-                    20 days
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Summer Program for English Language Learners
-                  </div>
-                  <div>
-                    Started 
-                    January 14, 2018
-                  </div>
-                  <div>
-                    2 months
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Attendance Officer
-                  </div>
-                  <div>
-                    Started 
-                    November 24, 2017
-                  </div>
-                  <div>
-                    4 months
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-            <div
-              style={
-                Object {
-                  "background": "#eee",
-                  "border": "1px solid #eee",
-                  "marginBottom": 10,
-                  "marginTop": 10,
-                  "opacity": 1,
-                  "padding": 15,
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": "flex",
-                  }
-                }
-              >
-                <div
-                  style={
-                    Object {
-                      "flex": 1,
-                    }
-                  }
-                >
-                  <div
-                    style={
-                      Object {
-                        "fontWeight": "bold",
-                      }
-                    }
-                  >
-                    Behavior Contract
-                  </div>
-                  <div>
-                    Started 
-                    October 14, 2017
-                  </div>
-                  <div>
-                    5 months
-                  </div>
-                </div>
-                <div>
-                  <button
-                    className="btn"
-                    onClick={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    style={
-                      Object {
-                        "background": "white",
-                        "border": "1px solid #ccc",
-                        "color": "#666",
-                        "opacity": 0.5,
-                      }
-                    }
-                  >
-                    Discontinue
-                  </button>
-                </div>
-              </div>
-              <div
-                style={
-                  Object {
-                    "paddingTop": 15,
-                    "whiteSpace": "pre-wrap",
-                  }
-                }
-              />
-            </div>
-          </div>
+              show full case history
+            </a>
+          </span>
         </div>
       </div>
     </div>
