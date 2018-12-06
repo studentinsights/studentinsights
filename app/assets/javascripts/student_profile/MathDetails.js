@@ -45,7 +45,7 @@ export default class MathDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
 
     return (
-      <DetailsSection title="MCAS Next Gen Math Scores">
+      <DetailsSection title="MCAS Math Scores (Next Gen), last 4 years">
         <McasNextGenChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
@@ -75,7 +75,7 @@ export default class MathDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
 
     return (
-      <DetailsSection title="MCAS Math SGPs, last 4 years">
+      <DetailsSection title="MCAS Math growth percentile (SGP), last 4 years">
         <McasSgpChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
