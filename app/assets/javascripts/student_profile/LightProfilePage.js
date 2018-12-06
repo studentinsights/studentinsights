@@ -411,9 +411,11 @@ export default class LightProfilePage extends React.Component {
       <div className="LightProfilePage-testing">
         <ElaDetails
           className="LightProfilePage-ela"
+          studentGrade={student.grade}
           hideStar={true}
           chartData={chartData}
-          studentGrade={student.grade} />
+          dibels={[]}
+          fAndPs={[]} />
         <MathDetails
           className="LightProfilePage-math"
           hideStar={true}
@@ -424,12 +426,16 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderReading() {
-    const {student, chartData} = this.props.profileJson;
+    const {student, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
+    const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
     return (
       <ElaDetails
         className="LightProfilePage-ela"
         chartData={chartData}
-        studentGrade={student.grade} />
+        studentGrade={student.grade}
+        dibels={showMinimalReadingData ? dibels : []}
+        fAndPs={showMinimalReadingData ? fAndPs : []}
+      />
     );
   }
 
@@ -514,6 +520,7 @@ LightProfilePage.propTypes = {
     
     profileInsights: PropTypes.array.isRequired,
     dibels: PropTypes.array.isRequired,
+    fAndPs: PropTypes.array.isRequired,
     chartData: PropTypes.shape({
       // ela
       most_recent_star_reading_percentile: PropTypes.number,

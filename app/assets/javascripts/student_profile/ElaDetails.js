@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
+import {high, medium, low} from '../helpers/colors';
 import DetailsSection from './DetailsSection';
 import StarChart from './StarChart';
 import {McasNextGenChart, McasOldChart, McasSgpChart} from './McasChart';
@@ -17,11 +20,47 @@ export default class ElaDetails extends React.Component {
     const {hideStar} = this.props;
     return (
       <div className="ElaDetails">
+        {this.renderDibels()}
+        {this.renderFAndPs()}
         {!hideStar && this.renderStarReading()}
         {this.renderMCASELANextGenScores()}
         {this.renderMCASELAScores()}
         {this.renderMCASELAGrowth()}
       </div>
+    );
+  }
+
+  renderDibels() {
+    const {dibels} = this.props;
+    if (dibels.length === 0) return null;
+    const latestDibels = _.last(_.sortBy(dibels, 'date_taken'));
+    return (
+      <DetailsSection title="DIBELS, latest score">
+        <div>{this.renderDibelsScore(latestDibels.benchmark)} on {toMomentFromRailsDate(latestDibels.date_taken).format('M/D/YY')}</div>
+      </DetailsSection>
+    );
+  }
+
+  renderDibelsScore(score) {
+    const backgroundColor = {
+      'INTENSIVE': low,
+      'STRATEGIC': medium,
+      'CORE': high
+    }[score] || '#ccc';
+    return <span style={{padding: 10, color: 'white', backgroundColor}}>{score}</span>;
+  }
+
+  renderFAndPs() {
+    const {fAndPs} = this.props;
+    if (fAndPs.length === 0) return null;
+    const fAndP = _.last(_.sortBy(fAndPs, 'benchmark_date'));
+    const maybeCode = (fAndP.f_and_p_code) ? ` with ${fAndP.f_and_p_code} code` : null;
+    
+    return (
+      <DetailsSection title="Fountass and Pinnell (F&P), latest score">
+        <pre>{JSON.stringify(fAndP)}</pre>
+        <div>Level {fAndP.instructional_level}{maybeCode} on {toMomentFromRailsDate(fAndP.benchmark_date).format('M/D/YY')}</div>
+      </DetailsSection>
     );
   }
 
@@ -84,6 +123,8 @@ export default class ElaDetails extends React.Component {
 }
 
 ElaDetails.propTypes = {
+  dibels: PropTypes.array.isRequired,
+  fAndPs: PropTypes.array.isRequired,
   chartData: PropTypes.shape({
     star_series_reading_percentile: PropTypes.array,
     mcas_series_ela_scaled: PropTypes.array,

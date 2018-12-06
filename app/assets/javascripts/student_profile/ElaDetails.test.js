@@ -23,6 +23,8 @@ describe('data', () => {
       <ElaDetails
         chartData={chartData}
         studentGrade="3"
+        dibels={[]}
+        fAndPs={[]}
       />
     ), div);
   });

@@ -20,7 +20,8 @@ class EducatorLabel < ApplicationRecord
         'enable_class_lists_override',
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
-        'enable_searching_notes'
+        'enable_searching_notes',
+        'profile_enable_minimal_reading_data'
       ]
     }
   }
