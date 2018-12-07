@@ -18,11 +18,15 @@
   </div>
 </section>
 
-<h2 style="margin-top: 30px;">Our work</h2>
-Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work is built.
+<h2 style="margin-top: 30px;">How we work</h2>
+Student Insights started in one school in Somerville in 2014, trying to integrate data from different vendors' data systems.  We found right away that the technical side of data interoperability was the easy part - finding ways to **grow and sustain student-centered practices** was much harder, but more meaningful.
+
+As we started working with more schools, we also shifted the way we worked.  We focused less on the technology and more on the **last mile** of how our work could influence practice.  This led to new kinds of opportunities, grounded in the core values of: *seeing the whole-child*, *student-centered narratives* and embracing challenges around *trust, access and privacy*.
+
+
 
 <section>
-  {% assign profile_title = 'Whole-child profile' %}
+  {% assign profile_title = 'Seeing the whole child' %}
   {% assign profile_href = 'our-work.html#whole-child-profile' %}
   {% capture profile_quote %}
     <p>"We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world."<div>- Django Paris</div></p>
