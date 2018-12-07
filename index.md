@@ -1,13 +1,14 @@
 {% include navbar.html %}
 
 <section>
+  <div class="Home-title">We work with educators to make student-centered data systems</div>
   <div class="Home-container">
     <div class="Home-image-container">
       <img src="img/teachers-working.jpg" alt="Teachers working together" class="Home-image" />
     </div>
     <div class="Home-text">
       <div>
-        <p>It’s people closest to the work <b>within school communities</b> - teachers, young people, families - who will be able to build the next generation of school data systems that they need.</p>
+        <p>It’s people closest to the work, <b>within school communities</b> - teachers, young people, families - who will be able to build the next generation of school data systems that they need.</p>
         <p>We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle <b>what matters for our students.</b></p>
       </div>
       <div>
