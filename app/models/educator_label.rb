@@ -21,7 +21,8 @@ class EducatorLabel < ApplicationRecord
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_searching_notes',
-        'profile_enable_minimal_reading_data'
+        'profile_enable_minimal_reading_data',
+        'enable_reading_grade'
       ]
     }
   }
