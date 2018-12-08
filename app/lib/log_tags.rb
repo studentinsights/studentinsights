@@ -31,8 +31,7 @@ class LogTags
       return nil if session_data.nil?
       warden_data = session_data['warden.user.educator.key']
       return nil if warden_data.nil?
-      educator_id = warden_data.try(:[], 0).try(:[], 0)
-      return nil if educator_id.nil?
+      warden_data.try(:[], 0).try(:[], 0)
     rescue
       Rollbar.error('read_educator_id raised')
       nil
