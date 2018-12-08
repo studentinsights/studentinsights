@@ -1,11 +1,13 @@
 {% include navbar.html %}
 
 # What's next?
-Student Insights is entirely open source, which means that all code and all changes are published in the open.  We also aim to build in the open, and so much of our discussion about what to build and why is also published openly as well.  You can also read about how we protect the security and privacy of student data while building in the open and releasing all code publicly as open source.
+*Last updated on 12/7/18*
 
-This is stored on GitHub, and if you're new to open source a good starting point is to browse through recent pull requests to see what this looks like.  For most educators, this is too much information, so we also release a shorter summary of changes each week as a changelog.  We also use a work board to communicate about what we're working on right now, what's coming up soon, and potential projects a few months out.
+Student Insights is [open source](https://github.com/studentinsights/studentinsights), which means that all code and all changes are published publicly.  We also aim to build in the open, and so much of our discussion about what to build and why is public as well.  We also believe in [free software](https://www.gnu.org/philosophy/free-sw.en.html), and the idea that school communities should have the freedom to run, copy, change and improve their software.  If this is new to you, welcome!
 
-If you'd like to collaborate with us, the best way to do this is to reach out over email and we can help you get started.  You can also join the local Code for Boston brigade on Tuesday nights, either in person or remotely.
+We also release a short summary of changes each week as a [changelog](#changelog), aimed at the educators we collaborate with.  For longer term planning, we use a [work board](#work-board) to communicate about what we're working on right now, what's coming up soon, and potential projects a few months out.
+
+If you'd like to collaborate with us, the best way to do this is to <a href="{{site.links.email}}">reach out over email</a> and we can help you get started.  Designers and developers can also join the local Code for Boston brigade on Tuesday nights, either in person or remotely.
 
 <style>
 .Board {
@@ -64,7 +66,6 @@ If you'd like to collaborate with us, the best way to do this is to reach out ov
 ------------------------
 ### Work board
 <div class="Board">
-
   <div class="Board-category">
     <div class="Board-title">In progress now</div>
     <div class="Card"><b>Searching notes</b>: For finding past conversations, and for individual and group reflection</div>
