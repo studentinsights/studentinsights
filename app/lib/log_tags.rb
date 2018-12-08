@@ -27,7 +27,7 @@ class LogTags
 
   def read_educator_id(req)
     begin
-      session_data = read_session_data()
+      session_data = read_session_data(req)
       return nil if session_data.nil?
       warden_data = session_data['warden.user.educator.key']
       return nil if warden_data.nil?
