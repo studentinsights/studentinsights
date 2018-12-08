@@ -64,7 +64,7 @@ INNER JOIN student
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
 WHERE STD_ENROLLMENT_STATUS = 'Active'
-  AND data_dictionary_extended.DDX_NAME = '504 Plan';
+  AND data_dictionary_extended.DDX_NAME = '504 Plan'
 INTO OUTFILE "E:/_BACKUP_MYSQL/CodeForAmerica/student_ed_plan_export.txt"
   FIELDS TERMINATED BY ','
   ENCLOSED BY '"'

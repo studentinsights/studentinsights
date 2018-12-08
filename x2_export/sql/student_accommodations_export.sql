@@ -11,7 +11,7 @@ SELECT
   'iac_description',
   'iac_field',
   'iac_last_modified',
-  'iac_name',
+  'iac_name'
 UNION ALL
 SELECT
   STD_ID_STATE,
@@ -31,7 +31,7 @@ LEFT JOIN student_ed_plan ON student_accommodation.IAC_SEP_OID = student_ed_plan
 LEFT JOIN data_dictionary_extended
   ON student_ed_plan.SEP_DDX_OID = data_dictionary_extended.DDX_OID
 INNER JOIN student
-  ON student.STD_OID=student_ed_plan.IAC_SEP_OID
+  ON student.STD_OID=student_ed_plan.SEP_STD_OID
 INNER JOIN school
   ON student.STD_SKL_OID=school.SKL_OID
 WHERE STD_ENROLLMENT_STATUS = 'Active'
