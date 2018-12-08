@@ -6,6 +6,13 @@ require 'csv'
 class StreamingCsvTransformer
   NIL_CODE = '\N'
 
+  # Sugar for the common "just give me parsed rows" use case
+  def self.from_text(log, file_text, options = {})
+    StreamingCsvTransformer.new(log, {
+      csv_options: { header_converters: nil }
+    }.merge(options)).transform(file_text)
+  end
+
   def initialize(log, options = {})
     @log = log
     @headers = options.fetch(:headers, true)

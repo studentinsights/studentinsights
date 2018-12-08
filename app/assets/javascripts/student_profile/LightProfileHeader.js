@@ -209,14 +209,24 @@ export default class LightProfileHeader extends React.Component {
 
 
   renderSupportBits() {
-    const {student, iepDocument, access, teams, activeServices} = this.props;
+    const {
+      educatorLabels,
+      student,
+      iepDocument,
+      access,
+      teams,
+      activeServices,
+      edPlans
+    } = this.props;
     return (
       <LightHeaderSupportBits
+        educatorLabels={educatorLabels}
         student={student}
         access={access}
         teams={teams}
         iepDocument={iepDocument}
         activeServices={activeServices}
+        edPlans={edPlans}
       />
     );
   }
@@ -280,8 +290,11 @@ export default class LightProfileHeader extends React.Component {
     );
   }
 }
-
+LightProfileHeader.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 LightProfileHeader.propTypes = {
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -314,11 +327,9 @@ LightProfileHeader.propTypes = {
   access: PropTypes.object,
   teams: PropTypes.array.isRequired,
   profileInsights: PropTypes.array.isRequired,
+  edPlans: PropTypes.arrayOf(PropTypes.object).isRequired,
   renderFullCaseHistory: PropTypes.func.isRequired,
   style: PropTypes.object
-};
-LightProfileHeader.contextTypes = {
-  districtKey: PropTypes.string.isRequired
 };
 
 const styles = {

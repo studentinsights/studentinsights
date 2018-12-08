@@ -77,6 +77,7 @@ export function parseProfileJson(json) {
     iepDocument: json.latest_iep_document,
     sections: json.sections,
     currentEducatorAllowedSections: json.current_educator_allowed_sections,
-    attendanceData: json.attendance_data
+    attendanceData: json.attendance_data,
+    edPlans: json.ed_plans
   };
 }

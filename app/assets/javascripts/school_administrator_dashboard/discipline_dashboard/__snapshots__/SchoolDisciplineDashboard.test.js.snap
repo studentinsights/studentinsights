@@ -44,7 +44,7 @@ exports[`snapshots works for bedford 1`] = `
         }
       >
         <span>
-          This is an experimental prototype page!
+          This is an experimental prototype!
         </span>
         <span
           style={
@@ -53,7 +53,18 @@ exports[`snapshots works for bedford 1`] = `
             }
           }
         >
-          Please try it out and share your feedback.
+          Please share your feedback with 
+          <a
+            href="mailto:ideas@studentinsights.org"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            hello@studentinsights.org
+          </a>
+          .
         </span>
       </div>
       <div
@@ -621,7 +632,7 @@ exports[`snapshots works for demo 1`] = `
         }
       >
         <span>
-          This is an experimental prototype page!
+          This is an experimental prototype!
         </span>
         <span
           style={
@@ -630,7 +641,18 @@ exports[`snapshots works for demo 1`] = `
             }
           }
         >
-          Please try it out and share your feedback.
+          Please share your feedback with 
+          <a
+            href="mailto:ideas@studentinsights.org"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            hello@studentinsights.org
+          </a>
+          .
         </span>
       </div>
       <div
@@ -1198,7 +1220,7 @@ exports[`snapshots works for new_bedford 1`] = `
         }
       >
         <span>
-          This is an experimental prototype page!
+          This is an experimental prototype!
         </span>
         <span
           style={
@@ -1207,7 +1229,18 @@ exports[`snapshots works for new_bedford 1`] = `
             }
           }
         >
-          Please try it out and share your feedback.
+          Please share your feedback with 
+          <a
+            href="mailto:ideas@studentinsights.org"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            hello@studentinsights.org
+          </a>
+          .
         </span>
       </div>
       <div
@@ -1775,7 +1808,7 @@ exports[`snapshots works for somerville 1`] = `
         }
       >
         <span>
-          This is an experimental prototype page!
+          This is an experimental prototype!
         </span>
         <span
           style={
@@ -1784,7 +1817,18 @@ exports[`snapshots works for somerville 1`] = `
             }
           }
         >
-          Please try it out and share your feedback.
+          Please share your feedback with 
+          <a
+            href="mailto:ideas@studentinsights.org"
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            hello@studentinsights.org
+          </a>
+          .
         </span>
       </div>
       <div

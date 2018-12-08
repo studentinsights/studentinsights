@@ -36,8 +36,8 @@ storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef
   })
   .add("Many classrooms", () => {
     return storyRender(storyProps({
-      classroomsCount: 5,
-      gradeLevelNextYear: '5'
+      classroomsCount: 4,
+      gradeLevelNextYear: '2'
     }));
   })
   .add("readonly", () => storyRender(storyProps({ isEditable: false })));

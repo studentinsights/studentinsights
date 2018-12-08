@@ -18,7 +18,7 @@ class FAndPImporter
   def import(file_text, options = {})
     # parse
     rows = []
-    create_streaming_csv(file_text).each_with_index do |row, index|
+    StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
       maybe_row = maybe_parse_row(row.to_h, index)
       next if maybe_row.nil?
       rows << maybe_row
@@ -47,13 +47,6 @@ class FAndPImporter
       f_and_p_code: row['F&P Code'],
       uploaded_by_educator_id: @educator_id
     }
-  end
-
-  def create_streaming_csv(file_text)
-    csv_transformer = StreamingCsvTransformer.new(@log, {
-      csv_options: { header_converters: nil }
-    })
-    csv_transformer.transform(file_text)
   end
 
   def log(msg)

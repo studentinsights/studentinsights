@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import _ from 'lodash';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {mergeAtPath} from '../helpers/mergeAtPath';
 import {toMoment, toMomentFromTimestamp} from '../helpers/toMoment';
@@ -55,6 +56,11 @@ describe('snapshots', () => {
   it('works for aladdin notes', () => expectSnapshot({...testPropsForAladdinMouse(), selectedColumnKey: 'notes'}));
   it('works for aladdin grades', () => expectSnapshot({...testPropsForAladdinMouse(), selectedColumnKey: 'grades'}));
   it('works for aladdin testing', () => expectSnapshot({...testPropsForAladdinMouse(), selectedColumnKey: 'testing'}));
+  it('works for aladdin with 504 ed plan', () => {
+    const props = _.clone(testPropsForAladdinMouse());
+    props.profileJson.currentEducator.labels.push('enable_viewing_504_data_in_profile');
+    expectSnapshot(props);
+  });
 });
 
 

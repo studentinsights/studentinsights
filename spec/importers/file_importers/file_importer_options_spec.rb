@@ -1,15 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe UnwrapFileImporterOptions do
+RSpec.describe FileImporterOptions do
 
-  describe '#sort_file_import_classes' do
+  describe '#all_importer_keys' do
+    it 'requires writing the keys written out again test to verify they are correct' do
+      expect(FileImporterOptions.new.all_importer_keys).to contain_exactly(*[
+        'x2',
+        'star',
+        'students',
+        'assessments',
+        'behavior',
+        'educators',
+        'attendance',
+        'courses_sections',
+        'student_section_assignments',
+        'student_section_grades',
+        'educator_section_assignments',
+        'star_math',
+        'star_reading',
+        '504',
+        'ed_plan'
+      ])
+    end
+  end
+  describe '#prioritized_file_importer_classes' do
 
     context 'when provided with the default sources' do
-      let(:source) { ['x2', 'star'] }
-      let(:unwrapper) { described_class.new(source) }
+      let(:importer_keys) { ['x2', 'star'] }
 
       it 'returns X2 and STAR importers in order' do
-        expect(unwrapper.sort_file_import_classes).to match_array([
+        expect(FileImporterOptions.new.prioritized_file_importer_classes(importer_keys)).to match_array([
           EducatorsImporter,
           CoursesSectionsImporter,
           EducatorSectionAssignmentsImporter,
@@ -26,11 +46,10 @@ RSpec.describe UnwrapFileImporterOptions do
     end
 
     context 'when provided x2' do
-      let(:source) { ['x2'] }
-      let(:unwrapper) { described_class.new(source) }
+      let(:importer_keys) { ['x2'] }
 
       it 'returns x2 importers, no star importers' do
-        expect(unwrapper.sort_file_import_classes).to match_array([
+        expect(FileImporterOptions.new.prioritized_file_importer_classes(importer_keys)).to match_array([
           EducatorsImporter,
           CoursesSectionsImporter,
           EducatorSectionAssignmentsImporter,
@@ -45,11 +64,10 @@ RSpec.describe UnwrapFileImporterOptions do
     end
 
     context 'when provided star' do
-      let(:source) { ['star'] }
-      let(:unwrapper) { described_class.new(source) }
+      let(:importer_keys) { ['star'] }
 
       it 'returns star importers' do
-        expect(unwrapper.sort_file_import_classes).to match_array([
+        expect(FileImporterOptions.new.prioritized_file_importer_classes(importer_keys)).to match_array([
           StarMathImporter,
           StarReadingImporter,
         ])
@@ -57,16 +75,15 @@ RSpec.describe UnwrapFileImporterOptions do
     end
 
     context 'when provided with invalid sources' do
-      let(:source) { ['x3'] }
-      let(:unwrapper) { described_class.new(source) }
+      let(:importer_keys) { ['x3'] }
 
-      it 'returns an empty array' do
-        expect(unwrapper.sort_file_import_classes).to match_array([])
+      it 'raises' do
+        expect { FileImporterOptions.new.prioritized_file_importer_classes(importer_keys) }.to raise_error(KeyError)
       end
     end
 
     context 'when provided unprioritized importers' do
-      let(:source) {
+      let(:importer_keys) {
         [
           'students',
           'student_section_assignments',
@@ -75,10 +92,8 @@ RSpec.describe UnwrapFileImporterOptions do
         ]
       }
 
-      let(:unwrapper) { described_class.new(source) }
-
       it 'puts them in the correct order' do
-        expect(unwrapper.sort_file_import_classes).to eq([
+        expect(FileImporterOptions.new.prioritized_file_importer_classes(importer_keys)).to eq([
           EducatorsImporter,
           CoursesSectionsImporter,
           StudentsImporter,
@@ -86,7 +101,5 @@ RSpec.describe UnwrapFileImporterOptions do
         ])
       end
     end
-
   end
-
 end

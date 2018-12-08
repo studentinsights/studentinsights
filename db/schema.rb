@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_010645) do
+ActiveRecord::Schema.define(version: 2018_12_06_152822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,37 @@ ActiveRecord::Schema.define(version: 2018_12_04_010645) do
     t.boolean "has_exact_time"
     t.integer "student_id", null: false
     t.index ["student_id"], name: "index_discipline_incidents_on_student_id"
+  end
+
+  create_table "ed_plans", force: :cascade do |t|
+    t.text "sep_oid", null: false
+    t.integer "student_id", null: false
+    t.text "sep_grade_level"
+    t.text "sep_status"
+    t.date "sep_effective_date"
+    t.date "sep_review_date"
+    t.date "sep_last_meeting_date"
+    t.date "sep_district_signed_date"
+    t.date "sep_parent_signed_date"
+    t.date "sep_end_date"
+    t.datetime "sep_last_modified"
+    t.text "sep_fieldd_001"
+    t.text "sep_fieldd_002"
+    t.text "sep_fieldd_003"
+    t.text "sep_fieldd_004"
+    t.text "sep_fieldd_005"
+    t.text "sep_fieldd_006"
+    t.text "sep_fieldd_007"
+    t.text "sep_fieldd_008"
+    t.text "sep_fieldd_009"
+    t.text "sep_fieldd_010"
+    t.text "sep_fieldd_011"
+    t.text "sep_fieldd_012"
+    t.text "sep_fieldd_013"
+    t.text "sep_fieldd_014"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sep_oid"], name: "index_ed_plans_on_sep_oid", unique: true
   end
 
   create_table "educator_labels", force: :cascade do |t|
@@ -580,6 +611,7 @@ ActiveRecord::Schema.define(version: 2018_12_04_010645) do
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
   add_foreign_key "dibels_results", "students"
   add_foreign_key "discipline_incidents", "students"
+  add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
   add_foreign_key "educator_section_assignments", "educators"
