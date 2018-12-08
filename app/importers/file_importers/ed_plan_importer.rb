@@ -56,7 +56,7 @@ class EdPlanImporter
 
   def download_csv_file_text(filename)
     log('Downloading file...')
-    SftpClient.for_star.download_file(filename)
+    SftpClient.for_x2.download_file(filename)
   end
 
   def school_filter
