@@ -51,12 +51,13 @@ class EdPlanImporter
       return nil if filename.nil?
       @file_text = download_csv_file_text(filename)
     end
-    return StreamingCsvTransformer.from_text(@log, @file_text)
+    StreamingCsvTransformer.from_text(@log, @file_text)
   end
 
   def download_csv_file_text(filename)
     log('Downloading file...')
-    SftpClient.for_x2.download_file(filename)
+    file = SftpClient.for_x2.download_file(filename)
+    File.read(file)
   end
 
   def school_filter
