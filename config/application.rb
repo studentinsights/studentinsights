@@ -72,6 +72,18 @@ module SomervilleTeacherTool
         g.javascripts false
         g.helper false
       end
+
+      # Disable view logging
+      %w{render_template render_partial render_collection}.each do |event|
+        ActiveSupport::Notifications.unsubscribe "#{event}.action_view"
+      end
+
+      # Prepend all log lines with tags for the request, session and educator
+      Rails.application.config.log_tags = [
+        ->(req) { LogTags.new.request_identifier(req) },
+        ->(req) { LogTags.new.session_identifier(req) },
+        ->(req) { LogTags.new.educator_identifier(req) }
+      ]
     end
   end
 end
