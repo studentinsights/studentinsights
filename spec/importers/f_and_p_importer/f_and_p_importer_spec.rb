@@ -21,13 +21,8 @@ RSpec.describe FAndPImporter do
         "f_and_p_code"=>"WC",
         "uploaded_by_educator_id"=>pals.uri.id
       }])
-      expect(matcher.stats).to eq({
-        :invalid_course_numbers => [],
-        :invalid_educator_emails => [],
-        :invalid_rows_count => 0,
-        :invalid_student_local_ids => [],
-        :valid_rows_count => 1,
-      })
+      expect(matcher.stats[:valid_rows_count]).to eq 1
+      expect(matcher.stats[:invalid_rows_count]).to eq 0
     end
   end
 end

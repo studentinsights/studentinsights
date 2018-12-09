@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe EdPlanImporter do
+RSpec.describe EdPlansImporter do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/file_importers/ed_plan_importer_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/file_importers/ed_plans_fixture.csv")
   end
 
   def create_importer(options = {})
     log = LogHelper::FakeLog.new
     matcher = ImportMatcher.new
-    importer = EdPlanImporter.new(options: {
+    importer = EdPlansImporter.new(options: {
       log: log,
       matcher: matcher,
       school_scope: nil,
@@ -35,16 +35,17 @@ RSpec.describe EdPlanImporter do
       expect(log.output).to include(':created_rows_count=>2')
       expect(importer.instance_variable_get(:@syncer).stats[:created_rows_count]).to eq 2
       expect(matcher.stats).to eq({
+        :valid_rows_count => 2,
+        :invalid_rows_count => 0,
         :invalid_course_numbers => [],
         :invalid_educator_emails => [],
-        :invalid_rows_count => 0,
-        :invalid_student_local_ids => [],
-        :valid_rows_count => 2,
+        :invalid_sep_oids => [],
+        :invalid_student_local_ids => []
       })
 
       expect(EdPlan.all.size).to eq 2
       expect(EdPlan.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
-        "sep_oid"=>"fake-sep-oid-1",
+        "sep_oid"=>"test-sep-oid-1",
         "student_id"=>pals.healey_kindergarten_student.id,
         "sep_grade_level"=>nil,
         "sep_status"=>"2",
@@ -54,7 +55,7 @@ RSpec.describe EdPlanImporter do
         "sep_district_signed_date"=>nil,
         "sep_parent_signed_date"=>Date.parse('Tue, 15 Sep 2015'),
         "sep_end_date"=>Date.parse('Thu, 15 Oct 2015'),
-        "sep_last_modified"=>nil,
+        "sep_last_modified"=>Time.parse('2015-03-08 14:09:03.000000000 +0000'),
         "sep_fieldd_001"=> "These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.",
         "sep_fieldd_002"=>"",
         "sep_fieldd_003"=>"",
@@ -70,7 +71,7 @@ RSpec.describe EdPlanImporter do
         "sep_fieldd_013"=>nil,
         "sep_fieldd_014"=>nil
       }, {
-        "sep_oid"=>"fake-sep-oid-2",
+        "sep_oid"=>"test-sep-oid-2",
         "student_id"=>pals.west_eighth_ryan.id,
         "sep_grade_level"=>nil,
         "sep_status"=>"4",
@@ -80,7 +81,7 @@ RSpec.describe EdPlanImporter do
         "sep_district_signed_date"=>nil,
         "sep_parent_signed_date"=>nil,
         "sep_end_date"=>Date.parse('Mon, 22 Feb 2016'),
-        "sep_last_modified"=>nil,
+        "sep_last_modified"=>Time.parse('2018-06-01 12:54:25.000000000 +0000'),
         "sep_fieldd_001"=>"",
         "sep_fieldd_002"=>"",
         "sep_fieldd_003"=>"",
