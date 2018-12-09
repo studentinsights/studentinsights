@@ -113,7 +113,19 @@ describe ProfileController, :type => :controller do
         })
       end
 
-      it 'works' do
+      it 'guards access' do
+        sign_in(pals.uri)
+        make_request(pals.uri, pals.healey_kindergarten_student.id)
+        expect(response.status).to eq 200
+        json = JSON.parse(response.body)
+        expect(json['ed_plans'].size).to eq(0)
+      end
+
+      it 'works when enabled' do
+        EducatorLabel.create!({
+          educator: pals.uri,
+          label_key: 'enable_viewing_504_data_in_profile'
+        })
         sign_in(pals.uri)
         make_request(pals.uri, pals.healey_kindergarten_student.id)
         expect(response.status).to eq 200
@@ -147,7 +159,8 @@ describe ProfileController, :type => :controller do
           'sep_fieldd_013',
           'sep_fieldd_014',
           'created_at',
-          'updated_at'
+          'updated_at',
+          'ed_plan_accommodations'
         ])
       end
     end

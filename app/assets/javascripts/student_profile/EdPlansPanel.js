@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
-import ts from '../components/tableStyles';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 
 
-// Renders ed plan data
+// Renders ed plan data (504)
 export default class EdPlansPanel extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showRaw: false
+      showRaw: false,
+      showAll: false
     };
     this.onShowRawClicked = this.onShowRawClicked.bind(this);
+    this.onShowMore = this.onShowMore.bind(this);
   }
 
   onShowRawClicked(e) {
@@ -23,44 +24,63 @@ export default class EdPlansPanel extends React.Component {
     this.setState({showRaw: true});
   }
 
+  onShowMore(e) {
+    e.preventDefault();
+    this.setState({showAll: true});
+  }
+
   render() {
     const {edPlans} = this.props;
-    const {showRaw} = this.state;
+    const {showAll, showRaw} = this.state;
+
+    const sortedEdPlans = _.sortBy(edPlans, 'sep_effective_date').reverse();
+    const visibleEdPlans = (showAll) ? sortedEdPlans : sortedEdPlans.slice(0, 1);
     return (
       <div className="EdPlansPanel">
         <ExperimentalBanner />
-        <table style={{...ts.table, margin: 0, width: '100%'}}>
-          <thead>
-            <tr>
-              <th style={ts.headerCell}>Effective dates</th>
-              <th style={ts.headerCell}>Reviews</th>
-              <th style={ts.headerCell}>Signatures</th>
-              <th style={ts.headerCell}>Content</th>
-            </tr>
-          </thead>
-          <tbody>{edPlans.map(edPlan => (
-            <tr key={edPlan.sep_oid}>
-              <td style={ts.cell}>{reformatDate(edPlan.sep_effective_date)} - {reformatDate(edPlan.sep_end_date)}</td>
-              <td style={ts.cell}>
-                <div>Last review on {reformatDate(edPlan.sep_review_date, '(none)')}</div>
-                <div>Last meeting on {reformatDate(edPlan.sep_last_meeting_date, '(none)')}</div>
-                <div>Last modified on {(edPlan.sep_last_modified)
-                  ? moment.utc(edPlan.sep_last_modified/1000)
-                  : '(none)'}
-                </div>
-                </td>
-              <td style={ts.cell}>
-                <div>{reformatDate(edPlan.sep_parent_signed_date, <b style={{color: 'orange'}}>Not signed</b>)} by family</div>
-                <div>{reformatDate(edPlan.sep_district_signed_date, <b style={{color: 'orange'}}>Not signed</b>)} by district</div>
-              </td>
-              <td style={{...ts.cell, ...styles.substance}}>{this.renderSubstance(edPlan)}</td>
-            </tr>
-          ))}</tbody>
-        </table>
+        {visibleEdPlans.map(this.renderEdPlan, this)}
+        {showAll
+          ? null
+          : <a href="#" style={styles.link} onClick={this.onShowMore}>Show older 504 plans</a>
+        }
         {showRaw
           ? <pre>{JSON.stringify(edPlans, null, 2)}</pre>
-          : <a href="#" style={styles.showRaw} onClick={this.onShowRawClicked}>Show raw data</a>
+          : <a href="#" style={styles.link} onClick={this.onShowRawClicked}>Show raw data</a>
         }
+      </div>
+    );
+  }
+
+  // Might not be active or effective
+  renderEdPlan(edPlan) {
+    return (
+      <div key={edPlan.id} style={{margin: 10, marginBottom: 40}}>
+        <h2>504 plan <span style={{color: '#aaa', paddingLeft: 10}}>id:{edPlan.sep_oid}</span></h2>
+        <div style={{margin: 10}}>
+          <div style={{paddingTop: 10}}>
+            <h6>Status</h6>
+            <div>Effective dates {reformatDate(edPlan.sep_effective_date, highlight('(missing)'))} - {reformatDate(edPlan.sep_end_date, highlight('(missing)'))}</div>
+            <div>Last review on {reformatDate(edPlan.sep_review_date, highlight('(none)'))}</div>
+            <div>Last meeting on {reformatDate(edPlan.sep_last_meeting_date, highlight('(none)'))}</div>
+            <div>Last modified on {(edPlan.sep_last_modified)
+              ? moment.utc(edPlan.sep_last_modified/1000)
+              : highlight('(none)')}
+            </div>
+            <div>{reformatDate(edPlan.sep_parent_signed_date, highlight('Not signed'))} by family</div>
+            <div>{reformatDate(edPlan.sep_district_signed_date, highlight('Not signed'))} by district</div>
+          </div>
+          <div style={{marginTop: 20, paddingTop: 10, borderTop: '1px solid #eee'}}>
+            <h6>Document text</h6>
+            {this.renderSubstance(edPlan)}
+          </div>
+          <div style={{marginTop: 20, paddingTop: 10, borderTop: '1px solid #eee'}}>
+            <h6>Accommodations</h6>
+            {edPlan.ed_plan_accommodations.map(accommodation => (
+              <div key={accommodation.id}>{accommodation.iac_description}</div>
+            ))}
+            {edPlan.ed_plan_accommodations.length === 0 && <div>No accommodations.</div>}
+          </div>
+        </div>
       </div>
     );
   }
@@ -94,7 +114,16 @@ EdPlansPanel.propTypes = {
     sep_district_signed_date: PropTypes.string,
     sep_parent_signed_date: PropTypes.string,
     sep_end_date: PropTypes.string,
-    sep_last_modified: PropTypes.number, // ms timestamp
+    sep_last_modified: PropTypes.string,
+    ed_plan_accommodations: PropTypes.arrayOf(PropTypes.shape({
+      iac_content_area: PropTypes.string,
+      iac_category: PropTypes.string,
+      iac_type: PropTypes.string,
+      iac_description: PropTypes.string,
+      iac_field: PropTypes.string,
+      iac_name: PropTypes.string,
+      iac_last_modified: PropTypes.string
+    })).isRequired
   })).isRequired
 };
 
@@ -102,11 +131,11 @@ const styles = {
   substance: {
     whiteSpace: 'pre-wrap'
   },
-  showRaw: {
-    display: 'inline-block',
+  link: {
+    display: 'block',
     fontSize: 14,
-    marginTop: 20,
-    marginBottom: 20
+    marginTop: 10,
+    marginBottom: 10
   }
 };
 
@@ -114,4 +143,8 @@ const styles = {
 function reformatDate(maybeDateText, elseValue = null) {
   if (!maybeDateText) return elseValue;
   return toMomentFromRailsDate(maybeDateText).format('M/D/YY');
+}
+
+function highlight(el) {
+  return <span style={{color: 'orange'}}>{el}</span>;
 }

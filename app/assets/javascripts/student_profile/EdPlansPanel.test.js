@@ -33,7 +33,37 @@ export function testProps(props = {}) {
       "sep_fieldd_013": "N",
       "sep_fieldd_014": "N",
       "created_at": "2018-12-08T15:18:53.989Z",
-      "updated_at": "2018-12-08T15:18:53.989Z"
+      "updated_at": "2018-12-08T15:18:53.989Z",
+      "ed_plan_accommodations": [{
+        "id": 601,
+        "ed_plan_id": 245,
+        "iac_oid": "fixture-oid-1",
+        "iac_sep_oid": "fixture-sep-oid-1",
+        "iac_content_area": "All",
+        "iac_category": "Non-standard",
+        "iac_type": "504",
+        "iac_description": "Student will meet with teachers before or after school to find out about any make-up work.",
+        "iac_field": "",
+        "iac_name": "Other Non-Standard Accommodation",
+        "iac_last_modified": "2015-03-06T12:43:14.000Z",
+        "created_at": "2015-12-09T13:12:20.255Z",
+        "updated_at": "2015-12-09T13:12:20.255Z"
+      },
+      {
+        "id": 602,
+        "ed_plan_id": 245,
+        "iac_oid": "fixture-oid-2",
+        "iac_sep_oid": "fixture-sep-oid-1",
+        "iac_content_area": "All",
+        "iac_category": "Non-standard",
+        "iac_type": "504",
+        "iac_description": "Prompt the student to review the work they complete before moving on to the next assignment.",
+        "iac_field": "",
+        "iac_name": "Other Non-Standard Accommodation",
+        "iac_last_modified": "2015-03-06T12:43:14.000Z",
+        "created_at": "2018-12-09T13:12:20.928Z",
+        "updated_at": "2018-12-09T13:12:20.928Z"
+      }]
     }, {
       "id": 246,
       "sep_oid": "fake-sep-oid-2",
@@ -62,7 +92,8 @@ export function testProps(props = {}) {
       "sep_fieldd_013": "N",
       "sep_fieldd_014": "N",
       "created_at": "2018-12-08T15:18:54.007Z",
-      "updated_at": "2018-12-08T15:18:54.007Z"
+      "updated_at": "2018-12-08T15:18:54.007Z",
+      "ed_plan_accommodations": []
     }]
   };
 }
