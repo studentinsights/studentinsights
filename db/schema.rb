@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_06_152822) do
+ActiveRecord::Schema.define(version: 2018_12_09_121238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,22 @@ ActiveRecord::Schema.define(version: 2018_12_06_152822) do
     t.boolean "has_exact_time"
     t.integer "student_id", null: false
     t.index ["student_id"], name: "index_discipline_incidents_on_student_id"
+  end
+
+  create_table "ed_plan_accommodations", force: :cascade do |t|
+    t.integer "ed_plan_id", null: false
+    t.text "iac_oid", null: false
+    t.text "iac_sep_oid", null: false
+    t.text "iac_content_area"
+    t.text "iac_category"
+    t.text "iac_type"
+    t.text "iac_description"
+    t.text "iac_field"
+    t.text "iac_name"
+    t.datetime "iac_last_modified"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["iac_oid"], name: "index_ed_plan_accommodations_on_iac_oid", unique: true
   end
 
   create_table "ed_plans", force: :cascade do |t|
@@ -611,6 +627,7 @@ ActiveRecord::Schema.define(version: 2018_12_06_152822) do
   add_foreign_key "courses", "schools", name: "courses_school_id_fk"
   add_foreign_key "dibels_results", "students"
   add_foreign_key "discipline_incidents", "students"
+  add_foreign_key "ed_plan_accommodations", "ed_plans"
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"

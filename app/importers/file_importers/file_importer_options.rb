@@ -51,9 +51,11 @@ class FileImporterOptions
       'educator_section_assignments' => EducatorSectionAssignmentsImporter,
       'star_math' => StarMathImporter,
       'star_reading' => StarReadingImporter,
-      'ed_plan' => EdPlanImporter,
+      'ed_plans' => EdPlansImporter,
+      'ed_plan_accommodations' => EdPlanAccommodationsImporter,
       '504' => [
-        EdPlanImporter
+        EdPlansImporter,
+        EdPlanAccommodationsImporter
       ]
     }
   end
@@ -77,7 +79,8 @@ class FileImporterOptions
       X2AssessmentImporter => 6,
       StarMathImporter => 6,
       StarReadingImporter => 6,
-      EdPlanImporter => 6
+      EdPlansImporter => 7,
+      EdPlanAccommodationsImporter => 8
     }
   end
 end

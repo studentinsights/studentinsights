@@ -49,6 +49,18 @@ class ImportMatcher
     course_id
   end
 
+  # ed plan by SEP oid?
+  def find_ed_plan_id(value)
+    sep_oid = value.try(:strip)
+    ed_plan_id = EdPlan.find_by_sep_oid(sep_oid).try(:id) unless sep_oid.nil?
+    if ed_plan_id.nil?
+      @invalid_rows_count += 1
+      @invalid_sep_oids = (@invalid_sep_oids + [sep_oid]).uniq
+      return nil
+    end
+    ed_plan_id
+  end
+
   # parse timestamp into DateTime
   def parse_timestamp(value)
     DateTime.strptime(value, @strptime_format)
@@ -69,7 +81,8 @@ class ImportMatcher
       invalid_rows_count: @invalid_rows_count,
       invalid_student_local_ids: @invalid_student_local_ids,
       invalid_educator_emails: @invalid_educator_emails,
-      invalid_course_numbers: @invalid_course_numbers
+      invalid_course_numbers: @invalid_course_numbers,
+      invalid_sep_oids: @invalid_sep_oids
     }
   end
 
@@ -80,5 +93,6 @@ class ImportMatcher
     @invalid_student_local_ids = []
     @invalid_educator_emails = []
     @invalid_course_numbers = []
+    @invalid_sep_oids = []
   end
 end

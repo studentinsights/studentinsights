@@ -18,8 +18,9 @@ RSpec.describe FileImporterOptions do
         'educator_section_assignments',
         'star_math',
         'star_reading',
-        '504',
-        'ed_plan'
+        'ed_plans',
+        'ed_plan_accommodations',
+        '504'
       ])
     end
   end
