@@ -38,292 +38,182 @@ exports[`snapshots 1`] = `
       .
     </span>
   </div>
-  <table
+  <div
     style={
       Object {
-        "border": "1px solid #eee",
-        "borderCollapse": "collapse",
-        "margin": 0,
-        "width": "100%",
+        "margin": 10,
+        "marginBottom": 40,
       }
     }
   >
-    <thead>
-      <tr>
-        <th
-          style={
-            Object {
-              "backgroundColor": "#ccc",
-              "border": "1px solid #eee",
-              "fontWeight": "bold",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
+    <h2>
+      504 plan 
+      <span
+        style={
+          Object {
+            "color": "#aaa",
+            "paddingLeft": 10,
           }
-        >
-          Effective dates
-        </th>
-        <th
-          style={
-            Object {
-              "backgroundColor": "#ccc",
-              "border": "1px solid #eee",
-              "fontWeight": "bold",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
+        }
+      >
+        id:
+        fake-sep-oid-1
+      </span>
+    </h2>
+    <div
+      style={
+        Object {
+          "margin": 10,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingTop": 10,
           }
-        >
-          Reviews
-        </th>
-        <th
-          style={
-            Object {
-              "backgroundColor": "#ccc",
-              "border": "1px solid #eee",
-              "fontWeight": "bold",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Signatures
-        </th>
-        <th
-          style={
-            Object {
-              "backgroundColor": "#ccc",
-              "border": "1px solid #eee",
-              "fontWeight": "bold",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          Content
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
+        }
+      >
+        <h6>
+          Status
+        </h6>
+        <div>
+          Effective dates 
           9/15/15
            - 
           10/15/15
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
+        </div>
+        <div>
+          Last review on 
+          10/15/15
+        </div>
+        <div>
+          Last meeting on 
+          <span
+            style={
+              Object {
+                "color": "orange",
+              }
             }
-          }
-        >
-          <div>
-            Last review on 
-            10/15/15
-          </div>
-          <div>
-            Last meeting on 
+          >
             (none)
-          </div>
-          <div>
-            Last modified on 
+          </span>
+        </div>
+        <div>
+          Last modified on 
+          <span
+            style={
+              Object {
+                "color": "orange",
+              }
+            }
+          >
             (none)
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
+          </span>
+        </div>
+        <div>
+          9/15/15
+           by family
+        </div>
+        <div>
+          <span
+            style={
+              Object {
+                "color": "orange",
+              }
             }
+          >
+            Not signed
+          </span>
+           by district
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderTop": "1px solid #eee",
+            "marginTop": 20,
+            "paddingTop": 10,
           }
-        >
-          <div>
-            9/15/15
-             by family
-          </div>
-          <div>
-            <b
-              style={
-                Object {
-                  "color": "orange",
-                }
+        }
+      >
+        <h6>
+          Document text
+        </h6>
+        <div>
+          <div
+            style={
+              Object {
+                "marginBottom": 20,
               }
-            >
-              Not signed
-            </b>
-             by district
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-              "whiteSpace": "pre-wrap",
             }
-          }
-        >
-          <div>
-            <div
-              style={
-                Object {
-                  "marginBottom": 20,
-                }
-              }
-            >
-              These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.
-            </div>
-            <div
-              style={
-                Object {
-                  "marginBottom": 20,
-                }
-              }
-            >
-              Team Members Present:  Rich Districtwide, Laura PrincipalEmail with 504 sent to teachers, guidance counselor, principal on 9/15/15.
-            </div>
-            <div
-              style={
-                Object {
-                  "marginBottom": 20,
-                }
-              }
-            >
-              Category
-            </div>
+          >
+            These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
+          <div
+            style={
+              Object {
+                "marginBottom": 20,
+              }
             }
-          }
-        >
-          8/23/15
-           - 
-          2/22/16
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            Last review on 
-            10/2/15
+          >
+            Team Members Present:  Rich Districtwide, Laura PrincipalEmail with 504 sent to teachers, guidance counselor, principal on 9/15/15.
           </div>
-          <div>
-            Last meeting on 
-            (none)
-          </div>
-          <div>
-            Last modified on 
-            (none)
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-            }
-          }
-        >
-          <div>
-            <b
-              style={
-                Object {
-                  "color": "orange",
-                }
+          <div
+            style={
+              Object {
+                "marginBottom": 20,
               }
-            >
-              Not signed
-            </b>
-             by family
-          </div>
-          <div>
-            <b
-              style={
-                Object {
-                  "color": "orange",
-                }
-              }
-            >
-              Not signed
-            </b>
-             by district
-          </div>
-        </td>
-        <td
-          style={
-            Object {
-              "border": "1px solid #eee",
-              "padding": 10,
-              "textAlign": "left",
-              "verticalAlign": "top",
-              "whiteSpace": "pre-wrap",
             }
-          }
-        >
-          <div>
-            <div
-              style={
-                Object {
-                  "marginBottom": 20,
-                }
-              }
-            >
-              ADHDGeneral Anxiety Disorder
-            </div>
+          >
+            Category
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderTop": "1px solid #eee",
+            "marginTop": 20,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <h6>
+          Accommodations
+        </h6>
+        <div>
+          Student will meet with teachers before or after school to find out about any make-up work.
+        </div>
+        <div>
+          Prompt the student to review the work they complete before moving on to the next assignment.
+        </div>
+      </div>
+    </div>
+  </div>
   <a
     href="#"
     onClick={[Function]}
     style={
       Object {
-        "display": "inline-block",
+        "display": "block",
         "fontSize": 14,
-        "marginBottom": 20,
-        "marginTop": 20,
+        "marginBottom": 10,
+        "marginTop": 10,
+      }
+    }
+  >
+    Show older 504 plans
+  </a>
+  <a
+    href="#"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "block",
+        "fontSize": 14,
+        "marginBottom": 10,
+        "marginTop": 10,
       }
     }
   >

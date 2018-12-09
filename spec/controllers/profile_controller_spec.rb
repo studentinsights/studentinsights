@@ -147,7 +147,8 @@ describe ProfileController, :type => :controller do
           'sep_fieldd_013',
           'sep_fieldd_014',
           'created_at',
-          'updated_at'
+          'updated_at',
+          'ed_plan_accommodations'
         ])
       end
     end

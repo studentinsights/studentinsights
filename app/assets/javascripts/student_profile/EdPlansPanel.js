@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
-import ts from '../components/tableStyles';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 
 
-// Renders ed plan data
+// Renders ed plan data (504)
 export default class EdPlansPanel extends React.Component {
   constructor(props) {
     super(props);
@@ -52,47 +51,10 @@ export default class EdPlansPanel extends React.Component {
     );
   }
 
-/*
-        <table style={{...ts.table, margin: 0, width: '100%'}}>
-          <thead>
-            <tr>
-              <th style={ts.headerCell}>Effective dates</th>
-              <th style={ts.headerCell}>Reviews</th>
-              <th style={ts.headerCell}>Signatures</th>
-              <th style={ts.headerCell}>Content</th>
-              <th style={ts.headerCell}>Accommodations</th>
-            </tr>
-          </thead>
-          <tbody>{edPlans.slice(0, 3).map(edPlan => (
-            <tr key={edPlan.sep_oid}>
-              <td style={ts.cell}>{reformatDate(edPlan.sep_effective_date)} - {reformatDate(edPlan.sep_end_date)}</td>
-              <td style={ts.cell}>
-                <div>Last review on {reformatDate(edPlan.sep_review_date, '(none)')}</div>
-                <div>Last meeting on {reformatDate(edPlan.sep_last_meeting_date, '(none)')}</div>
-                <div>Last modified on {(edPlan.sep_last_modified)
-                  ? moment.utc(edPlan.sep_last_modified/1000)
-                  : '(none)'}
-                </div>
-                </td>
-              <td style={ts.cell}>
-                <div>{reformatDate(edPlan.sep_parent_signed_date, <b style={{color: 'orange'}}>Not signed</b>)} by family</div>
-                <div>{reformatDate(edPlan.sep_district_signed_date, <b style={{color: 'orange'}}>Not signed</b>)} by district</div>
-              </td>
-              <td style={{...ts.cell, ...styles.substance}}>{this.renderSubstance(edPlan)}</td>
-              <td style={ts.cell}>
-                {edPlan.ed_plan_accommodations.map(accommodation => {
-                  return <div key={accommodation.id}>{accommodation.iac_description}</div>;
-                })}
-              </td>
-            </tr>
-          ))}</tbody>
-        </table>
-        {this.renderAccommodations()}
-        */
   // Might not be active or effective
   renderEdPlan(edPlan) {
     return (
-      <div style={{margin: 10, marginBottom: 40}}>
+      <div key={edPlan.id} style={{margin: 10, marginBottom: 40}}>
         <h2>504 plan <span style={{color: '#aaa', paddingLeft: 10}}>id:{edPlan.sep_oid}</span></h2>
         <div style={{margin: 10}}>
           <div style={{paddingTop: 10}}>
@@ -108,7 +70,7 @@ export default class EdPlansPanel extends React.Component {
             <div>{reformatDate(edPlan.sep_district_signed_date, highlight('Not signed'))} by district</div>
           </div>
           <div style={{marginTop: 20, paddingTop: 10, borderTop: '1px solid #eee'}}>
-            <h6>Document</h6>
+            <h6>Document text</h6>
             {this.renderSubstance(edPlan)}
           </div>
           <div style={{marginTop: 20, paddingTop: 10, borderTop: '1px solid #eee'}}>
@@ -152,7 +114,7 @@ EdPlansPanel.propTypes = {
     sep_district_signed_date: PropTypes.string,
     sep_parent_signed_date: PropTypes.string,
     sep_end_date: PropTypes.string,
-    sep_last_modified: PropTypes.number, // ms timestamp
+    sep_last_modified: PropTypes.string,
     ed_plan_accommodations: PropTypes.arrayOf(PropTypes.shape({
       iac_content_area: PropTypes.string,
       iac_category: PropTypes.string,
@@ -160,7 +122,7 @@ EdPlansPanel.propTypes = {
       iac_description: PropTypes.string,
       iac_field: PropTypes.string,
       iac_name: PropTypes.string,
-      iac_last_modified: PropTypes.number // ms timestamp
+      iac_last_modified: PropTypes.string
     })).isRequired
   })).isRequired
 };
@@ -184,5 +146,5 @@ function reformatDate(maybeDateText, elseValue = null) {
 }
 
 function highlight(el) {
-  return <b style={{color: 'orange'}}>{el}</b>;
+  return <span style={{color: 'orange'}}>{el}</span>;
 }
