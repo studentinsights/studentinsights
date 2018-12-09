@@ -18,7 +18,7 @@ class ProfileController < ApplicationController
       educators_index: Educator.to_index,
       access: student.access,
       teams: ENV.fetch('SHOULD_SHOW_TEAM_ICONS', false) ? student.teams.as_json(only: [:activity_text, :coach_text]) : [],
-      ed_plans: student.ed_plans.as_json,
+      ed_plans: student.ed_plans.includes(:ed_plan_accommodations).as_json(include: :ed_plan_accommodations),
       profile_insights: ProfileInsights.new(student).as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
