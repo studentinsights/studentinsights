@@ -62,10 +62,7 @@ export default class EdPlansPanel extends React.Component {
             <div>Effective dates {reformatDate(edPlan.sep_effective_date, highlight('(missing)'))} - {reformatDate(edPlan.sep_end_date, highlight('(missing)'))}</div>
             <div>Last review on {reformatDate(edPlan.sep_review_date, highlight('(none)'))}</div>
             <div>Last meeting on {reformatDate(edPlan.sep_last_meeting_date, highlight('(none)'))}</div>
-            <div>Last modified on {(edPlan.sep_last_modified)
-              ? moment.utc(edPlan.sep_last_modified/1000)
-              : highlight('(none)')}
-            </div>
+            <div>Last modified on {reformatDate(edPlan.sep_last_modified, highlight('(none)'))}</div>
             <div>{reformatDate(edPlan.sep_parent_signed_date, highlight('Not signed'))} by family</div>
             <div>{reformatDate(edPlan.sep_district_signed_date, highlight('Not signed'))} by district</div>
           </div>
