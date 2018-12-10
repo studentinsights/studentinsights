@@ -55,12 +55,8 @@ RSpec.describe EdPlanAccommodationsImporter do
         "ed_plan_id"=>ed_plan.id,
         "iac_oid"=>"test-iac-oid-101",
         "iac_sep_oid"=>"test-sep-oid-1",
-        "iac_content_area"=>"All",
-        "iac_category"=>"Non-standard",
-        "iac_type"=>"504",
         "iac_description"=>"Student will meet with teachers before or after school to find out about any make-up work.",
         "iac_field"=>"Student, teachers",
-        "iac_name"=>"Other Non-Standard Accommodation",
         "iac_last_modified"=>Time.parse('2016-02-02 12:34:28.000000000 +0000')
       }])
     end
