@@ -421,4 +421,105 @@ describe EventNotesController, :type => :controller do
       end
     end
   end
+
+  describe '#mark_as_restricted' do
+    def mark_as_restricted(id)
+      request.env['HTTPS'] = 'on'
+      put :mark_as_restricted, params: {
+        format: :json,
+        id: id
+      }
+    end
+
+    def create_label!(educator)
+      EducatorLabel.create!({
+        educator: educator,
+        label_key: 'can_mark_notes_as_restricted'
+      })
+    end
+
+    def create_note_from_jodi(attrs = {})
+      FactoryBot.create(:event_note, {
+        student_id: pals.shs_freshman_mari.id,
+        educator_id: pals.shs_jodi.id,
+        text: 'original-text-from-jodi',
+        is_restricted: false
+      }.merge(attrs))
+    end
+
+    it 'works, updates the note and saves a revision' do
+      create_label!(pals.shs_jodi)
+      note_from_jodi = create_note_from_jodi(is_restricted: false)
+      text_before = note_from_jodi.text
+
+      sign_in(pals.shs_jodi)
+      mark_as_restricted(note_from_jodi.id)
+      expect(response.body).to eq '{}'
+      expect(note_from_jodi.reload.is_restricted).to eq true
+      expect(note_from_jodi.reload.text).to eq text_before
+      expect(EventNoteRevision.all.size).to eq 1
+      expect(EventNoteRevision.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        "student_id"=>note_from_jodi.student_id,
+        "educator_id"=>pals.shs_jodi.id,
+        "event_note_type_id"=>note_from_jodi.event_note_type_id,
+        "text"=>"<redacted>",
+        "event_note_id"=>note_from_jodi.id,
+        "version"=>1
+      }])
+    end
+
+    it 'tolerates marking a note that is already restricted, if can_view_restricted_notes' do
+      note_from_jodi = create_note_from_jodi(is_restricted: true)
+      create_label!(pals.uri)
+      sign_in(pals.uri)
+      mark_as_restricted(note_from_jodi.id)
+
+      expect(response.status).to eq 200
+      expect(note_from_jodi.reload.is_restricted).to eq true
+    end
+
+    it '404s on non-existent id' do
+      sign_in(pals.uri)
+      mark_as_restricted(12345) # non-existent
+      expect(response.status).to eq 404
+    end
+
+    it 'guards access when label not set' do
+      note_from_jodi = create_note_from_jodi(is_restricted: false)
+
+      sign_in(pals.shs_jodi)
+      mark_as_restricted(note_from_jodi.id)
+
+      expect(response.status).to eq 403
+      expect(note_from_jodi.reload.is_restricted).to eq false
+      expect(EventNoteRevision.all.size).to eq 0
+    end
+
+    it 'does allow marking notes as restricted that were creating by other educators' do
+      create_label!(pals.uri)
+      note_from_jodi = create_note_from_jodi(is_restricted: false)
+      sign_in(pals.uri)
+      mark_as_restricted(note_from_jodi.id)
+
+      expect(response.status).to eq 200
+      expect(note_from_jodi.reload.is_restricted).to eq true
+    end
+
+    it 'does not allow when no access for can_view_restricted_notes, even if note is already restricted' do
+      note_from_jodi = create_note_from_jodi(is_restricted: true)
+      create_label!(pals.shs_jodi)
+      sign_in(pals.shs_jodi)
+      mark_as_restricted(note_from_jodi.id)
+
+      expect(response.status).to eq 403
+      expect(note_from_jodi.reload.is_restricted).to eq true
+    end
+
+    it 'does not allow users not signed in' do
+      note_from_jodi = create_note_from_jodi(is_restricted: false)
+      mark_as_restricted(note_from_jodi.id)
+      expect(response.status).to eq 401
+      expect(note_from_jodi.reload.is_restricted).to eq false
+    end
+  end
 end

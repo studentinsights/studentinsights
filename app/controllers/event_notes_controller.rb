@@ -44,6 +44,7 @@ class EventNotesController < ApplicationController
 
   # patch
   # restricted or unrestricted
+  # does not allow changing restricted status; see #mark_as_restricted
   def update
     safe_params = params.permit(:id, :student_id, event_note: [:text])
     event_note = authorized_or_raise! { EventNote.find(safe_params[:id]) }
@@ -84,14 +85,14 @@ class EventNotesController < ApplicationController
   def mark_as_restricted
     safe_params = params.permit(:id)
     event_note = authorized_or_raise! { EventNote.find(safe_params[:id]) }
-    raise Exceptions::EducatorNotAuthorized if event_note.is_restricted
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('can_mark_notes_as_restricted')
+    return render json: {} if event_note.is_restricted # put is idempotent
 
-    event_note_revision, update_succeeded = update_note_with_revision(event_note, :is_restricted, true)
+    update_succeeded, event_note_revision = update_note_with_revision(event_note, :is_restricted, true)
     if event_note_revision.nil? || !update_succeeded
       render json: { errors: 'request failed' }, status: 422
     else
-      render json: { status: 'ok'}
+      render json: {}
     end
   end
 
@@ -109,13 +110,13 @@ class EventNotesController < ApplicationController
   def update_note_with_revision(event_note, attr_key, attr_value)
     # First store the current state of the existing event note
     event_note_revision = create_event_note_revision(event_note)
+    return [false, event_note_revision] if !event_note_revision
 
     # Update the EventNote, but don't update `recorded_at` - keep that at the original
     # recording time.  The assumption is that these "updates" are from from the user continually
     # editing during a meeting (the "start time" is fine) or from typo fixes (we don't care about
     # those).  Or they are from some meta change like "set this as restricted."
     update_succeeded = event_note.update(attr_key => attr_value)
-
     [update_succeeded, event_note_revision]
   end
 
