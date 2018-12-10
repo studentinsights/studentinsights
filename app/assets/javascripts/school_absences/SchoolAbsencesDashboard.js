@@ -10,7 +10,7 @@ import {
   supportsCounselor,
   shouldDisplayCounselor
 } from '../helpers/PerDistrict';
-import SectionHeading from '../components/SectionHeading';
+import {SectionHeadingSpaceBetween} from '../components/SectionHeading';
 import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
 import SelectTimeRange, {
@@ -29,6 +29,7 @@ import SelectExcusedAbsences, {
   EXCLUDE_EXCUSED_ABSENCES,
   ALL_ABSENCES
 } from './SelectExcusedAbsences';
+import DownloadAbsences from './DownloadAbsences';
 
 
 export default class SchoolAbsencesDashboard extends React.Component {
@@ -36,6 +37,7 @@ export default class SchoolAbsencesDashboard extends React.Component {
     super(props);
 
     this.state = initialState(props, context);
+    this.toCsvFn = this.toCsvFn.bind(this);
     this.onResetFilters = this.onResetFilters.bind(this);
     this.onExcusedAbsencesChanged = this.onExcusedAbsencesChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
@@ -169,6 +171,31 @@ export default class SchoolAbsencesDashboard extends React.Component {
     return timeRangeText(timeRangeKey);
   }
 
+  // For exporting
+  toCsvFn({nowMoment, joinCsvRow}) {
+    const {school, studentsWithAbsences} = this.props;
+    const filename = `Absences-${school.slug}-${nowMoment.format('YYYY-MM-DD')}.csv`;
+    const header = joinCsvRow([
+      'student_lasid',
+      'student_grade',
+      'absence_date',
+      'absence_excused'
+    ]);
+    const rows = _.flatMap(studentsWithAbsences, student => {
+      return student.absences.map(absence => {
+        return [
+          student.local_id,
+          student.grade,
+          moment.utc(absence.occurred_at).format('YYYYMMDD'),
+          absence.excused ? 'true' : 'false'
+        ];
+      });
+    });
+    console.log('rows', rows);
+    const csvText = [header].concat(rows.map(joinCsvRow)).join('\n');
+    return {filename, csvText};
+  }
+
   onTimeRangeKeyChanged(timeRangeKey) {
     this.setState({timeRangeKey});
   }
@@ -213,7 +240,10 @@ export default class SchoolAbsencesDashboard extends React.Component {
         style={styles.root}
         onEscape={this.onResetFilters}
       >
-        <SectionHeading>Recent Absences at {school.name}</SectionHeading>
+        <SectionHeadingSpaceBetween>
+          <div>Recent Absences at {school.name}</div>
+          <DownloadAbsences toCsvFn={this.toCsvFn} />
+        </SectionHeadingSpaceBetween>
         <div style={dashboardStyles.filterBar}>
           {this.renderFilterBar()}
         </div>
@@ -352,7 +382,24 @@ SchoolAbsencesDashboard.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 SchoolAbsencesDashboard.propTypes = {
-  studentsWithAbsences: PropTypes.array.isRequired,
+  studentsWithAbsences: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    local_id: PropTypes.string.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
+    grade: PropTypes.string.isRequired,
+    house: PropTypes.string,
+    counselor: PropTypes.string,
+    homeroom_label: PropTypes.string,
+    latest_note: PropTypes.shape({
+      event_note_type_id: PropTypes.number.isRequired,
+      recorded_at: PropTypes.string.isRequired
+    }),
+    absences: PropTypes.arrayOf(PropTypes.shape({
+      occurred_at: PropTypes.string.isRequired,
+      excused: PropTypes.bool.isRequired
+    })).isRequired
+  })).isRequired,
   school: PropTypes.shape({
     name: PropTypes.string.isRequired,
     local_id: PropTypes.string.isRequired,

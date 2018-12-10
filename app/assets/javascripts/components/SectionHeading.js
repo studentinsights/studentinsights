@@ -3,7 +3,7 @@ import React from 'react';
 
 
 // Visual UI component, the heading for a primary section on a page
-function SectionHeading({children,  style = {}, titleStyle = {}}) {
+export default function SectionHeading({children,  style = {}, titleStyle = {}}) {
   return (
     <div className="SectionHeading" style={{...styles.root, ...style}}>
       <h4 style={{...styles.title, ...titleStyle}}>
@@ -26,7 +26,14 @@ const styles = {
   title: {
     display: 'inline',
     color: 'black'
+  },
+  spaceBetweenHeading: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 };
 
-export default SectionHeading;
+export function SectionHeadingSpaceBetween(props) {
+  return <SectionHeading {...props} titleStyle={styles.spaceBetweenHeading} />;
+}

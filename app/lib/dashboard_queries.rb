@@ -36,7 +36,8 @@ class DashboardQueries
       :grade,
       :house,
       :counselor,
-      :id
+      :id,
+      :local_id
     ])
 
     # merge
