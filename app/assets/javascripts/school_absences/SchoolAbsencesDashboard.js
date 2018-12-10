@@ -191,7 +191,6 @@ export default class SchoolAbsencesDashboard extends React.Component {
         ];
       });
     });
-    console.log('rows', rows);
     const csvText = [header].concat(rows.map(joinCsvRow)).join('\n');
     return {filename, csvText};
   }
