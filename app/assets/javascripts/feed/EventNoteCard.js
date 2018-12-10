@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import FeedCardFrame from './FeedCardFrame';
+import {eventNoteTypeText} from '../helpers/eventNoteType';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import Timestamp from '../components/Timestamp';
-import {eventNoteTypeText} from '../helpers/eventNoteType';
+import FeedCardFrame from './FeedCardFrame';
 
 
 // Render a card in the feed for an EventNote
-class EventNoteCard extends React.Component {
+export default class EventNoteCard extends React.Component {
   render() {
-    const {eventNoteCardJson, style} = this.props;
+    const {eventNoteCardJson, iconsEl, style} = this.props;
     const {student, educator} = eventNoteCardJson;
 
     return (
@@ -34,6 +34,7 @@ class EventNoteCard extends React.Component {
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
             <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteCardJson.event_note_type_id} />
           </div>}
+          iconsEl={iconsEl}
         >
           <NoteText text={eventNoteCardJson.text} />
         </FeedCardFrame>
@@ -43,6 +44,7 @@ class EventNoteCard extends React.Component {
 }
 EventNoteCard.propTypes = {
   eventNoteCardJson: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     recorded_at: PropTypes.string.isRequired,
     event_note_type_id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
@@ -64,6 +66,7 @@ EventNoteCard.propTypes = {
       })
     })
   }).isRequired,
+  iconsEl: PropTypes.node,
   style: PropTypes.object
 };
 
@@ -76,5 +79,3 @@ const styles = {
     fontWeight: 'bold'
   }
 };
-
-export default EventNoteCard;

@@ -6,41 +6,48 @@ import IncidentCard from './IncidentCard';
 
 
 // Pure UI component for rendering feed cards (eg, on the home page)
-export class FeedView extends React.Component {
+export default class FeedView extends React.Component {
   render() {
-    const {feedCards} = this.props;
+    const {feedCards, cardPropsFn} = this.props;
     return (
       <div className="FeedView">
         {feedCards.map(feedCard => {
           const {type, json} = feedCard;
-          if (type === 'event_note_card') return this.renderEventNoteCard(json);
-          if (type === 'birthday_card') return this.renderBirthdayCard(json);
-          if (type === 'incident_card') return this.renderIncidenCard(json);
+          const cardProps = cardPropsFn ? cardPropsFn(type, json) : {};
+          if (type === 'event_note_card') return this.renderEventNoteCard(json, cardProps);
+          if (type === 'birthday_card') return this.renderBirthdayCard(json, cardProps);
+          if (type === 'incident_card') return this.renderIncidenCard(json, cardProps);
           console.warn('Unexpected card type: ', type); // eslint-disable-line no-console
         })}
       </div>
     );
   }
 
-  renderEventNoteCard(json) {
+  renderEventNoteCard(json, cardProps = {}) {
     return <EventNoteCard
       key={json.id}
       style={styles.card}
-      eventNoteCardJson={json} />;
+      eventNoteCardJson={json}
+      {...cardProps}
+    />;
   }
 
-  renderBirthdayCard(json) {
+  renderBirthdayCard(json, cardProps = {}) {
     return <BirthdayCard
       key={`birthday:${json.id}`}
       style={styles.card}
-      studentBirthdayCard={json} />;
+      studentBirthdayCard={json}
+      {...cardProps}
+    />;
   }
 
-  renderIncidenCard(json) {
+  renderIncidenCard(json, cardProps = {}) {
     return <IncidentCard
       key={json.id}
       style={styles.card}
-      incidentCard={json} />;
+      incidentCard={json}
+      {...cardProps}
+    />;
   }    
 }
 FeedView.propTypes = {
@@ -48,7 +55,8 @@ FeedView.propTypes = {
     type: PropTypes.string.isRequired,
     timestamp: PropTypes.string.isRequired,
     json: PropTypes.object.isRequired
-  })).isRequired
+  })).isRequired,
+  cardPropsFn: PropTypes.func
 };
 
 
@@ -57,5 +65,3 @@ const styles = {
     marginTop: 20
   }
 };
-
-export default FeedView;

@@ -3,6 +3,7 @@ import {
   apiFetchJson,
   apiPostJson,
   apiPatchJson,
+  apiPutJson,
   apiDeleteJson
 } from './apiFetchJson';
 import mockCsrfForTest from '../testing/mockCsrfForTest';
@@ -71,6 +72,28 @@ it('#apiPatchJson', done => {
           "X-CSRF-Token": 'mocked-csrf-token'
         },
         "method": "PATCH"
+      }
+    ]]);
+    expect(json).toEqual({responseFoo: 'baz'});
+    done();
+  });
+});
+
+it('#apiPutJson', done => {
+  fetchMock.put('/test-url', { responseFoo: 'baz' });
+
+  apiPutJson('/test-url', { bodyFoo: 'bar' }).then(json => {
+    expect(fetchMock.calls()).toEqual([[
+      '/test-url',
+      {
+        "body": "{\"bodyFoo\":\"bar\"}",
+        "credentials": "same-origin",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "X-CSRF-Token": 'mocked-csrf-token'
+        },
+        "method": "PUT"
       }
     ]]);
     expect(json).toEqual({responseFoo: 'baz'});

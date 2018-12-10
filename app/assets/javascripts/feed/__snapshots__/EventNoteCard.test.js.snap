@@ -125,14 +125,16 @@ exports[`matches snapshot 1`] = `
       </div>
     </div>
     <div
+      className="FeedCardFrame-footer"
       style={
         Object {
           "display": "flex",
-          "justifyContent": "flex-end",
+          "justifyContent": "space-between",
           "marginBottom": 5,
         }
       }
     >
+      <div />
       <div>
         <span
           className="HouseBadge"

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   # event_notes: creating/updating notes, or reading restricted notes
   post '/api/event_notes' => 'event_notes#create'
   patch '/api/event_notes/:id' => 'event_notes#update'
+  put '/api/event_notes/:id/mark_as_restricted' => 'event_notes#mark_as_restricted'
   get '/api/event_notes/:id/restricted_note_json' => 'event_notes#restricted_note_json'
   delete '/api/event_notes/attachments/:event_note_attachment_id' => 'event_notes#destroy_attachment'
 

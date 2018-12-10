@@ -25,14 +25,15 @@ export default class SearchQueryFetcher extends React.Component {
     const nowMoment = nowFn();
     const startTimestamp = momentRange(timeRangeKey, nowMoment)[0].unix();
     const queryString = qs.stringify({
-      start_time: startTimestamp,
-      end_time: nowMoment.unix(),
+      start_time_utc: startTimestamp,
+      end_time_utc: nowMoment.unix(),
       text: searchText,
       grade: valueOrNull(grade),
       event_note_type_id: valueOrNull(eventNoteTypeId),
       scope_key: valueOrNull(scopeKey),
       limit: valueOrNull(limit)
     });
+
     const url = `/api/search_notes/query_json?${queryString}`;
     return apiFetchJson(url);
   }

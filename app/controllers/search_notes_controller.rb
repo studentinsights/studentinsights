@@ -5,8 +5,8 @@ class SearchNotesController < ApplicationController
   # to what the caller asks for
   def query_json
     query = query_from_safe_params(params.permit(*[
-      :start_time,
-      :end_time,
+      :start_time_utc,
+      :end_time_utc,
       :limit,
       :scope_key,
       :text,
@@ -31,8 +31,8 @@ class SearchNotesController < ApplicationController
   # Defaults are set in the query class
   def query_from_safe_params(safe_params)
     {
-      start_time: Time.at(safe_params[:start_time].to_i),
-      end_time: Time.at(safe_params[:end_time].to_i),
+      start_time_utc: Time.at(safe_params[:start_time_utc].to_i),
+      end_time_utc: Time.at(safe_params[:end_time_utc].to_i),
       limit: safe_params[:limit].to_i,
       scope_key: safe_params[:scope_key],
       text: safe_params[:text],
