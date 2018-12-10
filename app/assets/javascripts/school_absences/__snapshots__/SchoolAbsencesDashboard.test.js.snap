@@ -47,13 +47,43 @@ exports[`snapshots works for bedford 1`] = `
         <h4
           style={
             Object {
+              "alignItems": "center",
               "color": "black",
-              "display": "inline",
+              "display": "flex",
+              "justifyContent": "space-between",
             }
           }
         >
-          Recent Absences at 
-          Somerville High
+          <div>
+            Recent Absences at 
+            Somerville High
+          </div>
+          <div
+            className="DownloadAbsences"
+            onClick={[Function]}
+          >
+            <svg
+              height="24"
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </div>
         </h4>
       </div>
       <div
@@ -609,13 +639,43 @@ exports[`snapshots works for demo 1`] = `
         <h4
           style={
             Object {
+              "alignItems": "center",
               "color": "black",
-              "display": "inline",
+              "display": "flex",
+              "justifyContent": "space-between",
             }
           }
         >
-          Recent Absences at 
-          Somerville High
+          <div>
+            Recent Absences at 
+            Somerville High
+          </div>
+          <div
+            className="DownloadAbsences"
+            onClick={[Function]}
+          >
+            <svg
+              height="24"
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </div>
         </h4>
       </div>
       <div
@@ -1251,13 +1311,43 @@ exports[`snapshots works for new_bedford 1`] = `
         <h4
           style={
             Object {
+              "alignItems": "center",
               "color": "black",
-              "display": "inline",
+              "display": "flex",
+              "justifyContent": "space-between",
             }
           }
         >
-          Recent Absences at 
-          Somerville High
+          <div>
+            Recent Absences at 
+            Somerville High
+          </div>
+          <div
+            className="DownloadAbsences"
+            onClick={[Function]}
+          >
+            <svg
+              height="24"
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </div>
         </h4>
       </div>
       <div
@@ -1646,13 +1736,43 @@ exports[`snapshots works for somerville 1`] = `
         <h4
           style={
             Object {
+              "alignItems": "center",
               "color": "black",
-              "display": "inline",
+              "display": "flex",
+              "justifyContent": "space-between",
             }
           }
         >
-          Recent Absences at 
-          Somerville High
+          <div>
+            Recent Absences at 
+            Somerville High
+          </div>
+          <div
+            className="DownloadAbsences"
+            onClick={[Function]}
+          >
+            <svg
+              height="24"
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "fill": "#3177c9",
+                  "opacity": 0.5,
+                }
+              }
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </div>
         </h4>
       </div>
       <div

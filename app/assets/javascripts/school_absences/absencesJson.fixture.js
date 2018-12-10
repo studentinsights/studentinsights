@@ -9,7 +9,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "10003"
     },
     {
       "id": 4,
@@ -20,7 +21,8 @@ export default {
       "counselor": "FISHMAN",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "10004"
     },
     {
       "id": 24,
@@ -31,7 +33,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100024"
     },
     {
       "id": 25,
@@ -49,7 +52,8 @@ export default {
           "dismissed": false,
           "excused": true
         }
-      ]
+      ],
+      "local_id": "100025"
     },
     {
       "id": 27,
@@ -60,7 +64,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100027"
     },
     {
       "id": 28,
@@ -71,7 +76,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100028"
     },
     {
       "id": 29,
@@ -82,7 +88,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100029"
     },
     {
       "id": 30,
@@ -93,7 +100,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100030"
     },
     {
       "id": 31,
@@ -104,7 +112,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100031"
     },
     {
       "id": 32,
@@ -122,7 +131,8 @@ export default {
           "dismissed": false,
           "excused": true
         }
-      ]
+      ],
+      "local_id": "100032"
     },
     {
       "id": 34,
@@ -133,7 +143,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100034"
     },
     {
       "id": 35,
@@ -144,7 +155,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100035"
     },
     {
       "id": 36,
@@ -155,7 +167,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100036"
     },
     {
       "id": 38,
@@ -166,7 +179,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100038"
     },
     {
       "id": 39,
@@ -177,7 +191,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100039"
     },
     {
       "id": 41,
@@ -188,7 +203,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100041"
     },
     {
       "id": 42,
@@ -199,7 +215,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100042"
     },
     {
       "id": 43,
@@ -210,7 +227,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100043"
     },
     {
       "id": 44,
@@ -221,7 +239,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100044"
     },
     {
       "id": 46,
@@ -232,7 +251,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100046"
     },
     {
       "id": 47,
@@ -243,7 +263,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100047"
     },
     {
       "id": 49,
@@ -254,7 +275,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100049"
     },
     {
       "id": 68,
@@ -265,7 +287,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100068"
     },
     {
       "id": 69,
@@ -276,7 +299,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100069"
     },
     {
       "id": 71,
@@ -287,7 +311,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100071"
     },
     {
       "id": 73,
@@ -298,7 +323,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100073"
     },
     {
       "id": 74,
@@ -309,7 +335,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100074"
     },
     {
       "id": 75,
@@ -320,7 +347,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100075"
     },
     {
       "id": 77,
@@ -331,7 +359,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100077"
     },
     {
       "id": 80,
@@ -342,7 +371,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100080"
     },
     {
       "id": 81,
@@ -353,7 +383,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100081"
     },
     {
       "id": 82,
@@ -364,7 +395,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100082"
     },
     {
       "id": 83,
@@ -375,7 +407,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100083"
     },
     {
       "id": 84,
@@ -386,7 +419,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100084"
     },
     {
       "id": 87,
@@ -397,7 +431,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100087"
     },
     {
       "id": 88,
@@ -408,7 +443,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100088"
     },
     {
       "id": 89,
@@ -419,7 +455,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100089"
     },
     {
       "id": 90,
@@ -430,7 +467,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100090"
     },
     {
       "id": 91,
@@ -441,7 +479,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100091"
     },
     {
       "id": 92,
@@ -452,7 +491,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100092"
     },
     {
       "id": 94,
@@ -470,7 +510,8 @@ export default {
           "dismissed": false,
           "excused": true
         }
-      ]
+      ],
+      "local_id": "100094"
     },
     {
       "id": 95,
@@ -481,7 +522,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100095"
     },
     {
       "id": 96,
@@ -492,7 +534,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100096"
     },
     {
       "id": 97,
@@ -503,7 +546,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100097"
     },
     {
       "id": 98,
@@ -514,7 +558,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100098"
     },
     {
       "id": 100,
@@ -525,7 +570,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000100"
     },
     {
       "id": 101,
@@ -536,7 +582,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000101"
     },
     {
       "id": 102,
@@ -547,7 +594,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000102"
     },
     {
       "id": 103,
@@ -558,7 +606,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000103"
     },
     {
       "id": 119,
@@ -569,7 +618,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000119"
     },
     {
       "id": 26,
@@ -580,7 +630,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "Teacher, Bill",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100026"
     },
     {
       "id": 33,
@@ -591,7 +642,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100033"
     },
     {
       "id": 40,
@@ -602,7 +654,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "Teacher, Jodi",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100040"
     },
     {
       "id": 70,
@@ -613,7 +666,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100070"
     },
     {
       "id": 76,
@@ -624,7 +678,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100076"
     },
     {
       "id": 85,
@@ -635,7 +690,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100085"
     },
     {
       "id": 93,
@@ -653,7 +709,8 @@ export default {
           "dismissed": false,
           "excused": false
         }
-      ]
+      ],
+      "local_id": "100093"
     },
     {
       "id": 104,
@@ -664,7 +721,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000104"
     },
     {
       "id": 106,
@@ -675,7 +733,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000106"
     },
     {
       "id": 107,
@@ -686,7 +745,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000107"
     },
     {
       "id": 108,
@@ -697,7 +757,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000108"
     },
     {
       "id": 109,
@@ -715,7 +776,8 @@ export default {
           "dismissed": false,
           "excused": false
         }
-      ]
+      ],
+      "local_id": "1000109"
     },
     {
       "id": 110,
@@ -726,7 +788,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000110"
     },
     {
       "id": 112,
@@ -737,7 +800,8 @@ export default {
       "counselor": "SOFIA",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000112"
     },
     {
       "id": 113,
@@ -748,7 +812,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000113"
     },
     {
       "id": 114,
@@ -766,7 +831,8 @@ export default {
           "dismissed": false,
           "excused": false
         }
-      ]
+      ],
+      "local_id": "1000114"
     },
     {
       "id": 116,
@@ -777,7 +843,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000116"
     },
     {
       "id": 118,
@@ -788,7 +855,8 @@ export default {
       "counselor": "BUZZ",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000118"
     },
     {
       "id": 120,
@@ -799,7 +867,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000120"
     },
     {
       "id": 121,
@@ -817,7 +886,8 @@ export default {
           "dismissed": false,
           "excused": false
         }
-      ]
+      ],
+      "local_id": "1000121"
     },
     {
       "id": 99,
@@ -828,7 +898,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "100099"
     },
     {
       "id": 117,
@@ -839,7 +910,8 @@ export default {
       "counselor": "WOODY",
       "homeroom_label": "SHS ALL",
       "latest_note": null,
-      "absences": []
+      "absences": [],
+      "local_id": "1000117"
     }
   ],
   "school": {

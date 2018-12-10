@@ -31,6 +31,7 @@ RSpec.describe DashboardQueries do
         :counselor,
         :homeroom_label,
         :id,
+        :local_id,
         :last_name,
         :latest_note
       ])
