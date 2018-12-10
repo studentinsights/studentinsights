@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_09_121238) do
+ActiveRecord::Schema.define(version: 2018_12_10_135737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -363,6 +363,12 @@ ActiveRecord::Schema.define(version: 2018_12_09_121238) do
     t.integer "number_of_hours"
     t.text "goal"
     t.string "custom_intervention_name"
+  end
+
+  create_table "logged_searches", force: :cascade do |t|
+    t.json "clamped_query_json", null: false
+    t.integer "all_results_size", null: false
+    t.date "search_date", null: false
   end
 
   create_table "login_activities", force: :cascade do |t|

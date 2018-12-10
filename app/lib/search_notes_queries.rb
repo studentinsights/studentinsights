@@ -19,6 +19,7 @@ class SearchNotesQueries
   end
 
   def query(passed_query = {})
+    # Add in defaults
     clamped_query = SearchNotesQueries.clamped_with_defaults(passed_query)
 
     # query for both the total number of records, and then limit
@@ -30,6 +31,9 @@ class SearchNotesQueries
     query_scope = authorized_query_scope(clamped_query)
     all_results_size = query_scope.size
     event_notes = query_scope.first(clamped_query[:limit])
+
+    # log
+    log_query!(clamped_query, all_results_size)
 
     # serialize, and return both actual data and metadata about
     # total other records
@@ -78,5 +82,18 @@ class SearchNotesQueries
     note_students = Student.where(id: note_student_ids)
     feed_students = FeedFilter.new(educator).filter_for_educator(note_students)
     feed_students.pluck(:id)
+  end
+
+  # The intention is to avoid logging anything directly tied to a user,
+  # but to get coarse information on what kinds of queries, whether they
+  # are returning any results, and rough ordering (eg, query order, but only
+  # scoped to a date so there's no directly way to connect with webserver
+  # logs).
+  def log_query!(clamped_query, all_results_size)
+    LoggedSearch.create!({
+      clamped_query_json: clamped_query.as_json(except: [:start_time_utc, :end_time_utc]).to_json,
+      all_results_size: all_results_size,
+      search_date: Date.today
+    })
   end
 end

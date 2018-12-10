@@ -106,5 +106,31 @@ RSpec.describe SearchNotesQueries do
       expect(event_note_cards_json.size).to eq 100
       expect(clamped_query[:limit]).to eq 100
     end
+
+    it 'logs queries coarsely' do
+      setup!
+      query = make_query({
+        text: 'read',
+        grade: '12',
+        house: 'Broadway',
+        event_note_type_id: EventNoteType.SST.id
+      })
+      event_note_cards_json, all_results_size, _ = SearchNotesQueries.new(pals.shs_sofia_counselor).query(query)
+      expect(event_note_cards_json.size).to eq 1
+      expect(all_results_size).to eq 1
+      expect(LoggedSearch.all.size).to eq 1
+      expect(LoggedSearch.all.as_json(except: [:id])).to eq([{
+        "clamped_query_json"=>{
+          "limit" => 50,
+          "text" => "read",
+          "grade" => "12",
+          "house" => "Broadway",
+          "event_note_type_id" => 300,
+          "scope_key" => "SCOPE_ALL_STUDENTS"
+        }.to_json,
+        "all_results_size"=>1,
+        "search_date"=>Date.today
+      }])
+    end
   end
 end
