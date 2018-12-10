@@ -114,12 +114,8 @@ class EdPlanAccommodationsImporter
       ed_plan_id: ed_plan_id,
       iac_oid: row[:iac_oid],
       iac_sep_oid: row[:iac_sep_oid],
-      iac_content_area: row[:iac_content_area],
-      iac_category: row[:iac_category],
-      iac_type: row[:iac_type],
       iac_description: row[:iac_description],
       iac_field: row[:iac_field],
-      iac_name: row[:iac_name],
       iac_last_modified: parsed_timestamp(row[:iac_last_modified])
     })
 
