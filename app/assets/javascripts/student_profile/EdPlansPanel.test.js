@@ -5,6 +5,7 @@ import EdPlansPanel from './EdPlansPanel';
 
 export function testProps(props = {}) {
   return {
+    studentName: 'Garfield Skywalker',
     edPlans: [{
       "id": 245,
       "sep_oid": "fake-sep-oid-1",
@@ -21,7 +22,7 @@ export function testProps(props = {}) {
       "sep_fieldd_001": "These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.",
       "sep_fieldd_002": "",
       "sep_fieldd_003": "",
-      "sep_fieldd_004": "Team Members Present:  Rich Districtwide, Laura PrincipalEmail with 504 sent to teachers, guidance counselor, principal on 9/15/15.",
+      "sep_fieldd_004": "Team Members Present:  Rich Districtwide, Laura Principal.  Email with 504 sent to teachers, guidance counselor, principal on 9/15/15.",
       "sep_fieldd_005": "Category",
       "sep_fieldd_006": "N",
       "sep_fieldd_007": "N",
