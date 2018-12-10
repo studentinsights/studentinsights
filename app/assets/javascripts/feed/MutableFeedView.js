@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import apiPutJson from '../helpers/apiFetchJson';
+import PropTypes from 'prop-types';
+import {apiPutJson} from '../helpers/apiFetchJson';
 import FeedView from './FeedView';
 
 
-
+// Wraps FeedView with mutable state and an operation
+// for event cards to be marked as restricted.
 export default class MutableFeedView extends React.Component {
   constructor(props) {
     super(props);
@@ -12,21 +13,23 @@ export default class MutableFeedView extends React.Component {
     this.state = {
       feedCards: props.defaultFeedCards
     };
+
+    this.cardPropsFn = this.cardPropsFn.bind(this);
   }
 
   cardPropsFn(type, json) {
+    const {educatorLabels} = this.props;
+    if (educatorLabels.indexOf('can_mark_notes_as_restricted') === -1) return {};
     if (type !== 'event_note_card') return {};
 
-    return (
-      <div className="RestrictedBits">
-        <a href="#" style={styles.link} onClick={this.onClickMarkRestricted.bind(this, json.id)}>Mark restricted</a>
-      </div>
-    );
+    return {
+      iconsEl: this.renderIconsEl(json.id)
+    };
   }
 
   onClickMarkRestricted(eventNoteId, e) {
     e.preventDefault();
-    if (!confirm("Are you sure?")) return;
+    if (!confirm("Marking this note as restricted will protect the student's privacy,\nwhile also limiting which educators can access this information.\n\nIf you need to undo this, you can email help@studentinsights.org.\n\nContinue?")) return;
 
     // Make server request optimistically
     apiPutJson(`/api/event_notes/${eventNoteId}/mark_as_restricted`)
@@ -50,9 +53,20 @@ export default class MutableFeedView extends React.Component {
       />
     );
   }
+
+  renderIconsEl(eventNoteId) {
+    return (
+      <div className="RestrictedBits">
+        <a href="#" style={styles.link} onClick={this.onClickMarkRestricted.bind(this, eventNoteId)}>
+          Mark restricted
+        </a>
+      </div>
+    );
+  }
 }
 MutableFeedView.propTypes = {
-  defaultFeedCards: PropTypes.arrayOf.isRequired
+  defaultFeedCards: PropTypes.array.isRequired,
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 const styles = {
