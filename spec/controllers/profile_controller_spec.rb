@@ -109,6 +109,9 @@ describe ProfileController, :type => :controller do
       let!(:f_and_p) do
         EdPlan.create!({
           student_id: pals.healey_kindergarten_student.id,
+          sep_effective_date: Date.parse('2016-09-15'),
+          sep_fieldd_006: 'Health disability',
+          sep_fieldd_007: 'Rich Districtwide, Laura Principal, Sarah Teacher, Jon Arbuckle (parent)',
           sep_oid: 'test-sep-oid'
         })
       end
@@ -135,7 +138,6 @@ describe ProfileController, :type => :controller do
           'id',
           'sep_oid',
           'student_id',
-          'sep_grade_level',
           'sep_status',
           'sep_effective_date',
           'sep_review_date',

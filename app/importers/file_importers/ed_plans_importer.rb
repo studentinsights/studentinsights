@@ -95,7 +95,6 @@ class EdPlansImporter
     })
     ed_plan.assign_attributes({
       sep_oid: row[:sep_oid],
-      sep_grade_level: row[:sep_grade_level],
       sep_status: row[:sep_status],
       sep_effective_date: parsed_date(row[:sep_effective_date]),
       sep_review_date: parsed_date(row[:sep_review_date]),

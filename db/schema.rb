@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_135737) do
+ActiveRecord::Schema.define(version: 2018_12_10_184301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,12 +113,8 @@ ActiveRecord::Schema.define(version: 2018_12_10_135737) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
-    t.text "iac_content_area"
-    t.text "iac_category"
-    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
-    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -128,9 +124,8 @@ ActiveRecord::Schema.define(version: 2018_12_10_135737) do
   create_table "ed_plans", force: :cascade do |t|
     t.text "sep_oid", null: false
     t.integer "student_id", null: false
-    t.text "sep_grade_level"
     t.text "sep_status"
-    t.date "sep_effective_date"
+    t.date "sep_effective_date", null: false
     t.date "sep_review_date"
     t.date "sep_last_meeting_date"
     t.date "sep_district_signed_date"
@@ -142,8 +137,8 @@ ActiveRecord::Schema.define(version: 2018_12_10_135737) do
     t.text "sep_fieldd_003"
     t.text "sep_fieldd_004"
     t.text "sep_fieldd_005"
-    t.text "sep_fieldd_006"
-    t.text "sep_fieldd_007"
+    t.text "sep_fieldd_006", null: false
+    t.text "sep_fieldd_007", null: false
     t.text "sep_fieldd_008"
     t.text "sep_fieldd_009"
     t.text "sep_fieldd_010"
