@@ -177,7 +177,7 @@ function reformatPersons(personsText, elseValue = null) {
   if (!personsText || personsText === '') return elseValue;
   return (
     <ul style={{...styles.simpleList, listStyleType: 'circle'}}>
-      {personsText.split(/[,;]\s/).map(personText => (
+      {_.uniq(personsText.split(/[,;]\s/)).map(personText => (
         <li key={personText}>{personText}</li>
       ))}
     </ul>
