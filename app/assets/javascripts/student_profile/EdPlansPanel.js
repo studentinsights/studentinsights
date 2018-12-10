@@ -29,7 +29,7 @@ export default class EdPlansPanel extends React.Component {
 
   render() {
     const {edPlans} = this.props;
-    const {showAll, showRaw} = this.state;
+    const {showAll} = this.state;
 
     const sortedEdPlans = _.sortBy(edPlans, 'sep_effective_date').reverse();
     const visibleEdPlans = (showAll) ? sortedEdPlans : sortedEdPlans.slice(0, 1);
@@ -40,10 +40,7 @@ export default class EdPlansPanel extends React.Component {
           ? null
           : <a href="#" style={styles.link} onClick={this.onShowMore}>Show older 504 plans</a>
         }
-        {showRaw
-          ? <pre>{JSON.stringify(edPlans, null, 2)}</pre>
-          : <a href="#" style={styles.link} onClick={this.onShowRawClicked}>Show raw data</a>
-        }
+        {this.renderRawLinkIfQueryString()}
       </div>
     );
   }
@@ -53,7 +50,7 @@ export default class EdPlansPanel extends React.Component {
     const {studentName} = this.props;
 
     return (
-      <div key={edPlan.id} style={{marginBottom: 40, padding: 20, border: '1px solid #ccc', backgroundColor: '#f8f8f8'}}>
+      <div key={edPlan.id} style={{marginBottom: 20, padding: 20, border: '1px solid #ccc', backgroundColor: '#f8f8f8'}}>
         <h2 style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
           <div>504 plan for {studentName}</div>
           <div style={{color: '#ccc', paddingLeft: 10}}>id:{edPlan.sep_oid}</div>
@@ -121,6 +118,15 @@ export default class EdPlansPanel extends React.Component {
         })}
       </ul>
     );      
+  }
+
+  renderRawLinkIfQueryString() {
+    const {edPlans} = this.props;
+    const {showRaw} = this.state;
+    if (window.location.search.indexOf('raw') === -1) return null;
+    return (showRaw)
+      ? <pre>{JSON.stringify(edPlans, null, 2)}</pre>
+      : <a href="#" style={styles.link} onClick={this.onShowRawClicked}>Show raw data</a>;
   }
 }
 EdPlansPanel.propTypes = {

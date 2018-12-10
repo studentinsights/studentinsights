@@ -9,7 +9,7 @@ exports[`snapshots 1`] = `
       Object {
         "backgroundColor": "#f8f8f8",
         "border": "1px solid #ccc",
-        "marginBottom": 40,
+        "marginBottom": 20,
         "padding": 20,
       }
     }
@@ -116,7 +116,7 @@ exports[`snapshots 1`] = `
         <ul
           style={
             Object {
-              "listStyleType": "lower-alpha",
+              "listStyleType": "circle",
               "paddingLeft": 15,
             }
           }
@@ -141,7 +141,6 @@ exports[`snapshots 1`] = `
         <ul
           style={
             Object {
-              "listStyleType": "lower-alpha",
               "paddingLeft": 15,
             }
           }
@@ -169,20 +168,6 @@ exports[`snapshots 1`] = `
     }
   >
     Show older 504 plans
-  </a>
-  <a
-    href="#"
-    onClick={[Function]}
-    style={
-      Object {
-        "display": "block",
-        "fontSize": 14,
-        "marginBottom": 10,
-        "marginTop": 10,
-      }
-    }
-  >
-    Show raw data
   </a>
 </div>
 `;
