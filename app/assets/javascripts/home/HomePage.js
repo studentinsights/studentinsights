@@ -16,7 +16,10 @@ class HomePage extends React.Component {
       <div className="HomePage">
         <div style={styles.columnsContainer}>
           <div style={styles.column}>
-            <SectionHeading>{`What's happening?`}</SectionHeading>
+            <SectionHeading titleStyle={styles.sectionTitleStyle}>
+              <div>What's happening?</div>
+              {this.renderSearch()}
+            </SectionHeading>
             <HomeFeed educatorId={educatorId} />
           </div>
           <div style={styles.column}>
@@ -27,6 +30,12 @@ class HomePage extends React.Component {
       </div>
     );
   }
+
+  renderSearch() {
+    const {educatorLabels} = this.props;
+    if (educatorLabels.indexOf('enable_searching_notes') === -1) return null;
+    return <a href="/search/notes">Search notes</a>;
+  }
 }
 HomePage.propTypes = {
   educatorId: PropTypes.number.isRequired,
@@ -36,6 +45,11 @@ HomePage.propTypes = {
 const styles = {
   columnsContainer: {
     display: 'flex'
+  },
+  sectionTitleStyle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   column: {
     flex: 1,
