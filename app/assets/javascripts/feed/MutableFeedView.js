@@ -5,7 +5,7 @@ import FeedView from './FeedView';
 
 
 
-export default class FeedViewWithOperations extends React.Component {
+export default class MutableFeedView extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,7 +51,7 @@ export default class FeedViewWithOperations extends React.Component {
     );
   }
 }
-FeedViewWithOperations.propTypes = {
+MutableFeedView.propTypes = {
   defaultFeedCards: PropTypes.arrayOf.isRequired
 };
 

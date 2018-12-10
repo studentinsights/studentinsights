@@ -9,8 +9,8 @@ describe SearchNotesController, :type => :controller do
       sign_in(educator)
       get :query_json, params: {
         format: :json,
-        start_time: (time_now - 45.days).to_i,
-        end_time: time_now.to_i,
+        start_time_utc: (time_now - 45.days).to_i,
+        end_time_utc: time_now.to_i,
         limit: 10
       }.merge(params)
       sign_out(educator)
@@ -49,8 +49,8 @@ describe SearchNotesController, :type => :controller do
         expect(response.status).to eq 200
         expect(JSON.parse(response.body)).to eq({
           'query' => {
-            'start_time'=>(time_now - 45.days).localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
-            'end_time'=>time_now.localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
+            'start_time_utc'=>(time_now - 45.days).localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
+            'end_time_utc'=>time_now.localtime.as_json, # https://stackoverflow.com/questions/25049419/rails-json-response-automatically-changes-timezeone-only-on-some-requests
             'text'=>'read',
             'limit'=>10,
             'grade'=>nil,

@@ -6,7 +6,7 @@ import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 import {TIME_RANGE_SCHOOL_YEAR} from '../components/SelectTimeRange';
 import SectionHeading from '../components/SectionHeading';
-import FeedView from '../feed/FeedView';
+import MutableFeedView from '../feed/MutableFeedView';
 import SearchNotesBar from './SearchNotesBar';
 import SearchQueryFetcher from './SearchQueryFetcher';
 
@@ -78,7 +78,7 @@ export default class SearchNotesPage extends React.Component {
     return (
       <div style={styles.queryResults}>
         {this.renderMeta(allResultsSize, feedCards)}
-        <FeedView feedCards={feedCards} />
+        <MutableFeedView defaultFeedCards={feedCards} />
       </div>
     );
   }

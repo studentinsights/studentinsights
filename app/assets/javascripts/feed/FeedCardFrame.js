@@ -37,9 +37,10 @@ export default class FeedCardFrame extends React.Component {
         <div style={styles.body}>
           {children}
         </div>
-        <div style={styles.footer}>
-          {iconsEl}
-          {badgesEl}
+        <div className="FeedCardFrame-footer" style={styles.footer}>
+          {/* so flex layout stays the same, regardless */}
+          {iconsEl || <div />}
+          {badgesEl || <div />}
         </div>
       </Card>
     );
