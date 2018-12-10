@@ -256,11 +256,11 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   render504Dialog() {
-    const {edPlans} = this.props;
-
+    const {edPlans, student} = this.props;
+    const studentName = `${student.first_name} ${student.last_name}`;
     return (
       <div style={styles.dialog}>
-        <EdPlansPanel edPlans={edPlans} />
+        <EdPlansPanel edPlans={edPlans} studentName={studentName} />
       </div>
     );
   }

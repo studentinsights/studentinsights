@@ -7,66 +7,39 @@ exports[`snapshots 1`] = `
   <div
     style={
       Object {
-        "background": "red",
-        "color": "white",
-        "fontWeight": "bold",
+        "backgroundColor": "#f8f8f8",
+        "border": "1px solid #ccc",
+        "marginBottom": 20,
         "padding": 20,
       }
     }
   >
-    <span>
-      This is an experimental prototype!
-    </span>
-    <span
+    <h2
       style={
         Object {
-          "marginLeft": 10,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
         }
       }
     >
-      Please share your feedback with 
-      <a
-        href="mailto:ideas@studentinsights.org"
+      <div>
+        504 plan for 
+        Garfield Skywalker
+      </div>
+      <div
         style={
           Object {
-            "fontWeight": "bold",
-          }
-        }
-      >
-        hello@studentinsights.org
-      </a>
-      .
-    </span>
-  </div>
-  <div
-    style={
-      Object {
-        "margin": 10,
-        "marginBottom": 40,
-      }
-    }
-  >
-    <h2>
-      504 plan 
-      <span
-        style={
-          Object {
-            "color": "#aaa",
+            "color": "#ccc",
             "paddingLeft": 10,
           }
         }
       >
         id:
         fake-sep-oid-1
-      </span>
+      </div>
     </h2>
-    <div
-      style={
-        Object {
-          "margin": 10,
-        }
-      }
-    >
+    <div>
       <div
         style={
           Object {
@@ -74,106 +47,89 @@ exports[`snapshots 1`] = `
           }
         }
       >
-        <h6>
-          Status
-        </h6>
         <div>
-          Effective dates 
-          9/15/15
-           - 
-          10/15/15
+          Specific disability: 
+          N
         </div>
         <div>
-          Last review on 
-          10/15/15
+          Date of implementation: 
+          9/15/2015
         </div>
         <div>
-          Last meeting on 
-          <span
-            style={
-              Object {
-                "color": "orange",
-              }
-            }
-          >
-            (none)
-          </span>
+          End date: 
+          10/15/2015
         </div>
         <div>
-          Last modified on 
-          <span
-            style={
-              Object {
-                "color": "orange",
-              }
-            }
-          >
-            (none)
-          </span>
-        </div>
-        <div>
-          9/15/15
-           by family
-        </div>
-        <div>
-          <span
-            style={
-              Object {
-                "color": "orange",
-              }
-            }
-          >
-            Not signed
-          </span>
-           by district
+          Review date: 
+          10/15/2015
         </div>
       </div>
       <div
         style={
           Object {
-            "borderTop": "1px solid #eee",
+            "borderTop": "1px solid #ccc",
+            "marginTop": 20,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "marginBottom": 10,
+            }
+          }
+        >
+          These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 10,
+            }
+          }
+        >
+          Team Members Present:  Rich Districtwide, Laura Principal.  Email with 504 sent to teachers, guidance counselor, principal on 9/15/15.
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 10,
+            }
+          }
+        >
+          Category
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "borderTop": "1px solid #ccc",
             "marginTop": 20,
             "paddingTop": 10,
           }
         }
       >
         <h6>
-          Document text
+          Persons responsible
         </h6>
-        <div>
-          <div
-            style={
-              Object {
-                "marginBottom": 20,
-              }
+        <ul
+          style={
+            Object {
+              "listStyleType": "circle",
+              "paddingLeft": 15,
             }
-          >
-            These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 20,
-              }
-            }
-          >
-            Team Members Present:  Rich Districtwide, Laura PrincipalEmail with 504 sent to teachers, guidance counselor, principal on 9/15/15.
-          </div>
-          <div
-            style={
-              Object {
-                "marginBottom": 20,
-              }
-            }
-          >
-            Category
-          </div>
-        </div>
+          }
+        >
+          <li>
+            N
+          </li>
+        </ul>
       </div>
       <div
         style={
           Object {
-            "borderTop": "1px solid #eee",
+            "borderTop": "1px solid #ccc",
             "marginTop": 20,
             "paddingTop": 10,
           }
@@ -182,12 +138,20 @@ exports[`snapshots 1`] = `
         <h6>
           Accommodations
         </h6>
-        <div>
-          Student will meet with teachers before or after school to find out about any make-up work.
-        </div>
-        <div>
-          Prompt the student to review the work they complete before moving on to the next assignment.
-        </div>
+        <ul
+          style={
+            Object {
+              "paddingLeft": 15,
+            }
+          }
+        >
+          <li>
+            Student will meet with teachers before or after school to find out about any make-up work.
+          </li>
+          <li>
+            Prompt the student to review the work they complete before moving on to the next assignment.
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -204,20 +168,6 @@ exports[`snapshots 1`] = `
     }
   >
     Show older 504 plans
-  </a>
-  <a
-    href="#"
-    onClick={[Function]}
-    style={
-      Object {
-        "display": "block",
-        "fontSize": 14,
-        "marginBottom": 10,
-        "marginTop": 10,
-      }
-    }
-  >
-    Show raw data
   </a>
 </div>
 `;

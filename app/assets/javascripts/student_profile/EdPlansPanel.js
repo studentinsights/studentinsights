@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
-import ExperimentalBanner from '../components/ExperimentalBanner';
 
 
 // Renders ed plan data (504)
@@ -30,66 +29,61 @@ export default class EdPlansPanel extends React.Component {
 
   render() {
     const {edPlans} = this.props;
-    const {showAll, showRaw} = this.state;
+    const {showAll} = this.state;
 
     const sortedEdPlans = _.sortBy(edPlans, 'sep_effective_date').reverse();
     const visibleEdPlans = (showAll) ? sortedEdPlans : sortedEdPlans.slice(0, 1);
     return (
       <div className="EdPlansPanel">
-        <ExperimentalBanner />
         {visibleEdPlans.map(this.renderEdPlan, this)}
-        {showAll
+        {showAll || edPlans.length <= 1
           ? null
           : <a href="#" style={styles.link} onClick={this.onShowMore}>Show older 504 plans</a>
         }
-        {showRaw
-          ? <pre>{JSON.stringify(edPlans, null, 2)}</pre>
-          : <a href="#" style={styles.link} onClick={this.onShowRawClicked}>Show raw data</a>
-        }
+        {this.renderRawLinkIfQueryString()}
       </div>
     );
   }
 
   // Might not be active or effective
   renderEdPlan(edPlan) {
+    const {studentName} = this.props;
+
     return (
-      <div key={edPlan.id} style={{margin: 10, marginBottom: 40}}>
-        <h2>504 plan <span style={{color: '#aaa', paddingLeft: 10}}>id:{edPlan.sep_oid}</span></h2>
-        <div style={{margin: 10}}>
+      <div key={edPlan.id} style={{marginBottom: 20, padding: 20, border: '1px solid #ccc', backgroundColor: '#f8f8f8'}}>
+        <h2 style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+          <div>504 plan for {studentName}</div>
+          <div style={{color: '#ccc', paddingLeft: 10}}>id:{edPlan.sep_oid}</div>
+        </h2>
+        <div>
           <div style={{paddingTop: 10}}>
-            <h6>Status</h6>
-            <div>Effective dates {reformatDate(edPlan.sep_effective_date, highlight('(missing)'))} - {reformatDate(edPlan.sep_end_date, highlight('(missing)'))}</div>
-            <div>Last review on {reformatDate(edPlan.sep_review_date, highlight('(none)'))}</div>
-            <div>Last meeting on {reformatDate(edPlan.sep_last_meeting_date, highlight('(none)'))}</div>
-            <div>Last modified on {reformatDate(edPlan.sep_last_modified, highlight('(none)'))}</div>
-            <div>{reformatDate(edPlan.sep_parent_signed_date, highlight('Not signed'))} by family</div>
-            <div>{reformatDate(edPlan.sep_district_signed_date, highlight('Not signed'))} by district</div>
+            <div>Specific disability: {edPlan.sep_fieldd_006}</div>
+            <div>Date of implementation: {reformatDate(edPlan.sep_effective_date)}</div>
+            <div>End date: {reformatDate(edPlan.sep_end_date, '(none)')}</div>
+            <div>Review date: {reformatDate(edPlan.sep_review_date, '(none)')}</div>
           </div>
-          <div style={{marginTop: 20, paddingTop: 10, borderTop: '1px solid #eee'}}>
-            <h6>Document text</h6>
-            {this.renderSubstance(edPlan)}
+          {this.renderSubstanceIfPresent(edPlan)}
+          <div style={styles.section}>
+            <h6>Persons responsible</h6>
+            {reformatPersons(edPlan.sep_fieldd_007, 'None listed.')}
           </div>
-          <div style={{marginTop: 20, paddingTop: 10, borderTop: '1px solid #eee'}}>
+          <div style={styles.section}>
             <h6>Accommodations</h6>
-            {edPlan.ed_plan_accommodations.map(accommodation => (
-              <div key={accommodation.id}>{accommodation.iac_description}</div>
-            ))}
-            {edPlan.ed_plan_accommodations.length === 0 && <div>No accommodations.</div>}
+            {this.renderAccommodationsList(edPlan)}
           </div>
         </div>
       </div>
     );
   }
 
-  renderSubstance(edPlan) {
+  renderSubstanceIfPresent(edPlan) {
     const lines = [
       edPlan.sep_fieldd_001,
       edPlan.sep_fieldd_002,
       edPlan.sep_fieldd_003,
       edPlan.sep_fieldd_004,
       edPlan.sep_fieldd_005,
-      edPlan.sep_fieldd_006,
-      edPlan.sep_fieldd_007,
+      // not 6 or 7
       edPlan.sep_fieldd_008,
       edPlan.sep_fieldd_009,
       edPlan.sep_fieldd_010,
@@ -99,18 +93,48 @@ export default class EdPlansPanel extends React.Component {
       edPlan.sep_fieldd_014
     ];
     const cleanedLines = _.compact(lines.map(field => field === 'N' ? null : field));
-    return <div>{cleanedLines.map(line => <div key={line} style={{marginBottom: 20}}>{line}</div>)}</div>;
+    if (cleanedLines.length === 0 || cleanedLines.join('') === '') return null;
+
+    return (
+      <div style={styles.section}>
+        {cleanedLines.map(line => <div key={line} style={{marginBottom: 10}}>{line}</div>)}
+      </div>
+    );
+  }
+
+  renderAccommodationsList(edPlan) {
+    if (edPlan.ed_plan_accommodations.length === 0) return <div>None listed.</div>;
+
+    const filteredAccommodations = edPlan.ed_plan_accommodations.filter(accommodation => {
+      return (accommodation.iac_description !== '');
+    });
+    return (
+      <ul style={styles.simpleList}>
+        {filteredAccommodations.map(accommodation => {
+          const whomEl = accommodation.iac_field
+            ? ` (${accommodation.iac_field})`
+            : null;
+          return <li key={accommodation.id}>{accommodation.iac_description}{whomEl}</li>;
+        })}
+      </ul>
+    );      
+  }
+
+  renderRawLinkIfQueryString() {
+    const {edPlans} = this.props;
+    const {showRaw} = this.state;
+    if (window.location.search.indexOf('raw') === -1) return null;
+    return (showRaw)
+      ? <pre>{JSON.stringify(edPlans, null, 2)}</pre>
+      : <a href="#" style={styles.link} onClick={this.onShowRawClicked}>Show raw data</a>;
   }
 }
 EdPlansPanel.propTypes = {
+  studentName: PropTypes.string.isRequired,
   edPlans: PropTypes.arrayOf(PropTypes.shape({
-    sep_effective_date: PropTypes.string,
+    sep_effective_date: PropTypes.string.isRequired,
     sep_review_date: PropTypes.string,
-    sep_last_meeting_date: PropTypes.string,
-    sep_district_signed_date: PropTypes.string,
-    sep_parent_signed_date: PropTypes.string,
     sep_end_date: PropTypes.string,
-    sep_last_modified: PropTypes.string,
     ed_plan_accommodations: PropTypes.arrayOf(PropTypes.shape({
       iac_content_area: PropTypes.string,
       iac_category: PropTypes.string,
@@ -127,6 +151,14 @@ const styles = {
   substance: {
     whiteSpace: 'pre-wrap'
   },
+  section: {
+    marginTop: 20,
+    paddingTop: 10,
+    borderTop: '1px solid #ccc'
+  },
+  simpleList: {
+    paddingLeft: 15
+  },
   link: {
     display: 'block',
     fontSize: 14,
@@ -138,9 +170,16 @@ const styles = {
 
 function reformatDate(maybeDateText, elseValue = null) {
   if (!maybeDateText) return elseValue;
-  return toMomentFromRailsDate(maybeDateText).format('M/D/YY');
+  return toMomentFromRailsDate(maybeDateText).format('M/D/YYYY');
 }
 
-function highlight(el) {
-  return <span style={{color: 'orange'}}>{el}</span>;
+function reformatPersons(personsText, elseValue = null) {
+  if (!personsText || personsText === '') return elseValue;
+  return (
+    <ul style={{...styles.simpleList, listStyleType: 'circle'}}>
+      {personsText.split(/[,;]\s/).map(personText => (
+        <li key={personText}>{personText}</li>
+      ))}
+    </ul>
+  );
 }
