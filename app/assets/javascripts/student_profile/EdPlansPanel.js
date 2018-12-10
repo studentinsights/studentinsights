@@ -57,7 +57,7 @@ export default class EdPlansPanel extends React.Component {
         </h2>
         <div>
           <div style={{paddingTop: 10}}>
-            <div>Specific disability: {edPlan.sep_fieldd_006}</div>
+            <div>Specific disability: {edPlan.sep_fieldd_006 || '(none)'}</div>
             <div>Date of implementation: {reformatDate(edPlan.sep_effective_date)}</div>
             <div>End date: {reformatDate(edPlan.sep_end_date, '(none)')}</div>
             <div>Review date: {reformatDate(edPlan.sep_review_date, '(none)')}</div>
@@ -103,11 +103,10 @@ export default class EdPlansPanel extends React.Component {
   }
 
   renderAccommodationsList(edPlan) {
-    if (edPlan.ed_plan_accommodations.length === 0) return <div>None listed.</div>;
-
     const filteredAccommodations = edPlan.ed_plan_accommodations.filter(accommodation => {
       return (accommodation.iac_description !== '');
     });
+    if (filteredAccommodations.length === 0) return <div>None listed.</div>;
     return (
       <ul style={styles.simpleList}>
         {filteredAccommodations.map(accommodation => {

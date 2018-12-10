@@ -19,13 +19,13 @@ export function testProps(props = {}) {
       "sep_parent_signed_date": "2015-09-15",
       "sep_end_date": "2015-10-15",
       "sep_last_modified": null,
-      "sep_fieldd_001": "These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.",
+      "sep_fieldd_001": "",
       "sep_fieldd_002": "",
       "sep_fieldd_003": "",
-      "sep_fieldd_004": "Team Members Present:  Rich Districtwide, Laura Principal.  Email with 504 sent to teachers, guidance counselor, principal on 9/15/15.",
+      "sep_fieldd_004": "",
       "sep_fieldd_005": "Category",
-      "sep_fieldd_006": "N",
-      "sep_fieldd_007": "N",
+      "sep_fieldd_006": "Health disability",
+      "sep_fieldd_007": "Rich Districtwide, Laura Principal",
       "sep_fieldd_008": "N",
       "sep_fieldd_009": "N",
       "sep_fieldd_010": "N",
@@ -83,8 +83,8 @@ export function testProps(props = {}) {
       "sep_fieldd_003": "",
       "sep_fieldd_004": "",
       "sep_fieldd_005": "",
-      "sep_fieldd_006": "ADHDGeneral Anxiety Disorder",
-      "sep_fieldd_007": "",
+      "sep_fieldd_006": "ADHD, General Anxiety Disorder",
+      "sep_fieldd_007": "Marcus Counselor",
       "sep_fieldd_008": "N",
       "sep_fieldd_009": "N",
       "sep_fieldd_010": "N",
@@ -119,4 +119,27 @@ it('snapshots', () => {
     .create(testEl(props))
     .toJSON();
   expect(tree).toMatchSnapshot();
+});
+
+describe('when missing data', () => {
+  it('works when no accommodations', () => {
+    const props = testProps();
+    props.edPlans.forEach(edPlan => edPlan.ed_plan_accommodations = []);
+    const el = testRender(props);
+    expect($(el).text()).toContain('None listed.');
+  });
+
+  it('works when no persons responsible', () => {
+    const props = testProps();
+    props.edPlans.forEach(edPlan => edPlan.sep_fieldd_007 = '');
+    const el = testRender(props);
+    expect($(el).text()).toContain('None listed.');
+  });
+
+  it('works when no specific disability', () => {
+    const props = testProps();
+    props.edPlans.forEach(edPlan => edPlan.sep_fieldd_006 = '');
+    const el = testRender(props);
+    expect($(el).text()).toContain('Specific disability: (none)');
+  });
 });
