@@ -9,7 +9,7 @@ class SearchNotesQueries
   def self.clamped_with_defaults(query = {})
     query.merge({
       scope_key: query[:scope_key] || SearchNotesQueries::SCOPE_ALL_STUDENTS,
-      start_time: [query[:start_time], Time.now - MAX_YEARS_BACK.years].max, # clamp
+      start_time_utc: [query[:start_time_utc], Time.now - MAX_YEARS_BACK.years].max, # clamp
       limit: [query[:limit], MAX_LIMIT].min # clamp
     })
   end
@@ -39,9 +39,9 @@ class SearchNotesQueries
 
   private
   def authorized_query_scope(clamped_query)
-    start_time, end_time, scope_key, text, grade, house, event_note_type_id = clamped_query.values_at(*[
-      :start_time,
-      :end_time,
+    start_time_utc, end_time_utc, scope_key, text, grade, house, event_note_type_id = clamped_query.values_at(*[
+      :start_time_utc,
+      :end_time_utc,
       :scope_key,
       :text,
       :grade,
@@ -53,8 +53,8 @@ class SearchNotesQueries
     authorizer.authorized do
       qs = EventNote.all
         .where(is_restricted: false)
-        .where('recorded_at > ?', start_time)
-        .where('recorded_at < ?', end_time)
+        .where('recorded_at > ?', start_time_utc)
+        .where('recorded_at < ?', end_time_utc)
         .order(recorded_at: :desc)
         .includes(:educator, student: [:homeroom, :school])
 

@@ -6,14 +6,13 @@ import NoteText from '../components/NoteText';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import Timestamp from '../components/Timestamp';
-import RestrictedBits from './RestrictedBits';
 import FeedCardFrame from './FeedCardFrame';
 
 
 // Render a card in the feed for an EventNote
 export default class EventNoteCard extends React.Component {
   render() {
-    const {eventNoteCardJson, style} = this.props;
+    const {eventNoteCardJson, iconsEl, style} = this.props;
     const {student, educator} = eventNoteCardJson;
 
     return (
@@ -35,7 +34,7 @@ export default class EventNoteCard extends React.Component {
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
             <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteCardJson.event_note_type_id} />
           </div>}
-          restrictedEl={<RestrictedBits eventNoteId={eventNoteCardJson.id} />}
+          iconsEl={iconsEl}
         >
           <NoteText text={eventNoteCardJson.text} />
         </FeedCardFrame>
@@ -67,6 +66,7 @@ EventNoteCard.propTypes = {
       })
     })
   }).isRequired,
+  iconsEl: PropTypes.node,
   style: PropTypes.object
 };
 

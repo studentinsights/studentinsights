@@ -46,7 +46,7 @@ export function momentRange(timeRangeKey, nowMoment) {
     [TIME_RANGE_FOUR_YEARS]: firstDayOfSchool(toSchoolYear(nowMoment) - 4)
   }[timeRangeKey];
 
-  return [startMoment.startOf('day'), nowMoment.startOf('day')];
+  return [startMoment.startOf('day'), nowMoment.clone().startOf('day')];
 }
 
 // Translate to user-facing text

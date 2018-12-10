@@ -52,6 +52,17 @@ export function apiPatchJson(url, body, options = {}) {
   });
 }
 
+// This relies on a Rails CSRF token being rendered on the page
+export function apiPutJson(url, body, options = {}) {
+  return apiPostJson(url, body, {
+    ...options,
+    fetchOptions: {
+      ...(options.fetchOptions || {}),
+      method: 'PUT'
+    }
+  });
+}
+
 // This relies on a Rails CSRF token being rendered on the page, and
 // this adds in query params like Rails' jquery_ujs would.
 export function apiDeleteJson(url, options = {}) {
