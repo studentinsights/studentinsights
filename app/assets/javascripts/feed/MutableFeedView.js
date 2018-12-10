@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {apiPutJson} from '../helpers/apiFetchJson';
+import Hover from '../components/Hover';
 import FeedView from './FeedView';
 
 
@@ -33,7 +34,7 @@ export default class MutableFeedView extends React.Component {
 
     // Make server request optimistically
     apiPutJson(`/api/event_notes/${eventNoteId}/mark_as_restricted`)
-      .catch(err => alert('There was an error trying to update the note.  help@studentinsights.org has been sent a notification.'));
+      .catch(err => alert('There was an error trying to update the note, and help@studentinsights.org has been sent a notification.'));
 
     // Remove from UI now
     const {feedCards} = this.state;
@@ -56,10 +57,18 @@ export default class MutableFeedView extends React.Component {
 
   renderIconsEl(eventNoteId) {
     return (
-      <div className="RestrictedBits">
-        <a href="#" style={styles.link} onClick={this.onClickMarkRestricted.bind(this, eventNoteId)}>
-          Mark restricted
-        </a>
+      <div className="MutableFeedView-mark-restricted">
+        <Hover>{isHovering => {
+          const style = {
+            color: isHovering ? '#333' : '#ccc',
+            textDecoration: isHovering ? 'underline' : ''
+          };
+          return (
+            <a href="#" style={style} onClick={this.onClickMarkRestricted.bind(this, eventNoteId)}>
+              Mark restricted
+            </a>
+          );
+        }}</Hover>
       </div>
     );
   }
@@ -67,10 +76,4 @@ export default class MutableFeedView extends React.Component {
 MutableFeedView.propTypes = {
   defaultFeedCards: PropTypes.array.isRequired,
   educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
-};
-
-const styles = {
-  link: {
-    color: '#ccc'
-  }
 };

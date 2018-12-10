@@ -8,6 +8,7 @@ import {withDefaultNowContext} from '../testing/NowContainer';
 function testProps(props = {}) {
   return {
     eventNoteCardJson: {
+      id: 321,
       recorded_at: '2004-03-05T00:00:00.000Z',
       event_note_type_id: 305,
       text: 'hello!',

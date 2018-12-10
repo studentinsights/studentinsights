@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedView pure component matches snapshot 1`] = `
+exports[`MutableFeedView pure component matches snapshot 1`] = `
 <div
   className="FeedView"
 >
@@ -198,7 +198,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="Badge"
@@ -352,7 +373,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -520,7 +562,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -712,7 +775,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="Badge"
@@ -866,7 +950,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -1034,7 +1139,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -1202,7 +1328,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -1394,7 +1541,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="Badge"
@@ -1572,7 +1740,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="Badge"
@@ -1726,7 +1915,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -1894,7 +2104,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -2062,7 +2293,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -2254,7 +2506,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="Badge"
@@ -2408,7 +2681,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -2576,7 +2870,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -2744,7 +3059,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -2912,7 +3248,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"
@@ -3104,7 +3461,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="Badge"
@@ -3258,7 +3636,28 @@ Philis is meeting with parent next week and will present an attendance contract.
           }
         }
       >
-        <div />
+        <div
+          className="MutableFeedView-mark-restricted"
+        >
+          <div
+            className="Hover"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ccc",
+                  "textDecoration": "",
+                }
+              }
+            >
+              Mark restricted
+            </a>
+          </div>
+        </div>
         <div>
           <span
             className="HouseBadge"

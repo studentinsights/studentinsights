@@ -35,7 +35,7 @@ it('renders without crashing', () => {
 
 describe('integration tests', () => {
   it('renders after fetch', done => {
-    fetchMock.get('/api/search_notes/query_json?end_time=1520899200&event_note_type_id&grade&limit=50&scope_key&start_time=1502755200&text=read', searchJson);
+    fetchMock.get('/api/search_notes/query_json?end_time_utc=1520938986&event_note_type_id&grade&limit=50&scope_key&start_time_utc=1502755200&text=read', searchJson);
 
     // renders, without fetching yet
     const props = testProps();
