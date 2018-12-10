@@ -8,6 +8,8 @@ sftp_filenames:
   FILENAME_FOR_COURSE_SECTION_IMPORT:               /home/jbreslin/data/courses_sections_export.txt
   FILENAME_FOR_STUDENTS_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/student_section_assignment_export.txt
   FILENAME_FOR_EDUCATOR_SECTION_ASSIGNMENT_IMPORT:  /home/jbreslin/data/educator_section_assignment_export.txt
+  FILENAME_FOR_ED_PLAN_IMPORT:                      /home/jbreslin/data/student_ed_plan_export.txt
+  FILENAME_FOR_ED_PLAN_ACCOMMODATIONS_IMPORT:       /home/jbreslin/data/student_accommodations_export.txt
   
   # student photos, one-time batch
   FILENAME_FOR_PHOTOS_ZIP:                          /home/jbreslin/data/photos.zip
