@@ -233,12 +233,12 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   render504() {
-    const {student, educatorLabels} = this.props;
+    const {edPlans, student, educatorLabels} = this.props;
     const plan504 = student.plan_504;
     if (!hasInfoAbout504Plan(plan504)) return null;
 
     const plan504El = <div style={styles.subtitleItem}>504 plan</div>;
-    if (educatorLabels.indexOf('enable_viewing_504_data_in_profile') === -1) return plan504El;
+    if (edPlans.length === 0 || educatorLabels.indexOf('enable_viewing_504_data_in_profile') === -1) return plan504El;
 
     return (
       <HelpBubble
