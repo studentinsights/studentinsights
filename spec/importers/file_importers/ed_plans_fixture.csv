@@ -1,5 +1,4 @@
 "student_state_id","student_local_id","school_local_id","sep_oid","sep_status","sep_grade_level","sep_effective_date","sep_review_date","sep_last_meeting_date","sep_district_signed_date","sep_parent_signed_date","sep_end_date","sep_last_modified","sep_fieldd_001","sep_fieldd_002","sep_fieldd_003","sep_fieldd_004","sep_fieldd_005","sep_fieldd_006","sep_fieldd_007","sep_fieldd_008","sep_fieldd_009","sep_fieldd_010","sep_fieldd_011","sep_fieldd_012","sep_fieldd_013","sep_fieldd_014"
-"991111111","111111111","HEA","test-sep-oid-1","2",\N,"2015-09-15","2015-10-15",\N,\N,"2015-09-15","2015-10-15","1425823743000","These interventions strategies have been in place since 9/15/15 to 10/15/15: Garfield will be allowed to draw a picture on school assignments.","","","Team Members Present:  Rich Districtwide, Laura Principal\
-Email with 504 sent to teachers, guidance counselor, principal on 9/15/15.","Category",\N,\N,\N,\N,\N,\N,\N,\N,\N
+"991111111","111111111","HEA","test-sep-oid-1","2",\N,"2015-09-15","2015-10-15",\N,\N,"2015-09-15","2015-10-15","1425823743000","","","","","Category","Health disability","Rich Districtwide, Laura Principal",\N,\N,\N,\N,\N,\N,\N
 "993333333","333333333","WSNS","test-sep-oid-2","4",\N,"2015-08-23","2015-10-02",\N,\N,\N,"2016-02-22","1527857665000","","","","","","ADHD\
-General Anxiety Disorder","",\N,\N,\N,\N,\N,\N,\N
+General Anxiety Disorder","Ryan Rodriguez (student), Marcus Counselor (counselor)",\N,\N,\N,\N,\N,\N,\N

@@ -30,6 +30,9 @@ RSpec.describe EdPlanAccommodationsImporter do
     it 'works on happy path, when ed plan has already been imported' do
       ed_plan = EdPlan.create!({
         sep_oid: 'test-sep-oid-1',
+        sep_effective_date: Date.parse('2016-09-15'),
+        sep_fieldd_006: 'Health disability',
+        sep_fieldd_007: 'Rich Districtwide, Laura Principal, Sarah Teacher, Jon Arbuckle (parent)',
         student_id: pals.healey_kindergarten_student.id
       })
       importer, matcher, log = create_importer
