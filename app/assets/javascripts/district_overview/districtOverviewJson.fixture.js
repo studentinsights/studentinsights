@@ -1,0 +1,1 @@
+export default {"show_work_board":true,"enable_student_voice_uploads":true,"schools":[{"id":2,"name":"Arthur D Healey"},{"id":6,"name":"West Somerville Neighborhood"},{"id":9,"name":"Somerville High"}],"current_educator":{"id":999999,"admin":true,"can_set_districtwide_access":true}};
