@@ -1,23 +1,25 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Api from './Api';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import NotesFeedPage from './NotesFeedPage';
+import Loading from '../components/Loading';
+import NotesFeed from './NotesFeed';
+
 
 export default class MyNotesPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      batchSizeMultiplier: 2,
+      hasFetched: false,
+      currentEducator: null,
       educatorsIndex: null,
       eventNotes: null,
-      totalNotesCount: null,
-      batchSizeMultiplier: 2,
+      totalNotesCount: null
     };
 
-    this.getEventNotes = this.getEventNotes.bind(this);
-    this.incrementMultiplier = this.incrementMultiplier.bind(this);
+    this.doFetchMore = this.doFetchMore.bind(this);
     this.onClickLoadMoreNotes = this.onClickLoadMoreNotes.bind(this);
+    this.onDataFetched = this.onDataFetched.bind(this);
   }
 
   componentDidMount() {
@@ -26,18 +28,20 @@ export default class MyNotesPage extends React.Component {
   
   doFetchMore() {
     const {batchSizeMultiplier} = this.state;
-    const batchSize = 30 * multiplier;    
-    const url = '/educators/notes_feed_json?batch_size=' + batchSize;
+    const batchSize = 30 * batchSizeMultiplier;    
+    const url = '/api/educators/my_notes_json?batch_size=' + batchSize;
     apiFetchJson(url).then(this.onDataFetched);
   }
 
   onDataFetched(json) {
-    const previousMultiplier = this.state.batchSizeMultiplier;
+    const {batchSizeMultiplier} = this.state;
     this.setState({
+      hasFetched: true,
+      currentEducator: json.current_educator, // fetched for can_view_restricted_notes
       eventNotes: json.notes,
       educatorsIndex: json.educators_index,
       totalNotesCount: json.total_notes_count,
-      batchSizeMultiplier: previousMultiplier + 1
+      batchSizeMultiplier: batchSizeMultiplier + 1
     });
   }
 
@@ -46,23 +50,23 @@ export default class MyNotesPage extends React.Component {
   }
 
   render() {
-    const {currentEducator} = this.props;
+    const {
+      hasFetched,
+      currentEducator,
+      educatorsIndex,
+      eventNotes,
+      totalNotesCount
+    } = this.state;
+    if (!hasFetched) return <Loading style={{padding: 10}} />;
+    
     return (
-      <NotesFeedPage
+      <NotesFeed
         currentEducatorId={currentEducator.id}
         canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
-        educatorsIndex={this.state.educatorsIndex}
-        eventNotes={this.state.eventNotes}
+        educatorsIndex={educatorsIndex}
+        eventNotes={eventNotes}
         onClickLoadMoreNotes={this.onClickLoadMoreNotes}
-        totalNotesCount={this.state.totalNotesCount} />
+        totalNotesCount={totalNotesCount} />
     );
   }
-
 }
-
-MyNotesPage.propTypes = {
-  currentEducator: PropTypes.shape({
-    id: PropTypes.number.iRequired,
-    can_view_restricted_notes: PropTypes.bool.isRequired
-  }).isRequired
-};

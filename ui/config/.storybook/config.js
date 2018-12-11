@@ -29,7 +29,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/LanguageStatusLink.story');
 
   // my notes
-  require('../../../app/assets/javascripts/notes_feed/NotesFeedPage.story');
+  require('../../../app/assets/javascripts/my_notes/NotesFeedPage.story');
 
   // absences
   require('../../../app/assets/javascripts/school_absences/SchoolAbsencesPage.story');

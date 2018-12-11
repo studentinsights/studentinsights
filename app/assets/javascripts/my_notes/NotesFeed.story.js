@@ -11,7 +11,7 @@ function storyProps(props = {}) {
   });
 }
 
-storiesOf('notes_feed/NotesFeed', module) // eslint-disable-line no-undef
+storiesOf('my_notes/NotesFeed', module) // eslint-disable-line no-undef
   .add('readonly, shows restricted note content', () => {
     return <NotesFeed {...storyProps({canUserAccessRestrictedNotes: true})} />;
   });

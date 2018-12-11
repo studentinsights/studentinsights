@@ -6,6 +6,7 @@ import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
+import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
@@ -20,6 +21,7 @@ jest.mock('../app/assets/javascripts/home/HomePage');
 jest.mock('../app/assets/javascripts/search_notes/SearchNotesPage');
 jest.mock('../app/assets/javascripts/educator/EducatorPage');
 jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
+jest.mock('../app/assets/javascripts/my_notes/MyNotesPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_absences/SchoolAbsencesPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
@@ -70,6 +72,11 @@ it('renders SearchNotesPage without crashing', () => {
 it('renders MyStudentsPage without crashing', () => {
   const wrapper = mount(renderPath('/educators/my_students'));
   expect(wrapper.contains(<MyStudentsPage />)).toEqual(true);
+});
+
+it('renders MyNotesPage without crashing', () => {
+  const wrapper = mount(renderPath('/educators/my_notes'));
+  expect(wrapper.contains(<MyNotesPage />)).toEqual(true);
 });
 
 it('renders EducatorPage without crashing', () => {
