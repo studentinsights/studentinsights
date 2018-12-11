@@ -90,8 +90,8 @@ describe('high-level integration tests', () => {
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
-      [ '504 plan', 'SPED level', 'English learner', 'Low income' ],
-      [ 'Grade', 'Years enrolled', 'Gender', 'Race', 'Hispanic/Latino' ],
+      [ '504 plan', 'SPED level', 'English learner', 'Low income', 'Years enrolled' ],
+      [ 'Grade', 'Gender', 'Race', 'Hispanic/Latino' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -111,7 +111,7 @@ describe('high-level integration tests', () => {
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
       [ '504 plan', 'SPED level', 'English learner', 'Low income' ],
-      [ 'Grade', 'House', 'Gender', 'Race', 'Hispanic/Latino' ],
+      [ 'Grade', 'House', 'Counselor', 'Gender', 'Race', 'Hispanic/Latino' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -126,8 +126,8 @@ describe('high-level integration tests', () => {
     }));
 
     expect(helpers.rowsPerColumnMatrix(el)).toEqual([
-      [2, 5, 3, 4],
-      [3, 1, 3, 4, 3],
+      [2, 5, 3, 4, 1],
+      [3, 3, 3, 3],
       [5, 5, 5],
       [5, 5, 5],
       [5, 5, 5],

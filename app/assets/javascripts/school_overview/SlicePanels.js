@@ -6,7 +6,7 @@ import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
 import {nextGenMcasScoreRange, oldMcasScoreRange} from '../helpers/mcasScores';
-import {shouldDisplayHouse} from '../helpers/PerDistrict';
+import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 
@@ -136,6 +136,7 @@ class SlicePanels extends React.Component {
         {this.renderDisabilityTable()}
         {this.renderSimpleTable('English learner', 'limited_english_proficiency', { limit: 3 })}
         {this.renderSimpleTable('Low income', 'free_reduced_lunch', { limit: 4 })}
+        {this.renderYearsEnrolled()}
       </div>
     );
   }
@@ -275,7 +276,7 @@ class SlicePanels extends React.Component {
     return this.renderTable({
       title: 'Grade',
       items: sortedItems,
-      limit: 10
+      limit: 3
     });
   }
 
@@ -283,10 +284,10 @@ class SlicePanels extends React.Component {
     return (
       <div className="column grades-column pad-column-right">
         {this.renderGradeTable()}
-        {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', {})}
-        {this.renderYearsEnrolled()}
+        {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', { limit: 4})}
+        {shouldDisplayCounselor(this.props.school) && this.renderSimpleTable('Counselor', 'counselor', { limit: 3})}
         {this.renderSimpleTable('Gender', 'gender', {})}
-        {this.renderSimpleTable('Race', 'race', {})}
+        {this.renderSimpleTable('Race', 'race', { limit: 3})}
         <FixedTable
           onFilterToggled={this.props.onFilterToggled}
           filters={this.props.filters}

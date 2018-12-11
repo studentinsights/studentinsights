@@ -11,6 +11,7 @@ import {
 import {
   studentTableEventNoteTypeIds,
   shouldDisplayHouse,
+  shouldDisplayCounselor,
   hasInfoAbout504Plan
 } from '../helpers/PerDistrict';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
@@ -113,6 +114,7 @@ export default class StudentsTable extends React.Component {
               ))}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {shouldDisplayHouse(school) && this.renderHeader('House', 'house', 'string')}
+              {shouldDisplayCounselor(school) && this.renderHeader('Counselor', 'counselor', 'string')}
               {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
               {this.renderHeader('504 plan', 'plan_504', 'plan_504')}
               {this.renderHeader('SPED level', 'sped_level_of_need', 'sped_level_of_need')}
@@ -142,6 +144,7 @@ export default class StudentsTable extends React.Component {
                   ))}
                   <td>{student.grade}</td>
                   {shouldDisplayHouse(school) && (<td>{student.house}</td>)}
+                  {shouldDisplayCounselor(school) && (<td>{student.counselor}</td>)}
                   <td>
                     <a href={Routes.homeroom(student.homeroom_id)}>{student.homeroom_name}</a>
                   </td>

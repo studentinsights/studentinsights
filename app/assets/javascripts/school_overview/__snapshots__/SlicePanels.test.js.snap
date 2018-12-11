@@ -1025,6 +1025,105 @@ exports[`matches snapshot 1`] = `
         />
       </div>
     </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Years enrolled
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                100%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "50%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
   </div>
   <div
     className="column grades-column pad-column-right"
@@ -1232,105 +1331,6 @@ exports[`matches snapshot 1`] = `
                     Object {
                       "height": "1em",
                       "width": "16%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div
-          style={
-            Object {
-              "paddingLeft": 5,
-            }
-          }
-        />
-      </div>
-    </div>
-    <div
-      className="CollapsableTable"
-    >
-      <div
-        className="FixedTable panel "
-        style={
-          Object {
-            "display": "inline-block",
-            "paddingBottom": 5,
-            "paddingTop": 5,
-          }
-        }
-      >
-        <div
-          className="fixed-table-title"
-          style={
-            Object {
-              "fontWeight": "bold",
-              "height": "1em",
-              "marginBottom": 5,
-              "paddingLeft": 5,
-            }
-          }
-        >
-          Years enrolled
-        </div>
-        <table>
-          <tbody>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  0
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                100%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "50%",
                     }
                   }
                 />
@@ -1774,66 +1774,6 @@ exports[`matches snapshot 1`] = `
                 />
               </td>
             </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  None
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                4%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "2%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
           </tbody>
         </table>
         <div
@@ -1842,7 +1782,21 @@ exports[`matches snapshot 1`] = `
               "paddingLeft": 5,
             }
           }
-        />
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
       </div>
     </div>
     <div

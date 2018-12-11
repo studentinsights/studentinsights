@@ -76,6 +76,7 @@ describe('high-level integration test', () => {
       'LastCounselor', // also counselor meeting
       "Grade",
       "House",
+      "Counselor",
       "Homeroom",
       "504plan",
       "SPEDlevel",
