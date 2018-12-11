@@ -10,6 +10,7 @@ RSpec.describe PhotoStorer do
   end
 
   before do
+    allow(ENV).to receive(:[]).and_call_original
     allow(ENV).to receive(:[]).with('AWS_S3_PHOTOS_BUCKET').and_return('mock-test-photo-bucket')
     allow(Digest::SHA256).to receive(:file).with('/path/to/file').and_return('HashedImageFile')
     allow(File).to receive(:size).with('/path/to/file').and_return 10
