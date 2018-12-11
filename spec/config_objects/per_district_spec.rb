@@ -168,4 +168,38 @@ RSpec.describe PerDistrict do
       expect { for_new_bedford.choose_assessment_importer_row_class(assessment_test: 'MCAS') }.to raise_error Exceptions::DistrictKeyNotHandledError
     end
   end
+
+  describe '#patched_plan_504' do
+    it 'works for Somerville when ed plan' do
+      student = FactoryBot.build(:student, plan_504: nil)
+      student.save!
+      EdPlan.create!({
+        student_id: student.id,
+        sep_status: 1,
+        sep_effective_date: Date.parse('2016-09-15'),
+        sep_fieldd_006: 'Health disability',
+        sep_fieldd_007: 'Rich Districtwide, Laura Principal, Sarah Teacher, Jon Arbuckle (parent)',
+        sep_oid: 'test-sep-oid'
+      })
+      expect(for_somerville.patched_plan_504(student)).to eq '504'
+    end
+
+    it 'works for Somerville when no ed plan' do
+      student = FactoryBot.build(:student, plan_504: '504')
+      student.save!
+      expect(for_somerville.patched_plan_504(student)).to eq nil
+    end
+
+    it 'works for Bedford' do
+      student = FactoryBot.build(:student, plan_504: '504')
+      student.save!
+      expect(for_bedford.patched_plan_504(student)).to eq '504'
+    end
+
+    it 'works for New Bedford' do
+      student = FactoryBot.build(:student, plan_504: '504')
+      student.save!
+      expect(for_new_bedford.patched_plan_504(student)).to eq '504'
+    end
+  end
 end

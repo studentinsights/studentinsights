@@ -275,4 +275,37 @@ RSpec.describe Student do
       })
     end
   end
+
+  describe '#plan_504' do
+    it 'ignores student record value for Somerville' do
+      student = FactoryBot.build(:student, plan_504: '504')
+      per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
+      allow(PerDistrict).to receive(:new).and_return(per_district)
+      expect(student.plan_504).to eq nil
+    end
+
+    it 'allows force:true' do
+      student = FactoryBot.build(:student, plan_504: '504')
+      per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
+      allow(PerDistrict).to receive(:new).and_return(per_district)
+      expect(student.plan_504).to eq nil
+      expect(student.plan_504(force: true)).to eq '504'
+    end
+
+    it 'returns 504 if active ed plan for Somerville' do
+      student = FactoryBot.build(:student, plan_504: nil)
+      student.save!
+      EdPlan.create!({
+        student_id: student.id,
+        sep_status: 1,
+        sep_effective_date: Date.parse('2016-09-15'),
+        sep_fieldd_006: 'Health disability',
+        sep_fieldd_007: 'Rich Districtwide, Laura Principal, Sarah Teacher, Jon Arbuckle (parent)',
+        sep_oid: 'test-sep-oid'
+      })
+      per_district = PerDistrict.new(district_key: PerDistrict::SOMERVILLE)
+      allow(PerDistrict).to receive(:new).and_return(per_district)
+      expect(student.plan_504).to eq '504'
+    end
+  end
 end
