@@ -4,6 +4,44 @@ describe DistrictController, :type => :controller do
   before { request.env['HTTPS'] = 'on' }
   let!(:pals) { TestPals.create! }
 
+  describe '#overview_json' do
+    let!(:pals) { TestPals.create! }
+
+    def request_page
+      request.env['HTTPS'] = 'on'
+      get :overview_json, params: { format: :json }
+      response
+    end
+
+    it 'works and filters out schools without active students (eg, PIC)' do
+      sign_in(pals.uri)
+      response = request_page()
+      expect(response.status).to eq 200
+      expect(JSON.parse(response.body)).to eq({
+        "current_educator" => {
+          "id"=>pals.uri.id,
+          "admin"=>true,
+          "can_set_districtwide_access"=>true
+        },
+       "schools" => [
+          {"id"=>pals.healey.id, "name"=>pals.healey.name},
+          {"id"=>pals.west.id, "name"=>pals.west.name},
+          {"id"=>pals.shs.id, "name"=>pals.shs.name}
+        ],
+       "work_board_url" => nil
+      })
+    end
+
+    it 'guards acces' do
+      (Educator.all - [pals.uri, pals.rich_districtwide]).each do |educator|
+        sign_in(educator)
+        response = request_page()
+        expect(response.status).to eq 403
+        sign_out(educator)
+      end
+    end
+  end
+
   describe '#enrollment_json' do
     it 'works' do
       sign_in(pals.uri)

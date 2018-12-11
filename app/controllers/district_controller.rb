@@ -9,6 +9,7 @@ class DistrictController < ApplicationController
       [School::ORDERED_SCHOOL_TYPES.find_index(school.school_type), school.name]
     end
     render json: {
+      work_board_url: ENV['WORK_BOARD_URL'],
       schools: schools.as_json(only: [:id, :name]),
       current_educator: current_educator.as_json(only: [:id, :admin, :can_set_districtwide_access])
     }

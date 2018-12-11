@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import {Website, Email} from '../components/PublicLinks';
+
 
 // Page for navigating between schools
 // and accessing project lead pages
@@ -33,6 +35,7 @@ export default class DistrictOverviewPage extends React.Component {
   renderJson(json) {
     return (
       <DistrictOverviewPageView
+        workBoardUrl={json.work_board_url}
         schools={json.schools}
         currentEducator={json.current_educator}
       />
@@ -49,11 +52,7 @@ export class DistrictOverviewPageView extends React.Component {
           <div style={styles.column}>{this.renderSchoolLinks()}</div>
           <div style={styles.column}>{this.renderProjectLeadLinks()}</div>
         </div>
-        <SectionHeading style={{marginTop: 30}}>Student Insights Project</SectionHeading>
-        <div style={{margin: 10, marginBottom: 20}}>This is our work board for the project, across districts.  Read more at <a href="https://www.studentinsights.org">studentinsights.org</a> or say hello at <a href="mailto://hello@studentinsights.org">hello@studentinsights.org</a>!</div>
-        <div style={{width: '100%', height: 800}}>
-          <iframe style={{width: '100%', height: '100%', border: 0}} src="http://localhost:4000/work-board.html" />
-        </div>
+        {this.renderWorkBoard()}
       </div>
     );
   }
@@ -153,11 +152,29 @@ export class DistrictOverviewPageView extends React.Component {
       </div>
     );
   }
+  renderWorkBoard() {
+    const {workBoardUrl} = this.props;
+    if (!workBoardUrl) return null;
+    return (
+      <div style={{marginTop: 30}}>
+        <SectionHeading>Student Insights work board</SectionHeading>
+        <div style={{margin: 10, marginBottom: 20}}>
+          This is how we communicate about what we're working on now,
+          and what we think is coming next, across all districts.  Read
+          more at <Website /> or share your ideas with <Email />.
+        </div>
+        <div style={{width: '100%', height: 800}}>
+          <iframe style={{width: '100%', height: '100%', border: 0}} src={workBoardUrl} />
+        </div>
+      </div>
+    );
+  }
 }
 DistrictOverviewPageView.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 DistrictOverviewPageView.propTypes = {
+  workBoardUrl: PropTypes.string,
   currentEducator: PropTypes.shape({
     can_set_districtwide_access: PropTypes.bool.isRequired,
     admin: PropTypes.bool.isRequired

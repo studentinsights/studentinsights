@@ -270,25 +270,4 @@ describe EducatorsController, :type => :controller do
       end
     end
   end
-
-  describe '#districtwide_admin_homepage' do
-    let!(:pals) { TestPals.create! }
-
-    def request_page
-      sign_in(pals.uri)
-      request.env['HTTPS'] = 'on'
-      get :districtwide_admin_homepage
-      response
-    end
-
-    it 'works and filters out schools without active students (eg, PIC)' do
-      response = request_page()
-      expect(response.status).to eq 200
-      expect(assigns(:schools)).to contain_exactly(*[
-        pals.healey,
-        pals.shs,
-        pals.west
-      ])
-    end
-  end
 end
