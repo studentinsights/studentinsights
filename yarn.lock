@@ -4604,6 +4604,11 @@ istanbul-reports@^1.3.0:
   dependencies:
     handlebars "^4.0.3"
 
+jest-canvas-mock@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jest-canvas-mock/-/jest-canvas-mock-1.1.0.tgz#f6ed0998b6be3ae2b7e095d7173441ae62cc831e"
+  integrity sha512-D2VoKl+L6r9VpqTPygXKvIOQ1aou7gz3PvstlWDZqPT7EVYcSz0Nj+yjJ9G+Y9EqJd2X95f3dzcmmXb2dvQ1DQ==
+
 jest-changed-files@^23.4.2:
   version "23.4.2"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-23.4.2.tgz#1eed688370cd5eebafe4ae93d34bb3b64968fe83"
@@ -8525,6 +8530,11 @@ wide-align@^1.1.0:
 window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
+
+wordcloud@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/wordcloud/-/wordcloud-1.1.0.tgz#3a1c52f7d088d43ee5ee855d4f86280de57f0758"
+  integrity sha512-2PHPdgYYt6jxu7EIQIY3YAs1/3ONZpVn4hwgpWISdypbwqTByJAE7r9bsRDFG0WKL82i0Y28xRZ0wF00lqZzWg==
 
 wordwrap@0.0.2:
   version "0.0.2"
