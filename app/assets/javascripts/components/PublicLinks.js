@@ -9,5 +9,5 @@ export function Email(props) {
 }
 
 export function WorkBoardIFrame(props) {
-  return <iframe {...props} src="https://studentinsights.org/work-board.html" />;
+  return <iframe {...props} src="https://www.studentinsights.org/work-board.html" />;
 }

@@ -24,14 +24,14 @@ exports[`snapshots view 1`] = `
     >
       Please share your feedback with 
       <a
-        href="mailto:ideas@studentinsights.org"
+        href="mailto://ideas@studentinsights.org"
         style={
           Object {
             "fontWeight": "bold",
           }
         }
       >
-        hello@studentinsights.org
+        ideas@studentinsights.org
       </a>
       .
     </span>

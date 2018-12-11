@@ -162,7 +162,7 @@ export class DistrictOverviewPageView extends React.Component {
         <div style={{margin: 10, marginBottom: 20}}>
           This is how we communicate about what we're working on now,
           and what we think is coming next, across all districts.  Read
-          more at <Website /> or share your ideas with <Email />.
+          more at <Website /> or share what you're thinking with <Email />.
         </div>
         <div style={{width: '100%', height: 800}}>
           <WorkBoardIFrame style={{width: '100%', height: '100%', border: 0}} />
