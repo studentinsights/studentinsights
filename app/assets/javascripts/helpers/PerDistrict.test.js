@@ -2,7 +2,8 @@ import {
   shouldShowLowGradesBox,
   sortSchoolSlugsByGrade,
   studentTableEventNoteTypeIds,
-  eventNoteTypeIdsForSearch
+  eventNoteTypeIdsForSearch,
+  hasActive504Plan
 } from './PerDistrict';
 
 it('#shouldShowLowGradesBox', () => {
@@ -45,5 +46,17 @@ describe('#eventNoteTypeIdsForSearch', () => {
 
   it('handles beford', () => {
     expect(eventNoteTypeIdsForSearch('bedford')).toEqual([500, 302, 304, 501, 502, 503]);
+  });
+});
+
+describe('#hasActive504Plan', () => {
+  it('works across test cases', () => {
+    expect(hasActive504Plan('504')).toEqual(true);
+    expect(hasActive504Plan('Active')).toEqual(true);
+    expect(hasActive504Plan(null)).toEqual(false);
+    expect(hasActive504Plan('Not 504')).toEqual(false);
+    expect(hasActive504Plan('NotIn504')).toEqual(false);
+    expect(hasActive504Plan('Exited')).toEqual(false);
+    expect(hasActive504Plan('unknown')).toEqual(false);
   });
 });

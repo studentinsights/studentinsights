@@ -48,18 +48,22 @@ export function orderedDisabilityValues(districtKey) {
   return ORDERED_DISABILITY_VALUES_MAP[districtKey] || [];
 }
 
-// Includes if they "exited" the 504
-export function hasInfoAbout504Plan(maybeStudent504Field) {
+// Should not include if they "exited" the 504 plan or if
+// they had one previously.  For Somerville this is patched
+// separately on the server as well, since this is determined
+// by the presence of an active ed plan document, and the field
+// on the student record in Aspen in inaccurate.
+export function hasActive504Plan(maybeStudent504Field) {
   if (maybeStudent504Field === undefined) return false;
   if (maybeStudent504Field === null) return false;
   if (maybeStudent504Field === '') return false;
   if (maybeStudent504Field === '504') return true; // Somerville
   if (maybeStudent504Field === 'Not 504') return false; // Somerville
   if (maybeStudent504Field === 'NotIn504') return false; // Somerville & New Bedford
-  if (maybeStudent504Field === 'Exited') return true; // New Bedford
+  if (maybeStudent504Field === 'Exited') return false; // New Bedford
   if (maybeStudent504Field === 'Active') return true; // New Bedford
 
-  return true;
+  return false;
 }
 
 
