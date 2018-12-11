@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
-
+import SectionHeading from '../components/SectionHeading';
 
 // Page for navigating between schools
 // and accessing project lead pages
@@ -20,7 +20,8 @@ export default class DistrictOverviewPage extends React.Component {
 
   render() {
     return (
-      <div className="DistrictOverviewPage" style={styles.flexVertical}>
+      <div className="DistrictOverviewPage" style={{...styles.flexVertical, margin: 10}}>
+        <SectionHeading>District</SectionHeading>
         <GenericLoader
           promiseFn={this.fetchJson}
           style={styles.flexVertical}
@@ -44,16 +45,14 @@ export class DistrictOverviewPageView extends React.Component {
   render() {
     return (
       <div style={styles.root}>
-        <h2 style={styles.searchbarTitle}>
-          <SearchIcon width={60} height={60} style={{paddingRight: 10}} />
-          Student Search
-        </h2>
-        <input className="student-searchbar" style={styles.bigSearchBar} />
-        <div style={styles.lowerAreaWrapper}>
-          <div style={{display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-around'}}>
-            <div>{this.renderSchoolLinks()}</div>
-            <div>{this.renderProjectLeadLinks()}</div>
-          </div>
+        <div style={styles.twoColumns}>
+          <div style={styles.column}>{this.renderSchoolLinks()}</div>
+          <div style={styles.column}>{this.renderProjectLeadLinks()}</div>
+        </div>
+        <SectionHeading style={{marginTop: 30}}>Student Insights Project</SectionHeading>
+        <div style={{margin: 10, marginBottom: 20}}>This is our work board for the project, across districts.  Read more at <a href="https://www.studentinsights.org">studentinsights.org</a> or say hello at <a href="mailto://hello@studentinsights.org">hello@studentinsights.org</a>!</div>
+        <div style={{width: '100%', height: 800}}>
+          <iframe style={{width: '100%', height: '100%', border: 0}} src="http://localhost:4000/work-board.html" />
         </div>
       </div>
     );
@@ -66,12 +65,12 @@ export class DistrictOverviewPageView extends React.Component {
       <div>
         <div style={styles.iconAndTitle}>
           {schoolIcon({width: 70, height: 70})}
-          <h3 style={styles.columnTitle}>School Data Overview</h3>
+          <h3 style={styles.columnTitle}>Schools</h3>
         </div>
-        <ul>{schools.map(school => {
+        <ul style={styles.plainList}>{schools.map(school => {
           return (
-            <li key={school.id} style={styles.schoolName}>
-              <div>{school.name}</div>
+            <li key={school.id}>
+              <div style={styles.section}>{school.name}</div>
               <div>
                 <a style={{...styles.link, paddingRight: 10}} href={`/schools/${school.id}`}>Roster</a>
                 <a style={{...styles.link, paddingRight: 10}} href={`/schools/${school.id}/absences`}>Absences</a>
@@ -98,8 +97,8 @@ export class DistrictOverviewPageView extends React.Component {
         </div>
 
         <div>
-          <div style={styles.section}>Permissions</div>
-          <ul>
+          <div style={styles.section}>Roles and Permissions</div>
+          <ul style={styles.plainList}>
             <li>
               <a href="/admin/authorization" style={styles.link}>
                Educator permissions: overview
@@ -115,7 +114,7 @@ export class DistrictOverviewPageView extends React.Component {
 
         <div>
           <div style={styles.section}>Syncs and imports</div>
-          <ul>
+          <ul style={styles.plainList}>
             <li>
               <a href="/service_uploads" style={styles.link}>
                Upload student services file
@@ -138,7 +137,7 @@ export class DistrictOverviewPageView extends React.Component {
 
         <div>
           <div style={styles.section}>Data quality checks</div>
-          <ul>
+          <ul style={styles.plainList}>
             <li>
               <a href="/district/enrollment" style={styles.link}>
                Enrollment patterns
@@ -180,13 +179,15 @@ const styles = {
     width: '100%',
     margin: 'auto'
   },
-  searchbarTitle: {
+  twoColumns: {
+    width: '100%',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 30,
-    fontSize: 25,
-    marginTop: 30
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  column: {
+    flex: 1,
+    margin: 20
   },
   iconAndTitle: {
     display: 'flex',
@@ -195,20 +196,8 @@ const styles = {
   },
 
   section: {
-    fontSize: 18
-  },
-
-  // #searchbar-icon {
-  //   position: relative;
-  //   top: 10,
-  //   right: 10,
-  // }
-
-  lowerAreaWrapper: {
-    margin: 'auto',
-    width: '90%',
-    marginTop: 120,
-    display: 'flex'
+    fontSize: 18,
+    marginTop: 15
   },
 
   columnTitle: {
@@ -219,58 +208,14 @@ const styles = {
     marginBottom: 20
   },
 
-  schoolName: {
-    fontSize: 18,
-    marginTop: 15
-  },
-
   link: {
     fontSize: 14
-  }
+  },
 
-/*
-  .lower-area-column {
-    flex: 1;
+  plainList: {
+    listStyleType: 'none',
+    paddingLeft: 0
   }
-
-  .lower-area-column.only-column {
-    width: 380px;
-    margin: auto;
-    float: none;
-    position: relative;
-    left: 12px;
-  }
-
-
-  .column-content {
-    float: left;
-    margin-left: 5px;
-  }
-
-  #school-icon {
-    float: left;
-    position: relative;
-    top: -30px
-  }
-
-  #pliers-icon {
-    float: left;
-    position: relative;
-    top: -30px;
-    transform: rotate(50deg);
-  }
-
-  #city-icon {
-    float: left;
-    position: relative;
-    top: -30px;
-  }
-
-  .coming-soon {
-    color: red;
-    font-size: 16px;
-  }
-  */
 };
 
 

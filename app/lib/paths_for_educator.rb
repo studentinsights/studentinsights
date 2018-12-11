@@ -17,7 +17,7 @@ class PathsForEducator
     end
 
     if @educator.districtwide_access?
-      links[:district] = url_helpers.educators_districtwide_path
+      links[:district] = '/district'
     end
 
     if @educator.school.present? && (@educator.schoolwide_access? || @educator.has_access_to_grade_levels?) && !@educator.districtwide_access?
