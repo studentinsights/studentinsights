@@ -6,7 +6,7 @@ import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
 import {nextGenMcasScoreRange, oldMcasScoreRange} from '../helpers/mcasScores';
-import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
+import {shouldDisplayHouse} from '../helpers/PerDistrict';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 
@@ -132,20 +132,10 @@ class SlicePanels extends React.Component {
   renderProfileColumn() {
     return (
       <div className="column">
+        {this.renderSimpleTable('504 plan', 'plan_504', { limit: 4 })}
         {this.renderDisabilityTable()}
-        {this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 })}
-        {this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })}
-        {this.renderSimpleTable('Race', 'race', {})}
-        <FixedTable
-          onFilterToggled={this.props.onFilterToggled}
-          filters={this.props.filters}
-          title="Hispanic/Latino"
-          items={[
-            this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
-            this.createItem('No', Filters.Equal('hispanic_latino', false)),
-            this.createItem('None', Filters.Equal('hispanic_latino', null)),
-          ]} />
-        {this.renderSimpleTable('Gender', 'gender', {})}
+        {this.renderSimpleTable('English learner', 'limited_english_proficiency', { limit: 3 })}
+        {this.renderSimpleTable('Low income', 'free_reduced_lunch', { limit: 4 })}
       </div>
     );
   }
@@ -248,7 +238,7 @@ class SlicePanels extends React.Component {
         {this.renderTable({
           title: 'Services',
           items: this.serviceItems(),
-          limit: 4
+          limit: 3
         })}
         {this.renderTable({
           title: 'Summer',
@@ -257,7 +247,7 @@ class SlicePanels extends React.Component {
         {this.renderTable({
           title: 'Notes',
           items: this.mergedNoteItems(),
-          limit: 4
+          limit: 3
         })}
         {this.renderSimpleTable('Program', 'program_assigned', { limit: 3 })}
         {this.renderSimpleTable('Homeroom', 'homeroom_name', {
@@ -294,8 +284,18 @@ class SlicePanels extends React.Component {
       <div className="column grades-column pad-column-right">
         {this.renderGradeTable()}
         {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', {})}
-        {shouldDisplayCounselor(this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
         {this.renderYearsEnrolled()}
+        {this.renderSimpleTable('Gender', 'gender', {})}
+        {this.renderSimpleTable('Race', 'race', {})}
+        <FixedTable
+          onFilterToggled={this.props.onFilterToggled}
+          filters={this.props.filters}
+          title="Hispanic/Latino"
+          items={[
+            this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
+            this.createItem('No', Filters.Equal('hispanic_latino', false)),
+            this.createItem('None', Filters.Equal('hispanic_latino', null)),
+          ]} />
       </div>
     );
   }

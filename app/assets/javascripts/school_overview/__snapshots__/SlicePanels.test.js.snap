@@ -39,7 +39,166 @@ exports[`matches snapshot 1`] = `
             }
           }
         >
-          Disability
+          504 plan
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Not 504
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                96%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "48%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          SPED level
         </div>
         <table>
           <tbody>
@@ -378,7 +537,240 @@ exports[`matches snapshot 1`] = `
             }
           }
         >
-          Low Income
+          English learner
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  FLEP-Transitioning
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                32%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  Limited
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                28%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "14%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  FLEP
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                20%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "10%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <a
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#999",
+                "display": "block",
+                "fontSize": 12,
+                "paddingTop": 5,
+              }
+            }
+          >
+            + Show all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Low income
         </div>
         <table>
           <tbody>
@@ -633,6 +1025,10 @@ exports[`matches snapshot 1`] = `
         />
       </div>
     </div>
+  </div>
+  <div
+    className="column grades-column pad-column-right"
+  >
     <div
       className="CollapsableTable"
     >
@@ -657,7 +1053,7 @@ exports[`matches snapshot 1`] = `
             }
           }
         >
-          LEP
+          Grade
         </div>
         <table>
           <tbody>
@@ -687,7 +1083,67 @@ exports[`matches snapshot 1`] = `
                     }
                   }
                 >
-                  FLEP-Transitioning
+                  KF
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                36%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "18%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  3
                 </a>
               </td>
               <td
@@ -747,7 +1203,7 @@ exports[`matches snapshot 1`] = `
                     }
                   }
                 >
-                  Limited
+                  5
                 </a>
               </td>
               <td
@@ -760,7 +1216,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                28%
+                32%
               </td>
               <td
                 style={
@@ -775,7 +1231,205 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "14%",
+                      "width": "16%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Years enrolled
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  0
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                100%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "50%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="CollapsableTable"
+    >
+      <div
+        className="FixedTable panel "
+        style={
+          Object {
+            "display": "inline-block",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+          }
+        }
+      >
+        <div
+          className="fixed-table-title"
+          style={
+            Object {
+              "fontWeight": "bold",
+              "height": "1em",
+              "marginBottom": 5,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          Gender
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  M
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                56%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "28%",
                     }
                   }
                 />
@@ -807,7 +1461,7 @@ exports[`matches snapshot 1`] = `
                     }
                   }
                 >
-                  FLEP
+                  F
                 </a>
               </td>
               <td
@@ -820,7 +1474,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                20%
+                40%
               </td>
               <td
                 style={
@@ -835,7 +1489,67 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "10%",
+                      "width": "20%",
+                    }
+                  }
+                />
+              </td>
+            </tr>
+            <tr
+              className="clickable-row"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": null,
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <td
+                className="caption-cell"
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "paddingLeft": 10,
+                    }
+                  }
+                >
+                  None
+                </a>
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "paddingRight": 8,
+                    "textAlign": "right",
+                    "width": 48,
+                  }
+                }
+              >
+                4%
+              </td>
+              <td
+                style={
+                  Object {
+                    "fontSize": 12,
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="bar"
+                  style={
+                    Object {
+                      "height": "1em",
+                      "width": "2%",
                     }
                   }
                 />
@@ -849,21 +1563,7 @@ exports[`matches snapshot 1`] = `
               "paddingLeft": 5,
             }
           }
-        >
-          <a
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "#999",
-                "display": "block",
-                "fontSize": 12,
-                "paddingTop": 5,
-              }
-            }
-          >
-            + Show all
-          </a>
-        </div>
+        />
       </div>
     </div>
     <div
@@ -1359,547 +2059,6 @@ exports[`matches snapshot 1`] = `
           }
         }
       />
-    </div>
-    <div
-      className="CollapsableTable"
-    >
-      <div
-        className="FixedTable panel "
-        style={
-          Object {
-            "display": "inline-block",
-            "paddingBottom": 5,
-            "paddingTop": 5,
-          }
-        }
-      >
-        <div
-          className="fixed-table-title"
-          style={
-            Object {
-              "fontWeight": "bold",
-              "height": "1em",
-              "marginBottom": 5,
-              "paddingLeft": 5,
-            }
-          }
-        >
-          Gender
-        </div>
-        <table>
-          <tbody>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  M
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                56%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "28%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  F
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                40%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "20%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  None
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                4%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "2%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div
-          style={
-            Object {
-              "paddingLeft": 5,
-            }
-          }
-        />
-      </div>
-    </div>
-  </div>
-  <div
-    className="column grades-column pad-column-right"
-  >
-    <div
-      className="CollapsableTable"
-    >
-      <div
-        className="FixedTable panel "
-        style={
-          Object {
-            "display": "inline-block",
-            "paddingBottom": 5,
-            "paddingTop": 5,
-          }
-        }
-      >
-        <div
-          className="fixed-table-title"
-          style={
-            Object {
-              "fontWeight": "bold",
-              "height": "1em",
-              "marginBottom": 5,
-              "paddingLeft": 5,
-            }
-          }
-        >
-          Grade
-        </div>
-        <table>
-          <tbody>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  KF
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                36%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "18%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  3
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                32%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "16%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  5
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                32%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "16%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div
-          style={
-            Object {
-              "paddingLeft": 5,
-            }
-          }
-        />
-      </div>
-    </div>
-    <div
-      className="CollapsableTable"
-    >
-      <div
-        className="FixedTable panel "
-        style={
-          Object {
-            "display": "inline-block",
-            "paddingBottom": 5,
-            "paddingTop": 5,
-          }
-        }
-      >
-        <div
-          className="fixed-table-title"
-          style={
-            Object {
-              "fontWeight": "bold",
-              "height": "1em",
-              "marginBottom": 5,
-              "paddingLeft": 5,
-            }
-          }
-        >
-          Years enrolled
-        </div>
-        <table>
-          <tbody>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  0
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                100%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "50%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div
-          style={
-            Object {
-              "paddingLeft": 5,
-            }
-          }
-        />
-      </div>
     </div>
   </div>
   <div
@@ -5204,66 +5363,6 @@ exports[`matches snapshot 1`] = `
                 />
               </td>
             </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  Summer Program for English Language Learners
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                8%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "4%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
           </tbody>
         </table>
         <div
@@ -5771,66 +5870,6 @@ exports[`matches snapshot 1`] = `
                     Object {
                       "height": "1em",
                       "width": "28%",
-                    }
-                  }
-                />
-              </td>
-            </tr>
-            <tr
-              className="clickable-row"
-              onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": null,
-                  "cursor": "pointer",
-                }
-              }
-            >
-              <td
-                className="caption-cell"
-                style={
-                  Object {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <a
-                  style={
-                    Object {
-                      "fontSize": 12,
-                      "paddingLeft": 10,
-                    }
-                  }
-                >
-                  9th Grade Experience
-                </a>
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "paddingRight": 8,
-                    "textAlign": "right",
-                    "width": 48,
-                  }
-                }
-              >
-                52%
-              </td>
-              <td
-                style={
-                  Object {
-                    "fontSize": 12,
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="bar"
-                  style={
-                    Object {
-                      "height": "1em",
-                      "width": "26%",
                     }
                   }
                 />

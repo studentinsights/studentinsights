@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import {
   sortByString,
   sortByNumber,
@@ -10,7 +11,7 @@ import {
 import {
   studentTableEventNoteTypeIds,
   shouldDisplayHouse,
-  shouldDisplayCounselor
+  hasInfoAbout504Plan
 } from '../helpers/PerDistrict';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
@@ -68,6 +69,8 @@ export default class StudentsTable extends React.Component {
     case 'limited_english_proficiency':
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
       return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
+    case 'plan_504':
+      return _.sortBy(students, student => hasInfoAbout504Plan(student.plan_504));
     case 'program_assigned':
       customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
       return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
@@ -110,11 +113,10 @@ export default class StudentsTable extends React.Component {
               ))}
               {this.renderHeader('Grade', 'grade', 'grade')}
               {shouldDisplayHouse(school) && this.renderHeader('House', 'house', 'string')}
-              {shouldDisplayCounselor(school) && this.renderHeader('Counselor', 'counselor', 'string')}
               {this.renderHeader('Homeroom', 'homeroom_id', 'number')}
-              {this.renderHeader('Disability', 'sped_level_of_need', 'sped_level_of_need')}
-              {this.renderHeader('Low Income', 'free_reduced_lunch', 'free_reduced_lunch')}
-              {this.renderHeader('LEP', 'limited_english_proficiency', 'limited_english_proficiency')}
+              {this.renderHeader('504 plan', 'plan_504', 'plan_504')}
+              {this.renderHeader('SPED level', 'sped_level_of_need', 'sped_level_of_need')}
+              {this.renderHeader('English Learner', 'limited_english_proficiency', 'limited_english_proficiency')}
               {this.renderHeader('STAR Reading', 'most_recent_star_reading_percentile', 'number')}
               {this.renderHeader('MCAS ELA', 'most_recent_mcas_ela_scaled', 'number')}
               {this.renderHeader('STAR Math', 'most_recent_star_math_percentile', 'number')}
@@ -140,12 +142,11 @@ export default class StudentsTable extends React.Component {
                   ))}
                   <td>{student.grade}</td>
                   {shouldDisplayHouse(school) && (<td>{student.house}</td>)}
-                  {shouldDisplayCounselor(school) && (<td>{student.counselor}</td>)}
                   <td>
                     <a href={Routes.homeroom(student.homeroom_id)}>{student.homeroom_name}</a>
                   </td>
+                  <td>{hasInfoAbout504Plan(student.plan_504) ? '504' : null}</td>
                   <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
-                  <td style={{width: '2.5em'}}>{this.renderUnless('Not Eligible', student.free_reduced_lunch)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
                   {this.renderNumberCell(student.most_recent_star_reading_percentile)}
                   {this.renderNumberCell(student.most_recent_mcas_ela_scaled)}
