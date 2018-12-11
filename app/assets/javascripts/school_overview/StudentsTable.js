@@ -12,7 +12,7 @@ import {
   studentTableEventNoteTypeIds,
   shouldDisplayHouse,
   shouldDisplayCounselor,
-  hasInfoAbout504Plan
+  hasActive504Plan
 } from '../helpers/PerDistrict';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
@@ -71,7 +71,7 @@ export default class StudentsTable extends React.Component {
       customEnum = ['FLEP-Transitioning', 'FLEP', 'Fluent'];
       return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
     case 'plan_504':
-      return _.sortBy(students, student => hasInfoAbout504Plan(student.plan_504));
+      return _.sortBy(students, student => hasActive504Plan(student.plan_504));
     case 'program_assigned':
       customEnum = ['Reg Ed', '2Way English', '2Way Spanish', 'Sp Ed'];
       return students.sort((a, b) => sortByCustomEnum(a, b, sortBy, customEnum));
@@ -148,7 +148,7 @@ export default class StudentsTable extends React.Component {
                   <td>
                     <a href={Routes.homeroom(student.homeroom_id)}>{student.homeroom_name}</a>
                   </td>
-                  <td>{hasInfoAbout504Plan(student.plan_504) ? '504' : null}</td>
+                  <td>{hasActive504Plan(student.plan_504) ? '504' : null}</td>
                   <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
                   <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
                   {this.renderNumberCell(student.most_recent_star_reading_percentile)}

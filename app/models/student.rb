@@ -78,6 +78,14 @@ class Student < ApplicationRecord
     where(enrollment_status: 'Active', missing_from_last_export: false)
   end
 
+  # Support deriving this and overriding it based on other
+  # data sources (eg, the document itself).
+  # This can trigger another query.
+  def plan_504(options = {})
+    return attributes['plan_504'] if options[:force]
+    PerDistrict.new.patched_plan_504(self)
+  end
+
   def active?
     enrollment_status == 'Active' && !missing_from_last_export
   end

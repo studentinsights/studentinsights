@@ -52,6 +52,18 @@ class PerDistrict
     yaml.fetch('star_filenames', {}).fetch(key, fallback)
   end
 
+  # Support patching this for Somerville, so that it is derived
+  # from the actual 504 plan document, since the SIS field from
+  # the student export is inaccurate (eg, not considering if status of
+  # the ed plan).
+  def patched_plan_504(student)
+    if @district_key == SOMERVILLE
+      student.ed_plans.active.size > 0 ? '504' : nil
+    else
+      student.plan_504(force: true)
+    end
+  end
+
   def valid_plan_504_values
     if @district_key == SOMERVILLE || @district_key == DEMO
       [nil, "Not 504", "504", "NotIn504", "Active"]

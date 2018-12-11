@@ -8,6 +8,17 @@ class EdPlan < ApplicationRecord
   validates :sep_fieldd_006, presence: true
   validates :sep_fieldd_007, presence: true
 
+  SEP_STATUS_MAP = {
+    draft: 0,
+    active: 1,
+    previous: 2,
+    discarded: 4
+  }
+
+  def self.active
+    where(sep_status: SEP_STATUS_MAP[:active])
+  end
+
   def specific_disability
     sep_fieldd_006
   end

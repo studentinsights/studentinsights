@@ -102,6 +102,6 @@ class ProfileController < ApplicationController
 
   def ed_plans_json(student)
     return [] unless current_educator.labels.include?('enable_viewing_504_data_in_profile')
-    student.ed_plans.includes(:ed_plan_accommodations).as_json(include: :ed_plan_accommodations)
+    student.ed_plans.active.includes(:ed_plan_accommodations).as_json(include: :ed_plan_accommodations)
   end
 end
