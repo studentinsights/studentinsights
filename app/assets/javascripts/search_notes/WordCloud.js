@@ -16,7 +16,6 @@ export default class WordCloud extends React.Component {
     const filteredWords = cleaned(words);
     const list = _.toPairs(_.countBy(filteredWords));
     const weightFactor = Math.max(20, (filteredWords.length / 300));
-    console.log('weightFactor', weightFactor);
     WordCloudLib(this.el, {
       list,
       weightFactor,
