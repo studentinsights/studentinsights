@@ -224,25 +224,29 @@ describe EducatorsController, :type => :controller do
 
   end
 
-  describe '#notes_feed' do
+  describe '#my_notes_json' do
     def make_request
       request.env['HTTPS'] = 'on'
-      get :notes_feed_json, params: { "batch_size": "60" }
+      get :my_notes_json, params: { format: :json, 'batch_size': '60' }
     end
 
     context 'educator with homeroom' do
-      let!(:educator) { FactoryBot.create(:educator_with_homeroom) }
-      let!(:event_note) { FactoryBot.create(:event_note, { educator: educator, recorded_at: Date.today }) }
+      let!(:pals) { TestPals.create! }
+      let!(:educator) { pals.healey_laura_principal }
+      let!(:ryan_event_note) { FactoryBot.create(:event_note, { student: pals.west_eighth_ryan, educator: educator, recorded_at: Date.today - 4.years }) }
+      let!(:garfield_event_note) { FactoryBot.create(:event_note, { student: pals.healey_kindergarten_student, educator: educator, recorded_at: Date.today }) }
 
-      it 'is able to access the notes feed page' do
+      it 'can access notes they wrote for current sutdents, but not past students' do
         sign_in(educator)
         make_request
         expect(response).to be_successful
         body = JSON.parse!(response.body)
+        expect(body['notes'].map {|n| n['id'] }).to eq([garfield_event_note.id])
+
         expect(body).to have_key("educators_index")
         expect(body).to have_key("current_educator")
         expect(body).to have_key("notes")
-        expect(body["notes"].length).to be(1)
+        expect(body["notes"].length).to eq 1
         event_note = body["notes"][0]
         expect(event_note).to have_key("id")
         expect(event_note).to have_key("student_id")
@@ -258,6 +262,11 @@ describe EducatorsController, :type => :controller do
         expect(event_note["student"]).to have_key("homeroom_id")
         expect(event_note["student"]).to have_key("homeroom_name")
         expect(event_note["student"]).to have_key("grade")
+      end
+
+      it 'guards when not signed in' do
+        make_request
+        expect(response.status).to eq 401
       end
     end
   end

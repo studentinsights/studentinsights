@@ -81,28 +81,23 @@ class EducatorsController < ApplicationController
     render json: filtered_names(params[:term], school)
   end
 
-  def notes_feed_json
-    batch_size = params["batch_size"].to_i
-    serialized_data = notes_feed_data(batch_size)
-    render json: serialized_data
-  end
+  def my_notes_json
+    safe_params = params.permit(:batch_size)
+    batch_size = safe_params[:batch_size].to_i
+    authorized_notes = authorized do
+      EventNote.includes(:student)
+        .where(educator_id: current_educator.id)
+        .order('recorded_at DESC')
+    end
 
-  def notes_feed
-    @serialized_data = notes_feed_data(DEFAULT_BATCH_SIZE)
-    render 'shared/serialized_data'
-  end
-
-  def notes_feed_data(batch_size)
-    total_notes_for_educator = EventNote.where(educator_id: current_educator.id).count
-    notes = EventNote.includes(:student)
-            .where(educator_id: current_educator.id)
-            .order("recorded_at DESC")
-            .limit(batch_size)
-    {
+    notes_json = authorized_notes.first(batch_size).map do |event_note|
+      EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note_with_student
+    end
+    render json: {
       educators_index: Educator.to_index,
-      current_educator: current_educator,
-      notes: notes.map {|event_note| EventNoteSerializer.dangerously_include_restricted_note_text(event_note).serialize_event_note_with_student },
-      total_notes_count: total_notes_for_educator
+      current_educator: current_educator.as_json(only: [:id, :can_view_restricted_notes]),
+      notes: notes_json,
+      total_notes_count: authorized_notes.size
     }
   end
 

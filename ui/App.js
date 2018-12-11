@@ -27,6 +27,7 @@ import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollmen
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import StudentVoiceSurveyUploadsPage from '../app/assets/javascripts/student_voice_survey_uploads/StudentVoiceSurveyUploadsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
+import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
@@ -75,6 +76,7 @@ export default class App extends React.Component {
         <Route exact path="/admin/student_voice_survey_uploads" render={this.renderStudentVoiceSurveyUploadsPage.bind(this)}/>
         <Route exact path="/schools/:id/courses" render={this.renderSchoolCoursesPage.bind(this)}/>
         <Route exact path="/educators/view/:id" render={this.renderEducatorPage.bind(this)}/>
+        <Route exact path="/educators/my_notes" render={this.renderMyNotesPage.bind(this)}/>
         <Route exact path="/educators/my_students" render={this.renderMyStudentsPage.bind(this)}/>
         <Route exact path="/educators/my_sections" render={this.renderMySectionsPage.bind(this)}/>
         <Route exact path="/home" render={this.renderHomePage.bind(this)}/>
@@ -119,6 +121,10 @@ export default class App extends React.Component {
         educatorId={id}
         educatorLabels={labels} />
     );
+  }
+
+  renderMyNotesPage(routeProps) {
+    return <MyNotesPage />;
   }
 
   renderMyStudentsPage(routeProps) {

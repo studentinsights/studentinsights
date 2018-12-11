@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import SectionHeading from '../components/SectionHeading';
 import NotesList from '../student_profile/NotesList';
 
 
-export default class NotesFeedPage extends React.Component {
+export default class NotesFeed extends React.Component {
   render() {
     const {currentEducatorId, eventNotes, educatorsIndex, canUserAccessRestrictedNotes} = this.props;
     const feed = {
@@ -18,13 +19,9 @@ export default class NotesFeedPage extends React.Component {
     };
 
     return (
-      <div className="NotesFeedPage" style={styles.root}>
-        <div className="header" style={styles.header}>
-          <div className="title" style={styles.title}>
-            My Notes
-          </div>
-          <p style={styles.subTitle}> Past {eventNotes.length} notes.</p>
-        </div>
+      <div className="NotesFeed" style={styles.root}>
+        <SectionHeading>My notes</SectionHeading>
+        <div style={styles.subTitle}> Past {eventNotes.length} notes.</div>
         <div className="feed" style={styles.feed}>
           <div className="notes-list">
             <NotesList
@@ -56,19 +53,20 @@ export default class NotesFeedPage extends React.Component {
     }
   }
 }
-NotesFeedPage.propTypes = {
+NotesFeed.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
+  canUserAccessRestrictedNotes: PropTypes.bool.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   eventNotes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClickLoadMoreNotes: PropTypes.func.isRequired,
   totalNotesCount: PropTypes.number.isRequired,
-  canUserAccessRestrictedNotes: PropTypes.bool.isRequired
 };
 
 
 const styles = {
   root: {
-    fontSize: 14
+    fontSize: 14,
+    margin: 10
   },
   button: {
     marginTop: '10px',
@@ -80,15 +78,11 @@ const styles = {
   footer: {
     margin: '5% 41%'
   },
-  header: {
-    margin: '2.5% 5%'
-  },
   subTitle: {
-    fontSize: '18px',
-    marginTop: '5px'
+    margin: 20
   },
   title: {
-    fontSize: '28px',
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#155094'
   },

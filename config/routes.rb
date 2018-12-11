@@ -61,6 +61,9 @@ Rails.application.routes.draw do
   # notes search
   get '/api/search_notes/query_json' => 'search_notes#query_json'
 
+  # my notes
+  get '/api/educators/my_notes_json'=> 'educators#my_notes_json'
+
   # homeroom
   get '/api/homerooms/:id/homeroom_json' => 'homerooms#homeroom_json'
 
@@ -94,14 +97,17 @@ Rails.application.routes.draw do
   get '/api/login_activity' => 'login_activities#index_json'
 
   # home and profile and pages
-  get '/educators/view/:id' => 'ui#ui'
   get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  get '/educators/view/:id' => 'ui#ui'
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
-  get '/educators/notes_feed'=> 'educators#notes_feed'
-  get '/educators/notes_feed_json'=> 'educators#notes_feed_json'
+  get '/educators/my_notes'=> 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
+
+  # error pages
+  get 'no_default_page' => 'pages#no_default_page'
+  get 'not_authorized' => 'pages#not_authorized'
 
   # home page
   get '/home' => 'ui#ui'
@@ -117,10 +123,6 @@ Rails.application.routes.draw do
 
   # experimental "is service working?"
   get '/is_service_working' => 'ui#ui'
-
-  # error pages
-  get 'no_default_page' => 'pages#no_default_page'
-  get 'not_authorized' => 'pages#not_authorized'
 
   # K8 homeroom page
   get '/homerooms/:id' => 'ui#ui', as: :homeroom

@@ -2,45 +2,44 @@
 
 exports[`snapshots view 1`] = `
 <div
-  className="NotesFeedPage"
+  className="NotesFeed"
   style={
     Object {
       "fontSize": 14,
+      "margin": 10,
     }
   }
 >
   <div
-    className="header"
+    className="SectionHeading"
     style={
       Object {
-        "margin": "2.5% 5%",
+        "borderBottom": "1px solid #333",
+        "padding": 10,
       }
     }
   >
-    <div
-      className="title"
+    <h4
       style={
         Object {
-          "color": "#155094",
-          "fontSize": "28px",
-          "fontWeight": "bold",
+          "color": "black",
+          "display": "inline",
         }
       }
     >
-      My Notes
-    </div>
-    <p
-      style={
-        Object {
-          "fontSize": "18px",
-          "marginTop": "5px",
-        }
+      My notes
+    </h4>
+  </div>
+  <div
+    style={
+      Object {
+        "margin": 20,
       }
-    >
-       Past 
-      5
-       notes.
-    </p>
+    }
+  >
+     Past 
+    5
+     notes.
   </div>
   <div
     className="feed"
