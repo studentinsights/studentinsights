@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import {WorkBoardIframe, Website, Email} from '../components/PublicLinks';
+import {WorkBoardIFrame, Website, Email} from '../components/PublicLinks';
 
 
 // Page for navigating between schools
@@ -165,7 +165,7 @@ export class DistrictOverviewPageView extends React.Component {
           more at <Website /> or share your ideas with <Email />.
         </div>
         <div style={{width: '100%', height: 800}}>
-          <WorkBoardIframe style={{width: '100%', height: '100%', border: 0}} />
+          <WorkBoardIFrame style={{width: '100%', height: '100%', border: 0}} />
         </div>
       </div>
     );
