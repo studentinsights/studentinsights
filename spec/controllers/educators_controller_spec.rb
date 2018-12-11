@@ -241,7 +241,7 @@ describe EducatorsController, :type => :controller do
         make_request
         expect(response).to be_successful
         body = JSON.parse!(response.body)
-        expect(body['notes'].map {|n| j['id'] }).to eq([garfield_event_note.id])
+        expect(body['notes'].map {|n| n['id'] }).to eq([garfield_event_note.id])
 
         expect(body).to have_key("educators_index")
         expect(body).to have_key("current_educator")
