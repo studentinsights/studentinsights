@@ -6,9 +6,11 @@ import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 import {TIME_RANGE_SCHOOL_YEAR} from '../components/SelectTimeRange';
 import SectionHeading from '../components/SectionHeading';
+import Card from '../components/Card';
 import MutableFeedView from '../feed/MutableFeedView';
 import SearchNotesBar from './SearchNotesBar';
 import SearchQueryFetcher from './SearchQueryFetcher';
+import WordCloud from './WordCloud';
 
 
 // Page for searching notes
@@ -79,10 +81,16 @@ export default class SearchNotesPage extends React.Component {
     return (
       <div style={styles.queryResults}>
         {this.renderMeta(allResultsSize, feedCards)}
-        <MutableFeedView
-          defaultFeedCards={feedCards}
-          educatorLabels={educatorLabels}
-        />
+        <div style={{display: 'flex'}}>
+          <MutableFeedView
+            style={{flex: 1}}
+            defaultFeedCards={feedCards}
+            educatorLabels={educatorLabels}
+          />
+          <div style={{flex: 1}}>
+            {this.renderSidebar(feedCards)}
+          </div>
+        </div>
       </div>
     );
   }
@@ -106,10 +114,30 @@ export default class SearchNotesPage extends React.Component {
 
     return <div style={styles.meta}>Showing the first {oneOrMoreResult(feedCards.length)} of {oneOrMoreResult(allResultsSize)} total.</div>;
   }
+
+  renderSidebar(feedCards) {
+    const {showWordCloud} = this.props;
+    if (!showWordCloud && window.location.search.indexOf('wordcloud') === -1) return null;
+    
+    const words = wordsFromEventNoteCards(feedCards);
+    return (
+      <div style={styles.flexVertical}>
+        <Card style={styles.card}>
+          <div style={styles.cardTitle}>Themes within these notes</div>
+          <WordCloud
+            width={400}
+            height={400}
+            words={words}
+          />
+        </Card>
+      </div>
+    );
+  }
 }
 SearchNotesPage.propTypes = {
   educatorId: PropTypes.number.isRequired,
-  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  showWordCloud: PropTypes.bool
 };
 
 const styles = {
@@ -123,8 +151,10 @@ const styles = {
   },
   queryResults: {
     fontSize: 14,
-    width: '50%',
     paddingLeft: 10
+  },
+  sidebar: {
+    flex: 1,
   },
   meta: {
     paddingTop: 5,
@@ -134,6 +164,20 @@ const styles = {
     paddingLeft: 10,
     paddingTop: 20,
     color: '#aaa'
+  },
+  card: {
+    margin: 20,
+    padding: 0,
+    flexDirection: 'column',
+    display: 'flex'
+  },
+  cardTitle: {
+    backgroundColor: '#eee',
+    padding: 10,
+    color: 'black',
+    borderBottom: '1px solid #ccc',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 };
 
@@ -156,4 +200,12 @@ function oneOrMoreResult(value) {
 function oneOrMore(value, singular, plural) {
   if (value === 1) return `${value} ${singular}`;
   return `${value} ${plural}`;
+}
+
+// Quick and dirty grabbing the list of words
+function wordsFromEventNoteCards(feedCards) {
+  return _.flatMap(feedCards, feedCard => {
+    if (feedCard.type !== 'event_note_card') return [];
+    return feedCard.json.text.split(' ');
+  });
 }

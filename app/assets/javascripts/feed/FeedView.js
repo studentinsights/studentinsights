@@ -8,9 +8,9 @@ import IncidentCard from './IncidentCard';
 // Pure UI component for rendering feed cards (eg, on the home page)
 export default class FeedView extends React.Component {
   render() {
-    const {feedCards, cardPropsFn} = this.props;
+    const {feedCards, cardPropsFn, style} = this.props;
     return (
-      <div className="FeedView">
+      <div className="FeedView" style={style}>
         {feedCards.map(feedCard => {
           const {type, json} = feedCard;
           const cardProps = cardPropsFn ? cardPropsFn(type, json) : {};
@@ -56,7 +56,8 @@ FeedView.propTypes = {
     timestamp: PropTypes.string.isRequired,
     json: PropTypes.object.isRequired
   })).isRequired,
-  cardPropsFn: PropTypes.func
+  cardPropsFn: PropTypes.func,
+  style: PropTypes.object
 };
 
 

@@ -15,6 +15,9 @@ import './performance-timing-api';
 import {performance} from 'perf_hooks';
 window.performance = performance;
 
+// See https://github.com/hustcc/jest-canvas-mock#setup-file
+import 'jest-canvas-mock';
+
 // https://github.com/jefflau/jest-fetch-mock
 window.fetch = require('jest-fetch-mock'); // eslint-disable-line no-undef
 

@@ -10,6 +10,7 @@ import searchJson from './searchJson.fixture';
 
 function testProps() {
   return {
+    showWordCloud: true,
     educatorId: 9999,
     educatorLabels: []
   };

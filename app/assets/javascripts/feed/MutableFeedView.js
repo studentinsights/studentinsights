@@ -46,9 +46,11 @@ export default class MutableFeedView extends React.Component {
   }
 
   render() {
+    const {style} = this.props;
     const {feedCards} = this.state;
     return (
       <FeedView
+        style={style}
         feedCards={feedCards}
         cardPropsFn={this.cardPropsFn}
       />
@@ -75,5 +77,6 @@ export default class MutableFeedView extends React.Component {
 }
 MutableFeedView.propTypes = {
   defaultFeedCards: PropTypes.array.isRequired,
-  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired
+  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  style: PropTypes.object
 };
