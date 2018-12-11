@@ -71,7 +71,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   filterStudents(students, options = {}) {
-    const {selectedChart, selectedCategory, grade, house, counselor, zoomed} = this.state;
+    const {selectedChart, selectedCategory, grade, house, counselor} = this.state;
     const {shouldFilterSelectedCategory} = options;
     return students.filter(student => {
       if (grade !== ALL && student.grade !== grade) return false;
