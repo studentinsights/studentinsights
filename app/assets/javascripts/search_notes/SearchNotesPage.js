@@ -123,7 +123,7 @@ export default class SearchNotesPage extends React.Component {
     return (
       <div style={styles.flexVertical}>
         <Card style={styles.card}>
-          <div style={styles.cardTitle}>Themes within these notes</div>
+          <div style={styles.cardTitle}>Most common words</div>
           <WordCloud
             width={400}
             height={400}
