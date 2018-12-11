@@ -23,6 +23,10 @@ export default class DashboardScatterPlot extends React.Component{
     return "After Hours / Not Recorded";
   }
 
+  toolTipFormatter() {
+    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
+  }
+
   render() {
     return (
       <div id={this.props.id} className="DashboardScatterPlot" style={styles.root}>
@@ -37,40 +41,9 @@ export default class DashboardScatterPlot extends React.Component{
           credits={false}
           xAxis={{
             ...this.props.categories,
-            plotBands: [{
-              color: '#eee',
-              from: -0.5,
-              to: 0.5
-            },{
-              color: '#ccc',
-              from: 0.5,
-              to: 1.5
-            },
-            {
-              color: '#eee',
-              from: 1.5,
-              to: 2.5
-            },
-            {
-              color: '#ccc',
-              from: 2.5,
-              to: 3.5
-            },{
-              color: '#eee',
-              from: 3.5,
-              to: 4.5
-            },
-            {
-              color: '#ccc',
-              from: 4.5,
-              to: 5.5
-            },
-            {
-              color: '#eee',
-              from: 5.5,
-              to: 6.5
-            }
-            ]}}
+            gridLineWidth: 1,
+            opposite:true
+          }}
           plotOptions={{
             series: {
               animation: this.props.animation,
@@ -107,7 +80,7 @@ export default class DashboardScatterPlot extends React.Component{
             labels: {formatter: this.gutterFormatter},
             title: {text: undefined}
           }]}
-          tooltip={this.props.tooltip}
+          tooltip={{formatter: this.toolTipFormatter}}
           series={[
             {
               showInLegend: false,

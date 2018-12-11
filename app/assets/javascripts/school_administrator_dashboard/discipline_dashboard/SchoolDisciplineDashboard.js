@@ -71,7 +71,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   filterStudents(students, options = {}) {
-    const {selectedChart, selectedCategory, grade, house, counselor} = this.state;
+    const {selectedChart, selectedCategory, grade, house, counselor, zoomed} = this.state;
     const {shouldFilterSelectedCategory} = options;
     return students.filter(student => {
       if (grade !== ALL && student.grade !== grade) return false;
@@ -187,12 +187,14 @@ export default class SchoolDisciplineDashboard extends React.Component {
     case 'scatter': {
       const incidents = this.getIncidentsFromStudents(students);
       const categories = this.sortedDays();
+      const studentsById = _.groupBy(students, 'id'); // to look up student names for display
       const seriesData = incidents.map(incident => {
         const student_id = incident.student_id; //used to identify which points are in view when zoomed
         const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
         const y = this.getincidentTimeAsMinutes(incident);
-        const name = moment.utc(incident.occurred_at).format("hh:mm a");
-        return {x, y, name, student_id};
+        const first_name = studentsById[student_id][0].first_name;
+        const last_name = studentsById[student_id][0].last_name;
+        return {x, y, first_name, last_name, incident};
       });
       return {categories, seriesData};
     }
@@ -237,8 +239,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   studentTableRows(students) {
-    const filteredStudents = this.state.zoomed ? this.filterToZoomedStudents(students) : this.filterStudents(students, {shouldFilterSelectedCategory: true});
     const {selectedCategory} = this.state;
+    const filteredStudents = this.filterStudents(students, {shouldFilterSelectedCategory: true});
     return filteredStudents.map(student => {
       return {
         id: student.id,
@@ -306,7 +308,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const displayedPoints = points.filter(point => {
         return (xMin < point.x && point.x < xMax && yMin < point.y && point.y < yMax);
       });
-      const visibleIds = displayedPoints.map(incident => incident.student_id);
+      const visibleIds = displayedPoints.map(point => point.incident.student_id);
       this.setState({zoomed, visibleIds});
     } else this.setState({zoomed: false});
   }
@@ -324,12 +326,12 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {timeRangeKey, selectedChart, grade, house, counselor} = this.state;
     const {school, dashboardStudents} = this.props;
     const chartOptions = [
+      {value: 'scatter', label: 'Day & Time'},
       {value: 'incident_location', label: 'Location'},
       {value: 'time', label: 'Time'},
       {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
-      {value: 'day', label: 'Day'},
-      {value: 'scatter', label: 'Day & Time'}
+      {value: 'day', label: 'Day'}
     ];
     const incidentTypes = this.allIncidentTypes(dashboardStudents);
 
@@ -414,9 +416,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const scatterPlotProps = {
       ...commonProps,
       measureText: "Time of Incident",
-      tooltip: {pointFormat: '<b>{point.name}</b>'},
+      tooltip: {pointFormat: '<b>{point.last_name}, {point.first_name}</b>'},
       yAxisMin: 420, //7 AM
-      yAxisMax: 960, // 4PM - leaving an hour for the cutter category
+      yAxisMax: 960, // 4PM - leaving an hour for the gutter category
       yAxisLabels: {format: '{value}'},
       onZoom: this.onZoom
     };
@@ -430,7 +432,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   renderStudentDisciplineTable(students) {
-    const rows = this.studentTableRows(students);
+    const filteredStudents = this.state.zoomed ? this.filterToZoomedStudents(students) : this.filterStudents(students, {shouldFilterSelectedCategory: true});
+    const rows = this.studentTableRows(filteredStudents);
     return (
       <StudentsTable
         rows = {rows}
@@ -489,7 +492,7 @@ const styles = {
 function initialState() {
   return {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
-    selectedChart: 'incident_location',
+    selectedChart: 'scatter',
     selectedIncidentCode: ALL,
     selectedCategory: null,
     grade: ALL,

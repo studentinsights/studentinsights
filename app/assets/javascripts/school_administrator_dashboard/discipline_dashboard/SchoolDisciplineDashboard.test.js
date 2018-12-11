@@ -96,20 +96,12 @@ it('displays grade for Healey', () => {
   expect(dash.find('SelectGrade').length > 0).toEqual(true);
 });
 
-it('renders at least one bar chart', () => {
+it('renders a scatter plot', () => {
   const context = testContext({districtKey: 'somerville'});
   const props = {school: testSchool()};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
-  expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
-});
-
-it('can render a scatter plot', () => {
-  const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
-  const el = testEl(props);
-  const dash = mount(elWrappedInContext(el, context));
-  expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
+  expect(dash.find('DashboardScatterPlot').length > 0).toEqual(true);
 });
 
 it('renders a student list', () => {
@@ -128,10 +120,10 @@ it('renders a date range selector', () => {
   expect(dash.find('SelectTimeRange').length > 0).toEqual(true);
 });
 
-it('can render a scatter plot', () => {
+it('can render a bar chart', () => {
   const dash = renderShallow({school: testSchool()});
-  dash.setState({selectedChart: 'scatter'});
-  expect(dash.find('DashboardScatterPlot').length > 0).toEqual(true);
+  dash.setState({selectedChart: 'grade'});
+  expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
 });
 
 function snapshotJson(districtKey) {
