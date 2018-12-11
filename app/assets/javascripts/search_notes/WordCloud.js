@@ -13,9 +13,10 @@ export default class WordCloud extends React.Component {
 
   componentDidMount() {    
     const {words} = this.props;
-    const filteredWords = filtered(words);
+    const filteredWords = cleaned(words);
     const list = _.toPairs(_.countBy(filteredWords));
-    const weightFactor = (filteredWords.length / 300);
+    const weightFactor = Math.max(20, (filteredWords.length / 300));
+    console.log('weightFactor', weightFactor);
     WordCloudLib(this.el, {
       list,
       weightFactor,
@@ -54,11 +55,16 @@ function color(word, weight, fontSize, distance, theta) {
 }
 
 
-function filtered(words) {
-  return words.filter(word => {
-    if (stopWords.indexOf(word.toLowerCase()) !== -1) return false;
-    if (parseInt(word, 10).toString() === word) return false;
-    return true;
+function cleanWord(word) {
+  return word
+    .replace(/[\.,]*$/,'')
+    .replace(/^[\.,]*/,'');
+}
+function cleaned(words) {
+  return _.flatMap(words, word => {
+    if (stopWords.indexOf(word.toLowerCase()) !== -1) return [];
+    if (parseInt(word, 10).toString() === word) return [];
+    return [cleanWord(word)];
   });
 }
 const stopWords = [
