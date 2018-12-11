@@ -56,13 +56,15 @@ function color(word, weight, fontSize, distance, theta) {
 
 function cleanWord(word) {
   return word
-    .replace(/[\.,]*$/,'')
-    .replace(/^[\.,]*/,'');
+    .replace(/[+-,:\.\(\)]*$/,'')
+    .replace(/^[+-,:\.\(\)]*/,'');
+
 }
 function cleaned(words) {
   return _.flatMap(words, word => {
     if (stopWords.indexOf(word.toLowerCase()) !== -1) return [];
     if (parseInt(word, 10).toString() === word) return [];
+    if (word.length === 1) return [];
     return [cleanWord(word)];
   });
 }
