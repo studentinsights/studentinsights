@@ -148,7 +148,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sections, only: [:index]
   get '/sections/:id' => 'ui#ui', as: :section
 
   resource :classlists, only: [] do

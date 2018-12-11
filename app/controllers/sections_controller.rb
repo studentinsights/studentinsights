@@ -1,13 +1,6 @@
 class SectionsController < ApplicationController
   before_action :ensure_feature_enabled!
 
-  # This is intended for project leads or developers
-  def index
-    raise Exceptions::EducatorNotAuthorized unless PerDistrict.new.high_school_enabled?
-    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
-    @educator_courses = Course.all.order(:course_number)
-  end
-
   def my_sections_json
     sections = authorized_sections { current_educator.sections }
     sections_json = sections.as_json({
