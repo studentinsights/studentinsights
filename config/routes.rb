@@ -56,6 +56,9 @@ Rails.application.routes.draw do
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
   get '/api/home/feed_json' => 'home#feed_json'
+
+  # districtwide
+  get '/api/district/overview_json' => 'district#overview_json'
   get '/api/district/enrollment_json' => 'district#enrollment_json'
 
   # notes search
@@ -96,9 +99,9 @@ Rails.application.routes.draw do
   # login activity security monitoring
   get '/api/login_activity' => 'login_activities#index_json'
 
-  # home and profile and pages
-  get '/educators/districtwide' => 'educators#districtwide_admin_homepage'
+  # home pages
   get '/educators/view/:id' => 'ui#ui'
+  get '/educators/districtwide' => 'educators#districtwide_admin_homepage' # deprecated
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
   get '/educators/my_notes'=> 'ui#ui'
@@ -111,6 +114,12 @@ Rails.application.routes.draw do
 
   # home page
   get '/home' => 'ui#ui'
+
+  # districtwide pages
+  scope '/district' do
+    get '/' => 'ui#ui'
+    get 'enrollment' => 'ui#ui'
+  end
 
   # search notes
   get '/search/notes' => 'ui#ui'
@@ -172,12 +181,6 @@ Rails.application.routes.draw do
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
       get 'equity/explore' => 'ui#ui'
-    end
-  end
-
-  resource :district, only: [] do
-    member do
-      get 'enrollment' => 'ui#ui'
     end
   end
 end

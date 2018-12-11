@@ -1,4 +1,19 @@
 class DistrictController < ApplicationController
+  before_action :ensure_authorized_for_districtwide!
+
+  def overview_json
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
+
+    schools_with_active_students = School.all.includes(:students).select {|school| school.students.active.size > 0 }
+    schools = schools_with_active_students.sort_by do |school|
+      [School::ORDERED_SCHOOL_TYPES.find_index(school.school_type), school.name]
+    end
+    render json: {
+      schools: schools.as_json(only: [:id, :name]),
+      current_educator: current_educator.as_json(only: [:id, :admin, :can_set_districtwide_access])
+    }
+  end
+
   def enrollment_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
 
@@ -27,5 +42,9 @@ class DistrictController < ApplicationController
       district_name: per_district.district_name,
       enrollments: enrollments_json
     }
+  end
+  private
+  def ensure_authorized_for_districtwide!
+    raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
   end
 end

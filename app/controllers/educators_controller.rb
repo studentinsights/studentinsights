@@ -2,8 +2,6 @@ class EducatorsController < ApplicationController
   # Authentication by default inherited from ApplicationController.
   DEFAULT_BATCH_SIZE = 30
 
-  before_action :authenticate_districtwide_access!, only: [:districtwide_admin_homepage] # Extra authentication layer
-
   def homepage
     redirect_to homepage_path_for_role(current_educator)
   end
@@ -63,13 +61,6 @@ class EducatorsController < ApplicationController
     }
   end
 
-  def districtwide_admin_homepage
-    schools_with_active_students = School.all.includes(:students).select {|school| school.students.active.size > 0 }
-    @schools = schools_with_active_students.sort_by do |school|
-      [School::ORDERED_SCHOOL_TYPES.find_index(school.school_type), school.name]
-    end
-  end
-
   def names_for_dropdown
     student = Student.find(params[:id])
     school = student.school
@@ -107,12 +98,6 @@ class EducatorsController < ApplicationController
   end
 
   private
-  def authenticate_districtwide_access!
-    unless current_educator.districtwide_access
-      redirect_to not_authorized_path
-    end
-  end
-
   def filtered_names(term, school)
     unfiltered = (school.educator_names_for_services + Service.provider_names).uniq.compact
 

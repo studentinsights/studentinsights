@@ -23,6 +23,7 @@ import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/Explo
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
+import DistrictOverviewPage from '../app/assets/javascripts/district_overview/DistrictOverviewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
 import StudentVoiceSurveyUploadsPage from '../app/assets/javascripts/student_voice_survey_uploads/StudentVoiceSurveyUploadsPage';
@@ -96,6 +97,7 @@ export default class App extends React.Component {
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
+        <Route exact path="/district" render={this.renderDistrictOverviewPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderLevelsPage.bind(this)}/>
         <Route exact path="/is_service_working" render={this.renderIsServiceWorking.bind(this)}/>
         <Route exact path='/login_activity' render={this.renderLoginActivity.bind(this)}/>
@@ -229,6 +231,10 @@ export default class App extends React.Component {
 
   renderDistrictEnrollmentPage(routeProps) {
     return <DistrictEnrollmentPage />;
+  }
+
+  renderDistrictOverviewPage(routeProps) {
+    return <DistrictOverviewPage />;
   }
 
   renderLevelsPage(routeProps) {
