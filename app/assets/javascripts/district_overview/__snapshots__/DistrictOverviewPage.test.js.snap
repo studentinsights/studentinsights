@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DistrictOverviewPageView pure component matches snapshot 1`] = `
+exports[`DistrictOverviewPageView pure component matches snapshot, without work board 1`] = `
 <div
   style={
     Object {
@@ -577,70 +577,6 @@ exports[`DistrictOverviewPageView pure component matches snapshot 1`] = `
             </li>
           </ul>
         </div>
-      </div>
-    </div>
-  </div>
-  <div
-    style={
-      Object {
-        "marginTop": 30,
-      }
-    }
-  >
-    <div
-      className="SectionHeading"
-      style={
-        Object {
-          "borderBottom": "1px solid #333",
-          "padding": 10,
-        }
-      }
-    >
-      <h4
-        style={
-          Object {
-            "color": "black",
-            "display": "inline",
-          }
-        }
-      >
-        Student Insights work board
-      </h4>
-    </div>
-    <div
-      style={
-        Object {
-          "margin": 10,
-          "marginBottom": 20,
-        }
-      }
-    >
-      This is how we communicate about what we're working on now, and what we think is coming next, across all districts.  Read more at 
-      <a
-        href="https://www.studentinsights.org"
-      >
-        www.studentinsights.org
-      </a>
-       or share what you're thinking with 
-      <a
-        href="mailto://ideas@studentinsights.org"
-      >
-        ideas@studentinsights.org
-      </a>
-      .
-    </div>
-    <div
-      style={
-        Object {
-          "height": 800,
-          "width": "100%",
-        }
-      }
-    >
-      <div>
-        (placeholder iframe to 
-        https://www.studentinsights.org/work-board.html
-        )
       </div>
     </div>
   </div>
