@@ -132,20 +132,11 @@ class SlicePanels extends React.Component {
   renderProfileColumn() {
     return (
       <div className="column">
+        {this.renderSimpleTable('504 plan', 'plan_504', { limit: 4 })}
         {this.renderDisabilityTable()}
-        {this.renderSimpleTable('Low Income', 'free_reduced_lunch', { limit: 4 })}
-        {this.renderSimpleTable('LEP', 'limited_english_proficiency', { limit: 3 })}
-        {this.renderSimpleTable('Race', 'race', {})}
-        <FixedTable
-          onFilterToggled={this.props.onFilterToggled}
-          filters={this.props.filters}
-          title="Hispanic/Latino"
-          items={[
-            this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
-            this.createItem('No', Filters.Equal('hispanic_latino', false)),
-            this.createItem('None', Filters.Equal('hispanic_latino', null)),
-          ]} />
-        {this.renderSimpleTable('Gender', 'gender', {})}
+        {this.renderSimpleTable('English learner', 'limited_english_proficiency', { limit: 3 })}
+        {this.renderSimpleTable('Low income', 'free_reduced_lunch', { limit: 4 })}
+        {this.renderYearsEnrolled()}
       </div>
     );
   }
@@ -248,7 +239,7 @@ class SlicePanels extends React.Component {
         {this.renderTable({
           title: 'Services',
           items: this.serviceItems(),
-          limit: 4
+          limit: 3
         })}
         {this.renderTable({
           title: 'Summer',
@@ -257,7 +248,7 @@ class SlicePanels extends React.Component {
         {this.renderTable({
           title: 'Notes',
           items: this.mergedNoteItems(),
-          limit: 4
+          limit: 3
         })}
         {this.renderSimpleTable('Program', 'program_assigned', { limit: 3 })}
         {this.renderSimpleTable('Homeroom', 'homeroom_name', {
@@ -285,7 +276,7 @@ class SlicePanels extends React.Component {
     return this.renderTable({
       title: 'Grade',
       items: sortedItems,
-      limit: 10
+      limit: 3
     });
   }
 
@@ -293,9 +284,19 @@ class SlicePanels extends React.Component {
     return (
       <div className="column grades-column pad-column-right">
         {this.renderGradeTable()}
-        {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', {})}
-        {shouldDisplayCounselor(this.props.school) && this.renderSimpleTable('Counselor', 'counselor', {limit:4})}
-        {this.renderYearsEnrolled()}
+        {shouldDisplayHouse(this.props.school) && this.renderSimpleTable('House', 'house', { limit: 4})}
+        {shouldDisplayCounselor(this.props.school) && this.renderSimpleTable('Counselor', 'counselor', { limit: 3})}
+        {this.renderSimpleTable('Gender', 'gender', {})}
+        {this.renderSimpleTable('Race', 'race', { limit: 3})}
+        <FixedTable
+          onFilterToggled={this.props.onFilterToggled}
+          filters={this.props.filters}
+          title="Hispanic/Latino"
+          items={[
+            this.createItem('Yes', Filters.Equal('hispanic_latino', true)),
+            this.createItem('No', Filters.Equal('hispanic_latino', false)),
+            this.createItem('None', Filters.Equal('hispanic_latino', null)),
+          ]} />
       </div>
     );
   }

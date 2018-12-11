@@ -78,7 +78,7 @@ export function renderSlicePanelsDisabilityTable(districtKey, options = {}) {
   const items = (districtKey === SOMERVILLE)
     ? [createItemFn('None', Filters.Null(key))].concat(itemsFromValues)
     : itemsFromValues;
-  return renderTableFn({items, title: 'Disability'});
+  return renderTableFn({items, title: 'SPED level'});
 }
 
 // Check educator labels to see if the educator should be shown 

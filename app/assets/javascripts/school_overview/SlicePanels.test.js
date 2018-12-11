@@ -54,7 +54,7 @@ const helpers = {
   // Returns an array of text values the users can filter by for student
   // Disability
   disabilityFilters(el) {
-    return $(el).find('table:first td.caption-cell').toArray().map(el => $(el).text());
+    return $(el).find('table:eq(1) td.caption-cell').toArray().map(el => $(el).text());
   }
 };
 
@@ -66,8 +66,8 @@ describe('high-level integration tests', () => {
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
-      [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade' ],
+      [ '504 plan', 'SPED level', 'English learner', 'Low income' ],
+      [ 'Grade', 'Gender', 'Race', 'Hispanic/Latino' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -90,8 +90,8 @@ describe('high-level integration tests', () => {
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
-      [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'Years enrolled' ],
+      [ '504 plan', 'SPED level', 'English learner', 'Low income', 'Years enrolled' ],
+      [ 'Grade', 'Gender', 'Race', 'Hispanic/Latino' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -110,8 +110,8 @@ describe('high-level integration tests', () => {
     expect($(el).find('.SlicePanels').length).toEqual(1);
     expect($(el).find('.column').length).toEqual(6);
     expect(helpers.columnTitlesMatrix(el)).toEqual([
-      [ 'Disability', 'Low Income', 'LEP', 'Race', 'Hispanic/Latino', 'Gender' ],
-      [ 'Grade', 'House', 'Counselor' ],
+      [ '504 plan', 'SPED level', 'English learner', 'Low income' ],
+      [ 'Grade', 'House', 'Counselor', 'Gender', 'Race', 'Hispanic/Latino' ],
       [ 'STAR Reading', 'MCAS ELA Score', 'MCAS ELA SGP' ],
       [ 'STAR Math', 'MCAS Math Score', 'MCAS Math SGP' ],
       [ 'Discipline incidents', 'Absences', 'Tardies' ],
@@ -126,12 +126,12 @@ describe('high-level integration tests', () => {
     }));
 
     expect(helpers.rowsPerColumnMatrix(el)).toEqual([
-      [ 5, 4, 3, 4, 3, 3 ],
-      [ 3, 1 ],
-      [ 5, 5, 5 ],
-      [ 5, 5, 5 ],
-      [ 5, 5, 5 ],
-      [ 4, 4, 4, 3, 3 ]
+      [2, 5, 3, 4, 1],
+      [3, 3, 3, 3],
+      [5, 5, 5],
+      [5, 5, 5],
+      [5, 5, 5],
+      [3, 4, 3, 3, 3]
     ]);
   });
 
