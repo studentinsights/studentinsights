@@ -53,8 +53,8 @@ class PerDistrict
   end
 
   # Support patching this for Somerville, so that it is derived
-  # from the actual 504 plan document, since the Aspen field from
-  # the student export has bugs (eg, not considering if status of
+  # from the actual 504 plan document, since the SIS field from
+  # the student export is inaccurate (eg, not considering if status of
   # the ed plan).
   def patched_plan_504(student)
     if @district_key == SOMERVILLE
