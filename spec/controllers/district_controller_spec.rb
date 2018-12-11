@@ -18,6 +18,8 @@ describe DistrictController, :type => :controller do
       response = request_page()
       expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to eq({
+        "show_work_board" => true,
+        "enable_student_voice_uploads" => true,
         "current_educator" => {
           "id"=>pals.uri.id,
           "admin"=>true,
@@ -27,8 +29,7 @@ describe DistrictController, :type => :controller do
           {"id"=>pals.healey.id, "name"=>pals.healey.name},
           {"id"=>pals.west.id, "name"=>pals.west.name},
           {"id"=>pals.shs.id, "name"=>pals.shs.name}
-        ],
-       "work_board_url" => nil
+        ]
       })
     end
 

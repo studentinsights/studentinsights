@@ -4,12 +4,14 @@ class DistrictController < ApplicationController
   def overview_json
     raise Exceptions::EducatorNotAuthorized unless current_educator.districtwide_access
 
+    enable_student_voice_uploads = PerDistrict.new.enabled_student_voice_survey_uploads? && current_educator.labels.include?('can_upload_student_voice_surveys')
     schools_with_active_students = School.all.includes(:students).select {|school| school.students.active.size > 0 }
     schools = schools_with_active_students.sort_by do |school|
       [School::ORDERED_SCHOOL_TYPES.find_index(school.school_type), school.name]
     end
     render json: {
-      work_board_url: ENV['WORK_BOARD_URL'],
+      show_work_board: EnvironmentVariable.is_true('SHOW_WORK_BOARD'),
+      enable_student_voice_uploads: enable_student_voice_uploads,
       schools: schools.as_json(only: [:id, :name]),
       current_educator: current_educator.as_json(only: [:id, :admin, :can_set_districtwide_access])
     }

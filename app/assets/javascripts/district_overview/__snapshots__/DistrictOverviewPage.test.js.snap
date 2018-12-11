@@ -1,0 +1,584 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DistrictOverviewPageView pure component matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "fontSize": 14,
+      "margin": "auto",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "flex-start",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "flex": 1,
+          "margin": 20,
+        }
+      }
+    >
+      <div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "justifyContent": "flex-start",
+            }
+          }
+        >
+          <svg
+            enableBackground="new 0 0 100 100"
+            height={70}
+            version="1.1"
+            viewBox="0 0 100 100"
+            width={70}
+            x="0px"
+            xmlSpace="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0px"
+          >
+            <g>
+              <path
+                d="M94.862,39.171l-2.722-2.684c-0.447-0.44-0.896-0.88-1.347-1.319c-0.466-0.456-0.932-0.91-1.393-1.365   c-0.22-0.216-0.515-0.337-0.822-0.337H55.02l-4.449-2.972V27.72h9.169V20.7H48.23v3.12v3.9v2.831l-4.363,2.915H11.411   c-0.309,0-0.606,0.123-0.826,0.341c-0.482,0.48-0.973,0.96-1.463,1.44c-0.424,0.414-0.847,0.828-1.265,1.242l-2.72,2.682   c-0.338,0.333-0.441,0.838-0.261,1.277c0.18,0.439,0.608,0.726,1.083,0.726h4.29v35.44h0.039V79.3h25.16h1.17h5.976   c0.646,0,1.17-0.524,1.17-1.17v-1.735h11.181v1.735c0,0.646,0.524,1.17,1.17,1.17h5.975h1.17h25.374v-2.685h0.006v-35.44h5.403   c0.475,0,0.902-0.287,1.082-0.726C95.304,40.009,95.2,39.505,94.862,39.171z M50.57,23.04h6.828v2.34H50.57v-1.56V23.04z    M58.725,69.592V56.88h2.074v12.712H58.725z M40.132,56.88v12.712h-2.074V56.88H40.132z M42.473,59.85v-2.97h5.311   C45.676,57.226,43.816,58.305,42.473,59.85z M56.385,59.817c-1.341-1.528-3.189-2.593-5.282-2.938h5.282V59.817z M62.949,54.54   H35.938v-1.365h27.012V54.54z M46.661,50.835v-9.66h5.537v9.66H46.661z M44.321,41.175v9.66h-1.853v-9.66H44.321z M54.538,50.835   v-9.66h1.853v9.66H54.538z M40.384,38.607l9.06-6.052l9.06,6.052H40.384z M8.813,38.834l0.692-0.682   c0.414-0.412,0.834-0.822,1.253-1.232c0.379-0.372,0.76-0.743,1.135-1.114h28.472l-4.488,2.998   c-0.013,0.008-0.021,0.021-0.033,0.03H10.249H8.813z M40.128,41.175v9.66h-5.361c-0.646,0-1.17,0.524-1.17,1.17v3.705   c0,0.646,0.524,1.17,1.17,1.17h0.951v12.712h-0.271c-0.646,0-1.17,0.524-1.17,1.17v1.039H12.588V41.175H40.128z M12.627,74.141   h21.649v2.819H12.627V74.141z M41.422,76.96h-4.805v-5.028h4.805V76.96z M54.943,70.762v3.293H43.762v-3.293   c0-0.641-0.516-1.16-1.155-1.168v-3.873c0-3.654,2.975-6.629,6.63-6.629h0.412c3.656,0,6.63,2.975,6.63,6.629v3.871h-0.166   C55.468,69.592,54.943,70.116,54.943,70.762z M62.088,76.96h-4.804v-5.028h4.804V76.96z M86.292,76.96H64.428v-2.819h21.864V76.96z    M86.298,71.801h-21.87v-1.039c0-0.646-0.523-1.17-1.17-1.17h-0.119V56.88h0.98c0.646,0,1.17-0.524,1.17-1.17v-3.705   c0-0.646-0.524-1.17-1.17-1.17h-5.388v-9.66h27.566V71.801z M88.638,38.834H63.051c-0.049-0.036-0.095-0.076-0.15-0.104   l-4.378-2.925H88.1c0.353,0.346,0.706,0.691,1.06,1.036c0.447,0.438,0.894,0.875,1.339,1.313l0.69,0.68H88.638z"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="16.991"
+                y="58.226"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="16.991"
+                y="64.015"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="27.45"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="27.45"
+                y="51.132"
+              />
+              <rect
+                height="3.376"
+                width="2.341"
+                x="79.322"
+                y="58.226"
+              />
+              <rect
+                height="3.376"
+                width="2.341"
+                x="79.322"
+                y="64.015"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="63.636"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="22.221"
+                y="58.226"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="22.221"
+                y="64.015"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="27.45"
+                y="58.226"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="27.45"
+                y="64.015"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="22.221"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="22.221"
+                y="51.132"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="16.991"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="16.991"
+                y="51.132"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="32.702"
+                y="45.342"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="68.862"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="68.862"
+                y="51.132"
+              />
+              <rect
+                height="3.377"
+                width="2.34"
+                x="74.093"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="74.093"
+                y="51.132"
+              />
+              <rect
+                height="3.377"
+                width="2.341"
+                x="79.322"
+                y="45.342"
+              />
+              <rect
+                height="3.376"
+                width="2.341"
+                x="79.322"
+                y="51.132"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="74.093"
+                y="58.226"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="74.093"
+                y="64.015"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="68.862"
+                y="58.226"
+              />
+              <rect
+                height="3.376"
+                width="2.34"
+                x="68.862"
+                y="64.015"
+              />
+            </g>
+          </svg>
+          <h3
+            style={
+              Object {
+                "color": "black",
+                "display": "inline-block",
+                "fontSize": 20,
+                "marginBottom": 20,
+                "marginLeft": 10,
+              }
+            }
+          >
+            Schools
+          </h3>
+        </div>
+        <ul
+          style={
+            Object {
+              "listStyleType": "none",
+              "paddingLeft": 0,
+            }
+          }
+        >
+          <li>
+            <div
+              style={
+                Object {
+                  "fontSize": 18,
+                  "marginTop": 15,
+                }
+              }
+            >
+              Arthur D Healey
+            </div>
+            <div>
+              <a
+                href="/schools/2"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Roster
+              </a>
+              <a
+                href="/schools/2/absences"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Absences
+              </a>
+              <a
+                href="/schools/2/tardies"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Tardies
+              </a>
+            </div>
+          </li>
+          <li>
+            <div
+              style={
+                Object {
+                  "fontSize": 18,
+                  "marginTop": 15,
+                }
+              }
+            >
+              West Somerville Neighborhood
+            </div>
+            <div>
+              <a
+                href="/schools/6"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Roster
+              </a>
+              <a
+                href="/schools/6/absences"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Absences
+              </a>
+              <a
+                href="/schools/6/tardies"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Tardies
+              </a>
+            </div>
+          </li>
+          <li>
+            <div
+              style={
+                Object {
+                  "fontSize": 18,
+                  "marginTop": 15,
+                }
+              }
+            >
+              Somerville High
+            </div>
+            <div>
+              <a
+                href="/schools/9"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Roster
+              </a>
+              <a
+                href="/schools/9/absences"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Absences
+              </a>
+              <a
+                href="/schools/9/tardies"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Tardies
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "flex": 1,
+          "margin": 20,
+        }
+      }
+    >
+      <div>
+        <div
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "display": "flex",
+              "justifyContent": "flex-start",
+            }
+          }
+        >
+          <svg
+            enableBackground="new 0 0 100 100"
+            height={70}
+            style={
+              Object {
+                "transform": "rotate(50deg)",
+              }
+            }
+            version="1.1"
+            viewBox="0 0 100 100"
+            width={70}
+            x="0px"
+            xmlSpace="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0px"
+          >
+            <path
+              d="M60,42.7c0.6-0.9,0.8-2,0.2-3c-0.5-0.9-1.5-1.4-2.5-1.3V34l3.4-7.6c0.1-0.1,0.1-0.3,0.1-0.5  c0-0.1,0-0.1,0-0.2l-4.9-22c-0.1-0.5-0.5-0.8-1-0.8h-8c-0.5,0-0.9,0.3-1,0.8l-5.2,22c-0.1,0.2,0,0.4,0.1,0.6l3.4,7.6v4.4  c-0.3,0-0.5,0-0.8,0.1c-0.7,0.2-1.3,0.6-1.7,1.2c-0.4,0.6-0.5,1.4-0.3,2.1c0.1,0.4,0.2,0.7,0.5,1c-9.1,14.9-9.8,33.7-1.7,49.2  c0.7,1.4,1.9,2.3,3.3,2.7c0.4,0.1,0.7,0.1,1.1,0.1c0.7,0,1.5-0.2,2.1-0.6c2-1.3,2.6-4,1.4-6.3c-6.7-12.8-6.1-28.4,1.5-40.7  c0.1,0,0.3,0,0.4,0c0.3,0,0.5-0.1,0.8-0.1c0.3,0.1,0.5,0.1,0.8,0.1c0.1,0,0.3,0,0.4,0c7.4,12.5,8,27.7,1.4,40.7  c-1.1,2.3-0.5,5,1.5,6.2c0.6,0.4,1.3,0.6,2,0.6c0.4,0,0.8-0.1,1.1-0.2c1.4-0.4,2.5-1.4,3.2-2.7C69.6,76.1,68.9,57.8,60,42.7z   M58.4,40.7c0.2,0.3,0.1,0.8-0.2,1l-5.8,3.4c-0.1,0-0.1,0.1-0.2,0.1v-1.6l5.3-3.1C57.8,40.3,58.2,40.4,58.4,40.7z M52.2,22  c0.8,0.4,1.4,1.2,1.4,2.2S53,26,52.2,26.3V22z M50.2,26.3c-0.8-0.4-1.4-1.2-1.4-2.2s0.6-1.8,1.4-2.2V26.3z M59.2,25.9l-3.3,7.3  c-0.1,0.2-0.2,0.4-0.2,0.6v5.4l-3.5,2.1V28.5c2-0.5,3.4-2.2,3.4-4.3c0-2.1-1.5-3.9-3.4-4.3V5h2.3L59.2,25.9z M43.2,25.9l5-20.9h2  v14.8c-2,0.5-3.4,2.2-3.4,4.3c0,2.1,1.5,3.9,3.4,4.3v12.8l-3.5-2.1v-5.4c0-0.1,0-0.3-0.1-0.4L43.2,25.9z M44,40.7  c0.1-0.2,0.2-0.3,0.4-0.3c0.2,0,0.4,0,0.5,0.1l5.2,3.1v1.6c0,0-0.1,0-0.1-0.1l-5.8-3.4c-0.2-0.1-0.3-0.2-0.3-0.4  C43.8,41.1,43.9,40.9,44,40.7z M46.7,88.8c0.7,1.3,0.4,3-0.7,3.7c-0.4,0.3-1,0.4-1.5,0.2c-0.8-0.2-1.5-0.8-2-1.7  c-7.7-14.9-7.1-32.8,1.6-47.1l4.1,2.4C40.3,59.2,39.7,75.4,46.7,88.8z M59.9,90.9c-0.4,0.8-1.1,1.5-1.9,1.7  c-0.6,0.2-1.1,0.1-1.6-0.2c-1.1-0.7-1.4-2.3-0.8-3.6c6.8-13.6,6.3-29.4-1.4-42.4l4.1-2.4C66.9,58.4,67.5,75.9,59.9,90.9z"
+              fill="#000000"
+            />
+          </svg>
+          <h3
+            style={
+              Object {
+                "color": "black",
+                "display": "inline-block",
+                "fontSize": 20,
+                "marginBottom": 20,
+                "marginLeft": 10,
+              }
+            }
+          >
+            Administration
+          </h3>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Roles and Permissions
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/admin/authorization"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Educator permissions: overview
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Adjust educator permissions
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Syncs and imports
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/service_uploads"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Upload student services file
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/student_voice_survey_uploads"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Upload student voice survey CSV
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/import_records"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Import records
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div
+            style={
+              Object {
+                "fontSize": 18,
+                "marginTop": 15,
+              }
+            }
+          >
+            Data quality checks
+          </div>
+          <ul
+            style={
+              Object {
+                "listStyleType": "none",
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <li>
+              <a
+                href="/district/enrollment"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Enrollment patterns
+              </a>
+            </li>
+            <li>
+              <a
+                href="/admin/sample_students"
+                style={
+                  Object {
+                    "fontSize": 14,
+                  }
+                }
+              >
+                Student sample for data quality checks
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -101,7 +101,6 @@ Rails.application.routes.draw do
 
   # home pages
   get '/educators/view/:id' => 'ui#ui'
-  get '/educators/districtwide' => 'educators#districtwide_admin_homepage' # deprecated
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
   get '/educators/my_notes'=> 'ui#ui'

@@ -7,4 +7,7 @@ export function Website(props) {
 export function Email(props) {
   return <a {...props} href="mailto://ideas@studentinsights.org">ideas@studentinsights.org</a>;
 }
-          
+
+export function WorkBoardIFrame(props) {
+  return <iframe {...props} src="https://studentinsights.org/work-board.html" />;
+}

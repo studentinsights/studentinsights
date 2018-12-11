@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import {Website, Email} from '../components/PublicLinks';
+import {WorkBoardIframe, Website, Email} from '../components/PublicLinks';
 
 
 // Page for navigating between schools
@@ -35,7 +35,8 @@ export default class DistrictOverviewPage extends React.Component {
   renderJson(json) {
     return (
       <DistrictOverviewPageView
-        workBoardUrl={json.work_board_url}
+        enableStudentVoiceUploads={json.enable_student_voice_uploads}
+        showWorkBoard={json.show_work_board}
         schools={json.schools}
         currentEducator={json.current_educator}
       />
@@ -83,11 +84,9 @@ export class DistrictOverviewPageView extends React.Component {
   }
 
   renderProjectLeadLinks() {
-    const {currentEducator} = this.props;
+    const {currentEducator, enableStudentVoiceUploads} = this.props;
     if (!currentEducator.can_set_districtwide_access) return null;
 
-    //<% if PerDistrict.new.enabled_student_voice_survey_uploads? && current_educator.labels.include?('can_upload_student_voice_surveys') %>
-    const isStudentVoiceUploadsEnabled = true;
     return (    
       <div>
         <div style={styles.iconAndTitle}>
@@ -119,7 +118,7 @@ export class DistrictOverviewPageView extends React.Component {
                Upload student services file
               </a>
             </li>
-            {isStudentVoiceUploadsEnabled &&
+            {enableStudentVoiceUploads &&
               <li>
                 <a href="/admin/student_voice_survey_uploads" style={styles.link}>
                  Upload student voice survey CSV
@@ -152,9 +151,11 @@ export class DistrictOverviewPageView extends React.Component {
       </div>
     );
   }
+
   renderWorkBoard() {
-    const {workBoardUrl} = this.props;
-    if (!workBoardUrl) return null;
+    const {showWorkBoard} = this.props;
+    if (!showWorkBoard) return null;
+
     return (
       <div style={{marginTop: 30}}>
         <SectionHeading>Student Insights work board</SectionHeading>
@@ -164,17 +165,15 @@ export class DistrictOverviewPageView extends React.Component {
           more at <Website /> or share your ideas with <Email />.
         </div>
         <div style={{width: '100%', height: 800}}>
-          <iframe style={{width: '100%', height: '100%', border: 0}} src={workBoardUrl} />
+          <WorkBoardIframe style={{width: '100%', height: '100%', border: 0}} />
         </div>
       </div>
     );
   }
 }
-DistrictOverviewPageView.contextTypes = {
-  districtKey: PropTypes.string.isRequired
-};
 DistrictOverviewPageView.propTypes = {
-  workBoardUrl: PropTypes.string,
+  enableStudentVoiceUploads: PropTypes.bool.isRequired,
+  showWorkBoard: PropTypes.bool.isRequired,
   currentEducator: PropTypes.shape({
     can_set_districtwide_access: PropTypes.bool.isRequired,
     admin: PropTypes.bool.isRequired
