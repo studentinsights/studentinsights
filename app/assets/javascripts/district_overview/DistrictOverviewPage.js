@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
-import {WorkBoardIFrame, Website, Email} from '../components/PublicLinks';
+import {Website, Email} from '../components/PublicLinks';
+import WorkBoard from '../components/WorkBoard';
 
 
 // Page for navigating between schools
@@ -157,15 +158,15 @@ export class DistrictOverviewPageView extends React.Component {
     if (!showWorkBoard) return null;
 
     return (
-      <div style={{marginTop: 30}}>
+      <div style={{marginTop: 40}}>
         <SectionHeading>Student Insights work board</SectionHeading>
         <div style={{margin: 10, marginBottom: 20}}>
           This is how we communicate about what we're working on now,
           and what we think is coming next, across all districts.  Read
-          more at <Website /> or share what you're thinking with <Email />.
+          more at <Website /> or share what you're thinking about with us at <Email />.
         </div>
-        <div style={{width: '100%', height: 800}}>
-          <WorkBoardIFrame style={{width: '100%', height: '100%', border: 0}} />
+        <div style={{margin: 20, width: '100%', height: 800}}>
+          <WorkBoard style={{width: '100%', height: '100%'}} />
         </div>
       </div>
     );

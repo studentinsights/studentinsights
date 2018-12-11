@@ -36,13 +36,13 @@ it('renders everything after fetch', done => {
 });
 
 describe('DistrictOverviewPageView', () => {
-  it('pure component matches snapshot', () => {
+  it('pure component matches snapshot, without work board', () => {
     const json = districtOverviewJson;
     const tree = renderer
       .create(
         <DistrictOverviewPageView
           enableStudentVoiceUploads={json.enable_student_voice_uploads}
-          showWorkBoard={json.show_work_board}
+          showWorkBoard={false}
           schools={json.schools}
           currentEducator={json.current_educator}
         />
