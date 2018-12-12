@@ -42,7 +42,9 @@ export default class DashboardScatterPlot extends React.Component{
           xAxis={{
             ...this.props.categories,
             gridLineWidth: 1,
-            opposite:true
+            opposite:true,
+            min: 0,
+            max: 6
           }}
           plotOptions={{
             series: {
