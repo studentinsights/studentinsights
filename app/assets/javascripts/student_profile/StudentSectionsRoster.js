@@ -19,6 +19,11 @@ export default class StudentSectionsRoster extends React.Component {
     this.sortEducatorNames = this.sortEducatorNames.bind(this);
   }
 
+  formatEducatorNames(educators) {
+    const educatorNames = _.map(educators, 'full_name');
+    return educatorNames.join(' / ');
+  }
+
   sortEducatorNames(a, b, sortBy) {
     const educatorNamesA = this.formatEducatorNames(a.educators);
     const educatorNamesB = this.formatEducatorNames(b.educators);
