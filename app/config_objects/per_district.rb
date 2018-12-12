@@ -34,6 +34,10 @@ class PerDistrict
     ENV['CANONICAL_DOMAIN']
   end
 
+  def cookie_key
+    "_student_insights_session_for_#{district_key}"
+  end
+
   def warning_banner_message
     return ENV['WARNING_BANNER_MESSAGE'] if ENV['WARNING_BANNER_MESSAGE'].present?
     return "This is a demo site!  It's filled with fake data." if @district_key == DEMO
