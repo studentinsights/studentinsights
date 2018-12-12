@@ -19,14 +19,14 @@ export default class StudentSectionsRoster extends React.Component {
     this.sortEducatorNames = this.sortEducatorNames.bind(this);
   }
 
-  formatEducatorNames(educators) {
+  formatEducatorNamesAsText(educators) {
     const educatorNames = _.map(educators, 'full_name');
     return educatorNames.join(' / ');
   }
 
   sortEducatorNames(a, b, sortBy) {
-    const educatorNamesA = this.formatEducatorNames(a.educators);
-    const educatorNamesB = this.formatEducatorNames(b.educators);
+    const educatorNamesA = this.formatEducatorNamesAsText(a.educators);
+    const educatorNamesB = this.formatEducatorNamesAsText(b.educators);
     return baseSortByString(educatorNamesA, educatorNamesB);
   }
 
@@ -83,13 +83,8 @@ export default class StudentSectionsRoster extends React.Component {
 
   renderEducators(section, column) {
     return (
-      <p>{this.renderEducatorNames(section.educators)}</p>
+      <p>{this.formatEducatorNamesAsText(section.educators)}</p>
     );
-  }
-
-  renderEducatorNames(educators) {
-    const educatorNames = _.map(educators, 'full_name');
-    return educatorNames.join(' / ');
   }
 }
 StudentSectionsRoster.propTypes = {
