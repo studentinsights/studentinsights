@@ -31,6 +31,7 @@ class EdPlansImporter
     log('Done loop.')
     log("@skipped_from_school_filter: #{@skipped_from_school_filter}")
     log("@skipped_from_student_local_id_filter: #{@skipped_from_student_local_id_filter}")
+    log("@skipped_from_empty_sep_fieldd_006: #{@skipped_from_empty_sep_fieldd_006}")
 
     log('Calling #delete_unmarked_records...')
     @syncer.delete_unmarked_records!(records_within_scope)
@@ -42,6 +43,7 @@ class EdPlansImporter
   def reset_counters!
     @skipped_from_school_filter = 0
     @skipped_from_student_local_id_filter = 0
+    @skipped_from_empty_sep_fieldd_006 = 0
   end
 
   # Take param, or download it
@@ -76,6 +78,13 @@ class EdPlansImporter
     # Skip based on student filter
     if @student_local_ids.present? && !@student_local_ids.include?(row[:student_local_id])
       @skipped_from_student_local_id_filter += 1
+      return
+    end
+
+    # There are a good number of records without sep_fieldd_006
+    # set, skip these explicitly.
+    if row[:sep_fieldd_006].blank?
+      @skipped_from_empty_sep_fieldd_006 += 1
       return
     end
 

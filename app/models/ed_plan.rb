@@ -6,14 +6,6 @@ class EdPlan < ApplicationRecord
   validates :sep_oid, presence: true, uniqueness: true
   validates :sep_effective_date, presence: true
   validates :sep_fieldd_006, presence: true
-  validates :sep_fieldd_007, presence: true
-
-  SEP_STATUS_MAP = {
-    draft: 0,
-    active: 1,
-    previous: 2,
-    discarded: 4
-  }
 
   def self.active
     where(sep_status: SEP_STATUS_MAP[:active])
@@ -26,4 +18,12 @@ class EdPlan < ApplicationRecord
   def persons_responsible
     sep_fieldd_007
   end
+
+  private
+  SEP_STATUS_MAP = {
+    draft: 0,
+    active: 1,
+    previous: 2,
+    discarded: 4
+  }
 end
