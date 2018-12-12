@@ -44,7 +44,7 @@ export default class DashboardScatterPlot extends React.Component{
             gridLineWidth: 1,
             opposite:true,
             min: 0,
-            max: 6
+            max: 5 // Saturday/Sunday are optionally displayed only if they have data
           }}
           plotOptions={{
             series: {
