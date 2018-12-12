@@ -113,7 +113,7 @@ Rails.application.routes.draw do
 
   # home page
   get '/home' => 'ui#ui'
-  get '/sections', to: redirect('/') # bing indexed this, keep redirect around for a bit
+  get '/sections', to: redirect('/educators/sign_in') # bing indexed this, so keep redirect around for a bit
 
   # districtwide pages
   scope '/district' do

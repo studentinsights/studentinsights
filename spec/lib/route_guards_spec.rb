@@ -3,12 +3,13 @@ require 'spec_helper'
 RSpec.describe 'checking authentication guards around all routes', :type => :request do
   # These should only be endpoints involved in login, everything else should have authentication
   # checks (both by routes.rb and ApplicationController).
-  UNAUTHENTICATED_WHITELIST = [
+  IGNORED_ENDPOINTS = [
     [:get, '/'],
     [:get, '/educators/sign_in'],
     [:post, '/educators/sign_in'],
     [:post, '/educators/multifactor'],
-    [:delete, '/educators/sign_out']
+    [:delete, '/educators/sign_out'],
+    [:get, '/sections'] # 301 redirect for search index, tested separately in spec below
   ]
 
   # We don't want noise updating this on every route change, but also want to verify
@@ -30,7 +31,7 @@ RSpec.describe 'checking authentication guards around all routes', :type => :req
   end
 
   def endpoints_to_check
-    gather_endpoints_to_check - UNAUTHENTICATED_WHITELIST
+    gather_endpoints_to_check - IGNORED_ENDPOINTS
   end
 
   def http_request(verb, path, headers = {})
@@ -58,5 +59,10 @@ RSpec.describe 'checking authentication guards around all routes', :type => :req
       expect(response.body).to eq('{"error":"You need to sign in before continuing."}'), failure_message
     end
     expect(endpoints_to_check.size).to be >= MINIMUM_EXPECTED_ENDPOINTS_COUNT
+  end
+
+  it 'always redirects /sections' do
+    get '/sections', headers: { 'HTTPS' => 'on' }
+    expect(response.status).to eq 301
   end
 end
