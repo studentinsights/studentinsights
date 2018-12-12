@@ -27,6 +27,7 @@ import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
+import DashboardScatterPlot from '../DashboardScatterPlot';
 import * as dashboardStyles from '../dashboardStyles';
 
 
@@ -44,6 +45,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.onColumnClick = this.onColumnClick.bind(this);
     this.onResetStudentList = this.onResetStudentList.bind(this);
     this.onSelectChart = this.onSelectChart.bind(this);
+    this.onZoom = this.onZoom.bind(this);
     this.memoize = memoizer();
   }
 
@@ -85,6 +87,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
     });
   }
 
+  filterToZoomedStudents(students) {
+    const {visibleIds} = this.state;
+    return students.filter(student => visibleIds.indexOf(student.id) >= 0);
+  }
+
   timeStampToHour(incident) {
     const hour = moment.utc(incident.occurred_at).startOf('hour').format('h:mm a');
     const timeFormat = "HH:mm a";
@@ -93,6 +100,18 @@ export default class SchoolDisciplineDashboard extends React.Component {
     if (!incident.has_exact_time) return "Not Logged";
     if (!moment.utc(hour, timeFormat).isBetween(schoolStart, schoolEnd)) return "Other";
     return hour;
+  }
+
+  //highcharts will only accept number values as data this returns minutes since the day began.
+  getincidentTimeAsMinutes(incident) {
+    const time = moment.utc(incident.occurred_at).format("HH.mm").split(".");
+    const minutes = time[0] * 60 + time[1] * 1;
+    //Group all times outside of school hours or not recorded into one spot for a "gutter" category in highcharts
+    return this.areMinutesWithinSchoolHours(minutes) ? minutes : 930; // 4:30 - for gutter category
+  }
+
+  areMinutesWithinSchoolHours(minutes) {
+    return 420 < minutes && minutes < 900;
   }
 
   timeStampToDay(incident) {
@@ -165,6 +184,20 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       return {categories, seriesData};
     }
+    case 'scatter': {
+      const incidents = this.getIncidentsFromStudents(students);
+      const categories = this.sortedDays();
+      const studentsById = _.groupBy(students, 'id'); // to look up student names for display
+      const seriesData = incidents.map(incident => {
+        const student_id = incident.student_id; //used to identify which points are in view when zoomed
+        const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
+        const y = this.getincidentTimeAsMinutes(incident);
+        const first_name = studentsById[student_id][0].first_name;
+        const last_name = studentsById[student_id][0].last_name;
+        return {x, y, first_name, last_name, incident};
+      });
+      return {categories, seriesData};
+    }
     }
   }
 
@@ -206,8 +239,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
   }
 
   studentTableRows(students) {
-    const filteredStudents = this.filterStudents(students, {shouldFilterSelectedCategory: true});
     const {selectedCategory} = this.state;
+    const filteredStudents = this.filterStudents(students, {shouldFilterSelectedCategory: true});
     return filteredStudents.map(student => {
       return {
         id: student.id,
@@ -264,6 +297,22 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState(initialState());
   }
 
+  onZoom(highchartsEvent) {
+    if (highchartsEvent.xAxis && highchartsEvent.yAxis) { //highcharts sends different events when user is making and resetting a selection
+      const zoomed = true;
+      const xMin = highchartsEvent.xAxis[0].min;
+      const yMin = highchartsEvent.yAxis[0].min;
+      const xMax = highchartsEvent.xAxis[0].max;
+      const yMax = highchartsEvent.yAxis[0].max;
+      const points = highchartsEvent.target.series[0].points;
+      const displayedPoints = points.filter(point => {
+        return (xMin < point.x && point.x < xMax && yMin < point.y && point.y < yMax);
+      });
+      const visibleIds = displayedPoints.map(point => point.incident.student_id);
+      this.setState({zoomed, visibleIds});
+    } else this.setState({zoomed: false});
+  }
+
   onColumnClick(highchartsEvent) {
     this.setState({selectedCategory: highchartsEvent.point.category});
   }
@@ -277,6 +326,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const {timeRangeKey, selectedChart, grade, house, counselor} = this.state;
     const {school, dashboardStudents} = this.props;
     const chartOptions = [
+      {value: 'scatter', label: 'Day & Time'},
       {value: 'incident_location', label: 'Location'},
       {value: 'time', label: 'Time'},
       {value: 'homeroom_label', label: 'Classroom'},
@@ -349,23 +399,41 @@ export default class SchoolDisciplineDashboard extends React.Component {
   renderDisciplineChart(students, selectedChart) {
     const selectedStudents = this.filterStudents(students, {shouldFilterSelectedCategory: false});
     const {categories, seriesData} = this.getChartData(selectedStudents, selectedChart);
+    const commonProps = {
+      id: "String",
+      animation: false,
+      categories: {categories: categories},
+      seriesData: seriesData,
+      titleText: null
+    };
+    const barChartProps = {
+      ...commonProps,
+      measureText: "Number of Incidents",
+      tooltip: {pointFormat: 'Total incidents: <b>{point.y}</b>'},
+      onColumnClick: this.onColumnClick,
+      onBackgroundClick: this.onResetStudentList
+    };
+    const scatterPlotProps = {
+      ...commonProps,
+      measureText: "Time of Incident",
+      tooltip: {pointFormat: '<b>{point.last_name}, {point.first_name}</b>'},
+      yAxisMin: 420, //7 AM
+      yAxisMax: 960, // 4PM - leaving an hour for the gutter category
+      yAxisLabels: {format: '{value}'},
+      onZoom: this.onZoom
+    };
     return (
-        <DashboardBarChart
-          id = "String"
-          animation = {false}
-          categories = {{categories: categories}}
-          seriesData = {seriesData}
-          titleText = {null}
-          measureText = {'Number of Incidents'}
-          tooltip = {{
-            pointFormat: 'Total incidents: <b>{point.y}</b>'}}
-          onColumnClick = {this.onColumnClick}
-          onBackgroundClick = {this.onResetStudentList}/>
+      (selectedChart === 'scatter') ? (
+      <DashboardScatterPlot {...scatterPlotProps}/>
+      ) : (
+      <DashboardBarChart {...barChartProps}/>
+      )
     );
   }
 
   renderStudentDisciplineTable(students) {
-    const rows = this.studentTableRows(students);
+    const filteredStudents = this.state.zoomed ? this.filterToZoomedStudents(students) : this.filterStudents(students, {shouldFilterSelectedCategory: true});
+    const rows = this.studentTableRows(filteredStudents);
     return (
       <StudentsTable
         rows = {rows}
@@ -424,11 +492,13 @@ const styles = {
 function initialState() {
   return {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
-    selectedChart: 'incident_location',
+    selectedChart: 'scatter',
     selectedIncidentCode: ALL,
     selectedCategory: null,
     grade: ALL,
     house: ALL,
-    counselor: ALL
+    counselor: ALL,
+    visibleIds: [],
+    zoomed: false
   };
 }

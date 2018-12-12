@@ -501,7 +501,7 @@ exports[`snapshots works for bedford 1`] = `
                         id="react-select-59--value-item"
                         role="option"
                       >
-                        Location
+                        Day & Time
                       </span>
                     </div>
                     <div
@@ -560,7 +560,7 @@ exports[`snapshots works for bedford 1`] = `
               </div>
             </div>
             <div
-              className="DashboardBarChart"
+              className="DashboardScatterPlot"
               id="String"
               style={
                 Object {
@@ -1089,7 +1089,7 @@ exports[`snapshots works for demo 1`] = `
                         id="react-select-47--value-item"
                         role="option"
                       >
-                        Location
+                        Day & Time
                       </span>
                     </div>
                     <div
@@ -1148,7 +1148,7 @@ exports[`snapshots works for demo 1`] = `
               </div>
             </div>
             <div
-              className="DashboardBarChart"
+              className="DashboardScatterPlot"
               id="String"
               style={
                 Object {
@@ -1677,7 +1677,7 @@ exports[`snapshots works for new_bedford 1`] = `
                         id="react-select-55--value-item"
                         role="option"
                       >
-                        Location
+                        Day & Time
                       </span>
                     </div>
                     <div
@@ -1736,7 +1736,7 @@ exports[`snapshots works for new_bedford 1`] = `
               </div>
             </div>
             <div
-              className="DashboardBarChart"
+              className="DashboardScatterPlot"
               id="String"
               style={
                 Object {
@@ -2265,7 +2265,7 @@ exports[`snapshots works for somerville 1`] = `
                         id="react-select-51--value-item"
                         role="option"
                       >
-                        Location
+                        Day & Time
                       </span>
                     </div>
                     <div
@@ -2324,7 +2324,7 @@ exports[`snapshots works for somerville 1`] = `
               </div>
             </div>
             <div
-              className="DashboardBarChart"
+              className="DashboardScatterPlot"
               id="String"
               style={
                 Object {
