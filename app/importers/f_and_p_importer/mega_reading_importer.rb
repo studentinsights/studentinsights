@@ -24,10 +24,13 @@ class MegaReadingImporter
     rows = []
     StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
       flattened_rows = flat_map_rows(row, index)
+      next if flattened_rows.nil?
+
       rows += flattened_rows
-      @matcher.count_valid_row if flattened_rows.length > 0
+      @matcher.count_valid_row
     end
     log "matcher#stats: #{@matcher.stats}"
+    log "MegaReadingImporter#stats: #{stats}"
 
     # write to database
     # f_and_ps = nil
@@ -59,13 +62,12 @@ class MegaReadingImporter
   end
 
   def flat_map_rows(row, index)
-    rows = []
-
+    # Infer student name
     full_name = row['Name'].split(', ').reverse.join(' ')
     student_id = guess_from_name(full_name)
     if student_id.nil?
       @invalid_student_name += 1
-      return []
+      return nil
     end
 
     @valid_student_name += 1
@@ -74,56 +76,73 @@ class MegaReadingImporter
       imported_by_educator_id: nil
     }
 
-    # kindergarten
-    rows += rows_for_kindergarten(shared, row)
-    # rows += rows_for_first(shared)
-
-    rows
+    # data points for each grade
+    (
+      data_points_for_kindergarten(shared, row) +
+      data_points_for_first(shared, row) +
+      data_points_for_second(shared, row)
+    )
   end
 
-  def rows_for_kindergarten(shared, row)
-    rows = []
-
-    # fall
-    rows += import_bits(shared.merge({
-      assessment_grade: 'K',
-      assessment_season_key: :fall
-    }), [
-      [:dibels_fsf, row['fall K - FSF']],
-      [:dibels_lnf, row['fall K - LNF']]
+  def data_points_for_kindergarten(shared, row)
+    import_data_points(shared, [
+      ['K', :fall, :dibels_fsf, row['fall K - FSF']],
+      ['K', :fall, :dibels_lnf, row['fall K - LNF']],
+      ['K', :winter, :dibels_fsf, row['winter K - FSF']],
+      ['K', :winter, :dibels_lnf, row['winter K - LNF']],
+      ['K', :winter, :dibels_psf, row['winter K - PSF']],
+      ['K', :winter, :dibels_nwf_cls, row['winter K - NWF CLS']],
+      ['K', :winter, :dibels_nwf_wwr, row['winter K - NWF WWR']],
+      ['K', :spring, :dibels_lnf, row['spring K - LNF']],
+      ['K', :spring, :dibels_psf, row['spring K - PSF']],
+      ['K', :spring, :dibels_nwf_cls, row['spring K - NWF CLS']],
+      ['K', :spring, :dibels_nwf_wwr, row['spring K - NWF WWR']]
     ])
-
-    # winter
-    rows += import_bits(shared.merge({
-      assessment_grade: 'K',
-      assessment_season_key: :winter
-    }), [
-      [:dibels_fsf, row['winter K - FSF']],
-      [:dibels_lnf, row['winter K - LNF']],
-      [:dibels_psf, row['winter K - PSF']],
-      [:dibels_nwf_cls, row['winter K - NWF CLS']],
-      [:dibels_nwf_wwr, row['winter K - NWF WWR']]
-    ])
-
-    # spring
-    rows += import_bits(shared.merge({
-      assessment_grade: 'K',
-      assessment_season_key: :spring
-    }), [
-      [:dibels_lnf, row['spring K - LNF']],
-      [:dibels_psf, row['spring K - PSF']],
-      [:dibels_nwf_cls, row['spring K - NWF CLS']],
-      [:dibels_nwf_wwr, row['spring K - NWF WWR']]
-    ])
-
-    rows
   end
 
-  # just sugar
-  def import_bits(shared, pairs)
+  def data_points_for_first(shared, row)
+    import_data_points(shared, [
+      ['1', :fall, :dibels_lnf, row['fall 1 LNF']],
+      ['1', :fall, :dibels_psf, row['fall 1 PSF']],
+      ['1', :fall, :dibels_nwf_cls, row['fall 1 NWF CLS']],
+      ['1', :fall, :dibels_nwf_wwr, row['fall 1 NWF WWR']],
+      ['1', :winter, :dibels_nwf_cls, row['winter1 NWF-CLS']],
+      ['1', :winter, :dibels_nwf_wwr, row['winter1 NWF-WWR']],
+      ['1', :winter, :dibels_dorf_wpm, row['winter1 DORF-WPM']],
+      ['1', :winter, :dibels_dorf_acc, row['winter1 DORF-acc']],
+      ['1', :spring, :dibels_nwf_cls, row['spring1 NWF-CLS']],
+      ['1', :spring, :dibels_nwf_wwr, row['spring1 NWF WWR']],
+      ['1', :spring, :dibels_dorf_wpm, row['spring1 DORF-WPM']],
+      ['1', :spring, :dibels_dorf_acc, row['spring1 DORF-acc']]
+    ])
+  end
+
+  def data_points_for_second(shared, row)
+    import_data_points(shared, [
+      ['2', :fall, :dibels_nwf_cls, row['2fall NWF-CLS']],
+      ['2', :fall, :dibels_nwf_wwr, row['2 fall NWF-WWR']],
+      ['2', :fall, :dibels_dorf_wpm, row['2fall DORF WPM']],
+      ['2', :fall, :dibels_dorf_acc, row['2fall DORF-acc']],
+      ['2', :winter, :dibels_dorf_wpm, row['2 winter DORF WPM']],
+      ['2', :winter, :dibels_dorf_acc, row['2 winter DORF acc']],
+      ['2', :spring, :dibels_dorf_wpm, row['2spring DORF WPM']],
+      ['2', :spring, :dibels_dorf_acc, row['2spring DORF acc']]
+    ])
+  end
+
+  def data_points_for_third(shared, row)
+    import_data_points(shared, [
+      ['3', :fall, :dibels_dorf_wpm, row['3fall DORF WPM']],
+      ['3', :fall, :dibels_dorf_acc, row['3fall DORF acc']],
+    ])
+  end
+
+  # just sugar for unrolling these
+  def import_data_points(shared, tuples)
     rows = []
-    pairs.each do |assessment_key, data_point|
-      if ['n/a', 'absent'].include?(data_point.downcase)
+    tuples.each do |tuple|
+      grade, assessment_period, assessment_key, data_point = tuple
+      if data_point.nil? || ['n/a', 'absent'].include?(data_point.downcase)
         @missing_data_point +=1
         next
       end
@@ -135,46 +154,14 @@ class MegaReadingImporter
 
       @valid_data_points += 1
       rows << shared.merge({
+        grade: grade,
+        assessment_period: assessment_period,
         assessment_key: assessment_key,
         data_point: data_point
       })
     end
     rows
   end
-
-  #     'winter K - FSF' => row['winter K - FSF'],
-  #     'winter K - LNF' => row['winter K - LNF'],
-  #     'winter K - PSF' => row['winter K - PSF'],
-  #     'winter K - NWF CLS' => row['winter K - NWF CLS'],
-  #     'winter K - NWF WWR' => row['winter K - NWF WWR'],
-  #     'spring K - LNF' => row['spring K - LNF'],
-  #     'spring K - PSF' => row['spring K - PSF'],
-  #     'spring K - NWF CLS,' => row['spring K - NWF CLS'],
-  #     'spring K - NWF WWR' => row['spring K - NWF WWR'],
-  #     'fall 1 LNF' => row['fall 1 LNF'],
-  #     'fall 1 PSF' => row['fall 1 PSF'],
-  #     'fall 1 NWF CLS' => row['fall 1 NWF CLS'],
-  #     'fall 1 NWF WWR' => row['fall 1 NWF WWR'],
-  #     'winter1 NWF-CLS' => row['winter1 NWF-CLS'],
-  #     'winter1 NWF-WWR' => row['winter1 NWF-WWR'],
-  #     'winter1 DORF-WPM' => row['winter1 DORF-WPM'],
-  #     'winter1 DORF-acc' => row['winter1 DORF-acc'],
-  #     'spring1 NWF-CLS' => row['spring1 NWF-CLS'],
-  #     'spring1 NWF WWR' => row['spring1 NWF WWR'],
-  #     'spring1 DORF-WPM' => row['spring1 DORF-WPM'],
-  #     'spring1 DORF-acc' => row['spring1 DORF-acc'],
-  #     '2fall NWF-CLS' => row['2fall NWF-CLS'],
-  #     '2 fall NWF-WWR' => row['2 fall NWF-WWR'],
-  #     '2fall DORF WPM' => row['2fall DORF WPM'],
-  #     '2fall DORF-acc' => row['2fall DORF-acc'],
-  #     '2 winter DORF WPM' => row['2 winter DORF WPM'],
-  #     '2 winter DORF acc' => row['2 winter DORF acc'],
-  #     '2spring DORF WPM' => row['2spring DORF WPM'],
-  #     '2spring DORF acc' => row['2spring DORF acc'],
-  #     '3fall DORF WPM' => row['3fall DORF WPM'],
-  #     '3fall DORF acc ' => row['3fall DORF acc']
-  #   }
-  # end
 
   def guess_from_name(full_name)
     student = match_active_student_exactly(full_name)
@@ -229,7 +216,7 @@ class MegaReadingImporter
   def fuzzy_match_active_student_name(full_name_text, options = {})
     results = fuzzy_match_any_student_name(full_name_text, options)
 
-    active_student_ids = Student.active.where(id: results.pluck('id')).pluck(:id)
+    active_student_ids = Student.active.where(id: results.pluck(:id)).pluck(:id)
     results.select do |result|
       active_student_ids.include?(result[:id])
     end
