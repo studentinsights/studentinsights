@@ -6,7 +6,9 @@ import _ from 'lodash';
 // Reads the `<Column />` definition.
 export function toCsvTextFromTable(columns, rows, options = {}) {
   const delimiter = options.delimiter || ',';
-  const headers = columns.map(column => column.label.replace(/\s/g, '_'));
+  const headers = columns.map(column => {
+    return elementAsText(column.label).replace(/\s/g, '_');
+  });
   const lines = rows.map(row => toCsvColumns(columns, row).join(delimiter));
   return [headers.join(delimiter)].concat(lines).join("\n");
 }

@@ -10,7 +10,7 @@ import {hasActive504Plan} from '../helpers/PerDistrict';
 import {hasAnySpecialEducationData} from '../helpers/specialEducation';
 import {isEnglishLearner, accessLevelNumber} from '../helpers/language';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
-
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFromRight} from '../components/HelpBubble';
@@ -99,7 +99,12 @@ export class ReadingGradePageView extends React.Component {
       return {
         ...student,
         dibels: dibelsByStudentId[student.id] || [],
-        mtss: mtssByStudentId[student.id] || []
+        mtss: mtssByStudentId[student.id] || [],
+        instructional_focus: (Math.random() > 0.5) 
+          ? 'fluency' : (Math.random() > 0.5)
+          ? 'decoding' : (Math.random() > 0.5)
+          ? 'word solving' : (Math.random() > 0.5)
+          ? 'accuracy' : (Math.random() > 0.5)
       };
     });
   }
@@ -357,7 +362,7 @@ function describeColumns(districtKey, grade) {
     width: 200,
     style: styles.cell
   }, {
-    label: 'MTSS (year)',
+    label: <span>MTSS, year</span>,
     dataKey: 'mtss',
     cellRenderer({rowData}) { return badge(rowData.mtss.length > 0, <span style={{textDecoration: 'underline'}}>MTSS</span>); },
     width: 60,
@@ -366,19 +371,27 @@ function describeColumns(districtKey, grade) {
     label: '504',
     dataKey: 'plan_504',
     cellRenderer({rowData}) { return badge(hasActive504Plan(rowData.plan_504), '504'); },
-    width: 60,
+    width: 50,
     style: styles.cell
   }, {
     label: 'IEP',
     dataKey: 'iep',
     cellRenderer({rowData}) {
       if (!hasAnySpecialEducationData(rowData, rowData.latest_iep_document)) return null;
-      return <IepDialog student={rowData} iepDocument={rowData.latest_iep_document}>IEP</IepDialog>;
+      return (
+        <PerDistrictContainer districtKey={districtKey}>
+          <IepDialog
+            student={rowData}
+            iepDocument={rowData.latest_iep_document}>
+            IEP
+          </IepDialog>
+        </PerDistrictContainer>
+      );
     },
-    width: 60,
+    width: 50,
     style: styles.cell
   }, {
-    label: 'English Learner',
+    label: <span>English<br/>Learner</span>,
     dataKey: 'access',
     cellRenderer({rowData}) {
       if (!isEnglishLearner(districtKey, rowData.limited_english_proficiency)) return null;
@@ -386,20 +399,22 @@ function describeColumns(districtKey, grade) {
       const level = accessLevelNumber(rowData.access);
       const linkText = (level) ? `Level ${level}` : 'ELL';
       return (
-        <LanguageStatusLink
-          linkEl={linkText}
-          style={styles.link}
-          studentFirstName={rowData.first_name}
-          ellTransitionDate={rowData.ell_transition_date}
-          limitedEnglishProficiency={rowData.limited_english_proficiency}
-          access={rowData.access}
-        />
+        <PerDistrictContainer districtKey={districtKey}>
+          <LanguageStatusLink
+            linkEl={linkText}
+            style={styles.link}
+            studentFirstName={rowData.first_name}
+            ellTransitionDate={rowData.ell_transition_date}
+            limitedEnglishProficiency={rowData.limited_english_proficiency}
+            access={rowData.access}
+          />
+        </PerDistrictContainer>
       );
     },
-    width: 80,
+    width: 120,
     style: styles.cell
   }, {
-    label: 'F&P (latest)',
+    label: <span>F&P,<br/>latest</span>,
     dataKey: 'f_and_p',
     cellRenderer({rowData}) {
       const value = latestFAndP(rowData);
@@ -409,16 +424,53 @@ function describeColumns(districtKey, grade) {
         : '#aaa';
       return <span style={{fontWeight: 'bold', backgroundColor: color, color: 'white', padding: 10, width: '2.5em', textAlign: 'center'}}>{value}</span>;
     },
-    width: 100,
+    width: 60,
     style: styles.cell
   }, {
-    label: 'DIBELS Composite (Gr2 Spring)',
-    dataKey: 'dibels',
-    cellRenderer({rowData}) { return latestDibels(rowData); },
-    width: 100,
+    label: '',
+    dataKey: 'f_and_p',
+    cellRenderer({rowData}) {
+      const value = latestFAndP(rowData);
+      if (!value) return null;
+      const range = [
+        'A'.charCodeAt(),
+        'Z'.charCodeAt()
+      ];
+
+      const percent = (value.charCodeAt() - range[0]) / (range[1] - range[0]);
+      const risk = ('J'.charCodeAt() - range[0]) / (range[1] - range[0]);
+      const benchmark = ('N'.charCodeAt() - range[0]) / (range[1] - range[0]);
+      const isRisk = value.charCodeAt() <= 'J'.charCodeAt();
+      const isBenchmark = value.charCodeAt() >= 'N'.charCodeAt();
+      const color = (!value) ? null 
+        : (isRisk) ? 'orange'
+        : (isBenchmark) ? '#85b985'
+        : '#aaa';
+      return (
+        <div title={value} style={{marginRight: 10, flex: 1, height: '100%', display: 'flex', flexDirection: 'row', position: 'relative'}}>
+          <div style={{opacity: 1.0, position: 'absolute', top: 20, height: 1, background: '#ccc', left: 0, right: 0}}></div>
+          <div style={{opacity: 1.0, position: 'absolute', top: 15, height: 10, background: color, left: `${Math.round(100*percent)}%`, width: 3}}></div>
+          <div style={{opacity: (isBenchmark ? 1.0 : 0.25), position: 'absolute', top: 19, height: 3, background: '#85b985', left: `${Math.round(100*(1-benchmark))}%`, right: 0}}></div>
+          <div style={{opacity: (isRisk ? 1.0 : 0.25), position: 'absolute', top: 19, height: 3, background: 'orange', left: 0, right: `${Math.round(100*(1-risk))}%` }}></div>
+        </div>
+      );
+    },
+    width: 120,
     style: styles.cell
   }, {
-    label: 'DORF WPM (Gr1 Spring)',
+    label: 'Instructional focus',
+    dataKey: 'instructional',
+    cellRenderer({rowData}) { return rowData.instructional_focus; },
+    width: 100,
+    style: styles.cell
+  // }, {
+    // label: 'DIBELS Composite (Gr2 Spring)',
+    // dataKey: 'dibels',
+    // cellRenderer({rowData}) { return latestDibels(rowData); },
+    // width: 100,
+    // style: styles.cell
+  }, {
+    label: '',
     dataKey: 'dibels_grade_1_spring_dorf_wpm',
     cellRenderer({rowData}) {
       return <span style={{
@@ -431,13 +483,13 @@ function describeColumns(districtKey, grade) {
     width: 100,
     style: styles.cell
   }, {
-    label: 'DORF WPM (trend)',
+    label: <span>DORF WPM,<br/>2 years</span>,
     dataKey: 'dibels_grade_3_fall_dorf_wpm',
     cellRenderer({rowData}) { return dibelsSparkline(rowData.dibels); },
-    width: 120,
+    width: 110,
     style: styles.cell
   }, {
-    label: 'DORF WPM (Gr3 Fall)',
+    label: '',
     dataKey: 'dibels_grade_3_fall_dorf_wpm',
     cellRenderer({rowData}) {
       const value = tryDibels(rowData.dibels, '3', 'fall', 'dibels_dorf_wpm');
@@ -449,7 +501,7 @@ function describeColumns(districtKey, grade) {
     width: 100,
     style: styles.cell
   }, {
-    label: 'STAR (latest)',
+    label: <span>STAR,<br/>latest</span>,
     dataKey: 'star_reading',
     cellRenderer({rowData}) {
       const value = latestStar(rowData);
