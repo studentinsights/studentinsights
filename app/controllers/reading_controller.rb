@@ -30,7 +30,7 @@ class ReadingController < ApplicationController
         .where(student_id: students.pluck(:id))
     end
 
-    notes.as_json(only: [:id, :student_id, :occurred_at])
+    notes.as_json(only: [:id, :student_id, :recorded_at])
   end
 
   def reading_students_json(school_id, grade)
