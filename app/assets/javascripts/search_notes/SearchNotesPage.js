@@ -6,11 +6,12 @@ import {supportsHouse} from '../helpers/PerDistrict';
 import {ALL} from '../components/SimpleFilterSelect';
 import {TIME_RANGE_SCHOOL_YEAR} from '../components/SelectTimeRange';
 import SectionHeading from '../components/SectionHeading';
-import Card from '../components/Card';
+import BoxCard from '../components/BoxCard';
+import WordCloud from '../components/WordCloud';
 import MutableFeedView from '../feed/MutableFeedView';
 import SearchNotesBar from './SearchNotesBar';
 import SearchQueryFetcher from './SearchQueryFetcher';
-import WordCloud from './WordCloud';
+
 
 
 // Page for searching notes
@@ -122,14 +123,13 @@ export default class SearchNotesPage extends React.Component {
     const words = wordsFromEventNoteCards(feedCards);
     return (
       <div style={styles.flexVertical}>
-        <Card style={styles.card}>
-          <div style={styles.cardTitle}>Most common words</div>
+        <BoxCard title="Most common words">
           <WordCloud
             width={400}
             height={400}
             words={words}
           />
-        </Card>
+        </BoxCard>
       </div>
     );
   }
@@ -164,20 +164,6 @@ const styles = {
     paddingLeft: 10,
     paddingTop: 20,
     color: '#aaa'
-  },
-  card: {
-    margin: 20,
-    padding: 0,
-    flexDirection: 'column',
-    display: 'flex'
-  },
-  cardTitle: {
-    backgroundColor: '#eee',
-    padding: 10,
-    color: 'black',
-    borderBottom: '1px solid #ccc',
-    display: 'flex',
-    justifyContent: 'space-between'
   }
 };
 

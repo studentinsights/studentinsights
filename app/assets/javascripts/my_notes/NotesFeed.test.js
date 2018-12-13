@@ -30,3 +30,10 @@ it('snapshots view', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+it('snapshots view with wordcloud', () => {
+  const tree = renderer
+    .create(withDefaultNowContext(<NotesFeed {...testProps({showWordCloud: true})} />))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
