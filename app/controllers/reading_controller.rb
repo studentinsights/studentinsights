@@ -5,7 +5,8 @@ class ReadingController < ApplicationController
     safe_params = params.permit(:school_id, :grade)
 
     render json: {
-      reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/reading/hea.json')) # reading_students_json(safe_params[:school_id], safe_params[:grade])
+      reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea.json')), # reading_students_json(safe_params[:school_id], safe_params[:grade]),
+      dibels_data_points: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-dibels.json')),
     }
   end
 

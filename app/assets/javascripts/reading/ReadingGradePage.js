@@ -4,9 +4,16 @@ import _ from 'lodash';
 import ReactModal from 'react-modal';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {maybeCapitalize} from '../helpers/pretty';
-import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
-import {prettyEnglishProficiencyText} from '../helpers/language';
+import {
+  hasActive504Plan,
+  shouldShowIepLink
+} from '../helpers/PerDistrict';
+import {
+  prettyProgramOrPlacementText,
+  prettyIepTextForSpecialEducationStudent,
+  hasAnySpecialEducationData
+} from '../helpers/specialEducation';
+import {isEnglishLearner} from '../helpers/language';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import GenericLoader from '../components/GenericLoader';
@@ -76,6 +83,7 @@ export class ReadingGradePageView extends React.Component {
   }
 
   orderedStudents(students) {
+    const {districtKey} = this.context;
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
@@ -83,7 +91,8 @@ export class ReadingGradePageView extends React.Component {
       fallback(student) { return student[sortBy]; },
       grade(student) { return rankedByGradeLevel(student.grade); },
       name(student) { return `${student.last_name}, ${student.first_name}`; },
-      special_education(student) { return prettyProgramOrPlacementText(student); },
+      iep(student) { return hasAnySpecialEducationData(student, {}) ? 'IEP' : null; },
+      plan_504(student) { return hasActive504Plan(student.plan_504) ? '504' : null; },
       dibels(student) { return latestDibels(student); },
       f_and_p(student) { return latestFAndP(student); },
       star_reading(student) { return latestStar(student); },
@@ -137,7 +146,7 @@ export class ReadingGradePageView extends React.Component {
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
     return (
-      <AutoSizer style={{marginTop: 20}}>
+      <AutoSizer style={{marginTop: 20, margin: 10}}>
         {({width, height}) => (
           <Table
             width={width}
@@ -262,20 +271,20 @@ function describeColumns(districtKey) {
     flexGrow: 1,
     width: 200
   }, {
-    label: 'Special education',
-    dataKey: 'special_education',
-    cellRenderer({rowData}) { return prettyProgramOrPlacementText(rowData); },
-    width: 150
+    label: '504',
+    dataKey: 'plan_504',
+    cellRenderer({rowData}) { return hasActive504Plan(rowData.plan_504) ? '504' : null; },
+    width: 80
   }, {
-    label: 'SPED Liaison',
-    dataKey: 'sped_liaison',
-    cellRenderer({rowData}) { return maybeCapitalize(rowData.sped_liaison); },
-    width: 120
+    label: 'IEP',
+    dataKey: 'iep',
+    cellRenderer({rowData}) { return hasAnySpecialEducationData(rowData, {}) ? 'IEP' : null; },
+    width: 80
   }, {
     label: 'English Learner',
     dataKey: 'limited_english_proficiency',
-    cellRenderer({rowData}) { return prettyEnglishProficiencyText(districtKey, rowData.limited_english_proficiency); },
-    width: 150
+    cellRenderer({rowData}) { return isEnglishLearner(districtKey, rowData.limited_english_proficiency) ? 'ELL' : null; },
+    width: 80
   }, {
     label: 'F&P',
     dataKey: 'f_and_p',
