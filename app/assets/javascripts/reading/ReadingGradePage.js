@@ -3,26 +3,25 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import d3 from 'd3';
 import ReactModal from 'react-modal';
+import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {
   hasActive504Plan,
-  shouldShowIepLink
 } from '../helpers/PerDistrict';
 import {
-  prettyProgramOrPlacementText,
-  prettyIepTextForSpecialEducationStudent,
   hasAnySpecialEducationData
 } from '../helpers/specialEducation';
 import {isEnglishLearner} from '../helpers/language';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
-import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
+
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFromRight} from '../components/HelpBubble';
 import FilterBar from '../components/FilterBar';
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
+import IepDialog from './IepDialog';
 
 
 export default class ReadingGradePage extends React.Component {
@@ -350,7 +349,10 @@ function describeColumns(districtKey, grade) {
   }, {
     label: 'IEP',
     dataKey: 'iep',
-    cellRenderer({rowData}) { return badge(hasAnySpecialEducationData(rowData, {}), 'IEP'); },
+    cellRenderer({rowData}) {
+      if (!hasAnySpecialEducationData(rowData, rowData.latest_iep_document)) return null;
+      return <IepDialog student={rowData} iepDocument={rowData.latest_iep_document}>{plainBadge('IEP')}</IepDialog>;
+    },
     width: 80,
     style: styles.cell
   }, {
@@ -493,6 +495,9 @@ function dibelsSparkline(dibels) {
 
 
 function badge(maybeValue, label) {
-  if (!maybeValue) return;
-  return <span style={{backgroundColor: 'rgb(74, 143, 225)', color: 'white', padding: 5, textAlign: 'center'}}>{label}</span>;
+  return (maybeValue) ? plainBadge(label) : null;
+}
+
+function plainBadge(label) {
+  return <a href="#">{label}</a>;
 }

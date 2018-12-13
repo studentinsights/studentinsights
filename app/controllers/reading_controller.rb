@@ -27,13 +27,25 @@ class ReadingController < ApplicationController
         .includes(:f_and_p_assessments)
     end
 
+    # TODO add back authorizer block
+    # TODO limit student fields
+    # TODO what about active ed plans only?
     students.as_json({
         methods: [
           :star_reading_results,
           :dibels_results,
-          :f_and_p_assessments
+          :access
         ],
         include: {
+          ed_plans: {
+            include: :ed_plan_accommodations
+          },
+          f_and_p_assessments: {
+            only: [:benchmark_date, :instructional_level, :f_and_p_code]
+          },
+          latest_iep_document: {
+            only: [:id]
+          },
           homeroom: {
             only: [:id, :slug, :name],
             include: {
