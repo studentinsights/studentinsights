@@ -15,6 +15,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFromRight} from '../components/HelpBubble';
 import FilterBar from '../components/FilterBar';
+import StudentPhoto from '../components/StudentPhoto';
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import IepDialog from './IepDialog';
@@ -460,7 +461,7 @@ function describeColumns(districtKey, grade) {
   }, {
     label: 'Instructional focus',
     dataKey: 'instructional',
-    cellRenderer({rowData}) { return rowData.instructional_focus; },
+    cellRenderer({rowData}) { return <span style={{color: '#333'}}>{rowData.instructional_focus}</span>; },
     width: 100,
     style: styles.cell
   // }, {
@@ -519,7 +520,15 @@ function describeColumns(districtKey, grade) {
 
 function renderName(cellProps) {
   const student = cellProps.rowData;
-  return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>;
+
+  // not sure image looks good, also probably need caching instead of naive
+  // image tags
+  return (
+    <div>
+      {/*<StudentPhoto student={student} height={40} />*/}
+      <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+    </div>
+  );
 }
 
 
