@@ -23,7 +23,8 @@ class EducatorLabel < ApplicationRecord
         'enable_searching_notes',
         'profile_enable_minimal_reading_data',
         'enable_viewing_504_data_in_profile',
-        'can_mark_notes_as_restricted'
+        'can_mark_notes_as_restricted',
+        'enable_reading_grade'
       ]
     }
   }

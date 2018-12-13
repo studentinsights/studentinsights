@@ -1,4 +1,5 @@
 import {renderToStaticMarkup} from 'react-dom/server';
+import _ from 'lodash';
 
 
 // For converting a react-virtualized table into a CSV in the client for download.
@@ -18,5 +19,7 @@ function toCsvColumns(columns, rowData) {
 }
 
 function elementAsText(element) {
-  return $(renderToStaticMarkup(element)).text();
+  return (_.isObject(element))
+    ? $(renderToStaticMarkup(element)).text()
+    : element;
 }
