@@ -16,10 +16,15 @@ import SectionHeading from '../components/SectionHeading';
 import {modalFromRight} from '../components/HelpBubble';
 import FilterBar from '../components/FilterBar';
 import StudentPhoto from '../components/StudentPhoto';
+import HelpBubble, {
+  modalFullScreenFlex,
+  dialogFullScreenFlex
+} from '../components/HelpBubble';
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import IepDialog from './IepDialog';
 import LanguageStatusLink from '../student_profile/LanguageStatusLink'; // TODO import path
+import EdPlansPanel from '../student_profile/EdPlansPanel'; // TODO import path
 
 
 export default class ReadingGradePage extends React.Component {
@@ -371,7 +376,22 @@ function describeColumns(districtKey, grade) {
   }, {
     label: '504',
     dataKey: 'plan_504',
-    cellRenderer({rowData}) { return badge(hasActive504Plan(rowData.plan_504), '504'); },
+    cellRenderer({rowData}) {
+      if (!hasActive504Plan(rowData.plan_504)) return null;
+      return (
+        <HelpBubble
+          style={{marginLeft: 0, display: 'block'}}
+          teaser="504"
+          linkStyle={styles.link}
+          modalStyle={modalFullScreenFlex}
+          dialogStyle={dialogFullScreenFlex}
+          title={`${rowData.first_name}'s 504 plan`}
+          withoutSpacer={true}
+          withoutContentWrapper={true}
+          content={render504Dialog(districtKey, rowData)}
+        />
+      );
+    },
     width: 50,
     style: styles.cell
   }, {
@@ -598,4 +618,17 @@ function badge(maybeValue, label) {
 
 function plainBadge(label) {
   return <a href="#">{label}</a>;
+}
+
+
+
+
+function render504Dialog(districtKey, student) {
+  const edPlans = student.ed_plans;
+  const studentName = `${student.first_name} ${student.last_name}`;
+  return (
+    <PerDistrictContainer districtKey={districtKey}>
+      <EdPlansPanel edPlans={edPlans} studentName={studentName} />
+    </PerDistrictContainer>
+  );
 }
