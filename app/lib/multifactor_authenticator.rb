@@ -63,6 +63,7 @@ class MultifactorAuthenticator
     @multifactor_config ||= EducatorMultifactorConfig.find_by(educator_id: @educator.id)
   end
 
+  ### totp
   # Create a TOTP for this educator
   def create_totp!
     rotp_secret = validated_rotp_secret_for_educator!
@@ -82,6 +83,35 @@ class MultifactorAuthenticator
     raise Exceptions::InvalidConfiguration if rotp_config['issuer_base'].nil?
     rotp_config
   end
+
+  # private, for one-off console use only
+  def enable_multifactor!
+    EducatorMultifactorConfig.create!({
+      educator: @educator,
+      rotp_secret: EducatorMultifactorConfig.new_rotp_secret,
+      last_verification_at: nil
+    })
+    nil
+  end
+
+  # private, for one-off console use only
+  # Returns a string of ANSI rendering of a QR code, used for provisioning
+  # an MFA authenticator app with the educator's ROTP secret.
+  def provision
+    return nil unless is_multifactor_enabled?
+
+    totp = create_totp!
+    name_within_authenticator_app = "Student Insights #{PerDistrict.new.district_name}"
+    url = totp.provisioning_uri(name_within_authenticator_app)
+    RQRCode::QRCode.new(url).as_ansi({
+      light: "\033[47m",
+      dark: "\033[40m",
+      fill_character: '  ',
+      quiet_zone_size: 4
+    })
+  end
+
+  ### twilio
 
   def send_twilio_message!(message, to_sms_number)
     twilio_config = validated_twilio_config!(ENV)
