@@ -5,6 +5,7 @@ class ReadingController < ApplicationController
     safe_params = params.permit(:school_id, :grade)
 
     render json: {
+      latest_mtss_notes: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-mtss.json')), # latest_mtss_notes_json
       reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea.json')), # reading_students_json(safe_params[:school_id], safe_params[:grade]),
       dibels_data_points: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-dibels.json')),
     }
@@ -13,6 +14,23 @@ class ReadingController < ApplicationController
   private
   def authorize!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_grade')
+  end
+
+  def latest_mtss_notes_json(school_id, grade)
+    students = authorized do
+      Student
+        .active
+        .where(school_id: school_id)
+        .where(grade: grade)
+    end
+
+    notes = authorized do
+      EventNote
+        .where(event_note_type_id: 301)
+        .where(student_id: students.pluck(:id))
+    end
+
+    notes.as_json(only: [:id, :student_id, :occurred_at])
   end
 
   def reading_students_json(school_id, grade)

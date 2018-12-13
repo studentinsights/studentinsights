@@ -6,13 +6,9 @@ import ReactModal from 'react-modal';
 import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {
-  hasActive504Plan,
-} from '../helpers/PerDistrict';
-import {
-  hasAnySpecialEducationData
-} from '../helpers/specialEducation';
-import {isEnglishLearner} from '../helpers/language';
+import {hasActive504Plan} from '../helpers/PerDistrict';
+import {hasAnySpecialEducationData} from '../helpers/specialEducation';
+import {isEnglishLearner, accessLevelNumber} from '../helpers/language';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 
 import GenericLoader from '../components/GenericLoader';
@@ -22,6 +18,7 @@ import FilterBar from '../components/FilterBar';
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import IepDialog from './IepDialog';
+import LanguageStatusLink from '../student_profile/LanguageStatusLink'; // TODO import path
 
 
 export default class ReadingGradePage extends React.Component {
@@ -61,6 +58,7 @@ export default class ReadingGradePage extends React.Component {
         schoolId={schoolId}
         grade={grade}
         dibelsDataPoints={json.dibels_data_points}
+        mtssNotes={json.latest_mtss_notes}
       />
     );
   }
@@ -93,15 +91,21 @@ export class ReadingGradePageView extends React.Component {
     });
   }
 
-  withDibels(students) {
-    const {dibelsDataPoints} = this.props;
+  withMerged(students) {
+    const {dibelsDataPoints, mtssNotes} = this.props;
     const dibelsByStudentId = _.groupBy(dibelsDataPoints, 'student_id');
+    const mtssByStudentId = _.groupBy(mtssNotes, 'student_id');
     return students.map(student => {
-      return {...student, dibels: dibelsByStudentId[student.id] || [] };
+      return {
+        ...student,
+        dibels: dibelsByStudentId[student.id] || [],
+        mtss: mtssByStudentId[student.id] || []
+      };
     });
   }
 
   orderedStudents(students) {
+    const {districtKey} = this.context;
     const {sortBy, sortDirection} = this.state;
 
     // map dataKey to an accessor/sort function
@@ -110,9 +114,13 @@ export class ReadingGradePageView extends React.Component {
       grade(student) { return rankedByGradeLevel(student.grade); },
       name(student) { return `${student.last_name}, ${student.first_name}`; },
       iep(student) { return hasAnySpecialEducationData(student, {}) ? 'IEP' : null; },
+      access(student) {
+        if (!isEnglishLearner(districtKey, student.limited_english_proficiency)) return null;
+        return accessLevelNumber(student.access);
+      },
       plan_504(student) { return hasActive504Plan(student.plan_504) ? '504' : null; },
       dibels(student) { return latestDibels(student); },
-      f_and_p(student) { return latestFAndP(student); },
+      f_and_p(student) { return latestFAndP(student) || ''; },
       star_reading(student) { return latestStar(student); },
       dibels_grade_3_fall_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_wpm') || 0); },
       dibels_grade_1_spring_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_wpm') || 0); }
@@ -148,7 +156,7 @@ export class ReadingGradePageView extends React.Component {
 
   render() {
     const {readingStudents} = this.props;
-    const students = this.withDibels(readingStudents);
+    const students = this.withMerged(readingStudents);
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
@@ -277,6 +285,11 @@ ReadingGradePageView.propTypes = {
     assessment_period: PropTypes.string.isRequired,
     assessment_key: PropTypes.string.isRequired,
     data_point: PropTypes.string.isRequired
+  })).isRequired,
+  mtssNotes: PropTypes.arrayOf(PropTypes.shape({
+    student_id: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    recorded_at: PropTypes.string.isRequired,
   })).isRequired
 };
 
@@ -312,6 +325,9 @@ const styles = {
     marginRight: 10,
     fontSize: 14,
     width: 220
+  },
+  link: {
+    fontSize: 14
   }
 };
 
@@ -341,28 +357,49 @@ function describeColumns(districtKey, grade) {
     width: 200,
     style: styles.cell
   }, {
+    label: 'MTSS (year)',
+    dataKey: 'mtss',
+    cellRenderer({rowData}) { return badge(rowData.mtss.length > 0, <span style={{textDecoration: 'underline'}}>MTSS</span>); },
+    width: 60,
+    style: styles.cell
+  }, {
     label: '504',
     dataKey: 'plan_504',
     cellRenderer({rowData}) { return badge(hasActive504Plan(rowData.plan_504), '504'); },
-    width: 80,
+    width: 60,
     style: styles.cell
   }, {
     label: 'IEP',
     dataKey: 'iep',
     cellRenderer({rowData}) {
       if (!hasAnySpecialEducationData(rowData, rowData.latest_iep_document)) return null;
-      return <IepDialog student={rowData} iepDocument={rowData.latest_iep_document}>{plainBadge('IEP')}</IepDialog>;
+      return <IepDialog student={rowData} iepDocument={rowData.latest_iep_document}>IEP</IepDialog>;
+    },
+    width: 60,
+    style: styles.cell
+  }, {
+    label: 'English Learner',
+    dataKey: 'access',
+    cellRenderer({rowData}) {
+      if (!isEnglishLearner(districtKey, rowData.limited_english_proficiency)) return null;
+
+      const level = accessLevelNumber(rowData.access);
+      const linkText = (level) ? `Level ${level}` : 'ELL';
+      return (
+        <LanguageStatusLink
+          linkEl={linkText}
+          style={styles.link}
+          studentFirstName={rowData.first_name}
+          ellTransitionDate={rowData.ell_transition_date}
+          limitedEnglishProficiency={rowData.limited_english_proficiency}
+          access={rowData.access}
+        />
+      );
     },
     width: 80,
     style: styles.cell
   }, {
-    label: 'English Learner',
-    dataKey: 'limited_english_proficiency',
-    cellRenderer({rowData}) { return badge(isEnglishLearner(districtKey, rowData.limited_english_proficiency), 'ELL'); },
-    width: 80,
-    style: styles.cell
-  }, {
-    label: 'F&P',
+    label: 'F&P (latest)',
     dataKey: 'f_and_p',
     cellRenderer({rowData}) {
       const value = latestFAndP(rowData);
@@ -412,7 +449,7 @@ function describeColumns(districtKey, grade) {
     width: 100,
     style: styles.cell
   }, {
-    label: 'STAR',
+    label: 'STAR (latest)',
     dataKey: 'star_reading',
     cellRenderer({rowData}) {
       const value = latestStar(rowData);
