@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import WordCloudLib from 'wordcloud';
 
+
 // A word cloud visualization on canvas.  Tuning is tricky and
 // context-sensitive.
 export default class WordCloud extends React.Component {
@@ -11,7 +12,18 @@ export default class WordCloud extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  componentDidMount() {    
+  componentDidMount() {
+    this.doDrawWordCloud();
+  } 
+
+  componentDidUpdate(prevProps, prevState) {
+    if (_.isEqual(this.props, prevProps)) return;
+    this.doDrawWordCloud();
+  }
+
+  doDrawWordCloud() {
+    if (!this.el) return;
+    
     const {words} = this.props;
     const filteredWords = cleaned(words);
     const list = _.toPairs(_.countBy(filteredWords));
