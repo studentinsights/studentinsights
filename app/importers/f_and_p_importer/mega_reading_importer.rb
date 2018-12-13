@@ -80,7 +80,8 @@ class MegaReadingImporter
     (
       data_points_for_kindergarten(shared, row) +
       data_points_for_first(shared, row) +
-      data_points_for_second(shared, row)
+      data_points_for_second(shared, row) +
+      data_points_for_third(shared, row)
     )
   end
 
@@ -142,7 +143,7 @@ class MegaReadingImporter
     rows = []
     tuples.each do |tuple|
       grade, assessment_period, assessment_key, data_point = tuple
-      if data_point.nil? || ['n/a', 'absent'].include?(data_point.downcase)
+      if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
         @missing_data_point +=1
         next
       end
