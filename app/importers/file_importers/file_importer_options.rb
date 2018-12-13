@@ -35,6 +35,8 @@ class FileImporterOptions
         StudentSectionAssignmentsImporter,
         StudentSectionGradesImporter,
         EducatorSectionAssignmentsImporter,
+        EdPlansImporter,
+        EdPlanAccommodationsImporter
       ],
       'star' => [
         StarReadingImporter,

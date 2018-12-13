@@ -24,6 +24,7 @@ class EdPlan < ApplicationRecord
     draft: 0,
     active: 1,
     previous: 2,
+    rejected: 3,
     discarded: 4
   }
 end

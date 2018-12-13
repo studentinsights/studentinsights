@@ -42,6 +42,8 @@ RSpec.describe FileImporterOptions do
           StarMathImporter,
           StarReadingImporter,
           X2AssessmentImporter,
+          EdPlansImporter,
+          EdPlanAccommodationsImporter
         ])
       end
     end
@@ -60,6 +62,8 @@ RSpec.describe FileImporterOptions do
           BehaviorImporter,
           StudentSectionGradesImporter,
           X2AssessmentImporter,
+          EdPlansImporter,
+          EdPlanAccommodationsImporter
         ])
       end
     end
