@@ -91,7 +91,6 @@ class MultifactorAuthenticator
       rotp_secret: EducatorMultifactorConfig.new_rotp_secret,
       last_verification_at: nil
     })
-    nil
   end
 
   # private, for one-off console use only
