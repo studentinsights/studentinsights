@@ -187,3 +187,25 @@ describe('inactive overlay', () => {
     expect($(el).text()).toContain('no longer actively enrolled');
   });
 });
+
+describe('IEP, ACCESS and 504 details vary by district', () => {
+  it('Bedford does not show any links', () => {
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'student'], {
+      disability: 'Health',
+      plan_504: true,
+      limited_english_proficiency: 'Not Fluent'
+    });
+    const el = testRender(props, {districtKey: 'bedford'});
+    expect($(el).find('.LightHeaderSupportBits a').length).toEqual(0);
+  });
+
+  it('Somervile can show all links', () => {
+    const props = mergeAtPath(testPropsForOlafWhite(), ['profileJson', 'student'], {
+      disability: 'Health',
+      plan_504: true,
+      limited_english_proficiency: 'Not Fluent'
+    });
+    const el = testRender(props, {districtKey: 'somerville'});
+    expect($(el).find('.LightHeaderSupportBits a').length).toEqual(3);
+  });
+});

@@ -20,6 +20,8 @@ class LdapAuthenticator
     # Perform bind
     options = ldap_options_for(ldap_login, ldap_password)
     ldap = @ldap_class.new(options)
+    puts ">> ldap_login: #{ldap_login}"
+    puts ">> ldap_password: #{ldap_password}"
     is_authorized = ldap.bind
 
     if !is_authorized

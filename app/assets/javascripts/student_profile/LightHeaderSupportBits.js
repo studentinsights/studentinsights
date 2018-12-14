@@ -145,6 +145,8 @@ export default class LightHeaderSupportBits extends React.Component {
     const {student, iepDocument} = this.props;
     if (!hasAnySpecialEducationData(student, iepDocument)) return null;
     
+    console.log('districtKey', districtKey);
+    console.log('shouldShowIepLink(districtKey)', shouldShowIepLink(districtKey));
     const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
     if (!shouldShowIepLink(districtKey)) return specialEducationText;
 
@@ -280,7 +282,9 @@ export default class LightHeaderSupportBits extends React.Component {
 
   }
 }
-
+LightHeaderSupportBits.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 LightHeaderSupportBits.propTypes = {
   educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   iepDocument: PropTypes.object,
