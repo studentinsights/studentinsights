@@ -198,4 +198,32 @@ RSpec.describe 'MultifactorAuthenticator' do
       expect(secrets.uniq.size).to eq enabled_educators.size
     end
   end
+
+  describe '#enable_multifactor! (private)' do
+    it 'works' do
+      authenticator = MultifactorAuthenticator.new(pals.shs_sofia_counselor)
+      config = authenticator.send(:enable_multifactor!)
+      expect(config.valid?).to eq true
+    end
+
+    it 'raises if already enabled' do
+      authenticator = MultifactorAuthenticator.new(pals.rich_districtwide)
+      expect { authenticator.send(:enable_multifactor!) }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
+  describe '#provision (private)' do
+    it 'makes a pretty ansi QR code for the generated secret' do
+      authenticator = MultifactorAuthenticator.new(pals.rich_districtwide)
+      ansi_qr = authenticator.send(:provision)
+      expect(ansi_qr).to include("\033[47m")
+      expect(ansi_qr).to include("\033[40m")
+      expect(ansi_qr.size).to be >= 30000
+    end
+
+    it 'returns nil when not enabled' do
+      authenticator = MultifactorAuthenticator.new(pals.shs_sofia_counselor)
+      expect(authenticator.send(:provision)).to eq nil
+    end
+  end
 end
