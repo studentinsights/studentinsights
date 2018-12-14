@@ -82,12 +82,9 @@ describe('buttons for taking notes', () => {
   it('works for New Bedford', () => {
     const {el} = renderTestEl(testProps(), { districtKey: BEDFORD });
     expect(buttonTexts(el)).toEqual([
-      'STAT Meeting',
+      'SST Meeting',
       'Parent conversation',
-      'Something else',
-      'CAT Meeting',
-      '504 Meeting',
-      'SPED Meeting'
+      'Something else'
     ]);
   });
 });
