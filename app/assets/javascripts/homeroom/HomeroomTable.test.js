@@ -96,10 +96,9 @@ describe('high-level integration test', () => {
     const {el} = testRender(props, context);
     expect(headerTexts(el)).toEqual([
       'Name',
-      'Last STAT',
-      'Last CAT',
-      'Last 504',
-      'Last SPED',
+      'Last SST',
+      'Last Parent',
+      'Last Other',
       'Program Assigned',
       'Disability',
       'Level of Need',
