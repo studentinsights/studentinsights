@@ -89,6 +89,9 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderCounselor() {
+    const {districtKey} = this.context;
+    if (!supportsCounselor(districtKey)) return false;
+
     const {student} = this.props;
     const {counselor} = student;
     if (!counselor) return null;

@@ -140,6 +140,7 @@ export function somervilleHouses() {
 export function supportsCounselor(districtKey) {
   if (districtKey === SOMERVILLE) return true;
   if (districtKey === DEMO) return true;
+  if (districtKey === BEDFORD) return false; // data is exported, but not meaningful for K8
   return false;
 }
 
