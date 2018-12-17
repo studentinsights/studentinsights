@@ -4,7 +4,8 @@ import _ from 'lodash';
 import {
   hasActive504Plan,
   supportsSpedLiaison,
-  shouldShowIepLink
+  shouldShowIepLink,
+  supportsCounselor
 } from '../helpers/PerDistrict';
 import {
   hasAnySpecialEducationData,
@@ -52,8 +53,13 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderEducators() {
+    const {districtKey} = this.context;
     const {student} = this.props;
-    const hasAnyContacts = (student.counselor || student.sped_liaison || this.educatorNamesFromServices().length > 0);
+    const hasAnyContacts = (
+      (supportsCounselor(districtKey) && student.counselor) ||
+      student.sped_liaison ||
+      (this.educatorNamesFromServices().length > 0)
+    );
     if (!hasAnyContacts) return <span>No educator contacts</span>;
 
     return (
