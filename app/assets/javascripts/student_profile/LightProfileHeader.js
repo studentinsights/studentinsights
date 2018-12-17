@@ -174,8 +174,10 @@ export default class LightProfileHeader extends React.Component {
     const dateOfBirth = student.date_of_birth;
     if (!dateOfBirth) return null;
 
+    const {nowFn} = this.context;
+    const nowMoment = nowFn();
     const momentDOB = moment.utc(dateOfBirth);
-    return <div style={styles.subtitleItem}>{moment().diff(momentDOB, 'years')} years old</div>;
+    return <div style={styles.subtitleItem}>{nowMoment.clone().diff(momentDOB, 'years')} years old</div>;
   }
 
   renderContactIcon () {
@@ -291,6 +293,7 @@ export default class LightProfileHeader extends React.Component {
   }
 }
 LightProfileHeader.contextTypes = {
+  nowFn: PropTypes.func.isRequired,
   districtKey: PropTypes.string.isRequired
 };
 LightProfileHeader.propTypes = {

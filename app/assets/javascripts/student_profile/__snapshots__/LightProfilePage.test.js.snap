@@ -193,7 +193,7 @@ exports[`snapshots works for aladdin grades 1`] = `
                   }
                 }
               >
-                14
+                13
                  years old
               </div>
             </div>
@@ -1422,7 +1422,7 @@ exports[`snapshots works for aladdin notes 1`] = `
                   }
                 }
               >
-                14
+                13
                  years old
               </div>
             </div>
@@ -2800,7 +2800,7 @@ exports[`snapshots works for aladdin testing 1`] = `
                   }
                 }
               >
-                14
+                13
                  years old
               </div>
             </div>
@@ -3883,7 +3883,7 @@ exports[`snapshots works for aladdin with 504 ed plan 1`] = `
                   }
                 }
               >
-                14
+                13
                  years old
               </div>
             </div>
