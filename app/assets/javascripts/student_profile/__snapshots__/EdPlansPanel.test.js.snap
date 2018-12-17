@@ -93,7 +93,7 @@ exports[`snapshots 1`] = `
         }
       >
         <h6>
-          Persons responsible
+          Team members present
         </h6>
         <ul
           style={

@@ -64,8 +64,8 @@ export default class EdPlansPanel extends React.Component {
           </div>
           {this.renderSubstanceIfPresent(edPlan)}
           <div style={styles.section}>
-            <h6>Persons responsible</h6>
-            {reformatPersons(edPlan.sep_fieldd_007, 'None listed.')}
+            <h6>Team members present</h6>
+            {reformatTeamMembersPresent(edPlan.sep_fieldd_007, 'None listed.')}
           </div>
           <div style={styles.section}>
             <h6>Accommodations</h6>
@@ -172,7 +172,7 @@ function reformatDate(maybeDateText, elseValue = null) {
   return toMomentFromRailsDate(maybeDateText).format('M/D/YYYY');
 }
 
-function reformatPersons(personsText, elseValue = null) {
+function reformatTeamMembersPresent(personsText, elseValue = null) {
   if (!personsText || personsText === '') return elseValue;
   return (
     <ul style={{...styles.simpleList, listStyleType: 'circle'}}>
