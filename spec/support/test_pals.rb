@@ -101,7 +101,7 @@ class TestPals
     )
     EducatorMultifactorConfig.create!({
       educator: @uri,
-      rotp_secret: EducatorMultifactorConfig.new_rotp_secret
+      rotp_secret: '4444rrr2vwjqgua2umohlpuzobar4444' # so development and demo have a stable TOTP setup over deploys
     })
 
     # Rich works in the central office and has districwide access, but
