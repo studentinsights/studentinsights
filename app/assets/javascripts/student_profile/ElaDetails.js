@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {high, medium, low} from '../helpers/colors';
+import {Email} from '../components/PublicLinks';
 import DetailsSection from './DetailsSection';
 import StarChart from './StarChart';
 import {McasNextGenChart, McasOldChart, McasSgpChart} from './McasChart';
@@ -18,15 +19,28 @@ range since interpolation lines will still be visible.
 export default class ElaDetails extends React.Component {
   render() {
     const {hideStar} = this.props;
+    const els = [
+      this.renderDibels(),
+      this.renderFAndPs(),
+      (!hideStar && this.renderStarReading()),
+      this.renderMCASELANextGenScores(),
+      this.renderMCASELAScores(),
+      this.renderMCASELAGrowth()
+    ];
+
     return (
       <div className="ElaDetails">
-        {this.renderDibels()}
-        {this.renderFAndPs()}
-        {!hideStar && this.renderStarReading()}
-        {this.renderMCASELANextGenScores()}
-        {this.renderMCASELAScores()}
-        {this.renderMCASELAGrowth()}
+        {_.compact(els).length > 0 ? els : this.renderNoData()}
       </div>
+    );
+  }
+
+  renderNoData() {
+    return (
+      <DetailsSection key="no-data" title="Reading data">
+        <div>No data has been synced.</div>
+        <div>Please reach out to your district lead or <Email /> if you have ideas for how to improve this!</div>
+      </DetailsSection>
     );
   }
 
@@ -35,7 +49,7 @@ export default class ElaDetails extends React.Component {
     if (dibels.length === 0) return null;
     const latestDibels = _.last(_.sortBy(dibels, 'date_taken'));
     return (
-      <DetailsSection title="DIBELS, latest score">
+      <DetailsSection key="dibels" title="DIBELS, latest score">
         <div>{this.renderDibelsScore(latestDibels.benchmark)} on {toMomentFromRailsDate(latestDibels.date_taken).format('M/D/YY')}</div>
       </DetailsSection>
     );
@@ -57,7 +71,7 @@ export default class ElaDetails extends React.Component {
     const maybeCode = (fAndP.f_and_p_code) ? ` with ${fAndP.f_and_p_code} code` : null;
     
     return (
-      <DetailsSection title="Fountas and Pinnell (F&P), latest score">
+      <DetailsSection key="f_and_ps" title="Fountas and Pinnell (F&P), latest score">
         <div>
           <span style={{padding: 5, backgroundColor: '#ccc', fontWeight: 'bold'}}>Level {fAndP.instructional_level}{maybeCode}</span>
           <span> on {toMomentFromRailsDate(fAndP.benchmark_date).format('M/D/YY')}</span>
@@ -69,7 +83,7 @@ export default class ElaDetails extends React.Component {
   renderStarReading() {
     const {chartData, studentGrade} = this.props;
     return (
-      <DetailsSection title="STAR Reading, last 4 years">
+      <DetailsSection key="star" title="STAR Reading, last 4 years">
         <StarChart
           starSeries={chartData.star_series_reading_percentile}
           studentGrade={studentGrade}
@@ -84,7 +98,7 @@ export default class ElaDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
 
     return (
-      <DetailsSection title="MCAS ELA Scores (Next Gen), last 4 years">
+      <DetailsSection key="next-gen-mcas" title="MCAS ELA Scores (Next Gen), last 4 years">
         <McasNextGenChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
@@ -99,7 +113,7 @@ export default class ElaDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
 
     return (
-      <DetailsSection title="MCAS ELA Scores, last 4 years">
+      <DetailsSection key="old-mcas" title="MCAS ELA Scores, last 4 years">
         <McasOldChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
@@ -114,7 +128,7 @@ export default class ElaDetails extends React.Component {
     if (!mcasSeries || mcasSeries.length === 0) return null;
     
     return (
-      <DetailsSection title="MCAS ELA growth percentile (SGP), last 4 years">
+      <DetailsSection key="mcas-sgp" title="MCAS ELA growth percentile (SGP), last 4 years">
         <McasSgpChart
           mcasSeries={mcasSeries}
           studentGrade={studentGrade}
