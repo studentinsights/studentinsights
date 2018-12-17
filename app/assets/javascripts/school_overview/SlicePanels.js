@@ -5,6 +5,7 @@ import CollapsableTable from './CollapsableTable';
 import FixedTable from './FixedTable';
 import {styles} from '../helpers/Theme';
 import * as Filters from '../helpers/Filters';
+import {englishProficiencyOptions} from '../helpers/language';
 import {nextGenMcasScoreRange, oldMcasScoreRange} from '../helpers/mcasScores';
 import {shouldDisplayHouse, shouldDisplayCounselor} from '../helpers/PerDistrict';
 import {renderSlicePanelsDisabilityTable} from '../helpers/PerDistrict';
@@ -134,7 +135,7 @@ class SlicePanels extends React.Component {
       <div className="column">
         {this.renderSimpleTable('504 plan', 'plan_504', { limit: 4 })}
         {this.renderDisabilityTable()}
-        {this.renderSimpleTable('English learner', 'limited_english_proficiency', { limit: 3 })}
+        {this.renderEnglishLearner()}
         {this.renderSimpleTable('Low income', 'free_reduced_lunch', { limit: 4 })}
         {this.renderYearsEnrolled()}
       </div>
@@ -148,6 +149,21 @@ class SlicePanels extends React.Component {
     return renderSlicePanelsDisabilityTable(districtKey, {
       createItemFn: this.createItem.bind(this),
       renderTableFn: this.renderTable.bind(this)
+    });
+  }
+
+  // This is different based on the values in the data storage system within
+  // the district.
+  renderEnglishLearner() {
+    const {districtKey} = this.props;
+    const key = 'limited_english_proficiency';
+    const options = englishProficiencyOptions(districtKey, { excludeAll: true });
+    return this.renderTable({
+      title: 'English learner',
+      items: [this.createItem('None', Filters.Null(key))].concat(options.map(option => (
+        this.createItem(option.label, Filters.Equal(key, option.value))
+      ))),
+      limit: 3
     });
   }
 

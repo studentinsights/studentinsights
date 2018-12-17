@@ -78,6 +78,12 @@ function languageStatus(districtKey, limitedEnglishProficiencyValue) {
   throw new Error(`unsupported districtKey: ${districtKey}`);
 }
 
+// Determine plain text for status overall, without assessment data or other details
+export function plainEnglishProficiencyText(districtKey, limitedEnglishProficiencyValue) {
+  const status = languageStatus(districtKey, limitedEnglishProficiencyValue);
+  return PRETTY_STATUS_TEXT[status] || PRETTY_STATUS_TEXT[STATUS.UNKNOWN];
+}
+
 // Show the designation, and then additional information about level or FLEP date if possible
 export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficiencyValue, options = {}) {
   // Determine text for status overall
@@ -106,11 +112,10 @@ export function prettyEnglishProficiencyText(districtKey, limitedEnglishProficie
 }
 
 // For use in Select dropdowns
-export function englishProficiencyOptions(districtKey) {
-  if (districtKey !== SOMERVILLE) throw new Error(`unsupported districtKey: ${districtKey}`);
-  
+export function englishProficiencyOptions(districtKey, options = {}) {
   const districtMap = LANGUAGE_MAPS_BY_DISTRICT_KEY[districtKey];
-  return [{ value: ALL, label: 'All' }].concat(Object.keys(districtMap).map(value => {
+  const prefix = options.excludeAll ? [] : [{ value: ALL, label: 'All' }];
+  return prefix.concat(Object.keys(districtMap).map(value => {
     const status = districtMap[value];
     const label = PRETTY_STATUS_TEXT[status];
     return {value, label};

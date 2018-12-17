@@ -14,6 +14,7 @@ import {
   shouldDisplayCounselor,
   hasActive504Plan
 } from '../helpers/PerDistrict';
+import {plainEnglishProficiencyText} from '../helpers/language';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
 import * as Routes from '../helpers/Routes';
@@ -102,6 +103,7 @@ export default class StudentsTable extends React.Component {
   }
 
   render() {
+    const {districtKey} = this.context;
     const {school} = this.props;
     return (
       <div className='StudentsTable'>
@@ -150,7 +152,9 @@ export default class StudentsTable extends React.Component {
                   </td>
                   <td>{hasActive504Plan(student.plan_504) ? '504' : null}</td>
                   <td>{this.renderUnless('None', student.sped_level_of_need)}</td>
-                  <td style={{width: '2.5em'}}>{this.renderUnless('Fluent', student.limited_english_proficiency)}</td>
+                  <td style={{width: '2.5em'}}>
+                    {plainEnglishProficiencyText(districtKey, student.limited_english_proficiency)}
+                  </td>
                   {this.renderNumberCell(student.most_recent_star_reading_percentile)}
                   {this.renderNumberCell(student.most_recent_mcas_ela_scaled)}
                   {this.renderNumberCell(student.most_recent_star_math_percentile)}
