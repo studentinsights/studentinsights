@@ -6,7 +6,7 @@ import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScroll
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
-import {isStudentActive, useStarForProfileColumns} from '../helpers/PerDistrict';
+import {isStudentActive, shouldUseStarData} from '../helpers/PerDistrict';
 import LightProfileHeader from './LightProfileHeader';
 import LightProfileTab, {LightShoutNumber} from './LightProfileTab';
 import LightAttendanceDetails from './LightAttendanceDetails';
@@ -222,7 +222,7 @@ export default class LightProfilePage extends React.Component {
 
   renderReadingColumn() {
     const {districtKey} = this.context;
-    return (useStarForProfileColumns(districtKey))
+    return (shouldUseStarData(districtKey))
       ? this.renderReadingColumnAsStar()
       : this.renderReadingColumnAsMcas();
   }
@@ -272,7 +272,7 @@ export default class LightProfilePage extends React.Component {
 
   renderMathColumn() {
     const {districtKey} = this.context;
-    return (useStarForProfileColumns(districtKey))
+    return (shouldUseStarData(districtKey))
       ? this.renderMathColumnAsStar()
       : this.renderMathColumnAsMcas();
   }
@@ -429,6 +429,7 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderReading() {
+    const {districtKey} = this.context;
     const {student, chartData, currentEducator, dibels, fAndPs} = this.props.profileJson;
     const showMinimalReadingData = currentEducator.labels.indexOf('profile_enable_minimal_reading_data') !== -1;
     return (
@@ -436,6 +437,7 @@ export default class LightProfilePage extends React.Component {
         className="LightProfilePage-ela"
         chartData={chartData}
         studentGrade={student.grade}
+        hideStar={!shouldUseStarData(districtKey)}
         dibels={showMinimalReadingData ? dibels : []}
         fAndPs={showMinimalReadingData ? fAndPs : []}
       />
@@ -443,12 +445,15 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderMath() {
+    const {districtKey} = this.context;
     const {student, chartData} = this.props.profileJson;
     return (
       <MathDetails
         className="LightProfilePage-math"
         chartData={chartData}
-        studentGrade={student.grade} />
+        studentGrade={student.grade}
+        hideStar={!shouldUseStarData(districtKey)}
+      />
     );
   }
 

@@ -3681,10 +3681,138 @@ exports[`snapshots works for aladdin testing 1`] = `
     >
       <div
         className="ElaDetails"
-      />
+      >
+        <div
+          className="DetailsSection"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "marginLeft": "auto",
+              "marginRight": "auto",
+              "marginTop": 50,
+              "padding": "30px 30px 30px 30px",
+              "position": "relative",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "bottom": 10,
+                "display": "flex",
+                "justifyContent": "space-between",
+                "position": "relative",
+              }
+            }
+          >
+            <h4
+              style={
+                Object {
+                  "color": "black",
+                  "fontSize": 24,
+                  "paddingBottom": 20,
+                }
+              }
+            >
+              Reading data
+            </h4>
+            <span
+              style={
+                Object {
+                  "textAlign": "right",
+                  "verticalAlign": "text-top",
+                }
+              }
+            >
+              <a
+                href="#"
+              >
+                Back to top
+              </a>
+            </span>
+          </div>
+          <div>
+            No data has been synced.
+          </div>
+          <div>
+            Please reach out to your district lead or 
+            <a
+              href="mailto://ideas@studentinsights.org"
+            >
+              ideas@studentinsights.org
+            </a>
+             if you have ideas for how to improve this!
+          </div>
+        </div>
+      </div>
       <div
         className="MathDetails"
-      />
+      >
+        <div
+          className="DetailsSection"
+          style={
+            Object {
+              "border": "1px solid #ccc",
+              "marginLeft": "auto",
+              "marginRight": "auto",
+              "marginTop": 50,
+              "padding": "30px 30px 30px 30px",
+              "position": "relative",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "bottom": 10,
+                "display": "flex",
+                "justifyContent": "space-between",
+                "position": "relative",
+              }
+            }
+          >
+            <h4
+              style={
+                Object {
+                  "color": "black",
+                  "fontSize": 24,
+                  "paddingBottom": 20,
+                }
+              }
+            >
+              Math data
+            </h4>
+            <span
+              style={
+                Object {
+                  "textAlign": "right",
+                  "verticalAlign": "text-top",
+                }
+              }
+            >
+              <a
+                href="#"
+              >
+                Back to top
+              </a>
+            </span>
+          </div>
+          <div>
+            No data has been synced.
+          </div>
+          <div>
+            Please reach out to your district lead or 
+            <a
+              href="mailto://ideas@studentinsights.org"
+            >
+              ideas@studentinsights.org
+            </a>
+             if you have ideas for how to improve this!
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
