@@ -280,7 +280,9 @@ export default class LightHeaderSupportBits extends React.Component {
 
   }
 }
-
+LightHeaderSupportBits.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 LightHeaderSupportBits.propTypes = {
   educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   iepDocument: PropTypes.object,
