@@ -290,7 +290,7 @@ class PerDistrict
 
   def import_student_counselor?
     return true if @district_key == SOMERVILLE
-    return true if @district_key == BEDFORD
+    return true if @district_key == BEDFORD  # this data is in export, but not meaningful for K8
     return true if @district_key == DEMO
     false
   end
