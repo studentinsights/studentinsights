@@ -16,7 +16,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:migrate --app $DEMO_HEROKU_APP_NAME
 
   echo "⚙  💻  ⚙  rake db:seed..."
-  heroku run MORE_DEMO_STUDENTS=true rake db:seed --app $DEMO_HEROKU_APP_NAME
+  heroku run MORE_DEMO_STUDENTS=false rake db:seed --app $DEMO_HEROKU_APP_NAME
   echo
 
   # Deploy to demo app and migrate
