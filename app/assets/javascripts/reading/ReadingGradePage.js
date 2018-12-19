@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import d3 from 'd3';
+import hash from 'object-hash';
 import ReactModal from 'react-modal';
 import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
@@ -106,11 +107,7 @@ export class ReadingGradePageView extends React.Component {
         ...student,
         dibels: dibelsByStudentId[student.id] || [],
         mtss: mtssByStudentId[student.id] || [],
-        instructional_focus: (Math.random() > 0.5) 
-          ? 'fluency' : (Math.random() > 0.5)
-          ? 'decoding' : (Math.random() > 0.5)
-          ? 'word solving' : (Math.random() > 0.5)
-          ? 'accuracy' : (Math.random() > 0.5)
+        instructional_focus: sampleInstructionalFocus(student)
       };
     });
   }
@@ -133,8 +130,10 @@ export class ReadingGradePageView extends React.Component {
       dibels(student) { return latestDibels(student); },
       f_and_p(student) { return latestFAndP(student) || ''; },
       star_reading(student) { return latestStar(student); },
-      dibels_grade_3_fall_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_wpm') || 0); },
-      dibels_grade_1_spring_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_wpm') || 0); }
+      dibels_grade_3_fall_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc') || 0); },
+      dibels_grade_1_spring_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_acc') || 0); },
+      instructional_general(student) { return parseInstructionalFocus(student)[0]; },
+      instructional_specific(student) { return parseInstructionalFocus(student)[1]; }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);
@@ -479,10 +478,30 @@ function describeColumns(districtKey, grade) {
     width: 120,
     style: styles.cell
   }, {
-    label: 'Instructional focus',
-    dataKey: 'instructional',
-    cellRenderer({rowData}) { return <span style={{color: '#333'}}>{rowData.instructional_focus}</span>; },
-    width: 100,
+    label: <span>Instructional<br/>focus</span>,
+    dataKey: 'instructional_specific',
+    cellRenderer({rowData}) {
+      const [general, specific] = parseInstructionalFocus(rowData);
+      return (
+        <div style={{color: '#333', fontSize: 12}}>
+          <div>{specific}</div>
+        </div>
+      );
+    },
+    width: 130,
+    style: styles.cell
+  }, {
+    label: '',
+    dataKey: 'instructional_specific',
+    cellRenderer({rowData}) {
+      const [general, specific] = parseInstructionalFocus(rowData);
+      return (
+        <div style={{color: '#333', fontSize: 12, height: '100%'}}>
+          <div>{general}</div>
+        </div>
+      );
+    },
+    width: 70,
     style: styles.cell
   // }, {
     // label: 'DIBELS Composite (Gr2 Spring)',
@@ -492,28 +511,28 @@ function describeColumns(districtKey, grade) {
     // style: styles.cell
   }, {
     label: '',
-    dataKey: 'dibels_grade_1_spring_dorf_wpm',
+    dataKey: 'dibels_grade_1_spring_dorf_acc',
     cellRenderer({rowData}) {
       return <span style={{
         justifyContent: 'flex-end',
         display: 'flex',
         flex: 1,
         paddingRight: 10
-      }}>{tryDibels(rowData.dibels, '1', 'spring', 'dibels_dorf_wpm')}</span>;
+      }}>{tryDibels(rowData.dibels, '1', 'spring', 'dibels_dorf_acc')}</span>;
     },
     width: 100,
     style: styles.cell
   }, {
-    label: <span>DORF WPM,<br/>2 years</span>,
-    dataKey: 'dibels_grade_3_fall_dorf_wpm',
+    label: <span>DORF ACC,<br/>2 years</span>,
+    dataKey: 'dibels_grade_3_fall_dorf_acc',
     cellRenderer({rowData}) { return dibelsSparkline(rowData.dibels); },
     width: 110,
     style: styles.cell
   }, {
     label: '',
-    dataKey: 'dibels_grade_3_fall_dorf_wpm',
+    dataKey: 'dibels_grade_3_fall_dorf_acc',
     cellRenderer({rowData}) {
-      const value = tryDibels(rowData.dibels, '3', 'fall', 'dibels_dorf_wpm');
+      const value = tryDibels(rowData.dibels, '3', 'fall', 'dibels_dorf_acc');
       const aboveBenchmark = (value >= 70);
       const belowRisk = (value <= 55);
       const color = aboveBenchmark ? '#85b985' : belowRisk ? 'orange' : '#ccc';
@@ -569,11 +588,11 @@ function dibelsSparkline(dibels) {
   const yPad = 5;
 
   const values = [
-    tryDibels(dibels, '1', 'spring', 'dibels_dorf_wpm'),
-    tryDibels(dibels, '2', 'fall', 'dibels_dorf_wpm'),
-    tryDibels(dibels, '2', 'winter', 'dibels_dorf_wpm'),
-    tryDibels(dibels, '2', 'spring', 'dibels_dorf_wpm'),
-    tryDibels(dibels, '3', 'fall', 'dibels_dorf_wpm')
+    tryDibels(dibels, '1', 'spring', 'dibels_dorf_acc'),
+    tryDibels(dibels, '2', 'fall', 'dibels_dorf_acc'),
+    tryDibels(dibels, '2', 'winter', 'dibels_dorf_acc'),
+    tryDibels(dibels, '2', 'spring', 'dibels_dorf_acc'),
+    tryDibels(dibels, '3', 'fall', 'dibels_dorf_acc')
   ];
 
   const x = d3.scale.linear()
@@ -631,4 +650,37 @@ function render504Dialog(districtKey, student) {
       <EdPlansPanel edPlans={edPlans} studentName={studentName} />
     </PerDistrictContainer>
   );
+}
+
+
+function sampleInstructionalFocus(student) {
+  // return (Math.random() > 0.5) 
+  //   ? 'fluency' : (Math.random() > 0.5)
+  //   ? 'decoding' : (Math.random() > 0.5)
+  //   ? 'word solving' : (Math.random() > 0.5)
+  //   ? 'accuracy' : (Math.random() > 0.5);
+
+  const choices = [
+    'within: solving words',
+    'within: monitoring and correcting',
+    'within: searching for and using info',
+    'within: summarizing',
+    'within: maintaining fluency',
+    'within: adjusting',
+    'beyond: predicting',
+    'beyond: making connections',
+    'beyond: synthesizing',
+    'beyond: inferring',
+    'about: analyzing',
+    'about: critiquing'
+  ];
+  const bucket = parseInt(hash.MD5(student.id).slice(0, 8), 16);
+  return choices[bucket % choices.length];
+}
+
+function parseInstructionalFocus(rowData) {
+  if (window.location.search.indexOf('instruction') === -1) {
+    return [null, null];
+  }
+  return rowData.instructional_focus.split(': ');
 }
