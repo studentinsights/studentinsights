@@ -18,7 +18,7 @@ puts 'Starting seeds.rb...'
 
 more_demo_students = EnvironmentVariable.is_true('MORE_DEMO_STUDENTS')
 
-homeroom_class_size = more_demo_students ? 18 : 9
+homeroom_class_size = more_demo_students ? 12 : 9
 
 puts "Seeding more demo students: #{more_demo_students}."
 
