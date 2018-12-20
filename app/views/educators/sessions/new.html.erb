@@ -1,33 +1,10 @@
 <div class="SignInPage">
-  <style>
-    .SignInPage-form-row {
-      height: 50px;
-    }
-    .Logo {
-      height: 80%;
-      position: relative;
-      margin-top: 15px;
-    }
-
-    .Wordmark {
-      height: 80%;
-      margin-top: 18px;
-    }
-
-    .SignInPage-Logo {
-      display: flex;
-      justify-content: flex-start;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
   <div class="SignInPage-container">
     <div class="SignInPage-form-row">
-      <a href="/"></a>
-      <div class="SignInPage-Logo">
+      <a class="SignInPage-logo-and-name" href="/">
         <%= render('shared/logo') %>
         <%= render('shared/wordmark') %>
-      </div>
+      </a>
       <%= form_tag educators_multifactor_path, class: 'SignInPage-multifactor-form hidden', remote: true do %> 
         <div class="SignInPage-item">
           <%= label_tag :multifactor_login_text, 'Login' %>

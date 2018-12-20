@@ -1,8 +1,8 @@
 <div class="NavbarSignedIn">
-  <a href="/">
-    <div class="NavbarSignedIn-logo">
-      <div alt="Student Insights"></div>
-    </div>
+  <a class="NavbarSignedIn-logo-and-name" href="/">
+    <%= render('shared/logo') %>
+    <%= render('shared/wordmark') %>
+  </a>
   </a>
   <div class="NavbarSignedIn-options">
     <% # Show different links based on role and access %>
