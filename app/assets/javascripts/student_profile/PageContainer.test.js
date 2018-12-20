@@ -165,7 +165,7 @@ describe('integration tests', () => {
     });
   });
 
-  it('can edit own notes for SST meetings, mocking the action handlers', () => {
+  it.only('can edit own notes for SST meetings, mocking the action handlers', () => {
     const props = patchNotesToBeWrittenByCurrentUser(testProps());
     const {el} = helpers.renderInto(props);
 

@@ -145,14 +145,18 @@ export default class LightProfileHeader extends React.Component {
       return <span style={styles.subtitleItem}>No homeroom</span>;
     }
 
-    // Render as link or plain text (HS homeroom doesn't mean anything, and authorization
-    // rules are more complex).
+    // Render as link or plain text
+    // (HS homeroom doesn't mean anything, and authorization
+    // rules around whether they can link to the homeroom page
+    // are more complex).
+    const {id, name, educator} = student.homeroom;
     return (
       <Homeroom
         style={styles.subtitleItem}
         disableLink={!isHomeroomMeaningful(student.school_type)}
-        name={student.homeroom.name}
-        educator={student.homeroom.educator}
+        id={id}
+        name={name}
+        educator={educator}
       />
     );
   }
