@@ -48,7 +48,18 @@ class ProfileController < ApplicationController
       ell_transition_date: student.ell_transition_date
     }
 
-    student.as_json.merge(per_district_fields).merge({
+    json = student.as_json({
+      :include => {
+        :homeroom => {
+          :only => [:id, :name],
+          :include => {
+            :educator => {:only => [:id, :full_name, :email]}
+          }
+        }
+      }
+    })
+
+    json.merge(per_district_fields).merge({
       has_photo: (student.student_photos.size > 0),
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,

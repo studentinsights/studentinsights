@@ -15,6 +15,7 @@ import HelpBubble, {
 } from '../components/HelpBubble';
 import StudentPhoto from '../components/StudentPhoto';
 import {TeamIcon} from '../components/Team';
+import Homeroom from '../components/Homeroom';
 import LightCarousel from './LightCarousel';
 import ProfilePdfDialog from './ProfilePdfDialog';
 import LightHeaderSupportBits from './LightHeaderSupportBits';
@@ -128,7 +129,7 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderHomeroomOrEnrollmentStatus() {
-    const student =  this.props.student;
+    const {student} =  this.props;
 
     // Not enrolled
     if (student.enrollment_status !== 'Active') {
@@ -140,24 +141,20 @@ export default class LightProfileHeader extends React.Component {
     }
 
     // No homeroom set
-    if (!student.homeroom_name) {
+    if (!student.homeroom) {
       return <span style={styles.subtitleItem}>No homeroom</span>;
     }
 
     // Render as link or plain text (HS homeroom doesn't mean anything, and authorization
     // rules are more complex).
-    if (!isHomeroomMeaningful(student.school_type)) {
-      return <span style={styles.subtitleItem}>{'Homeroom ' + student.homeroom_name}</span>;
-    } else {
-      return (
-        <a
-          className="homeroom-link"
-          href={Routes.homeroom(student.homeroom_id)}
-          style={styles.subtitleItem}>
-          {'Homeroom ' + student.homeroom_name}
-        </a>
-      );
-    }
+    return (
+      <Homeroom
+        style={styles.subtitleItem}
+        disableLink={!isHomeroomMeaningful(student.school_type)}
+        name={student.homeroom.name}
+        educator={student.homeroom.educator}
+      />
+    );
   }
 
   renderDateOfBirth () {
@@ -318,11 +315,14 @@ LightProfileHeader.propTypes = {
     house: PropTypes.string,
     counselor: PropTypes.string,
     sped_liaison: PropTypes.string,
-    homeroom_id: PropTypes.number,
     school_name: PropTypes.string,
     school_type: PropTypes.string,
     school_local_id: PropTypes.string,
-    homeroom_name: PropTypes.string,
+    homeroom: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      educator: PropTypes.object
+    }),
     has_photo: PropTypes.bool
   }).isRequired,
   iepDocument: PropTypes.object,

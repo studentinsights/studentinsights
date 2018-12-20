@@ -12,10 +12,10 @@ function renderEducator(educator) {
 
 // A visual UI element with canonical display of a homeroom,
 // showing the name and teacher with link to roster.
-function Homeroom({id, name, educator, style}) {
+export default function Homeroom({id, name, educator, disableLink, style}) {
   return (
     <span className="Homeroom" style={{...style}}>
-      <a href={`/homerooms/${id}`}>{name}</a>
+      {disableLink ? name : <a href={`/homerooms/${id}`}>{name}</a>}
       {educator && renderEducator(educator)}
     </span>
   );
@@ -27,7 +27,6 @@ Homeroom.propTypes = {
     full_name: PropTypes.string, // or null
     email: PropTypes.string.isRequired
   }),
+  disableLink: PropTypes.bool,
   style: PropTypes.object
 };
-
-export default Homeroom;
