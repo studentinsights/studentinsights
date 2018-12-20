@@ -524,6 +524,7 @@ describe ProfileController, :type => :controller do
       student = FactoryBot.create(:student)
       serialized_student = controller.send(:serialize_student_for_profile, student)
       expect(serialized_student.keys).to include(*[
+        'homeroom',
         'absences_count',
         'tardies_count',
         'school_name',

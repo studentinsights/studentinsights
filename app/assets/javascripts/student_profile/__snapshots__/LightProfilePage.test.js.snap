@@ -129,6 +129,7 @@ exports[`snapshots works for aladdin grades 1`] = `
             Aladdin Mouse
           </a>
           <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -136,7 +137,7 @@ exports[`snapshots works for aladdin grades 1`] = `
               }
             }
           >
-            Homeroom SHS ALL
+            SHS ALL
           </span>
           <div
             style={
@@ -1358,6 +1359,7 @@ exports[`snapshots works for aladdin notes 1`] = `
             Aladdin Mouse
           </a>
           <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -1365,7 +1367,7 @@ exports[`snapshots works for aladdin notes 1`] = `
               }
             }
           >
-            Homeroom SHS ALL
+            SHS ALL
           </span>
           <div
             style={
@@ -2736,6 +2738,7 @@ exports[`snapshots works for aladdin testing 1`] = `
             Aladdin Mouse
           </a>
           <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -2743,7 +2746,7 @@ exports[`snapshots works for aladdin testing 1`] = `
               }
             }
           >
-            Homeroom SHS ALL
+            SHS ALL
           </span>
           <div
             style={
@@ -3947,6 +3950,7 @@ exports[`snapshots works for aladdin with 504 ed plan 1`] = `
             Aladdin Mouse
           </a>
           <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -3954,7 +3958,7 @@ exports[`snapshots works for aladdin with 504 ed plan 1`] = `
               }
             }
           >
-            Homeroom SHS ALL
+            SHS ALL
           </span>
           <div
             style={
@@ -5324,9 +5328,8 @@ exports[`snapshots works for olaf math 1`] = `
           >
             Olaf White
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/2"
+          <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -5334,8 +5337,25 @@ exports[`snapshots works for olaf math 1`] = `
               }
             }
           >
-            Homeroom HEA 500
-          </a>
+            <a
+              href="/homerooms/2"
+            >
+              HEA 500
+            </a>
+            <span>
+              <span>
+                 
+              </span>
+               with 
+              <a
+                className="Educator"
+                href="mailto:sarah@demo.studentinsights.org"
+                style={Object {}}
+              >
+                Sarah Teacher
+              </a>
+            </span>
+          </span>
           <div
             style={
               Object {
@@ -6582,9 +6602,8 @@ exports[`snapshots works for olaf notes 1`] = `
           >
             Olaf White
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/2"
+          <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -6592,8 +6611,25 @@ exports[`snapshots works for olaf notes 1`] = `
               }
             }
           >
-            Homeroom HEA 500
-          </a>
+            <a
+              href="/homerooms/2"
+            >
+              HEA 500
+            </a>
+            <span>
+              <span>
+                 
+              </span>
+               with 
+              <a
+                className="Educator"
+                href="mailto:sarah@demo.studentinsights.org"
+                style={Object {}}
+              >
+                Sarah Teacher
+              </a>
+            </span>
+          </span>
           <div
             style={
               Object {
@@ -7909,9 +7945,8 @@ exports[`snapshots works for olaf reading 1`] = `
           >
             Olaf White
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/2"
+          <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -7919,8 +7954,25 @@ exports[`snapshots works for olaf reading 1`] = `
               }
             }
           >
-            Homeroom HEA 500
-          </a>
+            <a
+              href="/homerooms/2"
+            >
+              HEA 500
+            </a>
+            <span>
+              <span>
+                 
+              </span>
+               with 
+              <a
+                className="Educator"
+                href="mailto:sarah@demo.studentinsights.org"
+                style={Object {}}
+              >
+                Sarah Teacher
+              </a>
+            </span>
+          </span>
           <div
             style={
               Object {
@@ -9122,9 +9174,8 @@ exports[`snapshots works for pluto attendance 1`] = `
           >
             Pluto Poppins
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/1"
+          <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -9132,8 +9183,25 @@ exports[`snapshots works for pluto attendance 1`] = `
               }
             }
           >
-            Homeroom HEA 003
-          </a>
+            <a
+              href="/homerooms/1"
+            >
+              HEA 003
+            </a>
+            <span>
+              <span>
+                 
+              </span>
+               with 
+              <a
+                className="Educator"
+                href="mailto:vivian@demo.studentinsights.org"
+                style={Object {}}
+              >
+                Vivian Teacher
+              </a>
+            </span>
+          </span>
           <div
             style={
               Object {
@@ -10250,9 +10318,8 @@ exports[`snapshots works for pluto behavior 1`] = `
           >
             Pluto Poppins
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/1"
+          <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -10260,8 +10327,25 @@ exports[`snapshots works for pluto behavior 1`] = `
               }
             }
           >
-            Homeroom HEA 003
-          </a>
+            <a
+              href="/homerooms/1"
+            >
+              HEA 003
+            </a>
+            <span>
+              <span>
+                 
+              </span>
+               with 
+              <a
+                className="Educator"
+                href="mailto:vivian@demo.studentinsights.org"
+                style={Object {}}
+              >
+                Vivian Teacher
+              </a>
+            </span>
+          </span>
           <div
             style={
               Object {
@@ -11478,9 +11562,8 @@ exports[`snapshots works for pluto notes 1`] = `
           >
             Pluto Poppins
           </a>
-          <a
-            className="homeroom-link"
-            href="/homerooms/1"
+          <span
+            className="Homeroom"
             style={
               Object {
                 "display": "inline-block",
@@ -11488,8 +11571,25 @@ exports[`snapshots works for pluto notes 1`] = `
               }
             }
           >
-            Homeroom HEA 003
-          </a>
+            <a
+              href="/homerooms/1"
+            >
+              HEA 003
+            </a>
+            <span>
+              <span>
+                 
+              </span>
+               with 
+              <a
+                className="Educator"
+                href="mailto:vivian@demo.studentinsights.org"
+                style={Object {}}
+              >
+                Vivian Teacher
+              </a>
+            </span>
+          </span>
           <div
             style={
               Object {
