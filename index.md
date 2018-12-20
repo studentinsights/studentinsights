@@ -4,7 +4,7 @@
   <div class="Home-title">We work with educators to make student-centered data systems</div>
   <div class="Home-container">
     <div class="Home-image-container">
-      <img src="img/teachers-working.jpg" alt="Teachers working together" class="Home-image" />
+        <a href="img/teachers-working.jpg" data-lightbox="teachers-working"> <img src="img/teachers-working.jpg" alt="Teachers working together" class="Home-image" /> </a>
     </div>
     <div class="Home-text">
       <div>
