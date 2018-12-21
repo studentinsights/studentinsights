@@ -7,7 +7,8 @@ class StudentPhotoImporter
   REQUIRED_KEYS = [
     'AWS_ACCESS_KEY_ID',
     'AWS_SECRET_ACCESS_KEY',
-    'AWS_S3_PHOTOS_BUCKET'
+    'AWS_S3_PHOTOS_BUCKET',
+    'AWS_REGION'
   ]
 
   def initialize
@@ -20,11 +21,11 @@ class StudentPhotoImporter
   def import
     FileUtils.mkdir_p('tmp/data_download/photos')
 
-    log('Downloading photos.zip from SFTP site...')
+    log('Downloading photos zipfile from SFTP site...')
 
     photos_zip_file = sftp_client.download_file(remote_filename)
 
-    log("Downloaded Photos ZIP file!")
+    log('Downloaded photos zipfile!')
 
     unzipped_count = 0
 
