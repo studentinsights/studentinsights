@@ -330,7 +330,9 @@ class PerDistrict
   end
 
   def import_student_photos?
-    @district_key == SOMERVILLE
+    return true if @district_key == SOMERVILLE
+    return true if @district_key == BEDFORD
+    false
   end
 
   def import_dibels?

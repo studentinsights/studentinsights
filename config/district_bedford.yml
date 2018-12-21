@@ -5,6 +5,9 @@ sftp_filenames:
   FILENAME_FOR_ATTENDANCE_IMPORT:    /home/bedford/data/attendance.csv
   FILENAME_FOR_ASSESSMENT_IMPORT:    /home/bedford/data/Assessment.csv
 
+  # student photos snapshot
+  FILENAME_FOR_PHOTOS_ZIP:           /home/bedford/data/Photos.zip
+
 
 school_definitions_for_import:
   - name: Lane Elementary
