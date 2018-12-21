@@ -17,25 +17,27 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-  }
-
-  .Logo {
-    height: 80%;
-    position: relative;
-    margin-top: 15px;
-  }
-
-  .Wordmark {
-    height: 80%;
-    margin-top: 18px;
+    align-items: flex-end;
   }
 
   .SignInPage-logo-and-name {
     display: flex;
     justify-content: flex-start;
-    width: 100%;
+    align-items: flex-end;
     height: 50px;
+  }
+
+
+  .Logo {
+    width: 40px;
+    height: auto;
+    position: relative;
+  }
+
+  .Wordmark {
+    width: 18em; /* sizing, for IE */
+    position: relative;
+    top: 2px;
   }
 
   .SignInPage-form, .SignInPage-multifactor-form {
