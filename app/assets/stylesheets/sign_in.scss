@@ -38,6 +38,7 @@
     width: 18em; /* sizing, for IE */
     position: relative;
     top: 2px;
+    align-self: flex-end;
   }
 
   .SignInPage-form, .SignInPage-multifactor-form {

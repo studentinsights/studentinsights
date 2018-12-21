@@ -18,13 +18,15 @@
   }
 
   .Logo {
+    width: 32px;
     height: 100%;
   }
 
   .Wordmark {
-    height: 70%;
+    width: 150px; /* font size essentially */
     align-self: center;
     position: relative;
+    top: 1px;
     padding-left: 3px;
   }
 
