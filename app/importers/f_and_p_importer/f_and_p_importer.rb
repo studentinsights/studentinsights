@@ -16,6 +16,8 @@ class FAndPImporter
   end
 
   def import(file_text, options = {})
+    dry_run = options.fetch(:dry_run, false)
+
     # parse
     rows = []
     StreamingCsvTransformer.from_text(@log, file_text).each_with_index do |row, index|
@@ -25,6 +27,9 @@ class FAndPImporter
       @matcher.count_valid_row
     end
     log "matcher#stats: #{@matcher.stats}"
+
+    # allow dry run with no impact on db
+    return rows if dry_run
 
     # write to database
     f_and_ps = nil
