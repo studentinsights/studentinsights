@@ -1,3 +1,22 @@
+Friday 12/21 updates:
+- **Profile**: Update educator contacts to respect PerDistrict setting for counselor field [#2334](https://github.com/studentinsights/studentinsights/pull/2334)
+- **Profile**: Fix bug with incorrectly showing IEP link in Bedford [#2332](https://github.com/studentinsights/studentinsights/pull/2332)
+- **Profile**: Add teacher name for homeroom [#2338](https://github.com/studentinsights/studentinsights/pull/2338)
+- **504 plans**: Released to SHS counseling team
+- **Redesigned logo**: For website and product itself [#2292](https://github.com/studentinsights/studentinsights/pull/2292) [#2293](https://github.com/studentinsights/studentinsights/pull/2293) [#2337](https://github.com/studentinsights/studentinsights/pull/2337) [#2339](https://github.com/studentinsights/studentinsights/pull/2339)
+- **Website**: Tap to show full screen images [9340cd](https://github.com/studentinsights/studentinsights/commit/9340cd)
+- **Photos**: Enable student photos for Bedford [#2340](https://github.com/studentinsights/studentinsights/pull/2340)
+- **Reading**: Reviewing prototype visualizations of DIBELS ORF growth in Somerville
+
+
+Friday 12/14 updates:
+- **Security**: Add another layer of guards protecting against inadvertent permission bugs in S3
+- **Security**: Add private methods for provisioning multifactor authentication manually [#2326](https://github.com/studentinsights/studentinsights/pull/2326)
+- **Profile**: Fix sort bug on grades table by educator, from an older migration [#2319](https://github.com/studentinsights/studentinsights/pull/2319)
+- **Discipline**: Adding scatterplot for day/time patterns [#2242](https://github.com/studentinsights/studentinsights/pull/2242)
+- **My notes**: Revise layout and add word cloud, shipped dark [#2325](https://github.com/studentinsights/studentinsights/pull/2325)
+- **Notes**: Adjust note types for Bedford [#2327](https://github.com/studentinsights/studentinsights/pull/2327)
+
 Friday 12/7 updates:
 - **Security**: Update instructions to crawlers [#2281](https://github.com/studentinsights/studentinsights/pull/2281)
 - **Absences**: Add "recent" to title of school absence, tardies, discipline pages [#2282](https://github.com/studentinsights/studentinsights/pull/2282)
