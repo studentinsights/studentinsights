@@ -17,13 +17,28 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
   }
 
-  .SignInPage-logo {
-    width: 135px;
-    height: 40px;
-    background: url(asset-path("student-insights-logo-small.png")) no-repeat;
+  .SignInPage-logo-and-name {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 50px;
+  }
+
+
+  .Logo {
+    width: 40px;
+    height: auto;
+    position: relative;
+  }
+
+  .Wordmark {
+    width: 18em; /* sizing, for IE */
+    position: relative;
+    top: 2px;
+    align-self: flex-end;
   }
 
   .SignInPage-form, .SignInPage-multifactor-form {

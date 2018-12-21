@@ -1,6 +1,7 @@
 .NavbarSignedIn {
   border-bottom: 1px solid $light-line;
   background-color: $white;
+  height: 50px;
   padding: 5px 20px 5px 20px;
   display: flex;
   display: -webkit-flex;
@@ -8,12 +9,25 @@
   align-items: center;
   justify-content: center;
 
-  .NavbarSignedIn-logo {
-    display: inline-block;
-    width: 135px;
-    height: 40px;
-    margin-top: 5px;
-    background: url(asset-path("student-insights-logo-small.png")) no-repeat;
+  .NavbarSignedIn-logo-and-name {
+    height: 32px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .Logo {
+    width: 32px;
+    height: 100%;
+  }
+
+  .Wordmark {
+    width: 150px; /* font size essentially */
+    align-self: center;
+    position: relative;
+    top: 1px;
+    padding-left: 3px;
   }
 
   .NavbarSignedIn-options {
