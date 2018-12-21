@@ -4,9 +4,18 @@ class ReadingController < ApplicationController
   def grade_json
     safe_params = params.permit(:school_id, :grade)
 
+    # def authorized(&block)
+    #   authorizer = Authorizer.new(Educator.find_by_login_name('ldap_user2'))
+    #   authorizer.authorized(&block)
+    # end
+
+    # school_id, grade = [2, '3']
+    # puts latest_mtss_notes_json(school_id, grade).to_json;nil
+    # puts reading_students_json(school_id, grade).to_json;nil
+
     render json: {
       latest_mtss_notes: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-mtss.json')), # latest_mtss_notes_json
-      reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea.json')), # reading_students_json(safe_params[:school_id], safe_params[:grade]),
+      reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-reading-students.json')), # reading_students_json(safe_params[:school_id], safe_params[:grade]),
       dibels_data_points: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-dibels.json')),
     }
   end
@@ -43,6 +52,7 @@ class ReadingController < ApplicationController
         .includes(:star_reading_results)
         .includes(:dibels_results)
         .includes(:f_and_p_assessments)
+        .to_a
     end
 
     # TODO add back authorizer block
