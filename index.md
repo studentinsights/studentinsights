@@ -65,7 +65,7 @@ As we started working with more schools, we also shifted the way we worked.  We 
   {% assign privacy_title = 'Trust, access, and privacy' %}
   {% assign privacy_href = 'our-work.html#trust-access-and-privacy' %}
   {% capture privacy_quote %}
-    <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<div class="Home-quoted-person">- Audrey Waters</div></p>
+    <p>"Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?"<div class="Home-quoted-person">- Audrey Watters</div></p>
   {% endcapture %}
   {% capture privacy_image %}
     <div>

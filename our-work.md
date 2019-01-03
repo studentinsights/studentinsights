@@ -144,7 +144,7 @@ Finally, educators also asked to be able to further restrict access to notes bey
 
 
 <h2 class="OurWork-SectionTitle">Trust, access, and privacy</h2>
-> "Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?" <a style="display: block;" href="pals.html">- Audrey Waters</a>
+> "Will students be able to examine their educational record and demand that errors are fixed?  How long will data be kept on students? Will it move with them from school to school?  What sorts of data will be shared and with whom?" <a style="display: block;" href="pals.html">- Audrey Watters</a>
 
 Building trust is one of our core values, and also one of the toughest challenges for any real-world data system.
 
