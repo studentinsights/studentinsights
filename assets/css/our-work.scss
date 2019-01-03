@@ -16,12 +16,12 @@ h2.OurWork-SectionTitle {
   text-align: center;
 }
 @media (max-width: 600px) {
-  .OurWork-QuoteGrid > img {
+  .OurWork-QuoteGrid img {
     width: 48%;
   }
 }
 @media (min-width: 600px) {
-  .OurWork-QuoteGrid > img {
+  .OurWork-QuoteGrid img {
     width: 31%;
   }
 }
