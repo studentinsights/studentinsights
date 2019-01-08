@@ -24,7 +24,7 @@ class TeamMembership < ApplicationRecord
 
   def self.this_season_and_year(options = {})
     time_now = options.fetch(:time_now, Time.now)
-    school_year_text = SchoolYear.to_school_year(time_now)
+    this_school_year = SchoolYear.to_school_year(time_now)
     short_next_school_year = (this_school_year + 1).to_s.last(2)
     school_year_text = "#{this_school_year}-#{short_next_school_year}"
     this_season_key = PerDistrict.new.sports_season_key(time_now)

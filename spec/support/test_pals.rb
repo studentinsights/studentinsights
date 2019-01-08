@@ -72,6 +72,7 @@ class TestPals
 
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
     skip_team_memberships = options.fetch(:skip_team_memberships, false)
+    time_now = options.fetch(:time_now, time_now_for_test)
 
     # Uri works in the central office, and is the admin for the
     # project at the district.
@@ -461,44 +462,33 @@ class TestPals
       grade_letter: 'F'
     )
 
-    add_team_memberships unless skip_team_memberships
+    add_team_memberships(time_now) unless skip_team_memberships
 
     reindex!
     self
   end
 
-  def time_now
+  def time_now_for_test
     Time.zone.local(2018, 3, 13, 11, 03)
   end
 
   private
-  def add_team_memberships
-    # "now" in time_now for test
+  # "now" in time_now for test (not wall clock)
+  def add_team_memberships(time_now)
+    this_season_key, school_year_text = TeamMembership.this_season_and_year(time_now: time_now)
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
       activity_text: 'Competitive Cheerleading Varsity',
-      school_year_text: '2017-18',
-      coach_text: 'Fatima Teacher'
+      coach_text: 'Fatima Teacher',
+      season_key: this_season_key,
+      school_year_text: school_year_text
     })
     TeamMembership.create!({
       student_id: shs_senior_kylo.id,
       activity_text: 'Cross Country - Boys Varsity',
-      school_year_text: '2017-18',
-      coach_text: 'Jonathan Fishman'
-    })
-
-    # now in wall clock
-    TeamMembership.create!({
-      student_id: shs_freshman_mari.id,
-      activity_text: 'Competitive Cheerleading Varsity',
-      school_year_text: '2018-19',
-      coach_text: 'Fatima Teacher'
-    })
-    TeamMembership.create!({
-      student_id: shs_senior_kylo.id,
-      activity_text: 'Cross Country - Boys Varsity',
-      school_year_text: '2018-19',
-      coach_text: 'Jonathan Fishman'
+      coach_text: 'Jonathan Fishman',
+      season_key: this_season_key,
+      school_year_text: school_year_text
     })
   end
 
