@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 
 const TEAM_ICON_MAP = {
+  // fall
   'Competitive Cheerleading Varsity': '📣',
   'Cross Country - Boys Varsity': '👟',
   'Cross Country - Girls Varsity': '👟',
@@ -16,7 +17,22 @@ const TEAM_ICON_MAP = {
   'Soccer - Girls Varsity': '⚽',
   'Volleyball - Girls Freshman': '🏐',
   'Volleyball - Girls JV': '🏐',
-  'Volleyball - Girls Varsity': '🏐'
+  'Volleyball - Girls Varsity': '🏐',
+
+  // winter
+  'Basketball - Boys Freshman': '🏀',
+  'Basketball - Boys JV': '🏀',
+  'Basketball - Boys Varsity': '🏀',
+  'Basketball - Girls Freshman': '🏀',
+  'Basketball - Girls JV': '🏀',
+  'Basketball - Girls Varsity': '🏀',
+  'Cheerleading Winter Club': '📣',
+  'Ice Hockey - Boys JV': '🏒',
+  'Ice Hockey - Boys Varsity': '🏒',
+  'Girls Ice Hockey - coop with CRLS': '🏒',
+  'Indoor Track - Boys Varsity': '🏅',
+  'Indoor Track - Girls Varsity': '🏅',
+  'Swimming Varsity': '🏊'
 };
 
 
