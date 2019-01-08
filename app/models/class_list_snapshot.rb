@@ -13,7 +13,7 @@ class ClassListSnapshot < ApplicationRecord
     log.puts "ClassListSnapshot.snapshot_all_workspaces: starting..."
     workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
     log.puts "  snapshot_all_workspaces: Found #{workspaces.size} workspaces."
-    ClassList.unsafe_all_workspaces_without_authorization_check.each do |workspace|
+    workspaces.each do |workspace|
       log.puts "  snapshot_all_workspaces: Checking workspace #{workspace.workspace_id}..."
       snapshot = workspace.class_list.snapshot_if_changed
       if snapshot.present?
