@@ -53,7 +53,10 @@ class ProfileInsights
 
   def team_membership_insights
     @student.teams(time_now: @time_now).map do |team|
-      ProfileInsight.new('team_membership', team.as_json(only: [:activity_text, :coach_text]))
+      ProfileInsight.new('team_membership', team.as_json({
+        only: [:activity_text, :coach_text, :season_key],
+        methods: [:active]
+      }))
     end
   end
 

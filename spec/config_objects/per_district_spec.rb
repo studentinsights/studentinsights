@@ -202,4 +202,23 @@ RSpec.describe PerDistrict do
       expect(for_new_bedford.patched_plan_504(student)).to eq '504'
     end
   end
+
+  describe '#sports_season_key' do
+    it 'works for Somerville' do
+      expect(for_somerville.sports_season_key(Time.parse('2017-10-01'))).to eq :fall
+      expect(for_somerville.sports_season_key(Time.parse('2017-12-01'))).to eq :winter
+      expect(for_somerville.sports_season_key(Time.parse('2018-03-01'))).to eq :winter
+      expect(for_somerville.sports_season_key(Time.parse('2018-04-01'))).to eq :spring
+      expect(for_somerville.sports_season_key(Time.parse('2018-06-01'))).to eq :spring
+      expect(for_somerville.sports_season_key(Time.parse('2018-07-01'))).to eq nil
+    end
+
+    it 'returns nil for New Bedford' do
+      expect(for_new_bedford.sports_season_key(Time.parse('2017-10-01'))).to eq nil
+    end
+
+    it 'returns nil for Bedford' do
+      expect(for_bedford.sports_season_key(Time.parse('2017-10-01'))).to eq nil
+    end
+  end
 end

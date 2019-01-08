@@ -9,11 +9,13 @@ class TeamMembership < ApplicationRecord
     message: 'must be format 2002-03'
   }
 
-  def self.active(options = {})
+  def active(options = {})
     time_now = options.fetch(:time_now, Time.now)
     this_school_year = SchoolYear.to_school_year(time_now)
     short_next_school_year = (this_school_year + 1).to_s.last(2)
     school_year_text = "#{this_school_year}-#{short_next_school_year}"
-    self.where(school_year_text: school_year_text)
+    this_season_key = PerDistrict.new.sports_season_key(time_now)
+
+    self.school_year_text == school_year_text && self.season_key == this_season_key.to_s
   end
 end

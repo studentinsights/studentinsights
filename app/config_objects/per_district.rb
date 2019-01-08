@@ -443,6 +443,23 @@ class PerDistrict
     end
   end
 
+  # This is just a heuristic for Somerville, see links like:
+  # http://www.somerville.k12.ma.us/schools/somerville-high-school/departments-academics/athletics/spring-sports-registration
+  def sports_season_key(date_time)
+    return nil unless @district_key == SOMERVILLE
+
+    school_year = SchoolYear.to_school_year(date_time)
+    if date_time < DateTime.new(school_year, 11, 26)
+      :fall
+    elsif date_time < DateTime.new(school_year + 1, 3, 18)
+      :winter
+    elsif date_time <= SchoolYear.last_day_of_school_for_year(school_year)
+      :spring
+    else
+      nil
+    end
+  end
+
   private
   def yaml
     config_map = {
