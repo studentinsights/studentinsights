@@ -17,13 +17,19 @@ RSpec.describe TeamMembershipImporter do
         :invalid_student_lodal_ids_list => []
       })
       expect(TeamMembership.all.size).to eq 2
-      expect(pals.shs_freshman_mari.teams(time_now: time_now).as_json(only: [:activity_text, :coach_text])).to eq([{
+      expect(pals.shs_freshman_mari.teams(time_now: time_now).as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        'student_id' => pals.shs_freshman_mari.id,
         'activity_text' => 'Competitive Cheerleading Varsity',
-        'coach_text' => 'Fatima Teacher'
+        'coach_text' => 'Fatima Teacher',
+        'school_year_text' => '2017-18',
+        'season_key' => 'fall'
       }])
-      expect(pals.shs_senior_kylo.teams(time_now: time_now).as_json(only: [:activity_text, :coach_text])).to eq([{
+      expect(pals.shs_senior_kylo.teams(time_now: time_now).as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        'student_id' => pals.shs_senior_kylo.id,
         'activity_text' => 'Cross Country - Boys Varsity',
-        'coach_text' => 'Jonathan Fishman'
+        'coach_text' => 'Jonathan Fishman',
+        'school_year_text' => '2017-18',
+        'season_key' => 'fall'
       }])
     end
   end

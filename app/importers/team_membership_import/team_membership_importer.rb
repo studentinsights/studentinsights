@@ -13,7 +13,8 @@ class TeamMembershipImporter
     columns_map = {
       activity_text: 'Activity',
       coach_text: 'Coach',
-      school_year_text: 'School_Year'
+      school_year_text: 'School_Year',
+      season_key: 'Season'
     }
     create_streaming_csv.each_with_index do |row, index|
       student_local_id = row['ID'] # lasid
