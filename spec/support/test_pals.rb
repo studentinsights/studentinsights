@@ -67,12 +67,15 @@ class TestPals
   attr_reader :shs_third_period_physics
   attr_reader :shs_fifth_period_physics
 
+  def time_now
+    Time.zone.local(2018, 3, 13, 11, 03)
+  end
+
   def create!(options = {})
     TestPals.seed_somerville_schools_for_test!
 
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
     skip_team_memberships = options.fetch(:skip_team_memberships, false)
-    time_now = options.fetch(:time_now, time_now_for_test)
 
     # Uri works in the central office, and is the admin for the
     # project at the district.
@@ -462,19 +465,15 @@ class TestPals
       grade_letter: 'F'
     )
 
-    add_team_memberships(time_now) unless skip_team_memberships
+    add_team_memberships unless skip_team_memberships
 
     reindex!
     self
   end
 
-  def time_now_for_test
-    Time.zone.local(2018, 3, 13, 11, 03)
-  end
-
   private
   # "now" in time_now for test (not wall clock)
-  def add_team_memberships(time_now)
+  def add_team_memberships
     this_season_key, school_year_text = TeamMembership.this_season_and_year(time_now: time_now)
     TeamMembership.create!({
       student_id: shs_freshman_mari.id,
