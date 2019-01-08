@@ -1,6 +1,8 @@
 # For groups of educators to reflect as a team.
 # Aimed at not identifying individual teachers, avoiding accountability,
 # thinking about groups and support systems or reflecting as a group.
+#
+# See ExportNotesSample for coding.
 class NotesReview
   def initialize(options = {})
     @log = options.fetch(:log, STDOUT)

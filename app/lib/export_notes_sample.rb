@@ -1,4 +1,6 @@
 # This is intended for use in a one-off analysis task.
+#
+# See NotesReview for group reflection.
 class ExportNotesSample
   # This doesn't do any authorization checks.
   def unsafe_csv_without_authorization_checks(options = {})
@@ -16,24 +18,28 @@ class ExportNotesSample
       csv << []
       csv << [
         'event_note.id',
-        'event_note.is_restricted',
-        'event_note.event_note_type.name',
-        'event_note.text',
         'hash(event_note.educator_id)',
         'hash(event_note.student.id)',
         'hash(event_note.student.school_id)',
-        'event_note.student.id'
+        'hash(bucket)',
+        'event_note.student.id',
+
+        'event_note.is_restricted',
+        'event_note.event_note_type.name',
+        'event_note.text',
       ]
       sampled_event_notes.each do |event_note|
         csv << [
           event_note.id,
-          event_note.is_restricted,
-          event_note.event_note_type.name,
-          event_note.text.gsub(/\n/, ' '),
           hash(event_note.educator_id),
           hash(event_note.student.id),
           hash(event_note.student.school_id),
-          event_note.student.id
+          hash([event_note.student.school_id, event_note.student.grade].join(':')),
+          event_note.student.id,
+
+          event_note.is_restricted,
+          event_note.event_note_type.name,
+          event_note.text.gsub(/\n/, ' ')
         ]
       end
     end
@@ -53,8 +59,8 @@ class ExportNotesSample
     # Query in time range
     event_notes = EventNote.all
       .where('recorded_at > ?', start_date)
-      .where('recorded_at < ?', end_date
-      .advance(days: 1)).includes(:educator)
+      .where('recorded_at < ?', end_date.advance(days: 1))
+      .includes(:educator)
     total_count = event_notes.size
 
     # Sample within that, deterministically
