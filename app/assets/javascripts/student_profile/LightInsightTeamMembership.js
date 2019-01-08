@@ -11,7 +11,6 @@ export default class LightInsightTeamMembership extends React.Component {
     const {insightPayload, firstName} = this.props;
     const team = insightPayload;
     const isOrWas = team.active ? 'is' : 'was';
-    const when = team.active ? null : `During the ${team.season_key} season, `;
     return (
       <LightInsightQuote
         className="LightInsightTeamMembership"
@@ -20,7 +19,7 @@ export default class LightInsightTeamMembership extends React.Component {
             minFontSize={12}
             maxFontSize={42}
             fontSizeStep={6}
-            text={<span>{when}{firstName} {isOrWas} on the <Team team={team} /> team</span>}
+            text={<span>{firstName} {isOrWas} on the <Team team={team} /> team</span>}
           />
         }
         sourceEl={
