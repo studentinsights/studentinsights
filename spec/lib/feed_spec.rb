@@ -42,9 +42,9 @@ RSpec.describe Feed do
   describe '#merge_sort_and_limit_cards' do
     it 'works correctly' do
       card_sets = [
-        [test_card('3/5'), test_card('3/7'), test_card('3/9')],
-        [test_card('3/4'), test_card('3/5'), test_card('3/8')],
-        [test_card('3/1'), test_card('3/2'), test_card('3/6')]
+        [test_card('2018-03-05'), test_card('2018-03-07'), test_card('2018-03-09')],
+        [test_card('2018-03-04'), test_card('2018-03-05'), test_card('2018-03-08')],
+        [test_card('2018-03-01'), test_card('2018-03-02'), test_card('2018-03-06')]
       ]
       feed = feed_for(pals.shs_jodi)
       expect(feed.merge_sort_and_limit_cards(card_sets, 2).as_json).to eq [
