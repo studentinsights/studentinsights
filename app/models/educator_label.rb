@@ -22,7 +22,7 @@ class EducatorLabel < ApplicationRecord
         'should_show_levels_shs_link',
         'enable_searching_notes',
         'profile_enable_minimal_reading_data',
-        'enable_viewing_504_data_in_profile',
+        'enable_viewing_504_data_in_profile', # deprecated
         'can_mark_notes_as_restricted'
       ]
     }

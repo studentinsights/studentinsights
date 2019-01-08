@@ -131,12 +131,9 @@ describe ProfileController, :type => :controller do
         create_ed_plan!(sep_status: 4, sep_oid: 'test-sep-discarded')
         create_ed_plan!(sep_status: 2, sep_oid: 'test-sep-previous')
         create_ed_plan!(sep_status: 0, sep_oid: 'test-sep-draft')
-        EducatorLabel.create!({
-          educator: pals.uri,
-          label_key: 'enable_viewing_504_data_in_profile'
-        })
         sign_in(pals.uri)
         make_request(pals.uri, pals.healey_kindergarten_student.id)
+        
         expect(response.status).to eq 200
         json = JSON.parse(response.body)
         expect(json['ed_plans'].size).to eq(0)
@@ -144,10 +141,6 @@ describe ProfileController, :type => :controller do
 
       it 'works when enabled' do
         create_ed_plan!
-        EducatorLabel.create!({
-          educator: pals.uri,
-          label_key: 'enable_viewing_504_data_in_profile'
-        })
         sign_in(pals.uri)
         make_request(pals.uri, pals.healey_kindergarten_student.id)
         expect(response.status).to eq 200
