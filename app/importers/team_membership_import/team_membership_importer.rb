@@ -1,4 +1,8 @@
 # Load spreadsheet on athletic enrollment
+#
+# Example:
+# importer = TeamMembershipImporter.new(file_text)
+# records = importer.create_from_text!
 class TeamMembershipImporter
   def initialize(file_text, options = {})
     @file_text = file_text
@@ -13,7 +17,8 @@ class TeamMembershipImporter
     columns_map = {
       activity_text: 'Activity',
       coach_text: 'Coach',
-      school_year_text: 'School_Year'
+      school_year_text: 'School_Year',
+      season_key: 'Season'
     }
     create_streaming_csv.each_with_index do |row, index|
       student_local_id = row['ID'] # lasid
@@ -57,7 +62,7 @@ class TeamMembershipImporter
     student_id = Student.find_by_local_id(student_local_id).try(:id)
     if student_id.nil?
       @invalid_student_local_id_count += 1
-      @invalid_student_lodal_ids_list << student_local_id
+      @invalid_student_local_ids_list << student_local_id
       return nil
     end
 
@@ -69,7 +74,7 @@ class TeamMembershipImporter
       created_records_count: @created_records_count,
       invalid_row_columns_count: @invalid_row_columns_count,
       invalid_student_local_id_count: @invalid_student_local_id_count,
-      invalid_student_lodal_ids_list: @invalid_student_lodal_ids_list
+      invalid_student_local_ids_list: @invalid_student_local_ids_list
     }
   end
 
@@ -77,6 +82,6 @@ class TeamMembershipImporter
     @created_records_count = 0
     @invalid_row_columns_count = 0
     @invalid_student_local_id_count = 0
-    @invalid_student_lodal_ids_list = []
+    @invalid_student_local_ids_list = []
   end
 end

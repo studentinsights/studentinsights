@@ -17,7 +17,7 @@ class ProfileController < ApplicationController
       service_types_index: ServiceSerializer.service_types_index,
       educators_index: Educator.to_index,
       access: student.access,
-      teams: ENV.fetch('SHOULD_SHOW_TEAM_ICONS', false) ? student.teams.as_json(only: [:activity_text, :coach_text]) : [],
+      teams: teams_json(student),
       ed_plans: ed_plans_json(student),
       profile_insights: ProfileInsights.new(student).as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
@@ -95,6 +95,14 @@ class ProfileController < ApplicationController
         interventions: student.interventions.map { |intervention| DeprecatedInterventionSerializer.new(intervention).serialize_intervention }
       }
     }
+  end
+
+  def teams_json(student)
+    return [] unless ENV.fetch('SHOULD_SHOW_TEAM_ICONS', false)
+    student.teams.as_json({
+      only: [:activity_text, :coach_text, :season_key, :school_year_text],
+      methods: [:active]
+    })
   end
 
   def filtered_events(mixed_events, options = {})

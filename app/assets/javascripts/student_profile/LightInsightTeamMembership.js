@@ -10,7 +10,7 @@ export default class LightInsightTeamMembership extends React.Component {
   render() {
     const {insightPayload, firstName} = this.props;
     const team = insightPayload;
-
+    const isOrWas = team.active ? 'is' : 'was';
     return (
       <LightInsightQuote
         className="LightInsightTeamMembership"
@@ -19,10 +19,15 @@ export default class LightInsightTeamMembership extends React.Component {
             minFontSize={12}
             maxFontSize={42}
             fontSizeStep={6}
-            text={<span>{firstName} is on the <Team team={team} /> team</span>}
+            text={<span>{firstName} {isOrWas} on the <Team team={team} /> team</span>}
           />
         }
-        sourceEl={<div>with coach {team.coach_text}</div>}
+        sourceEl={
+          <div>
+            <div>with coach {team.coach_text}</div>
+            <div>during the {team.season_key} season</div>
+          </div>
+        }
       />
     );
   }
@@ -31,7 +36,9 @@ LightInsightTeamMembership.propTypes = {
   firstName: PropTypes.string.isRequired,
   insightPayload: PropTypes.shape({
     activity_text: PropTypes.string.isRequired,
-    coach_text: PropTypes.string.isRequired
+    season_key: PropTypes.string.isRequired,
+    coach_text: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired
   }).isRequired
 };
 

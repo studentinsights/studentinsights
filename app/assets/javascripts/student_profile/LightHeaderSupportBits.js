@@ -120,6 +120,7 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
+  // Include all teams, not just active
   renderCoaches() {
     const {teams} = this.props;
     const coachNames = _.uniq(_.compact(teams.map(team => team.coach_text)));
@@ -129,7 +130,7 @@ export default class LightHeaderSupportBits extends React.Component {
       <div style={styles.contactItem}>
         <div>Team coaches:</div>
         {teams.map(team=> (
-          <div key={team.activity_text}>{team.coach_text} for <Team team={team} /></div>
+          <div key={team.activity_text}>{team.coach_text} for <Team team={team} /> in the {team.season_key} season</div>
         ))}
       </div>
     );

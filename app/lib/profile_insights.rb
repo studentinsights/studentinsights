@@ -4,8 +4,8 @@ class ProfileInsights
     @time_now = options.fetch(:time_now, Time.now)
   end
 
-  def as_json
-    student_voice_survey_insights + transition_note_profile_insights + team_membership_insights
+  def as_json(options = {})
+    (student_voice_survey_insights + transition_note_profile_insights + team_membership_insights).as_json(options)
   end
 
   private
@@ -53,7 +53,10 @@ class ProfileInsights
 
   def team_membership_insights
     @student.teams(time_now: @time_now).map do |team|
-      ProfileInsight.new('team_membership', team.as_json(only: [:activity_text, :coach_text]))
+      ProfileInsight.new('team_membership', team.as_json({
+        only: [:activity_text, :coach_text, :season_key, :school_year_text],
+        methods: [:active]
+      }))
     end
   end
 
