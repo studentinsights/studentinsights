@@ -89,9 +89,7 @@ class Rack::Attack
   # Block all requests from known data centers, unless the path is in the whitelist
   # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
   blocklist('req/datacenter') do |req|
-    if parsed_config.fetch('whitelisted_paths_for_datacenters', []).includes?(req.fullpath)
-      return
-    end
+    next if parsed_config.fetch('whitelisted_paths_for_datacenters', []).include?(req.path)
 
     datacenter_name = IPCat.datacenter?(req.ip).try(:name)
     if datacenter_name.present?

@@ -94,6 +94,8 @@ Rails.application.routes.draw do
   # is service working?
   get '/api/is_service_working_json/:service_type_id/' => 'is_service_working#is_service_working_json'
 
+  # for reciving data synced from other services
+  post '/api/sync/push' => 'sync#push'
 
   ### internal
   # login activity security monitoring
