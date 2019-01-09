@@ -14,7 +14,7 @@ RSpec.describe TeamMembershipImporter do
         :created_records_count => 2,
         :invalid_row_columns_count => 0,
         :invalid_student_local_id_count => 0,
-        :invalid_student_lodal_ids_list => []
+        :invalid_student_local_ids_list => []
       })
       expect(TeamMembership.all.size).to eq 2
       expect(pals.shs_freshman_mari.teams(time_now: time_now).as_json(except: [:id, :created_at, :updated_at])).to eq([{
