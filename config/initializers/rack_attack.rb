@@ -10,6 +10,7 @@ class Rack::Attack
       "login_path":"/educators/sign_in",
       "multifactor_path":"/educators/multifactor",
       "whitelisted_ips": ["127.0.0.77"],
+      "whitelisted_paths_for_datacenters": [],
       "req/ip": {
         "limit": 300,
         "period_seconds": 300
@@ -85,9 +86,13 @@ class Rack::Attack
   # Throttling requires a cache
   set_cache_from_config!
 
-  # Block all requests from known data centers
+  # Block all requests from known data centers, unless the path is in the whitelist
   # See https://kickstarter.engineering/rack-attack-protection-from-abusive-clients-4c188496293b
   blocklist('req/datacenter') do |req|
+    if parsed_config.fetch('whitelisted_paths_for_datacenters', []).includes?(req.fullpath)
+      return
+    end
+
     datacenter_name = IPCat.datacenter?(req.ip).try(:name)
     if datacenter_name.present?
       Rails.logger.warn "Rack::Attack req/datacenter matched `#{datacenter_name}`"
