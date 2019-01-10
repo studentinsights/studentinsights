@@ -54,7 +54,6 @@ As Mica Pollock said before us, [it takes a network]({{site.links.takes_a_networ
 <img src="https://avatars0.githubusercontent.com/u/14283667?s=115&v=4" />
 <img src="https://avatars0.githubusercontent.com/u/10509931?s=115&v=4" />
 <img src="https://avatars2.githubusercontent.com/u/11449339?s=115&v=4" />
-<img src="https://avatars1.githubusercontent.com/u/330247?s=115&v=4" />
 <img src="https://avatars1.githubusercontent.com/u/7103652?s=115&v=4" />
 <img src="https://avatars2.githubusercontent.com/u/13981224?s=115&v=4" />
 <img src="https://avatars0.githubusercontent.com/u/2357755?s=115&v=4" />

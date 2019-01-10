@@ -90,7 +90,7 @@ We also worked with folks in the central office who coordinate summer services, 
 
 <div class="SingleImage SingleImage-side-margin SingleImage-cap-size">
   <a href="img/our-work/services.png" data-lightbox="services">
-    <img src="img/our-work/services.png" alt="Student involvement/Services, an example is &quot;Boston Breakthrough, started July 2, 2018 a month and ended August 10, 2018&quot;"/></a>
+    <img src="img/our-work/services.png" height="300" alt="Student involvement/Services, an example is &quot;Boston Breakthrough, started July 2, 2018 a month and ended August 10, 2018&quot;"/></a>
 </div>
 
 
