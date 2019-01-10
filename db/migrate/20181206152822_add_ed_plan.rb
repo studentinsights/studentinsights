@@ -1,4 +1,4 @@
-class EdPlan < ActiveRecord::Migration[5.2]
+class AddEdPlan < ActiveRecord::Migration[5.2]
   def change
     create_table :ed_plans do |t|
       t.text :sep_oid, null: false, unique: true
