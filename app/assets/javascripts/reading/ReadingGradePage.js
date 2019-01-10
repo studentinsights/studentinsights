@@ -370,14 +370,6 @@ function describeColumns(districtKey, grade, nowMoment) {
     width: 200,
     style: styles.cell
   }, {
-    label: <span>MTSS,<br/>2 years</span>,
-    dataKey: 'mtss',
-    cellRenderer({rowData}) {
-      return renderMtss(rowData.mtss, nowMoment);
-    },
-    width: 60,
-    style: styles.cell
-  }, {
     label: '504',
     dataKey: 'plan_504',
     cellRenderer({rowData}) {
@@ -436,7 +428,15 @@ function describeColumns(districtKey, grade, nowMoment) {
         </PerDistrictContainer>
       );
     },
-    width: 120,
+    width: 100,
+    style: styles.cell
+  }, {
+    label: <span>MTSS,<br/>2 years</span>,
+    dataKey: 'mtss',
+    cellRenderer({rowData}) {
+      return renderMtss(rowData.mtss, nowMoment);
+    },
+    width: 100,
     style: styles.cell
   }, {
     label: <span>F&P,<br/>latest</span>,
@@ -506,7 +506,8 @@ function describeColumns(districtKey, grade, nowMoment) {
         </div>
       );
     },
-    width: 70,
+    // width: 70,
+    width: 30,
     style: styles.cell
   // }, {
     // label: 'DIBELS Composite (Gr2 Spring)',
