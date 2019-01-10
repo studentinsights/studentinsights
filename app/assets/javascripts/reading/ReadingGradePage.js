@@ -10,6 +10,8 @@ import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {hasActive504Plan} from '../helpers/PerDistrict';
 import {hasAnySpecialEducationData} from '../helpers/specialEducation';
 import {isEnglishLearner, accessLevelNumber} from '../helpers/language';
+import {toMomentFromRailsDate} from '../helpers/toMoment';
+import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import GenericLoader from '../components/GenericLoader';
@@ -26,7 +28,7 @@ import DownloadCsvLink from '../components/DownloadCsvLink';
 import IepDialog from './IepDialog';
 import LanguageStatusLink from '../student_profile/LanguageStatusLink'; // TODO import path
 import EdPlansPanel from '../student_profile/EdPlansPanel'; // TODO import path
-
+import {inferNeed} from './inferNeed';
 
 export default class ReadingGradePage extends React.Component {
   constructor(props) {
@@ -130,7 +132,9 @@ export class ReadingGradePageView extends React.Component {
       dibels(student) { return latestDibels(student); },
       f_and_p(student) { return latestFAndP(student) || ''; },
       star_reading(student) { return latestStar(student); },
-      dibels_grade_3_fall_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc') || 0); },
+      dibels_grade_3_fall_dibels_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_wpm') || 0); },
+      dibels_grade_1_spring_dibels_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_wpm') || 0); },
+      dibels_grade_3_fall_dibels_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc') || 0); },
       dibels_grade_1_spring_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_acc') || 0); },
       instructional_general(student) { return parseInstructionalFocus(student)[0]; },
       instructional_specific(student) { return parseInstructionalFocus(student)[1]; }
@@ -200,12 +204,12 @@ export class ReadingGradePageView extends React.Component {
   }
 
   renderTable(students) {
-    const {districtKey} = this.context;
+    const {nowFn, districtKey} = this.context;
     const {grade} = this.props;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(this.filteredStudents(students));
     const rowHeight = 40; // for two lines of student names
-    const columns = describeColumns(districtKey, grade);
+    const columns = describeColumns(districtKey, grade, nowFn());
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -237,9 +241,9 @@ export class ReadingGradePageView extends React.Component {
   // can be lazy about rendering the actual download link (which is expensive) and defer that
   // until the user expresses intent to download.  This adds an extra UX step to the download to do that.
   renderDownloadLink(students) {
-    const {districtKey} = this.context;
+    const {districtKey, nowFn} = this.context;
     const {grade} = this.props;
-    const columns = describeColumns(districtKey, grade);
+    const columns = describeColumns(districtKey, grade, nowFn());
     const {isDownloadOpen} = this.state;
 
     return (
@@ -347,7 +351,6 @@ function tryLatest(key, list) {
   return obj ? obj[key] : null;
 }
 
-
 function latestDibels(student) {
   return tryLatest('benchmark', student.dibels_results);
 }
@@ -358,7 +361,7 @@ function latestStar(student) {
   return tryLatest('percentile_rank', student.star_reading_results);
 }
 
-function describeColumns(districtKey, grade) {
+function describeColumns(districtKey, grade, nowMoment) {
   return [{
     label: 'Name',
     dataKey: 'name',
@@ -367,9 +370,11 @@ function describeColumns(districtKey, grade) {
     width: 200,
     style: styles.cell
   }, {
-    label: <span>MTSS, year</span>,
+    label: <span>MTSS,<br/>2 years</span>,
     dataKey: 'mtss',
-    cellRenderer({rowData}) { return badge(rowData.mtss.length > 0, <span style={{textDecoration: 'underline'}}>MTSS</span>); },
+    cellRenderer({rowData}) {
+      return renderMtss(rowData.mtss, nowMoment);
+    },
     width: 60,
     style: styles.cell
   }, {
@@ -478,7 +483,7 @@ function describeColumns(districtKey, grade) {
     width: 120,
     style: styles.cell
   }, {
-    label: <span>Instructional<br/>focus</span>,
+    label: <span>General need,<br/>from data</span>,
     dataKey: 'instructional_specific',
     cellRenderer({rowData}) {
       const [general, specific] = parseInstructionalFocus(rowData);
@@ -492,11 +497,11 @@ function describeColumns(districtKey, grade) {
     style: styles.cell
   }, {
     label: '',
-    dataKey: 'instructional_specific',
+    dataKey: 'instructional_general',
     cellRenderer({rowData}) {
       const [general, specific] = parseInstructionalFocus(rowData);
       return (
-        <div style={{color: '#333', fontSize: 12, height: '100%'}}>
+        <div style={{color: '#333', fontSize: 12}}>
           <div>{general}</div>
         </div>
       );
@@ -509,38 +514,52 @@ function describeColumns(districtKey, grade) {
     // cellRenderer({rowData}) { return latestDibels(rowData); },
     // width: 100,
     // style: styles.cell
-  }, {
-    label: '',
-    dataKey: 'dibels_grade_1_spring_dorf_acc',
-    cellRenderer({rowData}) {
-      return <span style={{
-        justifyContent: 'flex-end',
-        display: 'flex',
-        flex: 1,
-        paddingRight: 10
-      }}>{tryDibels(rowData.dibels, '1', 'spring', 'dibels_dorf_acc')}</span>;
-    },
-    width: 100,
-    style: styles.cell
-  }, {
-    label: <span>DORF ACC,<br/>2 years</span>,
-    dataKey: 'dibels_grade_3_fall_dorf_acc',
-    cellRenderer({rowData}) { return dibelsSparkline(rowData.dibels); },
-    width: 110,
-    style: styles.cell
-  }, {
-    label: '',
-    dataKey: 'dibels_grade_3_fall_dorf_acc',
-    cellRenderer({rowData}) {
-      const value = tryDibels(rowData.dibels, '3', 'fall', 'dibels_dorf_acc');
-      const aboveBenchmark = (value >= 70);
-      const belowRisk = (value <= 55);
-      const color = aboveBenchmark ? '#85b985' : belowRisk ? 'orange' : '#ccc';
-      return <span style={{fontWeight: 'bold', color, padding: 10, width: '2.5em', textAlign: 'center'}}>{value}</span>;
-    },
-    width: 100,
-    style: styles.cell
-  }, {
+  }].concat(dibelsColumns({
+    dibelsKey: 'dibels_dorf_wpm',
+    title: 'DORF WPM',
+    benchmark: 70,
+    risk: 55,
+    domain: [0, 180]
+  })).concat(window.location.search.indexOf('dibels') !== -1 ? dibelsColumns({
+    dibelsKey: 'dibels_dorf_acc',
+    title: 'DORF ACC',
+    benchmark: 99,
+    risk: 96,
+    domain: [0, 100]
+  }) : []).concat([{
+
+  // {
+  //   label: '',
+  //   dataKey: 'dibels_grade_1_spring_dorf_wpm',
+  //   cellRenderer({rowData}) {
+  //     return <span style={{
+  //       justifyContent: 'flex-end',
+  //       display: 'flex',
+  //       flex: 1,
+  //       paddingRight: 10
+  //     }}>{tryDibels(rowData.dibels, '1', 'spring', 'dibels_dorf_wpm')}</span>;
+  //   },
+  //   width: 100,
+  //   style: styles.cell
+  // }, {
+  //   label: <span>DORF WPM,<br/>2 years</span>,
+  //   dataKey: 'dibels_grade_3_fall_dorf_wpm',
+  //   cellRenderer({rowData}) { return dibelsSparkline(rowData.dibels); },
+  //   width: 110,
+  //   style: styles.cell
+  // }, {
+  //   label: '',
+  //   dataKey: 'dibels_grade_3_fall_dorf_wpm',
+  //   cellRenderer({rowData}) {
+  //     const value = tryDibels(rowData.dibels, '3', 'fall', 'dibels_dorf_wpm');
+  //     const aboveBenchmark = (value >= 70);
+  //     const belowRisk = (value <= 55);
+  //     const color = aboveBenchmark ? '#85b985' : belowRisk ? 'orange' : '#ccc';
+  //     return <span style={{fontWeight: 'bold', color, padding: 10, width: '2.5em', textAlign: 'center'}}>{value}</span>;
+  //   },
+  //   width: 100,
+  //   style: styles.cell
+  // }, {
     label: <span>STAR,<br/>latest</span>,
     dataKey: 'star_reading',
     cellRenderer({rowData}) {
@@ -553,7 +572,7 @@ function describeColumns(districtKey, grade) {
     },
     width: 100,
     style: styles.cell
-  }];
+  }]);
 }
 
 
@@ -582,24 +601,25 @@ function tryDibels(dibels, grade, assessmentPeriod, assessmentKey) {
 }
 
 
-function dibelsSparkline(dibels) {
+function dibelsSparkline(params = {}) {
+  const {dibels, dibelsKey, benchmark, risk, domain} = params;
   const width = 100;
   const height = 40;
   const yPad = 5;
 
   const values = [
-    tryDibels(dibels, '1', 'spring', 'dibels_dorf_acc'),
-    tryDibels(dibels, '2', 'fall', 'dibels_dorf_acc'),
-    tryDibels(dibels, '2', 'winter', 'dibels_dorf_acc'),
-    tryDibels(dibels, '2', 'spring', 'dibels_dorf_acc'),
-    tryDibels(dibels, '3', 'fall', 'dibels_dorf_acc')
+    tryDibels(dibels, '1', 'spring', dibelsKey),
+    tryDibels(dibels, '2', 'fall', dibelsKey),
+    tryDibels(dibels, '2', 'winter', dibelsKey),
+    tryDibels(dibels, '2', 'spring', dibelsKey),
+    tryDibels(dibels, '3', 'fall', dibelsKey)
   ];
 
   const x = d3.scale.linear()
     .domain([0, values.length - 1])
     .range([0, width]);
   const y = d3.scale.linear()
-    .domain([0, 180])
+    .domain(domain)
     .range([height - yPad, yPad]);
 
   const line = d3.svg.area()
@@ -619,8 +639,8 @@ function dibelsSparkline(dibels) {
   // const color = isGrowing ? 'green' : '#666';
 
   // third grade dorf wpm
-  const aboveBenchmark = (_.last(_.compact(values)) >= 70);
-  const belowRisk = (_.last(_.compact(values)) <= 55);
+  const aboveBenchmark = (_.last(_.compact(values)) >= benchmark);
+  const belowRisk = (_.last(_.compact(values)) <= risk);
   const strokeWidth = 1;
   const color = aboveBenchmark ? '#85b985' : belowRisk ? 'orange' : '#ccc';
   return (
@@ -679,8 +699,89 @@ function sampleInstructionalFocus(student) {
 }
 
 function parseInstructionalFocus(rowData) {
-  if (window.location.search.indexOf('instruction') === -1) {
-    return [null, null];
-  }
-  return rowData.instructional_focus.split(': ');
+  const inference = inferNeed(rowData);
+  // return [null, <span title={inference.why}>{inference.need.toLowerCase()}</span>];
+  return [null, inference.need.toLowerCase()];
+
+  // if (window.location.search.indexOf('instruction') === -1) {
+  //   return [null, null];
+  // }
+  // return rowData.instructional_focus.split(': ');
+}
+
+
+function dibelsColumns(params = {}) {
+  const {dibelsKey, title, benchmark, risk, domain} = params;
+  return [{
+    label: '',
+    dataKey: `dibels_grade_1_spring_${dibelsKey}`,
+    cellRenderer({rowData}) {
+      return <span style={{
+        justifyContent: 'flex-end',
+        display: 'flex',
+        flex: 1,
+        paddingRight: 5,
+        height: '100%',
+        paddingBottom: 2,
+        fontSize: 10,
+        opacity: 0.50,
+        color: '#333',
+        alignItems: 'flex-end'
+      }}>{tryDibels(rowData.dibels, '1', 'spring', dibelsKey)}</span>;
+    },
+    width: 100,
+    style: styles.cell
+  }, {
+    label: <span>{title},<br/>2 years</span>,
+    dataKey: `dibels_grade_3_fall_${dibelsKey}`,
+    cellRenderer({rowData}) {
+      return dibelsSparkline({
+        dibels: rowData.dibels,
+        dibelsKey,
+        domain,
+        benchmark,
+        risk
+      });
+    },
+    width: 110,
+    style: styles.cell
+  }, {
+    label: '',
+    dataKey: `dibels_grade_3_fall_${dibelsKey}`,
+    cellRenderer({rowData}) {
+      const value = tryDibels(rowData.dibels, '3', 'fall', dibelsKey);
+      const aboveBenchmark = (value >= benchmark);
+      const belowRisk = (value <= risk);
+      const color = aboveBenchmark ? '#85b985' : belowRisk ? 'orange' : '#ccc';
+      return <span style={{
+        display: 'flex',
+        fontWeight: 'bold',
+        color,
+        paddingLeft: 5,
+        width: '2.5em',
+        textAlign: 'center',
+        height: '100%',
+        paddingBottom: 2,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-start'
+      }}>{value}</span>;
+    },
+    width: 100,
+    style: styles.cell
+  }];
+}
+
+
+function renderMtss(mtssList, nowMoment) {
+  if (mtssList.length === 0) return null;
+
+  // this school year and 2 years back
+  const startOfSchoolYearMoment = firstDayOfSchool(toSchoolYear(nowMoment.toDate()) - 2);
+  const mtssMoments = mtssList.map(mtss => toMomentFromRailsDate(mtss.recorded_at));
+  const mtssMomentsThisYear = mtssMoments.filter(mtssMoment => mtssMoment.isAfter(startOfSchoolYearMoment));
+  const latestMtssMoment = _.last(mtssMomentsThisYear.sort());
+  if (!latestMtssMoment) return null;
+
+  // const text = nowMoment.diff(toMomentFromRailsDate(mtss.recorded_at), 'days');
+  return <a href="#">{latestMtssMoment.format('M/D/YY')}</a>;
 }
