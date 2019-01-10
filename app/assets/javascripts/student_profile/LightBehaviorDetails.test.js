@@ -83,7 +83,7 @@ it('always hides older data by default', () => {
   expect($(el).text()).toContain('A note about student privacy');
   expect($(el).html()).toContain('Something happened recently');
   expect($(el).html()).not.toContain('Something else happened a long time ago...');
-  expect($(el).find('svg').length).toEqual(1);
+  expect($(el).find('svg').length).toEqual(2); //now also renders a heatmap element
   // test setup isn't working for highcharts contents
 });
 
