@@ -31,7 +31,7 @@ export default class IncidentHeatmap extends React.Component {
       <DashboardScatterPlot
         id={"string"}
         animation={false}
-        titleText={null}
+        titleText={"Incidents by Day and Time"}
         categories={{categories: categories}}
         seriesData={seriesData}
         yAxisMin={420}

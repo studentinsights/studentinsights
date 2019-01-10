@@ -20,7 +20,7 @@ export default class DashboardScatterPlot extends React.Component{
   }
 
   gutterFormatter() {
-    return "After Hours / Not Recorded";
+    return "After Hours";
   }
 
   toolTipFormatter() {
@@ -68,7 +68,6 @@ export default class DashboardScatterPlot extends React.Component{
               color: 'rgba(241, 254, 198, 0.5)',
               from: 900,
               to: 960,
-              // label: {text: "After Hours / Not Recorded"}
             }]
           },
           {
