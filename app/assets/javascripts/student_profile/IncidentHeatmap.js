@@ -36,7 +36,7 @@ export default class IncidentHeatmap extends React.Component {
         seriesData={seriesData}
         yAxisMin={420}
         yAxisMax={960}
-        measureText={"placeholder"}
+        measureText={"Time of Incident"}
         tooltip={{pointFormat: '{point.time}'}}/>);
   }
 }

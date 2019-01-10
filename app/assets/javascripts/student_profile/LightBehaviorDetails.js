@@ -123,7 +123,7 @@ export default class LightBehaviorDetails extends React.Component {
   // color), just to mark this as different.
   renderIncidents(filteredDisciplineIncidents) {
     return (
-      <div>
+      <div className="IncidentHistory" style={{display: 'flex'}}>
         <div style={{width: '50%'}}>
           {filteredDisciplineIncidents.map(incident => (
             <IncidentCard
@@ -133,7 +133,7 @@ export default class LightBehaviorDetails extends React.Component {
             />
           ))}
         </div>
-        <div style={{width: '50%', float: 'right'}}>
+        <div>
           <IncidentHeatmap incidents={this.props.disciplineIncidents}/>
         </div>
       </div>
