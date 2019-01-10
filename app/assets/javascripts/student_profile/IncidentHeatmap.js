@@ -24,8 +24,9 @@ export default class IncidentHeatmap extends React.Component {
     const seriesData = this.props.incidents.map(incident => {
       const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
       const y = this.getincidentTimeAsMinutes(incident);
-      const time = moment.utc(incident.occurred_at).format("MM/DD/YYYY hh:mm a");
-      return {x, y, time};
+      const date = moment.utc(incident.occurred_at).format("MM/DD/YYYY");
+      const type = incident.incident_code;
+      return {x, y, date, type};
     });
     return(
       <DashboardScatterPlot
@@ -37,7 +38,7 @@ export default class IncidentHeatmap extends React.Component {
         yAxisMin={420}
         yAxisMax={960}
         measureText={"Time of Incident"}
-        tooltip={{pointFormat: '{point.time}'}}/>);
+        tooltip={{pointFormat: '{point.type} - {point.date}'}}/>);
   }
 }
 
