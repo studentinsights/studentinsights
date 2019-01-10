@@ -82,7 +82,7 @@ export default class DashboardScatterPlot extends React.Component{
             labels: {formatter: this.gutterFormatter},
             title: {text: undefined}
           }]}
-          tooltip={{formatter: this.toolTipFormatter}}
+          tooltip={this.props.tooltip === undefined ? {formatter: this.toolTipFormatter} : this.props.tooltip}
           series={[
             {
               showInLegend: false,
@@ -103,8 +103,8 @@ DashboardScatterPlot.propTypes = {
   yAxisMax: PropTypes.number,
   titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
-  tooltip: PropTypes.object.isRequired,
-  onZoom: PropTypes.func.isRequired,
+  tooltip: PropTypes.object, //optional to override default first and last name
+  onZoom: PropTypes.func, //callback ro change parent component when zoomed
   animation: PropTypes.bool,
   series: PropTypes.object,
 };

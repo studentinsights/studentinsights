@@ -416,10 +416,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const scatterPlotProps = {
       ...commonProps,
       measureText: "Time of Incident",
-      tooltip: {pointFormat: '<b>{point.last_name}, {point.first_name}</b>'},
       yAxisMin: 420, //7 AM
       yAxisMax: 960, // 4PM - leaving an hour for the gutter category
-      yAxisLabels: {format: '{value}'},
       onZoom: this.onZoom
     };
     return (

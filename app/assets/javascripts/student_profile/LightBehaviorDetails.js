@@ -6,6 +6,7 @@ import IncidentCard from '../feed/IncidentCard';
 import DetailsSection from './DetailsSection';
 import ProfileBarChart, {servicePhaselines} from './ProfileBarChart';
 import CleanSlateMessage from './CleanSlateMessage';
+import IncidentHeatmap from './IncidentHeatmap';
 
 
 export default class LightBehaviorDetails extends React.Component {
@@ -122,14 +123,19 @@ export default class LightBehaviorDetails extends React.Component {
   // color), just to mark this as different.
   renderIncidents(filteredDisciplineIncidents) {
     return (
-      <div style={{width: '50%'}}>
-        {filteredDisciplineIncidents.map(incident => (
-          <IncidentCard
-            key={incident.id}
-            style={{background: '#eee', marginBottom: 20}}
-            incidentCard={incident}
-          />
-        ))}
+      <div>
+        <div style={{width: '50%'}}>
+          {filteredDisciplineIncidents.map(incident => (
+            <IncidentCard
+              key={incident.id}
+              style={{background: '#eee', marginBottom: 20}}
+              incidentCard={incident}
+            />
+          ))}
+        </div>
+        <div style={{width: '50%', float: 'right'}}>
+          <IncidentHeatmap incidents={this.props.disciplineIncidents}/>
+        </div>
       </div>
     );
   }
