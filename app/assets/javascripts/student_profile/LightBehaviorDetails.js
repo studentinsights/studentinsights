@@ -133,7 +133,7 @@ export default class LightBehaviorDetails extends React.Component {
             />
           ))}
         </div>
-        <div>
+        <div style={{width: '50%'}}>
           <IncidentHeatmap incidents={this.props.disciplineIncidents}/>
         </div>
       </div>
