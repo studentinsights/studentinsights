@@ -405,7 +405,7 @@ function describeColumns(districtKey, grade, nowMoment) {
     label: <span>Homeroom</span>,
     dataKey: 'homeroom',
     cellRenderer({rowData}) {
-      return <span style={{fontSize: 12, opacity: 0.75, color: 'white', width: 80, paddingLeft: 5, paddingRight: 5, paddingTop: 3, paddingBottom: 3, backgroundColor: homeroomColor(rowData.homeroom.id)}}>{rowData.homeroom.educator.full_name.split(',')[0]}</span>;
+      return <span style={{textAlign: 'center', fontSize: 12, opacity: 0.75, color: 'white', width: 80, paddingLeft: 5, paddingRight: 5, paddingTop: 3, paddingBottom: 3, backgroundColor: homeroomColor(rowData.homeroom.id)}}>{rowData.homeroom.educator.full_name.split(',')[0]}</span>;
     },
     width: 100,
     style: styles.cell

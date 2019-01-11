@@ -57,6 +57,8 @@ export default class ReadingGroupingPage extends React.Component {
         grade={grade}
         classroomsCount={9}
         readingStudents={json.reading_students}
+        dibelsDataPoints={json.dibels_data_points}
+        mtssNotes={json.latest_mtss_notes}
       />
     );
   }
@@ -76,6 +78,20 @@ export class ReadingGroupingPageView extends React.Component {
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
+
+  withMerged(students) {
+    const {dibelsDataPoints, mtssNotes} = this.props;
+    const dibelsByStudentId = _.groupBy(dibelsDataPoints, 'student_id');
+    const mtssByStudentId = _.groupBy(mtssNotes, 'student_id');
+    return students.map(student => {
+      return {
+        ...student,
+        dibels: dibelsByStudentId[student.id] || [],
+        mtss: mtssByStudentId[student.id] || []
+      };
+    });
+  }
+
 
   onDragEnd(dragEndResult) {
     const {studentIdsByRoom} = this.state;
@@ -101,6 +117,7 @@ export class ReadingGroupingPageView extends React.Component {
   render() {
     const {readingStudents} = this.props;
     const {studentIdsByRoom} = this.state;
+    const students = this.withMerged(readingStudents);
 
     return (
       <div>
@@ -109,7 +126,7 @@ export class ReadingGroupingPageView extends React.Component {
           <div>
             {Object.keys(studentIdsByRoom).map(groupKey => {
               const studentsInRoom = studentIdsByRoom[groupKey].map(studentId => {
-                return _.find(readingStudents, { id: studentId });
+                return _.find(students, { id: studentId });
               });
               return this.renderRow(groupKey, studentsInRoom);
             })}
@@ -128,7 +145,7 @@ export class ReadingGroupingPageView extends React.Component {
         flexDirection: 'row',
         margin: 5
       }}>
-        {this.renderGroupName(groupKey)}
+        {this.renderGroupName(groupKey, studentsInGroup)}
         <Droppable
           droppableId={groupKey}
           direction="horizontal"
@@ -189,24 +206,44 @@ export class ReadingGroupingPageView extends React.Component {
   // }
 
 
-  renderGroupName(groupKey) {
+  renderGroupName(groupKey, studentsInGroup) {
+    const fAndPs = _.uniq(_.compact(studentsInGroup.map(latestFAndP))).sort();
+    const wpms = _.uniq(_.compact(studentsInGroup.map(student => tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_wpm')))).sort((a, b) => a - b);
+    const accs = _.uniq(_.compact(studentsInGroup.map(student => tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc')))).sort((a, b) => a - b);
+
+    const fakeNames = {
+      'room:unplaced': 'Not yet placed',
+      'room:0':'Bougas',
+      'room:1':'Garton',
+      'room:2':'Hermann',
+      'room:3':'Connoly',
+      'room:4':'Stern',
+      'room:5':'Robinson',
+      'room:7':'Buckwalter',
+      'room:6':'Harel',
+      'room:8':'Springsteen',
+      'room:9':'Miranda'
+    };
     return (
       <div style={{
         display: 'flex',
         padding: 5,
         fontSize: 12,
         marginBottom: 5,
-        background: '#ccc',
-        color: 'black'
+        marginRight: 5,
+        height: 64,
+        background: '#f8f8f8',
+        color: 'black',
+        border: '1px solid #eee'
       }}>
         <div style={{width: '8em'}}>
-          <div>K. Robinson</div>
+          <div>{fakeNames[groupKey]}</div>
           <div>5 x 30m</div>
-          <div>{groupKey}</div>
         </div>
-        <div style={{width: '8em', marginLeft: 10, borderLeft: '1px solid #aaa'}}>
-          <div>N - R</div>
-          <div>80 - 115</div>
+        <div style={{paddingLeft: 5, width: '10em', marginLeft: 10, borderLeft: '1px solid #ddd'}}>
+          <div>F&P: {fAndPs.join(' ')}</div>
+          <div>ACC: {range(accs)}</div>
+          <div>WPM: {range(wpms)}</div>
         </div>
       </div>
     );
@@ -265,7 +302,19 @@ ReadingGroupingPageView.propTypes = {
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired
   })).isRequired,
-  classroomsCount: PropTypes.number.isRequired
+  classroomsCount: PropTypes.number.isRequired,
+  dibelsDataPoints: PropTypes.arrayOf(PropTypes.shape({
+    student_id: PropTypes.number.isRequired,
+    grade: PropTypes.string.isRequired,
+    assessment_period: PropTypes.string.isRequired,
+    assessment_key: PropTypes.string.isRequired,
+    data_point: PropTypes.string.isRequired
+  })).isRequired,
+  mtssNotes: PropTypes.arrayOf(PropTypes.shape({
+    student_id: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    recorded_at: PropTypes.string.isRequired,
+  })).isRequired
 };
 
 
@@ -306,4 +355,40 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
       [destination.droppableId]: insertedInto(destinationStudentIds, destination.index, draggableStudentId)
     };
   }
+}
+
+
+
+// relies on already sorted
+function tryLatest(key, list) {
+  const obj = _.first(list);
+  return obj ? obj[key] : null;
+}
+
+function latestDibels(student) {
+  return tryLatest('benchmark', student.dibels_results);
+}
+function latestFAndP(student) {
+  return tryLatest('instructional_level', student.f_and_p_assessments);
+}
+function latestStar(student) {
+  return tryLatest('percentile_rank', student.star_reading_results);
+}
+
+function tryDibels(dibels, grade, assessmentPeriod, assessmentKey) {
+  const d = _.find(dibels, {
+    grade,
+    assessment_period: assessmentPeriod,
+    assessment_key: assessmentKey,
+  });
+
+  return d ? d.data_point : null;
+}
+
+
+
+function range(sortedValues) {
+  if (sortedValues.length === 0) return 'none';
+  if (sortedValues.length === 1) return _.first(sortedValues);
+  return `${_.first(sortedValues)} - ${_.last(sortedValues)}`;
 }
