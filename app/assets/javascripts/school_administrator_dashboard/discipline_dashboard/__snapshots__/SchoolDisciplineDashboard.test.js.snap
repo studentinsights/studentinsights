@@ -560,7 +560,7 @@ exports[`snapshots works for bedford 1`] = `
               </div>
             </div>
             <div
-              className="DashboardScatterPlot"
+              className="DisciplineScatterPlot"
               id="String"
               style={
                 Object {
@@ -1148,7 +1148,7 @@ exports[`snapshots works for demo 1`] = `
               </div>
             </div>
             <div
-              className="DashboardScatterPlot"
+              className="DisciplineScatterPlot"
               id="String"
               style={
                 Object {
@@ -1736,7 +1736,7 @@ exports[`snapshots works for new_bedford 1`] = `
               </div>
             </div>
             <div
-              className="DashboardScatterPlot"
+              className="DisciplineScatterPlot"
               id="String"
               style={
                 Object {
@@ -2324,7 +2324,7 @@ exports[`snapshots works for somerville 1`] = `
               </div>
             </div>
             <div
-              className="DashboardScatterPlot"
+              className="DisciplineScatterPlot"
               id="String"
               style={
                 Object {
