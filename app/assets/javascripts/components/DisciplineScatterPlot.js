@@ -58,8 +58,8 @@ export default class DisciplineScatterPlot extends React.Component{
           }}
           title={{text: this.props.titleText}}
           yAxis={[{
-            min: this.props.yAxisMin,
-            max: this.props.yAxisMax,
+            min: 420, //7 AM
+            max: 960, //3 PM plus a gutter category
             reversed: true,
             showLastLabel: false,
             tickInterval: 60,
