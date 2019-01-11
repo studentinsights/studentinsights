@@ -28,6 +28,8 @@ function testProps() {
   }]};
 }
 
+jest.mock('../components/HighchartsWrapper', () => 'highcharts-wrapper');
+
 it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();

@@ -101,7 +101,7 @@ it('renders a scatter plot', () => {
   const props = {school: testSchool()};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
-  expect(dash.find('DashboardScatterPlot').length > 0).toEqual(true);
+  expect(dash.find('DisciplineScatterPlot').length > 0).toEqual(true);
 });
 
 it('renders a student list', () => {
