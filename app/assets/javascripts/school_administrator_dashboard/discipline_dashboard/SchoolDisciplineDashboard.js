@@ -27,7 +27,7 @@ import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DisciplineScatterPlot from '../../components/DisciplineScatterPlot';
+import DisciplineScatterPlot, {getincidentTimeAsMinutes} from '../../components/DisciplineScatterPlot';
 import * as dashboardStyles from '../dashboardStyles';
 
 
@@ -100,18 +100,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     if (!incident.has_exact_time) return "Not Logged";
     if (!moment.utc(hour, timeFormat).isBetween(schoolStart, schoolEnd)) return "Other";
     return hour;
-  }
-
-  //highcharts will only accept number values as data this returns minutes since the day began.
-  getincidentTimeAsMinutes(incident) {
-    const time = moment.utc(incident.occurred_at).format("HH.mm").split(".");
-    const minutes = time[0] * 60 + time[1] * 1;
-    //Group all times outside of school hours or not recorded into one spot for a "gutter" category in highcharts
-    return this.areMinutesWithinSchoolHours(minutes) ? minutes : 930; // 4:30 - for gutter category
-  }
-
-  areMinutesWithinSchoolHours(minutes) {
-    return 420 < minutes && minutes < 900;
   }
 
   timeStampToDay(incident) {
@@ -191,7 +179,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const seriesData = incidents.map(incident => {
         const student_id = incident.student_id; //used to identify which points are in view when zoomed
         const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
-        const y = this.getincidentTimeAsMinutes(incident);
+        const y = getincidentTimeAsMinutes(incident);
         const first_name = studentsById[student_id][0].first_name;
         const last_name = studentsById[student_id][0].last_name;
         return {x, y, first_name, last_name, incident};
@@ -416,8 +404,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const scatterPlotProps = {
       ...commonProps,
       measureText: "Time of Incident",
-      yAxisMin: 420, //7 AM
-      yAxisMax: 960, // 4PM - leaving an hour for the gutter category
       onZoom: this.onZoom
     };
     return (

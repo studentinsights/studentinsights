@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 import hash from 'object-hash';
 
@@ -71,8 +72,8 @@ export default class DisciplineScatterPlot extends React.Component{
             }]
           },
           {
-            min: this.props.yAxisMin,
-            max: this.props.yAxisMax,
+            min: 420, //7 AM
+            max: 960, //3 PM plus a gutter category
             gridLineWidth: 0,
             linkedTo: 0,
             opposite: true,
@@ -94,12 +95,19 @@ export default class DisciplineScatterPlot extends React.Component{
   }
 }
 
+//Converts a time to minutes from midnight to order the Highcharts series
+export function  getincidentTimeAsMinutes(incident) {
+  const time = moment.utc(incident.occurred_at).format("HH.mm").split(".");
+  const minutes = time[0] * 60 + time[1] * 1;
+  const areMinutesWithinSchoolHours = 420 < minutes && minutes < 900;
+  //Group all times outside of school hours or not recorded into one spot for a "gutter" category in highcharts
+  return areMinutesWithinSchoolHours ? minutes : 930; // 4:30 - for gutter category
+}
+
 DisciplineScatterPlot.propTypes = {
   id: PropTypes.string.isRequired, // short string identifier for links to jump to
   categories: PropTypes.object.isRequired,  //Buckets used for X Axis
   seriesData: PropTypes.array.isRequired, // array of JSON event objects.
-  yAxisMin: PropTypes.number,
-  yAxisMax: PropTypes.number,
   titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
   tooltip: PropTypes.object, //optional to override default first and last name

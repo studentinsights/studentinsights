@@ -123,7 +123,7 @@ export default class LightBehaviorDetails extends React.Component {
   // color), just to mark this as different.
   renderIncidents(filteredDisciplineIncidents) {
     return (
-      <div className="IncidentHistory" style={{display: 'flex'}}>
+      <div style={{display: 'flex'}}>
         <div style={{width: '50%'}}>
           {filteredDisciplineIncidents.map(incident => (
             <IncidentCard
