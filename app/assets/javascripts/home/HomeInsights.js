@@ -16,7 +16,20 @@ class HomeInsights extends React.Component {
         {shouldShowLowGradesBox(educatorLabels) &&
           <CheckStudentsWithLowGrades educatorId={educatorId} />}
         <CheckStudentsWithHighAbsences educatorId={educatorId} />
+        {this.renderReading()}
         {this.renderPlaceholder()}
+      </div>
+    );
+  }
+
+  renderReading() {
+    return (
+      <div>
+        <div style={styles.cardTitle}>Winter reading benchmarks</div>
+        <Card style={{border: 'none'}}>
+          <div>It's benchmark reading time!</div>
+          <div>Enter your grade's data <a href="/schools/hea/reading/3/entry">here</a>, or read more <a href="#">here</a>.</div>
+        </Card>
       </div>
     );
   }
@@ -46,6 +59,14 @@ const styles = {
     marginTop: 20,
     border: '1px solid #ccc',
     borderRadius: 3
+  },
+  cardTitle: {
+    backgroundColor: '#eee',
+    padding: 10,
+    color: 'black',
+    borderBottom: '1px solid #ccc',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 };
 

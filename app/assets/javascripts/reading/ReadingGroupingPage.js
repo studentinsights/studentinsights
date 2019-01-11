@@ -213,12 +213,45 @@ export class ReadingGroupingPageView extends React.Component {
   }
 
   renderItem(student) {
+    // return (
+    //   <MockStudentPhoto
+    //     key={student.id}
+    //     style={{maxWidth: 64, maxHeight: 64, margin: 1}}
+    //     student={student}
+    //   />
+    // );
+
+    if (window.location.search.indexOf('names') !== -1) {
+      return (
+        <div style={{
+          width: 64,
+          height: 64,
+          fontSize: 12,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}>
+          <div>{student.first_name} {student.last_name.slice(0, 1)}</div>
+        </div>
+      );
+    }
+
+
     return (
-      <MockStudentPhoto
-        key={student.id}
-        style={{maxWidth: 64, maxHeight: 64, margin: 1}}
-        student={student}
-      />
+      <div style={{
+        width: 64,
+        height: 64,
+        position: 'relative',
+        marginRight: 1
+      }}>
+        <MockStudentPhoto
+          key={student.id}
+          style={{position: 'absolute', maxWidth: 64, maxHeight: 64}}
+          student={student}
+        />
+        <div style={{position: 'absolute', left: 2, bottom: 0, color: 'white', fontSize: 10}}>{student.first_name}</div>
+      </div>
     );
   }
 }

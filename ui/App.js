@@ -31,6 +31,7 @@ import SampleStudentsPage from '../app/assets/javascripts/sample_students/Sample
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import ReadingGradePage from '../app/assets/javascripts/reading/ReadingGradePage';
 import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
+import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
@@ -91,6 +92,7 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
         <Route exact path="/schools/:id/reading/:grade" render={this.renderReadingGradePage.bind(this)}/>
         <Route exact path="/schools/:id/reading/:grade/groups" render={this.renderReadingGroupingPage.bind(this)}/>
+        <Route exact path="/schools/:id/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
         <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
         <Route exact path="/students/:id" render={this.renderStudentProfilePage.bind(this)}/>
@@ -163,6 +165,12 @@ export default class App extends React.Component {
     const schoolId = routeProps.match.params.id;
     const grade = routeProps.match.params.grade;
     return <ReadingGroupingPage schoolId={schoolId} grade={grade} />;
+  }
+
+  renderReadingEntryPage(routeProps) {
+    const schoolId = routeProps.match.params.id;
+    const grade = routeProps.match.params.grade;
+    return <ReadingEntryPage schoolId={schoolId} grade={grade} />;
   }
 
   renderExploreSchoolEquityPage(routeProps) {

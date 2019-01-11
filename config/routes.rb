@@ -186,6 +186,7 @@ Rails.application.routes.draw do
       get 'equity/explore' => 'ui#ui'
       get 'reading/:grade' => 'ui#ui'
       get 'reading/:grade/groups' => 'ui#ui'
+      get 'reading/:grade/entry' => 'ui#ui'
     end
   end
 end
