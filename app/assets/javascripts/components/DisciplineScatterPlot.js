@@ -4,7 +4,7 @@ import HighchartsWrapper from '../components/HighchartsWrapper';
 import hash from 'object-hash';
 
 // Component for all charts in the dashboard page. Displays incidents by Day of Week and Time
-export default class DashboardScatterPlot extends React.Component{
+export default class DisciplineScatterPlot extends React.Component{
 
 //highcharts has trouble combining zoom with a render, so rendering is prevented unless the displayed data changes
   shouldComponentUpdate(nextProps) {
@@ -29,7 +29,7 @@ export default class DashboardScatterPlot extends React.Component{
 
   render() {
     return (
-      <div id={this.props.id} className="DashboardScatterPlot" style={styles.root}>
+      <div id={this.props.id} className="DisciplineScatterPlot" style={styles.root}>
         <HighchartsWrapper
           style={{flex: 1}}
           chart={{
@@ -94,7 +94,7 @@ export default class DashboardScatterPlot extends React.Component{
   }
 }
 
-DashboardScatterPlot.propTypes = {
+DisciplineScatterPlot.propTypes = {
   id: PropTypes.string.isRequired, // short string identifier for links to jump to
   categories: PropTypes.object.isRequired,  //Buckets used for X Axis
   seriesData: PropTypes.array.isRequired, // array of JSON event objects.
@@ -107,7 +107,7 @@ DashboardScatterPlot.propTypes = {
   animation: PropTypes.bool,
   series: PropTypes.object,
 };
-DashboardScatterPlot.defaultProps = {
+DisciplineScatterPlot.defaultProps = {
   animation: true
 };
 

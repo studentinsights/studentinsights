@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import DashboardScatterPlot from '../school_administrator_dashboard/DashboardScatterPlot';
+import DisciplineScatterPlot from '../components/DisciplineScatterPlot';
 
 export default class IncidentHeatmap extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class IncidentHeatmap extends React.Component {
       return {x, y, date, type};
     });
     return(
-      <DashboardScatterPlot
+      <DisciplineScatterPlot
         id={"string"}
         animation={false}
         titleText={"Incidents by Day and Time"}

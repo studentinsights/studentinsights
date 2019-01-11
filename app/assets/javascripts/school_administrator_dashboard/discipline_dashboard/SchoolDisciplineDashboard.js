@@ -27,7 +27,7 @@ import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DashboardScatterPlot from '../DashboardScatterPlot';
+import DisciplineScatterPlot from '../../components/DisciplineScatterPlot';
 import * as dashboardStyles from '../dashboardStyles';
 
 
@@ -422,7 +422,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
     };
     return (
       (selectedChart === 'scatter') ? (
-      <DashboardScatterPlot {...scatterPlotProps}/>
+      <DisciplineScatterPlot {...scatterPlotProps}/>
       ) : (
       <DashboardBarChart {...barChartProps}/>
       )
