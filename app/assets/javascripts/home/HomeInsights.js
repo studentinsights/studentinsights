@@ -24,7 +24,7 @@ class HomeInsights extends React.Component {
 
   renderReading() {
     return (
-      <div>
+      <div style={styles.card}>
         <div style={styles.cardTitle}>Winter reading benchmarks</div>
         <Card style={{border: 'none'}}>
           <div>It's benchmark reading time!</div>

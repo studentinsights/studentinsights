@@ -18,7 +18,8 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFromRight} from '../components/HelpBubble';
 import FilterBar from '../components/FilterBar';
-import StudentPhoto from '../components/StudentPhoto';
+import SelectHomeroomByEducator from '../components/SelectHomeroomByEducator';
+import {ALL} from '../components/SimpleFilterSelect';
 import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
@@ -86,17 +87,21 @@ export class ReadingEntryPageView extends React.Component {
       isDownloadOpen: false,
       sortBy: 'name',
       sortDirection: SortDirection.ASC,
-      searchText: ''
+      searchText: '',
+      homeroomId: ALL
     };
     this.onTableSort = this.onTableSort.bind(this);
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
+    this.onHomeroomChanged = this.onHomeroomChanged.bind(this);
   }
 
   filteredStudents(students) {
-    const {searchText} = this.state;
+    const {searchText, homeroomId} = this.state;
     return students.filter(student => {
-      return (`${student.first_name} ${student.last_name}`.toLowerCase().indexOf(searchText.toLowerCase()) !== -1);
+      if (`${student.first_name} ${student.last_name}`.toLowerCase().indexOf(searchText.toLowerCase()) === -1) return false;
+      if (homeroomId !== ALL && student.homeroom.id !== homeroomId) return false;
+      return true;
     });
   }
 
@@ -137,7 +142,8 @@ export class ReadingEntryPageView extends React.Component {
       dibels_grade_3_fall_dibels_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc') || 0); },
       dibels_grade_1_spring_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_acc') || 0); },
       instructional_general(student) { return parseInstructionalFocus(student)[0]; },
-      instructional_specific(student) { return parseInstructionalFocus(student)[1]; }
+      instructional_specific(student) { return parseInstructionalFocus(student)[1]; },
+      homeroom(student) { return student.homeroom.educator.full_name; }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);
@@ -168,6 +174,10 @@ export class ReadingEntryPageView extends React.Component {
     this.setState({searchText: e.target.value});
   }
 
+  onHomeroomChanged(homeroomId) {
+    this.setState({homeroomId});
+  }
+
   render() {
     const {readingStudents} = this.props;
     const students = this.withMerged(readingStudents);
@@ -188,6 +198,7 @@ export class ReadingEntryPageView extends React.Component {
     return (
       <FilterBar labelText="Filter by" style={{margin: 10}}>
         {this.renderSearch()}
+        {this.renderHomeroom()}
       </FilterBar>
     );
   }
@@ -200,6 +211,19 @@ export class ReadingEntryPageView extends React.Component {
         placeholder={`Name...`}
         value={searchText}
         onChange={this.onSearchChanged} />
+    );
+  }
+
+  renderHomeroom() {
+    const {readingStudents} = this.props;
+    const {homeroomId} = this.state;
+    const homerooms = _.uniqBy(readingStudents.map(s => s.homeroom), 'id');
+    return (
+      <SelectHomeroomByEducator
+        placeholder={`Homeroom...`}
+        homerooms={homerooms}
+        homeroomId={homeroomId}
+        onChange={this.onHomeroomChanged} />
     );
   }
 
@@ -362,12 +386,28 @@ function latestStar(student) {
 }
 
 function describeColumns(districtKey, grade, nowMoment) {
+  const homeroomColor = d3.scale.ordinal()
+    .range([
+      '#bcbddc',
+      '#9e9ac8',
+      '#807dba',
+      '#6a51a3',
+      '#4a1486'
+    ]);
   return [{
     label: 'Name',
     dataKey: 'name',
     cellRenderer: renderName,
     flexGrow: 1,
     width: 200,
+    style: styles.cell
+  }, {
+    label: <span>Homeroom</span>,
+    dataKey: 'homeroom',
+    cellRenderer({rowData}) {
+      return <span style={{fontSize: 12, opacity: 0.75, color: 'white', width: 80, paddingLeft: 5, paddingRight: 5, paddingTop: 3, paddingBottom: 3, backgroundColor: homeroomColor(rowData.homeroom.id)}}>{rowData.homeroom.educator.full_name.split(',')[0]}</span>;
+    },
+    width: 100,
     style: styles.cell
   }, {
     label: '504',
@@ -439,14 +479,6 @@ function describeColumns(districtKey, grade, nowMoment) {
     width: 100,
     style: styles.cell
   }, {
-    label: <span>Homeroom</span>,
-    dataKey: 'homroom',
-    cellRenderer({rowData}) {
-      return rowData.homeroom;
-    },
-    width: 100,
-    style: styles.cell
-  }, {
     label: <span>Engagement<br/><span style={{fontSize: 10, fontWeight: 'normal'}}>high, medium, low</span></span>,
     dataKey: 'f_and_p',
     cellRenderer({rowData}) {
@@ -479,7 +511,7 @@ function describeColumns(districtKey, grade, nowMoment) {
     width: 120,
     style: styles.cell
   }, {
-    label: <span>Specific instructional needs?</span>,
+    label: <span>What else?</span>,
     dataKey: 'instructional_specific',
     cellRenderer({rowData}) {
       return <input style={{fontSize: 12, padding: 3}} type="text"  />;

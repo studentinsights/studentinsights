@@ -167,6 +167,7 @@ export default class App extends React.Component {
     return <ReadingGroupingPage schoolId={schoolId} grade={grade} />;
   }
 
+
   renderReadingEntryPage(routeProps) {
     const schoolId = routeProps.match.params.id;
     const grade = routeProps.match.params.grade;

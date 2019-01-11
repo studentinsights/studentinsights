@@ -18,7 +18,8 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import {modalFromRight} from '../components/HelpBubble';
 import FilterBar from '../components/FilterBar';
-import StudentPhoto from '../components/StudentPhoto';
+import SelectHomeroomByEducator from '../components/SelectHomeroomByEducator';
+import {ALL} from '../components/SimpleFilterSelect';
 import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
@@ -86,7 +87,8 @@ export class ReadingGradePageView extends React.Component {
       isDownloadOpen: false,
       sortBy: 'name',
       sortDirection: SortDirection.ASC,
-      searchText: ''
+      searchText: '',
+      homeroomId: ALL
     };
     this.onTableSort = this.onTableSort.bind(this);
     this.onDownloadDialogToggled = this.onDownloadDialogToggled.bind(this);
@@ -137,7 +139,8 @@ export class ReadingGradePageView extends React.Component {
       dibels_grade_3_fall_dibels_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc') || 0); },
       dibels_grade_1_spring_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_acc') || 0); },
       instructional_general(student) { return parseInstructionalFocus(student)[0]; },
-      instructional_specific(student) { return parseInstructionalFocus(student)[1]; }
+      instructional_specific(student) { return parseInstructionalFocus(student)[1]; },
+      homeroom(student) { return student.homeroom.educator.full_name; }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);
@@ -200,6 +203,19 @@ export class ReadingGradePageView extends React.Component {
         placeholder={`Name...`}
         value={searchText}
         onChange={this.onSearchChanged} />
+    );
+  }
+
+  renderHomeroom() {
+    const {readingStudents} = this.props;
+    const {homeroomId} = this.state;
+    const homerooms = _.uniqBy(readingStudents.map(s => s.homeroom), 'id');
+    return (
+      <SelectHomeroomByEducator
+        placeholder={`Homeroom...`}
+        homerooms={homerooms}
+        homeroomId={homeroomId}
+        onChange={this.onHomeroomChanged} />
     );
   }
 
@@ -362,12 +378,29 @@ function latestStar(student) {
 }
 
 function describeColumns(districtKey, grade, nowMoment) {
+  const homeroomColor = d3.scale.ordinal()
+    .range([
+      '#bcbddc',
+      '#9e9ac8',
+      '#807dba',
+      '#6a51a3',
+      '#4a1486'
+    ]);
+
   return [{
     label: 'Name',
     dataKey: 'name',
     cellRenderer: renderName,
     flexGrow: 1,
     width: 200,
+    style: styles.cell
+  }, {
+    label: <span>Homeroom</span>,
+    dataKey: 'homeroom',
+    cellRenderer({rowData}) {
+      return <span style={{fontSize: 12, opacity: 0.75, color: 'white', width: 80, paddingLeft: 5, paddingRight: 5, paddingTop: 3, paddingBottom: 3, backgroundColor: homeroomColor(rowData.homeroom.id)}}>{rowData.homeroom.educator.full_name.split(',')[0]}</span>;
+    },
+    width: 100,
     style: styles.cell
   }, {
     label: '504',
