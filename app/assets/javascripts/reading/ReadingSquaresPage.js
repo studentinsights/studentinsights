@@ -15,11 +15,10 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import {
   reordered,
   insertedInto,
-  consistentlyPlacedInitialStudentIdsByRoom
+  initialStudentIdsByRoom
 } from '../class_lists/studentIdsByRoomFunctions';
 
 
-//circles
 export default class ReadingGroupingPage extends React.Component {
   constructor(props) {
     super(props);
@@ -72,7 +71,7 @@ export class ReadingGroupingPageView extends React.Component {
     super(props);
 
     this.state = {
-      studentIdsByRoom: consistentlyPlacedInitialStudentIdsByRoom(props.classroomsCount, props.readingStudents)
+      studentIdsByRoom: initialStudentIdsByRoom(props.classroomsCount, props.readingStudents)
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -83,140 +82,95 @@ export class ReadingGroupingPageView extends React.Component {
     this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
   }
 
-  // onDragEnd(dragEndResult) {
-  //   // // dropped outside the list
-  //   if (!result.destination) {
-  //     return;
-  //   }
-
-  //   this.setState(
-  //     reorderQuoteMap({
-  //       quoteMap: this.state.quoteMap,
-  //       source: result.source,
-  //       destination: result.destination,
-  //     }),
-  //   );
-  // }
-
   render() {
-    const {readingStudents} = this.props;
-    const {studentIdsByRoom} = this.state;
-
+    const {readingStudents, classroomsCount} = this.props;
+    const [WIDTH, HEIGHT] = [3, 3];
+    const groupKeys = _.range(0, classroomsCount).map(i => `group:${i}`);
     return (
-      <div>
+      <div style={styles.flexVertical}>
         <SectionHeading>Reading Groups: 3rd grade at Arthur D. Healey</SectionHeading>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <div>
-            {Object.keys(studentIdsByRoom).map(groupKey => {
-              const studentsInRoom = studentIdsByRoom[groupKey].map(studentId => {
-                return _.find(readingStudents, { id: studentId });
-              });
-              return this.renderRow(groupKey, studentsInRoom);
-            })}
+          <div style={{flex: 1, display: 'flex', background: '#f8f8f8'}}>
+            {_.range(0, HEIGHT).map(rowIndex => (
+              <div key={rowIndex} style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+                {_.range(0, WIDTH).map(columnIndex => {
+                  const groupIndex = rowIndex*WIDTH+columnIndex;
+                  const groupKey = groupKeys[groupIndex];
+                  const studentsInGroup = readingStudents.slice(groupIndex*3, groupIndex*3+2);
+                  return (
+                    <div key={groupKey} style={{
+                      border: '1px solid #eee',
+                      display: 'inline-block',
+                      flex: 1,
+                      margin: 5
+                    }}>
+                      <div style={{
+                        padding: 5,
+                        marginBottom: 5,
+                        background: '#ccc',
+                        color: 'black'
+                      }}>{groupKey}</div>
+                      <Droppable
+                        droppableId={groupKey}
+                        type="GROUP">
+                        {(provided, snapshot) => (
+                          <div ref={provided.innerRef}>
+                            <div>{studentsInGroup.map(this.renderStudent, this)}</div>
+                            <div>{provided.placeholder}</div>
+                          </div>
+                        )}
+                      </Droppable>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </DragDropContext>
       </div>
     );
   }
 
-  renderRow(groupKey, studentsInGroup) {
-    return (
-      <div key={groupKey} style={{
-        // border: '1px solid #eee',
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'row',
-        margin: 5
-      }}>
-        {this.renderGroupName(groupKey)}
-        <Droppable
-          droppableId={groupKey}
-          direction="horizontal"
-          type="GROUP">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={{display: 'flex'}}
-              {...provided.droppableProps}
-            >
-              {studentsInGroup.map(this.renderDraggable, this)}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </div>
-    );
-  }
-
-  renderDraggable(student, index) {
+  renderStudent(student, index) {
     return (
       <Draggable key={student.id} draggableId={`StudentCard:${student.id}`} index={index}>
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            {this.renderItem(student)}
-          </div>
-        )}
+        {(provided, snapshot) => {
+          return this.renderClickableStudentCard(student, {
+            ref: provided.innerRef,
+            placeholder: provided.placeholder,
+            propsFromDraggable: {
+              ...provided.draggableProps,
+              ...provided.dragHandleProps
+            }
+          });
+        }}
       </Draggable>
     );
   }
 
-  /* 
-  return this.renderClickableStudentCard(student, {
-  //   ref: provided.innerRef,
-  //   placeholder: provided.placeholder,
-  //   propsFromDraggable: {
-  //     ...provided.draggableProps,
-  //     ...provided.dragHandleProps
-  //   }
-  // });
-  */
-
-  // // Optionally pass arguments to make this work as a Draggable
-  // renderItem(student, options = {}) {
-  //   const {ref, placeholder, propsFromDraggable = {}} = options;
-  //   return (
-  //     <div className="renderClickableStudentCard">
-  //       <div ref={ref} {...propsFromDraggable}>
-  //         {this.renderActual(student)}
-  //       </div>
-  //       {placeholder /* this preserves space when dragging */}
-  //     </div>
-  //   );
-  // }
-
-
-  renderGroupName(groupKey) {
+  // Optionally pass arguments to make this work as a Draggable
+  renderClickableStudentCard(student, options = {}) {
+    const {ref, placeholder, propsFromDraggable = {}} = options;
     return (
-      <div style={{
-        display: 'flex',
-        padding: 5,
-        fontSize: 12,
-        marginBottom: 5,
-        background: '#ccc',
-        color: 'black'
-      }}>
-        <div style={{width: '8em'}}>
-          <div>K. Robinson</div>
-          <div>5 x 30m</div>
-          <div>{groupKey}</div>
+      <div>
+        <div ref={ref} {...propsFromDraggable}>
+          {this.renderActual(student)}
         </div>
-        <div style={{width: '8em', marginLeft: 10, borderLeft: '1px solid #aaa'}}>
-          <div>N - R</div>
-          <div>80 - 115</div>
-        </div>
+        {placeholder /* this preserves space when dragging */}
       </div>
     );
   }
 
-  renderItem(student) {
+
+  renderActual(student) {
     return (
       <MockStudentPhoto
         key={student.id}
-        style={{maxWidth: 64, maxHeight: 64, margin: 1}}
+        style={{display: 'inline-block', maxWidth: 64, maxHeight: 64}}
         student={student}
       />
     );
