@@ -91,34 +91,48 @@ class ReadingController < ApplicationController
     end
 
     students.as_json({
-        methods: [
-          :star_reading_results,
-          :dibels_results,
-          :access
-        ],
-        include: {
-          reading_benchmark_data_points: {
-            except: []
-          },
-          f_and_p_assessments: {
-            only: [:benchmark_date, :instructional_level, :f_and_p_code]
-          },
-          ed_plans: {
-            include: :ed_plan_accommodations
-          },
-          latest_iep_document: {
-            only: [:id]
-          },
-          homeroom: {
-            only: [:id, :slug, :name],
-            include: {
-              educator: {
-                only: [:id, :email, :full_name]
-              }
+      only: [
+        :id,
+        :first_name,
+        :last_name,
+        :grade,
+        :plan_504,
+        :limited_english_proficiency,
+        :ell_transition_date
+      ],
+      methods: [
+        :star_reading_results,
+        :dibels_results,
+        :access
+      ],
+      include: {
+        reading_benchmark_data_points: {
+          only: [:id, :benchmark_school_year, :benchmark_period_key, :benchmark_assessment_key, :json],
+          include: {
+            educator: {
+              only: [:id, :email, :full_name]
+            }
+          }
+        },
+        f_and_p_assessments: {
+          only: [:benchmark_date, :instructional_level, :f_and_p_code]
+        },
+        ed_plans: {
+          include: :ed_plan_accommodations
+        },
+        latest_iep_document: {
+          only: [:id]
+        },
+        homeroom: {
+          only: [:id, :slug, :name],
+          include: {
+            educator: {
+              only: [:id, :email, :full_name]
             }
           }
         }
-      })
+      }
+    })
   end
 
   def dibels_data_points

@@ -105,15 +105,12 @@ export class ReadingEntryPageView extends React.Component {
   }
 
   withMerged(students) {
-    const {dibelsDataPoints, mtssNotes} = this.props;
-    const dibelsByStudentId = _.groupBy(dibelsDataPoints, 'student_id');
+    const {mtssNotes} = this.props;
     const mtssByStudentId = _.groupBy(mtssNotes, 'student_id');
     return students.map(student => {
       return {
         ...student,
-        dibels: dibelsByStudentId[student.id] || [],
-        mtss: mtssByStudentId[student.id] || [],
-        instructional_focus: sampleInstructionalFocus(student)
+        mtss: mtssByStudentId[student.id] || []
       };
     });
   }
@@ -317,14 +314,23 @@ ReadingEntryPageView.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired
-  })).isRequired,
-  dibelsDataPoints: PropTypes.arrayOf(PropTypes.shape({
-    student_id: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    first_name: PropTypes.string.isRequired,
+    last_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired,
-    assessment_period: PropTypes.string.isRequired,
-    assessment_key: PropTypes.string.isRequired,
-    data_point: PropTypes.string.isRequired
+    plan_504: PropTypes.string,
+    access: PropTypes.object,
+    ell_transition_date: PropTypes.string,
+    latest_iep_document: PropTypes.object,
+    limited_english_proficiency: PropTypes.string,
+    homeroom: PropTypes.object.isRequired,
+    reading_benchmark_data_points: PropTypes.arrayOf(PropTypes.shape({
+      benchmark_assessment_key: PropTypes.string.isRequired,
+      benchmark_period_key: PropTypes.string.isRequired,
+      benchmark_school_year: PropTypes.number.isRequired,
+      json: PropTypes.object.isRequired,
+      educator: PropTypes.object.isRequired
+    })).isRequired
   })).isRequired,
   mtssNotes: PropTypes.arrayOf(PropTypes.shape({
     student_id: PropTypes.number.isRequired,
