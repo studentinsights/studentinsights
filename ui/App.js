@@ -152,9 +152,16 @@ export default class App extends React.Component {
   }
 
   renderReadingEntryPage(routeProps) {
+    const {currentEducator} = this.props;
     const schoolSlug = routeProps.match.params.slug;
     const grade = routeProps.match.params.grade;
-    return <ReadingEntryPage schoolSlug={schoolSlug} grade={grade} />;
+    return (
+      <ReadingEntryPage
+        currentEducatorId={currentEducator.id}
+        schoolSlug={schoolSlug}
+        grade={grade}
+      />
+    );
   }
 
   renderExploreSchoolEquityPage(routeProps) {

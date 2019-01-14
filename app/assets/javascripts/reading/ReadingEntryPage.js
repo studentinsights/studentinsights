@@ -28,8 +28,10 @@ import HelpBubble, {
 import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import DownloadCsvLink from '../components/DownloadCsvLink';
 import IepDialog from './IepDialog';
-import LanguageStatusLink from '../student_profile/LanguageStatusLink'; // TODO import path
-import EdPlansPanel from '../student_profile/EdPlansPanel'; // TODO import path
+
+// TODO import paths?
+import LanguageStatusLink from '../student_profile/LanguageStatusLink'; 
+import EdPlansPanel from '../student_profile/EdPlansPanel';
 import {inferNeed} from './inferNeed';
 
 export default class ReadingEntryPage extends React.Component {
@@ -61,9 +63,10 @@ export default class ReadingEntryPage extends React.Component {
   }
 
   renderJson(json) {
-    const {grade} = this.props;
+    const {currentEducatorId, grade} = this.props;
     return (
       <ReadingEntryPageView
+        currentEducatorId={currentEducatorId}
         grade={grade}
         school={json.school}
         readingStudents={json.reading_students}
@@ -72,7 +75,8 @@ export default class ReadingEntryPage extends React.Component {
     );
   }
 }
-ReadingEntryPage.propTypes ={
+ReadingEntryPage.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired,
   schoolSlug: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired
 };
@@ -122,24 +126,24 @@ export class ReadingEntryPageView extends React.Component {
     // map dataKey to an accessor/sort function
     const sortFns = {
       fallback(student) { return student[sortBy]; },
-      grade(student) { return rankedByGradeLevel(student.grade); },
       name(student) { return `${student.last_name}, ${student.first_name}`; },
+      homeroom(student) { return homeroomLastName(student); },
+      plan_504(student) { return hasActive504Plan(student.plan_504) ? '504' : null; },
       iep(student) { return hasAnySpecialEducationData(student, {}) ? 'IEP' : null; },
       access(student) {
         if (!isEnglishLearner(districtKey, student.limited_english_proficiency)) return null;
         return accessLevelNumber(student.access);
       },
-      plan_504(student) { return hasActive504Plan(student.plan_504) ? '504' : null; },
+      // TODO mtss
+      // TODO entered data, text and numeric
       dibels(student) { return latestDibels(student); },
       f_and_p(student) { return latestFAndP(student) || ''; },
-      star_reading(student) { return latestStar(student); },
       dibels_grade_3_fall_dibels_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_wpm') || 0); },
       dibels_grade_1_spring_dibels_dorf_wpm(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_wpm') || 0); },
       dibels_grade_3_fall_dibels_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc') || 0); },
       dibels_grade_1_spring_dorf_acc(student) { return parseFloat(tryDibels(student.dibels, '1', 'spring', 'dibels_dorf_acc') || 0); },
       instructional_general(student) { return parseInstructionalFocus(student)[0]; },
-      instructional_specific(student) { return parseInstructionalFocus(student)[1]; },
-      homeroom(student) { return student.homeroom.educator.full_name; }
+      instructional_specific(student) { return parseInstructionalFocus(student)[1]; }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);
@@ -180,7 +184,7 @@ export class ReadingEntryPageView extends React.Component {
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading titleStyle={styles.title}>
-          <div>Add Benchmark Reading Data: {gradeText(grade)} at {school.name}</div>
+          <div>Benchmark Reading Data: {gradeText(grade)} at {school.name}</div>
           {this.renderDownloadLink(students)}
         </SectionHeading>
         {this.renderFilters()}
@@ -224,11 +228,11 @@ export class ReadingEntryPageView extends React.Component {
 
   renderTable(students) {
     const {nowFn, districtKey} = this.context;
-    const {grade} = this.props;
+    const {grade, currentEducatorId} = this.props;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(this.filteredStudents(students));
     const rowHeight = 40; // for two lines of student names
-    const columns = describeColumns(districtKey, grade, nowFn());
+    const columns = describeColumns(districtKey, grade, nowFn(), currentEducatorId);
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -261,8 +265,8 @@ export class ReadingEntryPageView extends React.Component {
   // until the user expresses intent to download.  This adds an extra UX step to the download to do that.
   renderDownloadLink(students) {
     const {districtKey, nowFn} = this.context;
-    const {grade} = this.props;
-    const columns = describeColumns(districtKey, grade, nowFn());
+    const {currentEducatorId, grade} = this.props;
+    const columns = describeColumns(districtKey, grade, nowFn(), currentEducatorId);
     const {isDownloadOpen} = this.state;
 
     return (
@@ -307,6 +311,7 @@ ReadingEntryPageView.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 ReadingEntryPageView.propTypes = {
+  currentEducatorId: PropTypes.number.isRequired,
   grade: PropTypes.string.isRequired,
   school: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -357,9 +362,24 @@ const styles = {
     marginBottom: 10,
     color: 'white'
   },
+  headerCell: {
+    fontSize: 12
+  },
   cell: {
     display: 'flex',
     alignItems: 'center'
+  },
+  dataCell: {
+    display: 'flex'
+  },
+  dataInput: {
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 3,
+    paddingBottom: 3,
+    fontSize: 14,
+    width: '100%',
+    textAlign: 'center'
   },
   // Matching react-select
   search: {
@@ -389,11 +409,8 @@ function latestDibels(student) {
 function latestFAndP(student) {
   return tryLatest('instructional_level', student.f_and_p_assessments);
 }
-function latestStar(student) {
-  return tryLatest('percentile_rank', student.star_reading_results);
-}
 
-function describeColumns(districtKey, grade, nowMoment) {
+function describeColumns(districtKey, grade, nowMoment, currentEduatorId) {
   const homeroomColor = d3.scale.ordinal()
     .range([
       '#bcbddc',
@@ -405,15 +422,21 @@ function describeColumns(districtKey, grade, nowMoment) {
   return [{
     label: 'Name',
     dataKey: 'name',
-    cellRenderer: renderName,
-    flexGrow: 1,
-    width: 200,
+    cellRenderer({rowData}) {
+      return renderName(currentEduatorId, rowData);
+    },
+    width: 150,
     style: styles.cell
   }, {
     label: <span>Homeroom</span>,
     dataKey: 'homeroom',
     cellRenderer({rowData}) {
-      return <span style={{textAlign: 'center', fontSize: 12, opacity: 0.75, color: 'white', width: 80, paddingLeft: 5, paddingRight: 5, paddingTop: 3, paddingBottom: 3, backgroundColor: homeroomColor(rowData.homeroom.id)}}>{rowData.homeroom.educator.full_name.split(',')[0]}</span>;
+      const homeroomText = homeroomLastName(rowData);
+      return (
+        <span style={{textAlign: 'center', fontSize: 12, opacity: 0.75, color: 'white', width: 80, paddingLeft: 5, paddingRight: 5, paddingTop: 3, paddingBottom: 3, backgroundColor: homeroomColor(homeroomText)}}>
+          {homeroomText}
+        </span>
+      );
     },
     width: 100,
     style: styles.cell
@@ -436,7 +459,7 @@ function describeColumns(districtKey, grade, nowMoment) {
         />
       );
     },
-    width: 50,
+    width: 70,
     style: styles.cell
   }, {
     label: 'IEP',
@@ -453,7 +476,7 @@ function describeColumns(districtKey, grade, nowMoment) {
         </PerDistrictContainer>
       );
     },
-    width: 50,
+    width: 70,
     style: styles.cell
   }, {
     label: <span>English<br/>Learner</span>,
@@ -476,7 +499,7 @@ function describeColumns(districtKey, grade, nowMoment) {
         </PerDistrictContainer>
       );
     },
-    width: 100,
+    width: 70,
     style: styles.cell
   }, {
     label: <span>MTSS,<br/>2 years</span>,
@@ -484,63 +507,62 @@ function describeColumns(districtKey, grade, nowMoment) {
     cellRenderer({rowData}) {
       return renderMtss(rowData.mtss, nowMoment);
     },
-    width: 100,
+    width: 70,
     style: styles.cell
   }, {
-    label: <span>Engagement<br/><span style={{fontSize: 10, fontWeight: 'normal'}}>high, medium, low</span></span>,
+    label: <span style={styles.headerCell}>F&P level,<br />benchmark</span>,
     dataKey: 'f_and_p',
     cellRenderer({rowData}) {
-      return <input style={{fontSize: 12, padding: 3, width: 60}} type="text" />;
+      return <input style={styles.dataInput} type="text"  />;
     },
-    width: 120,
-    style: styles.cell
+    width: 80,
+    style: styles.dataCell
   }, {
-    label: <span>F&P level</span>,
+    label: <span style={styles.headerCell}>F&P level,<br />instruction</span>,
+    dataKey: 'f_and_p_daily',
+    cellRenderer({rowData}) {
+      return <input style={styles.dataInput} type="text"  />;
+    },
+    width: 80,
+    style: styles.dataCell
+  }, {
+    label: <span style={styles.headerCell}>DORF,<br/>% accuracy</span>,
     dataKey: 'f_and_p',
     cellRenderer({rowData}) {
-      return <input style={{fontSize: 12, padding: 3, width: 60}} type="text"  />;
+      return <input style={styles.dataInput} type="text" />;
     },
-    width: 120,
-    style: styles.cell
+    width: 80,
+    style: styles.dataCell
   }, {
-    label: <span>DIBELS ORF<br/>accuracy</span>,
+    label: <span style={styles.headerCell}>DORF,<br/>words/min</span>,
     dataKey: 'f_and_p',
     cellRenderer({rowData}) {
-      return <input style={{fontSize: 12, padding: 3, width: 60}} type="text" />;
+      return <input style={styles.dataInput} type="text"  />;
     },
-    width: 120,
-    style: styles.cell
+    width: 80,
+    style: styles.dataCell
   }, {
-    label: <span>DIBELS ORF<br/>words per minute</span>,
-    dataKey: 'f_and_p',
+    label: <span style={styles.headerCell}>Instructional needs?<br /><span style={{fontWeight: 'normal'}}>(eg, blending, attention)</span></span>,
+    dataKey: 'what_else',
     cellRenderer({rowData}) {
-      return <input style={{fontSize: 12, padding: 3, width: 60}} type="text"  />;
+      return <input style={{...styles.dataInput, textAlign: 'left'}} type="text"  />;
     },
-    width: 120,
-    style: styles.cell
-  }, {
-    label: <span>What else?</span>,
-    dataKey: 'instructional_specific',
-    cellRenderer({rowData}) {
-      return <input style={{fontSize: 12, padding: 3}} type="text"  />;
-    },
-    width: 180,
-    style: styles.cell
+    width: 140,
+    style: styles.dataCell
   }];
 }
 
 
-function renderName(cellProps) {
-  const student = cellProps.rowData;
-
+// Because of authorization rules, sometimes the user will be able to 
+// see the full profile, and sometimes not.
+function renderName(currentEducatorId, student) {
+  const nameEl = (student.homeroom.educator.id === currentEducatorId)
+    ? <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+    : `${student.first_name} ${student.last_name}`;
+  
   // not sure image looks good, also probably need caching instead of naive
-  // image tags
-  return (
-    <div>
-      {/*<StudentPhoto student={student} height={40} />*/}
-      <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
-    </div>
-  );
+  // image tags {/*<StudentPhoto student={student} height={40} />*/}
+  return nameEl;
 }
 
 
@@ -726,16 +748,20 @@ function dibelsColumns(params = {}) {
 }
 
 
+// only render this school year and 2 years back (push to server?)
 function renderMtss(mtssList, nowMoment) {
   if (mtssList.length === 0) return null;
 
-  // this school year and 2 years back
   const startOfSchoolYearMoment = firstDayOfSchool(toSchoolYear(nowMoment.toDate()) - 2);
   const mtssMoments = mtssList.map(mtss => toMomentFromRailsDate(mtss.recorded_at));
   const mtssMomentsThisYear = mtssMoments.filter(mtssMoment => mtssMoment.isAfter(startOfSchoolYearMoment));
   const latestMtssMoment = _.last(mtssMomentsThisYear.sort());
   if (!latestMtssMoment) return null;
 
-  // const text = nowMoment.diff(toMomentFromRailsDate(mtss.recorded_at), 'days');
-  return <a href="#">{latestMtssMoment.format('M/D/YY')}</a>;
+  return latestMtssMoment.format('M/D/YY');
+}
+
+
+function homeroomLastName(student) {
+  return student.homeroom.educator.full_name.split(',')[0];
 }
