@@ -1,15 +1,16 @@
 class ReadingController < ApplicationController
   before_action :authorize_for_grade_level!
 
-  def school_grade_json
-    safe_params = params.permit(:school_id, :grade)
-    school_id = safe_params[:school_id]
+  def reading_json
+    safe_params = params.permit(:school_slug, :grade)
+    school_id = School.find_by_slug(safe_params[:school_slug]).try(:id)
     grade = safe_params[:grade]
+    raise Exceptions::EducatorNotAuthorized if school_id.nil? or grade.nil?
 
     render json: {
-      latest_mtss_notes: latest_mtss_notes_json,
       reading_students: reading_students_json(school_id, grade),
-      dibels_data_points: []
+      dibels_data_points: [],
+      latest_mtss_notes: latest_mtss_notes_json(school_id, grade)
     }
   end
 
@@ -36,22 +37,22 @@ class ReadingController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_grade')
   end
 
-  # Can they read any student at that grade level?
-  def is_authorized_to_read?(school, grade)
-    # they have label
+  # # Can they read any student at that grade level?
+  # def is_authorized_to_read?(school, grade)
+  #   # they have label
 
-    # either:
-    # 1) they can access any third grade students?
-    # 2) their homeroom has any third grade students
-    #    they have grade-level access
-    #    they have schoolwide access
-  end
+  #   # either:
+  #   # 1) they can access any third grade students?
+  #   # 2) their homeroom has any third grade students
+  #   #    they have grade-level access
+  #   #    they have schoolwide access
+  # end
 
-  def is_authorized_to_write?(school, grade)
-    # they can access that third grade student's profile
-    # (assumes reading specialists, instructional coaches have schoolwide or
-    # gradewide access)
-  end
+  # def is_authorized_to_write?(school, grade)
+  #   # they can access that third grade student's profile
+  #   # (assumes reading specialists, instructional coaches have schoolwide or
+  #   # gradewide access)
+  # end
 
   def latest_mtss_notes_json(school_id, grade)
     students = authorized do

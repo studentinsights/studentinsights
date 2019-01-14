@@ -88,7 +88,7 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-        <Route exact path="/schools/:id/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
+        <Route exact path="/schools/:slug/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
         <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
         <Route exact path="/students/:id" render={this.renderStudentProfilePage.bind(this)}/>
@@ -152,9 +152,9 @@ export default class App extends React.Component {
   }
 
   renderReadingEntryPage(routeProps) {
-    const schoolId = routeProps.match.params.id;
+    const schoolSlug = routeProps.match.params.slug;
     const grade = routeProps.match.params.grade;
-    return <ReadingEntryPage schoolId={schoolId} grade={grade} />;
+    return <ReadingEntryPage schoolSlug={schoolSlug} grade={grade} />;
   }
 
   renderExploreSchoolEquityPage(routeProps) {

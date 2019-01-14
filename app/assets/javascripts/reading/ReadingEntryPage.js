@@ -8,6 +8,7 @@ import {Table, Column, AutoSizer, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import {hasActive504Plan} from '../helpers/PerDistrict';
+import {gradeText} from '../helpers/gradeText';
 import {hasAnySpecialEducationData} from '../helpers/specialEducation';
 import {isEnglishLearner, accessLevelNumber} from '../helpers/language';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
@@ -44,8 +45,8 @@ export default class ReadingEntryPage extends React.Component {
   }
 
   fetchJson() {
-    const {schoolId, grade} = this.props;
-    const url = `/api/schools/${schoolId}/reading/${grade}/school_grade_json`;
+    const {schoolSlug, grade} = this.props;
+    const url = `/api/schools/${schoolSlug}/reading/${grade}/reading_json`;
     return apiFetchJson(url);
   }
 
@@ -61,11 +62,11 @@ export default class ReadingEntryPage extends React.Component {
   }
 
   renderJson(json) {
-    const {schoolId, grade} = this.props;
+    const {schoolSlug, grade} = this.props;
     return (
       <ReadingEntryPageView
         readingStudents={json.reading_students}
-        schoolId={schoolId}
+        schoolSlug={schoolSlug}
         grade={grade}
         dibelsDataPoints={json.dibels_data_points}
         mtssNotes={json.latest_mtss_notes}
@@ -74,7 +75,7 @@ export default class ReadingEntryPage extends React.Component {
   }
 }
 ReadingEntryPage.propTypes ={
-  schoolId: PropTypes.string.isRequired,
+  schoolSlug: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired
 };
 
@@ -179,13 +180,13 @@ export class ReadingEntryPageView extends React.Component {
   }
 
   render() {
-    const {readingStudents} = this.props;
+    const {schoolSlug, grade, readingStudents} = this.props;
     const students = this.withMerged(readingStudents);
-
+    const whereEl = `${gradeText(grade)} at ${schoolSlug}`;
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading titleStyle={styles.title}>
-          <div>Reading: 3rd grade at Arthur D. Healey</div>
+          <div>Add Benchmark Reading Data: {whereEl}</div>
           {this.renderDownloadLink(students)}
         </SectionHeading>
         {this.renderFilters()}
@@ -289,9 +290,9 @@ export class ReadingEntryPageView extends React.Component {
   // and writes it inline to the link.
   renderLinkWithCsvDataInline(columns, students) {
     const {nowFn} = this.context;
-    const {schoolId, grade} = this.props;
+    const {schoolSlug, grade} = this.props;
     const now = nowFn();
-    const filename = `Reading-${schoolId}-${grade}-${now.format('YYYY-MM-DD')}.csv`;
+    const filename = `Reading-${schoolSlug}-${grade}-${now.format('YYYY-MM-DD')}.csv`;
     const csvText = toCsvTextFromTable(columns, students);
     return (
       <div style={{fontSize: 14}}>
@@ -312,7 +313,7 @@ ReadingEntryPageView.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 ReadingEntryPageView.propTypes = {
-  schoolId: PropTypes.string.isRequired,
+  schoolSlug: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired

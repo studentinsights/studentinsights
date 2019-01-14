@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
   # reading
-  get '/api/schools/:id/reading/:grade/json' => 'reading#school_grade_json'
+  get '/api/schools/:school_slug/reading/:grade/reading_json' => 'reading#reading_json'
 
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
