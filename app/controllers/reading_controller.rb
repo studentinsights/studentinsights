@@ -1,21 +1,6 @@
 class ReadingController < ApplicationController
   before_action :authorize_for_grade_level!
 
-  # cases:
-  # 1) don't show
-  # 2) show, link directly to (school, grade, period)
-  # 3) show, link to coverage page for (period)
-  def reading_benchmark_entry_box_json
-    # If the educator only works with one school and one grade,
-    # suggest that directly
-    direct_entry_params = infer_direct_entry_link
-    render json: {
-      educator_labels: current_educator.labels,
-      benchmark_period_key: 'winter',
-      direct_entry_params: direct_entry_params
-    }
-  end
-
   def school_grade_json
     safe_params = params.permit(:school_id, :grade)
     school_id = safe_params[:school_id]
@@ -66,18 +51,6 @@ class ReadingController < ApplicationController
     # they can access that third grade student's profile
     # (assumes reading specialists, instructional coaches have schoolwide or
     # gradewide access)
-  end
-
-  def infer_direct_entry_link
-    students = authorized { Student.active }
-    grades = students.map(&:grade).uniq
-    school_id = students.map(&:school_id).uniq
-
-    if grades.length === 1 && school_id.length === 1
-      [school_id, grade]
-    else
-      nil
-    end
   end
 
   def latest_mtss_notes_json(school_id, grade)

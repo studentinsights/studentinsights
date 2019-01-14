@@ -3,7 +3,7 @@ import React from 'react';
 import Card from '../components/Card';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
-import ReadingDataEntryBox from './ReadingDataEntryBox/';
+import ReadingDataEntryBox from './ReadingDataEntryBox';
 import {shouldShowLowGradesBox} from '../helpers/PerDistrict';
 
 
@@ -19,7 +19,8 @@ class HomeInsights extends React.Component {
         <CheckStudentsWithHighAbsences educatorId={educatorId} />
         <ReadingDataEntryBox
           style={styles.card}
-          cardTitle={styles.cardTitle} />
+          titleStyle={styles.cardTitle}
+          educatorLabels={educatorLabels} />
         {this.renderPlaceholder()}
       </div>
     );
