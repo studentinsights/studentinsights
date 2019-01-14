@@ -42,6 +42,9 @@ Rails.application.routes.draw do
   get '/api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
+  # reading
+  get '/api/schools/:id/reading/:grade/json' => 'reading#school_grade_json'
+
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
   get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
@@ -181,6 +184,7 @@ Rails.application.routes.draw do
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
       get 'equity/explore' => 'ui#ui'
+      get 'reading/:grade/entry' => 'ui#ui'
     end
   end
 end
