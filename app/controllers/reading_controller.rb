@@ -3,14 +3,15 @@ class ReadingController < ApplicationController
 
   def reading_json
     safe_params = params.permit(:school_slug, :grade)
-    school_id = School.find_by_slug(safe_params[:school_slug]).try(:id)
+    school = School.find_by_slug(safe_params[:school_slug])
     grade = safe_params[:grade]
-    raise Exceptions::EducatorNotAuthorized if school_id.nil? or grade.nil?
+    raise Exceptions::EducatorNotAuthorized if school.nil? or grade.nil?
 
     render json: {
-      reading_students: reading_students_json(school_id, grade),
-      dibels_data_points: [],
-      latest_mtss_notes: latest_mtss_notes_json(school_id, grade)
+      school: school.as_json(only: [:id, :slug, :name]),
+      reading_students: reading_students_json(school.id, grade),
+      dibels_data_points: [], # TODO(kr)
+      latest_mtss_notes: latest_mtss_notes_json(school.id, grade)
     }
   end
 
@@ -19,7 +20,7 @@ class ReadingController < ApplicationController
   # idempotent, last write wins
   # client emphasizes notifications and changelog rather than safeguards
   def update_data_point_json
-    safe_params = params.permit(:student_id, :grade, :season_key, :assessment_key, :json)
+    # safe_params = params.permit(:student_id, :grade, :, :assessment_key, :json)
 
     # is authorized to access student at the grade level
     # is authorized to write reading data
@@ -71,6 +72,10 @@ class ReadingController < ApplicationController
     notes.as_json(only: [:id, :student_id, :recorded_at])
   end
 
+  # TODO add back authorizer block
+  # TODO limit student fields
+  # TODO what about active ed plans only?
+  # TODO need older DIBELS data still, or F&P?
   def reading_students_json(school_id, grade)
     students = authorized do
       Student
@@ -81,12 +86,10 @@ class ReadingController < ApplicationController
         .includes(:star_reading_results)
         .includes(:dibels_results)
         .includes(:f_and_p_assessments)
+        .includes(:reading_benchmark_data_points)
         .to_a
     end
 
-    # TODO add back authorizer block
-    # TODO limit student fields
-    # TODO what about active ed plans only?
     students.as_json({
         methods: [
           :star_reading_results,
@@ -94,11 +97,14 @@ class ReadingController < ApplicationController
           :access
         ],
         include: {
-          ed_plans: {
-            include: :ed_plan_accommodations
+          reading_benchmark_data_points: {
+            except: []
           },
           f_and_p_assessments: {
             only: [:benchmark_date, :instructional_level, :f_and_p_code]
+          },
+          ed_plans: {
+            include: :ed_plan_accommodations
           },
           latest_iep_document: {
             only: [:id]

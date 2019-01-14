@@ -39,7 +39,6 @@ export default class ReadingEntryPage extends React.Component {
     this.renderJson = this.renderJson.bind(this);
   }
 
-  // THIS doesn't quite work
   componentDidMount() {
     updateGlobalStylesToTakeFullHeight();
   }
@@ -62,13 +61,12 @@ export default class ReadingEntryPage extends React.Component {
   }
 
   renderJson(json) {
-    const {schoolSlug, grade} = this.props;
+    const {grade} = this.props;
     return (
       <ReadingEntryPageView
-        readingStudents={json.reading_students}
-        schoolSlug={schoolSlug}
         grade={grade}
-        dibelsDataPoints={json.dibels_data_points}
+        school={json.school}
+        readingStudents={json.reading_students}
         mtssNotes={json.latest_mtss_notes}
       />
     );
@@ -180,13 +178,12 @@ export class ReadingEntryPageView extends React.Component {
   }
 
   render() {
-    const {schoolSlug, grade, readingStudents} = this.props;
+    const {school, grade, readingStudents} = this.props;
     const students = this.withMerged(readingStudents);
-    const whereEl = `${gradeText(grade)} at ${schoolSlug}`;
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading titleStyle={styles.title}>
-          <div>Add Benchmark Reading Data: {whereEl}</div>
+          <div>Add Benchmark Reading Data: {gradeText(grade)} at {school.name}</div>
           {this.renderDownloadLink(students)}
         </SectionHeading>
         {this.renderFilters()}
@@ -290,9 +287,9 @@ export class ReadingEntryPageView extends React.Component {
   // and writes it inline to the link.
   renderLinkWithCsvDataInline(columns, students) {
     const {nowFn} = this.context;
-    const {schoolSlug, grade} = this.props;
+    const {school, grade} = this.props;
     const now = nowFn();
-    const filename = `Reading-${schoolSlug}-${grade}-${now.format('YYYY-MM-DD')}.csv`;
+    const filename = `Reading-${school.slug.toUpperCase()}-${grade}-${now.format('YYYY-MM-DD')}.csv`;
     const csvText = toCsvTextFromTable(columns, students);
     return (
       <div style={{fontSize: 14}}>
@@ -313,8 +310,12 @@ ReadingEntryPageView.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 ReadingEntryPageView.propTypes = {
-  schoolSlug: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
+  school: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired
   })).isRequired,
