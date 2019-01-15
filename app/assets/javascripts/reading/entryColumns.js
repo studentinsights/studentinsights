@@ -212,7 +212,7 @@ function readDoc(doc, studentId, benchmarkAssessmentKey) {
 // Because of authorization rules, sometimes the user will be able to 
 // see the full profile, and sometimes not.
 function renderStudentName(currentEducatorId, student) {
-  const nameEl = (student.homeroom.educator.id === currentEducatorId)
+  const nameEl = (student.homeroom && student.homeroom.educator.id === currentEducatorId)
     ? <a tabIndex={-1} style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
     : `${student.first_name} ${student.last_name}`;
   
@@ -232,7 +232,9 @@ function render504Dialog(districtKey, student) {
 }
 
 export function homeroomLastName(student) {
-  return student.homeroom.educator.full_name.split(',')[0];
+  return (student.homeroom)
+    ? student.homeroom.educator.full_name.split(',')[0]
+    : '(none)';
 }
 
 // only render this school year and 2 years back (push to server?)

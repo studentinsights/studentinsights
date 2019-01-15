@@ -1,66 +1,84 @@
 class ReadingController < ApplicationController
-  before_action :authorize_for_grade_level!
+  before_action :ensure_authorized_for_feature!
 
   def reading_json
     safe_params = params.permit(:school_slug, :grade)
     school = School.find_by_slug(safe_params[:school_slug])
     grade = safe_params[:grade]
-    raise Exceptions::EducatorNotAuthorized if school.nil? or grade.nil?
+    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(school.id, grade)
 
-    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-3-reading-all.json'))
-    # render json: {
-    #   school: school.as_json(only: [:id, :slug, :name]),
-    #   # reading_students: reading_students_json(school.id, grade),
-    #   # dibels_data_points: [], # TODO(kr)
-    #   # latest_mtss_notes: latest_mtss_notes_json(school.id, grade)
-    #   reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-reading-students.json')),
-    #   dibels_data_points: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-dibels.json')),
-    #   latest_mtss_notes: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-mtss.json'))
-    # }
+    render json: {
+      school: school.as_json(only: [:id, :slug, :name]),
+      reading_students: reading_students_json(school.id, grade),
+      latest_mtss_notes: latest_mtss_notes_json(school.id, grade)
+    }
   end
 
   # PUT
-  # fine-grained cell-level edits to minimize conflicts
-  # idempotent, last write wins
-  # client emphasizes notifications and changelog rather than safeguards
+  # This allows fine-grained, cell-level edits to minimize conflicts.
+  # This is idempotent with no conflict resolution; last write wins.
+  # Client code emphasizes showing notifications and the changelog
+  # rather than trying to resolve conflicts using locks (with the idea
+  # that concurrent editing will be unlikely in practice outside of
+  # direct collaboration, where changelogs and notifications are
+  # preferable anyway).
   def update_data_point_json
-    # safe_params = params.permit(:student_id, :grade, :, :assessment_key, :json)
+    safe_params = params.permit(*[
+      :student_id,
+      :school_id,
+      :grade,
+      :benchmark_school_year,
+      :benchmark_period_key,
+      :benchmark_assessment_key,
+      :value
+    ])
+    benchmark_school_year = safe_params[:benchmark_school_year]
+    benchmark_period_key = safe_params[:benchmark_period_key]
+    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(safe_params[:school_id], safe_params[:grade])
+    raise Exceptions::EducatorNotAuthorized unless is_open_for_writing?(benchmark_school_year, benchmark_period_key)
 
-    # is authorized to access student at the grade level
-    # is authorized to write reading data
-    # (grade and season_key don't have to match current)
-    # is assessment_key valid
-    # is format of json valid
-    # write it
+    ReadingBenchmarkDataPoint.create!({
+      student_id: safe_params[:student_id],
+      benchmark_school_year: benchmark_school_year,
+      benchmark_period_key: benchmark_period_key,
+      benchmark_assessment_key: safe_params[:benchmark_assessment_key],
+      json: {
+        value: safe_params[:value]
+      },
+      educator_id: current_educator.id
+    })
+
     render json: {
       status: 'ok'
     }
   end
 
   private
-  def authorize_for_grade_level!
+  def ensure_authorized_for_feature!
     raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_grade')
   end
 
-  # # Can they read any student at that grade level?
-  # def is_authorized_to_read?(school, grade)
-  #   # they have label
+  # Authorization for reading features only (not general-purpose access).
+  # Permissions are complex across reading specialists, ELL and
+  # special education teachers, and instructional coaches, so this is
+  # used for fine-grained access during in-person testing.
+  def is_authorized_for_grade_level?(school_id, grade)
+    reading_authorizations = JSON.parse(ENV.fetch('READING_AUTHORIZATIONS_JSON', '{}'))
+    educator_login_names = reading_authorizations.fetch("#{school_id}:#{grade}")
+    educator_login_names.include?(current_educator.login_name)
+  end
 
-  #   # either:
-  #   # 1) they can access any third grade students?
-  #   # 2) their homeroom has any third grade students
-  #   #    they have grade-level access
-  #   #    they have schoolwide access
-  # end
+  def authorized_for_grade_level(school_id, grade, &block)
+    return [] unless is_authorized_for_grade_level?(school_id, grade)
+    block.call
+  end
 
-  # def is_authorized_to_write?(school, grade)
-  #   # they can access that third grade student's profile
-  #   # (assumes reading specialists, instructional coaches have schoolwide or
-  #   # gradewide access)
-  # end
+  def is_open_for_writing?(benchmark_school_year, benchmark_period_key)
+    benchmark_school_year == 2018 && benchmark_period_key == 'winter'
+  end
 
   def latest_mtss_notes_json(school_id, grade)
-    students = authorized do
+    students = authorized_for_grade_level(school_id, grade) do
       Student
         .active
         .where(school_id: school_id)
@@ -76,12 +94,8 @@ class ReadingController < ApplicationController
     notes.as_json(only: [:id, :student_id, :recorded_at])
   end
 
-  # TODO add back authorizer block
-  # TODO limit student fields
-  # TODO what about active ed plans only?
-  # TODO need older DIBELS data still, or F&P?
   def reading_students_json(school_id, grade)
-    students = authorized do
+    students = authorized_for_grade_level(school_id, grade) do
       Student
         .active
         .where(school_id: school_id)
@@ -137,9 +151,5 @@ class ReadingController < ApplicationController
         }
       }
     })
-  end
-
-  def dibels_data_points
-    []
   end
 end

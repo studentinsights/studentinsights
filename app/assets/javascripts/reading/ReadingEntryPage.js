@@ -81,7 +81,7 @@ export class ReadingEntryPageView extends React.Component {
     const {searchText, homeroomId} = this.state;
     return students.filter(student => {
       if (`${student.first_name} ${student.last_name}`.toLowerCase().indexOf(searchText.toLowerCase()) === -1) return false;
-      if (homeroomId !== ALL && student.homeroom.id.toString() !== homeroomId) return false;
+      if (homeroomId !== ALL && (student.homeroom && student.homeroom.id.toString()) !== homeroomId) return false;
       return true;
     });
   }
@@ -120,7 +120,7 @@ export class ReadingEntryPageView extends React.Component {
     const students = this.withMerged(readingStudents);
     const nowMoment = nowFn();
     return (
-      <DocumentContext initialDoc={{}} >
+      <DocumentContext initialDoc={{}} schoolId={school.id} grade={grade}>
         {({doc, onDocChanged, pending, failed}) => {
           const columns = describeEntryColumns({
             districtKey,
@@ -249,7 +249,7 @@ ReadingEntryPageView.propTypes = {
     ell_transition_date: PropTypes.string,
     latest_iep_document: PropTypes.object,
     limited_english_proficiency: PropTypes.string,
-    homeroom: PropTypes.object.isRequired,
+    homeroom: PropTypes.object,
     reading_benchmark_data_points: PropTypes.arrayOf(PropTypes.shape({
       benchmark_assessment_key: PropTypes.string.isRequired,
       benchmark_period_key: PropTypes.string.isRequired,

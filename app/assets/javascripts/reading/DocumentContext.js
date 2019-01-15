@@ -19,11 +19,16 @@ export default class DocumentContext extends React.Component {
 
   putChange(params = {}) {
     const {studentId, benchmarkAssessmentKey, value} = params;
+    const {schoolId, grade} = this.props;
     const url = `/api/reading/update_data_point_json`;
     return apiPutJson(url, {
       student_id: studentId,
+      school_id: schoolId,
+      grade: grade,
+      benchmark_school_year: 2018,
+      benchmark_period_key: 'winter',
       benchmark_assessment_key: benchmarkAssessmentKey,
-      json: value
+      value: value
     });
   }
 
@@ -80,5 +85,7 @@ export default class DocumentContext extends React.Component {
 }
 DocumentContext.propTypes = {
   initialDoc: PropTypes.any.isRequired,
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
+  schoolId: PropTypes.number.isRequired,
+  grade: PropTypes.string.isRequired
 };

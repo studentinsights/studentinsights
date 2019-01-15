@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import SimpleFilterSelect, {ALL} from './SimpleFilterSelect';
 
 
 // For selecting a homeroom by teacher name
 export default function SelectHomeroomByEducator({homeroomId, onChange, homerooms, style = undefined}) {
-  const homeroomOptions = [{value: ALL, label: 'All'}].concat(homerooms.map(homeroom => {
+  const homeroomOptions = [{value: ALL, label: 'All'}].concat(_.compact(homerooms).map(homeroom => {
     return { value: homeroom.id.toString(), label: homeroom.educator.full_name };
   }));
   return (
