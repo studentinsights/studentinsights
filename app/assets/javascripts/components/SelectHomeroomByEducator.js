@@ -6,13 +6,13 @@ import SimpleFilterSelect, {ALL} from './SimpleFilterSelect';
 // For selecting a homeroom by teacher name
 export default function SelectHomeroomByEducator({homeroomId, onChange, homerooms, style = undefined}) {
   const homeroomOptions = [{value: ALL, label: 'All'}].concat(homerooms.map(homeroom => {
-    return { value: homeroom.id, label: homeroom.educator.full_name };
+    return { value: homeroom.id.toString(), label: homeroom.educator.full_name };
   }));
   return (
     <SimpleFilterSelect
       style={style}
       placeholder="Homeroom..."
-      value={homeroomId}
+      value={homeroomId.toString()}
       onChange={onChange}
       options={homeroomOptions} />
   );

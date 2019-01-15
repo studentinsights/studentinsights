@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'props-types';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {apiPutJson} from '../helpers/apiFetchJson';
 
@@ -78,6 +78,5 @@ export default class DocumentContext extends React.Component {
 }
 DocumentContext.propTypes = {
   initialDoc: PropTypes.any.isRequired,
-  children: PropTypes.func.isRequired,
-  putJson: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired
 };

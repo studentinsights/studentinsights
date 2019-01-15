@@ -81,7 +81,7 @@ export class ReadingEntryPageView extends React.Component {
     const {searchText, homeroomId} = this.state;
     return students.filter(student => {
       if (`${student.first_name} ${student.last_name}`.toLowerCase().indexOf(searchText.toLowerCase()) === -1) return false;
-      if (homeroomId !== ALL && student.homeroom.id !== homeroomId) return false;
+      if (homeroomId !== ALL && student.homeroom.id.toString() !== homeroomId) return false;
       return true;
     });
   }

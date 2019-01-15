@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'props-types';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {SortDirection} from 'react-virtualized';
 

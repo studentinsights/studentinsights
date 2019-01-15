@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'props-types';
+import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import {modalFromRight} from '../components/HelpBubble';
 import DownloadCsvLink from '../components/DownloadCsvLink';
