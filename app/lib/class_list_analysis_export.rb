@@ -11,7 +11,9 @@ class ClassListAnalysisExport
   def print_analysis_csv(grade_level_next_year)
     delim = '|'
     workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
-    workspaces_for_grade = workspaces.select {|w| w.class_list.grade_level_next_year == grade_level_next_year && w.class_list.submitted }
+    workspaces_for_grade = workspaces.select do |w|
+      w.class_list.grade_level_next_year == grade_level_next_year && w.class_list.submitted
+    end
 
     puts 'Processing...'
     records = []
@@ -59,8 +61,8 @@ class ClassListAnalysisExport
     nil
   end
 
-  def snapshot_json(class_list_id, student_id)
-    snapshot = ClassListSnapshot.where(class_list_id: class_list_id).order(created_at: :asc).limit(1).first
+  def snapshot_json(snapshots, student_id)
+    snapshot = snapshots.order(created_at: :asc).first
     (snapshot.try(:students_json) || []).find {|json| student_id == json['id'] }
   end
 
@@ -74,6 +76,8 @@ class ClassListAnalysisExport
   def header
     [
       'class_list_id',
+      'first_timestamp',
+      'last_timestamp',
       'school_id',
       'grade_level_next_year',
       '/',
@@ -99,10 +103,16 @@ class ClassListAnalysisExport
 
   def to_line(record)
     class_list = record[:class_list]
-    json = snapshot_json(class_list.id, record[:student_id])
+    snapshots = ClassListSnapshot
+      .where(class_list_id: class_list.id)
+      .order(created_at: :asc)
+    first_timestamp, last_timestamp = [snapshots.first, snapshots.last]
+    json = snapshot_json(snapshots, record[:student_id])
 
     [
       class_list.id,
+      first_timestamp,
+      last_timestamp,
       class_list.school_id,
       class_list.grade_level_next_year,
       '/',
