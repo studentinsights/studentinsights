@@ -52,6 +52,7 @@ export default class ReadingEntryPage extends React.Component {
         currentEducatorId={currentEducatorId}
         grade={grade}
         school={json.school}
+        doc={json.entry_doc}
         readingStudents={json.reading_students}
         mtssNotes={json.latest_mtss_notes}
       />
@@ -116,11 +117,11 @@ export class ReadingEntryPageView extends React.Component {
 
   render() {
     const {districtKey, nowFn} = this.context;    
-    const {school, grade, readingStudents, currentEducatorId} = this.props;
+    const {doc, school, grade, readingStudents, currentEducatorId} = this.props;
     const students = this.withMerged(readingStudents);
     const nowMoment = nowFn();
     return (
-      <DocumentContext initialDoc={{}} schoolId={school.id} grade={grade}>
+      <DocumentContext initialDoc={doc} schoolId={school.id} grade={grade}>
         {({doc, onDocChanged, pending, failed}) => {
           const columns = describeEntryColumns({
             districtKey,
@@ -140,7 +141,7 @@ export class ReadingEntryPageView extends React.Component {
                 </div>
               </SectionHeading>
               {this.renderFilters()}
-              {this.renderTable(students, columns)}
+              {this.renderTable(students, columns, doc)}
             </div>
           );
         }}
@@ -185,8 +186,9 @@ export class ReadingEntryPageView extends React.Component {
     );
   }
 
-  renderTable(students, columns) {
-    const {districtKey} = this.context;
+  renderTable(students, columns, doc) {
+    const {districtKey, nowFn} = this.context;
+    const nowMoment = nowFn();
     const rowHeight = 40; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
@@ -196,7 +198,8 @@ export class ReadingEntryPageView extends React.Component {
         {({width, height}) => (
           <Sortable>
             {({sortDirection, sortBy, ordered, onTableSort}) => {
-              const sortedStudents = ordered(this.filteredStudents(students), sortFnsMap(districtKey));
+              const sortFns = sortFnsMap(doc, districtKey, nowMoment);
+              const sortedStudents = ordered(this.filteredStudents(students), sortFns);
               return (
                 <Table
                   width={width}
@@ -239,6 +242,7 @@ ReadingEntryPageView.propTypes = {
     slug: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
+  doc: PropTypes.object.isRequired,
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -250,13 +254,6 @@ ReadingEntryPageView.propTypes = {
     latest_iep_document: PropTypes.object,
     limited_english_proficiency: PropTypes.string,
     homeroom: PropTypes.object,
-    reading_benchmark_data_points: PropTypes.arrayOf(PropTypes.shape({
-      benchmark_assessment_key: PropTypes.string.isRequired,
-      benchmark_period_key: PropTypes.string.isRequired,
-      benchmark_school_year: PropTypes.number.isRequired,
-      json: PropTypes.object.isRequired,
-      educator: PropTypes.object.isRequired
-    })).isRequired
   })).isRequired,
   mtssNotes: PropTypes.arrayOf(PropTypes.shape({
     student_id: PropTypes.number.isRequired,

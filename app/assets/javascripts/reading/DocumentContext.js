@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {apiPutJson} from '../helpers/apiFetchJson';
+import WarnBeforeUnload from '../components/WarnBeforeUnload';
 import uuidv4 from 'uuid/v4';
 
 
@@ -15,6 +16,8 @@ export default class DocumentContext extends React.Component {
     };
 
     this.onDocChanged = this.onDocChanged.bind(this);
+    this.putChange = _.throttle(this.putChange.bind(this), props.throttleMs);
+    this.beforeUnloadMessage = this.beforeUnloadMessage.bind(this);
   }
 
   putChange(params = {}) {
@@ -30,6 +33,12 @@ export default class DocumentContext extends React.Component {
       benchmark_assessment_key: benchmarkAssessmentKey,
       value: value
     });
+  }
+
+  // Doesn't catch changes within throttle window
+  beforeUnloadMessage() {
+    const {pending} = this.state;
+    return _.values(pending).length > 0 ? 'You have unsaved changes.' : undefined;
   }
 
   onDocChanged(studentId, benchmarkAssessmentKey, value) {
@@ -75,17 +84,26 @@ export default class DocumentContext extends React.Component {
   render() {
     const {children} = this.props;
     const {doc, pending, failed} = this.state;
-    return children({
-      doc,
-      pending: _.values(pending),
-      failed: _.values(failed),
-      onDocChanged: this.onDocChanged
-    });
+
+    return (
+      <WarnBeforeUnload messageFn={this.beforeUnloadMessage}>
+        {children({
+          doc,
+          pending: _.values(pending),
+          failed: _.values(failed),
+          onDocChanged: this.onDocChanged
+        })}
+      </WarnBeforeUnload>
+    );
   }
 }
 DocumentContext.propTypes = {
   initialDoc: PropTypes.any.isRequired,
   children: PropTypes.func.isRequired,
   schoolId: PropTypes.number.isRequired,
-  grade: PropTypes.string.isRequired
+  grade: PropTypes.string.isRequired,
+  throttleMs: PropTypes.number
+};
+DocumentContext.defaultProps = {
+  throttleMs: 2000
 };

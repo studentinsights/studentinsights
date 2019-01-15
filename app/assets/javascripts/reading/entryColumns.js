@@ -18,54 +18,47 @@ import LanguageStatusLink from '../student_profile/LanguageStatusLink';
 import EdPlansPanel from '../student_profile/EdPlansPanel';
 
 
+// benchmark_assessment_key values:
+const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
+const DIBELS_DORF_ACC = 'dibels_dorf_acc';
+const F_AND_P_ENGLISH = 'f_and_p_english';
+const INSTRUCTIONAL_NEEDS = 'instructional_needs';
+
+
+// This describes the columns for a react-virtualized <Table /> used
+// for entering reading benchmark data.
+//
+// This isn't a React component.
 export function describeEntryColumns(params) {
   const {districtKey, nowMoment, currentEducatorId, doc, onDocChanged} = params;
 
-  // TODO fix jumping
-  const homeroomColors = [
-    '#bcbddc',
-    '#9e9ac8',
-    '#807dba',
-    '#6a51a3',
-    '#4a1486'
-  ];
-  const homeroomColor = (homeroomText) => {
-    return homeroomColors[parseInt(hash(homeroomText), 16) % homeroomColors.length];
-  };
   return [{
     label: 'Name',
-    dataKey: 'name',
-    cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
-      return renderStudentName(currentEducatorId, rowData);
-    },
+    dataKey: 'student_name',
     width: 150,
-    style: styles.cell
+    style: styles.cell,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      return renderStudentName(currentEducatorId, rowData);
+    }
   }, {
-    label: <span>Homeroom</span>,
-    dataKey: 'homeroom',
+    label: 'Homeroom',
+    dataKey: 'homeroom_educator_name',
+    width: 100,
+    style: styles.cell,
     cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
       const homeroomText = homeroomLastName(rowData);
       return (
         <span style={{
-          textAlign: 'center',
-          fontSize: 12,
-          opacity: 0.75,
-          color: 'white',
-          width: 80,
-          paddingLeft: 5,
-          paddingRight: 5,
-          paddingTop: 3,
-          paddingBottom: 3,
-          backgroundColor: homeroomColor(homeroomText)}}>
-          {homeroomText}
-        </span>
+          ...styles.homeroomHeaderLabel,
+          backgroundColor: pickHomeroomColor(homeroomText)
+        }}>{homeroomText}</span>
       );
-    },
-    width: 100,
-    style: styles.cell
+    }
   }, {
     label: '504',
     dataKey: 'plan_504',
+    width: 70,
+    style: styles.cell,
     cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
       if (!hasActive504Plan(rowData.plan_504)) return null;
       return (
@@ -81,12 +74,12 @@ export function describeEntryColumns(params) {
           content={render504Dialog(districtKey, rowData)}
         />
       );
-    },
-    width: 70,
-    style: styles.cell
+    }
   }, {
     label: 'IEP',
     dataKey: 'iep',
+    width: 50,
+    style: styles.cell,
     cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
       if (!hasAnySpecialEducationData(rowData, rowData.latest_iep_document)) return null;
       return (
@@ -98,17 +91,14 @@ export function describeEntryColumns(params) {
           </IepDialog>
         </PerDistrictContainer>
       );
-    },
-    width: 50,
-    style: styles.cell
+    }
   }, {
     label: <span>English<br/>Learner</span>,
-    dataKey: 'access',
-    cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
-      if (!isEnglishLearner(districtKey, rowData.limited_english_proficiency)) return null;
-
-      const level = accessLevelNumber(rowData.access);
-      const linkText = (level) ? `Level ${level}` : 'ELL';
+    dataKey: 'english_learner_level',
+    width: 70,
+    style: styles.cell,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      const linkText = englishLearnerLinkText(districtKey, rowData);
       return (
         <PerDistrictContainer districtKey={districtKey}>
           <LanguageStatusLink
@@ -121,35 +111,39 @@ export function describeEntryColumns(params) {
           />
         </PerDistrictContainer>
       );
-    },
-    width: 70,
-    style: styles.cell
+    }
   }, {
     label: <span>MTSS,<br/>2 years</span>,
     dataKey: 'mtss',
-    cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
-      return renderMtss(rowData.mtss, nowMoment);
-    },
     width: 70,
-    style: styles.cell
+    style: styles.cell,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      return renderMtss(rowData.mtss, nowMoment);
+    }
   }, {
-    label: <span style={styles.headerCell}>F&P level,<br />benchmark</span>,
-    dataKey: 'f_and_p_english',
-    cellRenderer: createInputCell.bind(null, 'f_and_p_english', doc, onDocChanged, {}),
+    label: <span style={styles.headerCell}>F&P level</span>,
+    dataKey: F_AND_P_ENGLISH,
     width: 80,
-    style: styles.dataCell
+    style: styles.dataCell,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      return createInputCell(F_AND_P_ENGLISH, rowData.id, doc, onDocChanged);
+    }
   }, {
-    label: <span style={styles.headerCell}>DORF,<br/>% accuracy</span>,
-    dataKey: 'f_and_p',
-    cellRenderer: createInputCell.bind(null, 'dibels_dorf_acc', doc, onDocChanged, {}),
+    label: <span style={styles.headerCell}>DORF, %<br/>accuracy</span>,
+    dataKey: DIBELS_DORF_ACC,
     width: 80,
-    style: styles.dataCell
+    style: styles.dataCell,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      return createInputCell(DIBELS_DORF_ACC, rowData.id, doc, onDocChanged);
+    }
   }, {
     label: <span style={styles.headerCell}>DORF,<br/>words/min</span>,
-    dataKey: 'dibels_dorf_wpm',
-    cellRenderer: createInputCell.bind(null, 'dibels_dorf_wpm', doc, onDocChanged, {}),
+    dataKey: DIBELS_DORF_WPM,
     width: 80,
-    style: styles.dataCell
+    style: styles.dataCell,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      return createInputCell(DIBELS_DORF_WPM, rowData.id, doc, onDocChanged);
+    }
   }, {
     label: (
       <div style={{...styles.headerCell, marginLeft: 10}}>
@@ -157,42 +151,43 @@ export function describeEntryColumns(params) {
         <div style={{fontWeight: 'normal'}}>(eg, blending, attention)</div>
       </div>
     ),
-    dataKey: 'what_else',
-    cellRenderer: createInputCell.bind(null, 'instructional_needs', doc, onDocChanged, {
-      style: {
-        ...styles.dataInput,
-        fontSize: 12,
-        textAlign: 'left'
-      }
-    }),
     width: 140,
     flexGrow: 1,
-    style: {...styles.dataCell, marginLeft: 10, marginRight: 20}
+    style: {...styles.dataCell, marginLeft: 10, marginRight: 20},
+    dataKey: INSTRUCTIONAL_NEEDS,
+    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
+      return createInputCell(INSTRUCTIONAL_NEEDS, rowData.id, doc, onDocChanged, {
+        style: {
+          ...styles.dataInput,
+          fontSize: 12,
+          textAlign: 'left'
+        }
+      });
+    }
   }];
 }
 
 
 
 // map dataKey to an accessor/sort function
-export function sortFnsMap(districtKey) {
+export function sortFnsMap(doc, districtKey, nowMoment) {
   return {
-    name(student) { return `${student.last_name}, ${student.first_name}`; },
-    homeroom(student) { return homeroomLastName(student); },
+    student_name(student) { return `${student.last_name}, ${student.first_name}`; },
+    homeroom_educator_name(student) { return homeroomLastName(student); },
     plan_504(student) { return hasActive504Plan(student.plan_504) ? '504' : null; },
-    iep(student) { return hasAnySpecialEducationData(student, {}) ? 'IEP' : null; },
-    access(student) {
-      if (!isEnglishLearner(districtKey, student.limited_english_proficiency)) return null;
-      return accessLevelNumber(student.access);
-    },
-    // TODO mtss
-    // TODO entered data, numeric and text
+    iep(student) { return hasAnySpecialEducationData(student, student.latest_iep_document) ? 'IEP' : null; },
+    english_learner_level(student) { return englishLearnerLinkText(districtKey, student); },
+    mtss(student) { return renderMtss(student.mtss, nowMoment); },
+    f_and_p_english(student) { return readDoc(doc, student.id, F_AND_P_ENGLISH) || 'a'; },
+    dibels_dorf_acc(student) { return parseInt(readDoc(doc, student.id, DIBELS_DORF_ACC), 10) || Number.NEGATIVE_INFINITY; },
+    dibels_dorf_wpm(student) { return parseInt(readDoc(doc, student.id, DIBELS_DORF_WPM), 10) || Number.NEGATIVE_INFINITY; },
+    instructional_needs(student) { return readDoc(doc, student.id, INSTRUCTIONAL_NEEDS); }
   };
 }
 
 
 // bind the input to the of state for (`key`, studenI
-function createInputCell(benchmarkAssessmentKey, doc, onDocChanged, props, {rowData}) {
-  const studentId = rowData.id;
+function createInputCell(benchmarkAssessmentKey, studentId, doc, onDocChanged, props = {}) {
   const value = readDoc(doc, studentId, benchmarkAssessmentKey);
   return (
     <input
@@ -216,8 +211,6 @@ function renderStudentName(currentEducatorId, student) {
     ? <a tabIndex={-1} style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
     : `${student.first_name} ${student.last_name}`;
   
-  // not sure image looks good, also probably need caching instead of naive
-  // image tags {/*<StudentPhoto student={student} height={40} />*/}
   return nameEl;
 }
 
@@ -237,6 +230,17 @@ export function homeroomLastName(student) {
     : '(none)';
 }
 
+const homeroomColors = [
+  '#bcbddc',
+  '#9e9ac8',
+  '#807dba',
+  '#6a51a3',
+  '#4a1486'
+];
+function pickHomeroomColor(homeroomText) {
+  return homeroomColors[parseInt(hash(homeroomText), 16) % homeroomColors.length];
+}
+
 // only render this school year and 2 years back (push to server?)
 function renderMtss(mtssList, nowMoment) {
   if (mtssList.length === 0) return null;
@@ -250,6 +254,11 @@ function renderMtss(mtssList, nowMoment) {
   return latestMtssMoment.format('M/D/YY');
 }
 
+function englishLearnerLinkText(districtKey, rowData) {
+  if (!isEnglishLearner(districtKey, rowData.limited_english_proficiency)) return null;
+  const level = accessLevelNumber(rowData.access);
+  return (level) ? `Level ${level}` : 'ELL';
+}
 
 const styles = {
   headerCell: {
@@ -273,5 +282,16 @@ const styles = {
   },
   link: {
     fontSize: 14
+  },
+  homeroomHeaderLabel: {
+    textAlign: 'center',
+    fontSize: 12,
+    opacity: 0.75,
+    color: 'white',
+    width: 80,
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 3,
+    paddingBottom: 3
   }
 };

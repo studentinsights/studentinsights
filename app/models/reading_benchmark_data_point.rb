@@ -3,7 +3,8 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
   VALID_BENCHMARK_ASSESSMENT_KEYS = [
     'dibels_dorf_wpm',
     'dibels_dorf_acc',
-    'f_and_p_english'
+    'f_and_p_english',
+    'instructional_needs'
   ]
 
   belongs_to :student

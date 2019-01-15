@@ -9,19 +9,19 @@ class ReadingController < ApplicationController
 
     render json: {
       school: school.as_json(only: [:id, :slug, :name]),
+      entry_doc: entry_doc_json(school.id, grade),
       reading_students: reading_students_json(school.id, grade),
       latest_mtss_notes: latest_mtss_notes_json(school.id, grade)
     }
   end
 
   # PUT
-  # This allows fine-grained, cell-level edits to minimize conflicts.
-  # This is idempotent with no conflict resolution; last write wins.
-  # Client code emphasizes showing notifications and the changelog
-  # rather than trying to resolve conflicts using locks (with the idea
-  # that concurrent editing will be unlikely in practice outside of
-  # direct collaboration, where changelogs and notifications are
-  # preferable anyway).
+  # This allows fine-grained, cell-level edits to minimize conflicts,
+  # Semantics are: idempotent, last write wins.  Storage is append-only.
+  #
+  # The idea is that concurrent editing will be unlikely in practice
+  # outside of direct collaboration, where changelogs and notifications
+  # are preferable to locks or conflict resolution anyway.
   def update_data_point_json
     safe_params = params.permit(*[
       :student_id,
@@ -55,7 +55,7 @@ class ReadingController < ApplicationController
 
   private
   def ensure_authorized_for_feature!
-    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_grade')
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_reading_benchmark_data_entry')
   end
 
   # Authorization for reading features only (not general-purpose access).
@@ -63,8 +63,8 @@ class ReadingController < ApplicationController
   # special education teachers, and instructional coaches, so this is
   # used for fine-grained access during in-person testing.
   def is_authorized_for_grade_level?(school_id, grade)
-    reading_authorizations = JSON.parse(ENV.fetch('READING_AUTHORIZATIONS_JSON', '{}'))
-    educator_login_names = reading_authorizations.fetch("#{school_id}:#{grade}")
+    educator_authorizations_json = JSON.parse(ENV.fetch('READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON', '{}'))
+    educator_login_names = educator_authorizations_json.fetch("#{school_id}:#{grade}")
     educator_login_names.include?(current_educator.login_name)
   end
 
@@ -74,17 +74,43 @@ class ReadingController < ApplicationController
   end
 
   def is_open_for_writing?(benchmark_school_year, benchmark_period_key)
-    benchmark_school_year == 2018 && benchmark_period_key == 'winter'
+    open_benchmark_periods_json = JSON.parse(ENV.fetch('READING_ENTRY_OPEN_BENCHMARK_PERIODS_JSON', '{}'))
+    open_benchmark_periods_json.fetch('periods', []).any? do |period|
+      (
+        benchmark_school_year == period['benchmark_school_year'] &&
+        benchmark_period_key == period['benchmark_period_key']
+      )
+    end
   end
 
-  def latest_mtss_notes_json(school_id, grade)
-    students = authorized_for_grade_level(school_id, grade) do
+  def authorized_students_for_grade_level(school_id, grade)
+    authorized_for_grade_level(school_id, grade) do
       Student
         .active
         .where(school_id: school_id)
         .where(grade: grade)
     end
+  end
 
+  def entry_doc_json(school_id, grade)
+    student_ids = authorized_students_for_grade_level(school_id, grade).pluck(:id)
+    data_points = ReadingBenchmarkDataPoint.where({
+      benchmark_school_year: 2018,
+      benchmark_period_key: 'winter',
+      student_id: student_ids
+    }).order(updated_at: :asc)
+    doc = data_points.reduce({}) do |map, data_point|
+      map.merge({
+        data_point.student_id => map.fetch(data_point.student_id, {}).merge({
+          data_point.benchmark_assessment_key => data_point.json['value']
+        })
+      })
+    end
+    doc.as_json
+  end
+
+  def latest_mtss_notes_json(school_id, grade)
+    students = authorized_students_for_grade_level(school_id, grade)
     notes = authorized do
       EventNote
         .where(event_note_type_id: 301)
@@ -104,7 +130,6 @@ class ReadingController < ApplicationController
         .includes(:star_reading_results)
         .includes(:dibels_results)
         .includes(:f_and_p_assessments)
-        .includes(:reading_benchmark_data_points)
         .to_a
     end
 
@@ -124,14 +149,6 @@ class ReadingController < ApplicationController
         :access
       ],
       include: {
-        reading_benchmark_data_points: {
-          only: [:id, :benchmark_school_year, :benchmark_period_key, :benchmark_assessment_key, :json],
-          include: {
-            educator: {
-              only: [:id, :email, :full_name]
-            }
-          }
-        },
         f_and_p_assessments: {
           only: [:benchmark_date, :instructional_level, :f_and_p_code]
         },
