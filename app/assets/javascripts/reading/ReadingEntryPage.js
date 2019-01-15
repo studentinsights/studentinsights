@@ -542,13 +542,19 @@ function describeColumns(districtKey, grade, nowMoment, currentEduatorId) {
     width: 80,
     style: styles.dataCell
   }, {
-    label: <span style={styles.headerCell}>Instructional needs?<br /><span style={{fontWeight: 'normal'}}>(eg, blending, attention)</span></span>,
+    label: (
+      <div style={{...styles.headerCell, marginLeft: 20}}>
+        <div>Instructional needs?</div>
+        <div style={{fontWeight: 'normal'}}>(eg, blending, attention)</div>
+      </div>
+    ),
     dataKey: 'what_else',
     cellRenderer({rowData}) {
       return <input style={{...styles.dataInput, textAlign: 'left'}} type="text"  />;
     },
     width: 140,
-    style: styles.dataCell
+    flexGrow: 1,
+    style: {...styles.dataCell, marginLeft: 20, marginRight: 20}
   }];
 }
 

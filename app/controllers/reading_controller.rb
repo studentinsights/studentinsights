@@ -9,9 +9,12 @@ class ReadingController < ApplicationController
 
     render json: {
       school: school.as_json(only: [:id, :slug, :name]),
-      reading_students: reading_students_json(school.id, grade),
-      dibels_data_points: [], # TODO(kr)
-      latest_mtss_notes: latest_mtss_notes_json(school.id, grade)
+      # reading_students: reading_students_json(school.id, grade),
+      # dibels_data_points: [], # TODO(kr)
+      # latest_mtss_notes: latest_mtss_notes_json(school.id, grade)
+      reading_students: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-reading-students.json')),
+      dibels_data_points: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-dibels.json')),
+      latest_mtss_notes: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2018-12-07-reading/hea-mtss.json'))
     }
   end
 
