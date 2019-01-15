@@ -133,9 +133,11 @@ export class ReadingEntryPageView extends React.Component {
             <div style={{...styles.flexVertical, margin: 10}}>
               <SectionHeading titleStyle={styles.title}>
                 <div>Benchmark Reading Data: {gradeText(grade)} at {school.name}</div>
-                {this.renderDownloadLink(students, columns)}
-                {pending.length > 0 ? 'pending' : null}
-                {failed.length > 0 ? 'failed' : null}
+                <div style={{display: 'flex'}}>
+                  {pending.length > 0 ? '...' : null}
+                  {failed.length > 0 ? '!' : null}
+                  {this.renderDownloadLink(students, columns)}
+                </div>
               </SectionHeading>
               {this.renderFilters()}
               {this.renderTable(students, columns)}

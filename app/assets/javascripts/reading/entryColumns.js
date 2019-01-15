@@ -109,7 +109,6 @@ export function describeEntryColumns(params) {
 
       const level = accessLevelNumber(rowData.access);
       const linkText = (level) ? `Level ${level}` : 'ELL';
-      console.log(level, rowData.access);
       return (
         <PerDistrictContainer districtKey={districtKey}>
           <LanguageStatusLink

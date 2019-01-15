@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {apiPutJson} from '../helpers/apiFetchJson';
+import uuidv4 from 'uuid/v4';
 
 
 export default class DocumentContext extends React.Component {
@@ -36,7 +37,7 @@ export default class DocumentContext extends React.Component {
       }
     };
 
-    const requestId = _.uniqId();
+    const requestId = uuidv4();
     this.setState({
       doc: updatedDoc,
       pending: {
@@ -58,6 +59,7 @@ export default class DocumentContext extends React.Component {
   
   onRequestError(requestId, err) {
     this.setState({
+      pending: _.omit(this.state.pending, requestId),
       failed: {
         ...this.state.failed,
         [requestId]: err
