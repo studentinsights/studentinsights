@@ -6,6 +6,11 @@ import WarnBeforeUnload from '../components/WarnBeforeUnload';
 import uuidv4 from 'uuid/v4';
 
 
+// For holding the `doc` for data entry, which mutates and
+// gets synced to the server.
+//
+// Specific to the format of `doc`, semantics of the endpoint,
+// and usage for entering reading benchmark data.
 export default class DocumentContext extends React.Component {
   constructor(props) {
     super(props);

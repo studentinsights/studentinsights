@@ -17,6 +17,14 @@ import Sortable from './Sortable';
 import LazyExportLink from './LazyExportLink';
 
 
+// Page for entering benchmark reading data for students in a grade.
+// Shows all students in the grade, since reading groupings are
+// fluid amongst staff and roles (eg, reading specialist, SPED teacher,
+// classroom teacher, ELL teacher).
+//
+// Intended for quarterly data entry, not for continuous use week-to-week
+// like progress monitoring.  Not designed for full collaborative editing,
+// and uses fine-grained updates to the server for avoiding conflicts.
 export default class ReadingEntryPage extends React.Component {
   constructor(props) {
     super(props);
@@ -287,4 +295,3 @@ const styles = {
     width: 220
   }
 };
-

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {SortDirection} from 'react-virtualized';
 
-
+// For use with react-virtualized <Table />
 export default class Sortable extends React.Component {
   constructor(props) {
     super(props);
