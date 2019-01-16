@@ -72,9 +72,9 @@ export default class LightBehaviorDetails extends React.Component {
 
     return (
       <div className="LightBehaviorDetails">
-        {this.renderDisciplineIncidents(filteredDisciplineIncidents)}
         {this.renderCleanSlateMessage()}
         {this.renderIncidentHistory(filteredDisciplineIncidents)}
+        {this.renderDisciplineIncidents(filteredDisciplineIncidents)}
       </div>
     );
   }
@@ -134,7 +134,7 @@ export default class LightBehaviorDetails extends React.Component {
           ))}
         </div>
         <div style={{width: '50%'}}>
-          <IncidentHeatmap incidents={this.props.disciplineIncidents}/>
+          <IncidentHeatmap incidents={filteredDisciplineIncidents}/>
         </div>
       </div>
     );
