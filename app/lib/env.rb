@@ -30,6 +30,7 @@ class Env
     default_env['STUDENT_VOICE_SURVEY_FORM_URL'] = 'https://example.com/this-is-the-survey'
     default_env['SHOULD_SHOW_TEAM_ICONS'] = 'false'
     default_env['SHOW_WORK_BOARD'] = 'true'
+    default_env['READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON'] = '{"2:3":["uri"], "2:5":["uri"]}'
 
     # only set values if ENV hasn't already set them (ie, allow command line overrides)
     default_env.each do |key, value|

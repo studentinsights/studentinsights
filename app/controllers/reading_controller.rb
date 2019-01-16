@@ -64,7 +64,7 @@ class ReadingController < ApplicationController
   # used for fine-grained access during in-person testing.
   def is_authorized_for_grade_level?(school_id, grade)
     educator_authorizations_json = JSON.parse(ENV.fetch('READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON', '{}'))
-    educator_login_names = educator_authorizations_json.fetch("#{school_id}:#{grade}")
+    educator_login_names = educator_authorizations_json.fetch("#{school_id}:#{grade}", [])
     educator_login_names.include?(current_educator.login_name)
   end
 
