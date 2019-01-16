@@ -48,9 +48,7 @@ class ReadingController < ApplicationController
       educator_id: current_educator.id
     })
 
-    render json: {
-      status: 'ok'
-    }
+    head :created
   end
 
   private
@@ -68,32 +66,33 @@ class ReadingController < ApplicationController
     educator_login_names.include?(current_educator.login_name)
   end
 
-  def authorized_for_grade_level(school_id, grade, &block)
+  # Placeholder, similar to Authorizer#authorized but for grade-level
+  # access to reading data only.
+  def authorized_by_grade_level(school_id, grade, &block)
     return [] unless is_authorized_for_grade_level?(school_id, grade)
     block.call
   end
 
+  # This happens in cycles; the intention is that a literacy coach
+  # manages this.
   def is_open_for_writing?(benchmark_school_year, benchmark_period_key)
     open_benchmark_periods_json = JSON.parse(ENV.fetch('READING_ENTRY_OPEN_BENCHMARK_PERIODS_JSON', '{}'))
     open_benchmark_periods_json.fetch('periods', []).any? do |period|
       (
-        benchmark_school_year == period['benchmark_school_year'] &&
+        benchmark_school_year.to_i == period['benchmark_school_year'].to_i &&
         benchmark_period_key == period['benchmark_period_key']
       )
     end
   end
 
-  def authorized_students_for_grade_level(school_id, grade)
-    authorized_for_grade_level(school_id, grade) do
+  # queries
+  def entry_doc_json(school_id, grade)
+    student_ids = authorized_by_grade_level(school_id, grade) do
       Student
         .active
         .where(school_id: school_id)
         .where(grade: grade)
     end
-  end
-
-  def entry_doc_json(school_id, grade)
-    student_ids = authorized_students_for_grade_level(school_id, grade).pluck(:id)
     data_points = ReadingBenchmarkDataPoint.where({
       benchmark_school_year: 2018,
       benchmark_period_key: 'winter',
@@ -110,7 +109,12 @@ class ReadingController < ApplicationController
   end
 
   def latest_mtss_notes_json(school_id, grade)
-    students = authorized_students_for_grade_level(school_id, grade)
+    students = authorized_by_grade_level(school_id, grade) do
+      Student
+        .active
+        .where(school_id: school_id)
+        .where(grade: grade)
+    end
     notes = authorized do
       EventNote
         .where(event_note_type_id: 301)
@@ -121,7 +125,7 @@ class ReadingController < ApplicationController
   end
 
   def reading_students_json(school_id, grade)
-    students = authorized_for_grade_level(school_id, grade) do
+    students = authorized_by_grade_level(school_id, grade) do
       Student
         .active
         .where(school_id: school_id)
