@@ -8,6 +8,10 @@ export default class IncidentHeatmap extends React.Component {
     super(props);
   }
 
+  toolTipFormatter() {
+    return `${this.point.type} - ${this.point.date}`;
+  }
+
   render() {
     const categories = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     const seriesData = this.props.incidents.map(incident => {
@@ -25,7 +29,8 @@ export default class IncidentHeatmap extends React.Component {
         categories={{categories: categories}}
         seriesData={seriesData}
         measureText={"Time of Incident"}
-        studentChart={true}/>);
+        studentChart={true}
+        toolTipFormatter={this.toolTipFormatter}/>);
   }
 }
 

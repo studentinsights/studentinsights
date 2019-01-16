@@ -285,6 +285,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.setState(initialState());
   }
 
+  toolTipFormatter() {
+    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
+  }
+
   onZoom(highchartsEvent) {
     if (highchartsEvent.xAxis && highchartsEvent.yAxis) { //highcharts sends different events when user is making and resetting a selection
       const zoomed = true;
@@ -393,7 +397,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       categories: {categories: categories},
       seriesData: seriesData,
       titleText: null,
-      studentChart: false
+      toolTipFormatter: this.toolTipFormatter
     };
     const barChartProps = {
       ...commonProps,
