@@ -20,7 +20,8 @@ describe UiController, :type => :controller do
           "school_id" => pals.healey.id,
           "labels" => [
             'can_upload_student_voice_surveys',
-            'should_show_levels_shs_link'
+            'should_show_levels_shs_link',
+            'enable_reading_benchmark_data_entry'
           ]
         }
       }.deep_stringify_keys)
