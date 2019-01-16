@@ -69,7 +69,7 @@ exports[`snapshots 1`] = `
     }
     tooltip={
       Object {
-        "pointFormat": "{point.type} - {point.date}",
+        "formatter": [Function],
       }
     }
     xAxis={
