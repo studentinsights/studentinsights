@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots if label is set 1`] = `
+<div
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "color": "purple",
+      }
+    }
+  >
+    Reading benchmarks: 
+    Winter 2018
+  </div>
+  <div
+    className="Card "
+    style={
+      Object {
+        "border": "none",
+        "borderRadius": 3,
+        "padding": 10,
+      }
+    }
+  >
+    <div>
+      Add 
+      <a
+        href="/schools/hea/reading/3/entry"
+        style={
+          Object {
+            "fontWeight": "bold",
+          }
+        }
+      >
+        benchmark reading data
+      </a>
+       for your students, and you'll be able to use new tools for making reading groups and visualizing student growth over time.
+    </div>
+  </div>
+</div>
+`;

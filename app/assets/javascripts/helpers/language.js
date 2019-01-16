@@ -120,7 +120,8 @@ export function englishProficiencyOptions(districtKey) {
 
 export function hasAnyAccessData(access) {
   if (access === undefined || access === null) return false;
-  return _.some(Object.keys(access), key => access[key] !== null && access[key] !== undefined);
+  const subtestKeys = Object.keys(access).filter(key => access[key] !== null && access[key] !== undefined);
+  return _.some(subtestKeys, key => access[key].performance_level !== null && access[key].performance_level !== undefined);
 }
 
 

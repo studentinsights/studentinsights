@@ -3,6 +3,7 @@ import React from 'react';
 import Card from '../components/Card';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
+import ReadingDataEntryBox from './ReadingDataEntryBox';
 import {shouldShowLowGradesBox} from '../helpers/PerDistrict';
 
 
@@ -16,6 +17,10 @@ class HomeInsights extends React.Component {
         {shouldShowLowGradesBox(educatorLabels) &&
           <CheckStudentsWithLowGrades educatorId={educatorId} />}
         <CheckStudentsWithHighAbsences educatorId={educatorId} />
+        <ReadingDataEntryBox
+          style={styles.card}
+          titleStyle={styles.cardTitle}
+          educatorLabels={educatorLabels} />
         {this.renderPlaceholder()}
       </div>
     );
@@ -46,6 +51,14 @@ const styles = {
     marginTop: 20,
     border: '1px solid #ccc',
     borderRadius: 3
+  },
+  cardTitle: {
+    backgroundColor: '#eee',
+    padding: 10,
+    color: 'black',
+    borderBottom: '1px solid #ccc',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 };
 
