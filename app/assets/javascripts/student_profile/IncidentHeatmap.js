@@ -24,10 +24,8 @@ export default class IncidentHeatmap extends React.Component {
         titleText={"Incidents by Day and Time"}
         categories={{categories: categories}}
         seriesData={seriesData}
-        yAxisMin={420}
-        yAxisMax={960}
         measureText={"Time of Incident"}
-        tooltip={{pointFormat: '{point.type} - {point.date}'}}/>);
+        studentChart={true}/>);
   }
 }
 

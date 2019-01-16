@@ -392,7 +392,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       animation: false,
       categories: {categories: categories},
       seriesData: seriesData,
-      titleText: null
+      titleText: null,
+      studentChart: false
     };
     const barChartProps = {
       ...commonProps,
