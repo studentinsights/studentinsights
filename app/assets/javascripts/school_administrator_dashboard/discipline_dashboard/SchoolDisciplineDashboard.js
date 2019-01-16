@@ -257,6 +257,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return _.uniq(dashboardStudents.map(student => student.counselor)).sort();
   }
 
+  toolTipFormatter() {
+    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
+  }
+
   onIncidentTypeChange(incidentType) {
     this.setState({selectedIncidentCode: incidentType, selectedCategory: null});
   }
@@ -283,10 +287,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   onResetFilters() {
     this.setState(initialState());
-  }
-
-  toolTipFormatter() {
-    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
   }
 
   onZoom(highchartsEvent) {
