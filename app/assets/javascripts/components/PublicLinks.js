@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 export function Website(props) {
@@ -6,5 +7,8 @@ export function Website(props) {
 }
 
 export function Email(props) {
-  return <a {...props} href="mailto://ideas@studentinsights.org">ideas@studentinsights.org</a>;
+  return <a {...props} href="mailto://ideas@studentinsights.org">{props.children || 'ideas@studentinsights.org'}</a>;
 }
+Email.propTypes = {
+  children: PropTypes.node
+};
