@@ -4,7 +4,6 @@ import _ from 'lodash';
 import {Table, Column, AutoSizer} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {gradeText} from '../helpers/gradeText';
-import {toCsvTextFromTable} from '../helpers/toCsvFromTable';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
