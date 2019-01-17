@@ -5,7 +5,7 @@ import {hasActive504Plan} from '../helpers/PerDistrict';
 import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import {isEnglishLearner, accessLevelNumber} from '../helpers/language';
-import {hasAnySpecialEducationData} from '../helpers/specialEducation';
+import {hasActiveIep} from '../helpers/specialEducation';
 import HelpBubble, {
   modalFullScreenFlex,
   dialogFullScreenFlex
@@ -81,7 +81,7 @@ export function describeEntryColumns(params) {
     width: 50,
     style: styles.cell,
     cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
-      if (!hasAnySpecialEducationData(rowData, rowData.latest_iep_document)) return null;
+      if (!hasActiveIep(rowData)) return null;
       return (
         <PerDistrictContainer districtKey={districtKey}>
           <IepDialog
@@ -191,7 +191,7 @@ export function sortFnsMap(doc, districtKey, nowMoment) {
     student_name(student) { return `${student.last_name}, ${student.first_name}`; },
     homeroom_educator_name(student) { return homeroomLastName(student); },
     plan_504(student) { return hasActive504Plan(student.plan_504) ? '504' : null; },
-    iep(student) { return hasAnySpecialEducationData(student, student.latest_iep_document) ? 'IEP' : null; },
+    iep(student) { return hasActiveIep(student) ? 'IEP' : null; },
     english_learner_level(student) { return englishLearnerLinkText(districtKey, student); },
     mtss(student) { return renderMtss(student.mtss, nowMoment); },
     [F_AND_P_ENGLISH](student) { return readDoc(doc, student.id, F_AND_P_ENGLISH) || 'a'; },

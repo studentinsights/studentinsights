@@ -1,8 +1,6 @@
 // This file contains functions that handle variations by district, so that they work
 // across all districts.
-export function hasAnySpecialEducationData(student, maybeIepDocument) {
-  if (maybeIepDocument) return true;
-  
+export function hasActiveIep(student) {
   const {program, placement, disability, levelOfNeed} = cleanSpecialEducationValues(student);
   if (program && isSpecialEducationProgram(program)) return true;
   if (placement) return true;
