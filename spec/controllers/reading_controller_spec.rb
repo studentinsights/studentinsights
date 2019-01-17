@@ -125,14 +125,14 @@ describe ReadingController, :type => :controller do
         value: 'phonological awareness, segmenting'
       })
       expect(response.status).to eq 201
-      expect(response.body).to eq ''
+      expect(response.body).to eq '{}'
 
       put_update_data_point_json({
         benchmark_assessment_key: 'dibels_dorf_acc',
         value: 'multisyllabic decoding'
       })
       expect(response.status).to eq 201
-      expect(response.body).to eq ''
+      expect(response.body).to eq '{}'
 
       # verify storage in database
       reading_benchmark_data_points = ReadingBenchmarkDataPoint.where(student_id: pals.healey_kindergarten_student.id)
