@@ -1,27 +1,27 @@
 import {
-  hasAnySpecialEducationData,
+  hasActiveIep,
   prettyProgramOrPlacementText,
   prettyIepTextForSpecialEducationStudent
 } from './specialEducation';
 
-describe('#hasAnySpecialEducationData', () => {
+describe('#hasActiveIep', () => {
   it('excludes other programs', () => {
-    expect(hasAnySpecialEducationData({
+    expect(hasActiveIep({
       program_assigned: '2Way English',
       sped_placement: null,
       disability: null,
       sped_level_of_need: null,
-    }, null)).toEqual(false);
+    })).toEqual(false);
   });
 
   it('ignores sped_liaison value', () => {
-    expect(hasAnySpecialEducationData({
+    expect(hasActiveIep({
       program_assigned: 'Reg Ed',
       sped_placement: null,
       disability: null,
       sped_level_of_need: null,
       sped_liaison: 'Concepcion'
-    }, null)).toEqual(false);
+    })).toEqual(false);
   });
 });
 

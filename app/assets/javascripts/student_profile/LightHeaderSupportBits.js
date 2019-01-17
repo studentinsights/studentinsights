@@ -8,7 +8,7 @@ import {
   supportsCounselor
 } from '../helpers/PerDistrict';
 import {
-  hasAnySpecialEducationData,
+  hasActiveIep,
   prettyProgramOrPlacementText,
   prettyLevelOfNeedText,
   prettyIepTextForSpecialEducationStudent,
@@ -152,8 +152,8 @@ export default class LightHeaderSupportBits extends React.Component {
 
   renderIEP() {
     const {districtKey} = this.context;
-    const {student, iepDocument} = this.props;
-    if (!hasAnySpecialEducationData(student, iepDocument)) return null;
+    const {student} = this.props;
+    if (!hasActiveIep(student)) return null;
     
     const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
     if (!shouldShowIepLink(districtKey)) return specialEducationText;
