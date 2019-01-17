@@ -121,40 +121,56 @@ export function describeEntryColumns(params) {
       return renderMtss(rowData.mtss, nowMoment);
     }
   }, {
-    label: <span style={styles.headerCell}>F&P level</span>,
     dataKey: F_AND_P_ENGLISH,
-    width: 80,
+    label: (
+      <span style={{...styles.headerCell, ...styles.notSortable}}>
+        F&P level
+      </span>
+    ),
+    disableSort: true,
+    width: 85,
     style: styles.dataCell,
     cellRenderer({rowData}) { // eslint-disable-line react/prop-types
       return createInputCell(F_AND_P_ENGLISH, rowData.id, doc, onDocChanged);
     }
   }, {
-    label: <span style={styles.headerCell}>DORF, %<br/>accuracy</span>,
     dataKey: DIBELS_DORF_ACC,
-    width: 80,
+    label: (
+      <span style={{...styles.headerCell, ...styles.notSortable}}>
+        DORF, %<br/>accuracy
+      </span>
+    ),
+    disableSort: true,
+    width: 85,
     style: styles.dataCell,
     cellRenderer({rowData}) { // eslint-disable-line react/prop-types
       return createInputCell(DIBELS_DORF_ACC, rowData.id, doc, onDocChanged);
     }
   }, {
-    label: <span style={styles.headerCell}>DORF,<br/>words/min</span>,
     dataKey: DIBELS_DORF_WPM,
-    width: 80,
+    label: (
+      <span style={{...styles.headerCell, ...styles.notSortable}}>
+        DORF,<br/>words/min
+      </span>
+    ),
+    disableSort: true,
+    width: 85,
     style: styles.dataCell,
     cellRenderer({rowData}) { // eslint-disable-line react/prop-types
       return createInputCell(DIBELS_DORF_WPM, rowData.id, doc, onDocChanged);
     }
   }, {
+    dataKey: INSTRUCTIONAL_NEEDS,
     label: (
-      <div style={{...styles.headerCell, marginLeft: 10}}>
+      <div style={{...styles.headerCell, ...styles.notSortable, marginLeft: 10}}>
         <div>Instructional needs?</div>
         <div style={{fontWeight: 'normal'}}>(eg, blending, attention)</div>
       </div>
     ),
+    disableSort: true,
     width: 140,
     flexGrow: 1,
     style: {...styles.dataCell, marginLeft: 10, marginRight: 20},
-    dataKey: INSTRUCTIONAL_NEEDS,
     cellRenderer({rowData}) { // eslint-disable-line react/prop-types
       return createInputCell(INSTRUCTIONAL_NEEDS, rowData.id, doc, onDocChanged, {
         style: {
@@ -178,15 +194,21 @@ export function sortFnsMap(doc, districtKey, nowMoment) {
     iep(student) { return hasAnySpecialEducationData(student, student.latest_iep_document) ? 'IEP' : null; },
     english_learner_level(student) { return englishLearnerLinkText(districtKey, student); },
     mtss(student) { return renderMtss(student.mtss, nowMoment); },
-    f_and_p_english(student) { return readDoc(doc, student.id, F_AND_P_ENGLISH) || 'a'; },
-    dibels_dorf_acc(student) { return parseInt(readDoc(doc, student.id, DIBELS_DORF_ACC), 10) || Number.NEGATIVE_INFINITY; },
-    dibels_dorf_wpm(student) { return parseInt(readDoc(doc, student.id, DIBELS_DORF_WPM), 10) || Number.NEGATIVE_INFINITY; },
-    instructional_needs(student) { return readDoc(doc, student.id, INSTRUCTIONAL_NEEDS); }
+    [F_AND_P_ENGLISH](student) { return readDoc(doc, student.id, F_AND_P_ENGLISH) || 'a'; },
+    [DIBELS_DORF_ACC](student) { return parseInt(readDoc(doc, student.id, DIBELS_DORF_ACC), 10) || Number.NEGATIVE_INFINITY; },
+    [DIBELS_DORF_WPM](student) { return parseInt(readDoc(doc, student.id, DIBELS_DORF_WPM), 10) || Number.NEGATIVE_INFINITY; },
+    [INSTRUCTIONAL_NEEDS](student) { return readDoc(doc, student.id, INSTRUCTIONAL_NEEDS); }
   };
 }
 
 
-// bind the input to the of state for (`key`, studenI
+// Bind the input to the of state for (benchmarkAssessmentKey, studentId)
+//
+// By using value/onChange, this results in an immediate state change, which,
+// if that column is being sorted by, leads to unexpected UX - the row
+// jumps under the user, and the cursor moves to another input box.
+// Just changing to defaultValue breaks the sorting altogether (not sure why),
+// so to workaround for now, sort is disabled on those columns.
 function createInputCell(benchmarkAssessmentKey, studentId, doc, onDocChanged, props = {}) {
   const value = readDoc(doc, studentId, benchmarkAssessmentKey);
   return (
@@ -260,9 +282,14 @@ function englishLearnerLinkText(districtKey, rowData) {
   return (level) ? `Level ${level}` : 'ELL';
 }
 
+
+
 const styles = {
   headerCell: {
     fontSize: 12
+  },
+  notSortable: {
+    cursor: 'default'
   },
   cell: {
     display: 'flex',
