@@ -28,6 +28,7 @@ import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
 import DisciplineScatterPlot, {getincidentTimeAsMinutes} from '../../components/DisciplineScatterPlot';
+import ScatterPlotOverloadMessage from '../../components/ScatterPlotOverloadMessage';
 import * as dashboardStyles from '../dashboardStyles';
 
 
@@ -380,7 +381,9 @@ export default class SchoolDisciplineDashboard extends React.Component {
                   clearable={false}
                 />
               </div>
-             {this.renderDisciplineChart(dashboardStudents, selectedChart)}
+                {this.state.selectedChart === "scatter"
+                  ? this.renderDisciplineScatterPlot(dashboardStudents, selectedChart)
+                  : this.renderDisciplineBarChart(dashboardStudents, selectedChart)}
             </div>
           </div>
         </div>
@@ -388,35 +391,41 @@ export default class SchoolDisciplineDashboard extends React.Component {
     );
   }
 
-  renderDisciplineChart(students, selectedChart) {
+  renderDisciplineBarChart(students, selectedChart) {
     const selectedStudents = this.filterStudents(students, {shouldFilterSelectedCategory: false});
     const {categories, seriesData} = this.getChartData(selectedStudents, selectedChart);
-    const commonProps = {
+    const props = {
       id: "String",
       animation: false,
       categories: {categories: categories},
       seriesData: seriesData,
       titleText: null,
-      toolTipFormatter: this.toolTipFormatter
-    };
-    const barChartProps = {
-      ...commonProps,
+      toolTipFormatter: this.toolTipFormatter,
       measureText: "Number of Incidents",
       tooltip: {pointFormat: 'Total incidents: <b>{point.y}</b>'},
       onColumnClick: this.onColumnClick,
       onBackgroundClick: this.onResetStudentList
     };
-    const scatterPlotProps = {
-      ...commonProps,
+    return (
+      <DashboardBarChart {...props}/>
+    );
+  }
+
+  renderDisciplineScatterPlot(students) {
+    const selectedStudents = this.filterStudents(students, {shouldFilterSelectedCategory: false});
+    const {categories, seriesData} = this.getChartData(selectedStudents, "scatter");
+    const props = {
+      id: "String",
+      animation: false,
+      categories: {categories: categories},
+      seriesData: seriesData,
+      titleText: null,
+      toolTipFormatter: this.toolTipFormatter,
       measureText: "Time of Incident",
       onZoom: this.onZoom
     };
     return (
-      (selectedChart === 'scatter') ? (
-      <DisciplineScatterPlot {...scatterPlotProps}/>
-      ) : (
-      <DashboardBarChart {...barChartProps}/>
-      )
+      <DisciplineScatterPlot {...props}/>
     );
   }
 
