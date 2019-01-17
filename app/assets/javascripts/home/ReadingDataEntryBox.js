@@ -18,7 +18,7 @@ export default function ReadingDataEntryBox(props) {
     <div style={style}>
       <div style={titleStyle}>Reading benchmarks: {benchmarkPeriodText}</div>
       <Card style={{border: 'none'}}>
-        <div>Add <a style={{fontWeight: 'bold'}} href={url}>benchmark reading data</a> for your students, and you'll be able to use new tools for making reading groups and visualizing student growth over time.</div>
+        <div>Add <a style={{fontWeight: 'bold'}} href={url}>benchmark reading data</a> for your students, and you'll have new tools for making reading groups and visualizing student growth over time.</div>
       </Card>
     </div>
   );

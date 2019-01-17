@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Card from '../components/Card';
+import {Email} from '../components/PublicLinks';
 import CheckStudentsWithLowGrades from './CheckStudentsWithLowGrades';
 import CheckStudentsWithHighAbsences from './CheckStudentsWithHighAbsences';
 import ReadingDataEntryBox from './ReadingDataEntryBox';
@@ -31,7 +32,7 @@ class HomeInsights extends React.Component {
       <Card style={styles.card}>
         <div>
           <div>What else would help you support your students?</div>
-          <div>Come talk with us about what we should build next!</div>
+          <div>Come <Email>talk with us</Email> about what we should build next!</div>
         </div>
       </Card>
     );
