@@ -14,7 +14,6 @@ import {ALL} from '../components/SimpleFilterSelect';
 import {describeEntryColumns, sortFnsMap} from './entryColumns';
 import DocumentContext from './DocumentContext';
 import Sortable from './Sortable';
-import LazyExportLink from './LazyExportLink';
 
 
 // Page for entering benchmark reading data for students in a grade.
@@ -106,15 +105,6 @@ export class ReadingEntryPageView extends React.Component {
     });
   }
 
-  exportCsvFn(columns, students) {
-    const {nowFn} = this.context;
-    const {school, grade} = this.props;
-    const now = nowFn();
-    const filename = `Reading-${school.slug.toUpperCase()}-${grade}-${now.format('YYYY-MM-DD')}.csv`;
-    const csvText = toCsvTextFromTable(columns, students);
-    return {csvText, filename};
-  }
-
   onSearchChanged(e) {
     this.setState({searchText: e.target.value});
   }
@@ -143,9 +133,8 @@ export class ReadingEntryPageView extends React.Component {
               <SectionHeading titleStyle={styles.title}>
                 <div>Benchmark Reading Data: {gradeText(grade)} at {school.name}</div>
                 <div style={{display: 'flex'}}>
-                  {pending.length > 0 ? '...' : null}
-                  {failed.length > 0 ? '!' : null}
-                  {this.renderDownloadLink(students, columns)}
+                  {pending.length > 0 ? <Pending /> : null}
+                  {failed.length > 0 ? <Failure /> : null}
                 </div>
               </SectionHeading>
               {this.renderFilters()}
@@ -155,10 +144,6 @@ export class ReadingEntryPageView extends React.Component {
         }}
       </DocumentContext>
     );
-  }
-
-  renderDownloadLink(students, columns) {
-    return <LazyExportLink exportCsvFn={() => this.exportCsvFn(students, columns)} />;
   }
 
   renderFilters() {
@@ -295,3 +280,34 @@ const styles = {
     width: 220
   }
 };
+
+
+
+function Pending() {
+  return <span style={{
+    width: '8em',
+    textAlign: 'center',
+    color: '#333',
+    fontSize: 14,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginRight: 10,
+    padding: 5}}>...</span>;
+}
+
+function Failure() {
+  return <span style={{
+    width: '8em',
+    textAlign: 'center',
+    backgroundColor: 'red',
+    color: 'white',
+    fontSize: 14,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    padding: 5,
+    fontWeight: 'bold'
+  }}>network error</span>;
+}
