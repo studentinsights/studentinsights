@@ -382,7 +382,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
                 />
               </div>
                 {this.state.selectedChart === "scatter"
-                  ? this.renderDisciplineScatterPlot(dashboardStudents, selectedChart)
+                  ? this.renderDisciplineScatterPlot(dashboardStudents)
                   : this.renderDisciplineBarChart(dashboardStudents, selectedChart)}
             </div>
           </div>
@@ -425,7 +425,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       onZoom: this.onZoom
     };
     return (
-      <DisciplineScatterPlot {...props}/>
+      seriesData.length > 500 ? <ScatterPlotOverloadMessage/> : <DisciplineScatterPlot {...props}/>
     );
   }
 
