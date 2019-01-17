@@ -48,7 +48,7 @@ class ReadingController < ApplicationController
       educator_id: current_educator.id
     })
 
-    head :created
+    render json: {}, status: 201
   end
 
   private
