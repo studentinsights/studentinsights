@@ -2,7 +2,9 @@
 # file_text = <<EOD
 # ...
 # EOD
-# output = MtssReferralImporter.new.process(file_text);nil
+# importer = MtssReferralImporter.new
+# rows = importer.process(file_text);nil
+# event_notes = rows.map {|row| EventNote.create!(row) };nil
 class MtssReferralImporter
   def initialize(options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
@@ -11,9 +13,6 @@ class MtssReferralImporter
     @matcher = ImportMatcher.new
     @fuzzy_student_matcher = FuzzyStudentMatcher.new
     reset_counters!
-
-
-    @rows = []
   end
 
   def process(file_text)
@@ -41,7 +40,6 @@ class MtssReferralImporter
   # Map `row` into `EventNote` attributes, adding in `note_title` to each note
   # and otherwise just flattening the row into flat text.
   def process_row_or_nil(row)
-    @rows << row
     # match student
     fuzzy_match = @fuzzy_student_matcher.match_from_full_name(row['Student Name (eg, Sofia Alonso Martinez)'])
     if fuzzy_match.nil?
@@ -83,6 +81,7 @@ class MtssReferralImporter
     bits = []
     row = raw_row.to_h
     (row.keys - exclude_fields).each do |key|
+      next if row[key].nil? || row[key].empty? || row[key] == ''
       bits << "#{key}\n#{row[key]}"
     end
     bits.join("\n\n")
