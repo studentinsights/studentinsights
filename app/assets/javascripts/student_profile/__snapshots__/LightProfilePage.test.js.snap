@@ -9922,61 +9922,6 @@ exports[`snapshots works for pluto behavior 1`] = `
       className="LightBehaviorDetails"
     >
       <div
-        className="DetailsSection ProfileBarChart"
-        id="disciplineChart"
-        style={
-          Object {
-            "border": "1px solid #ccc",
-            "marginLeft": "auto",
-            "marginRight": "auto",
-            "marginTop": 50,
-            "padding": "30px 30px 30px 30px",
-            "position": "relative",
-            "width": "100%",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "bottom": 10,
-              "display": "flex",
-              "justifyContent": "space-between",
-              "position": "relative",
-            }
-          }
-        >
-          <h4
-            style={
-              Object {
-                "color": "black",
-                "fontSize": 24,
-                "paddingBottom": 20,
-              }
-            }
-          >
-            Discipline Incidents, last 4 years
-          </h4>
-          <span
-            style={
-              Object {
-                "textAlign": "right",
-                "verticalAlign": "text-top",
-              }
-            }
-          >
-            <a
-              href="#"
-            >
-              Back to top
-            </a>
-          </span>
-        </div>
-        <div
-          className="HighchartsWrapper"
-        />
-      </div>
-      <div
         className="CleanSlateMessage"
         style={
           Object {
@@ -10130,6 +10075,61 @@ exports[`snapshots works for pluto behavior 1`] = `
             </a>
           </span>
         </div>
+      </div>
+      <div
+        className="DetailsSection ProfileBarChart"
+        id="disciplineChart"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "fontSize": 24,
+                "paddingBottom": 20,
+              }
+            }
+          >
+            Discipline Incidents, last 4 years
+          </h4>
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
+          >
+            <a
+              href="#"
+            >
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="HighchartsWrapper"
+        />
       </div>
     </div>
   </div>

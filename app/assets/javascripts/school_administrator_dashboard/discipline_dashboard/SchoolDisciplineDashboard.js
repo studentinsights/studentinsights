@@ -257,6 +257,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return _.uniq(dashboardStudents.map(student => student.counselor)).sort();
   }
 
+  toolTipFormatter() {
+    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
+  }
+
   onIncidentTypeChange(incidentType) {
     this.setState({selectedIncidentCode: incidentType, selectedCategory: null});
   }
@@ -392,7 +396,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       animation: false,
       categories: {categories: categories},
       seriesData: seriesData,
-      titleText: null
+      titleText: null,
+      toolTipFormatter: this.toolTipFormatter
     };
     const barChartProps = {
       ...commonProps,

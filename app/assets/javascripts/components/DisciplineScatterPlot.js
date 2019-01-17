@@ -24,10 +24,6 @@ export default class DisciplineScatterPlot extends React.Component{
     return "After Hours";
   }
 
-  toolTipFormatter() {
-    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
-  }
-
   render() {
     return (
       <div id={this.props.id} className="DisciplineScatterPlot" style={styles.root}>
@@ -82,7 +78,7 @@ export default class DisciplineScatterPlot extends React.Component{
             labels: {formatter: this.gutterFormatter},
             title: {text: undefined}
           }]}
-          tooltip={this.props.tooltip === undefined ? {formatter: this.toolTipFormatter} : this.props.tooltip}
+          tooltip={{formatter: this.props.toolTipFormatter}}
           series={[
             {
               showInLegend: false,
@@ -110,9 +106,9 @@ DisciplineScatterPlot.propTypes = {
   seriesData: PropTypes.array.isRequired, // array of JSON event objects.
   titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
-  tooltip: PropTypes.object, //optional to override default first and last name
   onZoom: PropTypes.func, //callback ro change parent component when zoomed
   animation: PropTypes.bool,
+  toolTipFormatter: PropTypes.func.isRequired, //custom function for tooltip
   series: PropTypes.object,
 };
 DisciplineScatterPlot.defaultProps = {
