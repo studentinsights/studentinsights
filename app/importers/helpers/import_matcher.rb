@@ -28,7 +28,7 @@ class ImportMatcher
   def find_educator_id(value)
     google_educator_email = value.try(:strip)
     educator_email = @google_email_address_mapping.fetch(google_educator_email, google_educator_email)
-    educator_id = Educator.find_by_email(educator_email).try(:id) unless student_local_id.nil?
+    educator_id = Educator.find_by_email(educator_email).try(:id) unless educator_email.nil?
     if educator_id.nil?
       @invalid_rows_count += 1
       @invalid_educator_emails = (@invalid_educator_emails + [educator_email]).uniq
