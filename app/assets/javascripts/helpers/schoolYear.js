@@ -33,3 +33,8 @@ export function toSchoolYear(date) {
 function toMoment(triple) {
   return moment.utc([triple[0], triple[1], triple[2]].join('-'), 'YYYY-M-D');
 }
+
+// eg, 2018-19
+export function prettySchoolYearText(year) {
+  return `${year}-${year.toString().slice(2, 4)}`;
+}
