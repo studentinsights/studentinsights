@@ -18,7 +18,7 @@ import {
 
 
 // For making and reviewing reading groups.
-export default class ReadingGroups extends React.Component {
+export default class CreateGroups extends React.Component {
   constructor(props) {
     super(props);
 
@@ -186,38 +186,30 @@ export default class ReadingGroups extends React.Component {
   }
 
   renderItem(student) {
-    const useMockPhoto = (window.location.search.indexOf('mock') !== -1);
+    const useMockPhoto = (this.props.useMockPhoto || window.location.search.indexOf('mock') !== -1);
     const photoProps = {
       key: student.id,
-      style:{
-        position: 'absolute',
-        maxWidth: 64,
-        maxHeight: 64
-      },
-      student: student
+      style: styles.photoImage,
+      student: student,
+      fallbackEl: <span style={styles.fallbackSmiley}>😃</span>,
+      alt: '😃'
     };
 
     return (
-      <div style={{
-        width: 64,
-        height: 64,
-        position: 'relative',
-        marginRight: 1
-      }}>
+      <div style={styles.photoContainer}>
         {useMockPhoto
           ? <MockStudentPhoto {...photoProps} />
           : <StudentPhoto {...photoProps} />}
-        />
         <div style={{position: 'absolute', left: 2, bottom: 0, color: 'white', fontSize: 10}}>{student.first_name}</div>
       </div>
     );
   }
 }
-ReadingGroups.contextTypes = {
+CreateGroups.contextTypes = {
   districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
 };
-ReadingGroups.propTypes = {
+CreateGroups.propTypes = {
   schoolName: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
@@ -231,17 +223,33 @@ ReadingGroups.propTypes = {
     student_id: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
     recorded_at: PropTypes.string.isRequired,
-  })).isRequired
+  })).isRequired,
+  useMockPhoto: PropTypes.bool
 };
 
 
-// const styles = {
-//   flexVertical: {
-//     display: 'flex',
-//     flex: 1,
-//     flexDirection: 'column'
-//   }
-// };
+const styles = {
+  photoContainer: {
+    position: 'relative',
+    width: 64,
+    height: 64,
+    marginRight: 1,
+    fontSize: 32
+  },
+  fallbackSmiley: {
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#333',
+    opacity: 0.9
+  },
+  photoImage: {
+    position: 'absolute',
+    maxWidth: 64,
+    maxHeight: 64,
+    boxShadow: '2px 2px 1px #ccc'
+  }
+};
 
 
 

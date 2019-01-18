@@ -1,0 +1,525 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Reading Groups: 3rd grade at Arthur D. Healey
+    </h4>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 64,
+            "marginBottom": 5,
+            "marginRight": 5,
+            "padding": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "width": "8em",
+            }
+          }
+        >
+          <div>
+            Not yet placed
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid #ddd",
+              "marginLeft": 10,
+              "paddingLeft": 5,
+              "width": "10em",
+            }
+          }
+        >
+          <div>
+            F&P: 
+            
+          </div>
+          <div>
+            ACC: 
+            none
+          </div>
+          <div>
+            WPM: 
+            none
+          </div>
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 64,
+            "marginBottom": 5,
+            "marginRight": 5,
+            "padding": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "width": "8em",
+            }
+          }
+        >
+          <div>
+            Alonso
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid #ddd",
+              "marginLeft": 10,
+              "paddingLeft": 5,
+              "width": "10em",
+            }
+          }
+        >
+          <div>
+            F&P: 
+            
+          </div>
+          <div>
+            ACC: 
+            none
+          </div>
+          <div>
+            WPM: 
+            none
+          </div>
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#6f0018",
+                "height": 64,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/66/photo"
+              style={
+                Object {
+                  "maxHeight": 64,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Mowgli
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#6f0018",
+                "height": 64,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/64/photo"
+              style={
+                Object {
+                  "maxHeight": 64,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Mowgli
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#6f0018",
+                "height": 64,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/60/photo"
+              style={
+                Object {
+                  "maxHeight": 64,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Olaf
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#6f0018",
+                "height": 64,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/63/photo"
+              style={
+                Object {
+                  "maxHeight": 64,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Pluto
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 64,
+            "marginBottom": 5,
+            "marginRight": 5,
+            "padding": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "width": "8em",
+            }
+          }
+        >
+          <div>
+            Vivian
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid #ddd",
+              "marginLeft": 10,
+              "paddingLeft": 5,
+              "width": "10em",
+            }
+          }
+        >
+          <div>
+            F&P: 
+            
+          </div>
+          <div>
+            ACC: 
+            none
+          </div>
+          <div>
+            WPM: 
+            none
+          </div>
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+          }
+        }
+      >
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "backgroundColor": "#6f0018",
+                "height": 64,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/61/photo"
+              style={
+                Object {
+                  "maxHeight": 64,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Daisy
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

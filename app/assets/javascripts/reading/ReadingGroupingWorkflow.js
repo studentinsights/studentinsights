@@ -7,7 +7,7 @@ import GenericLoader from '../components/GenericLoader';
 import GroupingPhases from './GroupingPhases';
 import ChooseTeam from './ChooseTeam';
 import MakePlan from './MakePlan';
-import ReadingGroups from './ReadingGroups';
+import CreateGroups from './CreateGroups';
 
 
 // For navigating the workflow and phases of the reading grouping process.
@@ -36,7 +36,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
         planText: ''
       },
 
-      // ReadingGroups
+      // CreateGroups
       primaryStudentIdsByRoom: {},
       secondaryStudentIdsByRoom: {}
     };
@@ -145,7 +145,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
       return {educator, text: _.last(educator.full_name.split(' '))};
     }), 'text');
     return (
-      <ReadingGroups
+      <CreateGroups
         grade={team.grade}
         schoolName={json.school.name}
         doc={json.entry_doc}

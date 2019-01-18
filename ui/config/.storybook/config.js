@@ -47,6 +47,7 @@ function loadStories() {
   //reading
   require('../../../app/assets/javascripts/reading/ChooseTeam.story');
   require('../../../app/assets/javascripts/reading/MakePlan.story');
+  require('../../../app/assets/javascripts/reading/CreateGroups.story');
 
   // add more here!
 }
