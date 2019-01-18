@@ -1,0 +1,391 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="ChooseTeam"
+>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What school?
+    </div>
+    <div
+      className="Select has-value is-clearable is-searchable Select--single"
+    >
+      <input
+        disabled={false}
+        name="select-school-name"
+        type="hidden"
+        value="2"
+      />
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <span
+          className="Select-multi-value-wrapper"
+          id="react-select-5--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-5--value-item"
+              role="option"
+            >
+              Arthur D Healey
+            </span>
+          </div>
+          <div
+            className="Select-input"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-activedescendant="react-select-5--value"
+              aria-expanded="false"
+              aria-haspopup="false"
+              aria-owns=""
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              role="combobox"
+              style={
+                Object {
+                  "boxSizing": "content-box",
+                  "width": "5px",
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </span>
+        <span
+          aria-label="Clear value"
+          className="Select-clear-zone"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          title="Clear value"
+        >
+          <span
+            className="Select-clear"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "&times;",
+              }
+            }
+          />
+        </span>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What grade level are you creating?
+    </div>
+    <div
+      className="Select has-value is-clearable is-searchable Select--single"
+    >
+      <input
+        disabled={false}
+        name="select-grade-level"
+        type="hidden"
+        value="3"
+      />
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <span
+          className="Select-multi-value-wrapper"
+          id="react-select-6--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-6--value-item"
+              role="option"
+            >
+              3rd grade
+            </span>
+          </div>
+          <div
+            className="Select-input"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-activedescendant="react-select-6--value"
+              aria-expanded="false"
+              aria-haspopup="false"
+              aria-owns=""
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              role="combobox"
+              style={
+                Object {
+                  "boxSizing": "content-box",
+                  "width": "5px",
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </span>
+        <span
+          aria-label="Clear value"
+          className="Select-clear-zone"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          title="Clear value"
+        >
+          <span
+            className="Select-clear"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "&times;",
+              }
+            }
+          />
+        </span>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What benchmark period?
+    </div>
+    <div
+      className="Select has-value is-clearable is-searchable Select--single"
+    >
+      <input
+        disabled={false}
+        name="select-benchmark-window"
+        type="hidden"
+        value="2018:winter"
+      />
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <span
+          className="Select-multi-value-wrapper"
+          id="react-select-7--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-7--value-item"
+              role="option"
+            >
+              Winter 2018-18
+            </span>
+          </div>
+          <div
+            className="Select-input"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-activedescendant="react-select-7--value"
+              aria-expanded="false"
+              aria-haspopup="false"
+              aria-owns=""
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              role="combobox"
+              style={
+                Object {
+                  "boxSizing": "content-box",
+                  "width": "5px",
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </span>
+        <span
+          aria-label="Clear value"
+          className="Select-clear-zone"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          title="Clear value"
+        >
+          <span
+            className="Select-clear"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "&times;",
+              }
+            }
+          />
+        </span>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  >
+    You can't change the school, grade level or benchmark window once you've moved forward.  If you need to change this, create a new grouping instead.
+  </div>
+  <div>
+    <div
+      className="Hover"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={Object {}}
+    >
+      <button
+        onClick={[MockFunction]}
+        style={
+          Object {
+            "background": "#4A90E2",
+            "border": "none",
+            "borderRadius": 28,
+            "color": "white",
+            "cursor": "pointer",
+            "fontSize": 14,
+            "padding": "8px 25px",
+            "textDecoration": "none",
+          }
+        }
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+`;
