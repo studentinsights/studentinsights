@@ -9,6 +9,8 @@ import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
+import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
+import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -24,6 +26,8 @@ jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/my_notes/MyNotesPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_absences/SchoolAbsencesPage');
+jest.mock('../app/assets/javascripts/reading/ReadingEntryPage');
+jest.mock('../app/assets/javascripts/reading/ReadingGroupingPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
@@ -111,6 +115,25 @@ it('renders Discipline Dashboard without crashing', () => {
   const wrapper = mount(renderPath('/schools/hea/discipline'));
   expect(wrapper.contains(
     <DashboardLoader schoolId="hea" dashboardTarget="discipline"/>
+  )).toEqual(true);
+});
+
+it('render ReadingEntryPage without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/reading/3/entry'));
+  expect(wrapper.contains(
+    <ReadingEntryPage
+      currentEducatorId={9999}
+      schoolSlug="hea"
+      grade="3" />
+  )).toEqual(true);
+});
+
+it('render ReadingGroupingPage without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/reading/3/groups'));
+  expect(wrapper.contains(
+    <ReadingGroupingPage
+      schoolSlug="hea"
+      grade="3" />
   )).toEqual(true);
 });
 
