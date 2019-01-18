@@ -1,6 +1,5 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
-import moment from 'moment';
 import renderer from 'react-test-renderer';
 import {toMomentFromTimestamp} from '../../helpers/toMoment';
 import {withNowMoment, withNowContext} from '../../testing/NowContainer';
