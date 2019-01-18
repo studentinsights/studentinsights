@@ -5,6 +5,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import SectionHeading from '../components/SectionHeading';
 import StudentPhoto from '../components/StudentPhoto';
 import MockStudentPhoto from '../components/MockStudentPhoto';
+import FountasAndPinnellLevelChart from './FountasAndPinnellLevelChart';
 
 
 // TODO(kr) import path
@@ -12,8 +13,16 @@ import {
   reordered,
   insertedInto,
   UNPLACED_ROOM_KEY,
+  initialStudentIdsByRoom,
   consistentlyPlacedInitialStudentIdsByRoom
 } from '../class_lists/studentIdsByRoomFunctions';
+import {
+  DIBELS_DORF_WPM, 
+  DIBELS_DORF_ACC,
+  F_AND_P_ENGLISH,
+  INSTRUCTIONAL_NEEDS,
+  readDoc
+} from './readingData';
 
 
 
@@ -23,7 +32,7 @@ export default class CreateGroups extends React.Component {
     super(props);
 
     this.state = {
-      studentIdsByRoom: consistentlyPlacedInitialStudentIdsByRoom(groups(props.classrooms).length, props.readingStudents)
+      studentIdsByRoom: initialStudentIdsByRoom(groups(props.classrooms).length, props.readingStudents)
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -103,7 +112,7 @@ export default class CreateGroups extends React.Component {
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
-              style={{display: 'flex', flex: 1}}
+              style={styles.droppable}
               {...provided.droppableProps}
             >
               {studentsInGroup.map(this.renderDraggable, this)}
@@ -157,29 +166,38 @@ export default class CreateGroups extends React.Component {
 
 
   renderGroupName(groupKey, classroomText, studentsInGroup) {
-    const [fAndPs, wpms, accs] = [[], [], []]; // TODO(kr) make this work
-    // const fAndPs = _.uniq(_.compact(studentsInGroup.map(latestFAndP))).sort();
-    // const wpms = _.uniq(_.compact(studentsInGroup.map(student => tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_wpm')))).sort((a, b) => a - b);
-    // const accs = _.uniq(_.compact(studentsInGroup.map(student => tryDibels(student.dibels, '3', 'fall', 'dibels_dorf_acc')))).sort((a, b) => a - b);
+    const {doc} = this.props;
+    const width = 100;
+    const height = 22;
+    const fnpLevels = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
+      return readDoc(doc, student.id, F_AND_P_ENGLISH);
+    }))));
+    const wpms = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
+      return readDoc(doc, student.id, DIBELS_DORF_WPM);
+    }))));
+    const accs = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
+      return readDoc(doc, student.id, DIBELS_DORF_ACC);
+    }))));
     return (
-      <div style={{
-        display: 'flex',
-        padding: 5,
-        fontSize: 12,
-        marginBottom: 5,
-        marginRight: 5,
-        height: 64,
-        background: '#f8f8f8',
-        color: 'black',
-        border: '1px solid #eee'
-      }}>
+      <div style={styles.row}>
         <div style={{width: '8em'}}>
           <div>{classroomText}</div>
         </div>
-        <div style={{paddingLeft: 5, width: '10em', marginLeft: 10, borderLeft: '1px solid #ddd'}}>
-          <div>F&P: {fAndPs.join(' ')}</div>
-          <div>ACC: {range(accs)}</div>
-          <div>WPM: {range(wpms)}</div>
+        <div style={{paddingLeft: 5, marginLeft: 10, borderLeft: '1px solid #ddd'}}>
+          <div style={{display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
+            <div style={{width}}>F&P: {fnpLevels.join(' ')}</div>
+            <div style={{width, height}}>
+              <FountasAndPinnellLevelChart height={height} levels={fnpLevels} />
+            </div>
+          </div>
+          <div style={{paddingTop: 10, display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
+            <div style={{width}}>DORF accuracy:</div>
+            <div>{range(accs)}</div>
+          </div>
+          <div style={{paddingTop: 10, display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
+            <div style={{width}}>DORF words/min:</div>
+            <div>{range(wpms)}</div>
+          </div>
         </div>
       </div>
     );
@@ -227,12 +245,29 @@ CreateGroups.propTypes = {
   useMockPhoto: PropTypes.bool
 };
 
-
+const ROW_HEIGHT = 80;
 const styles = {
+  row: {
+    display: 'flex',
+    padding: 5,
+    fontSize: 12,
+    marginBottom: 5,
+    marginRight: 5,
+    height: ROW_HEIGHT,
+    background: '#f8f8f8',
+    color: 'black',
+    border: '1px solid #eee'
+  },
+  droppable: {
+    display: 'flex',
+    flex: 1,
+    backgroundColor: '#f8f8f8',
+    overflowX: 'scroll'
+  },
   photoContainer: {
     position: 'relative',
     width: 64,
-    height: 64,
+    height: ROW_HEIGHT,
     marginRight: 1,
     fontSize: 32
   },
@@ -246,7 +281,7 @@ const styles = {
   photoImage: {
     position: 'absolute',
     maxWidth: 64,
-    maxHeight: 64,
+    maxHeight: ROW_HEIGHT,
     boxShadow: '2px 2px 1px #ccc'
   }
 };

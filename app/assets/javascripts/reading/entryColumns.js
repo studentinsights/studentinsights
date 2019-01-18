@@ -14,13 +14,13 @@ import PerDistrictContainer from '../components/PerDistrictContainer';
 import IepDialog from '../student_profile/IepDialog';
 import LanguageStatusLink from '../student_profile/LanguageStatusLink'; 
 import EdPlansPanel from '../student_profile/EdPlansPanel';
-
-
-// benchmark_assessment_key values:
-const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
-const DIBELS_DORF_ACC = 'dibels_dorf_acc';
-const F_AND_P_ENGLISH = 'f_and_p_english';
-const INSTRUCTIONAL_NEEDS = 'instructional_needs';
+import {
+  DIBELS_DORF_WPM, 
+  DIBELS_DORF_ACC,
+  F_AND_P_ENGLISH,
+  INSTRUCTIONAL_NEEDS,
+  readDoc
+} from './readingData';
 
 
 // This describes the columns for a react-virtualized <Table /> used
@@ -217,10 +217,6 @@ function createInputCell(benchmarkAssessmentKey, studentId, doc, onDocChanged, p
       {...props}
     />
   );
-}
-
-function readDoc(doc, studentId, benchmarkAssessmentKey) {
-  return (doc[studentId] || {})[benchmarkAssessmentKey] || '';
 }
 
 // Because of authorization rules, sometimes the user will be able to 
