@@ -3,6 +3,7 @@ import {
   toSchoolYear,
   firstDayOfSchool,
   lastDayOfSchool,
+  prettySchoolYearText
 } from './schoolYear';
 
 
@@ -29,5 +30,11 @@ describe('#lastDayOfSchool', () => {
   it('works', () => {
     expect(lastDayOfSchool(2016).isSame(moment.utc("2017-06-30"))).toEqual(true);
     expect(lastDayOfSchool(2013).isSame(moment.utc("2014-06-30"))).toEqual(true);
+  });
+});
+
+describe('#prettySchoolYearText', () => {
+  it('works', () => {
+    expect(prettySchoolYearText(2016)).toEqual('2016-17');
   });
 });

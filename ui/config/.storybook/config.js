@@ -44,6 +44,10 @@ function loadStories() {
   require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story');
   require('../../../app/assets/javascripts/class_lists/ExportList.story');
 
+  //reading
+  require('../../../app/assets/javascripts/reading/ChooseTeam.story');
+  require('../../../app/assets/javascripts/reading/MakePlan.story');
+
   // add more here!
 }
 configure(loadStories, module);

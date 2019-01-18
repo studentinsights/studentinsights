@@ -1,6 +1,28 @@
 class ReadingController < ApplicationController
   before_action :ensure_authorized_for_feature!
 
+  # Used in grouping
+  def teams_json
+    schools = School.select {|school| !school.is_high_school? }.as_json(only: [:id, :slug, :name])
+    grades = ['KF', '1', '2', '3', '4', '5']
+    educators = Educator.all.as_json({
+      only: [:id, :full_name],
+      include: {
+        homeroom: {
+          only: [:id, :name, :grade]
+        }
+      }
+    })
+
+    render json: {
+      schools: schools,
+      grades: grades,
+      educators: educators,
+      benchmark_windows: benchmark_windows_open_for_writing
+    }
+  end
+
+  # Used for multiple pages (eg, entry, grouping)
   def reading_json
     safe_params = params.permit(:school_slug, :grade)
     school = School.find_by_slug(safe_params[:school_slug])
@@ -76,16 +98,26 @@ class ReadingController < ApplicationController
   # This happens in cycles; the intention is that a literacy coach
   # manages this.
   def is_open_for_writing?(benchmark_school_year, benchmark_period_key)
-    open_benchmark_periods_json = JSON.parse(ENV.fetch('READING_ENTRY_OPEN_BENCHMARK_PERIODS_JSON', '{}'))
-    open_benchmark_periods_json.fetch('periods', []).any? do |period|
+    benchmark_windows_open_for_writing.any? do |period|
       (
-        benchmark_school_year.to_i == period['benchmark_school_year'].to_i &&
-        benchmark_period_key == period['benchmark_period_key']
+        benchmark_school_year.to_i == period[:benchmark_school_year].to_i &&
+        benchmark_period_key == period[:benchmark_period_key]
       )
     end
   end
 
+  def benchmark_windows_open_for_writing
+    open_benchmark_periods_json = JSON.parse(ENV.fetch('READING_ENTRY_OPEN_BENCHMARK_PERIODS_JSON', '{}'))
+    open_benchmark_periods_json.fetch('periods', []).map {|json| json.symbolize_keys }
+  end
+
   # queries
+  # `doc` is shaped like:
+  # {
+  #   [student_id]:{
+  #     [benchmark_assessment_key]: value
+  #    }
+  #  }
   def entry_doc_json(school_id, grade)
     student_ids = authorized_by_grade_level(school_id, grade) do
       Student

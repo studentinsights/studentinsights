@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   # reading
   get '/api/schools/:school_slug/reading/:grade/reading_json' => 'reading#reading_json'
   put '/api/reading/update_data_point_json' => 'reading#update_data_point_json'
+  get '/api/reading/teams_json' => 'reading#teams_json'
 
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
@@ -186,6 +187,7 @@ Rails.application.routes.draw do
       get 'courses' => 'ui#ui'
       get 'equity/explore' => 'ui#ui'
       get 'reading/:grade/entry' => 'ui#ui'
+      get 'reading/:grade/groups' => 'ui#ui'
     end
   end
 end
