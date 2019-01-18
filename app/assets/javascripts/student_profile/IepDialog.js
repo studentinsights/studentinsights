@@ -19,14 +19,16 @@ import Pdf from '../student_profile/Pdf'; // TODO
 export default class IepDialog extends React.Component {
   render() {
     const {districtKey} = this.context;
-    const {student, children} = this.props;
-    if (!shouldShowIepLink(districtKey)) return children;
-
-    const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
+    const {student, linkEl} = this.props;
+    const specialEducationText = (linkEl !== undefined)
+      ? linkEl
+      : prettyIepTextForSpecialEducationStudent(student);
+    if (!shouldShowIepLink(districtKey)) return specialEducationText;
+    
     return (
       <HelpBubble
         style={{marginLeft: 0, display: 'block'}}
-        teaser={children}
+        teaser={specialEducationText}
         linkStyle={styles.subtitleItem}
         modalStyle={modalFullScreenFlex}
         dialogStyle={dialogFullScreenFlex}
@@ -104,7 +106,7 @@ IepDialog.contextTypes = {
 IepDialog.propTypes = {
   student: PropTypes.object.isRequired,
   iepDocument: PropTypes.object,
-  children: PropTypes.node.isRequired
+  linkEl: PropTypes.node
 };
 
 const styles = {

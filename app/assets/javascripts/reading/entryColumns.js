@@ -11,9 +11,7 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import IepDialog from './IepDialog';
-
-// TODO(kr) import paths
+import IepDialog from '../student_profile/IepDialog';
 import LanguageStatusLink from '../student_profile/LanguageStatusLink'; 
 import EdPlansPanel from '../student_profile/EdPlansPanel';
 
@@ -86,9 +84,8 @@ export function describeEntryColumns(params) {
         <PerDistrictContainer districtKey={districtKey}>
           <IepDialog
             student={rowData}
-            iepDocument={rowData.latest_iep_document}>
-            IEP
-          </IepDialog>
+            iepDocument={rowData.latest_iep_document}
+            linkEl="IEP"/>
         </PerDistrictContainer>
       );
     }
