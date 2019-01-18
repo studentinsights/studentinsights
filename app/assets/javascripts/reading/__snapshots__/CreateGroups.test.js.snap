@@ -41,7 +41,7 @@ exports[`snapshots 1`] = `
             "color": "black",
             "display": "flex",
             "fontSize": 12,
-            "height": 64,
+            "height": 80,
             "marginBottom": 5,
             "marginRight": 5,
             "padding": 5,
@@ -65,21 +65,276 @@ exports[`snapshots 1`] = `
               "borderLeft": "1px solid #ddd",
               "marginLeft": 10,
               "paddingLeft": 5,
-              "width": "10em",
             }
           }
         >
-          <div>
-            F&P: 
-            
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              F&P: 
+              A C D F
+            </div>
+            <div
+              style={
+                Object {
+                  "height": 22,
+                  "width": 100,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "marginRight": 10,
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "height": 1,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 11,
+                    }
+                  }
+                />
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "0%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "8%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "12%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "20%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            ACC: 
-            none
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              DORF accuracy:
+            </div>
+            <div>
+              32 - 94
+            </div>
           </div>
-          <div>
-            WPM: 
-            none
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              DORF words/min:
+            </div>
+            <div>
+              108 - 99
+            </div>
           </div>
         </div>
       </div>
@@ -87,78 +342,10 @@ exports[`snapshots 1`] = `
         data-react-beautiful-dnd-droppable="1"
         style={
           Object {
+            "backgroundColor": "#f8f8f8",
             "display": "flex",
             "flex": 1,
-          }
-        }
-      />
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "flex": 1,
-          "flexDirection": "row",
-          "margin": 5,
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "background": "#f8f8f8",
-            "border": "1px solid #eee",
-            "color": "black",
-            "display": "flex",
-            "fontSize": 12,
-            "height": 64,
-            "marginBottom": 5,
-            "marginRight": 5,
-            "padding": 5,
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "width": "8em",
-            }
-          }
-        >
-          <div>
-            Alonso
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "borderLeft": "1px solid #ddd",
-              "marginLeft": 10,
-              "paddingLeft": 5,
-              "width": "10em",
-            }
-          }
-        >
-          <div>
-            F&P: 
-            
-          </div>
-          <div>
-            ACC: 
-            none
-          </div>
-          <div>
-            WPM: 
-            none
-          </div>
-        </div>
-      </div>
-      <div
-        data-react-beautiful-dnd-droppable="1"
-        style={
-          Object {
-            "display": "flex",
-            "flex": 1,
+            "overflowX": "scroll",
           }
         }
       >
@@ -183,8 +370,8 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#6f0018",
-                "height": 64,
+                "fontSize": 32,
+                "height": 80,
                 "marginRight": 1,
                 "position": "relative",
                 "width": 64,
@@ -198,7 +385,8 @@ exports[`snapshots 1`] = `
               src="/students/66/photo"
               style={
                 Object {
-                  "maxHeight": 64,
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 80,
                   "maxWidth": 64,
                   "position": "absolute",
                 }
@@ -240,8 +428,8 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#6f0018",
-                "height": 64,
+                "fontSize": 32,
+                "height": 80,
                 "marginRight": 1,
                 "position": "relative",
                 "width": 64,
@@ -255,7 +443,8 @@ exports[`snapshots 1`] = `
               src="/students/64/photo"
               style={
                 Object {
-                  "maxHeight": 64,
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 80,
                   "maxWidth": 64,
                   "position": "absolute",
                 }
@@ -297,8 +486,66 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#6f0018",
-                "height": 64,
+                "fontSize": 32,
+                "height": 80,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/67/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 80,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Pluto
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 80,
                 "marginRight": 1,
                 "position": "relative",
                 "width": 64,
@@ -312,7 +559,8 @@ exports[`snapshots 1`] = `
               src="/students/60/photo"
               style={
                 Object {
-                  "maxHeight": 64,
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 80,
                   "maxWidth": 64,
                   "position": "absolute",
                 }
@@ -354,8 +602,66 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "backgroundColor": "#6f0018",
-                "height": 64,
+                "fontSize": 32,
+                "height": 80,
+                "marginRight": 1,
+                "position": "relative",
+                "width": 64,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/61/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 80,
+                  "maxWidth": 64,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Daisy
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 80,
                 "marginRight": 1,
                 "position": "relative",
                 "width": 64,
@@ -369,7 +675,8 @@ exports[`snapshots 1`] = `
               src="/students/63/photo"
               style={
                 Object {
-                  "maxHeight": 64,
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 80,
                   "maxWidth": 64,
                   "position": "absolute",
                 }
@@ -410,7 +717,170 @@ exports[`snapshots 1`] = `
             "color": "black",
             "display": "flex",
             "fontSize": 12,
-            "height": 64,
+            "height": 80,
+            "marginBottom": 5,
+            "marginRight": 5,
+            "padding": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "width": "8em",
+            }
+          }
+        >
+          <div>
+            Alonso
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderLeft": "1px solid #ddd",
+              "marginLeft": 10,
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              F&P: 
+              
+            </div>
+            <div
+              style={
+                Object {
+                  "height": 22,
+                  "width": 100,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "marginRight": 10,
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "height": 1,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 11,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              DORF accuracy:
+            </div>
+            <div>
+              none
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              DORF words/min:
+            </div>
+            <div>
+              none
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "backgroundColor": "#f8f8f8",
+            "display": "flex",
+            "flex": 1,
+            "overflowX": "scroll",
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 80,
             "marginBottom": 5,
             "marginRight": 5,
             "padding": 5,
@@ -434,21 +904,112 @@ exports[`snapshots 1`] = `
               "borderLeft": "1px solid #ddd",
               "marginLeft": 10,
               "paddingLeft": 5,
-              "width": "10em",
             }
           }
         >
-          <div>
-            F&P: 
-            
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              F&P: 
+              
+            </div>
+            <div
+              style={
+                Object {
+                  "height": 22,
+                  "width": 100,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "marginRight": 10,
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "height": 1,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 11,
+                    }
+                  }
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            ACC: 
-            none
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              DORF accuracy:
+            </div>
+            <div>
+              none
+            </div>
           </div>
-          <div>
-            WPM: 
-            none
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 100,
+                }
+              }
+            >
+              DORF words/min:
+            </div>
+            <div>
+              none
+            </div>
           </div>
         </div>
       </div>
@@ -456,69 +1017,13 @@ exports[`snapshots 1`] = `
         data-react-beautiful-dnd-droppable="1"
         style={
           Object {
+            "backgroundColor": "#f8f8f8",
             "display": "flex",
             "flex": 1,
+            "overflowX": "scroll",
           }
         }
-      >
-        <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
-          data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          style={
-            Object {
-              "transform": null,
-              "transition": null,
-            }
-          }
-          tabIndex={0}
-        >
-          <div
-            style={
-              Object {
-                "backgroundColor": "#6f0018",
-                "height": 64,
-                "marginRight": 1,
-                "position": "relative",
-                "width": 64,
-              }
-            }
-          >
-            <img
-              alt="😃"
-              id="student-photo"
-              onError={[Function]}
-              src="/students/61/photo"
-              style={
-                Object {
-                  "maxHeight": 64,
-                  "maxWidth": 64,
-                  "position": "absolute",
-                }
-              }
-            />
-            <div
-              style={
-                Object {
-                  "bottom": 0,
-                  "color": "white",
-                  "fontSize": 10,
-                  "left": 2,
-                  "position": "absolute",
-                }
-              }
-            >
-              Daisy
-            </div>
-          </div>
-        </div>
-      </div>
+      />
     </div>
   </div>
 </div>
