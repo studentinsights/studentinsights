@@ -42,6 +42,7 @@ module SomervilleTeacherTool
         "#{config.root}/app/importers/helpers",
         "#{config.root}/app/importers/homework_help_importer",
         "#{config.root}/app/importers/iep_import",
+        "#{config.root}/app/importers/mtss_referral",
         "#{config.root}/app/importers/photo_import",
         "#{config.root}/app/importers/precompute",
         "#{config.root}/app/importers/rows",
