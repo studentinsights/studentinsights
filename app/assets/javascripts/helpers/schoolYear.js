@@ -36,5 +36,5 @@ function toMoment(triple) {
 
 // eg, 2018-19
 export function prettySchoolYearText(year) {
-  return `${year}-${year.toString().slice(2, 4)}`;
+  return `${year}-${(year + 1).toString().slice(2, 4)}`;
 }
