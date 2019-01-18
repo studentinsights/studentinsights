@@ -22,21 +22,21 @@ export default class ReadingGroupingWorkflow extends React.Component {
     super(props, context);
 
     this.state = {
-      // navigation: where can they go, where are they
+      // navigation through workflow
       selectedPhaseKey: Phases.CHOOSE_TEAM,
       allowedPhaseKeys: [Phases.CHOOSE_TEAM],
 
-      // which team?
+      // ChooseTeam
       team: defaultTeam(props, context),
 
-      // plan for how many groups?
+      // MakePlan
       plan: {
         primaryEducatorIds: [],
         additionalEducatorIds: [],
         planText: ''
       },
 
-      // actual grouping data
+      // ReadingGroups
       primaryStudentIdsByRoom: {},
       secondaryStudentIdsByRoom: {}
     };

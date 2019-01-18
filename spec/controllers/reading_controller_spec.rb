@@ -28,6 +28,36 @@ describe ReadingController, :type => :controller do
     ENV['READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON'] = @READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON
   end
 
+  describe '#teams_json' do
+    it 'guards access based on READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON' do
+      (Educator.all - [pals.uri]).each do |educator|
+        sign_in(educator)
+        get :teams_json
+        expect(response.status).to eq 302
+      end
+    end
+
+    it 'works' do
+      sign_in(pals.uri)
+      get :teams_json
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json.keys).to contain_exactly(*[
+        'benchmark_windows',
+        'educators',
+        'grades',
+        'schools'
+      ])
+      expect(json['grades']).to contain_exactly(*['KF', '1', '2', '3', '4', '5'])
+      expect(json['benchmark_windows']).to contain_exactly(*[{
+        "benchmark_school_year" => 2018,
+        "benchmark_period_key" => "winter"
+      }])
+      expect(json['educators'].length).to eq(Educator.all.size)
+      expect(json['schools'].length).to be >= 0
+    end
+  end
+
   describe '#reading_json' do
     it 'guards access based on READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON' do
       (Educator.all - [pals.uri]).each do |educator|

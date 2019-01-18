@@ -31,7 +31,7 @@ export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
       <div>
         <div style={styles.heading}>Any additional groups at other points in the day?</div>
         <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
-          Some teams start with grouping students based on particular skills like decoding blends, others focus on comprehension skills around inferencing, while others group students at lower F&P levels with reading specialists who can provide more specialized instruction.
+          You might include pull-out groups, additional Fundations groups, after school Wilson interventions, etc.
         </div>
         <Select
           name="select-additional-educators"
@@ -45,9 +45,9 @@ export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
           />
       </div>
       <div>
-        <div style={styles.heading}>What's your plan for creating classroom communitites?</div>
+        <div style={styles.heading}>What's your plan for creating reading groups?</div>
         <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
-          Some teams start with considering social dynamics, splitting up students who are leaders or who don't work well together.  Others start creating groups with diverse academic strengths.
+          Some teams start with grouping students based on particular decoding skills like blends, other older groups start with comprehension skills like inferencing, while others start by placing students at lower F&P levels with reading specialists who can provide more specialized instruction.
         </div>
         <div>
           <textarea
