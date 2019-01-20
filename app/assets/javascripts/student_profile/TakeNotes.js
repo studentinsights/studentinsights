@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
-
+import ModelLoader, {renderPrediction} from '../components/ModelLoader';
 
 /*
 Pure UI form for taking notes about an event, tracking its own local state
@@ -94,60 +94,63 @@ export default class TakeNotes extends React.Component {
     } = this.props;
 
     return (
-      <div className="TakeNotes" style={{...styles.dialog, ...style}}>
-        {this.renderNoteHeader({
-          noteMoment: nowMoment,
-          educatorEmail: currentEducator.email
-        })}
-        <textarea
-          className="TakeNotes-textarea"
-          rows={10}
-          style={styles.textarea}
-          ref={ref => this.textareaRef = ref}
-          value={noteInProgressText}
-          onChange={onChangeNoteInProgressText} />
-        {showRestrictedCheckbox &&
-          <div>
-            <div style={{ marginBottom: 5, marginTop: 20 }}>
-              Restrict access?
+      <ModelLoader>{predict => (
+        <div className="TakeNotes" style={{...styles.dialog, ...style}}>
+          {this.renderNoteHeader({
+            noteMoment: nowMoment,
+            educatorEmail: currentEducator.email
+          })}
+          <textarea
+            className="TakeNotes-textarea"
+            rows={10}
+            style={styles.textarea}
+            ref={ref => this.textareaRef = ref}
+            value={noteInProgressText}
+            onChange={onChangeNoteInProgressText} />
+          {renderPrediction(predict, noteInProgressText)}
+          {showRestrictedCheckbox &&
+            <div>
+              <div style={{ marginBottom: 5, marginTop: 20 }}>
+                Restrict access?
+              </div>
+              <label style={{ marginLeft: 10, color: 'black', cursor: 'pointer' }}>
+                <input type="checkbox" onClick={this.onRestrictedToggled} />
+                <span style={{paddingLeft: 5}}>Yes, note contains private or sensitive personal information</span>
+              </label>
             </div>
-            <label style={{ marginLeft: 10, color: 'black', cursor: 'pointer' }}>
-              <input type="checkbox" onClick={this.onRestrictedToggled} />
-              <span style={{paddingLeft: 5}}>Yes, note contains private or sensitive personal information</span>
-            </label>
+          }
+          <div style={{ marginBottom: 5, marginTop: 20 }}>
+            What are these notes from?
           </div>
-        }
-        <div style={{ marginBottom: 5, marginTop: 20 }}>
-          What are these notes from?
+          {this.renderNoteButtonsPerDistrict()}
+          <div style={{ marginBottom: 5, marginTop: 20 }}>
+            Add a link (i.e. to a file of student work on Google Drive):
+          </div>
+          {this.renderAttachmentLinkArea()}
+          <button
+            style={{
+              marginTop: 20,
+              background: (this.disabledSaveButton()) ? '#ccc' : undefined
+            }}
+            disabled={this.disabledSaveButton()}
+            className="btn save"
+            onClick={this.onClickSave}>
+            Save notes
+          </button>
+          <button
+            className="btn cancel"
+            style={styles.cancelTakeNotesButton}
+            onClick={this.onClickCancel}>
+            Cancel
+          </button>
+          {(requestState === 'pending') ? <span>
+            Saving...
+          </span> : null}
+          {(requestState === 'error') ? <span>
+            Try again!
+          </span> : null}
         </div>
-        {this.renderNoteButtonsPerDistrict()}
-        <div style={{ marginBottom: 5, marginTop: 20 }}>
-          Add a link (i.e. to a file of student work on Google Drive):
-        </div>
-        {this.renderAttachmentLinkArea()}
-        <button
-          style={{
-            marginTop: 20,
-            background: (this.disabledSaveButton()) ? '#ccc' : undefined
-          }}
-          disabled={this.disabledSaveButton()}
-          className="btn save"
-          onClick={this.onClickSave}>
-          Save notes
-        </button>
-        <button
-          className="btn cancel"
-          style={styles.cancelTakeNotesButton}
-          onClick={this.onClickCancel}>
-          Cancel
-        </button>
-        {(requestState === 'pending') ? <span>
-          Saving...
-        </span> : null}
-        {(requestState === 'error') ? <span>
-          Try again!
-        </span> : null}
-      </div>
+      )}</ModelLoader>
     );
   }
 
