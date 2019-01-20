@@ -126,7 +126,7 @@ export function renderPrediction(predict, text) {
         : 'green',
       padding: 5
     }}>
-      {!predict ? '...' : `restricted: ${Math.round(100 * prediction, 2)}`}
+      {!predict ? '...' : `restricted? ${Math.round(100 * prediction, 2)}%`}
     </span>
   );
 }
