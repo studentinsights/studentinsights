@@ -7,12 +7,13 @@ import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import Timestamp from '../components/Timestamp';
 import FeedCardFrame from './FeedCardFrame';
+import {renderPrediction} from '../components/ModelLoader';
 
 
 // Render a card in the feed for an EventNote
 export default class EventNoteCard extends React.Component {
   render() {
-    const {eventNoteCardJson, iconsEl, style} = this.props;
+    const {predict, eventNoteCardJson, iconsEl, style} = this.props;
     const {student, educator} = eventNoteCardJson;
 
     return (
@@ -32,6 +33,7 @@ export default class EventNoteCard extends React.Component {
           whenEl={<Timestamp railsTimestamp={eventNoteCardJson.recorded_at} />}
           badgesEl={<div>
             {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
+            {renderPrediction(predict, eventNoteCardJson.text)}
             <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteCardJson.event_note_type_id} />
           </div>}
           iconsEl={iconsEl}
@@ -41,8 +43,10 @@ export default class EventNoteCard extends React.Component {
       </div>
     );
   }
+
 }
 EventNoteCard.propTypes = {
+  predict: PropTypes.func,
   eventNoteCardJson: PropTypes.shape({
     id: PropTypes.number.isRequired,
     recorded_at: PropTypes.string.isRequired,

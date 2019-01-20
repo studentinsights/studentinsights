@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  get '/experimental/token_dictionary.json' => 'experimental#token_dictionary_json'
+  get '/experimental/model.json' => 'experimental#model_json'
+  get '/experimental/group1-shard1of1' => 'experimental#group1_shard1of1'
+  
   # Devise and authentication
   devise_for :educators, controllers: { sessions: 'educators/sessions' }
   authenticated :educator do

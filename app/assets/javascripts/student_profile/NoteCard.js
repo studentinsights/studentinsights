@@ -7,6 +7,7 @@ import EditableNoteText from '../components/EditableNoteText';
 import * as Routes from '../helpers/Routes';
 import {formatEducatorName} from '../helpers/educatorName';
 import RestrictedNotePresence from './RestrictedNotePresence';
+import {renderPrediction} from '../components/ModelLoader';
 
 
 // This renders a single card for a Note of any type.
@@ -37,7 +38,7 @@ export default class NoteCard extends React.Component {
   }
 
   render() {
-    const {includeStudentPanel} = this.props;
+    const {predict, text, includeStudentPanel} = this.props;
     return (
       <div className="wrapper" style={styles.wrapper}>
         {includeStudentPanel && this.renderStudentCard()}
@@ -50,6 +51,7 @@ export default class NoteCard extends React.Component {
             <span style={styles.educator}>
               <Educator educator={this.educator()} />
             </span>
+            {renderPrediction(predict, text)}
           </div>
           {this.renderNoteSubstanceOrRedaction()}
           {this.renderAttachmentUrls()}
@@ -208,6 +210,7 @@ export default class NoteCard extends React.Component {
   }
 }
 NoteCard.propTypes = {
+  predict: PropTypes.func,
   attachments: PropTypes.array.isRequired,
   badge: PropTypes.element.isRequired,
   educatorId: PropTypes.number.isRequired,

@@ -11,6 +11,7 @@ import NoteCard from './NoteCard';
 import {parseAndReRender} from './transitionNoteParser';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage from './CleanSlateMessage';
+import ModelLoader from '../components/ModelLoader';
 
 
 /*
@@ -53,14 +54,20 @@ export default class NotesList extends React.Component {
       <div className="NotesList">
         {(filteredNotes.length === 0)
           ? <div style={styles.noItems}>No notes</div>
-          : filteredNotes.map(mergedNote => {
-            switch (mergedNote.type) {
-            case 'event_notes': return this.renderEventNote(mergedNote);
-            case 'transition_notes': return this.renderTransitionNote(mergedNote);
-            case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-            case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
-            }
-          })}
+          : <ModelLoader>{predict => (
+              <div>
+                {filteredNotes.map(mergedNote => {
+                  switch (mergedNote.type) {
+                  case 'event_notes': return this.renderEventNote(mergedNote, predict);
+                  case 'transition_notes': return this.renderTransitionNote(mergedNote);
+                  case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+                  case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
+                  }
+                })}
+              </div>
+            )}
+          </ModelLoader>
+        }
         {this.renderCleanSlateMessage()}
       </div>
     );
@@ -74,7 +81,7 @@ export default class NotesList extends React.Component {
     );
   }
 
-  renderEventNote(eventNote) {
+  renderEventNote(eventNote, predict) {
     const {
       includeStudentPanel,
       educatorsIndex,
@@ -98,6 +105,7 @@ export default class NotesList extends React.Component {
       : null;
     return (
       <NoteCard
+        predict={predict}
         key={['event_note', eventNote.id].join()}
         eventNoteId={eventNote.id}
         student={eventNote.student} /* really only for my notes page */
