@@ -49,3 +49,9 @@ export function somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, ben
   const periodKey = [grade, benchmarkPeriodKey].join(':');
   return thresholds[periodKey] || null;
 }
+
+export function dibelsColor(value, thresholds) {
+  if (value >= thresholds.benchmark) return '#85b985';
+  if (value <= thresholds.risk) return 'orange';
+  return '#aaa';
+}

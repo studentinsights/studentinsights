@@ -1,23 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import hash from 'object-hash';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import SectionHeading from '../components/SectionHeading';
 import StudentPhoto from '../components/StudentPhoto';
 import MockStudentPhoto from '../components/MockStudentPhoto';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import FountasAndPinnellLevelChart from './FountasAndPinnellLevelChart';
-
-
-// TODO(kr) import path
-import {
-  reordered,
-  insertedInto,
-  UNPLACED_ROOM_KEY,
-  initialStudentIdsByRoom,
-  consistentlyPlacedInitialStudentIdsByRoom
-} from '../class_lists/studentIdsByRoomFunctions';
+import SidebarDialog from './SidebarDialog';
 import {
   DIBELS_DORF_WPM, 
   DIBELS_DORF_ACC,
@@ -28,6 +18,14 @@ import {
 } from './readingData';
 
 
+// TODO(kr) import path
+import {
+  reordered,
+  insertedInto,
+  UNPLACED_ROOM_KEY,
+  initialStudentIdsByRoom
+} from '../class_lists/studentIdsByRoomFunctions';
+
 
 // For making and reviewing reading groups.
 export default class CreateGroups extends React.Component {
@@ -35,11 +33,13 @@ export default class CreateGroups extends React.Component {
     super(props);
 
     this.state = {
+      dialogForStudentId: null,
       studentIdsByRoom: initialStudentIdsByRoom(groups(props.classrooms).length, props.readingStudents)
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
+  // TODO(kr) remove?
   withMerged(students) {
     const {mtssNotes} = this.props;
     // const dibelsByStudentId = _.groupBy(dibelsDataPoints, 'student_id');
@@ -53,6 +53,12 @@ export default class CreateGroups extends React.Component {
     });
   }
 
+  onStudentClicked(studentId) {
+    const dialogForStudentId = (studentId === null || studentId === this.state.dialogForStudentId)
+      ? null
+      : studentId;
+    this.setState({dialogForStudentId});
+  }
 
   onDragEnd(dragEndResult) {
     const {studentIdsByRoom} = this.state;
@@ -60,28 +66,14 @@ export default class CreateGroups extends React.Component {
     this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
   }
 
-  // onDragEnd(dragEndResult) {
-  //   // // dropped outside the list
-  //   if (!result.destination) {
-  //     return;
-  //   }
-
-  //   this.setState(
-  //     reorderQuoteMap({
-  //       quoteMap: this.state.quoteMap,
-  //       source: result.source,
-  //       destination: result.destination,
-  //     }),
-  //   );
-  // }
-
   render() {
     const {readingStudents, classrooms} = this.props;
-    const {studentIdsByRoom} = this.state;
+    const {dialogForStudentId, studentIdsByRoom} = this.state;
     const students = this.withMerged(readingStudents);
     return (
-      <div>
+      <div className="CreateGroups" style={styles.root}>
         <SectionHeading>Reading Groups: 3rd grade at Arthur D. Healey</SectionHeading>
+        {dialogForStudentId && this.renderDialog(dialogForStudentId)}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
             {groups(classrooms).map((group, groupIndex) => {
@@ -93,6 +85,34 @@ export default class CreateGroups extends React.Component {
             })}
           </div>
         </DragDropContext>
+      </div>
+    );
+  }
+
+  renderDialog(dialogForStudentId) {
+    const {readingStudents, doc, grade, benchmarkPeriodKey} = this.props;
+    const student = _.find(this.withMerged(readingStudents), {id: dialogForStudentId});
+    const style = {
+      position: 'fixed',
+      width: 250,
+      right: 0,
+      top: 120,
+      bottom: 20,
+      background: 'white',
+      border: '1px solid #ccc',
+      boxShadow: '2px 2px 1px #ccc',
+      padding: 15,
+      paddingTop: 5,
+      zIndex: 1
+    };
+    return (
+      <div style={style}>
+        <SidebarDialog
+          student={student}
+          doc={doc}
+          grade={grade}
+          benchmarkPeriodKey={benchmarkPeriodKey}
+          onClose={this.onStudentClicked.bind(this, null)} />
       </div>
     );
   }
@@ -142,31 +162,6 @@ export default class CreateGroups extends React.Component {
     );
   }
 
-  /* 
-  return this.renderClickableStudentCard(student, {
-  //   ref: provided.innerRef,
-  //   placeholder: provided.placeholder,
-  //   propsFromDraggable: {
-  //     ...provided.draggableProps,
-  //     ...provided.dragHandleProps
-  //   }
-  // });
-  */
-
-  // // Optionally pass arguments to make this work as a Draggable
-  // renderItem(student, options = {}) {
-  //   const {ref, placeholder, propsFromDraggable = {}} = options;
-  //   return (
-  //     <div className="renderClickableStudentCard">
-  //       <div ref={ref} {...propsFromDraggable}>
-  //         {this.renderActual(student)}
-  //       </div>
-  //       {placeholder /* this preserves space when dragging */}
-  //     </div>
-  //   );
-  // }
-
-
   renderGroupName(groupKey, groupIndex, classroomText, studentsInGroup) {
     const {doc, grade, benchmarkPeriodKey} = this.props;
     const width = 90;
@@ -200,7 +195,11 @@ export default class CreateGroups extends React.Component {
           <div style={{display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
             <div style={{width}}>F&P: {fnpLevels.join(' ')}</div>
             <div style={{width, height}}>
-              <FountasAndPinnellLevelChart height={height} levels={fnpLevels} />
+              <FountasAndPinnellLevelChart
+                height={height}
+                levels={fnpLevels}
+                isForSingleFixedGradeLevel={true}
+              />
             </div>
           </div>
           <div style={{paddingTop: 10, display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
@@ -214,7 +213,7 @@ export default class CreateGroups extends React.Component {
         </div>
         <div style={{width: '11em', padding: 5}}>
           <div style={{overflowY: 'scroll'}}>{instructionalNeeds.map(need => (
-            <span style={{paddingRight: 5}}>{`“${need}”`}</span>
+            <span key={need} style={{paddingRight: 5}}>{`“${need}”`}</span>
           ))}</div>
         </div>
       </div>
@@ -232,7 +231,7 @@ export default class CreateGroups extends React.Component {
     };
 
     return (
-      <div style={styles.photoContainer}>
+      <div style={styles.photoContainer} onClick={this.onStudentClicked.bind(this, student.id)}>
         {useMockPhoto
           ? <MockStudentPhoto {...photoProps} />
           : <StudentPhoto {...photoProps} />}
@@ -267,6 +266,9 @@ CreateGroups.propTypes = {
 const PHOTO_MAX_WIDTH = 70;
 const ROW_HEIGHT = 90;
 const styles = {
+  root: {
+    position: 'relative'
+  },
   row: {
     display: 'flex',
     fontSize: 12,
@@ -338,41 +340,6 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
 
 
-// // relies on already sorted
-// function tryLatest(key, list) {
-//   const obj = _.first(list);
-//   return obj ? obj[key] : null;
-// }
-
-// function latestDibels(student) {
-//   return tryLatest('benchmark', student.dibels_results);
-// }
-// function latestFAndP(student) {
-//   return tryLatest('instructional_level', student.f_and_p_assessments);
-// }
-// function latestStar(student) {
-//   return tryLatest('percentile_rank', student.star_reading_results);
-// }
-
-// function tryDibels(dibels, grade, assessmentPeriod, assessmentKey) {
-//   const d = _.find(dibels, {
-//     grade,
-//     assessment_period: assessmentPeriod,
-//     assessment_key: assessmentKey,
-//   });
-
-//   return d ? d.data_point : null;
-// }
-
-
-
-// function range(sortedValues) {
-//   if (sortedValues.length === 0) return 'none';
-//   if (sortedValues.length === 1) return _.first(sortedValues);
-//   return `${_.first(sortedValues)} - ${_.last(sortedValues)}`;
-// }
-
-
 function groups(classrooms) {
   const unplacedGroup = {
     groupKey: UNPLACED_ROOM_KEY,
@@ -416,37 +383,37 @@ function renderDibelsAccuracy(grade, benchmarkPeriodKey, values) {
 }
 
 function renderDibelsBar(props = {}) {
-  const {coreCount, strategicCount, intensiveCount} = props;
+  const {core, strategic, intensive} = props;
   const height = 5;
   return (
     <DibelsBreakdownBar
       style={{height, width: 90}}
       height={height}
       labelTop={6}
-      coreCount={coreCount}
-      strategicCount={strategicCount}
-      intensiveCount={intensiveCount}
+      coreCount={core}
+      strategicCount={strategic}
+      intensiveCount={intensive}
     />
   );
 }
 renderDibelsBar.propTypes = {
-  coreCount: PropTypes.number.isRequired,
-  strategicCount: PropTypes.number.isRequired,
-  intensiveCount: PropTypes.number.isRequired
+  core: PropTypes.number.isRequired,
+  strategic: PropTypes.number.isRequired,
+  intensive: PropTypes.number.isRequired
 };
 
 
+// Returns {coreCount, straetgi}
 function computeDibelsCounts(benchmarkAssessmentKey, grade, benchmarkPeriodKey, values) {
-  console.log('computeDibelsCounts', benchmarkAssessmentKey, grade, benchmarkPeriodKey, values);
   const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
   const initialCounts = {
-    coreCount: 0,
-    strategicCount: 0,
-    intensiveCount: 0
+    core: 0,
+    strategic: 0,
+    intensive: 0
   };
-  return values.reduce((dibelsCounts, value) => {
-    if (value >= thresholds.benchmark) return {...dibelsCounts, coreCount: dibelsCounts.coreCount + 1};
-    if (value <= thresholds.risk) return {...dibelsCounts, intensiveCount: dibelsCounts.intensiveCount + 1};
-    return {...dibelsCounts, strategicCount: dibelsCounts.strategicCount + 1};
+  return values.reduce((counts, value) => {
+    if (value >= thresholds.benchmark) return {...counts, core: counts.core + 1};
+    if (value <= thresholds.risk) return {...counts, intensive: counts.intensive + 1};
+    return {...counts, strategic: counts.strategic + 1};
   }, initialCounts);
 }
