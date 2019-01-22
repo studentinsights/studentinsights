@@ -177,7 +177,11 @@ class ReadingController < ApplicationController
         :grade,
         :plan_504,
         :limited_english_proficiency,
-        :ell_transition_date
+        :ell_transition_date,
+        :program_assigned,
+        :sped_level_of_need,
+        :disability,
+        :sped_placement
       ],
       methods: [
         :star_reading_results,
