@@ -28,8 +28,12 @@ export default class SidebarDialog extends React.Component {
       <div className="SidebarDialog" style={styles.root}>
         <div>
           <div style={styles.dialogHeading}>
-            <StudentPhoto student={student} fallbackEl={<span>😃</span>} />
-            <div style={{flex: 1}}>{student.first_name} {student.last_name}</div>
+            <StudentPhoto
+              style={styles.photo}
+              student={student}
+              fallbackEl={<span>😃</span>}
+            />
+            <div style={styles.name}>{student.first_name} {student.last_name}</div>
             <div style={styles.close} onClick={onClose}>X</div>
           </div>
           <div style={styles.row}>
@@ -98,6 +102,15 @@ SidebarDialog.propTypes = {
 const styles = {
   root: {
     fontSize: 12
+  },
+  photo: {
+    maxWidth: 70,
+    maxHeight: 90,
+    marginRight: 10
+  },
+  name: {
+    flex: 1,
+    paddingRight: 10
   },
   row: {
     marginLeft: 5,
