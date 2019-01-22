@@ -30,9 +30,13 @@ export default class LanguageStatusLink extends React.Component {
         linkStyle={style}
         modalStyle={{
           ...modalFromLeft,
+          overlay: {
+            ...modalFromLeft.overlay,
+            zIndex: 30
+          },
           content: {
             ...modalFromLeft.content,
-            width: 750
+            width: 750,
           }
         }}
         title="Language learning"

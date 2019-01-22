@@ -24,7 +24,15 @@ export function render504Chip(districtKey, student, props = {}) {
       style={{marginLeft: 0, display: 'block'}}
       teaser="504"
       linkStyle={{fontSize: 14}}
-      modalStyle={modalFullScreenFlex}
+      modalStyle={{
+        ...modalFullScreenFlex,
+        overlay: {
+          zIndex: 30
+        },
+        content: {
+          fontSize: 14
+        }
+      }}
       dialogStyle={dialogFullScreenFlex}
       title={`${student.first_name}'s 504 plan`}
       withoutSpacer={true}

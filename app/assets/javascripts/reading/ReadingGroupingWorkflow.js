@@ -45,6 +45,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
     this.fetchReadingDataJson = this.fetchReadingDataJson.bind(this);
   }
 
+
   isPhaseEditable(phaseKey) {
     const {editablePhaseKeys} = this.state;
     return editablePhaseKeys.indexOf(phaseKey) !== -1;

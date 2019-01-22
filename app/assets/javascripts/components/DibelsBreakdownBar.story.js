@@ -15,6 +15,7 @@ storiesOf('components/DibelsBreakdownBar', module) // eslint-disable-line no-und
        <DibelsBreakdownBar height={20} labelTop={23} style={style} coreCount={12} strategicCount={13} intensiveCount={17} />
        <DibelsBreakdownBar height={20} labelTop={23} style={style} coreCount={0} strategicCount={0} intensiveCount={0} />
        <DibelsBreakdownBar height={40} labelTop={43} style={style} coreCount={4} strategicCount={8} intensiveCount={2} />
+       <DibelsBreakdownBar isFlipped={true} height={40} labelTop={43} style={style} coreCount={4} strategicCount={8} intensiveCount={2} />
       </div>
     );
   });

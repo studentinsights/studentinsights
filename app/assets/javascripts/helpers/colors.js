@@ -17,5 +17,5 @@ export function genderColor(gender) {
 
 // For DIBELS primarily
 export const high = chroma('green').alpha(0.5).css();
-export const medium = chroma('orange').alpha(0.5).css();
+export const medium = chroma('darkorange').alpha(0.6).css();
 export const low = chroma('red').alpha(0.5).css();

@@ -1,3 +1,10 @@
+import {
+  high,
+  medium,
+  low
+} from '../helpers/colors';
+
+
 // benchmark_assessment_key values:
 export function readDoc(doc, studentId, benchmarkAssessmentKey) {
   return (doc[studentId] || {})[benchmarkAssessmentKey] || '';
@@ -51,7 +58,7 @@ export function somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, ben
 }
 
 export function dibelsColor(value, thresholds) {
-  if (value >= thresholds.benchmark) return '#85b985';
-  if (value <= thresholds.risk) return 'orange';
-  return '#aaa';
+  if (value >= thresholds.benchmark) return high;
+  if (value <= thresholds.risk) return low;
+  return medium;
 }

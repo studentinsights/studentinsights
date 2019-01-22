@@ -6,6 +6,7 @@ import DibelsBreakdownBar from './DibelsBreakdownBar';
 
 export function testProps(props) {
   return {
+    isFlipped: false,
     coreCount: 7,
     strategicCount: 3,
     intensiveCount: 2,
@@ -23,6 +24,14 @@ it('renders without crashing', () => {
 
 it('snapshots', () => {
   const props = testProps();
+  const tree = renderer
+    .create(<DibelsBreakdownBar {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots when isFlipped', () => {
+  const props = testProps({isFlipped: true});
   const tree = renderer
     .create(<DibelsBreakdownBar {...props} />)
     .toJSON();

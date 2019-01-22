@@ -1123,7 +1123,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(255,165,0,0.5)",
+                        "background": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "height": 5,
                         "left": "0%",
@@ -1137,7 +1137,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(255,165,0,0.5)",
+                        "color": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "left": "0%",
                         "paddingRight": 1,
@@ -1552,7 +1552,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(255,165,0,0.5)",
+                        "background": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "height": 5,
                         "left": "0%",
@@ -1566,7 +1566,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(255,165,0,0.5)",
+                        "color": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "left": "0%",
                         "paddingRight": 1,
@@ -2069,7 +2069,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(255,165,0,0.5)",
+                        "background": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "height": 5,
                         "left": "0%",
@@ -2083,7 +2083,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(255,165,0,0.5)",
+                        "color": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "left": "0%",
                         "paddingRight": 1,
@@ -2133,7 +2133,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(255,165,0,0.5)",
+                        "background": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "height": 5,
                         "left": "0%",
@@ -2147,7 +2147,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(255,165,0,0.5)",
+                        "color": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "left": "0%",
                         "paddingRight": 1,
@@ -2586,7 +2586,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "background": "rgba(255,165,0,0.5)",
+                        "background": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "height": 5,
                         "left": "0%",
@@ -2600,7 +2600,7 @@ exports[`snapshots 1`] = `
                   <div
                     style={
                       Object {
-                        "color": "rgba(255,165,0,0.5)",
+                        "color": "rgba(255,140,0,0.6)",
                         "fontSize": 12,
                         "left": "0%",
                         "paddingRight": 1,
