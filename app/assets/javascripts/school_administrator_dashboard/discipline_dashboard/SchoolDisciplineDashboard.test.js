@@ -1,6 +1,5 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
-import moment from 'moment';
 import renderer from 'react-test-renderer';
 import {toMomentFromTimestamp} from '../../helpers/toMoment';
 import {withNowMoment, withNowContext} from '../../testing/NowContainer';
@@ -15,8 +14,12 @@ import SchoolDisciplineDashboard from './SchoolDisciplineDashboard';
 
 jest.mock('react-virtualized'); // doesn't work in test without a real DOM
 
+function setDate() {
+  return toMomentFromTimestamp('2018-09-22T17:03:06.123Z');
+}
+
 function testContext(context = {}) {
-  const nowMoment = toMomentFromTimestamp('2018-09-22T17:03:06.123Z');
+  const nowMoment = setDate();
   return {
     districtKey: 'somerville',
     nowFn() { return nowMoment; },
@@ -24,11 +27,7 @@ function testContext(context = {}) {
   };
 }
 
-function testEl(moreProps = {}) {
-  const props = {
-    dashboardStudents: createStudents(moment.utc()),
-    ...moreProps
-  };
+function testEl(props = {}) {
   return <SchoolDisciplineDashboard {...props} />;
 }
 
@@ -48,9 +47,35 @@ function renderShallow(props = {}) {
   return shallow(el, {context});
 }
 
+function create501Students() {
+  const now = setDate();
+  let students = [];
+  for (let i=0; i < 501; i++) {
+    const student = {
+      first_name: 'Pierrot',
+      last_name: 'Zanni',
+      homeroom_label: 'Test 1',
+      grade: '4',
+      id: 1,
+      discipline_incidents: [{
+        id:23,
+        incident_code:"Assault",
+        created_at: now.clone().subtract(30, 'days').format(),
+        incident_location:"Playground",
+        incident_description:"Description",
+        occurred_at: now.clone().subtract(30, 'days').format(),
+        has_exact_time:true,
+        student_id:1}],
+      events: 3
+    };
+    students.push(student);
+  }
+  return students;
+}
+
 it('displays house for SHS', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testHighSchool()};
+  const props = {school: testHighSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectHouse').length > 0).toEqual(true);
@@ -58,7 +83,7 @@ it('displays house for SHS', () => {
 
 it('does not display house for Healey', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
+  const props = {school: testSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectHouse').length > 0).toEqual(false);
@@ -66,7 +91,7 @@ it('does not display house for Healey', () => {
 
 it('displays counselor for SHS', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testHighSchool()};
+  const props = {school: testHighSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectCounselor').length > 0).toEqual(true);
@@ -74,7 +99,7 @@ it('displays counselor for SHS', () => {
 
 it('does not display counselor for Healey', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
+  const props = {school: testSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectCounselor').length > 0).toEqual(false);
@@ -82,7 +107,7 @@ it('does not display counselor for Healey', () => {
 
 it('displays grade for SHS', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testHighSchool()};
+  const props = {school: testHighSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectGrade').length > 0).toEqual(true);
@@ -90,7 +115,7 @@ it('displays grade for SHS', () => {
 
 it('displays grade for Healey', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
+  const props = {school: testSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectGrade').length > 0).toEqual(true);
@@ -98,15 +123,24 @@ it('displays grade for Healey', () => {
 
 it('renders a scatter plot', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
+  const props = {school: testSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('DisciplineScatterPlot').length > 0).toEqual(true);
 });
 
+it('does not render a scatter plot when there are more than 500 incidents', () => {
+  const context = testContext({districtKey: 'somerville'});
+  const props = {school: testSchool(), dashboardStudents: create501Students(setDate())};
+  const el = testEl(props);
+  const dash = mount(elWrappedInContext(el, context));
+  expect(dash.find('DisciplineScatterPlot').length === 0).toEqual(true);
+  expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
+});
+
 it('renders a student list', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
+  const props = {school: testSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('StudentsTable').length > 0).toEqual(true);
@@ -114,14 +148,14 @@ it('renders a student list', () => {
 
 it('renders a date range selector', () => {
   const context = testContext({districtKey: 'somerville'});
-  const props = {school: testSchool()};
+  const props = {school: testSchool(), dashboardStudents: createStudents(setDate())};
   const el = testEl(props);
   const dash = mount(elWrappedInContext(el, context));
   expect(dash.find('SelectTimeRange').length > 0).toEqual(true);
 });
 
 it('can render a bar chart', () => {
-  const dash = renderShallow({school: testSchool()});
+  const dash = renderShallow({school: testSchool(), dashboardStudents: createStudents(setDate())});
   dash.setState({selectedChart: 'grade'});
   expect(dash.find('DashboardBarChart').length > 0).toEqual(true);
 });
@@ -130,7 +164,7 @@ function snapshotJson(districtKey) {
   return renderer.create(
     withNowContext('2018-09-22T17:03:06.123Z',
       <PerDistrictContainer districtKey={districtKey}>
-        {pageSizeFrame(testEl({school: testSchool()}))}
+        {pageSizeFrame(testEl({school: testSchool(), dashboardStudents: createStudents(setDate())}))}
       </PerDistrictContainer>
   ));
 }

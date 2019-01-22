@@ -49,6 +49,13 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.memoize = memoizer();
   }
 
+  //Remove scatter plot option when there are too many incidents to show patterns
+  componentDidMount() {
+    if (this.getIncidentsFromStudents(this.props.dashboardStudents).length > 500) {
+      this.setState({selectedChart: 'incident_location', scatterPlotAvailable: false});
+    }
+  }
+
   filterIncidents(disciplineIncidents, options = {}) {
     return this.memoize(['filteredIncidents', this.state, arguments], () => {
       if (!disciplineIncidents) return [];
@@ -315,10 +322,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   render() {
     const {districtKey} = this.context;
-    const {timeRangeKey, selectedChart, grade, house, counselor} = this.state;
+    const {scatterPlotAvailable, timeRangeKey, selectedChart, grade, house, counselor} = this.state;
     const {school, dashboardStudents} = this.props;
     const chartOptions = [
-      {value: 'scatter', label: 'Day & Time'},
+      ... scatterPlotAvailable ? [{value: 'scatter', label: 'Day & Time'}] : [],
       {value: 'incident_location', label: 'Location'},
       {value: 'time', label: 'Time'},
       {value: 'homeroom_label', label: 'Classroom'},
@@ -481,6 +488,7 @@ const styles = {
 function initialState() {
   return {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    scatterPlotAvailable: true,
     selectedChart: 'scatter',
     selectedIncidentCode: ALL,
     selectedCategory: null,

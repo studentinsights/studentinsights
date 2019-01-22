@@ -68,6 +68,15 @@ export function createStudents(nowMoment) {
     id: 1,
     absences: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
     tardies: [testEvents.oneMonthAgo, testEvents.twoMonthsAgo, testEvents.threeMonthsAgo],
+    discipline_incidents: [{
+      id:23,
+      incident_code:"Assault",
+      created_at: nowMoment.clone().subtract(30, 'days').format(),
+      incident_location:"Playground",
+      incident_description:"Description",
+      occurred_at: nowMoment.clone().subtract(30, 'days').format(),
+      has_exact_time:true,
+      student_id:1}],
     events: 3,
     latest_note: {
       event_note_type_id: 300,
