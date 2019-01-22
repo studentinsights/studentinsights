@@ -65,7 +65,7 @@ export default class App extends React.Component {
     return (
       <SessionRenewal
         sessionTimeoutInSeconds={sessionTimeoutInSeconds}
-        warningTimeoutInSeconds={sessionTimeoutInSeconds - 1} />
+        warningTimeoutInSeconds={sessionTimeoutInSeconds - 60} />
     );
   }
 
