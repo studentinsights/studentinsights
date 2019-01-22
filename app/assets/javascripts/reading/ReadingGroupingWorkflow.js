@@ -59,7 +59,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
     const url = `/api/schools/${schoolSlug}/reading/${grade}/reading_json`;
     return apiFetchJson(url);
   }
-
+  
   render() {
     const {allowedPhaseKeys, selectedPhaseKey} = this.state;
     return (
@@ -153,15 +153,52 @@ export default class ReadingGroupingWorkflow extends React.Component {
   }
 
   renderPrimaryGroupingsWithData(json) {
+    const {plan, primaryStudentIdsByRoom} = this.state;
+    return this.renderGroups({
+      json,
+      phaseKey: Phases.PRIMARY_GROUPS,
+      educatorIds: plan.primaryEducatorIds,
+      studentIdsByRoom: primaryStudentIdsByRoom,
+      onStudentIdsByRoomChanged(primaryStudentIdsByRoom => this.setState({primaryStudentIdsByRoom}))
+    });
+  }
+
+  renderAdditionalGroups() {
+    return (
+      <GenericLoader
+        promiseFn={this.fetchReadingDataJson}
+        style={styles.flexVertical}
+        render={this.renderAdditionalGroupsWithData.bind(this)}
+      />
+    );
+  }
+
+  renderAdditionalGroupsWithData(json) {
+    const {plan, additionalStudentIdsByRoom} = this.state;
+    return this.renderGroups({
+      json,
+      phaseKey: Phases.ADDITIONAL_GROUPS,
+      educatorIds: plan.additionalEducatorIds,
+      studentIdsByRoom: additionalStudentIdsByRoom,
+      onStudentIdsByRoomChanged(additionalStudentIdsByRoom => this.setState({additionalStudentIdsByRoom}))
+    });
+  }
+
+  // set initial 
+  renderGroups(params = {}) {
+    const {json, phaseKey, educatorIds, studentIdsByRoom, onStudentIdsByRoomChanged} = params;
+    
     const {teams} = this.props;
-    const {team, plan} = this.state;
-    const classrooms = _.sortBy(plan.primaryEducatorIds.map(id => {
+    const {team} = this.state;
+    const classrooms = _.sortBy(educatorIds.map(id => {
       const educator = _.find(teams.educators, {id});
       return {educator, text: _.last(educator.full_name.split(' '))};
     }), 'text');
     return (
       <CreateGroups
-        isEditable={this.isPhaseEditable(Phases.PRIMARY_GROUPS)}
+        studentIdsByRoom={studentIdsByRoom}
+        onStudentIdsByRoomChanged={onStudentIdsByRoomChanged}
+        isEditable={this.isPhaseEditable(phaseKey)}
         grade={team.grade}
         benchmarkPeriodKey={team.benchmarkPeriodKey}
         schoolName={json.school.name}
@@ -171,10 +208,6 @@ export default class ReadingGroupingWorkflow extends React.Component {
         classrooms={classrooms}
       />
     );
-  }
-
-  renderAdditionalGroups() {
-    return <div>additional groups!</div>;
   }
 }
 ReadingGroupingWorkflow.contextTypes = {

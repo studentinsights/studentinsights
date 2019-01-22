@@ -32,9 +32,9 @@ export default class CreateGroups extends React.Component {
   constructor(props) {
     super(props);
 
+    // || initialStudentIdsByRoom(groups(props.classrooms).length, props.readingStudents)
     this.state = {
-      dialogForStudentId: null,
-      studentIdsByRoom: initialStudentIdsByRoom(groups(props.classrooms).length, props.readingStudents)
+      dialogForStudentId: null
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -47,14 +47,15 @@ export default class CreateGroups extends React.Component {
   }
 
   onDragEnd(dragEndResult) {
-    const {studentIdsByRoom} = this.state;
+    const {studentIdsByRoom, onStudentIdsByRoomChanged} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
-    this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
+    // this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
+    onStudentIdsByRoomChanged({studentIdsByRoom: updatedStudentIdsByRoom});
   }
 
   render() {
-    const {readingStudents, classrooms} = this.props;
-    const {dialogForStudentId, studentIdsByRoom} = this.state;
+    const {readingStudents, classrooms, studentIdsByRoom} = this.props;
+    const {dialogForStudentId} = this.state;
     return (
       <div className="CreateGroups" style={styles.root}>
         <SectionHeading>Reading Groups: 3rd grade at Arthur D. Healey</SectionHeading>
@@ -231,6 +232,8 @@ CreateGroups.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 CreateGroups.propTypes = {
+  studentIdsByRoom: PropTypes.object.isRequired,
+  onStudentIdsByRoomChanged: PropTypes.func.isRequired,
   schoolName: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
   benchmarkPeriodKey: PropTypes.string.isRequired,
