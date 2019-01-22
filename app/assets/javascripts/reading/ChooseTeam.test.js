@@ -7,6 +7,7 @@ import teamsJson from './teamsJson.fixture';
 
 export function testProps(props) {
   return {
+    isEditable: true,
     onTeamChanged: jest.fn(),
     onDone: jest.fn(),
     team: {
@@ -34,6 +35,14 @@ it('renders without crashing', () => {
 
 it('snapshots', () => {
   const props = testProps();
+  const tree = renderer
+    .create(<ChooseTeam {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots when not isEditable', () => {
+  const props = testProps({isEditable: false});
   const tree = renderer
     .create(<ChooseTeam {...props} />)
     .toJSON();

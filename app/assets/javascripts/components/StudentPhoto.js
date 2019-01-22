@@ -43,7 +43,6 @@ export default class StudentPhoto extends React.Component {
   }
 
   renderFallback() {
-    console.log('renderFallback');
     const {fallbackEl, height, width, alt, style} = this.props;
     if (fallbackEl) return fallbackEl;
 
