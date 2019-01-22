@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import hash from 'object-hash';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import SectionHeading from '../components/SectionHeading';
 import StudentPhoto from '../components/StudentPhoto';
@@ -81,12 +82,12 @@ export default class CreateGroups extends React.Component {
         <SectionHeading>Reading Groups: 3rd grade at Arthur D. Healey</SectionHeading>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
-            {groups(classrooms).map(group => {
+            {groups(classrooms).map((group, groupIndex) => {
               const {groupKey} = group;
               const studentsInRoom = studentIdsByRoom[groupKey].map(studentId => {
                 return _.find(students, { id: studentId });
               });
-              return this.renderRow(group, studentsInRoom);
+              return this.renderRow(group, groupIndex, studentsInRoom);
             })}
           </div>
         </DragDropContext>
@@ -94,17 +95,16 @@ export default class CreateGroups extends React.Component {
     );
   }
 
-  renderRow(group, studentsInGroup) {
+  renderRow(group, groupIndex, studentsInGroup) {
     const {text, groupKey} = group;
     return (
       <div key={groupKey} style={{
-        // border: '1px solid #eee',
         flex: 1,
         display: 'flex',
         flexDirection: 'row',
         margin: 5
       }}>
-        {this.renderGroupName(groupKey, text, studentsInGroup)}
+        {this.renderGroupName(groupKey, groupIndex, text, studentsInGroup)}
         <Droppable
           droppableId={groupKey}
           direction="horizontal"
@@ -165,7 +165,7 @@ export default class CreateGroups extends React.Component {
   // }
 
 
-  renderGroupName(groupKey, classroomText, studentsInGroup) {
+  renderGroupName(groupKey, groupIndex, classroomText, studentsInGroup) {
     const {doc} = this.props;
     const width = 100;
     const height = 22;
@@ -178,12 +178,23 @@ export default class CreateGroups extends React.Component {
     const accs = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
       return readDoc(doc, student.id, DIBELS_DORF_ACC);
     }))));
+    const instructionalNeeds = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
+      return readDoc(doc, student.id, INSTRUCTIONAL_NEEDS);
+    }))));
     return (
       <div style={styles.row}>
-        <div style={{width: '8em'}}>
-          <div>{classroomText}</div>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '3em',
+          background: pickGroupColor(groupIndex),
+          color: 'white',
+          overflow: 'hidden'
+        }}>
+          <div style={{transform: 'rotate(-90deg)', whiteSpace: 'nowrap'}}>{classroomText}</div>
         </div>
-        <div style={{paddingLeft: 5, marginLeft: 10, borderLeft: '1px solid #ddd'}}>
+        <div style={{padding: 5, paddingLeft: 10, marginRight: 5, borderRight: '1px solid #ddd'}}>
           <div style={{display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
             <div style={{width}}>F&P: {fnpLevels.join(' ')}</div>
             <div style={{width, height}}>
@@ -198,6 +209,11 @@ export default class CreateGroups extends React.Component {
             <div style={{width}}>DORF words/min:</div>
             <div>{range(wpms)}</div>
           </div>
+        </div>
+        <div style={{width: '11em', padding: 5}}>
+          <div style={{overflowY: 'scroll'}}>{instructionalNeeds.map(need => (
+            <span style={{paddingRight: 5}}>{`“${need}”`}</span>
+          ))}</div>
         </div>
       </div>
     );
@@ -249,7 +265,6 @@ const ROW_HEIGHT = 80;
 const styles = {
   row: {
     display: 'flex',
-    padding: 5,
     fontSize: 12,
     marginBottom: 5,
     marginRight: 5,
@@ -357,7 +372,7 @@ function range(sortedValues) {
 function groups(classrooms) {
   const unplacedGroup = {
     groupKey: UNPLACED_ROOM_KEY,
-    text: 'Not yet placed'
+    text: 'Not placed'
   };
   return [unplacedGroup].concat(classrooms.map((classroom, index) => {
     return {
@@ -365,4 +380,23 @@ function groups(classrooms) {
       groupKey: ['room', index].join(':')
     };
   }));
+}
+
+const colors = [
+  '#31AB39',
+  '#EB4B26',
+  '#139DEA',
+  '#333333',
+  '#CDD71A',
+  '#6A2987',
+  '#fdbf6f',
+  '#ff7f00',
+  '#cab2d6',
+  '#6a3d9a',
+  '#ffff99',
+  '#b15928',
+];
+function pickGroupColor(groupIndex) {
+  // return colors[parseInt(hash(homeroomText), 16) % colors.length];
+  return colors[groupIndex];
 }
