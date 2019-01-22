@@ -31,7 +31,7 @@ export default class StudentPhoto extends React.Component {
     if (loadingFailed) return this.renderFallback();
 
     return (
-      <img id='student-photo'
+      <img
         style={style}
         src={Routes.studentPhoto(student.id)}
         width={width}

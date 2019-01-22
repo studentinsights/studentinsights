@@ -23,9 +23,10 @@ import {
 
 export default class SidebarDialog extends React.Component {
   render() {
-    const {student, doc, grade, benchmarkPeriodKey, onClose} = this.props;
+    const {student, doc, grade, benchmarkPeriodKey, style, onClose} = this.props;
+
     return (
-      <div className="SidebarDialog" style={styles.root}>
+      <div className="SidebarDialog" style={{...styles.root, ...style}}>
         <div>
           <div style={styles.dialogHeading}>
             <StudentPhoto
@@ -34,11 +35,15 @@ export default class SidebarDialog extends React.Component {
               fallbackEl={<span>😃</span>}
             />
             <div style={styles.name}>{student.first_name} {student.last_name}</div>
-            <div style={styles.close} onClick={onClose}>X</div>
+            <div style={styles.close} onClick={onClose}>✕</div>
           </div>
           <div style={styles.row}>
             <div style={styles.heading}>IEP, 504 or ELL plans</div>
             {this.renderChips(student)}
+          </div>
+          <div style={styles.row}>
+            <div style={styles.heading}>MTSS, last 2 years</div>
+            {this.renderMtss()}
           </div>
           <div style={styles.row}>
             <div style={styles.heading}>Instructional needs</div>
@@ -66,13 +71,11 @@ export default class SidebarDialog extends React.Component {
   }
 
   renderChips(student) {
-    const {districtKey, nowFn} = this.context;
-    const {mtssNotesForStudent} = this.props;
+    const {districtKey} = this.context;
     const chips = [
       renderIepChip(districtKey, student, {style: styles.chip}),
       render504Chip(districtKey, student, {style: styles.chip}),
-      renderEnglishLearnerChip(districtKey, student, {style: styles.chip}),
-      renderMtss(mtssNotesForStudent, nowFn())
+      renderEnglishLearnerChip(districtKey, student, {style: styles.chip})
     ];
     if (_.compact(chips).length === 0) return none();
     return (
@@ -80,6 +83,13 @@ export default class SidebarDialog extends React.Component {
         {chips.map((chip, index) => <div key={index}>{chip}</div>)}
       </div>
     );
+  }
+
+  renderMtss() {
+    const {nowFn} = this.context;
+    const {mtssNotesForStudent} = this.props;
+    const mtssEl = renderMtss(mtssNotesForStudent, nowFn());
+    return mtssEl ? <span style={{paddingLeft: 5}}>{mtssEl}</span> : none();
   }
 }
 SidebarDialog.contextTypes = {
@@ -96,7 +106,8 @@ SidebarDialog.propTypes = {
   doc: PropTypes.object.isRequired,
   grade: PropTypes.string.isRequired,
   benchmarkPeriodKey: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  style: PropTypes.object
 };
 
 const styles = {
@@ -130,10 +141,12 @@ const styles = {
     marginBottom: 5
   },
   close: {
-    padding: 10
+    padding: 10,
+    cursor: 'pointer'
   },
   chip: {
-    fontSize: 12
+    fontSize: 12,
+    zIndex: 30
   }
 };
 
@@ -171,6 +184,7 @@ function renderFountassAndPinnell(maybeLevel) {
       </div>
       <FountasAndPinnellLevelChart
         height={40}
+        markerWidth={4}
         style={{height: 40}}
         levels={[maybeLevel]}
         isForSingleFixedGradeLevel={true}

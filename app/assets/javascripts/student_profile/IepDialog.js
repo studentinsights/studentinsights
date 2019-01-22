@@ -30,7 +30,12 @@ export default class IepDialog extends React.Component {
         style={{marginLeft: 0, display: 'block'}}
         teaser={specialEducationText}
         linkStyle={styles.subtitleItem}
-        modalStyle={modalFullScreenFlex}
+        modalStyle={{
+          ...modalFullScreenFlex,
+          overlay: {
+            zIndex: 30
+          }
+        }}
         dialogStyle={dialogFullScreenFlex}
         title={`${student.first_name}'s ${specialEducationText}`}
         withoutSpacer={true}
@@ -110,12 +115,6 @@ IepDialog.propTypes = {
 };
 
 const styles = {
-  // root: {
-  //   flex: 1,
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   justifyContent: 'flex-end'
-  // },
   subtitleItem: {
     display: 'inline-block',
     fontSize: 14

@@ -77,22 +77,10 @@ export default class CreateGroups extends React.Component {
   renderDialog(dialogForStudentId) {
     const {readingStudents, mtssNotes, doc, grade, benchmarkPeriodKey} = this.props;
     const student = _.find(readingStudents, {id: dialogForStudentId});
-    const style = {
-      position: 'fixed',
-      width: 250,
-      right: 0,
-      top: 120,
-      bottom: 20,
-      background: 'white',
-      border: '1px solid #ccc',
-      boxShadow: '2px 2px 1px #ccc',
-      padding: 15,
-      paddingTop: 5,
-      zIndex: 1
-    };
     return (
-      <div style={style}>
+      <div style={styles.dialog}>
         <SidebarDialog
+          style={{zIndex: 20}}
           student={student}
           mtssNotesForStudent={mtssNotes.filter(note => note.student_id === student.id)}
           doc={doc}
@@ -150,7 +138,7 @@ export default class CreateGroups extends React.Component {
 
   renderGroupName(groupKey, groupIndex, classroomText, studentsInGroup) {
     const {doc, grade, benchmarkPeriodKey} = this.props;
-    const width = 90;
+    const width = 80;
     const height = 22;
     const fnpLevels = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
       return readDoc(doc, student.id, F_AND_P_ENGLISH);
@@ -179,11 +167,12 @@ export default class CreateGroups extends React.Component {
         </div>
         <div style={{padding: 5, paddingLeft: 10, paddingRight: 10, marginRight: 5, borderRight: '1px solid #ddd'}}>
           <div style={{display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
-            <div style={{width}}>F&P: {fnpLevels.join(' ')}</div>
+            <div style={{width}}>F&P: {fAndPRange(fnpLevels)}</div>
             <div style={{width, height}}>
               <FountasAndPinnellLevelChart
                 height={height}
-                levels={fnpLevels}
+                markerWidth={2}
+                levels={onlyValid(fnpLevels)}
                 isForSingleFixedGradeLevel={true}
               />
             </div>
@@ -197,9 +186,9 @@ export default class CreateGroups extends React.Component {
             <div>{renderDibelsFluency(grade, benchmarkPeriodKey, wpms)}</div>
           </div>
         </div>
-        <div style={{width: '11em', padding: 5}}>
-          <div style={{overflowY: 'scroll'}}>{instructionalNeeds.map(need => (
-            <span key={need} style={{paddingRight: 5}}>{`“${need}”`}</span>
+        <div style={{width: '12em', padding: 5, overflowY: 'scroll'}}>
+          <div>{instructionalNeeds.map(need => (
+            <div key={need} style={{paddingRight: 5}}>{`“${need.trim()}”`}</div>
           ))}</div>
         </div>
       </div>
@@ -207,21 +196,24 @@ export default class CreateGroups extends React.Component {
   }
 
   renderItem(student) {
+    const useAltStyles = window.location.search.indexOf('original') === -1;
     const useMockPhoto = (this.props.useMockPhoto || window.location.search.indexOf('mock') !== -1);
     const photoProps = {
       key: student.id,
-      style: styles.photoImage,
+      style: (useAltStyles ? altStyles.photoImage : originalStyles.photoImage),
       student: student,
       fallbackEl: <span style={styles.fallbackSmiley}>😃</span>,
       alt: '😃'
     };
 
     return (
-      <div style={styles.photoContainer} onClick={this.onStudentClicked.bind(this, student.id)}>
+      <div
+        style={useAltStyles ? altStyles.photoContainer : originalStyles.photoContainer}
+        onClick={this.onStudentClicked.bind(this, student.id)}>
         {useMockPhoto
           ? <MockStudentPhoto {...photoProps} />
           : <StudentPhoto {...photoProps} />}
-        <div style={{position: 'absolute', left: 2, bottom: 0, color: 'white', fontSize: 10}}>{student.first_name}</div>
+        <div style={styles.photoCaption}>{student.first_name}</div>
       </div>
     );
   }
@@ -249,8 +241,8 @@ CreateGroups.propTypes = {
   useMockPhoto: PropTypes.bool
 };
 
-const PHOTO_MAX_WIDTH = 70;
-const ROW_HEIGHT = 90;
+const PHOTO_MAX_WIDTH = 60;
+const ROW_HEIGHT = 100;
 const styles = {
   root: {
     position: 'relative'
@@ -271,19 +263,47 @@ const styles = {
     backgroundColor: '#f8f8f8',
     overflowX: 'scroll'
   },
-  photoContainer: {
-    position: 'relative',
-    width: PHOTO_MAX_WIDTH,
-    height: ROW_HEIGHT,
-    marginRight: 5,
-    fontSize: 32
-  },
   fallbackSmiley: {
     position: 'absolute',
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#333',
+    width: '100%',
+    height: '100%',
+    paddingTop: 5,
     opacity: 0.9
+  },
+  dialog: {
+    position: 'fixed',
+    width: 250,
+    right: 0,
+    top: 120,
+    bottom: 20,
+    background: 'white',
+    border: '1px solid #999',
+    borderRadius: 3,
+    boxShadow: '2px 2px 1px #ccc',
+    padding: 15,
+    paddingTop: 5,
+    zIndex: 10
+  },
+  photoCaption: {
+    position: 'absolute',
+    left: 2,
+    bottom: 0,
+    fontSize: 10,
+    color: '#f8f8f8',
+    textShadow: '-1px 0 #333, 0 1px #333, 1px 0 #333, 0 -1px #333'
+  }
+};
+
+const originalStyles = {
+  photoContainer: {
+    position: 'relative',
+    width: 60,
+    height: 100,
+    marginRight: 5,
+    fontSize: 32
   },
   photoImage: {
     position: 'absolute',
@@ -292,7 +312,23 @@ const styles = {
     boxShadow: '2px 2px 1px #ccc'
   }
 };
-
+const altStyles = {
+  photoContainer: {
+    position: 'relative',
+    overflow: 'hidden',
+    width: 60,
+    height: '100%',
+    marginRight: 5,
+    fontSize: 32
+  },
+  photoImage: {
+    position: 'absolute',
+    width: 90,
+    left: -15,
+    top: -5,
+    boxShadow: '2px 2px 1px #ccc'
+  }
+};
 
 
 // Update the `studentIdsByRoom` map after a drag ends.
@@ -324,7 +360,22 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
   }
 }
 
+function onlyValid(fAndPs) {
+  return fAndPs.filter(fAndP => {
+    if (fAndP.length !== 1) return false;
+    if (fAndP.toUpperCase().charCodeAt() < 'A'.charCodeAt()) return false;
+    if (fAndP.toUpperCase().charCodeAt() > 'Z'.charCodeAt()) return false;
+    return true;
+  });
+}
 
+function fAndPRange(fAndPs) {
+  const sortedValidValues = _.sortBy(onlyValid(fAndPs));
+  if (sortedValidValues.length === 0) return null;
+  if (sortedValidValues.length === 1) return sortedValidValues[0];
+
+  return [_.first(sortedValidValues), _.last(sortedValidValues)].join(' to ');
+}
 
 function groups(classrooms) {
   const unplacedGroup = {
@@ -373,9 +424,10 @@ function renderDibelsBar(props = {}) {
   const height = 5;
   return (
     <DibelsBreakdownBar
-      style={{height, width: 90}}
+      style={{height, width: 80}}
       height={height}
       labelTop={6}
+      isFlipped={true}
       coreCount={core}
       strategicCount={strategic}
       intensiveCount={intensive}

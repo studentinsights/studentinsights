@@ -10,6 +10,7 @@ import Button from '../components/Button';
 export default function MakePlan(props = {}) {
   const {isEditable, educators, plan, onPlanChanged, onDone} = props;
   const {primaryEducatorIds, additionalEducatorIds, planText} = plan;
+  const sortedEducators = _.sortBy(educators, 'full_name');
   const isDisabled = (
     primaryEducatorIds.length === 0 ||
     planText === ''
@@ -26,7 +27,7 @@ export default function MakePlan(props = {}) {
           value={primaryEducatorIds.map(id => _.find(educators, {id}))}
           valueKey="id"
           labelKey="full_name"
-          options={educators}
+          options={sortedEducators}
           onChange={educators => onPlanChanged({...plan, primaryEducatorIds: educators.map(e => e.id)})}
         />
       </div>
@@ -43,7 +44,7 @@ export default function MakePlan(props = {}) {
           value={additionalEducatorIds.map(id => _.find(educators, {id}))}
           valueKey="id"
           labelKey="full_name"
-          options={educators}
+          options={sortedEducators}
           onChange={educators => onPlanChanged({...plan, additionalEducatorIds: educators.map(e => e.id)})}
           />
       </div>
