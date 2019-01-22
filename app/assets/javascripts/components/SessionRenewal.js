@@ -68,7 +68,8 @@ export default class SessionRenewal extends React.Component {
     this.forceReload();
   }
 
-  onRenewClicked() {
+  onRenewClicked(e) {
+    e.preventDefault();
     apiFetchJson('/educators/reset').then(this.onRenewCompleted);
   }
 
@@ -83,7 +84,6 @@ export default class SessionRenewal extends React.Component {
 
   render() {
     const {status} = this.state;
-
     if (status === States.ACTIVE) return null;
     
     if (status === States.WARNING) return (
