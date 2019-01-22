@@ -39,20 +39,6 @@ export default class CreateGroups extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  // TODO(kr) remove?
-  withMerged(students) {
-    const {mtssNotes} = this.props;
-    // const dibelsByStudentId = _.groupBy(dibelsDataPoints, 'student_id');
-    const mtssByStudentId = _.groupBy(mtssNotes, 'student_id');
-    return students.map(student => {
-      return {
-        ...student,
-        // dibels: dibelsByStudentId[student.id] || [],
-        mtss: mtssByStudentId[student.id] || []
-      };
-    });
-  }
-
   onStudentClicked(studentId) {
     const dialogForStudentId = (studentId === null || studentId === this.state.dialogForStudentId)
       ? null
@@ -69,7 +55,6 @@ export default class CreateGroups extends React.Component {
   render() {
     const {readingStudents, classrooms} = this.props;
     const {dialogForStudentId, studentIdsByRoom} = this.state;
-    const students = this.withMerged(readingStudents);
     return (
       <div className="CreateGroups" style={styles.root}>
         <SectionHeading>Reading Groups: 3rd grade at Arthur D. Healey</SectionHeading>
@@ -79,7 +64,7 @@ export default class CreateGroups extends React.Component {
             {groups(classrooms).map((group, groupIndex) => {
               const {groupKey} = group;
               const studentsInRoom = studentIdsByRoom[groupKey].map(studentId => {
-                return _.find(students, { id: studentId });
+                return _.find(readingStudents, { id: studentId });
               });
               return this.renderRow(group, groupIndex, studentsInRoom);
             })}
@@ -90,8 +75,8 @@ export default class CreateGroups extends React.Component {
   }
 
   renderDialog(dialogForStudentId) {
-    const {readingStudents, doc, grade, benchmarkPeriodKey} = this.props;
-    const student = _.find(this.withMerged(readingStudents), {id: dialogForStudentId});
+    const {readingStudents, mtssNotes, doc, grade, benchmarkPeriodKey} = this.props;
+    const student = _.find(readingStudents, {id: dialogForStudentId});
     const style = {
       position: 'fixed',
       width: 250,
@@ -109,6 +94,7 @@ export default class CreateGroups extends React.Component {
       <div style={style}>
         <SidebarDialog
           student={student}
+          mtssNotesForStudent={mtssNotes.filter(note => note.student_id === student.id)}
           doc={doc}
           grade={grade}
           benchmarkPeriodKey={benchmarkPeriodKey}

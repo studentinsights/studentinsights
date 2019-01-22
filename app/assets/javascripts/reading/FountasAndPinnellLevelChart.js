@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
+// Not generalized; fixed to one particular grade and period right now.
 export default function FountasAndPinnellLevelChart({levels, height, style = {}}) {
   return (
     <div style={{marginRight: 10, flex: 1, height: '100%', display: 'flex', flexDirection: 'row', position: 'relative', ...style}}>
@@ -11,7 +11,7 @@ export default function FountasAndPinnellLevelChart({levels, height, style = {}}
   );
 }
 FountasAndPinnellLevelChart.propTypes = {
-  isForSingleFixedGradeLevel: PropTypes.func.isRequired,
+  isForSingleFixedGradeLevel: PropTypes.bool.isRequired, // TODO(kr) generalize to read levels
   height: PropTypes.number.isRequired,
   levels: PropTypes.arrayOf(PropTypes.string).isRequired,
   style: PropTypes.object
