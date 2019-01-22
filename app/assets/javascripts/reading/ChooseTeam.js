@@ -7,7 +7,8 @@ import {gradeText} from '../helpers/gradeText';
 import Button from '../components/Button';
 
 
-export default function ChooseTeam({teams, team, onTeamChanged, onDone}) {
+export default function ChooseTeam(props = {}) {
+  const {isEditable, teams, team, onTeamChanged, onDone} = props;
   const {schoolId, grade, benchmarkSchoolYear, benchmarkPeriodKey} = team;
   const isDisabled = (
     schoolId === null ||
@@ -20,6 +21,7 @@ export default function ChooseTeam({teams, team, onTeamChanged, onDone}) {
       <div>
         <div style={styles.heading}>What school?</div>
         <Select
+          disabled={!isEditable}
           name="select-school-name"
           value={schoolId}
           onChange={item => onTeamChanged({...team, schoolId: item.value})}
@@ -34,6 +36,7 @@ export default function ChooseTeam({teams, team, onTeamChanged, onDone}) {
       <div>
         <div style={styles.heading}>What grade level are you creating?</div>
         <Select
+          disabled={!isEditable}
           name="select-grade-level"
           value={grade}
           onChange={item => onTeamChanged({...team, grade: item.value})}
@@ -48,6 +51,7 @@ export default function ChooseTeam({teams, team, onTeamChanged, onDone}) {
       <div>
         <div style={styles.heading}>What benchmark period?</div>
         <Select
+          disabled={!isEditable}
           name="select-benchmark-window"
           value={[benchmarkSchoolYear, benchmarkPeriodKey].join(':')}
           onChange={item => {
@@ -66,12 +70,16 @@ export default function ChooseTeam({teams, team, onTeamChanged, onDone}) {
       </div>
       <div style={{marginTop: 20}}>You can't change the school, grade level or benchmark window once you've moved forward.  If you need to change this, create a new grouping instead.</div>
       <div>
-        <Button isDisabled={isDisabled} onClick={onDone}>Next</Button>
+        <Button
+          style={{marginTop: 20}}
+          isDisabled={isDisabled}
+          onClick={onDone}>Next</Button>
       </div>
     </div>
   );
 }
 ChooseTeam.propTypes = {
+  isEditable: PropTypes.bool.isRequired,
   onTeamChanged: PropTypes.func.isRequired,
   onDone: PropTypes.func.isRequired,
   team: PropTypes.shape({

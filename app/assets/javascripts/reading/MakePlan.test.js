@@ -6,6 +6,7 @@ import MakePlan from './MakePlan';
 
 export function testProps(props) {
   return {
+    isEditable: true,
     plan: {
       primaryEducatorIds: [],
       additionalEducatorIds: [],
@@ -30,6 +31,14 @@ it('renders without crashing', () => {
 
 it('snapshots', () => {
   const props = testProps();
+  const tree = renderer
+    .create(<MakePlan {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots when not isEditable', () => {
+  const props = testProps({isEditable: false});
   const tree = renderer
     .create(<MakePlan {...props} />)
     .toJSON();

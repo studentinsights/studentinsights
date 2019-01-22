@@ -7,7 +7,7 @@ import GenericLoader from '../components/GenericLoader';
 import GroupingPhases from './GroupingPhases';
 import ChooseTeam from './ChooseTeam';
 import MakePlan from './MakePlan';
-import ReadingGroups from './ReadingGroups';
+import CreateGroups from './CreateGroups';
 
 
 // For navigating the workflow and phases of the reading grouping process.
@@ -25,6 +25,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
       // navigation through workflow
       selectedPhaseKey: Phases.CHOOSE_TEAM,
       allowedPhaseKeys: [Phases.CHOOSE_TEAM],
+      editablePhaseKeys: [Phases.CHOOSE_TEAM],
 
       // ChooseTeam
       team: defaultTeam(props, context),
@@ -36,12 +37,17 @@ export default class ReadingGroupingWorkflow extends React.Component {
         planText: ''
       },
 
-      // ReadingGroups
+      // CreateGroups
       primaryStudentIdsByRoom: {},
       secondaryStudentIdsByRoom: {}
     };
 
     this.fetchReadingDataJson = this.fetchReadingDataJson.bind(this);
+  }
+
+  isPhaseEditable(phaseKey) {
+    const {editablePhaseKeys} = this.state;
+    return editablePhaseKeys.indexOf(phaseKey) !== -1;
   }
 
   // Requires team to be picked (not enforced)
@@ -88,12 +94,16 @@ export default class ReadingGroupingWorkflow extends React.Component {
     const {team} = this.state;
     return (
       <ChooseTeam
+        isEditable={this.isPhaseEditable(Phases.CHOOSE_TEAM)}
         team={team}
         onTeamChanged={team => this.setState({team})}
         teams={teams}
         onDone={() => {
           this.setState({
             selectedPhaseKey: Phases.MAKE_PLAN,
+            editablePhaseKeys: [
+              Phases.MAKE_PLAN
+            ],
             allowedPhaseKeys: [
               Phases.CHOOSE_TEAM,
               Phases.MAKE_PLAN
@@ -109,12 +119,17 @@ export default class ReadingGroupingWorkflow extends React.Component {
     const {plan} = this.state;
     return (
       <MakePlan
+        isEditable={this.isPhaseEditable(Phases.MAKE_PLAN)}
         plan={plan}
         onPlanChanged={plan => this.setState({plan})}
         educators={teams.educators}
         onDone={() => {
           this.setState({
             selectedPhaseKey: Phases.PRIMARY_GROUPS,
+            editablePhaseKeys: [
+              Phases.PRIMARY_GROUPS,
+              Phases.ADDITIONAL_GROUPS
+            ],
             allowedPhaseKeys: [
               Phases.CHOOSE_TEAM,
               Phases.MAKE_PLAN,
@@ -145,8 +160,10 @@ export default class ReadingGroupingWorkflow extends React.Component {
       return {educator, text: _.last(educator.full_name.split(' '))};
     }), 'text');
     return (
-      <ReadingGroups
+      <CreateGroups
+        isEditable={this.isPhaseEditable(Phases.PRIMARY_GROUPS)}
         grade={team.grade}
+        benchmarkPeriodKey={team.benchmarkPeriodKey}
         schoolName={json.school.name}
         doc={json.entry_doc}
         readingStudents={json.reading_students}

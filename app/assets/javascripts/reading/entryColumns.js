@@ -1,26 +1,16 @@
 import React from 'react';
-import _ from 'lodash';
 import hash from 'object-hash';
 import {hasActive504Plan} from '../helpers/PerDistrict';
-import {toMomentFromRailsDate} from '../helpers/toMoment';
-import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import {isEnglishLearner, accessLevelNumber} from '../helpers/language';
 import {hasActiveIep} from '../helpers/specialEducation';
-import HelpBubble, {
-  modalFullScreenFlex,
-  dialogFullScreenFlex
-} from '../components/HelpBubble';
-import PerDistrictContainer from '../components/PerDistrictContainer';
-import IepDialog from '../student_profile/IepDialog';
-import LanguageStatusLink from '../student_profile/LanguageStatusLink'; 
-import EdPlansPanel from '../student_profile/EdPlansPanel';
-
-
-// benchmark_assessment_key values:
-const DIBELS_DORF_WPM = 'dibels_dorf_wpm';
-const DIBELS_DORF_ACC = 'dibels_dorf_acc';
-const F_AND_P_ENGLISH = 'f_and_p_english';
-const INSTRUCTIONAL_NEEDS = 'instructional_needs';
+import {render504Chip, renderIepChip, renderEnglishLearnerChip, renderMtss} from './chips';
+import {
+  DIBELS_DORF_WPM, 
+  DIBELS_DORF_ACC,
+  F_AND_P_ENGLISH,
+  INSTRUCTIONAL_NEEDS,
+  readDoc
+} from './readingData';
 
 
 // This describes the columns for a react-virtualized <Table /> used
@@ -57,58 +47,19 @@ export function describeEntryColumns(params) {
     dataKey: 'plan_504',
     width: 70,
     style: styles.cell,
-    cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
-      if (!hasActive504Plan(rowData.plan_504)) return null;
-      return (
-        <HelpBubble
-          style={{marginLeft: 0, display: 'block'}}
-          teaser="504"
-          linkStyle={styles.link}
-          modalStyle={modalFullScreenFlex}
-          dialogStyle={dialogFullScreenFlex}
-          title={`${rowData.first_name}'s 504 plan`}
-          withoutSpacer={true}
-          withoutContentWrapper={true}
-          content={render504Dialog(districtKey, rowData)}
-        />
-      );
-    }
+    cellRenderer({rowData}) {  return render504Chip(districtKey, rowData); } // eslint-disable-line react/prop-types
   }, {
     label: 'IEP',
     dataKey: 'iep',
     width: 50,
     style: styles.cell,
-    cellRenderer({rowData}) {  // eslint-disable-line react/prop-types
-      if (!hasActiveIep(rowData)) return null;
-      return (
-        <PerDistrictContainer districtKey={districtKey}>
-          <IepDialog
-            student={rowData}
-            iepDocument={rowData.latest_iep_document}
-            linkEl="IEP"/>
-        </PerDistrictContainer>
-      );
-    }
+    cellRenderer({rowData}) {  return renderIepChip(districtKey, rowData); } // eslint-disable-line react/prop-types
   }, {
     label: <span>English<br/>Learner</span>,
     dataKey: 'english_learner_level',
     width: 70,
     style: styles.cell,
-    cellRenderer({rowData}) { // eslint-disable-line react/prop-types
-      const linkText = englishLearnerLinkText(districtKey, rowData);
-      return (
-        <PerDistrictContainer districtKey={districtKey}>
-          <LanguageStatusLink
-            linkEl={linkText}
-            style={styles.link}
-            studentFirstName={rowData.first_name}
-            ellTransitionDate={rowData.ell_transition_date}
-            limitedEnglishProficiency={rowData.limited_english_proficiency}
-            access={rowData.access}
-          />
-        </PerDistrictContainer>
-      );
-    }
+    cellRenderer({rowData}) {  return renderEnglishLearnerChip(districtKey, rowData); } // eslint-disable-line react/prop-types
   }, {
     label: <span>MTSS,<br/>2 years</span>,
     dataKey: 'mtss',
@@ -219,10 +170,6 @@ function createInputCell(benchmarkAssessmentKey, studentId, doc, onDocChanged, p
   );
 }
 
-function readDoc(doc, studentId, benchmarkAssessmentKey) {
-  return (doc[studentId] || {})[benchmarkAssessmentKey] || '';
-}
-
 // Because of authorization rules, sometimes the user will be able to 
 // see the full profile, and sometimes not.
 function renderStudentName(currentEducatorId, student) {
@@ -233,15 +180,6 @@ function renderStudentName(currentEducatorId, student) {
   return nameEl;
 }
 
-function render504Dialog(districtKey, student) {
-  const edPlans = student.ed_plans;
-  const studentName = `${student.first_name} ${student.last_name}`;
-  return (
-    <PerDistrictContainer districtKey={districtKey}>
-      <EdPlansPanel edPlans={edPlans} studentName={studentName} />
-    </PerDistrictContainer>
-  );
-}
 
 export function homeroomLastName(student) {
   return (student.homeroom)
@@ -258,19 +196,6 @@ const homeroomColors = [
 ];
 function pickHomeroomColor(homeroomText) {
   return homeroomColors[parseInt(hash(homeroomText), 16) % homeroomColors.length];
-}
-
-// only render this school year and 2 years back (push to server?)
-function renderMtss(mtssList, nowMoment) {
-  if (mtssList.length === 0) return null;
-
-  const startOfSchoolYearMoment = firstDayOfSchool(toSchoolYear(nowMoment.toDate()) - 2);
-  const mtssMoments = mtssList.map(mtss => toMomentFromRailsDate(mtss.recorded_at));
-  const mtssMomentsThisYear = mtssMoments.filter(mtssMoment => mtssMoment.isAfter(startOfSchoolYearMoment));
-  const latestMtssMoment = _.last(mtssMomentsThisYear.sort());
-  if (!latestMtssMoment) return null;
-
-  return latestMtssMoment.format('M/D/YY');
 }
 
 function englishLearnerLinkText(districtKey, rowData) {
@@ -303,9 +228,6 @@ const styles = {
     fontSize: 16,
     width: '100%',
     textAlign: 'center'
-  },
-  link: {
-    fontSize: 14
   },
   homeroomHeaderLabel: {
     textAlign: 'center',

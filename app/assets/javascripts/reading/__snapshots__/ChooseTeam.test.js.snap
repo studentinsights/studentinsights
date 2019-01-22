@@ -378,6 +378,272 @@ exports[`snapshots 1`] = `
             "color": "white",
             "cursor": "pointer",
             "fontSize": 14,
+            "marginTop": 20,
+            "padding": "8px 25px",
+            "textDecoration": "none",
+          }
+        }
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots when not isEditable 1`] = `
+<div
+  className="ChooseTeam"
+>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What school?
+    </div>
+    <div
+      className="Select has-value is-clearable is-disabled is-searchable Select--single"
+    >
+      <input
+        disabled={true}
+        name="select-school-name"
+        type="hidden"
+        value="2"
+      />
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <span
+          className="Select-multi-value-wrapper"
+          id="react-select-8--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-8--value-item"
+              role="option"
+            >
+              Arthur D Healey
+            </span>
+          </div>
+          <div
+            aria-activedescendant="react-select-8--value"
+            aria-disabled="true"
+            aria-expanded={false}
+            aria-owns=""
+            className="Select-input"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="combobox"
+            style={
+              Object {
+                "border": 0,
+                "display": "inline-block",
+                "width": 1,
+              }
+            }
+            tabIndex={0}
+          />
+        </span>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What grade level are you creating?
+    </div>
+    <div
+      className="Select has-value is-clearable is-disabled is-searchable Select--single"
+    >
+      <input
+        disabled={true}
+        name="select-grade-level"
+        type="hidden"
+        value="3"
+      />
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <span
+          className="Select-multi-value-wrapper"
+          id="react-select-9--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-9--value-item"
+              role="option"
+            >
+              3rd grade
+            </span>
+          </div>
+          <div
+            aria-activedescendant="react-select-9--value"
+            aria-disabled="true"
+            aria-expanded={false}
+            aria-owns=""
+            className="Select-input"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="combobox"
+            style={
+              Object {
+                "border": 0,
+                "display": "inline-block",
+                "width": 1,
+              }
+            }
+            tabIndex={0}
+          />
+        </span>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What benchmark period?
+    </div>
+    <div
+      className="Select has-value is-clearable is-disabled is-searchable Select--single"
+    >
+      <input
+        disabled={true}
+        name="select-benchmark-window"
+        type="hidden"
+        value="2018:winter"
+      />
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <span
+          className="Select-multi-value-wrapper"
+          id="react-select-10--value"
+        >
+          <div
+            className="Select-value"
+          >
+            <span
+              aria-selected="true"
+              className="Select-value-label"
+              id="react-select-10--value-item"
+              role="option"
+            >
+              Winter 2018-19
+            </span>
+          </div>
+          <div
+            aria-activedescendant="react-select-10--value"
+            aria-disabled="true"
+            aria-expanded={false}
+            aria-owns=""
+            className="Select-input"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="combobox"
+            style={
+              Object {
+                "border": 0,
+                "display": "inline-block",
+                "width": 1,
+              }
+            }
+            tabIndex={0}
+          />
+        </span>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  >
+    You can't change the school, grade level or benchmark window once you've moved forward.  If you need to change this, create a new grouping instead.
+  </div>
+  <div>
+    <div
+      className="Hover"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={Object {}}
+    >
+      <button
+        onClick={[MockFunction]}
+        style={
+          Object {
+            "background": "#4A90E2",
+            "border": "none",
+            "borderRadius": 28,
+            "color": "white",
+            "cursor": "pointer",
+            "fontSize": 14,
+            "marginTop": 20,
             "padding": "8px 25px",
             "textDecoration": "none",
           }

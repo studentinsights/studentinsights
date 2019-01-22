@@ -1,0 +1,1412 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="CreateGroups"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="SectionHeading"
+    style={
+      Object {
+        "borderBottom": "1px solid #333",
+        "padding": 10,
+      }
+    }
+  >
+    <h4
+      style={
+        Object {
+          "color": "black",
+          "display": "inline",
+        }
+      }
+    >
+      Reading Groups: 3rd grade at Arthur D. Healey
+    </h4>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 90,
+            "marginBottom": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "background": "#31AB39",
+              "color": "white",
+              "display": "flex",
+              "justifyContent": "center",
+              "overflow": "hidden",
+              "width": "3em",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "transform": "rotate(-90deg)",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            Not placed
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderRight": "1px solid #ddd",
+              "marginRight": 5,
+              "padding": 5,
+              "paddingLeft": 10,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              F&P: 
+              A C D F
+            </div>
+            <div
+              style={
+                Object {
+                  "height": 22,
+                  "width": 90,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "marginRight": 10,
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "height": 1,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 11,
+                    }
+                  }
+                />
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "0%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "8%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "12%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 11,
+                        "left": "20%",
+                        "opacity": 1,
+                        "position": "absolute",
+                        "top": 6,
+                        "width": 3,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "#85b985",
+                        "height": 3,
+                        "left": "48%",
+                        "opacity": 0.25,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 11,
+                      }
+                    }
+                  />
+                  <div
+                    style={
+                      Object {
+                        "background": "orange",
+                        "height": 3,
+                        "left": 0,
+                        "opacity": 1,
+                        "position": "absolute",
+                        "right": "64%",
+                        "top": 11,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              ORF accuracy
+            </div>
+            <div>
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                    "width": 90,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(255,165,0,0.5)",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "20%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(255,165,0,0.5)",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 6,
+                          "width": "20%",
+                        }
+                      }
+                    >
+                      1
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(255,0,0,0.5)",
+                          "height": 5,
+                          "left": "20%",
+                          "position": "absolute",
+                          "width": "80%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(255,0,0,0.5)",
+                          "left": "20%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 6,
+                          "width": "80%",
+                        }
+                      }
+                    >
+                      4
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              ORF fluency
+            </div>
+            <div>
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                    "width": 90,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(0,128,0,0.5)",
+                          "height": 5,
+                          "left": "0%",
+                          "position": "absolute",
+                          "width": "25%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(0,128,0,0.5)",
+                          "left": "0%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 6,
+                          "width": "25%",
+                        }
+                      }
+                    >
+                      1
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(255,165,0,0.5)",
+                          "height": 5,
+                          "left": "25%",
+                          "position": "absolute",
+                          "width": "25%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(255,165,0,0.5)",
+                          "left": "25%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 6,
+                          "width": "25%",
+                        }
+                      }
+                    >
+                      1
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "background": "rgba(255,0,0,0.5)",
+                          "height": 5,
+                          "left": "50%",
+                          "position": "absolute",
+                          "width": "50%",
+                        }
+                      }
+                    >
+                       
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "color": "rgba(255,0,0,0.5)",
+                          "left": "50%",
+                          "paddingRight": 1,
+                          "position": "absolute",
+                          "textAlign": "right",
+                          "top": 6,
+                          "width": "50%",
+                        }
+                      }
+                    >
+                      2
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 5,
+              "width": "11em",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "overflowY": "scroll",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "paddingRight": 5,
+                }
+              }
+            >
+              “multisyllabic decoding”
+            </span>
+            <span
+              style={
+                Object {
+                  "paddingRight": 5,
+                }
+              }
+            >
+              “sustained attention”
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "backgroundColor": "#f8f8f8",
+            "display": "flex",
+            "flex": 1,
+            "overflowX": "scroll",
+          }
+        }
+      >
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 90,
+                "marginRight": 5,
+                "position": "relative",
+                "width": 70,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/66/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 90,
+                  "maxWidth": 70,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Mowgli
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 90,
+                "marginRight": 5,
+                "position": "relative",
+                "width": 70,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/64/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 90,
+                  "maxWidth": 70,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Mowgli
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 90,
+                "marginRight": 5,
+                "position": "relative",
+                "width": 70,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/67/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 90,
+                  "maxWidth": 70,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Pluto
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 90,
+                "marginRight": 5,
+                "position": "relative",
+                "width": 70,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/60/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 90,
+                  "maxWidth": 70,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Olaf
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 90,
+                "marginRight": 5,
+                "position": "relative",
+                "width": 70,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/61/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 90,
+                  "maxWidth": 70,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Daisy
+            </div>
+          </div>
+        </div>
+        <div
+          aria-roledescription="Draggable item. Press space bar to lift"
+          data-react-beautiful-dnd-drag-handle="1"
+          data-react-beautiful-dnd-draggable="1"
+          draggable={false}
+          onDragStart={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "transform": null,
+              "transition": null,
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            onClick={[Function]}
+            style={
+              Object {
+                "fontSize": 32,
+                "height": 90,
+                "marginRight": 5,
+                "position": "relative",
+                "width": 70,
+              }
+            }
+          >
+            <img
+              alt="😃"
+              id="student-photo"
+              onError={[Function]}
+              src="/students/63/photo"
+              style={
+                Object {
+                  "boxShadow": "2px 2px 1px #ccc",
+                  "maxHeight": 90,
+                  "maxWidth": 70,
+                  "position": "absolute",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "color": "white",
+                  "fontSize": 10,
+                  "left": 2,
+                  "position": "absolute",
+                }
+              }
+            >
+              Pluto
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 90,
+            "marginBottom": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "background": "#EB4B26",
+              "color": "white",
+              "display": "flex",
+              "justifyContent": "center",
+              "overflow": "hidden",
+              "width": "3em",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "transform": "rotate(-90deg)",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            Alonso
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderRight": "1px solid #ddd",
+              "marginRight": 5,
+              "padding": 5,
+              "paddingLeft": 10,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              F&P: 
+              
+            </div>
+            <div
+              style={
+                Object {
+                  "height": 22,
+                  "width": 90,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "marginRight": 10,
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "height": 1,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 11,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              ORF accuracy
+            </div>
+            <div>
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                    "width": 90,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              ORF fluency
+            </div>
+            <div>
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                    "width": 90,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 5,
+              "width": "11em",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "overflowY": "scroll",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "backgroundColor": "#f8f8f8",
+            "display": "flex",
+            "flex": 1,
+            "overflowX": "scroll",
+          }
+        }
+      />
+    </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "row",
+          "margin": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "background": "#f8f8f8",
+            "border": "1px solid #eee",
+            "color": "black",
+            "display": "flex",
+            "fontSize": 12,
+            "height": 90,
+            "marginBottom": 5,
+            "marginRight": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "center",
+              "background": "#139DEA",
+              "color": "white",
+              "display": "flex",
+              "justifyContent": "center",
+              "overflow": "hidden",
+              "width": "3em",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "transform": "rotate(-90deg)",
+                "whiteSpace": "nowrap",
+              }
+            }
+          >
+            Vivian
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "borderRight": "1px solid #ddd",
+              "marginRight": 5,
+              "padding": 5,
+              "paddingLeft": 10,
+              "paddingRight": 10,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              F&P: 
+              
+            </div>
+            <div
+              style={
+                Object {
+                  "height": 22,
+                  "width": 90,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "height": "100%",
+                    "marginRight": 10,
+                    "position": "relative",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "height": 1,
+                      "left": 0,
+                      "opacity": 1,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 11,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 10,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              ORF accuracy
+            </div>
+            <div>
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                    "width": 90,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexDirection": "row",
+                "height": 22,
+                "paddingTop": 20,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "width": 90,
+                }
+              }
+            >
+              ORF fluency
+            </div>
+            <div>
+              <div
+                className="BreakdownBar"
+                style={
+                  Object {
+                    "height": 5,
+                    "width": 90,
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 5,
+                      "position": "relative",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 5,
+              "width": "11em",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "overflowY": "scroll",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        data-react-beautiful-dnd-droppable="1"
+        style={
+          Object {
+            "backgroundColor": "#f8f8f8",
+            "display": "flex",
+            "flex": 1,
+            "overflowX": "scroll",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
