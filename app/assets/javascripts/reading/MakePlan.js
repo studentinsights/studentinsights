@@ -7,7 +7,8 @@ import Button from '../components/Button';
 
 // For picking which educators run groups, and writing a note about the team's
 // plan for grouping.
-export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
+export default function MakePlan(props = {}) {
+  const {isEditable, educators, plan, onPlanChanged, onDone} = props;
   const {primaryEducatorIds, additionalEducatorIds, planText} = plan;
   const isDisabled = (
     primaryEducatorIds.length === 0 ||
@@ -18,6 +19,7 @@ export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
       <div>
         <div style={styles.heading}>Who's teaching a primary reading group (eg, XBlock)?</div>
         <Select
+          disabled={!isEditable}
           name="select-primary-educators"
           multi
           removeSelected
@@ -34,6 +36,7 @@ export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
           You might include pull-out groups, additional Fundations groups, after school Wilson interventions, etc.
         </div>
         <Select
+          disabled={!isEditable}
           name="select-additional-educators"
           multi
           removeSelected
@@ -51,6 +54,7 @@ export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
         </div>
         <div>
           <textarea
+            disabled={!isEditable}
             style={styles.textarea}
             rows={8}
             value={planText}
@@ -59,12 +63,16 @@ export default function MakePlan({educators, plan, onPlanChanged, onDone}) {
         </div>
       </div>
       <div>
-        <Button isDisabled={isDisabled} onClick={onDone}>Next</Button>
+        <Button
+          style={{marginTop: 20}}
+          isDisabled={isDisabled}
+          onClick={onDone}>Next</Button>
       </div>
     </div>
   );
 }
 MakePlan.propTypes = {
+  isEditable: PropTypes.bool.isRequired,
   plan: PropTypes.shape({
     primaryEducatorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
     additionalEducatorIds: PropTypes.arrayOf(PropTypes.number).isRequired,
