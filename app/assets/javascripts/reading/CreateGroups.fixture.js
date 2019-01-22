@@ -1,5 +1,6 @@
 export default {
   "grade": "3",
+  "benchmarkPeriodKey": "winter",
   "schoolName": "Arthur D Healey",
   "doc": {
     "60": {

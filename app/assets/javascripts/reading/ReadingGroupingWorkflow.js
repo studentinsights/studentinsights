@@ -163,6 +163,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
       <CreateGroups
         isEditable={this.isPhaseEditable(Phases.PRIMARY_GROUPS)}
         grade={team.grade}
+        benchmarkPeriodKey={team.benchmarkPeriodKey}
         schoolName={json.school.name}
         doc={json.entry_doc}
         readingStudents={json.reading_students}

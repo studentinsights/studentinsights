@@ -6,6 +6,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import SectionHeading from '../components/SectionHeading';
 import StudentPhoto from '../components/StudentPhoto';
 import MockStudentPhoto from '../components/MockStudentPhoto';
+import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import FountasAndPinnellLevelChart from './FountasAndPinnellLevelChart';
 
 
@@ -22,7 +23,8 @@ import {
   DIBELS_DORF_ACC,
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
-  readDoc
+  readDoc,
+  somervilleDibelsThresholdsFor
 } from './readingData';
 
 
@@ -166,8 +168,8 @@ export default class CreateGroups extends React.Component {
 
 
   renderGroupName(groupKey, groupIndex, classroomText, studentsInGroup) {
-    const {doc} = this.props;
-    const width = 100;
+    const {doc, grade, benchmarkPeriodKey} = this.props;
+    const width = 90;
     const height = 22;
     const fnpLevels = _.sortBy(_.uniq(_.compact(studentsInGroup.map(student => {
       return readDoc(doc, student.id, F_AND_P_ENGLISH);
@@ -194,7 +196,7 @@ export default class CreateGroups extends React.Component {
         }}>
           <div style={{transform: 'rotate(-90deg)', whiteSpace: 'nowrap'}}>{classroomText}</div>
         </div>
-        <div style={{padding: 5, paddingLeft: 10, marginRight: 5, borderRight: '1px solid #ddd'}}>
+        <div style={{padding: 5, paddingLeft: 10, paddingRight: 10, marginRight: 5, borderRight: '1px solid #ddd'}}>
           <div style={{display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
             <div style={{width}}>F&P: {fnpLevels.join(' ')}</div>
             <div style={{width, height}}>
@@ -202,12 +204,12 @@ export default class CreateGroups extends React.Component {
             </div>
           </div>
           <div style={{paddingTop: 10, display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
-            <div style={{width}}>DORF accuracy:</div>
-            <div>{range(accs)}</div>
+            <div style={{width}}>ORF accuracy</div>
+            <div>{renderDibelsAccuracy(grade, benchmarkPeriodKey, accs)}</div>
           </div>
-          <div style={{paddingTop: 10, display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
-            <div style={{width}}>DORF words/min:</div>
-            <div>{range(wpms)}</div>
+          <div style={{paddingTop: 20, display: 'flex', flexDirection: 'row', height, alignItems: 'center'}}>
+            <div style={{width}}>ORF fluency</div>
+            <div>{renderDibelsFluency(grade, benchmarkPeriodKey, wpms)}</div>
           </div>
         </div>
         <div style={{width: '11em', padding: 5}}>
@@ -246,6 +248,7 @@ CreateGroups.contextTypes = {
 CreateGroups.propTypes = {
   schoolName: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
+  benchmarkPeriodKey: PropTypes.string.isRequired,
   readingStudents: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired
   })).isRequired,
@@ -261,7 +264,8 @@ CreateGroups.propTypes = {
   useMockPhoto: PropTypes.bool
 };
 
-const ROW_HEIGHT = 80;
+const PHOTO_MAX_WIDTH = 70;
+const ROW_HEIGHT = 90;
 const styles = {
   row: {
     display: 'flex',
@@ -281,9 +285,9 @@ const styles = {
   },
   photoContainer: {
     position: 'relative',
-    width: 64,
+    width: PHOTO_MAX_WIDTH,
     height: ROW_HEIGHT,
-    marginRight: 1,
+    marginRight: 5,
     fontSize: 32
   },
   fallbackSmiley: {
@@ -295,7 +299,7 @@ const styles = {
   },
   photoImage: {
     position: 'absolute',
-    maxWidth: 64,
+    maxWidth: PHOTO_MAX_WIDTH,
     maxHeight: ROW_HEIGHT,
     boxShadow: '2px 2px 1px #ccc'
   }
@@ -362,11 +366,11 @@ export function studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult) {
 
 
 
-function range(sortedValues) {
-  if (sortedValues.length === 0) return 'none';
-  if (sortedValues.length === 1) return _.first(sortedValues);
-  return `${_.first(sortedValues)} - ${_.last(sortedValues)}`;
-}
+// function range(sortedValues) {
+//   if (sortedValues.length === 0) return 'none';
+//   if (sortedValues.length === 1) return _.first(sortedValues);
+//   return `${_.first(sortedValues)} - ${_.last(sortedValues)}`;
+// }
 
 
 function groups(classrooms) {
@@ -399,4 +403,50 @@ const colors = [
 function pickGroupColor(groupIndex) {
   // return colors[parseInt(hash(homeroomText), 16) % colors.length];
   return colors[groupIndex];
+}
+
+function renderDibelsFluency(grade, benchmarkPeriodKey, values) {
+  const dibelsCounts = computeDibelsCounts(DIBELS_DORF_WPM, grade, benchmarkPeriodKey, values);
+  return renderDibelsBar(dibelsCounts);
+}
+
+function renderDibelsAccuracy(grade, benchmarkPeriodKey, values) {
+  const dibelsCounts = computeDibelsCounts(DIBELS_DORF_ACC, grade, benchmarkPeriodKey, values);
+  return renderDibelsBar(dibelsCounts);
+}
+
+function renderDibelsBar(props = {}) {
+  const {coreCount, strategicCount, intensiveCount} = props;
+  const height = 5;
+  return (
+    <DibelsBreakdownBar
+      style={{height, width: 90}}
+      height={height}
+      labelTop={6}
+      coreCount={coreCount}
+      strategicCount={strategicCount}
+      intensiveCount={intensiveCount}
+    />
+  );
+}
+renderDibelsBar.propTypes = {
+  coreCount: PropTypes.number.isRequired,
+  strategicCount: PropTypes.number.isRequired,
+  intensiveCount: PropTypes.number.isRequired
+};
+
+
+function computeDibelsCounts(benchmarkAssessmentKey, grade, benchmarkPeriodKey, values) {
+  console.log('computeDibelsCounts', benchmarkAssessmentKey, grade, benchmarkPeriodKey, values);
+  const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  const initialCounts = {
+    coreCount: 0,
+    strategicCount: 0,
+    intensiveCount: 0
+  };
+  return values.reduce((dibelsCounts, value) => {
+    if (value >= thresholds.benchmark) return {...dibelsCounts, coreCount: dibelsCounts.coreCount + 1};
+    if (value <= thresholds.risk) return {...dibelsCounts, intensiveCount: dibelsCounts.intensiveCount + 1};
+    return {...dibelsCounts, strategicCount: dibelsCounts.strategicCount + 1};
+  }, initialCounts);
 }
