@@ -14,7 +14,6 @@ export default class Autosaver extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate');
     this.doAutoSaveChanges();
   }
 

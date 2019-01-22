@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import uuidv4 from 'uuid/v4';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {apiFetchJson, apiPostJson} from '../helpers/apiFetchJson';
 import Lifecycle from '../components/Lifecycle';
@@ -44,62 +45,47 @@ export default class ReadingGroupingWorkflow extends React.Component {
       secondaryStudentIdsByRoom: null,
 
       // data on students, from the server
-      json: null,
-
-      // // autosaving
-      // lastSavedSnapshot: null
+      json: null
     };
 
     this.readSnapshot = this.readSnapshot.bind(this);
     this.doSave = this.doSave.bind(this);
     this.fetchReadingDataJson = this.fetchReadingDataJson.bind(this);
-    // this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
   }
-
-  readSnapshot() {
-    return snapshotForSaving(this.state);
-  }
-
-  // Make the save request without any guards. fire-and-forget
-  doSave() {
-    const {nowFn} = this.context;
-    const now = nowFn();
-    const snapshotForSaving = this.readSnapshot();
-    const payload = {
-      ...snapshotForSaving,
-      clientNowMs: now.unix()
-    };
-
-    const url = '/api/reading/grouping_snapshot_json';
-    return apiPostJson(url, payload).then(() => Promise.resolve(snapshotForSaving));
-  }
-  // componentDidUpdate() {
-  //   this.doAutoSaveChanges();
-  // }
-
-  // componentWillUnmount() {
-  //   if (this.doAutoSaveChanges.flush) this.doAutoSaveChanges.flush(); // flush any queued changes
-  // }
-
-  // isDirty() {
-  //   const {lastSavedSnapshot} = this.state;
-  //   return !_.isEqual(lastSavedSnapshot, snapshotStateForSaving(this.state));
-  // }
-
-  // // This method is throttled.
-  // doAutoSaveChanges() {
-  //   if (!this.isDirty()) return;
-
-  //   this.doSave();
-  // }
 
   isPhaseEditable(phaseKey) {
     const {editablePhaseKeys} = this.state;
     return editablePhaseKeys.indexOf(phaseKey) !== -1;
   }
 
+  readSnapshotForSaving() {
+    return _.omit(this.state, ['selectedPhaseKey', 'json']);
+  }
+
+  // Make the save request without any guards
+  doSave() {
+    const {nowFn} = this.context;
+    const now = nowFn();
+    const snapshotForSaving = this.readSnapshotForSaving();
+    const {groupingWorkspaceId} = snapshotForSaving;
+    if (!groupingWorkspaceId) return;
+    
+    const payload = {
+      school_id: snapshotForSaving.team.schoolId,
+      grade: snapshotForSaving.team.grade,
+      benchmark_school_year: snapshotForSaving.team.benchmarkSchoolYear,
+      benchmark_period_key: snapshotForSaving.team.benchmarkPeriodKey,
+      snapshot_json: {
+        ...snapshotForSaving,
+        clientNowMs: now.unix()
+      }
+    };
+    const url = `/api/reading/grouping_snapshot_json/${groupingWorkspaceId}`;
+    return apiPostJson(url, payload).then(() => Promise.resolve(snapshotForSaving));
+  }
+
   // Requires team to be picked (not enforced)
-  // Only loads once.
+  // Guards to only fetch once.
   fetchReadingDataJson() {
     const {teams} = this.props;
     const {team, json} = this.state;
@@ -108,33 +94,17 @@ export default class ReadingGroupingWorkflow extends React.Component {
     const {schoolId, grade} = team;
     const schoolSlug = _.find(teams.schools, {id: schoolId}).slug;
     const url = `/api/schools/${schoolSlug}/reading/${grade}/reading_json`;
-    apiFetchJson(url).then(json => this.setState({json}));
+    apiFetchJson(url).then(this.onReadingDataLoaded);
   }
 
-  // // Make the save request without any guards. fire-and-forget
-  // doSave() {
-  //   const {nowFn} = this.context;
-  //   const now = nowFn();
-  //   const snapshotForSaving = snapshotStateForSaving(this.state);
-  //   const payload = {
-  //     ...snapshotForSaving,
-  //     clientNowMs: now.unix()
-  //   };
+  // At this point, we start saving.
+  onReadingDataLoaded(json) {
+    this.setState({
+      groupingWorkspaceId: uuidv4(),
+      json
+    });
+  }
 
-  //   const url = '/api/reading/grouping_snapshot_json';
-  //   apiPostJson(url, payload)
-  //     .then(this.onPostDone.bind(this, snapshotForSaving))
-  //     .catch(this.onPostError.bind(this, snapshotForSaving));
-  // }
-
-  // onPostDone(snapshotForSaving) {
-  //   this.setState({lastSavedSnapshot: snapshotForSaving});
-  // }
-
-  // onPostError(snapshotForSaving, error) {
-  //   window.Rollbar.error('ReadingGroupingWorkflow#onPostError', error);
-  // }
-  
   render() {
     const {allowedPhaseKeys, selectedPhaseKey} = this.state;
     return (
@@ -331,8 +301,4 @@ function defaultTeam(props, context) {
     benchmarkSchoolYear: toSchoolYear(context.nowFn().toDate()),
     benchmarkPeriodKey: null
   };
-}
-
-function snapshotForSaving(state) {
-  return _.omit(state, 'selectedPhaseKey', 'json', 'lastSavedSnapshot');
 }
