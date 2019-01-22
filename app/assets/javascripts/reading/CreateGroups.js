@@ -16,15 +16,11 @@ import {
   readDoc,
   somervilleDibelsThresholdsFor
 } from './readingData';
-
-
-// TODO(kr) import path
 import {
   reordered,
   insertedInto,
-  UNPLACED_ROOM_KEY,
-  initialStudentIdsByRoom
-} from '../class_lists/studentIdsByRoomFunctions';
+  UNPLACED_ROOM_KEY
+} from './studentIdsByRoomFunctions';
 
 
 // For making and reviewing reading groups.
@@ -33,8 +29,7 @@ export default class CreateGroups extends React.Component {
     super(props);
 
     this.state = {
-      dialogForStudentId: null,
-      studentIdsByRoom: initialStudentIdsByRoom(groups(props.classrooms).length, props.readingStudents)
+      dialogForStudentId: null
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -47,21 +42,21 @@ export default class CreateGroups extends React.Component {
   }
 
   onDragEnd(dragEndResult) {
-    const {studentIdsByRoom} = this.state;
+    const {studentIdsByRoom, onStudentIdsByRoomChanged} = this.props;
     const updatedStudentIdsByRoom = studentIdsByRoomAfterDrag(studentIdsByRoom, dragEndResult);
-    this.setState({studentIdsByRoom: updatedStudentIdsByRoom});
+    onStudentIdsByRoomChanged({studentIdsByRoom: updatedStudentIdsByRoom});
   }
 
   render() {
-    const {readingStudents, classrooms} = this.props;
-    const {dialogForStudentId, studentIdsByRoom} = this.state;
+    const {readingStudents, studentIdsByRoom, classrooms} = this.props;
+    const {dialogForStudentId} = this.state;
     return (
       <div className="CreateGroups" style={styles.root}>
         <SectionHeading>Reading Groups: 3rd grade at Arthur D. Healey</SectionHeading>
         {dialogForStudentId && this.renderDialog(dialogForStudentId)}
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div>
-            {groups(classrooms).map((group, groupIndex) => {
+            {createGroups(classrooms).map((group, groupIndex) => {
               const {groupKey} = group;
               const studentsInRoom = studentIdsByRoom[groupKey].map(studentId => {
                 return _.find(readingStudents, { id: studentId });
@@ -223,6 +218,8 @@ CreateGroups.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 CreateGroups.propTypes = {
+  studentIdsByRoom: PropTypes.object.isRequired,
+  onStudentIdsByRoomChanged: PropTypes.func.isRequired,
   schoolName: PropTypes.string.isRequired,
   grade: PropTypes.string.isRequired,
   benchmarkPeriodKey: PropTypes.string.isRequired,
@@ -377,7 +374,7 @@ function fAndPRange(fAndPs) {
   return [_.first(sortedValidValues), _.last(sortedValidValues)].join(' to ');
 }
 
-function groups(classrooms) {
+export function createGroups(classrooms) {
   const unplacedGroup = {
     groupKey: UNPLACED_ROOM_KEY,
     text: 'Not placed'

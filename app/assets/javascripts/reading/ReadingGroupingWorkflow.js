@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {toSchoolYear} from '../helpers/schoolYear';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import GenericLoader from '../components/GenericLoader';
+import Lifecycle from '../components/Lifecycle';
 import GroupingPhases from './GroupingPhases';
 import ChooseTeam from './ChooseTeam';
 import MakePlan from './MakePlan';
-import CreateGroups from './CreateGroups';
+import CreateGroups, {createGroups} from './CreateGroups';
+import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
 
 
 // For navigating the workflow and phases of the reading grouping process.
@@ -38,8 +39,11 @@ export default class ReadingGroupingWorkflow extends React.Component {
       },
 
       // CreateGroups
-      primaryStudentIdsByRoom: {},
-      secondaryStudentIdsByRoom: {}
+      primaryStudentIdsByRoom: null,
+      secondaryStudentIdsByRoom: null,
+
+      // data on students, from the server
+      json: null,
     };
 
     this.fetchReadingDataJson = this.fetchReadingDataJson.bind(this);
@@ -52,13 +56,16 @@ export default class ReadingGroupingWorkflow extends React.Component {
   }
 
   // Requires team to be picked (not enforced)
+  // Only loads once.
   fetchReadingDataJson() {
     const {teams} = this.props;
-    const {team} = this.state;
+    const {team, json} = this.state;
+    if (json !== null) return;
+
     const {schoolId, grade} = team;
     const schoolSlug = _.find(teams.schools, {id: schoolId}).slug;
     const url = `/api/schools/${schoolSlug}/reading/${grade}/reading_json`;
-    return apiFetchJson(url);
+    apiFetchJson(url).then(json => this.setState({json}));
   }
 
   render() {
@@ -115,53 +122,54 @@ export default class ReadingGroupingWorkflow extends React.Component {
     );
   }
 
+  // At this phase, also prefetch student data
   renderMakePlan() {
     const {teams} = this.props;
     const {plan} = this.state;
     return (
-      <MakePlan
-        isEditable={this.isPhaseEditable(Phases.MAKE_PLAN)}
-        plan={plan}
-        onPlanChanged={plan => this.setState({plan})}
-        educators={teams.educators}
-        onDone={() => {
-          this.setState({
-            selectedPhaseKey: Phases.PRIMARY_GROUPS,
-            editablePhaseKeys: [
-              Phases.PRIMARY_GROUPS,
-              Phases.ADDITIONAL_GROUPS
-            ],
-            allowedPhaseKeys: [
-              Phases.CHOOSE_TEAM,
-              Phases.MAKE_PLAN,
-              Phases.PRIMARY_GROUPS,
-              Phases.ADDITIONAL_GROUPS
-            ]
-          });
-        }}
-      />
+      <Lifecycle componentWillMount={this.fetchReadingDataJson}>
+        <MakePlan
+          isEditable={this.isPhaseEditable(Phases.MAKE_PLAN)}
+          plan={plan}
+          onPlanChanged={plan => this.setState({plan})}
+          educators={teams.educators}
+          onDone={() => {
+            this.setState({
+              selectedPhaseKey: Phases.PRIMARY_GROUPS,
+              editablePhaseKeys: [
+                Phases.PRIMARY_GROUPS,
+                Phases.ADDITIONAL_GROUPS
+              ],
+              allowedPhaseKeys: [
+                Phases.CHOOSE_TEAM,
+                Phases.MAKE_PLAN,
+                Phases.PRIMARY_GROUPS,
+                Phases.ADDITIONAL_GROUPS
+              ]
+            });
+          }}
+        />
+      </Lifecycle>
     );
   }
 
   renderPrimaryGroups() {
-    return (
-      <GenericLoader
-        promiseFn={this.fetchReadingDataJson}
-        style={styles.flexVertical}
-        render={this.renderPrimaryGroupingsWithData.bind(this)}
-      />
-    );
-  }
+    const {json} = this.state;
+    if (!json) return null;
 
-  renderPrimaryGroupingsWithData(json) {
     const {teams} = this.props;
-    const {team, plan} = this.state;
+    const {team, plan, primaryStudentIdsByRoom} = this.state;
     const classrooms = _.sortBy(plan.primaryEducatorIds.map(id => {
       const educator = _.find(teams.educators, {id});
       return {educator, text: _.last(educator.full_name.split(' '))};
     }), 'text');
+
     return (
       <CreateGroups
+        studentIdsByRoom={primaryStudentIdsByRoom || initialStudentIdsByRoom(createGroups(classrooms).length, json.reading_students)}
+        onStudentIdsByRoomChanged={({studentIdsByRoom}) => {
+          this.setState({primaryStudentIdsByRoom: studentIdsByRoom});
+        }}
         isEditable={this.isPhaseEditable(Phases.PRIMARY_GROUPS)}
         grade={team.grade}
         benchmarkPeriodKey={team.benchmarkPeriodKey}
