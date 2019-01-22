@@ -51,7 +51,6 @@ exports[`snapshots works for aladdin grades 1`] = `
         >
           <img
             alt="Student photo for Aladdin Mouse"
-            id="student-photo"
             onError={[Function]}
             src="/students/104/photo"
             style={
@@ -1293,7 +1292,6 @@ exports[`snapshots works for aladdin notes 1`] = `
         >
           <img
             alt="Student photo for Aladdin Mouse"
-            id="student-photo"
             onError={[Function]}
             src="/students/104/photo"
             style={
@@ -2684,7 +2682,6 @@ exports[`snapshots works for aladdin testing 1`] = `
         >
           <img
             alt="Student photo for Aladdin Mouse"
-            id="student-photo"
             onError={[Function]}
             src="/students/104/photo"
             style={
@@ -3908,7 +3905,6 @@ exports[`snapshots works for olaf math 1`] = `
         >
           <img
             alt="Student photo for Olaf White"
-            id="student-photo"
             onError={[Function]}
             src="/students/16/photo"
             style={
@@ -5182,7 +5178,6 @@ exports[`snapshots works for olaf notes 1`] = `
         >
           <img
             alt="Student photo for Olaf White"
-            id="student-photo"
             onError={[Function]}
             src="/students/16/photo"
             style={
@@ -6525,7 +6520,6 @@ exports[`snapshots works for olaf reading 1`] = `
         >
           <img
             alt="Student photo for Olaf White"
-            id="student-photo"
             onError={[Function]}
             src="/students/16/photo"
             style={
