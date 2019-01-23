@@ -9,108 +9,23 @@
   </a>
 </div>
 
-Student Insights gives educators an overview of student progress at their school, classroom-level rosters and individual student profiles.  It also allows them to capture interventions and notes during weekly or bi-weekly student support meetings.
+## We work with educators to make student-centered data systems
+It’s people closest to the work, **within school communities** - teachers, young people, families - who will be able to build the next generation of school data systems that they need.
 
+We need more than just systems for counting numbers - we need ways to more deeply connect and tell our stories to tackle **what matters for our students**.
+
+Learn more at [studentinsights.org](https://www.studentinsights.org).
+
+### Demo site
 Check out the [**demo site**](https://somerville-teacher-tool-demo.herokuapp.com/) with different roles:
 
-  - District admin: `uri@demo.studentinsights.org`
+  - District admin: `uri@demo.studentinsights.org` (requires 2FA)
   - K8 principal: `laura@demo.studentinsights.org`
   - Kindergarten teacher: `vivian@demo.studentinsights.org`
   - HS physics teacher: `hugo@demo.studentinsights.org`
   - 9th grade counselor: `sofia@demo.studentinsights.org`
 
 All accounts use the password: `demo-password`.
-
-Our presentation at [Code for Boston demo night](docs/readme_images/Student%20Insights%20-%20Demo%20Night%20slides.pdf) in May 2016 also has a good product overview.
-
-<!-- UPDATE WITH DOCTOC: $ doctoc README.md -->
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-# Table of Contents
-
-- [User personas: Who we're serving](#user-personas-who-were-serving)
-- [Product overview: How we're helping](#product-overview-how-were-helping)
-  - [School overview](#school-overview)
-  - [Classroom rosters](#classroom-rosters)
-  - [Student profiles](#student-profiles)
-    - [Capturing meeting notes and interventions](#capturing-meeting-notes-and-interventions)
-- [Contributing](#contributing)
-- [How it works](#how-it-works)
-  - [Admin dashboard](#admin-dashboard)
-- [Development Environment](#development-environment)
-  - [1. Install dependencies](#1-install-dependencies)
-  - [2. Create database tables and seed them with demo data](#2-create-database-tables-and-seed-them-with-demo-data)
-  - [3. Start the app](#3-start-the-app)
-  - [4. Run the tests](#4-run-the-tests)
-  - [5. Write code!](#5-write-code)
-  - [6. Use the product locally](#6-use-the-product-locally)
-- [Browser/OS Targeting](#browseros-targeting)
-- [Deployment](#deployment)
-  - [Deploying new code to Insights](#deploying-new-code-to-insights)
-  - [Setting up Insights for a new district](#setting-up-insights-for-a-new-district)
-    - [New Heroku instance](#new-heroku-instance)
-    - [New SFTP Site](#new-sftp-site)
-    - [Importing data](#importing-data)
-      - [Getting data out of the SIS](#getting-data-out-of-the-sis)
-        - [Self-Hosted Aspen](#self-hosted-aspen)
-        - [Hosted Aspen](#hosted-aspen)
-      - [Getting data into Insights](#getting-data-into-insights)
-        - [Setting `ENV['DISTRICT_KEY']`](#setting-envdistrict_key)
-        - [Setting other ENV variables](#setting-other-env-variables)
-        - [Creating a YAML config file](#creating-a-yaml-config-file)
-        - [Running the import job](#running-the-import-job)
-    - [Heroku notes](#heroku-notes)
-    - [Data differences between districts](#data-differences-between-districts)
-    - [Feature differences between districts](#feature-differences-between-districts)
-- [Ops](#ops)
-  - [Response latency](#response-latency)
-  - [Postgres](#postgres)
-- [More information](#more-information)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# User personas: Who we're serving
-There are three main user personas we're serving. Principals, Interventionists and Classroom Teachers. Right now we're focused primarily on serving principals, and the rough progression will likely be to Interventionists next. Early adopter Classroom Teachers are great, but focused on scaling adoption across all classroom teachers isn't a priority yet.
-
-Principals are responsible for a school, from ensuring all students are progressing academically to making hiring and staffing decisions for teachers.
-
-Interventionists are typically folks who provide some kind of specialized service to students, like counseling, behavioral services or specialized reading instruction. They have caseloads of 20-70 students and are often involved in interdisciplinary teams focused on supporting students who are most at-risk.
-
-Classroom Teachers are responsible for teaching all subjects in an elementary level, and at the middle school level typically teach two subjects, with a few periods of each subject.
-
-# Product overview: How we're helping
-## School overview
-Principals and intervention specialists can get an overview of all students at school, updated automatically as new data comes in.  This includes demographic information (left), academic progress indicators (center), and educational interventions (right).
-
-![Overview](docs/readme_images/overview-summary.png)
-
-Educators answer specific questions like "how are 3rd grade students doing on reading assessments?" and "are students on free lunch programs equitably distributed between 5th grade classrooms?"  This is useful for understanding progress for groups of students, and also for identifying particular students in need of targeted interventions.
-
-![Filtering](docs/readme_images/overview-filtered.png)
-
-Data can be exported as a CSV for more sophisticated analysis.
-
-## Classroom rosters
-Classroom teachers can see rosters of all students in their classroom, calling out high-need students and letting them jump into the student's case history and record of previous assessments and interventions.
-
-![Rosters](docs/readme_images/roster.png)
-
-## Student profiles
-Individual student profiles show how students are progressing on core academic skills, as measured summatively by MCAS or on more frequent formative measures like STAR assessments.
-
-![Profile](docs/readme_images/profile-summary-screenshot.png)
-
-Student profiles also contain the full case history of demographic information, attendance and behavioral support.
-
-![Profile](docs/readme_images/profile-full-case-history-screenshot.png)
-
-### Capturing meeting notes and interventions
-It's one thing to have data, but acting on it to improve student outcomes is what really matters.  Schools with regular student support meetings for at-risk students can track interventions like additional tutoring hours, attendance contracts or social skills groups.  This is a building block to close the loop and monitor how effectively these interventions are serving students.
-
-![Interventions](docs/readme_images/recording-services-screenshot.png)
-
-It also allows capturing meeting notes as part of the student's record, which is particularly important on interdisciplinary teams.
 
 # Contributing
 We'd love your help! Take a look at **[CONTRIBUTING.md](CONTRIBUTING.md)** for more information on ways educators, developers and others can get involved and contribute directly to the project.  You can also learn how to join our online chat channel and submit pull requests and join us in person at our weekly hack night with Code for America, in Kendall Square, Cambridge.
@@ -259,3 +174,4 @@ You can use [heroku-pg-extras](https://github.com/heroku/heroku-pg-extras) to ge
 - [Drop into the #somerville-schools chat](https://cfb-public.slack.com/messages/somerville-schools/) on [Code for Boston Slack](http://public.codeforboston.org/)
 - Connect with [Alex](https://twitter.com/alexsoble) or [Kevin](https://twitter.com/krob) on Twitter or on Code for Boston Slack
 - More docs in the `docs` folder!
+- Learn more at [studentinsights.org](https://www.studentinsights.org).
