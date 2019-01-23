@@ -1,3 +1,23 @@
+Friday 1/18 updates:
+- **Student photos**: Batch update for Somerville
+- **Reading**: Allow teams to enter benchmark reading data [#2352](https://github.com/studentinsights/studentinsights/pull/2352)
+- **Reading**: Minimal prototype for grouping workflow, no computation, interaction or persistence [#2360](https://github.com/studentinsights/studentinsights/pull/2360)
+- **MTSS**: Add minimal semi-automated importer for MTSS referral form [#2361](https://github.com/studentinsights/studentinsights/pull/2361)
+- **Discipline**: Profile Heatmap Additions [#2353](https://github.com/studentinsights/studentinsights/pull/2353)
+
+Friday 1/11 updates:
+- **Security**: Enable multi-factor authentication for Bedford project leads
+- **504 plans**: Export and import 504 plans and accommodations for Somerville [#2287](https://github.com/studentinsights/studentinsights/pull/2287) [#2294](https://github.com/studentinsights/studentinsights/pull/2294) [#2302](https://github.com/studentinsights/studentinsights/pull/2302) [#2315](https://github.com/studentinsights/studentinsights/pull/2315) [#2322](https://github.com/studentinsights/studentinsights/pull/2322) [#2331](https://github.com/studentinsights/studentinsights/pull/2331) [#2347](https://github.com/studentinsights/studentinsights/pull/2347)
+- **Mark note as restricted**: Allow educators to catch sensitive topics searching notes [#2304](https://github.com/studentinsights/studentinsights/pull/2304)
+- **Website images**: Resize to reduce loading time
+
+Friday 1/4 updates:
+- **Website**: Tap to show full screen images on Our work page
+- **Class lists**: Export data for analyzing drift and exploring questions around equity and diversity [#2342](https://github.com/studentinsights/studentinsights/pull/2342)
+- **Notes**: Export anonymized sample of notes for internal analysis and training [#2343](https://github.com/studentinsights/studentinsights/pull/2343)
+- **HS sports teams**: Update to reflect winter sports teams [#2345](https://github.com/studentinsights/studentinsights/pull/2345) [#2346](https://github.com/studentinsights/studentinsights/pull/2346)
+- **Discipline**: Add day/time scatterplot to student profile for seeing trends [#2349](https://github.com/studentinsights/studentinsights/pull/2349)
+
 Friday 12/21 updates:
 - **Profile**: Update educator contacts to respect PerDistrict setting for counselor field [#2334](https://github.com/studentinsights/studentinsights/pull/2334)
 - **Profile**: Fix bug with incorrectly showing IEP link in Bedford [#2332](https://github.com/studentinsights/studentinsights/pull/2332)
@@ -7,7 +27,6 @@ Friday 12/21 updates:
 - **Website**: Tap to show full screen images [9340cd](https://github.com/studentinsights/studentinsights/commit/9340cd)
 - **Photos**: Enable student photos for Bedford [#2340](https://github.com/studentinsights/studentinsights/pull/2340)
 - **Reading**: Reviewing prototype visualizations of DIBELS ORF growth in Somerville
-
 
 Friday 12/14 updates:
 - **Security**: Add another layer of guards protecting against inadvertent permission bugs in S3
