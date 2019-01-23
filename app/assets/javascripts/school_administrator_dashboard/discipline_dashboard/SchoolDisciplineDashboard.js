@@ -142,7 +142,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       return {categories, seriesData};
     }
-    case 'incident_location': {
+    case 'incident_location': case 'incident_code': {
       const incidents = this.getIncidentsFromStudents(students);
       const groupedIncidents = _.groupBy(incidents, selectedChart);
       const categories = this.sortedByIncidents(groupedIncidents);
@@ -330,7 +330,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       {value: 'time', label: 'Time'},
       {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
-      {value: 'day', label: 'Day'}
+      {value: 'day', label: 'Day'},
+      {value: 'incident_code', label: 'Incident Code'}
     ];
     const incidentTypes = this.allIncidentTypes(dashboardStudents);
 

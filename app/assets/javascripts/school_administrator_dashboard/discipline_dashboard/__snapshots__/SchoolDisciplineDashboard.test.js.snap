@@ -163,7 +163,7 @@ exports[`snapshots works for bedford 1`] = `
                     <div
                       className="Select-placeholder"
                     >
-                      Incident Type...
+                      Incident Code...
                     </div>
                     <div
                       className="Select-input"
@@ -751,7 +751,7 @@ exports[`snapshots works for demo 1`] = `
                     <div
                       className="Select-placeholder"
                     >
-                      Incident Type...
+                      Incident Code...
                     </div>
                     <div
                       className="Select-input"
@@ -1339,7 +1339,7 @@ exports[`snapshots works for new_bedford 1`] = `
                     <div
                       className="Select-placeholder"
                     >
-                      Incident Type...
+                      Incident Code...
                     </div>
                     <div
                       className="Select-input"
@@ -1927,7 +1927,7 @@ exports[`snapshots works for somerville 1`] = `
                     <div
                       className="Select-placeholder"
                     >
-                      Incident Type...
+                      Incident Code...
                     </div>
                     <div
                       className="Select-input"
