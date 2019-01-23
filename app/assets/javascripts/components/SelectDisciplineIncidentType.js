@@ -12,7 +12,7 @@ export default function SelectDisciplineIncidentType({type, onChange, types, sty
   return (
     <SimpleFilterSelect
       style={style}
-      placeholder="Incident Type..."
+      placeholder="Incident Code..."
       value={type}
       onChange={onChange}
       options={typeOptions} />
