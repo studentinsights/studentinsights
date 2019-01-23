@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_14_171111) do
+ActiveRecord::Schema.define(version: 2019_01_22_235338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,8 +113,12 @@ ActiveRecord::Schema.define(version: 2019_01_14_171111) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
+    t.text "iac_content_area"
+    t.text "iac_category"
+    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
+    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -415,6 +419,18 @@ ActiveRecord::Schema.define(version: 2019_01_14_171111) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reading_grouping_snapshots", force: :cascade do |t|
+    t.text "grouping_workspace_id", null: false
+    t.integer "school_id", null: false
+    t.text "grade", null: false
+    t.integer "benchmark_school_year", null: false
+    t.text "benchmark_period_key", null: false
+    t.json "snapshot_json", null: false
+    t.integer "educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "schools", id: :serial, force: :cascade do |t|
     t.string "school_type", null: false
     t.string "name", null: false
@@ -676,6 +692,8 @@ ActiveRecord::Schema.define(version: 2019_01_14_171111) do
   add_foreign_key "masquerading_logs", "educators", column: "masquerading_as_educator_id"
   add_foreign_key "reading_benchmark_data_points", "educators"
   add_foreign_key "reading_benchmark_data_points", "students"
+  add_foreign_key "reading_grouping_snapshots", "educators"
+  add_foreign_key "reading_grouping_snapshots", "schools"
   add_foreign_key "sections", "courses", name: "sections_course_id_fk"
   add_foreign_key "service_uploads", "educators", column: "uploaded_by_educator_id", name: "service_uploads_uploaded_by_educator_id_fk"
   add_foreign_key "services", "educators", column: "recorded_by_educator_id", name: "services_recorded_by_educator_id_fk"

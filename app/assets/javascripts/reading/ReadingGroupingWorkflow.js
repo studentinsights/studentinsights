@@ -42,15 +42,17 @@ export default class ReadingGroupingWorkflow extends React.Component {
 
       // CreateGroups
       primaryStudentIdsByRoom: null,
-      secondaryStudentIdsByRoom: null,
+      additionalStudentIdsByRoom: null,
 
       // data on students, from the server
       json: null
     };
 
-    this.readSnapshot = this.readSnapshot.bind(this);
+    this.isPhaseEditable = this.isPhaseEditable.bind(this);
+    this.readSnapshotForSaving = this.readSnapshotForSaving.bind(this);
     this.doSave = this.doSave.bind(this);
     this.fetchReadingDataJson = this.fetchReadingDataJson.bind(this);
+    this.onReadingDataLoaded = this.onReadingDataLoaded.bind(this);
   }
 
   isPhaseEditable(phaseKey) {
@@ -59,6 +61,9 @@ export default class ReadingGroupingWorkflow extends React.Component {
   }
 
   readSnapshotForSaving() {
+    const {groupingWorkspaceId} = this.state;
+    if (!groupingWorkspaceId) return null;
+
     return _.omit(this.state, ['selectedPhaseKey', 'json']);
   }
 
@@ -68,8 +73,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
     const now = nowFn();
     const snapshotForSaving = this.readSnapshotForSaving();
     const {groupingWorkspaceId} = snapshotForSaving;
-    if (!groupingWorkspaceId) return;
-    
+
     const payload = {
       school_id: snapshotForSaving.team.schoolId,
       grade: snapshotForSaving.team.grade,
@@ -81,7 +85,9 @@ export default class ReadingGroupingWorkflow extends React.Component {
       }
     };
     const url = `/api/reading/grouping_snapshot_json/${groupingWorkspaceId}`;
-    return apiPostJson(url, payload).then(() => Promise.resolve(snapshotForSaving));
+    return apiPostJson(url, payload).then(() => {
+      return Promise.resolve(snapshotForSaving);
+    });
   }
 
   // Requires team to be picked (not enforced)
@@ -110,7 +116,7 @@ export default class ReadingGroupingWorkflow extends React.Component {
     return (
       <div style={styles.root}>
         <Autosaver
-          readSnapshotFn={this.readSnapshot}
+          readSnapshotFn={this.readSnapshotForSaving}
           doSaveFn={this.doSave}
           autoSaveIntervalMs={2000}
         >

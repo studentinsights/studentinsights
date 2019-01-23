@@ -24,7 +24,9 @@ export default class Autosaver extends React.Component {
   isDirty() {
     const {readSnapshotFn} = this.props;
     const {lastSavedSnapshot} = this.state;
-    return !_.isEqual(lastSavedSnapshot, readSnapshotFn());
+    const snapshot = readSnapshotFn();
+    if (snapshot === undefined || snapshot === null) return false;
+    return !_.isEqual(lastSavedSnapshot, snapshot);
   }
 
   // This method is throttled.
@@ -42,7 +44,7 @@ export default class Autosaver extends React.Component {
   }
 
   onPostError(error) {
-    window.Rollbar.error('Autosaver#onPostError', error);
+    window.Rollbar.error && window.Rollbar.error('Autosaver#onPostError', error);
   }
 
   render() {

@@ -89,12 +89,7 @@ export default class CreateGroups extends React.Component {
   renderRow(group, groupIndex, studentsInGroup) {
     const {text, groupKey} = group;
     return (
-      <div key={groupKey} style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'row',
-        margin: 5
-      }}>
+      <div key={groupKey} style={styles.rowContainer}>
         {this.renderGroupName(groupKey, groupIndex, text, studentsInGroup)}
         <Droppable
           droppableId={groupKey}
@@ -244,10 +239,16 @@ const styles = {
   root: {
     position: 'relative'
   },
+  rowContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    margin: 5,
+    marginBottom: 10
+  },
   row: {
     display: 'flex',
     fontSize: 12,
-    marginBottom: 5,
     marginRight: 5,
     height: ROW_HEIGHT,
     background: '#f8f8f8',
