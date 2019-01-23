@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import {withNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import CreateGroups from './CreateGroups';
+import CreateGroups, {createGroups} from './CreateGroups';
 import propsFixture from './CreateGroups.fixture';
+import {initialStudentIdsByRoom} from './studentIdsByRoomFunctions';
 
-
-export function testProps(props) {
+export function testProps(props = {}) {
+  const {classrooms, readingStudents} = propsFixture;
   return {
+    studentIdsByRoom: initialStudentIdsByRoom(createGroups(classrooms).length, readingStudents),
+    onStudentIdsByRoomChanged: jest.fn(),
     ...propsFixture,
     ...props
   };

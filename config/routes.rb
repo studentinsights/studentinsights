@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get '/api/schools/:school_slug/reading/:grade/reading_json' => 'reading#reading_json'
   put '/api/reading/update_data_point_json' => 'reading#update_data_point_json'
   get '/api/reading/teams_json' => 'reading#teams_json'
+  post '/api/reading/grouping_snapshot_json/:grouping_workspace_id' => 'reading#grouping_snapshot_json'
 
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'

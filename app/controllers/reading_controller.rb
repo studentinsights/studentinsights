@@ -22,6 +22,29 @@ class ReadingController < ApplicationController
     }
   end
 
+  # Snapshot of state when grouping
+  def grouping_snapshot_json
+    params.require(:school_id)
+    params.require(:grade)
+    params.require(:grouping_workspace_id)
+    params.require(:benchmark_school_year)
+    params.require(:benchmark_period_key)
+    params.require(:snapshot_json)
+    raise Exceptions::EducatorNotAuthorized unless is_authorized_for_grade_level?(params[:school_id], params[:grade])
+    raise Exceptions::EducatorNotAuthorized unless is_open_for_writing?(params[:benchmark_school_year], params[:benchmark_period_key])
+    ReadingGroupingSnapshot.create!({
+      grouping_workspace_id: params[:grouping_workspace_id],
+      school_id: params[:school_id],
+      grade: params[:grade],
+      benchmark_school_year: params[:benchmark_school_year],
+      benchmark_period_key: params[:benchmark_period_key],
+      snapshot_json: params[:snapshot_json],
+      educator_id: current_educator.id
+    })
+
+    render json: {}, status: 201
+  end
+
   # Used for multiple pages (eg, entry, grouping)
   def reading_json
     safe_params = params.permit(:school_slug, :grade)
