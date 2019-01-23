@@ -37,6 +37,7 @@ exports[`snapshots 1`] = `
           "flex": 1,
           "flexDirection": "row",
           "margin": 5,
+          "marginBottom": 10,
         }
       }
     >
@@ -49,7 +50,6 @@ exports[`snapshots 1`] = `
             "display": "flex",
             "fontSize": 12,
             "height": 100,
-            "marginBottom": 5,
             "marginRight": 5,
           }
         }
@@ -877,6 +877,7 @@ exports[`snapshots 1`] = `
           "flex": 1,
           "flexDirection": "row",
           "margin": 5,
+          "marginBottom": 10,
         }
       }
     >
@@ -889,7 +890,6 @@ exports[`snapshots 1`] = `
             "display": "flex",
             "fontSize": 12,
             "height": 100,
-            "marginBottom": 5,
             "marginRight": 5,
           }
         }
@@ -1122,6 +1122,7 @@ exports[`snapshots 1`] = `
           "flex": 1,
           "flexDirection": "row",
           "margin": 5,
+          "marginBottom": 10,
         }
       }
     >
@@ -1134,7 +1135,6 @@ exports[`snapshots 1`] = `
             "display": "flex",
             "fontSize": 12,
             "height": 100,
-            "marginBottom": 5,
             "marginRight": 5,
           }
         }

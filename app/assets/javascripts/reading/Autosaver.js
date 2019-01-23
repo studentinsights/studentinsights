@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-
+// Autosaves on a throttled interval, calling `doSaveFn` whenever `readSnapshotFn`
+// has changed (using _.isEqual).
 export default class Autosaver extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,8 @@ export default class Autosaver extends React.Component {
     };
 
     this.doAutoSaveChanges = _.throttle(this.doAutoSaveChanges, props.autoSaveIntervalMs);
+    this.onPostDone = this.onPostDone.bind(this);
+    this.onPostError = this.onPostError.bind(this);
   }
 
   componentDidUpdate() {
