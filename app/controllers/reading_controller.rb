@@ -45,7 +45,6 @@ class ReadingController < ApplicationController
     render json: {}, status: 201
   end
 
-
   # Used for multiple pages (eg, entry, grouping)
   def reading_json
     safe_params = params.permit(:school_slug, :grade)

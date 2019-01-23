@@ -58,6 +58,54 @@ describe ReadingController, :type => :controller do
     end
   end
 
+  describe '#grouping_snapshot_json' do
+    def post_grouping_snapshot_json(params = {})
+      post :grouping_snapshot_json, params: {
+        grouping_workspace_id: 'opaque-magic-id-for-test',
+        school_id: pals.healey.id,
+        grade: 'KF',
+        benchmark_school_year: 2018,
+        benchmark_period_key: 'winter',
+        snapshot_json: { foo: 'bar' }  # opaque placeholder
+      }.merge(params)
+    end
+
+    it 'guards access based on READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON' do
+      (Educator.all - [pals.uri]).each do |educator|
+        sign_in(educator)
+        post_grouping_snapshot_json()
+        expect(response.status).to eq 302
+      end
+    end
+
+    it 'guards access based on open periods' do
+      (Educator.all - [pals.uri]).each do |educator|
+        sign_in(educator)
+        post_grouping_snapshot_json(benchmark_school_year: 2017)
+        expect(response.status).to eq 302
+        post_grouping_snapshot_json(benchmark_period_key: 'summer')
+        expect(response.status).to eq 302
+      end
+    end
+
+    it 'works on happy path' do
+      sign_in(pals.uri)
+      post_grouping_snapshot_json(snapshot_json: { opaque_key: 'opaque_value' })
+      expect(response.status).to eq 201
+      expect(response.body).to eq '{}'
+
+      expect(ReadingGroupingSnapshot.all.as_json(except: [:id, :created_at, :updated_at])).to eq([{
+        "educator_id"=>pals.uri.id,
+        "grouping_workspace_id"=>"opaque-magic-id-for-test",
+        "school_id"=>pals.healey.id,
+        "grade"=>"KF",
+        "benchmark_school_year"=>2018,
+        "benchmark_period_key"=>"winter",
+        "snapshot_json"=>{"opaque_key"=>"opaque_value"}        
+      }])
+    end
+  end
+
   describe '#reading_json' do
     it 'guards access based on READING_ENTRY_EDUCATOR_AUTHORIZATIONS_JSON' do
       (Educator.all - [pals.uri]).each do |educator|
