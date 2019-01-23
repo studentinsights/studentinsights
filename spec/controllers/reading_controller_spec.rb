@@ -101,7 +101,7 @@ describe ReadingController, :type => :controller do
         "grade"=>"KF",
         "benchmark_school_year"=>2018,
         "benchmark_period_key"=>"winter",
-        "snapshot_json"=>{"opaque_key"=>"opaque_value"}        
+        "snapshot_json"=>{"opaque_key"=>"opaque_value"}
       }])
     end
   end
