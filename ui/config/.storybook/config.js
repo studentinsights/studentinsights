@@ -49,6 +49,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/reading/MakePlan.story');
   require('../../../app/assets/javascripts/reading/CreateGroups.story');
   require('../../../app/assets/javascripts/reading/SidebarDialog.story');
+  require('../../../app/assets/javascripts/reading/LitSidebarDialog.story');
 
   // add more here!
 }
