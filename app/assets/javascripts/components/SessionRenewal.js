@@ -32,6 +32,11 @@ export default class SessionRenewal extends React.Component {
     this.resetTimers();
   }
 
+  rollbar(msg) {
+    console.warn(msg); // eslint-disable-line
+    window.Rollbar.warn && window.Rollbar.warn(msg);
+  }
+
   resetTimers() {
     const {warningTimeoutInSeconds, sessionTimeoutInSeconds} = this.props;
     if (this.warningTimer) clearTimeout(this.warningTimer);
@@ -49,20 +54,24 @@ export default class SessionRenewal extends React.Component {
     if (forceReload) {
       forceReload();
     } else {
-      window.location.reload(true);
+      this.rollbar('SessionRenewal#forceReload');
+      // window.location.reload(true);
     }
   }
 
   onWarning() {
+    this.rollbar('SessionRenewal#onWarning');
     this.setState({status: States.WARNING});
   }
 
   onTimeout() {
+    this.rollbar('SessionRenewal#onTimeout');
     this.setState({status: States.TIMED_OUT});
     this.forceReload();
   }
 
   onError() {
+    this.rollbar('SessionRenewal#onError');
     this.setState({status: States.ERROR});
     this.resetTimers();
     this.forceReload();
@@ -74,7 +83,7 @@ export default class SessionRenewal extends React.Component {
   }
 
   onRenewCompleted(json) {
-    if (json.status ==='ok') {
+    if (json.status === 'ok') {
       this.resetTimers();
       this.setState({status: States.ACTIVE});
     } else {
@@ -92,6 +101,7 @@ export default class SessionRenewal extends React.Component {
       </div>
     );
 
+    /*
     if (status === States.TIMED_OUT) return (
       <div style={styles.root}>Your session has timed out due to inactivity.</div>
     );
@@ -99,6 +109,9 @@ export default class SessionRenewal extends React.Component {
     if (status === States.ERROR) return (
       <div style={styles.root}>Your session could not be renewed, please sign in again.</div>
     );
+    */
+
+    return null;
   }
 }
 SessionRenewal.childContextTypes = {
