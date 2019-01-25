@@ -61,6 +61,14 @@ class StudentVoiceMidYearImporter
       'I get nervous or stressed in school when...',
       'I learn best when my teachers...'
     ]
+
+    # insight_prompts = {
+    #   :proud,
+    #   :best_qualities,
+    #   :activities_and_interests,
+    #   :nervous_or_stressed,
+    #   :learn_best
+    # }
     {
       student_id: student_id,
       educator_id: educator_id,
