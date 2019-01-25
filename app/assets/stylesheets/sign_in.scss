@@ -61,6 +61,7 @@
   .SignInPage-input-text {
     font-size: 14px;
     padding: 6px;
+    padding-left: 30px; 
     border: 1px solid #ccc;
 
     &:invalid, &:required {
@@ -76,7 +77,8 @@
     width: 355px;
     height: 45px;
     border-radius: 28px;
-
+    background-color: #FAFAFA;
+    margin-bottom: 15px;
   }
   .SignInPage-inputs:focus {
     outline: none;
@@ -115,6 +117,7 @@
   }
 
   .SignInPage-multifactor {
+    margin-top: 15px;
     margin-left: 10px;
     margin-bottom: 5px;
     flex: 1;
@@ -152,17 +155,31 @@
 
   .SignInPage-login-button {
     flex: 1;
-    margin-right: 30px;
+    padding: 15px;
+    width: 200px;
   }
 
   .SignInPage-login-buttons {
     display: flex;
-    padding-top: 30px;
+    padding-top: 15px;
   }
 
   .SignInPage-somervilleLogo {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     padding-top: 15px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+  }
+
+  .SignInPage-email {
+    margin-top: 35px;
+  }
+
+  .SignInPage-links {
+    display: flex;
+    justify-content: space-between;
+    width: 110px;
+    margin-top: 5px;
   }
 }
