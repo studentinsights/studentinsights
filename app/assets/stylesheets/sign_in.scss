@@ -80,7 +80,14 @@ body {
   }
 
   .SignInPage-inputs {
-    width: 30em;
+    width: 355px;
+    height: 45px;
+    border-radius: 28px;
+  }
+  .SignInPage-inputs:focus {
+    outline: none;
+    border: 2px solid $blue;
+
   }
 
   .SignInPage-input-login-code {
@@ -129,10 +136,16 @@ body {
     height: 100%;
   }
   .SignInPage-leftBox {
-    flex: 2;
+    /*width: 450px;*/
+    flex: 3;
+    overflow: hidden;
     height: 100%;
     background-color: blue;
   }
+  .SignInPage-leftBox img {
+    height: 100%;
+  }
+
   .SignInPage-rightBox {
     padding-top: 30px;
     flex: 5;
