@@ -7,19 +7,21 @@
   }
 </style>
 <div class="SignInPage">
-  <div class="SignInPage-layout">
-    <div class="SignInPage-leftBox">
-      <img src="/Billboard_orchestra2.jpg"></img>
-    </div>
-    <div class="SignInPage-rightBox">
-      <a class="SignInPage-logo-and-name" href="/">
-        <%= render('shared/logo') %>
-        <%= render('shared/wordmark') %>
-      </a>
-      <img class="SignInPage-somervilleLogo"src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.somervillepublic.com%2FnewslettersDistrict%2FJune_2009_Newsletter_files%2F94.jpg" alt="Somerville public schools logo">
+  <div class="SignInPage-leftBox">
+    <img src="/Billboard_orchestra2.jpg"></img>
+  </div>
+  <div class="SignInPage-rightBox">
+    <a class="SignInPage-logo-and-name" href="/">
+      <%= render('shared/logo') %>
+      <%= render('shared/wordmark') %>
+    </a>
+    <a href="<%= @disrict_url %>">
+      <img class="SignInPage-district-logo" src="<%= @district_logo_src %>" alt="<%= @district_logo_alt %>">
+    </a>
+    <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
       <div class="SignInPage-item">
         <%= text_field_tag('multifactor[login_text]', nil, {
-          class: 'SignInPage-input-text SignInPage-inputs',
+          class: 'SignInPage-input-text',
           autocomplete: 'off',
           required: true,
           autofocus: true,
@@ -28,31 +30,35 @@
       </div>
       <div class="SignInPage-item">
         <%= password_field_tag('multifactor[password]', nil, {
-          class: 'SignInPage-input-text SignInPage-inputs',
+          class: 'SignInPage-input-text',
           autocomplete: 'off',
           required: true,
           name: nil, # do not submit
           placeholder: 'Password'
         }) %>
       </div>
-
       <div class="SignInPage-login-buttons">
         <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button", name: nil %>
         <div class="SignInPage-multifactor">
           <%= link_to('Use multifactor login', "#{new_educator_session_url}#multifactor", class: 'SignInPage-authentication-type-link') %>
         </div>
+        <div class="SignInPage-item SignInPage-item-containing-login-code hidden">
+          <%= text_field_tag('educator[login_code]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-login-code',
+            placeholder: 'Sign in code',
+            autocomplete: 'off',
+            required: true,
+            value: 'NO_CODE' # Devise requires a value
+          }) %>
+        </div>
       </div>
-
-      <div class="SignInPage-email">
-        <p>Need help? <a href="mailto:help@studentinsights.org">help@studentinsights.org</a></p>
-      </div> 
-        
-      <div class="SignInPage-links">
-        <a href="https://www.studentinsights.org/">Website</a>
-        <a href="https://github.com/studentinsights/studentinsights">Github</a>
-      </div>
-      
-
+    <% end %>
+    <div class="SignInPage-email">
+      <p>Need help? <a href="mailto:help@studentinsights.org">help@studentinsights.org</a></p>
+    </div> 
+    <div class="SignInPage-links">
+      <a href="https://www.studentinsights.org/">Website</a>
+      <a href="https://github.com/studentinsights/studentinsights">GitHub</a>
     </div>
   </div>
 </div>

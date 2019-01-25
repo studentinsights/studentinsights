@@ -1,25 +1,7 @@
 .SignInPage {
+  display: flex;
   height: 100%;
   font-size: 14px;
-
-  .SignInPage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    padding-top: 20px;
-    padding-bottom: 0;
-  }
-
-  .SignInPage-form-row {
-    width: 80%;
-    margin: auto;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
 
   .SignInPage-logo-and-name {
     display: flex;
@@ -27,7 +9,6 @@
     align-items: flex-end;
     height: 50px;
   }
-
 
   .Logo {
     width: 35px;
@@ -42,78 +23,34 @@
     align-self: flex-end;
   }
 
-  .SignInPage-form, .SignInPage-multifactor-form {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
   .SignInPage-item {
     padding-top: 15px;
-    margin-left: 15px;
-  }
-
-  .SignInPage-item .btn {
-    width: 8em;
   }
 
   .SignInPage-input-text {
     font-size: 14px;
     padding: 6px;
-    padding-left: 30px; 
+    padding-left: 30px;
     border: 1px solid #ccc;
-
-    &:invalid, &:required {
-      box-shadow: 0 0 1px 1px #eee;
-    }
-
-    &[readonly] {
-      background: #ccc;
-    }
-  }
-
-  .SignInPage-inputs {
     width: 355px;
     height: 45px;
     border-radius: 28px;
     background-color: #FAFAFA;
     margin-bottom: 15px;
-  }
-  .SignInPage-inputs:focus {
-    outline: none;
-    border: 2px solid $blue;
 
-  }
+    &:invalid, &:required {
+      box-shadow: 0 0 1px 1px #eee;
+    }
 
-  .SignInPage-input-login-code {
-    width: 6em;
-  }
+    &:focus {
+      outline: none;
+      border: 1px solid $blue;
+      box-shadow: 0 0 1px 1px $blue;
+    }
 
-  .SignInPage-label {
-    margin-bottom: 5px;
-  }
-
-  .SignInPage-messages-row {
-    width: 80%;
-    margin: auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    min-height: 3.1em;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .SignInPage-flash {
-    display: block;
-  }
-
-  .SignInPage-alert {
-    color: $warning-red;
-    font-weight: 700;
+    &[readonly] {
+      background: #ccc;
+    }
   }
 
   .SignInPage-multifactor {
@@ -123,23 +60,13 @@
     flex: 1;
   }
 
-  .SignInPage-multifactor-sent-code {
-    color: orange;
-    font-weight: bold;
-  }
-
-  .SignInPage-layout {
-    display: flex;
-    height: 100%;
-  }
   .SignInPage-leftBox {
-    /*width: 450px;*/
     flex: 3;
     overflow: hidden;
     height: 100%;
-    background-color: blue;
   }
-  .SignInPage-leftBox img {
+
+  .SignInPage-leftBox > img {
     height: 100%;
   }
 
@@ -153,15 +80,14 @@
     background-color: white;
   }
 
-  .SignInPage-login-button {
-    flex: 1;
-    padding: 15px;
-    width: 200px;
-  }
-
   .SignInPage-login-buttons {
     display: flex;
     padding-top: 15px;
+  }
+
+  .SignInPage-login-button {
+    padding: 15px;
+    width: 200px;
   }
 
   .SignInPage-somervilleLogo {
