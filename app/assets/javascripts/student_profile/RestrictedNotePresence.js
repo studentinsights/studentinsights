@@ -42,6 +42,9 @@ export default class RestrictedNotePresence extends React.Component {
 
   renderRedaction() {
     const {studentFirstName, educatorName, urlForRestrictedNoteContent} = this.props;
+    const educatorNameOrAdministrator = (educatorName)
+      ? `${educatorName} or an administrator`
+      : 'an administrator';
     const studentFirstNameOrTheir = (studentFirstName)
       ? `${studentFirstName}'s`
       : 'their';
@@ -50,7 +53,7 @@ export default class RestrictedNotePresence extends React.Component {
       <div>
         <NoteText
           style={styles.restrictedNoteRedaction}
-          text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorName || 'the author'} marked this note as restricted.`}
+          text={`To respect ${studentFirstNameOrTheir} privacy, ${educatorNameOrAdministrator} marked this note as restricted.`}
         />
         {urlForRestrictedNoteContent && 
           <a
