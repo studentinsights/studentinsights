@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
-import {withDefaultNowContext} from '../testing/NowContainer';
 import DisciplineScatterPlot, {getincidentTimeAsMinutes} from '../components/DisciplineScatterPlot';
 
 export default class IncidentHeatmap extends React.Component {
