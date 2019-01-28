@@ -27,6 +27,8 @@ export const api = PropTypes.shape({
 export const feed = PropTypes.shape({
   transition_notes: PropTypes.array,
   event_notes: PropTypes.array.isRequired,
+  homework_help_sessions: PropTypes.array,
+  imported_forms: PropTypes.array,
   services: PropTypes.shape({
     active: PropTypes.array.isRequired,
     discontinued: PropTypes.array.isRequired

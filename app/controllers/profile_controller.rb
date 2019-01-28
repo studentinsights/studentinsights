@@ -87,7 +87,7 @@ class ProfileController < ApplicationController
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes,
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
-      imported_forms: ImportedForms.latest_forms_for_student_id(student.id),
+      imported_forms: ImportedForm.latest_forms_for_student_id(student.id).map(&:as_flat_survey_json),
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }

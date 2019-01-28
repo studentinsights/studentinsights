@@ -41,11 +41,23 @@ export function mergedNotes(feed) {
     };
   });
 
+  // ImportedForm
+  const importedForms = (feed.imported_forms || []).map(importedForm => {
+    return {
+      ...importedForm,
+      type: 'imported_forms',
+      sort_timestamp: importedForm.form_timestamp
+    };
+  });
+
+
+
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
     ...transitionNotes,
-    ...homeworkHelpSessions
+    ...homeworkHelpSessions,
+    ...importedForms
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }

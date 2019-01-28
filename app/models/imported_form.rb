@@ -1,6 +1,6 @@
 class ImportedForm < ApplicationRecord
-  SHS_Q2_SELF_REFLECTION = 'SHS_Q2_SELF_REFLECTION';
-  SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR = 'SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR';
+  SHS_Q2_SELF_REFLECTION = 'shs_q2_self_reflection';
+  SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR = 'shs_what_i_want_my_teacher_to_know_mid_year';
 
   belongs_to :student
   belongs_to :educator
@@ -16,6 +16,22 @@ class ImportedForm < ApplicationRecord
       SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
     ]
   }
+
+  # override
+  def as_json(options = {})
+    except = options.fetch(:except, [])
+    super(options.merge({ except: except + [:form_url] }))
+  end
+
+  def self.form_title(form_key)
+    if form_key == SHS_Q2_SELF_REFLECTION
+      'Q2 Self-reflection'
+    elsif form_key == SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
+      'What I want my teachers to know'
+    else
+      'Student voice survey'
+    end
+  end
 
   # Which keys within `responses_json` should we read, and in what order?
   def self.prompts(form_key)
@@ -53,11 +69,12 @@ class ImportedForm < ApplicationRecord
     ].compact
   end
 
+  # Most recent import of most recent form_key for student
   def self.latest_for_student_id(student_id, form_key)
     ImportedForm
       .where(student_id: student_id)
       .where(form_key: form_key)
-      .order(form_timestamp: :desc)
+      .order('form_timestamp DESC, updated_at DESC')
       .limit(1)
       .first
   end
@@ -67,6 +84,8 @@ class ImportedForm < ApplicationRecord
     { 
       id: id,
       form_timestamp: form_timestamp,
+      form_title: ImportedForm.form_title(form_key),
+      educator_id: educator_id,
       survey_text: survey_text
     }.as_json
   end

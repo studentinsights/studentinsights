@@ -59,7 +59,7 @@ export default class NotesList extends React.Component {
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
-            case 'flattened_survey': return this.renderHomeworkHelpSession(mergedNote);
+            case 'imported_forms': return this.renderImportedForm(mergedNote);
             }
           })}
         {this.renderCleanSlateMessage()}
@@ -164,6 +164,21 @@ export default class NotesList extends React.Component {
         badge={<span style={styles.badge}>Homework Help</span>}
         educatorId={homeworkHelpSession.recorded_by_educator_id}
         text={text}
+        educatorsIndex={this.props.educatorsIndex}
+        showRestrictedNoteRedaction={false}
+        urlForRestrictedNoteContent={null}
+        attachments={[]} />
+    );
+  }
+
+  renderImportedForm(importedForm) {
+    return (
+      <NoteCard
+        key={['imported_form', importedForm.id].join()}
+        noteMoment={toMomentFromRailsDate(importedForm.form_timestamp)}
+        badge={<span style={styles.badge}>{importedForm.form_title}</span>}
+        educatorId={importedForm.educator_id}
+        text={importedForm.survey_text}
         educatorsIndex={this.props.educatorsIndex}
         showRestrictedNoteRedaction={false}
         urlForRestrictedNoteContent={null}

@@ -276,6 +276,7 @@ describe ProfileController, :type => :controller do
             'event_notes' => [],
             'transition_notes' => [],
             'homework_help_sessions' => [],
+            'imported_forms' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -529,9 +530,20 @@ describe ProfileController, :type => :controller do
     let!(:service) { create_service(student, educator) }
     let!(:event_note) { create_event_note(student, educator) }
 
+    it 'returns expected keys' do
+      feed = controller.send(:student_feed, student)
+      expect(feed.keys).to contain_exactly(*[
+        :event_notes,
+        :services,
+        :deprecated, 
+        :transition_notes,
+        :homework_help_sessions,
+        :imported_forms
+      ])
+    end
+
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to contain_exactly(:event_notes, :services, :deprecated, :transition_notes, :homework_help_sessions)
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
@@ -551,6 +563,30 @@ describe ProfileController, :type => :controller do
         expect(feed[:services][:active].size).to eq 0
         expect(feed[:services][:discontinued].first[:id]).to eq service.id
       end
+    end
+
+    it 'imported forms' do
+      imported_form = ImportedForm.create!({
+        form_key: 'shs_what_i_want_my_teacher_to_know_mid_year',
+        form_url: 'https://example.com/foo_form_url',
+        student_id: student.id,
+        form_timestamp: Time.parse('2019-01-28 09:23:43.000000000 +0000'),
+        educator_id: educator.id,
+        responses_json: {
+          "What was the high point for you in school this year so far?"=>"A high point has been my grade in Biology since I had to work a lot for it",
+          "I am proud that I..."=>"Have good grades in my classes",
+          "My best qualities are..."=>"helping others when they don't know how to do homework assignments",
+          "My activities and interests outside of school are..."=>"cheering",
+          "I get nervous or stressed in school when..."=>"I get a low grade on an assignment that I thought I would do well on",
+          "I learn best when my teachers..."=>"show me each step of what I have to do"
+        }
+      })
+      feed = controller.send(:student_feed, student)
+      expect(feed[:imported_forms].size).to eq 1
+      expect(feed[:imported_forms].first[:id]).to imported_form.id
+      expect(feed[:imported_forms]).to contain_exactly(*[{
+        foo: 'bar',
+      }])
     end
   end
 end
