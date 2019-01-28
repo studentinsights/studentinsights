@@ -17,7 +17,7 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import Team from '../components/Team';
-import IepDialog from './IepDialog';
+import IepDialogLink from './IepDialogLink';
 import EdPlansPanel from './EdPlansPanel';
 import LanguageStatusLink from './LanguageStatusLink';
 
@@ -151,7 +151,7 @@ export default class LightHeaderSupportBits extends React.Component {
     if (!hasActiveIep(student)) return null;
 
     return (
-      <IepDialog
+      <IepDialogLink
         student={student}
         iepDocument={iepDocument}
       />

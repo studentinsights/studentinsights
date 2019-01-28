@@ -10,7 +10,7 @@ import {toMomentFromRailsDate} from '../helpers/toMoment';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import {hasActiveIep} from '../helpers/specialEducation';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import IepDialog from '../student_profile/IepDialog';
+import IepDialogLink from '../student_profile/IepDialogLink';
 import LanguageStatusLink from '../student_profile/LanguageStatusLink'; 
 import EdPlansPanel from '../student_profile/EdPlansPanel';
 
@@ -54,7 +54,7 @@ export function renderIepChip(districtKey, student, props = {}) {
   if (!hasActiveIep(student)) return null;
   return (
     <PerDistrictContainer districtKey={districtKey}>
-      <IepDialog
+      <IepDialogLink
         student={student}
         iepDocument={student.latest_iep_document}
         linkEl="IEP"

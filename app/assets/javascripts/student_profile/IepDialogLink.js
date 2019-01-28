@@ -5,6 +5,7 @@ import {
   shouldShowIepLink
 } from '../helpers/PerDistrict';
 import {
+  hasActiveIep,
   prettyLevelOfNeedText,
   prettyIepTextForSpecialEducationStudent,
   cleanSpecialEducationValues
@@ -15,15 +16,21 @@ import HelpBubble, {
 } from '../components/HelpBubble';
 import Pdf from '../student_profile/Pdf'; // TODO
 
-
-export default class IepDialog extends React.Component {
+// For students who have an IEP, render a link that describes the IEP
+// and lets educators click to open a dialog and see more.
+export default class IepDialogLink extends React.Component {
   render() {
     const {districtKey} = this.context;
     const {student, linkEl} = this.props;
-    const specialEducationText = (linkEl !== undefined)
-      ? linkEl
-      : prettyIepTextForSpecialEducationStudent(student);
-    if (!shouldShowIepLink(districtKey)) return specialEducationText;
+    if (!hasActiveIep(student)) return null;
+
+    // Enable different text (eg, shorted) and disabling links
+    const specialEducationText = (linkEl === undefined || linkEl === null)
+      ? prettyIepTextForSpecialEducationStudent(student)
+      : linkEl;
+    if (!shouldShowIepLink(districtKey)) {
+      return <span>{specialEducationText}</span>;
+    }
     
     return (
       <HelpBubble
@@ -105,10 +112,10 @@ export default class IepDialog extends React.Component {
   }
 
 }
-IepDialog.contextTypes = {
+IepDialogLink.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
-IepDialog.propTypes = {
+IepDialogLink.propTypes = {
   student: PropTypes.object.isRequired,
   iepDocument: PropTypes.object,
   linkEl: PropTypes.node
