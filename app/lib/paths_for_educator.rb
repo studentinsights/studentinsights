@@ -27,6 +27,7 @@ class PathsForEducator
     if @educator.school.present? && @educator.schoolwide_access? && !@educator.districtwide_access?
       links[:absences] = url_helpers.absences_school_path(@educator.school)
       links[:tardies] = url_helpers.tardies_school_path(@educator.school)
+      links[:discipline] = url_helpers.discipline_school_path(@educator.school)
     end
 
     if @educator.school.present? && @educator.school.is_high_school? && @educator.sections.size > 0

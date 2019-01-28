@@ -27,6 +27,9 @@
     <% if links.has_key?(:tardies) %>
       <%= link_to "Tardies", links[:tardies] %>
     <% end %>
+    <% if links.has_key?(:discipline) %>
+      <%= link_to "Discipline", links[:discipline] %>
+    <% end %>
     <% if links.has_key?(:school) %>
       <%= link_to 'Overview', links[:school] %>
       <span class="NavbarSignedIn-spacer"></span>
