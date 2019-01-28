@@ -78,7 +78,13 @@ class DashboardQueries
       .where('recorded_at >= ?', @cutoff_time)
 
     # serialize
-    all_discipline_incidents_json = discipline_incidents.as_json
+    all_discipline_incidents_json = discipline_incidents.as_json(only: [
+      :student_id,
+      :incident_code,
+      :incident_location,
+      :has_exact_time,
+      :occurred_at
+    ])
     all_event_notes_json = latest_event_notes.as_json(only: [
       :student_id,
       :event_note_type_id,
@@ -142,18 +148,6 @@ class DashboardQueries
       tardies: student.tardies
         .where('occurred_at >= ?', @cutoff_time)
         .as_json(only: [:student_id, :occurred_at])
-    })
-  end
-
-  def individual_student_discipline_data(student)
-    shared_student_fields(student).merge({
-      discipline_incidents: student.discipline_incidents.as_json(only: [
-        :student_id,
-        :incident_code,
-        :incident_location,
-        :has_exact_time,
-        :occurred_at
-      ])
     })
   end
 
