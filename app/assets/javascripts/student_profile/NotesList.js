@@ -59,6 +59,7 @@ export default class NotesList extends React.Component {
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
+            case 'flattened_survey': return this.renderHomeworkHelpSession(mergedNote);
             }
           })}
         {this.renderCleanSlateMessage()}

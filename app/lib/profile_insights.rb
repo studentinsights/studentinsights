@@ -89,6 +89,41 @@ class ProfileInsights
     survey_insights
   end
 
+  # what to include?
+  #   for mid-year, all
+  #   for reflection...
+  #     What classes are you doing well in?
+  #     Why are you doing well in those classes?
+  #     What courses are you struggling in? 
+  #     Why are you struggling in those courses?
+  #     In the classes that you are struggling in, how can your teachers support you so that your grades, experience, work load, etc, improve?
+  #     What other information is important for your teachers to know so that we can support you and your learning? (For example, tutor, mentor, before school HW help, study group, etc)
+  def mid_year_insights
+    # form_timestamp, form_key, form_url, form_json
+    # code validates form_key, defines `prompts` method
+    forms = ImportedForm
+      .order(form_timestamp: :desc)
+      .where(form_key: [
+        ImportedForm::SHS_Q2_SELF_REFLECTION,
+        ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
+      ])
+      .limit(1)
+      .first
+    survey = {} # find latest
+    flat_survey_json = survey.to_flat_survey_json # id, form_timestamp, survey_text
+    
+    insights = survey.prompts(profile_insights_only: true).map do |prompt_key, prompt_text|
+      survey_response_text = survey.responses_json.fetch(prompt_key, nil)
+      student_voice_completed_survey = flat_survey_json
+      {
+        prompt_key: prompt_key,
+        prompt_text: prompt_text,
+        survey_response_text: survey_response_text,
+        student_voice_completed_survey: student_voice_completed_survey
+      }
+    end
+  end
+
   def render_survey_as_text(most_recent_survey, prompt_keys_to_include)
     lines = []
     prompt_keys_to_include.each do |prompt_key|

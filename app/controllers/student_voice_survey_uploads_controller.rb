@@ -32,11 +32,11 @@ class StudentVoiceSurveyUploadsController < ApplicationController
   # post
   def upload
     safe_params = params.permit(:file_name, :file_text)
-    uploader = StudentVoiceSurveyUploader.new(safe_params[:file_text], {
+    importer = StudentVoiceSurveyImporter.new(safe_params[:file_text], {
       file_name: safe_params[:file_name],
       uploaded_by_educator_id: current_educator.id
     })
-    student_voice_survey_upload = uploader.create_from_text!
+    student_voice_survey_upload = importer.create_from_text!
     render json: {
       stats: student_voice_survey_upload.stats
     }
