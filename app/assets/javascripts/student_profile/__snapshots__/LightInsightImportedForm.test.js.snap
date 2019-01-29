@@ -2,7 +2,7 @@
 
 exports[`snapshots view 1`] = `
 <div
-  className="LightInsightQuote LightInsightsImportedForm"
+  className="LightInsightQuote LightInsightImportedForm"
   style={
     Object {
       "display": "flex",

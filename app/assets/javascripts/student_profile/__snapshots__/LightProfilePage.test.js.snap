@@ -1081,160 +1081,162 @@ exports[`snapshots works for aladdin grades 1`] = `
       }
     }
   >
-    <div
-      className="DetailsSection roster"
-      id="sections-roster"
-      style={
-        Object {
-          "border": "1px solid #ccc",
-          "marginLeft": "auto",
-          "marginRight": "auto",
-          "marginTop": 50,
-          "padding": "30px 30px 30px 30px",
-          "position": "relative",
-          "width": "100%",
-        }
-      }
-    >
+    <div>
       <div
+        className="DetailsSection roster"
+        id="sections-roster"
         style={
           Object {
-            "bottom": 10,
-            "display": "flex",
-            "justifyContent": "space-between",
+            "border": "1px solid #ccc",
+            "marginLeft": "auto",
+            "marginRight": "auto",
+            "marginTop": 50,
+            "padding": "30px 30px 30px 30px",
             "position": "relative",
+            "width": "100%",
           }
         }
       >
-        <h4
+        <div
           style={
             Object {
-              "color": "black",
-              "fontSize": 24,
-              "paddingBottom": 20,
+              "bottom": 10,
+              "display": "flex",
+              "justifyContent": "space-between",
+              "position": "relative",
             }
           }
         >
-          Sections
-        </h4>
-        <span
-          style={
-            Object {
-              "textAlign": "right",
-              "verticalAlign": "text-top",
-            }
-          }
-        >
-          <a
-            href="#"
-          >
-            Back to top
-          </a>
-        </span>
-      </div>
-      <div
-        className="FlexibleRoster"
-      >
-        <table
-          className="roster-table"
-          id="roster-table"
-          style={
-            Object {
-              "width": "100%",
-            }
-          }
-        >
-          <thead>
-            <tr
-              className="column-groups"
-            />
-            <tr
-              id="roster-header"
-            >
-              <th
-                className="sort-header"
-                onClick={[Function]}
-              >
-                Section Number
-              </th>
-              <th
-                className="sort-header"
-                onClick={[Function]}
-              >
-                Course Description
-              </th>
-              <th
-                className="sort-header"
-                onClick={[Function]}
-              >
-                Grade
-              </th>
-              <th
-                className="sort-header"
-                onClick={[Function]}
-              >
-                Schedule
-              </th>
-              <th
-                className="sort-header"
-                onClick={[Function]}
-              >
-                Educators
-              </th>
-              <th
-                className="sort-header"
-                onClick={[Function]}
-              >
-                Room
-              </th>
-              <th
-                className="sort-header sort-down"
-                onClick={[Function]}
-              >
-                Term
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            id="roster-data"
-          >
-            <tr
-              style={
-                Object {
-                  "backgroundColor": "#FFFFFF",
-                }
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "fontSize": 24,
+                "paddingBottom": 20,
               }
+            }
+          >
+            Sections
+          </h4>
+          <span
+            style={
+              Object {
+                "textAlign": "right",
+                "verticalAlign": "text-top",
+              }
+            }
+          >
+            <a
+              href="#"
             >
-              <td>
-                <a
-                  href="/sections/5"
+              Back to top
+            </a>
+          </span>
+        </div>
+        <div
+          className="FlexibleRoster"
+        >
+          <table
+            className="roster-table"
+            id="roster-table"
+            style={
+              Object {
+                "width": "100%",
+              }
+            }
+          >
+            <thead>
+              <tr
+                className="column-groups"
+              />
+              <tr
+                id="roster-header"
+              >
+                <th
+                  className="sort-header"
+                  onClick={[Function]}
                 >
-                  SCI-201A
-                </a>
-              </td>
-              <td>
-                PHYSICS 1
-              </td>
-              <td>
-                71.0
-              </td>
-              <td>
-                3(M,W,F)
-              </td>
-              <td>
-                <p>
-                  Teacher, Fatima
-                </p>
-              </td>
-              <td>
-                306W
-              </td>
-              <td>
-                S1
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  Section Number
+                </th>
+                <th
+                  className="sort-header"
+                  onClick={[Function]}
+                >
+                  Course Description
+                </th>
+                <th
+                  className="sort-header"
+                  onClick={[Function]}
+                >
+                  Grade
+                </th>
+                <th
+                  className="sort-header"
+                  onClick={[Function]}
+                >
+                  Schedule
+                </th>
+                <th
+                  className="sort-header"
+                  onClick={[Function]}
+                >
+                  Educators
+                </th>
+                <th
+                  className="sort-header"
+                  onClick={[Function]}
+                >
+                  Room
+                </th>
+                <th
+                  className="sort-header sort-down"
+                  onClick={[Function]}
+                >
+                  Term
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              id="roster-data"
+            >
+              <tr
+                style={
+                  Object {
+                    "backgroundColor": "#FFFFFF",
+                  }
+                }
+              >
+                <td>
+                  <a
+                    href="/sections/5"
+                  >
+                    SCI-201A
+                  </a>
+                </td>
+                <td>
+                  PHYSICS 1
+                </td>
+                <td>
+                  71.0
+                </td>
+                <td>
+                  3(M,W,F)
+                </td>
+                <td>
+                  <p>
+                    Teacher, Fatima
+                  </p>
+                </td>
+                <td>
+                  306W
+                </td>
+                <td>
+                  S1
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -32,6 +32,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/LanguageStatusLink.story');
   require('../../../app/assets/javascripts/student_profile/IepDialogLink.story');
   require('../../../app/assets/javascripts/student_profile/LightInsightImportedForm.story');
+  require('../../../app/assets/javascripts/student_profile/ReflectionsAboutGrades.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');
