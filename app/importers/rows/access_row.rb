@@ -15,7 +15,7 @@ class AccessRow < Struct.new :row, :student_id, :assessments_array
     )
 
     student_assessment.assign_attributes(
-      scale_score: row[:assessment_scale_score],
+      scale_score: parse_or_nil(row[:assessment_scale_score]),
       performance_level: row[:assessment_performance_level],
       growth_percentile: row[:assessment_growth]
     )
@@ -34,5 +34,10 @@ class AccessRow < Struct.new :row, :student_id, :assessments_array
   def subject
     return 'Composite' if row[:assessment_subject] == 'Overall'
     row[:assessment_subject]
+  end
+
+  # Missing or unparseable values are ignored and converted to nil
+  def parse_or_nil(value)
+    if value.nil? || value.to_i == 0 then nil else value.to_i end
   end
 end
