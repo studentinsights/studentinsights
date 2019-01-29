@@ -22,7 +22,6 @@ class FuzzyStudentMatcher
       return nil
     end
 
-    puts [full_name, student_id].join("\t")
     @valid_student_name += 1
     {
       full_name: full_name,
@@ -57,6 +56,8 @@ class FuzzyStudentMatcher
   end
 
   def guess_from_name(full_name)
+    return nil if full_name.nil? || full_name.empty?
+
     student = match_active_student_exactly(full_name)
     return student.id if student.present?
 

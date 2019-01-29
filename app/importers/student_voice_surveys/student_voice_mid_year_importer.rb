@@ -21,7 +21,17 @@ class StudentVoiceMidYearImporter
 
   def create!(file_text)
     rows = dry_run(file_text)
-    rows.map {|row| ImportedForm.create!(row) }
+    rows.map do |row|
+      imported_form = ImportedForm.new(row)
+      if !imported_form.valid?
+        @invalid_rows_count += 1
+        nil
+      else
+        imported_form.save!
+        @created_rows_count += 1
+        imported_form
+      end
+    end
   end
 
   def dry_run(file_text)
@@ -42,7 +52,8 @@ class StudentVoiceMidYearImporter
   # Map `row` into `ImportedForm` attributes
   def process_row_or_nil(row)
     # match student by id first, fall back to name
-    student_id = exact_or_fuzzy_match_for_student(row['Student ID Number'], row['First and Last Name'])
+    local_id_text = row['Student ID Number']
+    student_id = exact_or_fuzzy_match_for_student(local_id_text, row['First and Last Name'])
     if student_id.nil?
       @invalid_student_ids_count += 1
       @invalid_student_ids_list << local_id_text
@@ -78,15 +89,19 @@ class StudentVoiceMidYearImporter
   def stats
     {
       valid_hashes_count: @valid_hashes_count,
-      invalid_student_name_count: @invalid_student_name_count,
-      invalid_student_names_list: @invalid_student_names_list
+      invalid_rows_count: @invalid_rows_count,
+      invalid_student_ids_count: @invalid_student_ids_count,
+      invalid_student_ids_list: @invalid_student_ids_list,
+      created_rows_count: @created_rows_count
     }
   end
 
   def reset_counters!
     @valid_hashes_count = 0
-    @invalid_student_name_count = 0
-    @invalid_student_names_list = []
+    @invalid_rows_count = 0
+    @created_rows_count = 0
+    @invalid_student_ids_count = 0
+    @invalid_student_ids_list = []
   end
 
   def create_streaming_csv(file_text)
