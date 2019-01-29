@@ -231,6 +231,7 @@ describe('flattened forms', () => {
     expect($(el).find('.NoteText').length).toEqual(1);
     expect($(el).find('.EditableNoteText').length).toEqual(0);
     expect($(el).text()).toContain('What I want my teachers to know');
-    expect($(el).find('.NoteText').text()).toEqual('<text>');
+    expect($(el).find('.NoteCard a').length).toEqual(0);
+    expect($(el).find('.NoteText').text()).toEqual('💬 From the "What I want my teachers to know" student voice survey 💬\n\n<text>');
   });
 });

@@ -147,7 +147,7 @@ class Feed
 
   # This uniques by (student_id, form_key), taking the most recent
   # by (form_timestamp, updated_at, id).
-  # 
+  #
   # Using Arel.sql is safe for strings without user input, see https://github.com/rails/rails/issues/32995
   # for more background.
   def imported_forms_for_card(time_now)

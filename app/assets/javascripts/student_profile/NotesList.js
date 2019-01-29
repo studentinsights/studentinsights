@@ -177,9 +177,9 @@ export default class NotesList extends React.Component {
         key={['flattened_form', flattenedForm.id].join()}
         noteMoment={toMomentFromRailsDate(flattenedForm.form_timestamp)}
         badge={<span style={styles.badge}>{flattenedForm.form_title}</span>}
-        educatorId={flattenedForm.educator_id}
-        text={flattenedForm.text}
-        educatorsIndex={this.props.educatorsIndex}
+        text={`💬 From the "${flattenedForm.form_title}" student voice survey 💬\n\n${flattenedForm.text}`}
+        educatorId={null}
+        educatorsIndex={{}}
         showRestrictedNoteRedaction={false}
         urlForRestrictedNoteContent={null}
         attachments={[]} />

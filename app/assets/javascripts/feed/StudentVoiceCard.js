@@ -5,7 +5,7 @@ import hash from 'object-hash';
 import Card from '../components/Card';
 
 
-// Render a card in the feed showing there are new student voice surveys in,
+// Render a card in the feed showing there are student voice surveys in,
 // and allow clicking to see list of students and then jump to their profiles.
 export default class StudentVoiceCard extends React.Component {
   constructor(props) {
@@ -43,18 +43,18 @@ export default class StudentVoiceCard extends React.Component {
     if (students.length === 0) {
       return null; // shouldn't happen, but guard
     } else if (students.length === 1) {
-      return <div>{emoji} {this.renderStudentLink(students[0])} shared a new student voice survey.</div>;
+      return <div>{this.renderStudentLink(students[0])} shared their perspective in a student voice survey. {emoji}</div>;
     } else if (students.length === 2) {
-      return <div>{emoji} {this.renderStudentLink(students[0])} and {this.renderStudentLink(students[1])} shared new student voice surveys.</div>;
+      return <div>{this.renderStudentLink(students[0])} and {this.renderStudentLink(students[1])} shared their perspective in student voice surveys. {emoji}</div>;
     } else if (students.length === 3) {
-      return <div>{emoji} {this.renderStudentLink(students[0])}, {this.renderStudentLink(students[1])} and {this.renderStudentLink(students[2])} shared new student voice surveys.</div>;
+      return <div>{this.renderStudentLink(students[0])}, {this.renderStudentLink(students[1])} and {this.renderStudentLink(students[2])} shared their perspective in student voice surveys. {emoji}</div>;
     }
 
     const shuffledStudents = _.sortBy(students, student => hash({...student, shuffleSeed}));
     if (!isExpanded) {
-      return <div>{emoji} {this.renderStudentLink(shuffledStudents[0])}, {this.renderStudentLink(shuffledStudents[1])} and {this.renderExpandableListLink(shuffledStudents.slice(2))} shared new student voice surveys.</div>;
+      return <div>{this.renderStudentLink(shuffledStudents[0])}, {this.renderStudentLink(shuffledStudents[1])} and {this.renderExpandableListLink(shuffledStudents.slice(2))} shared their perspective in student voice surveys. {emoji}</div>;
     } else {
-      return <div>{emoji} {this.renderStudentLink(shuffledStudents[0])}, {this.renderStudentLink(shuffledStudents[1])} and {this.renderMoreStudentsText(shuffledStudents.slice(2))} shared new student voice surveys.{this.renderExpandedList(shuffledStudents.slice(2))}</div>;
+      return <div>{this.renderStudentLink(shuffledStudents[0])}, {this.renderStudentLink(shuffledStudents[1])} and {this.renderMoreStudentsText(shuffledStudents.slice(2))} shared their perspective in student voice surveys. {emoji} {this.renderExpandedList(shuffledStudents.slice(2))}</div>;
     }
   }
 
@@ -67,10 +67,11 @@ export default class StudentVoiceCard extends React.Component {
   }
 
   renderExpandedList(restOfStudents) {
+    const sortedStudents = _.sortBy(restOfStudents, student => `${student.last_name} ${student.first_name}`);
     return (
-      <div style={{paddingTop: 10, paddingLeft: 10}}>
-        {restOfStudents.map(student => (
-          <div key={student.id} style={{padding: 5}}>{this.renderStudentLink(student)}</div>
+      <div style={{paddingTop: 10, paddingLeft: 10, maxHeight: 190, overflowY: 'scroll'}}>
+        {sortedStudents.map(student => (
+          <div key={student.id} style={{padding: 5, paddingTop: 0}}>{this.renderStudentLink(student)}</div>
         ))}
       </div>
     );

@@ -18,7 +18,9 @@ export default class NoteCard extends React.Component {
   }
 
   educator() {
-    return this.props.educatorsIndex[this.props.educatorId];
+    const {educatorId, educatorsIndex} = this.props;
+    if (!educatorId) return null;
+    return educatorsIndex[educatorId];
   }
 
   // No feedback, fire and forget
@@ -38,6 +40,7 @@ export default class NoteCard extends React.Component {
 
   render() {
     const {includeStudentPanel} = this.props;
+    const educator = this.educator();
     return (
       <div className="wrapper" style={styles.wrapper}>
         {includeStudentPanel && this.renderStudentCard()}
@@ -47,9 +50,11 @@ export default class NoteCard extends React.Component {
               {this.props.noteMoment.format('MMMM D, YYYY')}
             </span>
             {this.props.badge}
-            <span style={styles.educator}>
-              <Educator educator={this.educator()} />
-            </span>
+            {educator && (
+              <span style={styles.educator}>
+                <Educator educator={educator} />
+              </span>
+            )}
           </div>
           {this.renderNoteSubstanceOrRedaction()}
           {this.renderAttachmentUrls()}
@@ -210,7 +215,7 @@ export default class NoteCard extends React.Component {
 NoteCard.propTypes = {
   attachments: PropTypes.array.isRequired,
   badge: PropTypes.element.isRequired,
-  educatorId: PropTypes.number.isRequired,
+  educatorId: PropTypes.number,
   educatorsIndex: PropTypes.object.isRequired,
   noteMoment: PropTypes.instanceOf(moment).isRequired,
   text: PropTypes.string.isRequired,

@@ -55,7 +55,7 @@ export function testEl(props) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   ReactDOM.render(testEl(testProps()), el);
-  expect($(el).text()).toContain('💬 Darth Tater, Kylo Ren and 2 more students shared new student voice surveys.');
+  expect($(el).text()).toContain('Darth Tater, Kylo Ren and 2 more students shared their perspective in student voice surveys. 💬');
   expect($(el).find('a').toArray().map(el => $(el).attr('href'))).toEqual([
     '/students/7',
     '/students/6',

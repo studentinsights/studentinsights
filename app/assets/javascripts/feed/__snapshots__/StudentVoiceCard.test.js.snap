@@ -12,17 +12,6 @@ exports[`snapshots works with four students 1`] = `
   }
 >
   <div>
-    <span
-      style={
-        Object {
-          "position": "relative",
-          "top": 1,
-        }
-      }
-    >
-      💬
-    </span>
-     
     <a
       href="/students/7"
       style={
@@ -55,7 +44,17 @@ exports[`snapshots works with four students 1`] = `
     >
       2 more students
     </a>
-     shared new student voice surveys.
+     shared their perspective in student voice surveys. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
   </div>
 </div>
 `;
@@ -72,17 +71,6 @@ exports[`snapshots works with one student 1`] = `
   }
 >
   <div>
-    <span
-      style={
-        Object {
-          "position": "relative",
-          "top": 1,
-        }
-      }
-    >
-      💬
-    </span>
-     
     <a
       href="/students/4"
       style={
@@ -95,7 +83,17 @@ exports[`snapshots works with one student 1`] = `
        
       Skywalker
     </a>
-     shared a new student voice survey.
+     shared their perspective in a student voice survey. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
   </div>
 </div>
 `;
@@ -112,17 +110,6 @@ exports[`snapshots works with three students 1`] = `
   }
 >
   <div>
-    <span
-      style={
-        Object {
-          "position": "relative",
-          "top": 1,
-        }
-      }
-    >
-      💬
-    </span>
-     
     <a
       href="/students/4"
       style={
@@ -161,7 +148,17 @@ exports[`snapshots works with three students 1`] = `
        
       Ren
     </a>
-     shared new student voice surveys.
+     shared their perspective in student voice surveys. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
   </div>
 </div>
 `;
@@ -178,17 +175,6 @@ exports[`snapshots works with two students 1`] = `
   }
 >
   <div>
-    <span
-      style={
-        Object {
-          "position": "relative",
-          "top": 1,
-        }
-      }
-    >
-      💬
-    </span>
-     
     <a
       href="/students/4"
       style={
@@ -214,7 +200,17 @@ exports[`snapshots works with two students 1`] = `
        
       Kenobi
     </a>
-     shared new student voice surveys.
+     shared their perspective in student voice surveys. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
   </div>
 </div>
 `;
