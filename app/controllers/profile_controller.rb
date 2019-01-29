@@ -87,6 +87,7 @@ class ProfileController < ApplicationController
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes,
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
+      flattened_forms: flattened_forms_json(student.id),
       services: {
         active: student.services.active.map {|service| ServiceSerializer.new(service).serialize_service },
         discontinued: student.services.discontinued.map {|service| ServiceSerializer.new(service).serialize_service }
@@ -121,5 +122,16 @@ class ProfileController < ApplicationController
 
   def ed_plans_json(student)
     student.ed_plans.active.includes(:ed_plan_accommodations).as_json(include: :ed_plan_accommodations)
+  end
+
+  def flattened_forms_json(student_id)
+    form_keys = [
+      ImportedForm::SHS_Q2_SELF_REFLECTION,
+      ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
+    ]
+    imported_forms = form_keys.map do |form_key|
+      ImportedForm.latest_for_student_id(student_id, form_key)
+    end
+    imported_forms.compact.map(&:as_flattened_form)
   end
 end

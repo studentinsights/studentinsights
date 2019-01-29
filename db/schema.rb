@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_22_235338) do
+ActiveRecord::Schema.define(version: 2019_01_28_131614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,6 +338,17 @@ ActiveRecord::Schema.define(version: 2019_01_22_235338) do
     t.text "importer_timing_json"
     t.text "task_options_json"
     t.text "log", default: ""
+  end
+
+  create_table "imported_forms", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.datetime "form_timestamp", null: false
+    t.text "form_key", null: false
+    t.text "form_url", null: false
+    t.json "form_json", null: false
+    t.integer "educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "intervention_types", id: :serial, force: :cascade do |t|
@@ -681,6 +692,8 @@ ActiveRecord::Schema.define(version: 2019_01_22_235338) do
   add_foreign_key "homework_help_sessions", "students", name: "homework_help_sessions_student_id_fk"
   add_foreign_key "house_educator_mappings", "educators", name: "house_educator_mappings_educator_id_fk"
   add_foreign_key "iep_documents", "students", name: "iep_documents_student_id_fk"
+  add_foreign_key "imported_forms", "educators"
+  add_foreign_key "imported_forms", "students"
   add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"
   add_foreign_key "interventions", "intervention_types", name: "interventions_intervention_type_id_fk"
   add_foreign_key "interventions", "students", name: "interventions_student_id_fk"

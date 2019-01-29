@@ -41,11 +41,23 @@ export function mergedNotes(feed) {
     };
   });
 
+  // flattened form (from ImportedForm)
+  const flattenedForms = (feed.flattened_forms || []).map(flattenedForm => {
+    return {
+      ...flattenedForm,
+      type: 'flattened_forms',
+      sort_timestamp: flattenedForm.form_timestamp
+    };
+  });
+
+
+
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
     ...transitionNotes,
-    ...homeworkHelpSessions
+    ...homeworkHelpSessions,
+    ...flattenedForms
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }

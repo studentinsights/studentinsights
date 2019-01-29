@@ -15,6 +15,10 @@ function testFeed() {
     transition_notes: [{
       fooTransitionNote: 'z',
       created_at: '2018-12-16T00:00:00.000Z'
+    }],
+    flattened_forms: [{
+      fooFlattenedForm: 'example',
+      form_timestamp: '2018-12-15T00:00:00.000Z'
     }]
   };
 }
@@ -32,6 +36,11 @@ describe('#mergedNotes', () => {
       fooTransitionNote: "z",
       sort_timestamp: "2018-12-16T00:00:00.000Z",
       type: "transition_notes",
+    }, {
+      form_timestamp: "2018-12-15T00:00:00.000Z",
+      fooFlattenedForm: "example",
+      sort_timestamp: "2018-12-15T00:00:00.000Z",
+      type: "flattened_forms",
     }, {
       fooEventNote: "bar",
       sort_timestamp: "2018-12-13T00:00:00.000Z",
