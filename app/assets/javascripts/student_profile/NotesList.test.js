@@ -212,3 +212,25 @@ describe('homework help', () => {
     expect($(el).find('.NoteText').text()).toEqual('Went to homework help for US HISTORY 1 HONORS and ALGEBRA 1 CP.');
   });
 });
+
+describe('flattened forms', () => {
+  it('works on happy path', () => {
+    const el = testRender(testProps({
+      feed: {
+        ...feedWithEventNotesJson([]),
+        flattened_forms: [{
+          "id": 5,
+          "student_id": 5,
+          "form_title": "What I want my teachers to know",
+          "form_timestamp": "2018-09-25T13:41:43.000Z",
+          "educator_id": 1,
+          "text": "<text>"
+        }]
+      }
+    }));
+    expect($(el).find('.NoteText').length).toEqual(1);
+    expect($(el).find('.EditableNoteText').length).toEqual(0);
+    expect($(el).text()).toContain('What I want my teachers to know');
+    expect($(el).find('.NoteText').text()).toEqual('<text>');
+  });
+});
