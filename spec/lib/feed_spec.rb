@@ -14,9 +14,16 @@ RSpec.describe Feed do
   let!(:time_now) { pals.time_now }
 
   # Preserve global app config
-  before { @FEED_INCLUDE_INCIDENT_CARDS = ENV['FEED_INCLUDE_INCIDENT_CARDS'] }
-  before { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = 'true' }
-  after { ENV['FEED_INCLUDE_INCIDENT_CARDS'] = @FEED_INCLUDE_INCIDENT_CARDS }
+  before do
+    @FEED_INCLUDE_STUDENT_VOICE_CARDS = ENV['FEED_INCLUDE_STUDENT_VOICE_CARDS']
+    @FEED_INCLUDE_INCIDENT_CARDS = ENV['FEED_INCLUDE_INCIDENT_CARDS']
+    ENV['FEED_INCLUDE_INCIDENT_CARDS'] = 'true'
+    ENV['FEED_INCLUDE_STUDENT_VOICE_CARDS'] = 'true'
+  end
+  after do
+    ENV['FEED_INCLUDE_INCIDENT_CARDS'] = @FEED_INCLUDE_INCIDENT_CARDS
+    ENV['FEED_INCLUDE_STUDENT_VOICE_CARDS'] = @FEED_INCLUDE_STUDENT_VOICE_CARDS
+  end
 
   describe '.students_for_feed' do
     it 'can apply counselor-based filter' do
@@ -63,7 +70,7 @@ RSpec.describe Feed do
       }))
     end
 
-    it 'works end-to-end for event_note, incident and birthday' do
+    it 'works end-to-end for event_note, incident, birthday, student voice' do
       limit = 4
       event_note = create_event_note(time_now, {
         student: pals.shs_freshman_mari,
@@ -76,7 +83,7 @@ RSpec.describe Feed do
       })
 
       feed_cards = feed_for(pals.shs_jodi).all_cards(time_now, limit)
-      expect(feed_cards.size).to eq 3
+      expect(feed_cards.size).to eq 4
       expect(feed_cards.as_json).to eq([{
         "type"=>"birthday_card",
         "timestamp"=>"2018-03-12T00:00:00.000Z",
@@ -85,6 +92,16 @@ RSpec.describe Feed do
           "first_name"=>"Mari",
           "last_name"=>"Kenobi",
           "date_of_birth"=>"2004-03-12T00:00:00.000Z"
+        }
+      }, {
+        "type"=>"student_voice",
+        "timestamp"=>"2018-03-11T11:03:00.000Z",
+        "json"=>{
+          "students"=>[{
+            "id"=>pals.shs_freshman_mari.id,
+            "first_name"=>"Mari",
+            "last_name"=>"Kenobi"
+          }]
         }
       }, {
         "type"=>"incident_card",
@@ -238,6 +255,27 @@ RSpec.describe Feed do
           }
         }
       })
+    end
+  end
+
+  describe '#student_voice_cards' do
+    it 'works correctly, with one per day' do
+      feed = feed_for(pals.shs_jodi)
+      cards = feed.student_voice_cards(time_now)
+      expect(cards.size).to eq 1
+      expect(cards.first.type).to eq(:student_voice)
+      expect(cards.first.timestamp.to_date).to eq(Date.parse('2018-03-11'))
+      expect(cards.as_json).to eq([{
+        'type' => "student_voice",
+        'timestamp' => "2018-03-11T11:03:00.000Z",
+        'json' => {
+          'students' => [{
+            'id' => pals.shs_freshman_mari.id,
+            'first_name' => "Mari",
+            'last_name' => "Kenobi"
+          }]
+        }
+      }])
     end
   end
 end

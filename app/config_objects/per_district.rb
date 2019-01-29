@@ -114,6 +114,10 @@ class PerDistrict
     EnvironmentVariable.is_true('FEED_INCLUDE_INCIDENT_CARDS') || false
   end
 
+  def include_student_voice_cards?
+    EnvironmentVariable.is_true('FEED_INCLUDE_STUDENT_VOICE_CARDS') || false
+  end
+
   def high_school_enabled?
     @district_key == SOMERVILLE
   end

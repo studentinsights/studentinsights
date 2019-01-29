@@ -37,10 +37,16 @@ class Feed
     else
       []
     end
+    student_voice_cards = if PerDistrict.new.include_student_voice_cards?
+      self.student_voice_cards(time_now)
+    else
+      []
+    end
     self.merge_sort_and_limit_cards([
       event_note_cards,
       birthday_cards,
-      incident_cards
+      incident_cards,
+      student_voice_cards
     ], limit)
   end
 
@@ -84,26 +90,19 @@ class Feed
   end
 
   # Find all students with cards, so they can link
-  # into profile
-  def student_voice_cards(time_now, limit)
-    # TODO(kr) need only latest by form_key
-    imported_forms = ImportedForm
-      .select('DISTINCT ON ("form_key") *')
-      .order(:form_key, form_timestamp: :desc, updated_at: :desc, id: :desc)
-    # t = ImportedForm.arel_table
-    # tuples = ImportedForm.find_by_sql(
-    #   ImportedForm.project(t[Arel.star])
-    #     .distinct_on(t[:form_key])
-    #     .order(t[:form_key], t[:form_timestamp].desc, t[:updated_at].desc)
-    # )
-
-    imported_forms = ImportedForm
-      .where(student_id: @authorized_students.map(&:id))
-      .where('form_timestamp < ?', time_now)
-      .order(form_timestamp: :desc)
-      .limit(limit)
-      .includes(student: [:homeroom, :school])
-    imported_forms.map {|imported_form| student_voice_card(imported_form)}
+  # into profile.  Always one one card per day, aligned to end of day
+  # so that as more come in during the day it stays pegged as fresh.
+  def student_voice_cards(time_now)
+    imported_forms = imported_forms_for_card(time_now)
+    grouped_by_date = imported_forms.group_by {|form| form.form_timestamp.to_date }
+    grouped_by_date.map do |date, imported_forms_for_date|
+      students = imported_forms_for_date.map(&:student).uniq
+      latest_form_timestamp = imported_forms_for_date.map(&:form_timestamp).max
+      json = {
+        students: students.as_json(only: [:id, :first_name, :last_name])
+      }
+      FeedCard.new(:student_voice, latest_form_timestamp, json)
+    end
   end
 
   # Merge cards of different types together, sorted by most recent timestamp
@@ -144,26 +143,18 @@ class Feed
     FeedCard.new(:incident_card, incident.occurred_at, json)
   end
 
-  # Merge so it's flattened form
-  def student_voice_card(imported_form)
-    imported_form.as_flattened_form.merge(imported_form.as_json({
-      only: [:id],
-      include: {
-        student: {
-          only: [:id, :email, :first_name, :last_name, :grade, :house],
-          include: {
-            school: {
-              only: [:local_id, :school_type]
-            },
-            homeroom: {
-              only: [:id, :name],
-              include: {
-                educator: {:only => [:id, :full_name, :email]}
-              }
-            }
-          }
-        }
-      }
-    })
+  # This uniques by (student_id, form_key), taking the most recent
+  # by (form_timestamp, updated_at, id).
+  # 
+  # Using Arel.sql is safe for strings without user input, see https://github.com/rails/rails/issues/32995
+  # for more background.
+  def imported_forms_for_card(time_now)
+    ImportedForm
+      .where(student_id: @authorized_students.map(&:id))
+      .where('form_timestamp < ?', time_now)
+      .includes(student: [:homeroom, :school])
+      .select(Arel.sql 'DISTINCT ON(CONCAT(form_key, student_id)) form_key, student_id, form_timestamp, updated_at, id')
+      .order(Arel.sql 'CONCAT(form_key, student_id), form_key ASC, student_id ASC, form_timestamp DESC, updated_at DESC, id DESC')
+      .compact
   end
 end
