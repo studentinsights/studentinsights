@@ -72,8 +72,6 @@ LightInsightsImportedForm.propTypes = {
     prompt_text: PropTypes.string.isRequired,
     response_text: PropTypes.string.isRequired,
     flattened_form_json: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      form_key: PropTypes.string.isRequired,
       form_title: PropTypes.string.isRequired,
       form_timestamp: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired
