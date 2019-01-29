@@ -41,12 +41,12 @@ export function mergedNotes(feed) {
     };
   });
 
-  // ImportedForm
-  const importedForms = (feed.imported_forms || []).map(importedForm => {
+  // flattened form (from ImportedForm)
+  const flattenedForms = (feed.flattened_forms || []).map(flattenedForm => {
     return {
-      ...importedForm,
-      type: 'imported_forms',
-      sort_timestamp: importedForm.form_timestamp
+      ...flattenedForm,
+      type: 'flattened_forms',
+      sort_timestamp: flattenedForm.form_timestamp
     };
   });
 
@@ -57,7 +57,7 @@ export function mergedNotes(feed) {
     ...deprecatedInterventions,
     ...transitionNotes,
     ...homeworkHelpSessions,
-    ...importedForms
+    ...flattenedForms
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }

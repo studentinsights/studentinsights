@@ -16,10 +16,10 @@ RSpec.describe StudentVoiceMidYearImporter do
       expect(ImportedForm.all.size).to eq 1
       expect(imported_forms.as_json(except: [:id, :created_at, :updated_at])).to contain_exactly(*[{
         'student_id' => pals.shs_freshman_mari.id,
-        'form_timestamp' => Time.parse('2019-01-28 09:23:43.000000000 +0000'),
         'educator_id' => pals.shs_jodi.id,
         'form_key' => 'shs_what_i_want_my_teacher_to_know_mid_year',
-        'responses_json' => {
+        'form_timestamp' => Time.parse('2019-01-28 09:23:43.000000000 +0000'),
+        'form_json' => {
           "What was the high point for you in school this year so far?"=>"A high point has been my grade in Biology since I had to work a lot for it",
           "I am proud that I..."=>"Have good grades in my classes",
           "My best qualities are..."=>"helping others when they don't know how to do homework assignments",

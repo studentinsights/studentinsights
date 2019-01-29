@@ -535,7 +535,7 @@ describe ProfileController, :type => :controller do
       expect(feed.keys).to contain_exactly(*[
         :event_notes,
         :services,
-        :deprecated, 
+        :deprecated,
         :transition_notes,
         :homework_help_sessions,
         :imported_forms
@@ -567,12 +567,12 @@ describe ProfileController, :type => :controller do
 
     it 'imported forms' do
       imported_form = ImportedForm.create!({
+        student_id: student.id,
+        educator_id: educator.id,
         form_key: 'shs_what_i_want_my_teacher_to_know_mid_year',
         form_url: 'https://example.com/foo_form_url',
-        student_id: student.id,
         form_timestamp: Time.parse('2019-01-28 09:23:43.000000000 +0000'),
-        educator_id: educator.id,
-        responses_json: {
+        form_json: {
           "What was the high point for you in school this year so far?"=>"A high point has been my grade in Biology since I had to work a lot for it",
           "I am proud that I..."=>"Have good grades in my classes",
           "My best qualities are..."=>"helping others when they don't know how to do homework assignments",

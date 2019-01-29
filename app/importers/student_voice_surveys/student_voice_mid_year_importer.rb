@@ -3,9 +3,9 @@
 # ...
 # EOD
 # form_url = '...'
-# educator_id = Educator.find_by_login_name('..').id
+# educator_id = Educator.find_by_login_name('...').id
 # importer = StudentVoiceMidYearImporter.new(educator_id, form_url)
-# rows = importer.process(file_text);nil
+# records = importer.create!(file_text);nil
 class StudentVoiceMidYearImporter
   def initialize(educator_id, form_url, options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
@@ -21,7 +21,7 @@ class StudentVoiceMidYearImporter
 
   def create!(file_text)
     rows = dry_run(file_text)
-    ImportedForm.create!(rows)
+    rows.map {|row| ImportedForm.create!(row) }
   end
 
   def dry_run(file_text)
@@ -61,7 +61,7 @@ class StudentVoiceMidYearImporter
 
     # whitelist prompts and responses
     prompt_keys = ImportedForm.prompts(ImportedForm::SHS_Q2_SELF_REFLECTION)
-    responses_json = row.to_h.slice(*prompt_keys)
+    form_json = row.to_h.slice(*prompt_keys)
 
     {
       student_id: student_id,
@@ -69,7 +69,7 @@ class StudentVoiceMidYearImporter
       form_timestamp: form_timestamp,
       form_key: @form_key,
       form_url: @form_url,
-      responses_json: responses_json
+      form_json: form_json
     }
   end
 
@@ -77,11 +77,11 @@ class StudentVoiceMidYearImporter
     local_id_text = row['Student ID Number']
     student_id = @matcher.find_student_id(local_id_text)
     return student_id if student_id.present?
-      
+
     fuzzy_match = @fuzzy_student_matcher.match_from_full_name(row['First and Last Name'])
     return fuzzy_match[:student_id] if fuzzy_match.present?
 
-    nil    
+    nil
   end
 
   def stats

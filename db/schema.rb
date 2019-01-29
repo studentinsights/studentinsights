@@ -345,7 +345,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_131614) do
     t.datetime "form_timestamp", null: false
     t.text "form_key", null: false
     t.text "form_url", null: false
-    t.json "responses_json", null: false
+    t.json "form_json", null: false
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
