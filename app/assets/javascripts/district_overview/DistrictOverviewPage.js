@@ -76,6 +76,7 @@ export class DistrictOverviewPageView extends React.Component {
                 <a style={{...styles.link, paddingRight: 10}} href={`/schools/${school.id}`}>Roster</a>
                 <a style={{...styles.link, paddingRight: 10}} href={`/schools/${school.id}/absences`}>Absences</a>
                 <a style={{...styles.link, paddingRight: 10}} href={`/schools/${school.id}/tardies`}>Tardies</a>
+                <a style={{...styles.link, paddingRight: 10}} href={`/schools/${school.id}/discipline`}>Discipline</a>
               </div>
             </li>
           );
