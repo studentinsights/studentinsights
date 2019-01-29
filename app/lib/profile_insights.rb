@@ -61,6 +61,7 @@ class ProfileInsights
         nil
       else
         ProfileInsight.new('imported_form_insight', {
+          form_key: imported_form.form_key,
           prompt_text: prompt_key,
           response_text: imported_form.form_json[prompt_key],
           flattened_form_json: imported_form.as_flattened_form
