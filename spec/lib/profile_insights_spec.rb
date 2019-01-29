@@ -36,7 +36,7 @@ RSpec.describe ProfileInsights do
     end
 
     describe 'with teams' do
-      let!(:pals) { TestPals.create! }
+      let!(:pals) { TestPals.create!(skip_imported_forms: true) }
 
       it 'includes teams for test time' do
         expect(ProfileInsights.new(pals.shs_freshman_mari).as_json.size).to eq 1
@@ -50,6 +50,24 @@ RSpec.describe ProfileInsights do
             "active"=>false
           }
         }]
+      end
+    end
+
+    describe 'with winter student voice survey insights' do
+      let!(:pals) { TestPals.create!(skip_team_memberships: true) }
+
+      it 'includes winter profile insights' do
+        insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
+        expect(insights_json.size).to eq 14
+        expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
+        expect(insights_json).to include({
+          "type"=>"imported_form_insight",
+          "json"=> {
+            "prompt_text"=> "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?",
+            "response_text"=> "Keeping grades high in all classes since I'm worried about college",
+            "flattened_form_json" => anything()
+          }
+        }) # one example
       end
     end
   end
