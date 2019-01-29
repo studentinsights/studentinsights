@@ -1,45 +1,39 @@
-# Usage:
-# file_text = <<EOD
-# ...
-# EOD
-# form_url = '...'
-# educator_id = Educator.find_by_login_name('...').id
-# importer = StudentVoiceMidYearImporter.new(educator_id, form_url)
-# records = importer.create!(file_text);nil
-class StudentVoiceMidYearImporter
-  def initialize(educator_id, form_url, options = {})
+# Used by importers
+# See also older survey_reader.rb, this is preferred for new code
+class GenericSurveyProcessor
+  def initialize(options, &block)
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @strptime_format = options.fetch(:strptime_format, ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT)
+    @process_row_or_nil_block = block
 
-    @educator_id = educator_id
-    @form_url = form_url
-    @form_key = ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR
     @matcher = ImportMatcher.new
     @fuzzy_student_matcher = FuzzyStudentMatcher.new
     reset_counters!
   end
 
-  def create!(file_text)
+  # create ActiveRecord models
+  def create!(file_text, record_class)
     rows = dry_run(file_text)
     rows.map do |row|
-      imported_form = ImportedForm.new(row)
-      if !imported_form.valid?
+      record = record_class.new(row)
+      if !record.valid?
         @invalid_rows_count += 1
         nil
       else
-        imported_form.save!
+        record.save!
         @created_rows_count += 1
-        imported_form
+        record
       end
     end
   end
 
+  # hashes only
   def dry_run(file_text)
     reset_counters!
 
     row_attrs = []
     create_streaming_csv(file_text).each_with_index do |row, index|
-      maybe_row_attrs = process_row_or_nil(row)
+      maybe_row_attrs = @process_row_or_nil_block.call(row) # Map `row` into `attrs`
       next if maybe_row_attrs.nil?
       row_attrs << maybe_row_attrs
       @valid_hashes_count += 1
@@ -48,34 +42,7 @@ class StudentVoiceMidYearImporter
     row_attrs
   end
 
-  private
-  # Map `row` into `ImportedForm` attributes
-  def process_row_or_nil(row)
-    # match student by id first, fall back to name
-    local_id_text = row['Student ID Number']
-    student_id = exact_or_fuzzy_match_for_student(local_id_text, row['First and Last Name'])
-    if student_id.nil?
-      @invalid_student_ids_count += 1
-      @invalid_student_ids_list << local_id_text
-      nil
-    end
-
-    # timestamp
-    form_timestamp = DateTime.strptime(row['Timestamp'], @strptime_format)
-
-    # whitelist prompts and responses
-    form_json = row.to_h.slice(*ImportedForm.prompts(@form_key))
-
-    {
-      student_id: student_id,
-      educator_id: @educator_id,
-      form_timestamp: form_timestamp,
-      form_key: @form_key,
-      form_url: @form_url,
-      form_json: form_json
-    }
-  end
-
+  # for use by block
   def exact_or_fuzzy_match_for_student(local_id_text, full_name_text)
     student_id = @matcher.find_student_id(local_id_text)
     return student_id if student_id.present?
@@ -91,7 +58,6 @@ class StudentVoiceMidYearImporter
       valid_hashes_count: @valid_hashes_count,
       invalid_rows_count: @invalid_rows_count,
       invalid_student_ids_count: @invalid_student_ids_count,
-      invalid_student_ids_list: @invalid_student_ids_list,
       created_rows_count: @created_rows_count
     }
   end
@@ -101,9 +67,9 @@ class StudentVoiceMidYearImporter
     @invalid_rows_count = 0
     @created_rows_count = 0
     @invalid_student_ids_count = 0
-    @invalid_student_ids_list = []
   end
 
+  private
   def create_streaming_csv(file_text)
     csv_transformer = StreamingCsvTransformer.new(@log, {
       csv_options: { header_converters: nil }
@@ -113,6 +79,6 @@ class StudentVoiceMidYearImporter
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "StudentVoiceMidYearImporter: #{text}"
+    @log.puts "GenericSurveyProcessor: #{text}"
   end
 end

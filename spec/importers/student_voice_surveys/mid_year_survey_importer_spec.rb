@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe StudentVoiceMidYearImporter do
+RSpec.describe MidYearSurveyImporter do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/student_voice_surveys/student_voice_mid_year_survey_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/student_voice_surveys/mid_year_survey_fixture.csv")
   end
 
   describe 'integration test' do
@@ -11,7 +11,7 @@ RSpec.describe StudentVoiceMidYearImporter do
     it 'works for importing notes' do
       log = LogHelper::FakeLog.new
       form_url = 'https://example.com/form_url'
-      importer = StudentVoiceMidYearImporter.new(pals.shs_jodi.id, form_url, log: log)
+      importer = MidYearSurveyImporter.new(pals.shs_jodi.id, form_url, log: log)
       imported_forms = importer.create!(fixture_file_text)
       expect(ImportedForm.all.size).to eq 1
       expect(imported_forms.as_json(except: [:id, :created_at, :updated_at])).to contain_exactly(*[{
