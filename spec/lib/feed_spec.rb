@@ -82,7 +82,8 @@ RSpec.describe Feed do
         student: pals.shs_freshman_mari
       })
 
-      feed_cards = feed_for(pals.shs_jodi).all_cards(time_now, limit)
+      feed = feed_for(pals.shs_jodi)
+      feed_cards = feed.all_cards(time_now, limit, include_student_voice_cards: true)
       expect(feed_cards.size).to eq 4
       expect(feed_cards.as_json).to eq([{
         "type"=>"birthday_card",
