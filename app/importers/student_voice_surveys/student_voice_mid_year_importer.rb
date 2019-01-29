@@ -32,8 +32,6 @@ class StudentVoiceMidYearImporter
       maybe_row_attrs = process_row_or_nil(row)
       next if maybe_row_attrs.nil?
       row_attrs << maybe_row_attrs
-      puts "maybe_row_attrs"
-      puts maybe_row_attrs
       @valid_hashes_count += 1
     end
 
