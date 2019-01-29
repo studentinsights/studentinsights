@@ -83,6 +83,29 @@ class Feed
     incidents.map {|incident| incident_card(incident) }
   end
 
+  # Find all students with cards, so they can link
+  # into profile
+  def student_voice_cards(time_now, limit)
+    # TODO(kr) need only latest by form_key
+    imported_forms = ImportedForm
+      .select('DISTINCT ON ("form_key") *')
+      .order(:form_key, form_timestamp: :desc, updated_at: :desc, id: :desc)
+    # t = ImportedForm.arel_table
+    # tuples = ImportedForm.find_by_sql(
+    #   ImportedForm.project(t[Arel.star])
+    #     .distinct_on(t[:form_key])
+    #     .order(t[:form_key], t[:form_timestamp].desc, t[:updated_at].desc)
+    # )
+
+    imported_forms = ImportedForm
+      .where(student_id: @authorized_students.map(&:id))
+      .where('form_timestamp < ?', time_now)
+      .order(form_timestamp: :desc)
+      .limit(limit)
+      .includes(student: [:homeroom, :school])
+    imported_forms.map {|imported_form| student_voice_card(imported_form)}
+  end
+
   # Merge cards of different types together, sorted by most recent timestamp
   # first, and then truncate them to `limit`.
   def merge_sort_and_limit_cards(card_sets, limit)
@@ -100,18 +123,18 @@ class Feed
 
   def incident_card(incident)
     json = incident.as_json({
-      :only => [:id, :incident_code, :incident_location, :incident_description, :occurred_at, :has_exact_time],
-      :include => {
-        :student => {
-          :only => [:id, :email, :first_name, :last_name, :grade, :house],
-          :include => {
-            :school => {
-              :only => [:local_id, :school_type]
+      only: [:id, :incident_code, :incident_location, :incident_description, :occurred_at, :has_exact_time],
+      include: {
+        student: {
+          only: [:id, :email, :first_name, :last_name, :grade, :house],
+          include: {
+            school: {
+              only: [:local_id, :school_type]
             },
-            :homeroom => {
-              :only => [:id, :name],
-              :include => {
-                :educator => {:only => [:id, :full_name, :email]}
+            homeroom: {
+              only: [:id, :name],
+              include: {
+                educator: {:only => [:id, :full_name, :email]}
               }
             }
           }
@@ -119,5 +142,28 @@ class Feed
       }
     })
     FeedCard.new(:incident_card, incident.occurred_at, json)
+  end
+
+  # Merge so it's flattened form
+  def student_voice_card(imported_form)
+    imported_form.as_flattened_form.merge(imported_form.as_json({
+      only: [:id],
+      include: {
+        student: {
+          only: [:id, :email, :first_name, :last_name, :grade, :house],
+          include: {
+            school: {
+              only: [:local_id, :school_type]
+            },
+            homeroom: {
+              only: [:id, :name],
+              include: {
+                educator: {:only => [:id, :full_name, :email]}
+              }
+            }
+          }
+        }
+      }
+    })
   end
 end
