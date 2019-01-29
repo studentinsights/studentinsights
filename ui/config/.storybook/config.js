@@ -31,6 +31,7 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
   require('../../../app/assets/javascripts/student_profile/LanguageStatusLink.story');
   require('../../../app/assets/javascripts/student_profile/IepDialogLink.story');
+  require('../../../app/assets/javascripts/student_profile/LightInsightImportedForm.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');
