@@ -189,7 +189,7 @@ describe EducatorsController, :type => :controller do
     context 'unauthorized' do
       it 'returns unauthorized' do
         make_request(FactoryBot.create(:student))
-        expect(response).to have_http_status(:unauthorized)
+        expect(response.status).to eq(401)
       end
     end
 
@@ -204,25 +204,52 @@ describe EducatorsController, :type => :controller do
     context 'educator is not logged in' do
       it 'returns 401 Unauthorized' do
         make_request
-        expect(response).to have_http_status(:unauthorized)
+        expect(response.status).to eq(401)
       end
     end
 
     context 'educator is logged in' do
-      before(:each) do
+      it 'succeeds' do
         sign_in FactoryBot.create(:educator)
         make_request
-      end
-      it 'succeeds' do
         expect(response).to be_successful
       end
-      it 'resets the session clock' do
-        # TODO: Get Devise test helpers like `educator_session`
-        # working within the Rspec controller context:
-        # expect(educator_session["last_request_at"]).eq Time.now
+    end
+  end
+
+  describe '#probe' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request
+      request.env['HTTPS'] = 'on'
+      get :probe, params: { format: :json }
+    end
+
+    context 'educator is not logged in' do
+      it 'returns 401 Unauthorized' do
+        make_request
+        expect(response.status).to eq(401)
       end
     end
 
+    context 'educator is logged in' do
+      it 'returns time left in session' do
+        Timecop.freeze(pals.time_now) do
+          sign_in FactoryBot.create(:educator)
+          make_request
+        end
+        expect(response).to be_successful
+
+        # The Devise Session doesn't get mocked properly in test,
+        # and this seems complex and brittle, so this just verifies
+        # the shape.  Changes here require manual testing (esp. for
+        # interactions between concurrent tabs).
+        expect(JSON.parse(response.body)).to eq({
+          'status' => 'ok',
+          'remaining_seconds' => 0 # just verifying the shape
+        })
+      end
+    end
   end
 
   describe '#my_notes_json' do

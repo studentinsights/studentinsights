@@ -36,40 +36,6 @@ exports[`snapshots works for bedford 1`] = `
       <div
         style={
           Object {
-            "background": "red",
-            "color": "white",
-            "fontWeight": "bold",
-            "padding": 20,
-          }
-        }
-      >
-        <span>
-          This is an experimental prototype!
-        </span>
-        <span
-          style={
-            Object {
-              "marginLeft": 10,
-            }
-          }
-        >
-          Please share your feedback with 
-          <a
-            href="mailto://ideas@studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            ideas@studentinsights.org
-          </a>
-          .
-        </span>
-      </div>
-      <div
-        style={
-          Object {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -621,40 +587,6 @@ exports[`snapshots works for demo 1`] = `
         }
       }
     >
-      <div
-        style={
-          Object {
-            "background": "red",
-            "color": "white",
-            "fontWeight": "bold",
-            "padding": 20,
-          }
-        }
-      >
-        <span>
-          This is an experimental prototype!
-        </span>
-        <span
-          style={
-            Object {
-              "marginLeft": 10,
-            }
-          }
-        >
-          Please share your feedback with 
-          <a
-            href="mailto://ideas@studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            ideas@studentinsights.org
-          </a>
-          .
-        </span>
-      </div>
       <div
         style={
           Object {
@@ -1212,40 +1144,6 @@ exports[`snapshots works for new_bedford 1`] = `
       <div
         style={
           Object {
-            "background": "red",
-            "color": "white",
-            "fontWeight": "bold",
-            "padding": 20,
-          }
-        }
-      >
-        <span>
-          This is an experimental prototype!
-        </span>
-        <span
-          style={
-            Object {
-              "marginLeft": 10,
-            }
-          }
-        >
-          Please share your feedback with 
-          <a
-            href="mailto://ideas@studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            ideas@studentinsights.org
-          </a>
-          .
-        </span>
-      </div>
-      <div
-        style={
-          Object {
             "display": "flex",
             "flex": 1,
             "flexDirection": "column",
@@ -1797,40 +1695,6 @@ exports[`snapshots works for somerville 1`] = `
         }
       }
     >
-      <div
-        style={
-          Object {
-            "background": "red",
-            "color": "white",
-            "fontWeight": "bold",
-            "padding": 20,
-          }
-        }
-      >
-        <span>
-          This is an experimental prototype!
-        </span>
-        <span
-          style={
-            Object {
-              "marginLeft": 10,
-            }
-          }
-        >
-          Please share your feedback with 
-          <a
-            href="mailto://ideas@studentinsights.org"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
-            }
-          >
-            ideas@studentinsights.org
-          </a>
-          .
-        </span>
-      </div>
       <div
         style={
           Object {

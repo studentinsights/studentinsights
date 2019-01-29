@@ -278,6 +278,17 @@ exports[`DistrictOverviewPageView pure component matches snapshot, without work 
               >
                 Tardies
               </a>
+              <a
+                href="/schools/2/discipline"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Discipline
+              </a>
             </div>
           </li>
           <li>
@@ -325,6 +336,17 @@ exports[`DistrictOverviewPageView pure component matches snapshot, without work 
               >
                 Tardies
               </a>
+              <a
+                href="/schools/6/discipline"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Discipline
+              </a>
             </div>
           </li>
           <li>
@@ -371,6 +393,17 @@ exports[`DistrictOverviewPageView pure component matches snapshot, without work 
                 }
               >
                 Tardies
+              </a>
+              <a
+                href="/schools/9/discipline"
+                style={
+                  Object {
+                    "fontSize": 14,
+                    "paddingRight": 10,
+                  }
+                }
+              >
+                Discipline
               </a>
             </div>
           </li>

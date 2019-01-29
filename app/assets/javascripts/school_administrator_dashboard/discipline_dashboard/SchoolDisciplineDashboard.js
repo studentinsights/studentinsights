@@ -22,7 +22,6 @@ import SelectCounselor from '../../components/SelectCounselor';
 import memoizer from '../../helpers/memoizer';
 import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
-import ExperimentalBanner from '../../components/ExperimentalBanner';
 import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
@@ -337,7 +336,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
     return(
       <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
-        <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Recent Discipline incidents at {school.name}</SectionHeading>
           <div style={styles.filterBarContainer}>
