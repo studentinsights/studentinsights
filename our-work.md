@@ -196,7 +196,7 @@ We look forward to partnering with others working on these problems, and hope to
 
 Like most organizations, we do rely on third-party services to operate Student Insights.  These dependencies are reviewed as part of our quarterly internal security audit, and there are more technical details on GitHub.  If you know of ways we can reduce these dependencies, or want to help build open-source alternatives, we'd love to talk!
 
-For more, read out [Privacy Policy](/privacy.html).
+For more, see our [privacy policy](/privacy.html) or email <a href="mailto:{{site.links.email}}">{{site.links.email}}</a>.
 
 <h2 class="OurWork-SectionTitle">Additional projects</h2>
 

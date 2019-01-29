@@ -7,7 +7,7 @@ Student Insights is [open source](https://github.com/studentinsights/studentinsi
 
 We also release a short summary of changes each week as a [changelog](#changelog), aimed at the educators we collaborate with.  For longer term planning, we use a [work board](#work-board) to communicate about what we're working on right now, what's coming up soon, and potential projects a few months out.
 
-If you'd like to collaborate with us, the best way to do this is to <a href="{{site.links.email}}">reach out over email</a> and we can help you get started.  Designers and developers can also join the local Code for Boston brigade on Tuesday nights, either in person or remotely.
+If you'd like to collaborate with us, the best way to do this is to <a href="mailto:{{site.links.email}}">reach out over email</a> and we can help you get started.  Designers and developers can also join the local Code for Boston brigade on Tuesday nights, either in person or remotely.
 
 ------------------------
 ### Work board

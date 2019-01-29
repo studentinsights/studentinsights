@@ -18,8 +18,11 @@
       {{ content }}
 
       {% if page.disable_template != true %}
-      <div class="footer border-top border-gray-light mt-5 pt-3 text-gray">
-        <span class="text-left"><a href="/privacy.html">Privacy Policy</a></span>
+      <div class="footer border-top border-gray-light d-flex flex-justify-between mt-5 pt-3 text-gray">
+        <span>
+          <a href="/privacy.html">Privacy policy</a>
+          <a href="mailto:{{site.links.email}}">Email us</a>
+        </span>
         <span class="text-right">This site is open source. {% github_edit_link "Improve this page" %}.</span>
       </div>
       {% endif %}
