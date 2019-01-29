@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots works with four students 1`] = `
+<div
+  className="Card StudentVoiceCard"
+  style={
+    Object {
+      "border": "1px solid #ccc",
+      "borderRadius": 3,
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <a
+      href="/students/7"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Darth
+       
+      Tater
+    </a>
+    , 
+    <a
+      href="/students/6"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Kylo
+       
+      Ren
+    </a>
+     and 
+    <a
+      href="#"
+      onClick={[Function]}
+    >
+      2 more students
+    </a>
+     shared their perspective in student voice surveys. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
+  </div>
+</div>
+`;
+
+exports[`snapshots works with one student 1`] = `
+<div
+  className="Card StudentVoiceCard"
+  style={
+    Object {
+      "border": "1px solid #ccc",
+      "borderRadius": 3,
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <a
+      href="/students/4"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Luke
+       
+      Skywalker
+    </a>
+     shared their perspective in a student voice survey. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
+  </div>
+</div>
+`;
+
+exports[`snapshots works with three students 1`] = `
+<div
+  className="Card StudentVoiceCard"
+  style={
+    Object {
+      "border": "1px solid #ccc",
+      "borderRadius": 3,
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <a
+      href="/students/4"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Luke
+       
+      Skywalker
+    </a>
+    , 
+    <a
+      href="/students/5"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Mari
+       
+      Kenobi
+    </a>
+     and 
+    <a
+      href="/students/6"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Kylo
+       
+      Ren
+    </a>
+     shared their perspective in student voice surveys. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
+  </div>
+</div>
+`;
+
+exports[`snapshots works with two students 1`] = `
+<div
+  className="Card StudentVoiceCard"
+  style={
+    Object {
+      "border": "1px solid #ccc",
+      "borderRadius": 3,
+      "padding": 10,
+    }
+  }
+>
+  <div>
+    <a
+      href="/students/4"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Luke
+       
+      Skywalker
+    </a>
+     and 
+    <a
+      href="/students/5"
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Mari
+       
+      Kenobi
+    </a>
+     shared their perspective in student voice surveys. 
+    <span
+      style={
+        Object {
+          "position": "relative",
+          "top": 1,
+        }
+      }
+    >
+      💬
+    </span>
+  </div>
+</div>
+`;

@@ -76,6 +76,7 @@ class TestPals
 
     email_domain = options.fetch(:email_domain, 'demo.studentinsights.org')
     skip_team_memberships = options.fetch(:skip_team_memberships, false)
+    skip_imported_forms = options.fetch(:skip_imported_forms, false)
 
     # Uri works in the central office, and is the admin for the
     # project at the district.
@@ -470,6 +471,7 @@ class TestPals
     )
 
     add_team_memberships unless skip_team_memberships
+    add_student_voice_surveys unless skip_imported_forms
 
     reindex!
     self
@@ -492,6 +494,42 @@ class TestPals
       coach_text: 'Jonathan Fishman',
       season_key: this_season_key,
       school_year_text: school_year_text
+    })
+  end
+
+  # time_now, not wall clock
+  def add_student_voice_surveys
+    ImportedForm.create!({
+      "educator_id"=>shs_jodi.id,
+      "student_id"=>shs_freshman_mari.id,
+      'form_timestamp' => time_now - 2.days,
+      "form_key"=>"shs_what_i_want_my_teacher_to_know_mid_year",
+      'form_url' => 'https://example.com/mid_year_survey_form_url',
+      'form_json' => {
+        "What was the high point for you in school this year so far?"=>"A high point has been my grade in Biology since I had to work a lot for it",
+        "I am proud that I..."=>"Have good grades in my classes",
+        "My best qualities are..."=>"helping others when they don't know how to do homework assignments",
+        "My activities and interests outside of school are..."=>"cheering",
+        "I get nervous or stressed in school when..."=>"I get a low grade on an assignment that I thought I would do well on",
+        "I learn best when my teachers..."=>"show me each step of what I have to do"
+      }
+    })
+    ImportedForm.create!({
+      "educator_id"=>shs_jodi.id,
+      "student_id"=>shs_freshman_mari.id,
+      'form_timestamp' => time_now - 2.days,
+      "form_key"=>"shs_q2_self_reflection",
+      'form_url' => 'https://example.com/q2_self_reflection_form_url',
+      'form_json' => {
+        "What classes are you doing well in?"=>"Computer Science, French",
+        "Why are you doing well in those classes?"=>"I make time in my afternoon each day for doing homework and stick to it",
+        "What courses are you struggling in?"=>"Nothing really",
+        "Why are you struggling in those courses?"=>"I have to work really hard ",
+        "In the classes that you are struggling in, how can your teachers support you so that your grades, experience, work load, etc, improve?"=>"Change the way homework works, it's too much",
+        "When you are struggling, who do you go to for support, encouragement, advice, etc?"=>"Being able to stay after school and work with teachers when I need help",
+        "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?"=>"Keeping grades high in all classes since I'm worried about college",
+        "What other information is important for your teachers to know so that we can support you and your learning? (For example, tutor, mentor, before school HW help, study group, etc)"=>"Help in the morning before school"
+      }
     })
   end
 

@@ -3,6 +3,7 @@ import React from 'react';
 import EventNoteCard from './EventNoteCard';
 import BirthdayCard from './BirthdayCard';
 import IncidentCard from './IncidentCard';
+import StudentVoiceCard from './StudentVoiceCard';
 
 
 // Pure UI component for rendering feed cards (eg, on the home page)
@@ -16,7 +17,8 @@ export default class FeedView extends React.Component {
           const cardProps = cardPropsFn ? cardPropsFn(type, json) : {};
           if (type === 'event_note_card') return this.renderEventNoteCard(json, cardProps);
           if (type === 'birthday_card') return this.renderBirthdayCard(json, cardProps);
-          if (type === 'incident_card') return this.renderIncidenCard(json, cardProps);
+          if (type === 'incident_card') return this.renderIncidentCard(json, cardProps);
+          if (type === 'student_voice') return this.renderStudentVoiceCard(json, cardProps);
           console.warn('Unexpected card type: ', type); // eslint-disable-line no-console
         })}
       </div>
@@ -41,14 +43,23 @@ export default class FeedView extends React.Component {
     />;
   }
 
-  renderIncidenCard(json, cardProps = {}) {
+  renderIncidentCard(json, cardProps = {}) {
     return <IncidentCard
       key={json.id}
       style={styles.card}
       incidentCard={json}
       {...cardProps}
     />;
-  }    
+  }
+
+  renderStudentVoiceCard(json, cardProps = {}) {
+    return <StudentVoiceCard
+      key={json.latest_form_timestamp}
+      style={styles.card}
+      studentVoiceCardJson={json}
+      {...cardProps}
+    />;
+  }
 }
 FeedView.propTypes = {
   feedCards: PropTypes.arrayOf(PropTypes.shape({

@@ -6,7 +6,7 @@ RSpec.describe MidYearSurveyImporter do
   end
 
   describe 'integration test' do
-    let!(:pals) { TestPals.create! }
+    let!(:pals) { TestPals.create!(skip_imported_forms: true) }
 
     it 'works for importing notes' do
       log = LogHelper::FakeLog.new
