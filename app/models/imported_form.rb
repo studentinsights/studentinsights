@@ -17,6 +17,17 @@ class ImportedForm < ApplicationRecord
     ]
   }
 
+  # This uniques by (student_id, form_key), taking the most recent
+  # by (form_timestamp, updated_at, id).
+  #
+  # Using Arel.sql is safe for strings without user input, see https://github.com/rails/rails/issues/32995
+  # for more background.
+  def self.latest_uncompacted
+    ImportedForm
+      .select(Arel.sql 'DISTINCT ON(CONCAT(form_key, student_id)) form_key, student_id, form_timestamp, updated_at, id')
+      .order(Arel.sql 'CONCAT(form_key, student_id), form_key ASC, student_id ASC, form_timestamp DESC, updated_at DESC, id DESC')
+  end
+
   # Most recent import of most recent form_key for student
   def self.latest_for_student_id(student_id, form_key)
     ImportedForm
@@ -68,14 +79,14 @@ class ImportedForm < ApplicationRecord
       form_timestamp: form_timestamp,
       student_id: student_id,
       educator_id: educator_id,
-      text: with_survey_text(form_key),
+      text: as_text,
       updated_at: updated_at
     }
   end
 
   private
   # flat text rendering all questions and responses in the survey
-  def with_survey_text(form_key)
+  def as_text
     prompts = ImportedForm.prompts(form_key)
     sections = prompts.flat_map do |prompt|
       response_text = form_json.fetch(prompt, nil)
