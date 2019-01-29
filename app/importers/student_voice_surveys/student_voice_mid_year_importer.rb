@@ -32,6 +32,8 @@ class StudentVoiceMidYearImporter
       maybe_row_attrs = process_row_or_nil(row)
       next if maybe_row_attrs.nil?
       row_attrs << maybe_row_attrs
+      puts "maybe_row_attrs"
+      puts maybe_row_attrs
       @valid_hashes_count += 1
     end
 
@@ -39,17 +41,10 @@ class StudentVoiceMidYearImporter
   end
 
   private
-  def create_streaming_csv(file_text)
-    csv_transformer = StreamingCsvTransformer.new(@log, {
-      csv_options: { header_converters: nil }
-    })
-    csv_transformer.transform(file_text)
-  end
-
   # Map `row` into `ImportedForm` attributes
   def process_row_or_nil(row)
     # match student by id first, fall back to name
-    student_id = exact_or_fuzzy_match_for_student(row)
+    student_id = exact_or_fuzzy_match_for_student(row['Student ID Number'], row['First and Last Name'])
     if student_id.nil?
       @invalid_student_ids_count += 1
       @invalid_student_ids_list << local_id_text
@@ -60,8 +55,7 @@ class StudentVoiceMidYearImporter
     form_timestamp = DateTime.strptime(row['Timestamp'], @strptime_format)
 
     # whitelist prompts and responses
-    prompt_keys = ImportedForm.prompts(ImportedForm::SHS_Q2_SELF_REFLECTION)
-    form_json = row.to_h.slice(*prompt_keys)
+    form_json = row.to_h.slice(*ImportedForm.prompts(@form_key))
 
     {
       student_id: student_id,
@@ -73,12 +67,11 @@ class StudentVoiceMidYearImporter
     }
   end
 
-  def exact_or_fuzzy_match_for_student(row)
-    local_id_text = row['Student ID Number']
+  def exact_or_fuzzy_match_for_student(local_id_text, full_name_text)
     student_id = @matcher.find_student_id(local_id_text)
     return student_id if student_id.present?
 
-    fuzzy_match = @fuzzy_student_matcher.match_from_full_name(row['First and Last Name'])
+    fuzzy_match = @fuzzy_student_matcher.match_from_full_name(full_name_text)
     return fuzzy_match[:student_id] if fuzzy_match.present?
 
     nil
@@ -96,6 +89,13 @@ class StudentVoiceMidYearImporter
     @valid_hashes_count = 0
     @invalid_student_name_count = 0
     @invalid_student_names_list = []
+  end
+
+  def create_streaming_csv(file_text)
+    csv_transformer = StreamingCsvTransformer.new(@log, {
+      csv_options: { header_converters: nil }
+    })
+    csv_transformer.transform(file_text)
   end
 
   def log(msg)

@@ -276,7 +276,7 @@ describe ProfileController, :type => :controller do
             'event_notes' => [],
             'transition_notes' => [],
             'homework_help_sessions' => [],
-            'imported_forms' => [],
+            'flattened_forms' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -538,7 +538,7 @@ describe ProfileController, :type => :controller do
         :deprecated,
         :transition_notes,
         :homework_help_sessions,
-        :imported_forms
+        :flattened_forms
       ])
     end
 
@@ -582,11 +582,18 @@ describe ProfileController, :type => :controller do
         }
       })
       feed = controller.send(:student_feed, student)
-      expect(feed[:imported_forms].size).to eq 1
-      expect(feed[:imported_forms].first[:id]).to imported_form.id
-      expect(feed[:imported_forms]).to contain_exactly(*[{
-        foo: 'bar',
-      }])
+      expect(feed[:flattened_forms].size).to eq 1
+      expect(feed[:flattened_forms].first[:id]).to eq imported_form.id
+      expect(feed[:flattened_forms].first.keys).to contain_exactly(*[
+        :id,
+        :student_id,
+        :educator_id,
+        :form_key,
+        :form_title,
+        :form_timestamp,
+        :text,
+        :updated_at
+      ])
     end
   end
 end
