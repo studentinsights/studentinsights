@@ -18,7 +18,10 @@ function loadStories() {
 
   // home
   require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story');
+
+  // feed
   require('../../../app/assets/javascripts/feed/IncidentCard.story');
+  require('../../../app/assets/javascripts/feed/StudentVoiceCard.story');
 
   // student profile
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');

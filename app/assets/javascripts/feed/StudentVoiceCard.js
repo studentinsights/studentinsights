@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
+import hash from 'object-hash';
 import Card from '../components/Card';
-import {toMomentFromTimestamp} from '../helpers/toMoment';
 
 
 // Render a card in the feed showing there are new student voice surveys in,
@@ -10,24 +11,23 @@ export default class StudentVoiceCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isExpanded: false
+      isExpanded: false,
+      shuffleSeed: props.shuffleSeed || _.random(0, 32)
     };
+
+    this.onExpandClicked = this.onExpandClicked.bind(this);
   }
 
-  onExpand(e) {
+  onExpandClicked(e) {
     e.preventDefault();
     this.setState({isExpanded: true});
   }
 
   render() {
     const {style = {}} = this.props;
-    // const {isExpanded} = this.state;
-    // const now = this.context.nowFn();
-    // const thisYearBirthdateMoment = toMomentFromTimestamp(studentBirthdayCard.date_of_birth).year(now.year());
-    // const isWas = (thisYearBirthdateMoment.isBefore(now.clone().startOf('day'))) ? 'was' : 'is';
     return (
       <Card className="StudentVoiceCard" style={style}>
-        
+        {this.renderStudentsAndCount()}        
       </Card>
     );
   }
@@ -35,33 +35,51 @@ export default class StudentVoiceCard extends React.Component {
   renderStudentsAndCount() {
     const {studentVoiceCardJson} = this.props;
     const {students} = studentVoiceCardJson;
+    const {isExpanded, shuffleSeed} = this.state;
+    const emoji = <span style={{position: 'relative', top: 1}}>💬</span>;
 
-    // if it's <=3 students, just show them each with links
-    // if it's more, list two with links and then +n more, which expands
+    // If the list is <=3 students, show them all inline with links.
+    // If it's more, pick two random to show and then +n more, which expands.
     if (students.length === 0) {
       return null; // shouldn't happen, but guard
     } else if (students.length === 1) {
-      return <div>New student voice surveys are in for {this.renderShortList(students)}.</div>;
+      return <div>{emoji} {this.renderStudentLink(students[0])} shared a new student voice survey.</div>;
     } else if (students.length === 2) {
-      return <div>New student voice surveys are in for {this.renderShortList(students)}.</div>;
+      return <div>{emoji} {this.renderStudentLink(students[0])} and {this.renderStudentLink(students[1])} shared new student voice surveys.</div>;
     } else if (students.length === 3) {
-      return <div>New student voice surveys are in for {this.renderShortList(students)}.</div>;
+      return <div>{emoji} {this.renderStudentLink(students[0])}, {this.renderStudentLink(students[1])} and {this.renderStudentLink(students[2])} shared new student voice surveys.</div>;
+    }
+
+    const shuffledStudents = _.sortBy(students, student => hash({...student, shuffleSeed}));
+    if (!isExpanded) {
+      return <div>{emoji} {this.renderStudentLink(shuffledStudents[0])}, {this.renderStudentLink(shuffledStudents[1])} and {this.renderExpandableListLink(shuffledStudents.slice(2))} shared new student voice surveys.</div>;
     } else {
-      return <div>New student voice surveys are in for {this.renderExpandableList(students)}.</div>;
+      return <div>{emoji} {this.renderStudentLink(shuffledStudents[0])}, {this.renderStudentLink(shuffledStudents[1])} and {this.renderMoreStudentsText(shuffledStudents.slice(2))} shared new student voice surveys.{this.renderExpandedList(shuffledStudents.slice(2))}</div>;
     }
   }
 
-  renderShortList(students) {
-    // const nStudentsText = (count === 1) ? 'one student' : `${count} students`;
+  renderMoreStudentsText(restOfStudents) {
+    return `${restOfStudents.length} more students`;
   }
 
-  renderExpandableList() {
-    // } href={`/students/${studentStudentVoiceCard.id}`}>{studentStudentVoiceCard.first_name} {studentStudentVoiceCard.last_name}
+  renderExpandableListLink(restOfStudents) {
+    return <a href="#" onClick={this.onExpandClicked}>{this.renderMoreStudentsText(restOfStudents)}</a>;
+  }
+
+  renderExpandedList(restOfStudents) {
+    return (
+      <div style={{paddingTop: 10, paddingLeft: 10}}>
+        {restOfStudents.map(student => (
+          <div key={student.id} style={{padding: 5}}>{this.renderStudentLink(student)}</div>
+        ))}
+      </div>
+    );
+  }
+
+  renderStudentLink(student) {
+    return <a style={{fontWeight: 'bold'}} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>;
   }
 }
-StudentVoiceCard.contextTypes = {
-  nowFn: PropTypes.func.isRequired
-};
 StudentVoiceCard.propTypes = {
   studentVoiceCardJson: PropTypes.shape({
     latest_form_timestamp: PropTypes.string.isRequired,
@@ -72,12 +90,6 @@ StudentVoiceCard.propTypes = {
       last_name: PropTypes.string.isRequired
     })).isRequired
   }).isRequired,
-  style: PropTypes.object
-};
-
-
-const styles = {
-  person: {
-    fontWeight: 'bold'
-  }
+  style: PropTypes.object,
+  shuffleSeed: PropTypes.number
 };
