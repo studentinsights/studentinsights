@@ -50,7 +50,7 @@ class ProfileInsights
     # check for mid-year and take if it it's there
     mid_year_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR)
     return insights + imported_form_insights(mid_year_form) if mid_year_form.present?
-  
+
     # if not, include fall survey insights if there are any
     insights + fall_student_voice_insights()
   end
