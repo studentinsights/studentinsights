@@ -99,6 +99,8 @@ class Feed
       students = imported_forms_for_date.map(&:student).uniq
       latest_form_timestamp = imported_forms_for_date.map(&:form_timestamp).max
       json = {
+        latest_form_timestamp: latest_form_timestamp,
+        imported_forms_for_date_count: imported_forms_for_date.size,
         students: students.as_json(only: [:id, :first_name, :last_name])
       }
       FeedCard.new(:student_voice, latest_form_timestamp, json)

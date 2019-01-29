@@ -97,6 +97,8 @@ RSpec.describe Feed do
         "type"=>"student_voice",
         "timestamp"=>"2018-03-11T11:03:00.000Z",
         "json"=>{
+          "latest_form_timestamp"=>"2018-03-11T11:03:00.000Z",
+          "imported_forms_for_date_count"=>2,
           "students"=>[{
             "id"=>pals.shs_freshman_mari.id,
             "first_name"=>"Mari",
@@ -269,6 +271,8 @@ RSpec.describe Feed do
         'type' => "student_voice",
         'timestamp' => "2018-03-11T11:03:00.000Z",
         'json' => {
+          "latest_form_timestamp"=>"2018-03-11T11:03:00.000Z",
+          "imported_forms_for_date_count"=>2,
           'students' => [{
             'id' => pals.shs_freshman_mari.id,
             'first_name' => "Mari",
