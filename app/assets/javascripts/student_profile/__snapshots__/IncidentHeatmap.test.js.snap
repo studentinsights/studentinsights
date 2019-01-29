@@ -46,12 +46,6 @@ exports[`snapshots 1`] = `
               "x": 4,
               "y": 502,
             },
-            Object {
-              "date": "02/24/2016",
-              "type": "XYZ",
-              "x": 2,
-              "y": 490,
-            },
           ],
           "showInLegend": false,
         },
@@ -64,7 +58,7 @@ exports[`snapshots 1`] = `
     }
     title={
       Object {
-        "text": "Incidents by Day and Time",
+        "text": "Incidents by Day and Time [School Year]",
       }
     }
     tooltip={

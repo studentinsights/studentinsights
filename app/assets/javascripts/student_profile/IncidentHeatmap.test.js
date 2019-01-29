@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import IncidentHeatmap from './IncidentHeatmap';
+
 
 function testProps() {
 
@@ -28,20 +30,19 @@ function testProps() {
   }]};
 }
 
+function testEl(props) {
+  return withDefaultNowContext(<IncidentHeatmap {...props} />);
+}
+
 jest.mock('../components/HighchartsWrapper', () => 'highcharts-wrapper');
 
 it('renders without crashing', () => {
   const el = document.createElement('div');
-  const props = testProps();
-  ReactDOM.render(<IncidentHeatmap {...props} />, el);
+  ReactDOM.render(testEl(testProps()), el);
 });
-
 
 it('snapshots', () => {
   const props = testProps();
-  const tree = renderer
-    .create(<IncidentHeatmap {...props} />)
-    .toJSON();
+  const tree = renderer.create(testEl(props)).toJSON();
   expect(tree).toMatchSnapshot();
 });
-
