@@ -7,9 +7,11 @@
         {{include.button}}
       </div>
     </div>
-    <a class="Panel-image" href="{{include.href}}">
-      {{include.image}}
-    </a>
+    {% if include.href %}
+      <a class="Panel-image" href="{{include.href}}">{{include.image}}</a>
+    {% else %}
+      <div class="Panel-image">{{include.image}}</div>
+    {% endif %}
     <div class="Panel-button Mobile-only">
       {{include.button}}
     </div>
