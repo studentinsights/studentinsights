@@ -63,6 +63,7 @@ RSpec.describe ProfileInsights do
         expect(insights_json).to include({
           "type"=>"imported_form_insight",
           "json"=> {
+            "form_key" => "shs_q2_self_reflection",
             "prompt_text"=> "At the end of the quarter 3, what would make you most proud of your accomplishments in your course?",
             "response_text"=> "Keeping grades high in all classes since I'm worried about college",
             "flattened_form_json" => anything()

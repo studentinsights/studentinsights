@@ -10,7 +10,7 @@ import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
 
 
 // Render an insight from a student voice survey response
-export default class LightInsightsImportedForm extends React.Component {
+export default class LightInsightImportedForm extends React.Component {
   render() {
     const {student, insightPayload} = this.props;
     const promptText = insightPayload.prompt_text;
@@ -20,7 +20,7 @@ export default class LightInsightsImportedForm extends React.Component {
 
     return (
       <LightInsightQuote
-        className="LightInsightsImportedForm"
+        className="LightInsightImportedForm"
         quoteEl={
           <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             <div style={fontSizeStyle}>{promptText}</div>
@@ -62,7 +62,7 @@ export default class LightInsightsImportedForm extends React.Component {
     );
   }
 }
-LightInsightsImportedForm.propTypes = {
+LightInsightImportedForm.propTypes = {
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
