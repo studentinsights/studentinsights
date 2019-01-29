@@ -36,6 +36,17 @@ class ApplicationController < ActionController::Base
   include MasqueradeHelpers
   helper_method :masquerade
 
+  # This is a hook that Devise looks for.  We add it here to override
+  # Devise's default behavior of storing the last page the user visited,
+  # and redirecting them back there after their next sign in.
+  # We use our own code here and always navigate to the same page after
+  # sign-in.
+  #
+  # For Devise docs, see https://github.com/plataformatec/devise/blob/40f02ae69baf7e9b0449aaab2aba0d0e166f77a3/lib/devise/controllers/helpers.rb#L188
+  def after_sign_in_path_for(educator)
+    homepage_path_for_role(educator)
+  end
+
   def homepage_path_for_role(educator)
     home_path # /home
   end

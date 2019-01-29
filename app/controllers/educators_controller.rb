@@ -1,4 +1,10 @@
 class EducatorsController < ApplicationController
+  # Allow the :probe endpoint to be called without extending
+  # Devise Timeoutable
+  prepend_before_action only: [:probe] do
+    request.env['devise.skip_trackable'] = true
+  end
+
   # Authentication by default inherited from ApplicationController.
   DEFAULT_BATCH_SIZE = 30
 
@@ -95,6 +101,20 @@ class EducatorsController < ApplicationController
   # Send arbitrary request to reset Devise Timeoutable
   def reset_session_clock
     render json: { status: 'ok' }
+  end
+
+  # For checking if the session is still active, without
+  # extending Devise Timeoutable by the request itself (see
+  # action hook above)
+  # Handles missing values by assuming the session has no time left.
+  def probe
+    last_request_at = educator_session.fetch('last_request_at', 0)
+    seconds_ago = Time.now.to_i - last_request_at
+    remaining_seconds = [0, Devise.timeout_in - seconds_ago].max
+    render json: {
+      status: 'ok',
+      remaining_seconds: remaining_seconds
+    }
   end
 
   private

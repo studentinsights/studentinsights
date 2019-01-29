@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   get '/educators/my_sections'=> 'ui#ui'
   get '/educators/my_notes'=> 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
+  get '/educators/probe'=> 'educators#probe'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
 
   # error pages

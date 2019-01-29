@@ -125,4 +125,14 @@ RSpec.describe ApplicationController, :type => :controller do
       end
     end
   end
+
+  describe '#after_sign_in_path_for' do
+    it 'works' do
+      Educator.all.each do |educator|
+        sign_in(educator)
+        expect(controller.after_sign_in_path_for(educator)).to eq '/home'
+        sign_out(educator)
+      end
+    end
+  end
 end
