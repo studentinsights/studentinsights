@@ -6,7 +6,7 @@ description: Working with educators to build student-centered data systems
 
 # our own
 links:
-  email: mailto://hello@studentinsights.org
+  email: hello@studentinsights.org
   demo: https://somerville-teacher-tool-demo.herokuapp.com/
   github: https://github.com/studentinsights/studentinsights
   code_for_america: https://www.codeforamerica.org/
@@ -17,6 +17,7 @@ links:
   takes_a_network: http://www.academia.edu/5487154/It_Takes_a_Network_to_Raise_a_Child_Improving_the_Communication_Infrastructure_of_Public_Education_to_Enable_Community_Cooperation_in_Young_People_s_Success
   boston_foundation: https://www.tbf.org
   microsoft_new_england: https://blogs.microsoft.com/newengland/
+  roles_and_permissions: https://docs.google.com/document/d/1THekg_5gFdm5dIHANJgcoxEajlH4UjL4U0-nYJjI2WY/edit
 
 # all importing
 sass:
