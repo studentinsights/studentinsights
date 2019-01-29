@@ -37,7 +37,7 @@ class Feed
     else
       []
     end
-    student_voice_cards = if PerDistrict.new.include_student_voice_cards?
+    student_voice_cards = if PerDistrict.new.include_student_voice_cards? && current_educator.labels.include?('enable_student_voice_cards_in_feed')
       self.student_voice_cards(time_now)
     else
       []
