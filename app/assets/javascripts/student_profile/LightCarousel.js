@@ -100,8 +100,7 @@ export default class LightCarousel extends React.Component {
       />
     );
 
-    const areWinterInsightsEnabled = (window.location.search.indexOf('winterinsights') !== -1);
-    if (insightType === IMPORTED_FORM_INSIGHT_TYPE && areWinterInsightsEnabled) return (
+    if (insightType === IMPORTED_FORM_INSIGHT_TYPE) return (
       <LightInsightImportedForm
         student={student}
         insightPayload={insightPayload} 

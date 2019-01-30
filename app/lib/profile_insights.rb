@@ -43,9 +43,11 @@ class ProfileInsights
   def student_voice_survey_insights
     insights = []
 
-    # always add any q2 self reflection
-    self_reflection_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_Q2_SELF_REFLECTION)
-    insights += imported_form_insights(self_reflection_form) if self_reflection_form.present?
+    # always add any q2 self reflection, if enabled
+    if PerDistrict.new.include_q2_self_reflection_insights?
+      self_reflection_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_Q2_SELF_REFLECTION)
+      insights += imported_form_insights(self_reflection_form) if self_reflection_form.present?
+    end
 
     # check for mid-year and take if it it's there
     mid_year_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR)

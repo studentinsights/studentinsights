@@ -56,10 +56,25 @@ RSpec.describe ProfileInsights do
     describe 'with winter student voice survey insights' do
       let!(:pals) { TestPals.create!(skip_team_memberships: true) }
 
-      it 'includes winter profile insights' do
+      it 'does not include Q2 self reflection by default' do
+        insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
+        expect(insights_json.size).to eq 6
+        expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
+        expect(insights_json.map {|i| i['json']['form_key'] }.uniq).to eq ['shs_what_i_want_my_teacher_to_know_mid_year']
+      end
+
+      it 'can include Q2 self reflection' do
+        mock_per_district = PerDistrict.new
+        allow(mock_per_district).to receive(:include_q2_self_reflection_insights?).and_return(true)
+        allow(PerDistrict).to receive(:new).and_return(mock_per_district)
+      
         insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
         expect(insights_json.size).to eq 14
         expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
+        expect(insights_json.map {|i| i['json']['form_key'] }.uniq).to eq [
+          'shs_what_i_want_my_teacher_to_know_mid_year',
+          'shs_q2_self_reflection'
+        ]
         expect(insights_json).to include({
           "type"=>"imported_form_insight",
           "json"=> {
@@ -68,7 +83,7 @@ RSpec.describe ProfileInsights do
             "response_text"=> "Keeping grades high in all classes since I'm worried about college",
             "flattened_form_json" => anything()
           }
-        }) # one example
+        }) # one example, testing shape
       end
     end
   end
