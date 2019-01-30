@@ -71,7 +71,7 @@ export default class SessionRenewal extends React.Component {
       forciblyClearPage();
     } else {
       this.rollbar('SessionRenewal#forciblyClearPage');
-      window.location = '/';
+      window.location = '/?expired';
     }
   }
 
