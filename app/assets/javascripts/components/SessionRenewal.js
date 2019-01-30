@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {apiFetchJson} from '../helpers/apiFetchJson';
+import {apiFetch, apiFetchJson} from '../helpers/apiFetchJson';
 
 
 // Show a warning that the user's session is likely to timeout shortly.
@@ -14,8 +14,6 @@ export default class SessionRenewal extends React.Component {
       probeJson: null,
       shouldShowError: false
     };
-    this.warningTimer = null;
-    this.timeoutTimer = null;
     this.probeInterval = null;
 
     this.onProbeInterval = this.onProbeInterval.bind(this);
@@ -44,12 +42,13 @@ export default class SessionRenewal extends React.Component {
     if (this.probeInterval) clearInterval(this.probeInterval);
   }
 
-  rollbar(msg) {
+  rollbar(shortMsg, err = {}) {
+    const msg = `SessionRenewal-v3-${shortMsg}`;
     const {warnFn} = this.props;
-    if (warnFn) return warnFn(msg);
+    if (warnFn) return warnFn(msg, err);
 
-    console.warn(msg); // eslint-disable-line
-    window.Rollbar.warn && window.Rollbar.warn(msg);
+    console.warn(msg, err); // eslint-disable-line
+    window.Rollbar.warn && window.Rollbar.warn(msg, err);
   }
 
   shouldWarn() {
@@ -64,13 +63,13 @@ export default class SessionRenewal extends React.Component {
   // If the server session has expired, this will redirect to the sign in page, clearing the
   // screen of student data.
   forciblyClearPage() {
+    this.rollbar('forciblyClearPage');
     this.stopProbeInterval();
 
     const {forciblyClearPage} = this.props;
     if (forciblyClearPage) {
       forciblyClearPage();
     } else {
-      this.rollbar('SessionRenewal#forciblyClearPage');
       window.location = '/?expired';
     }
   }
@@ -79,7 +78,7 @@ export default class SessionRenewal extends React.Component {
   // between a hard "failure" and a redirection or non-200 status
   // code.
   onProbeInterval() {
-    fetch('/educators/probe')
+    apiFetch('/educators/probe')
       .then(this.onProbed)
       .catch(this.onProbeRequestFailed);
   }
@@ -89,13 +88,7 @@ export default class SessionRenewal extends React.Component {
   // about how long is left, so we can warn the user.
   onProbed(fetchResponse) {
     // The session already expired, forcibly reload
-    const hasSessionExpired = (
-      fetchResponse.redirected ||
-      fetchResponse.status === 302 ||
-      fetchResponse.status === 401
-    );
-    if (hasSessionExpired) {
-      this.rollbar('SessionRenewal#onProbed-TIMED_OUT');
+    if (fetchResponse.status === 401) {
       this.forciblyClearPage();
       return;
     }
@@ -106,11 +99,11 @@ export default class SessionRenewal extends React.Component {
   
   // Report to Rollbar, but take no UI action
   onProbeRequestFailed(err) {
-    this.rollbar('SessionRenewal#onProbeFailed', err);
+    this.rollbar('onProbeFailed', err);
   }
 
   onRenewClicked(e) {
-    this.rollbar('SessionRenewal#onRenewClicked');
+    this.rollbar('onRenewClicked');
     e.preventDefault();
     apiFetchJson('/educators/reset')
       .then(this.onRenewCompleted)
@@ -118,7 +111,7 @@ export default class SessionRenewal extends React.Component {
   }
 
   onRenewCompleted(json) {
-    this.rollbar('SessionRenewal#onRenewCompleted');
+    this.rollbar('onRenewClicked');
     this.setState({shouldShowError: false});
     this.onProbeInterval(); // for immediate feedback if probeInterval is large
   }
@@ -129,7 +122,7 @@ export default class SessionRenewal extends React.Component {
   // stay visible, with the expectation that the user is about to take
   // some other action (like reloading, signing out/in or closing the tab).
   onRenewFailed() {
-    this.rollbar('SessionRenewal#onRenewFailed');
+    this.rollbar('onRenewFailed');
     this.setState({shouldShowError: true});
     this.stopProbeInterval();
   }
