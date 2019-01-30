@@ -13,6 +13,7 @@ class Q2SelfReflectionImporter
     @educator_id = educator_id
     @form_url = form_url
     @form_key = ImportedForm::SHS_Q2_SELF_REFLECTION
+    @matcher = ImportMatcher.new
     @processor = GenericSurveyProcessor.new(log: @log) do |row|
       process_row_or_nil(row)
     end
@@ -31,12 +32,11 @@ class Q2SelfReflectionImporter
   def process_row_or_nil(row)
     # match student by id first, fall back to name
     local_id_text = row["What's your local ID number?"]
-    student_id = @processor.exact_or_fuzzy_match_for_student(local_id_text, row["What's your first and last name?"])
+    student_id = @matcher.find_student_id_with_exact_or_fuzzy_match(local_id_text, row["What's your first and last name?"])
     return nil if student_id.nil?
 
     # timestamp
-    timestamp_with_timezone = "#{row['Timestamp']} EST"
-    form_timestamp = DateTime.strptime(timestamp_with_timezone, ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT_WITH_TIMEZONE)
+    form_timestamp = @matcher.parse_sheets_est_timestamp(row['Timestamp'])
 
     # whitelist prompts and responses
     form_json = row.to_h.slice(*ImportedForm.prompts(@form_key))

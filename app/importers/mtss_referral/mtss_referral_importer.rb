@@ -8,7 +8,6 @@
 class MtssReferralImporter
   def initialize(options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
-    @strptime_format = options.fetch(:strptime_format, ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT)
 
     @matcher = ImportMatcher.new
     @fuzzy_student_matcher = FuzzyStudentMatcher.new
@@ -53,7 +52,7 @@ class MtssReferralImporter
     educator_id = @matcher.find_educator_id(row['Email Address'])
 
     # timestamp
-    recorded_at = DateTime.strptime(row['Timestamp'], @strptime_format)
+    recorded_at = @matcher.parse_sheets_est_timestamp(row['Timestamp'])
 
     # flatten the rest of the fields
     {

@@ -19,7 +19,7 @@ RSpec.describe Q2SelfReflectionImporter do
         'educator_id' => pals.shs_jodi.id,
         'form_key' => ImportedForm::SHS_Q2_SELF_REFLECTION,
         'form_url' => 'https://example.com/form_url',
-        'form_timestamp' => Time.parse('2019-01-29T09:01:24.000Z'),
+        'form_timestamp' => Time.parse('2019-01-29T14:01:24.000Z'),
         'form_json' => {
           "What classes are you doing well in?"=>"Computer Science, French",
           "Why are you doing well in those classes?"=>"I make time in my afternoon each day for doing homework and stick to it",
