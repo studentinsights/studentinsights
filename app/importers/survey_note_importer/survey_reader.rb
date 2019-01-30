@@ -20,7 +20,7 @@ class SurveyReader
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @google_email_address_mapping = options.fetch(:google_email_address_mapping, PerDistrict.new.google_email_address_mapping)
     @matcher = ImportMatcher.new
-    
+
     reset_counters!
   end
 

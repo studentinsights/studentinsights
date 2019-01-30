@@ -67,7 +67,7 @@ RSpec.describe ProfileInsights do
         mock_per_district = PerDistrict.new
         allow(mock_per_district).to receive(:include_q2_self_reflection_insights?).and_return(true)
         allow(PerDistrict).to receive(:new).and_return(mock_per_district)
-      
+
         insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
         expect(insights_json.size).to eq 14
         expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
