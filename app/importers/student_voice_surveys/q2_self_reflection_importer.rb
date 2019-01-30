@@ -9,7 +9,6 @@
 class Q2SelfReflectionImporter
   def initialize(educator_id, form_url, options = {})
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
-    @strptime_format = options.fetch(:strptime_format, ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT)
 
     @educator_id = educator_id
     @form_url = form_url
@@ -36,7 +35,8 @@ class Q2SelfReflectionImporter
     return nil if student_id.nil?
 
     # timestamp
-    form_timestamp = DateTime.strptime(row['Timestamp'], @strptime_format)
+    timestamp_with_timezone = "#{row['Timestamp']} EST"
+    form_timestamp = DateTime.strptime(timestamp_with_timezone, ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT_WITH_TIMEZONE)
 
     # whitelist prompts and responses
     form_json = row.to_h.slice(*ImportedForm.prompts(@form_key))

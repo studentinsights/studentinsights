@@ -4,7 +4,8 @@ class ImportMatcher
   # Timestamps have differnet formats if you download a Google Form as a CSV
   # versus if you export that same form to Sheets (and then download that).
   GOOGLE_FORM_CSV_TIMESTAMP_FORMAT = '%Y/%m/%d %l:%M:%S %p %Z'
-  GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT = '%m/%d/%Y %k:%M:%S'
+  GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT_ASSUMING_UTC = '%m/%d/%Y %k:%M:%S'
+  GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT_WITH_TIMEZONE = '%m/%d/%Y %k:%M:%S %Z'
 
   def initialize(options = {})
     @strptime_format = options.fetch(:strptime_format, GOOGLE_FORM_CSV_TIMESTAMP_FORMAT)
