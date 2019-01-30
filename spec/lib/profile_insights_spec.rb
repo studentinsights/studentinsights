@@ -71,10 +71,10 @@ RSpec.describe ProfileInsights do
         insights_json = ProfileInsights.new(pals.shs_freshman_mari).as_json
         expect(insights_json.size).to eq 14
         expect(insights_json.map {|i| i['type'] }.uniq).to eq ['imported_form_insight']
-        expect(insights_json.map {|i| i['json']['form_key'] }.uniq).to eq [
+        expect(insights_json.map {|i| i['json']['form_key'] }.uniq).to contain_exactly(*[
           'shs_what_i_want_my_teacher_to_know_mid_year',
           'shs_q2_self_reflection'
-        ]
+        ])
         expect(insights_json).to include({
           "type"=>"imported_form_insight",
           "json"=> {
