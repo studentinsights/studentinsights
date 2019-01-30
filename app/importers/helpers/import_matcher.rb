@@ -1,14 +1,9 @@
 # Helper functions for doing an import, and matching different values in an imported row to
 # the database.
 class ImportMatcher
-  # Timestamps have differnet formats if you download a Google Form as a CSV
-  # versus if you export that same form to Sheets (and then download that).
-  GOOGLE_FORM_CSV_TIMESTAMP_FORMAT = '%Y/%m/%d %l:%M:%S %p %Z'
-  GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT = '%m/%d/%Y %k:%M:%S'
-
   def initialize(options = {})
-    @strptime_format = options.fetch(:strptime_format, GOOGLE_FORM_CSV_TIMESTAMP_FORMAT)
     @google_email_address_mapping = options.fetch(:google_email_address_mapping, PerDistrict.new.google_email_address_mapping)
+
     reset_counters!
   end
 
@@ -22,6 +17,17 @@ class ImportMatcher
       return nil
     end
     student_id
+  end
+
+  # full_name_text is natural order (eg "Edgar Alan Poe")
+  def find_student_id_with_exact_or_fuzzy_match(local_id_text, full_name_text)
+    student_id = self.find_student_id(local_id_text)
+    return student_id if student_id.present?
+
+    fuzzy_match = FuzzyStudentMatcher.new.match_from_full_name(full_name_text)
+    return fuzzy_match[:student_id] if fuzzy_match.present?
+
+    nil
   end
 
   # educator? also support mapping from Google email to SIS/LDAP/Insights email
@@ -61,9 +67,22 @@ class ImportMatcher
     ed_plan_id
   end
 
-  # parse timestamp into DateTime
-  def parse_timestamp(value)
-    DateTime.strptime(value, @strptime_format)
+  # Parse timestamp into UTC DateTime
+  #
+  # Timestamps have differnet formats if you download a Google Form as a CSV
+  # versus if you export that same form to Sheets (and then download that).
+  # eg, Google Forms downloaded as CSV are'%Y/%m/%d %l:%M:%S %p %Z' instead
+  #
+  # For values in Sheets expressed in EST but without a timezone,
+  # this reads them in and converts them to the same time in a
+  # UTC DateTime
+  def parse_sheets_est_timestamp(string_est_without_timezone, options = {})
+    # Since Rails TZ is America/New_York, and Sheets uses the same, we can 
+    # check the server timezone to infer whether the time in Sheets should be
+    # interpreted as EST or EDT.
+    timezone_code = options.fetch(:timezone_code, Time.now.zone)
+    est_with_timezeone = "#{string_est_without_timezone} #{timezone_code}"
+    DateTime.strptime(est_with_timezeone, '%m/%d/%Y %k:%M:%S %Z').new_offset(0)
   end
 
   def count_valid_row

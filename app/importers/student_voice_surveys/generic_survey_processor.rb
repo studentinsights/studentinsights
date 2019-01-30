@@ -3,11 +3,8 @@
 class GenericSurveyProcessor
   def initialize(options, &block)
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
-    @strptime_format = options.fetch(:strptime_format, ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT)
     @process_row_or_nil_block = block
 
-    @matcher = ImportMatcher.new
-    @fuzzy_student_matcher = FuzzyStudentMatcher.new
     reset_counters!
   end
 
@@ -40,17 +37,6 @@ class GenericSurveyProcessor
     end
 
     row_attrs
-  end
-
-  # for use by block
-  def exact_or_fuzzy_match_for_student(local_id_text, full_name_text)
-    student_id = @matcher.find_student_id(local_id_text)
-    return student_id if student_id.present?
-
-    fuzzy_match = @fuzzy_student_matcher.match_from_full_name(full_name_text)
-    return fuzzy_match[:student_id] if fuzzy_match.present?
-
-    nil
   end
 
   def stats

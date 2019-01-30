@@ -21,7 +21,6 @@ class StudentMeetingImporter
       student_local_id: 'Student Local ID Number',
       educator_email: 'Email Address',
       timestamp: 'Timestamp',
-      strptime_format: SurveyReader::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT,
       ignore_keys: [
         'Student Name',
         'Teacher Name'
