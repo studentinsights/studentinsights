@@ -53,6 +53,7 @@
 <div class="Board">
   <div class="Board-category">
     <div class="Board-title">Priorities now</div>
+    <div class="Card"><b>HS student voice</b>: Q2 self-reflection, updating "What I want my teachers to know about me"</div>
     <div class="Card"><b>K5 reading</b>: Entering benchmark data, reviewing and revising groupings, visualization student growth over time</div>
     <div class="Card"><b>K8 MTSS</b>: Including student voice up front, simplifying the referral process, supporting problem solving over time</div>
   </div>
