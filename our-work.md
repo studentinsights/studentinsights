@@ -296,10 +296,28 @@ Importantly, the process of thinking through and creating these triggers and lev
       <img src="img/our-work/levels-filter.png" alt="Filtering options allowing teachers to filter what they want to see." /></a></div>
   <div class="DoubleImage-small">
     <a href="img/code.png" data-lightbox="code">
-      <img src="img/code.png" alt="An open source code that displays three triggers: academic, absence and discipline."/></a></div>
+      <img src="img/code.png" alt="Open source code that defines three triggers: academic, absence and discipline."/></a></div>
 </div>
 
 This work also led to conversations across the HS admin team about some of the challenges in flexibly adapting in response to what students need, and different supports and services that aren't yet visible in these data systems.  We're excited to keep working on this and help with making the full "menu" of services and supports in the school system visible to everyone, and be a part of helping students get what they need when they need it.
+
+### Patterns in discipline
+Supporting school climate and discipline is a complex problem for any school community. A variety of interventions or supports might be appropriate in addressing an incident or a pattern of incidents depending on the surrounding circumstances.  
+
+<div class="DoubleImage DoubleImage-side-margin">
+  <div class="DoubleImage-small">
+    <a href="img/our-work/discipline-profile-800.png" data-lightbox="discipline-profile-800">
+      <img src="img/our-work/discipline-profile-800.png" alt="Narrative of incidents and chart showing patterns." /></a></div>
+  <div class="DoubleImage-small">
+    <a href="img/our-work/discipline-analysis.png" data-lightbox="discipline-analysis">
+      <img src="img/our-work/discipline-analysis.png" alt="Charts for analysis of discipline and actions at a school"/></a></div>
+</div>
+
+This collaboration with K8 assitant principals grew out of a desire to support the school in managing student behavior, and in monitoring, identifying, and taking action on disparate outcomes for students when it comes to discipline.  While there are many other aspects to strong practice, we focused on helping with finding patterns in incidents across different dimensions such as grade, type of incident, student group, or factors specific to the incident like time of day or location. In addition to finding patterns that may help support students, this also gives educators a clearer picture of the behavior data they have today so they can see where adjustments might be appropriate. And this can also support existing reflective practices around noticing disparate impact of discipline practices for different students.
+
+This also relies on consistency, education and training around how this kind of data is collected.  Our early work has aimed at helping provide educator teams with more visible around what is happening with discipline, to explore patterns and ask questions about practice and about the data itself.  We hope over time to collaborate on how to incorporate student voice into this process as well, particularly for older students.
+
+
 
 <a href="updates.html" class="btn">What's next?</a>
 

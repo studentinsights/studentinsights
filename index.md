@@ -91,7 +91,7 @@ As we started working with more schools, we also shifted the way we worked.  We 
   <div class="TripleCard-row">
     {% include triple-card.html href="our-work.html#grades-and-academic-supports" title="Grades and classroom supports" line="In partnership with 9th and 10th grade teachers" image="img/grades.png" %}
     {% include triple-card.html href="our-work.html#systems-of-supports" title="Triggers for Systems of Supports" line="In partnership with department heads and HS admin team" image="img/systems.png" %}
-    <div class="TripleCard-card TripleCard-empty"></div>
+    {% include triple-card.html href="our-work.html#discipline" title="Patterns in discipline" line="In partnership with K8 assistant principals" image="img/discipline.png" %}
   </div>
 </section>
 
