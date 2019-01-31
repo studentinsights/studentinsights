@@ -53,8 +53,8 @@
 <div class="Board">
   <div class="Board-category">
     <div class="Board-title">Priorities now</div>
-    <div class="Card"><b>HS student voice</b>: Q2 self-reflection, updating "What I want my teachers to know about me"</div>
-    <div class="Card"><b>K5 reading</b>: Entering benchmark data, reviewing and revising groupings, visualization student growth over time</div>
+    <div class="Card"><b>HS student voice</b>: Q2 self-reflection, updating "What I want my teachers to know about me" <a href="https://github.com/studentinsights/studentinsights/pull/2379">#2379</a> <a href="https://github.com/studentinsights/studentinsights/pull/2383">#2383</a> <a href="https://github.com/studentinsights/studentinsights/pull/2382">#2382</a> <a href="https://github.com/studentinsights/studentinsights/pull/2384">#2384</a></div>
+    <div class="Card"><b>K5 reading</b>: Entering benchmark data, reviewing and revising groupings, visualization student growth over time  <a href="https://github.com/studentinsights/studentinsights/pull/2363">#2363</a> <a href="https://github.com/studentinsights/studentinsights/pull/2367">#2367</a> <a href="https://github.com/studentinsights/studentinsights/pull/2360">#2360</a> <a href="https://github.com/studentinsights/studentinsights/pull/2352">#2352</a></div>
     <div class="Card"><b>K8 MTSS</b>: Including student voice up front, simplifying the referral process, supporting problem solving over time</div>
   </div>
 
