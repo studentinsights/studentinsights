@@ -71,7 +71,7 @@ As we started working with more schools, we also shifted the way we worked.  We 
     <div>
       <img src="img/data.png" alt="Sensitive encrypted information of a student to secure the student's safety."/>
       <div class="Home-image-caption">
-        Sensitive encrypted information of a student to secure the student's safety.
+        Encrypting student information as one part of data security.
       </div>
     </div>
   {% endcapture %}
