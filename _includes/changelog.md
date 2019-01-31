@@ -1,3 +1,30 @@
+Friday 2/1 updates:
+- **Student voice**: Import mid-year survey, show on profile notes [#2379](https://github.com/studentinsights/studentinsights/pull/2379)
+- **Student voice**: Add Q2 self-reflection to profile notes [#2381](https://github.com/studentinsights/studentinsights/pull/2381)
+- **Student voice**: Add profile insights from winter student voice surveys [#2383](https://github.com/studentinsights/studentinsights/pull/2383)
+- **Student voice**: Highlight new student voice surveys in home feed [#2382](https://github.com/studentinsights/studentinsights/pull/2382)
+- **Student voice**: Add self-reflection on Q2 next to grades [#2384](https://github.com/studentinsights/studentinsights/pull/2384)
+- **Student voice**: Fix timezone bug on imports; release profile insights with feature switch for Q2 self-reflection [#2387](https://github.com/studentinsights/studentinsights/pull/2387)
+- **Access importer**: guard against nil values upstream [#2380](https://github.com/studentinsights/studentinsights/pull/2380)
+- **Website**: Cap maximum size of photos [#2385](https://github.com/studentinsights/studentinsights/pull/2385)
+- **Website**: Add privacy policy [#2386](https://github.com/studentinsights/studentinsights/pull/2386)
+- **Profile**: Fix bug with rendering IepDialog in Bedford [#2376](https://github.com/studentinsights/studentinsights/pull/2376)
+- **Profile**: Restrict student discipline scatter plot to school year [#2373](https://github.com/studentinsights/studentinsights/pull/2373)
+- **Session renewal**: Rework to probe server to warn about session expiration instead of using heuristic [#2377](https://github.com/studentinsights/studentinsights/pull/2377)
+- **Session renewal**: Fix bug from IE11 fetch polyfill [#2389](https://github.com/studentinsights/studentinsights/pull/2389)
+- **Discipline**: Removing n+1 queries in discipline dashboard [#2375](https://github.com/studentinsights/studentinsights/pull/2375)
+- **Discipline**: Dashboard release [#2374](https://github.com/studentinsights/studentinsights/pull/2374)
+
+
+Friday 1/25 updates:
+- **Reading**: Update grouping page to include computations, cut points, and click to see more [#2363](https://github.com/studentinsights/studentinsights/pull/2363)
+- **Reading**: Reading**: Iterations on grouping UI styling and feel [#2367](https://github.com/studentinsights/studentinsights/pull/2367)
+- **Login**: Revise timing for SessionRenewal to actually enable renewing [#2366](https://github.com/studentinsights/studentinsights/pull/2366)
+- **Reading**: Reading**: store grouping state locally, snapshot grouping state and post to server [#2368](https://github.com/studentinsights/studentinsights/pull/2368)
+- **Discipline**:  Add discipline code back to filter [#2365](https://github.com/studentinsights/studentinsights/pull/2365)
+- **Discipline**: Hide scatterplot for large schools [#2362](https://github.com/studentinsights/studentinsights/pull/2362)
+- **Restricted notes**: Clarify that admin can also mark notes restricted [#2371](https://github.com/studentinsights/studentinsights/pull/2371)
+
 Friday 1/18 updates:
 - **Student photos**: Batch update for Somerville
 - **Reading**: Allow teams to enter benchmark reading data [#2352](https://github.com/studentinsights/studentinsights/pull/2352)
