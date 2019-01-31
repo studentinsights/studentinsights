@@ -59,7 +59,7 @@ class EducatorLabel < ApplicationRecord
     end
 
     # Levels link: Anyone at SHS (can also be added manually)
-    shs_school_id = School.find_by_local_id('SHS').try(:id)
+    shs_school_id = 9999 #School.find_by_local_id('SHS').try(:id)
     if shs_school_id.present? && educator.school_id == shs_school_id
       dynamic_labels << 'should_show_levels_shs_link'
     end

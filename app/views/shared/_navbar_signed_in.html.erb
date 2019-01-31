@@ -56,7 +56,7 @@
         <% if masquerade.is_masquerading? %>
           <%= link_to username, admin_masquerade_clear_url, { method: :post, class: 'NavbarSignedIn-clear-masquerade' } %>
         <% else %>
-          <%= link_to username, admin_authorization_url, class: 'NavbarSignedIn-masquerade-link-to-become-page' %>
+          <%= link_to username, authorization_url, class: 'NavbarSignedIn-masquerade-link-to-become-page' %>
         <% end %>
         <br/>
       <% end %>

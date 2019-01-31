@@ -15,12 +15,14 @@ Rails.application.routes.draw do
   # Admin
   namespace :admin do
     resources :educators
-    get '/authorization' => 'educators#authorization'
     post '/masquerade/become' => 'masquerade#become'
     post '/masquerade/clear' => 'masquerade#clear'
     root to: "educators#index"
   end
   scope '/admin' do
+    get '/authorization' => 'ui#ui'
+    get '/api/permissions/authorization_json' => 'permissions#authorization_json'
+
     get '/import_records' => 'ui#ui'
     get '/api/import_records' => 'import_records#import_records_json'
     
