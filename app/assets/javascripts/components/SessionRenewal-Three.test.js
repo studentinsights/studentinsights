@@ -6,8 +6,7 @@ beforeEach(() => {
   fetchMock.restore();
   fetchMock.get('/educators/reset', {});
   fetchMock.get('/educators/probe', new Response('{}', {
-    status: 302,
-    redirectUrl: '/educators/probe'
+    status: 401
   }));
 });
 
@@ -17,7 +16,7 @@ it('if probe fails, calls forciblyClearPage', done => {
 
   setTimeout(() => {
     expect(props.forciblyClearPage).toHaveBeenCalled();
-    expect(props.warnFn).toHaveBeenCalledWith('SessionRenewal#onProbed-TIMED_OUT');
+    expect(props.warnFn).toHaveBeenCalledWith('SessionRenewal-v3-forciblyClearPage', {});
     expect($(el).text()).toEqual('');
     done();
   }, TEST_DELAY);
