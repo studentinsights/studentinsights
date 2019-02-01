@@ -36,7 +36,7 @@ As free software and an open-source project, we welcome contributions from priva
 
 
 ### What student data is stored, and why?
-Student Insights only collects and stores student personal data for the purposes of providing the services that districts have asked us to provided, in accordance to theri instructions and the terms of the contract.  Student data can be revised or destroyed upon request.
+Student Insights only collects and stores student personal data for the purposes of providing the services that districts have asked us to provide, in accordance to their instructions and the terms of the contract.  Student data can be revised or destroyed upon request.
 
 We will not retain student personal information for any longer than is necessary for educational purposes and legal obligations, or to provide the service for which we receive or collect student personal information.
 
@@ -48,7 +48,7 @@ Each district uses an isolated instance of Student Insights.  As an example, stu
 
 
 ### Who can access student data?
-Student Insights fine-grained access controls, School districts control who should have access to student data, and limit that to what is necessary to support the students they are responsible for.  We have created various levels of permissions for different roles and scopes of responsibility, and will continue to actively refine these with districts.
+Student Insights includes fine-grained access controls, School districts control who should have access to student data, and limit that to what is necessary to support the students they are responsible for.  We have created various levels of permissions for different roles and scopes of responsibility, and will continue to actively refine these with districts.
 
 See <a href="{{site.links.roles_and_permissions}}">Student Insights: Roles and Permissions (shared)</a>.
 
