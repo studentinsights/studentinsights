@@ -257,6 +257,7 @@ describe ProfileController, :type => :controller do
             'service_types_index',
             'educators_index',
             'profile_insights',
+            'grades_reflection_insights',
             'access',
             'teams',
             'latest_iep_document',

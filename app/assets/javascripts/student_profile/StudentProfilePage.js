@@ -73,6 +73,7 @@ export function parseProfileJson(json) {
     access: json.access,
     transitionNotes: json.transition_notes,
     profileInsights: json.profile_insights,
+    gradesReflectionInsights: json.grades_reflection_insights,
     teams: json.teams,
     iepDocument: json.latest_iep_document,
     sections: json.sections,
