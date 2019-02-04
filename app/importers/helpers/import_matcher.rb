@@ -76,12 +76,13 @@ class ImportMatcher
   # For values in Sheets expressed in EST but without a timezone,
   # this reads them in and converts them to the same time in a
   # UTC DateTime
-  def parse_sheets_est_timestamp(string_est_without_timezone, options = {})
-    # Since Rails TZ is America/New_York, and Sheets uses the same, we can
-    # check the server timezone to infer whether the time in Sheets should be
-    # interpreted as EST or EDT.
-    timezone_code = options.fetch(:timezone_code, Time.now.zone)
-    est_with_timezeone = "#{string_est_without_timezone} #{timezone_code}"
+  def parse_sheets_est_timestamp(string_eastern_without_timezone, options = {})
+    # Parse the time as if it were UTC, then ask Rails whether it is the time of year
+    # when it would be daylight savings time.  Then re-parse with the correct
+    # offset so we interpret the time from Sheets correctly as EST or EDT.
+    is_dst = DateTime.strptime(string_eastern_without_timezone, '%m/%d/%Y %k:%M:%S').to_time.dst?
+    timezone_code = is_dst ? 'EDT' : 'EST'
+    est_with_timezeone = "#{string_eastern_without_timezone} #{timezone_code}"
     DateTime.strptime(est_with_timezeone, '%m/%d/%Y %k:%M:%S %Z').new_offset(0)
   end
 
