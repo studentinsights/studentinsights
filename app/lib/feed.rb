@@ -25,9 +25,7 @@ class Feed
   # we query and combine them. Ideally we'd query in parallel but we'd
   # need to push this out to the client to do that (and still would have to
   # delay rendering until both came back and were merged anyway).
-  def all_cards(time_now, limit, options = {})
-    include_student_voice_cards = options.fetch(:include_student_voice_cards, false)
-
+  def all_cards(time_now, limit)
     event_note_cards = self.event_note_cards(time_now, limit)
     birthday_cards = self.birthday_cards(time_now, limit, {
       limit: 3,
@@ -39,7 +37,7 @@ class Feed
     else
       []
     end
-    student_voice_cards = if PerDistrict.new.include_student_voice_cards? && include_student_voice_cards
+    student_voice_cards = if PerDistrict.new.include_student_voice_cards?
       self.student_voice_cards(time_now)
     else
       []
