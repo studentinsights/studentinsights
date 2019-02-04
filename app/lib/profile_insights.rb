@@ -15,7 +15,6 @@ class ProfileInsights
 
   # From Q2 self-reflection, for showing with grades
   def grades_reflection_insights
-    return [] unless PerDistrict.new.include_q2_self_reflection_insights?
     self_reflection_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_Q2_SELF_REFLECTION)
     return [] if self_reflection_form.nil?
     imported_form_insights(self_reflection_form)
@@ -52,7 +51,9 @@ class ProfileInsights
     insights = []
 
     # always add any q2 self reflection, if enabled
-    insights += grades_reflection_insights()
+    if PerDistrict.new.include_q2_self_reflection_insights?
+      insights += grades_reflection_insights()
+    end
 
     # check for mid-year and take if it it's there
     mid_year_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR)
