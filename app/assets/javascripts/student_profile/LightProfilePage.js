@@ -395,7 +395,7 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderGrades() {
-    const {sections, currentEducatorAllowedSections, profileInsights} = this.props.profileJson;
+    const {sections, currentEducatorAllowedSections, gradesReflectionInsights} = this.props.profileJson;
     const hasSections = (sections && sections.length > 0);
 
     return (
@@ -408,7 +408,7 @@ export default class LightProfilePage extends React.Component {
             : <div>Not enrolled in any sections</div>}
 
         </DetailsSection>
-        <ReflectionsAboutGrades profileInsights={profileInsights} />
+        <ReflectionsAboutGrades gradesReflectionInsights={gradesReflectionInsights} />
       </div>
     );
   }
@@ -532,6 +532,7 @@ LightProfilePage.propTypes = {
     student: PropTypes.object.isRequired,
     
     profileInsights: PropTypes.array.isRequired,
+    gradesReflectionInsights: PropTypes.array.isRequired,
     dibels: PropTypes.array.isRequired,
     fAndPs: PropTypes.array.isRequired,
     chartData: PropTypes.shape({

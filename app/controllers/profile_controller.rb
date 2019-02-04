@@ -20,6 +20,7 @@ class ProfileController < ApplicationController
       teams: teams_json(student),
       ed_plans: ed_plans_json(student),
       profile_insights: ProfileInsights.new(student).as_json,
+      grades_reflection_insights: ProfileInsights.new(student).grades_reflection_insights.as_json,
       latest_iep_document: student.latest_iep_document.as_json(only: [:id]),
       sections: serialize_student_sections_for_profile(student),
       current_educator_allowed_sections: current_educator.allowed_sections.map(&:id),

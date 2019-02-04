@@ -18,7 +18,6 @@ class EducatorLabel < ApplicationRecord
         'use_section_based_feed',
         'use_ell_based_feed',
         'use_community_school_based_feed',
-        'enable_student_voice_cards_in_feed',
 
         # reading
         'profile_enable_minimal_reading_data',

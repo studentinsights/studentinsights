@@ -10,9 +10,7 @@ class HomeController < ApplicationController
       Feed.students_for_feed(view_as_educator)
     end
     feed = Feed.new(authorized_students)
-    feed_cards = feed.all_cards(time_now, limit, {
-      include_student_voice_cards: current_educator.labels.include?('enable_student_voice_cards_in_feed')
-    })
+    feed_cards = feed.all_cards(time_now, limit)
     render json: {
       feed_cards: feed_cards
     }
