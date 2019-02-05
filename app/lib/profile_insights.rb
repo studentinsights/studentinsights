@@ -20,6 +20,25 @@ class ProfileInsights
     imported_form_insights(self_reflection_form)
   end
 
+  # Take only the most recent survey from the most recent upload
+  def fall_student_voice_insights
+    most_recent_upload = StudentVoiceSurveyUpload
+      .where(completed: true)
+      .order(created_at: :desc)
+      .limit(1)
+      .first
+    return [] if most_recent_upload.nil?
+
+    most_recent_survey = most_recent_upload.student_voice_completed_surveys
+      .where(student_id: @student.id)
+      .order(form_timestamp: :desc)
+      .limit(1)
+      .first
+    return [] if most_recent_survey.nil?
+
+    profile_insights_from_survey(most_recent_survey)
+  end
+
   private
   def transition_note_profile_insights
     transition_note = @student.transition_notes.find_by(is_restricted: false)
@@ -76,25 +95,6 @@ class ProfileInsights
         })
       end
     end.compact
-  end
-
-  # Take only the most recent survey from the most recent upload
-  def fall_student_voice_insights
-    most_recent_upload = StudentVoiceSurveyUpload
-      .where(completed: true)
-      .order(created_at: :desc)
-      .limit(1)
-      .first
-    return [] if most_recent_upload.nil?
-
-    most_recent_survey = most_recent_upload.student_voice_completed_surveys
-      .where(student_id: @student.id)
-      .order(form_timestamp: :desc)
-      .limit(1)
-      .first
-    return [] if most_recent_survey.nil?
-
-    profile_insights_from_survey(most_recent_survey)
   end
 
   # Unroll each question from the survey into a separate insight
