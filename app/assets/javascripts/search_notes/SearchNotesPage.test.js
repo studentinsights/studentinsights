@@ -46,16 +46,14 @@ describe('integration tests', () => {
     
     // change text, wait for debounce
     changeTextValue($(el).find('input:first').get(0), 'read');
+    expect($(el).html()).not.toContain('Showing all 2 results.');
+
+    // wait for fetch and render
     setTimeout(() => {
-      expect($(el).html()).not.toContain('Showing all 2 results.');
-    
-      // wait for fetch and render
-      setTimeout(() => {
-        expect($(el).html()).toContain('Search notes');
-        expect($(el).text()).toContain('Showing all 2 results.');
-        expect($(el).find('.EventNoteCard').length).toEqual(2);
-        done();
-      }, 0);
+      expect($(el).html()).toContain('Search notes');
+      expect($(el).text()).toContain('Showing all 2 results.');
+      expect($(el).find('.EventNoteCard').length).toEqual(2);
+      done();
     }, 400);
   });
 
