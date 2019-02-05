@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import {studentProfile} from './fixtures/fixtures';
 import {testTimeMoment} from '../testing/NowContainer';
 import NoteCard from './NoteCard';

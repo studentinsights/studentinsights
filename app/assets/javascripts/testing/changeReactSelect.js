@@ -1,4 +1,4 @@
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 // Simulates opening the react-select dropdown and clicking the item
 // with `optionText`.
