@@ -19,7 +19,7 @@
     "jest": "TZ='America/New_York' jest --config jest.json",
     "t": "yarn test",
     "test": "yarn jest --watch",
-    "test-cli": "yarn lint-cli && yarn jest",
+    "test-cli": "yarn lint-cli && yarn jest && yarn audit",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
   "dependencies": {
