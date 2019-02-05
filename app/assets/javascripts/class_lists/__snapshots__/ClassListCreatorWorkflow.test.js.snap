@@ -365,7 +365,7 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
               >
-                <span
+                <div
                   className="Select-multi-value-wrapper"
                   id="react-select-2--value"
                 >
@@ -423,7 +423,7 @@ When Student Insights was being developed, some teachers started asking whether 
                       
                     </div>
                   </div>
-                </span>
+                </div>
                 <span
                   aria-label="Clear value"
                   className="Select-clear-zone"
@@ -481,7 +481,7 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
               >
-                <span
+                <div
                   className="Select-multi-value-wrapper"
                   id="react-select-3--value"
                 >
@@ -539,7 +539,7 @@ When Student Insights was being developed, some teachers started asking whether 
                       
                     </div>
                   </div>
-                </span>
+                </div>
                 <span
                   aria-label="Clear value"
                   className="Select-clear-zone"
@@ -994,7 +994,7 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
               >
-                <span
+                <div
                   className="Select-multi-value-wrapper"
                   id="react-select-4--value"
                 >
@@ -1028,7 +1028,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     }
                     tabIndex={0}
                   />
-                </span>
+                </div>
                 <span
                   className="Select-arrow-zone"
                   onMouseDown={[Function]}
@@ -1068,7 +1068,7 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
               >
-                <span
+                <div
                   className="Select-multi-value-wrapper"
                   id="react-select-5--value"
                 >
@@ -1102,7 +1102,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     }
                     tabIndex={0}
                   />
-                </span>
+                </div>
                 <span
                   className="Select-arrow-zone"
                   onMouseDown={[Function]}
@@ -1523,7 +1523,7 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
               >
-                <span
+                <div
                   className="Select-multi-value-wrapper"
                   id="react-select-6--value"
                 >
@@ -1557,7 +1557,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     }
                     tabIndex={0}
                   />
-                </span>
+                </div>
                 <span
                   className="Select-arrow-zone"
                   onMouseDown={[Function]}
@@ -1597,7 +1597,7 @@ When Student Insights was being developed, some teachers started asking whether 
                 onTouchMove={[Function]}
                 onTouchStart={[Function]}
               >
-                <span
+                <div
                   className="Select-multi-value-wrapper"
                   id="react-select-7--value"
                 >
@@ -1631,7 +1631,7 @@ When Student Insights was being developed, some teachers started asking whether 
                     }
                     tabIndex={0}
                   />
-                </span>
+                </div>
                 <span
                   className="Select-arrow-zone"
                   onMouseDown={[Function]}
@@ -2107,7 +2107,7 @@ exports[`exportProps snapshots all placed 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-12--value"
                         >
@@ -2134,7 +2134,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -2181,7 +2181,7 @@ exports[`exportProps snapshots all placed 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-13--value"
                         >
@@ -2208,7 +2208,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -2255,7 +2255,7 @@ exports[`exportProps snapshots all placed 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-14--value"
                         >
@@ -2282,7 +2282,7 @@ exports[`exportProps snapshots all placed 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -2811,7 +2811,7 @@ exports[`exportProps snapshots moves 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-15--value"
                         >
@@ -2838,7 +2838,7 @@ exports[`exportProps snapshots moves 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -2885,7 +2885,7 @@ exports[`exportProps snapshots moves 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-16--value"
                         >
@@ -2912,7 +2912,7 @@ exports[`exportProps snapshots moves 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -2959,7 +2959,7 @@ exports[`exportProps snapshots moves 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-17--value"
                         >
@@ -2986,7 +2986,7 @@ exports[`exportProps snapshots moves 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -3499,7 +3499,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-10--value"
                         >
@@ -3526,7 +3526,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -3573,7 +3573,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-11--value"
                         >
@@ -3600,7 +3600,7 @@ exports[`exportProps snapshots unplaced 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -4127,7 +4127,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-18--value"
                         >
@@ -4161,7 +4161,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -4208,7 +4208,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-19--value"
                         >
@@ -4242,7 +4242,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -4289,7 +4289,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                           }
                         }
                       >
-                        <span
+                        <div
                           className="Select-multi-value-wrapper"
                           id="react-select-20--value"
                         >
@@ -4323,7 +4323,7 @@ exports[`exportProps snapshots with teachers 1`] = `
                             }
                             tabIndex={0}
                           />
-                        </span>
+                        </div>
                         <span
                           className="Select-arrow-zone"
                           onMouseDown={[Function]}
@@ -4715,7 +4715,7 @@ exports[`makeAPlanProps 1`] = `
               onTouchMove={[Function]}
               onTouchStart={[Function]}
             >
-              <span
+              <div
                 className="Select-multi-value-wrapper"
                 id="react-select-8--value"
               >
@@ -4788,7 +4788,7 @@ exports[`makeAPlanProps 1`] = `
                     
                   </div>
                 </div>
-              </span>
+              </div>
               <span
                 aria-label="Clear all"
                 className="Select-clear-zone"
@@ -5331,7 +5331,7 @@ exports[`makeAPlanProps 2`] = `
               onTouchMove={[Function]}
               onTouchStart={[Function]}
             >
-              <span
+              <div
                 className="Select-multi-value-wrapper"
                 id="react-select-9--value"
               >
@@ -5370,7 +5370,7 @@ exports[`makeAPlanProps 2`] = `
                   }
                   tabIndex={0}
                 />
-              </span>
+              </div>
               <span
                 className="Select-arrow-zone"
                 onMouseDown={[Function]}

@@ -25,7 +25,7 @@ exports[`snapshots 1`] = `
         onTouchMove={[Function]}
         onTouchStart={[Function]}
       >
-        <span
+        <div
           className="Select-multi-value-wrapper"
           id="react-select-4--value"
         >
@@ -76,7 +76,7 @@ exports[`snapshots 1`] = `
               
             </div>
           </div>
-        </span>
+        </div>
         <span
           className="Select-arrow-zone"
           onMouseDown={[Function]}
@@ -122,7 +122,7 @@ exports[`snapshots 1`] = `
         onTouchMove={[Function]}
         onTouchStart={[Function]}
       >
-        <span
+        <div
           className="Select-multi-value-wrapper"
           id="react-select-5--value"
         >
@@ -173,7 +173,7 @@ exports[`snapshots 1`] = `
               
             </div>
           </div>
-        </span>
+        </div>
         <span
           className="Select-arrow-zone"
           onMouseDown={[Function]}
@@ -277,7 +277,7 @@ exports[`snapshots when not isEditable 1`] = `
         onTouchMove={[Function]}
         onTouchStart={[Function]}
       >
-        <span
+        <div
           className="Select-multi-value-wrapper"
           id="react-select-6--value"
         >
@@ -304,7 +304,7 @@ exports[`snapshots when not isEditable 1`] = `
             }
             tabIndex={0}
           />
-        </span>
+        </div>
         <span
           className="Select-arrow-zone"
           onMouseDown={[Function]}
@@ -350,7 +350,7 @@ exports[`snapshots when not isEditable 1`] = `
         onTouchMove={[Function]}
         onTouchStart={[Function]}
       >
-        <span
+        <div
           className="Select-multi-value-wrapper"
           id="react-select-7--value"
         >
@@ -377,7 +377,7 @@ exports[`snapshots when not isEditable 1`] = `
             }
             tabIndex={0}
           />
-        </span>
+        </div>
         <span
           className="Select-arrow-zone"
           onMouseDown={[Function]}
