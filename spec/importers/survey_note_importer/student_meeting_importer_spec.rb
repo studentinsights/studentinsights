@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StudentMeetingImporter do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/student_meeting/student_meeting_fixture.csv")
+    IO.read("#{Rails.root}/spec/importers/survey_note_importer/student_meeting_fixture.csv")
   end
 
   describe 'integration test' do
