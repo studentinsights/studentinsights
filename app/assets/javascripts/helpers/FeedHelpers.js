@@ -7,19 +7,21 @@ all notes and services for a student.
 
 // Merges data from event_notes and deprecated tables (notes, interventions).
 export function mergedNotes(feed) {
-  const deprecatedInterventions = feed.deprecated.interventions.map(intervention => {
-    return {
-      ...intervention,
-      type: 'deprecated_interventions',
-      sort_timestamp: intervention.start_date_timestamp
-    };
-  });
-
+  // core, notes
   const eventNotes = feed.event_notes.map(eventNote => {
     return {
       ...eventNote,
       type: 'event_notes',
       sort_timestamp: eventNote.recorded_at
+    };
+  });
+
+  // deprecated
+  const deprecatedInterventions = feed.deprecated.interventions.map(intervention => {
+    return {
+      ...intervention,
+      type: 'deprecated_interventions',
+      sort_timestamp: intervention.start_date_timestamp
     };
   });
 
@@ -32,12 +34,21 @@ export function mergedNotes(feed) {
     };
   });
 
-  // SHS
+  // SHS only
   const homeworkHelpSessions = (feed.homework_help_sessions || []).map(homeworkHelpSession => {
     return {
       ...homeworkHelpSession,
       type: 'homework_help_sessions',
       sort_timestamp: homeworkHelpSession.form_timestamp
+    };
+  });
+
+  // SHS only so far
+  const fallStudentVoiceInsights = (feed.fall_student_voice_insights || []).map(fallStudentVoiceInsight => {
+    return {
+      ...fallStudentVoiceInsight,
+      type: 'fall_student_voice_insights',
+      sort_timestamp: fallStudentVoiceInsight.form_timestamp
     };
   });
 
@@ -50,13 +61,12 @@ export function mergedNotes(feed) {
     };
   });
 
-
-
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
     ...transitionNotes,
     ...homeworkHelpSessions,
+    ...fallStudentVoiceInsights,
     ...flattenedForms
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
