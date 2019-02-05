@@ -45,6 +45,7 @@ export function mergedNotes(feed) {
 
   // SHS only so far
   const fallStudentVoiceInsights = (feed.fall_student_voice_insights || []).map(fallStudentVoiceInsight => {
+    console.log('fallStudentVoiceInsight', fallStudentVoiceInsight);
     return {
       ...fallStudentVoiceInsight,
       type: 'fall_student_voice_insights',

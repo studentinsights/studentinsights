@@ -21,22 +21,22 @@ class ProfileInsights
   end
 
   # Take only the most recent survey from the most recent upload
-  def fall_student_voice_insights
+  def most_recent_fall_student_voice_survey
     most_recent_upload = StudentVoiceSurveyUpload
       .where(completed: true)
       .order(created_at: :desc)
       .limit(1)
       .first
-    return [] if most_recent_upload.nil?
+    return nil if most_recent_upload.nil?
 
     most_recent_survey = most_recent_upload.student_voice_completed_surveys
       .where(student_id: @student.id)
       .order(form_timestamp: :desc)
       .limit(1)
       .first
-    return [] if most_recent_survey.nil?
+    return nil if most_recent_survey.nil?
 
-    profile_insights_from_survey(most_recent_survey)
+    most_recent_survey
   end
 
   private
@@ -79,7 +79,12 @@ class ProfileInsights
     return insights + imported_form_insights(mid_year_form) if mid_year_form.present?
 
     # if not, include fall survey insights if there are any
-    insights + fall_student_voice_insights()
+    most_recent_fall_survey = most_recent_fall_student_voice_survey()
+    if most_recent_fall_survey.present?
+      insights += profile_insights_from_survey(most_recent_fall_survey)
+    end
+
+    insights
   end
 
   def imported_form_insights(imported_form)
