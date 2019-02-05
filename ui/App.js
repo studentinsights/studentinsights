@@ -23,6 +23,7 @@ import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/Explo
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
+import PermissionsPage from '../app/assets/javascripts/permissions/PermissionsPage';
 import DistrictOverviewPage from '../app/assets/javascripts/district_overview/DistrictOverviewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
@@ -74,6 +75,7 @@ export default class App extends React.Component {
   renderRoutes() {
     return (
       <Switch className="App-routes">
+        <Route exact path="/admin/authorization" render={this.renderPermissionsPage.bind(this)}/>
         <Route exact path="/admin/import_records" render={this.renderImportRecordsPage.bind(this)}/>
         <Route exact path="/admin/sample_students" render={this.renderSampleStudentsPage.bind(this)}/>
         <Route exact path="/admin/student_voice_survey_uploads" render={this.renderStudentVoiceSurveyUploadsPage.bind(this)}/>
@@ -214,6 +216,10 @@ export default class App extends React.Component {
   renderEducatorPage(routeProps) {
     const educatorId = parseInt(routeProps.match.params.id, 10);
     return <EducatorPage educatorId={educatorId} />;
+  }
+
+  renderPermissionsPage(routeProps) {
+    return <PermissionsPage />;
   }
 
   renderImportRecordsPage(routeProps) {
