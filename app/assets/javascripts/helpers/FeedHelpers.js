@@ -48,7 +48,7 @@ export function mergedNotes(feed) {
     return {
       ...fallStudentVoiceInsight,
       type: 'fall_student_voice_insights',
-      sort_timestamp: fallStudentVoiceInsight.form_timestamp
+      sort_timestamp: fallStudentVoiceInsight.student_voice_completed_survey.form_timestamp
     };
   });
 
