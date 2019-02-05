@@ -40,7 +40,11 @@ function renderPath(path, options = {}) {
   const districtKey = options.districtKey || NEW_BEDFORD;
   return (
     <MemoryRouter initialEntries={[path]}>
-      <App currentEducator={educator} districtKey={districtKey} />
+      <App
+        currentEducator={educator}
+        districtKey={districtKey}
+        rollbarErrorFn={jest.fn()}
+      />
     </MemoryRouter>
   );
 }
@@ -190,20 +194,9 @@ it('renders student profile v4', () => {
 });
 
 describe('unknown route', () => {
-  // This has to temporarily remove the Jest setup code
-  // that fails the test when console.warn is triggered.
-  var consoleWarn = null; // eslint-disable-line no-var
-  beforeEach(() => {
-    consoleWarn = console.warn; // eslint-disable-line no-console
-    console.warn = jest.fn(); // eslint-disable-line no-console
-  });
-
-  afterEach(() => {
-    console.warn = consoleWarn; // eslint-disable-line no-console
-  });
-
-  it('calls console.warn', () => {
-    mount(renderPath('/fdsjfkdsjkflsdjfs'));
-    expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
+  it('reports to Rollbar', () => {
+    const wrapper = mount(renderPath('/fdsjfkdsjkflsdjfs'));
+    const appProps = wrapper.find(App).props();
+    expect(appProps.rollbarErrorFn).toHaveBeenCalled();
   });
 });

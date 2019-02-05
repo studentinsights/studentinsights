@@ -9,6 +9,7 @@ import qs from 'query-string';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
 import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
+import RollbarErrorBoundary from '../app/assets/javascripts/components/RollbarErrorBoundary';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
@@ -43,20 +44,26 @@ import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/Servic
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 export default class App extends React.Component {
+  rollbarErrorFn(msg, obj = {}) {
+    this.props.rollbarErrorFn(msg, obj);
+  }
+
   // `NowContainer` provides a fn to read the time
   // in any deeply nested component,
   // `PerDistrictContainer` provides `districtKey`.
   render() {
-    const {districtKey, sessionTimeoutInSeconds} = this.props;
+    const {districtKey, rollbarErrorFn, sessionTimeoutInSeconds} = this.props;
     return (
-      <NowContainer nowFn={() => moment.utc()}>
-        <PerDistrictContainer districtKey={districtKey}>
-          <div className="App-content" style={styles.flexVertical}>
-            {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
-            {this.renderRoutes()}
-          </div>
-        </PerDistrictContainer>
-      </NowContainer>
+      <RollbarErrorBoundary rollbarErrorFn={rollbarErrorFn}>
+        <NowContainer nowFn={() => moment.utc()}>
+          <PerDistrictContainer districtKey={districtKey}>
+            <div className="App-content" style={styles.flexVertical}>
+              {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
+              {this.renderRoutes()}
+            </div>
+          </PerDistrictContainer>
+        </NowContainer>
+      </RollbarErrorBoundary>
     );
   }
 
@@ -281,7 +288,7 @@ export default class App extends React.Component {
   // server has rendered something and the client-side app just doesn't
   // know about it.
   renderNotFound() {
-    console.warn('App: 404'); // eslint-disable-line no-console
+    this.rollbarErrorFn('App#renderNotFound');
     return null;
   }
 }
@@ -293,6 +300,7 @@ App.propTypes = {
     school_id: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
+  rollbarErrorFn: PropTypes.func.isRequired,
   sessionTimeoutInSeconds: PropTypes.number
 };
 
