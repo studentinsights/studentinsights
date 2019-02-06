@@ -87,6 +87,7 @@ class ProfileController < ApplicationController
       event_notes: student.event_notes
         .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
       transition_notes: student.transition_notes,
+      fall_student_voice_surveys: fall_student_voice_surveys_json(student.id),
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),
       flattened_forms: flattened_forms_json(student.id),
       services: {
@@ -134,5 +135,11 @@ class ProfileController < ApplicationController
       ImportedForm.latest_for_student_id(student_id, form_key)
     end
     imported_forms.compact.map(&:as_flattened_form)
+  end
+
+  def fall_student_voice_surveys_json(student_id)
+    most_recent_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(student_id)
+    return [] if most_recent_survey.nil?
+    [most_recent_survey].as_json(methods: [:flat_text])
   end
 end
