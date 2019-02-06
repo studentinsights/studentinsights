@@ -58,7 +58,7 @@ export default class NotesList extends React.Component {
             case 'event_notes': return this.renderEventNote(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
-            case 'fall_student_voice_insights': return this.renderFallStudentVoiceInsights(mergedNote);
+            case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
             case 'flattened_forms': return this.renderFlattenedForm(mergedNote);
             }
@@ -156,13 +156,13 @@ export default class NotesList extends React.Component {
     );
   }
 
-  renderFallStudentVoiceInsights(fallStudentVoiceInsight) {
+  renderFallStudentVoiceSurvey(fallStudentVoiceSurvey) {
     return (
       <NoteCard
-        key={['fall_student_voice_insight', fallStudentVoiceInsight.id].join()}
-        noteMoment={toMomentFromRailsDate(fallStudentVoiceInsight.form_timestamp)}
+        key={['fall_completed_survey', fallStudentVoiceSurvey.id].join()}
+        noteMoment={toMomentFromRailsDate(fallStudentVoiceSurvey.form_timestamp)}
         badge={<span style={styles.badge}>What I want my teacher to know about me</span>}
-        text={`💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceInsight.survey_response_text}`}
+        text={`💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceSurvey.flat_text}`}
         educatorId={null}
         educatorsIndex={{}}
         showRestrictedNoteRedaction={false}

@@ -44,12 +44,12 @@ export function mergedNotes(feed) {
   });
 
   // SHS only so far
-  const fallStudentVoiceInsights = (feed.fall_student_voice_insights || []).map(fallStudentVoiceInsight => {
-    console.log('fallStudentVoiceInsight', fallStudentVoiceInsight);
+  const fallStudentVoiceInsights = (feed.fall_student_voice_surveys || []).map(fallCompletedSurvey => {
     return {
-      ...fallStudentVoiceInsight,
-      type: 'fall_student_voice_insights',
-      sort_timestamp: fallStudentVoiceInsight.student_voice_completed_survey.form_timestamp
+      ...fallCompletedSurvey,
+      type: 'fall_student_voice_surveys',
+      sort_timestamp: fallCompletedSurvey.form_timestamp
+
     };
   });
 

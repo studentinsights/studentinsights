@@ -276,7 +276,7 @@ describe ProfileController, :type => :controller do
           expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],
-            'fall_student_voice_insights' => [],
+            'fall_student_voice_surveys' => [],
             'homework_help_sessions' => [],
             'flattened_forms' => [],
             'services' => {
@@ -539,7 +539,7 @@ describe ProfileController, :type => :controller do
         :services,
         :deprecated,
         :transition_notes,
-        :fall_student_voice_insights,
+        :fall_student_voice_surveys,
         :homework_help_sessions,
         :flattened_forms
       ])
