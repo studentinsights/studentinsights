@@ -8,6 +8,7 @@ env:
 cache:
   directories:
   - $HOME/.cache/yarn # yarn
+  - node_modules # yarn
   - /home/travis/.rvm/gems/ruby-2.5.3/gems/ # bundler
 
 rvm:
@@ -23,7 +24,7 @@ branches:
     - master
 
 before_install:
-  - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then export TZ=America/New_York; fi
+  - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then export TZ=UTC; fi
   # see https://github.com/travis-ci/travis-ci/issues/7471#issuecomment-288832948
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"; fi
