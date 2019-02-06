@@ -9,7 +9,6 @@ cache:
   directories:
   - $HOME/.cache/yarn # yarn
   - node_modules # yarn
-  - /home/travis/.rvm/gems/ruby-2.5.3/gems/ # bundler
 
 rvm:
   - ruby-2.5.3
