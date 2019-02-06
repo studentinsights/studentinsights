@@ -55,8 +55,8 @@ RSpec.describe Feed do
       ]
       feed = feed_for(pals.shs_jodi)
       expect(feed.merge_sort_and_limit_cards(card_sets, 2).as_json).to eq [
-        {"type"=>"event_note", "timestamp"=>'2018-03-09T00:00:00.000-05:00', "json"=>{"foo"=>"bar"}},
-        {"type"=>"event_note", "timestamp"=>'2018-03-08T00:00:00.000-05:00', "json"=>{"foo"=>"bar"}}
+        {"type"=>"event_note", "timestamp"=>'2018-03-09T00:00:00.000+00:00', "json"=>{"foo"=>"bar"}},
+        {"type"=>"event_note", "timestamp"=>'2018-03-08T00:00:00.000+00:00', "json"=>{"foo"=>"bar"}}
       ]
     end
   end
