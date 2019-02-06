@@ -144,7 +144,7 @@ exports[`snapshots works for bedford 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-25--value"
                   >
@@ -202,7 +202,7 @@ exports[`snapshots works for bedford 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -231,7 +231,7 @@ exports[`snapshots works for bedford 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-26--value"
                   >
@@ -282,7 +282,7 @@ exports[`snapshots works for bedford 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -311,7 +311,7 @@ exports[`snapshots works for bedford 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-27--value"
                   >
@@ -362,7 +362,7 @@ exports[`snapshots works for bedford 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -414,7 +414,7 @@ exports[`snapshots works for bedford 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-28--value"
                   >
@@ -448,7 +448,7 @@ exports[`snapshots works for bedford 1`] = `
                       }
                       tabIndex={0}
                     />
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -736,7 +736,7 @@ exports[`snapshots works for demo 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-13--value"
                   >
@@ -794,7 +794,7 @@ exports[`snapshots works for demo 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -823,7 +823,7 @@ exports[`snapshots works for demo 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-14--value"
                   >
@@ -874,7 +874,7 @@ exports[`snapshots works for demo 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -903,7 +903,7 @@ exports[`snapshots works for demo 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-15--value"
                   >
@@ -954,7 +954,7 @@ exports[`snapshots works for demo 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -983,7 +983,7 @@ exports[`snapshots works for demo 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-16--value"
                   >
@@ -1034,7 +1034,7 @@ exports[`snapshots works for demo 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -1086,7 +1086,7 @@ exports[`snapshots works for demo 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-17--value"
                   >
@@ -1120,7 +1120,7 @@ exports[`snapshots works for demo 1`] = `
                       }
                       tabIndex={0}
                     />
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -1408,7 +1408,7 @@ exports[`snapshots works for new_bedford 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-23--value"
                   >
@@ -1459,7 +1459,7 @@ exports[`snapshots works for new_bedford 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -1511,7 +1511,7 @@ exports[`snapshots works for new_bedford 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-24--value"
                   >
@@ -1545,7 +1545,7 @@ exports[`snapshots works for new_bedford 1`] = `
                       }
                       tabIndex={0}
                     />
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -1833,7 +1833,7 @@ exports[`snapshots works for somerville 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-18--value"
                   >
@@ -1891,7 +1891,7 @@ exports[`snapshots works for somerville 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -1920,7 +1920,7 @@ exports[`snapshots works for somerville 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-19--value"
                   >
@@ -1971,7 +1971,7 @@ exports[`snapshots works for somerville 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -2000,7 +2000,7 @@ exports[`snapshots works for somerville 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-20--value"
                   >
@@ -2051,7 +2051,7 @@ exports[`snapshots works for somerville 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -2080,7 +2080,7 @@ exports[`snapshots works for somerville 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-21--value"
                   >
@@ -2131,7 +2131,7 @@ exports[`snapshots works for somerville 1`] = `
                         
                       </div>
                     </div>
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}
@@ -2183,7 +2183,7 @@ exports[`snapshots works for somerville 1`] = `
                     }
                   }
                 >
-                  <span
+                  <div
                     className="Select-multi-value-wrapper"
                     id="react-select-22--value"
                   >
@@ -2217,7 +2217,7 @@ exports[`snapshots works for somerville 1`] = `
                       }
                       tabIndex={0}
                     />
-                  </span>
+                  </div>
                   <span
                     className="Select-arrow-zone"
                     onMouseDown={[Function]}

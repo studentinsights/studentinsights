@@ -1,4 +1,4 @@
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import fetchMock from 'fetch-mock/es5/client';
 import {TEST_DELAY, testProps, testRender, callUrls} from './SessionRenewal-testHelpers';
 

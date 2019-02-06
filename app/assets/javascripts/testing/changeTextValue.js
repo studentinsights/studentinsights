@@ -1,4 +1,4 @@
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 
 // Update the text value of an input or textarea, and simulate the React

@@ -80,7 +80,8 @@ class ImportMatcher
     # Parse the time as if it were UTC, then ask Rails whether it is the time of year
     # when it would be daylight savings time.  Then re-parse with the correct
     # offset so we interpret the time from Sheets correctly as EST or EDT.
-    is_dst = DateTime.strptime(string_eastern_without_timezone, '%m/%d/%Y %k:%M:%S').to_time.dst?
+    time_zone_string = options.fetch(:time_zone_string, 'America/New_York')
+    is_dst = DateTime.strptime(string_eastern_without_timezone, '%m/%d/%Y %k:%M:%S').in_time_zone(time_zone_string).dst?
     timezone_code = is_dst ? 'EDT' : 'EST'
     est_with_timezeone = "#{string_eastern_without_timezone} #{timezone_code}"
     DateTime.strptime(est_with_timezeone, '%m/%d/%Y %k:%M:%S %Z').new_offset(0)
