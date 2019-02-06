@@ -6,8 +6,9 @@ env:
   - TRAVIS_TEST_SUITE=ruby
 
 cache:
-  bundler: true
-  yarn: true
+  directories:
+  - $HOME/.cache/yarn # yarn
+  - /home/travis/.rvm/gems/ruby-2.5.3/gems/ # bundler
 
 rvm:
   - ruby-2.5.3
