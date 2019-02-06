@@ -1,5 +1,10 @@
 language: ruby
 
+# for parallelizing tests across VMS, see https://docs.travis-ci.com/user/speeding-up-the-build/
+env:
+  - TRAVIS_TEST_SUITE=js
+  - TRAVIS_TEST_SUITE=ruby
+
 cache:
   bundler: true
   yarn: true
@@ -19,21 +24,21 @@ branches:
 before_install:
   - export TZ=America/New_York
   # see https://github.com/travis-ci/travis-ci/issues/7471#issuecomment-288832948
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && curl -o- -L https://yarnpkg.com/install.sh | bash
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 install:
-  - . $HOME/.nvm/nvm.sh
-  - nvm install --lts
-  - nvm use --lts
-  - bundle install --retry=3
-  - yarn install
+  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle install --retry=3
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && . $HOME/.nvm/nvm.sh
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && nvm install --lts
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && nvm use --lts
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && yarn install
 
 script:
-  - bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
-  - bundle exec rake immigrant:check_keys
-  - ./scripts/ci/detect_package_lock.sh
-  - rubocop
-  - bundle exec brakeman -z
-  - ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
-  - yarn test-cli
+  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
+  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle exec rake immigrant:check_keys
+  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && rubocop
+  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle exec brakeman -z
+  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && ./scripts/ci/detect_package_lock.sh
+  - [[$TRAVIS_TEST_SUITE == "js" ]] && yarn test-cli
