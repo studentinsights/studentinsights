@@ -55,7 +55,13 @@ class StudentVoiceCompletedSurvey < ApplicationRecord
   # Flatten into text, for displaying to the user
   def flat_text(options = {})
     columns = options.fetch(:columns, StudentVoiceCompletedSurvey.columns_for_form_v2)
-    prompt_keys_to_include = options.fetch(:prompt_keys_to_include, columns.keys)
+    prompt_keys_to_include = options.fetch(:prompt_keys_to_include, [
+      :proud,
+      :best_qualities,
+      :activities_and_interests,
+      :nervous_or_stressed,
+      :learn_best
+    ])
 
     lines = []
     prompt_keys_to_include.each do |prompt_key|
