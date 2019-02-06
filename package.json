@@ -60,6 +60,7 @@
     "@storybook/react": "3.4.11",
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-react-app": "^7.0.0",
     "clean-webpack-plugin": "^0.1.17",
     "compression-webpack-plugin": "^1.0.1",
