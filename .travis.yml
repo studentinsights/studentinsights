@@ -22,23 +22,23 @@ branches:
     - master
 
 before_install:
-  - export TZ=America/New_York
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then export TZ=America/New_York; fi
   # see https://github.com/travis-ci/travis-ci/issues/7471#issuecomment-288832948
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && curl -o- -L https://yarnpkg.com/install.sh | bash
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"; fi
 
 install:
-  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle install --retry=3
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && . $HOME/.nvm/nvm.sh
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && nvm install --lts
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && nvm use --lts
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && yarn install
+  - if [[$TRAVIS_TEST_SUITE == "ruby" ]]; then bundle install --retry=3; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then . $HOME/.nvm/nvm.sh; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then nvm install --lts; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then nvm use --lts; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then yarn install; fi
 
 script:
-  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test
-  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle exec rake immigrant:check_keys
-  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && rubocop
-  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && bundle exec brakeman -z
-  - [[$TRAVIS_TEST_SUITE == "ruby" ]] && ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && ./scripts/ci/detect_package_lock.sh
-  - [[$TRAVIS_TEST_SUITE == "js" ]] && yarn test-cli
+  - if [[$TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test; fi
+  - if [[$TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake immigrant:check_keys; fi
+  - if [[$TRAVIS_TEST_SUITE == "ruby" ]]; then rubocop; fi
+  - if [[$TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec brakeman -z; fi
+  - if [[$TRAVIS_TEST_SUITE == "ruby" ]]; then ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then ./scripts/ci/detect_package_lock.sh; fi
+  - if [[$TRAVIS_TEST_SUITE == "js" ]]; then yarn test-cli; fi
