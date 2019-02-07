@@ -212,7 +212,7 @@ Previously, 8th grade counselors would write out a "transition packet" for all s
   <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" >
       <a href="img/our-work/transition-left.png" data-lightbox="transition-left"><img src="img/our-work/transition-left.png" alt="What are this student's strengths? Below are various questions about the student." /></a>
     </div>
-  <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" ><
+  <div class="DoubleImage-small" style="border: 1px solid #eee; padding: 10px; margin: 5px;" >
       <a href="img/our-work/transition-right.png" data-lightbox="transition-right"><img src="img/our-work/transition-right.png" alt="Is this student receiving Social Services and if so, what is the name and contact of their social worker? Followed with an example response and other questions related to health." /></a>
     </div>
 </div>
