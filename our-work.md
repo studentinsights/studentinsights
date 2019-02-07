@@ -112,7 +112,8 @@ To strike the right balance here, within Student Insights most numeric data in a
 
 
 <h2 class="OurWork-SectionTitle">Student-centered narratives</h2>
-> "What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a>f
+> "What we say shapes how adults think about and treat students, how students feel about themselves and their peers, and who gets which dollars, teachers, daily supports, and opportunities to learn."<a style="display: block;" href="pals.html">- Mica Pollock</a>
+
 When we originally built Student Insights, we had no idea how popular and powerful it would be to add the simple ability for educators to say something about what was going on with a student.
 
 Writing notes lets educators share information and insights with other so everyone can know what’s going on with a student.   This includes what other teachers have tried, what’s worked, and what hasn’t worked.   This is particularly important for student support team structures where there's a interdisciplinary team that evolves over time.  Districts have a variety of names for these such as SST, BBST, MTSS, Wellness, and NGE.
