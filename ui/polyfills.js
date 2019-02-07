@@ -24,3 +24,7 @@ import 'array.prototype.fill';
 import ArrayFindPolyfill from 'array.prototype.find';
 ArrayFindPolyfill.shim();
 
+// For React 16 in IE
+// see https://reactjs.org/docs/javascript-environment-requirements.html
+import 'core-js/es6/map';
+import 'core-js/es6/set';
