@@ -23,7 +23,7 @@ Student Insights started in one school in Somerville in 2014, trying to integrat
 
 As we started working with more schools, we also shifted the way we worked.  We focused less on the technology and more on the **last mile** of how our work could influence practice.  This led to new kinds of opportunities, grounded in the core values of: *seeing the whole child*, *student-centered narratives* and embracing challenges around *trust, access and privacy*.
 
-
+In 2018 we also started collaborating with our first group of students, who design and build alongside us.
 
 <section>
   {% assign profile_title = 'Seeing the whole child' %}
