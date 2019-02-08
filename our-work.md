@@ -1,15 +1,19 @@
 {% include navbar.html %}
 
 # Our work
-Our work on Student Insights built on the work that has [come before](about-us.html).  As we've worked, we found that three particular areas really resonated with the school community in Somerville.  Those have formed the core of Student Insights, that we've worked to deepen over time, and the base on which all other work has been built.
+Student Insights is focused on collaborating with school communities around the last mile of how our work can influence practice.  This is grounded in the core values of: [seeing the whole child](#seeing-the-whole-child), supporting [student-centered narratives](#student-centered-narratives) and embracing challenges around [trust, access and privacy](#trust-access-and-privacy).
 
-<h2 class="OurWork-SectionTitle">Whole-child profile</h2>
+Along the way, we've also collaborated on several [additional projects](#additional-projects) to grow and sustain student-centered practices like supporting transitions between schools or creating equitable and diverse classroom communities.
+
+<h2 class="OurWork-SectionTitle">Seeing the whole child</h2>
 > "We want to understand young people as whole, not broken on the way in, and we want schooling and education to help keep young people whole as they continue to grow in a dynamic world." <a href="pals.html" style="display: block;">- Django Paris</a>
 
-Student Insights started as an effort to pull together student data from different sources all onto one screen.  We've done this with a variety of data points - and we started with some standard things like IEP goals, English learner assessments, course enrollments and grades, attendance, discipline data, MCAS scores, STAR reading and math scores, and DIBELS subtests for reading.
+Conversations about the student profiles within Student Insights often start with the question: "When you were the same age as your students, what would you have wanted adults to know about you?"
 
 <a href="img/our-work/profile.png" data-lightbox="profile">
   <img src="img/our-work/profile.png" class="InlineImage OurWork-InlineImage-profile" alt="Student Profile Example" /> </a>
+
+Student Insights started as an effort to pull together student data from different sources all onto one screen.  We've done this with a variety of data points - and we started with some standard things like IEP goals, English learner assessments, course enrollments and grades, attendance, discipline data, MCAS scores, STAR reading and math scores, and DIBELS subtests for reading.
 
 But along the way we started asking more questions with educators about how we should be representing students, and whether our work on this profile was really was reflecting the values of our school community.  We cam eto see that while pulling in multiple data sources can help students get what they need, it can also serve to define and limit young people.  Striking the right balance here is challenging but important, most especially at the transition point at the start of the school year.  When teachers get their classroom rosters, it's possible that the profile in Student Insights may be one of the first ways an educator is introduced to a student.
 
