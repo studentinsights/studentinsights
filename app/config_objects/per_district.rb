@@ -470,13 +470,13 @@ class PerDistrict
 
   def sign_in_params
     if @district_key == SOMERVILLE
-      { preview_url: '/test' }
+      { preview_image_src: 'sign_in/somerville-preview.png' }
     elsif @district_key == BEDORD
-      { preview_url: '/test' }
+      { preview_image_src: 'sign_in/bedford-preview.png' }
     elsif @district_key == NEW_BEDFORD
-      { preview_url: '/test' }
+      { preview_image_src: 'sign_in/new-bedford-preview.png' }
     elsif @district_key == DEMO
-      { preview_url: '/test' }
+      { preview_image_src: 'sign_in/demo-preview.png' }
     else
       raise_not_handled!
     end
