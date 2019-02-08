@@ -23,7 +23,7 @@ We'll share a few of the steps that we've taken to this point, but we also see t
 
 
 ### "Best light" principle
-There can be a lot of benefit in sharing educational records between educators, and particularly at times of [transition](our-work.html#transitions).  This can help young people get the services and supports they need, and can help educators learn from what has worked well for that student in the past.
+There can be a lot of benefit in sharing educational records between educators, and particularly at times of [transition](our-work.html#transitions-between-schools).  This can help young people get the services and supports they need, and can help educators learn from what has worked well for that student in the past.
 
 <p class="LongQuote LongQuote-Inline">
   <i>“When educators over-rely on secondhand information about students’ past academic or behavior records, this may lead to self-fulfilling prophecies. If teachers hear that students have excelled in the past or are predicted to do so in the future, research shows that even if that information is false, it tends to lead to more investment in those students, which enhances their chance of success. This is called the “Pygmalion effect.” Conversely, if teachers learn that their students have spotty histories, either in terms of their grades or behavior, they may suffer from the “Golem effect,” causing teachers to lower their expectations and disengage, which may in turn cause their students  to struggle even more.”</i>
@@ -140,9 +140,9 @@ Notes about a student are also visible to other educators who are authorized to 
   <img src="img/our-work/home-feed-short.png" alt="Home page feed" class="InlineImage" alt="What's Happening? A few photos of how students are doing at school"/>
 </a>
 
-When working with educators teams deciding how they want to use Student Insights, one experience we share is how this has been most effective in Somerville for structure support teams or PLCs teams that are already up and running.  Within support structures like MTSS or SST, there is often an interdisciplinary team, and taking notes about what's going on with the student holistically and what actions the team is taking can be a helpful starting point.  Educators have also found [transitions](our-work.html#transitions) between classes or grades can be a helpful place to start, and that's a project we've worked on separately as well.
+When working with educators teams deciding how they want to use Student Insights, one experience we share is how this has been most effective in Somerville for structure support teams or PLCs teams that are already up and running.  Within support structures like MTSS or SST, there is often an interdisciplinary team, and taking notes about what's going on with the student holistically and what actions the team is taking can be a helpful starting point.  Educators have also found [transitions](our-work.html#transitions-between-schools) between classes or grades can be a helpful place to start, and that's a project we've worked on separately as well.
 
-Educators have also developed thoughtful protocols around specific kinds of conversations, or how to take notes about them.  This has come up with ["What I want my teacher to know about me"](#what-i-want-my-teachers-to-know-about-me), [student meetings](#student-meetings) and also with [transitions](#transitions).  In those cases, we've built integrations to other data sources like forms and spreadsheets, so that educators can fully own and shape these however they think is best, while we do the work on Student Insights to sync those notes and conversations with students.
+Educators have also developed thoughtful protocols around specific kinds of conversations, or how to take notes about them.  This has come up with ["What I want my teacher to know about me"](#what-i-want-my-teachers-to-know-about-me), [student meetings](#student-meetings) and also with [transitions](#transitions-between-schools).  In those cases, we've built integrations to other data sources like forms and spreadsheets, so that educators can fully own and shape these however they think is best, while we do the work on Student Insights to sync those notes and conversations with students.
 
 Finally, educators also asked to be able to further restrict access to notes beyond the normal access roles.  Administrators and counselors can mark a note as "restricted" to respect a student's privacy and limit access even further.  When working with older students, counselors also use these moments to tangibly demonstrate their respect of student privacy - asking to share certain topic with other educators, sharing some topics that are "restricted" a more limited way, and keeping some topics entirely confidential and never entered into any school data system but only in their own counseling notebook.
 
@@ -205,7 +205,7 @@ For more, see our [privacy policy](/privacy.html) or email <a href="mailto:{{sit
 
 <h2 class="OurWork-SectionTitle">Additional projects</h2>
 
-### Transitions
+### Transitions between schools
 While educators have continually surprised us with how powerful they've found the simple ability to share notes about students with their colleagues, we've also heard that there are particular communication gaps around transitions where Student Insights could really help.
 
 These transitions come up at various times: when a student moves from one school to another, when they successfully return to a district school from a special education placement, or in response to other changes that come up throughout the year.  But there are also some transitions that are predictable, and at the end of the 2017 school year, counselor educators in Somerville asked to talk about how we could support the transition from 8th grade to 9th grade.

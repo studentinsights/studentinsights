@@ -84,7 +84,7 @@ As we started working with more schools, we also shifted the way we worked.  We 
 <section style="margin-top: 60px; margin-bottom: 30px;">
   <h2>Additional projects</h2>
   <div class="TripleCard-row">
-    {% include triple-card.html href="our-work.html#transitions" title="Transitions" line="In partnership with 8th and 9th grade counselor educators" image="img/transition-plain-form.png" %}
+    {% include triple-card.html href="our-work.html#transitions-between-schools" title="Transitions between schools" line="In partnership with 8th and 9th grade counselor educators" image="img/transition-plain-form.png" %}
     {% include triple-card.html href="our-work.html#attendance-supports" title="Attendance supports" line="In partnership with assistance principals and family liaisons" image="img/absences.png" %}
     {% include triple-card.html href="our-work.html#class-lists" title="Class lists" line="In partnership with K-6 classroom teachers" image="img/class-list.png" %}
   </div>
