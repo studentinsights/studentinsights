@@ -1,7 +1,9 @@
 {% include navbar.html %}
 
 # About us
-Our team approaches these problems with one core value: we work to create more educational opportunity for young people, we don't just build software.  We believe that by building with communities, we all can be more creative, move more quickly, and be more empathetic than other models striving for scale.  We believe this "last mile" is where innovation really occurs, and it's precisely the place where most edtech business models and philanthropic initiatives can't reach.  Even institutions like the [Gates Foundation](https://www.educationnext.org/develop-validate-scale-lessons-gates-foundation-effective-teaching-strategy/) have started to come around:
+We believe that by building with communities, we all can be more student-centered, more creative, move more quickly, and be more empathetic than other models striving for scale. We believe this “last mile” is where innovation really occurs, and often where other models fall short. Institutions like the Gates Foundation are recognizing the long-term value of this grass-roots approach:
+
+Our team approaches these problems with one core value: we work to create more educational opportunity for young people, we don't just build software.  We believe that by building with communities, we all can be more creative, move more quickly, and be more empathetic than other models striving for scale.  We believe this “last mile” is where innovation really occurs, and often where other models fall short. Institutions like the [Gates Foundation](https://www.educationnext.org/develop-validate-scale-lessons-gates-foundation-effective-teaching-strategy/) are recognizing the long-term value of this grass-roots approach:
 
 <div style="margin: 20px;"><i>
   <p>"The people closest to the work (teachers, principals, district leaders) are in the best position to identify the challenges to be solved... Instead of providing large, multi-year grants for districtwide scale-up, the foundation should have invited applications to conduct pilot programs on a smaller scale first."<a href="pals.html" style="display: block;">- Thomas Kane</a></p>
