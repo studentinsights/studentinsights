@@ -1,3 +1,14 @@
+Friday 2/8 updates:
+- **Student voice**: Decouple profile insights and grades reflection switches [#2392](https://github.com/studentinsights/studentinsights/pull/2392)
+- **Student voice**: Fix timezone parsing in importing form timestamps [#2393](https://github.com/studentinsights/studentinsights/pull/2393)
+- **Student voice**: Show start-of-year survey in notes feed [#2396](https://github.com/studentinsights/studentinsights/pull/2396)
+- **Student voice**: Update differences between what shows in profile notes / profile insights [#2400](https://github.com/studentinsights/studentinsights/pull/2400)
+- **Whole-child**: Prototype embedding video clips from student of the quarter awards
+- **Maintenance**: Upgrade to React 16.7, add RollbarErrorBoundary [#2397](https://github.com/studentinsights/studentinsights/pull/2397)
+- **Sign in**: Preview that sign-in page will change soon [#2403](https://github.com/studentinsights/studentinsights/pull/2403)
+- **K8 update email**: Discipline patterns tool and finding 504 plan accommodations
+- **Design**: Update favicon! [#2404](https://github.com/studentinsights/studentinsights/pull/2404)
+
 Friday 2/1 updates:
 - **Student voice**: Import mid-year survey, show on profile notes [#2379](https://github.com/studentinsights/studentinsights/pull/2379)
 - **Student voice**: Add Q2 self-reflection to profile notes [#2381](https://github.com/studentinsights/studentinsights/pull/2381)
