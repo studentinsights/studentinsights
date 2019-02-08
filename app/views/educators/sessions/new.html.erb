@@ -7,16 +7,18 @@
   }
 </style>
 <div class="SignInPage">
-  <div class="SignInPage-leftBox">
-    <img src="/Billboard_orchestra2.jpg"></img>
+  <div class="SignInPage-left-box">
+    <a href="<%= PerDistrict.new.sign_in_params[:district_url] %>">
+      <%= image_tag PerDistrict.new.sign_in_params[:splash_image_src], alt: PerDistrict.new.sign_in_params[:splash_image_alt], class: "SignInPage-splash-image" %>
+    </a>
   </div>
-  <div class="SignInPage-rightBox">
+  <div class="SignInPage-right-box">
     <a class="SignInPage-logo-and-name" href="/">
       <%= render('shared/logo') %>
       <%= render('shared/wordmark') %>
     </a>
     <a href="<%= @disrict_url %>">
-      <img class="SignInPage-district-logo" src="<%= @district_logo_src %>" alt="<%= @district_logo_alt %>">
+      <%= image_tag PerDistrict.new.sign_in_params[:district_logo_src], alt: PerDistrict.new.sign_in_params[:district_logo_alt], class:"SignInPage-district-logo" %>
     </a>
     <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
       <div class="SignInPage-item">

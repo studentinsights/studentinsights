@@ -468,6 +468,38 @@ class PerDistrict
     end
   end
 
+  def sign_in_params
+    if @district_key == SOMERVILLE
+      {
+        district_url: 'http://www.somerville.k12.ma.us/',
+        district_logo_src: 'sign_in/somerville-logo.jpg',
+        district_logo_alt: "#{district_name} logo",
+        splash_image_src: 'sign_in/somerville-sign-in-1.jpg',
+        splash_image_alt: 'Students playing music'
+      }
+    elsif @district_key == BEDORD
+      {
+        district_url: 'https://www.bedfordps.org/',
+        district_logo_src: 'bedford-logo.jpg',
+        district_logo_alt: "#{district_name} logo"
+      }
+    elsif @district_key == NEW_BEDFORD
+      {
+        district_url: 'http://www.newbedfordschools.org/',
+        district_logo_src: 'new-bedford-logo.jpg',
+        district_logo_alt: "#{district_name} logo"
+      }
+    elsif @district_key == DEMO
+      {
+        district_url: 'http://www.studentinsights.org/',
+        district_logo_src: 'demo-logo.jpg',
+        district_logo_alt: "#{district_name} logo"
+      }
+    else
+      raise_not_handled!
+    end
+  end
+
   private
   def yaml
     config_map = {

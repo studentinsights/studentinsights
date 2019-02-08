@@ -60,17 +60,17 @@
     flex: 1;
   }
 
-  .SignInPage-leftBox {
+  .SignInPage-left-box {
     flex: 3;
     overflow: hidden;
     height: 100%;
   }
 
-  .SignInPage-leftBox > img {
+  .SignInPage-splash-image {
     height: 100%;
   }
 
-  .SignInPage-rightBox {
+  .SignInPage-right-box {
     padding-top: 30px;
     flex: 5;
     display: flex;
@@ -90,7 +90,7 @@
     width: 200px;
   }
 
-  .SignInPage-somervilleLogo {
+  .SignInPage-district-logo {
     width: 200px;
     height: 200px;
     padding-top: 15px;
