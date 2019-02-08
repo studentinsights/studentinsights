@@ -468,6 +468,20 @@ class PerDistrict
     end
   end
 
+  def sign_in_params
+    if @district_key == SOMERVILLE
+      { preview_url: '/test' }
+    elsif @district_key == BEDORD
+      { preview_url: '/test' }
+    elsif @district_key == NEW_BEDFORD
+      { preview_url: '/test' }
+    elsif @district_key == DEMO
+      { preview_url: '/test' }
+    else
+      raise_not_handled!
+    end
+  end
+
   private
   def yaml
     config_map = {
