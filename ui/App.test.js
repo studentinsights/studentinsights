@@ -9,6 +9,8 @@ import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
+import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
+import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
@@ -24,6 +26,8 @@ jest.mock('../app/assets/javascripts/my_students/MyStudentsPage');
 jest.mock('../app/assets/javascripts/my_notes/MyNotesPage');
 jest.mock('../app/assets/javascripts/school_courses/SchoolCoursesPage');
 jest.mock('../app/assets/javascripts/school_absences/SchoolAbsencesPage');
+jest.mock('../app/assets/javascripts/reading/ReadingEntryPage');
+jest.mock('../app/assets/javascripts/reading/ReadingGroupingPage');
 jest.mock('../app/assets/javascripts/school_administrator_dashboard/DashboardLoader');
 jest.mock('../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage');
 jest.mock('../app/assets/javascripts/class_lists/ClassListCreatorPage');
@@ -36,7 +40,11 @@ function renderPath(path, options = {}) {
   const districtKey = options.districtKey || NEW_BEDFORD;
   return (
     <MemoryRouter initialEntries={[path]}>
-      <App currentEducator={educator} districtKey={districtKey} />
+      <App
+        currentEducator={educator}
+        districtKey={districtKey}
+        rollbarErrorFn={jest.fn()}
+      />
     </MemoryRouter>
   );
 }
@@ -114,6 +122,25 @@ it('renders Discipline Dashboard without crashing', () => {
   )).toEqual(true);
 });
 
+it('render ReadingEntryPage without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/reading/3/entry'));
+  expect(wrapper.contains(
+    <ReadingEntryPage
+      currentEducatorId={9999}
+      schoolSlug="hea"
+      grade="3" />
+  )).toEqual(true);
+});
+
+it('render ReadingGroupingPage without crashing', () => {
+  const wrapper = mount(renderPath('/schools/hea/reading/3/groups'));
+  expect(wrapper.contains(
+    <ReadingGroupingPage
+      schoolSlug="hea"
+      grade="3" />
+  )).toEqual(true);
+});
+
 it('renders district enrollment', () => {
   const wrapper = mount(renderPath('/district/enrollment'));
   expect(wrapper.contains(
@@ -167,20 +194,9 @@ it('renders student profile v4', () => {
 });
 
 describe('unknown route', () => {
-  // This has to temporarily remove the Jest setup code
-  // that fails the test when console.warn is triggered.
-  var consoleWarn = null; // eslint-disable-line no-var
-  beforeEach(() => {
-    consoleWarn = console.warn; // eslint-disable-line no-console
-    console.warn = jest.fn(); // eslint-disable-line no-console
-  });
-
-  afterEach(() => {
-    console.warn = consoleWarn; // eslint-disable-line no-console
-  });
-
-  it('calls console.warn', () => {
-    mount(renderPath('/fdsjfkdsjkflsdjfs'));
-    expect(console.warn).toHaveBeenCalled(); // eslint-disable-line no-console
+  it('reports to Rollbar', () => {
+    const wrapper = mount(renderPath('/fdsjfkdsjkflsdjfs'));
+    const appProps = wrapper.find(App).props();
+    expect(appProps.rollbarErrorFn).toHaveBeenCalled();
   });
 });

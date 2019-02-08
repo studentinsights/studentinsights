@@ -9,6 +9,7 @@ import qs from 'query-string';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
 import PerDistrictContainer from '../app/assets/javascripts/components/PerDistrictContainer';
 import SessionRenewal from '../app/assets/javascripts/components/SessionRenewal';
+import RollbarErrorBoundary from '../app/assets/javascripts/components/RollbarErrorBoundary';
 import HomePage from '../app/assets/javascripts/home/HomePage';
 import SearchNotesPage from '../app/assets/javascripts/search_notes/SearchNotesPage';
 import EducatorPage from '../app/assets/javascripts/educator/EducatorPage';
@@ -29,6 +30,8 @@ import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRe
 import StudentVoiceSurveyUploadsPage from '../app/assets/javascripts/student_voice_survey_uploads/StudentVoiceSurveyUploadsPage';
 import SampleStudentsPage from '../app/assets/javascripts/sample_students/SampleStudentsPage';
 import MyNotesPage from '../app/assets/javascripts/my_notes/MyNotesPage';
+import ReadingEntryPage from '../app/assets/javascripts/reading/ReadingEntryPage';
+import ReadingGroupingPage from '../app/assets/javascripts/reading/ReadingGroupingPage';
 import MyStudentsPage from '../app/assets/javascripts/my_students/MyStudentsPage';
 import MySectionsPage from '../app/assets/javascripts/my_sections/MySectionsPage';
 import StudentProfilePage from '../app/assets/javascripts/student_profile/StudentProfilePage';
@@ -41,20 +44,26 @@ import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/Servic
 // The core model is still "new page, new load," this just
 // handles routing on initial page load for JS code.
 export default class App extends React.Component {
+  rollbarErrorFn(msg, obj = {}) {
+    this.props.rollbarErrorFn(msg, obj);
+  }
+
   // `NowContainer` provides a fn to read the time
   // in any deeply nested component,
   // `PerDistrictContainer` provides `districtKey`.
   render() {
-    const {districtKey, sessionTimeoutInSeconds} = this.props;
+    const {districtKey, rollbarErrorFn, sessionTimeoutInSeconds} = this.props;
     return (
-      <NowContainer nowFn={() => moment.utc()}>
-        <PerDistrictContainer districtKey={districtKey}>
-          <div className="App-content" style={styles.flexVertical}>
-            {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
-            {this.renderRoutes()}
-          </div>
-        </PerDistrictContainer>
-      </NowContainer>
+      <RollbarErrorBoundary rollbarErrorFn={rollbarErrorFn}>
+        <NowContainer nowFn={() => moment.utc()}>
+          <PerDistrictContainer districtKey={districtKey}>
+            <div className="App-content" style={styles.flexVertical}>
+              {sessionTimeoutInSeconds && this.renderSessionRenewal(sessionTimeoutInSeconds)}
+              {this.renderRoutes()}
+            </div>
+          </PerDistrictContainer>
+        </NowContainer>
+      </RollbarErrorBoundary>
     );
   }
 
@@ -62,8 +71,8 @@ export default class App extends React.Component {
   renderSessionRenewal(sessionTimeoutInSeconds) {
     return (
       <SessionRenewal
-        sessionTimeoutInSeconds={sessionTimeoutInSeconds}
-        warningTimeoutInSeconds={sessionTimeoutInSeconds - 1} />
+        probeIntervalInSeconds={60}
+        warningDurationInSeconds={30} />
     );
   }
 
@@ -87,6 +96,8 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+        <Route exact path="/schools/:slug/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
+        <Route exact path="/schools/:slug/reading/:grade/groups" render={this.renderReadingGroupingPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
         <Route exact path="/sections/:id" render={this.renderSectionPage.bind(this)}/>
         <Route exact path="/students/:id" render={this.renderStudentProfilePage.bind(this)}/>
@@ -147,6 +158,25 @@ export default class App extends React.Component {
         queryParams={queryParams}
         history={window.history} />
     );
+  }
+
+  renderReadingEntryPage(routeProps) {
+    const {currentEducator} = this.props;
+    const schoolSlug = routeProps.match.params.slug;
+    const grade = routeProps.match.params.grade;
+    return (
+      <ReadingEntryPage
+        currentEducatorId={currentEducator.id}
+        schoolSlug={schoolSlug}
+        grade={grade}
+      />
+    );
+  }
+
+  renderReadingGroupingPage(routeProps) {
+    const schoolSlug = routeProps.match.params.slug;
+    const grade = routeProps.match.params.grade;
+    return <ReadingGroupingPage schoolSlug={schoolSlug} grade={grade} />;
   }
 
   renderExploreSchoolEquityPage(routeProps) {
@@ -258,7 +288,7 @@ export default class App extends React.Component {
   // server has rendered something and the client-side app just doesn't
   // know about it.
   renderNotFound() {
-    console.warn('App: 404'); // eslint-disable-line no-console
+    this.rollbarErrorFn('App#renderNotFound');
     return null;
   }
 }
@@ -270,6 +300,7 @@ App.propTypes = {
     school_id: PropTypes.number,
     labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
+  rollbarErrorFn: PropTypes.func.isRequired,
   sessionTimeoutInSeconds: PropTypes.number
 };
 

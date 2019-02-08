@@ -257,6 +257,7 @@ describe ProfileController, :type => :controller do
             'service_types_index',
             'educators_index',
             'profile_insights',
+            'grades_reflection_insights',
             'access',
             'teams',
             'latest_iep_document',
@@ -275,7 +276,9 @@ describe ProfileController, :type => :controller do
           expect(json['feed']).to eq({
             'event_notes' => [],
             'transition_notes' => [],
+            'fall_student_voice_surveys' => [],
             'homework_help_sessions' => [],
+            'flattened_forms' => [],
             'services' => {
               'active' => [],
               'discontinued' => []
@@ -529,9 +532,21 @@ describe ProfileController, :type => :controller do
     let!(:service) { create_service(student, educator) }
     let!(:event_note) { create_event_note(student, educator) }
 
+    it 'returns expected keys' do
+      feed = controller.send(:student_feed, student)
+      expect(feed.keys).to contain_exactly(*[
+        :event_notes,
+        :services,
+        :deprecated,
+        :transition_notes,
+        :fall_student_voice_surveys,
+        :homework_help_sessions,
+        :flattened_forms
+      ])
+    end
+
     it 'returns services' do
       feed = controller.send(:student_feed, student)
-      expect(feed.keys).to contain_exactly(:event_notes, :services, :deprecated, :transition_notes, :homework_help_sessions)
       expect(feed[:services].keys).to eq [:active, :discontinued]
       expect(feed[:services][:discontinued].first[:id]).to eq service.id
     end
@@ -551,6 +566,37 @@ describe ProfileController, :type => :controller do
         expect(feed[:services][:active].size).to eq 0
         expect(feed[:services][:discontinued].first[:id]).to eq service.id
       end
+    end
+
+    it 'imported forms' do
+      imported_form = ImportedForm.create!({
+        student_id: student.id,
+        educator_id: educator.id,
+        form_key: 'shs_what_i_want_my_teacher_to_know_mid_year',
+        form_url: 'https://example.com/foo_form_url',
+        form_timestamp: Time.parse('2019-01-28 09:23:43.000000000 +0000'),
+        form_json: {
+          "What was the high point for you in school this year so far?"=>"A high point has been my grade in Biology since I had to work a lot for it",
+          "I am proud that I..."=>"Have good grades in my classes",
+          "My best qualities are..."=>"helping others when they don't know how to do homework assignments",
+          "My activities and interests outside of school are..."=>"cheering",
+          "I get nervous or stressed in school when..."=>"I get a low grade on an assignment that I thought I would do well on",
+          "I learn best when my teachers..."=>"show me each step of what I have to do"
+        }
+      })
+      feed = controller.send(:student_feed, student)
+      expect(feed[:flattened_forms].size).to eq 1
+      expect(feed[:flattened_forms].first[:id]).to eq imported_form.id
+      expect(feed[:flattened_forms].first.keys).to contain_exactly(*[
+        :id,
+        :student_id,
+        :educator_id,
+        :form_key,
+        :form_title,
+        :form_timestamp,
+        :text,
+        :updated_at
+      ])
     end
   end
 end

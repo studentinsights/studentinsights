@@ -1,24 +1,19 @@
-// Fetch with common headers
-function apiFetch(url, options = {}) {
+// Fetch with common headers, don't parse
+export function apiFetch(url, options = {}) {
   const fetchOptions = {
+    method: 'GET',
     credentials: 'same-origin',
     headers: {
       'Accept': 'application/json'
     },
     ...options
   };
-  return fetch(url, fetchOptions)
-    .then(response => response.json());
+  return fetch(url, fetchOptions);
 }
 
 
 export function apiFetchJson(url) {
-  return apiFetch(url, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
+  return apiFetch(url).then(response => response.json());
 }
 
 // This relies on a Rails CSRF token being rendered on the page
@@ -38,7 +33,7 @@ export function apiPostJson(url, body, options = {}) {
       'X-CSRF-Token': csrfToken
     },
     ...(options.fetchOptions || {})
-  });
+  }).then(response => response.json());
 }
 
 // This relies on a Rails CSRF token being rendered on the page

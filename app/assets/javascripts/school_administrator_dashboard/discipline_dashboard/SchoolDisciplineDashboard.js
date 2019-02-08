@@ -22,12 +22,11 @@ import SelectCounselor from '../../components/SelectCounselor';
 import memoizer from '../../helpers/memoizer';
 import FilterBar from '../../components/FilterBar';
 import {sortByGrade} from '../../helpers/SortHelpers';
-import ExperimentalBanner from '../../components/ExperimentalBanner';
 import SectionHeading from '../../components/SectionHeading';
 import EscapeListener from '../../components/EscapeListener';
 import StudentsTable from '../StudentsTable';
 import DashboardBarChart from '../DashboardBarChart';
-import DashboardScatterPlot from '../DashboardScatterPlot';
+import DisciplineScatterPlot, {getincidentTimeAsMinutes} from '../../components/DisciplineScatterPlot';
 import * as dashboardStyles from '../dashboardStyles';
 
 
@@ -47,6 +46,13 @@ export default class SchoolDisciplineDashboard extends React.Component {
     this.onSelectChart = this.onSelectChart.bind(this);
     this.onZoom = this.onZoom.bind(this);
     this.memoize = memoizer();
+  }
+
+  //Remove scatter plot option when there are too many incidents to show patterns
+  componentDidMount() {
+    if (this.getIncidentsFromStudents(this.props.dashboardStudents).length > 500) {
+      this.setState({selectedChart: 'incident_location', scatterPlotAvailable: false});
+    }
   }
 
   filterIncidents(disciplineIncidents, options = {}) {
@@ -102,18 +108,6 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return hour;
   }
 
-  //highcharts will only accept number values as data this returns minutes since the day began.
-  getincidentTimeAsMinutes(incident) {
-    const time = moment.utc(incident.occurred_at).format("HH.mm").split(".");
-    const minutes = time[0] * 60 + time[1] * 1;
-    //Group all times outside of school hours or not recorded into one spot for a "gutter" category in highcharts
-    return this.areMinutesWithinSchoolHours(minutes) ? minutes : 930; // 4:30 - for gutter category
-  }
-
-  areMinutesWithinSchoolHours(minutes) {
-    return 420 < minutes && minutes < 900;
-  }
-
   timeStampToDay(incident) {
     return moment.utc(incident.occurred_at).format("ddd");
   }
@@ -147,7 +141,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       });
       return {categories, seriesData};
     }
-    case 'incident_location': {
+    case 'incident_location': case 'incident_code': {
       const incidents = this.getIncidentsFromStudents(students);
       const groupedIncidents = _.groupBy(incidents, selectedChart);
       const categories = this.sortedByIncidents(groupedIncidents);
@@ -191,7 +185,7 @@ export default class SchoolDisciplineDashboard extends React.Component {
       const seriesData = incidents.map(incident => {
         const student_id = incident.student_id; //used to identify which points are in view when zoomed
         const x = categories.indexOf(moment.utc(incident.occurred_at).format("ddd"));
-        const y = this.getincidentTimeAsMinutes(incident);
+        const y = getincidentTimeAsMinutes(incident);
         const first_name = studentsById[student_id][0].first_name;
         const last_name = studentsById[student_id][0].last_name;
         return {x, y, first_name, last_name, incident};
@@ -269,6 +263,10 @@ export default class SchoolDisciplineDashboard extends React.Component {
     return _.uniq(dashboardStudents.map(student => student.counselor)).sort();
   }
 
+  toolTipFormatter() {
+    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
+  }
+
   onIncidentTypeChange(incidentType) {
     this.setState({selectedIncidentCode: incidentType, selectedCategory: null});
   }
@@ -323,21 +321,21 @@ export default class SchoolDisciplineDashboard extends React.Component {
 
   render() {
     const {districtKey} = this.context;
-    const {timeRangeKey, selectedChart, grade, house, counselor} = this.state;
+    const {scatterPlotAvailable, timeRangeKey, selectedChart, grade, house, counselor} = this.state;
     const {school, dashboardStudents} = this.props;
     const chartOptions = [
-      {value: 'scatter', label: 'Day & Time'},
+      ... scatterPlotAvailable ? [{value: 'scatter', label: 'Day & Time'}] : [],
       {value: 'incident_location', label: 'Location'},
       {value: 'time', label: 'Time'},
       {value: 'homeroom_label', label: 'Classroom'},
       {value: 'grade', label: 'Grade'},
-      {value: 'day', label: 'Day'}
+      {value: 'day', label: 'Day'},
+      {value: 'incident_code', label: 'Incident Code'}
     ];
     const incidentTypes = this.allIncidentTypes(dashboardStudents);
 
     return(
       <EscapeListener className="SchoolDisciplineDashboard" style={styles.flexVertical} onEscape={this.onResetFilters}>
-        <ExperimentalBanner />
         <div style={{...styles.flexVertical, paddingLeft: 10, paddingRight: 10}}>
           <SectionHeading>Recent Discipline incidents at {school.name}</SectionHeading>
           <div style={styles.filterBarContainer}>
@@ -404,7 +402,8 @@ export default class SchoolDisciplineDashboard extends React.Component {
       animation: false,
       categories: {categories: categories},
       seriesData: seriesData,
-      titleText: null
+      titleText: null,
+      toolTipFormatter: this.toolTipFormatter
     };
     const barChartProps = {
       ...commonProps,
@@ -416,15 +415,11 @@ export default class SchoolDisciplineDashboard extends React.Component {
     const scatterPlotProps = {
       ...commonProps,
       measureText: "Time of Incident",
-      tooltip: {pointFormat: '<b>{point.last_name}, {point.first_name}</b>'},
-      yAxisMin: 420, //7 AM
-      yAxisMax: 960, // 4PM - leaving an hour for the gutter category
-      yAxisLabels: {format: '{value}'},
       onZoom: this.onZoom
     };
     return (
       (selectedChart === 'scatter') ? (
-      <DashboardScatterPlot {...scatterPlotProps}/>
+      <DisciplineScatterPlot {...scatterPlotProps}/>
       ) : (
       <DashboardBarChart {...barChartProps}/>
       )
@@ -492,6 +487,7 @@ const styles = {
 function initialState() {
   return {
     timeRangeKey: TIME_RANGE_45_DAYS_AGO,
+    scatterPlotAvailable: true,
     selectedChart: 'scatter',
     selectedIncidentCode: ALL,
     selectedCategory: null,

@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="ReflectionsAboutGrades"
+>
+  <div
+    className="DetailsSection"
+    id="reflections-about-grades"
+    style={
+      Object {
+        "border": "1px solid #ccc",
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "marginTop": 50,
+        "padding": "30px 30px 30px 30px",
+        "position": "relative",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "bottom": 10,
+          "display": "flex",
+          "justifyContent": "space-between",
+          "position": "relative",
+        }
+      }
+    >
+      <h4
+        style={
+          Object {
+            "color": "black",
+            "fontSize": 24,
+            "paddingBottom": 20,
+          }
+        }
+      >
+        Self-reflection
+      </h4>
+      <span
+        style={
+          Object {
+            "textAlign": "right",
+            "verticalAlign": "text-top",
+          }
+        }
+      >
+        <a
+          href="#"
+        >
+          Back to top
+        </a>
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+        }
+      }
+    >
+      <span>
+        💬 From the "
+        Q2 Self-reflection
+        " student voice survey 💬
+      </span>
+      <span>
+         on 
+        3/6/18
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+        }
+      }
+    >
+      <div>
+        At the end of the quarter 3, what would make you most proud of your accomplishments in your course?
+      </div>
+      <i>
+        Keeping grades high in all classes since I'm worried about college
+      </i>
+    </div>
+  </div>
+</div>
+`;

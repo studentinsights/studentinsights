@@ -14,7 +14,7 @@ class FakeAccessResultGenerator
       assessment_id: access_assessment_id,
       date_taken: DateTime.new(@dates.pop, 5, 15),
       scale_score: rand(300..400),
-      performance_level: rand(10),
+      performance_level: 1+rand(5),
       growth_percentile: 1+rand(99),
       student_id: @student.id
     }

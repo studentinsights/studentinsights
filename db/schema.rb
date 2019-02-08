@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_202757) do
+ActiveRecord::Schema.define(version: 2019_01_28_131614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -340,6 +340,17 @@ ActiveRecord::Schema.define(version: 2019_01_08_202757) do
     t.text "log", default: ""
   end
 
+  create_table "imported_forms", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.datetime "form_timestamp", null: false
+    t.text "form_key", null: false
+    t.text "form_url", null: false
+    t.json "form_json", null: false
+    t.integer "educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "intervention_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at"
@@ -402,6 +413,29 @@ ActiveRecord::Schema.define(version: 2019_01_08_202757) do
     t.datetime "updated_at"
     t.string "authorized_students_digest"
     t.index ["key"], name: "index_precomputed_query_docs_on_key"
+  end
+
+  create_table "reading_benchmark_data_points", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "benchmark_school_year", null: false
+    t.text "benchmark_period_key", null: false
+    t.text "benchmark_assessment_key", null: false
+    t.json "json", null: false
+    t.integer "educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reading_grouping_snapshots", force: :cascade do |t|
+    t.text "grouping_workspace_id", null: false
+    t.integer "school_id", null: false
+    t.text "grade", null: false
+    t.integer "benchmark_school_year", null: false
+    t.text "benchmark_period_key", null: false
+    t.json "snapshot_json", null: false
+    t.integer "educator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "schools", id: :serial, force: :cascade do |t|
@@ -658,11 +692,17 @@ ActiveRecord::Schema.define(version: 2019_01_08_202757) do
   add_foreign_key "homework_help_sessions", "students", name: "homework_help_sessions_student_id_fk"
   add_foreign_key "house_educator_mappings", "educators", name: "house_educator_mappings_educator_id_fk"
   add_foreign_key "iep_documents", "students", name: "iep_documents_student_id_fk"
+  add_foreign_key "imported_forms", "educators"
+  add_foreign_key "imported_forms", "students"
   add_foreign_key "interventions", "educators", name: "interventions_educator_id_fk"
   add_foreign_key "interventions", "intervention_types", name: "interventions_intervention_type_id_fk"
   add_foreign_key "interventions", "students", name: "interventions_student_id_fk"
   add_foreign_key "masquerading_logs", "educators"
   add_foreign_key "masquerading_logs", "educators", column: "masquerading_as_educator_id"
+  add_foreign_key "reading_benchmark_data_points", "educators"
+  add_foreign_key "reading_benchmark_data_points", "students"
+  add_foreign_key "reading_grouping_snapshots", "educators"
+  add_foreign_key "reading_grouping_snapshots", "schools"
   add_foreign_key "sections", "courses", name: "sections_course_id_fk"
   add_foreign_key "service_uploads", "educators", column: "uploaded_by_educator_id", name: "service_uploads_uploaded_by_educator_id_fk"
   add_foreign_key "services", "educators", column: "recorded_by_educator_id", name: "services_recorded_by_educator_id_fk"

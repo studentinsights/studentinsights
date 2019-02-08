@@ -1,3 +1,5 @@
+# Deprecated, prefer generic_survey_processor.rb
+
 # Takes a CSV processes each row to join keys with Insights (eg, from say a survey).
 #
 # The shape is:
@@ -11,18 +13,14 @@
 #  1) rows aren't guaranteed to be unique in the source data
 #  2) in-place edits are unlikely, but will update records in-place
 class SurveyReader
-  # Timestamps have differnet formats if you download a Google Form as a CSV
-  # versus if you export that same form to Sheets (and then download that).
-  GOOGLE_FORM_CSV_TIMESTAMP_FORMAT = '%Y/%m/%d %l:%M:%S %p %Z'
-  GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT = '%m/%d/%Y %k:%M:%S'
-
   def initialize(file_text, options = {})
     @file_text = file_text
     @source_key = options[:source_key]
     @config = options[:config]
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
-    @strptime_format = options.fetch(:strptime_format, GOOGLE_FORM_CSV_TIMESTAMP_FORMAT)
     @google_email_address_mapping = options.fetch(:google_email_address_mapping, PerDistrict.new.google_email_address_mapping)
+    @matcher = ImportMatcher.new
+
     reset_counters!
   end
 
@@ -69,7 +67,7 @@ class SurveyReader
     end
 
     # parse timestamp into DateTime
-    source_timestamp = DateTime.strptime(row[config[:timestamp]], config[:strptime_format])
+    source_timestamp = @matcher.parse_sheets_est_timestamp(row[config[:timestamp]])
 
     # grab other fields, filtering out special ones and `ignore_keys`
     special_keys = [config[:student_local_id], config[:educator_email], config[:timestamp]]

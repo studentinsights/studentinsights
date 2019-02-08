@@ -5,7 +5,19 @@ class ProfileInsights
   end
 
   def as_json(options = {})
-    (student_voice_survey_insights + transition_note_profile_insights + team_membership_insights).as_json(options)
+    all_insights = (
+      student_voice_survey_insights +
+      transition_note_profile_insights +
+      team_membership_insights
+    )
+    all_insights.as_json(options)
+  end
+
+  # From Q2 self-reflection, for showing with grades
+  def grades_reflection_insights
+    self_reflection_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_Q2_SELF_REFLECTION)
+    return [] if self_reflection_form.nil?
+    imported_form_insights(self_reflection_form)
   end
 
   private
@@ -32,32 +44,43 @@ class ProfileInsights
     [profile_insight]
   end
 
-  # Take only the most recent surey from the most recent upload
+  # Include:
+  # 1. Q2 self-reflection and
+  # 2. the more recent of (What I want my teachers to know, fall student voice survey)
   def student_voice_survey_insights
-    most_recent_upload = StudentVoiceSurveyUpload
-      .where(completed: true)
-      .order(created_at: :desc)
-      .limit(1)
-      .first
-    return [] if most_recent_upload.nil?
+    insights = []
 
-    most_recent_survey = most_recent_upload.student_voice_completed_surveys
-      .where(student_id: @student.id)
-      .order(form_timestamp: :desc)
-      .limit(1)
-      .first
-    return [] if most_recent_survey.nil?
+    # always add any q2 self reflection, if enabled
+    if PerDistrict.new.include_q2_self_reflection_insights?
+      insights += grades_reflection_insights()
+    end
 
-    profile_insights_from_survey(most_recent_survey)
+    # check for mid-year and take if it it's there
+    mid_year_form = ImportedForm.latest_for_student_id(@student.id, ImportedForm::SHS_WHAT_I_WANT_MY_TEACHER_TO_KNOW_MID_YEAR)
+    return insights + imported_form_insights(mid_year_form) if mid_year_form.present?
+
+    # if not, include fall survey insights if there are any
+    most_recent_fall_survey = StudentVoiceCompletedSurvey.most_recent_fall_student_voice_survey(@student.id)
+    if most_recent_fall_survey.present?
+      insights += profile_insights_from_survey(most_recent_fall_survey)
+    end
+
+    insights
   end
 
-  def team_membership_insights
-    @student.teams(time_now: @time_now).map do |team|
-      ProfileInsight.new('team_membership', team.as_json({
-        only: [:activity_text, :coach_text, :season_key, :school_year_text],
-        methods: [:active]
-      }))
-    end
+  def imported_form_insights(imported_form)
+    ImportedForm.prompts(imported_form.form_key).map do |prompt_key|
+      if imported_form.form_json[prompt_key].nil?
+        nil
+      else
+        ProfileInsight.new('imported_form_insight', {
+          form_key: imported_form.form_key,
+          prompt_text: prompt_key,
+          response_text: imported_form.form_json[prompt_key],
+          flattened_form_json: imported_form.as_flattened_form
+        })
+      end
+    end.compact
   end
 
   # Unroll each question from the survey into a separate insight
@@ -75,7 +98,7 @@ class ProfileInsights
       survey_response_text = most_recent_survey[prompt_key].strip
       next if survey_response_text.nil? || survey_response_text == ''
 
-      survey_text = render_survey_as_text(most_recent_survey, prompt_keys_to_include)
+      survey_text = most_recent_survey.flat_text(prompt_keys_to_include: prompt_keys_to_include)
       student_voice_completed_survey_json = most_recent_survey.as_json({
         only: [:id, :form_timestamp, :created_at]
       }).merge(survey_text: survey_text)
@@ -89,13 +112,12 @@ class ProfileInsights
     survey_insights
   end
 
-  def render_survey_as_text(most_recent_survey, prompt_keys_to_include)
-    lines = []
-    prompt_keys_to_include.each do |prompt_key|
-      prompt_text = StudentVoiceCompletedSurvey.columns_for_form_v2[prompt_key]
-      response_text = most_recent_survey[prompt_key]
-      lines << "#{prompt_text}\n#{response_text}\n"
+  def team_membership_insights
+    @student.teams(time_now: @time_now).map do |team|
+      ProfileInsight.new('team_membership', team.as_json({
+        only: [:activity_text, :coach_text, :season_key, :school_year_text],
+        methods: [:active]
+      }))
     end
-    lines.join("\n").strip
   end
 end

@@ -4,15 +4,11 @@ import _ from 'lodash';
 import {
   hasActive504Plan,
   supportsSpedLiaison,
-  shouldShowIepLink,
   supportsCounselor
 } from '../helpers/PerDistrict';
 import {
-  hasAnySpecialEducationData,
-  prettyProgramOrPlacementText,
-  prettyLevelOfNeedText,
-  prettyIepTextForSpecialEducationStudent,
-  cleanSpecialEducationValues
+  hasActiveIep,
+  prettyProgramOrPlacementText
 } from '../helpers/specialEducation';
 import {maybeCapitalize} from '../helpers/pretty';
 import HelpBubble, {
@@ -21,7 +17,7 @@ import HelpBubble, {
   dialogFullScreenFlex
 } from '../components/HelpBubble';
 import Team from '../components/Team';
-import Pdf from './Pdf';
+import IepDialogLink from './IepDialogLink';
 import EdPlansPanel from './EdPlansPanel';
 import LanguageStatusLink from './LanguageStatusLink';
 
@@ -151,24 +147,13 @@ export default class LightHeaderSupportBits extends React.Component {
   }
 
   renderIEP() {
-    const {districtKey} = this.context;
     const {student, iepDocument} = this.props;
-    if (!hasAnySpecialEducationData(student, iepDocument)) return null;
-    
-    const specialEducationText = prettyIepTextForSpecialEducationStudent(student);
-    if (!shouldShowIepLink(districtKey)) return specialEducationText;
+    if (!hasActiveIep(student)) return null;
 
     return (
-      <HelpBubble
-        style={{marginLeft: 0, display: 'block'}}
-        teaser={specialEducationText}
-        linkStyle={styles.subtitleItem}
-        modalStyle={modalFullScreenFlex}
-        dialogStyle={dialogFullScreenFlex}
-        title={`${student.first_name}'s ${specialEducationText}`}
-        withoutSpacer={true}
-        withoutContentWrapper={true}
-        content={this.renderIEPDialog()}
+      <IepDialogLink
+        student={student}
+        iepDocument={iepDocument}
       />
     );
   }
@@ -183,64 +168,6 @@ export default class LightHeaderSupportBits extends React.Component {
     );
   }
 
-  renderIEPDialog() {
-    const {districtKey} = this.context;
-    const {student, iepDocument} = this.props;
-
-    const spedLiaison = student.sped_liaison;
-    const {program, placement, levelOfNeed, disability} = cleanSpecialEducationValues(student);
-    return (
-      <div style={styles.dialog}>
-        {supportsSpedLiaison(districtKey) && spedLiaison && (
-          <div style={styles.contactItem}>
-            <div>SPED liaison: {spedLiaison}</div>
-          </div>
-        )}
-        {program && (
-          <div style={styles.contactItem}>
-            <div>Program: {program}</div>
-          </div>
-        )}
-        {placement && (
-          <div style={styles.contactItem}>
-            <div>Placement: {placement}</div>
-          </div>
-        )}
-        {disability && (
-          <div style={styles.contactItem}>
-            <div>Disability: {disability}</div>
-          </div>
-        )}
-        {levelOfNeed && (
-          <div style={styles.contactItem}>
-            <div>Level of need: {prettyLevelOfNeedText(levelOfNeed)}</div>
-          </div>
-        )}
-        {iepDocument && (
-          <div style={{...styles.contactItem, ...styles.iepDocumentSection}}>
-            <a href={`/students/${student.id}/latest_iep_document`} style={styles.subtitleItem}>Download IEP at a glance PDF</a>
-            {this.renderPdfInline(student.id)}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  renderPdfInline(studentId) {
-    const url = `/students/${studentId}/latest_iep_document#view=FitBH`;
-    return (
-      <Pdf
-        style={styles.pdfInline}
-        url={url}
-        fallbackEl={(
-          <div style={styles.pdfFallbackMessage}>
-            <div>Use Firefox, Safari, Edge or Chrome to view this PDF right on the page.</div>
-            <div>If you're using an older version of Internet Explorer, you can install Adobe Acrobat Reader.</div>
-          </div>
-        )}
-      />
-    );
-  }
 
   render504() {
     const {edPlans, student} = this.props;

@@ -329,9 +329,9 @@ exports[`snapshots view 1`] = `
                 Object {
                   "backgroundColor": Color {
                     "_rgb": Array [
-                      137,
-                      175,
-                      202,
+                      204,
+                      204,
+                      204,
                       1,
                     ],
                   },
@@ -393,9 +393,9 @@ exports[`snapshots view 1`] = `
                 Object {
                   "backgroundColor": Color {
                     "_rgb": Array [
-                      137,
-                      175,
-                      202,
+                      204,
+                      204,
+                      204,
                       1,
                     ],
                   },

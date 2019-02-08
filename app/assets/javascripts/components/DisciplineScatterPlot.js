@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import HighchartsWrapper from '../components/HighchartsWrapper';
 import hash from 'object-hash';
 
 // Component for all charts in the dashboard page. Displays incidents by Day of Week and Time
-export default class DashboardScatterPlot extends React.Component{
+export default class DisciplineScatterPlot extends React.Component{
 
 //highcharts has trouble combining zoom with a render, so rendering is prevented unless the displayed data changes
   shouldComponentUpdate(nextProps) {
@@ -20,16 +21,12 @@ export default class DashboardScatterPlot extends React.Component{
   }
 
   gutterFormatter() {
-    return "After Hours / Not Recorded";
-  }
-
-  toolTipFormatter() {
-    return `<b>${this.point.last_name}, ${this.point.first_name}</b>`;
+    return "After Hours";
   }
 
   render() {
     return (
-      <div id={this.props.id} className="DashboardScatterPlot" style={styles.root}>
+      <div id={this.props.id} className="DisciplineScatterPlot" style={styles.root}>
         <HighchartsWrapper
           style={{flex: 1}}
           chart={{
@@ -57,8 +54,8 @@ export default class DashboardScatterPlot extends React.Component{
           }}
           title={{text: this.props.titleText}}
           yAxis={[{
-            min: this.props.yAxisMin,
-            max: this.props.yAxisMax,
+            min: 420, //7 AM
+            max: 960, //3 PM plus a gutter category
             reversed: true,
             showLastLabel: false,
             tickInterval: 60,
@@ -68,12 +65,11 @@ export default class DashboardScatterPlot extends React.Component{
               color: 'rgba(241, 254, 198, 0.5)',
               from: 900,
               to: 960,
-              // label: {text: "After Hours / Not Recorded"}
             }]
           },
           {
-            min: this.props.yAxisMin,
-            max: this.props.yAxisMax,
+            min: 420, //7 AM
+            max: 960, //3 PM plus a gutter category
             gridLineWidth: 0,
             linkedTo: 0,
             opposite: true,
@@ -82,7 +78,7 @@ export default class DashboardScatterPlot extends React.Component{
             labels: {formatter: this.gutterFormatter},
             title: {text: undefined}
           }]}
-          tooltip={{formatter: this.toolTipFormatter}}
+          tooltip={{formatter: this.props.toolTipFormatter}}
           series={[
             {
               showInLegend: false,
@@ -95,20 +91,27 @@ export default class DashboardScatterPlot extends React.Component{
   }
 }
 
-DashboardScatterPlot.propTypes = {
+//Converts a time to minutes from midnight to order the Highcharts series
+export function  getincidentTimeAsMinutes(incident) {
+  const time = moment.utc(incident.occurred_at).format("HH.mm").split(".");
+  const minutes = time[0] * 60 + time[1] * 1;
+  const areMinutesWithinSchoolHours = 420 < minutes && minutes < 900;
+  //Group all times outside of school hours or not recorded into one spot for a "gutter" category in highcharts
+  return areMinutesWithinSchoolHours ? minutes : 930; // 4:30 - for gutter category
+}
+
+DisciplineScatterPlot.propTypes = {
   id: PropTypes.string.isRequired, // short string identifier for links to jump to
   categories: PropTypes.object.isRequired,  //Buckets used for X Axis
   seriesData: PropTypes.array.isRequired, // array of JSON event objects.
-  yAxisMin: PropTypes.number,
-  yAxisMax: PropTypes.number,
   titleText: PropTypes.string, //discipline dashboard makes its own title
   measureText: PropTypes.string.isRequired,
-  tooltip: PropTypes.object.isRequired,
-  onZoom: PropTypes.func.isRequired,
+  onZoom: PropTypes.func, //callback ro change parent component when zoomed
   animation: PropTypes.bool,
+  toolTipFormatter: PropTypes.func.isRequired, //custom function for tooltip
   series: PropTypes.object,
 };
-DashboardScatterPlot.defaultProps = {
+DisciplineScatterPlot.defaultProps = {
   animation: true
 };
 

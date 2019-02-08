@@ -1,0 +1,457 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="MakePlan"
+>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      Who's teaching a primary reading group (eg, XBlock)?
+    </div>
+    <div
+      className="Select is-clearable is-searchable Select--multi"
+    >
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="Select-multi-value-wrapper"
+          id="react-select-4--value"
+        >
+          <div
+            className="Select-placeholder"
+          >
+            Select...
+          </div>
+          <div
+            className="Select-input"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-activedescendant="react-select-4--value"
+              aria-expanded="false"
+              aria-haspopup="false"
+              aria-owns=""
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              role="combobox"
+              style={
+                Object {
+                  "boxSizing": "content-box",
+                  "width": "5px",
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </div>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      Any additional groups at other points in the day?
+    </div>
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "padding": 10,
+          "paddingLeft": 0,
+          "paddingTop": 3,
+        }
+      }
+    >
+      You might include pull-out groups, additional Fundations groups, after school Wilson interventions, etc.
+    </div>
+    <div
+      className="Select is-clearable is-searchable Select--multi"
+    >
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="Select-multi-value-wrapper"
+          id="react-select-5--value"
+        >
+          <div
+            className="Select-placeholder"
+          >
+            Select...
+          </div>
+          <div
+            className="Select-input"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-activedescendant="react-select-5--value"
+              aria-expanded="false"
+              aria-haspopup="false"
+              aria-owns=""
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              role="combobox"
+              style={
+                Object {
+                  "boxSizing": "content-box",
+                  "width": "5px",
+                }
+              }
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </div>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What's your plan for creating reading groups?
+    </div>
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "padding": 10,
+          "paddingLeft": 0,
+          "paddingTop": 3,
+        }
+      }
+    >
+      Some teams start with grouping students based on particular decoding skills like blends, other older groups start with comprehension skills like inferencing, while others start by placing students at lower F&P levels with reading specialists who can provide more specialized instruction.
+    </div>
+    <div>
+      <textarea
+        disabled={false}
+        onChange={[Function]}
+        rows={8}
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "width": "100%",
+          }
+        }
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="Hover"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={Object {}}
+    >
+      <button
+        style={
+          Object {
+            "background": "#aaa",
+            "border": "none",
+            "borderRadius": 28,
+            "color": "#eee",
+            "cursor": "default",
+            "fontSize": 14,
+            "marginTop": 20,
+            "padding": "8px 25px",
+            "textDecoration": "none",
+          }
+        }
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots when not isEditable 1`] = `
+<div
+  className="MakePlan"
+>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      Who's teaching a primary reading group (eg, XBlock)?
+    </div>
+    <div
+      className="Select is-clearable is-disabled is-searchable Select--multi"
+    >
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="Select-multi-value-wrapper"
+          id="react-select-6--value"
+        >
+          <div
+            className="Select-placeholder"
+          >
+            Select...
+          </div>
+          <div
+            aria-activedescendant="react-select-6--value"
+            aria-disabled="true"
+            aria-expanded={false}
+            aria-owns=""
+            className="Select-input"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="combobox"
+            style={
+              Object {
+                "border": 0,
+                "display": "inline-block",
+                "width": 1,
+              }
+            }
+            tabIndex={0}
+          />
+        </div>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      Any additional groups at other points in the day?
+    </div>
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "padding": 10,
+          "paddingLeft": 0,
+          "paddingTop": 3,
+        }
+      }
+    >
+      You might include pull-out groups, additional Fundations groups, after school Wilson interventions, etc.
+    </div>
+    <div
+      className="Select is-clearable is-disabled is-searchable Select--multi"
+    >
+      <div
+        className="Select-control"
+        onKeyDown={[Function]}
+        onMouseDown={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="Select-multi-value-wrapper"
+          id="react-select-7--value"
+        >
+          <div
+            className="Select-placeholder"
+          >
+            Select...
+          </div>
+          <div
+            aria-activedescendant="react-select-7--value"
+            aria-disabled="true"
+            aria-expanded={false}
+            aria-owns=""
+            className="Select-input"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            role="combobox"
+            style={
+              Object {
+                "border": 0,
+                "display": "inline-block",
+                "width": 1,
+              }
+            }
+            tabIndex={0}
+          />
+        </div>
+        <span
+          className="Select-arrow-zone"
+          onMouseDown={[Function]}
+        >
+          <span
+            className="Select-arrow"
+            onMouseDown={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      What's your plan for creating reading groups?
+    </div>
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "padding": 10,
+          "paddingLeft": 0,
+          "paddingTop": 3,
+        }
+      }
+    >
+      Some teams start with grouping students based on particular decoding skills like blends, other older groups start with comprehension skills like inferencing, while others start by placing students at lower F&P levels with reading specialists who can provide more specialized instruction.
+    </div>
+    <div>
+      <textarea
+        disabled={true}
+        onChange={[Function]}
+        rows={8}
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "width": "100%",
+          }
+        }
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <div
+      className="Hover"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={Object {}}
+    >
+      <button
+        style={
+          Object {
+            "background": "#aaa",
+            "border": "none",
+            "borderRadius": 28,
+            "color": "#eee",
+            "cursor": "default",
+            "fontSize": 14,
+            "marginTop": 20,
+            "padding": "8px 25px",
+            "textDecoration": "none",
+          }
+        }
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+`;

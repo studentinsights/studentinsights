@@ -58,7 +58,9 @@ export default class NotesList extends React.Component {
             case 'event_notes': return this.renderEventNote(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
+            case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
             case 'homework_help_sessions': return this.renderHomeworkHelpSession(mergedNote);
+            case 'flattened_forms': return this.renderFlattenedForm(mergedNote);
             }
           })}
         {this.renderCleanSlateMessage()}
@@ -154,6 +156,21 @@ export default class NotesList extends React.Component {
     );
   }
 
+  renderFallStudentVoiceSurvey(fallStudentVoiceSurvey) {
+    return (
+      <NoteCard
+        key={['fall_completed_survey', fallStudentVoiceSurvey.id].join()}
+        noteMoment={toMomentFromRailsDate(fallStudentVoiceSurvey.form_timestamp)}
+        badge={<span style={styles.badge}>What I want my teacher to know about me</span>}
+        text={`💬 From the "What I want my teacher to know about me" student voice survey 💬\n\n${fallStudentVoiceSurvey.flat_text}`}
+        educatorId={null}
+        educatorsIndex={{}}
+        showRestrictedNoteRedaction={false}
+        urlForRestrictedNoteContent={null}
+        attachments={[]} />
+    );
+  }
+
   renderHomeworkHelpSession(homeworkHelpSession) {
     const text = 'Went to homework help for ' + homeworkHelpSession.courses.map(course => course.course_description).join(' and ') + '.';
     return (
@@ -164,6 +181,21 @@ export default class NotesList extends React.Component {
         educatorId={homeworkHelpSession.recorded_by_educator_id}
         text={text}
         educatorsIndex={this.props.educatorsIndex}
+        showRestrictedNoteRedaction={false}
+        urlForRestrictedNoteContent={null}
+        attachments={[]} />
+    );
+  }
+
+  renderFlattenedForm(flattenedForm) {
+    return (
+      <NoteCard
+        key={['flattened_form', flattenedForm.id].join()}
+        noteMoment={toMomentFromRailsDate(flattenedForm.form_timestamp)}
+        badge={<span style={styles.badge}>{flattenedForm.form_title}</span>}
+        text={`💬 From the "${flattenedForm.form_title}" student voice survey 💬\n\n${flattenedForm.text}`}
+        educatorId={null}
+        educatorsIndex={{}}
         showRestrictedNoteRedaction={false}
         urlForRestrictedNoteContent={null}
         attachments={[]} />

@@ -35,6 +35,7 @@ RSpec.describe PathsForEducator do
           school: '/schools/hea',
           absences: '/schools/hea/absences',
           tardies: '/schools/hea/tardies',
+          discipline: '/schools/hea/discipline'
         })
         expect(navbar_links(pals.healey_ell_teacher)).to eq({})
         expect(navbar_links(pals.healey_sped_teacher)).to eq({})
@@ -58,7 +59,8 @@ RSpec.describe PathsForEducator do
           levels_shs: '/levels/shs',
           school: '/schools/shs',
           absences: '/schools/shs/absences',
-          tardies: '/schools/shs/tardies'
+          tardies: '/schools/shs/tardies',
+          discipline: '/schools/shs/discipline'
         })
         expect(navbar_links(pals.shs_jodi)).to eq({
           levels_shs: '/levels/shs'
@@ -67,7 +69,8 @@ RSpec.describe PathsForEducator do
           levels_shs: '/levels/shs',
           school: '/schools/shs',
           absences: '/schools/shs/absences',
-          tardies: '/schools/shs/tardies'
+          tardies: '/schools/shs/tardies',
+          discipline: '/schools/shs/discipline'
         })
         expect(navbar_links(pals.shs_bill_nye)).to eq({
           levels_shs: '/levels/shs',
@@ -82,7 +85,8 @@ RSpec.describe PathsForEducator do
           absences: '/schools/shs/absences',
           school: '/schools/shs',
           section: '/educators/my_sections',
-          tardies: '/schools/shs/tardies'
+          tardies: '/schools/shs/tardies',
+          discipline: '/schools/shs/discipline'
         })
       end
     end

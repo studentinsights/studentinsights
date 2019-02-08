@@ -7,19 +7,21 @@ all notes and services for a student.
 
 // Merges data from event_notes and deprecated tables (notes, interventions).
 export function mergedNotes(feed) {
-  const deprecatedInterventions = feed.deprecated.interventions.map(intervention => {
-    return {
-      ...intervention,
-      type: 'deprecated_interventions',
-      sort_timestamp: intervention.start_date_timestamp
-    };
-  });
-
+  // core, notes
   const eventNotes = feed.event_notes.map(eventNote => {
     return {
       ...eventNote,
       type: 'event_notes',
       sort_timestamp: eventNote.recorded_at
+    };
+  });
+
+  // deprecated
+  const deprecatedInterventions = feed.deprecated.interventions.map(intervention => {
+    return {
+      ...intervention,
+      type: 'deprecated_interventions',
+      sort_timestamp: intervention.start_date_timestamp
     };
   });
 
@@ -32,7 +34,7 @@ export function mergedNotes(feed) {
     };
   });
 
-  // SHS
+  // SHS only
   const homeworkHelpSessions = (feed.homework_help_sessions || []).map(homeworkHelpSession => {
     return {
       ...homeworkHelpSession,
@@ -41,11 +43,32 @@ export function mergedNotes(feed) {
     };
   });
 
+  // SHS only so far
+  const fallStudentVoiceInsights = (feed.fall_student_voice_surveys || []).map(fallCompletedSurvey => {
+    return {
+      ...fallCompletedSurvey,
+      type: 'fall_student_voice_surveys',
+      sort_timestamp: fallCompletedSurvey.form_timestamp
+
+    };
+  });
+
+  // flattened form (from ImportedForm)
+  const flattenedForms = (feed.flattened_forms || []).map(flattenedForm => {
+    return {
+      ...flattenedForm,
+      type: 'flattened_forms',
+      sort_timestamp: flattenedForm.form_timestamp
+    };
+  });
+
   const mergedNotes = [
     ...eventNotes,
     ...deprecatedInterventions,
     ...transitionNotes,
-    ...homeworkHelpSessions
+    ...homeworkHelpSessions,
+    ...fallStudentVoiceInsights,
+    ...flattenedForms
   ];
   return _.sortBy(mergedNotes, 'sort_timestamp').reverse();
 }

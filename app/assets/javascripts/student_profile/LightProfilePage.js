@@ -17,6 +17,7 @@ import LightNotesDetails from './LightNotesDetails';
 import LightServiceDetails from './LightServiceDetails';
 import LightNotesHelpContext from './LightNotesHelpContext';
 import StudentSectionsRoster from './StudentSectionsRoster';
+import ReflectionsAboutGrades from './ReflectionsAboutGrades';
 import {tags} from './lightTagger';
 import DetailsSection from './DetailsSection';
 import FullCaseHistory from './FullCaseHistory';
@@ -394,17 +395,21 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderGrades() {
-    const {sections, currentEducatorAllowedSections} = this.props.profileJson;
+    const {sections, currentEducatorAllowedSections, gradesReflectionInsights} = this.props.profileJson;
     const hasSections = (sections && sections.length > 0);
 
     return (
-      <DetailsSection anchorId="sections-roster" className="roster" title="Sections">
-        {hasSections
-          ? <StudentSectionsRoster
-              sections={sections}
-              linkableSections={currentEducatorAllowedSections} />
-          : <div>Not enrolled in any sections</div>}
-      </DetailsSection>
+      <div>
+        <DetailsSection anchorId="sections-roster" className="roster" title="Sections">
+          {hasSections
+            ? <StudentSectionsRoster
+                sections={sections}
+                linkableSections={currentEducatorAllowedSections} />
+            : <div>Not enrolled in any sections</div>}
+
+        </DetailsSection>
+        <ReflectionsAboutGrades gradesReflectionInsights={gradesReflectionInsights} />
+      </div>
     );
   }
 
@@ -527,6 +532,7 @@ LightProfilePage.propTypes = {
     student: PropTypes.object.isRequired,
     
     profileInsights: PropTypes.array.isRequired,
+    gradesReflectionInsights: PropTypes.array.isRequired,
     dibels: PropTypes.array.isRequired,
     fAndPs: PropTypes.array.isRequired,
     chartData: PropTypes.shape({

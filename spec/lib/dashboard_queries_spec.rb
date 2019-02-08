@@ -14,6 +14,16 @@ RSpec.describe DashboardQueries do
       })
     end
 
+    def create_recent_discipline_incident!(student_id)
+      DisciplineIncident.create!({
+        student_id: student_id,
+        occurred_at: Time.now - 4.days,
+        incident_code: "Cell Phone Use",
+        incident_location: "Classroom",
+        has_exact_time: true
+      })
+    end
+
     it '#absence_dashboard_data shape of data' do
       json = DashboardQueries.new(pals.healey_laura_principal).absence_dashboard_data(pals.healey)
       expect(json.keys.map(&:to_sym)).to contain_exactly(:students_with_events, :school)
@@ -70,29 +80,30 @@ RSpec.describe DashboardQueries do
       ])
     end
 
-    it '#individual_student_discipline_data has expected fields' do
-      DisciplineIncident.create!({
-        student_id: student.id,
-        occurred_at: Time.now
-      })
-      json = DashboardQueries.new(pals.healey_laura_principal).send(:individual_student_discipline_data, student)
-      expect(json.keys.map(&:to_sym)).to contain_exactly(*[
+    it '#discipline_dashboard_data has expected fields' do
+      create_recent_discipline_incident!(pals.healey.students.first.id)
+      json = DashboardQueries.new(pals.healey_laura_principal).discipline_dashboard_data(pals.healey)
+      expect(json[:students_with_events].size).to eq pals.healey.students.size
+      expect(json[:students_with_events].first.keys.map(&:to_sym)).to contain_exactly(*[
         :discipline_incidents,
         :first_name,
         :grade,
         :house,
         :counselor,
-        :id,
-        :last_name,
         :homeroom_label,
+        :id,
+        :local_id,
+        :last_name,
         :latest_note
       ])
-      expect(json[:discipline_incidents].first.keys).to contain_exactly(*[
-        "student_id",
-        "incident_code",
-        "incident_location",
-        "occurred_at",
-        "has_exact_time"
+
+      discipline_incidents_in_response_json = json[:students_with_events].map {|student| student[:discipline_incidents] }
+      expect(discipline_incidents_in_response_json.flatten.first.keys.map(&:to_sym)).to contain_exactly(*[
+        :student_id,
+        :incident_code,
+        :incident_location,
+        :has_exact_time,
+        :occurred_at
       ])
     end
   end

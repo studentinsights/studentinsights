@@ -1,0 +1,406 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="SidebarDialog"
+  style={
+    Object {
+      "fontSize": 12,
+    }
+  }
+>
+  <div>
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottom": "1px solid #ddd",
+          "display": "flex",
+          "flexDirection": "row",
+          "fontSize": 16,
+          "justifyContent": "space-between",
+          "marginBottom": 15,
+        }
+      }
+    >
+      <img
+        alt="Student photo for Mowgli Duck"
+        onError={[Function]}
+        src="/students/64/photo"
+        style={
+          Object {
+            "marginRight": 10,
+            "maxHeight": 90,
+            "maxWidth": 70,
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "flex": 1,
+            "paddingRight": 10,
+          }
+        }
+      >
+        Mowgli
+         
+        Duck
+      </div>
+      <div
+        onClick={[MockFunction]}
+        style={
+          Object {
+            "cursor": "pointer",
+            "padding": 10,
+          }
+        }
+      >
+        ✕
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        IEP, 504 or ELL plans
+      </div>
+      <span
+        style={
+          Object {
+            "paddingLeft": 5,
+          }
+        }
+      >
+        (none)
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        MTSS, last 2 years
+      </div>
+      <span
+        style={
+          Object {
+            "paddingLeft": 5,
+          }
+        }
+      >
+        (none)
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        Instructional needs
+      </div>
+      <span
+        style={
+          Object {
+            "paddingLeft": 5,
+          }
+        }
+      >
+        “sustained attention”
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        F&P level
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "paddingLeft": 5,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "inline-block",
+              "marginRight": 5,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(255,0,0,0.5)",
+                "color": "white",
+                "display": "flex",
+                "fontSize": 14,
+                "height": 32,
+                "justifyContent": "center",
+                "width": 32,
+              }
+            }
+          >
+            A
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "row",
+              "height": 40,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "background": "rgba(255,140,0,0.6)",
+                "height": 2,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 20,
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "background": "rgba(0,128,0,0.5)",
+                "height": 2,
+                "left": "48%",
+                "position": "absolute",
+                "right": 0,
+                "top": 20,
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "background": "rgba(255,0,0,0.5)",
+                "height": 2,
+                "left": 0,
+                "position": "absolute",
+                "right": "64%",
+                "top": 20,
+              }
+            }
+          />
+          <div>
+            <div
+              style={
+                Object {
+                  "background": "rgba(255,0,0,0.5)",
+                  "height": 20,
+                  "left": "0%",
+                  "position": "absolute",
+                  "top": 10,
+                  "width": 4,
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        ORF accuracy
+      </div>
+      <div>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "marginRight": 5,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(255,140,0,0.6)",
+                  "color": "white",
+                  "display": "flex",
+                  "fontSize": 14,
+                  "height": 32,
+                  "justifyContent": "center",
+                  "width": 32,
+                }
+              }
+            >
+              94
+            </div>
+          </div>
+          <span>
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        ORF fluency
+      </div>
+      <div>
+        <div
+          style={
+            Object {
+              "paddingLeft": 5,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "marginRight": 5,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "rgba(0,128,0,0.5)",
+                  "color": "white",
+                  "display": "flex",
+                  "fontSize": 14,
+                  "height": 32,
+                  "justifyContent": "center",
+                  "width": 32,
+                }
+              }
+            >
+              108
+            </div>
+          </div>
+          <span>
+            wpm
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginBottom": 15,
+          "marginLeft": 5,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "fontWeight": "bold",
+            "marginBottom": 5,
+          }
+        }
+      >
+        STAR Reading (percentile)
+      </div>
+      <div
+        style={
+          Object {
+            "marginLeft": 5,
+          }
+        }
+      >
+        33rd
+      </div>
+    </div>
+  </div>
+</div>
+`;

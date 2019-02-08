@@ -8,21 +8,29 @@ class EducatorLabel < ApplicationRecord
     uniqueness: { scope: [:label_key, :educator] },
     inclusion: {
       in: [
+        # deprecated
         'shs_experience_team', # deprecated
-        'k8_counselor',
-        'high_school_house_master',
-        'class_list_maker_finalizer_principal',
+        'enable_viewing_504_data_in_profile', # deprecated
+
+        # feed
         'use_counselor_based_feed',
         'use_housemaster_based_feed',
         'use_section_based_feed',
         'use_ell_based_feed',
         'use_community_school_based_feed',
+
+        # reading
+        'profile_enable_minimal_reading_data',
+        'enable_reading_benchmark_data_entry',
+
+        # other
+        'k8_counselor',
+        'high_school_house_master',
+        'class_list_maker_finalizer_principal',
         'enable_class_lists_override',
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_searching_notes',
-        'profile_enable_minimal_reading_data',
-        'enable_viewing_504_data_in_profile', # deprecated
         'can_mark_notes_as_restricted'
       ]
     }

@@ -116,7 +116,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    color: '#555',
+    color: '#555'
   },
   titleBar: {
     borderBottom: '1px solid #333',

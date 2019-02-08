@@ -60,7 +60,7 @@ exports[`snapshots with all options 1`] = `
             }
           }
         >
-          <span
+          <div
             className="Select-multi-value-wrapper"
             id="react-select-14--value"
           >
@@ -111,7 +111,7 @@ exports[`snapshots with all options 1`] = `
                 
               </div>
             </div>
-          </span>
+          </div>
           <span
             className="Select-arrow-zone"
             onMouseDown={[Function]}
@@ -140,7 +140,7 @@ exports[`snapshots with all options 1`] = `
             }
           }
         >
-          <span
+          <div
             className="Select-multi-value-wrapper"
             id="react-select-15--value"
           >
@@ -191,7 +191,7 @@ exports[`snapshots with all options 1`] = `
                 
               </div>
             </div>
-          </span>
+          </div>
           <span
             className="Select-arrow-zone"
             onMouseDown={[Function]}
@@ -220,7 +220,7 @@ exports[`snapshots with all options 1`] = `
             }
           }
         >
-          <span
+          <div
             className="Select-multi-value-wrapper"
             id="react-select-16--value"
           >
@@ -271,7 +271,7 @@ exports[`snapshots with all options 1`] = `
                 
               </div>
             </div>
-          </span>
+          </div>
           <span
             className="Select-arrow-zone"
             onMouseDown={[Function]}
@@ -348,7 +348,7 @@ exports[`snapshots without options 1`] = `
             }
           }
         >
-          <span
+          <div
             className="Select-multi-value-wrapper"
             id="react-select-17--value"
           >
@@ -399,7 +399,7 @@ exports[`snapshots without options 1`] = `
                 
               </div>
             </div>
-          </span>
+          </div>
           <span
             className="Select-arrow-zone"
             onMouseDown={[Function]}

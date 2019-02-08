@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots works for Bedford 1`] = `
+<span>
+  IEP for Communication
+</span>
+`;
+
+exports[`snapshots works for New Bedford 1`] = `
+<div
+  style={
+    Object {
+      "display": "block",
+      "marginLeft": 0,
+    }
+  }
+>
+  <a
+    href="#"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "inline-block",
+        "fontSize": 14,
+        "outline": "none",
+      }
+    }
+  >
+    IEP for Communication
+  </a>
+</div>
+`;
+
+exports[`snapshots works for Somerville 1`] = `
+<div
+  style={
+    Object {
+      "display": "block",
+      "marginLeft": 0,
+    }
+  }
+>
+  <a
+    href="#"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "inline-block",
+        "fontSize": 14,
+        "outline": "none",
+      }
+    }
+  >
+    IEP for Communication
+  </a>
+</div>
+`;

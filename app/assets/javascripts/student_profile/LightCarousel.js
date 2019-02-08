@@ -4,6 +4,7 @@ import _ from 'lodash';
 import LightComingSoonInsight from './LightComingSoonInsight';
 import LightInsightTransitionNoteStrength, {TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE} from './LightInsightTransitionNoteStrength';
 import LightInsightStudentVoiceSurveyResponse, {STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE} from './LightInsightStudentVoiceSurveyResponse';
+import LightInsightImportedForm, {IMPORTED_FORM_INSIGHT_TYPE} from './LightInsightImportedForm';
 import LightInsightTeamMembership, {TEAM_MEMBERSHIP_INSIGHT_TYPE} from './LightInsightTeamMembership';
 
 
@@ -94,6 +95,13 @@ export default class LightCarousel extends React.Component {
 
     if (insightType === STUDENT_VOICE_SURVEY_RESPONSE_INSIGHT_TYPE) return (
       <LightInsightStudentVoiceSurveyResponse
+        student={student}
+        insightPayload={insightPayload} 
+      />
+    );
+
+    if (insightType === IMPORTED_FORM_INSIGHT_TYPE) return (
+      <LightInsightImportedForm
         student={student}
         insightPayload={insightPayload} 
       />

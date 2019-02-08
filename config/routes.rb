@@ -42,6 +42,12 @@ Rails.application.routes.draw do
   get '/api/schools/:id/tardies/data' => 'schools#tardies_dashboard_data'
   get '/api/schools/:id/discipline/data' => 'schools#discipline_dashboard_data'
 
+  # reading
+  get '/api/schools/:school_slug/reading/:grade/reading_json' => 'reading#reading_json'
+  put '/api/reading/update_data_point_json' => 'reading#update_data_point_json'
+  get '/api/reading/teams_json' => 'reading#teams_json'
+  post '/api/reading/grouping_snapshot_json/:grouping_workspace_id' => 'reading#grouping_snapshot_json'
+
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
   get '/api/class_lists/:workspace_id/available_grade_levels_json' => 'class_lists#available_grade_levels_json'
@@ -105,6 +111,7 @@ Rails.application.routes.draw do
   get '/educators/my_sections'=> 'ui#ui'
   get '/educators/my_notes'=> 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
+  get '/educators/probe'=> 'educators#probe'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
 
   # error pages
@@ -181,6 +188,8 @@ Rails.application.routes.draw do
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
       get 'equity/explore' => 'ui#ui'
+      get 'reading/:grade/entry' => 'ui#ui'
+      get 'reading/:grade/groups' => 'ui#ui'
     end
   end
 end

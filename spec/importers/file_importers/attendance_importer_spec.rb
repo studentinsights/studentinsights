@@ -182,10 +182,10 @@ RSpec.describe AttendanceImporter do
       context 'multiple rows for same student on different dates' do
         let!(:student) { FactoryBot.create(:student, local_id: '1') }
 
-        let(:first_row) { { event_date: Date.parse('2005-09-14'), local_id: '1', absence: '1', tardy: '0' } }
+        let(:first_row) { { event_date: Date.parse('2005-09-13'), local_id: '1', absence: '1', tardy: '0' } }
         let(:second_row) { { event_date: Date.parse('2005-09-15'), local_id: '1', absence: '1', tardy: '0' } }
-        let(:third_row) { { event_date: Date.parse('2005-09-16'), local_id: '1', absence: '1', tardy: '0' } }
-        let(:fourth_row) { { event_date: Date.parse('2005-09-17'), local_id: '1', absence: '1', tardy: '0' } }
+        let(:third_row) { { event_date: Date.parse('2005-09-17'), local_id: '1', absence: '1', tardy: '0' } }
+        let(:fourth_row) { { event_date: Date.parse('2005-09-19'), local_id: '1', absence: '1', tardy: '0' } }
 
         it 'creates multiple absences, but respects end date for time window' do
           expect {

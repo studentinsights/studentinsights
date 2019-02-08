@@ -24,6 +24,7 @@ class HomeFeed extends React.Component {
       error: null,
       cards: []
     };
+
     this.fetchFeed = this.fetchFeed.bind(this);
     this.onResolved = this.onResolved.bind(this);
     this.onRejected = this.onRejected.bind(this);

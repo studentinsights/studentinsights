@@ -12,16 +12,19 @@ class FuzzyStudentMatcher
 
   def match_from_last_first(text)
     full_name = text.split(', ').reverse.join(' ')
+    match_from_full_name(full_name)
+  end
+
+  def match_from_full_name(full_name)
     student_id = guess_from_name(full_name)
     if student_id.nil?
       @invalid_student_name += 1
       return nil
     end
 
-    puts [text, student_id].join("\t")
     @valid_student_name += 1
     {
-      text: text,
+      full_name: full_name,
       student_id: student_id
     }
   end
@@ -53,6 +56,8 @@ class FuzzyStudentMatcher
   end
 
   def guess_from_name(full_name)
+    return nil if full_name.nil? || full_name.empty?
+
     student = match_active_student_exactly(full_name)
     return student.id if student.present?
 

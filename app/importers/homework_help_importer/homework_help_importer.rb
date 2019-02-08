@@ -10,7 +10,7 @@ class HomeworkHelpImporter
   def initialize(educator_id, options = {})
     @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
-    @matcher = options.fetch(:matcher, ::ImportMatcher.new(strptime_format: ImportMatcher::GOOGLE_FORM_EXPORTED_TO_GOOGLE_SHEETS_TIMESTAMP_FORMAT))
+    @matcher = options.fetch(:matcher, ImportMatcher.new)
   end
 
   def import(file_text, options = {})
@@ -41,7 +41,7 @@ class HomeworkHelpImporter
     student_id = @matcher.find_student_id(row['Student Local ID Number'])
     return nil if student_id.nil?
 
-    form_timestamp = @matcher.parse_timestamp(row['Timestamp'])
+    form_timestamp = @matcher.parse_sheets_est_timestamp(row['Timestamp'])
     return nil if form_timestamp.nil?
 
     {

@@ -13,12 +13,13 @@ import AccessPanel from './AccessPanel';
 export default class LanguageStatusLink extends React.Component {
   render() {
     const {districtKey} = this.context;
+    const {linkEl} = this.props;
     const {studentFirstName, limitedEnglishProficiency, ellTransitionDate, access, style} = this.props;
     const prettyLanguageText = prettyEnglishProficiencyText(districtKey, limitedEnglishProficiency, {
       access,
       ellTransitionDate
     });
-    const el = <div style={style}>{prettyLanguageText}</div>;
+    const el = <div style={style}>{linkEl !== undefined ? linkEl : prettyLanguageText}</div>;
 
     // Link to scores also if any access data (even if old)
     if (!hasAnyAccessData(access)) return el;
@@ -29,9 +30,13 @@ export default class LanguageStatusLink extends React.Component {
         linkStyle={style}
         modalStyle={{
           ...modalFromLeft,
+          overlay: {
+            ...modalFromLeft.overlay,
+            zIndex: 30
+          },
           content: {
             ...modalFromLeft.content,
-            width: 750
+            width: 750,
           }
         }}
         title="Language learning"
@@ -55,6 +60,7 @@ LanguageStatusLink.propTypes = {
   limitedEnglishProficiency: PropTypes.string,
   ellTransitionDate: PropTypes.string,
   access: PropTypes.object,
+  linkEl: PropTypes.node,
   style: PropTypes.object
 };
 LanguageStatusLink.defaultProps = {

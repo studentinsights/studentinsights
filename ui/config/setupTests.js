@@ -6,7 +6,7 @@ import 'raf/polyfill';
 
 // Enzyme support
 import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15.4';
+import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
 // These are for MountTimer and measurePageLoad.
@@ -23,7 +23,14 @@ window.fetch = require('jest-fetch-mock'); // eslint-disable-line no-undef
 
 // Make console.warn and error fail tests
 console.error = jest.fn(error => { throw new Error(error); }); //eslint-disable-line no-console
-console.warn = jest.fn(warn => { throw new Error(warn); }); //eslint-disable-line no-console
+console.warn = jest.fn(warn => {  //eslint-disable-line no-console
+  // separately, work around react-virtualized using wildcard imports that are warnings in react 15.5
+  // see also https://github.com/influxdata/chronograf/pull/3098/files
+  // and https://github.com/bvaughn/react-virtualized/issues/1037#issuecomment-391707737
+  if (warn === 'Warning: Accessing PropTypes via the main React package is deprecated, and will be removed in  React v16.0. Use the latest available v15.* prop-types package from npm instead. For info on usage, compatibility, migration and more, see https://fb.me/prop-types-docs') return;
+  if (warn === "Warning: Accessing createClass via the main React package is deprecated, and will be removed in React v16.0. Use a plain JavaScript class instead. If you're not yet ready to migrate, create-react-class v15.* is available on npm as a temporary, drop-in replacement. For more info see https://fb.me/react-create-class") return;
+  throw new Error(warn);
+});
 
 // Set env for JS stub
 window.ENV_FOR_JS = {

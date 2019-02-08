@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import LightBehaviorDetails from './LightBehaviorDetails';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
@@ -83,7 +83,7 @@ it('always hides older data by default', () => {
   expect($(el).text()).toContain('A note about student privacy');
   expect($(el).html()).toContain('Something happened recently');
   expect($(el).html()).not.toContain('Something else happened a long time ago...');
-  expect($(el).find('svg').length).toEqual(1);
+  expect($(el).find('svg').length).toEqual(2); //now also renders a heatmap element
   // test setup isn't working for highcharts contents
 });
 

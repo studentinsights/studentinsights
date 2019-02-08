@@ -18,7 +18,10 @@ function loadStories() {
 
   // home
   require('../../../app/assets/javascripts/home/CheckStudentsWithHighAbsences.story');
+
+  // feed
   require('../../../app/assets/javascripts/feed/IncidentCard.story');
+  require('../../../app/assets/javascripts/feed/StudentVoiceCard.story');
 
   // student profile
   require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
@@ -27,6 +30,9 @@ function loadStories() {
   require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');
   require('../../../app/assets/javascripts/student_profile/RestrictedNotePresence.story');
   require('../../../app/assets/javascripts/student_profile/LanguageStatusLink.story');
+  require('../../../app/assets/javascripts/student_profile/IepDialogLink.story');
+  require('../../../app/assets/javascripts/student_profile/LightInsightImportedForm.story');
+  require('../../../app/assets/javascripts/student_profile/ReflectionsAboutGrades.story');
 
   // my notes
   require('../../../app/assets/javascripts/my_notes/NotesFeed.story');
@@ -43,6 +49,12 @@ function loadStories() {
   require('../../../app/assets/javascripts/class_lists/StudentCard.story');
   require('../../../app/assets/javascripts/class_lists/InlineStudentProfile.story');
   require('../../../app/assets/javascripts/class_lists/ExportList.story');
+
+  //reading
+  require('../../../app/assets/javascripts/reading/ChooseTeam.story');
+  require('../../../app/assets/javascripts/reading/MakePlan.story');
+  require('../../../app/assets/javascripts/reading/CreateGroups.story');
+  require('../../../app/assets/javascripts/reading/SidebarDialog.story');
 
   // add more here!
 }

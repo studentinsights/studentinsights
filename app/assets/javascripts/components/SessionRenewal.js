@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {apiFetchJson} from '../helpers/apiFetchJson';
+import {apiFetch, apiFetchJson} from '../helpers/apiFetchJson';
 
 
 // Show a warning that the user's session is likely to timeout shortly.
@@ -11,103 +11,147 @@ export default class SessionRenewal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: States.ACTIVE
+      probeJson: null,
+      shouldShowError: false
     };
-    this.warningTimer = null;
-    this.timeoutTimer = null;
+    this.probeInterval = null;
 
-    this.resetTimers = this.resetTimers.bind(this);
-    this.onWarning = this.onWarning.bind(this);
-    this.onTimeout = this.onTimeout.bind(this);
+    this.onProbeInterval = this.onProbeInterval.bind(this);
+    this.onProbed = this.onProbed.bind(this);
+    this.onProbeRequestFailed = this.onProbeRequestFailed.bind(this);
     this.onRenewClicked = this.onRenewClicked.bind(this);
     this.onRenewCompleted = this.onRenewCompleted.bind(this);
-  }
-
-  // Provides a function for child components to reset session timers (eg, on xhr requests).
-  getChildContext() {
-    return {resetTimers: this.resetTimers};
+    this.onRenewFailed = this.onRenewFailed.bind(this);
+    
   }
 
   componentDidMount() {
-    this.resetTimers();
+    this.startProbeInterval();
   }
 
-  resetTimers() {
-    const {warningTimeoutInSeconds, sessionTimeoutInSeconds} = this.props;
-    if (this.warningTimer) clearTimeout(this.warningTimer);
-    if (this.timeoutTimer) clearTimeout(this.timeoutTimer);
+  componentWillUnmount() {
+    this.stopProbeInterval();
+  }
 
-    this.warningTimer = setTimeout(this.onWarning, warningTimeoutInSeconds * 1000);
-    this.timeoutTimer = setTimeout(this.onTimeout, sessionTimeoutInSeconds * 1000);
+  startProbeInterval() {
+    const {probeIntervalInSeconds} = this.props;
+    this.probeInterval = setInterval(this.onProbeInterval, probeIntervalInSeconds * 1000);
+  }
+
+  stopProbeInterval() {
+    if (this.probeInterval) clearInterval(this.probeInterval);
+  }
+
+  rollbar(shortMsg, err = {}) {
+    const msg = `SessionRenewal-v3-${shortMsg}`;
+    const {warnFn} = this.props;
+    if (warnFn) return warnFn(msg, err);
+
+    console.warn(msg, err); // eslint-disable-line
+    window.Rollbar.warn && window.Rollbar.warn(msg, err);
+  }
+
+  shouldWarn() {
+    const {probeIntervalInSeconds, warningDurationInSeconds} = this.props;
+    const {probeJson} = this.state;
+    if (!probeJson) return false;
+
+    return shouldWarn(probeJson.remaining_seconds, probeIntervalInSeconds, warningDurationInSeconds);
   }
 
   // At this point, any transient data in the browser will be rejected by the server.
   // If the server session has expired, this will redirect to the sign in page, clearing the
-  // screen of student data.  If it's still valid (from activities in other tabs, nothing will change).
-  forceReload() {
-    const {forceReload} = this.props;
-    if (forceReload) {
-      forceReload();
+  // screen of student data.
+  forciblyClearPage() {
+    this.rollbar('forciblyClearPage');
+    this.stopProbeInterval();
+
+    const {forciblyClearPage} = this.props;
+    if (forciblyClearPage) {
+      forciblyClearPage();
     } else {
-      window.location.reload(true);
+      window.location = '/?expired';
     }
   }
 
-  onWarning() {
-    this.setState({status: States.WARNING});
+  // This uses `fetch` directly to tell the difference
+  // between a hard "failure" and a redirection or non-200 status
+  // code.
+  onProbeInterval() {
+    apiFetch('/educators/probe')
+      .then(this.onProbed)
+      .catch(this.onProbeRequestFailed);
   }
 
-  onTimeout() {
-    this.setState({status: States.TIMED_OUT});
-    this.forceReload();
+  // If probe fails because user's session has expired, force reload
+  // to clear tab.  If it's still valid, store the response with info
+  // about how long is left, so we can warn the user.
+  onProbed(fetchResponse) {
+    // The session already expired, forcibly reload
+    if (fetchResponse.status === 401) {
+      this.forciblyClearPage();
+      return;
+    }
+
+    // Store how much time left in the session
+    fetchResponse.json().then(probeJson => this.setState({probeJson}));
+  }
+  
+  // Report to Rollbar, but take no UI action
+  onProbeRequestFailed(err) {
+    this.rollbar('onProbeFailed', err);
   }
 
-  onError() {
-    this.setState({status: States.ERROR});
-    this.resetTimers();
-    this.forceReload();
-  }
-
-  onRenewClicked() {
-    apiFetchJson('/educators/reset').then(this.onRenewCompleted);
+  onRenewClicked(e) {
+    this.rollbar('onRenewClicked');
+    e.preventDefault();
+    apiFetchJson('/educators/reset')
+      .then(this.onRenewCompleted)
+      .catch(this.onRenewFailed);
   }
 
   onRenewCompleted(json) {
-    if (json.status ==='ok') {
-      this.resetTimers();
-      this.setState({status: States.ACTIVE});
-    } else {
-      this.onError();  
-    }
+    this.rollbar('onRenewClicked');
+    this.setState({shouldShowError: false});
+    this.onProbeInterval(); // for immediate feedback if probeInterval is large
+  }
+ 
+  // If this failed, keep the page open since they just interacted
+  // with the page, and the error message is better than navigating away
+  // unexpectedly.  This stops the probe interval and so the tab would
+  // stay visible, with the expectation that the user is about to take
+  // some other action (like reloading, signing out/in or closing the tab).
+  onRenewFailed() {
+    this.rollbar('onRenewFailed');
+    this.setState({shouldShowError: true});
+    this.stopProbeInterval();
   }
 
   render() {
-    const {status} = this.state;
+    const {shouldShowError} = this.state;
 
-    if (status === States.ACTIVE) return null;
-    
-    if (status === States.WARNING) return (
-      <div style={styles.root}>
-        Please click <a href="#" style={styles.link} onClick={this.onRenewClicked}>this link</a> or your session will timeout due to inactivity.
-      </div>
-    );
+    if (shouldShowError) {
+      return (
+        <div style={styles.root}>There was an error with your session, please sign in again.</div>
+      );
+    }
 
-    if (status === States.TIMED_OUT) return (
-      <div style={styles.root}>Your session has timed out due to inactivity.</div>
-    );
+    if (this.shouldWarn()) {
+      return (
+        <div style={styles.root}>
+          Please click <a href="#" style={styles.link} onClick={this.onRenewClicked}>this link</a> or your session will timeout due to inactivity.
+        </div>
+      );
+    }
 
-    if (status === States.ERROR) return (
-      <div style={styles.root}>Your session could not be renewed, please sign in again.</div>
-    );
+    return null;
   }
 }
-SessionRenewal.childContextTypes = {
-  resetTimers: PropTypes.func
-};
 SessionRenewal.propTypes = {
-  warningTimeoutInSeconds: PropTypes.number.isRequired,
-  sessionTimeoutInSeconds: PropTypes.number.isRequired,
-  forceReload: PropTypes.func
+  probeIntervalInSeconds: PropTypes.number.isRequired,
+  warningDurationInSeconds: PropTypes.number.isRequired,
+  forciblyClearPage: PropTypes.func,
+  warnFn: PropTypes.func
 };
 
 const styles = {
@@ -116,10 +160,11 @@ const styles = {
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#4A90E2',
+    backgroundColor: 'orange',
     color: 'white',
     textAlign: 'center',
-    padding: 20
+    padding: 20,
+    zIndex: 9999
   },
   link: {
     color: 'white',
@@ -128,8 +173,9 @@ const styles = {
   }
 };
 
-const States = {
-  ACTIVE: 'active',
-  WARNING: 'warning',
-  TIMED_OUT: 'timed_out'
-};
+
+// Allow enough time to so that they are guaranteed to have at least
+// `warningDurationInSeconds` to respond (or more, depending on probeInterval).
+export function shouldWarn(remainingSeconds, probeIntervalInSeconds, warningDurationInSeconds) {
+  return (remainingSeconds - probeIntervalInSeconds <= warningDurationInSeconds);
+}

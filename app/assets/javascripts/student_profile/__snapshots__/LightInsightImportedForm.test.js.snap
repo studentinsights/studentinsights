@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots view 1`] = `
+<div
+  className="LightInsightQuote LightInsightImportedForm"
+  style={
+    Object {
+      "display": "flex",
+      "flex": 1,
+      "flexDirection": "column",
+      "style": undefined,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "flex": 1,
+        "margin": 20,
+        "marginBottom": 0,
+        "marginTop": 15,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "flex": 1,
+          "flexDirection": "column",
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "column",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "fontSize": 12,
+            }
+          }
+        >
+          At the end of the quarter 3, what would make you most proud of your accomplishments in your course?
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+              "marginTop": 5,
+            }
+          }
+        >
+          <mocked-fit-text
+            fontSizeStep={6}
+            maxFontSize={48}
+            minFontSize={12}
+            text="“Keeping grades high in all classes since I'm worried about college”"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "alignItems": "flex-end",
+        "display": "flex",
+        "flexDirection": "row",
+        "fontSize": 12,
+        "justifyContent": "space-between",
+        "margin": 20,
+        "marginBottom": 15,
+        "marginTop": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "color": "#333",
+        }
+      }
+    >
+      <div>
+        <div>
+          from 
+          <a
+            href="/students/9"
+            rel="noopener noreferrer"
+            style={
+              Object {
+                "fontSize": 12,
+              }
+            }
+            target="_blank"
+          >
+            Mari
+             
+            Kenobi
+          </a>
+        </div>
+        <div>
+          <span>
+            in 
+          </span>
+          <div
+            style={
+              Object {
+                "display": "inline",
+                "margin": 0,
+                "marginLeft": 10,
+              }
+            }
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "fontSize": 12,
+                  "outline": "none",
+                }
+              }
+            >
+              Q2 Self-reflection
+            </a>
+          </div>
+          <span>
+             on 
+            3/6/18
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
