@@ -108,4 +108,18 @@
     width: 110px;
     margin-top: 5px;
   }
+
+  .SignInPage-change-coming {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > div {
+      padding: 10px;
+      background: #94e38f66;
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+  }
 }
