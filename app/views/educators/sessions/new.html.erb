@@ -18,6 +18,7 @@
     <a href="<%= PerDistrict.new.sign_in_params[:district_url] %>" target="_blank" rel="noopener noreferrer">
       <%= image_tag PerDistrict.new.sign_in_params[:district_logo_src], alt: PerDistrict.new.sign_in_params[:district_logo_alt], class:"SignInPage-district-logo" %>
     </a>
+    <div class="SignInPage-flash-alert"><%= alert %></div>
     <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
       <div class="SignInPage-item">
         <%= text_field_tag('multifactor[login_text]', nil, {

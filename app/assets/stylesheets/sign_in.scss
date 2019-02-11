@@ -80,6 +80,12 @@
     background-color: white;
   }
 
+  .SignInPage-flash-alert {
+    height: 1.5em;
+    color: $warning-red;
+    font-weight: 700;
+  }
+
   .SignInPage-login-buttons {
     display: flex;
     padding-top: 15px;

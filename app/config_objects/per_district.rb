@@ -471,7 +471,6 @@ class PerDistrict
   def sign_in_params
     if @district_key == SOMERVILLE
       {
-        preview_image_src: 'sign_in/somerville-preview.png',
         district_url: 'http://www.somerville.k12.ma.us/',
         district_logo_src: 'sign_in/somerville-logo.jpg',
         district_logo_alt: "#{district_name} logo",
@@ -480,7 +479,6 @@ class PerDistrict
       }
     elsif @district_key == BEDFORD
       {
-        preview_image_src: 'sign_in/bedford-preview.png',
         district_url: 'https://www.bedfordps.org/',
         district_logo_src: 'sign_in/bedford-logo.png',
         district_logo_alt: "#{district_name} logo",
@@ -489,7 +487,6 @@ class PerDistrict
       }
     elsif @district_key == NEW_BEDFORD
       {
-        preview_image_src: 'sign_in/new-bedford-preview.png',
         district_url: 'http://www.newbedfordschools.org/',
         district_logo_src: 'sign_in/new-bedford-logo.jpg',
         district_logo_alt: "#{district_name} logo",
@@ -498,7 +495,6 @@ class PerDistrict
       }
     elsif @district_key == DEMO
       {
-        preview_image_src: 'sign_in/demo-preview.png',
         district_url: 'https://www.studentinsights.org/',
         district_logo_src: 'sign_in/demo-logo.png',
         district_logo_alt: "#{district_name} logo",
