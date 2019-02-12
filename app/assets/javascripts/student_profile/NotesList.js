@@ -11,7 +11,7 @@ import NoteCard from './NoteCard';
 import {parseAndReRender} from './transitionNoteParser';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage from './CleanSlateMessage';
-
+import TakeNotesTakeTwo from './TakeNotesTakeTwo';
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -55,7 +55,8 @@ export default class NotesList extends React.Component {
           ? <div style={styles.noItems}>No notes</div>
           : filteredNotes.map(mergedNote => {
             switch (mergedNote.type) {
-            case 'event_notes': return this.renderEventNote(mergedNote);
+            // case 'event_notes': return this.renderEventNote(mergedNote);
+            case 'event_notes': return this.renderEventNoteTakeTwo(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
@@ -73,6 +74,30 @@ export default class NotesList extends React.Component {
       <span style={styles.badge}>
         {eventNoteTypeText(eventNoteTypeId)}
       </span>
+    );
+  }
+
+  renderEventNoteTakeTwo(eventNote) {
+    const {
+      educatorsIndex,
+      currentEducatorId
+    } = this.props;
+
+    return (
+      <TakeNotesTakeTwo
+        key={eventNote.id}
+        style={{marginTop: 20}}
+        educator={educatorsIndex[currentEducatorId]}
+        student={eventNote.student}
+        defaultNote={{
+          studentId: eventNote.student.id,
+          recordedAtTimestamp: toMomentFromRailsDate(eventNote.recorded_at),
+          id: eventNote.id,
+          isRestricted: eventNote.is_restricted,
+          text: eventNote.text,
+          eventNoteTypeId: eventNote.event_note_type_id
+        }}
+      />
     );
   }
 

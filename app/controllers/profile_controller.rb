@@ -85,7 +85,7 @@ class ProfileController < ApplicationController
   def student_feed(student)
     {
       event_notes: student.event_notes
-        .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note },
+        .map {|event_note| EventNoteSerializer.safe(event_note).serialize_event_note_with_student },
       transition_notes: student.transition_notes,
       fall_student_voice_surveys: fall_student_voice_surveys_json(student.id),
       homework_help_sessions: student.homework_help_sessions.as_json(except: [:course_ids], methods: [:courses]),

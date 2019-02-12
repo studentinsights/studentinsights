@@ -6,6 +6,7 @@ import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import TakeNotes from './TakeNotes';
+import TakeNotesTakeTwo from './TakeNotesTakeTwo';
 
 
 /*
@@ -18,9 +19,11 @@ export default class LightNotesDetails extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      isTakingNotes: false
+      isTakingNotes: false,
+      isAuthoring: false,
     };
 
+    this.onStartAuthoring = this.onStartAuthoring.bind(this);
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
@@ -33,6 +36,10 @@ export default class LightNotesDetails extends React.Component {
       this.props.noteInProgressText.length > 0 ||
       this.props.noteInProgressAttachmentUrls.length > 0
     );
+  }
+
+  onStartAuthoring() {
+    this.setState({isAuthoring: true});
   }
 
   onClickTakeNotes(event) {
@@ -60,9 +67,26 @@ export default class LightNotesDetails extends React.Component {
               title={this.props.helpTitle}
               content={this.props.helpContent} />
           </div>
-          {!this.isTakingNotes() && this.renderTakeNotesButton()}
+          <div>
+            {!this.isTakingNotes() && this.renderTakeNotesButton()}
+            {!this.state.isAuthoring && (
+              <button
+                className="btn take-notes"
+                style={{display: 'inline-block', margin: 0}}
+                onClick={this.onStartAuthoring}>
+                <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>v2</span></span>
+              </button>
+            )}
+          </div>
         </SectionHeading>}
         <div>
+          {this.state.isAuthoring && (
+            <TakeNotesTakeTwo
+              style={{marginTop: 20, marginBottom: 20}}
+              educator={currentEducator}
+              student={student}
+            />
+          )}
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             currentEducatorId={currentEducator.id}
