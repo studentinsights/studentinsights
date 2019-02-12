@@ -32,9 +32,8 @@ describe 'masquerading, testing only in Somerville', type: :feature do
 
   def expect_to_be_logged_out(page)
     expect(current_path).to eq('/')
-    expect(page).to have_content('Login')
-    expect(page).to have_content('Password')
     expect(page).to have_css('.SignInPage')
+    expect(page).to have_content('Use multifactor login')
     expect(page).not_to have_content('Sign Out')
   end
 

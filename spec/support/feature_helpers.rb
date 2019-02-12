@@ -41,11 +41,15 @@ module FeatureHelpers
     click_button 'Sign in'
   end
 
-  # Submit the form to ask for a login code via SMS
+  # Simulate submitting the form to ask for a login code via SMS.
+  #
+  # No JS is running is this test setup, so this simulates a
+  # full form submit, unlike in real app where JS would run
+  # and submit this as an xhr.
   def feature_request_multifactor(login_text)
     visit '/'
     fill_in 'multifactor_login_text', with: login_text
-    click_button 'Next'
+    click_button 'Use multifactor button'
   end
 
   # This makes the sign out requests manually, since it's a delete request
