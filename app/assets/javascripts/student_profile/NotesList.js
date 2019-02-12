@@ -89,6 +89,7 @@ export default class NotesList extends React.Component {
         educator={educatorsIndex[currentEducatorId]}
         student={eventNote.student}
         noteJson={eventNote}
+        // onChanged={this.props.onTakeNotesTakeTwoChanged}
       />
     );
   }

@@ -41,6 +41,7 @@ export default class PageContainer extends React.Component {
     this.onSaveServiceFail = this.onSaveServiceFail.bind(this);
     this.onDiscontinueServiceDone = this.onDiscontinueServiceDone.bind(this);
     this.onDiscontinueServiceFail = this.onDiscontinueServiceFail.bind(this);
+    // this.onTakeNotesTakeTwoChanged = this.onTakeNotesTakeTwoChanged.bind(this);
   }
 
   componentWillMount(props, state) {
@@ -247,6 +248,22 @@ export default class PageContainer extends React.Component {
     this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
   }
 
+  onTakeNotesTakeTwoChanged(changeType, note) {
+    console.log('onTakeNotesTakeTwoChanged');
+    if (changeType === 'updated') {
+      const feed = this.state.feed.event_notes.map(feedNote => {
+        return (feedNote.id === note.id) ? note : feedNote;
+      });
+      this.setState({feed});
+      return;
+    }
+
+    if (changeType === 'created') {
+      this.setState({feed: this.state.feed.concat([note])});
+      return;
+    }
+  }
+
   render() {
     const {
       profileJson
@@ -262,6 +279,7 @@ export default class PageContainer extends React.Component {
     } = this.state;
 
     const actions = {
+      // onTakeNotesTakeTwoChanged: this.onTakeNotesTakeTwoChanged,
       onColumnClicked: this.onColumnClicked,
       onClickSaveNotes: this.onClickSaveNotes,
       onClickSaveTransitionNote: this.onClickSaveTransitionNote,

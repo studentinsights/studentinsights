@@ -84,6 +84,7 @@ export default class LightNotesDetails extends React.Component {
         <div>
           {isTakeTwoEnabled && isAuthoring && (
             <TakeNotesTakeTwo
+              // onChanged={this.props.actions.onTakeNotesTakeTwoChanged}
               style={{marginTop: 20, marginBottom: 20}}
               educator={currentEducator}
               student={student}
