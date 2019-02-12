@@ -9,6 +9,7 @@ import {
 } from '../helpers/apiFetchJson';
 import {formatEducatorName} from '../helpers/educatorName';
 import Educator from '../components/Educator';
+import Hover from '../components/Hover';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
 import Badge from '../components/Badge';
@@ -16,6 +17,8 @@ import Timestamp from '../components/Timestamp';
 import FeedCardFrame from '../feed/FeedCardFrame';
 // import Autosaver from '../reading/Autosaver';
 import RestrictedNotePresence, {urlForRestrictedEventNoteContent} from './RestrictedNotePresence';
+import ResizingTextArea from './ResizingTextArea';
+
 
 // Render a card in the feed for an EventNote
 /*
@@ -36,6 +39,9 @@ X showing contents of restricted
   showing saving error (eg, signed out)
   last edited timestamp, updated at, timezone
   revisions?
+  newlines?
+  autofocus on first edit
+  cross browser
 
 
 server
@@ -44,7 +50,7 @@ server
   allow text to be blank on server
   revisions?
   migrate links?
-  
+
 
 ui eng
   note allowing multiple POST calls (isPendingCreateRequest)
@@ -222,12 +228,17 @@ export default class TakeNotesTakeTwo extends React.Component {
 
     return (
       <div>
-        <textarea
-          autoFocus={true}
-          style={styles.text}
-          onChange={this.onTextChanged}
-          value={text}
-        />
+        <Hover>{isHovering => (
+          <ResizingTextArea
+            // autoFocus={true} /* not always */
+            style={{
+              ...styles.text,
+              ...(isHovering ? { outline: '1px dashed #ccc' } : {})
+            }}
+            onChange={this.onTextChanged}
+            value={text}
+          />
+        )}</Hover>
         {this.renderNoteMessage()}
       </div>
     );
@@ -394,9 +405,11 @@ const styles = {
     width: '100%',
     fontSize: 14,
     resize: 'none',
-    border: '1px solid white',
+    paddingTop: 5,
+    paddingBottom: 5,
+    border: 0,
+    outline: '1px dashed white',
     padding: 0,
     borderRadius: 3
   }
 };
-

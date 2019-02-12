@@ -167,9 +167,9 @@ export default class NotesList extends React.Component {
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
       ? urlForRestrictedTransitionNoteContent(transitionNote)
       : null;
+
     return (
       <NoteCard
-        key={['transition_note', transitionNote.id].join()}
         noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
         badge={<span style={styles.badge}>Transition note</span>}
         educatorId={transitionNote.educator_id}
@@ -177,7 +177,8 @@ export default class NotesList extends React.Component {
         educatorsIndex={this.props.educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
-        attachments={[]} />
+        attachments={[]}
+      />
     );
   }
 
