@@ -8,42 +8,27 @@
 // - jQuery and jQuery UJS, for submitting the form and for listening to form submit events
 export function multifactorMain(options = {}) {
   const el = options.el || document.querySelector('.SignInPage');
-  const windowHash = options.hash || window.location.hash;
 
   // page elements and shared state for cleaning up listeners
-  const switchModeLink = el.querySelector('.SignInPage-authentication-type-link');
   const simpleForm = el.querySelector('.SignInPage-form');
-  const multiFactorForm = el.querySelector('.SignInPage-multifactor-form');
-  const multiFactorLogin = multiFactorForm.querySelector('.SignInPage-input-login');
-  const multiFactorPassword = multiFactorForm.querySelector('.SignInPage-input-password');
+  const switchModeLink = el.querySelector('.SignInPage-authentication-type-link');
   const loginCode = el.querySelector('.SignInPage-input-login-code');
-  const loginCodeContainer = el.querySelector('.SignInPage-item-containing-login-code');
-  const sentLoginCodeMessage = el.querySelector('.SignInPage-multifactor-sent-code');
   const simpleLogin = simpleForm.querySelector('.SignInPage-input-login');
   const simplePassword = simpleForm.querySelector('.SignInPage-input-password');
-  const flashMessage = el.querySelector('.SignInPage-alert');
+  const flashMessage = el.querySelector('.SignInPage-flash-alert');
   const listeners = {};
   const shared = {
     el,
     switchModeLink,
-    multiFactorForm,
-    multiFactorLogin,
-    multiFactorPassword,
-    loginCode,
-    loginCodeContainer,
-    sentLoginCodeMessage,
-    simpleForm,
     simpleLogin,
     simplePassword,
+    loginCode,
     flashMessage,
+    simpleForm,
     listeners
   };
   
-  if (windowHash.indexOf('multifactor') !== -1) {
-    switchToMultiFactor(shared);
-  } else {
-    allowSwitchToMultiFactor(shared);
-  }
+  allowSwitchToMultiFactor(shared);
 
   return shared; // for testing
 }
@@ -55,86 +40,59 @@ function allowSwitchToMultiFactor(shared) {
     switchToMultiFactor(shared);
   };
   switchModeLink.addEventListener('click', listeners.link);
-  switchModeLink.classList.remove('hidden');
 }
 
 function switchToMultiFactor(shared) {
-  const {el, switchModeLink, multiFactorForm, loginCode, flashMessage, multiFactorLogin, listeners} = shared;
-  
-  // copy any values already typed into fields over
-  copyFromSimpleToMultiFactor(shared);
-
-  // clear placeholder login_code
-  loginCode.value = '';
-
-  // Visuals
-  multiFactorForm.classList.remove('hidden');
-  el.querySelector('.SignInPage-form').classList.add('hidden');
-  switchModeLink.innerText = 'Use simple login';
-  switchModeLink.href = '/educators/sign_in';
-  switchModeLink.removeEventListener('click', listeners.link);
-  flashMessage.innerText = '';
-  multiFactorLogin.focus();
-
-  // Listeners (never removed)
-  // This updates the UI optimistically.
-  multiFactorForm.addEventListener('submit', (event, data) => {
-    $(multiFactorForm).on('ajax:send', afterSubmitMultiFactorStepOne.bind(null, shared));
-  });
-
-  // hash
-  window.location.hash = '#multifactor';
-}
-
-export function afterSubmitMultiFactorStepOne(shared) {
   const {
+    switchModeLink,
+    simpleForm,
     simpleLogin,
     simplePassword,
-    switchModeLink,
-    multiFactorForm,
-    simpleForm,
     loginCode,
-    loginCodeContainer,
-    sentLoginCodeMessage
+    flashMessage
   } = shared;
+  
+  // check validation first, and if it fails do the submit
+  // to show the user validation feedback
+  if (!simpleForm.checkValidity()) {
+    simpleForm.querySelector('input[type=submit]').click();
+    return;
+  }  
 
-  copyFromMultiFactorToSimple(shared);
+  // Submit multifactor form without password
+  // simplePassword.disabled = true;
+  // simpleForm.setAttribute('action', '/educators/multifactor');
+  // simpleForm.querySelector('input[type=submit]').click();
 
-  // disable login and password, clear loginCode from placeholder
+  // create form
+  // debugger
+  // const multifactorLoginText = document.createElement('input');
+  // multifactorLoginText.name = 'multifactor[login_text]';
+  // multifactorLoginText.value = simpleLogin.value;
+
+  // const cloneForm = document.createElement('form');
+  // cloneForm.setAttribute('accept-charset', 'UTF-8');
+  // cloneForm.setAttribute('action', '/educators/multifactor');
+  // cloneForm.setAttribute('method', 'post');
+  // cloneForm.setAttribute('data-remote', true);
+  // cloneForm.appendChild(multifactorLoginText);
+  // cloneForm.submit();
+
+  const multifactorForm = document.querySelector('.SignInPage-multifactor-form');
+  const multifactorLoginText = document.querySelector('.SignInPage-multifactor-login-text');
+  multifactorLoginText.value = simpleLogin.value;
+  multifactorForm.querySelector('input[type=submit]').click();
+  
+
+  // Update visuals to enter login code
+  flashMessage.innerText = '';
   simpleLogin.readOnly = true;
   simplePassword.readOnly = true;
-
-  // switch to step 2
   switchModeLink.classList.add('hidden');
-  multiFactorForm.classList.add('hidden');
-  simpleForm.classList.remove('hidden');
-  loginCodeContainer.classList.remove('hidden');
-  sentLoginCodeMessage.classList.remove('hidden');
-
+  loginCode.value = '';
+  loginCode.classList.remove('hidden');
   loginCode.focus();
-}
 
-
-// If we copy empty strings, it triggers browser validations
-function copyIfValue(fromEl, toEl) {
-  if (fromEl.value === '') return;
-  toEl.value = fromEl.value;
-}
-
-function copyFromSimpleToMultiFactor(shared) {
-  const {simplePassword, simpleLogin, multiFactorLogin, multiFactorPassword} = shared;
-  
-  copyIfValue(simpleLogin, multiFactorLogin);
-  copyIfValue(simplePassword, multiFactorPassword);
-  simpleLogin.value = '';
-  simplePassword.value = '';
-}
-
-function copyFromMultiFactorToSimple(shared) {
-  const {simplePassword, simpleLogin, multiFactorLogin, multiFactorPassword} = shared;
-  
-  copyIfValue(multiFactorLogin, simpleLogin);
-  copyIfValue(multiFactorPassword, simplePassword);
-  multiFactorLogin.value = '';
-  multiFactorPassword.value = '';
+  // And allow password again
+  simplePassword.disabled = false;
 }

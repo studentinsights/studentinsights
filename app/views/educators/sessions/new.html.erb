@@ -11,55 +11,62 @@
     <%= image_tag PerDistrict.new.sign_in_params[:splash_image_src], alt: PerDistrict.new.sign_in_params[:splash_image_alt], class: "SignInPage-splash-image" %>
   </div>
   <div class="SignInPage-right-box">
-    <a class="SignInPage-logo-and-name" href="/">
-      <%= render('shared/logo') %>
-      <%= render('shared/wordmark') %>
-    </a>
-    <a href="<%= PerDistrict.new.sign_in_params[:district_url] %>" target="_blank" rel="noopener noreferrer">
-      <%= image_tag PerDistrict.new.sign_in_params[:district_logo_src], alt: PerDistrict.new.sign_in_params[:district_logo_alt], class:"SignInPage-district-logo" %>
-    </a>
-    <div class="SignInPage-flash-alert"><%= alert %></div>
-    <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
-      <div class="SignInPage-item">
-        <%= text_field_tag('multifactor[login_text]', nil, {
-          class: 'SignInPage-input-text',
-          autocomplete: 'off',
-          required: true,
-          autofocus: true,
-          placeholder: 'Login'
-        }) %>
-      </div>
-      <div class="SignInPage-item">
-        <%= password_field_tag('multifactor[password]', nil, {
-          class: 'SignInPage-input-text',
-          autocomplete: 'off',
-          required: true,
-          name: nil, # do not submit
-          placeholder: 'Password'
-        }) %>
-      </div>
-      <div class="SignInPage-login-buttons">
-        <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button", name: nil %>
-        <div class="SignInPage-multifactor">
-          <%= link_to('Use multifactor login', "#{new_educator_session_url}#multifactor", class: 'SignInPage-authentication-type-link') %>
-        </div>
-        <div class="SignInPage-item SignInPage-item-containing-login-code hidden">
-          <%= text_field_tag('educator[login_code]', nil, {
-            class: 'SignInPage-input-text SignInPage-input-login-code',
-            placeholder: 'Sign in code',
+    <div class="SignInPage-right-box-content">
+      <a class="SignInPage-logo-and-name" href="/">
+        <%= render('shared/logo') %>
+        <%= render('shared/wordmark') %>
+      </a>
+      <a href="<%= PerDistrict.new.sign_in_params[:district_url] %>" target="_blank" rel="noopener noreferrer">
+        <%= image_tag PerDistrict.new.sign_in_params[:district_logo_src], alt: PerDistrict.new.sign_in_params[:district_logo_alt], class:"SignInPage-district-logo" %>
+      </a>
+      <div class="SignInPage-flash-alert"><%= alert %></div>
+      <%= form_tag session_path(resource_name), class: "SignInPage-form" do %>
+        <div class="SignInPage-item">
+          <%= text_field_tag('educator[login_text]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-login',
             autocomplete: 'off',
             required: true,
-            value: 'NO_CODE' # Devise requires a value
+            autofocus: true,
+            placeholder: 'Login'
           }) %>
         </div>
+        <div class="SignInPage-item">
+          <%= password_field_tag('educator[password]', nil, {
+            class: 'SignInPage-input-text SignInPage-input-password',
+            autocomplete: 'off',
+            required: true,
+            placeholder: 'Password'
+          }) %>
+        </div>
+        <div class="SignInPage-login-buttons">
+          <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button", name: nil %>
+          <div class="SignInPage-multifactor">
+            <%= link_to('Use multifactor login', "#multifactor", class: 'SignInPage-authentication-type-link') %>
+            <%= text_field_tag('educator[login_code]', nil, {
+              class: 'SignInPage-input-text SignInPage-input-login-code hidden',
+              placeholder: 'Sign in code',
+              autocomplete: 'off',
+              required: true,
+              value: 'NO_CODE' # Devise requires a value
+            }) %>
+          </div>
+        </div>
+      <% end %>
+      <div class="SignInPage-email">
+        <p>Need help? <a href="mailto:help@studentinsights.org">help@studentinsights.org</a></p>
+      </div> 
+      <div class="SignInPage-links">
+        <a href="https://www.studentinsights.org/">Website</a>
+        <a href="https://github.com/studentinsights/studentinsights">GitHub</a>
       </div>
-    <% end %>
-    <div class="SignInPage-email">
-      <p>Need help? <a href="mailto:help@studentinsights.org">help@studentinsights.org</a></p>
-    </div> 
-    <div class="SignInPage-links">
-      <a href="https://www.studentinsights.org/">Website</a>
-      <a href="https://github.com/studentinsights/studentinsights">GitHub</a>
     </div>
   </div>
+  <%= form_tag educators_multifactor_path, remote: true, class: 'hidden SignInPage-multifactor-form' do %>
+    <%= text_field_tag('multifactor[login_text]', nil, {
+      class: 'hidden SignInPage-multifactor-login-text',
+      required: true
+    }) %>
+    <%= submit_tag 'Sign in', class: 'hidden', name: nil %>
+  <% end %>
+  <%= javascript_include_tag Webpack.bundle('sign_in.js') %>
 </div>

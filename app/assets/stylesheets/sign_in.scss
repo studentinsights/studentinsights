@@ -30,13 +30,11 @@
   .SignInPage-input-text {
     font-size: 14px;
     padding: 6px;
-    padding-left: 30px;
+    padding-left: 20px;
     border: 1px solid #ccc;
-    width: 355px;
     height: 45px;
     border-radius: 28px;
     background-color: #FAFAFA;
-    margin-bottom: 15px;
 
     &:invalid, &:required {
       box-shadow: 0 0 1px 1px #eee;
@@ -53,11 +51,17 @@
     }
   }
 
+  .SignInPage-input-login,
+  .SignInPage-input-password {
+    width: 350px;
+    margin-bottom: 15px;
+  }
+
   .SignInPage-multifactor {
-    margin-top: 15px;
-    margin-left: 10px;
-    margin-bottom: 5px;
     flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   .SignInPage-left-box {
@@ -80,9 +84,16 @@
     background-color: white;
   }
 
+  .SignInPage-right-box-content {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .SignInPage-flash-alert {
     height: 1.5em;
-    color: $warning-red;
+    color: darkorange;
     font-weight: 700;
   }
 
@@ -94,6 +105,10 @@
   .SignInPage-login-button {
     padding: 15px;
     width: 200px;
+  }
+
+  .SignInPage-input-login-code {
+    width: 130px;
   }
 
   .SignInPage-district-logo {
