@@ -75,11 +75,12 @@ export default class RestrictedNotePresence extends React.Component {
   }
 
   renderRestrictedContent(json) {
+    const {showRestrictedLabel} = this.props;
     const {text} = json;
     return (
       <div>
         <NoteText text={text} />
-        <div style={styles.restrictedNoteLabel}>This is a restricted note.</div>
+        {showRestrictedLabel && <div style={styles.restrictedNoteLabel}>This is a restricted note.</div>}
       </div>
     );
   }
@@ -87,7 +88,8 @@ export default class RestrictedNotePresence extends React.Component {
 RestrictedNotePresence.propTypes = {
   studentFirstName: PropTypes.string,
   educatorName: PropTypes.string,
-  urlForRestrictedNoteContent: PropTypes.string
+  urlForRestrictedNoteContent: PropTypes.string,
+  showRestrictedLabel: PropTypes.bool
 };
 
 const styles = {

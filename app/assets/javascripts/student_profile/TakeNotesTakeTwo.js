@@ -7,6 +7,7 @@ import {
   apiPatchJson,
   apiPostJson
 } from '../helpers/apiFetchJson';
+import {formatEducatorName} from '../helpers/educatorName';
 import Educator from '../components/Educator';
 import HouseBadge from '../components/HouseBadge';
 import NoteBadge from '../components/NoteBadge';
@@ -14,6 +15,7 @@ import Badge from '../components/Badge';
 import Timestamp from '../components/Timestamp';
 import FeedCardFrame from '../feed/FeedCardFrame';
 // import Autosaver from '../reading/Autosaver';
+import RestrictedNotePresence, {urlForRestrictedEventNoteContent} from './RestrictedNotePresence';
 
 // Render a card in the feed for an EventNote
 /*
@@ -164,13 +166,41 @@ export default class TakeNotesTakeTwo extends React.Component {
           // whereEl={<div>in {eventNoteTypeText(eventNoteTypeId)}</div>}
           // whenEl={<Timestamp railsTimestamp={recordedAtTimestamp} />}
           whereEl={null}
-          whenEl={recordedAtTimestamp.format('m/d/Y h:mma')}
+          whenEl={recordedAtTimestamp.format('M/D/Y h:mma')}
           badgesEl={this.renderBadges(student, eventNoteTypeId)}
           iconsEl={this.renderIcons()}
         >
-          {this.renderContent()}
+          {this.renderNoteSubstanceOrRedaction()}
         </FeedCardFrame>
       </div>
+    );
+  }
+
+  // For restricted notes, show a message and allow switching to another
+  // component that allows viewing and editing.
+  // Otherwise, show the substance of the note.
+  renderNoteSubstanceOrRedaction() {
+    const {note} = this.state;
+    const {showRestrictedNoteWithoutRedaction} = this.props;
+    return (!note.id || !note.isRestricted || showRestrictedNoteWithoutRedaction)
+      ? this.renderContent()
+      : this.renderRestrictedNoteRedaction();
+  }
+
+  renderRestrictedNoteRedaction() {
+    const {student, educator} = this.props;
+    const {note} = this.state;
+    const educatorName = formatEducatorName(educator);
+    const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
+      ? educatorName.split(' ')[0]
+      : educatorName;
+    
+    return (
+      <RestrictedNotePresence
+        studentFirstName={student.first_name}
+        educatorName={educatorFirstNameOrEmail}
+        urlForRestrictedNoteContent={urlForRestrictedEventNoteContent({id: note.id})}
+      />
     );
   }
 
@@ -307,7 +337,8 @@ TakeNotesTakeTwo.propTypes = {
       educator: PropTypes.object
     })
   }).isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  showRestrictedNoteWithoutRedaction: PropTypes.bool
 };
 
 

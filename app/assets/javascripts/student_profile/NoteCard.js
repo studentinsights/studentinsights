@@ -83,6 +83,7 @@ export default class NoteCard extends React.Component {
     
     return (
       <RestrictedNotePresence
+        showRestrictedLabel={true}
         studentFirstName={student ? student.first_name : null}
         educatorName={educatorFirstNameOrEmail}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
