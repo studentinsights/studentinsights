@@ -68,6 +68,18 @@
     flex: 3;
     overflow: hidden;
     height: 100%;
+    position: relative;
+  }
+
+  .SignInPage-share-photo {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    color: white;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .SignInPage-splash-image {

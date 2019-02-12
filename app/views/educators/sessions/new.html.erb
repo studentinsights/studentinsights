@@ -9,6 +9,7 @@
 <div class="SignInPage">
   <div class="SignInPage-left-box">
     <%= image_tag PerDistrict.new.sign_in_params[:splash_image_src], alt: PerDistrict.new.sign_in_params[:splash_image_alt], class: "SignInPage-splash-image" %>
+    <a class="SignInPage-share-photo" href="mailto:ideas@studentinsights.org">Submit new photo</a>
   </div>
   <div class="SignInPage-right-box">
     <div class="SignInPage-right-box-content">
@@ -27,7 +28,7 @@
             autocomplete: 'off',
             required: true,
             autofocus: true,
-            placeholder: 'Login'
+            placeholder: 'Login, username only'
           }) %>
         </div>
         <div class="SignInPage-item">

@@ -54,12 +54,12 @@ RSpec.describe PerDistrict do
   describe '#find_educator_by_login_text' do
     it 'works for Somerville' do
       pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
-      expect(for_somerville.find_educator_by_login_text('uri@k12.somerville.ma.us')).to eq(pals.uri)
+      expect(for_somerville.find_educator_by_login_text('uri')).to eq(pals.uri)
     end
 
     it 'works for New Bedford' do
       pals = TestPals.create!(email_domain: 'newbedfordschools.org')
-      expect(for_new_bedford.find_educator_by_login_text('uri@newbedfordschools.org')).to eq(pals.uri)
+      expect(for_new_bedford.find_educator_by_login_text('uri')).to eq(pals.uri)
     end
 
     it 'works for Bedford' do
@@ -69,7 +69,7 @@ RSpec.describe PerDistrict do
 
     it 'works for demo' do
       pals = TestPals.create!
-      expect(for_demo.find_educator_by_login_text('uri@demo.studentinsights.org')).to eq(pals.uri)
+      expect(for_demo.find_educator_by_login_text('uri')).to eq(pals.uri)
     end
   end
 

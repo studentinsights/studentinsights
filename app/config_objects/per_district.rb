@@ -206,11 +206,11 @@ class PerDistrict
     if @district_key == BEDFORD
       Educator.find_by_login_name(cleaned_login_text)
     elsif @district_key == SOMERVILLE
-      Educator.find_by_email(cleaned_login_text)
+      Educator.find_by_login_name(cleaned_login_text)
     elsif @district_key == NEW_BEDFORD
-      Educator.find_by_email(cleaned_login_text)
+      Educator.find_by_login_name(cleaned_login_text)
     elsif @district_key == DEMO
-      Educator.find_by_email(cleaned_login_text)
+      Educator.find_by_login_name(cleaned_login_text)
     else
       raise_not_handled!
     end
