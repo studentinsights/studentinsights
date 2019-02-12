@@ -71,7 +71,7 @@ export default class LightNotesDetails extends React.Component {
           </div>
           <div>
             {!this.isTakingNotes() && this.renderTakeNotesButton()}
-            {!isTakeTwoEnabled && isAuthoring && (
+            {isTakeTwoEnabled && !isAuthoring && (
               <button
                 className="btn take-notes"
                 style={{display: 'inline-block', margin: 0}}

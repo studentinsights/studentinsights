@@ -1,318 +1,105 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
-import {
-  apiPatchJson,
-  apiPostJson
-} from '../helpers/apiFetchJson';
-import {formatEducatorName} from '../helpers/educatorName';
+import {apiPostJson} from '../helpers/apiFetchJson';
 import Educator from '../components/Educator';
-import Hover from '../components/Hover';
-import HouseBadge from '../components/HouseBadge';
-import NoteBadge from '../components/NoteBadge';
-import Badge from '../components/Badge';
-import Timestamp from '../components/Timestamp';
+import UnhandledErrorMessage from '../components/UnhandledErrorMessage';
 import FeedCardFrame from '../feed/FeedCardFrame';
-// import Autosaver from '../reading/Autosaver';
-import RestrictedNotePresence, {urlForRestrictedEventNoteContent} from './RestrictedNotePresence';
-import ResizingTextArea from './ResizingTextArea';
+import EditableNote from './EditableNote';
 
-
-// Render a card in the feed for an EventNote
-/*
-what has changed
-- autosave
-- fixing jump in saving
-- unifying "note" layout between profile, my notes and home page feed
-- removing links as separate feature (inline)
-
-
-tests
-  profile
-    viewing
-      self, not restricted > can edit
-      self, restricted, access > can view
-      other, not restricted > read only
-      other, not restricted, access > can mark restricted
-      other, restricted, access > can view
-      
-    creating
-      self, restricted > can edit
-      self, not restricted > can edit
-
-
-todos
-ux
-X how to transition to this from static note
-X showing contents of restricted
-  transition from "adding" to "normal, static and I'm editing it"
-    navigation away and back
-  readonly / editable / restricted
-    after showing restricted, can't edit
-  showing saving error (eg, signed out)
-  last edited timestamp, updated at, timezone
-  revisions?
-  newlines?
-  autofocus on first edit
-  cross browser
-
-
-server
-  serialization to profile (eg, student)
-  endpoints allowing patching/restricted
-  allow text to be blank on server
-  revisions?
-  migrate links?
-
-
-ui eng
-  note allowing multiple POST calls (isPendingCreateRequest)
-  tighten throttling / last synced
-  infinite retries on failure
-
-*/
+// For creating the initial note, and then rendering the editable UI.
 export default class TakeNotesTakeTwo extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      anyPendingRequests: false,
-      syncError: null,
-      syncedNote: props.defaultNote,
-      note: props.defaultNote || {
-        studentId: props.student.id,
-        recordedAtTimestamp: context.nowFn(),
-        id: null,
-        isRestricted: false,
-        text: '',
-        eventNoteTypeId: null
-      }
+      eventNoteTypeId: null,
+      postError: null,
+      noteJson: null
     };
 
-    this.isPendingCreateRequest = false; // improve
-    this.sync = _.throttle(this.sync.bind(this), 1000);
     this.onClickNoteType = this.onClickNoteType.bind(this);
-    this.onToggleRestricted = this.onToggleRestricted.bind(this);
-    this.onTextChanged = this.onTextChanged.bind(this);
-    this.onSynced = this.onSynced.bind(this);
-    this.onSyncError = this.onSyncError.bind(this);
+    this.onPostDone = this.onPostDone.bind(this);
+    this.onPostError = this.onPostError.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (!_.isEqual(this.state.syncedNote, this.state.note)) {
-      this.sync(this.state.note);
-    }
-  }
+  createNote(eventNoteTypeId) {
+    const {student} = this.props;
 
-  sync(note) {
-    if (!note.text) return; // need to update server
+    const fetchPromise = apiPostJson('/api/event_notes', {
+      event_note: {
+        event_note_type_id: eventNoteTypeId,
+        text: '',
+        student_id: student.id,
+        is_restricted: false,
+        event_note_attachments_attributes: []
+      }
+    });
 
-    if (!note.id && !this.isPendingCreateRequest) {
-      this.isPendingCreateRequest = true;
-      return apiPostJson('/api/event_notes', {
-        event_note: {
-          event_note_type_id: note.eventNoteTypeId,
-          text: note.text,
-          student_id: note.studentId,
-          is_restricted: note.isRestricted,
-          event_note_attachments_attributes: []
-        }
-      }).then(this.onSynced.bind(this, note)).catch(this.onSyncError);
-    } else {
-      return apiPatchJson(`/api/event_notes/${note.id}`, {
-        event_note: {
-          event_note_type_id: note.eventNoteTypeId,
-          text: note.text,
-          is_restricted: note.isRestricted
-        }
-      }).then(this.onSynced.bind(this, note)).catch(this.onSyncError);
-    }
-  }
-
-  noteFromDiff(diff) {
-    const {note} = this.state;
-    return {...note, ...diff};
-  }
-  
-  onSynced(syncedNote, json) {
-    const {note} = this.state;
-    if (!note.id && json.id) {
-      const updatedNote = this.noteFromDiff({id: json.id});
-      this.setState({
-        syncedNote: syncedNote,
-        note: updatedNote
-      });
-    } else {
-      this.setState({syncedNote});
-    }
-  }
-
-  onSyncError(err) {
-    this.setState({syncError: err});
+    fetchPromise
+      .then(this.onPostDone)
+      .catch(this.onSyncError);
   }
 
   onClickNoteType(eventNoteTypeId) {
-    const note = this.noteFromDiff({eventNoteTypeId});
-    this.setState({note});
+    this.setState({eventNoteTypeId});
+    this.createNote(eventNoteTypeId);
   }
 
-  onTextChanged(e) {
-    const note = this.noteFromDiff({text: e.target.value});
-    this.setState({note});
+  onPostDone(noteJson) {
+    this.setState({noteJson});
   }
 
-  onToggleRestricted(options, e) {
-    e.preventDefault();
-
-    const {student} = this.props;
-    const {isRestricted} = this.state.note;
-    const msg = isRestricted
-      ? `This will allow all educators who work with ${student.first_name} to read this note.\n\nOpen access to this note?`
-      : `Marking this note as restricted will protect ${student.first_name}'s privacy,\nwhile also limiting which educators can access this information.\n\nRestrict access to this note?`;
-
-    // Optionally skip asking for confirmation
-    if (!options.skipConfirmation) {
-      if (!confirm(msg)) return;
-    }
-
-    const note = this.noteFromDiff({isRestricted: !isRestricted});
-    this.setState({note});
+  onPostError(postError) {
+    this.setState({postError});
   }
 
   render() {
-    const {recordedAtTimestamp, eventNoteTypeId} = this.state.note;
-    const {educator, student, style} = this.props;
-
+    const {style} = this.props;
     return (
       <div className="TakeNotesTakeTwo" style={style}>
-        <FeedCardFrame
-          style={styles.frame}
-          student={student}
-          byEl={
-            <div>
-              <span>by </span>
-              <Educator
-                style={styles.person}
-                educator={educator} />
-            </div>
-          }
-          whenEl={recordedAtTimestamp.format('M/D/Y h:mma')}
-          badgesEl={this.renderBadges(student, eventNoteTypeId)}
-          iconsEl={this.renderIcons()}
-        >
-          {this.renderNoteSubstanceOrRedaction()}
-        </FeedCardFrame>
+        {this.renderCreateOrEdit()}
       </div>
     );
   }
 
-  // For restricted notes, show a message and allow switching to another
-  // component that allows viewing and editing.
-  // Otherwise, show the substance of the note.
-  renderNoteSubstanceOrRedaction() {
-    const {note} = this.state;
-    const {showRestrictedNoteWithoutRedaction} = this.props;
-    return (!note.id || !note.isRestricted || showRestrictedNoteWithoutRedaction)
-      ? this.renderContent()
-      : this.renderRestrictedNoteRedaction();
-  }
-
-  renderRestrictedNoteRedaction() {
-    const {student, educator} = this.props;
-    const {note} = this.state;
-    const educatorName = formatEducatorName(educator);
-    const educatorFirstNameOrEmail = educatorName.indexOf(' ') !== -1
-      ? educatorName.split(' ')[0]
-      : educatorName;
+  renderCreateOrEdit() {
+    const {nowFn} = this.context;
+    const {educator, student} = this.props;
+    const {eventNoteTypeId, noteJson, postError} = this.state;
     
-    return (
-      <RestrictedNotePresence
-        studentFirstName={student.first_name}
-        educatorName={educatorFirstNameOrEmail}
-        urlForRestrictedNoteContent={urlForRestrictedEventNoteContent({id: note.id})}
-      />
-    );
-  }
+    if (postError) {
+      return <UnhandledErrorMessage>There was an error creating the note.</UnhandledErrorMessage>;
+    }
 
-  renderContent() {
-    const {text, eventNoteTypeId} = this.state.note;
-    if (!eventNoteTypeId) return this.renderNoteButtonsPerDistrict();
-
-    return (
-      <div>
-        <Hover>{isHovering => (
-          <ResizingTextArea
-            // autoFocus={true} /* not always */
-            style={{
-              ...styles.text,
-              ...(isHovering ? styles.textHover : {})
-            }}
-            onChange={this.onTextChanged}
-            value={text}
-          />
-        )}</Hover>
-        {this.renderNoteMessage()}
-      </div>
-    );
-  }
-
-  renderNoteMessage() {
-    const {text, isRestricted} = this.state.note;
-    if (!isRestricted && text.indexOf('51a') !== -1) {
+    if (eventNoteTypeId && noteJson) {
       return (
-        <div style={{...styles.messageBelowText, ...styles.warning}}>
-          <span>"51a" may be private or sensitive</span>
-          <a href="#" style={styles.markRestrictedLink} onClick={this.onToggleRestricted.bind(this, {skipConfirmation: true})}>Mark note restricted?</a>
-        </div>
+        <EditableNote
+          autoFocus={true}
+          student={student}
+          educator={educator}
+          noteJson={noteJson}
+        />
       );
     }
 
-    // placeholder to keep sizing
-    return <div style={styles.messageBelowText} />;
-  }
-
-  renderBadges(student, eventNoteTypeId) {
-    const {note} = this.state;
-          
-    // can only see badges after picking type
-    if (!note.eventNoteTypeId) return;
-
     return (
-      <div>
-        {note.isRestricted
-          ? <Badge backgroundColor="lightslategray" text={<span>🔒 Restricted</span>} />
-          : <span
-              style={{verticalAlign: 'middle', cursor: 'pointer'}}
-              onClick={this.onToggleRestricted.bind(this, {})}>
-              <Badge backgroundColor="#f8f8f8" text="Unrestricted" style={{opacity: 1, color: 'lightslategray'}}/>
-            </span>
+      <FeedCardFrame
+        style={styles.frame}
+        student={student}
+        byEl={
+          <div>
+            <span>by </span>
+            <Educator
+              style={styles.person}
+              educator={educator} />
+          </div>
         }
-        {student.house && <HouseBadge style={styles.footerBadge} house={student.house} />}
-        {eventNoteTypeId && <NoteBadge style={styles.footerBadge} eventNoteTypeId={eventNoteTypeId} />}
-      </div>
+        whenEl={nowFn().format('M/D/Y h:mma')}
+      >
+        {this.renderNoteButtonsPerDistrict()}
+      </FeedCardFrame>
     );
-  }
-
-  renderIcons() {
-    return (
-      <div>
-        {this.renderSavingIcons()}
-      </div>
-    );
-  }
-
-  renderSavingIcons() {
-    const {syncError, syncedNote, note} = this.state;
-    if (syncError) {
-      return <span style={{color: 'darkorange'}}>⚠️ Could not save.</span>;
-    } else if (!note.id) {
-      return null;
-    } else if (_.isEqual(syncedNote, note)) {
-      <span style={{color: '#ccc'}}>Saved.</span>;
-    } else {
-      return <span style={{color: '#999'}}>Saving...</span>;
-    }
   }
 
   renderNoteButtonsPerDistrict() {
@@ -330,7 +117,6 @@ export default class TakeNotesTakeTwo extends React.Component {
     );
   }
 
-  // TODO(kr) extract button UI
   renderNoteButton(eventNoteTypeId) {
     return (
       <button
@@ -355,7 +141,6 @@ TakeNotesTakeTwo.contextTypes = {
   nowFn: PropTypes.func.isRequired
 };
 TakeNotesTakeTwo.propTypes = {
-  defaultNote: PropTypes.object,
   educator: PropTypes.object.isRequired,
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -373,8 +158,7 @@ TakeNotesTakeTwo.propTypes = {
       educator: PropTypes.object
     })
   }).isRequired,
-  style: PropTypes.object,
-  showRestrictedNoteWithoutRedaction: PropTypes.bool
+  style: PropTypes.object
 };
 
 

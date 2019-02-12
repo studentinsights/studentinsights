@@ -6,6 +6,9 @@ import React from 'react';
 // so it shows all the text.
 export default class ResizingTextArea extends React.Component {
   componentDidMount() {
+    if (this.el) {
+      this.el.style['overflow-y'] = 'hidden';
+    }
     this.resize();
   }
 
@@ -17,6 +20,8 @@ export default class ResizingTextArea extends React.Component {
 
   resize() {
     if (this.el) {
+      this.el.style.height = (this.el.scrollHeight) + 'px;';
+      this.el.style.height = 'auto';
       this.el.style.height = (this.el.scrollHeight) + 'px';
     }
   }

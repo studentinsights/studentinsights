@@ -11,7 +11,7 @@ import NoteCard from './NoteCard';
 import {parseAndReRender} from './transitionNoteParser';
 import {urlForRestrictedEventNoteContent, urlForRestrictedTransitionNoteContent} from './RestrictedNotePresence';
 import CleanSlateMessage from './CleanSlateMessage';
-import TakeNotesTakeTwo from './TakeNotesTakeTwo';
+import EditableNote from './EditableNote';
 
 /*
 Renders the list of notes, including the different types of notes (eg, deprecated
@@ -83,19 +83,12 @@ export default class NotesList extends React.Component {
     } = this.props;
 
     return (
-      <TakeNotesTakeTwo
+      <EditableNote
         key={eventNote.id}
         style={{marginTop: 20}}
         educator={educatorsIndex[currentEducatorId]}
         student={eventNote.student}
-        defaultNote={{
-          studentId: eventNote.student.id,
-          recordedAtTimestamp: toMomentFromRailsDate(eventNote.recorded_at),
-          id: eventNote.id,
-          isRestricted: eventNote.is_restricted,
-          text: eventNote.text,
-          eventNoteTypeId: eventNote.event_note_type_id
-        }}
+        noteJson={eventNote}
       />
     );
   }
