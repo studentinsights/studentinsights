@@ -1,7 +1,7 @@
 // This runs on load - no other dependencies like jQuery are yet loaded.
 
-// The intent is that this is only needed for multifactor authentication; simple login
-// should work with only jQuery and UJS.
+// The intent is that this is only needed for multifactor authentication;
+// simple login should work with only jQuery and UJS.
 //
 // This code has implicit dependencies on:
 // - the form, rendered by Rails
@@ -9,90 +9,67 @@
 export function multifactorMain(options = {}) {
   const el = options.el || document.querySelector('.SignInPage');
 
-  // page elements and shared state for cleaning up listeners
-  const simpleForm = el.querySelector('.SignInPage-form');
+  // page elements
+  const signInForm = el.querySelector('.SignInPage-form');
   const switchModeLink = el.querySelector('.SignInPage-authentication-type-link');
-  const loginCode = el.querySelector('.SignInPage-input-login-code');
-  const simpleLogin = simpleForm.querySelector('.SignInPage-input-login');
-  const simplePassword = simpleForm.querySelector('.SignInPage-input-password');
+  const loginCodeText = el.querySelector('.SignInPage-input-login-code');
+  const loginText = signInForm.querySelector('.SignInPage-input-login');
+  const passwordText = signInForm.querySelector('.SignInPage-input-password');
   const flashMessage = el.querySelector('.SignInPage-flash-alert');
-  const listeners = {};
+  const multifactorForm = el.querySelector('.SignInPage-multifactor-form');
+  const multifactorLoginText = el.querySelector('.SignInPage-multifactor-login-text');
   const shared = {
     el,
     switchModeLink,
-    simpleLogin,
-    simplePassword,
-    loginCode,
+    signInForm,
+    loginText,
+    passwordText,
+    loginCodeText,
     flashMessage,
-    simpleForm,
-    listeners
+    multifactorForm,
+    multifactorLoginText
   };
   
-  allowSwitchToMultiFactor(shared);
+  // link to switch to multifactor
+  switchModeLink.addEventListener('click', e => {
+    e.preventDefault();
+    switchToMultiFactor(shared);
+  });
 
   return shared; // for testing
 }
 
-function allowSwitchToMultiFactor(shared) {
-  const {switchModeLink, listeners} = shared;
-  listeners.link = e => {
-    e.preventDefault();
-    switchToMultiFactor(shared);
-  };
-  switchModeLink.addEventListener('click', listeners.link);
-}
 
 function switchToMultiFactor(shared) {
   const {
     switchModeLink,
-    simpleForm,
-    simpleLogin,
-    simplePassword,
-    loginCode,
+    signInForm,
+    loginText,
+    passwordText,
+    loginCodeText,
+    multifactorLoginText,
+    multifactorForm,
+
     flashMessage
   } = shared;
   
   // check validation first, and if it fails do the submit
   // to show the user validation feedback
-  if (!simpleForm.checkValidity()) {
-    simpleForm.querySelector('input[type=submit]').click();
+  if (!signInForm.checkValidity()) {
+    signInForm.querySelector('input[type=submit]').click();
     return;
   }  
 
-  // Submit multifactor form without password
-  // simplePassword.disabled = true;
-  // simpleForm.setAttribute('action', '/educators/multifactor');
-  // simpleForm.querySelector('input[type=submit]').click();
-
-  // create form
-  // debugger
-  // const multifactorLoginText = document.createElement('input');
-  // multifactorLoginText.name = 'multifactor[login_text]';
-  // multifactorLoginText.value = simpleLogin.value;
-
-  // const cloneForm = document.createElement('form');
-  // cloneForm.setAttribute('accept-charset', 'UTF-8');
-  // cloneForm.setAttribute('action', '/educators/multifactor');
-  // cloneForm.setAttribute('method', 'post');
-  // cloneForm.setAttribute('data-remote', true);
-  // cloneForm.appendChild(multifactorLoginText);
-  // cloneForm.submit();
-
-  const multifactorForm = document.querySelector('.SignInPage-multifactor-form');
-  const multifactorLoginText = document.querySelector('.SignInPage-multifactor-login-text');
-  multifactorLoginText.value = simpleLogin.value;
+  // Submit multifactor form separately
+  multifactorLoginText.value = loginText.value;
   multifactorForm.querySelector('input[type=submit]').click();
   
-
-  // Update visuals to enter login code
+  // Update visuals to allow entering login code
   flashMessage.innerText = '';
-  simpleLogin.readOnly = true;
-  simplePassword.readOnly = true;
+  loginText.readOnly = true;
+  passwordText.readOnly = true;
   switchModeLink.classList.add('hidden');
-  loginCode.value = '';
-  loginCode.classList.remove('hidden');
-  loginCode.focus();
-
-  // And allow password again
-  simplePassword.disabled = false;
+  loginCodeText.value = '';
+  loginCodeText.classList.remove('hidden');
+  loginCodeText.focus();
 }
