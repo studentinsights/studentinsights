@@ -7,9 +7,6 @@ import NoteCard from './NoteCard';
 import {badgeStyle} from './NotesList';
 import LightInsightQuote, {fontSizeStyle} from './LightInsightQuote';
 import {parseAndReRender} from './transitionNoteParser';
-import FeedCardFrame, {ByEducator} from '../feed/FeedCardFrame';
-import Timestamp from '../components/Timestamp';
-import NoteText from '../components/NoteText';
 
 
 // Render an insight about a strength from a transition note
@@ -48,21 +45,18 @@ export default class LightInsightTransitionNoteStrength extends React.Component 
   
   // Look similar to profile view
   renderTransitionNoteDialog(transitionNote, educator) {
-    const {student} = this.props;
     return (
-      <FeedCardFrame
-        student={student}
-        byEl={<ByEducator educator={educator} />}
-        whenEl={<Timestamp railsTimestamp={transitionNote.created_at} />}
-        badgesEl={<span style={badgeStyle}>Transition note</span>}
-      >
-        <NoteText text={parseAndReRender(transitionNote.text)} />
-      </FeedCardFrame>
+      <NoteCard
+        noteMoment={toMomentFromRailsDate(transitionNote.created_at)}
+        badge={<span style={badgeStyle}>Transition note</span>}
+        educatorId={educator.id}
+        text={parseAndReRender(transitionNote.text)}
+        educatorsIndex={{[educator.id]: educator}}
+        attachments={[]} />
     );
   }
 }
 LightInsightTransitionNoteStrength.propTypes = {
-  student: PropTypes.object.isRequired,
   insightPayload: PropTypes.shape({
     strengths_quote_text: PropTypes.string.isRequired,
     transition_note: PropTypes.shape({

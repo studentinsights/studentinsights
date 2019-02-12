@@ -17,10 +17,6 @@ export default class ResizingTextArea extends React.Component {
 
   resize() {
     if (this.el) {
-      console.log('resize');
-      // this.el.style.height = (this.el.scrollHeight) + 'px;';
-      // this.el.style['overflow-y'] = 'hidden';
-      // this.el.style.height = 'auto';
       this.el.style.height = (this.el.scrollHeight) + 'px';
     }
   }

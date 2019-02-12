@@ -29,6 +29,21 @@ what has changed
 - removing links as separate feature (inline)
 
 
+tests
+  profile
+    viewing
+      self, not restricted > can edit
+      self, restricted, access > can view
+      other, not restricted > read only
+      other, not restricted, access > can mark restricted
+      other, restricted, access > can view
+      
+    creating
+      self, restricted > can edit
+      self, not restricted > can edit
+
+
+todos
 ux
 X how to transition to this from static note
 X showing contents of restricted
@@ -56,6 +71,7 @@ ui eng
   note allowing multiple POST calls (isPendingCreateRequest)
   tighten throttling / last synced
   infinite retries on failure
+
 */
 export default class TakeNotesTakeTwo extends React.Component {
   constructor(props, context) {
@@ -155,7 +171,7 @@ export default class TakeNotesTakeTwo extends React.Component {
       ? `This will allow all educators who work with ${student.first_name} to read this note.\n\nOpen access to this note?`
       : `Marking this note as restricted will protect ${student.first_name}'s privacy,\nwhile also limiting which educators can access this information.\n\nRestrict access to this note?`;
 
-    // Optionall skip asking for confirmation
+    // Optionally skip asking for confirmation
     if (!options.skipConfirmation) {
       if (!confirm(msg)) return;
     }
@@ -181,9 +197,6 @@ export default class TakeNotesTakeTwo extends React.Component {
                 educator={educator} />
             </div>
           }
-          // whereEl={<div>in {eventNoteTypeText(eventNoteTypeId)}</div>}
-          // whenEl={<Timestamp railsTimestamp={recordedAtTimestamp} />}
-          whereEl={null}
           whenEl={recordedAtTimestamp.format('M/D/Y h:mma')}
           badgesEl={this.renderBadges(student, eventNoteTypeId)}
           iconsEl={this.renderIcons()}
@@ -233,7 +246,7 @@ export default class TakeNotesTakeTwo extends React.Component {
             // autoFocus={true} /* not always */
             style={{
               ...styles.text,
-              ...(isHovering ? { outline: '1px dashed #ccc' } : {})
+              ...(isHovering ? styles.textHover : {})
             }}
             onChange={this.onTextChanged}
             value={text}
@@ -405,11 +418,12 @@ const styles = {
     width: '100%',
     fontSize: 14,
     resize: 'none',
-    paddingTop: 5,
-    paddingBottom: 5,
     border: 0,
-    outline: '1px dashed white',
+    outline: '1px solid white',
     padding: 0,
     borderRadius: 3
+  },
+  textHover: {
+    outline: '1px solid #eee'
   }
 };

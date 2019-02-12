@@ -13,7 +13,7 @@ export default function Badge({text, backgroundColor, style}) {
   return <span className="Badge" style={mergedStyle}>{text}</span>;
 }
 Badge.propTypes = {
-  text: PropTypes.node.isRequired,
+  text: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string.isRequired,
   style: PropTypes.object
 };
