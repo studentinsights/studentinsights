@@ -52,24 +52,28 @@ RSpec.describe PerDistrict do
   end
 
   describe '#find_educator_by_login_text' do
-    it 'works for Somerville' do
+    it 'works for Somerville, username or email' do
       pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
       expect(for_somerville.find_educator_by_login_text('uri')).to eq(pals.uri)
+      expect(for_somerville.find_educator_by_login_text('uri@k12.somerville.ma.us')).to eq(pals.uri)
     end
 
-    it 'works for New Bedford' do
+    it 'works for New Bedford, username or email' do
       pals = TestPals.create!(email_domain: 'newbedfordschools.org')
       expect(for_new_bedford.find_educator_by_login_text('uri')).to eq(pals.uri)
+      expect(for_somerville.find_educator_by_login_text('uri@newbedfordschools.org')).to eq(pals.uri)
     end
 
-    it 'works for Bedford' do
+    it 'works for Bedford, username-only' do
       pals = TestPals.create!(email_domain: 'bedfordps.org')
       expect(for_bedford.find_educator_by_login_text('uri')).to eq(pals.uri)
+      expect(for_somerville.find_educator_by_login_text('uri@bedford.k12.ma.us')).to eq(nil)
     end
 
-    it 'works for demo' do
+    it 'works for demo, username or email' do
       pals = TestPals.create!
       expect(for_demo.find_educator_by_login_text('uri')).to eq(pals.uri)
+      expect(for_somerville.find_educator_by_login_text('uri@demo.studentinsights.org')).to eq(pals.uri)
     end
   end
 
@@ -96,26 +100,34 @@ RSpec.describe PerDistrict do
   end
 
   describe 'integration test for LDAP methods' do
-    def ldap_login(per_district, email_domain, login_text)
-      TestPals.create!(email_domain: email_domain)
+    def ldap_login(per_district, login_text)
       educator = per_district.find_educator_by_login_text(login_text)
+      return nil if educator.nil?
       per_district.ldap_login_for_educator(educator)
     end
 
-    it 'works for Somerville' do
-      expect(ldap_login(for_somerville, 'k12.somerville.ma.us', 'uri@k12.somerville.ma.us')).to eq('uri@k12.somerville.ma.us')
+    it 'works for Somerville, username or email' do
+      TestPals.create!(email_domain: 'k12.somerville.ma.us')
+      expect(ldap_login(for_somerville, 'uri')).to eq('uri@k12.somerville.ma.us')
+      expect(ldap_login(for_somerville, 'uri@k12.somerville.ma.us')).to eq('uri@k12.somerville.ma.us')
     end
 
-    it 'works for New Bedford' do
-      expect(ldap_login(for_new_bedford, 'newbedfordschools.org', 'uri@newbedfordschools.org')).to eq('uri@newbedfordschools.org')
+    it 'works for New Bedford, username or email' do
+      TestPals.create!(email_domain: 'newbedfordschools.org')
+      expect(ldap_login(for_new_bedford, 'uri')).to eq('uri@newbedfordschools.org')
+      expect(ldap_login(for_new_bedford, 'uri@newbedfordschools.org')).to eq('uri@newbedfordschools.org')
     end
 
-    it 'works for Bedford' do
-      expect(ldap_login(for_bedford, 'bedfordps.org', 'uri')).to eq('uri@bedford.k12.ma.us')
+    it 'works for Bedford, username only' do
+      TestPals.create!(email_domain: 'bedfordps.org')
+      expect(ldap_login(for_bedford, 'uri')).to eq('uri@bedford.k12.ma.us')
+      expect(ldap_login(for_bedford, 'uri@bedford.k12.ma.us')).to eq(nil)
     end
 
-    it 'works for demo' do
-      expect(ldap_login(for_demo, 'demo.studentinsights.org', 'uri@demo.studentinsights.org')).to eq('uri@demo.studentinsights.org')
+    it 'works for demo, username or email' do
+      TestPals.create!(email_domain: 'demo.studentinsights.org')
+      expect(ldap_login(for_demo, 'uri')).to eq('uri@demo.studentinsights.org')
+      expect(ldap_login(for_demo, 'uri@demo.studentinsights.org')).to eq('uri@demo.studentinsights.org')
     end
   end
 

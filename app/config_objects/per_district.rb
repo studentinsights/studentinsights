@@ -199,18 +199,14 @@ class PerDistrict
     ENV.fetch('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', '').split(',')
   end
 
-  # Users in Bedford type in just their login, others
-  # use full email addresses.
+  # Allows username or full email address, depending on district.
+  # Transitioning to username only.
   def find_educator_by_login_text(login_text)
     cleaned_login_text = login_text.downcase.strip
     if @district_key == BEDFORD
       Educator.find_by_login_name(cleaned_login_text)
-    elsif @district_key == SOMERVILLE
-      Educator.find_by_login_name(cleaned_login_text)
-    elsif @district_key == NEW_BEDFORD
-      Educator.find_by_login_name(cleaned_login_text)
-    elsif @district_key == DEMO
-      Educator.find_by_login_name(cleaned_login_text)
+    elsif @district_key == SOMERVILLE || @district_key == NEW_BEDFORD || @district_key == DEMO
+      Educator.find_by_login_name(cleaned_login_text) || Educator.find_by_email(cleaned_login_text)
     else
       raise_not_handled!
     end
