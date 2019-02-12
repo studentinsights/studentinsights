@@ -57,6 +57,8 @@ export default class LightNotesDetails extends React.Component {
 
   render() {
     const {student, title, currentEducator} = this.props;
+    const {isAuthoring} = this.state;
+    const isTakeTwoEnabled = (window.location.search.indexOf('taketwowrite') !== -1);
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
@@ -69,7 +71,7 @@ export default class LightNotesDetails extends React.Component {
           </div>
           <div>
             {!this.isTakingNotes() && this.renderTakeNotesButton()}
-            {!this.state.isAuthoring && (
+            {!isTakeTwoEnabled && isAuthoring && (
               <button
                 className="btn take-notes"
                 style={{display: 'inline-block', margin: 0}}
@@ -80,7 +82,7 @@ export default class LightNotesDetails extends React.Component {
           </div>
         </SectionHeading>}
         <div>
-          {this.state.isAuthoring && (
+          {isTakeTwoEnabled && isAuthoring && (
             <TakeNotesTakeTwo
               style={{marginTop: 20, marginBottom: 20}}
               educator={currentEducator}

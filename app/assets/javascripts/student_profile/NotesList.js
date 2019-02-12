@@ -55,8 +55,7 @@ export default class NotesList extends React.Component {
           ? <div style={styles.noItems}>No notes</div>
           : filteredNotes.map(mergedNote => {
             switch (mergedNote.type) {
-            // case 'event_notes': return this.renderEventNote(mergedNote);
-            case 'event_notes': return this.renderEventNoteTakeTwo(mergedNote);
+            case 'event_notes': return this.renderEventNote(mergedNote);
             case 'transition_notes': return this.renderTransitionNote(mergedNote);
             case 'deprecated_interventions': return this.renderDeprecatedIntervention(mergedNote);
             case 'fall_student_voice_surveys': return this.renderFallStudentVoiceSurvey(mergedNote);
@@ -102,6 +101,10 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNote(eventNote) {
+    if (window.location.search.indexOf('taketworead') !== -1) {
+      return this.renderEventNoteTakeTwo(eventNote);
+    }
+
     const {
       includeStudentPanel,
       educatorsIndex,
