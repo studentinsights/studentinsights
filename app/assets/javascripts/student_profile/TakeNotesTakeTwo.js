@@ -19,20 +19,32 @@ import RestrictedNotePresence, {urlForRestrictedEventNoteContent} from './Restri
 
 // Render a card in the feed for an EventNote
 /*
+what has changed
+- autosave
+- fixing jump in saving
+- unifying "note" layout between profile, my notes and home page feed
+- removing links as separate feature (inline)
+
+
 ux
 X how to transition to this from static note
+X showing contents of restricted
   transition from "adding" to "normal, static and I'm editing it"
     navigation away and back
-  readonly / editable
-  showing contents of restricted
-  last edited timestamp
+  readonly / editable / restricted
+    after showing restricted, can't edit
   showing saving error (eg, signed out)
-  timestamp, updated at
+  last edited timestamp, updated at, timezone
+  revisions?
+
 
 server
   serialization to profile (eg, student)
   endpoints allowing patching/restricted
   allow text to be blank on server
+  revisions?
+  migrate links?
+  
 
 ui eng
   note allowing multiple POST calls (isPendingCreateRequest)

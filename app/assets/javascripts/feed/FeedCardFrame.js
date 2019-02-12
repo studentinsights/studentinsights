@@ -3,6 +3,7 @@ import React from 'react';
 import Card from '../components/Card';
 import {isHomeroomMeaningful} from '../helpers/PerDistrict';
 import Homeroom from '../components/Homeroom';
+import Educator from '../components/Educator';
 import {gradeText} from '../helpers/gradeText';
 
 
@@ -106,4 +107,19 @@ const styles = {
   person: {
     fontWeight: 'bold'
   }
+};
+
+
+export function ByEducator({educator}) {
+  return (
+    <div>
+      <span>by </span>
+      <Educator
+        style={styles.person}
+        educator={educator} />
+    </div>
+  );
+}
+ByEducator.propTypes = {
+  educator: PropTypes.object.isRequired
 };

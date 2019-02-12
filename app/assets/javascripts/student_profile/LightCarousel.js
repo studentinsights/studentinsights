@@ -86,7 +86,10 @@ export default class LightCarousel extends React.Component {
     const insightType = insight.type;
     
     if (insightType === TRANSITION_NOTE_STRENGTH_INSIGHT_TYPE) return (
-      <LightInsightTransitionNoteStrength insightPayload={insightPayload} />
+      <LightInsightTransitionNoteStrength
+        student={student}
+        insightPayload={insightPayload}
+      />
     );
 
     if (insightType === TEAM_MEMBERSHIP_INSIGHT_TYPE) return (
