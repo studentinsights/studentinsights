@@ -20,7 +20,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'get_process_mem'
 gem 'immigrant'
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 5.0.3'
+gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'json-diff'
 gem 'memory_profiler'       # Used in rake task so needs to be included in production
 gem 'net-sftp'
