@@ -13,5 +13,5 @@
 
 //= require jquery3
 //= require jquery_ujs
-//= require jquery-ui/autocomplete
-//= require jquery-ui/datepicker
+//= require jquery-ui/widgets/autocomplete
+//= require jquery-ui/widgets/datepicker
