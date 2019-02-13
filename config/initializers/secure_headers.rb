@@ -13,23 +13,23 @@ SecureHeaders::Configuration.default do |config|
 
   # Content security policy rules
   report_uri = ENV['CSP_REPORT_URI']
-  additional_domains = ENV.fetch('CSP_ADDITIONAL_DOMAINS', '').split(',')
+  cdn_domains = ENV.fetch('CSP_CDN_DOMAINS', '').split(',')
   policy = {
     # core resources
-    default_src: ["'self'", 'https:'] + additional_domains,
+    default_src: %w('self' https:) + cdn_domains,
     base_uri: %w('self' https:),
     manifest_src: %w('self' https:),
     connect_src: %w('self' https:),
     form_action: %w('self' https:),
-    script_src: %w('self'),
+    script_src: %w('self' https:) + cdn_domains,
 
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd
     # see https://github.com/JedWatson/react-select/issues/2030
     # and https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
     # and https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/style-marshal/style-marshal.js#L46
-    style_src: %w('self' 'unsafe-inline'),
-    font_src: %w('self' https: data:),
-    img_src: %w('self' https: data:),
+    style_src: %w('self' 'unsafe-inline') + cdn_domains,
+    font_src: %w('self' https: data:) + cdn_domains,
+    img_src: %w('self' https: data:) + cdn_domains,
     report_uri: [report_uri],
 
     # disable others
