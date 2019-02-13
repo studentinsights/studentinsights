@@ -11,7 +11,7 @@
 // about supported directives.
 //
 
-//= require jquery3
+//= require jquery
 //= require jquery_ujs
 //= require jquery-ui/widgets/autocomplete
 //= require jquery-ui/widgets/datepicker
