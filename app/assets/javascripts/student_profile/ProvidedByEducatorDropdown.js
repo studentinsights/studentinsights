@@ -45,10 +45,10 @@ class ProvidedByEducatorDropdown extends React.Component {
       },
 
       open() {
-        $('body').bind('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
+        $(window.document.body).on('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
       },
       close() {
-        $('body').unbind('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
+        $(window.document.body).off('click.closeProvidedByEducatorDropdownMenu', self.onCloseMenu);
       }
     });
   }
