@@ -13,9 +13,10 @@ SecureHeaders::Configuration.default do |config|
 
   # Content security policy rules
   report_uri = ENV['CSP_REPORT_URI']
+  additional_domains = ENV.fetch('CSP_ADDITIONAL_DOMAINS', '').split(',')
   policy = {
     # core resources
-    default_src: %w('self' https:),
+    default_src: ["'self'", 'https:'] + additional_domains,
     base_uri: %w('self' https:),
     manifest_src: %w('self' https:),
     connect_src: %w('self' https:),
