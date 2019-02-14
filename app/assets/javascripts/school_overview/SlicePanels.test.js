@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import _ from 'lodash';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
 import FixtureStudents from './schoolOverviewStudents.fixture';
 import SlicePanels from './SlicePanels';
@@ -21,9 +22,13 @@ function testProps(props = {}) {
   };
 }
 
+function testEl(props) {
+  return withDefaultNowContext(<SlicePanels {...props} />);
+}
+
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(<SlicePanels {...props} />, el);
+  ReactDOM.render(testEl(props), el);
   return {el};
 }
 
@@ -189,7 +194,7 @@ it('matches snapshot', () => {
     allStudents: FixtureStudents
   });
   const tree = renderer
-    .create(<SlicePanels {...props} />)
+    .create(testEl(props))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
