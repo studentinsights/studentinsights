@@ -1,4 +1,4 @@
-/* IMPORTS */
+/* This uses @import so that all files are in the same namespace */
 
 @import 'variables';
 @import 'overall';
@@ -16,10 +16,8 @@
 
 @import 'loader';
 @import 'tooltip';
-@import 'override';
 @import 'buttons';
 @import 'no_default_page';
-@import 'rc_slider';
 @import 'StudentProfilePage';
 @import 'HomeroomTable';
 @import 'sign_in';
