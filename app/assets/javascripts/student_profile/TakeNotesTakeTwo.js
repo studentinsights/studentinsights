@@ -3,7 +3,10 @@ import React from 'react';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
 import {apiPostJson} from '../helpers/apiFetchJson';
+import {eventNoteTypeColor} from '../helpers/eventNoteType';
 import Educator from '../components/Educator';
+import Hover from '../components/Hover';
+import NoteBadge from '../components/NoteBadge';
 import UnhandledErrorMessage from '../components/UnhandledErrorMessage';
 import FeedCardFrame from '../feed/FeedCardFrame';
 import EditableNote from './EditableNote';
@@ -97,7 +100,10 @@ export default class TakeNotesTakeTwo extends React.Component {
         }
         whenEl={nowFn().format('M/D/Y h:mma')}
       >
-        {this.renderNoteButtonsPerDistrict()}
+        <div style={{marginBottom: 10}}>Where are these notes from?</div>
+        <div style={{padding: 10}}>
+          {this.renderNoteButtonsPerDistrict()}
+        </div>
       </FeedCardFrame>
     );
   }
@@ -107,7 +113,7 @@ export default class TakeNotesTakeTwo extends React.Component {
     const {leftEventNoteTypeIds, rightEventNoteTypeIds} = takeNotesChoices(districtKey);
     return (
       <div style={styles.buttons}>
-        <div style={{ flex: 1 }}>
+        <div style={{ marginRight: 10 }}>
           {leftEventNoteTypeIds.map(this.renderNoteButton, this)}
         </div>
         <div style={{ flex: 1 }}>
@@ -117,21 +123,52 @@ export default class TakeNotesTakeTwo extends React.Component {
     );
   }
 
+  renderNoteButtonLog(eventNoteTypeId) {
+    return (
+      <Hover>{isHovering => (
+        <button
+          key={eventNoteTypeId}
+          className="btn note-type"
+          onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
+          tabIndex={-1}
+          name={eventNoteTypeId}
+          style={{
+            ...styles.serviceButton,
+            background: '#eee',
+            outline: 0,
+            border: (isHovering)
+              ? '4px solid rgba(49, 119, 201, 0.75)'
+              : '4px solid white'
+          }}>
+          {eventNoteTypeText(eventNoteTypeId)}
+        </button>
+      )}</Hover>
+    );
+  }
+
   renderNoteButton(eventNoteTypeId) {
     return (
-      <button
-        key={eventNoteTypeId}
-        className="btn note-type"
-        onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
-        tabIndex={-1}
-        name={eventNoteTypeId}
-        style={{
-          ...styles.serviceButton,
-          background: '#eee',
-          outline: 0
-        }}>
-        {eventNoteTypeText(eventNoteTypeId)}
-      </button>
+      <Hover key={eventNoteTypeId}>{isHovering => (
+        <div
+          style={{display: 'inline-block'}}
+          onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}>
+          <NoteBadge
+            eventNoteTypeId={eventNoteTypeId}
+            style={{
+              display: 'inline-block',
+              cursor: 'pointer',
+              marginBottom: 5,
+              paddingRight: 10,
+              paddingLeft: 10,
+              width: 180,
+              opacity: (isHovering) ? 0.8 : 0.5,
+              border: (isHovering)
+                ? `2px solid ${eventNoteTypeColor(eventNoteTypeId)}`
+                : '2px solid white'
+            }}
+          />
+        </div>
+      )}</Hover>
     );
   }
 }

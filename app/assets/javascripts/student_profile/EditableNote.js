@@ -177,6 +177,7 @@ export default class EditableNote extends React.Component {
         <Hover>{isHovering => (
           <ResizingTextArea
             autoFocus={autoFocus}
+            className="EditableNote-note-textarea"
             style={{
               ...styles.text,
               ...(isHovering ? styles.textHover : {})
