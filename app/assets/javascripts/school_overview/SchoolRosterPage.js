@@ -38,9 +38,11 @@ export default class SchoolRosterPage extends React.Component {
   }
 
   renderSchoolRoster(json) {
+    const {nowFn} = this.context;
+    const dateToday = nowFn().toDate();
     const {students, school} = json; 
     const serviceTypesIndex = json.constant_indexes.service_types_index;
-    const initialFilters = parseFiltersHash(window.location.hash);
+    const initialFilters = parseFiltersHash(window.location.hash, {dateToday});
     return (
       <div style={styles.flexVertical}>
         <SchoolRoster
@@ -53,6 +55,9 @@ export default class SchoolRosterPage extends React.Component {
     );
   }
 }
+SchoolRosterPage.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 SchoolRosterPage.propTypes = {
   schoolIdOrSlug: PropTypes.string.isRequired
 };
