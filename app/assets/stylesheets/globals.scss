@@ -1,7 +1,36 @@
-/* TYPE STYLES */
-/* These are global styles included on every page. Be careful because changes here will affect everything. */
+/* OVERALL STYLES */
 
-p, label {
+* {
+  font-family: 'Open Sans', sans-serif !important;
+  margin: 0px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+pre, code {
+  font-family: monospace !important;
+}
+
+body {
+  min-width: 1024px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 4px;
+  color: $gray
+}
+
+textarea {
+  width: 96%;
+  margin: auto auto;
+  padding: 10px;
+}
+
+p {
   font-size: 14px;
   font-weight: 400;
   color: $gray;
@@ -71,21 +100,6 @@ a:hover, a:active {
   color: $light-gray;
 }
 
-.bigtype {
-  font-size: 16px;
-}
-
-.risktype {
-  font-size: 14px;
-  font-weight: 700;
-  color: $gray;
-}
-
-.italic {
-  font-style: italic;
-}
-
-.warning-text {
-  font-weight: 700;
-  color: $warning-red;
+.hidden {
+  display: none !important;
 }

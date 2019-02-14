@@ -21,7 +21,7 @@ export default class StudentProfilePage extends React.Component {
 
   render() {
     return (
-      <div className="StudentProfilePage" style={styles.flexVertical}>
+      <div className="StudentProfilePage" style={{...styles.root, ...styles.flexVertical}}>
         <GenericLoader
           promiseFn={this.fetchJson}
           style={styles.flexVertical}
@@ -52,6 +52,9 @@ StudentProfilePage.propTypes = {
 };
 
 const styles = {
+  root: {
+    fontSize: 14
+  },
   flexVertical: {
     display: 'flex',
     flex: 1,
