@@ -60,14 +60,14 @@
   .SignInPage-input-text {
     font-size: 14px;
     padding: 6px;
-    border: 1px solid #ccc;
+    border: 1px solid $light-line;
 
     &:invalid, &:required {
       box-shadow: 0 0 1px 1px #eee;
     }
 
     &[readonly] {
-      background: #ccc;
+      background: $light-line;
     }
   }
 

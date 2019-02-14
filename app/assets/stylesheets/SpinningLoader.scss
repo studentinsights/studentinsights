@@ -1,12 +1,12 @@
 /* CSS from https://projects.lukehaas.me/css-loaders/. Thank you @lukehaas! */
 
-.loader,
-.loader:after {
+.SpinningLoader,
+.SpinningLoader:after {
   border-radius: 50%;
   width: 10em;
   height: 10em;
 }
-.loader {
+.SpinningLoader {
   margin: 60px auto;
   font-size: 10px;
   position: relative;

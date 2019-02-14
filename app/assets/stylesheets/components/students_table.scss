@@ -4,11 +4,11 @@
 
     thead th {
       font-size: 12px;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $light-line;
     }
 
     tr:hover {
-      background-color: $table-row-hover;
+      background-color: #E5E5E5;
     }
 
     th, td {

@@ -6,15 +6,16 @@
 @import 'table';
 @import 'opensans';
 @import 'layout';
+@import 'jquery_ui_overrides';
 
-@import 'components/slice_panels';
+@import 'components/SlicePanels';
 @import 'components/fixed_table';
 @import 'components/students_table';
 @import 'components/help_bubble';
 @import 'components/flexible_roster';
 @import 'components/EditableNoteText';
 
-@import 'loader';
+@import 'SpinningLoader';
 @import 'tooltip';
 @import 'buttons';
 @import 'no_default_page';

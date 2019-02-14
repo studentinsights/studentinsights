@@ -6,10 +6,18 @@
   margin: 0 !important;
   
   .ui-menu-item {
-    font-size: 14px !important;
     list-style: none !important;
-    padding: 5px !important;
     margin: 0 !important;
+  }
+
+  .ui-menu-item-wrapper {
+    font-size: 14px !important;
+    margin: 0 !important;
+    padding: 5px !important;
+  }
+
+  .ui-state-active {
+    background-color: $blue;
   }
 
   .ui-state-active {

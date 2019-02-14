@@ -31,7 +31,7 @@ class PastServiceUploads extends React.Component {
 
   renderSpinner() {
     return (
-      <div className="loader">Loading...</div>
+      <div className="SpinningLoader">Loading...</div>
     );
   }
 
