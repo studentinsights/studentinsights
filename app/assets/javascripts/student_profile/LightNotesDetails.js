@@ -17,9 +17,6 @@ export default class LightNotesDetails extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      isTakingNotes: false
-    };
 
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
@@ -28,22 +25,22 @@ export default class LightNotesDetails extends React.Component {
 
   isTakingNotes() {
     return (
-      this.state.isTakingNotes ||
+      this.props.isTakingNotes ||
       this.props.requests.saveNote !== null
     );
   }
 
   onClickTakeNotes(event) {
-    this.setState({ isTakingNotes: true });
+    this.props.onTakingNotesChanged(true);
   }
 
   onCancelNotes(event) {
-    this.setState({ isTakingNotes: false });
+    this.props.onTakingNotesChanged(false);
   }
 
   onClickSaveNotes(eventNoteParams, event) {
     this.props.actions.onClickSaveNotes(eventNoteParams);
-    this.setState({ isTakingNotes: false });
+    this.props.onTakingNotesChanged(false);
   }
 
   render() {
@@ -121,6 +118,8 @@ LightNotesDetails.propTypes = {
   title: PropTypes.string.isRequired,
   helpContent: PropTypes.node.isRequired,
   helpTitle: PropTypes.string.isRequired,
+  isTakingNotes: PropTypes.bool.isRequired,
+  onTakingNotesChanged: PropTypes.func.isRequired
 };
 
 
