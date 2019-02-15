@@ -16,7 +16,7 @@ it('if probe fails, calls forciblyClearPage', done => {
 
   setTimeout(() => {
     expect(props.forciblyClearPage).toHaveBeenCalled();
-    expect(props.warnFn).toHaveBeenCalledWith('SessionRenewal-v3-forciblyClearPage', {});
+    expect(props.warnFn).toHaveBeenCalledWith('SessionRenewal-v4-forciblyClearPage', {});
     expect($(el).text()).toEqual('');
     done();
   }, TEST_DELAY);
