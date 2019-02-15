@@ -111,12 +111,14 @@ export default class ProfilePdfDialog extends React.Component {
               }} />
           </div>
         </div>
-        <button
-          style={styles.studentReportButton}
-          className="btn btn-warning"
-          onClick={this.onClickGenerateStudentReport}>
-          Generate Student Report
-        </button>
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <button
+            style={styles.studentReportButton}
+            className="btn btn-warning"
+            onClick={this.onClickGenerateStudentReport}>
+            Generate Student Report
+          </button>
+        </div>
       </div>
     );
   }
@@ -184,14 +186,16 @@ const styles = {
     flexDirection: 'column'
   },
   dateBox: {
-    flex: 1
+    display: 'flex',
+    alignItems: 'center'
   },
   dateLabel: {
-    display: 'inline-block',
-    width: '4em'
+    display: 'block',
+    width: '4em',
+    marginBottom: 0
   },
   datepickerContainer: {
-    display: 'inline-block'
+    display: 'block'
   },
   datepickerInput: {
     fontSize: 14,
@@ -200,6 +204,6 @@ const styles = {
   },
   studentReportButton: {
     fontSize: 12,
-    marginRight: 0
+    margin: 0
   }
 };
