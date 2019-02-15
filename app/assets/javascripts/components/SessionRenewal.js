@@ -65,7 +65,7 @@ export default class SessionRenewal extends React.Component {
   forciblyClearPage() {
     // This usually won't be reported since the request 
     // will be aborted by the navigation below.  For debugging issues,
-    // look at the server logs for `/?expired` instead.
+    // look at the server logs for `/?expired-v4` instead.
     this.rollbar('forciblyClearPage');
     this.stopProbeInterval();
 
@@ -73,7 +73,7 @@ export default class SessionRenewal extends React.Component {
     if (forciblyClearPage) {
       forciblyClearPage();
     } else {
-      window.location = '/?expired';
+      window.location = '/?expired-v4';
     }
   }
 
