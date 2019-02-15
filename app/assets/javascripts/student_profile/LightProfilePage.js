@@ -365,7 +365,7 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotes() {
-    const {feed, actions, requests, noteInProgressText, noteInProgressType, noteInProgressAttachmentUrls} = this.props;
+    const {feed, actions, requests} = this.props;
     const {student, educatorsIndex, serviceTypesIndex, currentEducator} = this.props.profileJson;
     return (
       <div className="LightProfilePage-notes" style={{display: 'flex', flexDirection: 'row'}}>
@@ -379,9 +379,7 @@ export default class LightProfilePage extends React.Component {
           helpContent={<LightNotesHelpContext />}
           helpTitle="What is a Note?"
           title="Notes"
-          noteInProgressText={noteInProgressText}
-          noteInProgressType={noteInProgressType}
-          noteInProgressAttachmentUrls={noteInProgressAttachmentUrls }/>
+        />
         <LightServiceDetails
           student={student}
           serviceTypesIndex={serviceTypesIndex}
@@ -515,11 +513,6 @@ LightProfilePage.propTypes = {
 
   // mutable data
   feed: PropTypes.object.isRequired,
-  noteInProgressText: PropTypes.string.isRequired,
-  noteInProgressType: PropTypes.number,
-  noteInProgressAttachmentUrls: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
 
   // static data
   profileJson: PropTypes.shape({

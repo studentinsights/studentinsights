@@ -14,11 +14,17 @@ export default class TakeNotes extends React.Component {
     super(props);
 
     this.state = {
-      isRestricted: false
+      isRestricted: false,
+      noteInProgressText: '',
+      noteInProgressType: null,
+      noteInProgressAttachmentUrls: []
     };
     this.onRestrictedToggled = this.onRestrictedToggled.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
+    this.onChangeNoteInProgressText = this.onChangeNoteInProgressText.bind(this);
+    this.onClickNoteType = this.onClickNoteType.bind(this);
+    this.onChangeAttachmentUrl = this.onChangeAttachmentUrl.bind(this);
   }
 
   // Focus on note-taking text area when it first appears.
@@ -31,7 +37,7 @@ export default class TakeNotes extends React.Component {
   }
 
   eventNoteUrlsForSave() {
-    const {noteInProgressAttachmentUrls} = this.props;
+    const {noteInProgressAttachmentUrls} = this.state;
 
     const urlsToSave = noteInProgressAttachmentUrls.map(this.wrapUrlInObject);
 
@@ -39,19 +45,45 @@ export default class TakeNotes extends React.Component {
   }
 
   disabledSaveButton() {
-    const {noteInProgressText, noteInProgressType} = this.props;
+    const {noteInProgressText, noteInProgressType} = this.state;
 
     return (noteInProgressText === '' || noteInProgressType === null || !this.isValidAttachmentUrls());
   }
 
   isValidAttachmentUrls() {
-    const {noteInProgressAttachmentUrls} = this.props;
+    const {noteInProgressAttachmentUrls} = this.state;
 
     return _.every(noteInProgressAttachmentUrls, url => {
       return (url.slice(0, 7) === 'http://'  ||
               url.slice(0, 8) === 'https://' ||
               url.length      === 0);
     });
+  }
+
+  onChangeAttachmentUrl(event) {
+    const {noteInProgressAttachmentUrls} = this.state;
+
+    const newValue = event.target.value;
+    const changedIndex = parseInt(event.target.name);
+    const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
+      ? noteInProgressAttachmentUrls.concat(newValue)
+      : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
+        return (changedIndex === index) ? newValue : attachmentUrl;
+      });
+
+    const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
+      return urlString.length !== 0;
+    });
+
+    this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
+  }
+
+  onChangeNoteInProgressText(e) {
+    this.setState({noteInProgressText: e.target.value});
+  }
+
+  onClickNoteType(eventNoteTypeId) {
+    this.setState({noteInProgressType: eventNoteTypeId});
   }
 
   onRestrictedToggled(e) {
@@ -64,13 +96,8 @@ export default class TakeNotes extends React.Component {
   }
 
   onClickSave(event) {
-    const {
-      noteInProgressText,
-      noteInProgressType,
-      onSave,
-      showRestrictedCheckbox
-    } = this.props;
-    const {isRestricted} = this.state;
+    const {onSave, showRestrictedCheckbox} = this.props;
+    const {isRestricted, noteInProgressText, noteInProgressType} = this.state;
 
     const params = {
       eventNoteTypeId: noteInProgressType,
@@ -85,13 +112,12 @@ export default class TakeNotes extends React.Component {
   render() {
     const {
       style,
-      noteInProgressText,
       nowMoment,
       requestState,
       currentEducator,
-      showRestrictedCheckbox,
-      onChangeNoteInProgressText
+      showRestrictedCheckbox
     } = this.props;
+    const {noteInProgressText} = this.state;
 
     return (
       <div className="TakeNotes" style={{...styles.dialog, ...style}}>
@@ -105,7 +131,7 @@ export default class TakeNotes extends React.Component {
           style={styles.textarea}
           ref={ref => this.textareaRef = ref}
           value={noteInProgressText}
-          onChange={onChangeNoteInProgressText} />
+          onChange={this.onChangeNoteInProgressText} />
         {showRestrictedCheckbox &&
           <div>
             <div style={{ marginBottom: 5, marginTop: 20 }}>
@@ -182,13 +208,13 @@ export default class TakeNotes extends React.Component {
 
   // TODO(kr) extract button UI
   renderNoteButton(eventNoteTypeId) {
-    const {onClickNoteType, noteInProgressType} = this.props;
+    const {noteInProgressType} = this.state;
 
     return (
       <button
         key={eventNoteTypeId}
         className="btn note-type"
-        onClick={onClickNoteType}
+        onClick={this.onClickNoteType.bind(this, eventNoteTypeId)}
         tabIndex={-1}
         name={eventNoteTypeId}
         style={{
@@ -205,7 +231,7 @@ export default class TakeNotes extends React.Component {
   }
 
   renderAttachmentLinkArea() {
-    const {noteInProgressAttachmentUrls} = this.props;
+    const {noteInProgressAttachmentUrls} = this.state;
     const isValidUrls = this.isValidAttachmentUrls();
 
     const urls = (isValidUrls)
@@ -227,14 +253,12 @@ export default class TakeNotes extends React.Component {
   }
 
   renderAttachmentLinkInput(value, index) {
-    const {onChangeAttachmentUrl} = this.props;
-
     return (
       <div key={index}>
         <input
           value={value}
           name={index}
-          onChange={onChangeAttachmentUrl}
+          onChange={this.onChangeAttachmentUrl}
           placeholder="Please use the format https://www.example.com."
           style={{
             marginBottom: '20px',
@@ -256,16 +280,6 @@ TakeNotes.propTypes = {
   onCancel: PropTypes.func.isRequired,
   currentEducator: PropTypes.object.isRequired,
   requestState: PropTypes.string, // or null
-
-  noteInProgressText: PropTypes.string.isRequired,
-  noteInProgressType: PropTypes.number,
-  noteInProgressAttachmentUrls: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
-
-  onClickNoteType: PropTypes.func.isRequired,
-  onChangeNoteInProgressText: PropTypes.func.isRequired,
-  onChangeAttachmentUrl: PropTypes.func.isRequired,
   showRestrictedCheckbox: PropTypes.bool
 };
 TakeNotes.defaultProps = {

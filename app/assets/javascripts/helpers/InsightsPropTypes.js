@@ -8,8 +8,7 @@ export const actions = PropTypes.shape({
   onClickSaveService: PropTypes.func,
   onClickDiscontinueService: PropTypes.func,
   onChangeNoteInProgressText: PropTypes.func,
-  onClickNoteType: PropTypes.func,
-  onChangeAttachmentUrl: PropTypes.func,
+  onClickNoteType: PropTypes.func
 });
 
 export const requests = PropTypes.shape({

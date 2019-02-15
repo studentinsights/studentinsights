@@ -29,9 +29,7 @@ export default class LightNotesDetails extends React.Component {
   isTakingNotes() {
     return (
       this.state.isTakingNotes ||
-      this.props.requests.saveNote !== null ||
-      this.props.noteInProgressText.length > 0 ||
-      this.props.noteInProgressAttachmentUrls.length > 0
+      this.props.requests.saveNote !== null
     );
   }
 
@@ -79,10 +77,6 @@ export default class LightNotesDetails extends React.Component {
   renderTakeNotesDialog() {
     const {
       currentEducator,
-      noteInProgressText,
-      noteInProgressType,
-      noteInProgressAttachmentUrls,
-      actions,
       requests
     } = this.props;
 
@@ -94,12 +88,6 @@ export default class LightNotesDetails extends React.Component {
         onSave={this.onClickSaveNotes}
         onCancel={this.onCancelNotes}
         requestState={requests.saveNote}
-        noteInProgressText={noteInProgressText}
-        noteInProgressType={noteInProgressType}
-        noteInProgressAttachmentUrls={noteInProgressAttachmentUrls}
-        onClickNoteType={actions.onClickNoteType}
-        onChangeNoteInProgressText={actions.onChangeNoteInProgressText}
-        onChangeAttachmentUrl={actions.onChangeAttachmentUrl}
         showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
       />
     );
@@ -125,20 +113,10 @@ LightNotesDetails.propTypes = {
   }).isRequired,
   actions: PropTypes.shape({
     onClickSaveNotes: PropTypes.func.isRequired,
-    onEventNoteAttachmentDeleted: PropTypes.func,
-    onDeleteEventNoteAttachment: PropTypes.func,
-    onChangeNoteInProgressText: PropTypes.func.isRequired,
-    onClickNoteType: PropTypes.func.isRequired,
-    onChangeAttachmentUrl: PropTypes.func.isRequired,
+    onDeleteEventNoteAttachment: PropTypes.func
   }),
   feed: InsightsPropTypes.feed.isRequired,
   requests: PropTypes.object.isRequired,
-
-  noteInProgressText: PropTypes.string.isRequired,
-  noteInProgressType: PropTypes.number,
-  noteInProgressAttachmentUrls: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
 
   title: PropTypes.string.isRequired,
   helpContent: PropTypes.node.isRequired,
