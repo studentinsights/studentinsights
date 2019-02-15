@@ -60,11 +60,10 @@ export default class TakeNotes extends React.Component {
     });
   }
 
-  onChangeAttachmentUrl(event) {
+  onChangeAttachmentUrl(changedIndex, event) {
     const {noteInProgressAttachmentUrls} = this.state;
 
     const newValue = event.target.value;
-    const changedIndex = parseInt(event.target.name);
     const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
       ? noteInProgressAttachmentUrls.concat(newValue)
       : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
@@ -256,9 +255,9 @@ export default class TakeNotes extends React.Component {
     return (
       <div key={index}>
         <input
+          className="TakeNotes-attachment-link-input"
           value={value}
-          name={index}
-          onChange={this.onChangeAttachmentUrl}
+          onChange={this.onChangeAttachmentUrl.bind(this, index)}
           placeholder="Please use the format https://www.example.com."
           style={{
             marginBottom: '20px',

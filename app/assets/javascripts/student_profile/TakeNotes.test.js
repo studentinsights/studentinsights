@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactTestUtils from 'react-dom/test-utils';
+import changeTextValue from '../testing/changeTextValue';
 import {
   nowMoment,
   currentEducator
@@ -15,13 +17,7 @@ export function testProps(props = {}) {
     currentEducator: currentEducator,
     onSave: jest.fn(),
     onCancel: jest.fn(),
-    onClickNoteType: jest.fn(),
-    onChangeNoteInProgressText: jest.fn(),
-    onChangeAttachmentUrl: jest.fn(),
     requestState: null,
-    noteInProgressText: '',
-    noteInProgressType: null,
-    noteInProgressAttachmentUrls: [],
     ...props
   };
 }
@@ -54,6 +50,24 @@ it('renders without crashing', () => {
   expect($(el).find('.btn.cancel').length).toEqual(1);
 });
 
+
+it('calls onSave with the correct shape', () => {
+  const props = testProps();
+  const {el} = renderTestEl(props, { districtKey: SOMERVILLE });
+
+  changeTextValue($(el).find('textarea').get(0), 'hello!');
+  ReactTestUtils.Simulate.click($(el).find('.btn.note-type:eq(1)').get(0));
+  ReactTestUtils.Simulate.change($(el).find('.TakeNotes-attachment-link-input').get(0), {target: {value: 'https://example.com/foo'}});
+  ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
+  
+  expect(props.onSave).toHaveBeenCalledWith({
+    "text": "hello!",
+    "eventNoteTypeId": 301,
+    "eventNoteAttachments": [{
+      url: 'https://example.com/foo'
+    }]
+  });
+});
 
 describe('buttons for taking notes', () => {
   it('works for Somerville', () => {
