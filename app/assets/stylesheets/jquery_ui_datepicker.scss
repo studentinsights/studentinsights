@@ -1,0 +1,18 @@
+/* override jQuery datepicker defaults */
+.ui-datepicker {
+  .ui-state-active {
+    background-color: $blue !important;
+  }
+
+  /* today */
+  .ui-state-highlight {
+    background-color: $highlight-orange !important;
+  }
+}
+
+/* next to the actual input element, but inside React container */
+.Datepicker img.ui-datepicker-trigger {
+  margin-left: 10px !important;
+  position: relative !important;
+  top: 2px !important;
+}

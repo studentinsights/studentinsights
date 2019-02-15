@@ -1,8 +1,9 @@
+/* overall HTML layout for application.html.erb */
 .Layout {
   .Layout-message {
     padding: 20px;
     background-color: red;
-    color: white;
+    color: $white;
     text-align: center;
     margin-bottom: 10px;
     font-size: 30px;
