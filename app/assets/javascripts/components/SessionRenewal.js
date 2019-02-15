@@ -43,7 +43,7 @@ export default class SessionRenewal extends React.Component {
   }
 
   rollbar(shortMsg, err = {}) {
-    const msg = `SessionRenewal-v3-${shortMsg}`;
+    const msg = `SessionRenewal-v4-${shortMsg}`;
     const {warnFn} = this.props;
     if (warnFn) return warnFn(msg, err);
 
