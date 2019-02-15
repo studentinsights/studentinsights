@@ -1,5 +1,6 @@
 import {apiFetchJson} from './helpers/apiFetchJson';
 
+const STUDENT_NAMES_CACHE_KEY = 'studentInsights.studentSearchbar.studentNamesCacheKey';
 
 function setupSearchBarAutocomplete (names) {
   $(".student-searchbar").autocomplete({
@@ -14,8 +15,8 @@ function downloadStudentNames () {
   apiFetchJson('/students/names').then(data => {
     setupSearchBarAutocomplete(data);
 
-    if (window.sessionStorage) {
-      window.sessionStorage.student_names_cache = JSON.stringify(data);
+    if (isSessionStorageSupported()) {
+      window.sessionStorage.setItem(STUDENT_NAMES_CACHE_KEY, JSON.stringify(data));
     } else {
       throw 'no session storage';
     }
@@ -23,12 +24,12 @@ function downloadStudentNames () {
 }
 
 export function initSearchBar() {
-  if (!(window.sessionStorage)) {
+  if (!isSessionStorageSupported()) {
     downloadStudentNames();       // Query for names if we have no local storage
     throw 'no session storage';   // Let rollbar know we're not caching
   }
 
-  const namesCache = window.sessionStorage.student_names_cache;
+  const namesCache = window.sessionStorage.getItem(STUDENT_NAMES_CACHE_KEY);
 
   if (namesCache) return setupSearchBarAutocomplete(JSON.parse(namesCache));
 
@@ -37,7 +38,22 @@ export function initSearchBar() {
 }
 
 export function clearStorage() {
-  if (window.sessionStorage && window.sessionStorage.clear) {
+  if (isSessionStorageSupported() && window.sessionStorage.clear) {
     window.sessionStorage.clear();
   }
+}
+
+
+function isSessionStorageSupported() {
+  var isSupported; // eslint-disable-line no-var
+  try {
+    isSupported = 'sessionStorage' in window && window.sessionStorage !== null;
+    const testKey = 'studentInsights.studentSearchbar.isSessionStorageSupported';
+    window.sessionStorage.setItem(testKey, 'yes');
+    window.sessionStorage.removeItem(testKey);
+  } catch (e) {
+    isSupported = false;
+  }
+
+  return isSupported;
 }
