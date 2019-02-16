@@ -16,20 +16,18 @@ SecureHeaders::Configuration.default do |config|
   cdn_domains = ENV.fetch('CSP_CDN_DOMAINS', '').split(',')
   policy = {
     # core resources
-    default_src: %w('self' https:) + cdn_domains,
-    base_uri: %w('self' https:),
-    manifest_src: %w('self' https:),
-    connect_src: %w('self' https:),
-    form_action: %w('self' https:),
-    script_src: %w('self' https:) + cdn_domains,
-
+    default_src: %w('self'),
+    form_action: %w('self'),
+    connect_src: %w('self'),
+    object_src: %w('self'), # for viewing report/IEP PDFs inline (not for downloading)
+    script_src: %w('self') + cdn_domains,
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd
     # see https://github.com/JedWatson/react-select/issues/2030
     # and https://github.com/JedWatson/react-input-autosize#csp-and-the-ie-clear-indicator
     # and https://github.com/atlassian/react-beautiful-dnd/blob/master/src/view/style-marshal/style-marshal.js#L46
     style_src: %w('self' 'unsafe-inline') + cdn_domains,
-    font_src: %w('self' https: data:) + cdn_domains,
-    img_src: %w('self' https: data:) + cdn_domains,
+    font_src: %w('self' data:) + cdn_domains,
+    img_src: %w('self' data:) + cdn_domains,
     report_uri: [report_uri],
 
     # disable others
@@ -38,8 +36,9 @@ SecureHeaders::Configuration.default do |config|
     child_src: %w('none'),
     frame_ancestors: %w('none'),
     media_src: %w('none'),
-    object_src: %w('self' https:), # for viewing report/IEP PDFs inline (not for downloading)
     worker_src: %w('none'),
+    manifest_src: %w('none'), # we don't use it
+    base_uri: %w('none'), # we don't use the <base /> tag
     plugin_types: nil
   }
 
