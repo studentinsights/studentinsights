@@ -4,5 +4,5 @@
 Rake::Task['assets:precompile'].enhance do
   # Run yarn install first to force devDependencies to be installed,
   # so that we can run the build process
-  exec 'YARN_PRODUCTION=false yarn install --frozen-lockfile && yarn run build'
+  exec 'yarn build-after-rails-assets-precompile'
 end
