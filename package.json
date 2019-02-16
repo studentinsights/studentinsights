@@ -20,6 +20,7 @@
     "test-cli": "yarn lint-cli && yarn jest && yarn audit",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
+  "heroku-run-build-script": true,
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/runtime": "^7.0.0",
