@@ -211,14 +211,16 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "flex": 1,
+          "alignItems": "center",
+          "display": "flex",
         }
       }
     >
       <label
         style={
           Object {
-            "display": "inline-block",
+            "display": "block",
+            "marginBottom": 0,
             "width": "4em",
           }
         }
@@ -229,7 +231,7 @@ exports[`snapshots view 1`] = `
         className="Datepicker"
         style={
           Object {
-            "display": "inline-block",
+            "display": "block",
           }
         }
       >
@@ -250,14 +252,16 @@ exports[`snapshots view 1`] = `
     <div
       style={
         Object {
-          "flex": 1,
+          "alignItems": "center",
+          "display": "flex",
         }
       }
     >
       <label
         style={
           Object {
-            "display": "inline-block",
+            "display": "block",
+            "marginBottom": 0,
             "width": "4em",
           }
         }
@@ -268,7 +272,7 @@ exports[`snapshots view 1`] = `
         className="Datepicker"
         style={
           Object {
-            "display": "inline-block",
+            "display": "block",
           }
         }
       >
@@ -287,17 +291,26 @@ exports[`snapshots view 1`] = `
       </div>
     </div>
   </div>
-  <button
-    className="btn btn-warning"
-    onClick={[Function]}
+  <div
     style={
       Object {
-        "fontSize": 12,
-        "marginRight": 0,
+        "display": "flex",
+        "justifyContent": "flex-end",
       }
     }
   >
-    Generate Student Report
-  </button>
+    <button
+      className="btn btn-warning"
+      onClick={[Function]}
+      style={
+        Object {
+          "fontSize": 12,
+          "margin": 0,
+        }
+      }
+    >
+      Generate Student Report
+    </button>
+  </div>
 </div>
 `;

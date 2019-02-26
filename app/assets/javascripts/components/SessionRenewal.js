@@ -43,12 +43,12 @@ export default class SessionRenewal extends React.Component {
   }
 
   rollbar(shortMsg, err = {}) {
-    const msg = `SessionRenewal-v3-${shortMsg}`;
+    const msg = `SessionRenewal-v4-${shortMsg}`;
     const {warnFn} = this.props;
     if (warnFn) return warnFn(msg, err);
 
-    console.warn(msg, err); // eslint-disable-line
-    window.Rollbar.warn && window.Rollbar.warn(msg, err);
+    console.info && console.info(msg, err); // eslint-disable-line
+    window.Rollbar.info && window.Rollbar.info(msg, err);
   }
 
   shouldWarn() {
@@ -63,6 +63,9 @@ export default class SessionRenewal extends React.Component {
   // If the server session has expired, this will redirect to the sign in page, clearing the
   // screen of student data.
   forciblyClearPage() {
+    // This usually won't be reported since the request 
+    // will be aborted by the navigation below.  For debugging issues,
+    // look at the server logs for `/?expired-v4` instead.
     this.rollbar('forciblyClearPage');
     this.stopProbeInterval();
 
@@ -70,7 +73,7 @@ export default class SessionRenewal extends React.Component {
     if (forciblyClearPage) {
       forciblyClearPage();
     } else {
-      window.location = '/?expired';
+      window.location = '/?expired-v4';
     }
   }
 

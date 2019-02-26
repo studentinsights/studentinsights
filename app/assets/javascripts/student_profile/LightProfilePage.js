@@ -27,6 +27,15 @@ import testingColumnTexts, {interpretEla, interpretMath} from './testingColumnTe
 // Prototype of profile v3
 const DAYS_AGO = 45;
 export default class LightProfilePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isTakingNotes: false
+    };
+
+    this.onTakingNotesChanged = this.onTakingNotesChanged.bind(this);
+  }
+
   componentDidMount() {
     updateGlobalStylesToRemoveHorizontalScrollbars();
     alwaysShowVerticalScrollbars();
@@ -39,7 +48,19 @@ export default class LightProfilePage extends React.Component {
   }
 
   onColumnClicked(columnKey) {
+    const {isTakingNotes} = this.state;
+
+    if (isTakingNotes) {
+      const shouldDiscardNote = confirm("You have a note in progress.\n\nDiscard that note?");
+      if (!shouldDiscardNote) return;
+    }
+    
+    this.setState({isTakingNotes: false});
     this.props.actions.onColumnClicked(columnKey);
+  }
+
+  onTakingNotesChanged(isTakingNotes) {
+    this.setState({isTakingNotes});
   }
 
   render() {
@@ -365,11 +386,15 @@ export default class LightProfilePage extends React.Component {
   }
 
   renderNotes() {
-    const {feed, actions, requests, noteInProgressText, noteInProgressType, noteInProgressAttachmentUrls} = this.props;
+    const {feed, actions, requests} = this.props;
     const {student, educatorsIndex, serviceTypesIndex, currentEducator} = this.props.profileJson;
+    const {isTakingNotes} = this.state;
+
     return (
       <div className="LightProfilePage-notes" style={{display: 'flex', flexDirection: 'row'}}>
         <LightNotesDetails
+          isTakingNotes={isTakingNotes}
+          onTakingNotesChanged={this.onTakingNotesChanged}
           student={student}
           educatorsIndex={educatorsIndex}
           currentEducator={currentEducator}
@@ -379,9 +404,7 @@ export default class LightProfilePage extends React.Component {
           helpContent={<LightNotesHelpContext />}
           helpTitle="What is a Note?"
           title="Notes"
-          noteInProgressText={noteInProgressText}
-          noteInProgressType={noteInProgressType}
-          noteInProgressAttachmentUrls={noteInProgressAttachmentUrls }/>
+        />
         <LightServiceDetails
           student={student}
           serviceTypesIndex={serviceTypesIndex}
@@ -515,11 +538,6 @@ LightProfilePage.propTypes = {
 
   // mutable data
   feed: PropTypes.object.isRequired,
-  noteInProgressText: PropTypes.string.isRequired,
-  noteInProgressType: PropTypes.number,
-  noteInProgressAttachmentUrls: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
 
   // static data
   profileJson: PropTypes.shape({

@@ -34,7 +34,7 @@ export default function testingColumnTexts(nowMoment, chartData) {
     : 'ELA / Math MCAS';
   const dateText = (ela.dateText === math.dateText)
     ? ela.dateText
-    : `${ela.dateText} / ${math.dateText}`;
+    : `${ela.dateText.replace(' ago','')} / ${math.dateText}`; // truncate first ago to preserve width
 
   return {scoreText, testText, dateText};
 }

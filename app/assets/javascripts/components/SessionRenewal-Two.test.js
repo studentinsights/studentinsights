@@ -18,7 +18,7 @@ it('when renew is clicked, makes HTTP request to renew', done => {
     expect($(el).text()).toEqual('Please click this link or your session will timeout due to inactivity.');
     ReactTestUtils.Simulate.click($(el).find('a').get(0));
     expect(callUrls(fetchMock)).toContain('/educators/reset');
-    expect(props.warnFn).toHaveBeenCalledWith('SessionRenewal-v3-onRenewClicked', {});
+    expect(props.warnFn).toHaveBeenCalledWith('SessionRenewal-v4-onRenewClicked', {});
     done();
   }, TEST_DELAY);  
 }); 

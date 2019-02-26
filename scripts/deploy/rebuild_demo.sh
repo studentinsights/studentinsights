@@ -7,6 +7,9 @@ read -p "🚨  🚨  🚨  This will cause downtime on $DEMO_HEROKU_APP_NAME. Co
 echo
 
 if [[ $REPLY =~ ^[Yy]$ ]]; then
+  # Maintenance mode
+  heroku maintenance:on --app $DEMO_HEROKU_APP_NAME
+
   # Reset database through Heroku Postgres CLI
   echo "⚙  💻  ⚙  heroku pg:reset..."
   heroku pg:reset DATABASE_URL -a $DEMO_HEROKU_APP_NAME --confirm $DEMO_HEROKU_APP_NAME
@@ -16,9 +19,12 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   heroku run DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:migrate --app $DEMO_HEROKU_APP_NAME
 
   echo "⚙  💻  ⚙  rake db:seed..."
-  heroku run MORE_DEMO_STUDENTS=false rake db:seed --app $DEMO_HEROKU_APP_NAME
+  heroku run MORE_DEMO_STUDENTS=true rake db:seed --app $DEMO_HEROKU_APP_NAME
   echo
 
+  # Maintenance mode
+  heroku maintenance:off --app $DEMO_HEROKU_APP_NAME
+  
   # Deploy to demo app and migrate
   echo "Done.  Rebuilt ⬢ $DEMO_HEROKU_APP_NAME database."
 else

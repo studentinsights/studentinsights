@@ -29,9 +29,6 @@ export default class PageContainer extends React.Component {
     this.onDeleteEventNoteAttachment = this.onDeleteEventNoteAttachment.bind(this);
     this.onClickSaveService = this.onClickSaveService.bind(this);
     this.onClickDiscontinueService = this.onClickDiscontinueService.bind(this);
-    this.onChangeNoteInProgressText = this.onChangeNoteInProgressText.bind(this);
-    this.onClickNoteType = this.onClickNoteType.bind(this);
-    this.onChangeAttachmentUrl = this.onChangeAttachmentUrl.bind(this);
     this.onClickSaveTransitionNote = this.onClickSaveTransitionNote.bind(this);
     this.onSaveTransitionNoteDone = this.onSaveTransitionNoteDone.bind(this);
     this.onSaveTransitionNoteFail = this.onSaveTransitionNoteFail.bind(this);
@@ -73,34 +70,6 @@ export default class PageContainer extends React.Component {
 
   onColumnClicked(columnKey) {
     this.setState({ selectedColumnKey: columnKey });
-  }
-
-  onClickNoteType(event) {
-    const noteInProgressType = parseInt(event.target.name);
-
-    this.setState({ noteInProgressType });
-  }
-
-  onChangeNoteInProgressText(event) {
-    this.setState({ noteInProgressText: event.target.value });
-  }
-
-  onChangeAttachmentUrl(event) {
-    const newValue = event.target.value;
-    const changedIndex = parseInt(event.target.name);
-    const {noteInProgressAttachmentUrls} = this.state;
-
-    const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
-      ? noteInProgressAttachmentUrls.concat(newValue)
-      : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
-        return (changedIndex === index) ? newValue : attachmentUrl;
-      });
-
-    const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
-      return urlString.length !== 0;
-    });
-
-    this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
   }
 
   onClickSaveNotes(eventNoteParams) {
@@ -161,10 +130,7 @@ export default class PageContainer extends React.Component {
 
     this.setState({
       feed: updatedFeed,
-      requests: merge(this.state.requests, { saveNote: null }),
-      noteInProgressText: '',
-      noteInProgressType: null,
-      noteInProgressAttachmentUrls: []
+      requests: merge(this.state.requests, { saveNote: null })
     });
   }
 
@@ -172,6 +138,7 @@ export default class PageContainer extends React.Component {
     this.setState({ requests: merge(this.state.requests, { saveNote: 'error' }) });
   }
 
+  // TODO(kr) does this work for not-yet-created notes?
   onDeleteEventNoteAttachment(eventNoteAttachmentId) {
     // optimistically update the UI
     // essentially, find the eventNote that has eventNoteAttachmentId in attachments
@@ -272,10 +239,7 @@ export default class PageContainer extends React.Component {
     const {
       feed,
       selectedColumnKey,
-      requests,
-      noteInProgressText,
-      noteInProgressType,
-      noteInProgressAttachmentUrls
+      requests
     } = this.state;
 
     const actions = {
@@ -286,9 +250,6 @@ export default class PageContainer extends React.Component {
       onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
       onClickSaveService: this.onClickSaveService,
       onClickDiscontinueService: this.onClickDiscontinueService,
-      onChangeNoteInProgressText: this.onChangeNoteInProgressText,
-      onClickNoteType: this.onClickNoteType,
-      onChangeAttachmentUrl: this.onChangeAttachmentUrl,
       ...(this.props.actions || {}) // for test
     };
 
@@ -300,9 +261,6 @@ export default class PageContainer extends React.Component {
           actions={actions}
           selectedColumnKey={selectedColumnKey}
           requests={requests}
-          noteInProgressText={noteInProgressText}
-          noteInProgressType={noteInProgressType}
-          noteInProgressAttachmentUrls={noteInProgressAttachmentUrls}
         />
       </div>
     );
@@ -339,9 +297,6 @@ export function initialState(props) {
     feed: defaultFeed,
 
     // ui
-    noteInProgressText: '',
-    noteInProgressType: null,
-    noteInProgressAttachmentUrls: [],
     selectedColumnKey: queryParams.column || defaultColumnKey,
 
     // This map holds the state of network requests for various actions.  This allows UI components to branch on this

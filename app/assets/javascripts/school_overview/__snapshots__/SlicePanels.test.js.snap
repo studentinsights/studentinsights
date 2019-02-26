@@ -1067,7 +1067,7 @@ exports[`matches snapshot 1`] = `
                 className="caption-cell"
                 style={
                   Object {
-                    "opacity": 1,
+                    "opacity": 0.15,
                   }
                 }
               >
@@ -1092,7 +1092,7 @@ exports[`matches snapshot 1`] = `
                   }
                 }
               >
-                100%
+                
               </td>
               <td
                 style={
@@ -1107,7 +1107,7 @@ exports[`matches snapshot 1`] = `
                   style={
                     Object {
                       "height": "1em",
-                      "width": "50%",
+                      "width": "0%",
                     }
                   }
                 />

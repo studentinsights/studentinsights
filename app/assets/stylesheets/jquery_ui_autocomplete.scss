@@ -1,0 +1,22 @@
+/* override jQuery autocomplete defaults */
+.ui-autocomplete {
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  .ui-menu-item {
+    list-style: none !important;
+    margin: 0 !important;
+  }
+
+  .ui-menu-item-wrapper {
+    font-size: 14px !important;
+    margin: 0 !important;
+    padding: 5px !important;
+
+    &.ui-state-active {
+      background-color: $blue !important;
+      border: 0 !important;
+    }
+  }
+}
+

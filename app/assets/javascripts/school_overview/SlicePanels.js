@@ -14,7 +14,7 @@ import {eventNoteTypeText} from '../helpers/eventNoteType';
 // For showing a set of panels that let users see an overview
 // of distributions, and click to filter a set of data in different
 // ways.
-class SlicePanels extends React.Component {
+export default class SlicePanels extends React.Component {
   createItem(caption, filter) {
     const students = this.props.students;
     return {
@@ -302,13 +302,15 @@ class SlicePanels extends React.Component {
   }
 
   renderYearsEnrolled() {
+    const {nowFn} = this.context;
     const {allStudents} = this.props;
     const registrationDates = _.compact(allStudents.map(s => s.registration_date));
 
     if (registrationDates.length === 0) return null;
 
+    const dateToday = nowFn().toDate();
     const uniqueValues =_.uniq(registrationDates.map(regDate => {
-      return Math.floor((new Date() - new Date(regDate)) / (1000 * 60 * 60 * 24 * 365));
+      return Math.floor((dateToday - new Date(regDate)) / (1000 * 60 * 60 * 24 * 365));
     }));
 
     const items = uniqueValues.map(value => {
@@ -343,6 +345,9 @@ class SlicePanels extends React.Component {
     return <CollapsableTable {...props} />;
   }
 }
+SlicePanels.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 SlicePanels.propTypes = {
   districtKey: PropTypes.string.isRequired,
   filters: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -352,5 +357,3 @@ SlicePanels.propTypes = {
   serviceTypesIndex: PropTypes.object.isRequired,
   onFilterToggled: PropTypes.func.isRequired
 };
-
-export default SlicePanels;

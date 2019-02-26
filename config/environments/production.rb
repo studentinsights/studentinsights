@@ -21,7 +21,13 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
+  # On Heroku the webserver serves static assets (eg, to Cloudfront).
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  if ENV.has_key?('RAILS_ACCESS_CONTROL_ALLOW_ORIGIN')
+    config.public_file_server.headers = {
+      'Access-Control-Allow-Origin' => ENV['RAILS_ACCESS_CONTROL_ALLOW_ORIGIN']
+    }
+  end
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
