@@ -31,7 +31,7 @@
     font-size: 14px;
     padding: 6px;
     padding-left: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid $light-line;
     height: 45px;
     border-radius: 28px;
     background-color: #FAFAFA;
@@ -47,7 +47,7 @@
     }
 
     &[readonly] {
-      background: #ccc;
+      background: $light-line;
     }
   }
 

@@ -87,11 +87,12 @@ export function EventNoteType(eventNoteTypeId) {
   };
 }
 
-export function YearsEnrolled(value) {
+export function YearsEnrolled(value, options = {}) {
+  const dateToday = options.dateToday || new Date();
   return {
     identifier: ['years_enrolled', value].join(':'),
     filterFn(student) {
-      const yearsEnrolled = Math.floor((new Date() - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
+      const yearsEnrolled = Math.floor((dateToday - new Date(student.registration_date)) / (1000 * 60 * 60 * 24 * 365));
       return (yearsEnrolled === value);
     },
     key: 'years_enrolled'
@@ -99,13 +100,13 @@ export function YearsEnrolled(value) {
 }
 
 // Has to parse from string back to numeric
-export function createFromIdentifier(identifier) {
+function createFromIdentifier(identifier, options = {}) {
   const parts = identifier.split(':');
   if (parts[0] === 'range') return Range(parts[1], [parseFloat(parts[2]), parseFloat(parts[3])]);
   if (parts[0] === 'none') return Null(parts[1]);
   if (parts[0] === 'equal') return Equal(parts[1], parts[2]);
   if (parts[0] === 'intervention_type') return InterventionType(parts[1]);
-  if (parts[0] === 'years_enrolled') return YearsEnrolled(parseFloat(parts[1]));
+  if (parts[0] === 'years_enrolled') return YearsEnrolled(parseFloat(parts[1]), options);
   if (parts[0] === 'service_type') return ServiceType(parseFloat(parts[1]));
   if (parts[0] === 'event_note_type') return EventNoteType(parseFloat(parts[1]));
 
@@ -113,9 +114,9 @@ export function createFromIdentifier(identifier) {
 }
 
 // Returns a list of Filters
-export function parseFiltersHash(hash) {
+export function parseFiltersHash(hash, options = {}) {
   const pieces = _.compact(hash.slice(1).split('&'));
   return _.compact(pieces.map(piece => {
-    return createFromIdentifier(decodeURIComponent(piece));
+    return createFromIdentifier(decodeURIComponent(piece), options);
   }));
 }

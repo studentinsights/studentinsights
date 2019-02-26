@@ -82,7 +82,7 @@ describe('HS testing tab', () => {
       'Testing',
       'M',
       'ELA and Math MCAS',
-      '10 months ago / 2 years ago'
+      '10 months / 2 years ago'
     ]);
   });
 

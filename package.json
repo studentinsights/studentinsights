@@ -20,6 +20,7 @@
     "test-cli": "yarn lint-cli && yarn jest && yarn audit",
     "storybook": "start-storybook -p 6006 --config-dir ui/config/.storybook"
   },
+  "heroku-run-build-script": true,
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/runtime": "^7.0.0",
@@ -40,7 +41,6 @@
     "percentile": "^1.2.0",
     "promise-polyfill": "^6.0.2",
     "query-string": "^5.1.0",
-    "rc-slider": "^8.3.2",
     "react": "^16.0.0",
     "react-beautiful-dnd": "6.0.2",
     "react-debounce-input": "^3.2.0",
@@ -61,7 +61,7 @@
     "@storybook/addon-actions": "^3.4.3",
     "@storybook/react": "3.4.11",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
     "babel-preset-react-app": "^7.0.0",
     "clean-webpack-plugin": "^0.1.17",
@@ -72,7 +72,7 @@
     "enzyme-adapter-react-16": "^1.9.0",
     "eslint": "^3.3.1",
     "eslint-plugin-react": "^6.1.2",
-    "jest": "^23.0.0",
+    "jest": "^24.1.0",
     "jest-canvas-mock": "^1.1.0",
     "script-loader": "^0.7.2",
     "style-loader": "^0.20.3",
