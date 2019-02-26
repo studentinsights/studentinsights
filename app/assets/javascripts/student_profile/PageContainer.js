@@ -216,7 +216,6 @@ export default class PageContainer extends React.Component {
   }
 
   onTakeNotesTakeTwoChanged(changeType, note) {
-    console.log('onTakeNotesTakeTwoChanged');
     if (changeType === 'updated') {
       const feed = this.state.feed.event_notes.map(feedNote => {
         return (feedNote.id === note.id) ? note : feedNote;
