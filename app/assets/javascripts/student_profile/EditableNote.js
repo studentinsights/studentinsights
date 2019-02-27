@@ -202,6 +202,15 @@ export default class EditableNote extends React.Component {
       );
     }
 
+    if (text === '') {
+      return (
+        <div style={{...styles.messageBelowText, ...styles.warning}}>
+          <span>Nothing is written</span>
+          <a href="#" style={styles.markRestrictedLink} onClick={() => alert('not finished yet :)')}>Remove note?</a>
+        </div>
+      );
+    }
+
     // placeholder to keep sizing
     return <div style={styles.messageBelowText} />;
   }

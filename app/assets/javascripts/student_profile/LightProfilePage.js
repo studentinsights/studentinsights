@@ -50,7 +50,7 @@ export default class LightProfilePage extends React.Component {
   onColumnClicked(columnKey) {
     const {isTakingNotes} = this.state;
 
-    if (isTakingNotes) {
+    if (isTakingNotes && false) { // TODO(kr)
       const shouldDiscardNote = confirm("You have a note in progress.\n\nDiscard that note?");
       if (!shouldDiscardNote) return;
     }
