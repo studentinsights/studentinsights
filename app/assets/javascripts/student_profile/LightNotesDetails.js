@@ -62,14 +62,16 @@ export default class LightNotesDetails extends React.Component {
           </div>
         </SectionHeading>}
         <div>
-          {this.isTakingNotes() && isTakeTwoEnabled
-            ? <TakeNotesTakeTwo
-                // onChanged={this.props.actions.onTakeNotesTakeTwoChanged}
-                style={{marginTop: 20, marginBottom: 20}}
-                educator={currentEducator}
-                student={student}
-              />
-            : this.renderTakeNotesDialog()}
+          {this.isTakingNotes() && (
+            isTakeTwoEnabled
+              ? <TakeNotesTakeTwo
+                  // onChanged={this.props.actions.onTakeNotesTakeTwoChanged}
+                  style={{marginTop: 20, marginBottom: 20}}
+                  educator={currentEducator}
+                  student={student}
+                />
+              : this.renderTakeNotesDialog()
+          )}
           <NotesList
             currentEducatorId={currentEducator.id}
             feed={this.props.feed}

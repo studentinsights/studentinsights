@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import {apiPatchJson, apiPutJson} from '../helpers/apiFetchJson';
-import {toMomentFromRailsDate} from '../helpers/toMoment';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import {formatEducatorName} from '../helpers/educatorName';
 import Educator from '../components/Educator';
 import Hover from '../components/Hover';
@@ -130,7 +130,7 @@ export default class EditableNote extends React.Component {
                 educator={educator} />
             </div>
           }
-          whenEl={toMomentFromRailsDate(recordedAtTimestamp).format('M/D/Y h:mma')}
+          whenEl={toMomentFromTimestamp(recordedAtTimestamp).local().format('M/D/Y h:mma')}
           badgesEl={this.renderBadges(student, eventNoteTypeId)}
           iconsEl={this.renderIcons()}
         >
