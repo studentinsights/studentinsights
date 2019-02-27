@@ -52,11 +52,10 @@ class Feed
 
   # Return a list of `FeedCard`s for the feed based on event notes.
   def event_note_cards(from_time, limit)
-    embargo_time_interval = 1.minute # so that notes aren't shown as they're being typed
     recent_event_notes = EventNote
       .where(student_id: @authorized_students.map(&:id))
       .where(is_restricted: false)
-      .where('recorded_at < ?', from_time - embargo_time_interval)
+      .where('recorded_at < ?', from_time)
       .order(recorded_at: :desc)
       .limit(limit)
       .includes(student: [:homeroom, :school])
