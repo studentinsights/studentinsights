@@ -46,7 +46,7 @@ export default class LightNotesDetails extends React.Component {
 
   render() {
     const {student, title, currentEducator} = this.props;
-    const isTakeTwoEnabled = (window.location.search.indexOf('taketwowrite') !== -1);
+    const isTakeTwoEnabled = (true || window.location.search.indexOf('taketwowrite') !== -1);
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>

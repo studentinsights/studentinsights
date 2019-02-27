@@ -95,7 +95,7 @@ export default class NotesList extends React.Component {
   }
 
   renderEventNote(eventNote) {
-    if (window.location.search.indexOf('taketworead') !== -1) {
+    if (true || window.location.search.indexOf('taketworead') !== -1) {
       return this.renderEventNoteTakeTwo(eventNote);
     }
 
