@@ -105,7 +105,7 @@ export default class LightNotesDetails extends React.Component {
     return (
       <button
         className="btn take-notes"
-        style={{display: 'inline-block', margin: 0}}
+        style={{display: 'inline-block', margin: 0, fontSize: 14}}
         onClick={this.onClickTakeNotes}>
         <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
       </button>
