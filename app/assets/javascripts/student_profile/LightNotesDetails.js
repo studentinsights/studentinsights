@@ -19,7 +19,6 @@ export default class LightNotesDetails extends React.Component {
   constructor(props){
     super(props);
 
-    this.onStartAuthoring = this.onStartAuthoring.bind(this);
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
@@ -30,10 +29,6 @@ export default class LightNotesDetails extends React.Component {
       this.props.isTakingNotes ||
       this.props.requests.saveNote !== null
     );
-  }
-
-  onStartAuthoring() {
-    this.setState({isAuthoring: true});
   }
 
   onClickTakeNotes(event) {
@@ -51,7 +46,6 @@ export default class LightNotesDetails extends React.Component {
 
   render() {
     const {student, title, currentEducator} = this.props;
-    const {isAuthoring} = this.state;
     const isTakeTwoEnabled = (window.location.search.indexOf('taketwowrite') !== -1);
 
     return (
@@ -65,26 +59,17 @@ export default class LightNotesDetails extends React.Component {
           </div>
           <div>
             {!this.isTakingNotes() && this.renderTakeNotesButton()}
-            {isTakeTwoEnabled && !isAuthoring && (
-              <button
-                className="btn take-notes"
-                style={{display: 'inline-block', margin: 0}}
-                onClick={this.onStartAuthoring}>
-                <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>v2</span></span>
-              </button>
-            )}
           </div>
         </SectionHeading>}
         <div>
-          {isTakeTwoEnabled && isAuthoring && (
-            <TakeNotesTakeTwo
-              // onChanged={this.props.actions.onTakeNotesTakeTwoChanged}
-              style={{marginTop: 20, marginBottom: 20}}
-              educator={currentEducator}
-              student={student}
-            />
-          )}
-          {this.isTakingNotes() && this.renderTakeNotesDialog()}
+          {this.isTakingNotes() && isTakeTwoEnabled
+            ? <TakeNotesTakeTwo
+                // onChanged={this.props.actions.onTakeNotesTakeTwoChanged}
+                style={{marginTop: 20, marginBottom: 20}}
+                educator={currentEducator}
+                student={student}
+              />
+            : this.renderTakeNotesDialog()}
           <NotesList
             currentEducatorId={currentEducator.id}
             feed={this.props.feed}
