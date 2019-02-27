@@ -42,7 +42,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::SOMERVILLE))
       pals = TestPals.create!(email_domain: 'k12.somerville.ma.us')
       strategy = mocked_test_strategy({
-        login_text: 'uri@k12.somerville.ma.us',
+        login_text: 'uri',
         password: 'supersecure',
         ldap_login: 'uri@k12.somerville.ma.us',
         is_authorized_by_ldap?: true
@@ -54,7 +54,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       pals = TestPals.create!(email_domain: 'newbedfordschools.org')
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::NEW_BEDFORD))
       strategy = mocked_test_strategy({
-        login_text: 'uri@newbedfordschools.org',
+        login_text: 'uri',
         password: 'supersecure',
         ldap_login: 'uri@newbedfordschools.org',
         is_authorized_by_ldap?: true
@@ -78,7 +78,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       pals = TestPals.create!
       allow(PerDistrict).to receive(:new).and_return(PerDistrict.new(district_key: PerDistrict::DEMO))
       strategy = mocked_test_strategy({
-        login_text: 'uri@demo.studentinsights.org',
+        login_text: 'uri',
         password: 'supersecure',
         ldap_login: 'uri@demo.studentinsights.org',
         is_authorized_by_ldap?: true
@@ -111,7 +111,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'jodi@demo.studentinsights.org',
+          login_text: 'jodi',
           login_code: ''
         },
         password: 'correct-password'
@@ -127,7 +127,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'jodi@demo.studentinsights.org',
+          login_text: 'jodi',
           login_code: 'NO_CODE'
         },
         password: ''
@@ -142,7 +142,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'jodi@demo.studentinsights.org',
+          login_text: 'jodi',
           login_code: '123456'
         },
         password: 'demo-password'
@@ -157,7 +157,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'foo@demo.studentinsights.org',
+          login_text: 'foo',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
@@ -172,7 +172,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'jodi@demo.studentinsights.org',
+          login_text: 'jodi',
           login_code: 'NO_CODE'
         },
         password: 'wrong-password'
@@ -189,7 +189,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'jodi@demo.studentinsights.org',
+          login_text: 'jodi',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
@@ -204,7 +204,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'jodi@demo.studentinsights.org',
+          login_text: 'jodi',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
@@ -221,7 +221,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'JODI@demo.STUDENTINSIGHTS.org',
+          login_text: 'JODI',
           login_code: 'NO_CODE'
         },
         password: 'correct-password'
@@ -242,7 +242,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'uri@demo.studentinsights.org',
+          login_text: 'uri',
           login_code: LoginTests.peek_at_correct_multifactor_code(pals.uri)
         },
         password: 'demo-password'
@@ -259,7 +259,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'rich@demo.studentinsights.org',
+          login_text: 'rich',
           login_code: LoginTests.peek_at_correct_multifactor_code(pals.rich_districtwide)
         },
         password: 'demo-password'
@@ -278,7 +278,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       strategy = test_strategy
       allow(strategy).to receive_messages({
         authentication_hash: {
-          login_text: 'rich@demo.studentinsights.org',
+          login_text: 'rich',
           login_code: '123456'
         },
         password: 'correct-password'

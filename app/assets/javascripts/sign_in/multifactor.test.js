@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {multifactorMain, afterSubmitMultiFactorStepOne} from './multifactor';
+import {multifactorMain} from './multifactor';
 
 
 function testEl() {
@@ -13,10 +13,10 @@ function isHidden(el) {
   return el.classList.contains('hidden');
 }
 
+function serializedForm(form) {
+  return new URLSearchParams(new FormData(form)).toString();
+}
 
-beforeEach(() => {
-  window.location.hash = '';
-});
 
 it('passes html sanity check', () => {
   const el = testEl();
@@ -27,10 +27,9 @@ describe('simple login', () => {
   it('renders as expected and can submit form without other JS', () => {
     const el = testEl();
 
-    expect($(el).text()).toContain('Login');
-    expect($(el).text()).toContain('Password');
-    expect(el.querySelectorAll('.btn').length).toEqual(2);
-    expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
+    expect(el.querySelectorAll('input[placeholder=Login]').length).toEqual(1);
+    expect(el.querySelectorAll('input[placeholder=Password]').length).toEqual(1);
+    expect(el.querySelectorAll('.btn').length).toEqual(1);
     expect(el.querySelector('.SignInPage-form').method).toEqual('post');
     expect(el.querySelector('.SignInPage-form').action).toEqual('http://localhost/educators/sign_in');
     expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(false);
@@ -41,7 +40,7 @@ describe('simple login', () => {
 describe('multifactorMain', () => {
   it('shows multifactor link', () => {
     const el = testEl();
-    multifactorMain({el, hash: ''});
+    multifactorMain({el});
 
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(true);
@@ -49,45 +48,72 @@ describe('multifactorMain', () => {
     expect(el.querySelector('.SignInPage-authentication-type-link').innerHTML).toEqual('Use multifactor login');
   });
 
-  it('swaps the form when link is clicked', () => {
+  it('checks login presence before allowing submit', () => {
     const el = testEl();
-    multifactorMain({el, hash: ''});
+    multifactorMain({el});
+    el.querySelector('.SignInPage-input-password').value = 'demo-password';
     el.querySelector('.SignInPage-authentication-type-link').click();
-
-    expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(true);
-    expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(false);
-    expect(el.querySelector('.SignInPage-authentication-type-link').href).toEqual('http://localhost/educators/sign_in');
-    expect(window.location.hash).toEqual('#multifactor');
+    expect(isHidden(el.querySelector('.SignInPage-input-login-code'))).toEqual(true);
   });
 
-  it('copies over anything already entered', () => {
+  it('checks password presence before allowing submit', () => {
     const el = testEl();
-    multifactorMain({el, hash: ''});
-    
-    el.querySelector('.SignInPage-form .SignInPage-input-login').value = 'uri@demo.studentinsights.org';
-    el.querySelector('.SignInPage-form .SignInPage-input-password').value = 'demo-password';
+    multifactorMain({el});
+    el.querySelector('.SignInPage-input-login').value = 'uri@demo.studentinsights.org';
     el.querySelector('.SignInPage-authentication-type-link').click();
 
-    expect(el.querySelector('.SignInPage-multifactor-form .SignInPage-input-login').value).toEqual('uri@demo.studentinsights.org');
-    expect(el.querySelector('.SignInPage-multifactor-form .SignInPage-input-password').value).toEqual('demo-password');
+    expect(isHidden(el.querySelector('.SignInPage-input-login-code'))).toEqual(true);
   });
 
-  it('submitting sends code and changes form to multifactor step 2', () => {
+  it('submits the multifactor the form when link is clicked', () => {
     const el = testEl();
-    const shared = multifactorMain({el, hash: ''});
-    
+    multifactorMain({el});
+    el.querySelector('.SignInPage-input-login').value = 'uri@demo.studentinsights.org';
+    el.querySelector('.SignInPage-input-password').value = 'demo-password';
     el.querySelector('.SignInPage-authentication-type-link').click();
-    el.querySelector('.SignInPage-multifactor-form .SignInPage-input-login').value = 'uri@demo.studentinsights.org';
-    el.querySelector('.SignInPage-multifactor-form .SignInPage-input-password').value = 'demo-password';
-    el.querySelector('.SignInPage-send-code-button').click();
 
-    // simulate form submit (no UJS in test)
-    afterSubmitMultiFactorStepOne(shared, {}, {});
-  
-    // expect simple form, with login code visible, and message
+    expect(isHidden(el.querySelector('.SignInPage-authentication-type-link'))).toEqual(true);
+    expect(isHidden(el.querySelector('.SignInPage-input-login-code'))).toEqual(false);
+    // form submit
+  });
+
+  it('copies over login_text', () => {
+    const el = testEl();
+    multifactorMain({el});
+    
+    el.querySelector('.SignInPage-input-login').value = 'uri@demo.studentinsights.org';
+    el.querySelector('.SignInPage-input-password').value = 'demo-password';
+    el.querySelector('.SignInPage-authentication-type-link').click();
+
+    expect(el.querySelector('.SignInPage-multifactor-form .SignInPage-multifactor-login-text').value).toEqual('uri@demo.studentinsights.org');
+  });
+
+  it('after multifactor, verify form submits data as expected, with login code', done => {
+    const el = testEl();
+    multifactorMain({el});
+    
+    // login and password
+    el.querySelector('.SignInPage-input-login').value = 'uri@demo.studentinsights.org';
+    el.querySelector('.SignInPage-input-password').value = 'demo-password';
+    el.querySelector('.SignInPage-authentication-type-link').click();
+
+    // login code and sign in
+    expect(isHidden(el.querySelector('.SignInPage-input-login-code'))).toEqual(false);
+    el.querySelector('.SignInPage-input-login-code').value = '123789';
+
+    // check form data and UI
+    el.querySelector('.SignInPage-login-button').addEventListener('click', e => {
+      expect(serializedForm(el.querySelector('.SignInPage-form'))).toEqual([
+        'utf8=%E2%9C%93',
+        'authenticity_token=bM7qFGlYDu2ecYebQ94MUkMMl%2FIW7%2FazPOwr%2Bk1ajQIEb%2F3z98qbWUTdNKxzkG69j3FN0w9vHKdFLVGNSDhV4A%3D%3D',
+        'educator%5Blogin_text%5D=uri%40demo.studentinsights.org',
+        'educator%5Bpassword%5D=demo-password',
+        'educator%5Blogin_code%5D=123789'        
+      ].join('&'));
+      done();
+    });
+    el.querySelector('.SignInPage-login-button').click();
     expect(isHidden(el.querySelector('.SignInPage-form'))).toEqual(false);
     expect(isHidden(el.querySelector('.SignInPage-multifactor-form'))).toEqual(true);
-    expect(el.querySelector('.SignInPage-input-login-code').value).toEqual('');
-    expect(isHidden(el.querySelector('.SignInPage-multifactor-sent-code'))).toEqual(false);
   });
 });

@@ -199,18 +199,14 @@ class PerDistrict
     ENV.fetch('EDUCATORS_IMPORTER_LOGIN_NAME_WHITELIST', '').split(',')
   end
 
-  # Users in Bedford type in just their login, others
-  # use full email addresses.
+  # Allows username or full email address, depending on district.
+  # Transitioning to username only.
   def find_educator_by_login_text(login_text)
     cleaned_login_text = login_text.downcase.strip
     if @district_key == BEDFORD
       Educator.find_by_login_name(cleaned_login_text)
-    elsif @district_key == SOMERVILLE
-      Educator.find_by_email(cleaned_login_text)
-    elsif @district_key == NEW_BEDFORD
-      Educator.find_by_email(cleaned_login_text)
-    elsif @district_key == DEMO
-      Educator.find_by_email(cleaned_login_text)
+    elsif @district_key == SOMERVILLE || @district_key == NEW_BEDFORD || @district_key == DEMO
+      Educator.find_by_login_name(cleaned_login_text) || Educator.find_by_email(cleaned_login_text)
     else
       raise_not_handled!
     end
@@ -470,13 +466,37 @@ class PerDistrict
 
   def sign_in_params
     if @district_key == SOMERVILLE
-      { preview_image_src: 'sign_in/somerville-preview.png' }
+      {
+        district_url: 'http://www.somerville.k12.ma.us/',
+        district_logo_src: 'sign_in/somerville-logo.jpg',
+        district_logo_alt: "#{district_name} logo",
+        splash_image_src: 'sign_in/somerville-sign-in-1.jpg',
+        splash_image_alt: 'Students playing music'
+      }
     elsif @district_key == BEDFORD
-      { preview_image_src: 'sign_in/bedford-preview.png' }
+      {
+        district_url: 'https://www.bedfordps.org/',
+        district_logo_src: 'sign_in/bedford-logo.png',
+        district_logo_alt: "#{district_name} logo",
+        splash_image_src: 'sign_in/bedford-sign-in-1.jpg',
+        splash_image_alt: "Veteran's Day ceremony"
+      }
     elsif @district_key == NEW_BEDFORD
-      { preview_image_src: 'sign_in/new-bedford-preview.png' }
+      {
+        district_url: 'http://www.newbedfordschools.org/',
+        district_logo_src: 'sign_in/new-bedford-logo.jpg',
+        district_logo_alt: "#{district_name} logo",
+        splash_image_src: 'sign_in/new-bedford-sign-in-1.jpg',
+        splash_image_alt: 'Collage of New Bedford students'
+      }
     elsif @district_key == DEMO
-      { preview_image_src: 'sign_in/demo-preview.png' }
+      {
+        district_url: 'https://www.studentinsights.org/',
+        district_logo_src: 'sign_in/demo-logo.png',
+        district_logo_alt: "#{district_name} logo",
+        splash_image_src: 'sign_in/demo-sign-in-1.jpg',
+        splash_image_alt: 'Student thinking'
+      }
     else
       raise_not_handled!
     end

@@ -1,24 +1,7 @@
 .SignInPage {
+  display: flex;
+  height: 100%;
   font-size: 14px;
-
-  .SignInPage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    padding-top: 20px;
-    padding-bottom: 0;
-  }
-
-  .SignInPage-form-row {
-    width: 80%;
-    margin: auto;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
 
   .SignInPage-logo-and-name {
     display: flex;
@@ -27,9 +10,8 @@
     height: 50px;
   }
 
-
   .Logo {
-    width: 40px;
+    width: 35px;
     height: auto;
     position: relative;
   }
@@ -41,29 +23,27 @@
     align-self: flex-end;
   }
 
-  .SignInPage-form, .SignInPage-multifactor-form {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-
   .SignInPage-item {
-    display: inline-block;
-    margin-left: 15px;
-  }
-
-  .SignInPage-item .btn {
-    width: 8em;
+    padding-top: 15px;
   }
 
   .SignInPage-input-text {
     font-size: 14px;
     padding: 6px;
+    padding-left: 20px;
     border: 1px solid $light-line;
+    height: 45px;
+    border-radius: 28px;
+    background-color: #FAFAFA;
 
     &:invalid, &:required {
       box-shadow: 0 0 1px 1px #eee;
+    }
+
+    &:focus {
+      outline: none;
+      border: 1px solid $blue;
+      box-shadow: 0 0 1px 1px $blue;
     }
 
     &[readonly] {
@@ -71,52 +51,95 @@
     }
   }
 
-  .SignInPage-input-login {
-    width: 20em;
-  }
-
+  .SignInPage-input-login,
   .SignInPage-input-password {
-    width: 10em;
-  }
-
-  .SignInPage-input-login-code {
-    width: 6em;
-  }
-
-  .SignInPage-label {
-    margin-bottom: 5px;
-  }
-
-  .SignInPage-messages-row {
-    width: 80%;
-    margin: auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    min-height: 3.1em;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .SignInPage-flash {
-    display: block;
-  }
-
-  .SignInPage-alert {
-    color: $warning-red;
-    font-weight: 700;
+    width: 350px;
+    margin-bottom: 15px;
   }
 
   .SignInPage-multifactor {
-    margin-left: 10px;
-    margin-bottom: 5px;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
-  .SignInPage-multifactor-sent-code {
-    color: orange;
-    font-weight: bold;
+  .SignInPage-left-box {
+    flex: 3;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+  }
+
+  .SignInPage-share-photo {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    color: white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .SignInPage-splash-image {
+    height: 100%;
+  }
+
+  .SignInPage-right-box {
+    padding-top: 30px;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-color: white;
+  }
+
+  .SignInPage-right-box-content {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .SignInPage-flash-alert {
+    height: 1.5em;
+    color: darkorange;
+    font-weight: 700;
+  }
+
+  .SignInPage-login-buttons {
+    display: flex;
+    padding-top: 15px;
+  }
+
+  .SignInPage-login-button {
+    padding: 15px;
+    width: 200px;
+  }
+
+  .SignInPage-input-login-code {
+    width: 130px;
+  }
+
+  .SignInPage-district-logo {
+    width: 200px;
+    height: 200px;
+    padding-top: 15px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+  }
+
+  .SignInPage-email {
+    margin-top: 35px;
+  }
+
+  .SignInPage-links {
+    display: flex;
+    justify-content: space-between;
+    width: 110px;
+    margin-top: 5px;
   }
 
   .SignInPage-change-coming {
