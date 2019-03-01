@@ -202,7 +202,8 @@ export default class EditableNote extends React.Component {
       );
     }
 
-    if (text === '') {
+    // TODO(kr)
+    if (text === '' && false) {
       return (
         <div style={{...styles.messageBelowText, ...styles.warning}}>
           <span>Nothing is written</span>
