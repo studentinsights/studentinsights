@@ -16,7 +16,7 @@ en:
       error: "Sorry, there was an error with signing you in."
       locked: "Your account is locked."
       last_attempt: "You have one more attempt before your account is locked."
-      timeout: "Your session expired. Please sign in again to continue."
+      timeout: "Your session expired. Please sign in again."
       unauthenticated: "You need to sign in before continuing."
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
