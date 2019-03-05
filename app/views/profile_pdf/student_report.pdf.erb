@@ -95,8 +95,8 @@
           <div style="float: left; width:370px; padding:5px">
             <ul>
               <li><span style="font-weight:bold;"><%= format_date_for_student_report(event_note.recorded_at) %></span></li>
-              <li><span style="font-style:italic;"><%= event_note.event_note_type.name %></span></li>
-              <li><%= event_note.text %></li>
+              <li><span style="font-style:italic;"><%= event_note.event_note_type.name %><%= event_note.educator.full_name %></span></li>
+              <li><%= event_note.is_restricted ? 'Restricted noteL:' : '' %><%= event_note.text %></li>
             </ul>
           </div>
           <% if right %>

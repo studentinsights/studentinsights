@@ -43,7 +43,14 @@ class ProfilePdfController < ApplicationController
     @filter_to_date = (params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today).advance(days: 1) # so we include the current day
 
     # Load event notes that are NOT restricted for the student for the filtered dates
-    @event_notes = @student.event_notes.where(:is_restricted => false).where(recorded_at: @filter_from_date..@filter_to_date)
+    include_restricted_notes = if current_educator.can_view_restricted_notes?
+      params.fetch(:include_restricted_notes, false)
+    else
+      false
+    end
+    @event_notes = @student.event_notes
+      .where(:is_restricted => include_restricted_notes)
+      .where(recorded_at: @filter_from_date..@filter_to_date)
 
     # Load services for the student for the filtered dates
     @services = @student.services.where("date_started <= ? AND (discontinued_at >= ? OR discontinued_at IS NULL)", @filter_to_date, @filter_from_date).order('date_started, discontinued_at')

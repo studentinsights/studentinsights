@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import qs from 'query-string';
 import Datepicker from '../components/Datepicker';
 import {
   toSchoolYear,
@@ -43,8 +44,12 @@ export default class ProfilePdfDialog extends React.Component {
     const filterToDateForQuery = this.filterToDateForQuery();
     const checkboxEls = $(this.checkboxContainerEl).find('.ProfilePdfDialog-section').toArray();
     const sections = checkboxEls.filter(el => el.checked).map(el => el.value).join(',');
-
-    return `/students/${studentId}/student_report.pdf?sections=${sections}&from_date=${filterFromDateForQuery}&to_date=${filterToDateForQuery}`;
+    const queryString = qs.stringify({
+      sections: sections,
+      from_date: filterFromDateForQuery,
+      to_date: filterToDateForQuery
+    });
+    return `/students/${studentId}/student_report.pdf?${queryString}`;
   }
 
   onFilterFromDateChanged(dateText) {
@@ -65,7 +70,7 @@ export default class ProfilePdfDialog extends React.Component {
   }
 
   render() {
-    const {showTitle, style} = this.props;
+    const {allowRestrictedNotes, showTitle, style} = this.props;
 
     return (
       <div className="ProfilePdfDialog" style={{...styles.root, ...style}}>
@@ -73,6 +78,9 @@ export default class ProfilePdfDialog extends React.Component {
         <span style={styles.tableHeader}>Select sections to include in report:</span>
         <div style={styles.optionsList} ref={el => this.checkboxContainerEl = el}>
           {this.renderStudentReportSectionOption('notes','Notes')}
+          {allowRestrictedNotes && (
+            this.renderStudentReportSectionOption('restricted_notes','Restricted notes')
+          )}
           {this.renderStudentReportSectionOption('services','Services')}
           {this.renderStudentReportSectionOption('attendance','Attendance')}
           {this.renderStudentReportSectionOption('discipline_incidents','Discipline Incidents')}
@@ -143,6 +151,7 @@ ProfilePdfDialog.contextTypes = {
 };
 ProfilePdfDialog.propTypes = {
   studentId: PropTypes.number.isRequired,
+  allowRestrictedNotes: PropTypes.bool.isRequired,
   showTitle: PropTypes.bool,
   style: PropTypes.object
 };

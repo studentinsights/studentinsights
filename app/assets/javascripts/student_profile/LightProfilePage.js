@@ -115,7 +115,7 @@ export default class LightProfilePage extends React.Component {
     } = this.props.profileJson;
     return (
       <LightProfileHeader
-        educatorLabels={currentEducator.labels}
+        currentEducator={currentEducator}
         student={student}
         access={access}
         teams={teams}
