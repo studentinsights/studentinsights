@@ -65,18 +65,16 @@
       <div style="float: left; width: 200px;">
         <ul>
           <li>DOB: <%= format_date_for_student_report(@student.date_of_birth) %></li>
-          <li><%= "Grade #{@student.grade}" %></li>
-          <li><%= @student.school.try(:name) || "No School Assigned" %></li>
-          <li><%= @student.homeroom.try(:name) || "No Homeroom Assigned" %></li>
-          <li><%= @student.program_assigned %></li>
+          <li>Grade: <%= "Grade #{@student.grade}" %></li>
+          <li>School: <%= @student.school.try(:name) || "No School Assigned" %></li>
+          <li>Homeroom: <%= @student.homeroom.try(:name) || "No Homeroom Assigned" %></li>
         </ul>
       </div>
       <div style="float: left; width: 312px;">
         <ul>
-          <li>Language: <%= @student.home_language %></li>
-          <li>Disability: <%= @student.disability || "None"%></li>
-          <li>504 plan: <%= @student.plan_504 %></li>
-          <li>English Proficiency: <%= @student.limited_english_proficiency %></li>
+          <li>Formal disability designation: <%= @student.disability || 'None' %></li>
+          <li>Formal English Proficiency designation: <%= @student.limited_english_proficiency %></li>
+          <li>504 plan: <%= @student.plan_504 || 'None' %></li>
         </ul>
       </div>
     </div>
@@ -94,9 +92,14 @@
         <% @event_notes.each do |event_note| %>
           <div style="float: left; width:370px; padding:5px">
             <ul>
-              <li><span style="font-weight:bold;"><%= format_date_for_student_report(event_note.recorded_at) %></span></li>
-              <li><span style="font-style:italic;"><%= event_note.event_note_type.name %><%= event_note.educator.full_name %></span></li>
-              <li><%= event_note.is_restricted ? 'Restricted noteL:' : '' %><%= event_note.text %></li>
+              <li style="font-weight:bold;">
+                <span><%= format_date_for_student_report(event_note.recorded_at) %></span>
+                <span> by </span>
+                <span><%= event_note.educator.pretty_first_name_first %></span>
+                <span> in </span>
+                <span><%= event_note.event_note_type.name %>
+              </li>
+              <li><%= event_note.is_restricted ? '(RESTRICTED) ' : '' %><%= event_note.text %></li>
             </ul>
           </div>
           <% if right %>

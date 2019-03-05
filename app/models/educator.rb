@@ -36,6 +36,10 @@ class Educator < ApplicationRecord
     staff_type.try(:downcase) == 'principal'
   end
 
+  def pretty_first_name_first
+    full_name.split(', ').reverse.join(' ')
+  end
+
   def is_authorized_for_student(student)
     Authorizer.new(self).is_authorized_for_student?(student)
   end

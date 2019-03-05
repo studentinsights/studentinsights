@@ -16,11 +16,13 @@ export default class ProfilePdfDialog extends React.Component {
 
     const nowMoment = context.nowFn();
     this.state = {
+      includeRestrictedNotes: false,
       filterFromDate: firstDayOfSchool(toSchoolYear(nowMoment)-1),
       filterToDate: nowMoment
     };
 
     this.checkboxContainerEl = null;
+    this.onIncludeRestrictedNotesChanged = this.onIncludeRestrictedNotesChanged.bind(this);
     this.onFilterFromDateChanged = this.onFilterFromDateChanged.bind(this);
     this.onFilterToDateChanged = this.onFilterToDateChanged.bind(this);
     this.onClickGenerateStudentReport = this.onClickGenerateStudentReport.bind(this);
@@ -40,6 +42,7 @@ export default class ProfilePdfDialog extends React.Component {
 
   studentReportURL() {
     const {studentId} = this.props;
+    const {includeRestrictedNotes} = this.state;
     const filterFromDateForQuery = this.filterFromDateForQuery();
     const filterToDateForQuery = this.filterToDateForQuery();
     const checkboxEls = $(this.checkboxContainerEl).find('.ProfilePdfDialog-section').toArray();
@@ -47,9 +50,14 @@ export default class ProfilePdfDialog extends React.Component {
     const queryString = qs.stringify({
       sections: sections,
       from_date: filterFromDateForQuery,
-      to_date: filterToDateForQuery
+      to_date: filterToDateForQuery,
+      include_restricted_notes: includeRestrictedNotes
     });
     return `/students/${studentId}/student_report.pdf?${queryString}`;
+  }
+
+  onIncludeRestrictedNotesChanged(e) {
+    this.setState({includeRestrictedNotes: e.target.checked});
   }
 
   onFilterFromDateChanged(dateText) {
@@ -71,10 +79,26 @@ export default class ProfilePdfDialog extends React.Component {
 
   render() {
     const {allowRestrictedNotes, showTitle, style} = this.props;
+    const {includeRestrictedNotes} = this.state;
 
     return (
       <div className="ProfilePdfDialog" style={{...styles.root, ...style}}>
         {showTitle && <h4 style={styles.title}>Student Report</h4>}
+        <span style={styles.tableHeader}>Student privacy:</span>
+        <div style={styles.optionsList}>
+          <div style={styles.fixedWidthOption}>
+            <label style={styles.optionLabel}>
+              <input
+                style={styles.optionCheckbox}
+                type='checkbox'
+                className="ProfilePdfDialog-include-restricted-notes"
+                onChange={this.onIncludeRestrictedNotesChanged}
+                value={includeRestrictedNotes}
+              />
+              Include restricted notes
+            </label>
+          </div>
+        </div>
         <span style={styles.tableHeader}>Select sections to include in report:</span>
         <div style={styles.optionsList} ref={el => this.checkboxContainerEl = el}>
           {this.renderStudentReportSectionOption('notes','Notes')}
@@ -134,14 +158,16 @@ export default class ProfilePdfDialog extends React.Component {
   renderStudentReportSectionOption(optionValue, optionName) {
     return (
       <div style={styles.fixedWidthOption}>
-        <input
-          style={styles.optionCheckbox}
-          type='checkbox'
-          className="ProfilePdfDialog-section"
-          name={optionValue}
-          defaultChecked
-          value={optionValue} />
-        <label style={styles.optionLabel}>{optionName}</label>
+        <label style={styles.optionLabel}>
+          <input
+            style={styles.optionCheckbox}
+            type='checkbox'
+            className="ProfilePdfDialog-section"
+            name={optionValue}
+            defaultChecked
+            value={optionValue} />
+          {optionName}
+        </label>
       </div>
     );
   }
@@ -184,10 +210,10 @@ const styles = {
     verticalAlign: 'middle'
   },
   optionCheckbox: {
+    marginRight: 5
   },
   optionLabel: {
-    display: 'inline-block',
-    padding: '0px 0px 20px 5px'
+    display: 'inline-block'
   },
   datesSection: {
     display: 'flex',
