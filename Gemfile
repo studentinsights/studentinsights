@@ -41,6 +41,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rubyzip', '~> 1.2.2'
+gem 'bundler-audit'
 
 # used to seed demo data in production
 gem 'factory_bot_rails'
