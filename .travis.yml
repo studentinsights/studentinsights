@@ -36,6 +36,8 @@ install:
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn install; fi
 
 script:
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec ruby-audit check; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle audit check --update; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake immigrant:check_keys; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then rubocop; fi

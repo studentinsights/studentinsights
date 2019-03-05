@@ -42,6 +42,10 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rubyzip', '~> 1.2.2'
 
+# security audits
+gem 'bundler-audit'
+gem 'ruby_audit'
+
 # used to seed demo data in production
 gem 'factory_bot_rails'
 
