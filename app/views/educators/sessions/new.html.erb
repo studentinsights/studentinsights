@@ -28,7 +28,8 @@
             autocomplete: 'off',
             required: true,
             autofocus: true,
-            placeholder: 'Login, username only'
+            placeholder: 'Login, username only',
+            'data-disable' => true, # rails-ujs
           }) %>
         </div>
         <div class="SignInPage-item">
@@ -36,11 +37,16 @@
             class: 'SignInPage-input-text SignInPage-input-password',
             autocomplete: 'off',
             required: true,
-            placeholder: 'Password'
+            placeholder: 'Password',
+            'data-disable' => true, # rails-ujs
           }) %>
         </div>
         <div class="SignInPage-login-buttons">
-          <%= submit_tag 'Sign in', class: "btn btn-primary SignInPage-login-button", name: nil %>
+          <%= submit_tag('Sign in', {
+            class: "btn btn-primary SignInPage-login-button",
+              name: nil,
+              'data-disable-with' => 'Signing in...' # rails-ujs
+          }) %>
           <div class="SignInPage-multifactor">
             <%= link_to('Use multifactor login', "#multifactor", class: 'SignInPage-authentication-type-link') %>
             <%= text_field_tag('educator[login_code]', nil, {
@@ -48,7 +54,8 @@
               placeholder: 'Sign in code',
               autocomplete: 'off',
               required: true,
-              value: 'NO_CODE' # Devise requires a value
+              value: 'NO_CODE', # Devise requires a value
+              'data-disable' => true, # rails-ujs
             }) %>
           </div>
         </div>
