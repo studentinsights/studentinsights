@@ -29,7 +29,8 @@ describe ProfilePdfController, :type => :controller do
         format: :pdf,
         from_date: '08/15/2015',
         to_date: '03/16/2017',
-        disable_js: true
+        disable_js: true,
+        include_restricted_notes: false
       }.merge(params)
     end
 
@@ -142,6 +143,56 @@ describe ProfilePdfController, :type => :controller do
       get_student_report_pdf(student.id)
       expect(response).to be_successful
       expect(log.output).to include('Sent data [FILTERED]')
+    end
+
+    describe 'guard access to restricted notes' do
+      let!(:pals) { TestPals.create! }
+
+      def create_test_notes(pals)
+        event_note = create_event_note(pals.healey_kindergarten_student, pals.healey_vivian_teacher, {
+          text: 'plain note',
+          recorded_at: Time.parse('2017-03-11 11:17:00'),
+          is_restricted: false
+        })
+        restricted_event_note = create_event_note(pals.healey_kindergarten_student, pals.healey_vivian_teacher, {
+          text: 'DANGER UNSAFE RESTRICTED NOTE',
+          recorded_at: Time.parse('2017-03-04 11:03:00'),
+          is_restricted: true
+        })
+        [event_note, restricted_event_note]
+      end
+
+      it 'excludes without permission' do
+        event_note, restricted_event_note = create_test_notes(pals)
+
+        sign_in(pals.healey_vivian_teacher)
+        get_student_report_pdf(pals.healey_kindergarten_student.id, {
+          include_restricted_notes: 'true'
+        })
+        expect(response).to be_successful
+        expect(assigns(:event_notes)).to include(event_note)
+        expect(assigns(:event_notes)).not_to include(restricted_event_note)
+      end
+
+      it 'excludes without explicit request' do
+        event_note, restricted_event_note = create_test_notes(pals)
+        sign_in(pals.uri)
+        get_student_report_pdf(pals.healey_kindergarten_student.id, {
+          include_restricted_notes: 'false'
+        })
+        expect(assigns(:event_notes)).to include(event_note)
+        expect(assigns(:event_notes)).not_to include(restricted_event_note)
+      end
+
+      it 'includes only with permission and explicit request' do
+        event_note, restricted_event_note = create_test_notes(pals)
+        sign_in(pals.uri)
+        get_student_report_pdf(pals.healey_kindergarten_student.id, {
+          include_restricted_notes: 'true'
+        })
+        expect(assigns(:event_notes)).to include(event_note)
+        expect(assigns(:event_notes)).to include(restricted_event_note)
+      end
     end
   end
 end
