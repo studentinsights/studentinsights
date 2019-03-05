@@ -18,7 +18,6 @@ RSpec.describe HomeworkHelpImporter do
       homework_help_sessions = importer.import(fixture_file_text)
 
       expect(HomeworkHelpSession.all.size).to eq 3
-      puts homework_help_sessions.as_json.first['form_timestamp']
       expect(homework_help_sessions.as_json(except: [:id, :created_at, :updated_at])).to contain_exactly(*[{
         'student_id' => pals.shs_freshman_mari.id,
         'form_timestamp' => Time.parse('Tue, 25 Sep 2018 17:41:43 +0000'),

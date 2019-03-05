@@ -96,7 +96,7 @@
               <li style="font-weight:bold;">
                 <span><%= format_date_for_student_report(event_note.recorded_at) %></span>
                 <span> by </span>
-                <span><%= event_note.educator.pretty_first_name_first %></span>
+                <span><%= educator_pretty_first_name_first(event_note.educator) %></span>
                 <span> in </span>
                 <span><%= event_note.event_note_type.name %>
               </li>

@@ -38,6 +38,17 @@ class ProfilePdfController < ApplicationController
     "#{PerDistrict.new.district_name} Student Report -- Generated #{format_date_for_student_report(todays_date)} by #{current_educator.full_name} -- Page [page] of [topage]"
   end
 
+  # Only allow access if they have authorization and explicitly express intention
+  def filter_for_restricted_notes(current_educator, params)
+    authorization = current_educator.can_view_restricted_notes?
+    intention = (params.fetch(:include_restricted_notes, 'false').downcase == 'true')
+    if authorization && intention
+      [true, false]
+    else
+      [false]
+    end
+  end
+
   def set_up_student_report_data
     @student = Student.find(params[:id])
     @current_educator = current_educator
@@ -46,14 +57,9 @@ class ProfilePdfController < ApplicationController
     @filter_from_date = params[:from_date] ? Date.strptime(params[:from_date],  "%m/%d/%Y") : Date.today
     @filter_to_date = (params[:from_date] ? Date.strptime(params[:to_date],  "%m/%d/%Y") : Date.today).advance(days: 1) # so we include the current day
 
-    # Load event notes that are NOT restricted for the student for the filtered dates
-    is_restricted_filter = if (current_educator.can_view_restricted_notes? && params.fetch(:include_restricted_notes, false))
-      [true, false]
-    else
-      [false]
-    end
+    # Load event notes for the student for the filtered dates, possibly including restricted notes
     @event_notes = @student.event_notes
-      .where(:is_restricted => is_restricted_filter)
+      .where(is_restricted: filter_for_restricted_notes(current_educator, params))
       .where(recorded_at: @filter_from_date..@filter_to_date)
 
     # Load services for the student for the filtered dates
@@ -124,5 +130,10 @@ class ProfilePdfController < ApplicationController
   helper_method :format_date_for_student_report
   def format_date_for_student_report(date)
     date.strftime("%-m/%-d/%Y")
+  end
+
+  helper_method :educator_pretty_first_name_first
+  def educator_pretty_first_name_first(educator)
+    educator.full_name.split(', ').reverse.join(' ')
   end
 end
