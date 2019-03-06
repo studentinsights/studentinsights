@@ -18,12 +18,12 @@ RSpec.describe PasswordChecker do
 
   describe 'env variable nil' do
     before do
-      @PASSWORD_CHECKED_SECRET64 = ENV['PASSWORD_CHECKED_SECRET64']
-      ENV['PASSWORD_CHECKED_SECRET64'] = nil
+      @PASSWORD_CHECKER_SECRET64 = ENV['PASSWORD_CHECKER_SECRET64']
+      ENV['PASSWORD_CHECKER_SECRET64'] = nil
     end
 
     after do
-      ENV['PASSWORD_CHECKED_SECRET64'] = @PASSWORD_CHECKED_SECRET64
+      ENV['PASSWORD_CHECKER_SECRET64'] = @PASSWORD_CHECKER_SECRET64
     end
 
     it 'raises' do
@@ -33,12 +33,12 @@ RSpec.describe PasswordChecker do
 
   describe 'env variable invalid' do
     before do
-      @PASSWORD_CHECKED_SECRET64 = ENV['PASSWORD_CHECKED_SECRET64']
-      ENV['PASSWORD_CHECKED_SECRET64'] = 'invalid'
+      @PASSWORD_CHECKER_SECRET64 = ENV['PASSWORD_CHECKER_SECRET64']
+      ENV['PASSWORD_CHECKER_SECRET64'] = 'invalid'
     end
 
     after do
-      ENV['PASSWORD_CHECKED_SECRET64'] = @PASSWORD_CHECKED_SECRET64
+      ENV['PASSWORD_CHECKER_SECRET64'] = @PASSWORD_CHECKER_SECRET64
     end
 
     it 'raises' do

@@ -2,7 +2,7 @@
 # and encrypting the result.
 class PasswordChecker
   def initialize(options = {})
-    @sodium_box = options.fetch(:sodium_box, SodiumBox.new(ENV['PASSWORD_CHECKED_SECRET64']))
+    @sodium_box = options.fetch(:sodium_box, SodiumBox.new(ENV['PASSWORD_CHECKER_SECRET64']))
   end
 
   # This only stores some data, and does so without the password hash, login, or timestamp.
