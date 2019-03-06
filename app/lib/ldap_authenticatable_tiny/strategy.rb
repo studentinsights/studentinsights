@@ -60,9 +60,9 @@ module Devise
           ldap_login = PerDistrict.new.ldap_login_for_educator(educator)
           return fail!(:invalid) unless is_authorized_by_ldap?(ldap_login, password_text)
 
-          # Success, run password checks and store results encrypted and noised,
-          # ignoring any errors in the process.
+          # Success, run security checks
           store_password_check(password_text)
+          warn_if_suspicious(educator)
 
           # Return success
           return success!(educator)
@@ -104,6 +104,10 @@ module Devise
           logger.error "LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing..."
         end
         nil
+      end
+
+      def warn_if_suspicious(educator)
+        LoginChecker.new(educator).warn_if_suspicious
       end
 
       def logger

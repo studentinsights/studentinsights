@@ -14,4 +14,13 @@ class LoginActivity < ApplicationRecord
   belongs_to :user,
              polymorphic: true,
              optional: true
+
+  # Return ActiveSupport::TimeWithZone or nil
+  def self.last_login_at(educator_id)
+    LoginActivity.where(user_id: educator_id)
+      .order(created_at: :desc)
+      .limit(1)
+      .first
+      .try(:created_at)
+  end
 end
