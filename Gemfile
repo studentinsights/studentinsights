@@ -41,8 +41,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rubyzip', '~> 1.2.2'
+gem 'rbnacl'
+gem 'zxcvbn-js', require: 'zxcvbn'
 
-# security audits
+# dependency audits
 gem 'bundler-audit'
 gem 'ruby_audit'
 

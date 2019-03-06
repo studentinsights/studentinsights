@@ -12,6 +12,7 @@ class Env
     default_env['DISTRICT_NAME'] = 'Localhost Public Schools'
     default_env['MULTIFACTOR_AUTHENTICATOR_ROTP_CONFIG_JSON'] = '{"issuer_base":"student-insights-multifactor-authenticator-educator"}'
     default_env['CONSISTENT_TIMING_FOR_MULTIFACTOR_CODE_IN_MILLISECONDS'] = '2000'
+    default_env['PASSWORD_CHECKED_SECRET64'] = "IyIMFkLrcvHY/fDMomHt7yYB6EgjGj532cGNhymmCPg=\n"
 
     # service config
     default_env['USE_MOCK_LDAP'] = 'true'

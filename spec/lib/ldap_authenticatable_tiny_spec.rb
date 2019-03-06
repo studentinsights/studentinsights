@@ -311,4 +311,56 @@ RSpec.describe 'LdapAuthenticatableTiny' do
       end
     end
   end
+
+  describe '#authenticate! and store_password_checks' do
+    let!(:pals) { TestPals.create! }
+
+    def mock_authenticate!(is_authorized)
+      strategy = test_strategy
+      allow(strategy).to receive_messages({
+        authentication_hash: {
+          login_text: 'laura',
+          login_code: 'NO_CODE'
+        },
+        password: 'correct-password'
+      })
+      allow(strategy).to receive(:is_authorized_by_ldap?).with('laura@demo.studentinsights.org', 'correct-password').and_return is_authorized
+      allow(strategy).to receive(:is_multifactor_enabled?).and_return(false)
+      strategy.authenticate!
+      strategy
+    end
+
+    it 'does not run when authentication fails' do
+      strategy = mock_authenticate!(false)
+      expect(strategy.result).to eq :failure
+      expect(PasswordCheck.all.size).to eq 0
+    end
+
+    it 'runs when authentication succeeds' do
+      strategy = mock_authenticate!(true)
+      expect(strategy.result).to eq :success
+      expect(PasswordCheck.all.size).to eq 1
+      expect(PasswordCheck.all.to_json).not_to include('correct-password')
+    end
+
+    it 'ignores errors with computing, and reports without logging password' do
+      allow(PasswordChecker).to receive(:new).and_raise(NoMethodError)
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing...')
+
+      strategy = mock_authenticate!(true)
+      expect(strategy.result).to eq :success
+      expect(PasswordCheck.all.size).to eq 0
+    end
+
+    it 'ignores errors with storing, and reports without logging password' do
+      allow(PasswordCheck).to receive(:create!).and_raise(NoMethodError)
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing...')
+
+      strategy = mock_authenticate!(true)
+      expect(strategy.result).to eq :success
+      expect(PasswordCheck.all.size).to eq 0
+    end
+  end
 end
