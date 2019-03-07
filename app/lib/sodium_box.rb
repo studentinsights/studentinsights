@@ -9,16 +9,14 @@ class SodiumBox
   end
 
   def initialize(shared_secret64)
-    @shared_secret64 = shared_secret64
+    @box = RbNaCl::SimpleBox.from_secret_key(Base64.decode64(shared_secret64))
   end
 
   def encrypt64(string)
-    box = RbNaCl::SimpleBox.from_secret_key(Base64.decode64(@shared_secret64))
-    Base64.encode64(box.encrypt(string))
+    Base64.encode64(@box.encrypt(string))
   end
 
   def decrypt64(payload64)
-    box = RbNaCl::SimpleBox.from_secret_key(Base64.decode64(@shared_secret64))
-    box.decrypt(Base64.decode64(payload64))
+    @box.decrypt(Base64.decode64(payload64))
   end
 end

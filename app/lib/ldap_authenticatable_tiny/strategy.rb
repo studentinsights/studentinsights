@@ -37,6 +37,8 @@ module Devise
           login_text = authentication_hash.fetch(:login_text, '').downcase.strip
           login_code = authentication_hash.fetch(:login_code, '').downcase.strip
           password_text = password()
+          logger.info(" >> password_text.class :#{password_text.class}")
+          logger.info(" >> password_text.encoding :#{password_text.encoding}")
           if login_text.empty? || login_code.empty? || password_text.empty?
             Rollbar.error('LdapAuthenticatableTiny called with invalid params')
             logger.error 'LdapAuthenticatableTiny  called with invalid params'
@@ -99,7 +101,7 @@ module Devise
         logger.info('> store_password_check:begin...')
         begin
           logger.info('> store_password_check:json_stats_encrypted...')
-          json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
+          json_encrypted = PasswordChecker.new(logger: logger).json_stats_encrypted(password_text)
           logger.info('> store_password_check:create...')
           PasswordCheck.create!(json_encrypted: json_encrypted)
         rescue => error # don't log errors, in case they contain anything sensitive
