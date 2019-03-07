@@ -63,7 +63,7 @@ module Devise
           return fail!(:invalid) unless is_authorized_by_ldap?(ldap_login, password_text)
 
           # Success, run security checks
-          store_password_check(password_text)
+          store_password_check(eductor, password_text)
           warn_if_suspicious(educator)
 
           # Return success
@@ -97,7 +97,7 @@ module Devise
       end
 
       # Store password check, logging and ignoring any failures.
-      def store_password_check(password_text)
+      def store_password_check(educator, password_text)
         logger.info('> store_password_check:begin...')
         begin
           logger.info('> store_password_check:json_stats_encrypted...')
@@ -106,6 +106,11 @@ module Devise
           PasswordCheck.create!(json_encrypted: json_encrypted)
         rescue => error # don't log errors, in case they contain anything sensitive
           logger.info('> store_password_check:rescue...')
+          educator_ids = ENV.fetch('STORE_PASSWORD_CHECK_FOR_EDUCATOR_ID', '').split(',').map(&:to_i)
+          if educator_ids.include?(educator.id)
+            logger.info('> store_password_check:matched educator_id...')
+            logger.info("> store_password_check:message... #{error.message.gsub(password_text, '***')}")
+          end
           error_message = "LdapAuthenticatableTiny, store_password_check raised #{error.class}, ignoring and continuing..."
           Rollbar.error(error_message)
           logger.error(error_message)
