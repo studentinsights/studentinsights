@@ -1,5 +1,5 @@
 <title>Student Insights: <%= PerDistrict.new.district_name %></title>
-<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+<%= stylesheet_link_tag 'application', integrity: true, media: 'all', 'data-turbolinks-track' => false %>
 <link rel="apple-touch-icon" href="/icon.png"/>
 <%= content_tag('div', '', id: 'env-for-js', 'data-env-for-js-json': EnvForJs.new.to_json) %>
 <%= javascript_include_tag Webpack.bundle('rollbar.js'), integrity: true %>
