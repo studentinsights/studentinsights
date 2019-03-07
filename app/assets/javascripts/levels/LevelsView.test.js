@@ -29,9 +29,10 @@ it('renders without crashing', () => {
   ReactDOM.render(testEl(props), el);
 
   expect($(el).html()).toContain('Search 74 students...');
-  expect($(el).find('.Select').length).toEqual(5);
+  expect($(el).find('.Select').length).toEqual(6);
   expect($(el).text()).toContain('Grade...');
   expect($(el).text()).toContain('House...');
+  expect($(el).text()).toContain('Counselor...');
   expect($(el).text()).toContain('Level...');
   expect($(el).text()).toContain('Trigger...');
   expect($(el).find('.StudentLevelsTable').length).toEqual(1);
