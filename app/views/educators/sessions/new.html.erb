@@ -76,5 +76,5 @@
     }) %>
     <%= submit_tag 'Use multifactor button', class: 'hidden', name: nil %>
   <% end %>
-  <%= javascript_include_tag Webpack.bundle('sign_in.js') %>
+  <%= javascript_include_tag Webpack.bundle('sign_in.js'), integrity: true %>
 </div>

@@ -21,7 +21,7 @@
       <% end %>
     </div>
     <%= yield %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-    <%= javascript_include_tag Webpack.bundle('bundle.js') %>
+    <%= javascript_include_tag 'application', integrity: true, 'data-turbolinks-track' => false %>
+    <%= javascript_include_tag Webpack.bundle('bundle.js'), integrity: true %>
   </body>
 </html>
