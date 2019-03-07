@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 RSpec.describe PasswordChecker do
   it '#json_stats_encrypted does not raise and encrypts the value' do
     sodium_box = SodiumBox.new(SodiumBox.new_shared_secret64)
