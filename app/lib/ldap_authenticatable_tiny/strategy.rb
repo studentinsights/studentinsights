@@ -63,7 +63,7 @@ module Devise
           return fail!(:invalid) unless is_authorized_by_ldap?(ldap_login, password_text)
 
           # Success, run security checks
-          store_password_check(eductor, password_text)
+          store_password_check(educator, password_text)
           warn_if_suspicious(educator)
 
           # Return success
