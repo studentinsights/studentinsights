@@ -346,7 +346,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     it 'ignores errors with computing, and reports without logging password' do
       allow(PasswordChecker).to receive(:new).and_raise(NoMethodError)
       allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing...')
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check failed with NoMethodError, ignoring and continuing...')
 
       strategy = mock_authenticate!(true)
       expect(strategy.result).to eq :success
@@ -356,7 +356,7 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     it 'ignores errors with storing, and reports without logging password' do
       allow(PasswordCheck).to receive(:create!).and_raise(NoMethodError)
       allow(Rollbar).to receive(:error)
-      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing...')
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check failed with NoMethodError, ignoring and continuing...')
 
       strategy = mock_authenticate!(true)
       expect(strategy.result).to eq :success

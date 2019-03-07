@@ -96,12 +96,17 @@ module Devise
 
       # Store password check, logging and ignoring any failures.
       def store_password_check(password_text)
+        logger.info('> store_password_check:begin...')
         begin
+          logger.info('> store_password_check:json_stats_encrypted...')
           json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
+          logger.info('> store_password_check:create...')
           PasswordCheck.create!(json_encrypted: json_encrypted)
-        rescue => _ # don't log errors, in case they contain anything sensitive
-          Rollbar.error('LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing...')
-          logger.error "LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing..."
+        rescue => error # don't log errors, in case they contain anything sensitive
+          logger.info('> store_password_check:rescue...')
+          error_message = "LdapAuthenticatableTiny, store_password_check failed with #{error.class}, ignoring and continuing..."
+          Rollbar.error(error_message)
+          logger.error(error_message)
         end
         nil
       end
