@@ -104,7 +104,7 @@ module Devise
           PasswordCheck.create!(json_encrypted: json_encrypted)
         rescue => error # don't log errors, in case they contain anything sensitive
           logger.info('> store_password_check:rescue...')
-          error_message = "LdapAuthenticatableTiny, store_password_check failed with #{error.class}, ignoring and continuing..."
+          error_message = "LdapAuthenticatableTiny, store_password_check raised #{error.class}, ignoring and continuing..."
           Rollbar.error(error_message)
           logger.error(error_message)
         end
@@ -112,7 +112,13 @@ module Devise
       end
 
       def warn_if_suspicious(educator)
-        LoginChecker.new(educator).warn_if_suspicious
+        begin
+          LoginChecker.new(educator).warn_if_suspicious
+        rescue => _ # don't log errors, in case they contain anything sensitive
+          Rollbar.error('LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
+          logger.error "LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing..."
+        end
+        nil
       end
 
       def logger
