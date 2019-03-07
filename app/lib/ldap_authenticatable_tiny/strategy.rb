@@ -100,14 +100,20 @@ module Devise
           json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
           PasswordCheck.create!(json_encrypted: json_encrypted)
         rescue => _ # don't log errors, in case they contain anything sensitive
-          Rollbar.error('LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing...')
-          logger.error "LdapAuthenticatableTiny, store_password_check failed, ignoring and continuing..."
+          Rollbar.error('LdapAuthenticatableTiny, store_password_check raised, ignoring and continuing...')
+          logger.error "LdapAuthenticatableTiny, store_password_check raised, ignoring and continuing..."
         end
         nil
       end
 
       def warn_if_suspicious(educator)
-        LoginChecker.new(educator).warn_if_suspicious
+        begin
+          LoginChecker.new(educator).warn_if_suspicious
+        rescue => _ # don't log errors, in case they contain anything sensitive
+          Rollbar.error('LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
+          logger.error "LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing..."
+        end
+        nil
       end
 
       def logger
