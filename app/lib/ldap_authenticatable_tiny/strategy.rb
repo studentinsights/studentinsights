@@ -37,8 +37,6 @@ module Devise
           login_text = authentication_hash.fetch(:login_text, '').downcase.strip
           login_code = authentication_hash.fetch(:login_code, '').downcase.strip
           password_text = password()
-          logger.info(" >> password_text.class :#{password_text.class}")
-          logger.info(" >> password_text.encoding :#{password_text.encoding}")
           if login_text.empty? || login_code.empty? || password_text.empty?
             Rollbar.error('LdapAuthenticatableTiny called with invalid params')
             logger.error 'LdapAuthenticatableTiny  called with invalid params'
@@ -98,19 +96,10 @@ module Devise
 
       # Store password check, logging and ignoring any failures.
       def store_password_check(educator, password_text)
-        logger.info('> store_password_check:begin...')
         begin
-          logger.info('> store_password_check:json_stats_encrypted...')
-          json_encrypted = PasswordChecker.new(logger: logger).json_stats_encrypted(password_text)
-          logger.info('> store_password_check:create...')
+          json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
           PasswordCheck.create!(json_encrypted: json_encrypted)
         rescue => error # don't log errors, in case they contain anything sensitive
-          logger.info('> store_password_check:rescue...')
-          educator_ids = ENV.fetch('STORE_PASSWORD_CHECK_FOR_EDUCATOR_ID', '').split(',').map(&:to_i)
-          if educator_ids.include?(educator.id)
-            logger.info('> store_password_check:matched educator_id...')
-            logger.info("> store_password_check:message... #{error.message.gsub(password_text, '***')}")
-          end
           error_message = "LdapAuthenticatableTiny, store_password_check raised #{error.class}, ignoring and continuing..."
           Rollbar.error(error_message)
           logger.error(error_message)
