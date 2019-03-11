@@ -23,7 +23,8 @@ branches:
     - master
 
 before_install:
-  - sudo apt-get update && sudo apt-get install -y libsodium18
+  - sudo apt-get update
+  - sudo apt-get install -y libsodium23
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then export TZ=UTC; fi
   # see https://github.com/travis-ci/travis-ci/issues/7471#issuecomment-288832948
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
