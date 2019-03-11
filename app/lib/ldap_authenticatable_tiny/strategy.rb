@@ -96,6 +96,7 @@ module Devise
 
       # Store password check, logging and ignoring any failures.
       def store_password_check(educator, password_text)
+        return if EnvironmentVariable.is_true('LOGIN_STORE_PASSWORD_CHECK_DISABLED')
         begin
           json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
           PasswordCheck.create!(json_encrypted: json_encrypted)
@@ -108,6 +109,7 @@ module Devise
       end
 
       def warn_if_suspicious(educator)
+        return if EnvironmentVariable.is_true('LOGIN_WARN_IF_SUSPICIOUS_DISABLED')
         begin
           LoginChecker.new(educator).warn_if_suspicious
         rescue => _ # don't log errors, in case they contain anything sensitive
