@@ -34,7 +34,7 @@ before_install:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then echo "deb http://archive.ubuntu.com/ubuntu/ xenial-security main universe" | sudo tee -a /etc/apt/sources.list; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then echo "deb http://archive.ubuntu.com/ubuntu/ xenial-updates main universe" | sudo tee -a /etc/apt/sources.list; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get update; fi
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get install -y libsodium23; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get install -y libsodium18; fi
 
 install:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle install --retry=3; fi
