@@ -17,7 +17,7 @@ rvm:
 sudo: required
 
 services:
-  - postgres
+  - postgresql
 
 branches:
   only:
