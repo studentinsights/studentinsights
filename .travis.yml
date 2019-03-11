@@ -29,6 +29,8 @@ before_install:
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"; fi
   # libsodium binary, matching Herou-18 stack (https://devcenter.heroku.com/articles/stack-packages)
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then echo "deb http://archive.ubuntu.com/ubuntu/ bionic main universe" | sudo tee -a /etc/apt/sources.list; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then echo "deb http://archive.ubuntu.com/ubuntu/ bionic-security main universe" | sudo tee -a /etc/apt/sources.list; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then echo "deb http://archive.ubuntu.com/ubuntu/ bionic-updates main universe" | sudo tee -a /etc/apt/sources.list; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get update; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get install -y libsodium23; fi
 
