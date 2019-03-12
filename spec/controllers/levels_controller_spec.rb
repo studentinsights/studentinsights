@@ -47,6 +47,7 @@ describe LevelsController, :type => :controller do
           "program_assigned",
           "sped_placement",
           "house",
+          "counselor",
           "student_section_assignments_right_now",
           "level",
           "notes"

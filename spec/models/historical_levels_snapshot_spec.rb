@@ -30,6 +30,7 @@ RSpec.describe HistoricalLevelsSnapshot do
         'sped_placement',
         'limited_english_proficiency',
         'house',
+        'counselor',
         'level',
         'notes',
         'student_section_assignments_right_now'
