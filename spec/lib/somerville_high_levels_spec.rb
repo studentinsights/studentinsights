@@ -27,6 +27,7 @@ RSpec.describe SomervilleHighLevels do
         "program_assigned"=>nil,
         "sped_placement"=>nil,
         "house"=>"Beacon",
+        "counselor"=>"SOFIA",
         "student_section_assignments_right_now"=>[{
           "id"=>pals.shs_freshman_mari.student_section_assignments.first.id,
           "grade_numeric"=>"67.0",
@@ -65,6 +66,7 @@ RSpec.describe SomervilleHighLevels do
           "program_assigned"=>nil,
           "sped_placement"=>nil,
           "house"=>"Broadway",
+          "counselor"=>"FISHMAN",
           "student_section_assignments_right_now"=>[],
           "level"=>{
             "level_number"=>0,
@@ -91,6 +93,7 @@ RSpec.describe SomervilleHighLevels do
           "program_assigned"=>nil,
           "sped_placement"=>nil,
           "house"=>"Broadway",
+          "counselor"=>"FISHMAN",
           "student_section_assignments_right_now"=>[{
             "id"=>pals.shs_senior_kylo.student_section_assignments.first.id,
             "grade_numeric"=>"61.0",

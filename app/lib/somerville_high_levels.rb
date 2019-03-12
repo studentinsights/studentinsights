@@ -73,6 +73,7 @@ class SomervilleHighLevels
       :grade,
       :limited_english_proficiency,
       :house,
+      :counselor,
       :sped_placement,
       :program_assigned
     ])

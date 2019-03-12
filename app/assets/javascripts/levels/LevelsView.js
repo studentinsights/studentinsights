@@ -10,6 +10,7 @@ import FilterBar from '../components/FilterBar';
 import SimpleFilterSelect, {ALL} from '../components/SimpleFilterSelect';
 import SelectGrade from '../components/SelectGrade';
 import SelectHouse from '../components/SelectHouse';
+import SelectCounselor from '../components/SelectCounselor';
 import SelectEnglishProficiency from '../components/SelectEnglishProficiency';
 import HelpBubble, {modalFromRight} from '../components/HelpBubble';
 import LevelsBreakdown from './LevelsBreakdown';
@@ -32,6 +33,7 @@ export default class LevelsView extends React.Component {
     this.onGradeChanged = this.onGradeChanged.bind(this);
     this.onEnglishProficiencyChanged = this.onEnglishProficiencyChanged.bind(this);
     this.onHouseChanged = this.onHouseChanged.bind(this);
+    this.onCounselorChanged = this.onCounselorChanged.bind(this);
     this.onLevelChanged = this.onLevelChanged.bind(this);
     this.onTriggerChanged = this.onTriggerChanged.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
@@ -46,11 +48,12 @@ export default class LevelsView extends React.Component {
 
   filteredStudents() {
     const {studentsWithLevels} = this.props;
-    const {grade, house, level, trigger, englishProficiency, search} = this.state;
+    const {grade, counselor, house, level, trigger, englishProficiency, search} = this.state;
     return studentsWithLevels.filter(s => {
       if (grade !== ALL && s.grade !== grade) return false;
       if (englishProficiency !== ALL && s.limited_english_proficiency !== englishProficiency) return false;
       if (house !== ALL && s.house !== house) return false;
+      if (counselor !== ALL && s.counselor !== counselor) return false;
       if (level !== ALL && s.level.level_number !== parseInt(level, 0)) return false;
       if (trigger !== ALL && s.level.triggers.indexOf(trigger) === -1) return false;
       
@@ -66,6 +69,12 @@ export default class LevelsView extends React.Component {
 
       return true;
     });
+  }
+
+  // So that this list doesn't change with filtering
+  allCounselorsSorted() {
+    const {studentsWithLevels} = this.props;
+    return _.sortBy(_.uniq(_.compact(studentsWithLevels.map(student => student.counselor))));
   }
 
   orderedStudents(filteredStudents) {
@@ -103,6 +112,10 @@ export default class LevelsView extends React.Component {
     this.setState({house});
   }
 
+  onCounselorChanged(counselor) {
+    this.setState({counselor}); 
+  }
+
   onLevelChanged(level) {
     this.setState({level});
   }
@@ -122,7 +135,7 @@ export default class LevelsView extends React.Component {
   }
 
   renderSelection(filteredStudents) {
-    const {grade, house, englishProficiency, level, trigger, search} = this.state;
+    const {grade, house, counselor, englishProficiency, level, trigger, search} = this.state;
 
     const nullOption = [{ value: ALL, label: 'All' }];
     const possibleLevelNumbers = ['0', '1', '2', '3', '4'];
@@ -135,7 +148,7 @@ export default class LevelsView extends React.Component {
           value={search}
           onChange={this.onSearchChanged} />
         <SelectEnglishProficiency
-          style={{...styles.select, width: '10em'}}
+          style={{...styles.select, width: '9em'}}
           englishProficiency={englishProficiency}
           onChange={this.onEnglishProficiencyChanged} />
         <SelectGrade
@@ -147,8 +160,13 @@ export default class LevelsView extends React.Component {
           style={{...styles.select, width: '8em'}}
           house={house}
           onChange={this.onHouseChanged} />
+        <SelectCounselor
+          style={{...styles.select, width: '9em'}}
+          counselor={counselor}
+          counselors={this.allCounselorsSorted()}
+          onChange={this.onCounselorChanged} />
         <SimpleFilterSelect
-          style={{...styles.select, width: '8em'}}
+          style={{...styles.select, width: '7em'}}
           placeholder="Level..."
           value={level}
           onChange={this.onLevelChanged}
@@ -156,12 +174,12 @@ export default class LevelsView extends React.Component {
             return { value, label: `Level ${value}` };
           }))} />
         <SimpleFilterSelect
-          style={styles.select}
+          style={{...styles.select, width: '9em'}}
           placeholder="Trigger..."
           value={trigger}
           onChange={this.onTriggerChanged}
           options={nullOption.concat(possibleTriggers.map(value => {
-            return { value, label: `${value} trigger` };
+            return { value, label: `${value}` };
           }))} />
         <div style={styles.textBar}>
           <div style={{display: 'flex', flexDirection: 'column'}}>
@@ -295,6 +313,7 @@ LevelsView.propTypes = {
     last_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired,
     house: PropTypes.string,
+    counselor: PropTypes.string,
     program_assigned: PropTypes.string,
     sped_placement: PropTypes.string,
     student_section_assignments_right_now: PropTypes.arrayOf(PropTypes.shape({
@@ -325,7 +344,7 @@ const styles = {
     alignItems: 'center',
     padding: 10,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 10
   },
   search: {
     display: 'inline-block',
@@ -335,12 +354,12 @@ const styles = {
     border: '1px solid #ddd',
     marginLeft: 10,
     fontSize: 12,
-    width: 150
+    width: 140
   },
   select: {
-    width: '10em',
+    width: '8em',
     fontSize: 12,
-    marginLeft: 15
+    marginLeft: 10
   },
   timePeriodText: {
     fontSize: 12,
@@ -384,6 +403,7 @@ function initialState() {
     grade: ALL,
     englishProficiency: ALL,
     house: ALL,
+    counselor: ALL,
     level: ALL,
     trigger: ALL,
     sortBy: 'level',
