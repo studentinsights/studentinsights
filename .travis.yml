@@ -52,7 +52,7 @@ script:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake db:create db:migrate DATABASE_URL=postgres://localhost/student_insights_test; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec rake immigrant:check_keys; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then rubocop; fi
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec brakeman -z; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle exec brakeman --run-all-checks --exit-on-warn --ensure-latest; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then ENABLE_RSPEC_COVERAGE_CHECKER=true bundle exec rspec spec; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then ./scripts/ci/detect_package_lock.sh; fi
   - if [[ $TRAVIS_TEST_SUITE == "js" ]]; then yarn test-cli; fi

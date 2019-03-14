@@ -1,7 +1,106 @@
 {
   "ignored_warnings": [
-
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "2a7d1569af69bcadc77dc0ca4d01dfcfcd50c232b047d957ba480f0375389027",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to `ServiceUpload#find_by_id`",
+      "file": "app/controllers/service_uploads_controller.rb",
+      "line": 95,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "ServiceUpload.find_by_id(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ServiceUploadsController",
+        "method": "destroy"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "false positive, controller-level authorization guard"
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "4b9a0f3d087768a475cb605e69deb575dfe5310cea1ea921b9195f4b9baa9623",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to `Section#find`",
+      "file": "app/controllers/sections_controller.rb",
+      "line": 53,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "Section.find(params[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SectionsController",
+        "method": "authorized_section"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": "false positive, this is the authorization check"
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "5b66f629e93606532c6cf4f4ef61c0b08cc13f57634963960ea490f3d1fe4971",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to `EventNote#find`",
+      "file": "app/controllers/event_notes_controller.rb",
+      "line": 50,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "EventNote.find(params.permit(:id, :student_id, :event_note => ([:text]))[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EventNotesController",
+        "method": "update"
+      },
+      "user_input": "params.permit(:id, :student_id, :event_note => ([:text]))[:id]",
+      "confidence": "Weak",
+      "note": "false positive, this is wrapped in authorized_or_raise!"
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "5d4f5fa048adbb3217b5fdc34b3a8611755db8d2b05d296d27f7c9af5128d722",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to `EventNote#find`",
+      "file": "app/controllers/event_notes_controller.rb",
+      "line": 87,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "EventNote.find(params.permit(:id)[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EventNotesController",
+        "method": "mark_as_restricted"
+      },
+      "user_input": "params.permit(:id)[:id]",
+      "confidence": "Weak",
+      "note": "false positive, this is wrapped in authorized_or_raise!"
+    },
+    {
+      "warning_type": "Unscoped Find",
+      "warning_code": 82,
+      "fingerprint": "bb14e39d64ad3e5e5772e750bd609951862c12020be8641c75f814d945b4821f",
+      "check_name": "UnscopedFind",
+      "message": "Unscoped call to `EventNote#find`",
+      "file": "app/controllers/event_notes_controller.rb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/unscoped_find/",
+      "code": "EventNote.find(params.permit(:id)[:id])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "EventNotesController",
+        "method": "restricted_note_json"
+      },
+      "user_input": "params.permit(:id)[:id]",
+      "confidence": "Weak",
+      "note": "false positive, this is wrapped in authorized_or_raise!"
+    }
   ],
-  "updated": "2018-05-17 08:09:31 -0400",
-  "brakeman_version": "4.3.0"
+  "updated": "2019-03-14 14:36:39 -0400",
+  "brakeman_version": "4.4.0"
 }
