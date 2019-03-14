@@ -36,7 +36,7 @@ before_install:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get update; fi
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then sudo apt-get install -y libsodium18; fi
   # Match Heroku RubyGems version (eg https://devcenter.heroku.com/changelog-items/1569)
-  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then gem install bundler -v 2.7.6.1; fi
+  - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then gem uninstall bundler && gem update --system && gem install bundler -v 2.7.6.1; fi
 
 install:
   - if [[ $TRAVIS_TEST_SUITE == "ruby" ]]; then bundle install --retry=3; fi
