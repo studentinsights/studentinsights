@@ -103,4 +103,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = {}
   ActionMailer::Base.smtp_settings = nil
+
+  raise 'SECRET_KEY_BASE not set, use `rails secret` to generate one' if ENV['SECRET_KEY_BASE'].nil? 
+  config.secret_key_base = ENV['SECRET_KEY_BASE']
 end

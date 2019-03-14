@@ -4,6 +4,8 @@ Rails.application.configure do
   Env.set_for_development_and_test!
   ENV['ENABLE_CLASS_LISTS'] = 'true'
 
+  config.secret_key_base = SecureRandom.hex(64)
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
