@@ -36,9 +36,7 @@ class Student < ApplicationRecord
   has_many :student_photos
   has_many :student_section_assignments
   has_many :sections, through: :student_section_assignments
-  has_many :teams, source: :team_memberships, class_name: 'TeamMembership', dependent: :destroy
 
-  validate :validate_registration_date_cannot_be_in_future
   validates :local_id, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -46,6 +44,7 @@ class Student < ApplicationRecord
   validates :grade, inclusion: { in: GradeLevels::ORDERED_GRADE_LEVELS }
   validates :plan_504, inclusion: { in: PerDistrict.new.valid_plan_504_values }
   validates :free_reduced_lunch, inclusion: { in: Student::VALID_FREE_REDUCED_LUNCH_VALUES }
+  validate :validate_registration_date_cannot_be_in_future
 
   # nullable but not empty strings
   validates :enrollment_status, exclusion: { in: ['']}
@@ -90,6 +89,10 @@ class Student < ApplicationRecord
 
   def active?
     enrollment_status == 'Active' && !missing_from_last_export
+  end
+
+  def teams(options = {})
+    TeamMembership.where(student_id: self.id)
   end
 
   def latest_iep_document

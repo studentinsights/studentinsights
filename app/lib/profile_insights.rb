@@ -1,6 +1,7 @@
 class ProfileInsights
   def initialize(student, options = {})
     @student = student
+    @time_now = options.fetch(:time_now, Time.now)
   end
 
   def as_json(options = {})
@@ -112,7 +113,7 @@ class ProfileInsights
   end
 
   def team_membership_insights
-    @student.teams.map do |team|
+    @student.teams(time_now: @time_now).map do |team|
       ProfileInsight.new('team_membership', team.as_json({
         only: [:activity_text, :coach_text, :season_key, :school_year_text],
         methods: [:active]
