@@ -85,6 +85,11 @@ class Authorizer
     end
   end
 
+  # This is the main authorization method.
+  def is_authorized_for_student?(student, options = {})
+    why_authorized_for_student?(student, options).present?
+  end
+
   # This method is the source of truth for whether an educator is authorized to view information about a particular
   # student.
   #
@@ -95,17 +100,17 @@ class Authorizer
   # districtwide or schoolwide access may have lower latency (and are therefore bad
   # test cases) since we don't need to care about the details when checking their
   # access.
-  def is_authorized_for_student?(student, options = {})
+  def why_authorized_for_student?(student, options = {})
     begin
-      return true if @educator.districtwide_access?
-      return true if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
+      return :districtwide if @educator.districtwide_access?
+      return :housemaster if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
-      return false if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
-      return false if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
-      return false if @educator.school_id.present? && student.school_id.present? && @educator.school_id != student.school_id
+      return nil if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
+      return nil if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'
+      return nil if @educator.school_id.present? && student.school_id.present? && @educator.school_id != student.school_id
 
-      return true if @educator.schoolwide_access? || @educator.admin? # Schoolwide admin
-      return true if @educator.has_access_to_grade_levels? && student.grade.in?(@educator.grade_level_access) # Grade level access
+      return :schoolwide if @educator.schoolwide_access? || @educator.admin? # Schoolwide admin
+      return :grade_level if @educator.has_access_to_grade_levels? && student.grade.in?(@educator.grade_level_access) # Grade level access
 
       # The next two checks call `#to_a` as a performance optimization.
       # In loops with `authorized { Student.active }`, without forcing this
@@ -115,8 +120,8 @@ class Authorizer
       # calls in the loop.  So we can do that here, and let callers who
       # are calling this in a loop get the optimization without having to
       # optimize themselves.
-      return true if student.in?(@educator.students.to_a) # Homeroom level access
-      return true if student.in?(@educator.section_students.to_a) # Section level access
+      return :homeroom if student.in?(@educator.students.to_a) # Homeroom level access
+      return :section if student.in?(@educator.section_students.to_a) # Section level access
     rescue ActiveModel::MissingAttributeError => err
       # We can't do authorization checks on models with `#select` that are missing
       # fields.  If this happens, it's probably because the developer is trying to
@@ -127,7 +132,7 @@ class Authorizer
       # to see what fields are required on each model.
       raise err
     end
-    false
+    nil
   end
 
   def is_authorized_for_school?(school)

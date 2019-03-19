@@ -408,4 +408,53 @@ RSpec.describe Authorizer do
       end
     end
   end
+
+  describe '#why_authorized_for_student?' do
+    def why_authorized_map(educator, students)
+      authorizer = Authorizer.new(educator)
+      students.reduce({}) do |map, student|
+        reason = authorizer.why_authorized_for_student?(student)
+        if reason then map.merge([student.id] => reason) else map end
+      end
+    end
+
+    it 'works as expected across all educators and students' do
+      outcomes = []
+      Educator.all.each do |educator|
+        Student.all.each do |student|
+          reason = Authorizer.new(educator).why_authorized_for_student?(student)
+          outcomes << [educator.login_name, student.id, reason] if reason.present?
+        end
+      end
+
+      expect(outcomes).to match_array [
+        ['uri', pals.healey_kindergarten_student.id, :districtwide],
+        ['uri', pals.west_eighth_ryan.id, :districtwide],
+        ['uri', pals.shs_freshman_mari.id, :districtwide],
+        ['uri', pals.shs_freshman_amir.id, :districtwide],
+        ['uri', pals.shs_senior_kylo.id, :districtwide],
+        ['rich', pals.healey_kindergarten_student.id, :districtwide],
+        ['rich', pals.west_eighth_ryan.id, :districtwide],
+        ['rich', pals.shs_freshman_mari.id, :districtwide],
+        ['rich', pals.shs_freshman_amir.id, :districtwide],
+        ['rich', pals.shs_senior_kylo.id, :districtwide],
+        ['vivian', pals.healey_kindergarten_student.id, :homeroom],
+        ['laura', pals.healey_kindergarten_student.id, :schoolwide],
+        ['les', pals.west_eighth_ryan.id, :schoolwide],
+        ['sofia', pals.shs_freshman_mari.id, :schoolwide],
+        ['sofia', pals.shs_freshman_amir.id, :schoolwide],
+        ['sofia', pals.shs_senior_kylo.id, :schoolwide],
+        ['jodi', pals.shs_freshman_mari.id, :homeroom],
+        ['jodi', pals.shs_freshman_amir.id, :homeroom],
+        ['harry', pals.shs_freshman_mari.id, :schoolwide],
+        ['harry', pals.shs_freshman_amir.id, :schoolwide],
+        ['harry', pals.shs_senior_kylo.id, :schoolwide],
+        ['bill', pals.shs_freshman_mari.id, :section],
+        ['hugo', pals.shs_senior_kylo.id, :section],
+        ['fatima', pals.shs_freshman_mari.id, :schoolwide],
+        ['fatima', pals.shs_freshman_amir.id, :schoolwide],
+        ['fatima', pals.shs_senior_kylo.id, :schoolwide]
+      ]
+    end
+  end
 end
