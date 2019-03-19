@@ -92,7 +92,7 @@ class Student < ApplicationRecord
   end
 
   def teams(options = {})
-    TeamMembership.where(student_id: self.id)
+    TeamMembership.where(options.merge(student_id: self.id))
   end
 
   def latest_iep_document
