@@ -426,7 +426,7 @@ RSpec.describe Authorizer do
           outcomes << [educator.login_name, student.id, reason] if reason.present?
         end
       end
-      
+
       expect(outcomes).to match_array [
         ['uri', pals.healey_kindergarten_student.id, :districtwide],
         ['uri', pals.west_eighth_ryan.id, :districtwide],
