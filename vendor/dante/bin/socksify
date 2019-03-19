@@ -53,7 +53,9 @@ if test x"$NOPRELOAD" != x; then
     exit 1
 fi
 
-SOCKSIFY_PRELOAD_LIBS=" libdl.so"
+# Student Insights patch
+# SOCKSIFY_PRELOAD_LIBS=" libdl.so"
+SOCKSIFY_PRELOAD_LIBS=""
 
 SOCKS_LIBDIR="${SOCKS_LIBDIR:-/app/dante/vendor/lib}"
 

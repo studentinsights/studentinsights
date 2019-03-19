@@ -14,11 +14,12 @@ SecureHeaders::Configuration.default do |config|
   # Content security policy rules
   report_uri = ENV['CSP_REPORT_URI']
   cdn_domains = ENV.fetch('CSP_CDN_DOMAINS', '').split(',')
+  monitoring_domains = ENV.fetch('CSP_MONITORING_DOMAINS', '').split(',')
   policy = {
     # core resources
     default_src: %w('self'),
     form_action: %w('self'),
-    connect_src: %w('self'),
+    connect_src: %w('self') + monitoring_domains,
     object_src: %w('self'), # for viewing report/IEP PDFs inline (not for downloading)
     script_src: %w('self') + cdn_domains,
     # unsafe-inline comes primarily from react-select and react-beautiful-dnd

@@ -32,6 +32,57 @@ exports[`snapshots view 1`] = `
       }
     }
   >
+    Student privacy:
+  </span>
+  <div
+    style={
+      Object {
+        "paddingBottom": 10,
+        "paddingLeft": 10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "display": "inline-block",
+          "height": "1.8em",
+          "verticalAlign": "middle",
+          "width": "12em",
+        }
+      }
+    >
+      <label
+        style={
+          Object {
+            "display": "inline-block",
+          }
+        }
+      >
+        <input
+          className="ProfilePdfDialog-include-restricted-notes"
+          onChange={[Function]}
+          style={
+            Object {
+              "marginRight": 5,
+            }
+          }
+          type="checkbox"
+          value={false}
+        />
+        Include restricted notes
+      </label>
+    </div>
+  </div>
+  <span
+    style={
+      Object {
+        "fontWeight": "bold",
+        "marginBottom": 10,
+        "textAlign": "left",
+      }
+    }
+  >
     Select sections to include in report:
   </span>
   <div
@@ -52,22 +103,25 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      <input
-        className="ProfilePdfDialog-section"
-        defaultChecked={true}
-        name="notes"
-        style={Object {}}
-        type="checkbox"
-        value="notes"
-      />
       <label
         style={
           Object {
             "display": "inline-block",
-            "padding": "0px 0px 20px 5px",
           }
         }
       >
+        <input
+          className="ProfilePdfDialog-section"
+          defaultChecked={true}
+          name="notes"
+          style={
+            Object {
+              "marginRight": 5,
+            }
+          }
+          type="checkbox"
+          value="notes"
+        />
         Notes
       </label>
     </div>
@@ -81,22 +135,25 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      <input
-        className="ProfilePdfDialog-section"
-        defaultChecked={true}
-        name="services"
-        style={Object {}}
-        type="checkbox"
-        value="services"
-      />
       <label
         style={
           Object {
             "display": "inline-block",
-            "padding": "0px 0px 20px 5px",
           }
         }
       >
+        <input
+          className="ProfilePdfDialog-section"
+          defaultChecked={true}
+          name="services"
+          style={
+            Object {
+              "marginRight": 5,
+            }
+          }
+          type="checkbox"
+          value="services"
+        />
         Services
       </label>
     </div>
@@ -110,22 +167,25 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      <input
-        className="ProfilePdfDialog-section"
-        defaultChecked={true}
-        name="attendance"
-        style={Object {}}
-        type="checkbox"
-        value="attendance"
-      />
       <label
         style={
           Object {
             "display": "inline-block",
-            "padding": "0px 0px 20px 5px",
           }
         }
       >
+        <input
+          className="ProfilePdfDialog-section"
+          defaultChecked={true}
+          name="attendance"
+          style={
+            Object {
+              "marginRight": 5,
+            }
+          }
+          type="checkbox"
+          value="attendance"
+        />
         Attendance
       </label>
     </div>
@@ -139,22 +199,25 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      <input
-        className="ProfilePdfDialog-section"
-        defaultChecked={true}
-        name="discipline_incidents"
-        style={Object {}}
-        type="checkbox"
-        value="discipline_incidents"
-      />
       <label
         style={
           Object {
             "display": "inline-block",
-            "padding": "0px 0px 20px 5px",
           }
         }
       >
+        <input
+          className="ProfilePdfDialog-section"
+          defaultChecked={true}
+          name="discipline_incidents"
+          style={
+            Object {
+              "marginRight": 5,
+            }
+          }
+          type="checkbox"
+          value="discipline_incidents"
+        />
         Discipline Incidents
       </label>
     </div>
@@ -168,22 +231,25 @@ exports[`snapshots view 1`] = `
         }
       }
     >
-      <input
-        className="ProfilePdfDialog-section"
-        defaultChecked={true}
-        name="assessments"
-        style={Object {}}
-        type="checkbox"
-        value="assessments"
-      />
       <label
         style={
           Object {
             "display": "inline-block",
-            "padding": "0px 0px 20px 5px",
           }
         }
       >
+        <input
+          className="ProfilePdfDialog-section"
+          defaultChecked={true}
+          name="assessments"
+          style={
+            Object {
+              "marginRight": 5,
+            }
+          }
+          type="checkbox"
+          value="assessments"
+        />
         Assessments
       </label>
     </div>

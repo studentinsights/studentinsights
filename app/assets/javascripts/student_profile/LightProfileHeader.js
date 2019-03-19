@@ -213,7 +213,7 @@ export default class LightProfileHeader extends React.Component {
 
   renderSupportBits() {
     const {
-      educatorLabels,
+      currentEducator,
       student,
       iepDocument,
       access,
@@ -223,7 +223,7 @@ export default class LightProfileHeader extends React.Component {
     } = this.props;
     return (
       <LightHeaderSupportBits
-        educatorLabels={educatorLabels}
+        educatorLabels={currentEducator.labels}
         student={student}
         access={access}
         teams={teams}
@@ -244,7 +244,7 @@ export default class LightProfileHeader extends React.Component {
   }
 
   renderProfilePdfButton() {
-    const {student} = this.props;
+    const {student, currentEducator} = this.props;
     return (
       <HelpBubble
         style={{marginLeft: 0}}
@@ -257,7 +257,13 @@ export default class LightProfileHeader extends React.Component {
         }
         tooltip="Print PDF"
         title="Print PDF"
-        content={<ProfilePdfDialog studentId={student.id} style={{backgroundColor: 'white'}} />}
+        content={
+          <ProfilePdfDialog
+            studentId={student.id}
+            allowRestrictedNotes={currentEducator.can_view_restricted_notes}
+            style={{backgroundColor: 'white'}}
+          />
+        }
       />
     );
   }
@@ -298,7 +304,10 @@ LightProfileHeader.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
 LightProfileHeader.propTypes = {
-  educatorLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currentEducator: PropTypes.shape({
+    can_view_restricted_notes: PropTypes.bool.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
   student: PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,

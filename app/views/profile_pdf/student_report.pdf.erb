@@ -5,6 +5,11 @@
       * {
         font-family: 'Open Sans', sans-serif !important;
       }
+      .page-break {
+        display:block;
+        clear:both;
+        page-break-after:always;
+      }
       .data-table {
         border-collapse: collapse;
         border-spacing: 0;
@@ -38,8 +43,9 @@
         border-width: 0px;
         word-break: normal;
         border-color: #aaa;
-        color: #fff;
-        background-color: #333;
+        color: black;
+        text-align: left;
+        background-color: #ccc;
         border-top-width: 1px;
         border-bottom-width: 1px;
       }
@@ -62,23 +68,16 @@
         Report dates: <span><%="#{format_date_for_student_report(@filter_from_date)} to #{format_date_for_student_report(@filter_to_date)}"%></span>
         <p />
       </div>
-      <div style="float: left; width: 200px;">
-        <ul>
-          <li>DOB: <%= format_date_for_student_report(@student.date_of_birth) %></li>
-          <li><%= "Grade #{@student.grade}" %></li>
-          <li><%= @student.school.try(:name) || "No School Assigned" %></li>
-          <li><%= @student.homeroom.try(:name) || "No Homeroom Assigned" %></li>
-          <li><%= @student.program_assigned %></li>
-        </ul>
-      </div>
-      <div style="float: left; width: 312px;">
-        <ul>
-          <li>Language: <%= @student.home_language %></li>
-          <li>Disability: <%= @student.disability || "None"%></li>
-          <li>504 plan: <%= @student.plan_504 %></li>
-          <li>English Proficiency: <%= @student.limited_english_proficiency %></li>
-        </ul>
-      </div>
+      <ul>
+        <li>DOB: <%= format_date_for_student_report(@student.date_of_birth) %></li>
+        <li>Grade: <%= @student.grade %></li>
+        <li>School: <%= @student.school.try(:name) || "No School Assigned" %></li>
+        <li>Homeroom: <%= @student.homeroom.try(:name) || "No Homeroom Assigned" %></li>
+        <li><br /></li>
+        <li>Formal disability designation: <%= @student.disability || 'None' %></li>
+        <li>Formal English Proficiency designation: <%= @student.limited_english_proficiency %></li>
+        <li>504 plan: <%= @student.plan_504 || 'None' %></li>
+      </ul>
     </div>
     <!-- future photo div -->
     <div style="float: left; width: 256px;"></div>
@@ -89,14 +88,19 @@
     <% if @sections.include?("notes") %>
     <div>
     <% right = false %>
-    <h4>Notes:</h4>
+    <h4 style="font-size: 24px; border-bottom: 1px solid #666; padding-bottom: 5px; padding-left: 5px;">Notes, oldest to newest</h4>
       <% if @event_notes.any? %>
         <% @event_notes.each do |event_note| %>
           <div style="float: left; width:370px; padding:5px">
             <ul>
-              <li><span style="font-weight:bold;"><%= format_date_for_student_report(event_note.recorded_at) %></span></li>
-              <li><span style="font-style:italic;"><%= event_note.event_note_type.name %></span></li>
-              <li><%= event_note.text %></li>
+              <li style="font-weight:bold;">
+                <span><%= format_date_for_student_report(event_note.recorded_at) %></span>
+                <span> by </span>
+                <span><%= educator_pretty_first_name_first(event_note.educator) %></span>
+                <span> in </span>
+                <span><%= event_note.event_note_type.name %>
+              </li>
+              <li><%= event_note.is_restricted ? '(RESTRICTED) ' : '' %><%= event_note.text %></li>
             </ul>
           </div>
           <% if right %>
@@ -113,31 +117,28 @@
 
     <!-- Services -->
     <% if @sections.include?("services") %>
-    <% right = false %>
+    <div style="page-break-after:always;"></div>
     <div>
-    <h4>Services:</h4>
+    <h4 style="font-size: 24px; border-bottom: 1px solid #666; padding-bottom: 5px; padding-left: 5px;">Services</h4>
       <% if @services.any? %>
         <% @services.each do |service| %>
-          <div style="float: left; width:370px; padding:5px">
-            <ul>
-              <li>
-                <span style="font-weight:bold;">
-                  <%= format_date_for_student_report(service.date_started) %> -
-                  <% if service.discontinued_at.present? %>
-                    <%= "#{format_date_for_student_report(service.discontinued_at)}" %>
-                  <% else %>
-                    Present
-                  <% end %>
-                </span>
-              </li>
-              <li><span style="font-style:italic;"><%= service.service_type.name %></span></li>
-              <li><%= service.provided_by_educator_name %></li>
-            </ul>
-          </div>
-          <% if right %>
-            <br style="clear: left;" /><br/>
-          <% end %>
-            <% right = !right %>
+          <ul style="margin-bottom: 20px;">
+            <li>
+              <span style="font-weight:bold;">
+                <%= format_date_for_student_report(service.date_started) %> -
+                <% if service.discontinued_at.present? %>
+                  <%= "#{format_date_for_student_report(service.discontinued_at)}" %>
+                <% else %>
+                  Present
+                <% end %>
+              </span>
+            </li>
+            <li>
+              <span style="font-style:italic;"><%= service.service_type.name %></span>
+              <span >with </span>
+              <span><%= service.provided_by_educator_name %></span>
+            </li>
+          </ul>
         <% end %>
       <% else %>
         <span style="font-style:italic;">No Services</span>
@@ -147,10 +148,42 @@
     <br style="clear: left;" /><br/>
     <% end %>
 
+    <!-- Academic Assessments -->
+    <% if @sections.include?("assessments") %>
+    <div style="page-break-after:always;"></div>
+    <% right = false %>
+    <div>
+    <h4 style="font-size: 24px; border-bottom: 1px solid #666; padding-bottom: 5px; padding-left: 5px;">Academic Assesments</h4>
+      <% if @student_assessments.any? %>
+        <% @student_assessments.each do |test_name, test_scores| %>
+          <div style="float: left; width:370px; padding:5px">
+            <ul>
+              <li><span style="font-weight:bold;"><%= test_name %></span></li>
+              <% if test_scores.any? %>
+                <% test_scores.each do |score| %>
+                  <li><%= "#{format_date_for_student_report(score[0])} - #{score[1]}" %></li>
+                <% end %>
+              <% else %>
+                <li>No Scores</li>
+              <% end %>
+            </ul>
+          </div>
+          <% if right %>
+            <br style="clear: left;" /><br/>
+          <% end %>
+          <% right = !right %>
+        <% end %>
+      <% else %>
+        <span style="font-style:italic;">No Academic Assessments</span>
+      <% end %>
+    </div>
+    <br style="clear: left;" /><br/>
+    <% end %>
 
     <% if @sections.include?("attendance") %>
+    <div style="page-break-after:always;"></div>
     <p>
-      <h4>Attendance record:</h4>
+      <h4 style="font-size: 24px; border-bottom: 1px solid #666; padding-bottom: 5px; padding-left: 5px;">Attendance record</h4>
       <table class="data-table" width="768 px">
         <tr>
           <th></th>
@@ -185,9 +218,10 @@
 
     <!-- Discipline Incidents -->
     <% if @sections.include?("discipline_incidents") %>
+    <div style="page-break-after:always;"></div>
     <% right = false %>
     <div>
-    <h4>Discipline Incidents:</h4>
+    <h4 style="font-size: 24px; border-bottom: 1px solid #666; padding-bottom: 5px; padding-left: 5px;">Discipline Incidents</h4>
       <% if @discipline_incidents.any? %>
         <% @discipline_incidents.each do |incident| %>
           <div style="float: left; width:370px; padding:5px">
@@ -209,37 +243,6 @@
     <p>
       <div id="discipline-incident-container"></div>
     </p>
-    <% end %>
-
-    <!-- Academic Assessments -->
-    <% if @sections.include?("assessments") %>
-    <% right = false %>
-    <div>
-    <h4>Academic Assesments:</h4>
-      <% if @student_assessments.any? %>
-        <% @student_assessments.each do |test_name, test_scores| %>
-          <div style="float: left; width:370px; padding:5px">
-            <ul>
-              <li><span style="font-weight:bold;"><%= test_name %></span></li>
-              <% if test_scores.any? %>
-                <% test_scores.each do |score| %>
-                  <li><%= "#{format_date_for_student_report(score[0])} - #{score[1]}" %></li>
-                <% end %>
-              <% else %>
-                <li>No Scores</li>
-              <% end %>
-            </ul>
-          </div>
-          <% if right %>
-            <br style="clear: left;" /><br/>
-          <% end %>
-          <% right = !right %>
-        <% end %>
-      <% else %>
-        <span style="font-style:italic;">No Academic Assessments</span>
-      <% end %>
-    </div>
-    <br style="clear: left;" /><br/>
     <% end %>
 
     <%= json_div(id: "serialized-data", data: @serialized_data) %>

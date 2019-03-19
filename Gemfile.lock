@@ -1,43 +1,43 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (5.2.2)
-      actionpack (= 5.2.2)
+    actioncable (5.2.2.1)
+      actionpack (= 5.2.2.1)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
-    actionmailer (5.2.2)
-      actionpack (= 5.2.2)
-      actionview (= 5.2.2)
-      activejob (= 5.2.2)
+    actionmailer (5.2.2.1)
+      actionpack (= 5.2.2.1)
+      actionview (= 5.2.2.1)
+      activejob (= 5.2.2.1)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 2.0)
-    actionpack (5.2.2)
-      actionview (= 5.2.2)
-      activesupport (= 5.2.2)
+    actionpack (5.2.2.1)
+      actionview (= 5.2.2.1)
+      activesupport (= 5.2.2.1)
       rack (~> 2.0)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.2.2)
-      activesupport (= 5.2.2)
+    actionview (5.2.2.1)
+      activesupport (= 5.2.2.1)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activejob (5.2.2)
-      activesupport (= 5.2.2)
+    activejob (5.2.2.1)
+      activesupport (= 5.2.2.1)
       globalid (>= 0.3.6)
-    activemodel (5.2.2)
-      activesupport (= 5.2.2)
-    activerecord (5.2.2)
-      activemodel (= 5.2.2)
-      activesupport (= 5.2.2)
+    activemodel (5.2.2.1)
+      activesupport (= 5.2.2.1)
+    activerecord (5.2.2.1)
+      activemodel (= 5.2.2.1)
+      activesupport (= 5.2.2.1)
       arel (>= 9.0)
-    activestorage (5.2.2)
-      actionpack (= 5.2.2)
-      activerecord (= 5.2.2)
+    activestorage (5.2.2.1)
+      actionpack (= 5.2.2.1)
+      activerecord (= 5.2.2.1)
       marcel (~> 0.3.1)
-    activesupport (5.2.2)
+    activesupport (5.2.2.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -80,8 +80,11 @@ GEM
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
-    brakeman (4.3.0)
+    brakeman (4.4.0)
     builder (3.2.3)
+    bundler-audit (0.6.1)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 0.18)
     capybara (3.0.1)
       addressable
       mini_mime (>= 0.1.3)
@@ -92,14 +95,14 @@ GEM
     choice (0.2.0)
     chunky_png (1.3.11)
     coderay (1.1.2)
-    concurrent-ruby (1.1.3)
+    concurrent-ruby (1.1.5)
     crass (1.0.4)
     dalli (2.7.9)
     database_cleaner (1.6.2)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
     descriptive-statistics (2.2.0)
-    devise (4.4.3)
+    devise (4.6.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
@@ -107,7 +110,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.3.0)
-    erubi (1.7.1)
+    erubi (1.8.0)
     erubis (2.7.0)
     excon (0.62.0)
     execjs (2.7.0)
@@ -123,14 +126,14 @@ GEM
       activerecord (>= 4.0.0)
     geocoder (1.4.9)
     get_process_mem (0.2.1)
-    globalid (0.4.1)
+    globalid (0.4.2)
       activesupport (>= 4.2.0)
     heroics (0.0.24)
       erubis (~> 2.0)
       excon
       moneta
       multi_json (>= 1.9.2)
-    i18n (1.1.1)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     immigrant (0.3.6)
       activerecord (>= 3.0)
@@ -166,7 +169,7 @@ GEM
       mimemagic (~> 0.3.2)
     memory_profiler (0.9.10)
     method_source (0.9.2)
-    mimemagic (0.3.2)
+    mimemagic (0.3.3)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -206,18 +209,18 @@ GEM
       rack (>= 1.0, < 3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
-    rails (5.2.2)
-      actioncable (= 5.2.2)
-      actionmailer (= 5.2.2)
-      actionpack (= 5.2.2)
-      actionview (= 5.2.2)
-      activejob (= 5.2.2)
-      activemodel (= 5.2.2)
-      activerecord (= 5.2.2)
-      activestorage (= 5.2.2)
-      activesupport (= 5.2.2)
+    rails (5.2.2.1)
+      actioncable (= 5.2.2.1)
+      actionmailer (= 5.2.2.1)
+      actionpack (= 5.2.2.1)
+      actionview (= 5.2.2.1)
+      activejob (= 5.2.2.1)
+      activemodel (= 5.2.2.1)
+      activerecord (= 5.2.2.1)
+      activestorage (= 5.2.2.1)
+      activesupport (= 5.2.2.1)
       bundler (>= 1.3.0)
-      railties (= 5.2.2)
+      railties (= 5.2.2.1)
       sprockets-rails (>= 2.0.0)
     rails-controller-testing (1.0.2)
       actionpack (~> 5.x, >= 5.0.1)
@@ -233,20 +236,22 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    railties (5.2.2)
-      actionpack (= 5.2.2)
-      activesupport (= 5.2.2)
+    railties (5.2.2.1)
+      actionpack (= 5.2.2.1)
+      activesupport (= 5.2.2.1)
       method_source
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
-    rake (12.3.1)
+    rake (12.3.2)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    responders (2.4.0)
-      actionpack (>= 4.2.0, < 5.3)
-      railties (>= 4.2.0, < 5.3)
+    rbnacl (6.0.1)
+      ffi
+    responders (2.4.1)
+      actionpack (>= 4.2.0, < 6.0)
+      railties (>= 4.2.0, < 6.0)
     rollbar (2.15.5)
       multi_json
     rotp (4.0.2)
@@ -279,6 +284,8 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.3)
     ruby-progressbar (1.9.0)
+    ruby_audit (1.2.0)
+      bundler-audit (~> 0.6.0)
     rubyzip (1.2.2)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
@@ -322,8 +329,8 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.3.0)
     useragent (0.16.10)
-    warden (1.2.7)
-      rack (>= 1.0)
+    warden (1.2.8)
+      rack (>= 2.0.6)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -331,6 +338,8 @@ GEM
     wkhtmltopdf-binary (0.12.3.1)
     xpath (3.0.0)
       nokogiri (~> 1.8)
+    zxcvbn-js (4.4.3)
+      execjs
 
 PLATFORMS
   ruby
@@ -342,11 +351,12 @@ DEPENDENCIES
   better_errors
   bourbon (~> 4.3.2)
   brakeman
+  bundler-audit
   capybara
   dalli
   database_cleaner
   descriptive-statistics
-  devise (~> 4.4.0)
+  devise (~> 4.6.1)
   factory_bot_rails
   friendly_id (~> 5.1.0)
   get_process_mem
@@ -374,11 +384,13 @@ DEPENDENCIES
   rails (~> 5.2.0)
   rails-controller-testing
   rails-erd
+  rbnacl
   rollbar
   rotp
   rqrcode
   rspec-rails
   rubocop
+  ruby_audit
   rubyzip (~> 1.2.2)
   sass-rails (~> 5.0)
   secure_headers
@@ -391,9 +403,10 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   wicked_pdf
   wkhtmltopdf-binary
+  zxcvbn-js
 
 RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.2
+   1.17.3

@@ -122,6 +122,9 @@ Useful tidbits:
 7. Use Storybook
 Running `yarn storybook` will start a storybook server on port 6006. You can use this to create "stories" iterate on UI features or components in particular states, separate from how they exist within the product.  To add new stories, write a new `.story.js` file and update `ui/config/.storybook/config.js`.
 
+8. Add Guardrails
+- Install [git-secrets](https://github.com/awslabs/git-secrets#installing-git-secrets) and ensure the hook is set for the repo
+
 # Browser/OS Targeting
 
 Category | Target | Comment

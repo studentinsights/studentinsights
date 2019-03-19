@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_28_131614) do
+ActiveRecord::Schema.define(version: 2019_03_06_155619) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "absences", id: :serial, force: :cascade do |t|
@@ -404,6 +405,10 @@ ActiveRecord::Schema.define(version: 2019_01_28_131614) do
     t.text "action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "password_checks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "json_encrypted"
   end
 
   create_table "precomputed_query_docs", id: :serial, force: :cascade do |t|

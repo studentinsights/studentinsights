@@ -17,6 +17,9 @@ yarn-error.log*
 # source control.
 config/local_env.yml
 
+# Use env initializers and read ENV variables instead, no good comes from storing secrets on disk
+config/secrets.yml
+
 ## Environment normalisation:
 /.bundle
 # these should all be checked in to normalise the environment:

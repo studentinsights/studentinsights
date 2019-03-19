@@ -16,6 +16,21 @@ RSpec.describe 'LdapAuthenticatableTiny' do
     expect(strategy.user).to eq nil
   end
 
+  def mock_authenticate_with_laura!(is_authorized)
+    strategy = test_strategy
+    allow(strategy).to receive_messages({
+      authentication_hash: {
+        login_text: 'laura',
+        login_code: 'NO_CODE'
+      },
+      password: 'correct-password'
+    })
+    allow(strategy).to receive(:is_authorized_by_ldap?).with('laura@demo.studentinsights.org', 'correct-password').and_return is_authorized
+    allow(strategy).to receive(:is_multifactor_enabled?).and_return(false)
+    strategy.authenticate!
+    strategy
+  end
+
   describe '#authenticate! across districts, mocking everything without multifactor' do
     def mocked_test_strategy(options = {})
       strategy = test_strategy
@@ -309,6 +324,89 @@ RSpec.describe 'LdapAuthenticatableTiny' do
         expect(strategy.result).to eq :failure
         expect(strategy.user).to eq nil
       end
+    end
+  end
+
+  describe '#authenticate! and store_password_checks' do
+    let!(:pals) { TestPals.create! }
+
+    it 'does not run when authentication fails' do
+      strategy = mock_authenticate_with_laura!(false)
+      expect(strategy.result).to eq :failure
+      expect(PasswordCheck.all.size).to eq 0
+    end
+
+    it 'runs when authentication succeeds' do
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
+      expect(PasswordCheck.all.size).to eq 1
+      expect(PasswordCheck.all.to_json).not_to include('correct-password')
+    end
+
+    it 'ignores errors with computing, and reports without logging password' do
+      allow(PasswordChecker).to receive(:new).and_raise(NoMethodError)
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check raised NoMethodError, ignoring and continuing...')
+
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
+      expect(PasswordCheck.all.size).to eq 0
+    end
+
+    it 'ignores errors with storing, and reports without logging password' do
+      allow(PasswordCheck).to receive(:create!).and_raise(NoMethodError)
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, store_password_check raised NoMethodError, ignoring and continuing...')
+
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
+      expect(PasswordCheck.all.size).to eq 0
+    end
+  end
+
+  describe '#authenticate! and warn_if_suspicious' do
+    let!(:pals) { TestPals.create! }
+
+    it 'does not run when authentication fails' do
+      expect(LoginChecker).not_to receive(:new)
+      strategy = mock_authenticate_with_laura!(false)
+      expect(strategy.result).to eq :failure
+    end
+
+    it 'runs when authentication succeeds' do
+      expect(LoginChecker).to receive(:new)
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
+    end
+
+    it 'ignores errors, and reports without logging password' do
+      allow(LoginChecker).to receive(:new).and_raise(NoMethodError)
+      allow(Rollbar).to receive(:error)
+      expect(Rollbar).to receive(:error).once.with('LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
+
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
+    end
+
+    it 'warns about first_login_month_after_creation' do
+      pals.healey_laura_principal.update!(created_at: pals.time_now - 32.days)
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with('LoginChecker#warn_if_suspicious', flags: [:first_login_month_after_creation])
+
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
+    end
+
+    it 'warns about first_login_after_year' do
+      LoginActivity.create!({
+        user_id: pals.healey_laura_principal.id,
+        created_at: pals.time_now - 2.years
+      })
+      allow(Rollbar).to receive(:warn)
+      expect(Rollbar).to receive(:warn).once.with("LoginChecker#warn_if_suspicious", flags: [:first_login_after_year])
+
+      strategy = mock_authenticate_with_laura!(true)
+      expect(strategy.result).to eq :success
     end
   end
 end

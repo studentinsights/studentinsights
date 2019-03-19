@@ -15,7 +15,7 @@ gem 'rqrcode'
 gem 'administrate', '~> 0.10.0'
 gem 'authtrail'
 gem 'aws-sdk', '~> 2'
-gem 'devise', '~> 4.4.0'
+gem 'devise', '~> 4.6.1'
 gem 'friendly_id', '~> 5.1.0'
 gem 'get_process_mem'
 gem 'immigrant'
@@ -41,6 +41,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rubyzip', '~> 1.2.2'
+gem 'rbnacl'
+gem 'zxcvbn-js', require: 'zxcvbn'
+
+# dependency audits
+gem 'bundler-audit'
+gem 'ruby_audit'
 
 # used to seed demo data in production
 gem 'factory_bot_rails'

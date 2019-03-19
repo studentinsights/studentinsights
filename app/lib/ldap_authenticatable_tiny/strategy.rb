@@ -60,7 +60,11 @@ module Devise
           ldap_login = PerDistrict.new.ldap_login_for_educator(educator)
           return fail!(:invalid) unless is_authorized_by_ldap?(ldap_login, password_text)
 
-          # Success
+          # Success, run security checks
+          store_password_check(educator, password_text)
+          warn_if_suspicious(educator)
+
+          # Return success
           return success!(educator)
         rescue => error
           Rollbar.error('LdapAuthenticatableTiny error caught', error)
@@ -88,6 +92,31 @@ module Devise
 
       def is_authorized_by_ldap?(ldap_login, password_text)
         LdapAuthenticator.new(logger: logger).is_authorized_by_ldap?(ldap_login, password_text)
+      end
+
+      # Store password check, logging and ignoring any failures.
+      def store_password_check(educator, password_text)
+        return if EnvironmentVariable.is_true('LOGIN_STORE_PASSWORD_CHECK_DISABLED')
+        begin
+          json_encrypted = PasswordChecker.new.json_stats_encrypted(password_text)
+          PasswordCheck.create!(json_encrypted: json_encrypted)
+        rescue => error # don't log errors, in case they contain anything sensitive
+          error_message = "LdapAuthenticatableTiny, store_password_check raised #{error.class}, ignoring and continuing..."
+          Rollbar.error(error_message)
+          logger.error(error_message)
+        end
+        nil
+      end
+
+      def warn_if_suspicious(educator)
+        return if EnvironmentVariable.is_true('LOGIN_WARN_IF_SUSPICIOUS_DISABLED')
+        begin
+          LoginChecker.new(educator).warn_if_suspicious
+        rescue => _ # don't log errors, in case they contain anything sensitive
+          Rollbar.error('LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing...')
+          logger.error "LdapAuthenticatableTiny, warn_if_suspicious raised, ignoring and continuing..."
+        end
+        nil
       end
 
       def logger

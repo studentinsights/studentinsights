@@ -9,6 +9,8 @@ Rails.application.configure do
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
   ENV['USE_PLACEHOLDER_IEP_DOCUMENT'] = 'true'
   ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = '2000'
+
+  config.secret_key_base = SecureRandom.hex(64)
   
   config.cache_classes = false
 
