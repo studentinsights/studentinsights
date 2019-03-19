@@ -82,18 +82,15 @@ export default class NotesList extends React.Component {
       educatorsIndex,
       onSaveNote,
       onEventNoteAttachmentDeleted,
-      showRestrictedNoteContent,
-      allowDirectEditingOfRestrictedNoteText,
       canUserAccessRestrictedNotes,
       currentEducatorId
     } = this.props;
-    const isRedacted = eventNote.is_restricted && !showRestrictedNoteContent;
+    const isRedacted = eventNote.is_restricted;
     const isReadonly = (
       !onSaveNote ||
       !onEventNoteAttachmentDeleted ||
       (currentEducatorId !== eventNote.educator_id) ||
-      isRedacted ||
-      (eventNote.is_restricted && !allowDirectEditingOfRestrictedNoteText)
+      isRedacted
     );
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
       ? urlForRestrictedEventNoteContent(eventNote)
@@ -137,8 +134,8 @@ export default class NotesList extends React.Component {
   }
 
   renderTransitionNote(transitionNote) {
-    const {showRestrictedNoteContent, canUserAccessRestrictedNotes} = this.props;
-    const isRedacted = transitionNote.is_restricted && !showRestrictedNoteContent;
+    const {canUserAccessRestrictedNotes} = this.props;
+    const isRedacted = transitionNote.is_restricted;
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
       ? urlForRestrictedTransitionNoteContent(transitionNote)
       : null;
@@ -222,9 +219,6 @@ NotesList.propTypes = {
   feed: InsightsPropTypes.feed.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   includeStudentPanel: PropTypes.bool,
-  showRestrictedNoteContent: PropTypes.bool,
-  allowDirectEditingOfRestrictedNoteText: PropTypes.bool,
-  allowViewingRestrictedNotes: PropTypes.bool,
   canUserAccessRestrictedNotes: PropTypes.bool,
   onSaveNote: PropTypes.func,
   onEventNoteAttachmentDeleted: PropTypes.func,
