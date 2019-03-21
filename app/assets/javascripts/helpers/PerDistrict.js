@@ -251,3 +251,23 @@ export function shouldUseStarData(districtKey) {
 
   return false;
 }
+
+// Can student photos be zoomed in on student faces in smaller
+// contexts?
+export function enhancedStudentPhotoStyles(districtKey) {
+  if (districtKey === SOMERVILLE) {
+    return {
+      backgroundSize: '150%',
+      backgroundPositionY: -10
+    };
+  }
+
+  if (districtKey === BEDFORD || districtKey === DEMO) {
+    return {
+      backgroundSize: '130%',
+      backgroundPositionY: -5
+    };
+  }
+
+  return {};
+}

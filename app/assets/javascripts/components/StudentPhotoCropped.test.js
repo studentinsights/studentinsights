@@ -1,17 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StudentPhotoCropped from './StudentPhotoCropped';
 import renderer from 'react-test-renderer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
+import StudentPhotoCropped from './StudentPhotoCropped';
 
+function testEl(props = {}, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
+  return (
+    <PerDistrictContainer districtKey={districtKey}>
+      <StudentPhotoCropped {...props} />
+    </PerDistrictContainer>
+  );
+}
 
+function snapshotForDistrictKey(districtKey) {
+  return renderer
+    .create(testEl({studentId: 42}, {districtKey}))
+    .toJSON();
+}
 it('renders without crashing', () => {
   const el = document.createElement('div');
-  ReactDOM.render(<StudentPhotoCropped studentId={42} />, el);
+  ReactDOM.render(testEl({studentId: 42}), el);
 });
 
-it('snapshots', () => {
-  const tree = renderer
-    .create(<StudentPhotoCropped studentId={42} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+describe('snapshots', () => {
+  it('for Somerville', () => expect(snapshotForDistrictKey('somerville')).toMatchSnapshot());
+  it('for Bedford', () => expect(snapshotForDistrictKey('bedford')).toMatchSnapshot());
+  it('for New Bedford', () => expect(snapshotForDistrictKey('new_bedford')).toMatchSnapshot());
+  it('for demo', () => expect(snapshotForDistrictKey('demo')).toMatchSnapshot());
 });

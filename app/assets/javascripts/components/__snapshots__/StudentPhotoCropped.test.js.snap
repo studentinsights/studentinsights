@@ -1,6 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots 1`] = `
+exports[`snapshots for Bedford 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#ccc",
+      "backgroundImage": "url(/students/42/photo)",
+      "backgroundPosition": "center top",
+      "backgroundPositionY": -5,
+      "backgroundRepeat": "no-repeat",
+      "backgroundSize": "130%",
+      "border": "1px solid #aaa",
+      "borderRadius": 3,
+      "height": 58,
+      "marginRight": 10,
+      "overflow": "hidden",
+      "width": 58,
+    }
+  }
+/>
+`;
+
+exports[`snapshots for New Bedford 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#ccc",
+      "backgroundImage": "url(/students/42/photo)",
+      "backgroundPosition": "center top",
+      "backgroundRepeat": "no-repeat",
+      "border": "1px solid #aaa",
+      "borderRadius": 3,
+      "height": 58,
+      "marginRight": 10,
+      "overflow": "hidden",
+      "width": 58,
+    }
+  }
+/>
+`;
+
+exports[`snapshots for Somerville 1`] = `
 <div
   style={
     Object {
@@ -10,6 +50,27 @@ exports[`snapshots 1`] = `
       "backgroundPositionY": -10,
       "backgroundRepeat": "no-repeat",
       "backgroundSize": "150%",
+      "border": "1px solid #aaa",
+      "borderRadius": 3,
+      "height": 58,
+      "marginRight": 10,
+      "overflow": "hidden",
+      "width": 58,
+    }
+  }
+/>
+`;
+
+exports[`snapshots for demo 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "#ccc",
+      "backgroundImage": "url(/students/42/photo)",
+      "backgroundPosition": "center top",
+      "backgroundPositionY": -5,
+      "backgroundRepeat": "no-repeat",
+      "backgroundSize": "130%",
       "border": "1px solid #aaa",
       "borderRadius": 3,
       "height": 58,
