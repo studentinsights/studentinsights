@@ -4,7 +4,26 @@ import Card from '../components/Card';
 import {isHomeroomMeaningful} from '../helpers/PerDistrict';
 import Homeroom from '../components/Homeroom';
 import {gradeText} from '../helpers/gradeText';
+import * as Routes from '../helpers/Routes';
 
+
+function StudentPhotoCropped({studentId, style = {}}) {
+  return (
+    <div
+      style={{
+        backgroundSize: 'cover',
+        width: 58,
+        height: 58,
+        marginRight: 5,
+        border: '1px solid #eee',
+        borderRadius: 3,
+        backgroundPosition: 'center top',
+        overflow: 'hidden',
+        backgroundImage: `url(${Routes.studentPhoto(studentId)})`,
+        ...style
+      }}></div>
+  );
+}
 
 // Render a card in the feed for an EventNote
 // Pure UI, like a template.
@@ -13,19 +32,23 @@ export default class FeedCardFrame extends React.Component {
     const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl} = this.props;
     const {homeroom, school} = student;
     const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
+    const shouldShowPhoto = (window.location.search.indexOf('photo') !== -1);
     return (
       <Card className="FeedCardFrame" style={style}>
         <div style={styles.header}>
-          <div style={styles.studentHeader}>
-            <div>
-              <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
-            </div>
-            <div>{gradeText(student.grade)}</div>
-            <div>
-              {shouldShowHomeroom && <Homeroom
-                id={homeroom.id}
-                name={homeroom.name}
-                educator={homeroom.educator} />}
+          <div style={{display: 'flex'}}>
+            {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
+            <div style={styles.studentHeader}>
+              <div>
+                <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+              </div>
+              <div>{gradeText(student.grade)}</div>
+              <div>
+                {shouldShowHomeroom && <Homeroom
+                  id={homeroom.id}
+                  name={homeroom.name}
+                  educator={homeroom.educator} />}
+              </div>
             </div>
           </div>
           <div style={styles.by}>
