@@ -5,6 +5,7 @@ import * as Routes from '../helpers/Routes';
 const whitePixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 // Pure UI component for displaying a student photo
+// See also <StudentPhotoCropped />
 export default class StudentPhoto extends React.Component {
   constructor(props) {
     super(props);

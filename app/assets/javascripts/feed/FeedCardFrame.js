@@ -3,6 +3,7 @@ import React from 'react';
 import Card from '../components/Card';
 import {isHomeroomMeaningful} from '../helpers/PerDistrict';
 import Homeroom from '../components/Homeroom';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import {gradeText} from '../helpers/gradeText';
 
 
@@ -13,19 +14,23 @@ export default class FeedCardFrame extends React.Component {
     const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl} = this.props;
     const {homeroom, school} = student;
     const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
+    const shouldShowPhoto = (student.has_photo && window.location.search.indexOf('photo') !== -1);
     return (
       <Card className="FeedCardFrame" style={style}>
         <div style={styles.header}>
-          <div style={styles.studentHeader}>
-            <div>
-              <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
-            </div>
-            <div>{gradeText(student.grade)}</div>
-            <div>
-              {shouldShowHomeroom && <Homeroom
-                id={homeroom.id}
-                name={homeroom.name}
-                educator={homeroom.educator} />}
+          <div style={{display: 'flex'}}>
+            {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
+            <div style={styles.studentHeader}>
+              <div>
+                <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
+              </div>
+              <div>{gradeText(student.grade)}</div>
+              <div>
+                {shouldShowHomeroom && <Homeroom
+                  id={homeroom.id}
+                  name={homeroom.name}
+                  educator={homeroom.educator} />}
+              </div>
             </div>
           </div>
           <div style={styles.by}>
@@ -56,6 +61,7 @@ FeedCardFrame.propTypes = {
     last_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired,
     house: PropTypes.string,
+    has_photo: PropTypes.bool,
     school: PropTypes.shape({
       local_id: PropTypes.string.isRequired,
       school_type: PropTypes.string.isRequired

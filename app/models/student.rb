@@ -87,6 +87,10 @@ class Student < ApplicationRecord
     PerDistrict.new.patched_plan_504(self)
   end
 
+  def has_photo
+    self.student_photos.size > 0
+  end
+
   def active?
     enrollment_status == 'Active' && !missing_from_last_export
   end

@@ -85,7 +85,7 @@ RSpec.describe Feed do
       feed = feed_for(pals.shs_jodi)
       feed_cards = feed.all_cards(time_now, limit)
       expect(feed_cards.size).to eq 4
-      expect(feed_cards.as_json).to eq([{
+      expect(feed_cards.as_json).to match_array([{
         "type"=>"birthday_card",
         "timestamp"=>"2018-03-12T00:00:00.000Z",
         "json"=>{
@@ -156,6 +156,7 @@ RSpec.describe Feed do
             "first_name"=>"Mari",
             "last_name"=>"Kenobi",
             "house"=>'Beacon',
+            "has_photo"=>false,
             "school"=>{
               "local_id"=>"SHS",
               "school_type"=>"HS"

@@ -27,31 +27,39 @@ exports[`matches snapshot 1`] = `
       <div
         style={
           Object {
-            "alignItems": "flex-start",
             "display": "flex",
-            "flexDirection": "column",
-            "justifyContent": "flex-start",
           }
         }
       >
-        <div>
-          <a
-            href="/students/100"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
-          >
-            Mowgli
-             
-            Pan
-          </a>
+          }
+        >
+          <div>
+            <a
+              href="/students/100"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mowgli
+               
+              Pan
+            </a>
+          </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
-        <div>
-          10th grade
-        </div>
-        <div />
       </div>
       <div
         style={
@@ -170,31 +178,39 @@ exports[`matches when no location 1`] = `
       <div
         style={
           Object {
-            "alignItems": "flex-start",
             "display": "flex",
-            "flexDirection": "column",
-            "justifyContent": "flex-start",
           }
         }
       >
-        <div>
-          <a
-            href="/students/100"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
-          >
-            Mowgli
-             
-            Pan
-          </a>
+          }
+        >
+          <div>
+            <a
+              href="/students/100"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mowgli
+               
+              Pan
+            </a>
+          </div>
+          <div>
+            10th grade
+          </div>
+          <div />
         </div>
-        <div>
-          10th grade
-        </div>
-        <div />
       </div>
       <div
         style={
