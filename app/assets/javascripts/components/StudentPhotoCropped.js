@@ -9,13 +9,16 @@ export default function StudentPhotoCropped({studentId, style = {}}) {
   return (
     <div
       style={{
-        backgroundSize: 'cover',
         width: 58,
         height: 58,
-        marginRight: 5,
-        border: '1px solid #eee',
+        marginRight: 10,
+        border: '1px solid #aaa',
         borderRadius: 3,
+        backgroundSize: '150%',
+        backgroundColor: '#ccc',
         backgroundPosition: 'center top',
+        backgroundPositionY: -10,
+        backgroundRepeat: 'no-repeat',
         overflow: 'hidden',
         backgroundImage: `url(${Routes.studentPhoto(studentId)})`,
         ...style
