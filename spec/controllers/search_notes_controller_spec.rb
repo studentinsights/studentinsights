@@ -81,6 +81,7 @@ describe SearchNotesController, :type => :controller do
                 "first_name"=>"Kylo",
                 "last_name"=>"Ren",
                 "house"=>"Broadway",
+                "has_photo"=>false,
                 "school"=>{
                   "school_type"=>"HS",
                   "local_id"=>"SHS"
