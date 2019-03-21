@@ -27,31 +27,39 @@ exports[`matches snapshot 1`] = `
       <div
         style={
           Object {
-            "alignItems": "flex-start",
             "display": "flex",
-            "flexDirection": "column",
-            "justifyContent": "flex-start",
           }
         }
       >
-        <div>
-          <a
-            href="/students/55"
-            style={
-              Object {
-                "fontWeight": "bold",
-              }
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
             }
-          >
-            Mari
-             
-            Skywalker
-          </a>
+          }
+        >
+          <div>
+            <a
+              href="/students/55"
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Mari
+               
+              Skywalker
+            </a>
+          </div>
+          <div>
+            9th grade
+          </div>
+          <div />
         </div>
-        <div>
-          9th grade
-        </div>
-        <div />
       </div>
       <div
         style={

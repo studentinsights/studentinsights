@@ -3,27 +3,9 @@ import React from 'react';
 import Card from '../components/Card';
 import {isHomeroomMeaningful} from '../helpers/PerDistrict';
 import Homeroom from '../components/Homeroom';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import {gradeText} from '../helpers/gradeText';
-import * as Routes from '../helpers/Routes';
 
-
-function StudentPhotoCropped({studentId, style = {}}) {
-  return (
-    <div
-      style={{
-        backgroundSize: 'cover',
-        width: 58,
-        height: 58,
-        marginRight: 5,
-        border: '1px solid #eee',
-        borderRadius: 3,
-        backgroundPosition: 'center top',
-        overflow: 'hidden',
-        backgroundImage: `url(${Routes.studentPhoto(studentId)})`,
-        ...style
-      }}></div>
-  );
-}
 
 // Render a card in the feed for an EventNote
 // Pure UI, like a template.
@@ -32,7 +14,7 @@ export default class FeedCardFrame extends React.Component {
     const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl} = this.props;
     const {homeroom, school} = student;
     const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
-    const shouldShowPhoto = (window.location.search.indexOf('photo') !== -1);
+    const shouldShowPhoto = (student.has_photo && window.location.search.indexOf('photo') !== -1);
     return (
       <Card className="FeedCardFrame" style={style}>
         <div style={styles.header}>
@@ -79,6 +61,7 @@ FeedCardFrame.propTypes = {
     last_name: PropTypes.string.isRequired,
     grade: PropTypes.string.isRequired,
     house: PropTypes.string,
+    has_photo: PropTypes.bool,
     school: PropTypes.shape({
       local_id: PropTypes.string.isRequired,
       school_type: PropTypes.string.isRequired

@@ -50,6 +50,7 @@ class ProfileController < ApplicationController
     }
 
     json = student.as_json({
+      :methods => [:has_photo],
       :include => {
         :homeroom => {
           :only => [:id, :name],
@@ -61,7 +62,6 @@ class ProfileController < ApplicationController
     })
 
     json.merge(per_district_fields).merge({
-      has_photo: (student.student_photos.size > 0),
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
       school_local_id: student.try(:school).try(:local_id),
