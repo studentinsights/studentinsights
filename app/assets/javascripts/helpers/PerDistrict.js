@@ -262,7 +262,7 @@ export function enhancedStudentPhotoStyles(districtKey) {
     };
   }
 
-  if (districtKey === BEDFORD) {
+  if (districtKey === BEDFORD || districtKey === DEMO) {
     return {
       backgroundSize: '130%',
       backgroundPositionY: -5
