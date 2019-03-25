@@ -12,6 +12,7 @@ export default class StudentPhotoCropped extends React.Component {
     const {districtKey} = this.context;
     const {studentId, style = {}} = this.props;
     const perDistrictStyles = enhancedStudentPhotoStyles(districtKey);
+
     return (
       <div
         className="StudentPhotoCropped"
