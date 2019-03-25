@@ -2,6 +2,7 @@
 
 exports[`snapshots for Bedford 1`] = `
 <div
+  className="StudentPhotoCropped"
   style={
     Object {
       "backgroundColor": "#ccc",
@@ -23,6 +24,7 @@ exports[`snapshots for Bedford 1`] = `
 
 exports[`snapshots for New Bedford 1`] = `
 <div
+  className="StudentPhotoCropped"
   style={
     Object {
       "backgroundColor": "#ccc",
@@ -42,6 +44,7 @@ exports[`snapshots for New Bedford 1`] = `
 
 exports[`snapshots for Somerville 1`] = `
 <div
+  className="StudentPhotoCropped"
   style={
     Object {
       "backgroundColor": "#ccc",
@@ -63,6 +66,7 @@ exports[`snapshots for Somerville 1`] = `
 
 exports[`snapshots for demo 1`] = `
 <div
+  className="StudentPhotoCropped"
   style={
     Object {
       "backgroundColor": "#ccc",
