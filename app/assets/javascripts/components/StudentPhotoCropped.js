@@ -14,6 +14,7 @@ export default class StudentPhotoCropped extends React.Component {
     const perDistrictStyles = enhancedStudentPhotoStyles(districtKey);
     return (
       <div
+        className="StudentPhotoCropped"
         style={{
           width: 58,
           height: 58,
