@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import IncidentCard from './IncidentCard';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 
 
 export function testProps(props = {}) {
@@ -34,33 +35,41 @@ export function testProps(props = {}) {
   };
 }
 
+function testEl(props = {}, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      <IncidentCard {...props} />
+    </PerDistrictContainer>
+  );
+}
+
 it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<IncidentCard {...props} />), el);
+  ReactDOM.render(testEl(props), el);
 });
 
 it('does not render homeroom for HS since it is not meaningful', () => {
   const props = testProps();
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<IncidentCard {...props} />), el);
+  ReactDOM.render(testEl(props), el);
   expect($(el).text()).not.toContain('SHS ALL');
 });
 
 it('matches snapshot', () => {
   const props = testProps();
   const tree = renderer
-    .create(withDefaultNowContext(<IncidentCard {...props} />))
+    .create(testEl(props))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
-
 
 it('matches when no location', () => {
   const props = testProps();
   props.incidentCard.incident_location = '';
   const tree = renderer
-    .create(withDefaultNowContext(<IncidentCard {...props} />))
+    .create(testEl(props))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
