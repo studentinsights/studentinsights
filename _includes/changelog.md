@@ -1,3 +1,43 @@
+Friday 3/22 updates:
+- **Notes**: Remove older props no longer used for restricted note [#2431](https://github.com/studentinsights/studentinsights/pull/#2431)
+- **Authorization**: Update authorizer to expose reason why educator is authorized [#2430](https://github.com/studentinsights/studentinsights/pull/#2430)
+- **Home page feed**: Allow flag for showing photos [#2432](https://github.com/studentinsights/studentinsights/pull/#2432)
+
+Friday 3/15 updates:
+- **SHS Levels**: Add filter for counselors [#2426](https://github.com/studentinsights/studentinsights/pull/#2426)
+- **Maintenance**: Add favicon path [#2427](https://github.com/studentinsights/studentinsights/pull/#2427)
+- **Security**: Add zxcvbn for checking password entropy [357b40](https://github.com/studentinsights/studentinsights/commit/357b40)
+- **Security**: Warn on suspicious login, after long period of inactivity [24122f](https://github.com/studentinsights/studentinsights/commit/24122f)
+- **Security**: Update Rails to 5.2.2.1 to patch vulnerabilities
+- **Security**: Update Brakeman [#2428](https://github.com/studentinsights/studentinsights/pull/#2428)
+- **Security**: Security and Privacy Assessment (quarterly, not public)
+- **Security**: Update Devise to 4.6.1 to patch vulnerability [5e0a29](https://github.com/studentinsights/studentinsights/commit/5e0a29)
+
+Friday 3/8 updates:
+- **Sign in**: Revise session expired copy [#2423](https://github.com/studentinsights/studentinsights/pull/#2423)
+- **Sign in**: Feedback while signing in, using rails-ujs [#2425](https://github.com/studentinsights/studentinsights/pull/#2425)
+- **Profile PDF**: Update to allow restricted notes, revise styling and layout [#2424](https://github.com/studentinsights/studentinsights/pull/#2424)
+- **Security**: Add audits for vulnerabilities in Ruby dependencies [#2422](https://github.com/studentinsights/studentinsights/pull/#2422)
+- **Security**: Upgrade for RubyGems vulnerabilities link
+
+Friday 3/1 updates:
+- **Sign in**: Release new sign in page [#2405](https://github.com/studentinsights/studentinsights/pull/#2405)
+- **Collaboration**: SHS Counseling Team workshop [slides](https://drive.google.com/file/d/1wIHDRi1Jbk7kwgMXuAgj416hxHZAQdqR/view)
+
+Friday 2/22 updates:
+- (school vacation week)
+
+Friday 2/15 updates:
+- **Class lists**: Revise analysis to consider separate programs
+- **Student voice**: Share summary on status for surveys
+- **Profile**: Rework state for text while taking notes to remove lag [#2415](https://github.com/studentinsights/studentinsights/pull/#2415)
+- **Profile**: Remove second 'ago' suffix from testing tab to prevent overflow [#2416](https://github.com/studentinsights/studentinsights/pull/#2416)
+- **Session renewal**: Update debug logging [#2417](https://github.com/studentinsights/studentinsights/pull/#2417)
+- **Maintenance**: Upgrade to jQuery 3.3 [#2411](https://github.com/studentinsights/studentinsights/pull/#2411)
+- **Maintenance**: Update font files [#2419](https://github.com/studentinsights/studentinsights/pull/#2419)
+- **Maintenance**: Guard sessionStorage usage more [#2418](https://github.com/studentinsights/studentinsights/pull/#2418)
+- **Maintenance**: Upgrade databases to Postgres 11.2
+
 Friday 2/8 updates:
 - **Student voice**: Decouple profile insights and grades reflection switches [#2392](https://github.com/studentinsights/studentinsights/pull/2392)
 - **Student voice**: Fix timezone parsing in importing form timestamps [#2393](https://github.com/studentinsights/studentinsights/pull/2393)
