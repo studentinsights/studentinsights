@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import EventNoteCard from './EventNoteCard';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 
 
 function testProps(props = {}) {
@@ -42,16 +43,25 @@ function testProps(props = {}) {
   };
 }
 
+function testEl(props = {}, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      <EventNoteCard {...props} />
+    </PerDistrictContainer>
+  );
+}
+
 it('renders without crashing', () => {
   const props = testProps();
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<EventNoteCard {...props} />), el);
+  ReactDOM.render(testEl(props), el);
 });
 
 it('matches snapshot', () => {
   const props = testProps();
   const tree = renderer
-    .create(withDefaultNowContext(<EventNoteCard {...props} />))
+    .create(testEl(props))
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
@@ -60,5 +70,5 @@ it('renders when student has no homeroom', () => {
   const props = testProps();
   delete props.eventNoteCardJson.student.homeroom;
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<EventNoteCard {...props} />), el);
+  ReactDOM.render(testEl(props), el);
 });
