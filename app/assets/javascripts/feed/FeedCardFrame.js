@@ -11,15 +11,14 @@ import {gradeText} from '../helpers/gradeText';
 // Pure UI, like a template.
 export default class FeedCardFrame extends React.Component {
   render() {
-    const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl} = this.props;
+    const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl, hidePhoto} = this.props;
     const {homeroom, school} = student;
     const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
-    const shouldShowPhoto = (student.has_photo && window.location.search.indexOf('photo') !== -1);
     return (
       <Card className="FeedCardFrame" style={style}>
         <div style={styles.header}>
           <div style={{display: 'flex'}}>
-            {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
+            {!hidePhoto && <StudentPhotoCropped studentId={student.id} />}
             <div style={styles.studentHeader}>
               <div>
                 <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>
@@ -78,6 +77,7 @@ FeedCardFrame.propTypes = {
   whenEl: PropTypes.node,
   badgesEl: PropTypes.node,
   iconsEl: PropTypes.node,
+  hidePhoto: PropTypes.bool,
   style: PropTypes.object
 };
 
