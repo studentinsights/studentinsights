@@ -115,7 +115,7 @@ export default class HomeroomTable extends React.Component {
 
     return (
       <td>
-        <StudentPhotoCropped studentId={row.id} />
+        {row.has_photo && <StudentPhotoCropped studentId={row.id} />}
       </td>
     );
   }

@@ -524,27 +524,7 @@ exports[`snapshots 1`] = `
             Skywalker, Snow
           </a>
         </td>
-        <td>
-          <div
-            className="StudentPhotoCropped"
-            style={
-              Object {
-                "backgroundColor": "#ddd",
-                "backgroundImage": "url(/students/4/photo)",
-                "backgroundPosition": "center top",
-                "backgroundPositionY": -10,
-                "backgroundRepeat": "no-repeat",
-                "backgroundSize": "150%",
-                "border": "1px solid #ddd",
-                "borderRadius": 3,
-                "height": 58,
-                "marginRight": 10,
-                "overflow": "hidden",
-                "width": 58,
-              }
-            }
-          />
-        </td>
+        <td />
         <td>
           10/31/10
         </td>
