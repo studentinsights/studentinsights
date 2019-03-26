@@ -140,17 +140,10 @@ export class MyStudentsPageView extends React.Component {
             sortDirection={sortDirection}
             >
             <Column
-              label=''
-              dataKey='photo'
-              cellRenderer={this.renderPhoto}
-              width={60}
-            />
-            <Column
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
-              flexGrow={1}
-              width={170}
+              width={220}
             />
             <Column
               label='School'
@@ -200,12 +193,14 @@ export class MyStudentsPageView extends React.Component {
 
   renderName(cellProps) {
     const student = cellProps.rowData;
-    return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>;
-  }
-
-  renderPhoto(cellProps) {
-    const student = cellProps.rowData;
-    return <StudentPhotoCropped studentId={student.id} style={{width: 32, height: 32}} />;
+    return (
+      <div style={styles.nameBlock}>
+        <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+        <StudentPhotoCropped
+          studentId={student.id}
+          style={styles.photo} />
+      </div>
+    );
   }
 
   renderSchool(cellProps) {
@@ -247,5 +242,16 @@ const styles = {
     display: 'flex',
     flex: 1,
     flexDirection: 'column'
+  },
+  nameBlock: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  photo: {
+    width: 32,
+    height: 32,
+    display: 'inline-block',
+    marginRight: 20
   }
 };
