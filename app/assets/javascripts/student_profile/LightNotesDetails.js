@@ -21,6 +21,7 @@ export default class LightNotesDetails extends React.Component {
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
     this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
+    this.onSaveExistingNote = this.onSaveExistingNote.bind(this);
   }
 
   isTakingNotes() {
@@ -39,6 +40,11 @@ export default class LightNotesDetails extends React.Component {
   }
 
   onClickSaveNotes(eventNoteParams, event) {
+    this.props.actions.onClickSaveNotes(eventNoteParams);
+    this.props.onTakingNotesChanged(false);
+  }
+
+  onSaveExistingNote(eventNoteParams) {
     this.props.actions.onClickSaveNotes(eventNoteParams);
     this.props.onTakingNotesChanged(false);
   }
@@ -64,7 +70,7 @@ export default class LightNotesDetails extends React.Component {
             feed={this.props.feed}
             canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
             educatorsIndex={this.props.educatorsIndex}
-            onSaveNote={this.onClickSaveNotes}
+            onSaveNote={this.onSaveExistingNote}
             onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
         </div>
       </div>

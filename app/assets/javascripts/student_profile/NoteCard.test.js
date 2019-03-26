@@ -25,9 +25,9 @@ const helpers = {
     return ReactDOM.render(<NoteCard {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
   },
 
-  editNoteText(el, uiParams) {
+  editNoteText(el, text) {
     const $text = $(el).find('.ResizingTextArea');
-    changeTextValue($text.get(0), uiParams.text);
+    changeTextValue($text.get(0), text);
   },
 
   getNoteHTML(el) {
@@ -71,5 +71,19 @@ describe('render', () => {
     });
 
     expect(helpers.getNoteHTML(el)).toEqual("hello\nworld");
+  });
+});
+
+describe('saving', () => {
+  it('works in simple case', () => {
+    const el = document.createElement('div');
+    const component = helpers.renderInto(el, { text: 'hello' });
+    helpers.editNoteText(el, 'hello world');
+
+    expect(component.props.onSave).toHaveBeenCalledWith({
+      id: component.props.eventNoteId,
+      eventNoteTypeId: component.props.eventNoteTypeId,
+      text: 'hello world'
+    });
   });
 });
