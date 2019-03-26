@@ -12,19 +12,11 @@ import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {studentTableEventNoteTypeIds} from '../helpers/PerDistrict';
 import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
 import * as Routes from '../helpers/Routes';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 
 
 // Show a section roster for a high school course.
 export default class SectionTable extends React.Component {
-
-  styleStudentName(student, column) {
-    return (
-      <a href={Routes.studentProfile(student.id)}>
-        {student.last_name + ', ' + student.first_name}
-      </a>
-    );
-  }
-
   eventNoteTypeIds() {
     const {districtKey} = this.context;
     const schoolType = 'HS';
@@ -58,7 +50,8 @@ export default class SectionTable extends React.Component {
     // Grades are being rolled out ONLY to educators with districtwide access
     // for data validation purposes
     const columns = [
-      {label: 'Name', key: 'first_name', cell:this.styleStudentName, sortFunc: this.nameSorter},
+      {label: 'Name', key: 'first_name', cell:this.renderStudentName, sortFunc: this.nameSorter},
+      {label: '', key: 'photo', cell:this.renderPhoto, sortFunc: this.nameSorter},
 
       // Supports
       ...eventNoteTypeIds.map(eventNoteTypeId => (
@@ -109,6 +102,26 @@ export default class SectionTable extends React.Component {
             initialSortIndex={0}/>
         </div>
       </div>
+    );
+  }
+
+  renderStudentName(student, column) {
+    return (
+      <a href={Routes.studentProfile(student.id)}>
+        {student.last_name + ', ' + student.first_name}
+      </a>
+    );
+  }
+
+  renderPhoto(student, column) {
+    return  (
+      <StudentPhotoCropped
+        studentId={student.id}
+        style={{
+          width: 32,
+          height: 32
+        }}
+      />
     );
   }
 }

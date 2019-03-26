@@ -68,9 +68,10 @@ it('renders the correct roster headers', () => {
 
   const headers = $(el).find('#roster-header th').toArray().map(el => $(el).text());
 
-  expect(headers.length).toEqual(21);
+  expect(headers.length).toEqual(22);
   expect(headers).toEqual([
     'Name',
+    '', // photo
     'Last SST',
     'Last NGE',
     'Last 10GE',
@@ -101,4 +102,9 @@ it('renders the correct roster data', () => {
   expect($rowEls.length).toEqual(2);
   const firstRowCells = $($rowEls.get(0)).find('td').toArray().map(el => $(el).html());
   expect(firstRowCells[0]).toEqual('<a href="/students/2">Duck, Donald</a>');
+});
+
+it('renders photos', () => {
+  const {el} = testRender(testProps());
+  expect($(el).find('.StudentPhotoCropped').length).toEqual(2);
 });
