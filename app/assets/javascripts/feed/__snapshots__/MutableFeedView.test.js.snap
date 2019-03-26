@@ -180,10 +180,11 @@ exports[`MutableFeedView pure component matches snapshot 1`] = `
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -365,10 +366,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -562,10 +564,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -783,10 +786,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -966,10 +970,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -1163,10 +1168,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -1360,10 +1366,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -1581,10 +1588,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -1788,10 +1796,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -1971,10 +1980,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -2168,10 +2178,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -2365,10 +2376,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -2586,10 +2598,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -2769,10 +2782,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -2966,10 +2980,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -3163,10 +3178,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -3360,10 +3376,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -3581,10 +3598,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",
@@ -3764,10 +3782,11 @@ Philis is meeting with parent next week and will present an attendance contract.
           className="NoteText"
           style={
             Object {
-              "border": "1px solid transparent",
+              "border": 0,
               "fontFamily": "'Open Sans', sans-serif",
               "fontSize": 14,
               "marginTop": 5,
+              "outline": "1px solid transparent",
               "overflowX": "hidden",
               "padding": 0,
               "whiteSpace": "pre-wrap",

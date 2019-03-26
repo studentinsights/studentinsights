@@ -8,7 +8,6 @@ import {withDefaultNowContext, testTimeMoment} from '../testing/NowContainer';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockHistory from '../testing/mockHistory';
-import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
 import {createSpyActions, createSpyApi} from './PageContainer.mocks';
@@ -78,11 +77,8 @@ function renderForEndToEnd() {
   return {el};
 }
 
-const helpers = {
-  interventionSummaryLists(el) {
-    return $(el).find('.interventions-column .SummaryList').toArray();
-  },
 
+const helpers = {
   renderInto(props) {
     const mergedProps = testProps(props);
     const el = document.createElement('div');
@@ -116,7 +112,7 @@ const helpers = {
   recordServiceAndSave(el, uiParams) {
     ReactTestUtils.Simulate.click($(el).find('.btn.record-service').get(0));
     ReactTestUtils.Simulate.click($(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').get(0));
-    changeReactSelect($(el).find('.Select'), uiParams.educatorText);
+    changeTextValue($(el).find('.ProvidedByEducatorDropdown'), uiParams.educatorText);
     changeTextValue($(el).find('.datepicker'), uiParams.dateStartedText);
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   }
@@ -213,15 +209,15 @@ describe('integration tests', () => {
   // TODO(kr) the spec helper here was reaching into the react-select internals,
   // which changed in 1.0.0, this needs to be updated.
   // it('can save an Attendance Contract service, mocking the action handlers', () => {
-  //   var el = container.testEl;
-  //   var component = helpers.renderInto();
+  //   const props = testProps();
+  //   const {el} = helpers.renderInto(props);
   //   helpers.recordServiceAndSave(el, {
   //     serviceText: 'Attendance Contract',
-  //     educatorText: 'fake-fifth-grade',
+  //     educatorText: 'Teacher, Test',
   //     dateStartedText: '2/22/16'
   //   });
 
-  //   expect(props.actions.onClickSaveService).toHaveBeenCalledWith({
+  //   expect(props.actions.onSaveService).toHaveBeenCalledWith({
   //     serviceTypeId: 503,
   //     providedByEducatorId: 2,
   //     dateStartedText: '2016-02-22',

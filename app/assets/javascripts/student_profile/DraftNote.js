@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
+import {PENDING, ERROR} from '../helpers/requestStates';
 import Educator from '../components/Educator';
 import FeedCardFrame from '../feed/FeedCardFrame';
 
@@ -24,10 +25,6 @@ export default class DraftNote extends React.Component {
     this.onClickSave = this.onClickSave.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onClickNoteType = this.onClickNoteType.bind(this);
-  }
-
-  wrapUrlInObject(urlString) {
-    return { url: urlString };
   }
 
   disabledSaveButton() {
@@ -60,7 +57,8 @@ export default class DraftNote extends React.Component {
     const params = {
       eventNoteTypeId,
       text,
-      ...(showRestrictedCheckbox ? {isRestricted} : {})
+      ...(showRestrictedCheckbox ? {isRestricted} : {}),
+      eventNoteAttachments: []
     };
 
     onSave(params);
@@ -149,7 +147,7 @@ export default class DraftNote extends React.Component {
 
   renderInteractions() {
     return (
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <div style={styles.footer}>
         <div>
           <button
             style={{
@@ -212,9 +210,9 @@ export default class DraftNote extends React.Component {
   // always take up space
   renderIconsEl() {
     const {requestState} = this.props;
-    if (requestState === 'pending') return <span>Saving...</span>;
-    if (requestState === 'error') return <span>Try again!</span>;
-    return <span />;
+    if (requestState === PENDING) return <span style={styles.saving}>Saving...</span>;
+    if (requestState === ERROR) return <span style={styles.error}>Your note is note saved.</span>;
+    return <span style={styles.saving} />;
   }
 }
 DraftNote.contextTypes = {
@@ -263,5 +261,20 @@ const styles = {
     fontSize: 12,
     marginRight: '1em',
     padding: 8
+  },
+  error: {
+    fontSize: 12,
+    color: 'orange',
+    fontWeight: 'bold'
+  },
+  saving: {
+    fontSize: 12,
+    color: '#aaa'
+  },
+  footer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: 10
   }
 };

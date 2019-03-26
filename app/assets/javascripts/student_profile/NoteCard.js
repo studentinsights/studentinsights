@@ -8,7 +8,6 @@ import {formatEducatorName} from '../helpers/educatorName';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import EditableNoteText from '../components/EditableNoteText';
-import NoteRevisionMessage from '../components/NoteRevisionMessage';
 import RestrictedNotePresence from './RestrictedNotePresence';
 
 
