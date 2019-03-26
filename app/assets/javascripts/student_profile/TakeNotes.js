@@ -111,7 +111,6 @@ export default class TakeNotes extends React.Component {
   render() {
     const {
       style,
-      nowMoment,
       requestState,
       currentEducator,
       showRestrictedCheckbox
@@ -120,10 +119,7 @@ export default class TakeNotes extends React.Component {
 
     return (
       <div className="TakeNotes" style={{...styles.dialog, ...style}}>
-        {this.renderNoteHeader({
-          noteMoment: nowMoment,
-          educatorEmail: currentEducator.email
-        })}
+        {this.renderNoteHeader(currentEducator.email)}
         <textarea
           className="TakeNotes-textarea"
           rows={10}
@@ -176,15 +172,16 @@ export default class TakeNotes extends React.Component {
     );
   }
 
-  renderNoteHeader(header) {
+  renderNoteHeader(educatorEmail) {
+    const {nowFn} = this.context;
     return (
       <div>
         <span style={styles.date}>
-          {header.noteMoment.format('MMMM D, YYYY')}
+          {nowFn().format('MMMM D, YYYY')}
         </span>
         |
         <span style={styles.educator}>
-          {header.educatorEmail}
+          {educatorEmail}
         </span>
       </div>
     );
@@ -270,11 +267,11 @@ export default class TakeNotes extends React.Component {
   }
 }
 TakeNotes.contextTypes = {
-  districtKey: PropTypes.string.isRequired
+  districtKey: PropTypes.string.isRequired,
+  nowFn: PropTypes.func.isRequired
 };
 TakeNotes.propTypes = {
   style: PropTypes.object,
-  nowMoment: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   currentEducator: PropTypes.object.isRequired,

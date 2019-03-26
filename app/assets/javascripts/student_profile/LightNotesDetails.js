@@ -79,8 +79,6 @@ export default class LightNotesDetails extends React.Component {
 
     return (
       <TakeNotes
-        // TODO(kr) thread through
-        nowMoment={moment.utc()}
         currentEducator={currentEducator}
         onSave={this.onClickSaveNotes}
         onCancel={this.onCancelNotes}
