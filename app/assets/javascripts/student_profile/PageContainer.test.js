@@ -64,6 +64,19 @@ function patchNotesToBeWrittenByCurrentUser(fixtureProps) {
   };
 }
 
+function renderForEndToEnd() {
+  const props = patchNotesToBeWrittenByCurrentUser(testProps({
+    api: undefined, // not mocked
+    actions: undefined // not mocked
+  }));
+  const {el} = helpers.renderInto(props);
+
+  // click open full history
+  helpers.showFullCaseHistory(el);
+  expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
+
+  return {el};
+}
 
 const helpers = {
   interventionSummaryLists(el) {
@@ -228,42 +241,112 @@ describe('integration tests', () => {
 });
 
 
-describe('end-to-end tests all the way to the network', () => {
-  beforeEach(() => {
-    fetchMock.restore();
-    fetchMock.patch('express:/api/event_notes/:id', 503);
-  });
-
-  it('shows error when saving an edit fails', done => {
-    const props = patchNotesToBeWrittenByCurrentUser(testProps({
-      api: undefined, // not mocked
-      actions: undefined // not mocked
-    }));
-    const {el} = helpers.renderInto(props);
-
-    // click open full history
-    helpers.showFullCaseHistory(el);
-    expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
-
-    // edit note inline, triggering save
-    const noteIndex = 1;
-    helpers.editNoteText(el, noteIndex, {
-      text: 'world!'
+describe('end-to-end through the network', () => {
+  describe('when editing a note fails', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.patch('express:/api/event_notes/:id', 503);
     });
 
-    // wait for debounce
-    setTimeout(() => {
-      // expect network
-      const calls = fetchMock.calls();
-      expect(calls.length).toEqual(1);
-      expect(calls[0][0]).toEqual('/api/event_notes/26');
-      expect(calls[0][1].body).toEqual(JSON.stringify({
-        "event_note":{"text":"world!"}
-      }));
+    it('shows an error', done => {
+      const {el} = renderForEndToEnd();
 
-      // UI update
-      expect($(el).text()).not.toContain('Saving...');
-      done();
-    }, 600);
+      // edit note inline, triggering save
+      helpers.editNoteText(el, 1, {text: 'world!'});
+
+      // wait for debounce
+      setTimeout(() => {
+        // expect network
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0]).toEqual('/api/event_notes/26');
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "event_note":{"text":"world!"}
+        });
+
+        // UI update
+        expect($(el).text()).toContain('Your note is not saved.');
+        done();
+      }, 600);
+    });
+  });
+
+  describe('when editing succeeds', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.patch('express:/api/event_notes/:id', {
+        text: 'world!'
+      });
+    });
+
+    it('works', done => {
+      const {el} = renderForEndToEnd();
+
+      // edit note inline, triggering save
+      helpers.editNoteText(el, 1, {text: 'world!'});
+
+      // wait for debounce
+      setTimeout(() => {
+        // expect network
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0]).toEqual('/api/event_notes/26');
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "event_note":{"text":"world!"}
+        });
+
+        // UI update
+        expect($(el).text()).not.toContain('Your note is not saved.');
+        expect($(el).text()).not.toContain('Saving...');
+        done();
+      }, 600);
+    });
+  });
+
+  describe('when creating a new note succeeds', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.post('express:/api/event_notes', {
+        id: 999,
+        event_note_type_id: 300,
+        is_restricted: false,
+        text: 'hello world!',
+        attachments: []
+      });
+    });
+
+    it('works', done => {
+      const {el} = renderForEndToEnd();
+
+      helpers.takeNotesAndSave(el, {
+        eventNoteTypeText: 'SST Meeting',
+        text: 'hello world!'
+      });
+
+      // wait for debounce
+      setTimeout(() => {
+        // expect network
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0]).toEqual('/api/event_notes');
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "event_note":{
+            "student_id": 8,
+            "text":"hello world!",
+            "is_restricted": false,
+            "event_note_type_id": 300,
+            "event_note_attachments_attributes": []
+          }
+        });
+
+        // UI close dialog, no more saving indicator, and note text
+        // is in list
+        expect($(el).text()).not.toContain('Saving...');
+        expect($(el).text()).not.toContain('Save note');
+        expect($(el).text()).toContain('hello world!');
+
+        done();
+      }, 800);
+    });
   });
 });
