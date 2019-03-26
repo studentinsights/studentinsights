@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
 import TakeNotes from './TakeNotes';
+import DraftNote from './DraftNote';
 
 
 /*
@@ -71,23 +71,6 @@ export default class LightNotesDetails extends React.Component {
     );
   }
 
-  renderTakeNotesDialog() {
-    const {
-      currentEducator,
-      requests
-    } = this.props;
-
-    return (
-      <TakeNotes
-        currentEducator={currentEducator}
-        onSave={this.onClickSaveNotes}
-        onCancel={this.onCancelNotes}
-        requestState={requests.saveNote}
-        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
-      />
-    );
-  }
-
   renderTakeNotesButton() {
     return (
       <button
@@ -97,6 +80,36 @@ export default class LightNotesDetails extends React.Component {
         <span><span style={{fontWeight: 'bold', paddingRight: 5}}>+</span><span>note</span></span>
       </button>
     );
+  }
+
+  renderTakeNotesDialog() {
+    const {
+      currentEducator,
+      requests
+    } = this.props;
+
+    const shouldUseAutosave = (window.location.search.indexOf('autosave') !== -1);
+    if (shouldUseAutosave) {
+      return (
+        <DraftNote
+          currentEducator={currentEducator}
+          onSave={this.onClickSaveNotes}
+          onCancel={this.onCancelNotes}
+          requestState={requests.saveNote}
+          showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
+        />
+      );
+    } else {
+      return (
+        <TakeNotes
+          currentEducator={currentEducator}
+          onSave={this.onClickSaveNotes}
+          onCancel={this.onCancelNotes}
+          requestState={requests.saveNote}
+          showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
+        />
+      );
+    }
   }
 }
 
