@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import HomeroomTable from './HomeroomTable';
@@ -15,14 +16,18 @@ function testProps(props = {}) {
   };
 }
 
-function testRender(props = {}, context = {}) {
+function testEl(props = {}, context = {}) {
   const districtKey = context.districtKey || SOMERVILLE;
-  const el = document.createElement('div');
-  ReactDOM.render(
+  return (
     <PerDistrictContainer districtKey={districtKey}>
       <HomeroomTable {...props} />
     </PerDistrictContainer>
-  , el);
+  );
+}
+
+function testRender(props = {}, context = {}) {
+  const el = document.createElement('div');
+  ReactDOM.render(testEl(props, context), el);
   return {el};
 }
 
@@ -43,7 +48,8 @@ describe('high-level integration test', () => {
 
     expect($(el).find('thead > tr').length).toEqual(2);
     expect($(el).find('tbody > tr').length).toEqual(6);
-    expect(el.innerHTML).toContain('Aladdin Kenobi');
+    expect($(el).find('.StudentPhotoCropped').length).toEqual(6);
+    expect(el.innerHTML).toContain('Kenobi, Aladdin');
   });
 
   it('renders SST and MTSS dates correctly for Somerville grade 2 as a happy path test case', () => {
@@ -143,4 +149,9 @@ describe('high-level integration test', () => {
       'Home Language'
     ]);
   });
+});
+
+it('snapshots', () => {
+  const el = testEl(testProps());
+  expect(renderer.create(el).toJSON()).toMatchSnapshot();
 });

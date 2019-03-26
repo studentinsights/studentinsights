@@ -1,0 +1,583 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots 1`] = `
+<div
+  className="HomeroomTable"
+>
+  <table
+    cellPadding="5"
+    cellSpacing="0"
+    className="sort-default"
+    id="roster-table"
+  >
+    <thead>
+      <tr
+        className="column-groups"
+      >
+        <td
+          colSpan="1"
+        />
+        <td
+          colSpan="1"
+        />
+        <td
+          colSpan={2}
+        >
+          <p
+            className="smalltype"
+          >
+            Supports
+          </p>
+        </td>
+        <td
+          colSpan="1"
+        />
+        <td
+          colSpan="3"
+        >
+          <p
+            className="smalltype"
+          >
+            SPED & Disability
+          </p>
+        </td>
+        <td
+          colSpan="2"
+        >
+          <p
+            className="smalltype"
+          >
+            Language
+          </p>
+        </td>
+        <td
+          colSpan="1"
+        />
+      </tr>
+      <tr
+        className="column-names"
+      >
+        <th
+          className="name sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Name
+          </span>
+        </th>
+        <th>
+          <span
+            className="table-header"
+          >
+            Photo
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Last SST
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Last MTSS
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Program Assigned
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Disability
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Level of Need
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            504 Plan
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Fluency
+          </span>
+        </th>
+        <th
+          className="sortable_header"
+          onClick={[Function]}
+        >
+          <span
+            className="table-header"
+          >
+            Home Language
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="student-row"
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+          }
+        }
+      >
+        <td
+          className="name"
+        >
+          <a
+            href="/students/10"
+          >
+            Duck, Rapunzel
+          </a>
+        </td>
+        <td>
+          <div
+            className="StudentPhotoCropped"
+            style={
+              Object {
+                "backgroundColor": "#ddd",
+                "backgroundImage": "url(/students/10/photo)",
+                "backgroundPosition": "center top",
+                "backgroundPositionY": -10,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "150%",
+                "border": "1px solid #ddd",
+                "borderRadius": 3,
+                "height": 58,
+                "marginRight": 10,
+                "overflow": "hidden",
+                "width": 58,
+              }
+            }
+          />
+        </td>
+        <td>
+          1/2/11
+        </td>
+        <td>
+          8/6/11
+        </td>
+        <td>
+          2Way English
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="sped"
+          >
+            —
+            <span
+              className="tooltiptext"
+            />
+          </div>
+        </td>
+        <td>
+          Not 504
+        </td>
+        <td>
+          FLEP
+        </td>
+        <td>
+          English
+        </td>
+      </tr>
+      <tr
+        className="student-row"
+        style={
+          Object {
+            "backgroundColor": "#F7F7F7",
+          }
+        }
+      >
+        <td
+          className="name"
+        >
+          <a
+            href="/students/3"
+          >
+            Kenobi, Aladdin
+          </a>
+        </td>
+        <td>
+          <div
+            className="StudentPhotoCropped"
+            style={
+              Object {
+                "backgroundColor": "#ddd",
+                "backgroundImage": "url(/students/3/photo)",
+                "backgroundPosition": "center top",
+                "backgroundPositionY": -10,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "150%",
+                "border": "1px solid #ddd",
+                "borderRadius": 3,
+                "height": 58,
+                "marginRight": 10,
+                "overflow": "hidden",
+                "width": 58,
+              }
+            }
+          />
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          2Way Spanish
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="sped"
+          >
+            —
+            <span
+              className="tooltiptext"
+            />
+          </div>
+        </td>
+        <td>
+          Not 504
+        </td>
+        <td>
+          FLEP
+        </td>
+        <td>
+          Haitian-Creole
+        </td>
+      </tr>
+      <tr
+        className="student-row"
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+          }
+        }
+      >
+        <td
+          className="name"
+        >
+          <a
+            href="/students/6"
+          >
+            Kenobi, Snow
+          </a>
+        </td>
+        <td>
+          <div
+            className="StudentPhotoCropped"
+            style={
+              Object {
+                "backgroundColor": "#ddd",
+                "backgroundImage": "url(/students/6/photo)",
+                "backgroundPosition": "center top",
+                "backgroundPositionY": -10,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "150%",
+                "border": "1px solid #ddd",
+                "borderRadius": 3,
+                "height": 58,
+                "marginRight": 10,
+                "overflow": "hidden",
+                "width": 58,
+              }
+            }
+          />
+        </td>
+        <td>
+          8/29/11
+        </td>
+        <td>
+          7/27/11
+        </td>
+        <td>
+          2Way English
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="sped"
+          >
+            —
+            <span
+              className="tooltiptext"
+            />
+          </div>
+        </td>
+        <td>
+          Not 504
+        </td>
+        <td>
+          FLEP-Transitioning
+        </td>
+        <td>
+          English
+        </td>
+      </tr>
+      <tr
+        className="student-row"
+        style={
+          Object {
+            "backgroundColor": "#F7F7F7",
+          }
+        }
+      >
+        <td
+          className="name"
+        >
+          <a
+            href="/students/7"
+          >
+            Pan, Chip
+          </a>
+        </td>
+        <td>
+          <div
+            className="StudentPhotoCropped"
+            style={
+              Object {
+                "backgroundColor": "#ddd",
+                "backgroundImage": "url(/students/7/photo)",
+                "backgroundPosition": "center top",
+                "backgroundPositionY": -10,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "150%",
+                "border": "1px solid #ddd",
+                "borderRadius": 3,
+                "height": 58,
+                "marginRight": 10,
+                "overflow": "hidden",
+                "width": 58,
+              }
+            }
+          />
+        </td>
+        <td>
+          2/16/11
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          Reg Ed
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="sped"
+          >
+            —
+            <span
+              className="tooltiptext"
+            />
+          </div>
+        </td>
+        <td>
+          504
+        </td>
+        <td>
+          FLEP
+        </td>
+        <td>
+          English
+        </td>
+      </tr>
+      <tr
+        className="student-row"
+        style={
+          Object {
+            "backgroundColor": "#FFFFFF",
+          }
+        }
+      >
+        <td
+          className="name"
+        >
+          <a
+            href="/students/9"
+          >
+            Poppins, Pluto
+          </a>
+        </td>
+        <td>
+          <div
+            className="StudentPhotoCropped"
+            style={
+              Object {
+                "backgroundColor": "#ddd",
+                "backgroundImage": "url(/students/9/photo)",
+                "backgroundPosition": "center top",
+                "backgroundPositionY": -10,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "150%",
+                "border": "1px solid #ddd",
+                "borderRadius": 3,
+                "height": 58,
+                "marginRight": 10,
+                "overflow": "hidden",
+                "width": 58,
+              }
+            }
+          />
+        </td>
+        <td>
+          9/2/11
+        </td>
+        <td>
+          6/5/11
+        </td>
+        <td>
+          2Way English
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="sped"
+          >
+            —
+            <span
+              className="tooltiptext"
+            />
+          </div>
+        </td>
+        <td>
+          Not 504
+        </td>
+        <td>
+          Fluent
+        </td>
+        <td>
+          Haitian-Creole
+        </td>
+      </tr>
+      <tr
+        className="student-row"
+        style={
+          Object {
+            "backgroundColor": "#F7F7F7",
+          }
+        }
+      >
+        <td
+          className="name"
+        >
+          <a
+            href="/students/4"
+          >
+            Skywalker, Snow
+          </a>
+        </td>
+        <td>
+          <div
+            className="StudentPhotoCropped"
+            style={
+              Object {
+                "backgroundColor": "#ddd",
+                "backgroundImage": "url(/students/4/photo)",
+                "backgroundPosition": "center top",
+                "backgroundPositionY": -10,
+                "backgroundRepeat": "no-repeat",
+                "backgroundSize": "150%",
+                "border": "1px solid #ddd",
+                "borderRadius": 3,
+                "height": 58,
+                "marginRight": 10,
+                "overflow": "hidden",
+                "width": 58,
+              }
+            }
+          />
+        </td>
+        <td>
+          10/31/10
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          2Way Spanish
+        </td>
+        <td>
+          —
+        </td>
+        <td>
+          <div
+            className="sped"
+          >
+            —
+            <span
+              className="tooltiptext"
+            />
+          </div>
+        </td>
+        <td>
+          Not 504
+        </td>
+        <td>
+          Fluent
+        </td>
+        <td>
+          English
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

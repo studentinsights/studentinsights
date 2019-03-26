@@ -7,10 +7,11 @@ import {
   sortByCustomEnum,
   sortByActiveServices
 } from '../helpers/SortHelpers';
+import * as Routes from '../helpers/Routes';
 import {eventNoteTypeTextMini} from '../helpers/eventNoteType';
 import {studentTableEventNoteTypeIds, hasStudentPhotos} from '../helpers/PerDistrict';
 import {mergeLatestNoteDateTextFields} from '../helpers/latestNote';
-import StudentPhoto from '../components/StudentPhoto';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 
 
 // Shows a homeroom roster, for K8 and HS homerooms.
@@ -88,10 +89,6 @@ export default class HomeroomTable extends React.Component {
       );
   }
 
-  visitStudentProfile(id) {
-    window.location.href = `/students/${id}`;
-  }
-
   maybeRenderStudentPhotoSubheader() {
     const showStudentPhotos = this.showStudentPhotos();
     if (!showStudentPhotos) return null;
@@ -118,7 +115,7 @@ export default class HomeroomTable extends React.Component {
 
     return (
       <td>
-        <StudentPhoto student={row} height={65} />
+        <StudentPhotoCropped studentId={row.id} />
       </td>
     );
   }
@@ -255,10 +252,11 @@ export default class HomeroomTable extends React.Component {
 
     return (
       <tr className="student-row"
-          onClick={this.visitStudentProfile.bind(null, id)}
-          key={id}
-          style={style}>
-        <td className="name">{fullName}</td>
+        key={id}
+        style={style}>
+        <td className="name">
+          <a href={Routes.studentProfile(row.id)}>{fullName}</a>
+        </td>
         {this.maybeRenderStudentPhoto(row)}
         {this.eventNoteTypeIds().map(eventNoteTypeId => {
           const key = `latest_note_${eventNoteTypeId}_date_text`;
