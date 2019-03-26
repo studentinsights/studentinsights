@@ -5,13 +5,13 @@ exports[`snapshots for Bedford 1`] = `
   className="StudentPhotoCropped"
   style={
     Object {
-      "backgroundColor": "#ccc",
+      "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
       "backgroundPositionY": -5,
       "backgroundRepeat": "no-repeat",
       "backgroundSize": "130%",
-      "border": "1px solid #aaa",
+      "border": "1px solid #ddd",
       "borderRadius": 3,
       "height": 58,
       "marginRight": 10,
@@ -27,11 +27,11 @@ exports[`snapshots for New Bedford 1`] = `
   className="StudentPhotoCropped"
   style={
     Object {
-      "backgroundColor": "#ccc",
+      "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
       "backgroundRepeat": "no-repeat",
-      "border": "1px solid #aaa",
+      "border": "1px solid #ddd",
       "borderRadius": 3,
       "height": 58,
       "marginRight": 10,
@@ -47,13 +47,13 @@ exports[`snapshots for Somerville 1`] = `
   className="StudentPhotoCropped"
   style={
     Object {
-      "backgroundColor": "#ccc",
+      "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
       "backgroundPositionY": -10,
       "backgroundRepeat": "no-repeat",
       "backgroundSize": "150%",
-      "border": "1px solid #aaa",
+      "border": "1px solid #ddd",
       "borderRadius": 3,
       "height": 58,
       "marginRight": 10,
@@ -69,13 +69,13 @@ exports[`snapshots for demo 1`] = `
   className="StudentPhotoCropped"
   style={
     Object {
-      "backgroundColor": "#ccc",
+      "backgroundColor": "#ddd",
       "backgroundImage": "url(/students/42/photo)",
       "backgroundPosition": "center top",
       "backgroundPositionY": -5,
       "backgroundRepeat": "no-repeat",
       "backgroundSize": "130%",
-      "border": "1px solid #aaa",
+      "border": "1px solid #ddd",
       "borderRadius": 3,
       "height": 58,
       "marginRight": 10,

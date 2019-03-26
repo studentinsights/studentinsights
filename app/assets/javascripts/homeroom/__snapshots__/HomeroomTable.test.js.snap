@@ -179,13 +179,13 @@ exports[`snapshots 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/10/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -249,13 +249,13 @@ exports[`snapshots 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/3/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -319,13 +319,13 @@ exports[`snapshots 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/6/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -389,13 +389,13 @@ exports[`snapshots 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/7/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -459,13 +459,13 @@ exports[`snapshots 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/9/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -529,13 +529,13 @@ exports[`snapshots 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/4/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,

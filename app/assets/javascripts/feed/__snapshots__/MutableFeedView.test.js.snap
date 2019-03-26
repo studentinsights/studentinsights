@@ -73,13 +73,13 @@ exports[`MutableFeedView pure component matches snapshot 1`] = `
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/18/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -301,13 +301,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/103/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -517,13 +517,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/72/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -733,13 +733,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/18/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -959,13 +959,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/38/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -1175,13 +1175,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/69/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -1391,13 +1391,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/51/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -1607,13 +1607,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/13/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -1833,13 +1833,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/6/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -2059,13 +2059,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/103/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -2275,13 +2275,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/56/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -2491,13 +2491,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/53/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -2707,13 +2707,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/21/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -2933,13 +2933,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/72/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -3149,13 +3149,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/114/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -3365,13 +3365,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/109/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -3581,13 +3581,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/99/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -3797,13 +3797,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/18/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
@@ -4023,13 +4023,13 @@ Philis is meeting with parent next week and will present an attendance contract.
             className="StudentPhotoCropped"
             style={
               Object {
-                "backgroundColor": "#ccc",
+                "backgroundColor": "#ddd",
                 "backgroundImage": "url(/students/70/photo)",
                 "backgroundPosition": "center top",
                 "backgroundPositionY": -10,
                 "backgroundRepeat": "no-repeat",
                 "backgroundSize": "150%",
-                "border": "1px solid #aaa",
+                "border": "1px solid #ddd",
                 "borderRadius": 3,
                 "height": 58,
                 "marginRight": 10,
