@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import changeTextValue from '../testing/changeTextValue';
 import {currentEducator} from './fixtures/fixtures';
+import profileJsonForRyanRodriguez from './fixtures/profileJsonForRyanRodriguez.fixture';
 import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
@@ -11,6 +12,7 @@ import DraftNote from './DraftNote';
 
 export function testProps(props = {}) {
   return {
+    student: profileJsonForRyanRodriguez.student,
     currentEducator: currentEducator,
     onSave: jest.fn(),
     onCancel: jest.fn(),
@@ -39,7 +41,7 @@ it('renders without crashing', () => {
   const props = testProps();
   const {el} = renderTestEl(props);
 
-  expect(el.innerHTML).toContain('March 13, 2018');
+  expect(el.innerHTML).toContain('right now');
   expect(el.innerHTML).toContain('demo@example.com');
   expect($(el).find('textarea').length).toEqual(1);
   expect($(el).find('.btn.note-type').length).toEqual(8);

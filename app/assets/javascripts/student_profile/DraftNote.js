@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {takeNotesChoices} from '../helpers/PerDistrict';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
+import Educator from '../components/Educator';
+import FeedCardFrame from '../feed/FeedCardFrame';
 
 
 /*
@@ -111,15 +113,40 @@ export default class DraftNote extends React.Component {
   render() {
     const {
       style,
-      requestState,
-      currentEducator,
-      showRestrictedCheckbox
+      student,
+      currentEducator
     } = this.props;
+
+    return (
+      <div className="DraftNote" style={{...styles.root, ...style}}>
+        <FeedCardFrame
+          style={style}
+          student={student}
+          byEl={
+            <div>
+              <span>by </span>
+              <Educator
+                style={styles.person}
+                educator={currentEducator} />
+            </div>
+          }
+          whenEl={'right now'}
+          whereEl={null}
+          badgesEl={null}
+          iconsEl={this.renderIconsEl()}
+        >
+          {this.renderContent()}
+        </FeedCardFrame>
+      </div>
+    );
+  }
+
+  renderContent() {
+    const {showRestrictedCheckbox} = this.props;
     const {text} = this.state;
 
     return (
-      <div className="DraftNote" style={{...styles.dialog, ...style}}>
-        {this.renderNoteHeader(currentEducator.email)}
+      <div style={styles.content}>
         <textarea
           className="DraftNote-textarea"
           rows={10}
@@ -162,27 +189,6 @@ export default class DraftNote extends React.Component {
           onClick={this.onClickCancel}>
           Cancel
         </button>
-        {(requestState === 'pending') ? <span>
-          Saving...
-        </span> : null}
-        {(requestState === 'error') ? <span>
-          Try again!
-        </span> : null}
-      </div>
-    );
-  }
-
-  renderNoteHeader(educatorEmail) {
-    const {nowFn} = this.context;
-    return (
-      <div>
-        <span style={styles.date}>
-          {nowFn().format('MMMM D, YYYY')}
-        </span>
-        |
-        <span style={styles.educator}>
-          {educatorEmail}
-        </span>
       </div>
     );
   }
@@ -262,12 +268,20 @@ export default class DraftNote extends React.Component {
       </div>
     );
   }
+
+  renderIconsEl() {
+    const {requestState} = this.props;
+    if (requestState === 'pending') return <span>Saving...</span>;
+    if (requestState === 'error') return <span>Try again!</span>;
+    return null;
+  }
 }
 DraftNote.contextTypes = {
   districtKey: PropTypes.string.isRequired,
   nowFn: PropTypes.func.isRequired
 };
 DraftNote.propTypes = {
+  student: PropTypes.object.isRequired,
   style: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
@@ -281,21 +295,11 @@ DraftNote.defaultProps = {
 
 
 const styles = {
-  dialog: {
-    border: '1px solid #ccc',
-    borderRadius: 2,
-    padding: 20,
-    marginBottom: 20,
+  root: {
     marginTop: 10
   },
-  date: {
-    paddingRight: 10,
-    fontWeight: 'bold',
-    display: 'inline-block'
-  },
-  educator: {
-    paddingLeft: 5,
-    display: 'inline-block'
+  content: {
+    padding: 10,
   },
   textarea: {
     fontSize: 14,

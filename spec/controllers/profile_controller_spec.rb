@@ -550,6 +550,7 @@ describe ProfileController, :type => :controller do
         'program_assigned',
         'race',
         'registration_date',
+        'school',
         'school_id',
         'school_local_id',
         'school_name',

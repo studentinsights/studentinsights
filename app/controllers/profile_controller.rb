@@ -50,13 +50,16 @@ class ProfileController < ApplicationController
     }
 
     json = student.as_json({
-      :methods => [:has_photo],
-      :include => {
-        :homeroom => {
-          :only => [:id, :name],
-          :include => {
-            :educator => {:only => [:id, :full_name, :email]}
+      methods: [:has_photo],
+      include: {
+        homeroom: {
+          only: [:id, :name],
+          include: {
+            educator: {only: [:id, :full_name, :email]}
           }
+        },
+        school: {
+          only: [:id, :name, :local_id, :school_type]
         }
       }
     })
@@ -64,11 +67,11 @@ class ProfileController < ApplicationController
     json.merge(per_district_fields).merge({
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,
-      school_local_id: student.try(:school).try(:local_id),
-      school_name: student.try(:school).try(:name),
-      school_type: student.try(:school).try(:school_type),
-      homeroom_name: student.try(:homeroom).try(:name),
-      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count
+      discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
+      school_local_id: student.try(:school).try(:local_id), # deprecated, use school
+      school_name: student.try(:school).try(:name), # deprecated, use school
+      school_type: student.try(:school).try(:school_type), # deprecated, use school
+      homeroom_name: student.try(:homeroom).try(:name) # deprecated, use homeroom
     }).stringify_keys
   end
 

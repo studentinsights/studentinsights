@@ -85,6 +85,7 @@ export default class LightNotesDetails extends React.Component {
   renderTakeNotesDialog() {
     const {
       currentEducator,
+      student,
       requests
     } = this.props;
 
@@ -92,6 +93,7 @@ export default class LightNotesDetails extends React.Component {
     if (shouldUseAutosave) {
       return (
         <DraftNote
+          student={student}
           currentEducator={currentEducator}
           onSave={this.onClickSaveNotes}
           onCancel={this.onCancelNotes}
