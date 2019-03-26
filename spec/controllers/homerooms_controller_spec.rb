@@ -32,6 +32,7 @@ describe HomeroomsController, :type => :controller do
           "homeroom_id",
           "first_name",
           "last_name",
+          "has_photo",
           "state_id",
           "home_language",
           "school_id",

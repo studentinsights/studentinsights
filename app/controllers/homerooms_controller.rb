@@ -45,6 +45,7 @@ class HomeroomsController < ApplicationController
         :student_address
       ]
     }).merge({
+      has_photo: student.has_photo,
       discipline_incidents_count: student.most_recent_school_year_discipline_incidents_count,
       absences_count: student.most_recent_school_year_absences_count,
       tardies_count: student.most_recent_school_year_tardies_count,

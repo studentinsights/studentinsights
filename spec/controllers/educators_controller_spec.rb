@@ -66,6 +66,19 @@ describe EducatorsController, :type => :controller do
       response = get_my_students(pals.uri)
       expect(response).to be_successful
       expect(included_student_ids(response)).to contain_exactly(*Student.all.map(&:id))
+      expect(JSON.parse!(response.body)['students'].first.keys).to contain_exactly(*[
+        'id',
+        'first_name',
+        'last_name',
+        'has_photo',
+        'grade',
+        'house',
+        'counselor',
+        'program_assigned',
+        'school',
+        'sped_liaison',
+        'sped_placement'
+      ])
     end
 
     it 'works for Harry as an example with dev setup' do
