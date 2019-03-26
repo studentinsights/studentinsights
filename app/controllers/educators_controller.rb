@@ -52,6 +52,7 @@ class EducatorsController < ApplicationController
         :grade,
         :house,
         :counselor,
+        :has_photo,
         :sped_liaison,
         :program_assigned,
         :sped_placement

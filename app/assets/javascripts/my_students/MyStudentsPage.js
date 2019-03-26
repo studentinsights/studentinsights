@@ -196,9 +196,12 @@ export class MyStudentsPageView extends React.Component {
     return (
       <div style={styles.nameBlock}>
         <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
-        <StudentPhotoCropped
-          studentId={student.id}
-          style={styles.photo} />
+        {student.has_photo && (
+          <StudentPhotoCropped
+            studentId={student.id}
+            style={styles.photo}
+          />
+        )}
       </div>
     );
   }
@@ -229,6 +232,7 @@ MyStudentsPageView.propTypes = {
     house: PropTypes.string,
     counselor: PropTypes.string,
     grade: PropTypes.string.isRequired,
+    has_photo: PropTypes.bool.isRequired,
     school: PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
