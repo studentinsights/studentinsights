@@ -18,7 +18,6 @@ function storifyProps(props) {
     actions: {
       onColumnClicked: action('onColumnClicked'),
       onClickSaveNotes: action('onClickSaveNotes'),
-      onClickSaveTransitionNote: action('onClickSaveTransitionNote'),
       onDeleteEventNoteAttachment: action('onDeleteEventNoteAttachment'),
       onClickSaveService: action('onClickSaveService'),
       onClickDiscontinueService: action('onClickDiscontinueService'),

@@ -50,6 +50,7 @@ EditableNoteText.propTypes = {
 const styles = {
   textarea: {
     borderRadius: 3,
-    resize: 'none'
+    resize: 'none',
+    width: '100%' // overriding a global style
   }
 };

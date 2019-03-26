@@ -26,7 +26,6 @@ export function testPropsFromSerializedData(serializedData, queryParams = {}) {
     actions: {      
       onColumnClicked: jest.fn(),
       onClickSaveNotes: jest.fn(),
-      onClickSaveTransitionNote: jest.fn(),
       onDeleteEventNoteAttachment: jest.fn(),
       onClickSaveService: jest.fn(),
       onClickDiscontinueService: jest.fn(),

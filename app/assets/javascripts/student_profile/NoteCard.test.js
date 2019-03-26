@@ -75,15 +75,19 @@ describe('render', () => {
 });
 
 describe('saving', () => {
-  it('works in simple case', () => {
+  it('works in simple case', done => {
     const el = document.createElement('div');
     const component = helpers.renderInto(el, { text: 'hello' });
     helpers.editNoteText(el, 'hello world');
 
-    expect(component.props.onSave).toHaveBeenCalledWith({
-      id: component.props.eventNoteId,
-      eventNoteTypeId: component.props.eventNoteTypeId,
-      text: 'hello world'
-    });
+    // wait for debounce
+    setTimeout(() => {
+      expect(component.props.onSave).toHaveBeenCalledWith({
+        id: component.props.eventNoteId,
+        eventNoteTypeId: component.props.eventNoteTypeId,
+        text: 'hello world'
+      });
+      done();
+    }, 600);
   });
 });

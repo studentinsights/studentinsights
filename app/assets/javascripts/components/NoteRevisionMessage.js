@@ -20,7 +20,7 @@ NoteRevisionMessage.propTypes = {
 const styles = {
   revisionsText: {
     color: '#aaa',
-    fontSize: 13,
-    marginTop: 13
+    fontSize: 12,
+    marginTop: 10
   }
 };

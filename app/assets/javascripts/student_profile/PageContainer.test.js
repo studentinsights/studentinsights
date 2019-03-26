@@ -11,6 +11,8 @@ import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
 import {testPropsForPlutoPoppins} from './LightProfilePage.fixture';
+import fetchMock from 'fetch-mock/es5/client';
+
 
 function testProps(props = {}) {
   const {feed, profileJson} = testPropsForPlutoPoppins();
@@ -68,12 +70,12 @@ const helpers = {
 
   createSpyActions: () => {
     return {
-      // Just mock the functions that make server calls
       onColumnClicked: jest.fn(),
-      onClickSaveNotes: jest.fn(),
-      onClickSaveService: jest.fn(),
-      onClickDiscontinueService: jest.fn(),
-      onDeleteEventNoteAttachment: jest.fn()
+      onUpdateExistingNote: jest.fn(),
+      onCreateNewNote: jest.fn(),
+      onDeleteEventNoteAttachment: jest.fn(),
+      onSaveService: jest.fn(),
+      onDiscontinueService: jest.fn()
     };
   },
 
@@ -155,7 +157,7 @@ describe('integration tests', () => {
       text: 'hello!'
     });
 
-    expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+    expect(props.actions.onCreateNewNote).toHaveBeenCalledWith({
       eventNoteTypeId: 300,
       text: 'hello!',
       isRestricted: false,
@@ -163,7 +165,7 @@ describe('integration tests', () => {
     });
   });
 
-  it('can edit own notes for SST meetings, mocking the action handlers', () => {
+  it('can edit own notes for SST meetings, mocking the action handlers', done => {
     const props = patchNotesToBeWrittenByCurrentUser(testProps());
     const {el} = helpers.renderInto(props);
 
@@ -177,11 +179,15 @@ describe('integration tests', () => {
       text: 'world!'
     });
 
-    expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
-      id: 26,
-      eventNoteTypeId: 300,
-      text: 'world!'
-    });
+    // wait for debounce
+    setTimeout(() => {
+      expect(props.actions.onUpdateExistingNote).toHaveBeenCalledWith({
+        id: 26,
+        eventNoteTypeId: 300,
+        text: 'world!'
+      });
+      done();
+    }, 600);
   });
 
   it('verifies that the educator name is in the correct format', () => {
@@ -192,18 +198,18 @@ describe('integration tests', () => {
     // Simulate that the server call is still pending
     const unresolvedPromise = new Promise((resolve, reject) => {});
     props.api.saveService.mockReturnValue(unresolvedPromise);
-    instance.onClickSaveService({
+    instance.onSaveService({
       providedByEducatorName: 'badinput'
     });
     expect($(el).text()).toContain('Please use the form Last Name, First Name');
 
-    instance.onClickSaveService({
+    instance.onSaveService({
       providedByEducatorName: 'Teacher, Test'
     });
     expect($(el).text()).toContain('Saving...');
 
     // Name can also be blank
-    instance.onClickSaveService({
+    instance.onSaveService({
       providedByEducatorName: ''
     });
     expect($(el).text()).toContain('Saving...');
@@ -236,5 +242,46 @@ describe('integration tests', () => {
     expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));
     expect(updatedState.requests.discontinueService).toEqual({ 312: 'foo' });
     expect(instance.mergedDiscontinueService(updatedState, 312, null)).toEqual(instance.state);
+  });
+});
+
+
+describe('end-to-end tests all the way to the network', () => {
+  beforeEach(() => {
+    fetchMock.restore();
+    fetchMock.patch('express:/api/event_notes/:id', 503);
+  });
+
+  it('shows error when saving an edit fails', done => {
+    const props = patchNotesToBeWrittenByCurrentUser(testProps({
+      api: undefined, // not mocked
+      actions: undefined // not mocked
+    }));
+    const {el} = helpers.renderInto(props);
+
+    // click open full history
+    helpers.showFullCaseHistory(el);
+    expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
+
+    // edit note inline, triggering save
+    const noteIndex = 1;
+    helpers.editNoteText(el, noteIndex, {
+      text: 'world!'
+    });
+
+    // wait for debounce
+    setTimeout(() => {
+      // expect network
+      const calls = fetchMock.calls();
+      expect(calls.length).toEqual(1);
+      expect(calls[0][0]).toEqual('/api/event_notes/26');
+      expect(calls[0][1].body).toEqual(JSON.stringify({
+        "event_note":{"text":"world!"}
+      }));
+
+      // UI update
+      expect($(el).text()).not.toContain('Saving...');
+      done();
+    }, 600);
   });
 });

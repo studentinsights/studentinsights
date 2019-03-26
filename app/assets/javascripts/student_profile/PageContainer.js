@@ -5,15 +5,9 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {merge} from '../helpers/merge';
 import Api from './Api';
 import * as Routes from '../helpers/Routes';
+import {PENDING, IDLE, ERROR} from '../helpers/requestStates';
 import LightProfilePage from './LightProfilePage';
 
-
-// in place of updating lodash to v4
-function fromPair(key, value) {
-  const obj = {};
-  obj[key] = value;
-  return obj;
-}
 
 /*
 Holds page state, makes API calls to manipulate it.
@@ -25,17 +19,18 @@ export default class PageContainer extends React.Component {
     this.state = initialState(props);
 
     this.onColumnClicked = this.onColumnClicked.bind(this);
-    this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
+    this.onCreateNewNote = this.onCreateNewNote.bind(this);
+    this.onCreateNewNoteDone = this.onCreateNewNoteDone.bind(this);
+    this.onCreateNewNoteFail = this.onCreateNewNoteFail.bind(this);
+    this.onUpdateExistingNote = this.onUpdateExistingNote.bind(this);
+    this.onUpdateExistingNoteDone = this.onUpdateExistingNoteDone.bind(this);
+    this.onUpdateExistingNoteFail = this.onUpdateExistingNoteFail.bind(this);
     this.onDeleteEventNoteAttachment = this.onDeleteEventNoteAttachment.bind(this);
-    this.onClickSaveService = this.onClickSaveService.bind(this);
-    this.onClickDiscontinueService = this.onClickDiscontinueService.bind(this);
-    this.onClickSaveTransitionNote = this.onClickSaveTransitionNote.bind(this);
-    this.onSaveTransitionNoteDone = this.onSaveTransitionNoteDone.bind(this);
-    this.onSaveTransitionNoteFail = this.onSaveTransitionNoteFail.bind(this);
-    this.onSaveNotesDone = this.onSaveNotesDone.bind(this);
-    this.onSaveNotesFail = this.onSaveNotesFail.bind(this);
+
+    this.onSaveService = this.onSaveService.bind(this);
     this.onSaveServiceDone = this.onSaveServiceDone.bind(this);
     this.onSaveServiceFail = this.onSaveServiceFail.bind(this);
+    this.onDiscontinueService = this.onDiscontinueService.bind(this);
     this.onDiscontinueServiceDone = this.onDiscontinueServiceDone.bind(this);
     this.onDiscontinueServiceFail = this.onDiscontinueServiceFail.bind(this);
   }
@@ -53,12 +48,39 @@ export default class PageContainer extends React.Component {
     this.props.history.replaceState({}, null, path);
   }
 
+  // Update eventNotes list
+  setEventNotes(fn) {
+    this.setState({
+      feed: {
+        ...this.state.feed,
+        event_notes: fn(this.state.feed.event_notes)
+      }
+    });
+  }
+
+  // Sugar for updating request state
+  setRequestState(requests) {
+    this.setState({
+      requests: {
+        ...this.state.requests,
+        ...requests
+      }
+    });
+  }
+
+  // Update request state for  updating a note
+  setUpdateNoteRequest(fn) {
+    this.setRequestState({
+      updateNote: fn(this.state.requests.updateNote)
+    });
+  }
+
   // Returns an updated state, adding serviceId and requestState, or removing
   // the `serviceId` from the map if `requestState` is null.
   mergedDiscontinueService(state, serviceId, requestState) {
     const updatedDiscontinueService = (requestState === null)
       ? _.omit(state.requests.discontinueService, serviceId)
-      : merge(state.requests.discontinueService, fromPair(serviceId, requestState));
+      : merge(state.requests.discontinueService, {[serviceId]: requestState});
 
     return merge(state, {
       requests: merge(state.requests, {
@@ -71,71 +93,53 @@ export default class PageContainer extends React.Component {
     this.setState({ selectedColumnKey: columnKey });
   }
 
-  onClickSaveTransitionNote(noteParams) {
+  // single request at a time
+  onCreateNewNote(eventNoteParams) {
+    this.setRequestState({createNote: PENDING});
+    
     const {student} = this.props.profileJson;
-    const requestState = (noteParams.is_restricted)
-      ? { saveRestrictedTransitionNote: 'pending' }
-      : { saveTransitionNote: 'pending' };
-
-    this.setState({ requests: merge(this.state.requests, requestState) });
-    this.api.saveTransitionNote(student.id, noteParams)
-      .then(this.onSaveTransitionNoteDone.bind(this, noteParams))
-      .catch(this.onSaveTransitionNoteFail.bind(this, noteParams));
-  }
-
-  onSaveTransitionNoteDone(noteParams, response) {
-    const requestState = (noteParams.is_restricted)
-      ? { saveRestrictedTransitionNote: 'saved' }
-      : { saveTransitionNote: 'saved' };
-
-    this.setState({ requests: merge(this.state.requests, requestState) });
-  }
-
-  onSaveTransitionNoteFail(noteParams, request, status, message) {
-    const requestState = (noteParams.is_restricted)
-      ? { saveRestrictedTransitionNote: 'error' }
-      : { saveTransitionNote: 'error' };
-
-    this.setState({ requests: merge(this.state.requests, requestState) });
-  }
-
-  onClickSaveNotes(eventNoteParams) {
-    const {student} = this.props.profileJson;
-    const requestKey = (eventNoteParams.id) ? 'updateNote' : 'createNote';
-    this.setState({ requests: merge(this.state.requests, { [requestKey]: 'pending' }) });
     this.api.saveNotes(student.id, eventNoteParams)
-      .then(this.onSaveNotesDone.bind(this, requestKey))
-      .catch(this.onSaveNotesFail.bind(this, requestKey));
+      .then(this.onCreateNewNoteDone)
+      .catch(this.onCreateNewNoteFail);
   }
 
-  onSaveNotesDone(requestKey, response) {
-    let updatedEventNotes;
-    let foundEventNote = false;
-
-    updatedEventNotes = this.state.feed.event_notes.map(eventNote => {
-      if (eventNote.id === response.id) {
-        foundEventNote = true;
-        return merge(eventNote, response);
-      }
-      else {
-        return eventNote;
-      }
-    });
-
-    if (!foundEventNote) {
-      updatedEventNotes = this.state.feed.event_notes.concat([response]);
-    }
-
-    const updatedFeed = merge(this.state.feed, { event_notes: updatedEventNotes });
-
-    this.setState({
-      feed: updatedFeed,
-      requests: merge(this.state.requests, { [requestKey]: null })
-    });
+  onCreateNewNoteDone(response) {
+    this.setEventNotes(eventNotes => eventNotes.concat([response]));
+    this.setRequestState({createNote: IDLE});
   }
 
-  onSaveNotesFail(requestKey, request, status, message) {
-    this.setState({ requests: merge(this.state.requests, { [requestKey]: 'error' }) });
+  onCreateNewNoteFail(request, status, message) {
+    this.setRequestState({createNote: ERROR});
+  }
+
+  // multiple parallel requests possible
+  onUpdateExistingNote(eventNoteParams) {    
+    this.setUpdateNoteRequest(updateNote => _.merge(updateNote, {
+      [eventNoteParams.id]: PENDING
+    }));
+
+    const {student} = this.props.profileJson;
+    this.api.saveNotes(student.id, eventNoteParams)
+      .then(this.onUpdateExistingNoteDone.bind(this, eventNoteParams))
+      .catch(this.onUpdateExistingNoteFail.bind(this, eventNoteParams));
+  }
+
+  onUpdateExistingNoteDone(eventNoteParams, response) {
+    this.setEventNotes(eventNotes => {
+      return eventNotes.map(eventNote => {
+        return (eventNote.id === eventNoteParams.id)
+          ? {...eventNote, ...response}
+          : eventNote;
+      });
+    });
+
+    this.setUpdateNoteRequest(updateNote => _.omit(updateNote, [eventNoteParams.id]));
+  }
+
+  onUpdateExistingNoteFail(eventNoteParams, request, status, message) {
+    this.setUpdateNoteRequest(updateNote => _.merge(updateNote, {
+      [eventNoteParams.id]: ERROR
+    }));
   }
 
   // TODO(kr) does this work for not-yet-created notes?
@@ -149,29 +153,28 @@ export default class PageContainer extends React.Component {
     const updatedAttachments = eventNoteToUpdate.attachments.filter(attachment => {
       return attachment.id !== eventNoteAttachmentId;
     });
-    const updatedEventNotes = this.state.feed.event_notes.map(eventNote => {
-      return (eventNote.id !== eventNoteToUpdate.id)
-        ? eventNote
-        : merge(eventNote, { attachments: updatedAttachments });
-    });
-    this.setState({
-      feed: merge(this.state.feed, { event_notes: updatedEventNotes })
+    this.setEventNotes(eventNotes => {
+      return eventNotes.map(eventNote => {
+        return (eventNote.id === eventNoteToUpdate.id)
+          ? {...eventNote, attachments: updatedAttachments}
+          : eventNote;
+      });
     });
 
     // Server call, fire and forget
     this.api.deleteEventNoteAttachment(eventNoteAttachmentId);
   }
 
-  onClickSaveService(serviceParams) {
+  onSaveService(serviceParams) {
     const {student} = this.props.profileJson;
     // Very quick name validation, just check for a comma between two words
     if ((/(\w+, \w|^$)/.test(serviceParams.providedByEducatorName))) {
-      this.setState({ requests: merge(this.state.requests, { saveService: 'pending' }) });
+      this.setRequestState({saveService: PENDING});
       this.api.saveService(student.id, serviceParams)
           .then(this.onSaveServiceDone)
           .catch(this.onSaveServiceFail);
     } else {
-      this.setState({ requests: merge(this.state.requests, { saveService: 'Please use the form Last Name, First Name' }) });
+      this.setRequestState({saveService: 'Please use the form Last Name, First Name'});
     }
   }
 
@@ -185,15 +188,18 @@ export default class PageContainer extends React.Component {
 
     this.setState({
       feed: updatedFeed,
-      requests: merge(this.state.requests, { saveService: null })
+      requests: {
+        ...this.state.requests,
+        saveService: IDLE
+      }
     });
   }
 
   onSaveServiceFail(request, status, message) {
-    this.setState({ requests: merge(this.state.requests, { saveService: 'error' }) });
+    this.setRequestState({saveService: ERROR});
   }
 
-  onClickDiscontinueService(serviceId) {
+  onDiscontinueService(serviceId) {
     this.setState(this.mergedDiscontinueService(this.state, serviceId, 'pending'));
     this.api.discontinueService(serviceId)
       .then(this.onDiscontinueServiceDone.bind(this, serviceId))
@@ -208,11 +214,14 @@ export default class PageContainer extends React.Component {
         active: this.state.feed.services.active.filter(service => service.id !== serviceId)
       })
     });
-    this.setState(merge(updatedStateOfRequests, { feed: updatedFeed }));
+    this.setState({
+      ...updatedStateOfRequests,
+      feed: updatedFeed
+    });
   }
 
   onDiscontinueServiceFail(serviceId, request, status, message) {
-    this.setState(this.mergedDiscontinueService(this.state, serviceId, 'error'));
+    this.setState(this.mergedDiscontinueService(this.state, serviceId, ERROR));
   }
 
   render() {
@@ -228,11 +237,11 @@ export default class PageContainer extends React.Component {
 
     const actions = {
       onColumnClicked: this.onColumnClicked,
-      onClickSaveNotes: this.onClickSaveNotes,
-      onClickSaveTransitionNote: this.onClickSaveTransitionNote,
+      onUpdateExistingNote: this.onUpdateExistingNote,
+      onCreateNewNote: this.onCreateNewNote,
       onDeleteEventNoteAttachment: this.onDeleteEventNoteAttachment,
-      onClickSaveService: this.onClickSaveService,
-      onClickDiscontinueService: this.onClickDiscontinueService,
+      onSaveService: this.onSaveService,
+      onDiscontinueService: this.onDiscontinueService,
       ...(this.props.actions || {}) // for test
     };
 
@@ -292,9 +301,9 @@ export function initialState(props) {
     // For example, `saveService` holds the state of that request, but `discontinueService` is a map that can track multiple active
     // requests, using `serviceId` as a key.
     requests: {
-      updateNote: null,
-      createNote: null,
-      saveService: null,
+      updateNote: {},
+      createNote: IDLE,
+      saveService: IDLE,
       discontinueService: {}
     }
   };

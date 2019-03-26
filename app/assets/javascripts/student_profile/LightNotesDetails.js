@@ -19,9 +19,9 @@ export default class LightNotesDetails extends React.Component {
     super(props);
 
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
-    this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
+    this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
-    this.onSaveExistingNote = this.onSaveExistingNote.bind(this);
+    this.onUpdateExistingNote = this.onUpdateExistingNote.bind(this);
   }
 
   isTakingNotes() {
@@ -39,18 +39,26 @@ export default class LightNotesDetails extends React.Component {
     this.props.onTakingNotesChanged(false);
   }
 
-  onClickSaveNotes(eventNoteParams, event) {
-    this.props.actions.onClickSaveNotes(eventNoteParams);
+  onCreateNewNote(eventNoteParams, event) {
+    this.props.actions.onCreateNewNote(eventNoteParams);
     this.props.onTakingNotesChanged(false);
   }
 
-  onSaveExistingNote(eventNoteParams) {
-    this.props.actions.onClickSaveNotes(eventNoteParams);
+  onUpdateExistingNote(eventNoteParams) {
+    this.props.actions.onUpdateExistingNote(eventNoteParams);
     this.props.onTakingNotesChanged(false);
   }
 
   render() {
-    const {student, title, currentEducator} = this.props;
+    const {
+      student,
+      title,
+      currentEducator,
+      requests,
+      feed,
+      actions,
+      educatorsIndex
+    } = this.props;
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
@@ -67,11 +75,12 @@ export default class LightNotesDetails extends React.Component {
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             currentEducatorId={currentEducator.id}
-            feed={this.props.feed}
+            feed={feed}
+            requests={requests}
             canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
-            educatorsIndex={this.props.educatorsIndex}
-            onSaveNote={this.onSaveExistingNote}
-            onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
+            educatorsIndex={educatorsIndex}
+            onSaveNote={this.onUpdateExistingNote}
+            onEventNoteAttachmentDeleted={actions.onDeleteEventNoteAttachment} />
         </div>
       </div>
     );
@@ -101,7 +110,7 @@ export default class LightNotesDetails extends React.Component {
         <DraftNote
           student={student}
           currentEducator={currentEducator}
-          onSave={this.onClickSaveNotes}
+          onSave={this.onCreateNewNote}
           onCancel={this.onCancelNotes}
           requestState={requests.createNote}
           showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
@@ -111,7 +120,7 @@ export default class LightNotesDetails extends React.Component {
       return (
         <TakeNotes
           currentEducator={currentEducator}
-          onSave={this.onClickSaveNotes}
+          onSave={this.onCreateNewNote}
           onCancel={this.onCancelNotes}
           requestState={requests.createNote}
           showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
@@ -128,8 +137,9 @@ LightNotesDetails.propTypes = {
     can_view_restricted_notes: PropTypes.bool.isRequired
   }).isRequired,
   actions: PropTypes.shape({
-    onClickSaveNotes: PropTypes.func.isRequired,
-    onDeleteEventNoteAttachment: PropTypes.func
+    onCreateNewNote: PropTypes.func.isRequired,
+    onUpdateExistingNote: PropTypes.func.isRequired,
+    onDeleteEventNoteAttachment: PropTypes.func,
   }),
   feed: InsightsPropTypes.feed.isRequired,
   requests: PropTypes.object.isRequired,

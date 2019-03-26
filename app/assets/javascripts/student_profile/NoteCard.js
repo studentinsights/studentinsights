@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import * as Routes from '../helpers/Routes';
+import {ERROR, PENDING} from '../helpers/requestStates';
+import {formatEducatorName} from '../helpers/educatorName';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import EditableNoteText from '../components/EditableNoteText';
 import NoteRevisionMessage from '../components/NoteRevisionMessage';
-import * as Routes from '../helpers/Routes';
-import {formatEducatorName} from '../helpers/educatorName';
 import RestrictedNotePresence from './RestrictedNotePresence';
 
 
@@ -18,7 +19,7 @@ export default class NoteCard extends React.Component {
     super(props);
 
     this.onTextChanged = this.onTextChanged.bind(this);
-    this.throttledSave = _.throttle(this.throttledSave, 1000);
+    this.debouncedSave = _.debounce(this.debouncedSave, 500);
   }
 
   educator() {
@@ -28,8 +29,8 @@ export default class NoteCard extends React.Component {
   }
 
   // <EditableNoteText /> is uncontrolled, so it tracks
-  // text changes, and syncs to save through a throttled fn.
-  throttledSave(textValue) {
+  // text changes, and syncs to save.
+  debouncedSave(textValue) {
     if (!this.props.onSave) return;
 
     this.props.onSave({
@@ -40,7 +41,7 @@ export default class NoteCard extends React.Component {
   }
 
   onTextChanged(textValue) {
-    this.throttledSave(textValue);
+    this.debouncedSave(textValue);
   }
 
   // No feedback, fire and forget
@@ -112,12 +113,22 @@ export default class NoteCard extends React.Component {
             defaultText={text}
             onTextChanged={this.onTextChanged}
           />
-          <NoteRevisionMessage numberOfRevisions={numberOfRevisions} />
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <NoteRevisionMessage numberOfRevisions={numberOfRevisions} />
+            {this.renderRequestState()}
+          </div>
         </div>
       );
     }
     
     return <NoteText text={text} />;        
+  }
+
+  renderRequestState() {
+    const {requestState} = this.props;
+    if (requestState === ERROR) return <span style={styles.error}>Your note is not saved.</span>;
+    if (requestState === PENDING) return <span style={styles.saving}>Saving...</span>;
+    return <span />;
   }
 
   renderAttachmentUrls() {
@@ -239,6 +250,7 @@ NoteCard.propTypes = {
   numberOfRevisions: PropTypes.number,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
+  requestState: PropTypes.string,
 
   // Configuring for different uses
   showRestrictedNoteRedaction: PropTypes.bool,
@@ -296,5 +308,14 @@ const styles = {
   },
   text: {
     marginTop: 10
+  },
+  error: {
+    fontSize: 12,
+    color: 'orange',
+    fontWeight: 'bold'
+  },
+  saving: {
+    fontSize: 12,
+    color: '#aaa'
   }
 };

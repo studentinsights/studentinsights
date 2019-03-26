@@ -83,7 +83,8 @@ export default class NotesList extends React.Component {
       onSaveNote,
       onEventNoteAttachmentDeleted,
       canUserAccessRestrictedNotes,
-      currentEducatorId
+      currentEducatorId,
+      requests
     } = this.props;
     const isRedacted = eventNote.is_restricted;
     const isReadonly = (
@@ -112,6 +113,7 @@ export default class NotesList extends React.Component {
         includeStudentPanel={includeStudentPanel}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
         onSave={isReadonly ? null : onSaveNote}
+        requestState={requests.updateNote[eventNote.id]}
         onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
   }
@@ -217,6 +219,7 @@ export default class NotesList extends React.Component {
 NotesList.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
+  requests: InsightsPropTypes.requests.isRequired,
   educatorsIndex: PropTypes.object.isRequired,
   includeStudentPanel: PropTypes.bool,
   canUserAccessRestrictedNotes: PropTypes.bool,
