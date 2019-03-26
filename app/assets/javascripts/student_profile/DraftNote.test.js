@@ -56,15 +56,11 @@ it('calls onSave with the correct shape', () => {
 
   changeTextValue($(el).find('textarea').get(0), 'hello!');
   ReactTestUtils.Simulate.click($(el).find('.btn.note-type:eq(1)').get(0));
-  ReactTestUtils.Simulate.change($(el).find('.DraftNote-attachment-link-input').get(0), {target: {value: 'https://example.com/foo'}});
   ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   
   expect(props.onSave).toHaveBeenCalledWith({
     "text": "hello!",
-    "eventNoteTypeId": 301,
-    "eventNoteAttachments": [{
-      url: 'https://example.com/foo'
-    }]
+    "eventNoteTypeId": 301
   });
 });
 

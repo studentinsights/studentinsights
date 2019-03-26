@@ -18,15 +18,13 @@ export default class DraftNote extends React.Component {
     this.state = {
       isRestricted: false,
       text: '',
-      eventNoteTypeId: null,
-      noteInProgressAttachmentUrls: []
+      eventNoteTypeId: null
     };
     this.onRestrictedToggled = this.onRestrictedToggled.bind(this);
     this.onClickCancel = this.onClickCancel.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
     this.onChangeText = this.onChangeText.bind(this);
     this.onClickNoteType = this.onClickNoteType.bind(this);
-    this.onChangeAttachmentUrl = this.onChangeAttachmentUrl.bind(this);
   }
 
   // Focus on note-taking text area when it first appears.
@@ -38,45 +36,10 @@ export default class DraftNote extends React.Component {
     return { url: urlString };
   }
 
-  eventNoteUrlsForSave() {
-    const {noteInProgressAttachmentUrls} = this.state;
-
-    const urlsToSave = noteInProgressAttachmentUrls.map(this.wrapUrlInObject);
-
-    return { eventNoteAttachments: urlsToSave };
-  }
-
   disabledSaveButton() {
     const {text, eventNoteTypeId} = this.state;
 
-    return (text === '' || eventNoteTypeId === null || !this.isValidAttachmentUrls());
-  }
-
-  isValidAttachmentUrls() {
-    const {noteInProgressAttachmentUrls} = this.state;
-
-    return _.every(noteInProgressAttachmentUrls, url => {
-      return (url.slice(0, 7) === 'http://'  ||
-              url.slice(0, 8) === 'https://' ||
-              url.length      === 0);
-    });
-  }
-
-  onChangeAttachmentUrl(changedIndex, event) {
-    const {noteInProgressAttachmentUrls} = this.state;
-
-    const newValue = event.target.value;
-    const updatedAttachmentUrls = (noteInProgressAttachmentUrls.length === changedIndex)
-      ? noteInProgressAttachmentUrls.concat(newValue)
-      : noteInProgressAttachmentUrls.map((attachmentUrl, index) => {
-        return (changedIndex === index) ? newValue : attachmentUrl;
-      });
-
-    const filteredAttachments = updatedAttachmentUrls.filter((urlString) => {
-      return urlString.length !== 0;
-    });
-
-    this.setState({ noteInProgressAttachmentUrls: filteredAttachments });
+    return (text === '' || eventNoteTypeId === null);
   }
 
   onChangeText(e) {
@@ -103,8 +66,7 @@ export default class DraftNote extends React.Component {
     const params = {
       eventNoteTypeId,
       text,
-      ...(showRestrictedCheckbox ? {isRestricted} : {}),
-      ...this.eventNoteUrlsForSave()
+      ...(showRestrictedCheckbox ? {isRestricted} : {})
     };
 
     onSave(params);
@@ -169,10 +131,6 @@ export default class DraftNote extends React.Component {
           What are these notes from?
         </div>
         {this.renderNoteButtonsPerDistrict()}
-        <div style={{ marginBottom: 5, marginTop: 20 }}>
-          Add a link (i.e. to a file of student work on Google Drive):
-        </div>
-        {this.renderAttachmentLinkArea()}
         <button
           style={{
             marginTop: 20,
@@ -226,46 +184,6 @@ export default class DraftNote extends React.Component {
         }}>
         {eventNoteTypeText(eventNoteTypeId)}
       </button>
-    );
-  }
-
-  renderAttachmentLinkArea() {
-    const {noteInProgressAttachmentUrls} = this.state;
-    const isValidUrls = this.isValidAttachmentUrls();
-
-    const urls = (isValidUrls)
-      ? noteInProgressAttachmentUrls.concat('')
-      : noteInProgressAttachmentUrls;
-
-    return (
-      <div>
-        {urls.map((url, index) => this.renderAttachmentLinkInput(url, index))}
-        <div
-          style={{
-            fontStyle: 'italic',
-            marginTop: '10px 0'
-          }}>
-          Please use the format https://www.example.com.
-        </div>
-      </div>
-    );
-  }
-
-  renderAttachmentLinkInput(value, index) {
-    return (
-      <div key={index}>
-        <input
-          className="DraftNote-attachment-link-input"
-          value={value}
-          onChange={this.onChangeAttachmentUrl.bind(this, index)}
-          placeholder="Please use the format https://www.example.com."
-          style={{
-            marginBottom: '20px',
-            fontSize: 14,
-            padding: 5,
-            width: '100%'
-          }} />
-      </div>
     );
   }
 
