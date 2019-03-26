@@ -6,7 +6,7 @@ class FeedCard < Struct.new(:type, :timestamp, :json)
       :include => {
         :educator => {:only => [:id, :full_name, :email]},
         :student => {
-          :only => [:id, :email, :first_name, :last_name, :grade, :house],
+          :only => [:id, :email, :first_name, :last_name, :grade, :house, :has_photo],
           :methods => [:has_photo],
           :include => {
             :school => {

@@ -21,6 +21,7 @@ export function testProps(props = {}) {
         "first_name": "Mowgli",
         "last_name": "Pan",
         "house": "Beacon",
+        "has_photo": true,
         "school": {
           "local_id": "SHS",
           "school_type": "HS"
