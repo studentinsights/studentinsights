@@ -43,7 +43,7 @@ class EducatorsController < ApplicationController
   end
 
   def my_students_json
-    students = authorized { Student.active.includes(:school).to_a }
+    students = authorized { Student.active.includes(:school, :student_photos).to_a }
     students_json = students.as_json({
       only: [
         :id,
