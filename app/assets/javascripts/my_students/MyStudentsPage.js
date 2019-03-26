@@ -118,7 +118,7 @@ export class MyStudentsPageView extends React.Component {
     const {districtKey} = this.context;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
-    const rowHeight = 40; // for two lines of student names
+    const rowHeight = 60; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -249,9 +249,8 @@ const styles = {
     alignItems: 'center'
   },
   photo: {
-    width: 32,
-    height: 32,
     display: 'inline-block',
+    marginLeft: 10,
     marginRight: 20
   }
 };

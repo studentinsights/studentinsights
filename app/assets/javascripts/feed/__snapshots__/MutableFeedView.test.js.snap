@@ -70,25 +70,6 @@ exports[`MutableFeedView pure component matches snapshot 1`] = `
           }
         >
           <div
-            className="StudentPhotoCropped"
-            style={
-              Object {
-                "backgroundColor": "#ddd",
-                "backgroundImage": "url(/students/18/photo)",
-                "backgroundPosition": "center top",
-                "backgroundPositionY": -10,
-                "backgroundRepeat": "no-repeat",
-                "backgroundSize": "150%",
-                "border": "1px solid #ddd",
-                "borderRadius": 3,
-                "height": 58,
-                "marginRight": 10,
-                "overflow": "hidden",
-                "width": 58,
-              }
-            }
-          />
-          <div
             style={
               Object {
                 "alignItems": "flex-start",
@@ -1603,25 +1584,6 @@ Philis is meeting with parent next week and will present an attendance contract.
             }
           }
         >
-          <div
-            className="StudentPhotoCropped"
-            style={
-              Object {
-                "backgroundColor": "#ddd",
-                "backgroundImage": "url(/students/13/photo)",
-                "backgroundPosition": "center top",
-                "backgroundPositionY": -10,
-                "backgroundRepeat": "no-repeat",
-                "backgroundSize": "150%",
-                "border": "1px solid #ddd",
-                "borderRadius": 3,
-                "height": 58,
-                "marginRight": 10,
-                "overflow": "hidden",
-                "width": 58,
-              }
-            }
-          />
           <div
             style={
               Object {
@@ -3793,25 +3755,6 @@ Philis is meeting with parent next week and will present an attendance contract.
             }
           }
         >
-          <div
-            className="StudentPhotoCropped"
-            style={
-              Object {
-                "backgroundColor": "#ddd",
-                "backgroundImage": "url(/students/18/photo)",
-                "backgroundPosition": "center top",
-                "backgroundPositionY": -10,
-                "backgroundRepeat": "no-repeat",
-                "backgroundSize": "150%",
-                "border": "1px solid #ddd",
-                "borderRadius": 3,
-                "height": 58,
-                "marginRight": 10,
-                "overflow": "hidden",
-                "width": 58,
-              }
-            }
-          />
           <div
             style={
               Object {
