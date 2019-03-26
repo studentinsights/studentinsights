@@ -33,7 +33,8 @@ export default class NotesFeed extends React.Component {
               forceShowingAllNotes={true}
               canUserAccessRestrictedNotes={canUserAccessRestrictedNotes}
               educatorsIndex={educatorsIndex}
-              feed={feed} />
+              feed={feed}
+            />
           </div>
           <div style={styles.rightColumn}>
             {this.renderSidebar()}
