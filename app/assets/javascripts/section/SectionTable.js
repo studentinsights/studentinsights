@@ -114,15 +114,7 @@ export default class SectionTable extends React.Component {
   }
 
   renderPhoto(student, column) {
-    return  (
-      <StudentPhotoCropped
-        studentId={student.id}
-        style={{
-          width: 32,
-          height: 32
-        }}
-      />
-    );
+    return  <StudentPhotoCropped studentId={student.id} />;
   }
 }
 SectionTable.contextTypes = {

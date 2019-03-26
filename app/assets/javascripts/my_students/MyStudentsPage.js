@@ -143,13 +143,13 @@ export class MyStudentsPageView extends React.Component {
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
-              width={220}
+              width={260}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={140}
+              width={160}
             />
             <Column
               label='Grade'
@@ -205,7 +205,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderSchool(cellProps) {
     const student = cellProps.rowData;
-    return <School {...student.school} />;
+    return <School {...student.school} style={{marginRight: 10}} />;
   }
 
   renderHouse(cellProps) {
@@ -215,7 +215,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderProgram(cellProps) {
     const student = cellProps.rowData;
-    return prettyProgramOrPlacementText(student);
+    return <div style={{marginRight: 10}}>{prettyProgramOrPlacementText(student)}</div>;
   }
 }
 MyStudentsPageView.contextTypes = {
@@ -250,7 +250,7 @@ const styles = {
   },
   photo: {
     display: 'inline-block',
-    marginLeft: 10,
+    marginLeft: 20,
     marginRight: 20
   }
 };
