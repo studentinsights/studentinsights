@@ -27,11 +27,6 @@ export default class DraftNote extends React.Component {
     this.onClickNoteType = this.onClickNoteType.bind(this);
   }
 
-  // Focus on note-taking text area when it first appears.
-  componentDidMount(prevProps, prevState) {
-    this.textareaRef.focus();
-  }
-
   wrapUrlInObject(urlString) {
     return { url: urlString };
   }
@@ -95,7 +90,7 @@ export default class DraftNote extends React.Component {
           whenEl={'right now'}
           whereEl={null}
           badgesEl={null}
-          iconsEl={this.renderIconsEl()}
+          iconsEl={null}
         >
           {this.renderContent()}
         </FeedCardFrame>
@@ -103,17 +98,39 @@ export default class DraftNote extends React.Component {
     );
   }
 
+  // single-step UX
   renderContent() {
+    return (
+      <div>
+        {this.renderTypeNote()}
+        {this.renderChooseEventNoteType()}
+        {this.renderInteractions()}
+      </div>
+    );
+  }
+
+  renderChooseEventNoteType() {
+    return (
+      <div style={{margin: 10}}>
+        <div style={{ marginBottom: 5, marginTop: 20 }}>
+          What are these notes from?
+        </div>
+        {this.renderNoteButtonsPerDistrict()}
+      </div>
+    );
+  }
+
+  renderTypeNote() {
     const {showRestrictedCheckbox} = this.props;
     const {text} = this.state;
 
     return (
-      <div style={styles.content}>
+      <div>
         <textarea
           className="DraftNote-textarea"
           rows={10}
           style={styles.textarea}
-          ref={ref => this.textareaRef = ref}
+          autoFocus={true}
           value={text}
           onChange={this.onChangeText} />
         {showRestrictedCheckbox &&
@@ -127,26 +144,32 @@ export default class DraftNote extends React.Component {
             </label>
           </div>
         }
-        <div style={{ marginBottom: 5, marginTop: 20 }}>
-          What are these notes from?
+      </div>
+    );
+  }
+
+  renderInteractions() {
+    return (
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div>
+          <button
+            style={{
+              marginTop: 20,
+              background: (this.disabledSaveButton()) ? '#ccc' : undefined
+            }}
+            disabled={this.disabledSaveButton()}
+            className="btn save"
+            onClick={this.onClickSave}>
+            Save notes
+          </button>
+          <button
+            className="btn cancel"
+            style={styles.cancelDraftNoteButton}
+            onClick={this.onClickCancel}>
+            Cancel
+          </button>
         </div>
-        {this.renderNoteButtonsPerDistrict()}
-        <button
-          style={{
-            marginTop: 20,
-            background: (this.disabledSaveButton()) ? '#ccc' : undefined
-          }}
-          disabled={this.disabledSaveButton()}
-          className="btn save"
-          onClick={this.onClickSave}>
-          Save notes
-        </button>
-        <button
-          className="btn cancel"
-          style={styles.cancelDraftNoteButton}
-          onClick={this.onClickCancel}>
-          Cancel
-        </button>
+        {this.renderIconsEl()}
       </div>
     );
   }
@@ -187,11 +210,12 @@ export default class DraftNote extends React.Component {
     );
   }
 
+  // always take up space
   renderIconsEl() {
     const {requestState} = this.props;
     if (requestState === 'pending') return <span>Saving...</span>;
     if (requestState === 'error') return <span>Try again!</span>;
-    return null;
+    return <span />;
   }
 }
 DraftNote.contextTypes = {
@@ -215,9 +239,6 @@ DraftNote.defaultProps = {
 const styles = {
   root: {
     marginTop: 10
-  },
-  content: {
-    padding: 10,
   },
   textarea: {
     fontSize: 14,
