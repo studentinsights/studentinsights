@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import {studentProfile, feedForTestingNotes} from './fixtures/fixtures';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import {createRequestsState} from './mockPageContainerProps';
 import NotesList from './NotesList';
 
 
@@ -15,6 +16,7 @@ function testProps(props = {}) {
     educatorsIndex: studentProfile.educatorsIndex,
     onSaveNote: jest.fn(),
     onEventNoteAttachmentDeleted: jest.fn(),
+    requests: createRequestsState(),
     ...props
   };
 }

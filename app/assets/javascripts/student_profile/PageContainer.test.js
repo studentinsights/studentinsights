@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {mount} from 'enzyme';
 import ReactTestUtils from 'react-dom/test-utils';
+import fetchMock from 'fetch-mock/es5/client';
 import {withDefaultNowContext, testTimeMoment} from '../testing/NowContainer';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
@@ -10,8 +11,8 @@ import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
+import {createSpyActions, createSpyApi} from './mockPageContainerProps';
 import {testPropsForPlutoPoppins} from './LightProfilePage.fixture';
-import fetchMock from 'fetch-mock/es5/client';
 
 
 function testProps(props = {}) {
@@ -21,8 +22,8 @@ function testProps(props = {}) {
     defaultFeed: feed,
     queryParams: {},
     history: mockHistory(),
-    actions: helpers.createSpyActions(),
-    api: helpers.createSpyApi(),
+    actions: createSpyActions(),
+    api: createSpyApi(),
     noteInProgressText: '',
     noteInProgressType: null,
     ...props
@@ -63,29 +64,10 @@ function patchNotesToBeWrittenByCurrentUser(fixtureProps) {
   };
 }
 
+
 const helpers = {
   interventionSummaryLists(el) {
     return $(el).find('.interventions-column .SummaryList').toArray();
-  },
-
-  createSpyActions: () => {
-    return {
-      onColumnClicked: jest.fn(),
-      onUpdateExistingNote: jest.fn(),
-      onCreateNewNote: jest.fn(),
-      onDeleteEventNoteAttachment: jest.fn(),
-      onSaveService: jest.fn(),
-      onDiscontinueService: jest.fn()
-    };
-  },
-
-  createSpyApi: () => {
-    return {
-      saveNotes: jest.fn(),
-      deleteEventNoteAttachment: jest.fn(),
-      saveService: jest.fn(),
-      discontinueService: jest.fn()
-    };
   },
 
   renderInto(props) {

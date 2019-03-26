@@ -2,7 +2,7 @@ import {initialState} from './PageContainer';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
 import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
-
+import {createSpyActions} from './mockPageContainerProps';
 
 export function testPropsForOlafWhite() {
   return testPropsFromSerializedData(serializedDataForOlafWhite);
@@ -23,15 +23,6 @@ export function testPropsFromSerializedData(serializedData, queryParams = {}) {
       defaultFeed: serializedData.feed,
     }),
     profileJson: serializedData,
-    actions: {      
-      onColumnClicked: jest.fn(),
-      onClickSaveNotes: jest.fn(),
-      onDeleteEventNoteAttachment: jest.fn(),
-      onClickSaveService: jest.fn(),
-      onClickDiscontinueService: jest.fn(),
-      onChangeNoteInProgressText: jest.fn(),
-      onClickNoteType: jest.fn(),
-      onChangeAttachmentUrl: jest.fn()
-    }
+    actions: createSpyActions()
   };
 }
