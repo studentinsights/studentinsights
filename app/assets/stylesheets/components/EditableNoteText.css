@@ -1,3 +1,6 @@
-.EditableNoteText-with-hover:hover {
-  border-color: #e5e5e5 !important; /* overrides inline style */
+.EditableNoteText .ResizingTextArea {
+  &:focus,
+  &:hover {
+    border-color: #e5e5e5 !important; /* overrides inline style */
+  }
 }

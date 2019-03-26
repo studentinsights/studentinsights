@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import moment from 'moment';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
 import EditableNoteText from '../components/EditableNoteText';
+import NoteRevisionMessage from '../components/NoteRevisionMessage';
 import * as Routes from '../helpers/Routes';
 import {formatEducatorName} from '../helpers/educatorName';
 import RestrictedNotePresence from './RestrictedNotePresence';
+
 
 
 // This renders a single card for a Note of any type.
@@ -14,7 +17,8 @@ export default class NoteCard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onBlurText = this.onBlurText.bind(this);
+    this.onTextChanged = this.onTextChanged.bind(this);
+    this.throttledSave = _.throttle(this.throttledSave, 1000);
   }
 
   educator() {
@@ -23,12 +27,9 @@ export default class NoteCard extends React.Component {
     return educatorsIndex[educatorId];
   }
 
-  // No feedback, fire and forget
-  onDeleteAttachmentClicked(eventNoteAttachmentId) {
-    this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
-  }
-
-  onBlurText(textValue) {
+  // <EditableNoteText /> is uncontrolled, so it tracks
+  // text changes, and syncs to save through a throttled fn.
+  throttledSave(textValue) {
     if (!this.props.onSave) return;
 
     this.props.onSave({
@@ -36,6 +37,15 @@ export default class NoteCard extends React.Component {
       eventNoteTypeId: this.props.eventNoteTypeId,
       text: textValue
     });
+  }
+
+  onTextChanged(textValue) {
+    this.throttledSave(textValue);
+  }
+
+  // No feedback, fire and forget
+  onDeleteAttachmentClicked(eventNoteAttachmentId) {
+    this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
   }
 
   render() {
@@ -97,10 +107,13 @@ export default class NoteCard extends React.Component {
     const {onSave, text, numberOfRevisions} = this.props;
     if (onSave) {
       return (
-        <EditableNoteText
-          text={text}
-          numberOfRevisions={numberOfRevisions}
-          onBlurText={this.onBlurText} />
+        <div>
+          <EditableNoteText
+            defaultText={text}
+            onTextChanged={this.onTextChanged}
+          />
+          <NoteRevisionMessage numberOfRevisions={numberOfRevisions} />
+        </div>
       );
     }
     

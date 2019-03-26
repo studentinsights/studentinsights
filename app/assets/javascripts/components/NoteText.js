@@ -16,6 +16,8 @@ export const exportedNoteText = {
   whiteSpace: 'pre-wrap',
   wordBreak: 'break-word',
   overflowX: 'hidden',
+  borderRadius: 3,
+  resize: 'none',
   border: '1px solid transparent' // for sizing when we add a border on hover when editable
 };
 
