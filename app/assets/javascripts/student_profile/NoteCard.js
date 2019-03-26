@@ -105,7 +105,7 @@ export default class NoteCard extends React.Component {
   // This is for older interventions that are read-only 
   // because of changes to the server data model.
   renderText() {
-    const {onSave, text, numberOfRevisions} = this.props;
+    const {onSave, text} = this.props;
     if (onSave) {
       return (
         <div style={styles.text}>
@@ -113,8 +113,8 @@ export default class NoteCard extends React.Component {
             defaultText={text}
             onTextChanged={this.onTextChanged}
           />
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <NoteRevisionMessage numberOfRevisions={numberOfRevisions} />
+          <div style={styles.footer}>
+            {this.renderLastRevisedAt()}
             {this.renderRequestState()}
           </div>
         </div>
@@ -122,6 +122,23 @@ export default class NoteCard extends React.Component {
     }
     
     return <NoteText text={text} />;        
+  }
+
+  renderLastRevisedAt() {
+    const {nowFn} = this.context;
+    const {lastRevisedAtMoment} = this.props;
+    if (!lastRevisedAtMoment) return <span />;
+
+    const now = nowFn();
+    const revisedText = (now.clone().diff(lastRevisedAtMoment, 'days') < 45)
+      ? lastRevisedAtMoment.from(now)
+      : `on ${lastRevisedAtMoment.format('M/D/YY')}`;
+    return (
+      <span style={styles.revisionsText}>
+        <span>Revised </span>
+        {revisedText}
+      </span>
+    );
   }
 
   renderRequestState() {
@@ -236,6 +253,9 @@ export default class NoteCard extends React.Component {
     }
   }
 }
+NoteCard.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 NoteCard.propTypes = {
   attachments: PropTypes.array.isRequired,
   badge: PropTypes.element.isRequired,
@@ -243,11 +263,11 @@ NoteCard.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   noteMoment: PropTypes.instanceOf(moment).isRequired,
   text: PropTypes.string.isRequired,
+  lastRevisedAtMoment: PropTypes.instanceOf(moment),
 
   // For editing eventNote only
   eventNoteId: PropTypes.number,
   eventNoteTypeId: PropTypes.number,
-  numberOfRevisions: PropTypes.number,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
   requestState: PropTypes.string,
@@ -259,9 +279,6 @@ NoteCard.propTypes = {
   // For side panel for my notes page
   includeStudentPanel: PropTypes.bool,
   student: PropTypes.object
-};
-NoteCard.defaultProps = {
-  numberOfRevisions: 0
 };
 
 
@@ -309,6 +326,12 @@ const styles = {
   text: {
     marginTop: 10
   },
+  footer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10
+  },
   error: {
     fontSize: 12,
     color: 'orange',
@@ -317,5 +340,9 @@ const styles = {
   saving: {
     fontSize: 12,
     color: '#aaa'
+  },
+  revisionsText: {
+    color: '#aaa',
+    fontSize: 12
   }
 };

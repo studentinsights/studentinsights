@@ -110,7 +110,7 @@ export default class NotesList extends React.Component {
         badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
-        numberOfRevisions={eventNote.event_note_revisions_count}
+        lastRevisedAtMoment={eventNote.latest_revision_at ? moment.utc(eventNote.latest_revision_at) : null}
         attachments={isRedacted ? [] : eventNote.attachments}
         educatorsIndex={educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}

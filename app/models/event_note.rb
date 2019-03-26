@@ -32,4 +32,8 @@ class EventNote < ApplicationRecord
     # redact text content
     json.merge('text' => '<redacted>')
   end
+
+  def latest_revision_at
+    event_note_revisions.order(created_at: :desc).limit(1).last.try(:created_at)
+  end
 end
