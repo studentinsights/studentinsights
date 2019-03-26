@@ -12,6 +12,7 @@ import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FilterStudentsBar from './FilterStudentsBar';
 
 
@@ -129,7 +130,7 @@ export class MyStudentsPageView extends React.Component {
             height={height}
             headerHeight={rowHeight}
             headerStyle={{display: 'flex', fontWeight: 'bold', cursor: 'pointer'}}
-            rowStyle={{display: 'flex'}}
+            rowStyle={{display: 'flex', alignItems: 'center'}}
             style={{fontSize: 14}}
             rowHeight={rowHeight}
             rowCount={sortedStudents.length}
@@ -139,17 +140,23 @@ export class MyStudentsPageView extends React.Component {
             sortDirection={sortDirection}
             >
             <Column
+              label=''
+              dataKey='photo'
+              cellRenderer={this.renderPhoto}
+              width={60}
+            />
+            <Column
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
               flexGrow={1}
-              width={250}
+              width={170}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={120}
+              width={140}
             />
             <Column
               label='Grade'
@@ -196,6 +203,11 @@ export class MyStudentsPageView extends React.Component {
     return <a style={{fontSize: 14}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>;
   }
 
+  renderPhoto(cellProps) {
+    const student = cellProps.rowData;
+    return <StudentPhotoCropped studentId={student.id} style={{width: 32, height: 32}} />;
+  }
+
   renderSchool(cellProps) {
     const student = cellProps.rowData;
     return <School {...student.school} />;
@@ -203,7 +215,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderHouse(cellProps) {
     const student = cellProps.rowData;
-    return student.house && <HouseBadge house={student.house} />;
+    return student.house && <HouseBadge house={student.house} showNameOnly={true} />;
   }
 
   renderProgram(cellProps) {

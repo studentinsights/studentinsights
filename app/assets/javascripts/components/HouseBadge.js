@@ -4,7 +4,7 @@ import React from 'react';
 
 // A visual UI element for a badge indicating a particular 
 // high school house.
-function HouseBadge({house, style}) {
+function HouseBadge({house, showNameOnly, style}) {
   const mergedStyle = {
     ...styles.houseBadge,
     backgroundColor: '#333',
@@ -12,10 +12,12 @@ function HouseBadge({house, style}) {
     opacity: 0.5,
     ...style
   };
-  return <span className="HouseBadge" style={mergedStyle}>{`${house} house`}</span>;
+  const text = (showNameOnly) ? house : `${house} house`;
+  return <span className="HouseBadge" style={mergedStyle}>{text}</span>;
 }
 HouseBadge.propTypes = {
   house: PropTypes.string.isRequired,
+  showNameOnly: PropTypes.bool,
   style: PropTypes.object
 };
 
