@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FeedCardFrame from './FeedCardFrame';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
+
 
 function testStudent() {
   return {
@@ -60,9 +62,14 @@ function testProps(student) {
   };
 }
 
-function testRender(props) {
+function testRender(props = {}, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<FeedCardFrame {...props} />), el);
+  ReactDOM.render(withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      <FeedCardFrame {...props} />
+    </PerDistrictContainer>
+  ), el);
   return el;
 }
 
@@ -84,3 +91,4 @@ it('renders homeroom for ESMS', () => {
   expect($(el).text()).toContain('HEA-011');
   expect($(el).text()).toContain('with Alex Teacher');
 });
+

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import LightBehaviorDetails from './LightBehaviorDetails';
-import {withDefaultNowContext} from '../testing/NowContainer';
+import withDefaultTestContext from '../testing/withDefaultTestContext';
 import serviceTypesIndex from '../testing/fixtures/serviceTypesIndex';
 
 
@@ -60,7 +60,7 @@ function testIncidents() {
 
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<LightBehaviorDetails {...props} />), el);
+  ReactDOM.render(withDefaultTestContext(<LightBehaviorDetails {...props} />), el);
   return el;
 }
 

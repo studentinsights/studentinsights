@@ -5,6 +5,7 @@ import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
 import HomeFeed, {mergeCards} from './HomeFeed';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import homeFeedJson from '../testing/fixtures/home_feed_json';
 
 
@@ -14,9 +15,14 @@ function testProps() {
   };
 }
 
-function testRenderWithEl(props) {
+function testRenderWithEl(props = {}, context = {}) {
+  const districtKey = context.districtKey || 'somerville';
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<HomeFeed {...props} />), el);
+  ReactDOM.render(withDefaultNowContext(
+    <PerDistrictContainer districtKey={districtKey}>
+      <HomeFeed {...props} />
+    </PerDistrictContainer>
+  ), el);
   return {el};
 }
 
@@ -80,7 +86,7 @@ describe('HomeFeed', () => {
     testRenderWithEl(props);
   });
 
-  it('renders everything after fetch', done => {
+  it.only('renders everything after fetch', done => {
     const props = testProps();
     const {el} = testRenderWithEl(props);
     

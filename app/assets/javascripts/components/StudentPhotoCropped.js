@@ -12,15 +12,17 @@ export default class StudentPhotoCropped extends React.Component {
     const {districtKey} = this.context;
     const {studentId, style = {}} = this.props;
     const perDistrictStyles = enhancedStudentPhotoStyles(districtKey);
+
     return (
       <div
+        className="StudentPhotoCropped"
         style={{
           width: 58,
           height: 58,
           marginRight: 10,
-          border: '1px solid #aaa',
+          border: '1px solid #ddd',
           borderRadius: 3,
-          backgroundColor: '#ccc',
+          backgroundColor: '#ddd',
           backgroundImage: `url(${Routes.studentPhoto(studentId)})`,
           overflow: 'hidden',
           backgroundPosition: 'center top',

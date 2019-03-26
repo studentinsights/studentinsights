@@ -32,6 +32,25 @@ exports[`matches snapshot 1`] = `
         }
       >
         <div
+          className="StudentPhotoCropped"
+          style={
+            Object {
+              "backgroundColor": "#ddd",
+              "backgroundImage": "url(/students/100/photo)",
+              "backgroundPosition": "center top",
+              "backgroundPositionY": -10,
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "150%",
+              "border": "1px solid #ddd",
+              "borderRadius": 3,
+              "height": 58,
+              "marginRight": 10,
+              "overflow": "hidden",
+              "width": 58,
+            }
+          }
+        />
+        <div
           style={
             Object {
               "alignItems": "flex-start",
@@ -182,6 +201,25 @@ exports[`matches when no location 1`] = `
           }
         }
       >
+        <div
+          className="StudentPhotoCropped"
+          style={
+            Object {
+              "backgroundColor": "#ddd",
+              "backgroundImage": "url(/students/100/photo)",
+              "backgroundPosition": "center top",
+              "backgroundPositionY": -10,
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "150%",
+              "border": "1px solid #ddd",
+              "borderRadius": 3,
+              "height": 58,
+              "marginRight": 10,
+              "overflow": "hidden",
+              "width": 58,
+            }
+          }
+        />
         <div
           style={
             Object {
