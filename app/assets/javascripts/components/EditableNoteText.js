@@ -30,7 +30,11 @@ export default class EditableNoteText extends React.Component {
     return (
       <div className="EditableNoteText">
         <ResizingTextArea
-          style={{...exportedNoteText, style}}
+          style={{
+            ...exportedNoteText,
+            ...styles.textarea,
+            ...style
+          }}
           value={value}
           onChange={e => this.setState({value: e.target.value})} />
       </div>
@@ -42,6 +46,10 @@ EditableNoteText.propTypes = {
   onTextChanged: PropTypes.func.isRequired,
   style: PropTypes.object
 };
-EditableNoteText.defaultProps = {
-  style: {}
+
+const styles = {
+  textarea: {
+    borderRadius: 3,
+    resize: 'none'
+  }
 };

@@ -110,12 +110,10 @@ const helpers = {
     ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage-show-history-link').get(0));
   },
 
-  editNoteAndSave(el, noteIndex, uiParams) {
+  editNoteText(el, noteIndex, uiParams) {
     const $noteCard = $(el).find('.NotesList .NoteCard').eq(noteIndex);
-    const $text = $noteCard.find('.EditableTextComponent');
-    $text.html(uiParams.text);
-    ReactTestUtils.Simulate.input($text.get(0));
-    ReactTestUtils.Simulate.blur($text.get(0));
+    const $text = $noteCard.find('.ResizingTextArea');
+    changeTextValue($text.get(0), uiParams.text);
   },
 
   recordServiceAndSave(el, uiParams) {
@@ -173,9 +171,9 @@ describe('integration tests', () => {
     helpers.showFullCaseHistory(el);
     expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
 
-    // edit note and blur to save
+    // edit note inline, triggering save
     const noteIndex = 1;
-    helpers.editNoteAndSave(el, noteIndex, {
+    helpers.editNoteText(el, noteIndex, {
       text: 'world!'
     });
 

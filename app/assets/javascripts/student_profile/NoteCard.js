@@ -107,7 +107,7 @@ export default class NoteCard extends React.Component {
     const {onSave, text, numberOfRevisions} = this.props;
     if (onSave) {
       return (
-        <div>
+        <div style={styles.text}>
           <EditableNoteText
             defaultText={text}
             onTextChanged={this.onTextChanged}
@@ -293,5 +293,8 @@ const styles = {
   },
   restrictedNoteRedaction: {
     color: '#999'
+  },
+  text: {
+    marginTop: 10
   }
 };
