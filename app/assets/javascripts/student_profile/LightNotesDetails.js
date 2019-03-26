@@ -26,7 +26,7 @@ export default class LightNotesDetails extends React.Component {
   isTakingNotes() {
     return (
       this.props.isTakingNotes ||
-      this.props.requests.saveNote !== null
+      this.props.requests.createNote !== null
     );
   }
 
@@ -97,7 +97,7 @@ export default class LightNotesDetails extends React.Component {
           currentEducator={currentEducator}
           onSave={this.onClickSaveNotes}
           onCancel={this.onCancelNotes}
-          requestState={requests.saveNote}
+          requestState={requests.createNote}
           showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
         />
       );
@@ -107,7 +107,7 @@ export default class LightNotesDetails extends React.Component {
           currentEducator={currentEducator}
           onSave={this.onClickSaveNotes}
           onCancel={this.onCancelNotes}
-          requestState={requests.saveNote}
+          requestState={requests.createNote}
           showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
         />
       );

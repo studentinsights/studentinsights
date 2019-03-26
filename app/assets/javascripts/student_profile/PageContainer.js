@@ -71,14 +71,6 @@ export default class PageContainer extends React.Component {
     this.setState({ selectedColumnKey: columnKey });
   }
 
-  onClickSaveNotes(eventNoteParams) {
-    const {student} = this.props.profileJson;
-    this.setState({ requests: merge(this.state.requests, { saveNote: 'pending' }) });
-    this.api.saveNotes(student.id, eventNoteParams)
-      .then(this.onSaveNotesDone)
-      .catch(this.onSaveNotesFail);
-  }
-
   onClickSaveTransitionNote(noteParams) {
     const {student} = this.props.profileJson;
     const requestState = (noteParams.is_restricted)
@@ -107,7 +99,16 @@ export default class PageContainer extends React.Component {
     this.setState({ requests: merge(this.state.requests, requestState) });
   }
 
-  onSaveNotesDone(response) {
+  onClickSaveNotes(eventNoteParams) {
+    const {student} = this.props.profileJson;
+    const requestKey = (eventNoteParams.id) ? 'updateNote' : 'createNote';
+    this.setState({ requests: merge(this.state.requests, { [requestKey]: 'pending' }) });
+    this.api.saveNotes(student.id, eventNoteParams)
+      .then(this.onSaveNotesDone.bind(this, requestKey))
+      .catch(this.onSaveNotesFail.bind(this, requestKey));
+  }
+
+  onSaveNotesDone(requestKey, response) {
     let updatedEventNotes;
     let foundEventNote = false;
 
@@ -129,12 +130,12 @@ export default class PageContainer extends React.Component {
 
     this.setState({
       feed: updatedFeed,
-      requests: merge(this.state.requests, { saveNote: null })
+      requests: merge(this.state.requests, { [requestKey]: null })
     });
   }
 
-  onSaveNotesFail(request, status, message) {
-    this.setState({ requests: merge(this.state.requests, { saveNote: 'error' }) });
+  onSaveNotesFail(requestKey, request, status, message) {
+    this.setState({ requests: merge(this.state.requests, { [requestKey]: 'error' }) });
   }
 
   // TODO(kr) does this work for not-yet-created notes?
@@ -291,7 +292,8 @@ export function initialState(props) {
     // For example, `saveService` holds the state of that request, but `discontinueService` is a map that can track multiple active
     // requests, using `serviceId` as a key.
     requests: {
-      saveNote: null,
+      updateNote: null,
+      createNote: null,
       saveService: null,
       discontinueService: {}
     }
