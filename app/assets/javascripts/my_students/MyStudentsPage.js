@@ -118,7 +118,7 @@ export class MyStudentsPageView extends React.Component {
     const {districtKey} = this.context;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
-    const rowHeight = 40; // for two lines of student names
+    const rowHeight = 60; // for two lines of student names
 
     // In conjuction with the filtering, this can lead to a warning in development.
     // See https://github.com/bvaughn/react-virtualized/issues/1119 for more.
@@ -143,13 +143,13 @@ export class MyStudentsPageView extends React.Component {
               label='Name'
               dataKey='name'
               cellRenderer={this.renderName}
-              width={220}
+              width={260}
             />
             <Column
               label='School'
               dataKey='school'
               cellRenderer={this.renderSchool}
-              width={140}
+              width={160}
             />
             <Column
               label='Grade'
@@ -205,7 +205,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderSchool(cellProps) {
     const student = cellProps.rowData;
-    return <School {...student.school} />;
+    return <School {...student.school} style={{marginRight: 10}} />;
   }
 
   renderHouse(cellProps) {
@@ -215,7 +215,7 @@ export class MyStudentsPageView extends React.Component {
 
   renderProgram(cellProps) {
     const student = cellProps.rowData;
-    return prettyProgramOrPlacementText(student);
+    return <div style={{marginRight: 10}}>{prettyProgramOrPlacementText(student)}</div>;
   }
 }
 MyStudentsPageView.contextTypes = {
@@ -249,9 +249,8 @@ const styles = {
     alignItems: 'center'
   },
   photo: {
-    width: 32,
-    height: 32,
     display: 'inline-block',
+    marginLeft: 20,
     marginRight: 20
   }
 };

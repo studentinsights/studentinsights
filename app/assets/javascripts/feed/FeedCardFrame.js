@@ -14,11 +14,12 @@ export default class FeedCardFrame extends React.Component {
     const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl, hidePhoto} = this.props;
     const {homeroom, school} = student;
     const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
+    const shouldShowPhoto = (student.has_photo && !hidePhoto);
     return (
       <Card className="FeedCardFrame" style={style}>
         <div style={styles.header}>
           <div style={{display: 'flex'}}>
-            {!hidePhoto && <StudentPhotoCropped studentId={student.id} />}
+            {shouldShowPhoto && <StudentPhotoCropped studentId={student.id} />}
             <div style={styles.studentHeader}>
               <div>
                 <a style={styles.person} href={`/students/${student.id}`}>{student.first_name} {student.last_name}</a>

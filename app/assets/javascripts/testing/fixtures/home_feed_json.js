@@ -29,6 +29,7 @@ export default {
           "first_name": "Winnie",
           "last_name": "Disney",
           "house": null,
+          "has_photo": false,
           "school": {
             "local_id": "HEA",
             "school_type": "ESMS"
@@ -64,6 +65,7 @@ export default {
           "first_name": "Donald",
           "last_name": "Duck",
           "house": "Broadway",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -94,6 +96,7 @@ export default {
           "first_name": "Rapunzel",
           "last_name": "White",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -124,6 +127,7 @@ export default {
           "first_name": "Winnie",
           "last_name": "Disney",
           "house": null,
+          "has_photo": true,
           "school": {
             "local_id": "HEA",
             "school_type": "ESMS"
@@ -159,6 +163,7 @@ export default {
           "first_name": "Winnie",
           "last_name": "Disney",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -189,6 +194,7 @@ export default {
           "first_name": "Rapunzel",
           "last_name": "Skywalker",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -219,6 +225,7 @@ export default {
           "first_name": "Daisy",
           "last_name": "Poppins",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -254,6 +261,7 @@ export default {
           "first_name": "Rapunzel",
           "last_name": "Poppins",
           "house": null,
+          "has_photo": false,
           "school": {
             "local_id": "HEA",
             "school_type": "ESMS"
@@ -289,6 +297,7 @@ export default {
           "first_name": "Snow",
           "last_name": "Kenobi",
           "house": null,
+          "has_photo": true,
           "school": {
             "local_id": "HEA",
             "school_type": "ESMS"
@@ -324,6 +333,7 @@ export default {
           "first_name": "Donald",
           "last_name": "Duck",
           "house": "Broadway",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -354,6 +364,7 @@ export default {
           "first_name": "Rapunzel",
           "last_name": "Skywalker",
           "house": "Beacon",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -389,6 +400,7 @@ export default {
           "first_name": "Olaf",
           "last_name": "Mouse",
           "house": "Elm",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -424,6 +436,7 @@ export default {
           "first_name": "Elsa",
           "last_name": "Kenobi",
           "house": null,
+          "has_photo": true,
           "school": {
             "local_id": "WSNS",
             "school_type": "ESMS"
@@ -459,6 +472,7 @@ export default {
           "first_name": "Rapunzel",
           "last_name": "White",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -489,6 +503,7 @@ export default {
           "first_name": "Rapunzel",
           "last_name": "Pan",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -519,6 +534,7 @@ export default {
           "first_name": "Donald",
           "last_name": "Pan",
           "house": "Beacon",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -549,6 +565,7 @@ export default {
           "first_name": "Aladdin",
           "last_name": "White",
           "house": "Highland",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
@@ -579,6 +596,7 @@ export default {
           "first_name": "Winnie",
           "last_name": "Disney",
           "house": null,
+          "has_photo": false,
           "school": {
             "local_id": "HEA",
             "school_type": "ESMS"
@@ -614,6 +632,7 @@ export default {
           "first_name": "Mowgli",
           "last_name": "Pan",
           "house": "Beacon",
+          "has_photo": true,
           "school": {
             "local_id": "SHS",
             "school_type": "HS"
