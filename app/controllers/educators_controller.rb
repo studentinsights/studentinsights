@@ -56,6 +56,9 @@ class EducatorsController < ApplicationController
         :program_assigned,
         :sped_placement
       ],
+      methods: [
+        :has_photo
+      ],
       include: {
         school: {
           only: [:id, :name]

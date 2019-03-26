@@ -114,7 +114,7 @@ export default class SectionTable extends React.Component {
   }
 
   renderPhoto(student, column) {
-    return  <StudentPhotoCropped studentId={student.id} />;
+    return student.has_photo && <StudentPhotoCropped studentId={student.id} />;
   }
 }
 SectionTable.contextTypes = {
@@ -122,6 +122,9 @@ SectionTable.contextTypes = {
 };
 SectionTable.propTypes = {
   students: PropTypes.arrayOf(PropTypes.shape({
+    last_name: PropTypes.string.isRequired,
+    first_name: PropTypes.string.isRequired,
+    has_photo: PropTypes.bool.isRequired,
     event_notes_without_restricted: PropTypes.arrayOf(PropTypes.object).isRequired
   })).isRequired,
   sections: PropTypes.arrayOf(PropTypes.object).isRequired,
