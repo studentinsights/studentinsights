@@ -24,7 +24,8 @@ function loadStories() {
   require('../../../app/assets/javascripts/feed/StudentVoiceCard.story');
 
   // student profile
-  require('../../../app/assets/javascripts/student_profile/TakeNotes.story');
+  require('../../../app/assets/javascripts/student_profile/DraftNote.story');
+  require('../../../app/assets/javascripts/student_profile/NoteCard.story');
   require('../../../app/assets/javascripts/student_profile/RecordService.story');
   require('../../../app/assets/javascripts/student_profile/StudentSectionsRoster.story');
   require('../../../app/assets/javascripts/student_profile/LightProfilePage.story');

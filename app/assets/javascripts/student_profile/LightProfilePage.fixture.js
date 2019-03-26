@@ -2,7 +2,7 @@ import {initialState} from './PageContainer';
 import serializedDataForOlafWhite from './fixtures/serializedDataForOlafWhite.fixture';
 import serializedDataForPlutoPoppins from './fixtures/serializedDataForPlutoPoppins.fixture';
 import serializedDataForAladdinMouse from './fixtures/serializedDataForAladdinMouse.fixture';
-import {createSpyActions} from './mockPageContainerProps';
+import {createSpyActions} from './PageContainer.mocks';
 
 export function testPropsForOlafWhite() {
   return testPropsFromSerializedData(serializedDataForOlafWhite);

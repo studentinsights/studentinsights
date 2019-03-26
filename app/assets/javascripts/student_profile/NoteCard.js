@@ -330,7 +330,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10
+    marginTop: 15
   },
   error: {
     fontSize: 12,

@@ -11,7 +11,7 @@ import mockHistory from '../testing/mockHistory';
 import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
-import {createSpyActions, createSpyApi} from './mockPageContainerProps';
+import {createSpyActions, createSpyApi} from './PageContainer.mocks';
 import {testPropsForPlutoPoppins} from './LightProfilePage.fixture';
 
 

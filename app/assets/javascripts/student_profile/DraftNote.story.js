@@ -1,9 +1,10 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import TakeNotes from './TakeNotes';
-import {testProps} from './TakeNotes.test';
+import DraftNote from './DraftNote';
+import {testProps} from './DraftNote.test';
 
 
 function storyProps(props = {}) {
@@ -20,16 +21,16 @@ function storyProps(props = {}) {
 
 function storyRender(props, context) {
   const {districtKey} = context;
-  return (
+  return withDefaultNowContext(
     <div style={{display: 'flex', flexDirection: 'column', margin: 20, width: 470}}>
       <PerDistrictContainer districtKey={districtKey}>
-        <TakeNotes {...props} />
+        <DraftNote {...props} />
       </PerDistrictContainer>
     </div>
   );
 }
 
-storiesOf('profile/TakeNotes', module) // eslint-disable-line no-undef
+storiesOf('profile/DraftNote', module) // eslint-disable-line no-undef
   .add('somerville', () => storyRender(storyProps(), {districtKey: 'somerville'}))
   .add('new_bedford', () => storyRender(storyProps(), {districtKey: 'new_bedford'}))
   .add('bedford', () => storyRender(storyProps(), {districtKey: 'bedford'}));

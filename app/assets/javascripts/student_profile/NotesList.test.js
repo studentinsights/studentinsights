@@ -5,7 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import {studentProfile, feedForTestingNotes} from './fixtures/fixtures';
 import {withDefaultNowContext} from '../testing/NowContainer';
-import {createRequestsState} from './mockPageContainerProps';
+import {createRequestsState} from './PageContainer.mocks';
 import NotesList from './NotesList';
 
 

@@ -7,13 +7,11 @@ import changeTextValue from '../testing/changeTextValue';
 import NoteCard from './NoteCard';
 
 
-function testProps(props = {}) {
+export function testProps(props = {}) {
   return {
     noteMoment: moment.utc('2018-02-22T08:22:22.123Z'),
     educatorId: 1,
-    badge: <span>
-      {''}
-    </span>,
+    badge: <span />,
     onSave: jest.fn(),
     eventNoteId: 1,
     eventNoteTypeId: 1,

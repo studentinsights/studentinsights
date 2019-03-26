@@ -4,7 +4,6 @@ import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
-import TakeNotes from './TakeNotes';
 import DraftNote from './DraftNote';
 
 
@@ -104,29 +103,16 @@ export default class LightNotesDetails extends React.Component {
       requests
     } = this.props;
 
-    const shouldUseAutosave = (window.location.search.indexOf('autosave') !== -1);
-    if (shouldUseAutosave) {
-      return (
-        <DraftNote
-          student={student}
-          currentEducator={currentEducator}
-          onSave={this.onCreateNewNote}
-          onCancel={this.onCancelNotes}
-          requestState={requests.createNote}
-          showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
-        />
-      );
-    } else {
-      return (
-        <TakeNotes
-          currentEducator={currentEducator}
-          onSave={this.onCreateNewNote}
-          onCancel={this.onCancelNotes}
-          requestState={requests.createNote}
-          showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
-        />
-      );
-    }
+    return (
+      <DraftNote
+        student={student}
+        currentEducator={currentEducator}
+        onSave={this.onCreateNewNote}
+        onCancel={this.onCancelNotes}
+        requestState={requests.createNote}
+        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
+      />
+    );
   }
 }
 
