@@ -3,6 +3,7 @@ import moment from 'moment';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import {withDefaultNowContext} from '../testing/NowContainer';
+import {IDLE, PENDING, ERROR} from '../helpers/requestStates';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import NoteCard from './NoteCard';
 import {testProps} from './NoteCard.test';
@@ -13,6 +14,7 @@ function storyProps(props = {}) {
     ...testProps(),
     text: "Ryan's really motivated by working with a younger students as a mentor.  Set up a weekly system with LM so he read with him as a way to build reading stamina.",
     onSave: action('onSave'),
+    requestState: IDLE,
     ...props
   };
 }
@@ -28,8 +30,23 @@ function storyRender(props = {}, context = {}) {
   );
 }
 
+function add(label, el) {
+  return (
+    <div style={{marginLeft: 10, marginTop: 20}}>
+      <h3>{label}</h3>
+      <hr />
+      {el}
+    </div>
+  );
+}
+
 storiesOf('profile/NoteCard', module) // eslint-disable-line no-undef
-  .add('just text', () => storyRender(storyProps()))
-  .add('recent revision', () => storyRender(storyProps({lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')})))
-  .add('old revision', () => storyRender(storyProps({lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z')})))
-  .add('xss escaping', () => storyRender(storyProps({text: 'hello <script src="xss.js"></script>world'})));
+  .add('all', () => (
+    <div>
+      {add('just text', storyRender(storyProps()))}
+      {add('recent revision', storyRender(storyProps({lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')})))}
+      {add('old revision', storyRender(storyProps({lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z')})))}
+      {add('saving...', storyRender(storyProps({requestState: PENDING})))}
+      {add('error!', storyRender(storyProps({requestState: ERROR})))}
+    </div>
+  ));

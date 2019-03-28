@@ -261,7 +261,7 @@ describe('end-to-end through the network', () => {
         });
 
         // UI update
-        expect($(el).text()).toContain('Your note is not saved.');
+        expect($(el).text()).toContain('Your note is not saved');
         done();
       }, 600);
     });
@@ -292,7 +292,7 @@ describe('end-to-end through the network', () => {
         });
 
         // UI update
-        expect($(el).text()).not.toContain('Your note is not saved.');
+        expect($(el).text()).not.toContain('Your note is not saved');
         expect($(el).text()).not.toContain('Saving...');
         done();
       }, 600);

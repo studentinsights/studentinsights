@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 import * as Routes from '../helpers/Routes';
+import {linkBlue, strongOrange} from '../helpers/colors';
 import {ERROR, PENDING} from '../helpers/requestStates';
 import {formatEducatorName} from '../helpers/educatorName';
+import Nbsp from '../components/Nbsp';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
+import NotifyAboutError from '../components/NotifyAboutError';
 import EditableNoteText from '../components/EditableNoteText';
 import RestrictedNotePresence from './RestrictedNotePresence';
-
-
+import ModalSmall from './ModalSmall';
 
 // This renders a single card for a Note of any type.
 export default class NoteCard extends React.Component {
@@ -126,7 +128,7 @@ export default class NoteCard extends React.Component {
   renderLastRevisedAt() {
     const {nowFn} = this.context;
     const {lastRevisedAtMoment} = this.props;
-    if (!lastRevisedAtMoment) return <span />;
+    if (!lastRevisedAtMoment) return <Nbsp />;
 
     const now = nowFn();
     const revisedText = (now.clone().diff(lastRevisedAtMoment, 'days') < 45)
@@ -142,9 +144,34 @@ export default class NoteCard extends React.Component {
 
   renderRequestState() {
     const {requestState} = this.props;
-    if (requestState === ERROR) return <span style={styles.error}>Your note is not saved.</span>;
+
+    if (requestState === ERROR) {
+      return (
+        <span style={styles.error}>
+          <span>Your note is not saved</span>
+          <ModalSmall
+            icon={<span style={{color: linkBlue, fontWeight: 'normal'}}>Learn more</span>}
+            style={{fontSize: 12}}
+            modalStyle={{content: {}}}
+            title="Your note is not saved"
+            content={this.renderErrorSavingMessage()}
+          />
+        </span>
+      );
+    }
+
     if (requestState === PENDING) return <span style={styles.saving}>Saving...</span>;
-    return <span />;
+    return <Nbsp />;
+  }
+
+  renderErrorSavingMessage() {
+    return (
+      <div>
+        <div style={{color: strongOrange, fontWeight: 'bold'}}>There was an error communicating with the server to save your note.</div>
+        <div style={{marginTop: 20, marginBottom: 5}} >To recover, try copying the latest version of the note, reloading the page, and pasting the changes.</div>
+        <NotifyAboutError src="NoteCard#renderErrorSavingMessage" />
+      </div>
+    );
   }
 
   renderAttachmentUrls() {
@@ -333,8 +360,10 @@ const styles = {
   },
   error: {
     fontSize: 12,
-    color: 'orange',
-    fontWeight: 'bold'
+    color: strongOrange,
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center'
   },
   saving: {
     fontSize: 12,
