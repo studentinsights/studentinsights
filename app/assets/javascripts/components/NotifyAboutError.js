@@ -8,13 +8,13 @@ import {HelpEmail} from '../components/PublicLinks';
 export default class NotifyAboutError extends React.Component {
   componentDidMount() {
     const {src} = this.props;
-    this.rollbarErrorFn('NotifyAboutError#componentDidMount', {src});
+    this.rollbarErrorFn('NotifyAboutError', {src});
   }
 
   rollbarErrorFn(msg, obj = {}) {
-    const rollbarErrorFn = (window.Rollbar && window.Rollbar.error)
-      ? window.Rollbar.error
-      : this.props.rollbarErrorFn;
+    const rollbarErrorFn = (this.props.rollbarErrorFn)
+      ? this.props.rollbarErrorFn
+      : window.Rollbar && window.Rollbar.error;
     if (rollbarErrorFn) rollbarErrorFn(msg, obj);
   }
 
