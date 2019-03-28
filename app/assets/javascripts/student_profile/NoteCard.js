@@ -70,7 +70,13 @@ export default class NoteCard extends React.Component {
               </span>
             )}
           </div>
-          {this.renderNoteSubstanceOrRedaction()}
+          <div style={styles.text}>
+            {this.renderNoteSubstanceOrRedaction()}
+            <div style={styles.footer}>
+              {this.renderLastRevisedAt()}
+              {this.renderRequestState()}
+            </div>
+          </div>
           {this.renderAttachmentUrls()}
         </div>
       </div>        
@@ -80,11 +86,24 @@ export default class NoteCard extends React.Component {
   // For restricted notes, show a message and allow switching to another
   // component that allows viewing and editing.
   // Otherwise, show the substance of the note.
+  //
+  // If an onSave callback is provided, the text is editable.
   renderNoteSubstanceOrRedaction() {
-    const {showRestrictedNoteRedaction} = this.props;
-    return (showRestrictedNoteRedaction)
-      ? this.renderRestrictedNoteRedaction()
-      : this.renderText();
+    const {text, showRestrictedNoteRedaction, onSave} = this.props;
+
+    if (showRestrictedNoteRedaction) {
+      return this.renderRestrictedNoteRedaction();
+    }
+    if (!onSave) {
+      return <NoteText text={text} />;
+    }
+
+    return (
+      <EditableNoteText
+        defaultText={text}
+        onTextChanged={this.onTextChanged}
+      />
+    );
   }
 
   // The student name may or not be present.
@@ -101,24 +120,6 @@ export default class NoteCard extends React.Component {
         educatorName={educatorFirstNameOrEmail}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
       />
-    );
-  }
-
-  // If an onSave callback is provided, the text is editable.
-  // This is for older interventions that are read-only 
-  // because of changes to the server data model.
-  renderText() {
-    const {onSave, text} = this.props;
-    return (
-      <div style={styles.text}>
-        {onSave
-          ? <EditableNoteText defaultText={text} onTextChanged={this.onTextChanged} />
-          : <NoteText text={text} />}
-        <div style={styles.footer}>
-          {this.renderLastRevisedAt()}
-          {this.renderRequestState()}
-        </div>
-      </div>
     );
   }
 
@@ -165,7 +166,7 @@ export default class NoteCard extends React.Component {
     return (
       <div>
         <div style={{color: strongOrange, fontWeight: 'bold'}}>There was an error communicating with the server to save your note.</div>
-        <div style={{marginTop: 20, marginBottom: 5}} >To recover, try copying the latest version of the note, reloading the page, and pasting the changes.</div>
+        <div style={{marginTop: 20, marginBottom: 10}} >To recover, try copying the latest version of the note, reloading the page, and pasting the changes.</div>
         <NotifyAboutError src="NoteCard#renderErrorSavingMessage" />
       </div>
     );

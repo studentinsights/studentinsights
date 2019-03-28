@@ -97,8 +97,10 @@ const styles = {
   showLink: {
     display: 'inline-block',
     color: '#999',
+    fontSize: 12,
+    paddingTop: 5,
     cursor: 'pointer',
-    paddingTop: 5
+    textDecoration: 'underline'
   },
   restrictedNoteLabel: {
     color: 'red',

@@ -9,6 +9,7 @@ import {withDefaultNowContext} from '../testing/NowContainer';
 import changeTextValue from '../testing/changeTextValue';
 import NoteCard from './NoteCard';
 
+
 export function testProps(props = {}) {
   return {
     noteMoment: moment.utc('2018-02-22T08:22:22.123Z'),
@@ -26,36 +27,48 @@ export function testProps(props = {}) {
 
 // Different scenarios for test/story
 export function testScenarios() {
-  const testAttachments = [{id: 789, url: 'https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link'}];
+  const attachments = [{id: 789, url: 'https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link'}];
+  const urlForRestrictedNoteContent = '/mocked-url-for-restricted-note-content';
+
+  const readonly = { onSave: null };
+  const recentRevision = { lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z') };
+  const oldRevision  = { lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z') };
+  const readonlyAttachments = { attachments };
+
+  const editable = { onSave: _.identity };
+  const saving = { requestState: PENDING };
+  const error = { requestState: ERROR };
+  const removableAttachments = { attachments, onEventNoteAttachmentDeleted: _.identity };
+
+  const redacted = { showRestrictedNoteRedaction: true };
+  const canShowRedacted = { urlForRestrictedNoteContent };
+  
+
   return [
-    {
-      label: 'kitchen sink',
-      propsDiff: {
-        attachments: testAttachments,
-        onEventNoteAttachmentDeleted: _.identity, // to pass to story
-        requestState: ERROR,
-        lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')
-      }
-    },
-    { label: 'readonly', propsDiff: { onSave: null } },
-    { label: 'readonly revised', propsDiff: { onSave: null, lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')}},
-    { label: 'just text', propsDiff: {} },
-    { label: 'recent revision', propsDiff: {lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')}},
-    { label: 'old revision', propsDiff: {lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z')}},
-    { label: 'saving...', propsDiff: {requestState: PENDING}},
-    { label: 'error!', propsDiff: {requestState: ERROR}},
-    {
-      label: 'readonly attachments',
-      propsDiff: {
-        attachments: testAttachments
-      }},
-    {
-      label: 'removable attachments',
-      propsDiff: {
-        attachments: testAttachments,
-        onEventNoteAttachmentDeleted: _.identity // to pass to story
-      }
-    }
+    { label: 'kitchen sink!', propsDiff: {...editable,...removableAttachments,...error,...recentRevision} },
+
+
+    { label: 'readonly', propsDiff: {...readonly} },
+    { label: 'readonly, recentRevision', propsDiff: {...readonly, ...recentRevision} },
+    { label: 'readonly, oldRevision', propsDiff: {...readonly, ...oldRevision} },
+    { label: 'readonly, readonlyAttachments', propsDiff: {...readonly, ...readonlyAttachments} },
+
+    { label: 'editable', propsDiff: {...editable} },
+    { label: 'editable, recentRevision', propsDiff: {...editable, ...recentRevision} },
+    { label: 'editable, oldRevision', propsDiff: {...editable, ...oldRevision} },
+    { label: 'editable, readonlyAttachments', propsDiff: {...editable, ...readonlyAttachments} },
+    { label: 'editable, removableAttachments', propsDiff: {...editable, ...removableAttachments} },
+    { label: 'editable, saving', propsDiff: {...editable, ...saving} },
+    { label: 'editable, error', propsDiff: {...editable, ...error} },
+
+    { label: 'redacted', propsDiff: {...redacted} },
+    { label: 'redacted, recentRevision', propsDiff: {...redacted, ...recentRevision} },
+    { label: 'redacted, oldRevision', propsDiff: {...redacted, ...oldRevision} },
+    { label: 'redacted, readonlyAttachments', propsDiff: {...redacted, ...readonlyAttachments} },
+    { label: 'redacted, removableAttachments', propsDiff: {...redacted, ...removableAttachments} },
+    { label: 'redacted, canShowRedacted, urlForRestrictedNoteContent', propsDiff: {...redacted, ...canShowRedacted, ...urlForRestrictedNoteContent} },
+
+    { label: 'buggy call, editable, redacted', propsDiff: {...editable,...redacted} }
   ];
 }
 
