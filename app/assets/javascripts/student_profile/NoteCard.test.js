@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 import moment from 'moment';
+import {IDLE, PENDING, ERROR} from '../helpers/requestStates';
 import {studentProfile} from './fixtures/fixtures';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import changeTextValue from '../testing/changeTextValue';
@@ -17,13 +19,29 @@ export function testProps(props = {}) {
     eventNoteTypeId: 1,
     educatorsIndex: studentProfile.educatorsIndex,
     attachments: [],
+    requestState: IDLE,
     ...props
   };
 }
 
+// Different scenarios for test/story
+export function testScenarios() {
+  return [
+    { label: 'just text', propsDiff: {} },
+    { label: 'recent revision', propsDiff: {lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')}},
+    { label: 'old revision', propsDiff: {lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z')}},
+    { label: 'saving...', propsDiff: {requestState: PENDING}},
+    { label: 'error!', propsDiff: {requestState: ERROR}}
+  ];
+}
+
+function testEl(props) {
+  return withDefaultNowContext(<NoteCard {...props} />);
+}
+
 function testRender(props) {
   const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(<NoteCard {...props} />), el); //eslint-disable-line react/no-render-return-value
+  ReactDOM.render(testEl(props), el); //eslint-disable-line react/no-render-return-value
   return {el};
 }
 
@@ -93,4 +111,14 @@ describe('saving', () => {
       done();
     }, 600);
   });
+});
+
+
+describe('snapshots across scenarios', () => {
+  const el = testScenarios().map(scenario => (
+    <div key={scenario.label}>
+      {testEl(testProps({text: 'hello!', ...scenario.propsDiff}))}
+    </div>
+  ));
+  expect(renderer.create(el).toJSON()).toMatchSnapshot();
 });
