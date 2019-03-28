@@ -150,6 +150,11 @@ export default class PageContainer extends React.Component {
     const eventNoteToUpdate = _.find(this.state.feed.event_notes, function(eventNote) {
       return _.find(eventNote.attachments, { id: eventNoteAttachmentId });
     });
+    if (!eventNoteToUpdate) {
+      window.Rollbar.error && window.Rollbar.error('PageContainer#onDeleteEventNoteAttachment, could not find eventNoteToUpdate', {eventNoteAttachmentId});
+      return;
+    }
+
     const updatedAttachments = eventNoteToUpdate.attachments.filter(attachment => {
       return attachment.id !== eventNoteAttachmentId;
     });

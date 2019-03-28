@@ -46,7 +46,9 @@ export default class NoteCard extends React.Component {
   }
 
   // No feedback, fire and forget
-  onDeleteAttachmentClicked(eventNoteAttachmentId) {
+  onDeleteAttachmentClicked(eventNoteAttachmentId, e) {
+    e.preventDefault();
+    if (!confirm('Remove this link?')) return;
     this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
   }
 
@@ -107,28 +109,23 @@ export default class NoteCard extends React.Component {
   // because of changes to the server data model.
   renderText() {
     const {onSave, text} = this.props;
-    if (onSave) {
-      return (
-        <div style={styles.text}>
-          <EditableNoteText
-            defaultText={text}
-            onTextChanged={this.onTextChanged}
-          />
-          <div style={styles.footer}>
-            {this.renderLastRevisedAt()}
-            {this.renderRequestState()}
-          </div>
+    return (
+      <div style={styles.text}>
+        {onSave
+          ? <EditableNoteText defaultText={text} onTextChanged={this.onTextChanged} />
+          : <NoteText text={text} />}
+        <div style={styles.footer}>
+          {this.renderLastRevisedAt()}
+          {this.renderRequestState()}
         </div>
-      );
-    }
-    
-    return <NoteText text={text} />;        
+      </div>
+    );
   }
 
   renderLastRevisedAt() {
     const {nowFn} = this.context;
     const {lastRevisedAtMoment} = this.props;
-    if (!lastRevisedAtMoment) return <Nbsp />;
+    if (!lastRevisedAtMoment) return <Nbsp style={{fontSize: 12}} />;
 
     const now = nowFn();
     const revisedText = (now.clone().diff(lastRevisedAtMoment, 'days') < 45)
@@ -161,7 +158,7 @@ export default class NoteCard extends React.Component {
     }
 
     if (requestState === PENDING) return <span style={styles.saving}>Saving...</span>;
-    return <Nbsp />;
+    return <Nbsp style={{fontSize: 12}} />;
   }
 
   renderErrorSavingMessage() {
@@ -183,18 +180,18 @@ export default class NoteCard extends React.Component {
         <div key={attachment.id}>
           <p style={{
             display: 'flex',
-            alignItems: 'center',
-            marginTop: 10
+            alignItems: 'flex-start',
+            marginTop: 10,
+            fontSize: 12
           }}>
-            <span>link:</span>
             <a
               href={attachment.url}
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
-                marginLeft: 10,
                 marginRight: 10,
+                fontSize: 12,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis'
               }}>
@@ -213,12 +210,16 @@ export default class NoteCard extends React.Component {
 
     return (
       <a
+        href="#"
         onClick={this.onDeleteAttachmentClicked.bind(this, attachment.id)}
         style={{
           display: 'inline-block',
-          marginLeft: 10
+          marginLeft: 10,
+          fontSize: 12,
+          textDecoration: 'underline',
+          color: '#999'
         }}>
-        (remove)
+        remove
       </a>
     );
   }

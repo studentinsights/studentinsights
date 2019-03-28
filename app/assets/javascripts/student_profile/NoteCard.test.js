@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import _ from 'lodash';
 import moment from 'moment';
 import {IDLE, PENDING, ERROR} from '../helpers/requestStates';
 import {studentProfile} from './fixtures/fixtures';
@@ -8,15 +9,14 @@ import {withDefaultNowContext} from '../testing/NowContainer';
 import changeTextValue from '../testing/changeTextValue';
 import NoteCard from './NoteCard';
 
-
 export function testProps(props = {}) {
   return {
     noteMoment: moment.utc('2018-02-22T08:22:22.123Z'),
     educatorId: 1,
-    badge: <span />,
+    badge: <span>[props.badge]</span>,
     onSave: jest.fn(),
-    eventNoteId: 1,
-    eventNoteTypeId: 1,
+    eventNoteId: 111,
+    eventNoteTypeId: 300,
     educatorsIndex: studentProfile.educatorsIndex,
     attachments: [],
     requestState: IDLE,
@@ -26,12 +26,36 @@ export function testProps(props = {}) {
 
 // Different scenarios for test/story
 export function testScenarios() {
+  const testAttachments = [{id: 789, url: 'https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link'}];
   return [
+    {
+      label: 'kitchen sink',
+      propsDiff: {
+        attachments: testAttachments,
+        onEventNoteAttachmentDeleted: _.identity, // to pass to story
+        requestState: ERROR,
+        lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')
+      }
+    },
+    { label: 'readonly', propsDiff: { onSave: null } },
+    { label: 'readonly revised', propsDiff: { onSave: null, lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')}},
     { label: 'just text', propsDiff: {} },
     { label: 'recent revision', propsDiff: {lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z')}},
     { label: 'old revision', propsDiff: {lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z')}},
     { label: 'saving...', propsDiff: {requestState: PENDING}},
-    { label: 'error!', propsDiff: {requestState: ERROR}}
+    { label: 'error!', propsDiff: {requestState: ERROR}},
+    {
+      label: 'readonly attachments',
+      propsDiff: {
+        attachments: testAttachments
+      }},
+    {
+      label: 'removable attachments',
+      propsDiff: {
+        attachments: testAttachments,
+        onEventNoteAttachmentDeleted: _.identity // to pass to story
+      }
+    }
   ];
 }
 
@@ -117,6 +141,7 @@ describe('saving', () => {
 describe('snapshots across scenarios', () => {
   const el = testScenarios().map(scenario => (
     <div key={scenario.label}>
+      <h3>scenario for snapshot: {scenario.label}</h3>
       {testEl(testProps({text: 'hello!', ...scenario.propsDiff}))}
     </div>
   ));

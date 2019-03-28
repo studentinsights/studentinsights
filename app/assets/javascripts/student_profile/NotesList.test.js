@@ -119,7 +119,7 @@ it('with full historical data, renders everything on the happy path', () => {
   // Notes attachments expectations
   expect(el.innerHTML).toContain("https://www.example.com/morestudentwork");
   expect(el.innerHTML).toContain("https://www.example.com/studentwork");
-  expect(el.innerHTML).toContain("(remove)");
+  expect(el.innerHTML).toContain("remove");
 });
 
 it('limits visible notes by default', () => {
