@@ -3,8 +3,9 @@ import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
+import {SOMERVILLE} from '../helpers/PerDistrict';
 import DraftNote from './DraftNote';
-import {testProps} from './DraftNote.test';
+import {testProps, testScenarios} from './DraftNote.test';
 
 
 function storyProps(props = {}) {
@@ -19,8 +20,8 @@ function storyProps(props = {}) {
   };
 }
 
-function storyRender(props, context) {
-  const {districtKey} = context;
+function storyRender(props, context = {}) {
+  const districtKey = context.districtKey || SOMERVILLE;
   return withDefaultNowContext(
     <div style={{display: 'flex', flexDirection: 'column', margin: 20, width: 470}}>
       <PerDistrictContainer districtKey={districtKey}>
@@ -31,6 +32,13 @@ function storyRender(props, context) {
 }
 
 storiesOf('profile/DraftNote', module) // eslint-disable-line no-undef
-  .add('somerville', () => storyRender(storyProps(), {districtKey: 'somerville'}))
-  .add('new_bedford', () => storyRender(storyProps(), {districtKey: 'new_bedford'}))
-  .add('bedford', () => storyRender(storyProps(), {districtKey: 'bedford'}));
+  .add('all', () => (
+    <div>
+      {testScenarios().map(({labelText, propsDiff, contextDiff}) => (
+        <div key={labelText}>
+          <h3>{labelText}</h3>
+          {storyRender(storyProps(propsDiff), contextDiff)}
+        </div>
+      ))}
+    </div>
+  ));
