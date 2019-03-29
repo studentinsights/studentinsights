@@ -87,7 +87,7 @@ describe EventNotesController, :type => :controller do
         make_create_request(student, post_params)
         expect(response.status).to eq 200
         expect(response.headers["Content-Type"]).to eq 'application/json; charset=utf-8'
-        expect(JSON.parse(response.body).keys).to eq [
+        expect(JSON.parse(response.body).keys).to contain_exactly(*[
           'id',
           'student_id',
           'educator_id',
@@ -95,9 +95,10 @@ describe EventNotesController, :type => :controller do
           'text',
           'recorded_at',
           'is_restricted',
+          'latest_revision_at',
           'event_note_revisions_count',
           'attachments'
-        ]
+        ])
       end
     end
 
@@ -266,6 +267,7 @@ describe EventNotesController, :type => :controller do
           "is_restricted" => false,
           "student_id" => student.id,
           "text" => "updated-text!",
+          "latest_revision_at" => '2018-08-23T23:38:13.956Z',
           "recorded_at" => '2017-03-11T11:11:11.000Z'
         })
       end

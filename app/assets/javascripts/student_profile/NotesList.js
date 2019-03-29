@@ -6,6 +6,7 @@ import {toMomentFromRailsDate} from '../helpers/toMoment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import * as FeedHelpers from '../helpers/FeedHelpers';
 import {eventNoteTypeText} from '../helpers/eventNoteType';
+import {IDLE} from '../helpers/requestStates';
 import {toSchoolYear, firstDayOfSchool} from '../helpers/schoolYear';
 import NoteCard from './NoteCard';
 import {parseAndReRender} from './transitionNoteParser';
@@ -83,7 +84,8 @@ export default class NotesList extends React.Component {
       onSaveNote,
       onEventNoteAttachmentDeleted,
       canUserAccessRestrictedNotes,
-      currentEducatorId
+      currentEducatorId,
+      requests
     } = this.props;
     const isRedacted = eventNote.is_restricted;
     const isReadonly = (
@@ -95,6 +97,9 @@ export default class NotesList extends React.Component {
     const urlForRestrictedNoteContent = (canUserAccessRestrictedNotes)
       ? urlForRestrictedEventNoteContent(eventNote)
       : null;
+    const requestState = (isReadonly || !requests)
+      ? IDLE
+      : requests.updateNote[eventNote.id];
     return (
       <NoteCard
         key={['event_note', eventNote.id].join()}
@@ -105,13 +110,14 @@ export default class NotesList extends React.Component {
         badge={this.renderEventNoteTypeBadge(eventNote.event_note_type_id)}
         educatorId={eventNote.educator_id}
         text={eventNote.text || ''}
-        numberOfRevisions={eventNote.event_note_revisions_count}
+        lastRevisedAtMoment={eventNote.latest_revision_at ? moment.utc(eventNote.latest_revision_at) : null}
         attachments={isRedacted ? [] : eventNote.attachments}
         educatorsIndex={educatorsIndex}
         showRestrictedNoteRedaction={isRedacted}
         includeStudentPanel={includeStudentPanel}
         urlForRestrictedNoteContent={urlForRestrictedNoteContent}
         onSave={isReadonly ? null : onSaveNote}
+        requestState={requestState}
         onEventNoteAttachmentDeleted={isReadonly ? null : onEventNoteAttachmentDeleted} />
     );
   }
@@ -217,6 +223,7 @@ export default class NotesList extends React.Component {
 NotesList.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   feed: InsightsPropTypes.feed.isRequired,
+  requests: InsightsPropTypes.requests,
   educatorsIndex: PropTypes.object.isRequired,
   includeStudentPanel: PropTypes.bool,
   canUserAccessRestrictedNotes: PropTypes.bool,

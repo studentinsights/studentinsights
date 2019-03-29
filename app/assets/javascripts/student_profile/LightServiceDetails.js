@@ -39,12 +39,12 @@ export default class ServiceDetails extends React.Component {
   }
 
   onClickSaveService(serviceParams, event) {
-    this.props.actions.onClickSaveService(serviceParams);
+    this.props.actions.onSaveService(serviceParams);
     this.setState({ isAddingService: false });
   }
 
   onClickDiscontinueService(serviceId, event) {
-    this.props.actions.onClickDiscontinueService(serviceId);
+    this.props.actions.onDiscontinueService(serviceId);
   }
 
   render() {

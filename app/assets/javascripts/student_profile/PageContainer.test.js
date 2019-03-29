@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {mount} from 'enzyme';
 import ReactTestUtils from 'react-dom/test-utils';
+import fetchMock from 'fetch-mock/es5/client';
 import {withDefaultNowContext, testTimeMoment} from '../testing/NowContainer';
 import {SOMERVILLE} from '../helpers/PerDistrict';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockHistory from '../testing/mockHistory';
-import changeReactSelect from '../testing/changeReactSelect';
 import changeTextValue from '../testing/changeTextValue';
 import PageContainer from './PageContainer';
+import {createSpyActions, createSpyApi} from './PageContainer.mocks';
 import {testPropsForPlutoPoppins} from './LightProfilePage.fixture';
+
 
 function testProps(props = {}) {
   const {feed, profileJson} = testPropsForPlutoPoppins();
@@ -19,8 +21,8 @@ function testProps(props = {}) {
     defaultFeed: feed,
     queryParams: {},
     history: mockHistory(),
-    actions: helpers.createSpyActions(),
-    api: helpers.createSpyApi(),
+    actions: createSpyActions(),
+    api: createSpyApi(),
     noteInProgressText: '',
     noteInProgressType: null,
     ...props
@@ -61,31 +63,22 @@ function patchNotesToBeWrittenByCurrentUser(fixtureProps) {
   };
 }
 
+function renderForEndToEnd() {
+  const props = patchNotesToBeWrittenByCurrentUser(testProps({
+    api: undefined, // not mocked
+    actions: undefined // not mocked
+  }));
+  const {el} = helpers.renderInto(props);
+
+  // click open full history
+  helpers.showFullCaseHistory(el);
+  expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
+
+  return {el};
+}
+
+
 const helpers = {
-  interventionSummaryLists(el) {
-    return $(el).find('.interventions-column .SummaryList').toArray();
-  },
-
-  createSpyActions: () => {
-    return {
-      // Just mock the functions that make server calls
-      onColumnClicked: jest.fn(),
-      onClickSaveNotes: jest.fn(),
-      onClickSaveService: jest.fn(),
-      onClickDiscontinueService: jest.fn(),
-      onDeleteEventNoteAttachment: jest.fn()
-    };
-  },
-
-  createSpyApi: () => {
-    return {
-      saveNotes: jest.fn(),
-      deleteEventNoteAttachment: jest.fn(),
-      saveService: jest.fn(),
-      discontinueService: jest.fn()
-    };
-  },
-
   renderInto(props) {
     const mergedProps = testProps(props);
     const el = document.createElement('div');
@@ -110,18 +103,16 @@ const helpers = {
     ReactTestUtils.Simulate.click($(el).find('.CleanSlateMessage-show-history-link').get(0));
   },
 
-  editNoteAndSave(el, noteIndex, uiParams) {
+  editNoteText(el, noteIndex, uiParams) {
     const $noteCard = $(el).find('.NotesList .NoteCard').eq(noteIndex);
-    const $text = $noteCard.find('.EditableTextComponent');
-    $text.html(uiParams.text);
-    ReactTestUtils.Simulate.input($text.get(0));
-    ReactTestUtils.Simulate.blur($text.get(0));
+    const $text = $noteCard.find('.ResizingTextArea');
+    changeTextValue($text.get(0), uiParams.text);
   },
 
   recordServiceAndSave(el, uiParams) {
     ReactTestUtils.Simulate.click($(el).find('.btn.record-service').get(0));
     ReactTestUtils.Simulate.click($(el).find('.btn.service-type:contains(' + uiParams.serviceText + ')').get(0));
-    changeReactSelect($(el).find('.Select'), uiParams.educatorText);
+    changeTextValue($(el).find('.ProvidedByEducatorDropdown'), uiParams.educatorText);
     changeTextValue($(el).find('.datepicker'), uiParams.dateStartedText);
     ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   }
@@ -157,7 +148,7 @@ describe('integration tests', () => {
       text: 'hello!'
     });
 
-    expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
+    expect(props.actions.onCreateNewNote).toHaveBeenCalledWith({
       eventNoteTypeId: 300,
       text: 'hello!',
       isRestricted: false,
@@ -165,7 +156,7 @@ describe('integration tests', () => {
     });
   });
 
-  it('can edit own notes for SST meetings, mocking the action handlers', () => {
+  it('can edit own notes for SST meetings, mocking the action handlers', done => {
     const props = patchNotesToBeWrittenByCurrentUser(testProps());
     const {el} = helpers.renderInto(props);
 
@@ -173,17 +164,21 @@ describe('integration tests', () => {
     helpers.showFullCaseHistory(el);
     expect($(el).find('.NoteCard').length).toBeGreaterThan(2);
 
-    // edit note and blur to save
+    // edit note inline, triggering save
     const noteIndex = 1;
-    helpers.editNoteAndSave(el, noteIndex, {
+    helpers.editNoteText(el, noteIndex, {
       text: 'world!'
     });
 
-    expect(props.actions.onClickSaveNotes).toHaveBeenCalledWith({
-      id: 26,
-      eventNoteTypeId: 300,
-      text: 'world!'
-    });
+    // wait for debounce
+    setTimeout(() => {
+      expect(props.actions.onUpdateExistingNote).toHaveBeenCalledWith({
+        id: 26,
+        eventNoteTypeId: 300,
+        text: 'world!'
+      });
+      done();
+    }, 600);
   });
 
   it('verifies that the educator name is in the correct format', () => {
@@ -194,18 +189,18 @@ describe('integration tests', () => {
     // Simulate that the server call is still pending
     const unresolvedPromise = new Promise((resolve, reject) => {});
     props.api.saveService.mockReturnValue(unresolvedPromise);
-    instance.onClickSaveService({
+    instance.onSaveService({
       providedByEducatorName: 'badinput'
     });
     expect($(el).text()).toContain('Please use the form Last Name, First Name');
 
-    instance.onClickSaveService({
+    instance.onSaveService({
       providedByEducatorName: 'Teacher, Test'
     });
     expect($(el).text()).toContain('Saving...');
 
     // Name can also be blank
-    instance.onClickSaveService({
+    instance.onSaveService({
       providedByEducatorName: ''
     });
     expect($(el).text()).toContain('Saving...');
@@ -214,15 +209,15 @@ describe('integration tests', () => {
   // TODO(kr) the spec helper here was reaching into the react-select internals,
   // which changed in 1.0.0, this needs to be updated.
   // it('can save an Attendance Contract service, mocking the action handlers', () => {
-  //   var el = container.testEl;
-  //   var component = helpers.renderInto();
+  //   const props = testProps();
+  //   const {el} = helpers.renderInto(props);
   //   helpers.recordServiceAndSave(el, {
   //     serviceText: 'Attendance Contract',
-  //     educatorText: 'fake-fifth-grade',
+  //     educatorText: 'Teacher, Test',
   //     dateStartedText: '2/22/16'
   //   });
 
-  //   expect(props.actions.onClickSaveService).toHaveBeenCalledWith({
+  //   expect(props.actions.onSaveService).toHaveBeenCalledWith({
   //     serviceTypeId: 503,
   //     providedByEducatorId: 2,
   //     dateStartedText: '2016-02-22',
@@ -238,5 +233,116 @@ describe('integration tests', () => {
     expect(Object.keys(updatedState)).toEqual(Object.keys(instance.state));
     expect(updatedState.requests.discontinueService).toEqual({ 312: 'foo' });
     expect(instance.mergedDiscontinueService(updatedState, 312, null)).toEqual(instance.state);
+  });
+});
+
+
+describe('end-to-end through the network', () => {
+  describe('when editing a note fails', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.patch('express:/api/event_notes/:id', 503);
+    });
+
+    it('shows an error', done => {
+      const {el} = renderForEndToEnd();
+
+      // edit note inline, triggering save
+      helpers.editNoteText(el, 1, {text: 'world!'});
+
+      // wait for debounce
+      setTimeout(() => {
+        // expect network
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0]).toEqual('/api/event_notes/26');
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "event_note":{"text":"world!"}
+        });
+
+        // UI update
+        expect($(el).text()).toContain('Your note is not saved');
+        done();
+      }, 600);
+    });
+  });
+
+  describe('when editing succeeds', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.patch('express:/api/event_notes/:id', {
+        text: 'world!'
+      });
+    });
+
+    it('works', done => {
+      const {el} = renderForEndToEnd();
+
+      // edit note inline, triggering save
+      helpers.editNoteText(el, 1, {text: 'world!'});
+
+      // wait for debounce
+      setTimeout(() => {
+        // expect network
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0]).toEqual('/api/event_notes/26');
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "event_note":{"text":"world!"}
+        });
+
+        // UI update
+        expect($(el).text()).not.toContain('Your note is not saved');
+        expect($(el).text()).not.toContain('Saving...');
+        done();
+      }, 600);
+    });
+  });
+
+  describe('when creating a new note succeeds', () => {
+    beforeEach(() => {
+      fetchMock.restore();
+      fetchMock.post('express:/api/event_notes', {
+        id: 999,
+        event_note_type_id: 300,
+        is_restricted: false,
+        text: 'hello world!',
+        attachments: []
+      });
+    });
+
+    it('works', done => {
+      const {el} = renderForEndToEnd();
+
+      helpers.takeNotesAndSave(el, {
+        eventNoteTypeText: 'SST Meeting',
+        text: 'hello world!'
+      });
+
+      // wait for debounce
+      setTimeout(() => {
+        // expect network
+        const calls = fetchMock.calls();
+        expect(calls.length).toEqual(1);
+        expect(calls[0][0]).toEqual('/api/event_notes');
+        expect(JSON.parse(calls[0][1].body)).toEqual({
+          "event_note":{
+            "student_id": 8,
+            "text":"hello world!",
+            "is_restricted": false,
+            "event_note_type_id": 300,
+            "event_note_attachments_attributes": []
+          }
+        });
+
+        // UI close dialog, no more saving indicator, and note text
+        // is in list
+        expect($(el).text()).not.toContain('Saving...');
+        expect($(el).text()).not.toContain('Save note');
+        expect($(el).text()).toContain('hello world!');
+
+        done();
+      }, 800);
+    });
   });
 });

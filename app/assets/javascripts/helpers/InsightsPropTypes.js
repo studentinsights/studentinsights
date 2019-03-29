@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 
 // UI actions, stepping stone to Flux
 export const actions = PropTypes.shape({
-  onColumnClicked: PropTypes.func,
-  onClickSaveNotes: PropTypes.func,
-  onClickSaveService: PropTypes.func,
-  onClickDiscontinueService: PropTypes.func,
-  onChangeNoteInProgressText: PropTypes.func,
-  onClickNoteType: PropTypes.func
+  onColumnClicked: PropTypes.func.isRequired,
+  onUpdateExistingNote: PropTypes.func.isRequired,
+  onCreateNewNote: PropTypes.func.isRequired,
+  onDeleteEventNoteAttachment: PropTypes.func.isRequired,
+  onSaveService: PropTypes.func.isRequired,
+  onDiscontinueService: PropTypes.func.isRequired
 });
 
 export const requests = PropTypes.shape({
-  saveNote: PropTypes.string,
+  createNote: PropTypes.string,
+  updateNote: PropTypes.object,
+  saveService: PropTypes.string,
   discontinueService: PropTypes.object
 });
 

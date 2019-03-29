@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import SectionHeading from '../components/SectionHeading';
 import LightHelpBubble from './LightHelpBubble';
 import NotesList from './NotesList';
-import TakeNotes from './TakeNotes';
+import DraftNote from './DraftNote';
 
 
 /*
@@ -19,14 +18,15 @@ export default class LightNotesDetails extends React.Component {
     super(props);
 
     this.onClickTakeNotes = this.onClickTakeNotes.bind(this);
-    this.onClickSaveNotes = this.onClickSaveNotes.bind(this);
+    this.onCreateNewNote = this.onCreateNewNote.bind(this);
     this.onCancelNotes = this.onCancelNotes.bind(this);
+    this.onUpdateExistingNote = this.onUpdateExistingNote.bind(this);
   }
 
   isTakingNotes() {
     return (
       this.props.isTakingNotes ||
-      this.props.requests.saveNote !== null
+      this.props.requests.createNote !== null
     );
   }
 
@@ -38,13 +38,26 @@ export default class LightNotesDetails extends React.Component {
     this.props.onTakingNotesChanged(false);
   }
 
-  onClickSaveNotes(eventNoteParams, event) {
-    this.props.actions.onClickSaveNotes(eventNoteParams);
+  onCreateNewNote(eventNoteParams, event) {
+    this.props.actions.onCreateNewNote(eventNoteParams);
+    this.props.onTakingNotesChanged(false);
+  }
+
+  onUpdateExistingNote(eventNoteParams) {
+    this.props.actions.onUpdateExistingNote(eventNoteParams);
     this.props.onTakingNotesChanged(false);
   }
 
   render() {
-    const {student, title, currentEducator} = this.props;
+    const {
+      student,
+      title,
+      currentEducator,
+      requests,
+      feed,
+      actions,
+      educatorsIndex
+    } = this.props;
 
     return (
       <div className="LightNotesDetails" style={styles.notesContainer}>
@@ -61,32 +74,14 @@ export default class LightNotesDetails extends React.Component {
           {this.isTakingNotes() && this.renderTakeNotesDialog()}
           <NotesList
             currentEducatorId={currentEducator.id}
-            feed={this.props.feed}
+            feed={feed}
+            requests={requests}
             canUserAccessRestrictedNotes={currentEducator.can_view_restricted_notes}
-            educatorsIndex={this.props.educatorsIndex}
-            onSaveNote={this.onClickSaveNotes}
-            onEventNoteAttachmentDeleted={this.props.actions.onDeleteEventNoteAttachment} />
+            educatorsIndex={educatorsIndex}
+            onSaveNote={this.onUpdateExistingNote}
+            onEventNoteAttachmentDeleted={actions.onDeleteEventNoteAttachment} />
         </div>
       </div>
-    );
-  }
-
-  renderTakeNotesDialog() {
-    const {
-      currentEducator,
-      requests
-    } = this.props;
-
-    return (
-      <TakeNotes
-        // TODO(kr) thread through
-        nowMoment={moment.utc()}
-        currentEducator={currentEducator}
-        onSave={this.onClickSaveNotes}
-        onCancel={this.onCancelNotes}
-        requestState={requests.saveNote}
-        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
-      />
     );
   }
 
@@ -100,6 +95,25 @@ export default class LightNotesDetails extends React.Component {
       </button>
     );
   }
+
+  renderTakeNotesDialog() {
+    const {
+      currentEducator,
+      student,
+      requests
+    } = this.props;
+
+    return (
+      <DraftNote
+        student={student}
+        currentEducator={currentEducator}
+        onSave={this.onCreateNewNote}
+        onCancel={this.onCancelNotes}
+        requestState={requests.createNote}
+        showRestrictedCheckbox={currentEducator.can_view_restricted_notes}
+      />
+    );
+  }
 }
 
 LightNotesDetails.propTypes = {
@@ -109,8 +123,9 @@ LightNotesDetails.propTypes = {
     can_view_restricted_notes: PropTypes.bool.isRequired
   }).isRequired,
   actions: PropTypes.shape({
-    onClickSaveNotes: PropTypes.func.isRequired,
-    onDeleteEventNoteAttachment: PropTypes.func
+    onCreateNewNote: PropTypes.func.isRequired,
+    onUpdateExistingNote: PropTypes.func.isRequired,
+    onDeleteEventNoteAttachment: PropTypes.func,
   }),
   feed: InsightsPropTypes.feed.isRequired,
   requests: PropTypes.object.isRequired,

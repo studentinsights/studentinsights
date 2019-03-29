@@ -13,7 +13,7 @@ export default class FeedCardFrame extends React.Component {
   render() {
     const {style, student, byEl, whereEl, whenEl, children, iconsEl, badgesEl, hidePhoto} = this.props;
     const {homeroom, school} = student;
-    const shouldShowHomeroom = homeroom && isHomeroomMeaningful(school.school_type);
+    const shouldShowHomeroom = homeroom && school && isHomeroomMeaningful(school.school_type);
     const shouldShowPhoto = (student.has_photo && !hidePhoto);
     return (
       <Card className="FeedCardFrame" style={style}>

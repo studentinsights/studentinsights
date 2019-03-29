@@ -1,10 +1,12 @@
 import React from 'react';
+import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import {widthFrame} from '../testing/storybookFrames';
 import LightProfilePage from './LightProfilePage';
+import {createSpyActions} from './PageContainer.mocks';
 import {
   testPropsForPlutoPoppins,
   testPropsForOlafWhite,
@@ -13,19 +15,12 @@ import {
 
 
 function storifyProps(props) {
+  const actions = _.reduce(createSpyActions(), (map, value, key) => {
+    return {...map, [key]: action(key)};
+  }, {});
   return {
     ...props,
-    actions: {
-      onColumnClicked: action('onColumnClicked'),
-      onClickSaveNotes: action('onClickSaveNotes'),
-      onClickSaveTransitionNote: action('onClickSaveTransitionNote'),
-      onDeleteEventNoteAttachment: action('onDeleteEventNoteAttachment'),
-      onClickSaveService: action('onClickSaveService'),
-      onClickDiscontinueService: action('onClickDiscontinueService'),
-      onChangeNoteInProgressText: action('onChangeNoteInProgressText'),
-      onClickNoteType: action('onClickNoteType'),
-      onChangeAttachmentUrl: action('onChangeAttachmentUrl')
-    }
+    actions
   };
 }
 

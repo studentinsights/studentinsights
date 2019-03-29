@@ -550,6 +550,7 @@ describe ProfileController, :type => :controller do
         'program_assigned',
         'race',
         'registration_date',
+        'school',
         'school_id',
         'school_local_id',
         'school_name',
@@ -597,6 +598,18 @@ describe ProfileController, :type => :controller do
       expect(event_notes.size).to eq 1
       expect(event_notes.first[:student_id]).to eq(student.id)
       expect(event_notes.first[:educator_id]).to eq(educator.id)
+      expect(event_notes.first.keys).to contain_exactly(*[
+        :id,
+        :event_note_type_id,
+        :educator_id,
+        :student_id,
+        :text,
+        :is_restricted,
+        :recorded_at,
+        :latest_revision_at,
+        :event_note_revisions_count,
+        :attachments
+      ])
     end
 
     context 'after service is discontinued' do

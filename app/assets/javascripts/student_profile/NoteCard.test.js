@@ -1,115 +1,162 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
+import renderer from 'react-test-renderer';
+import _ from 'lodash';
+import moment from 'moment';
+import {IDLE, PENDING, ERROR} from '../helpers/requestStates';
 import {studentProfile} from './fixtures/fixtures';
-import {testTimeMoment} from '../testing/NowContainer';
+import {withDefaultNowContext} from '../testing/NowContainer';
+import changeTextValue from '../testing/changeTextValue';
 import NoteCard from './NoteCard';
 
 
-const helpers = {
-  renderInto(el, props) {
-    const mergedProps = {
-      noteMoment: testTimeMoment(),
-      educatorId: 1,
-      badge: <span>
-        {''}
-      </span>,
-      onSave: jest.fn(),
-      eventNoteId: 1,
-      eventNoteTypeId: 1,
-      educatorsIndex: studentProfile.educatorsIndex,
-      attachments: [],
-      ...props
-    };
+export function testProps(props = {}) {
+  return {
+    noteMoment: moment.utc('2018-02-22T08:22:22.123Z'),
+    educatorId: 1,
+    badge: <span>[props.badge]</span>,
+    onSave: jest.fn(),
+    eventNoteId: 111,
+    eventNoteTypeId: 300,
+    educatorsIndex: studentProfile.educatorsIndex,
+    attachments: [],
+    requestState: IDLE,
+    ...props
+  };
+}
 
-    return ReactDOM.render(<NoteCard {...mergedProps} />, el); //eslint-disable-line react/no-render-return-value
-  },
+// Different scenarios for test/story
+export function testScenarios() {
+  const attachments = [{id: 789, url: 'https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link'}];
+  const urlForRestrictedNoteContent = '/mocked-url-for-restricted-note-content';
 
-  editNoteAndSave(el, uiParams) {
-    const $text = $(el).find('.EditableTextComponent');
-    $text.html(uiParams.html);
-    ReactTestUtils.Simulate.input($text.get(0));
-    ReactTestUtils.Simulate.blur($text.get(0));
-    return $text.html();
-  },
+  const readonly = { onSave: null };
+  const recentRevision = { lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z') };
+  const oldRevision  = { lastRevisedAtMoment: moment.utc('2016-12-19T19:19:19.123Z') };
+  const readonlyAttachments = { attachments };
 
-  getNoteHTML(el) {
-    return $(el).find('.EditableTextComponent').html();
-  }
-};
+  const editable = { onSave: _.identity };
+  const saving = { requestState: PENDING };
+  const error = { requestState: ERROR };
+  const removableAttachments = { attachments, onEventNoteAttachmentDeleted: _.identity };
+
+  const redacted = { showRestrictedNoteRedaction: true };
+  const canShowRedacted = { urlForRestrictedNoteContent };
+  
+
+  return [
+    { label: 'kitchen sink!', propsDiff: {...editable,...removableAttachments,...error,...recentRevision} },
+
+
+    { label: 'readonly', propsDiff: {...readonly} },
+    { label: 'readonly, recentRevision', propsDiff: {...readonly, ...recentRevision} },
+    { label: 'readonly, oldRevision', propsDiff: {...readonly, ...oldRevision} },
+    { label: 'readonly, readonlyAttachments', propsDiff: {...readonly, ...readonlyAttachments} },
+
+    { label: 'editable', propsDiff: {...editable} },
+    { label: 'editable, recentRevision', propsDiff: {...editable, ...recentRevision} },
+    { label: 'editable, oldRevision', propsDiff: {...editable, ...oldRevision} },
+    { label: 'editable, readonlyAttachments', propsDiff: {...editable, ...readonlyAttachments} },
+    { label: 'editable, removableAttachments', propsDiff: {...editable, ...removableAttachments} },
+    { label: 'editable, saving', propsDiff: {...editable, ...saving} },
+    { label: 'editable, error', propsDiff: {...editable, ...error} },
+
+    { label: 'redacted', propsDiff: {...redacted} },
+    { label: 'redacted, recentRevision', propsDiff: {...redacted, ...recentRevision} },
+    { label: 'redacted, oldRevision', propsDiff: {...redacted, ...oldRevision} },
+    { label: 'redacted, readonlyAttachments', propsDiff: {...redacted, ...readonlyAttachments} },
+    { label: 'redacted, removableAttachments', propsDiff: {...redacted, ...removableAttachments} },
+    { label: 'redacted, canShowRedacted, urlForRestrictedNoteContent', propsDiff: {...redacted, ...canShowRedacted, ...urlForRestrictedNoteContent} },
+
+    { label: 'buggy call, editable, redacted', propsDiff: {...editable,...redacted} }
+  ];
+}
+
+function testEl(props) {
+  return withDefaultNowContext(<NoteCard {...props} />);
+}
+
+function testRender(props) {
+  const el = document.createElement('div');
+  ReactDOM.render(testEl(props), el); //eslint-disable-line react/no-render-return-value
+  return {el};
+}
+
+function editNoteText(el, text) {
+  const $text = $(el).find('.ResizingTextArea');
+  changeTextValue($text.get(0), text);
+}
+
+function getNoteHTML(el) {
+  return $(el).find('.ResizingTextArea').html();
+}
+
 
 describe('render', () => {
   it('renders simple text', () => {
-    const el = document.createElement('div');
-    helpers.renderInto(el, {
+    const {el} = testRender(testProps({
       text: 'hello'
-    });
-
-    expect(helpers.getNoteHTML(el)).toEqual('hello');
+    }));
+    expect(getNoteHTML(el)).toEqual('hello');
+    expect($(el).text()).not.toContain('Revised');
   });
 
-  it('renders number of revisions', () => {
-    const el = document.createElement('div');
-    helpers.renderInto(el, {
+  it('renders revision date for old revisions', () => {
+    const {el} = testRender(testProps({
       text: 'hello',
-      numberOfRevisions: 1
-    });
+      lastRevisedAtMoment: moment.utc('2018-03-01T09:00:01.123Z'),
+    }));
+    expect($(el).text()).toContain('Revised 12 days ago');
+  });
 
-    expect($(el).text()).toContain('Revised 1 time');
+  it('renders how long ago for recent revisions', () => {
+    const {el} = testRender(testProps({
+      text: 'hello',
+      lastRevisedAtMoment: moment.utc('2017-11-11T11:00:01.123Z'),
+    }));
+    expect($(el).text()).toContain('Revised on 11/11/17');
   });
 
   it('escapes HTML-meaningful characters in text', () => {
-    const el = document.createElement('div');
-    helpers.renderInto(el, {
+    const {el} = testRender(testProps({
       text: 'hello <script src="xss.js"></script>world'
-    });
-
-    expect(helpers.getNoteHTML(el)).toEqual('hello &lt;script src="xss.js"&gt;&lt;/script&gt;world');
+    }));
+    expect(getNoteHTML(el)).toEqual('hello &lt;script src="xss.js"&gt;&lt;/script&gt;world');
   });
 
-  it('renders newlines as <br> tags', () => {
-    const el = document.createElement('div');
-    helpers.renderInto(el, {
+  it('renders newlines', () => {
+    const {el} = testRender(testProps({
       text: 'hello\nworld'
-    });
-
-    expect(helpers.getNoteHTML(el)).toEqual('hello<br>world');
+    }));
+    expect(getNoteHTML(el)).toEqual("hello\nworld");
   });
 });
 
-describe('integration tests', () => {
-  it('replaces HTML with newlines in saved text', () => {
-    const el = document.createElement('div');
-    const component = helpers.renderInto(el, {
-      text: 'hello world'
-    });
+describe('saving', () => {
+  it('works in simple case', done => {
+    const props = testProps({text: 'hello'});
+    const {el} = testRender(props);
+    editNoteText(el, 'hello world');
 
-    helpers.editNoteAndSave(el, {
-      html: 'hello<div><br></div>world'
-    });
-
-    expect(component.props.onSave).toHaveBeenCalledWith({
-      id: component.props.eventNoteId,
-      eventNoteTypeId: component.props.eventNoteTypeId,
-      text: 'hello\nworld'
-    });
+    // wait for debounce
+    setTimeout(() => {
+      expect(props.onSave).toHaveBeenCalledWith({
+        id: props.eventNoteId,
+        eventNoteTypeId: props.eventNoteTypeId,
+        text: 'hello world'
+      });
+      done();
+    }, 600);
   });
+});
 
-  it('sanitizes undesirable HTML', () => {
-    const el = document.createElement('div');
-    const component = helpers.renderInto(el, {
-      text: 'hello\nworld'
-    });
 
-    helpers.editNoteAndSave(el, {
-      html: 'hello<br><blink>world</blink>'
-    });
-
-    expect(component.props.onSave).toHaveBeenCalledWith({
-      id: component.props.eventNoteId,
-      eventNoteTypeId: component.props.eventNoteTypeId,
-      text: 'hello\nworld'
-    });
-    expect(helpers.getNoteHTML(el)).toEqual('hello<br>world');
-  });
+describe('snapshots across scenarios', () => {
+  const el = testScenarios().map(scenario => (
+    <div key={scenario.label}>
+      <h3>scenario for snapshot: {scenario.label}</h3>
+      {testEl(testProps({text: 'hello!', ...scenario.propsDiff}))}
+    </div>
+  ));
+  expect(renderer.create(el).toJSON()).toMatchSnapshot();
 });

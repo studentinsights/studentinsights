@@ -1,0 +1,2734 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+Array [
+  <div>
+    <h3>
+      scenario for snapshot: 
+      kitchen sink!
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              12 days ago
+            </span>
+            <span
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#ff9b00",
+                  "display": "flex",
+                  "fontSize": 12,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              <span>
+                Your note is not saved
+              </span>
+              <div
+                className="click-event-modal"
+                style={
+                  Object {
+                    "display": "inline",
+                    "fontSize": 12,
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#3177c9",
+                        "fontWeight": "normal",
+                      }
+                    }
+                  >
+                    Learn more
+                  </span>
+                </a>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div>
+          <p
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "display": "flex",
+                "fontSize": 12,
+                "marginTop": 10,
+              }
+            }
+          >
+            <a
+              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+              rel="noopener noreferrer"
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                }
+              }
+              target="_blank"
+            >
+              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+            </a>
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#999",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "marginLeft": 10,
+                  "textDecoration": "underline",
+                }
+              }
+            >
+              remove
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      readonly
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="NoteText"
+            style={
+              Object {
+                "border": 0,
+                "fontFamily": "'Open Sans', sans-serif",
+                "fontSize": 14,
+                "marginTop": 5,
+                "outline": "1px solid transparent",
+                "overflowX": "hidden",
+                "padding": 0,
+                "whiteSpace": "pre-wrap",
+                "wordBreak": "break-word",
+              }
+            }
+          >
+            hello!
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      readonly, recentRevision
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="NoteText"
+            style={
+              Object {
+                "border": 0,
+                "fontFamily": "'Open Sans', sans-serif",
+                "fontSize": 14,
+                "marginTop": 5,
+                "outline": "1px solid transparent",
+                "overflowX": "hidden",
+                "padding": 0,
+                "whiteSpace": "pre-wrap",
+                "wordBreak": "break-word",
+              }
+            }
+          >
+            hello!
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              12 days ago
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      readonly, oldRevision
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="NoteText"
+            style={
+              Object {
+                "border": 0,
+                "fontFamily": "'Open Sans', sans-serif",
+                "fontSize": 14,
+                "marginTop": 5,
+                "outline": "1px solid transparent",
+                "overflowX": "hidden",
+                "padding": 0,
+                "whiteSpace": "pre-wrap",
+                "wordBreak": "break-word",
+              }
+            }
+          >
+            hello!
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              on 12/19/16
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      readonly, readonlyAttachments
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="NoteText"
+            style={
+              Object {
+                "border": 0,
+                "fontFamily": "'Open Sans', sans-serif",
+                "fontSize": 14,
+                "marginTop": 5,
+                "outline": "1px solid transparent",
+                "overflowX": "hidden",
+                "padding": 0,
+                "whiteSpace": "pre-wrap",
+                "wordBreak": "break-word",
+              }
+            }
+          >
+            hello!
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+        <div>
+          <p
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "display": "flex",
+                "fontSize": 12,
+                "marginTop": 10,
+              }
+            }
+          >
+            <a
+              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+              rel="noopener noreferrer"
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                }
+              }
+              target="_blank"
+            >
+              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable, recentRevision
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              12 days ago
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable, oldRevision
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              on 12/19/16
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable, readonlyAttachments
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+        <div>
+          <p
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "display": "flex",
+                "fontSize": 12,
+                "marginTop": 10,
+              }
+            }
+          >
+            <a
+              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+              rel="noopener noreferrer"
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                }
+              }
+              target="_blank"
+            >
+              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable, removableAttachments
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+        <div>
+          <p
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "display": "flex",
+                "fontSize": 12,
+                "marginTop": 10,
+              }
+            }
+          >
+            <a
+              href="https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link"
+              rel="noopener noreferrer"
+              style={
+                Object {
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                }
+              }
+              target="_blank"
+            >
+              https://example.com/foo-is-a-really-long-fake-url-path-like-a-unique-doc-id-link
+            </a>
+            <a
+              href="#"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#999",
+                  "display": "inline-block",
+                  "fontSize": 12,
+                  "marginLeft": 10,
+                  "textDecoration": "underline",
+                }
+              }
+            >
+              remove
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable, saving
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              Saving...
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      editable, error
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="EditableNoteText"
+          >
+            <textarea
+              className="ResizingTextArea"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "borderRadius": 3,
+                  "fontFamily": "'Open Sans', sans-serif",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                  "outline": "1px solid transparent",
+                  "overflowX": "hidden",
+                  "padding": 0,
+                  "resize": "none",
+                  "whiteSpace": "pre-wrap",
+                  "width": "100%",
+                  "wordBreak": "break-word",
+                }
+              }
+              value="hello!"
+            />
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "alignItems": "center",
+                  "color": "#ff9b00",
+                  "display": "flex",
+                  "fontSize": 12,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              <span>
+                Your note is not saved
+              </span>
+              <div
+                className="click-event-modal"
+                style={
+                  Object {
+                    "display": "inline",
+                    "fontSize": 12,
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "fontSize": 12,
+                      "outline": "none",
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#3177c9",
+                        "fontWeight": "normal",
+                      }
+                    }
+                  >
+                    Learn more
+                  </span>
+                </a>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      redacted
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      redacted, recentRevision
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              12 days ago
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      redacted, oldRevision
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "color": "#aaa",
+                  "fontSize": 12,
+                }
+              }
+            >
+              <span>
+                Revised 
+              </span>
+              on 12/19/16
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      redacted, readonlyAttachments
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      redacted, removableAttachments
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      redacted, canShowRedacted, urlForRestrictedNoteContent
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+              <a
+                href="#"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "color": "#999",
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 12,
+                    "paddingTop": 5,
+                    "textDecoration": "underline",
+                  }
+                }
+              >
+                show restricted note
+              </a>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      scenario for snapshot: 
+      buggy call, editable, redacted
+    </h3>
+    <div
+      className="wrapper"
+      style={
+        Object {
+          "display": "flex",
+        }
+      }
+    >
+      <div
+        className="NoteCard"
+        style={
+          Object {
+            "border": "1px solid #eee",
+            "marginBottom": 10,
+            "marginTop": 10,
+            "padding": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <span
+            className="date"
+            style={
+              Object {
+                "display": "inline-block",
+                "fontWeight": "bold",
+                "paddingRight": 10,
+                "width": "11em",
+              }
+            }
+          >
+            February 22, 2018
+          </span>
+          <span>
+            [props.badge]
+          </span>
+          <span
+            style={
+              Object {
+                "display": "inline-block",
+                "paddingLeft": 5,
+              }
+            }
+          >
+            <a
+              className="Educator"
+              href="mailto:demo@example.com"
+              style={Object {}}
+            >
+              demo@
+            </a>
+          </span>
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": 10,
+            }
+          }
+        >
+          <div
+            className="RestrictedNotePresence"
+          >
+            <div>
+              <div
+                className="NoteText"
+                style={
+                  Object {
+                    "border": 0,
+                    "color": "#999",
+                    "fontFamily": "'Open Sans', sans-serif",
+                    "fontSize": 14,
+                    "marginTop": 5,
+                    "outline": "1px solid transparent",
+                    "overflowX": "hidden",
+                    "padding": 0,
+                    "whiteSpace": "pre-wrap",
+                    "wordBreak": "break-word",
+                  }
+                }
+              >
+                To respect their privacy, demo@ or an administrator marked this note as restricted.
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "marginTop": 15,
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+            <span
+              style={
+                Object {
+                  "fontSize": 12,
+                }
+              }
+            >
+               
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

@@ -1,20 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import moment from 'moment';
+import * as Routes from '../helpers/Routes';
+import {linkBlue, strongOrange} from '../helpers/colors';
+import {ERROR, PENDING} from '../helpers/requestStates';
+import {formatEducatorName} from '../helpers/educatorName';
+import Nbsp from '../components/Nbsp';
 import Educator from '../components/Educator';
 import NoteText from '../components/NoteText';
+import NotifyAboutError from '../components/NotifyAboutError';
 import EditableNoteText from '../components/EditableNoteText';
-import * as Routes from '../helpers/Routes';
-import {formatEducatorName} from '../helpers/educatorName';
 import RestrictedNotePresence from './RestrictedNotePresence';
-
+import ModalSmall from './ModalSmall';
 
 // This renders a single card for a Note of any type.
 export default class NoteCard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onBlurText = this.onBlurText.bind(this);
+    this.onTextChanged = this.onTextChanged.bind(this);
+    this.debouncedSave = _.debounce(this.debouncedSave, 500);
   }
 
   educator() {
@@ -23,12 +29,9 @@ export default class NoteCard extends React.Component {
     return educatorsIndex[educatorId];
   }
 
-  // No feedback, fire and forget
-  onDeleteAttachmentClicked(eventNoteAttachmentId) {
-    this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
-  }
-
-  onBlurText(textValue) {
+  // <EditableNoteText /> is uncontrolled, so it tracks
+  // text changes, and syncs to save.
+  debouncedSave(textValue) {
     if (!this.props.onSave) return;
 
     this.props.onSave({
@@ -36,6 +39,17 @@ export default class NoteCard extends React.Component {
       eventNoteTypeId: this.props.eventNoteTypeId,
       text: textValue
     });
+  }
+
+  onTextChanged(textValue) {
+    this.debouncedSave(textValue);
+  }
+
+  // No feedback, fire and forget
+  onDeleteAttachmentClicked(eventNoteAttachmentId, e) {
+    e.preventDefault();
+    if (!confirm('Remove this link?')) return;
+    this.props.onEventNoteAttachmentDeleted(eventNoteAttachmentId);
   }
 
   render() {
@@ -56,7 +70,13 @@ export default class NoteCard extends React.Component {
               </span>
             )}
           </div>
-          {this.renderNoteSubstanceOrRedaction()}
+          <div style={styles.text}>
+            {this.renderNoteSubstanceOrRedaction()}
+            <div style={styles.footer}>
+              {this.renderLastRevisedAt()}
+              {this.renderRequestState()}
+            </div>
+          </div>
           {this.renderAttachmentUrls()}
         </div>
       </div>        
@@ -66,11 +86,24 @@ export default class NoteCard extends React.Component {
   // For restricted notes, show a message and allow switching to another
   // component that allows viewing and editing.
   // Otherwise, show the substance of the note.
+  //
+  // If an onSave callback is provided, the text is editable.
   renderNoteSubstanceOrRedaction() {
-    const {showRestrictedNoteRedaction} = this.props;
-    return (showRestrictedNoteRedaction)
-      ? this.renderRestrictedNoteRedaction()
-      : this.renderText();
+    const {text, showRestrictedNoteRedaction, onSave} = this.props;
+
+    if (showRestrictedNoteRedaction) {
+      return this.renderRestrictedNoteRedaction();
+    }
+    if (!onSave) {
+      return <NoteText text={text} />;
+    }
+
+    return (
+      <EditableNoteText
+        defaultText={text}
+        onTextChanged={this.onTextChanged}
+      />
+    );
   }
 
   // The student name may or not be present.
@@ -90,21 +123,53 @@ export default class NoteCard extends React.Component {
     );
   }
 
-  // If an onSave callback is provided, the text is editable.
-  // This is for older interventions that are read-only 
-  // because of changes to the server data model.
-  renderText() {
-    const {onSave, text, numberOfRevisions} = this.props;
-    if (onSave) {
+  renderLastRevisedAt() {
+    const {nowFn} = this.context;
+    const {lastRevisedAtMoment} = this.props;
+    if (!lastRevisedAtMoment) return <Nbsp style={{fontSize: 12}} />;
+
+    const now = nowFn();
+    const revisedText = (now.clone().diff(lastRevisedAtMoment, 'days') < 45)
+      ? lastRevisedAtMoment.from(now)
+      : `on ${lastRevisedAtMoment.format('M/D/YY')}`;
+    return (
+      <span style={styles.revisionsText}>
+        <span>Revised </span>
+        {revisedText}
+      </span>
+    );
+  }
+
+  renderRequestState() {
+    const {requestState} = this.props;
+
+    if (requestState === ERROR) {
       return (
-        <EditableNoteText
-          text={text}
-          numberOfRevisions={numberOfRevisions}
-          onBlurText={this.onBlurText} />
+        <span style={styles.error}>
+          <span>Your note is not saved</span>
+          <ModalSmall
+            icon={<span style={{color: linkBlue, fontWeight: 'normal'}}>Learn more</span>}
+            style={{fontSize: 12}}
+            modalStyle={{content: {}}}
+            title="Your note is not saved"
+            content={this.renderErrorSavingMessage()}
+          />
+        </span>
       );
     }
-    
-    return <NoteText text={text} />;        
+
+    if (requestState === PENDING) return <span style={styles.saving}>Saving...</span>;
+    return <Nbsp style={{fontSize: 12}} />;
+  }
+
+  renderErrorSavingMessage() {
+    return (
+      <div>
+        <div style={{color: strongOrange, fontWeight: 'bold'}}>There was an error communicating with the server to save your note.</div>
+        <div style={{marginTop: 20, marginBottom: 10}} >To recover, try copying the latest version of the note, reloading the page, and pasting the changes.</div>
+        <NotifyAboutError src="NoteCard#renderErrorSavingMessage" />
+      </div>
+    );
   }
 
   renderAttachmentUrls() {
@@ -116,18 +181,18 @@ export default class NoteCard extends React.Component {
         <div key={attachment.id}>
           <p style={{
             display: 'flex',
-            alignItems: 'center',
-            marginTop: 10
+            alignItems: 'flex-start',
+            marginTop: 10,
+            fontSize: 12
           }}>
-            <span>link:</span>
             <a
               href={attachment.url}
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-block',
-                marginLeft: 10,
                 marginRight: 10,
+                fontSize: 12,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis'
               }}>
@@ -146,12 +211,16 @@ export default class NoteCard extends React.Component {
 
     return (
       <a
+        href="#"
         onClick={this.onDeleteAttachmentClicked.bind(this, attachment.id)}
         style={{
           display: 'inline-block',
-          marginLeft: 10
+          marginLeft: 10,
+          fontSize: 12,
+          textDecoration: 'underline',
+          color: '#999'
         }}>
-        (remove)
+        remove
       </a>
     );
   }
@@ -212,6 +281,9 @@ export default class NoteCard extends React.Component {
     }
   }
 }
+NoteCard.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 NoteCard.propTypes = {
   attachments: PropTypes.array.isRequired,
   badge: PropTypes.element.isRequired,
@@ -219,13 +291,14 @@ NoteCard.propTypes = {
   educatorsIndex: PropTypes.object.isRequired,
   noteMoment: PropTypes.instanceOf(moment).isRequired,
   text: PropTypes.string.isRequired,
+  lastRevisedAtMoment: PropTypes.instanceOf(moment),
 
   // For editing eventNote only
   eventNoteId: PropTypes.number,
   eventNoteTypeId: PropTypes.number,
-  numberOfRevisions: PropTypes.number,
   onEventNoteAttachmentDeleted: PropTypes.func,
   onSave: PropTypes.func,
+  requestState: PropTypes.string,
 
   // Configuring for different uses
   showRestrictedNoteRedaction: PropTypes.bool,
@@ -234,9 +307,6 @@ NoteCard.propTypes = {
   // For side panel for my notes page
   includeStudentPanel: PropTypes.bool,
   student: PropTypes.object
-};
-NoteCard.defaultProps = {
-  numberOfRevisions: 0
 };
 
 
@@ -280,5 +350,29 @@ const styles = {
   },
   restrictedNoteRedaction: {
     color: '#999'
+  },
+  text: {
+    marginTop: 10
+  },
+  footer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 15
+  },
+  error: {
+    fontSize: 12,
+    color: strongOrange,
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  saving: {
+    fontSize: 12,
+    color: '#aaa'
+  },
+  revisionsText: {
+    color: '#aaa',
+    fontSize: 12
   }
 };

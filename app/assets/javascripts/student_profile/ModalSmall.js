@@ -2,17 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactModal from 'react-modal';
 
-const styles = {
-  content: {
-    top: '10%',
-    bottom: '45%',
-    left: '33%',
-    right: '33%',
-    padding: '2%'
-  }
-};
 
-class ModalSmall extends React.Component {
+export default class ModalSmall extends React.Component {
 
   constructor(props) {
     super(props);
@@ -41,10 +32,11 @@ class ModalSmall extends React.Component {
   }
 
   render() {
+    const {style, icon} = this.props;
     return (
-      <div style={{display: 'inline', marginLeft: 10}} className='click-event-modal'>
+      <div style={{display: 'inline', marginLeft: 10, ...style}} className='click-event-modal'>
         <a href="#" onClick={this.openModal} style={{fontSize: 12, outline: 'none'}}>
-          {this.props.icon}
+          {icon}
         </a>
         {
           /* The modal is not logically here, but even while not displayed it needs a location in the DOM. */
@@ -55,20 +47,21 @@ class ModalSmall extends React.Component {
   }
 
   renderModal() {
+    const {modalStyle, title, content} = this.props;
     /* There are three ways to close a modal dialog: click the close button on top right,
        click outside the bounds, or press Escape. */
     return (
       <ReactModal
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}
-        style={styles}
+        style={{...styles, ...modalStyle}}
       >
         {
         <div className="contact-info-modal">
           <div
             style={{borderBottom: '1px solid #333', paddingBottom: 10, marginBottom: 20}}>
             <h1 style={{display: 'inline-block'}}>
-              {this.props.title}
+              {title}
             </h1>
             <a
               href="#"
@@ -78,7 +71,7 @@ class ModalSmall extends React.Component {
             </a>
           </div>
           <div>
-            {this.props.content}
+            {content}
           </div>
         </div>}
       </ReactModal>
@@ -91,6 +84,17 @@ ModalSmall.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.object.isRequired, // React DOM objects which will be displayed in the modal text box.
   icon: PropTypes.object.isRequired, // React DOM object which will be clicked to open the modal.
+  style: PropTypes.object,
+  modalStyle: PropTypes.object
 };
 
-export default ModalSmall;
+
+const styles = {
+  content: {
+    top: '10%',
+    bottom: '45%',
+    left: '33%',
+    right: '33%',
+    padding: '2%'
+  }
+};

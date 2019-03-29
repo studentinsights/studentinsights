@@ -2,18 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import changeTextValue from '../testing/changeTextValue';
-import {
-  nowMoment,
-  currentEducator
-} from './fixtures/fixtures';
+import {currentEducator} from './fixtures/fixtures';
+import profileJsonForRyanRodriguez from './fixtures/profileJsonForRyanRodriguez.fixture';
 import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
-import TakeNotes from './TakeNotes';
+import DraftNote from './DraftNote';
 
 
 export function testProps(props = {}) {
   return {
-    nowMoment: nowMoment,
+    student: profileJsonForRyanRodriguez.student,
     currentEducator: currentEducator,
     onSave: jest.fn(),
     onCancel: jest.fn(),
@@ -25,11 +24,11 @@ export function testProps(props = {}) {
 function renderTestEl(props = {}, context = {}) {
   const districtKey = context.districtKey || SOMERVILLE;
   const el = document.createElement('div');
-  ReactDOM.render(
+  ReactDOM.render(withDefaultNowContext(
     <PerDistrictContainer districtKey={districtKey}>
-      <TakeNotes {...props} />
+      <DraftNote {...props} />
     </PerDistrictContainer>
-  , el);
+  ), el);
 
   return {el};
 }
@@ -42,7 +41,7 @@ it('renders without crashing', () => {
   const props = testProps();
   const {el} = renderTestEl(props);
 
-  expect(el.innerHTML).toContain('February 11, 2016');
+  expect(el.innerHTML).toContain('right now');
   expect(el.innerHTML).toContain('demo@example.com');
   expect($(el).find('textarea').length).toEqual(1);
   expect($(el).find('.btn.note-type').length).toEqual(8);
@@ -57,15 +56,29 @@ it('calls onSave with the correct shape', () => {
 
   changeTextValue($(el).find('textarea').get(0), 'hello!');
   ReactTestUtils.Simulate.click($(el).find('.btn.note-type:eq(1)').get(0));
-  ReactTestUtils.Simulate.change($(el).find('.TakeNotes-attachment-link-input').get(0), {target: {value: 'https://example.com/foo'}});
   ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
   
   expect(props.onSave).toHaveBeenCalledWith({
     "text": "hello!",
     "eventNoteTypeId": 301,
-    "eventNoteAttachments": [{
-      url: 'https://example.com/foo'
-    }]
+    "eventNoteAttachments": []
+  });
+});
+
+it('calls onSave with isRestricted', () => {
+  const props = testProps({showRestrictedCheckbox: true});
+  const {el} = renderTestEl(props, { districtKey: SOMERVILLE });
+
+  changeTextValue($(el).find('textarea').get(0), 'hello!');
+  ReactTestUtils.Simulate.click($(el).find('.btn.note-type:eq(1)').get(0));
+  ReactTestUtils.Simulate.click($(el).find('input[type=checkbox]').get(0));
+  ReactTestUtils.Simulate.click($(el).find('.btn.save').get(0));
+  
+  expect(props.onSave).toHaveBeenCalledWith({
+    "text": "hello!",
+    "eventNoteTypeId": 301,
+    "isRestricted": true,
+    "eventNoteAttachments": []
   });
 });
 

@@ -49,7 +49,10 @@ class EventNoteSerializer < Struct.new :event_note, :options
       :text,
       :recorded_at,
       :is_restricted,
-    ]).merge(event_note_revisions_count: event_note.event_note_revisions.size)
+    ]).merge({
+      event_note_revisions_count: event_note.event_note_revisions.size,
+      latest_revision_at: event_note.latest_revision_at
+    })
   end
 
   def serialize_for_school_overview
