@@ -48,8 +48,9 @@
     width: 15px;
   }
 
-  .NavbarSignedIn-student-searchbar .student-searchbar {
+  .NavbarSignedIn-student-searchbar.student-searchbar {
     font-size: 14px;
+    width: 160px;
     padding: 3px 5px;
     margin-top: 1px;
     border: 1px solid $light-line;

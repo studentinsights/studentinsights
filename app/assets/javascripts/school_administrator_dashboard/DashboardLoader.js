@@ -4,10 +4,7 @@ import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import SchoolwideTardies from './tardies_dashboard/SchoolwideTardies';
 import SchoolDisciplineDashboard from './discipline_dashboard/SchoolDisciplineDashboard';
-import {
-  updateGlobalStylesToTakeFullHeight,
-  updateGlobalStylesToRemoveHorizontalScrollbars
-} from '../helpers/globalStylingWorkarounds';
+import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 
 class DashboardLoader extends React.Component {
   constructor(props) {
@@ -18,7 +15,6 @@ class DashboardLoader extends React.Component {
 
   componentDidMount() {
     updateGlobalStylesToTakeFullHeight();
-    updateGlobalStylesToRemoveHorizontalScrollbars();
   }
 
   fetchDashboardStudents() {

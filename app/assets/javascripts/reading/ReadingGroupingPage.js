@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  updateGlobalStylesToTakeFullHeight,
-  updateGlobalStylesToRemoveHorizontalScrollbars
-} from '../helpers/globalStylingWorkarounds';
+import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import ReadingGroupingWorkflow from './ReadingGroupingWorkflow';
@@ -19,7 +16,6 @@ export default class ReadingGroupingPage extends React.Component {
 
   componentDidMount() {
     updateGlobalStylesToTakeFullHeight();
-    updateGlobalStylesToRemoveHorizontalScrollbars();
   }
 
   fetchJson() {
