@@ -104,7 +104,7 @@ const styles = {
     margin: 10
   },
   leftColumn: {
-    flex: 1
+    flex: 2
   },
   rightColumn: {
     paddingLeft: 20,

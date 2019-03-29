@@ -57,7 +57,7 @@ exports[`snapshots view 1`] = `
       className="notes-list"
       style={
         Object {
-          "flex": 1,
+          "flex": 2,
         }
       }
     >
@@ -1031,7 +1031,7 @@ exports[`snapshots view with wordcloud 1`] = `
       className="notes-list"
       style={
         Object {
-          "flex": 1,
+          "flex": 2,
         }
       }
     >
