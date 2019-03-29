@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
+import renderer from 'react-test-renderer';
 import changeTextValue from '../testing/changeTextValue';
 import {currentEducator} from './fixtures/fixtures';
 import profileJsonForRyanRodriguez from './fixtures/profileJsonForRyanRodriguez.fixture';
-import {SOMERVILLE, NEW_BEDFORD, BEDFORD} from '../helpers/PerDistrict';
+import {SOMERVILLE, NEW_BEDFORD, BEDFORD, DEMO} from '../helpers/PerDistrict';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import PerDistrictContainer from '../components/PerDistrictContainer';
 import DraftNote from './DraftNote';
@@ -21,15 +22,28 @@ export function testProps(props = {}) {
   };
 }
 
-function renderTestEl(props = {}, context = {}) {
+export function testScenarios() {
+  return [
+    { labelText: 'New Bedford', contextDiff: {districtKey: NEW_BEDFORD } },
+    { labelText: 'Somerville', contextDiff: {districtKey: SOMERVILLE } },
+    { labelText: 'Bedford', contextDiff: {districtKey: BEDFORD } },
+    { labelText: 'Demo', contextDiff: {districtKey: DEMO } },
+    { labelText: 'showRestrictedCheckbox', propsDiff: {showRestrictedCheckbox: true} }
+  ];
+}
+
+function testEl(props = {}, context = {}) {
   const districtKey = context.districtKey || SOMERVILLE;
-  const el = document.createElement('div');
-  ReactDOM.render(withDefaultNowContext(
+  return withDefaultNowContext(
     <PerDistrictContainer districtKey={districtKey}>
       <DraftNote {...props} />
     </PerDistrictContainer>
-  ), el);
+  );
+}
 
+function renderTestEl(props = {}, context = {}) {
+  const el = document.createElement('div');
+  ReactDOM.render(testEl(props, context), el);
   return {el};
 }
 
@@ -124,4 +138,13 @@ it('showRestrictedCheckbox', () => {
   expect(el.innerHTML).toContain('Yes, note contains private or sensitive personal information');
   const $checkboxEl = $(el).find('input[type=checkbox]');
   expect($checkboxEl.length).toEqual(1);
+});
+
+it('snapshots across scenarios', () => {
+  expect(renderer.create(testScenarios().map(scenario => (
+    <div key={scenario.labelText}>
+      <h3>{scenario.labelText}</h3>
+      {testEl(testProps(scenario.propsDiff), scenario.contextDiff)}
+    </div>
+  ))).toJSON()).toMatchSnapshot();
 });

@@ -239,6 +239,7 @@ const styles = {
   },
   textarea: {
     fontSize: 14,
+    resize: 'none',
     border: '1px solid #eee',
     width: '100%' //overriding strange global CSS, should cleanup
   },

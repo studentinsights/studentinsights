@@ -1,0 +1,1892 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots across scenarios 1`] = `
+Array [
+  <div>
+    <h3>
+      New Bedford
+    </h3>
+    <div
+      className="DraftNote"
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        className="Card FeedCardFrame"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "borderRadius": 3,
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="StudentPhotoCropped"
+              style={
+                Object {
+                  "backgroundColor": "#ddd",
+                  "backgroundImage": "url(/students/2/photo)",
+                  "backgroundPosition": "center top",
+                  "backgroundRepeat": "no-repeat",
+                  "border": "1px solid #ddd",
+                  "borderRadius": 3,
+                  "height": 58,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "width": 58,
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div>
+                <a
+                  href="/students/2"
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Ryan
+                   
+                  Rodriguez
+                </a>
+              </div>
+              <div>
+                8th grade
+              </div>
+              <div />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "display": "flex",
+                "flexDirection": "column",
+              }
+            }
+          >
+            <div>
+              <div>
+                <span>
+                  by 
+                </span>
+                <a
+                  className="Educator"
+                  href="mailto:demo@example.com"
+                  style={Object {}}
+                >
+                  demo@
+                </a>
+              </div>
+            </div>
+            <div />
+            <div>
+              right now
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 20,
+              "marginTop": 20,
+            }
+          }
+        >
+          <div>
+            <div>
+              <textarea
+                autoFocus={true}
+                className="DraftNote-textarea"
+                onChange={[Function]}
+                rows={10}
+                style={
+                  Object {
+                    "border": "1px solid #eee",
+                    "fontSize": 14,
+                    "resize": "none",
+                    "width": "100%",
+                  }
+                }
+                value=""
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 5,
+                    "marginTop": 20,
+                  }
+                }
+              >
+                What are these notes from?
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={400}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    BBST Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={302}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Parent conversation
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={304}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Something else
+                  </button>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginRight": 10,
+                }
+              }
+            >
+              <div>
+                <button
+                  className="btn save"
+                  disabled={true}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "marginTop": 20,
+                    }
+                  }
+                >
+                  Save notes
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "color": "black",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                    }
+                  }
+                >
+                  Cancel
+                </button>
+              </div>
+              <span
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 12,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="FeedCardFrame-footer"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "marginBottom": 5,
+            }
+          }
+        >
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      Somerville
+    </h3>
+    <div
+      className="DraftNote"
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        className="Card FeedCardFrame"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "borderRadius": 3,
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="StudentPhotoCropped"
+              style={
+                Object {
+                  "backgroundColor": "#ddd",
+                  "backgroundImage": "url(/students/2/photo)",
+                  "backgroundPosition": "center top",
+                  "backgroundPositionY": -10,
+                  "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "150%",
+                  "border": "1px solid #ddd",
+                  "borderRadius": 3,
+                  "height": 58,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "width": 58,
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div>
+                <a
+                  href="/students/2"
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Ryan
+                   
+                  Rodriguez
+                </a>
+              </div>
+              <div>
+                8th grade
+              </div>
+              <div />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "display": "flex",
+                "flexDirection": "column",
+              }
+            }
+          >
+            <div>
+              <div>
+                <span>
+                  by 
+                </span>
+                <a
+                  className="Educator"
+                  href="mailto:demo@example.com"
+                  style={Object {}}
+                >
+                  demo@
+                </a>
+              </div>
+            </div>
+            <div />
+            <div>
+              right now
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 20,
+              "marginTop": 20,
+            }
+          }
+        >
+          <div>
+            <div>
+              <textarea
+                autoFocus={true}
+                className="DraftNote-textarea"
+                onChange={[Function]}
+                rows={10}
+                style={
+                  Object {
+                    "border": "1px solid #eee",
+                    "fontSize": 14,
+                    "resize": "none",
+                    "width": "100%",
+                  }
+                }
+                value=""
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 5,
+                    "marginTop": 20,
+                  }
+                }
+              >
+                What are these notes from?
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={300}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    SST Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={301}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    MTSS Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={302}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Parent conversation
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={304}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Something else
+                  </button>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={305}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    9th Grade Experience
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={306}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    10th Grade Experience
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={307}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    NEST
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={308}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Counselor Meeting
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginRight": 10,
+                }
+              }
+            >
+              <div>
+                <button
+                  className="btn save"
+                  disabled={true}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "marginTop": 20,
+                    }
+                  }
+                >
+                  Save notes
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "color": "black",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                    }
+                  }
+                >
+                  Cancel
+                </button>
+              </div>
+              <span
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 12,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="FeedCardFrame-footer"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "marginBottom": 5,
+            }
+          }
+        >
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      Bedford
+    </h3>
+    <div
+      className="DraftNote"
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        className="Card FeedCardFrame"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "borderRadius": 3,
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="StudentPhotoCropped"
+              style={
+                Object {
+                  "backgroundColor": "#ddd",
+                  "backgroundImage": "url(/students/2/photo)",
+                  "backgroundPosition": "center top",
+                  "backgroundPositionY": -5,
+                  "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "130%",
+                  "border": "1px solid #ddd",
+                  "borderRadius": 3,
+                  "height": 58,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "width": 58,
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div>
+                <a
+                  href="/students/2"
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Ryan
+                   
+                  Rodriguez
+                </a>
+              </div>
+              <div>
+                8th grade
+              </div>
+              <div />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "display": "flex",
+                "flexDirection": "column",
+              }
+            }
+          >
+            <div>
+              <div>
+                <span>
+                  by 
+                </span>
+                <a
+                  className="Educator"
+                  href="mailto:demo@example.com"
+                  style={Object {}}
+                >
+                  demo@
+                </a>
+              </div>
+            </div>
+            <div />
+            <div>
+              right now
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 20,
+              "marginTop": 20,
+            }
+          }
+        >
+          <div>
+            <div>
+              <textarea
+                autoFocus={true}
+                className="DraftNote-textarea"
+                onChange={[Function]}
+                rows={10}
+                style={
+                  Object {
+                    "border": "1px solid #eee",
+                    "fontSize": 14,
+                    "resize": "none",
+                    "width": "100%",
+                  }
+                }
+                value=""
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 5,
+                    "marginTop": 20,
+                  }
+                }
+              >
+                What are these notes from?
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={300}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    SST Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={302}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Parent conversation
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={304}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Something else
+                  </button>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginRight": 10,
+                }
+              }
+            >
+              <div>
+                <button
+                  className="btn save"
+                  disabled={true}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "marginTop": 20,
+                    }
+                  }
+                >
+                  Save notes
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "color": "black",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                    }
+                  }
+                >
+                  Cancel
+                </button>
+              </div>
+              <span
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 12,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="FeedCardFrame-footer"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "marginBottom": 5,
+            }
+          }
+        >
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      Demo
+    </h3>
+    <div
+      className="DraftNote"
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        className="Card FeedCardFrame"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "borderRadius": 3,
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="StudentPhotoCropped"
+              style={
+                Object {
+                  "backgroundColor": "#ddd",
+                  "backgroundImage": "url(/students/2/photo)",
+                  "backgroundPosition": "center top",
+                  "backgroundPositionY": -5,
+                  "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "130%",
+                  "border": "1px solid #ddd",
+                  "borderRadius": 3,
+                  "height": 58,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "width": 58,
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div>
+                <a
+                  href="/students/2"
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Ryan
+                   
+                  Rodriguez
+                </a>
+              </div>
+              <div>
+                8th grade
+              </div>
+              <div />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "display": "flex",
+                "flexDirection": "column",
+              }
+            }
+          >
+            <div>
+              <div>
+                <span>
+                  by 
+                </span>
+                <a
+                  className="Educator"
+                  href="mailto:demo@example.com"
+                  style={Object {}}
+                >
+                  demo@
+                </a>
+              </div>
+            </div>
+            <div />
+            <div>
+              right now
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 20,
+              "marginTop": 20,
+            }
+          }
+        >
+          <div>
+            <div>
+              <textarea
+                autoFocus={true}
+                className="DraftNote-textarea"
+                onChange={[Function]}
+                rows={10}
+                style={
+                  Object {
+                    "border": "1px solid #eee",
+                    "fontSize": 14,
+                    "resize": "none",
+                    "width": "100%",
+                  }
+                }
+                value=""
+              />
+            </div>
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 5,
+                    "marginTop": 20,
+                  }
+                }
+              >
+                What are these notes from?
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={300}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    SST Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={301}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    MTSS Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={302}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Parent conversation
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={304}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Something else
+                  </button>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={305}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    9th Grade Experience
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={306}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    10th Grade Experience
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={307}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    NEST
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={308}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Counselor Meeting
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginRight": 10,
+                }
+              }
+            >
+              <div>
+                <button
+                  className="btn save"
+                  disabled={true}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "marginTop": 20,
+                    }
+                  }
+                >
+                  Save notes
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "color": "black",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                    }
+                  }
+                >
+                  Cancel
+                </button>
+              </div>
+              <span
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 12,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="FeedCardFrame-footer"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "marginBottom": 5,
+            }
+          }
+        >
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div>
+    <h3>
+      showRestrictedCheckbox
+    </h3>
+    <div
+      className="DraftNote"
+      style={
+        Object {
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        className="Card FeedCardFrame"
+        style={
+          Object {
+            "border": "1px solid #ccc",
+            "borderRadius": 3,
+            "padding": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "flex",
+              }
+            }
+          >
+            <div
+              className="StudentPhotoCropped"
+              style={
+                Object {
+                  "backgroundColor": "#ddd",
+                  "backgroundImage": "url(/students/2/photo)",
+                  "backgroundPosition": "center top",
+                  "backgroundPositionY": -10,
+                  "backgroundRepeat": "no-repeat",
+                  "backgroundSize": "150%",
+                  "border": "1px solid #ddd",
+                  "borderRadius": 3,
+                  "height": 58,
+                  "marginRight": 10,
+                  "overflow": "hidden",
+                  "width": 58,
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "justifyContent": "flex-start",
+                }
+              }
+            >
+              <div>
+                <a
+                  href="/students/2"
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Ryan
+                   
+                  Rodriguez
+                </a>
+              </div>
+              <div>
+                8th grade
+              </div>
+              <div />
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "flex-end",
+                "display": "flex",
+                "flexDirection": "column",
+              }
+            }
+          >
+            <div>
+              <div>
+                <span>
+                  by 
+                </span>
+                <a
+                  className="Educator"
+                  href="mailto:demo@example.com"
+                  style={Object {}}
+                >
+                  demo@
+                </a>
+              </div>
+            </div>
+            <div />
+            <div>
+              right now
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "marginBottom": 20,
+              "marginTop": 20,
+            }
+          }
+        >
+          <div>
+            <div>
+              <textarea
+                autoFocus={true}
+                className="DraftNote-textarea"
+                onChange={[Function]}
+                rows={10}
+                style={
+                  Object {
+                    "border": "1px solid #eee",
+                    "fontSize": 14,
+                    "resize": "none",
+                    "width": "100%",
+                  }
+                }
+                value=""
+              />
+              <div>
+                <div
+                  style={
+                    Object {
+                      "marginBottom": 5,
+                      "marginTop": 20,
+                    }
+                  }
+                >
+                  Restrict access?
+                </div>
+                <label
+                  style={
+                    Object {
+                      "color": "black",
+                      "cursor": "pointer",
+                      "marginLeft": 10,
+                    }
+                  }
+                >
+                  <input
+                    onClick={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    style={
+                      Object {
+                        "paddingLeft": 5,
+                      }
+                    }
+                  >
+                    Yes, note contains private or sensitive personal information
+                  </span>
+                </label>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "margin": 10,
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 5,
+                    "marginTop": 20,
+                  }
+                }
+              >
+                What are these notes from?
+              </div>
+              <div
+                style={
+                  Object {
+                    "display": "flex",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={300}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    SST Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={301}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    MTSS Meeting
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={302}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Parent conversation
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={304}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Something else
+                  </button>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <button
+                    className="btn note-type"
+                    name={305}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    9th Grade Experience
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={306}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    10th Grade Experience
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={307}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    NEST
+                  </button>
+                  <button
+                    className="btn note-type"
+                    name={308}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "background": "#eee",
+                        "border": "4px solid white",
+                        "color": "black",
+                        "fontSize": 12,
+                        "marginRight": "1em",
+                        "minWidth": "14em",
+                        "outline": 0,
+                        "padding": 8,
+                      }
+                    }
+                    tabIndex={-1}
+                  >
+                    Counselor Meeting
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "justifyContent": "space-between",
+                  "marginRight": 10,
+                }
+              }
+            >
+              <div>
+                <button
+                  className="btn save"
+                  disabled={true}
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#ccc",
+                      "marginTop": 20,
+                    }
+                  }
+                >
+                  Save notes
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "#eee",
+                      "color": "black",
+                      "marginLeft": 10,
+                      "marginRight": 10,
+                    }
+                  }
+                >
+                  Cancel
+                </button>
+              </div>
+              <span
+                style={
+                  Object {
+                    "color": "#aaa",
+                    "fontSize": 12,
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="FeedCardFrame-footer"
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "marginBottom": 5,
+            }
+          }
+        >
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;
