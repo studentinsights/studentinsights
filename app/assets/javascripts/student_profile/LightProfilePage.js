@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
-import {updateGlobalStylesToRemoveHorizontalScrollbars, alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds';
+import {alwaysShowVerticalScrollbars} from '../helpers/globalStylingWorkarounds';
 import * as InsightsPropTypes from '../helpers/InsightsPropTypes';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import * as FeedHelpers from '../helpers/FeedHelpers';
@@ -37,7 +37,6 @@ export default class LightProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    updateGlobalStylesToRemoveHorizontalScrollbars();
     alwaysShowVerticalScrollbars();
   }
 

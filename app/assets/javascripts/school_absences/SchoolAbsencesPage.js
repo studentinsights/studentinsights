@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import SchoolAbsencesDashboard from './SchoolAbsencesDashboard';
-import {
-  updateGlobalStylesToTakeFullHeight,
-  updateGlobalStylesToRemoveHorizontalScrollbars
-} from '../helpers/globalStylingWorkarounds';
+import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 
 
 // For school or house admin to see students missing school, that the
@@ -25,7 +22,6 @@ export default class SchoolAbsencesPage extends React.Component {
     const {disableStylingForTest} = this.props;
     if (disableStylingForTest) return;
     updateGlobalStylesToTakeFullHeight();
-    updateGlobalStylesToRemoveHorizontalScrollbars();
   }
 
   fetchJson() {

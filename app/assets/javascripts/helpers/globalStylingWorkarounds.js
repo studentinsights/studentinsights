@@ -16,11 +16,6 @@ export function updateGlobalStylesToTakeFullHeight() {
   window.document.getElementById('main').style['flex-direction'] = 'column';
 }
 
-// Prevent horizontal scrollbar from showing.
-export function updateGlobalStylesToRemoveHorizontalScrollbars() {
-  window.document.body.style['min-width'] = '1000px';
-}
-
 export function alwaysShowVerticalScrollbars() {
   window.document.body.style['overflow-y'] = 'scroll';
 }

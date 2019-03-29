@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import {
-  updateGlobalStylesToTakeFullHeight,
-  updateGlobalStylesToRemoveHorizontalScrollbars
-} from '../helpers/globalStylingWorkarounds';
+import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import LevelsView from './LevelsView';
 
 
@@ -21,7 +18,6 @@ export default class LevelsPage extends React.Component {
   }
 
   componentDidMount() {
-    updateGlobalStylesToRemoveHorizontalScrollbars();
     updateGlobalStylesToTakeFullHeight();
   }
 

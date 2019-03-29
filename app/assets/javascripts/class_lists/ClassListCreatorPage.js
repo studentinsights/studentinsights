@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {sortByGrade} from '../helpers/SortHelpers';
-import {
-  updateGlobalStylesToTakeFullHeight,
-  updateGlobalStylesToRemoveHorizontalScrollbars
-} from '../helpers/globalStylingWorkarounds';
+import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import {
   fetchGradeLevelsJson,
   fetchStudentsJson,
@@ -194,7 +191,6 @@ export default class ClassListCreatorPage extends React.Component {
     const {disableSizing} = this.props;
     if (disableSizing) return;
     updateGlobalStylesToTakeFullHeight();
-    updateGlobalStylesToRemoveHorizontalScrollbars();
   }
   
   // Trigger fetches and other initialization
