@@ -103,7 +103,7 @@ class Authorizer
   def why_authorized_for_student?(student, options = {})
     begin
       return :districtwide if @educator.districtwide_access?
-      return :housemaster if @educator.labels.include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
+      return :housemaster if @educator.labels(only_static_labels: true).include?('high_school_house_master') && student.grade == '8' && EnvironmentVariable.is_true('HOUSEMASTERS_AUTHORIZED_FOR_GRADE_8')
 
       return nil if @educator.restricted_to_sped_students && !(student.program_assigned.in? ['Sp Ed', 'SEIP'])
       return nil if @educator.restricted_to_english_language_learners && student.limited_english_proficiency == 'Fluent'

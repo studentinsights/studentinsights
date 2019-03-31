@@ -48,8 +48,8 @@ class Educator < ApplicationRecord
     Authorizer.new(self).is_authorized_for_section?(section)
   end
 
-  def labels
-    EducatorLabel.labels(self)
+  def labels(options = {})
+    EducatorLabel.labels(self, options)
   end
 
   def default_section
