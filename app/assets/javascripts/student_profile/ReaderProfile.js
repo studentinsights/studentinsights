@@ -57,13 +57,13 @@ export default class ReaderProfile extends React.Component {
   }
 
   renderTable(grade, currentSchoolYear, dataPointsByAssessmentKey) {
-    const backgroundColor = 'rgb(244, 204, 204)';
-    const borderRight = '5px solid #ccc';
+    const backgroundColor = '#f8f8f8';
+    const borderRight = '5px solid #aaa';
     const cell = {
       ...tableStyles.cell,
       whiteSpace: 'normal',
       backgroundColor,
-      border: 0,
+      border: '1px solid #ccc',
       textAlign: 'center',
       verticalAlign: 'center'
     };
@@ -99,19 +99,19 @@ export default class ReaderProfile extends React.Component {
           <tr>
             <td style={cell}>Word parts</td>
             <td style={{...cell, borderRight}}>SPS Phonological Awareness</td>
-            <td style={cell}>PA in small group, second time</td>
+            <td style={cell}>{fade('PA in small group, second time')}</td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}>
               {this.renderDibels(DIBELS_FSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
               {this.renderDibels(DIBELS_PSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
             </td>
-            <td style={cell}>CTOPP</td>
+            <td style={cell}>{fade('CTOPP')}</td>
           </tr>
           <tr>
             <td style={cell}>Letter Names</td>
             <td style={{...cell, borderRight}}>Fundations</td>
             <td style={cell}></td>
-            <td style={{...cell, borderRight}}>Lively Letters</td>
+            <td style={{...cell, borderRight}}>{fade('Lively Letters')}</td>
             <td style={{...cell, ...chartSizing}}>
               {this.renderDibels(DIBELS_LNF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
             </td>
@@ -120,7 +120,7 @@ export default class ReaderProfile extends React.Component {
           <tr>
             <td style={cell}>Letter Sounds</td>
             <td style={{...cell, borderRight}}>Fundations</td>
-            <td style={cell}>ERI in small group</td>
+            <td style={cell}>{fade('ERI in small group')}</td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}>
               {this.renderDibels(DIBELS_NWF_CLS, currentSchoolYear, dataPointsByAssessmentKey, grade)}
@@ -147,7 +147,7 @@ export default class ReaderProfile extends React.Component {
             <td style={cell}>How texts work</td>
             <td style={{...cell, borderRight}}>Readers Workshop</td>
             <td style={cell}></td>
-            <td style={{...cell, borderRight}}>Heggerty</td>
+            <td style={{...cell, borderRight}}>{fade('Heggerty')}</td>
             <td style={{...cell, ...chartSizing}}></td>
             <td style={cell}></td>
           </tr>
@@ -179,8 +179,8 @@ export default class ReaderProfile extends React.Component {
     const labelText = prettyDibelsText(benchmarkAssessmentKey);
     const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey];
     return (
-      <div style={{display: 'flex', flexDirection: 'column', marginBottom: 10}}>
-        <div style={{fontWeight: 'bold', marginBottom: 2}}>{labelText}</div>
+      <div style={{display: 'flex', flexDirection: 'column', marginBottom: 15}}>
+        <div style={{fontSize: 12, marginBottom: 2, textAlign: 'left'}}>{labelText}</div>
         {/*<SliderChart
           risk={thresholds.risk}
           benchmark={thresholds.benchmark}
@@ -210,3 +210,8 @@ ReaderProfile.propTypes = {
     grade: PropTypes.any.isRequired
   }).isRequired
 };
+
+
+function fade(text) {
+  return <span style={{opacity: 0.25}}>{text}</span>;
+}
