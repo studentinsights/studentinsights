@@ -11,9 +11,11 @@ import {
   DIBELS_PSF_WPM,
   DIBELS_LNF_WPM,
   DIBELS_NWF_CLS,
-  prettyDibelsText
+  prettyDibelsText,
+  somervilleDibelsThresholdsFor
 } from '../reading/readingData';
-
+import DibelsMegaChart from './DibelsMegaChart';
+import SliderChart from '../reading/SliderChart';
 
 export default class ReaderProfile extends React.Component {
   render() {
@@ -100,8 +102,8 @@ export default class ReaderProfile extends React.Component {
             <td style={cell}>PA in small group, second time</td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}>
-              {this.renderDibels(DIBELS_FSF_WPM, currentSchoolYear, dataPointsByAssessmentKey)}
-              {this.renderDibels(DIBELS_PSF_WPM, currentSchoolYear, dataPointsByAssessmentKey)}
+              {this.renderDibels(DIBELS_FSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
+              {this.renderDibels(DIBELS_PSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
             </td>
             <td style={cell}>CTOPP</td>
           </tr>
@@ -111,7 +113,7 @@ export default class ReaderProfile extends React.Component {
             <td style={cell}></td>
             <td style={{...cell, borderRight}}>Lively Letters</td>
             <td style={{...cell, ...chartSizing}}>
-              {this.renderDibels(DIBELS_LNF_WPM, currentSchoolYear, dataPointsByAssessmentKey)}
+              {this.renderDibels(DIBELS_LNF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
             </td>
             <td style={cell}></td>
           </tr>
@@ -121,7 +123,7 @@ export default class ReaderProfile extends React.Component {
             <td style={cell}>ERI in small group</td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}>
-              {this.renderDibels(DIBELS_NWF_CLS, currentSchoolYear, dataPointsByAssessmentKey)}
+              {this.renderDibels(DIBELS_NWF_CLS, currentSchoolYear, dataPointsByAssessmentKey, grade)}
             </td>
             <td style={cell}></td>
           </tr>
@@ -173,22 +175,33 @@ export default class ReaderProfile extends React.Component {
     );
   }
 
-  renderDibels(benchmarkAssessmentKey, currentSchoolYear, dataPointsByAssessmentKey) {
+  renderDibels(benchmarkAssessmentKey, currentSchoolYear, dataPointsByAssessmentKey, grade) {
     const labelText = prettyDibelsText(benchmarkAssessmentKey);
     const benchmarkDataPoints = dataPointsByAssessmentKey[benchmarkAssessmentKey];
     return (
       <div style={{display: 'flex', flexDirection: 'column', marginBottom: 10}}>
         <div style={{fontWeight: 'bold', marginBottom: 2}}>{labelText}</div>
-        <div>{benchmarkDataPoints.map(dataPoint => {
-          const dataPointMoment = toMoment(currentSchoolYear, dataPoint.benchmark_period_key);
-          return (
-            <div key={dataPointMoment.format('YYYYMMDD')}>{dataPointMoment.format('M/D/YY')}</div>
-          );
-        })}</div>
+        {/*<SliderChart
+          risk={thresholds.risk}
+          benchmark={thresholds.benchmark}
+          range={{
+            [DIBELS_FSF_WPM]: [0, 100],
+            [DIBELS_LNF_WPM]: [0, 100],
+            [DIBELS_PSF_WPM]: [0, 100],
+            [DIBELS_NWF_CLS]: [0, 200]
+          }[benchmarkAssessmentKey]}
+          values={benchmarkDataPoints.map(d => d.json.data_point)}
+          height={100}
+        />*/}
+        <DibelsMegaChart
+          currentGrade={grade}
+          benchmarkDataPoints={benchmarkDataPoints}
+          currentSchoolYear={currentSchoolYear}
+          benchmarkAssessmentKey={benchmarkAssessmentKey}
+        />
       </div>
     );
   }
-
 }
 
 ReaderProfile.propTypes = {
@@ -197,19 +210,3 @@ ReaderProfile.propTypes = {
     grade: PropTypes.any.isRequired
   }).isRequired
 };
-
-
-function toMoment(currentSchoolYear, benchmarkPeriodKey) {
-  const monthText = {
-    fall: '0901',
-    winter: '0101',
-    spring: '0501'
-  }[benchmarkPeriodKey];
-  const yearOffset = {
-    fall: 0,
-    winter: 1,
-    spring: 1
-  }[benchmarkPeriodKey];
-  const year = currentSchoolYear + yearOffset;
-  return moment.utc(`${year}${monthText}`, 'YYYYMMDD', true);
-}

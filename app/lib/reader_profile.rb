@@ -6,9 +6,9 @@ class ReaderProfile
 
   def reader_profile_json
     benchmark_data_points = JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-04-02-reading-kindergarten/imported.json'))
-    
-    # student_id = benchmark_data_points.sample(1).first['student_id']
-    student_id = 5738
+
+    student_id = benchmark_data_points.sample(1).first['student_id']
+    # student_id = 5738
     {
       student_id: student_id,
       grade: 'KF',
