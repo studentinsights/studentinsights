@@ -63,9 +63,18 @@ class MegaReadingImporter
   end
 
   def flat_map_rows(row, index)
-    # Infer student name
-    full_name = row['Name'].split(', ').reverse.join(' ')
-    student_id = guess_from_name(full_name)
+    # exactly match name if lasid
+    student_id = nil
+    if row['LASID']
+      student_id = Student.find_by_local_id(row['LASID']).try(:id)
+    end
+
+    # if that didn't work, try to infer
+    if student_id.nil? && row['Name']
+      full_name = row['Name'].split(', ').reverse.join(' ')
+      student_id = guess_from_name(full_name)
+    end
+
     if student_id.nil?
       @invalid_student_name += 1
       return nil
@@ -74,7 +83,7 @@ class MegaReadingImporter
     @valid_student_name += 1
     shared = {
       student_id: student_id,
-      imported_by_educator_id: nil
+      imported_by_educator_id: @educator_id
     }
 
     # data points for each grade
@@ -88,15 +97,15 @@ class MegaReadingImporter
 
   def data_points_for_kindergarten(shared, row)
     import_data_points(shared, [
-      ['K', :fall, :dibels_fsf, row['fall K - FSF']],
-      ['K', :fall, :dibels_lnf, row['fall K - LNF']],
-      ['K', :winter, :dibels_fsf, row['winter K - FSF']],
-      ['K', :winter, :dibels_lnf, row['winter K - LNF']],
-      ['K', :winter, :dibels_psf, row['winter K - PSF']],
+      ['K', :fall, :dibels_fsf_wpm, row['fall K - FSF']],
+      ['K', :fall, :dibels_lnf_wpm, row['fall K - LNF']],
+      ['K', :winter, :dibels_fsf_wpm, row['winter K - FSF']],
+      ['K', :winter, :dibels_lnf_wpm, row['winter K - LNF']],
+      ['K', :winter, :dibels_psf_wpm, row['winter K - PSF']],
       ['K', :winter, :dibels_nwf_cls, row['winter K - NWF CLS']],
       ['K', :winter, :dibels_nwf_wwr, row['winter K - NWF WWR']],
-      ['K', :spring, :dibels_lnf, row['spring K - LNF']],
-      ['K', :spring, :dibels_psf, row['spring K - PSF']],
+      ['K', :spring, :dibels_lnf_wpm, row['spring K - LNF']],
+      ['K', :spring, :dibels_psf_wpm, row['spring K - PSF']],
       ['K', :spring, :dibels_nwf_cls, row['spring K - NWF CLS']],
       ['K', :spring, :dibels_nwf_wwr, row['spring K - NWF WWR']]
     ])
@@ -104,8 +113,8 @@ class MegaReadingImporter
 
   def data_points_for_first(shared, row)
     import_data_points(shared, [
-      ['1', :fall, :dibels_lnf, row['fall 1 LNF']],
-      ['1', :fall, :dibels_psf, row['fall 1 PSF']],
+      ['1', :fall, :dibels_lnf_wpm, row['fall 1 LNF']],
+      ['1', :fall, :dibels_psf_wpm, row['fall 1 PSF']],
       ['1', :fall, :dibels_nwf_cls, row['fall 1 NWF CLS']],
       ['1', :fall, :dibels_nwf_wwr, row['fall 1 NWF WWR']],
       ['1', :winter, :dibels_nwf_cls, row['winter1 NWF-CLS']],
