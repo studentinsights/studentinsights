@@ -39,7 +39,7 @@ export function gradeText(grade) {
   const text = gradeTextMap[grade];
   if (text) return text;
 
-  if (_.isNumber(parseInt(grade, 10))) {
+  if (!_.isNaN(parseInt(grade, 10))) {
     const suffix = suffixMap[grade] || 'th';
     return `${grade}${suffix} grade`;
   }
