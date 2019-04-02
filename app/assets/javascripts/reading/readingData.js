@@ -20,6 +20,17 @@ export const F_AND_P_ENGLISH = 'f_and_p_english';
 export const INSTRUCTIONAL_NEEDS = 'instructional_needs';
 
 
+export function prettyDibelsText(benchmarkAssessmentKey) {
+  return {
+    [DIBELS_FSF_WPM]: 'First Sound Fluency',
+    [DIBELS_LNF_WPM]: 'Letter Naming Fluency',
+    [DIBELS_PSF_WPM]: 'Phonemic Segmentation Fluency',
+    [DIBELS_NWF_CLS]: 'Nonsense Word Fluency',
+    [DIBELS_DORF_WPM]: 'Oral Reading Fluency',
+    [DIBELS_DORF_ACC]: 'Oral Reading Accuracy'
+  }[benchmarkAssessmentKey];
+}
+
 /*
 "Because the scores used to calculate the DIBELS Composite Score vary by grade and time of year, it is important to note that the composite score generally cannot be used to directly measure growth over time or to compare results across grades or times of year. However, because the logic and procedures used to establish benchmark goals are consistent across grades and times of year, the percent of students at or above benchmark can be compared, even though the mean scores are not comparable."
 */

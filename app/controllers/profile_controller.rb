@@ -32,6 +32,12 @@ class ProfileController < ApplicationController
     }
   end
 
+  def reader_profile_json
+    student = Student.find(params[:id])
+    json = ReaderProfile.new(student).reader_profile_json
+    render json: json
+  end
+
   private
   def authorize!
     student = Student.find(params[:id])

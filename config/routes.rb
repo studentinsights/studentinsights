@@ -82,6 +82,7 @@ Rails.application.routes.draw do
 
   # student profile
   get '/api/students/:id/profile_json' => 'profile#json'
+  get '/api/students/:id/reader_profile_json' => 'profile#reader_profile_json'
 
   # transition notes: creating/updating, or reading restricted notes
   post '/api/students/:student_id/update_transition_note' => 'transition_notes#update'
