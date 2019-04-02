@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import d3 from 'd3';
 import _ from 'lodash';
 import moment from 'moment';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
@@ -65,9 +66,37 @@ export default class DibelsMegaChart extends React.Component {
       // tooltip: starChartTooltip(),
     };
 
+    // const ds = toDataPoints(benchmarkDataPoints, currentSchoolYear);
+    const toX = d3.scale.linear()
+      .domain([nowFn().subtract(nMonthsBack, 'months').valueOf(), nowFn().valueOf()])
+      .range([0, 200]);
+    const toY = d3.scale.linear()
+      .domain([0, 100])
+      .range([100, 0]);
+    const lineFunction = d3.svg.line()
+      .x(d => toX(d.x))
+      .y(d => toY(d.y))
+      // .x(d => (d.x - _.first(ds).x) / (_.last(ds).x - _.first(ds).x) * 300)
+      // .y(d => 200 - d.y * (200/100))
+      .interpolate('linear');
+    // var lineGraph = svg.append("path")
+    //   .attr("d", lineFunction(lineData))
+    //   .attr("stroke", "blue")
+    //   .attr("stroke-width", 2)
+    //   .attr("fill", "none");
     return (
       <div className="DibelsMegaChart">
-        <HighchartsWrapper {...props} />
+        <div style={{position: 'relative', width: 200, height: 100, background: 'white', marginBottom: 20}}>
+          <svg width={200} height={100} style={{background: 'white'}}>
+            <path fill="none" opacity={1.0} strokeWidth={2} stroke="blue" d={lineFunction(toDataPoints(benchmarkDataPoints, currentSchoolYear))} />
+            <path fill="none" opacity={0.5} strokeWidth={1} stroke="red" d={lineFunction(toThresholdSeries(benchmarkDataPoints, currentSchoolYear, currentGrade, benchmarkAssessmentKey, 'risk'))} />
+            <path fill="none" opacity={0.5} strokeWidth={1} stroke="green" d={lineFunction(toThresholdSeries(benchmarkDataPoints, currentSchoolYear, currentGrade, benchmarkAssessmentKey, 'benchmark'))} />
+          </svg>
+          <div style={{fontSize: 10, position: 'absolute', top: 0}}>100 wpm</div>
+          <div style={{fontSize: 10, position: 'absolute', bottom: 10}}>0 wpm</div>
+          <div style={{fontSize: 10, position: 'absolute', bottom: -15, left: toX(moment.utc(`${currentSchoolYear}0901`, 'YYYYMMDD', true))}}>{currentGrade}</div>
+        </div>
+        {/*<HighchartsWrapper {...props} />*/}
       </div>
     );
   }
