@@ -126,7 +126,7 @@ export default class ReaderProfile extends React.Component {
             <td style={notesCell}>{findNotes(notes)}</td>
           </tr>
           <tr>
-            {this.renderIngredientCell('Letter Names', 'Fundations</div', cell)}
+            {this.renderIngredientCell('Letter Names', 'Fundations', cell)}
             <td style={cell}></td>
             <td style={{...cell, borderRight}}>{fade('Lively Letters')}</td>
             <td style={{...cell, ...chartSizing}}>
@@ -136,7 +136,7 @@ export default class ReaderProfile extends React.Component {
             <td style={notesCell}>{findNotes(notes, LETTER_NAMES)}</td>
           </tr>
           <tr>
-            {this.renderIngredientCell('Letter Sounds', 'Fundations</div', cell)}
+            {this.renderIngredientCell('Letter Sounds', 'Fundations', cell)}
             <td style={cell}>{fade('ERI in small group')}</td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}>
@@ -146,7 +146,7 @@ export default class ReaderProfile extends React.Component {
             <td style={notesCell}>{findNotes(notes, LETTER_SOUNDS)}</td>
           </tr>
           <tr>
-            {this.renderIngredientCell('Tapping and Blending Written Words', 'Fundations</div', cell)}
+            {this.renderIngredientCell('Tapping and Blending Written Words', 'Fundations', cell)}
             <td style={cell}></td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}></td>
@@ -154,7 +154,7 @@ export default class ReaderProfile extends React.Component {
             <td style={notesCell}>{findNotes(notes)}</td>
           </tr>
           <tr>
-            {this.renderIngredientCell('Sight Words', 'Fundations</div', cell)}
+            {this.renderIngredientCell('Sight Words', 'Fundations', cell)}
             <td style={cell}></td>
             <td style={{...cell, borderRight}}></td>
             <td style={{...cell, ...chartSizing}}></td>
