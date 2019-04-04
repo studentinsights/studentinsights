@@ -49,11 +49,7 @@ export default class ElaDetails extends React.Component {
     const {readerProfileEl} = this.props;
     if (!readerProfileEl) return null;
 
-    return (
-      <DetailsSection key="reader" title="Reader profile">
-        {readerProfileEl}
-      </DetailsSection>
-    );
+    return <div key="reader-profile">{readerProfileEl}</div>;
   }
 
   renderDibels() {
