@@ -77,10 +77,10 @@ const somervilleDibelsThresholds = {
     }
   },
   [DIBELS_NWF_CLS]: {
-    'KF:winter': {
-      risk: 12,
-      benchmark: 27
-    },
+    // 'KF:winter': {
+    //   risk: 12,
+    //   benchmark: 27
+    // },
     'KF:spring': {
       risk: 27,
       benchmark: 37

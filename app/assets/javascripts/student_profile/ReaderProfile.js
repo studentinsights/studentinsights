@@ -37,9 +37,9 @@ export default class ReaderProfile extends React.Component {
   }
 
   renderJson(json) {
+    const grade = json.grade;
     const notes = json.event_notes;
     const benchmarkDataPoints = json.benchmark_data_points;
-    const grade = json.grade;
     const currentSchoolYear = json.current_school_year;
     const dataPointsByAssessmentKey = _.groupBy(benchmarkDataPoints, 'benchmark_assessment_key');
   //   return (
@@ -76,7 +76,7 @@ export default class ReaderProfile extends React.Component {
     };
     const headerCell = {
       ...tableStyles.headerCell,
-      width: 120,
+      width: 160,
       border: 0
     };
     const chartSizing = {
@@ -92,104 +92,148 @@ export default class ReaderProfile extends React.Component {
     const notesCell = {
       ...cell,
       padding: 5,
-      width: 230
+      width: 250
     };
 
+    const isK = this.props.student.grade === 'KF';
     return (
-      <table className="ReadingCurriculumView" style={tableStyle}>
-        <thead>
-          <tr>
-            <th style={headerCell}>
-              <div><b>Ingredient</b></div>
-              <div>Curriculum</div>
-            </th>
-            <th style={headerCell}>Tier 2</th>
-            <th style={{...headerCell, borderRight}}>Tier 3</th>
-            <th style={{...headerCell, ...chartSizing}}>Screeners</th>
-            <th style={headerCell}>Evaluations</th>
-            <th style={headerCell}>Notes</th>
-            {/*<th style={headerCell}>IEPs</th>
-            <th style={headerCell}>English</th>
-            <th style={headerCell}>MTSS</th>*/}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {this.renderIngredientCell('Word parts', 'SPS Phonological', cell)}
-            <td style={cell}>{fade('PA in small group, second time')}</td>
-            <td style={{...cell, borderRight}}></td>
-            <td style={{...cell, ...chartSizing}}>
-              {this.renderDibels(DIBELS_FSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
-              {this.renderDibels(DIBELS_PSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
-            </td>
-            <td style={cell}><div>{fade('CTOPP')}</div></td>
-            <td style={notesCell}>{findNotes(notes)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('Letter Names', 'Fundations', cell)}
-            <td style={cell}></td>
-            <td style={{...cell, borderRight}}>{fade('Lively Letters')}</td>
-            <td style={{...cell, ...chartSizing}}>
-              {this.renderDibels(DIBELS_LNF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
-            </td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes, LETTER_NAMES)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('Letter Sounds', 'Fundations', cell)}
-            <td style={cell}>{fade('ERI in small group')}</td>
-            <td style={{...cell, borderRight}}></td>
-            <td style={{...cell, ...chartSizing}}>
-              {this.renderDibels(DIBELS_NWF_CLS, currentSchoolYear, dataPointsByAssessmentKey, grade)}
-            </td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes, LETTER_SOUNDS)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('Tapping and Blending Written Words', 'Fundations', cell)}
-            <td style={cell}></td>
-            <td style={{...cell, borderRight}}></td>
-            <td style={{...cell, ...chartSizing}}></td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('Sight Words', 'Fundations', cell)}
-            <td style={cell}></td>
-            <td style={{...cell, borderRight}}></td>
-            <td style={{...cell, ...chartSizing}}></td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('How texts work', 'Readers Workshop', cell)}
-            <td style={cell}></td>
-            <td style={{...cell, borderRight}}>{fade('Heggerty')}</td>
-            <td style={{...cell, ...chartSizing}}></td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('Left to Right', 'Readers Workshop', cell)}
-            <td style={cell}></td>
-            <td style={{...cell, borderRight}}></td>
-            <td style={{...cell, ...chartSizing}}></td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes)}</td>
-          </tr>
-          <tr>
-            {this.renderIngredientCell('Independent Reading', 'Readers Workshop', cell)}
-            <td style={cell}></td>
-            <td style={{...cell, borderRight}}></td>
-            <td style={{...cell, ...chartSizing}}>
-              <div>F&P</div>
-              <div>Independent reading</div>
-            </td>
-            <td style={cell}></td>
-            <td style={notesCell}>{findNotes(notes)}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <table className="ReadingCurriculumView" style={tableStyle}>
+          <thead>
+            <tr>
+              <th style={headerCell}>
+                <div><b>Ingredient</b></div>
+                <div>Curriculum</div>
+              </th>
+              <th style={headerCell}>Tier 2</th>
+              <th style={{...headerCell, borderRight}}>Tier 3</th>
+              <th style={{...headerCell, ...chartSizing}}>Screeners</th>
+              <th style={headerCell}>Evaluations</th>
+              <th style={headerCell}>Notes</th>
+              {/*<th style={headerCell}>IEPs</th>
+              <th style={headerCell}>English</th>
+              <th style={headerCell}>MTSS</th>*/}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {this.renderIngredientCell('Oral language, receptive', null, {...cell, backgroundColor: 'rgb(229, 240, 249)'})}
+              <td style={{...cell, backgroundColor: 'rgb(229, 240, 249)'}}></td>
+              <td style={{...cell, borderRight, backgroundColor: 'rgb(229, 240, 249)'}}></td>
+              <td style={{...cell, ...chartSizing, backgroundColor: 'rgb(229, 240, 249)'}}>
+              </td>
+              <td style={{...cell, backgroundColor: 'rgb(229, 240, 249)'}}>
+                <div>{fade('SPS Listening Comp')}</div>
+              </td>
+              <td style={{...notesCell, backgroundColor: 'rgb(229, 240, 249)'}}>{findNotes(this.props.student.grade,notes)}</td>
+            </tr>
+            <tr>
+              {this.renderIngredientCell('Oral language, expressive', 'Talking Drawing', {...cell, backgroundColor: 'rgb(229, 240, 249)'})}
+              <td style={{...cell, backgroundColor: 'rgb(229, 240, 249)'}}></td>
+              <td style={{...cell, borderRight, backgroundColor: 'rgb(229, 240, 249)'}}></td>
+              <td style={{...cell, ...chartSizing, backgroundColor: 'rgb(229, 240, 249)'}}>
+              </td>
+              <td style={{...cell, backgroundColor: 'rgb(229, 240, 249)'}}>
+                <div>{fade('SPS Listening Comp')}</div>
+              </td>
+              <td style={{...notesCell, backgroundColor: 'rgb(229, 240, 249)'}}>{findNotes(this.props.student.grade,notes)}</td>
+            </tr>
+            {!isK ? <tr></tr> : (
+              <tr>
+                {this.renderIngredientCell('Word parts', 'SPS Phonological', cell)}
+                <td style={cell}>{fade('PA in small group, second time')}</td>
+                <td style={{...cell, borderRight}}>{fade('Heggerty')}</td>
+                <td style={{...cell, ...chartSizing}}>
+                  {this.renderDibels(DIBELS_FSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
+                  {this.renderDibels(DIBELS_PSF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
+                </td>
+                <td style={cell}>
+                  <div>{fade('CTOPP, elision & blending')}</div>
+                  <div>{fade(<a href="https://www.dropbox.com/home/ela%20folder/Phonological%20Awareness/Kindergarten?preview=Kindergarten+Student+Data+%26+Assessments.docx">PAST</a>)}</div>
+                </td>
+                <td style={notesCell}>{findNotes(this.props.student.grade,notes)}</td>
+              </tr>
+            )}
+            {!isK ? <tr></tr> : (
+              <tr>
+                {this.renderIngredientCell('Letter Names', 'Fundations', cell)}
+                <td style={cell}></td>
+                <td style={{...cell, borderRight}}>{fade('Lively Letters')}</td>
+                <td style={{...cell, ...chartSizing}}>
+                  {this.renderDibels(DIBELS_LNF_WPM, currentSchoolYear, dataPointsByAssessmentKey, grade)}
+                </td>
+                <td style={cell}>
+                  <div>{fade(<a href="https://www.dropbox.com/home/ela%20folder/Phonological%20Awareness/Kindergarten?preview=Kindergarten+Student+Data+%26+Assessments.docx">SPS RAN</a>)}</div>
+                </td>
+                <td style={notesCell}>{findNotes(this.props.student.grade,notes, LETTER_NAMES)}</td>
+              </tr>
+            )}
+            {this.props.student.grade === '3' && (
+              <tr>
+                {this.renderIngredientCell('Phonics', '', cell)}
+                <td style={cell}>{fade('ERI in small group')}</td>
+                <td style={{...cell, borderRight}}></td>
+                <td style={{...cell, ...chartSizing}}>
+                  <div>DIBELS ORF</div>
+                  <div>{fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>)}</div>
+                  <div>{fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>)}</div>
+                </td>
+                <td style={cell}></td>
+                <td style={notesCell}>{findNotes(this.props.student.grade,notes, LETTER_SOUNDS)}</td>
+              </tr>
+            )}
+            {isK && (
+              <tr>
+                {this.renderIngredientCell('Phonics: Tapping and Blending Written Words', 'Fundations', cell)}
+                <td style={cell}>{fade('ERI in small group')}</td>
+                <td style={{...cell, borderRight}}></td>
+                <td style={{...cell, ...chartSizing}}></td>
+                <td style={cell}></td>
+                <td style={notesCell}>{findNotes(this.props.student.grade,notes, LETTER_SOUNDS)}</td>
+              </tr>
+            )}
+            <tr>
+              {this.renderIngredientCell('Sight Words', isK ? 'Fundations' : '', cell)}
+              <td style={cell}></td>
+              <td style={{...cell, borderRight}}></td>
+              <td style={{...cell, ...chartSizing}}></td>
+              <td style={cell}></td>
+              <td style={notesCell}>{findNotes(this.props.student.grade,notes)}</td>
+            </tr>
+            <tr>
+              {this.renderIngredientCell('Independent Reading', 'Readers Workshop', cell)}
+              <td style={cell}></td>
+              <td style={{...cell, borderRight}}></td>
+              <td style={{...cell, ...chartSizing}}>
+                <div>F&P</div>
+                <div>Independent reading</div>
+              </td>
+              <td style={cell}></td>
+              <td style={notesCell}>{findNotes(this.props.student.grade,notes)}</td>
+            </tr>
+            <tr>
+              {this.renderIngredientCell('Working memory', null, {...cell, backgroundColor: 'rgb(255, 247, 233)'})}
+              <td style={{...cell, backgroundColor: 'rgb(255, 247, 233)'}}></td>
+              <td style={{...cell, borderRight, backgroundColor: 'rgb(255, 247, 233)'}}></td>
+              <td style={{...cell, ...chartSizing, backgroundColor: 'rgb(255, 247, 233)'}}></td>
+              <td style={{...cell, backgroundColor: 'rgb(255, 247, 233)'}}></td>
+              <td style={{...notesCell, backgroundColor: 'rgb(255, 247, 233)'}}>{findNotes(this.props.student.grade,notes)}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style={{marginTop: 30}}>
+          <h1>older grades, or still need to add in somewhere</h1>
+          <div>3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=QuickPhonicsScreener.pdf">Quick Phonics Screener</a>)}</div>
+          <div>3rd, phonics screener: {fade(<a href="https://www.dropbox.com/home/ela%20folder/Small%20Group%20Instruction/Phonics%20Inventories?preview=Decoding+Survey.pdf">Decoding Screener</a>)}</div>
+          <h2>other bits</h2>
+          <div>sped eval from melissa's chart</div>
+          <div>TOWRE in older grades?</div>
+          <div>maybe CTOPP naming in older grades (instead of SPS RAN)?</div>
+          <div>CELF maybe for older grades? speech eval?</div>
+          <div>working memory: WISC-5 maybe in older grades? not K</div>
+          <div></div>
+        </div>
+      </div>
     );
   }
 
@@ -258,7 +302,7 @@ const LETTER_NAMES = [
   'letter'
 ];
 
-// function findNotes(notesCell, words) {
+// function findNotes(this.props.student.grade,notesCell, words) {
 
 //   if (!words) return null;
 
@@ -266,7 +310,9 @@ const LETTER_NAMES = [
 //     const matches = words.map(regex => regex.match(note.text));
 // }
 
-function findNotes(notes, words) {
+function findNotes(grade, notes, words) {
+  if (grade !== 'KF') return null;
+
   const documents = notes.map(note => {
     return {
       id: note.id,
@@ -313,7 +359,7 @@ function findNotes(notes, words) {
   // console.log('  out', out);
   return (
     <div style={{maxHeight: 120, overflowY: 'scroll'}}>
-      {matches.map((match, index) => (
+      {sortedMatches.map((match, index) => (
          <div key={index} style={{textAlign: 'left', fontSize: 10, marginBottom: 20}}>
           <div>
             <NoteBadge style={{display: 'inline-block'}} eventNoteTypeId={match.note.event_note_type_id} />
