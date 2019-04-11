@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   get '/educators/view/:id' => 'ui#ui'
   get '/educators/my_students'=> 'ui#ui'
   get '/educators/my_sections'=> 'ui#ui'
-  get '/educators/my_notes'=> 'ui#ui'
+  get '/educators/my_notes' => 'ui#ui'
   get '/educators/reset'=> 'educators#reset_session_clock'
   get '/educators/probe'=> 'educators#probe'
   get '/educators/services_dropdown/:id' => 'educators#names_for_dropdown'
@@ -192,4 +192,8 @@ Rails.application.routes.draw do
       get 'reading/:grade/groups' => 'ui#ui'
     end
   end
+
+  # counselor meeting
+  get '/counselor_notes' =>'ui#ui'
+
 end
