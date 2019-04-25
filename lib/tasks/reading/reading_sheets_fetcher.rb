@@ -1,16 +1,17 @@
 require 'google/apis/drive_v3'
+require 'google/apis/sheets_v4'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
-APPLICATION_NAME = 'Drive API Ruby Quickstart'.freeze
+APPLICATION_NAME = 'Student Insights'.freeze
 CREDENTIALS_PATH = 'credentials.json'.freeze
 # The file token.yaml stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
 TOKEN_PATH = 'token.yaml'.freeze
-SCOPE = Google::Apis::DriveV3::AUTH_DRIVE_READONLY
+SCOPE = [Google::Apis::DriveV3::AUTH_DRIVE_READONLY, Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY]
 
 ##
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -36,24 +37,46 @@ def authorize
   credentials
 end
 
-# Initialize the API
+# Initialize the APIs
 
 drive_service = Google::Apis::DriveV3::DriveService.new
 drive_service.client_options.application_name = APPLICATION_NAME
 drive_service.authorization = authorize
 
-# TODO pass the name of the folder specifically instead of the known ID
-response = drive_service.list_files(q: "parents in '1c17xHZhnVzwREt8Q8UKlnzuf9xiaQBxN'",
-                                    fields: 'nextPageToken, files(id, name)')
+service = Google::Apis::SheetsV4::SheetsService.new
+service.client_options.application_name = APPLICATION_NAME
+service.authorization = authorize
+
+# Get folder ID
+
+folder_name = "Sheets imports"
+folder = drive_service.list_files(q: "name = '#{folder_name}'",
+                                    fields: 'files(id, name)')
+folder_id = folder.files[0].id
+
+# Get GIDs for all sheets in folder
+
+sheets_info = drive_service.list_files(q: "'#{folder_id}' in parents",
+                                  fields: 'files(id, name, properties)')
+
+# response = drive_service.list_files(q: "parents in '1c17xHZhnVzwREt8Q8UKlnzuf9xiaQBxN'",
+#                                     fields: 'nextPageToken, files(id, name)')
+
+puts sheets_info.files.size
+
+# sheets_info.files.each do |sheet|
+#   puts sheet.properties
+# end
+
 puts 'Files:'
-puts 'No files found' if response.files.empty?
-response.files.each do |file|
-  puts "#{file.name} (#{file.id})"
+puts 'No files found' if sheets_info.files.empty?
+sheets_info.files.each do |file|
+  puts "#{file.name} (#{file.id}) #{file.properties}"
 end
 
-response.files.each do |file|
-  dloaded = drive_service.export_file(file.id,
-                            'text/csv',
-                            download_dest: StringIO.new)
-  puts dloaded.string
-end
+# sheets_info.files.each do |file|
+#   dloaded = drive_service.export_file(file.id,
+#                             'text/csv',
+#                             download_dest: StringIO.new)
+#   puts dloaded.string
+# end
