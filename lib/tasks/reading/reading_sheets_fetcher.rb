@@ -43,9 +43,9 @@ drive_service = Google::Apis::DriveV3::DriveService.new
 drive_service.client_options.application_name = APPLICATION_NAME
 drive_service.authorization = authorize
 
-service = Google::Apis::SheetsV4::SheetsService.new
-service.client_options.application_name = APPLICATION_NAME
-service.authorization = authorize
+sheet_service = Google::Apis::SheetsV4::SheetsService.new
+sheet_service.client_options.application_name = APPLICATION_NAME
+sheet_service.authorization = authorize
 
 # Get folder ID
 
@@ -57,16 +57,12 @@ folder_id = folder.files[0].id
 # Get GIDs for all sheets in folder
 
 sheets_info = drive_service.list_files(q: "'#{folder_id}' in parents",
-                                  fields: 'files(id, name, properties)')
+                                  fields: 'files(id, name)')
 
-# response = drive_service.list_files(q: "parents in '1c17xHZhnVzwREt8Q8UKlnzuf9xiaQBxN'",
-#                                     fields: 'nextPageToken, files(id, name)')
-
-puts sheets_info.files.size
-
-# sheets_info.files.each do |sheet|
-#   puts sheet.properties
-# end
+sheets_info.files.each do |sheet|
+  sheet = sheet_service.get_spreadsheet(sheet.id)
+  puts sheet
+end
 
 puts 'Files:'
 puts 'No files found' if sheets_info.files.empty?
