@@ -32,7 +32,7 @@ class CoursesSectionsImporter
     @invalid_course_count = 0
     @invalid_section_count = 0
   end
-  
+
   def client
     SftpClient.for_x2
   end
