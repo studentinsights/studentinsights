@@ -3,6 +3,7 @@ require 'google/apis/sheets_v4'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
+require 'csv'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Student Insights'.freeze
@@ -54,25 +55,20 @@ folder = drive_service.list_files(q: "name = '#{folder_name}'",
                                     fields: 'files(id, name)')
 folder_id = folder.files[0].id
 
-# Get GIDs for all sheets in folder
+# Get GIDs for all Spreadsheets in folder
 
 sheets_info = drive_service.list_files(q: "'#{folder_id}' in parents",
                                   fields: 'files(id, name)')
 
-sheets_info.files.each do |sheet|
-  sheet = sheet_service.get_spreadsheet(sheet.id)
-  puts sheet
-end
+# Get values from sheets
 
-puts 'Files:'
-puts 'No files found' if sheets_info.files.empty?
-sheets_info.files.each do |file|
-  puts "#{file.name} (#{file.id}) #{file.properties}"
+sheets_info.files.each do |spreadsheet| #each spreadsheet in the folder
+  sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
+    sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
+    CSV.open("./csv/#{spreadsheet.name}-#{sheet.properties.title}.csv", "wb") do |csv|
+      sheet_values.each do |row|
+        csv << row
+      end
+    end
+  end
 end
-
-# sheets_info.files.each do |file|
-#   dloaded = drive_service.export_file(file.id,
-#                             'text/csv',
-#                             download_dest: StringIO.new)
-#   puts dloaded.string
-# end
