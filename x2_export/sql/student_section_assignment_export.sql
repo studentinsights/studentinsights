@@ -4,14 +4,16 @@ SELECT
   'course_number',
   'school_local_id',
   'section_number',
-  'term_local_id'
+  'term_local_id',
+  'district_school_year'
 UNION ALL
 SELECT
   STD_ID_LOCAL,
   CSK_COURSE_NUMBER,
   SKL_SCHOOL_ID,
   MST_COURSE_VIEW,
-  MST_TERM_VIEW
+  MST_TERM_VIEW,
+  CTX_SCHOOL_YEAR
 FROM district_school_year_context
 LEFT JOIN SCHEDULE
   ON district_school_year_context.CTX_OID = schedule.SCH_CTX_OID
