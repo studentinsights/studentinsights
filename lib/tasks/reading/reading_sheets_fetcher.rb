@@ -7,7 +7,7 @@ require 'csv'
 
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'Student Insights'.freeze
-CREDENTIALS_PATH = 'credentials.json'.freeze
+CREDENTIALS_PATH = File.expand_path('credentials.json', File.dirname(__FILE__)).freeze.freeze
 # The file token.yaml stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
@@ -65,7 +65,7 @@ sheets_info = drive_service.list_files(q: "'#{folder_id}' in parents",
 sheets_info.files.each do |spreadsheet| #each spreadsheet in the folder
   sheet_service.get_spreadsheet(spreadsheet.id).sheets.each do |sheet| #each sheet in the spreadsheet
     sheet_values = sheet_service.get_spreadsheet_values(spreadsheet.id, sheet.properties.title).values
-    CSV.open("./csv/#{spreadsheet.name}-#{sheet.properties.title}.csv", "wb") do |csv|
+    CSV.open("#{File.dirname(__FILE__)}/csv/#{spreadsheet.name}-#{sheet.properties.title}.csv", "wb") do |csv|
       sheet_values.each do |row|
         csv << row
       end
