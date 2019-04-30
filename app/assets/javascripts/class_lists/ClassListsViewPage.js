@@ -19,18 +19,18 @@ import {fetchAllWorkspaces} from './api';
 // Show users their class lists.  More useful for principals, building admin,
 // or ELL/SPED teachers than classroom teachers (who are typically
 // making a single list).
-
 export default class ClassListsViewPage extends React.Component {
   render() {
-    const {currentEducatorId} = this.props;
+    const {currentEducatorId, useTextLinks, includeHistorical} = this.props;
     return (
       <div className="ClassListsViewPage">
         <GenericLoader
           style={styles.root}
-          promiseFn={fetchAllWorkspaces}
+          promiseFn={() => fetchAllWorkspaces({includeHistorical})}
           render={json => (
             <ClassListsViewPageView
               currentEducatorId={currentEducatorId}
+              useTextLinks={useTextLinks}
               {...json} />
           )} />
       </div>
@@ -38,7 +38,9 @@ export default class ClassListsViewPage extends React.Component {
   }
 }
 ClassListsViewPage.propTypes = {
-  currentEducatorId: PropTypes.number.isRequired
+  currentEducatorId: PropTypes.number.isRequired,
+  useTextLinks: PropTypes.bool,
+  includeHistorical: PropTypes.bool
 };
 
 // View component
@@ -63,7 +65,7 @@ export class ClassListsViewPageView extends React.Component {
   }
 
   renderTable() {
-    const {workspaces, currentEducatorId} = this.props;
+    const {workspaces, useTextLinks, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
     const sortedWorkspaces = _.orderBy(workspaces, workspace => {
@@ -108,10 +110,15 @@ export class ClassListsViewPageView extends React.Component {
                   {createdAtMoment.format('dddd M/D, h:mma')}
                 </td>
                 <td style={tableStyles.cell}>
-                  {classList.submitted && <SuccessLabel style={{padding: 5}} text="submitted" />}
+                  {classList.submitted 
+                    ? <SuccessLabel style={{padding: 5}} text="submitted" />
+                    : 'in progress'}
                 </td>
                 <td style={tableStyles.cell}>
-                  <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}/text`}>view text</a>
+                  {useTextLinks
+                    ? <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}/text`}>view text</a>
+                    : <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}`}>view</a>
+                  }
                 </td>
               </tr>
             );
@@ -149,7 +156,8 @@ ClassListsViewPageView.propTypes = {
       created_by_teacher_educator: PropTypes.object.isRequired,
       school: PropTypes.object.isRequired,
     }).isRequired
-  })).isRequired
+  })).isRequired,
+  useTextLinks: PropTypes.bool
 };
 
 

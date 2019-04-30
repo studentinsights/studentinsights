@@ -73,6 +73,7 @@ describe ClassListsController, :type => :controller do
             "id"=>class_list.id,
             "workspace_id"=>"foo-workspace-id",
             "grade_level_next_year"=>"6",
+            "list_type_text"=>"homerooms",
             "created_at"=>(time_now - 4.hours).as_json,
             "updated_at"=>(time_now - 4.hours).as_json,
             "submitted"=>false,

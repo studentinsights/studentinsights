@@ -21,8 +21,10 @@ export function fetchStudentsJson(options = {}) {
 }
 
 // Fetch all class lists the user has access to
-export function fetchAllWorkspaces() {
-  return apiFetchJson('/api/class_lists/workspaces_json');
+export function fetchAllWorkspaces(options = {}) {
+  const query = (options.includeHistorical) ? { include_historical: true } : {};
+  const queryString = qs.stringify(query);
+  return apiFetchJson(`/api/class_lists/workspaces_json?${queryString}`);
 }
 
 // Experimental

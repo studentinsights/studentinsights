@@ -32,8 +32,12 @@ class ClassList < ApplicationRecord
 
   # Get latest by workspace_id.  See ClassListQueries#all_authorized_workspaces
   # for authorization-aware method.
-  def self.unsafe_all_workspaces_without_authorization_check
-    all_class_lists = ClassList.order(created_at: :desc)
+  def self.unsafe_all_workspaces_without_authorization_check(options = {})
+    all_class_lists = if options.has_key?(:created_after)
+      ClassList.order(created_at: :desc).where('created_at > ?', options[:created_after])
+    else
+      ClassList.order(created_at: :desc)
+    end
     all_class_lists.group_by(&:workspace_id).map do |workspace_id, class_lists|
       most_recent_class_list = class_lists.sort_by {|class_list| -1 * class_list.created_at.to_i }.first
       ClassListWorkspace.new(workspace_id, most_recent_class_list, class_lists.size)
