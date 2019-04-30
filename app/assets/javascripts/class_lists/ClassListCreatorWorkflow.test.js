@@ -69,6 +69,7 @@ export function chooseYourGradeProps(props = {}) {
     schoolId: available_grade_levels_json.schools[2].id,
     gradeLevelsNextYear: available_grade_levels_json.grade_levels_next_year,
     gradeLevelNextYear: '1',
+    listTypeText: 'homeroom',
     ...props
   };
 }

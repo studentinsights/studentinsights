@@ -69,6 +69,7 @@ export default class ClassListCreatorPage extends React.Component {
       gradeLevelsNextYear: null, // from server
       schoolId: null,
       gradeLevelNextYear: null,
+      listTypeText: '',
 
       // teacher workspace
       educators: null, // from server
@@ -97,6 +98,7 @@ export default class ClassListCreatorPage extends React.Component {
     this.onStepChanged = this.onStepChanged.bind(this);
     this.onSchoolIdChanged = this.onSchoolIdChanged.bind(this);
     this.onGradeLevelNextYearChanged = this.onGradeLevelNextYearChanged.bind(this);
+    this.onListTypeTextChanged = this.onListTypeTextChanged.bind(this);
     this.onClassroomsCountIncremented = this.onClassroomsCountIncremented.bind(this);
     this.onPlanTextChanged = this.onPlanTextChanged.bind(this);
     this.onAuthorsChanged = this.onAuthorsChanged.bind(this);
@@ -148,11 +150,12 @@ export default class ClassListCreatorPage extends React.Component {
       workspaceId,
       stepIndex,
       schoolId,
-      gradeLevelNextYear
+      gradeLevelNextYear,
+      listTypeText
     } = this.state;
 
-    // Don't save until they choose a grade level and school
-    return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null);
+    // Don't save until they choose a grade level and school and list type
+    return (workspaceId && stepIndex !== 0 && schoolId !== null && gradeLevelNextYear !== null && listTypeText !== '');
   }
 
   // Only principals can make revisions, and only after it's been submitted.    
@@ -172,10 +175,11 @@ export default class ClassListCreatorPage extends React.Component {
     const {
       schoolId,
       gradeLevelNextYear,
+      listTypeText,
       isSubmitted
     } = this.state;
 
-    if (schoolId === null || gradeLevelNextYear === null) return [0];
+    if (schoolId === null || gradeLevelNextYear === null || listTypeText === '') return [0];
     if (!isSubmitted) return [0, 1, 2, 3];
     return [0, 1, 2, 3, 4, 5];
   }
@@ -201,6 +205,7 @@ export default class ClassListCreatorPage extends React.Component {
       stepIndex,
       schoolId,
       gradeLevelNextYear,
+      listTypeText,
       schools,
       gradeLevelsNextYear,
       students,
@@ -225,10 +230,12 @@ export default class ClassListCreatorPage extends React.Component {
       return this.fetchGradeLevels();
     }
 
-    // The user has chosen a school and grade and moved past the first screen.
+    // The user has chosen a school and grade and list type and moved past the first screen.
     // Fetch the students for that grade, and the list of educators.
     // (schoolId, gradeLevelNextYear) => {students, educators}
-    if (schoolId !== null && gradeLevelNextYear !== null && (students == null || educators == null) && (stepIndex !== 0 || defaultWorkspaceId)) {
+    if ((schoolId !== null && gradeLevelNextYear !== null && listTypeText !== '') &&
+      (students == null || educators == null) &&
+      (stepIndex !== 0 || defaultWorkspaceId)) {
       return this.fetchStudents();
     }
 
@@ -373,6 +380,7 @@ export default class ClassListCreatorPage extends React.Component {
     const workspaceId = classList.workspace_id;
     const schoolId = classList.school_id;
     const gradeLevelNextYear = classList.grade_level_next_year;
+    const listTypeText = classList.list_type_text;
     const isSubmitted = classList.submitted;
     const {
       authors,
@@ -388,6 +396,7 @@ export default class ClassListCreatorPage extends React.Component {
       isSubmitted,
       schoolId,
       gradeLevelNextYear,
+      listTypeText,
       authors,
       classroomsCount,
       planText,
@@ -436,6 +445,10 @@ export default class ClassListCreatorPage extends React.Component {
 
   onGradeLevelNextYearChanged(gradeLevelNextYear) {
     this.setState({gradeLevelNextYear});
+  }
+
+  onListTypeTextChanged(listTypeText) {
+    this.setState({listTypeText});
   }
 
   onAuthorsChanged(authors) {
@@ -502,6 +515,7 @@ export default class ClassListCreatorPage extends React.Component {
           onStepChanged={this.onStepChanged}
           onSchoolIdChanged={this.onSchoolIdChanged}
           onGradeLevelNextYearChanged={this.onGradeLevelNextYearChanged}
+          onListTypeTextChanged={this.onListTypeTextChanged}
           onEducatorsChanged={this.onAuthorsChanged}
           onClassroomsCountIncremented={this.onClassroomsCountIncremented}
           onPlanTextChanged={this.onPlanTextChanged}

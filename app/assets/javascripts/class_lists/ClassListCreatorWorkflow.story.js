@@ -20,6 +20,7 @@ function withStoryProps(props = {}) {
     onStepChanged: action('onStepChanged'),
     onSchoolIdChanged: action('onSchoolIdChanged'),
     onGradeLevelNextYearChanged: action('onGradeLevelNextYearChanged'),
+    onListTypeTextChanged: action('onListTypeTextChanged'),
     onEducatorsChanged: action('onEducatorsChanged'),
     onClassroomsCountIncremented: action('onClassroomsCountIncremented'),
     onPlanTextChanged: action('onPlanTextChanged'),
