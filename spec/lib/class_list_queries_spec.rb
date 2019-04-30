@@ -153,41 +153,44 @@ RSpec.describe ClassListQueries do
   end
 
   describe 'is_authorized_for_grade_level_now?' do
-    def allowed?(educator, school, grade_level_now)
+    def allowed_now?(educator, school, grade_level_now)
       ClassListQueries.new(educator).is_authorized_for_grade_level_now?(school.id, grade_level_now)
     end
 
     it 'does not let anyone outside expected grade levels' do
-      expect(allowed?(pals.healey_vivian_teacher, pals.healey, 'PK')).to eq false
-      expect(allowed?(pals.uri, pals.healey, '7')).to eq false
-      expect(allowed?(pals.healey_laura_principal, pals.healey, '8')).to eq false
+      expect(allowed_now?(pals.healey_vivian_teacher, pals.healey, 'TK')).to eq false
+      expect(allowed_now?(pals.uri, pals.healey, '8')).to eq false
+      expect(allowed_now?(pals.healey_laura_principal, pals.healey, '8')).to eq false
     end
 
     it 'does not let anyone outside expected schools' do
-      expect(allowed?(pals.uri, pals.shs, '11')).to eq false
+      expect(allowed_now?(pals.uri, pals.shs, '11')).to eq false
     end
 
     it 'works across roles in a school' do
-      expect(allowed?(pals.uri, pals.healey, '3')).to eq true
-      expect(allowed?(pals.uri, pals.healey, '5')).to eq true
-      expect(allowed?(pals.healey_laura_principal, pals.healey, 'KF')).to eq true
-      expect(allowed?(pals.healey_laura_principal, pals.healey, '3')).to eq true
-      expect(allowed?(pals.healey_laura_principal, pals.healey, '5')).to eq true
-      expect(allowed?(pals.healey_vivian_teacher, pals.healey, 'KF')).to eq true
-      expect(allowed?(pals.healey_vivian_teacher, pals.healey, '1')).to eq false
-      expect(allowed?(pals.healey_sarah_teacher, pals.healey, '5')).to eq true
-      expect(allowed?(pals.healey_sarah_teacher, pals.healey, '6')).to eq false
+      expect(allowed_now?(pals.uri, pals.healey, 'PK')).to eq true
+      expect(allowed_now?(pals.uri, pals.healey, 'KF')).to eq true
+      expect(allowed_now?(pals.uri, pals.healey, '3')).to eq true
+      expect(allowed_now?(pals.uri, pals.healey, '5')).to eq true
+      expect(allowed_now?(pals.uri, pals.healey, '7')).to eq true
+      expect(allowed_now?(pals.healey_laura_principal, pals.healey, 'KF')).to eq true
+      expect(allowed_now?(pals.healey_laura_principal, pals.healey, '3')).to eq true
+      expect(allowed_now?(pals.healey_laura_principal, pals.healey, '5')).to eq true
+      expect(allowed_now?(pals.healey_vivian_teacher, pals.healey, 'KF')).to eq true
+      expect(allowed_now?(pals.healey_vivian_teacher, pals.healey, '1')).to eq false
+      expect(allowed_now?(pals.healey_sarah_teacher, pals.healey, '5')).to eq true
+      expect(allowed_now?(pals.healey_sarah_teacher, pals.healey, '6')).to eq false
     end
 
     it 'does not let reaching across grades' do
-      expect(allowed?(pals.healey_sarah_teacher, pals.healey, '3')).to eq false
-      expect(allowed?(pals.healey_sarah_teacher, pals.healey, '6')).to eq false
+      expect(allowed_now?(pals.healey_sarah_teacher, pals.healey, '3')).to eq false
+      expect(allowed_now?(pals.healey_sarah_teacher, pals.healey, '6')).to eq false
     end
 
     it 'does not let reaching across schools' do
-      expect(allowed?(pals.west_marcus_teacher, pals.healey, '5')).to eq false
-      expect(allowed?(pals.shs_jodi, pals.healey, '5')).to eq false
-      expect(allowed?(pals.shs_bill_nye, pals.healey, '5')).to eq false
+      expect(allowed_now?(pals.west_marcus_teacher, pals.healey, '5')).to eq false
+      expect(allowed_now?(pals.shs_jodi, pals.healey, '5')).to eq false
+      expect(allowed_now?(pals.shs_bill_nye, pals.healey, '5')).to eq false
     end
   end
 

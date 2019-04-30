@@ -34,11 +34,14 @@ export default {
     }
   ],
   "grade_levels_next_year": [
+    "KF",
     "1",
     "2",
     "3",
     "4",
     "5",
-    "6"
+    "6",
+    "7",
+    "8"
   ]
 };

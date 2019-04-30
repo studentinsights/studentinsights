@@ -63,12 +63,12 @@ class ClassListQueries
 
   # What grade levels do we want to support creating class lists for?
   def supported_grade_levels_next_year
-    ['1','2','3','4','5','6']
+    ['KF', '1','2','3','4','5','6', '7', '8']
   end
 
   # What schools are supported?
   def supported_schools
-    @supported_schools ||= School.where(school_type: ['ESMS', 'ES', 'MS'])
+    @supported_schools ||= School.where(school_type: ['ECS', 'ESMS', 'ES', 'MS'])
   end
 
   # This is authorization-aware, and checks authorization for the grade level
