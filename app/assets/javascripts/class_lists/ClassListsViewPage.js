@@ -85,6 +85,7 @@ export class ClassListsViewPageView extends React.Component {
             <tr>
               <th style={tableStyles.headerCell}>School</th>
               <th style={tableStyles.headerCell}>Grade next year</th>
+              <th style={tableStyles.headerCell}>Lists for?</th>
               <th style={tableStyles.headerCell}>Owner</th>
               <th style={tableStyles.headerCell}>Last updated</th>
               <th style={tableStyles.headerCell}>Status</th>
@@ -102,6 +103,12 @@ export class ClassListsViewPageView extends React.Component {
                 <td style={tableStyles.cell}><School {...classList.school} /></td>
                 <td style={tableStyles.cell}>
                   {gradeText(classList.grade_level_next_year)}
+                </td>
+                <td style={tableStyles.cell}>
+                  {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text) !== -1
+                    ? <span style={{color: '#aaa'}}>{classList.list_type_text}</span>
+                    : classList.list_type_text
+                  }
                 </td>
                 <td style={tableStyles.cell}>
                   <Educator educator={classList.created_by_teacher_educator} style={educatorStyle} />

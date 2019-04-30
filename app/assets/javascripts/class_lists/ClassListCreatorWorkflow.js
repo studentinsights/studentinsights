@@ -132,7 +132,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             <div style={styles.heading}>Are these homeroom lists, or another kind of class list (eg, social studies groups?)</div>
               <input
                 style={styles.inputText}
-                placeholder="homeroom"
+                placeholder="homerooms"
                 readOnly={!isEditable || !canChangeSchoolOrGrade}
                 value={listTypeText}
                 onChange={event => onListTypeTextChanged(event.target.value)} />
