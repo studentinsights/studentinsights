@@ -6,6 +6,7 @@ describe ClassListsController, :type => :controller do
       workspace_id: 'foo-workspace-id',
       created_by_teacher_educator_id: educator.id,
       school_id: educator.school_id,
+      list_type_text: 'homerooms',
       json: { foo: 'bar' }
     }.merge(params))
   end
@@ -365,6 +366,7 @@ describe ClassListsController, :type => :controller do
           "revised_by_principal_educator_id"=>nil,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
+          "list_type_text"=>"homerooms",
           "submitted"=>false,
           "json"=>{'foo'=>'bar'},
           "principal_revisions_json"=>nil
@@ -415,6 +417,7 @@ describe ClassListsController, :type => :controller do
         workspace_id: 'foo-workspace-id',
         school_id: pals.healey.id,
         grade_level_next_year: '6',
+        list_type_text: 'homerooms',
         submitted: false,
         json: { foo: 'bazzzzz' }
       }
@@ -426,6 +429,7 @@ describe ClassListsController, :type => :controller do
           "created_by_teacher_educator_id"=>pals.healey_sarah_teacher.id,
           "school_id"=>pals.healey.id,
           "grade_level_next_year"=>'6',
+          "list_type_text"=>'homerooms',
           "submitted"=>false,
           "json"=>{'foo'=>'bazzzzz'},
           "principal_revisions_json"=>nil,
@@ -478,6 +482,7 @@ describe ClassListsController, :type => :controller do
         "revised_by_principal_educator_id",
         "school_id",
         "grade_level_next_year",
+        "list_type_text",
         "submitted",
         "json",
         "principal_revisions_json"

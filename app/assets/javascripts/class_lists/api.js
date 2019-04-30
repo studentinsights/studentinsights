@@ -43,6 +43,7 @@ export function postTeacherUpdates(params = {}, options = {}) {
     isSubmitted,
     schoolId,
     gradeLevelNextYear,
+    listTypeText,
     authors,
     classroomsCount,
     planText,
@@ -57,6 +58,7 @@ export function postTeacherUpdates(params = {}, options = {}) {
     workspace_id: workspaceId,
     school_id: schoolId,
     grade_level_next_year: gradeLevelNextYear,
+    list_type_text: listTypeText,
     submitted: isSubmitted,
     json: {
       authors,

@@ -133,7 +133,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
               <input
                 style={styles.inputText}
                 placeholder="homeroom"
-                disabled={!isEditable || !canChangeSchoolOrGrade}
+                readOnly={!isEditable || !canChangeSchoolOrGrade}
                 value={listTypeText}
                 onChange={event => onListTypeTextChanged(event.target.value)} />
           </div>
@@ -467,7 +467,9 @@ const styles = {
     marginTop: 10
   },
   inputText: {
-    padding: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingLeft: 10,
     fontSize: 14,
     width: '100%',
     borderRadius: 3,

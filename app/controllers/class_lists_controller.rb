@@ -126,11 +126,13 @@ class ClassListsController < ApplicationController
     params.require(:workspace_id)
     params.require(:school_id)
     params.require(:grade_level_next_year)
+    params.require(:list_type_text)
     params.require(:json)
     params.require(:submitted)
     workspace_id = params[:workspace_id]
     school_id = params[:school_id].to_i
     grade_level_next_year = params[:grade_level_next_year]
+    list_type_text = params[:list_type_text]
     json = params[:json]
     submitted = ActiveModel::Type::Boolean.new.cast(params[:submitted])
 
@@ -147,6 +149,7 @@ class ClassListsController < ApplicationController
       created_by_teacher_educator_id: current_educator.id,
       school_id: school_id,
       grade_level_next_year: grade_level_next_year,
+      list_type_text: list_type_text,
       submitted: submitted,
       json: json # left opaque for UI to iterate
     })
@@ -239,6 +242,7 @@ class ClassListsController < ApplicationController
       :created_by_teacher_educator_id,
       :school_id,
       :grade_level_next_year,
+      :list_type_text,
       :submitted,
       :json,
       :principal_revisions_json,

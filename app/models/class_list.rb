@@ -12,10 +12,11 @@ class ClassList < ApplicationRecord
   belongs_to :created_by_teacher_educator, class_name: 'Educator'
   belongs_to :revised_by_principal_educator, class_name: 'Educator'
 
-  validates :grade_level_next_year, presence: true
   validates :school_id, presence: true
+  validates :grade_level_next_year, presence: true
+  validates :list_type_text, presence: true
   validates :created_by_teacher_educator_id, presence: true
-  validate :validate_consistent_workspace_grade_school
+  validate :validate_consistent_workspace_grade_school_list_type_text
   validate :validate_single_writer_in_workspace
   validate :validate_submitted_not_undone
 
@@ -73,9 +74,10 @@ class ClassList < ApplicationRecord
   end
 
   # These shouldn't change over the life of a workspace, so if we find
-  # any workspace_id records with different grade or school, fail the validation.
-  def validate_consistent_workspace_grade_school
-    validate_consistent_values_within_workspace([:school_id, :grade_level_next_year])
+  # any workspace_id records with different grade or school or list_type_text,
+  # and then fail the validation.
+  def validate_consistent_workspace_grade_school_list_type_text
+    validate_consistent_values_within_workspace([:school_id, :grade_level_next_year, :list_type_text])
   end
 
   # Only one writer can write to a workspace

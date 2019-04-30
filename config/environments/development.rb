@@ -5,7 +5,7 @@ Rails.application.configure do
     ENV[key.to_s] = value
   end if File.exists?(env_file)
   Env.set_for_development_and_test!
-  ENV['ENABLE_CLASS_LISTS'] = 'false'
+  ENV['ENABLE_CLASS_LISTS'] = 'true'
   ENV['USE_PLACEHOLDER_STUDENT_PHOTO'] = 'true'
   ENV['USE_PLACEHOLDER_IEP_DOCUMENT'] = 'true'
   ENV['CONSISTENT_TIMING_FOR_LOGIN_IN_MILLISECONDS'] = '2000'
