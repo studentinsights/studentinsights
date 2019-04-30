@@ -49,6 +49,7 @@ export function testProps(props = {}) {
     onStepChanged: jest.fn(),
     onSchoolIdChanged: jest.fn(),
     onGradeLevelNextYearChanged: jest.fn(),
+    onListTypeTextChanged: jest.fn(),
     onEducatorsChanged: jest.fn(),
     onClassroomsCountIncremented: jest.fn(),
     onPlanTextChanged: jest.fn(),

@@ -570,6 +570,34 @@ When Student Insights was being developed, some teachers started asking whether 
               </div>
             </div>
           </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              Are these homeroom lists, or another kind of class list (eg, social studies groups?)
+            </div>
+            <input
+              onChange={[Function]}
+              placeholder="homerooms"
+              readOnly={false}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "borderRadius": 3,
+                  "fontSize": 14,
+                  "paddingBottom": 7,
+                  "paddingLeft": 10,
+                  "paddingTop": 7,
+                  "width": "100%",
+                }
+              }
+              value="homeroom"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -1115,6 +1143,34 @@ When Student Insights was being developed, some teachers started asking whether 
               </div>
             </div>
           </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              Are these homeroom lists, or another kind of class list (eg, social studies groups?)
+            </div>
+            <input
+              onChange={[Function]}
+              placeholder="homerooms"
+              readOnly={true}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "borderRadius": 3,
+                  "fontSize": 14,
+                  "paddingBottom": 7,
+                  "paddingLeft": 10,
+                  "paddingTop": 7,
+                  "width": "100%",
+                }
+              }
+              value="homeroom"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -1643,6 +1699,34 @@ When Student Insights was being developed, some teachers started asking whether 
                 </span>
               </div>
             </div>
+          </div>
+          <div>
+            <div
+              style={
+                Object {
+                  "marginTop": 20,
+                }
+              }
+            >
+              Are these homeroom lists, or another kind of class list (eg, social studies groups?)
+            </div>
+            <input
+              onChange={[Function]}
+              placeholder="homerooms"
+              readOnly={true}
+              style={
+                Object {
+                  "border": "1px solid #ccc",
+                  "borderRadius": 3,
+                  "fontSize": 14,
+                  "paddingBottom": 7,
+                  "paddingLeft": 10,
+                  "paddingTop": 7,
+                  "width": "100%",
+                }
+              }
+              value="homeroom"
+            />
           </div>
           <div
             style={
