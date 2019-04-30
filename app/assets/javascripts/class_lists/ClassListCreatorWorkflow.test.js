@@ -68,7 +68,7 @@ export function chooseYourGradeProps(props = {}) {
     schools: available_grade_levels_json.schools,
     schoolId: available_grade_levels_json.schools[2].id,
     gradeLevelsNextYear: available_grade_levels_json.grade_levels_next_year,
-    gradeLevelNextYear: available_grade_levels_json.grade_levels_next_year[0],
+    gradeLevelNextYear: '1',
     ...props
   };
 }
@@ -100,7 +100,7 @@ export function exportProps(props = {}) {
     stepIndex: 5,
     schools: available_grade_levels_json.schools,
     schoolId: available_grade_levels_json.schools[2].id,
-    gradeLevelNextYear: available_grade_levels_json.grade_levels_next_year[0],
+    gradeLevelNextYear: '1',
     students: students_for_grade_level_next_year_json.students,
     studentIdsByRoom: class_list_json.class_list.json.studentIdsByRoom,
     educators: students_for_grade_level_next_year_json.educators,
