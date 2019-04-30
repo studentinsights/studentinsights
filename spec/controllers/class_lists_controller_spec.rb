@@ -61,7 +61,7 @@ describe ClassListsController, :type => :controller do
       })
       sign_in(pals.healey_sarah_teacher)
       get :workspaces_json, params: {
-        time_now: time_now,
+        time_now: time_now.to_i,
         format: :json
       }
       expect(response.status).to eq 200
@@ -126,7 +126,7 @@ describe ClassListsController, :type => :controller do
       })
       sign_in(pals.healey_sarah_teacher)
       get :workspaces_json, params: {
-        time_now: time_now,
+        time_now: time_now.to_i,
         format: :json
       }
       expect(response.status).to eq 200
