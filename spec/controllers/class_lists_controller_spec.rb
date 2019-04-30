@@ -61,11 +61,13 @@ describe ClassListsController, :type => :controller do
       })
       sign_in(pals.healey_sarah_teacher)
       get :workspaces_json, params: {
+        time_now: time_now,
         format: :json
       }
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
       expect(json).to eq({
+        "include_historical"=>false,
         "workspaces"=>[{
           "workspace_id"=>"foo-workspace-id",
           "revisions_count"=>1,
@@ -91,7 +93,7 @@ describe ClassListsController, :type => :controller do
       })
     end
 
-    it 'shows Uris Sarah\'s classlist' do
+    it 'shows Uri Sarah\'s classlist' do
       create_class_list_from(pals.healey_sarah_teacher, grade_level_next_year: '6')
       sign_in(pals.uri)
       get :workspaces_json, params: {
@@ -110,7 +112,29 @@ describe ClassListsController, :type => :controller do
       }
       expect(response.status).to eq 200
       json = JSON.parse(response.body)
-      expect(json).to eq({'workspaces'=>[]})
+      expect(json).to eq({
+        'include_historical'=>false,
+        'workspaces'=>[]
+      })
+    end
+
+    it 'respect include_historical, and does not show class lists from previous years by default' do
+      create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours - 1.year,
+        updated_at: time_now - 4.hours - 1.year,
+      })
+      sign_in(pals.healey_sarah_teacher)
+      get :workspaces_json, params: {
+        time_now: time_now,
+        format: :json
+      }
+      expect(response.status).to eq 200
+      json = JSON.parse(response.body)
+      expect(json).to eq({
+        'include_historical'=>false,
+        'workspaces'=>[]
+      })
     end
   end
 

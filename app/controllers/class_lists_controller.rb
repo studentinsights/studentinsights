@@ -3,8 +3,11 @@ class ClassListsController < ApplicationController
 
   # For showing the list of all workspaces that the user can read
   def workspaces_json
+    params.permit(:include_historical)
+    params.permit(:time_now)
     include_historical = params.fetch(:include_historical, false)
-    query_options = include_historical ? {} : { created_after: SchoolYear.first_day_of_school_for_time(Time.now) }
+    time_now = time_now_or_param(params[:time_now])
+    query_options = include_historical ? {} : { created_after: SchoolYear.first_day_of_school_for_time(time_now) }
     workspaces = queries.all_authorized_workspaces(query_options)
 
     workspaces_json = workspaces.map do |workspace|
