@@ -18,7 +18,26 @@ function storyProps(props = {}) {
 }
 
 storiesOf('classlists/StudentCard', module) // eslint-disable-line no-undef
-  .add('normal', () => <StudentCard {...storyProps()} />)
+  .add('plain and with latest_note', () => {
+    const defaultProps = storyProps();
+    const withNoteProps = {
+      ...defaultProps,
+      student: {
+        ...defaultProps.student,
+        latest_note: {
+          id: 3342,
+          recorded_at: '2018-02-01T15:24:34.820Z'
+        }
+      }
+    };
+
+    return withDefaultNowContext(
+      <div style={{width: 250}}>
+        <StudentCard {...defaultProps} />
+        <StudentCard {...withNoteProps} />
+      </div>
+    );
+  })
   .add('highlights', () => {
     const LIMIT = 10;
     const students = students_for_grade_level_next_year_json.students.slice(0, LIMIT);

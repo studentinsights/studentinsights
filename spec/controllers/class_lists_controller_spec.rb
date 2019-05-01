@@ -329,7 +329,8 @@ describe ClassListsController, :type => :controller do
         'most_recent_star_reading_percentile',
         'latest_access_results',
         'latest_dibels',
-        'most_recent_school_year_discipline_incidents_count'
+        'most_recent_school_year_discipline_incidents_count',
+        'latest_note'
       ])
     end
 
