@@ -503,22 +503,14 @@ exports[`snapshots 1`] = `
         }
       >
         <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
           data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          onTransitionEnd={null}
           style={
             Object {
               "transform": null,
               "transition": null,
             }
           }
-          tabIndex={0}
         >
           <div
             onClick={[Function]}
@@ -564,22 +556,14 @@ exports[`snapshots 1`] = `
           </div>
         </div>
         <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
           data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          onTransitionEnd={null}
           style={
             Object {
               "transform": null,
               "transition": null,
             }
           }
-          tabIndex={0}
         >
           <div
             onClick={[Function]}
@@ -625,22 +609,14 @@ exports[`snapshots 1`] = `
           </div>
         </div>
         <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
           data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          onTransitionEnd={null}
           style={
             Object {
               "transform": null,
               "transition": null,
             }
           }
-          tabIndex={0}
         >
           <div
             onClick={[Function]}
@@ -686,22 +662,14 @@ exports[`snapshots 1`] = `
           </div>
         </div>
         <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
           data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          onTransitionEnd={null}
           style={
             Object {
               "transform": null,
               "transition": null,
             }
           }
-          tabIndex={0}
         >
           <div
             onClick={[Function]}
@@ -747,22 +715,14 @@ exports[`snapshots 1`] = `
           </div>
         </div>
         <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
           data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          onTransitionEnd={null}
           style={
             Object {
               "transform": null,
               "transition": null,
             }
           }
-          tabIndex={0}
         >
           <div
             onClick={[Function]}
@@ -808,22 +768,14 @@ exports[`snapshots 1`] = `
           </div>
         </div>
         <div
-          aria-roledescription="Draggable item. Press space bar to lift"
-          data-react-beautiful-dnd-drag-handle="1"
           data-react-beautiful-dnd-draggable="1"
-          draggable={false}
-          onDragStart={[Function]}
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          onTransitionEnd={null}
           style={
             Object {
               "transform": null,
               "transition": null,
             }
           }
-          tabIndex={0}
         >
           <div
             onClick={[Function]}
