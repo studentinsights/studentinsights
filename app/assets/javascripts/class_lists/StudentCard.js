@@ -62,7 +62,6 @@ export default class StudentCard extends React.Component {
         {(provided, snapshot) => {
           return this.renderClickableStudentCard(student, {
             ref: provided.innerRef,
-            placeholder: provided.placeholder,
             propsFromDraggable: {
               ...provided.draggableProps,
               ...provided.dragHandleProps
@@ -75,14 +74,13 @@ export default class StudentCard extends React.Component {
 
   // Optionally pass arguments to make this work as a Draggable
   renderClickableStudentCard(student, options = {}) {
-    const {ref, placeholder, propsFromDraggable = {}} = options;
+    const {ref, propsFromDraggable = {}} = options;
     return (
       <div>
         {this.renderModal()}
         <div ref={ref} {...propsFromDraggable}>
           {this.renderStudentCard(student)}
         </div>
-        {placeholder /* this preserves space when dragging */}
       </div>
     );
   }
