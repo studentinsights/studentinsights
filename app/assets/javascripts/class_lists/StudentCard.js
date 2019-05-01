@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import chroma from 'chroma-js';
+import {toMomentFromTimestamp} from '../helpers/toMoment';
 import MoreDots from '../components/MoreDots';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import {
@@ -90,15 +91,26 @@ export default class StudentCard extends React.Component {
     const {isEditable, highlightKey, style} = this.props;
     const cursor = (isEditable) ? 'pointer' : 'default';
     const highlightStyle = this.renderHighlightStyle(student, highlightKey);
+    const noteIconEl = this.renderNoteIcon(student);
+
     return (
       <div style={{...styles.studentCard, ...style, cursor, ...highlightStyle}} onClick={this.onClick}>
         <div style={styles.photoAndName}>
           <StudentPhotoCropped studentId={student.id} style={styles.studentPhoto} />
           <div style={styles.name}>{student.last_name}, {student.first_name}</div>
         </div>
-        <MoreDots />
+        {noteIconEl || <MoreDots />}
       </div>
     );
+  }
+
+  renderNoteIcon(student) {
+    const {nowFn} = this.context;
+    if (!student.latest_note) return;
+    const noteMoment = toMomentFromTimestamp(student.latest_note.recorded_at);
+    const daysAgo = nowFn().clone().diff(noteMoment, 'days');
+    if (daysAgo > 45) return null;
+    return <div style={styles.noteIcon}>📝</div>;
   }
 
   renderHighlightStyle(student, highlightKey) {
@@ -127,6 +139,9 @@ export default class StudentCard extends React.Component {
     );
   }
 }
+StudentCard.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};
 StudentCard.propTypes = {
   student: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
@@ -162,6 +177,11 @@ const styles = {
   studentPhoto: {
     width: 32,
     height: 32,
+  },
+  noteIcon: {
+    fontSize: 16,
+    paddingLeft: 5,
+    paddingRight: 5
   },
   modalOverlay: {
     backgroundColor: 'rgba(128, 128, 128, 0.75)',
