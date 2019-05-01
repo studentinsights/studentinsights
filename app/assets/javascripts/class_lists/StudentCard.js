@@ -5,6 +5,7 @@ import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import chroma from 'chroma-js';
 import MoreDots from '../components/MoreDots';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import {
   steelBlue,
   high,
@@ -91,7 +92,10 @@ export default class StudentCard extends React.Component {
     const highlightStyle = this.renderHighlightStyle(student, highlightKey);
     return (
       <div style={{...styles.studentCard, ...style, cursor, ...highlightStyle}} onClick={this.onClick}>
-        <span>{student.last_name}, {student.first_name}</span>
+        <div style={styles.photoAndName}>
+          <StudentPhotoCropped studentId={student.id} style={styles.studentPhoto} />
+          <div style={styles.name}>{student.last_name}, {student.first_name}</div>
+        </div>
         <MoreDots />
       </div>
     );
@@ -135,12 +139,29 @@ StudentCard.propTypes = {
 const styles = {
   studentCard: {
     display: 'flex',
-    justifyContent: 'space-between',
+    alignItems: 'center',
     fontSize: 14,
     border: '1px solid #eee',
-    padding: 6,
+    padding: 5,
     borderRadius: 3,
     backgroundColor: 'white'
+  },
+  photoAndName: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    flex: 1
+  },
+  name: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+  studentPhoto: {
+    width: 32,
+    height: 32,
   },
   modalOverlay: {
     backgroundColor: 'rgba(128, 128, 128, 0.75)',
