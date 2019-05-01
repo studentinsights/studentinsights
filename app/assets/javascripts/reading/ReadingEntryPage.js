@@ -168,7 +168,9 @@ export class ReadingEntryPageView extends React.Component {
   renderHomeroom() {
     const {readingStudents} = this.props;
     const {homeroomId} = this.state;
-    const homerooms = _.uniqBy(readingStudents.map(s => s.homeroom), 'id');
+
+    // filter homerooms that don't have educator data
+    const homerooms = _.uniqBy(readingStudents.filter(s => s.homeroom.educator).map(s => s.homeroom), 'id');
     return (
       <SelectHomeroomByEducator
         placeholder={`Homeroom...`}
