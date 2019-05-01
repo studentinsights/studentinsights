@@ -142,9 +142,9 @@ RSpec.describe PerDistrict do
     end
 
     it 'works for demo but raises for Bedford and New Bedford' do
-      expect { for_demo.current_quarter(Time.now) }.not_to raise_error Exceptions::DistrictKeyNotHandledError
-      expect { for_bedford.current_quarter(Time.now) }.to raise_error Exceptions::DistrictKeyNotHandledError
-      expect { for_new_bedford.current_quarter(Time.now) }.to raise_error Exceptions::DistrictKeyNotHandledError
+      expect { for_demo.current_quarter(Time.now) }.not_to raise_error
+      expect { for_bedford.current_quarter(Time.now) }.to raise_error
+      expect { for_new_bedford.current_quarter(Time.now) }.to raise_error
     end
   end
 
