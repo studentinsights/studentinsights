@@ -92,8 +92,8 @@ class ClassListQueries
     end
   end
 
-  def all_authorized_workspaces
-    workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
+  def all_authorized_workspaces(options = {})
+    workspaces = ClassList.unsafe_all_workspaces_without_authorization_check(options)
 
     # Authorization check
     workspaces.select do |workspace|

@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import _ from 'lodash';
 import moment from 'moment';
 import qs from 'query-string';
 import NowContainer from '../app/assets/javascripts/testing/NowContainer';
@@ -186,7 +187,14 @@ export default class App extends React.Component {
 
   renderClassListsViewPage(routeProps) {
     const {currentEducator} = this.props;
-    return <ClassListsViewPage currentEducatorId={currentEducator.id} />;
+    const queryParams = qs.parse(routeProps.location.search.slice(1));
+    return (
+      <ClassListsViewPage
+        useTextLinks={_.has(queryParams, 'text')}
+        includeHistorical={_.has(queryParams, 'historical')}
+        currentEducatorId={currentEducator.id}
+      />
+    );
   }
 
   renderExperimentalClassListsEquityPage(routeProps) {

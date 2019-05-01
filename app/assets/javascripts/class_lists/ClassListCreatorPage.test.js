@@ -67,6 +67,7 @@ it('integration test for state changes, server requests and autosave', done => {
   const wrapper = mountWithContext(props);
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
+  wrapper.instance().onListTypeTextChanged('homeroom lists');
   wrapper.instance().onStepChanged(2);
   wrapper.instance().onClassroomsCountIncremented(2);
 
@@ -75,6 +76,7 @@ it('integration test for state changes, server requests and autosave', done => {
   setTimeout(() => {
     expect(wrapper.state().schoolId).toEqual(4);
     expect(wrapper.state().gradeLevelNextYear).toEqual('6');
+    expect(wrapper.state().listTypeText).toEqual('homeroom lists');
     expect(wrapper.state().stepIndex).toEqual(2);
     expect(wrapper.state().students.length).toEqual(7);
     expect(Object.keys(wrapper.state().studentIdsByRoom)).toEqual([

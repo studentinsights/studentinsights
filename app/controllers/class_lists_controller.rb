@@ -3,7 +3,13 @@ class ClassListsController < ApplicationController
 
   # For showing the list of all workspaces that the user can read
   def workspaces_json
-    workspaces = queries.all_authorized_workspaces
+    params.permit(:include_historical)
+    params.permit(:time_now)
+    include_historical = params.fetch(:include_historical, false)
+    time_now = time_now_or_param(params[:time_now])
+    query_options = include_historical ? {} : { created_after: SchoolYear.first_day_of_school_for_time(time_now) }
+    workspaces = queries.all_authorized_workspaces(query_options)
+
     workspaces_json = workspaces.map do |workspace|
       {
         workspace_id: workspace.workspace_id,
@@ -13,6 +19,7 @@ class ClassListsController < ApplicationController
             :id,
             :workspace_id,
             :grade_level_next_year,
+            :list_type_text,
             :created_at,
             :updated_at,
             :submitted
@@ -33,6 +40,7 @@ class ClassListsController < ApplicationController
     end
 
     render json: {
+      include_historical: include_historical,
       workspaces: workspaces_json
     }
   end
@@ -126,11 +134,13 @@ class ClassListsController < ApplicationController
     params.require(:workspace_id)
     params.require(:school_id)
     params.require(:grade_level_next_year)
+    params.require(:list_type_text)
     params.require(:json)
     params.require(:submitted)
     workspace_id = params[:workspace_id]
     school_id = params[:school_id].to_i
     grade_level_next_year = params[:grade_level_next_year]
+    list_type_text = params[:list_type_text]
     json = params[:json]
     submitted = ActiveModel::Type::Boolean.new.cast(params[:submitted])
 
@@ -147,6 +157,7 @@ class ClassListsController < ApplicationController
       created_by_teacher_educator_id: current_educator.id,
       school_id: school_id,
       grade_level_next_year: grade_level_next_year,
+      list_type_text: list_type_text,
       submitted: submitted,
       json: json # left opaque for UI to iterate
     })
@@ -239,6 +250,7 @@ class ClassListsController < ApplicationController
       :created_by_teacher_educator_id,
       :school_id,
       :grade_level_next_year,
+      :list_type_text,
       :submitted,
       :json,
       :principal_revisions_json,

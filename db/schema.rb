@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_155619) do
+ActiveRecord::Schema.define(version: 2019_04_30_142316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_03_06_155619) do
     t.boolean "submitted", default: false
     t.json "principal_revisions_json"
     t.integer "revised_by_principal_educator_id"
+    t.string "list_type_text", default: "(default)"
     t.index ["workspace_id", "created_at"], name: "index_class_lists_on_workspace_id_and_created_at", order: { created_at: :desc }
   end
 
@@ -114,12 +115,8 @@ ActiveRecord::Schema.define(version: 2019_03_06_155619) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
-    t.text "iac_content_area"
-    t.text "iac_category"
-    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
-    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

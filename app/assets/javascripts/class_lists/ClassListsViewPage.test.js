@@ -28,3 +28,12 @@ it('snapshots view', () => {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+
+it('snapshots view with text links', () => {
+  const props = testProps({...workspaces_json, useTextLinks: true});
+  const tree = renderer
+    .create(<ClassListsViewPageView {...props} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});

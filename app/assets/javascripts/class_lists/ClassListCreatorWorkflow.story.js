@@ -12,7 +12,7 @@ import {
   exportPropsWithAllPlaced,
   exportPropsWithMoves,
   exportPropsWithTeacherNames
-} from './ClassListCreatorWorkflow.test';
+} from './ClassListCreatorWorkflow.fixtures';
 
 function withStoryProps(props = {}) {
   return {
@@ -20,6 +20,7 @@ function withStoryProps(props = {}) {
     onStepChanged: action('onStepChanged'),
     onSchoolIdChanged: action('onSchoolIdChanged'),
     onGradeLevelNextYearChanged: action('onGradeLevelNextYearChanged'),
+    onListTypeTextChanged: action('onListTypeTextChanged'),
     onEducatorsChanged: action('onEducatorsChanged'),
     onClassroomsCountIncremented: action('onClassroomsCountIncremented'),
     onPlanTextChanged: action('onPlanTextChanged'),
