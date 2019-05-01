@@ -12,7 +12,7 @@ import {
   exportPropsWithAllPlaced,
   exportPropsWithMoves,
   exportPropsWithTeacherNames
-} from './ClassListCreatorWorkflow.test';
+} from './ClassListCreatorWorkflow.fixtures';
 
 function withStoryProps(props = {}) {
   return {
