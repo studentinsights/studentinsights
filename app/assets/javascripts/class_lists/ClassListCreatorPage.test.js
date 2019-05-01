@@ -236,7 +236,8 @@ it('#onFetchedClassList loads principal revisions', () => {
 it('#isRevisable', () => {
   function isRevisableForEducator(currentEducator, state = {}) {
     const props = testProps({currentEducator});
-    const wrapper = shallow(<ClassListCreatorPage {...props} />, {context: testContext()});
+    const context = {...testContext(), districtKey: 'somerville'};
+    const wrapper = shallow(<ClassListCreatorPage {...props} />, {context});
     wrapper.instance().setState(state);
     return wrapper.instance().isRevisable();
   }
