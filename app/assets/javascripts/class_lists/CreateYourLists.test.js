@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
+import {withDefaultNowContext} from '../testing/NowContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import CreateYourLists, {studentIdsByRoomAfterDrag} from './CreateYourLists';
 import students_for_grade_level_next_year_json from './fixtures/students_for_grade_level_next_year_json';
@@ -20,6 +22,13 @@ export function testProps(props = {}) {
     onExpandVerticallyToggled: jest.fn(),
     ...props
   };
+}
+
+function snapshotWithProps(propsDiff = {}) {
+  const props = testProps(propsDiff);
+  return renderer
+    .create(withDefaultNowContext(<CreateYourLists {...props} />))
+    .toJSON();
 }
 
 it('renders without crashing', () => {
@@ -50,4 +59,12 @@ describe('studentIdsByRoomAfterDrag', () => {
       "room:unplaced": [93,97,95,96,98,99]
     });
   });
+});
+
+describe('snapshots', () => {
+  it('empty', () => expect(snapshotWithProps({forceUnplaced: true})).toMatchSnapshot());  
+  it('2rd grade, 3 classes (default)', () => expect(snapshotWithProps()).toMatchSnapshot());
+  it('2nd grade, 4 classes', () => expect(snapshotWithProps({classroomsCount: 4, gradeLevelNextYear: '2'})).toMatchSnapshot());
+  it('5th grade, 4 classes', () => expect(snapshotWithProps({classroomsCount: 4, gradeLevelNextYear: '5'})).toMatchSnapshot());
+  it('readonly', () => expect(snapshotWithProps({isEditable: false})).toMatchSnapshot());
 });

@@ -33,6 +33,7 @@ it('renders without crashing', () => {
 
 it('snapshots', () => {
   const props = testProps();
+  console.log('props', props);
   const tree = renderer
     .create(testEl(props))
     .toJSON();

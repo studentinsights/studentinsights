@@ -27,19 +27,20 @@ function storyRender(props = {}) {
 
 storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef
   .add("empty", () => storyRender(storyProps({ forceUnplaced: true })))
-  .add("Next 2rd grade", () => storyRender(storyProps()))
-  .add("Next 5th grade", () => {
-    return storyRender(storyProps({
-      classroomsCount: 4,
-      gradeLevelNextYear: '5'
-    }));
-  })
-  .add("Many classrooms", () => {
+  .add("2rd grade, 3 classes", () => storyRender(storyProps()))
+  .add("2nd grade, 5 classes", () => {
     return storyRender(storyProps({
       classroomsCount: 4,
       gradeLevelNextYear: '2'
     }));
   })
+  .add("5th grade, 5 classes", () => {
+    return storyRender(storyProps({
+      classroomsCount: 4,
+      gradeLevelNextYear: '5'
+    }));
+  })
+  
   .add("readonly", () => storyRender(storyProps({ isEditable: false })));
 
 
