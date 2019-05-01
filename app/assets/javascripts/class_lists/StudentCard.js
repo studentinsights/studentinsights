@@ -78,7 +78,7 @@ export default class StudentCard extends React.Component {
   renderClickableStudentCard(student, options = {}) {
     const {ref, propsFromDraggable = {}} = options;
     return (
-      <div className="StudentCard-clickable">
+      <div>
         {this.renderModal()}
         <div ref={ref} {...propsFromDraggable}>
           {this.renderStudentCard(student)}
