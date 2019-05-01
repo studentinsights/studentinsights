@@ -3,6 +3,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import storybookFrame from './storybookFrame';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import {withDefaultNowContext} from '../testing/NowContainer';
 import CreateYourLists from './CreateYourLists';
 import {
@@ -22,7 +23,11 @@ function storyProps(props = {}) {
 }
 
 function storyRender(props = {}) {
-  return storybookFrame(withDefaultNowContext(<Container {...props} />));
+  return storybookFrame(withDefaultNowContext(
+    <PerDistrictContainer districtKey="somerville">
+      <Container {...props} />
+    </PerDistrictContainer>
+  ));
 }
 
 storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef
@@ -30,13 +35,13 @@ storiesOf('classlists/CreateYourLists', module) // eslint-disable-line no-undef
   .add("2rd grade, 3 classes", () => storyRender(storyProps()))
   .add("2nd grade, 5 classes", () => {
     return storyRender(storyProps({
-      classroomsCount: 4,
+      classroomsCount: 5,
       gradeLevelNextYear: '2'
     }));
   })
   .add("5th grade, 5 classes", () => {
     return storyRender(storyProps({
-      classroomsCount: 4,
+      classroomsCount: 5,
       gradeLevelNextYear: '5'
     }));
   })
