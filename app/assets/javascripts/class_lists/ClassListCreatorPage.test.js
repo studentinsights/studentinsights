@@ -23,7 +23,8 @@ export function testProps(props) {
 }
 
 function mountWithContext(props) {
-  return mount(<ClassListCreatorPage {...props} />, { context: testContext() });
+  const context = {...testContext(), districtKey: 'somerville'};
+  return mount(<ClassListCreatorPage {...props} />, {context});
 }
 
 function anyServerCallsIncludePath(string) {

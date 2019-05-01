@@ -531,7 +531,8 @@ export default class ClassListCreatorPage extends React.Component {
   }
 }
 ClassListCreatorPage.contextTypes = {
-  nowFn: PropTypes.func.isRequired
+  nowFn: PropTypes.func.isRequired,
+  districtKey: PropTypes.string.isRequired
 };
 ClassListCreatorPage.propTypes = {
   currentEducator: PropTypes.shape({
