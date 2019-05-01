@@ -140,6 +140,12 @@ RSpec.describe PerDistrict do
       expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 1))).to eq 'Q4'
       expect(PerDistrict.new.current_quarter(DateTime.new(2018, 6, 24))).to eq 'SUMMER'
     end
+
+    it 'works for demo but raises for Bedford and New Bedford' do
+      expect { for_demo.current_quarter(Time.now) }.not_to raise_error Exceptions::DistrictKeyNotHandledError
+      expect { for_bedford.current_quarter(Time.now) }.to raise_error Exceptions::DistrictKeyNotHandledError
+      expect { for_new_bedford.current_quarter(Time.now) }.to raise_error Exceptions::DistrictKeyNotHandledError
+    end
   end
 
   describe '#parse_counselor_during_import' do
