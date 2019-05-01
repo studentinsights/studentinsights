@@ -167,7 +167,22 @@ it('renders edit classlist', () => {
 it('renders list of classlists', () => {
   const wrapper = mount(renderPath('/classlists'));
   expect(wrapper.contains(
-    <ClassListsViewPage currentEducatorId={9999} />
+    <ClassListsViewPage
+      currentEducatorId={9999}
+      useTextLinks={false}
+      includeHistorical={false}
+    />
+  )).toEqual(true);
+});
+
+it('renders list of classlists, respecting query', () => {
+  const wrapper = mount(renderPath('/classlists?text&historical'));
+  expect(wrapper.contains(
+    <ClassListsViewPage
+      currentEducatorId={9999}
+      useTextLinks={true}
+      includeHistorical={true}
+    />
   )).toEqual(true);
 });
 
