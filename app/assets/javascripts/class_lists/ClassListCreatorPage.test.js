@@ -5,6 +5,7 @@ import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
 import {testTimeMoment, testContext, withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import class_list_json from './fixtures/class_list_json';
@@ -20,6 +21,14 @@ export function testProps(props) {
     disableSizing: true,
     ...props
   };
+}
+
+function testEl(props) {
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey="somerville">
+      <ClassListCreatorPage {...props} />
+    </PerDistrictContainer>
+  );
 }
 
 function mountWithContext(props) {
@@ -48,7 +57,7 @@ it('renders without crashing on entrypoint', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists']}>
-      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
+      {testEl(props)}
     </MemoryRouter>
   , el);
 });
@@ -58,7 +67,7 @@ it('renders without crashing with balanceId', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists/foo-id']}>
-      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
+      {testEl(props)}
     </MemoryRouter>
   , el);
 });
