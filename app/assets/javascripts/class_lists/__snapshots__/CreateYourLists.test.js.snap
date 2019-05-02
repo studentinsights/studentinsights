@@ -1363,6 +1363,19 @@ exports[`snapshots empty, readonly 1`] = `
             Not placed
           </span>
           <span
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#666",
+                "cursor": "pointer",
+                "fontSize": 12,
+                "paddingLeft": 10,
+              }
+            }
+          >
+            sort
+          </span>
+          <span
             style={
               Object {
                 "color": "#666",
@@ -1448,6 +1461,19 @@ exports[`snapshots empty, readonly 1`] = `
             }
           >
             Room A
+          </span>
+          <span
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#666",
+                "cursor": "pointer",
+                "fontSize": 12,
+                "paddingLeft": 10,
+              }
+            }
+          >
+            sort
           </span>
           <span
             style={
@@ -1537,6 +1563,19 @@ exports[`snapshots empty, readonly 1`] = `
             Room B
           </span>
           <span
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#666",
+                "cursor": "pointer",
+                "fontSize": 12,
+                "paddingLeft": 10,
+              }
+            }
+          >
+            sort
+          </span>
+          <span
             style={
               Object {
                 "color": "#666",
@@ -1622,6 +1661,19 @@ exports[`snapshots empty, readonly 1`] = `
             }
           >
             Room C
+          </span>
+          <span
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "#666",
+                "cursor": "pointer",
+                "fontSize": 12,
+                "paddingLeft": 10,
+              }
+            }
+          >
+            sort
           </span>
           <span
             style={

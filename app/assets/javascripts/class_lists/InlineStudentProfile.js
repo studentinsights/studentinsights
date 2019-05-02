@@ -3,9 +3,10 @@ import React from 'react';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import Card from '../components/Card';
+import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FeedView from '../feed/FeedView';
 import {isLimitedOrFlep} from './studentFilters';
-import {HighlightKeys,} from './studentFilters';
+import {HighlightKeys} from './studentFilters';
 import {highlightStyleForKey, userFacingValueForKey} from './highlights';
 
 // Inline student profile for classroom list creator, shown as a modal
@@ -15,7 +16,10 @@ export default class InlineStudentProfile extends React.Component {
     return (
       <div className="InlineStudentProfile" style={styles.root}>
         <h4 style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <a style={{fontSize: 24, fontWeight: 'bold'}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+          <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
+            <StudentPhotoCropped studentId={student.id} />
+            <a style={{fontSize: 24, fontWeight: 'bold'}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">{student.first_name} {student.last_name}</a>
+          </div>
           <a style={{fontSize: 12}} href={`/students/${student.id}`} target="_blank" rel="noopener noreferrer">Open full profile</a>
         </h4>
         <div style={styles.columns}>
@@ -35,7 +39,8 @@ export default class InlineStudentProfile extends React.Component {
     const showDibels = !showStar;
 
     return (
-      <div style={{...styles.column, marginTop: 20, fontSize: 12}}>
+      <div style={{...styles.column, marginTop: 10, fontSize: 12}}>
+        <SectionHeading>Equity checks</SectionHeading>
         <div style={{display: 'flex', flexDirection: 'row', marginLeft: 10, marginRight: 10}}>
           {this.renderHeaderCell({
             label: 'IEP or 504',
