@@ -1,28 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 import {Draggable} from 'react-beautiful-dnd';
 import Modal from 'react-modal';
-import chroma from 'chroma-js';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
 import MoreDots from '../components/MoreDots';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
-import {
-  steelBlue,
-  high,
-  medium,
-  low,
-  genderColor
-} from '../helpers/colors';
 import InlineStudentProfile from './InlineStudentProfile';
-import {
-  isLimitedOrFlep,
-  isIepOr504,
-  isLowIncome,
-  isHighDiscipline,
-  starBucketThresholds,
-  HighlightKeys
-} from './studentFilters';
+import {highlightStyleForKey} from './highlights';
 
 // Shows a small student card that is `Draggable` and also clickable
 // to show a modal of the student's profile.
@@ -90,7 +74,7 @@ export default class StudentCard extends React.Component {
   renderStudentCard(student) {
     const {isEditable, highlightKey, style} = this.props;
     const cursor = (isEditable) ? 'pointer' : 'default';
-    const highlightStyle = this.renderHighlightStyle(student, highlightKey);
+    const highlightStyle = highlightStyleForKey(student, highlightKey);
     const noteIconEl = this.renderNoteIcon(student);
 
     return (
@@ -111,11 +95,6 @@ export default class StudentCard extends React.Component {
     const daysAgo = nowFn().clone().diff(noteMoment, 'days');
     if (daysAgo > 45) return null;
     return <div style={styles.noteIcon}>📝</div>;
-  }
-
-  renderHighlightStyle(student, highlightKey) {
-    const highlightFn = highlightFns[highlightKey];
-    return highlightFn ? highlightFn(student) : null;
   }
 
   renderModal() {
@@ -188,57 +167,10 @@ const styles = {
     zIndex: 10
   },
   modalContent: {
-    left: 200,
-    right: 200,
+    left: 100,
+    right: 100,
     padding: 0,
     zIndex: 20
-  },
-  highlight: {
-    backgroundColor: chroma(steelBlue).alpha(0.4).css()
-  },
-  none: {
-    backgroundColor: 'white'
   }
 };
 
-// For highlighting students based on their attributes.
-const highlightFns = {
-  [HighlightKeys.IEP_OR_504]: student => highlightStylesIf(isIepOr504(student)),
-  [HighlightKeys.LIMITED_OR_FLEP]: student => highlightStylesIf(isLimitedOrFlep(student)),
-  [HighlightKeys.LOW_INCOME]: student => highlightStylesIf(isLowIncome(student)),
-  [HighlightKeys.HIGH_DISCIPLINE]: student => highlightStylesIf(isHighDiscipline(student)),
-  [HighlightKeys.STAR_MATH]: student => starStyles(student.most_recent_star_math_percentile),
-  [HighlightKeys.STAR_READING]: student => starStyles(student.most_recent_star_reading_percentile),
-  [HighlightKeys.DIBELS]: student => dibelsStyles(student.latest_dibels),
-  [HighlightKeys.GENDER]: student => {
-    const backgroundColor = genderColor(student.gender);
-    return {backgroundColor};
-  }
-};
-
-// Perform color operation for STAR percentile scores, calling out high and low only
-// Missing scores aren't called out.
-function starStyles(maybePercentile) {
-  const starScale = chroma.scale([low, medium, high]).classes(starBucketThresholds);
-  const hasScore = _.isNumber(maybePercentile);
-  if (!hasScore) return styles.none;
-  const fraction = maybePercentile / 100;
-  const backgroundColor = chroma(starScale(fraction)).alpha(0.5).css();
-  return {backgroundColor};
-}
-
-function dibelsStyles(maybeLatestDibels) {
-  if (!maybeLatestDibels) return styles.none;
-  const benchmark = maybeLatestDibels.benchmark;
-  const colorMap = {
-    CORE: high,
-    STRATEGIC: medium,
-    INTENSIVE: low
-  };
-  const backgroundColor = colorMap[benchmark];
-  return {backgroundColor};
-}
-
-function highlightStylesIf(isTrue) {
-  return isTrue ? styles.highlight : styles.none;
-}

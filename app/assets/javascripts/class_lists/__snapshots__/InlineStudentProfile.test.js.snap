@@ -5,224 +5,350 @@ exports[`snapshots 1`] = `
   className="InlineStudentProfile"
   style={
     Object {
+      "fontSize": 14,
       "margin": 20,
     }
   }
 >
-  <h4>
+  <h4
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "flex-start",
+        }
+      }
+    >
+      <div
+        className="StudentPhotoCropped"
+        style={
+          Object {
+            "backgroundColor": "#ddd",
+            "backgroundImage": "url(/students/1/photo)",
+            "backgroundPosition": "center top",
+            "backgroundPositionY": -10,
+            "backgroundRepeat": "no-repeat",
+            "backgroundSize": "150%",
+            "border": "1px solid #ddd",
+            "borderRadius": 3,
+            "height": 58,
+            "marginRight": 10,
+            "overflow": "hidden",
+            "width": 58,
+          }
+        }
+      />
+      <a
+        href="/students/1"
+        rel="noopener noreferrer"
+        style={
+          Object {
+            "fontSize": 24,
+            "fontWeight": "bold",
+          }
+        }
+        target="_blank"
+      >
+        Garfield
+         
+        Skywalker
+      </a>
+    </div>
     <a
       href="/students/1"
       rel="noopener noreferrer"
       style={
         Object {
-          "fontSize": 24,
+          "fontSize": 12,
         }
       }
       target="_blank"
     >
-      Garfield
-       
-      Skywalker
+      Open full profile
     </a>
   </h4>
   <div
-    style={
-      Object {
-        "marginTop": 20,
-      }
-    }
+    style={Object {}}
   >
     <div
-      style={Object {}}
+      style={
+        Object {
+          "fontSize": 12,
+          "marginTop": 10,
+        }
+      }
     >
       <div
+        className="SectionHeading"
         style={
           Object {
-            "display": "flex",
+            "borderBottom": "1px solid #333",
+            "padding": 10,
           }
         }
       >
-        <div
-          className="Card "
+        <h4
           style={
             Object {
-              "border": "1px solid #ccc",
-              "borderRadius": 3,
-              "flex": 1,
-              "margin": 5,
-              "padding": 10,
+              "color": "black",
+              "display": "inline",
             }
           }
         >
-          <div
-            style={
-              Object {
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "marginBottom": 5,
-              }
-            }
-          >
-            Special needs
-          </div>
-        </div>
-        <div
-          className="Card "
-          style={
-            Object {
-              "border": "1px solid #ccc",
-              "borderRadius": 3,
-              "flex": 1,
-              "margin": 5,
-              "padding": 10,
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "marginBottom": 5,
-              }
-            }
-          >
-            Learning English
-          </div>
-        </div>
+          Equity checks
+        </h4>
       </div>
       <div
         style={
           Object {
             "display": "flex",
+            "flexDirection": "row",
+            "marginLeft": 10,
+            "marginRight": 10,
           }
         }
       >
         <div
-          className="Card "
           style={
             Object {
-              "border": "1px solid #ccc",
-              "borderRadius": 3,
+              "display": "flex",
               "flex": 1,
-              "margin": 5,
-              "padding": 10,
+              "flexDirection": "column",
             }
           }
         >
           <div
             style={
               Object {
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "marginBottom": 5,
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
               }
             }
+            title="Students who have an IEP or 504 plan."
           >
-            Identity
+            IEP or 504
           </div>
-          <div>
-            Racial identity: 
-          </div>
-          <div>
-            Hispanic: 
-            Not hispanic
-          </div>
-          <div>
-            Gender: 
-          </div>
+          <div
+            style={
+              Object {
+                "backgroundColor": "white",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
         </div>
         <div
-          className="Card "
           style={
             Object {
-              "border": "1px solid #ccc",
-              "borderRadius": 3,
+              "display": "flex",
               "flex": 1,
-              "margin": 5,
-              "padding": 10,
+              "flexDirection": "column",
             }
           }
         >
           <div
             style={
               Object {
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "marginBottom": 5,
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
               }
             }
+            title="Students receiving English Learning Services or who have in the past (FLEP)."
           >
-            Home
+            Limited or FLEP
           </div>
-          <div>
-            Home language: 
-          </div>
-        </div>
-      </div>
-      <div
-        style={
-          Object {
-            "display": "flex",
-          }
-        }
-      >
-        <div
-          className="Card "
-          style={
-            Object {
-              "border": "1px solid #ccc",
-              "borderRadius": 3,
-              "flex": 1,
-              "margin": 5,
-              "padding": 10,
-            }
-          }
-        >
           <div
             style={
               Object {
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "marginBottom": 5,
+                "backgroundColor": "white",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
               }
             }
-          >
-            Standardized tests
-          </div>
+          />
         </div>
         <div
-          className="Card "
           style={
             Object {
-              "border": "1px solid #ccc",
-              "borderRadius": 3,
+              "display": "flex",
               "flex": 1,
-              "margin": 5,
-              "padding": 10,
+              "flexDirection": "column",
             }
           }
         >
           <div
             style={
               Object {
-                "fontSize": 16,
-                "fontWeight": "bold",
-                "marginBottom": 5,
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
               }
             }
+            title="Students broken down by whether they identify their gender as male, female or nonbinary."
           >
-            Behavior
+            Gender identity
           </div>
-          <div>
-            Discipline incidents: 
-            0
+          <div
+            style={
+              Object {
+                "backgroundColor": "rgba(81, 185, 86, 0.5)",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students whose are enrolled in the free or reduced lunch program."
+          >
+            Reduced lunch
           </div>
+          <div
+            style={
+              Object {
+                "backgroundColor": "white",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile."
+          >
+            Discipline, 3+
+          </div>
+          <div
+            style={
+              Object {
+                "backgroundColor": "white",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile."
+          >
+            STAR Math
+          </div>
+          <div
+            style={
+              Object {
+                "backgroundColor": "white",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "flex": 1,
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile."
+          >
+            STAR Reading
+          </div>
+          <div
+            style={
+              Object {
+                "backgroundColor": "white",
+                "margin": 5,
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
         </div>
       </div>
     </div>
     <div
-      style={Object {}}
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
     >
       <div
         style={
