@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import hash from 'object-hash';
 
 // Place the students into their initial state (eg, all unplaced, sorted alphabetically).
 // {[roomKey]: [studentId]}
@@ -31,7 +31,8 @@ export function initialStudentIdsByRoom(roomsCount, students, options = {}) {
 export function consistentlyPlacedInitialStudentIdsByRoom(classroomsCount, students) {
   return initialStudentIdsByRoom(classroomsCount, students, {
     placementFn(studentIdsByRoom, student) {
-      return roomKeyFromIndex(JSON.stringify(student).length % classroomsCount);
+      const integerFromConsistentHashing = parseInt(hash({studentId: student.id}), 16);
+      return roomKeyFromIndex(integerFromConsistentHashing % classroomsCount);
     }
   });
 }

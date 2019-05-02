@@ -188,6 +188,7 @@ class ClassListQueries
         :most_recent_star_reading_percentile
       ],
       methods: [
+        :latest_note,
         :latest_iep_document,
         :latest_access_results,
         :latest_dibels,
