@@ -6,7 +6,7 @@ import Card from '../components/Card';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import FeedView from '../feed/FeedView';
 import {isLimitedOrFlep} from './studentFilters';
-import {HighlightKeys} from './studentFilters';
+import {HighlightKeys, diversityPointsDescription} from './studentFilters';
 import {highlightStyleForKey, userFacingValueForKey} from './highlights';
 
 // Inline student profile for classroom list creator, shown as a modal
@@ -37,6 +37,7 @@ export default class InlineStudentProfile extends React.Component {
     const {student} = this.props;
     const showStar = (['KF', '1'].indexOf(student.grade) === -1);
     const showDibels = !showStar;
+    const showPoints = (window.location.search.indexOf('diversity') !== -1);
 
     return (
       <div style={{...styles.column, marginTop: 10, fontSize: 12}}>
@@ -62,10 +63,15 @@ export default class InlineStudentProfile extends React.Component {
             columnHighlightKey: HighlightKeys.LOW_INCOME,
             title: 'Students whose are enrolled in the free or reduced lunch program.'
           })}
-          {this.renderHeaderCell({
+          {!showPoints && this.renderHeaderCell({
             label: 'Discipline, 3+',
             columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
             title: 'Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
+          })}
+          {showPoints && this.renderHeaderCell({
+            label: 'Diversity index',
+            columnHighlightKey: HighlightKeys.DIVERSITY_POINTS,
+            title: diversityPointsDescription()
           })}
           {showDibels && this.renderHeaderCell({
             label: 'Dibels CORE',

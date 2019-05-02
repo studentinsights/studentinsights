@@ -7,7 +7,8 @@ import {
   isHighDiscipline,
   starBucketThresholds,
   HighlightKeys,
-  starBucket
+  starBucket,
+  intersectionsFor
 } from './studentFilters';
 import {
   high,
@@ -38,6 +39,7 @@ const highlightFns = {
   [HighlightKeys.STAR_MATH]: student => starStyles(student.most_recent_star_math_percentile),
   [HighlightKeys.STAR_READING]: student => starStyles(student.most_recent_star_reading_percentile),
   [HighlightKeys.DIBELS]: student => dibelsStyles(student.latest_dibels),
+  [HighlightKeys.DIVERSITY_POINTS]: student => { return {}; },
   [HighlightKeys.GENDER]: student => {
     const backgroundColor = genderColor(student.gender);
     return {backgroundColor};
@@ -52,6 +54,7 @@ const valueFns = {
   [HighlightKeys.STAR_MATH]: student => starBucket(student.most_recent_star_math_percentile),
   [HighlightKeys.STAR_READING]: student => starBucket(student.most_recent_star_reading_percentile),
   [HighlightKeys.DIBELS]: student => student.latest_dibels ? student.latest_dibels.benchmark : 'none',
+  [HighlightKeys.DIVERSITY_POINTS]: student => intersectionsFor(student).join(', '),
   [HighlightKeys.GENDER]: student => student.gender,
 };
 

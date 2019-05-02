@@ -351,7 +351,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -368,7 +368,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -413,7 +413,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -430,7 +430,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -506,7 +506,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -523,7 +523,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -568,7 +568,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -585,7 +585,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -716,7 +716,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -733,10 +733,10 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "95%",
+                      "width": "71%",
                     }
                   }
                 />
@@ -751,7 +751,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "95%",
+                      "width": "71%",
                     }
                   }
                 >
@@ -786,7 +786,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -803,10 +803,10 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "48%",
+                      "width": "36%",
                     }
                   }
                 />
@@ -821,7 +821,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "48%",
+                      "width": "36%",
                     }
                   }
                 >
@@ -984,7 +984,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1001,10 +1001,10 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "95%",
+                      "width": "71%",
                     }
                   }
                 />
@@ -1019,7 +1019,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "95%",
+                      "width": "71%",
                     }
                   }
                 >
@@ -1054,7 +1054,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1071,7 +1071,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -1345,7 +1345,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1362,7 +1362,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -1407,7 +1407,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1424,7 +1424,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -1500,7 +1500,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1517,7 +1517,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -1562,7 +1562,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1579,7 +1579,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -1710,7 +1710,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1727,10 +1727,10 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "48%",
+                      "width": "36%",
                     }
                   }
                 />
@@ -1745,7 +1745,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "48%",
+                      "width": "36%",
                     }
                   }
                 >
@@ -1780,7 +1780,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1797,7 +1797,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -1938,7 +1938,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -1955,10 +1955,10 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
-                      "width": "48%",
+                      "width": "36%",
                     }
                   }
                 />
@@ -1973,7 +1973,7 @@ exports[`snapshots 1`] = `
                       "left": 14,
                       "position": "relative",
                       "top": -6,
-                      "width": "48%",
+                      "width": "36%",
                     }
                   }
                 >
@@ -2008,7 +2008,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -2025,7 +2025,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -2267,7 +2267,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -2284,7 +2284,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -2329,7 +2329,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -2346,7 +2346,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -2422,7 +2422,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -2439,7 +2439,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",
@@ -2484,7 +2484,7 @@ exports[`snapshots 1`] = `
                   "display": "inline-block",
                   "height": 20,
                   "marginBottom": 1,
-                  "paddingTop": 5,
+                  "paddingTop": 4,
                   "position": "relative",
                   "width": "100%",
                 }
@@ -2501,7 +2501,7 @@ exports[`snapshots 1`] = `
                   style={
                     Object {
                       "backgroundColor": "rgb(137, 175, 202)",
-                      "height": 3,
+                      "height": 5,
                       "left": "0%",
                       "position": "absolute",
                       "width": "0%",

@@ -22,6 +22,8 @@ import {
   isIepOr504,
   isLowIncome,
   isHighDiscipline,
+  countDiversityPoints,
+  diversityPointsDescription,
   starBucket,
   HighlightKeys
 } from './studentFilters';
@@ -56,6 +58,7 @@ export default class ClassroomStats extends React.Component {
     // Show different academic indicators by grade level.  STAR starts in 2nd grade.
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
     const showDibels = !showStar;
+    const showPoints = (window.location.search.indexOf('diversity') !== -1);
     return (
       <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
         <div style={styles.overlayMask}>
@@ -83,10 +86,15 @@ export default class ClassroomStats extends React.Component {
                   columnHighlightKey: HighlightKeys.LOW_INCOME,
                   title: 'Students whose are enrolled in the free or reduced lunch program.'
                 })}
-                {this.renderHeaderCell({
+                {!showPoints && this.renderHeaderCell({
                   label: 'Discipline, 3+',
                   columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
                   title: 'Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
+                })}
+                {showPoints && this.renderHeaderCell({
+                  label: 'Diversity index',
+                  columnHighlightKey: HighlightKeys.DIVERSITY_POINTS,
+                  title: diversityPointsDescription()
                 })}
                 {showDibels && this.renderHeaderCell({
                   label: 'Dibels CORE',
@@ -116,7 +124,8 @@ export default class ClassroomStats extends React.Component {
                     <td style={styles.cell}>{this.renderEnglishLearners(studentsInRoom)}</td>
                     <td style={styles.cell}>{this.renderGender(studentsInRoom)}</td>
                     <td style={styles.cell}>{this.renderLowIncome(studentsInRoom)}</td>
-                    <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>
+                    {!showPoints && <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>}
+                    {showPoints && <td style={styles.cell}>{this.renderDiversityPoints(studentsInRoom)}</td>}
                     {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
@@ -210,6 +219,23 @@ export default class ClassroomStats extends React.Component {
     return this.renderStackSimple(count);
   }
 
+  renderDiversityPoints(studentsInRoom) {
+    const {students} = this.props;
+    const points = countDiversityPoints(studentsInRoom, students);
+    const items = [
+      { left: 0, width: points, color: steelBlue, key: 'points' },
+      { left: points, width: (100-points), color: 'white', key: 'empty' }
+    ];
+    return (
+      <BreakdownBar
+        items={items}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
+        height={5}
+        labelTop={5} />
+    );
+  }
+
   renderDibelsBreakdown(studentsInRoom) {
     const students = studentsInRoom;
     const dibelsCounts = {
@@ -290,7 +316,7 @@ export default class ClassroomStats extends React.Component {
     const {students, rooms} = this.props;
 
     // tunable, this is a multiplier above the space an even split would take
-    const scaleTuningFactor = (students.length / rooms.length) * 1.5;
+    const scaleTuningFactor = (students.length / rooms.length) * 2.0;
     const stacks = [{ count, color: steelBlue }];
     return (
       <Stack
@@ -354,12 +380,12 @@ const styles = {
     width: 1
   },
   stackStyle: {
-    paddingTop: 5,
+    paddingTop: 4,
     height: 20,
     marginBottom: 1
   },
   stackBarStyle: {
-    height: 3
+    height: 5
   },
   // Positions label to the right of bar
   stackLabelStyle: {

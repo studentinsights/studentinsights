@@ -343,7 +343,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -360,7 +360,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -405,7 +405,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -422,7 +422,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -498,7 +498,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -515,7 +515,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -560,7 +560,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -577,7 +577,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -677,7 +677,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -694,7 +694,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -739,7 +739,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -756,7 +756,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -832,7 +832,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -849,7 +849,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -894,7 +894,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -911,7 +911,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -1011,7 +1011,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -1028,7 +1028,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -1073,7 +1073,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -1090,7 +1090,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -1166,7 +1166,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -1183,7 +1183,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
@@ -1228,7 +1228,7 @@ exports[`snapshots empty, readonly 1`] = `
                     "display": "inline-block",
                     "height": 20,
                     "marginBottom": 1,
-                    "paddingTop": 5,
+                    "paddingTop": 4,
                     "position": "relative",
                     "width": "100%",
                   }
@@ -1245,7 +1245,7 @@ exports[`snapshots empty, readonly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
+                        "height": 5,
                         "left": "0%",
                         "position": "absolute",
                         "width": "0%",
