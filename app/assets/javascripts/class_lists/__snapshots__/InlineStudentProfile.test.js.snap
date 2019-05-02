@@ -19,21 +19,50 @@ exports[`snapshots 1`] = `
       }
     }
   >
-    <a
-      href="/students/1"
-      rel="noopener noreferrer"
+    <div
       style={
         Object {
-          "fontSize": 24,
-          "fontWeight": "bold",
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "flex-start",
         }
       }
-      target="_blank"
     >
-      Garfield
-       
-      Skywalker
-    </a>
+      <div
+        className="StudentPhotoCropped"
+        style={
+          Object {
+            "backgroundColor": "#ddd",
+            "backgroundImage": "url(/students/1/photo)",
+            "backgroundPosition": "center top",
+            "backgroundPositionY": -10,
+            "backgroundRepeat": "no-repeat",
+            "backgroundSize": "150%",
+            "border": "1px solid #ddd",
+            "borderRadius": 3,
+            "height": 58,
+            "marginRight": 10,
+            "overflow": "hidden",
+            "width": 58,
+          }
+        }
+      />
+      <a
+        href="/students/1"
+        rel="noopener noreferrer"
+        style={
+          Object {
+            "fontSize": 24,
+            "fontWeight": "bold",
+          }
+        }
+        target="_blank"
+      >
+        Garfield
+         
+        Skywalker
+      </a>
+    </div>
     <a
       href="/students/1"
       rel="noopener noreferrer"
@@ -54,10 +83,30 @@ exports[`snapshots 1`] = `
       style={
         Object {
           "fontSize": 12,
-          "marginTop": 20,
+          "marginTop": 10,
         }
       }
     >
+      <div
+        className="SectionHeading"
+        style={
+          Object {
+            "borderBottom": "1px solid #333",
+            "padding": 10,
+          }
+        }
+      >
+        <h4
+          style={
+            Object {
+              "color": "black",
+              "display": "inline",
+            }
+          }
+        >
+          Equity checks
+        </h4>
+      </div>
       <div
         style={
           Object {
