@@ -195,5 +195,6 @@ Rails.application.routes.draw do
 
   # counselor meeting
   get '/counselor_notes' =>'ui#ui'
-
+  post '/api/counselor_notes' => 'counselor_notes#create'
+  patch '/api/counselor_notes/:id' => 'counselor_notes#update'
 end

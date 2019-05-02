@@ -14,6 +14,7 @@ import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
 import {SeriousButton} from '../components/Button';
+import {apiPostJson} from '../helpers/apiFetchJson';
 
 
 export default class MyStudentsPage extends React.Component {
@@ -82,6 +83,15 @@ export class MyStudentsPageView extends React.Component {
       : sortedRows;
   }
 
+  TellServer(studentId, eventNoteParams) {
+    return apiPostJson('/api/counselor_notes', {
+      counselor_note: {
+        student_name: "Steve Jobs",
+        date_info: "May 2, 2019 1:15 PM"
+      }
+    });
+  }  
+
   onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
     if (sortBy === this.state.sortBy) {
       const oppositeSortDirection = (this.state.sortDirection == SortDirection.DESC)
@@ -114,12 +124,12 @@ export class MyStudentsPageView extends React.Component {
             <button
               style={styles.incrementButton}
               onClick={() => alert("Let's make a car")}>
-              Delete a car
+              Hi
             </button>
             <button
               style={styles.incrementButton}
-              onClick={() => tellserver("save")(1)}>
-              Hit me
+              onClick={() => this.TellServer("save")}>
+              Click
             </button>
           </div>
         </div>
