@@ -55,6 +55,11 @@ export class ClassListsViewPageView extends React.Component {
     window.location.href = Routes.newClassList();
   }
 
+  onViewClicked(href, e) {
+    e.preventDefault();
+    window.location.href = href;
+  }
+
   render() {
     return (
       <div>
@@ -65,7 +70,7 @@ export class ClassListsViewPageView extends React.Component {
   }
 
   renderTable() {
-    const {workspaces, useTextLinks, currentEducatorId} = this.props;
+    const {workspaces, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
     const sortedWorkspaces = _.orderBy(workspaces, workspace => {
@@ -77,6 +82,7 @@ export class ClassListsViewPageView extends React.Component {
       ];
     });
 
+    const cell = {...tableStyles.cell, verticalAlign: 'middle'};
     return (
       <div>
         <div style={{marginLeft: 10}}>{this.renderNewButton()}</div>
@@ -100,32 +106,29 @@ export class ClassListsViewPageView extends React.Component {
               : {};
             return (
               <tr key={workspace.workspace_id}>
-                <td style={tableStyles.cell}><School {...classList.school} /></td>
-                <td style={tableStyles.cell}>
+                <td style={cell}><School {...classList.school} /></td>
+                <td style={cell}>
                   {gradeText(classList.grade_level_next_year)}
                 </td>
-                <td style={tableStyles.cell}>
+                <td style={cell}>
                   {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text) !== -1
                     ? <span style={{color: '#aaa'}}>{classList.list_type_text}</span>
                     : classList.list_type_text
                   }
                 </td>
-                <td style={tableStyles.cell}>
+                <td style={cell}>
                   <Educator educator={classList.created_by_teacher_educator} style={educatorStyle} />
                 </td>
-                <td style={tableStyles.cell} title={`Revisions: ${workspace.revisions_count}`}>
+                <td style={cell} title={`Revisions: ${workspace.revisions_count}`}>
                   {createdAtMoment.format('dddd M/D, h:mma')}
                 </td>
-                <td style={tableStyles.cell}>
+                <td style={cell}>
                   {classList.submitted 
                     ? <SuccessLabel style={{padding: 5}} text="submitted" />
                     : 'in progress'}
                 </td>
-                <td style={tableStyles.cell}>
-                  {useTextLinks
-                    ? <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}/text`}>view text</a>
-                    : <a style={{padding: 10}} href={`/classlists/${classList.workspace_id}`}>view</a>
-                  }
+                <td style={{...cell, padding: 5}}>
+                  {this.renderViewButton(classList.workspace_id)}
                 </td>
               </tr>
             );
@@ -137,6 +140,21 @@ export class ClassListsViewPageView extends React.Component {
 
   renderNewButton() {
     return <Button style={styles.newButton} onClick={this.onNewClicked}>New list</Button>;
+  }
+
+  renderViewButton(workspaceId) {
+    const {useTextLinks} = this.props;
+    const {text, href} = (useTextLinks)
+      ? {text: 'view text', href: `/classlists/${workspaceId}/text`}
+      : {text: 'view', href: `/classlists/${workspaceId}`};
+    
+    return (
+      <Button
+        style={styles.openButton}
+        onClick={this.onViewClicked.bind(this, href)}
+      >{text}
+      </Button>
+    );
   }
 
   renderOverview() {
@@ -181,5 +199,11 @@ const styles = {
   },
   p: {
     marginBottom: 10
+  },
+  openButton: {
+
+  },
+  openLink: {
+    color: 'white'
   }
 };

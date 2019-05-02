@@ -460,7 +460,7 @@ const styles = {
     flexDirection: 'column'
   },
   horizontalStepperExpanded: {
-    
+    height: 'auto'
   },
   horizontalStepperContent: {
     borderTop: '1px solid #ccc',
