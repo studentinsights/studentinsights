@@ -13,11 +13,9 @@ import SectionHeading from '../components/SectionHeading';
 import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
+import {SeriousButton} from '../components/Button';
 
 
-// Shows a list of students for the educator.  Intended as a directory
-// for navigation, showing everything that's in the student searchbar all at once.
-// This isn't for doing analysis or looking at data.
 export default class MyStudentsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -96,12 +94,41 @@ export class MyStudentsPageView extends React.Component {
   }
 
   render() {
-    const {districtKey} = this.context;
-    const {students} = this.props;
-
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
         <SectionHeading>My students</SectionHeading>
+        {this.renderMakeACar()}
+      </div>
+    );
+  }
+
+  renderMakeACar() {  
+    return (
+      <div key="make-a-car" style={styles.stepContent}>
+        <div>
+          <div style={styles.heading}>What do you want to do?
+          </div>
+        </div>
+        <div>
+          <div style={{marginLeft: 5, display: 'inline-block'}}>
+            <button
+              style={styles.incrementButton}
+              onClick={() => alert("Let's make a car")}>
+              Delete a car
+            </button>
+            <button
+              style={styles.incrementButton}
+              onClick={() => tellserver("save")(1)}>
+              Hit me
+            </button>
+          </div>
+        </div>
+        <div>
+          <div style={styles.heading}>What's your plan for creating a car?</div>
+          <div style={{fontSize: 12, padding: 10, paddingLeft: 0, paddingTop: 3}}>
+            Some people have no idea what to do while others do.
+          </div>
+        </div>
       </div>
     );
   }
