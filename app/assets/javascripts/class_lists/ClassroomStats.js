@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
+import qs from 'query-string';
 import Hover from '../components/Hover';
 import Stack from '../components/Stack';
 import BoxAndWhisker from '../components/BoxAndWhisker';
@@ -56,6 +57,10 @@ export default class ClassroomStats extends React.Component {
     // Show different academic indicators by grade level.  STAR starts in 2nd grade.
     const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
     const showDibels = !showStar;
+    const queryParams = qs.parse(window.location.search.slice(1));
+    const showDiscipline = _.has(queryParams, 'discipline');
+    const showDiversity = !showDiscipline;
+
     return (
       <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
         <div style={styles.overlayMask}>
@@ -83,10 +88,15 @@ export default class ClassroomStats extends React.Component {
                   columnHighlightKey: HighlightKeys.LOW_INCOME,
                   title: 'Students whose are enrolled in the free or reduced lunch program.'
                 })}
-                {this.renderHeaderCell({
+                {showDiscipline && this.renderHeaderCell({
                   label: 'Discipline, 3+',
                   columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
                   title: 'Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
+                })}
+                {showDiversity && this.renderHeaderCell({
+                  label: 'Diversity',
+                  columnHighlightKey: HighlightKeys.DIVERSITY_BREAKDOWN,
+                  title: 'Students' who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
                 })}
                 {showDibels && this.renderHeaderCell({
                   label: 'Dibels CORE',
@@ -96,12 +106,12 @@ export default class ClassroomStats extends React.Component {
                 {showStar && this.renderHeaderCell({
                   label: 'STAR Math',
                   columnHighlightKey: HighlightKeys.STAR_MATH,
-                  title: 'A boxplot showing the range of students\' latest STAR Math percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile.'
+                  title: 'Students\' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile.'
                 })}
                 {showStar && this.renderHeaderCell({
                   label: 'STAR Reading',
                   columnHighlightKey: HighlightKeys.STAR_READING,
-                  title: 'A boxplot showing the range of students\' latest STAR Reading percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile.'
+                  title: 'Students\' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile.'
                 })}
                 <th style={{...styles.cell, width: 50}}>Total</th>
               </tr>
@@ -428,4 +438,3 @@ const styles = {
     opacity: 0.1,
   }
 };
-
