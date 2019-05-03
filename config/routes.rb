@@ -188,6 +188,7 @@ Rails.application.routes.draw do
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
       get 'equity/explore' => 'ui#ui'
+      get 'equity/quilts' => 'ui#ui'
       get 'reading/:grade/entry' => 'ui#ui'
       get 'reading/:grade/groups' => 'ui#ui'
     end
