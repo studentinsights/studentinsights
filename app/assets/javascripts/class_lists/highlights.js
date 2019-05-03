@@ -1,3 +1,4 @@
+import React from 'react';
 import _ from 'lodash';
 import chroma from 'chroma-js';
 import {
@@ -9,6 +10,11 @@ import {
   HighlightKeys,
   starBucket
 } from './studentFilters';
+import {
+  DIVERSITY_GROUPS,
+  diversityGroupKey,
+  diversityColor
+} from './diversityGroups';
 import {
   high,
   medium,
@@ -38,6 +44,7 @@ const highlightFns = {
   [HighlightKeys.STAR_MATH]: student => starStyles(student.most_recent_star_math_percentile),
   [HighlightKeys.STAR_READING]: student => starStyles(student.most_recent_star_reading_percentile),
   [HighlightKeys.DIBELS]: student => dibelsStyles(student.latest_dibels),
+  [HighlightKeys.DIVERSITY_GROUP]: student => diversityGroupStyles(student),
   [HighlightKeys.GENDER]: student => {
     const backgroundColor = genderColor(student.gender);
     return {backgroundColor};
@@ -52,8 +59,25 @@ const valueFns = {
   [HighlightKeys.STAR_MATH]: student => starBucket(student.most_recent_star_math_percentile),
   [HighlightKeys.STAR_READING]: student => starBucket(student.most_recent_star_reading_percentile),
   [HighlightKeys.DIBELS]: student => student.latest_dibels ? student.latest_dibels.benchmark : 'none',
-  [HighlightKeys.GENDER]: student => student.gender,
+  [HighlightKeys.DIVERSITY_GROUP]: student => renderDiversityGroupName(student),
+  [HighlightKeys.GENDER]: student => student.gender
 };
+
+function renderDiversityGroupName(student) {
+  const key = diversityGroupKey(student);
+  const group = _.find(DIVERSITY_GROUPS, {key});
+  return (
+    <div title={group.description}>
+      <div>{group.text}</div>
+      <div>{student.race} and {student.hispanic_latino ? 'Hispanic' : 'not Hispanic'}</div>
+    </div>
+  );
+}
+
+function diversityGroupStyles(student) {
+  const backgroundColor = diversityColor(diversityGroupKey(student));
+  return {backgroundColor};
+}
 
 // Perform color operation for STAR percentile scores, calling out high and low only
 // Missing scores aren't called out.

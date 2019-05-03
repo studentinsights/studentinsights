@@ -236,7 +236,23 @@ exports[`snapshots empty, readonly 1`] = `
                   "verticalAlign": "top",
                 }
               }
-              title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile."
+              title="Students broken down by aspects of how they describe their racial and ethnic identity.  The categories include:
+
+“black”
+Any identification as black or African-American, including mixed race.
+shown as pink
+
+“white”
+Identification as only white or Caucasian, excluding mixed race, excluding Hispanic.
+shown as blue
+
+“Latinx”
+Identification as Hispanic but not “white” or black as above.
+shown as orange
+
+“Other identities”
+Other identities (eg, Asian, Native, mixed race).
+shown as purple"
             >
               <div
                 className="Hover"
@@ -257,7 +273,7 @@ exports[`snapshots empty, readonly 1`] = `
                   }
                 />
               </div>
-              Discipline, 3+
+              Diversity
             </th>
             <th
               onClick={[Function]}
@@ -553,55 +569,24 @@ exports[`snapshots empty, readonly 1`] = `
               }
             >
               <div
+                className="BreakdownBar"
                 style={
                   Object {
-                    "color": "black",
-                    "cursor": "default",
-                    "display": "inline-block",
-                    "height": 20,
-                    "marginBottom": 1,
-                    "paddingTop": 5,
-                    "position": "relative",
-                    "width": "100%",
+                    "height": 5,
+                    "paddingRight": 10,
+                    "paddingTop": 4,
                   }
                 }
               >
                 <div
                   style={
                     Object {
+                      "height": 5,
+                      "position": "relative",
                       "width": "100%",
                     }
                   }
-                >
-                  <div
-                    style={
-                      Object {
-                        "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "flex-end",
-                        "display": "flex",
-                        "fontSize": 12,
-                        "height": "100%",
-                        "justifyContent": "flex-end",
-                        "left": 14,
-                        "position": "relative",
-                        "top": -6,
-                        "width": "0%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                </div>
+                />
               </div>
             </td>
             <td
@@ -887,55 +872,24 @@ exports[`snapshots empty, readonly 1`] = `
               }
             >
               <div
+                className="BreakdownBar"
                 style={
                   Object {
-                    "color": "black",
-                    "cursor": "default",
-                    "display": "inline-block",
-                    "height": 20,
-                    "marginBottom": 1,
-                    "paddingTop": 5,
-                    "position": "relative",
-                    "width": "100%",
+                    "height": 5,
+                    "paddingRight": 10,
+                    "paddingTop": 4,
                   }
                 }
               >
                 <div
                   style={
                     Object {
+                      "height": 5,
+                      "position": "relative",
                       "width": "100%",
                     }
                   }
-                >
-                  <div
-                    style={
-                      Object {
-                        "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "flex-end",
-                        "display": "flex",
-                        "fontSize": 12,
-                        "height": "100%",
-                        "justifyContent": "flex-end",
-                        "left": 14,
-                        "position": "relative",
-                        "top": -6,
-                        "width": "0%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                </div>
+                />
               </div>
             </td>
             <td
@@ -1221,55 +1175,24 @@ exports[`snapshots empty, readonly 1`] = `
               }
             >
               <div
+                className="BreakdownBar"
                 style={
                   Object {
-                    "color": "black",
-                    "cursor": "default",
-                    "display": "inline-block",
-                    "height": 20,
-                    "marginBottom": 1,
-                    "paddingTop": 5,
-                    "position": "relative",
-                    "width": "100%",
+                    "height": 5,
+                    "paddingRight": 10,
+                    "paddingTop": 4,
                   }
                 }
               >
                 <div
                   style={
                     Object {
+                      "height": 5,
+                      "position": "relative",
                       "width": "100%",
                     }
                   }
-                >
-                  <div
-                    style={
-                      Object {
-                        "backgroundColor": "rgb(137, 175, 202)",
-                        "height": 3,
-                        "left": "0%",
-                        "position": "absolute",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                  <div
-                    style={
-                      Object {
-                        "alignItems": "flex-end",
-                        "display": "flex",
-                        "fontSize": 12,
-                        "height": "100%",
-                        "justifyContent": "flex-end",
-                        "left": 14,
-                        "position": "relative",
-                        "top": -6,
-                        "width": "0%",
-                      }
-                    }
-                  >
-                     
-                  </div>
-                </div>
+                />
               </div>
             </td>
             <td

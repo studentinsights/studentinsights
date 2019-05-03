@@ -50,3 +50,8 @@ export function gradeText(grade) {
 export function allGrades() {
   return Object.keys(ORDERED_GRADES);
 }
+
+export function nextGrade(grade) {
+  const grades = allGrades();
+  return grades[grades.indexOf(grade) + 1];
+}
