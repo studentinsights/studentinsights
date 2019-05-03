@@ -34,7 +34,7 @@ export default class ExploreSchoolEquityPage extends React.Component {
   }
 
   renderBreakdown(json) {
-    return <ExploreClassroomComparisons students={json.students} school={json.school} />
+    return <ExploreClassroomComparisons students={json.students} school={json.school} />;
   }
 }
 
