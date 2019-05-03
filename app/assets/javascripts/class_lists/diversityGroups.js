@@ -4,15 +4,7 @@ import _ from 'lodash';
 // about what they thought would be most important for teaching teams to consider
 // as they're creating class lists.
 //
-/*
-Students broken down by aspects of how they describe their racial
-and ethnic identity.  The categories include: 
-- "Black" (any identification as black or African-American, including mixed race)
-- "White" (identification as only white or Caucasian, excluding mixed race, excluding Hispanic)
-- "Latinx" (identifying as Hispanic but not white or black as above)
-- "Other identities" (eg, Asian, Native, mixed race)
-*/
-export const DiversityGroupKeys = {
+const DiversityGroupKeys = {
   BLACK: 'BLACK',
   WHITE: 'WHITE',
   LATINX: 'LATINX',
@@ -42,20 +34,6 @@ export function diversityGroupKey(student) {
   return DiversityGroupKeys.OTHER_IDENTITIES;
 }
 
-
-// “black” in green
-// (any identification as black or African-American, including mixed race)
-// - “white” in purple (identification as only white or Caucasian, excluding mixed race, excluding hispanic)
-// - “Latinx“ in red (identifying as hispanic but not white or black as above)
-// - “Other identities“ in yellow (eg, Asian, Native, mixed race)`;
-
-// #e66101
-// #fdb863
-
-// #7b3294
-// #c2a5cf
-// #a6dba0
-// #008837
 // For encoding one framing of racial and ethnic identity
 export const DIVERSITY_GROUPS = [{
   key: DiversityGroupKeys.BLACK,
@@ -86,4 +64,38 @@ export const DIVERSITY_GROUPS = [{
 
 export function diversityColor(diversityGroupKey) {
   return _.find(DIVERSITY_GROUPS, {key: diversityGroupKey}).color;
+}
+
+export function itemsForDiversityBreakdown(studentsInRoom) {
+  const counts = {
+    [DiversityGroupKeys.BLACK]: 0,
+    [DiversityGroupKeys.WHITE]: 0,
+    [DiversityGroupKeys.LATINX]: 0,
+    [DiversityGroupKeys.OTHER_IDENTITIES]: 0
+  };
+  studentsInRoom.forEach(student => {
+    const key = diversityGroupKey(student);
+    counts[key] = counts[key] + 1;
+  });
+  return [{
+    color: diversityColor(DiversityGroupKeys.BLACK),
+    key: DiversityGroupKeys.BLACK,
+    left: 0,
+    width: counts[DiversityGroupKeys.BLACK]
+  }, {
+    color: diversityColor(DiversityGroupKeys.WHITE),
+    key: DiversityGroupKeys.WHITE,
+    left: counts[DiversityGroupKeys.BLACK],
+    width: counts[DiversityGroupKeys.WHITE]
+  }, {
+    color: diversityColor(DiversityGroupKeys.LATINX),
+    key: DiversityGroupKeys.LATINX,
+    left: (counts[DiversityGroupKeys.BLACK] + counts[DiversityGroupKeys.WHITE]),
+    width: counts[DiversityGroupKeys.LATINX]
+  }, {
+    color: diversityColor(DiversityGroupKeys.OTHER_IDENTITIES),
+    key: DiversityGroupKeys.OTHER_IDENTITIES,
+    left: (counts[DiversityGroupKeys.BLACK] + counts[DiversityGroupKeys.WHITE] + counts[DiversityGroupKeys.LATINX]),
+    width: counts[DiversityGroupKeys.OTHER_IDENTITIES]
+  }];
 }

@@ -19,9 +19,7 @@ import {
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
   DIVERSITY_GROUPS,
-  DiversityGroupKeys,
-  diversityGroupKey,
-  diversityColor
+  itemsForDiversityBreakdown
 } from './diversityGroups';
 import {
   isLimitedOrFlep,
@@ -166,38 +164,8 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderDiversityBreakdown(studentsInRoom) {
-    const students = studentsInRoom;
-    const counts = {
-      [DiversityGroupKeys.BLACK]: 0,
-      [DiversityGroupKeys.WHITE]: 0,
-      [DiversityGroupKeys.LATINX]: 0,
-      [DiversityGroupKeys.OTHER_IDENTITIES]: 0
-    };
-    students.forEach(student => {
-      const key = diversityGroupKey(student);
-      counts[key] = counts[key] + 1;
-    });
-    return this.renderBreakdownBar([{
-      color: diversityColor(DiversityGroupKeys.BLACK),
-      key: DiversityGroupKeys.BLACK,
-      left: 0,
-      width: counts[DiversityGroupKeys.BLACK]
-    }, {
-      color: diversityColor(DiversityGroupKeys.WHITE),
-      key: DiversityGroupKeys.WHITE,
-      left: counts[DiversityGroupKeys.BLACK],
-      width: counts[DiversityGroupKeys.WHITE]
-    }, {
-      color: diversityColor(DiversityGroupKeys.LATINX),
-      key: DiversityGroupKeys.LATINX,
-      left: (counts[DiversityGroupKeys.BLACK] + counts[DiversityGroupKeys.WHITE]),
-      width: counts[DiversityGroupKeys.LATINX]
-    }, {
-      color: diversityColor(DiversityGroupKeys.OTHER_IDENTITIES),
-      key: DiversityGroupKeys.OTHER_IDENTITIES,
-      left: (counts[DiversityGroupKeys.BLACK] + counts[DiversityGroupKeys.WHITE] + counts[DiversityGroupKeys.LATINX]),
-      width: counts[DiversityGroupKeys.OTHER_IDENTITIES]
-    }]);
+    const items = itemsForDiversityBreakdown(studentsInRoom);
+    return this.renderBreakdownBar(items);
   }
 
   renderDibelsBreakdown(studentsInRoom) {
