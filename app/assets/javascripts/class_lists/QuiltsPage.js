@@ -3,12 +3,10 @@ import React from 'react';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
-import ExploreClassroomComparisons from './ExploreClassroomComparisons';
+import Quilts from './Quilts';
 
-// This is an internal-only page for exploring equity in classroom assignments for
-// the current classroom.  It's separate from the class list creator feature, but
-// shows similar data.
-export default class ExploreSchoolEquityPage extends React.Component {
+// This is an internal-only page for exploring equity in schools.
+export default class QuiltsPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +22,7 @@ export default class ExploreSchoolEquityPage extends React.Component {
 
   render() {
     return (
-      <div className="ExploreSchoolEquityPage">
+      <div className="QuiltsPage">
         <ExperimentalBanner />
         <GenericLoader
           promiseFn={this.fetchSchoolOverviewData}
@@ -34,10 +32,10 @@ export default class ExploreSchoolEquityPage extends React.Component {
   }
 
   renderBreakdown(json) {
-    return <ExploreClassroomComparisons students={json.students} school={json.school} />;
+    return <Quilts students={json.students} school={json.school} />;
   }
 }
 
-ExploreSchoolEquityPage.propTypes = {
+QuiltsPage.propTypes = {
   schoolId: PropTypes.string.isRequired
 };

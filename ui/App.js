@@ -22,6 +22,7 @@ import DashboardLoader from '../app/assets/javascripts/school_administrator_dash
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
+import QuiltsPage from '../app/assets/javascripts/class_lists/QuiltsPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
@@ -97,6 +98,7 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
         <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+        <Route exact path="/schools/:id/equity/quilts" render={this.renderQuiltsSchoolEquityPage.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/groups" render={this.renderReadingGroupingPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
@@ -183,6 +185,11 @@ export default class App extends React.Component {
   renderExploreSchoolEquityPage(routeProps) {
     const schoolId = routeProps.match.params.id;
     return <ExploreSchoolEquityPage schoolId={schoolId} />;
+  }
+
+  renderQuiltsSchoolEquityPage(routeProps) {
+    const schoolId = routeProps.match.params.id;
+    return <QuiltsPage schoolId={schoolId} />;
   }
 
   renderClassListsViewPage(routeProps) {
