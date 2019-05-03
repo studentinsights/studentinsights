@@ -50,14 +50,14 @@ export const DIVERSITY_GROUPS = [{
 }, {
   key: DiversityGroupKeys.LATINX,
   text: '“Latinx”',
-  color: '#decbe4',
-  colorText: 'purple',
+  color: '#fed9a6',
+  colorText: 'orange',
   description: 'Identification as Hispanic but not “white” or black as above.',
 }, {
   key: DiversityGroupKeys.OTHER_IDENTITIES,
   text: '“Other identities”',
-  color: '#fed9a6',
-  colorText: 'orange',
+  color: '#decbe4',
+  colorText: 'purple',
   description: 'Other identities (eg, Asian, Native, mixed race).'
 }];
 

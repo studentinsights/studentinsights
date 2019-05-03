@@ -141,8 +141,12 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
+                "alignItems": "center",
                 "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
                 "margin": 5,
+                "minHeight": "4em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -173,8 +177,12 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
+                "alignItems": "center",
                 "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
                 "margin": 5,
+                "minHeight": "4em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -205,8 +213,12 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
+                "alignItems": "center",
                 "backgroundColor": "rgba(81, 185, 86, 0.5)",
+                "display": "flex",
+                "justifyContent": "center",
                 "margin": 5,
+                "minHeight": "4em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -237,8 +249,12 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
+                "alignItems": "center",
                 "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
                 "margin": 5,
+                "minHeight": "4em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -262,20 +278,52 @@ exports[`snapshots 1`] = `
                 "paddingBottom": 0,
               }
             }
-            title="Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student's name to see more in their profile."
+            title="Students broken down by aspects of how they describe their racial and ethnic identity.  The categories include:
+
+“black”
+Any identification as black or African-American, including mixed race.
+shown as pink
+
+“white”
+Identification as only white or Caucasian, excluding mixed race, excluding Hispanic.
+shown as blue
+
+“Latinx”
+Identification as Hispanic but not “white” or black as above.
+shown as orange
+
+“Other identities”
+Other identities (eg, Asian, Native, mixed race).
+shown as purple"
           >
-            Discipline, 3+
+            Diversity
           </div>
           <div
             style={
               Object {
-                "backgroundColor": "white",
+                "alignItems": "center",
+                "backgroundColor": "#decbe4",
+                "display": "flex",
+                "justifyContent": "center",
                 "margin": 5,
+                "minHeight": "4em",
                 "padding": 5,
                 "textAlign": "center",
               }
             }
-          />
+          >
+            <div
+              title="Other identities (eg, Asian, Native, mixed race)."
+            >
+              <div>
+                “Other identities”
+              </div>
+              <div>
+                 and 
+                not Hispanic
+              </div>
+            </div>
+          </div>
         </div>
         <div
           style={
@@ -294,52 +342,26 @@ exports[`snapshots 1`] = `
                 "paddingBottom": 0,
               }
             }
-            title="A boxplot showing the range of students' latest STAR Math percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile."
+            title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red)."
           >
-            STAR Math
+            Dibels CORE
           </div>
           <div
             style={
               Object {
+                "alignItems": "center",
                 "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
                 "margin": 5,
+                "minHeight": "4em",
                 "padding": 5,
                 "textAlign": "center",
               }
             }
-          />
-        </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-              "flex": 1,
-              "flexDirection": "column",
-            }
-          }
-        >
-          <div
-            style={
-              Object {
-                "flex": 1,
-                "padding": 5,
-                "paddingBottom": 0,
-              }
-            }
-            title="A boxplot showing the range of students' latest STAR Reading percentile scores.  The number represents the median score.  When clicking, green represents students above the 70th percentile and red represents students below the 30th percentile."
           >
-            STAR Reading
+            none
           </div>
-          <div
-            style={
-              Object {
-                "backgroundColor": "white",
-                "margin": 5,
-                "padding": 5,
-                "textAlign": "center",
-              }
-            }
-          />
         </div>
       </div>
     </div>

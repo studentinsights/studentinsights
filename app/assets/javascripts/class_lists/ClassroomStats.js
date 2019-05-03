@@ -100,6 +100,7 @@ export default class ClassroomStats extends React.Component {
     const {onCategorySelected, highlightKey} = this.props;
     return (
       <th
+        key={label}
         style={{...styles.cell, ...styles.heading}}
         title={title}
         onClick={() => {

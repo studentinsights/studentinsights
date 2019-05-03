@@ -52,9 +52,9 @@ export default class InlineStudentProfile extends React.Component {
     const {label, columnHighlightKey, title} = params;
     const highlightStyle = highlightStyleForKey(student, columnHighlightKey);
     return (
-      <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
-        <div style={{flex: 1, padding: 5, paddingBottom: 0}} title={title}>{label}</div>
-        <div style={{minHeight: '4em', margin: 5, padding: 5, display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', ...highlightStyle}}>
+      <div key={label} style={styles.equityCheck}>
+        <div style={styles.equityCheckLabel} title={title}>{label}</div>
+        <div style={{...styles.equityCheckValue, ...highlightStyle}}>
           {userFacingValueForKey(student, columnHighlightKey)}
         </div>
       </div>
@@ -91,14 +91,24 @@ const styles = {
   },
   column: {
   },
-  header: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 5
-  },
-  card: {
+  equityCheck: {
     flex: 1,
-    margin: 5
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  equityCheckLabel: {
+    flex: 1,
+    padding: 5,
+    paddingBottom: 0
+  },
+  equityCheckValue: {
+    minHeight: '4em',
+    margin: 5,
+    padding: 5,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
   },
   feed: {
     paddingTop: 20
