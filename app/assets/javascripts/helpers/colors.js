@@ -1,4 +1,4 @@
-import chroma from 'chromajs';
+import chroma from 'chroma-js';
 
 // Themey colors
 export const selection = 'rgb(255, 204, 138)';
@@ -20,14 +20,3 @@ export function genderColor(gender) {
 export const high = chroma('green').alpha(0.5).css();
 export const medium = chroma('darkorange').alpha(0.6).css();
 export const low = chroma('red').alpha(0.5).css();
-
-// For encoding one framing of racial and ethnic identity as a color
-export const black = 'rgba(41, 159, 197, 0.5)';
-export const white = 'rgba(224, 99, 120, 0.5)';
-export const latinx = 'rgba(81, 185, 86, 0.5)';
-export const other = 'rgb(137, 175, 202)';
-// export function diversityColor(gender) {
-//   if (gender === 'M') return male;
-//   if (gender === 'F') return female;
-//   return nonBinary;
-// }

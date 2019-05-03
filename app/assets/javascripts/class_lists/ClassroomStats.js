@@ -4,7 +4,6 @@ import _ from 'lodash';
 import qs from 'query-string';
 import Hover from '../components/Hover';
 import Stack from '../components/Stack';
-import BoxAndWhisker from '../components/BoxAndWhisker';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
 import BreakdownBar from '../components/BreakdownBar';
 import {
@@ -18,6 +17,12 @@ import {
   nonBinary
 } from '../helpers/colors';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
+import {
+  DIVERSITY_GROUPS,
+  DiversityGroupKeys,
+  diversityGroupKey,
+  diversityColor
+} from './diversityGroups';
 import {
   isLimitedOrFlep,
   isIepOr504,
@@ -37,10 +42,6 @@ export default class ClassroomStats extends React.Component {
     this.onKeyPress = this.onKeyPress.bind(this);
   }
 
-  isFlagSet(flagKey) {
-    return (window.location.search.indexOf(flagKey) !== -1);
-  }
-
   studentsInRoom(room) {
     const {students, studentIdsByRoom} = this.props;
     return studentsInRoom(students, studentIdsByRoom, room.roomKey);
@@ -54,13 +55,8 @@ export default class ClassroomStats extends React.Component {
   render() {
     const {rooms, gradeLevelNextYear} = this.props;
 
-    // Show different academic indicators by grade level.  STAR starts in 2nd grade.
-    const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
-    const showDibels = !showStar;
-    const queryParams = qs.parse(window.location.search.slice(1));
-    const showDiscipline = _.has(queryParams, 'discipline');
-    const showDiversity = !showDiscipline;
-
+    const flags = equityCheckFlags(gradeLevelNextYear);
+    const {showDiscipline, showDiversity, showDibels, showStar} = flags;
     return (
       <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
         <div style={styles.overlayMask}>
@@ -68,51 +64,7 @@ export default class ClassroomStats extends React.Component {
             <thead>
               <tr>
                 <th style={styles.cell}></th>
-                {this.renderHeaderCell({
-                  label: 'IEP or 504',
-                  columnHighlightKey: HighlightKeys.IEP_OR_504,
-                  title: 'Students who have an IEP or 504 plan.'
-                })}
-                {this.renderHeaderCell({
-                  label: 'Limited or FLEP',
-                  columnHighlightKey: HighlightKeys.LIMITED_OR_FLEP,
-                  title: 'Students receiving English Learning Services or who have in the past (FLEP).'
-                })}
-                {this.renderHeaderCell({
-                  label: 'Gender identity',
-                  columnHighlightKey: HighlightKeys.GENDER,
-                  title: 'Students broken down by whether they identify their gender as male, female or nonbinary.'
-                })}
-                {this.renderHeaderCell({
-                  label: 'Reduced lunch',
-                  columnHighlightKey: HighlightKeys.LOW_INCOME,
-                  title: 'Students whose are enrolled in the free or reduced lunch program.'
-                })}
-                {showDiscipline && this.renderHeaderCell({
-                  label: 'Discipline, 3+',
-                  columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
-                  title: 'Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
-                })}
-                {showDiversity && this.renderHeaderCell({
-                  label: 'Diversity',
-                  columnHighlightKey: HighlightKeys.DIVERSITY_BREAKDOWN,
-                  title: 'Students broken down by aspects of how they describe their racial and ethnic identity.  The categories include "Black" (any identification a black or African-American, including mixed race), "White" (identification as only white or Caucasian, excluding mixed race, excluding hispanic), "Latinx" (identifying as hispanic but not white or black as above) and "Other identities" (eg, Asian, Native, mixed race)'
-                })}
-                {showDibels && this.renderHeaderCell({
-                  label: 'Dibels CORE',
-                  columnHighlightKey: HighlightKeys.DIBELS,
-                  title: 'Students\' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red).'
-                })}
-                {showStar && this.renderHeaderCell({
-                  label: 'STAR Math',
-                  columnHighlightKey: HighlightKeys.STAR_MATH,
-                  title: 'Students\' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile.'
-                })}
-                {showStar && this.renderHeaderCell({
-                  label: 'STAR Reading',
-                  columnHighlightKey: HighlightKeys.STAR_READING,
-                  title: 'Students\' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile.'
-                })}
+                {_.compact(equityChecks(flags)).map(equityCheck => this.renderHeaderCell(equityCheck))}
                 <th style={{...styles.cell, width: 50}}>Total</th>
               </tr>
             </thead>
@@ -126,7 +78,8 @@ export default class ClassroomStats extends React.Component {
                     <td style={styles.cell}>{this.renderEnglishLearners(studentsInRoom)}</td>
                     <td style={styles.cell}>{this.renderGender(studentsInRoom)}</td>
                     <td style={styles.cell}>{this.renderLowIncome(studentsInRoom)}</td>
-                    <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>
+                    {showDiscipline && <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>}
+                    {showDiversity && <td style={styles.cell}>{this.renderDiversityBreakdown(studentsInRoom)}</td>}
                     {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
@@ -195,19 +148,11 @@ export default class ClassroomStats extends React.Component {
     const maleCount = studentsInRoom.filter(student => student.gender === 'M').length;
     const femaleCount = studentsInRoom.filter(student => student.gender === 'F').length;
     const nonBinaryCount = studentsInRoom.length - maleCount - femaleCount;
-    const items = [
+    return this.renderBreakdownBar([
       { left: 0, width: maleCount, color: male, key: 'male' },
       { left: maleCount, width: femaleCount, color: female, key: 'female' },
       { left: maleCount + femaleCount, width: nonBinaryCount, color: nonBinary, key: 'nonbinary' }
-    ];
-    return (
-      <BreakdownBar
-        items={items}
-        style={styles.breakdownBar}
-        innerStyle={styles.breakdownBarInner}
-        height={5}
-        labelTop={5} />
-    );
+    ]);
   }
 
   renderLowIncome(studentsInRoom) {
@@ -218,6 +163,41 @@ export default class ClassroomStats extends React.Component {
   renderDiscipline(studentsInRoom) {
     const count = studentsInRoom.filter(isHighDiscipline).length;
     return this.renderStackSimple(count);
+  }
+
+  renderDiversityBreakdown(studentsInRoom) {
+    const students = studentsInRoom;
+    const counts = {
+      [DiversityGroupKeys.BLACK]: 0,
+      [DiversityGroupKeys.WHITE]: 0,
+      [DiversityGroupKeys.LATINX]: 0,
+      [DiversityGroupKeys.OTHER_IDENTITIES]: 0
+    };
+    students.forEach(student => {
+      const key = diversityGroupKey(student);
+      counts[key] = counts[key] + 1;
+    });
+    return this.renderBreakdownBar([{
+      color: diversityColor(DiversityGroupKeys.BLACK),
+      key: DiversityGroupKeys.BLACK,
+      left: 0,
+      width: counts[DiversityGroupKeys.BLACK]
+    }, {
+      color: diversityColor(DiversityGroupKeys.WHITE),
+      key: DiversityGroupKeys.WHITE,
+      left: counts[DiversityGroupKeys.BLACK],
+      width: counts[DiversityGroupKeys.WHITE]
+    }, {
+      color: diversityColor(DiversityGroupKeys.LATINX),
+      key: DiversityGroupKeys.LATINX,
+      left: (counts[DiversityGroupKeys.BLACK] + counts[DiversityGroupKeys.WHITE]),
+      width: counts[DiversityGroupKeys.LATINX]
+    }, {
+      color: diversityColor(DiversityGroupKeys.OTHER_IDENTITIES),
+      key: DiversityGroupKeys.OTHER_IDENTITIES,
+      left: (counts[DiversityGroupKeys.BLACK] + counts[DiversityGroupKeys.WHITE] + counts[DiversityGroupKeys.LATINX]),
+      width: counts[DiversityGroupKeys.OTHER_IDENTITIES]
+    }]);
   }
 
   renderDibelsBreakdown(studentsInRoom) {
@@ -252,46 +232,18 @@ export default class ClassroomStats extends React.Component {
     return this.renderStar(studentsInRoom, student => student.most_recent_star_reading_percentile);
   }
 
-  renderStar(studentsInRoom, accessor) {
-    return (this.isFlagSet('box-and-whisker'))
-      ? this.renderStarWithBoxAndWhisker(studentsInRoom, accessor)
-      : this.renderStarWithBreakdown(studentsInRoom, accessor);
-  }
-
   // Ignore students without scores
-  renderStarWithBreakdown(studentsInRoom, accessor) {
+  renderStar(studentsInRoom, accessor) {
     const counts = _.countBy(studentsInRoom, student => starBucket(accessor(student)));
     const lowCount = counts.low || 0;
     const mediumCount = counts.medium || 0;
     const highCount = counts.high || 0;
 
-    const items = [
+    return this.renderBreakdownBar([
       { left: 0, width: highCount, color: high, key: 'high' },
       { left: highCount, width: mediumCount, color: medium, key: 'medium' },
       { left: highCount + mediumCount, width: lowCount, color: low, key: 'low' }
-    ];
-    return (
-      <BreakdownBar
-        items={items}
-        style={styles.breakdownBar}
-        innerStyle={styles.breakdownBarInner}
-        height={5}
-        labelTop={5} />
-    );
-  }
-
-  renderStarWithBoxAndWhisker(studentsInRoom, accessor) {
-    const values = _.compact(studentsInRoom.map(accessor));
-    return (
-      <div>
-        {(values.length === 0)
-          ? null
-          : <BoxAndWhisker
-              values={values}
-              style={styles.boxAndWhisker}
-              labelStyle={styles.boxAndWhiskerLabel} />}
-      </div>
-    );
+    ]);
   }
 
   // This uses <Stack /> in a way different than intended, where it only
@@ -310,6 +262,17 @@ export default class ClassroomStats extends React.Component {
         labelStyle={styles.stackLabelStyle}
         scaleFn={count => count / scaleTuningFactor}
         labelFn={this.renderLabelFn} />
+    );
+  }
+
+  renderBreakdownBar(items) {
+    return (
+      <BreakdownBar
+        items={items}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
+        height={5}
+        labelTop={5} />
     );
   }
 
@@ -438,3 +401,68 @@ const styles = {
     opacity: 0.1,
   }
 };
+
+
+export function equityChecks(flags = {}) {
+  const {showDiscipline, showDiversity, showDibels, showStar} = flags;
+
+  return [{
+    label: 'IEP or 504',
+    columnHighlightKey: HighlightKeys.IEP_OR_504,
+    title: 'Students who have an IEP or 504 plan.'
+  }, {
+    label: 'Limited or FLEP',
+    columnHighlightKey: HighlightKeys.LIMITED_OR_FLEP,
+    title: 'Students receiving English Learning Services or who have in the past (FLEP).'
+  }, {
+    label: 'Gender identity',
+    columnHighlightKey: HighlightKeys.GENDER,
+    title: 'Students broken down by whether they identify their gender as male, female or nonbinary.'
+  }, {
+    label: 'Reduced lunch',
+    columnHighlightKey: HighlightKeys.LOW_INCOME,
+    title: 'Students whose are enrolled in the free or reduced lunch program.'
+  }, showDiscipline && {
+    label: 'Discipline, 3+',
+    columnHighlightKey: HighlightKeys.HIGH_DISCIPLINE,
+    title: 'Students who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
+  }, showDiversity && {
+    label: 'Diversity',
+    columnHighlightKey: HighlightKeys.DIVERSITY_GROUP,
+    title: diversityGroupTitle()
+  }, showDibels && {
+    label: 'Dibels CORE',
+    columnHighlightKey: HighlightKeys.DIBELS,
+    title: 'Students\' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red).'
+  }, showStar && {
+    label: 'STAR Math',
+    columnHighlightKey: HighlightKeys.STAR_MATH,
+    title: 'Students\' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile.'
+  }, showStar && {
+    label: 'STAR Reading',
+    columnHighlightKey: HighlightKeys.STAR_READING,
+    title: 'Students\' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile.'
+  }];
+}
+
+// Show different academic indicators by grade level.  STAR starts in 2nd grade.
+export function equityCheckFlags(gradeLevelNextYear) {
+  const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
+  const showDibels = !showStar;
+  const queryParams = qs.parse(window.location.search.slice(1));
+  const showDiscipline = _.has(queryParams, 'discipline');
+  const showDiversity = !showDiscipline;
+  return {
+    showStar,
+    showDibels,
+    queryParams,
+    showDiscipline,
+    showDiversity
+  };
+}
+
+function diversityGroupTitle() {
+  const categories = DIVERSITY_GROUPS.map(group => `\n\n${group.text}\n${group.description}\nshown as ${group.colorText}`).join('');
+  return `Students broken down by aspects of how they describe their racial and ethnic identity.  The categories include:${categories}`;
+}
+
