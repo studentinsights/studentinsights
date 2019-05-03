@@ -96,7 +96,7 @@ export default class ClassroomStats extends React.Component {
                 {showDiversity && this.renderHeaderCell({
                   label: 'Diversity',
                   columnHighlightKey: HighlightKeys.DIVERSITY_BREAKDOWN,
-                  title: 'Students' who had three or more discipline incidents of any kind during this past school year.  Discipline incidents vary in severity; click on the student\'s name to see more in their profile.'
+                  title: 'Students broken down by aspects of how they describe their racial and ethnic identity.  The categories include "Black" (any identification a black or African-American, including mixed race), "White" (identification as only white or Caucasian, excluding mixed race, excluding hispanic), "Latinx" (identifying as hispanic but not white or black as above) and "Other identities" (eg, Asian, Native, mixed race)'
                 })}
                 {showDibels && this.renderHeaderCell({
                   label: 'Dibels CORE',
