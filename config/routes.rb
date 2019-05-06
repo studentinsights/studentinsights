@@ -195,5 +195,4 @@ Rails.application.routes.draw do
 
   # counselor meeting
   get '/counselor_notes' =>'ui#ui'
-
 end

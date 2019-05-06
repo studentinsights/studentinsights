@@ -13,12 +13,9 @@ import SectionHeading from '../components/SectionHeading';
 import HouseBadge from '../components/HouseBadge';
 import School from '../components/School';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
+import FilterStudentsBar from '../my_students/FilterStudentsBar';
 
-
-// Shows a list of students for the educator.  Intended as a directory
-// for navigation, showing everything that's in the student searchbar all at once.
-// This isn't for doing analysis or looking at data.
-export default class MyStudentsPage extends React.Component {
+export default class CounselorNotesPage extends React.Component {
   constructor(props) {
     super(props);
     this.fetchStudents = this.fetchStudents.bind(this);
@@ -36,7 +33,7 @@ export default class MyStudentsPage extends React.Component {
 
   render() {
     return (
-      <div className="MyStudentsPage" style={styles.flexVertical}>
+      <div className="CounselorNotesPage" style={styles.flexVertical}>
         <GenericLoader
           promiseFn={this.fetchStudents}
           style={styles.flexVertical}
@@ -47,12 +44,12 @@ export default class MyStudentsPage extends React.Component {
 
   renderStudents(json) {
     const {students} = json;
-    return <MyStudentsPageView students={students} />;
+    return <CounselorNotesPageView students={students} />;
   }
 }
 
 
-export class MyStudentsPageView extends React.Component {
+export class CounselorNotesPageView extends React.Component {
   constructor(props) {
     super(props);
     
@@ -101,7 +98,14 @@ export class MyStudentsPageView extends React.Component {
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
-        <SectionHeading>My students</SectionHeading>
+        <SectionHeading>Meetings 2019</SectionHeading>
+        <FilterStudentsBar
+          students={students}
+          style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
+          includeHouse={supportsHouse(districtKey)}
+          includeCounselor={supportsCounselor(districtKey)}>
+          {filteredStudents => this.renderTable(filteredStudents)}
+        </FilterStudentsBar>
       </div>
     );
   }
@@ -138,51 +142,52 @@ export class MyStudentsPageView extends React.Component {
               width={260}
             />
             <Column
-              label='School'
-              dataKey='school'
-              cellRenderer={this.renderSchool}
+              label='Last Seen'
+              dataKey='lastseen'
+              cellRenderer={this.renderLastSeen}
               width={160}
             />
             <Column
-              label='Grade'
-              dataKey='grade'
+              label='Meeting Date'
+              dataKey='meetingdate'
+              cellRenderer={this.renderCalendar}
               width={100}
             />
             <Column
-             label='Program'
-             dataKey='program'
-             cellRenderer={this.renderProgram}
-             width={150}
+              label=''
+              dataKey='arrows'
+              cellRenderer={this.renderArrow}
+              width={75}
             />
-            {supportsHouse(districtKey) &&
-              <Column
-                label='House'
-                dataKey='house'
-                cellRenderer={this.renderHouse}
-                width={120} />
-            }
-            {supportsCounselor(districtKey) && 
-              <Column
-                label='Counselor'
-                dataKey='counselor'
-                cellDataGetter={({rowData}) => maybeCapitalize(rowData.counselor)}
-                width={100}
-              />
-            }
-            {supportsSpedLiaison(districtKey) && 
-              <Column
-                label='SPED Liaison'
-                dataKey='sped_liaison'
-                cellDataGetter={({rowData}) => maybeCapitalize(rowData.sped_liaison)}
-                width={100}
-              />
-            }
+            
           </Table>
         )}
       </AutoSizer>
     );
   }
+  renderArrow(cellProps) {
+    return(
+      <div style={{display: "flex", justifyContent: "center"/*, color: "#3177c9"*/}}>
+        ▶
+      </div>
+    );
+  }
 
+  renderLastSeen(cellProps) {
+    return (
+      <div>
+        <div style={{height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#3177c9", borderRadius: "50%", display: "inline-block", float: "left"}}></div>
+        <div style={{fontSize: 14, float: "left", marginLeft: "15px"}}>30 days</div>
+      </div>
+    );
+  }
+  renderCalendar(cellProps){
+    return (
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <img style={{width: "25px", height: "25px"}} src="https://banner2.kisspng.com/20180403/xqq/kisspng-solar-calendar-symbol-computer-icons-encapsulated-calendar-icon-5ac41db876fe09.0405027315228021044874.jpg"></img>
+      </div>
+    );
+  }
   renderName(cellProps) {
     const student = cellProps.rowData;
     return (
@@ -213,10 +218,10 @@ export class MyStudentsPageView extends React.Component {
     return <div style={{marginRight: 10}}>{prettyProgramOrPlacementText(student)}</div>;
   }
 }
-MyStudentsPageView.contextTypes = {
+CounselorNotesPageView.contextTypes = {
   districtKey: PropTypes.string.isRequired
 };
-MyStudentsPageView.propTypes = {
+CounselorNotesPageView.propTypes = {
   students: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     first_name: PropTypes.string.isRequired,
@@ -247,6 +252,6 @@ const styles = {
   photo: {
     display: 'inline-block',
     marginLeft: 20,
-    marginRight: 20
+    marginRight: 40
   }
 };

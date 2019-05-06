@@ -68,6 +68,7 @@ export default class FilterStudentsBar extends React.Component {
           {this.renderGradeSelect()}
           {this.renderHouseSelect()}
           {this.renderCounselorSelect()}
+          {this.renderTimeRangeSelect()}
         </FilterBar>
         {children(filteredStudents)}
       </EscapeListener>
@@ -99,6 +100,19 @@ export default class FilterStudentsBar extends React.Component {
   }
 
   renderHouseSelect() {
+    const {students, includeHouse} = this.props;
+    if (!includeHouse) return null;
+
+    const {house} = this.state;
+    const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
+    return (
+      <SelectHouse
+        house={house}
+        houses={sortedHouses}
+        onChange={this.onHouseChanged} />
+    );
+  }
+  renderTimeRangeSelect() {
     const {students, includeHouse} = this.props;
     if (!includeHouse) return null;
 
