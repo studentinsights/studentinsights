@@ -126,13 +126,14 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    const {fetchProfile, isEditable, styleStudentFn} = this.props;
+    const {fetchProfile, gradeLevelNextYear, isEditable, styleStudentFn} = this.props;
     const {highlightKey} = this.state;
     return <StudentCard
       key={student.id}
       highlightKey={highlightKey}
       style={styleStudentFn && styleStudentFn(student)}
       student={student}
+      gradeLevelNextYear={gradeLevelNextYear}
       index={index}
       fetchProfile={fetchProfile}
       isEditable={isEditable} />;

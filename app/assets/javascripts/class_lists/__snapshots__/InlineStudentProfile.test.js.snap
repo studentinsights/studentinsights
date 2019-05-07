@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots 1`] = `
+exports[`snapshots for gradeLevelNextYear=2 1`] = `
 <div
   className="InlineStudentProfile"
   style={
@@ -362,6 +362,455 @@ shown as purple"
           >
             none
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "paddingTop": 20,
+          }
+        }
+      >
+        <div
+          className="SectionHeading"
+          style={
+            Object {
+              "borderBottom": "1px solid #333",
+              "padding": 10,
+            }
+          }
+        >
+          <h4
+            style={
+              Object {
+                "color": "black",
+                "display": "inline",
+              }
+            }
+          >
+            Notes for 
+            Garfield
+          </h4>
+        </div>
+        <div
+          style={
+            Object {
+              "padding": 10,
+            }
+          }
+        >
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`snapshots for gradeLevelNextYear=5 1`] = `
+<div
+  className="InlineStudentProfile"
+  style={
+    Object {
+      "fontSize": 14,
+      "margin": 20,
+    }
+  }
+>
+  <h4
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "flex-start",
+        }
+      }
+    >
+      <div
+        className="StudentPhotoCropped"
+        style={
+          Object {
+            "backgroundColor": "#ddd",
+            "backgroundImage": "url(/students/1/photo)",
+            "backgroundPosition": "center top",
+            "backgroundPositionY": -10,
+            "backgroundRepeat": "no-repeat",
+            "backgroundSize": "150%",
+            "border": "1px solid #ddd",
+            "borderRadius": 3,
+            "height": 58,
+            "marginRight": 10,
+            "overflow": "hidden",
+            "width": 58,
+          }
+        }
+      />
+      <a
+        href="/students/1"
+        rel="noopener noreferrer"
+        style={
+          Object {
+            "fontSize": 24,
+            "fontWeight": "bold",
+          }
+        }
+        target="_blank"
+      >
+        Garfield
+         
+        Skywalker
+      </a>
+    </div>
+    <a
+      href="/students/1"
+      rel="noopener noreferrer"
+      style={
+        Object {
+          "fontSize": 12,
+        }
+      }
+      target="_blank"
+    >
+      Open full profile
+    </a>
+  </h4>
+  <div
+    style={Object {}}
+  >
+    <div
+      style={
+        Object {
+          "fontSize": 12,
+          "marginTop": 10,
+        }
+      }
+    >
+      <div
+        className="SectionHeading"
+        style={
+          Object {
+            "borderBottom": "1px solid #333",
+            "padding": 10,
+          }
+        }
+      >
+        <h4
+          style={
+            Object {
+              "color": "black",
+              "display": "inline",
+            }
+          }
+        >
+          Equity checks
+        </h4>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "marginLeft": 10,
+            "marginRight": 10,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students who have an IEP or 504 plan."
+          >
+            IEP or 504
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students receiving English Learning Services or who have in the past (FLEP)."
+          >
+            Limited or FLEP
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students broken down by whether they identify their gender as male, female or nonbinary."
+          >
+            Gender identity
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(81, 185, 86, 0.5)",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students whose are enrolled in the free or reduced lunch program."
+          >
+            Reduced lunch
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students broken down by aspects of how they describe their racial and ethnic identity.  The categories include:
+
+“black”
+Any identification as black or African-American, including mixed race.
+shown as pink
+
+“white”
+Identification as only white or Caucasian, excluding mixed race, excluding Hispanic.
+shown as blue
+
+“Latinx”
+Identification as Hispanic but not “white” or black as above.
+shown as orange
+
+“Other identities”
+Other identities (eg, Asian, Native, mixed race).
+shown as purple"
+          >
+            Diversity
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#decbe4",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          >
+            <div
+              title="Other identities (eg, Asian, Native, mixed race)."
+            >
+              <div>
+                “Other identities”
+              </div>
+              <div>
+                 and 
+                not Hispanic
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile."
+          >
+            STAR Math
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flex": 1,
+              "flexDirection": "column",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "minHeight": "2em",
+                "padding": 5,
+                "paddingBottom": 0,
+              }
+            }
+            title="Students' latest STAR Math percentile scores, with green representing students above the 70th percentile and red represents students below the 30th percentile."
+          >
+            STAR Reading
+          </div>
+          <div
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "white",
+                "display": "flex",
+                "justifyContent": "center",
+                "margin": 5,
+                "minHeight": "5em",
+                "padding": 5,
+                "textAlign": "center",
+              }
+            }
+          />
         </div>
       </div>
     </div>

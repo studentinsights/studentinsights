@@ -11,6 +11,7 @@ export function testProps(props = {}) {
   const student = students_for_grade_level_next_year_json.students[0];
   return {
     student,
+    gradeLevelNextYear: '2',
     index: 0,
     isEditable: false,
     fetchProfile: jest.fn(),

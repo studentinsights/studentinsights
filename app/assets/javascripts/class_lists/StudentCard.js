@@ -98,7 +98,7 @@ export default class StudentCard extends React.Component {
   }
 
   renderModal() {
-    const {student, fetchProfile} = this.props;
+    const {student, gradeLevelNextYear, fetchProfile} = this.props;
     const {modalIsOpen} = this.state;
     return (
       <Modal
@@ -113,6 +113,7 @@ export default class StudentCard extends React.Component {
       >
         <InlineStudentProfile
           student={student}
+          gradeLevelNextYear={gradeLevelNextYear}
           fetchProfile={fetchProfile} />
       </Modal>
     );
@@ -123,6 +124,7 @@ StudentCard.contextTypes = {
 };
 StudentCard.propTypes = {
   student: PropTypes.object.isRequired,
+  gradeLevelNextYear: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   fetchProfile: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
