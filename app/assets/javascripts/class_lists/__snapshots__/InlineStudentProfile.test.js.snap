@@ -129,7 +129,7 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "flex": 1,
+                "minHeight": "2em",
                 "padding": 5,
                 "paddingBottom": 0,
               }
@@ -146,7 +146,7 @@ exports[`snapshots 1`] = `
                 "display": "flex",
                 "justifyContent": "center",
                 "margin": 5,
-                "minHeight": "4em",
+                "minHeight": "5em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -165,7 +165,7 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "flex": 1,
+                "minHeight": "2em",
                 "padding": 5,
                 "paddingBottom": 0,
               }
@@ -182,7 +182,7 @@ exports[`snapshots 1`] = `
                 "display": "flex",
                 "justifyContent": "center",
                 "margin": 5,
-                "minHeight": "4em",
+                "minHeight": "5em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -201,7 +201,7 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "flex": 1,
+                "minHeight": "2em",
                 "padding": 5,
                 "paddingBottom": 0,
               }
@@ -218,7 +218,7 @@ exports[`snapshots 1`] = `
                 "display": "flex",
                 "justifyContent": "center",
                 "margin": 5,
-                "minHeight": "4em",
+                "minHeight": "5em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -237,7 +237,7 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "flex": 1,
+                "minHeight": "2em",
                 "padding": 5,
                 "paddingBottom": 0,
               }
@@ -254,7 +254,7 @@ exports[`snapshots 1`] = `
                 "display": "flex",
                 "justifyContent": "center",
                 "margin": 5,
-                "minHeight": "4em",
+                "minHeight": "5em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -273,7 +273,7 @@ exports[`snapshots 1`] = `
           <div
             style={
               Object {
-                "flex": 1,
+                "minHeight": "2em",
                 "padding": 5,
                 "paddingBottom": 0,
               }
@@ -306,7 +306,7 @@ shown as purple"
                 "display": "flex",
                 "justifyContent": "center",
                 "margin": 5,
-                "minHeight": "4em",
+                "minHeight": "5em",
                 "padding": 5,
                 "textAlign": "center",
               }
@@ -337,7 +337,7 @@ shown as purple"
           <div
             style={
               Object {
-                "flex": 1,
+                "minHeight": "2em",
                 "padding": 5,
                 "paddingBottom": 0,
               }
@@ -354,7 +354,7 @@ shown as purple"
                 "display": "flex",
                 "justifyContent": "center",
                 "margin": 5,
-                "minHeight": "4em",
+                "minHeight": "5em",
                 "padding": 5,
                 "textAlign": "center",
               }
