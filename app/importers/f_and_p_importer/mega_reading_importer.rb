@@ -15,6 +15,7 @@ class MegaReadingImporter
     @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
+    @header_rows_count = options.fetch(:header_rows_count, 1)
     reset_counters!
   end
 
@@ -63,6 +64,12 @@ class MegaReadingImporter
   end
 
   def flat_map_rows(row, index)
+    # Support multiple header rows to explain to users
+    # how to enter data, etc.
+    if (index + 1) < @header_rows_count
+      return nil
+    end
+
     # Infer student name
     full_name = row['Name'].split(', ').reverse.join(' ')
     student_id = guess_from_name(full_name)
@@ -87,69 +94,71 @@ class MegaReadingImporter
   end
 
   def data_points_for_kindergarten(shared, row)
-    import_data_points(shared, [
-      ['K', :fall, :dibels_fsf, row['fall K - FSF']],
-      ['K', :fall, :dibels_lnf, row['fall K - LNF']],
-      ['K', :winter, :dibels_fsf, row['winter K - FSF']],
-      ['K', :winter, :dibels_lnf, row['winter K - LNF']],
-      ['K', :winter, :dibels_psf, row['winter K - PSF']],
-      ['K', :winter, :dibels_nwf_cls, row['winter K - NWF CLS']],
-      ['K', :winter, :dibels_nwf_wwr, row['winter K - NWF WWR']],
-      ['K', :spring, :dibels_lnf, row['spring K - LNF']],
-      ['K', :spring, :dibels_psf, row['spring K - PSF']],
-      ['K', :spring, :dibels_nwf_cls, row['spring K - NWF CLS']],
-      ['K', :spring, :dibels_nwf_wwr, row['spring K - NWF WWR']]
+    import_data_points(shared, row, [
+      ['K', :fall, :dibels_fsf, 'K / FALL / FSF'],
+      ['K', :fall, :dibels_lnf, 'K / FALL / LNF'],
+      ['K', :winter, :dibels_fsf, 'K / WINTER / FSF'],
+      ['K', :winter, :dibels_lnf, 'K / WINTER / LNF'],
+      ['K', :winter, :dibels_psf, 'K / WINTER / PSF'],
+      ['K', :winter, :dibels_nwf_cls, 'K / WINTER / NWF CLS'],
+      ['K', :winter, :dibels_nwf_wwr, 'K / WINTER / NWF WWR'],
+      ['K', :spring, :dibels_lnf, 'K / SPRING / LNF'],
+      ['K', :spring, :dibels_psf, 'K / SPRING / PSF'],
+      ['K', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
+      ['K', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR']
     ])
   end
 
   def data_points_for_first(shared, row)
-    import_data_points(shared, [
-      ['1', :fall, :dibels_lnf, row['fall 1 LNF']],
-      ['1', :fall, :dibels_psf, row['fall 1 PSF']],
-      ['1', :fall, :dibels_nwf_cls, row['fall 1 NWF CLS']],
-      ['1', :fall, :dibels_nwf_wwr, row['fall 1 NWF WWR']],
-      ['1', :winter, :dibels_nwf_cls, row['winter1 NWF-CLS']],
-      ['1', :winter, :dibels_nwf_wwr, row['winter1 NWF-WWR']],
-      ['1', :winter, :dibels_dorf_wpm, row['winter1 DORF-WPM']],
-      ['1', :winter, :dibels_dorf_acc, row['winter1 DORF-acc']],
-      ['1', :spring, :dibels_nwf_cls, row['spring1 NWF-CLS']],
-      ['1', :spring, :dibels_nwf_wwr, row['spring1 NWF WWR']],
-      ['1', :spring, :dibels_dorf_wpm, row['spring1 DORF-WPM']],
-      ['1', :spring, :dibels_dorf_acc, row['spring1 DORF-acc']]
+    import_data_points(shared, row, [
+      ['1', :fall, :dibels_lnf, row['1 / FALL / LNF']],
+      ['1', :fall, :dibels_psf, row['1 / FALL / PSF']],
+      ['1', :fall, :dibels_nwf_cls, row['1 / FALL / NWF CLS']],
+      ['1', :fall, :dibels_nwf_wwr, row['1 / FALL / NWF WWR']],
+      ['1', :winter, :dibels_nwf_cls, row['1 / WINTER / NWF CLS']],
+      ['1', :winter, :dibels_nwf_wwr, row['1 / WINTER / NWF WWR']],
+      ['1', :winter, :dibels_dorf_wpm, row['1 / WINTER / DORF WPM']],
+      ['1', :winter, :dibels_dorf_acc, row['1 / WINTER / DORF ACC']],
+      ['1', :spring, :dibels_nwf_cls, row['1 / SPRING / NWF CLS']],
+      ['1', :spring, :dibels_nwf_wwr, row['1 / SPRING / NWF WWR']],
+      ['1', :spring, :dibels_dorf_wpm, row['1 / SPRING / DORF WPM']],
+      ['1', :spring, :dibels_dorf_acc, row['1 / SPRING / DORF ACC']]
     ])
   end
 
   def data_points_for_second(shared, row)
-    import_data_points(shared, [
-      ['2', :fall, :dibels_nwf_cls, row['2fall NWF-CLS']],
-      ['2', :fall, :dibels_nwf_wwr, row['2 fall NWF-WWR']],
-      ['2', :fall, :dibels_dorf_wpm, row['2fall DORF WPM']],
-      ['2', :fall, :dibels_dorf_acc, row['2fall DORF-acc']],
-      ['2', :winter, :dibels_dorf_wpm, row['2 winter DORF WPM']],
-      ['2', :winter, :dibels_dorf_acc, row['2 winter DORF acc']],
-      ['2', :spring, :dibels_dorf_wpm, row['2spring DORF WPM']],
-      ['2', :spring, :dibels_dorf_acc, row['2spring DORF acc']]
+    import_data_points(shared, row, [
+      ['2', :fall, :dibels_nwf_cls, row['2 / FALL / NWF CLS']],
+      ['2', :fall, :dibels_nwf_wwr, row['2 / FALL / NWF WWR']],
+      ['2', :fall, :dibels_dorf_wpm, row['2 / FALL / DORF WPM']],
+      ['2', :fall, :dibels_dorf_acc, row['2 / FALL / DORF ACC']],
+      ['2', :winter, :dibels_dorf_wpm, row['2 / WINTER / DORF WPM']],
+      ['2', :winter, :dibels_dorf_acc, row['2 / WINTER / DORF ACC']],
+      ['2', :spring, :dibels_dorf_wpm, row['2 / SPRING / DORF WPM']],
+      ['2', :spring, :dibels_dorf_acc, row['2 / SPRING / DORF ACC']]
     ])
   end
 
   def data_points_for_third(shared, row)
-    import_data_points(shared, [
-      ['3', :fall, :dibels_dorf_wpm, row['3fall DORF WPM']],
-      ['3', :fall, :dibels_dorf_acc, row['3fall DORF acc']],
+    import_data_points(shared, row, [
+      ['3', :fall, :dibels_dorf_wpm, row['3 / FALL / DORF WPM']],
+      ['3', :fall, :dibels_dorf_acc, row['3 / FALL / DORF ACC']],
     ])
   end
 
   # just sugar for unrolling these
-  def import_data_points(shared, tuples)
+  def import_data_points(shared, row, tuples)
     rows = []
     tuples.each do |tuple|
-      grade, assessment_period, assessment_key, data_point = tuple
+      grade, assessment_period, assessment_key, row_key = tuple
+      data_point = row[row_key]
       if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
         @missing_data_point +=1
         next
       end
 
-      if data_point.starts_with?('@')
+      # TODO(kr) remove?
+      if data_point.starts_with?('@') || ['move'].include?(data_point.downcase)
         @missing_data_point_because_student_moved_school +=1
         next
       end
