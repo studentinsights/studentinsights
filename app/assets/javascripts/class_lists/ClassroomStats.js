@@ -54,7 +54,7 @@ export default class ClassroomStats extends React.Component {
     const {rooms, gradeLevelNextYear} = this.props;
 
     const flags = equityCheckFlags(gradeLevelNextYear);
-    const {showDiscipline, showDiversity, showDibels, showStar} = flags;
+    const {showDiscipline, showDiversity, showDibels, showFandP, showStar} = flags;
     return (
       <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
         <div style={styles.overlayMask}>
@@ -79,6 +79,7 @@ export default class ClassroomStats extends React.Component {
                     {showDiscipline && <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>}
                     {showDiversity && <td style={styles.cell}>{this.renderDiversityBreakdown(studentsInRoom)}</td>}
                     {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
+                    {showFandP && <td style={styles.cell}>{this.renderFandPBreakdown(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
                     <td style={styles.cell}>{studentsInRoom.length > 0 &&
@@ -172,6 +173,30 @@ export default class ClassroomStats extends React.Component {
   renderDibelsBreakdown(studentsInRoom) {
     const students = studentsInRoom;
     const dibelsCounts = {
+      STRATEGIC: 0,
+      INTENSIVE: 0,
+      CORE: 0
+    };
+    students.forEach(student => {
+      if (!student.latest_dibels) return;
+      const benchmark = student.latest_dibels.benchmark;
+      dibelsCounts[benchmark] = dibelsCounts[benchmark] + 1;
+    });
+    return (
+      <DibelsBreakdownBar
+        coreCount={dibelsCounts.CORE}
+        intensiveCount={dibelsCounts.INTENSIVE}
+        strategicCount={dibelsCounts.STRATEGIC}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
+        height={5}
+        labelTop={5} />
+    );
+  }
+
+  renderFandPBreakdown(studentsInRoom) {
+    const students = studentsInRoom;
+    const fAndP = {
       STRATEGIC: 0,
       INTENSIVE: 0,
       CORE: 0
@@ -417,12 +442,14 @@ export function equityChecks(flags = {}) {
 // Show different academic indicators by grade level.  STAR starts in 2nd grade.
 export function equityCheckFlags(gradeLevelNextYear) {
   const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
-  const showDibels = !showStar;
+  const showDibels = _.has(queryParams, 'dibels');
+  const showFandP = !showStar && !showDibels;
   const queryParams = qs.parse(window.location.search.slice(1));
   const showDiscipline = _.has(queryParams, 'discipline');
   const showDiversity = !showDiscipline;
   return {
     showStar,
+    showFandP,
     showDibels,
     queryParams,
     showDiscipline,
