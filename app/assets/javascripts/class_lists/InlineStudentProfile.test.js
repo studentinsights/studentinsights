@@ -14,6 +14,7 @@ export function testProps(props) {
       return Promise.resolve(profile_json);
     },
     student: students_for_grade_level_next_year_json.students[0],
+    gradeLevelNextYear: '2',
     ...props
   };
 }
@@ -32,8 +33,16 @@ it('renders without crashing', () => {
   ReactDOM.render(testEl(props), el);
 });
 
-it('snapshots', () => {
-  const props = testProps();
+it('snapshots for gradeLevelNextYear=2', () => {
+  const props = testProps({gradeLevelNextYear: '2'});
+  const tree = renderer
+    .create(testEl(props))
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('snapshots for gradeLevelNextYear=5', () => {
+  const props = testProps({gradeLevelNextYear: '5'});
   const tree = renderer
     .create(testEl(props))
     .toJSON();

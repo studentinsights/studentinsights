@@ -49,9 +49,9 @@ export default class InlineStudentProfile extends React.Component {
   }
 
   renderSimpleColumn() {
-    const {student} = this.props;
+    const {gradeLevelNextYear} = this.props;
 
-    const flags = equityCheckFlags(nextGrade(student.grade));
+    const flags = equityCheckFlags(gradeLevelNextYear);
     return (
       <div style={{...styles.column, marginTop: 10, fontSize: 12}}>
         <SectionHeading>Equity checks</SectionHeading>
@@ -111,7 +111,8 @@ InlineStudentProfile.contextTypes = {
 };
 InlineStudentProfile.propTypes = {
   fetchProfile: PropTypes.func.isRequired,
-  student: PropTypes.object.isRequired
+  student: PropTypes.object.isRequired,
+  gradeLevelNextYear: PropTypes.string.isRequired
 };
 
 const styles = {
