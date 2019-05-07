@@ -14,7 +14,7 @@ import {
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
   readDoc,
-  somervilleDibelsThresholdsFor
+  somervilleReadingThresholdsFor
 } from './readingData';
 import {
   reordered,
@@ -453,7 +453,7 @@ renderDibelsBar.propTypes = {
 
 // Returns {coreCount, straetgi}
 function computeDibelsCounts(benchmarkAssessmentKey, grade, benchmarkPeriodKey, values) {
-  const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
   const initialCounts = {
     core: 0,
     strategic: 0,

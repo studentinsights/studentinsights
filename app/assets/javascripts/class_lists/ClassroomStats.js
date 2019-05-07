@@ -16,6 +16,7 @@ import {
   female,
   nonBinary
 } from '../helpers/colors';
+import {previousGrade} from '../helpers/gradeText';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
   DIVERSITY_GROUPS,
@@ -29,7 +30,10 @@ import {
   starBucket,
   HighlightKeys
 } from './studentFilters';
-
+import {
+  interpretFAndPEnglish,
+  classifyFAndPEnglish
+} from '../reading/readingData';
 
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
@@ -195,27 +199,30 @@ export default class ClassroomStats extends React.Component {
   }
 
   renderFandPBreakdown(studentsInRoom) {
+    const {gradeLevelNextYear} = this.props;
+    const benchmarkPeriodKey = 'winter';
     const students = studentsInRoom;
-    const fAndP = {
-      STRATEGIC: 0,
-      INTENSIVE: 0,
-      CORE: 0
+    const fAndPCounts = {
+      low: 0,
+      medium: 0,
+      high: 0
     };
     students.forEach(student => {
-      if (!student.latest_dibels) return;
-      const benchmark = student.latest_dibels.benchmark;
-      dibelsCounts[benchmark] = dibelsCounts[benchmark] + 1;
+      if (!student.winter_reading_doc) return;
+      const grade = previousGrade(gradeLevelNextYear);
+      if (!grade) return;
+      const level = interpretFAndPEnglish(student.winter_reading_doc.f_and_p_english);
+      if (!level) return;
+      const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
+      if (!category) return;
+      fAndPCounts[category] = fAndPCounts[category] + 1;
     });
-    return (
-      <DibelsBreakdownBar
-        coreCount={dibelsCounts.CORE}
-        intensiveCount={dibelsCounts.INTENSIVE}
-        strategicCount={dibelsCounts.STRATEGIC}
-        style={styles.breakdownBar}
-        innerStyle={styles.breakdownBarInner}
-        height={5}
-        labelTop={5} />
-    );
+
+    return this.renderBreakdownBar([
+      { left: 0, width: fAndPCounts.high, color: high, key: 'high' },
+      { left: fAndPCounts.high, width: fAndPCounts.medium, color: medium, key: 'medium' },
+      { left: fAndPCounts.high + fAndPCounts.medium, width: fAndPCounts.low, color: low, key: 'low' }
+    ]);
   }
 
   renderMath(studentsInRoom) {

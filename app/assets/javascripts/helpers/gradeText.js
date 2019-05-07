@@ -53,5 +53,12 @@ export function allGrades() {
 
 export function nextGrade(grade) {
   const grades = allGrades();
-  return grades[grades.indexOf(grade) + 1];
+  const index = grades.indexOf(grade);
+  return (index >= grades.length) ? null : grades[index + 1];
+}
+
+export function previousGrade(grade) {
+  const grades = allGrades();
+  const index = grades.indexOf(grade);
+  return (index <= 0) ? null : grades[index - 1];
 }
