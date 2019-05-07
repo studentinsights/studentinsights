@@ -16,6 +16,8 @@ class MegaReadingImporter
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
     @header_rows_count = options.fetch(:header_rows_count, 1)
+
+    @fuzzy_student_matcher = FuzzyStudentMatcher.new
     reset_counters!
   end
 
@@ -34,6 +36,7 @@ class MegaReadingImporter
     log "matcher#stats: #{@matcher.stats}"
     log "MegaReadingImporter#stats: #{stats}"
 
+    # deprecated, use ReadingBenchmarkData model for F&P instead
     # write to database for F&P only
     # f_and_ps = nil
     # FAndPAssessment.transaction do
@@ -48,14 +51,16 @@ class MegaReadingImporter
   def reset_counters!
     @missing_data_point = 0
     @missing_data_point_because_student_moved_school = 0
-    @invalid_student_name = 0
+    @invalid_student_name_count = 0
+    @invalid_student_names_list = []
     @valid_data_points = 0
     @valid_student_name = 0
   end
 
   def stats
     {
-      invalid_student_name: @invalid_student_name,
+      invalid_student_name_count: @invalid_student_name_count,
+      invalid_student_names_list_size: @invalid_student_names_list.size,
       valid_student_name: @valid_student_name,
       missing_data_point: @missing_data_point,
       missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
@@ -70,18 +75,20 @@ class MegaReadingImporter
       return nil
     end
 
-    # Infer student name
-    full_name = row['Name'].split(', ').reverse.join(' ')
-    student_id = guess_from_name(full_name)
-    if student_id.nil?
-      @invalid_student_name += 1
+    # match student
+    last_first_name = row['Name']
+    fuzzy_match = @fuzzy_student_matcher.match_from_last_first(last_first_name)
+    if fuzzy_match.nil?
+      @invalid_student_name_count += 1
+      @invalid_student_names_list << last_first_name
       return nil
     end
+    student_id = fuzzy_match[:student_id]
 
     @valid_student_name += 1
     shared = {
       student_id: student_id,
-      imported_by_educator_id: nil
+      imported_by_educator_id: @educator_id
     }
 
     # data points for each grade
@@ -95,17 +102,19 @@ class MegaReadingImporter
 
   def data_points_for_kindergarten(shared, row)
     import_data_points(shared, row, [
-      ['K', :fall, :dibels_fsf, 'K / FALL / FSF'],
-      ['K', :fall, :dibels_lnf, 'K / FALL / LNF'],
-      ['K', :winter, :dibels_fsf, 'K / WINTER / FSF'],
-      ['K', :winter, :dibels_lnf, 'K / WINTER / LNF'],
-      ['K', :winter, :dibels_psf, 'K / WINTER / PSF'],
-      ['K', :winter, :dibels_nwf_cls, 'K / WINTER / NWF CLS'],
-      ['K', :winter, :dibels_nwf_wwr, 'K / WINTER / NWF WWR'],
-      ['K', :spring, :dibels_lnf, 'K / SPRING / LNF'],
-      ['K', :spring, :dibels_psf, 'K / SPRING / PSF'],
-      ['K', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
-      ['K', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR']
+      ['KF', :fall, :dibels_fsf, 'K / FALL / FSF'],
+      ['KF', :fall, :dibels_lnf, 'K / FALL / LNF'],
+      ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
+      ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
+      ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
+      ['KF', :winter, :dibels_nwf_cls, 'K / WINTER / NWF CLS'],
+      ['KF', :winter, :dibels_nwf_wwr, 'K / WINTER / NWF WWR'],
+      ['KF', :winter, :f_and_p_english, 'K / WINTER / F&P Level English'],
+      ['KF', :winter, :instructional_needs, 'K / WINTER / Instructional needs'],
+      ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
+      ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
+      ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
+      ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR']
     ])
   end
 
@@ -158,7 +167,7 @@ class MegaReadingImporter
       end
 
       # TODO(kr) remove?
-      if data_point.starts_with?('@') || ['move'].include?(data_point.downcase)
+      if data_point.starts_with?('@') || data_point.downcase.include?('move')
         @missing_data_point_because_student_moved_school +=1
         next
       end
@@ -172,66 +181,6 @@ class MegaReadingImporter
       })
     end
     rows
-  end
-
-  def guess_from_name(full_name)
-    student = match_active_student_exactly(full_name)
-    return student.id if student.present?
-
-    fuzzy_matches = fuzzy_match_active_student_name(full_name)
-    return fuzzy_matches.first[:id] if fuzzy_matches.size == 1
-
-    nil
-  end
-
-  def match_active_student_exactly(full_name)
-    first_name, last_name = full_name.split(' ')
-    students = Student.active.where(first_name: first_name, last_name: last_name)
-    return students.first if students.size == 1
-    nil
-  end
-
-  # deprecated: See FuzzyStudentMatcher instead.
-  # Returns [{:id, :full_name, :distance}] for best few matches
-  #
-  # This is complicated and written in Arel since it needs to escape
-  # the argument to the levenshtein function and I couldn't figure how
-  # to do that kind of escaping within a `SELECT`
-  def fuzzy_match_any_student_name(full_name_text, options = {})
-    distance_threshold = options.fetch(:distance_threshold, 2)
-    limit = options.fetch(:limit, 3)
-    students = Arel::Table.new('students')
-    full_name = Arel::Nodes::NamedFunction.new('CONCAT', [
-      students[:first_name],
-      Arel::Nodes.build_quoted(' '),
-      students[:last_name]
-    ])
-    distance = Arel::Nodes::NamedFunction.new('LEVENSHTEIN', [
-      full_name,
-      Arel::Nodes.build_quoted(full_name_text)
-    ])
-    query = students.project(
-      students[:id],
-      full_name,
-      distance
-    ).order(distance).where(distance.lteq(distance_threshold)).take(limit)
-    ActiveRecord::Base.connection.execute(query.to_sql).to_a.map do |result|
-      {
-        id: result['id'],
-        full_name: result['concat'],
-        levenshtein: result['levenshtein']
-      }
-    end
-  end
-
-  # also check student is active
-  def fuzzy_match_active_student_name(full_name_text, options = {})
-    results = fuzzy_match_any_student_name(full_name_text, options)
-
-    active_student_ids = Student.active.where(id: results.pluck(:id)).pluck(:id)
-    results.select do |result|
-      active_student_ids.include?(result[:id])
-    end
   end
 
   def log(msg)
