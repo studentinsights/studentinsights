@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
-import {nextGrade} from '../helpers/gradeText';
 import SectionHeading from '../components/SectionHeading';
 import GenericLoader from '../components/GenericLoader';
 import StudentPhotoCropped from '../components/StudentPhotoCropped';
