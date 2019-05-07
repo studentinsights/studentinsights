@@ -120,38 +120,49 @@ class MegaReadingImporter
 
   def data_points_for_first(shared, row)
     import_data_points(shared, row, [
-      ['1', :fall, :dibels_lnf, row['1 / FALL / LNF']],
-      ['1', :fall, :dibels_psf, row['1 / FALL / PSF']],
-      ['1', :fall, :dibels_nwf_cls, row['1 / FALL / NWF CLS']],
-      ['1', :fall, :dibels_nwf_wwr, row['1 / FALL / NWF WWR']],
-      ['1', :winter, :dibels_nwf_cls, row['1 / WINTER / NWF CLS']],
-      ['1', :winter, :dibels_nwf_wwr, row['1 / WINTER / NWF WWR']],
-      ['1', :winter, :dibels_dorf_wpm, row['1 / WINTER / DORF WPM']],
-      ['1', :winter, :dibels_dorf_acc, row['1 / WINTER / DORF ACC']],
-      ['1', :spring, :dibels_nwf_cls, row['1 / SPRING / NWF CLS']],
-      ['1', :spring, :dibels_nwf_wwr, row['1 / SPRING / NWF WWR']],
-      ['1', :spring, :dibels_dorf_wpm, row['1 / SPRING / DORF WPM']],
-      ['1', :spring, :dibels_dorf_acc, row['1 / SPRING / DORF ACC']]
+      ['1', :fall, :dibels_lnf, '1 / FALL / LNF'],
+      ['1', :fall, :dibels_psf, '1 / FALL / PSF'],
+      ['1', :fall, :dibels_nwf_cls, '1 / FALL / NWF CLS'],
+      ['1', :fall, :dibels_nwf_wwr, '1 / FALL / NWF WWR'],
+      ['1', :fall, :f_and_p_english, '1 / FALL / F&P Level English'],
+      ['1', :fall, :f_and_p_spanish, '1 / FALL / F&P Level Spanish'],
+      ['1', :fall, :instructional_needs, '1 / FALL / Instructional needs'],
+      ['1', :winter, :dibels_nwf_cls, '1 / WINTER / NWF CLS'],
+      ['1', :winter, :dibels_nwf_wwr, '1 / WINTER / NWF WWR'],
+      ['1', :winter, :dibels_dorf_wpm, '1 / WINTER / DORF WPM'],
+      ['1', :winter, :dibels_dorf_errors, '1 / WINTER / DORF Errors'],
+      ['1', :winter, :dibels_dorf_acc, '1 / WINTER / DORF ACC'],
+      ['1', :winter, :f_and_p_english, '1 / WINTER / F&P Level English'],
+      ['1', :winter, :f_and_p_spanish, '1 / WINTER / F&P Level Spanish'],
+      ['1', :winter, :instructional_needs, '1 / WINTER / Instructional needs'],
+      ['1', :spring, :dibels_nwf_cls, '1 / SPRING / NWF CLS'],
+      ['1', :spring, :dibels_nwf_wwr, '1 / SPRING / NWF WWR'],
+      ['1', :spring, :dibels_dorf_wpm, '1 / SPRING / DORF WPM'],
+      ['1', :spring, :dibels_dorf_errors, '1 / SPRING / DORF Errors'],
+      ['1', :spring, :dibels_dorf_acc, '1 / SPRING / DORF ACC'],
+      ['1', :spring, :f_and_p_english, '1 / SPRING / F&P Level English'],
+      ['1', :spring, :f_and_p_spanish, '1 / SPRING / F&P Level Spanish'],
+      ['1', :spring, :instructional_needs, '1 / SPRING / Instructional needs']
     ])
   end
 
   def data_points_for_second(shared, row)
     import_data_points(shared, row, [
-      ['2', :fall, :dibels_nwf_cls, row['2 / FALL / NWF CLS']],
-      ['2', :fall, :dibels_nwf_wwr, row['2 / FALL / NWF WWR']],
-      ['2', :fall, :dibels_dorf_wpm, row['2 / FALL / DORF WPM']],
-      ['2', :fall, :dibels_dorf_acc, row['2 / FALL / DORF ACC']],
-      ['2', :winter, :dibels_dorf_wpm, row['2 / WINTER / DORF WPM']],
-      ['2', :winter, :dibels_dorf_acc, row['2 / WINTER / DORF ACC']],
-      ['2', :spring, :dibels_dorf_wpm, row['2 / SPRING / DORF WPM']],
-      ['2', :spring, :dibels_dorf_acc, row['2 / SPRING / DORF ACC']]
+      ['2', :fall, :dibels_nwf_cls, '2 / FALL / NWF CLS'],
+      ['2', :fall, :dibels_nwf_wwr, '2 / FALL / NWF WWR'],
+      ['2', :fall, :dibels_dorf_wpm, '2 / FALL / DORF WPM'],
+      ['2', :fall, :dibels_dorf_acc, '2 / FALL / DORF ACC'],
+      ['2', :winter, :dibels_dorf_wpm, '2 / WINTER / DORF WPM'],
+      ['2', :winter, :dibels_dorf_acc, '2 / WINTER / DORF ACC'],
+      ['2', :spring, :dibels_dorf_wpm, '2 / SPRING / DORF WPM'],
+      ['2', :spring, :dibels_dorf_acc, '2 / SPRING / DORF ACC']
     ])
   end
 
   def data_points_for_third(shared, row)
     import_data_points(shared, row, [
-      ['3', :fall, :dibels_dorf_wpm, row['3 / FALL / DORF WPM']],
-      ['3', :fall, :dibels_dorf_acc, row['3 / FALL / DORF ACC']],
+      ['3', :fall, :dibels_dorf_wpm, '3 / FALL / DORF WPM'],
+      ['3', :fall, :dibels_dorf_acc, '3 / FALL / DORF ACC'],
     ])
   end
 

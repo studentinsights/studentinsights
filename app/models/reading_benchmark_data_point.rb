@@ -7,8 +7,10 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     'dibels_nwf_cls',
     'dibels_nwf_wwr',
     'dibels_dorf_wpm',
+    'dibels_dorf_errors',
     'dibels_dorf_acc',
     'f_and_p_english',
+    'f_and_p_spanish',
     'instructional_needs'
   ]
 
