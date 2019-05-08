@@ -7,16 +7,13 @@ class StudentsController < ApplicationController
 
   def photo
     student = Student.find(params[:id])
+    send_params = student_photo_sender.send_params(student)
+    if send_params.nil?
+      return render json: { error: 'no photo' }, status: 404
+    end
 
-    @student_photo = student.student_photos.order(created_at: :desc).first
-
-    return render json: { error: 'no photo' }, status: 404 if @student_photo.nil?
-
-    @s3_filename = @student_photo.s3_filename
-
-    object = s3.get_object(key: @s3_filename, bucket: ENV['AWS_S3_PHOTOS_BUCKET'])
-
-    send_data object.body.read, filename: @s3_filename, type: 'image/jpeg'
+    bytes, params = send_params
+    send_data bytes, params
   end
 
   def latest_iep_document
@@ -78,11 +75,7 @@ class StudentsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
-  def s3
-    if EnvironmentVariable.is_true('USE_PLACEHOLDER_STUDENT_PHOTO')
-      @client ||= MockAwsS3.with_student_photo_mocked
-    else
-      @client ||= Aws::S3::Client.new
-    end
+  def student_photo_sender
+    @student_photo_sender ||= StudentPhotoSender.new
   end
 end

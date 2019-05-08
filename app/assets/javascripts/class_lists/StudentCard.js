@@ -80,7 +80,11 @@ export default class StudentCard extends React.Component {
     return (
       <div style={{...styles.studentCard, ...style, cursor, ...highlightStyle}} onClick={this.onClick}>
         <div style={styles.photoAndName}>
-          <StudentPhotoCropped studentId={student.id} style={styles.studentPhoto} />
+          <StudentPhotoCropped
+            studentId={student.id}
+            photoUrl={classListPhotoUrl(student.id)}
+            style={styles.studentPhoto}
+          />
           <div style={styles.name}>{student.last_name}, {student.first_name}</div>
         </div>
         {noteIconEl || <MoreDots />}
@@ -176,3 +180,7 @@ const styles = {
   }
 };
 
+
+function classListPhotoUrl(studentId) {
+  return `/classlists/students/${studentId}/photo`;
+}

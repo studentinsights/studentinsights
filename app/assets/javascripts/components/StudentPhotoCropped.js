@@ -10,8 +10,12 @@ import {enhancedStudentPhotoStyles} from '../helpers/PerDistrict';
 export default class StudentPhotoCropped extends React.Component {
   render() {
     const {districtKey} = this.context;
-    const {studentId, style = {}} = this.props;
+    const {studentId, photoUrl, style = {}} = this.props;
     const perDistrictStyles = enhancedStudentPhotoStyles(districtKey);
+
+    // Allow fetching from a different URL for parallel endpoint
+    // with different authorizations in class lists.
+    const url = photoUrl ? photoUrl : Routes.studentPhoto(studentId);
 
     return (
       <div
@@ -23,7 +27,7 @@ export default class StudentPhotoCropped extends React.Component {
           border: '1px solid #ddd',
           borderRadius: 3,
           backgroundColor: '#ddd',
-          backgroundImage: `url(${Routes.studentPhoto(studentId)})`,
+          backgroundImage: `url(${url})`,
           overflow: 'hidden',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
@@ -38,5 +42,6 @@ StudentPhotoCropped.contextTypes = {
 };
 StudentPhotoCropped.propTypes = {
   studentId: PropTypes.number.isRequired,
+  photoUrl: PropTypes.string.isRequired,
   style: PropTypes.object,
 };
