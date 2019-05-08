@@ -322,6 +322,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={resolveDriftForStudents(principalStudentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        studentPhotoUrlFn={studentId => classListPhotoUrl(workspaceId, studentId)}
         styleStudentFn={student => styleStudentFn(movedStudentIds, student)}
         isExpandedVertically={isExpandedVertically}
         onExpandVerticallyToggled={this.onExpandVerticallyToggled}
