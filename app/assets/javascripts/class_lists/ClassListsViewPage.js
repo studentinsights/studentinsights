@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import * as Routes from '../helpers/Routes';
 import Button from '../components/Button';
-import School from '../components/School';
 import Educator from '../components/Educator';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
@@ -106,7 +105,7 @@ export class ClassListsViewPageView extends React.Component {
               : {};
             return (
               <tr key={workspace.workspace_id}>
-                <td style={cell}><School {...classList.school} /></td>
+                <td style={cell}>{classList.school.name}</td>
                 <td style={cell}>
                   {gradeText(classList.grade_level_next_year)}
                 </td>
