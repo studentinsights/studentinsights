@@ -31,7 +31,6 @@ RSpec.describe EducatorSearchbar do
           { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" },
           { "id" => bettina.id, "label" => "Bettina Abbas - Big River High - 3" }
         ])
-        expect(educator.student_searchbar_json).to eq(nil)
         expect(EducatorSearchbar.student_searchbar_json_for(educator)).to eq([
           { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" },
           { "id" => bettina.id, "label" => "Bettina Abbas - Big River High - 3" }
@@ -45,7 +44,6 @@ RSpec.describe EducatorSearchbar do
       it 'saves the correct JSON' do
         json = EducatorSearchbar.update_student_searchbar_json!(educator)
         expect(json).to eq([])
-        expect(educator.student_searchbar_json).to eq(nil)
         expect(EducatorSearchbar.student_searchbar_json_for(educator)).to eq([])
       end
     end
