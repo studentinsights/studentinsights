@@ -194,4 +194,10 @@ Rails.application.routes.draw do
       get 'reading/:grade/groups' => 'ui#ui'
     end
   end
+
+  resource :reading, only: [] do
+    member do
+      get '/debug' => 'ui#ui'
+    end
+  end
 end

@@ -125,3 +125,7 @@ export function interpretFAndPEnglish(text) {
 
   return null;
 }
+
+export function orderedFAndPLevels() {
+  return _.sortBy(Object.keys(ORDERED_F_AND_P_ENGLISH_LEVELS), level => ORDERED_F_AND_P_ENGLISH_LEVELS[level]);
+}
