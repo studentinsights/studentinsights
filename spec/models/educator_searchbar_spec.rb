@@ -18,7 +18,7 @@ RSpec.describe EducatorSearchbar do
     end
   end
 
-  describe '.update_student_searchbar_json!' do
+  describe '.update_student_searchbar_json! and .student_searchbar_json_for' do
     context 'educator has permissions for a few students' do
       let(:school) { FactoryBot.create(:school, local_id: 'Big River High') }
       let!(:betsy) { FactoryBot.create(:student, first_name: 'Betsy', last_name: 'Ramirez', school: school, grade: '3') }
@@ -38,6 +38,7 @@ RSpec.describe EducatorSearchbar do
         ])
       end
     end
+
     context 'educator has permissions for no students' do
       let(:educator) { FactoryBot.create(:educator) }
 
@@ -47,6 +48,20 @@ RSpec.describe EducatorSearchbar do
         expect(educator.student_searchbar_json).to eq(nil)
         expect(EducatorSearchbar.student_searchbar_json_for(educator)).to eq([])
       end
+    end
+  end
+
+  describe '.student_searchbar_json_for with compute_if_missing:true' do
+    let(:school) { FactoryBot.create(:school, local_id: 'Big River High') }
+    let!(:betsy) { FactoryBot.create(:student, first_name: 'Betsy', last_name: 'Ramirez', school: school, grade: '3') }
+    let(:educator) { FactoryBot.create(:educator, districtwide_access: true) }
+
+    it 'returns empty when not computed, and computes if asked' do
+      expect(EducatorSearchbar.student_searchbar_json_for(educator)).to eq []
+      expect(EducatorSearchbar.student_searchbar_json_for(educator, compute_if_missing: true)).to eq([
+        { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" }
+      ])
+      expect(educator.student_searchbar_json).to eq(nil)
     end
   end
 end
