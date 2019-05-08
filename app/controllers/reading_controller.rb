@@ -60,6 +60,15 @@ class ReadingController < ApplicationController
     }
   end
 
+  # Used by ReadingDebugPage
+  def reading_debug_json
+    students = authorized { Student.active }
+    students_json = students.as_json
+    render json: {
+      students: students_json
+    }
+  end
+
   # PUT
   # This allows fine-grained, cell-level edits to minimize conflicts,
   # Semantics are: idempotent, last write wins.  Storage is append-only.
