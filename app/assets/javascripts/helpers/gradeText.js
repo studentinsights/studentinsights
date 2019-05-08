@@ -47,8 +47,9 @@ export function gradeText(grade) {
   return grade;
 }
 
+// ordered
 export function allGrades() {
-  return Object.keys(ORDERED_GRADES);
+  return _.sortBy(Object.keys(ORDERED_GRADES), grade => ORDERED_GRADES[grade]);
 }
 
 export function nextGrade(grade) {

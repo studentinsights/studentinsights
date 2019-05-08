@@ -174,6 +174,7 @@ class ClassListQueries
         :local_id,
         :first_name,
         :last_name,
+        :grade,
         :date_of_birth,
         :disability,
         :program_assigned,

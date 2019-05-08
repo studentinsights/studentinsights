@@ -12,8 +12,8 @@ export const INSTRUCTIONAL_NEEDS = 'instructional_needs';
 
 const ORDERED_F_AND_P_ENGLISH_LEVELS = {
   'NR': 50,
-  'AA': 100,
-  'A': 120,
+  'AA': 80,
+  'A': 110,
   'B': 120,
   'C': 130,
   'D': 150,
@@ -57,7 +57,7 @@ const somervilleThresholds = {
     '1:winter': {
       benchmark: 'G',
       risk: 'D'
-    },
+    }
   },
   [DIBELS_DORF_WPM]: {
     '3:fall': {
@@ -109,7 +109,7 @@ export function classifyFAndPEnglish(level, grade, benchmarkPeriodKey) {
   if (!thresholds) return null;
 
   if (ORDERED_F_AND_P_ENGLISH_LEVELS[level] >= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.benchmark]) return 'high';
-  if (ORDERED_F_AND_P_ENGLISH_LEVELS[level] <= thresholds.risk) return 'low';
+  if (ORDERED_F_AND_P_ENGLISH_LEVELS[level] <= ORDERED_F_AND_P_ENGLISH_LEVELS[thresholds.risk]) return 'low';
   return 'medium';
 }
 
@@ -117,11 +117,11 @@ export function classifyFAndPEnglish(level, grade, benchmarkPeriodKey) {
 // for each, round down (latest independent 'mastery' level)
 // if not found in list of levels and can't understand, return null
 export function interpretFAndPEnglish(text) {
-  if (text.indexOf('/') !== -1) return text.split('/')[0];
-  if ((text.indexOf('-') !== -1)) return text.split('-')[0];
-  if ((text.indexOf('+') !== -1) && (text !== 'Z+')) return text.replace('+', '');
-  if ((text.indexOf('(') !== -1)) return text.replace(/\(.+\)/,'').trim();
-  if (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, text)) return text;
+  if (text.indexOf('/') !== -1) return text.split('/')[0].toUpperCase();
+  if ((text.indexOf('-') !== -1)) return text.split('-')[0].toUpperCase();
+  if ((text.indexOf('+') !== -1) && (text !== 'Z+')) return text.replace('+', '').toUpperCase();
+  if ((text.indexOf('(') !== -1)) return text.replace(/\(.+\)/,'').trim().toUpperCase();
+  if (_.has(ORDERED_F_AND_P_ENGLISH_LEVELS, text.toUpperCase())) return text.toUpperCase();
 
   return null;
 }

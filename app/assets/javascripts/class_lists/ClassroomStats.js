@@ -208,7 +208,12 @@ export default class ClassroomStats extends React.Component {
       high: 0
     };
     students.forEach(student => {
-      if (!student.winter_reading_doc) return;
+      const isMissing = (
+        (!student.winter_reading_doc) ||
+        (!student.winter_reading_doc.f_and_p_english)
+      );
+      if (isMissing) return;
+
       const grade = previousGrade(gradeLevelNextYear);
       if (!grade) return;
       const level = interpretFAndPEnglish(student.winter_reading_doc.f_and_p_english);
@@ -405,7 +410,13 @@ const styles = {
 
 
 export function equityChecks(flags = {}) {
-  const {showDiscipline, showDiversity, showDibels, showStar} = flags;
+  const {
+    showDiscipline,
+    showDiversity,
+    showDibels,
+    showFandP,
+    showStar
+  } = flags;
 
   return [{
     label: 'IEP or 504',
@@ -435,6 +446,10 @@ export function equityChecks(flags = {}) {
     label: 'Dibels CORE',
     columnHighlightKey: HighlightKeys.DIBELS,
     title: 'Students\' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red).'
+  }, showFandP && {
+    label: 'F&P Level, winter',
+    columnHighlightKey: HighlightKeys.F_AND_P_WINTER,
+    title: "Students' Fountass and Pinnell level from the winter benchmark, broken down into high (green), medium (orange) and low (red).\n\nKindergarten:\n  NR, AA, A (red)\n  B (orange)\n  C and above (green)\n\n1st grade:\n  D or below (red)\n  E or F (orange)\n  G or above (green)"
   }, showStar && {
     label: 'STAR Math',
     columnHighlightKey: HighlightKeys.STAR_MATH,
