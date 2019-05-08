@@ -26,11 +26,9 @@ class EducatorSearchbar < ApplicationRecord
     student_searchbar_json
   end
 
-  # Do the computation
+  # Do the actual computation
   def self.names_for(educator)
-    authorized_students = Authorizer.new(educator).authorized do
-      Student.active.with_school
-    end
+    authorized_students = Authorizer.new(educator).authorized { Student.active.to_a }
     authorized_students.map do |student|
       {
         label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}",

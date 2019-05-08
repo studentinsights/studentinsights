@@ -12,7 +12,7 @@ function setupSearchBarAutocomplete (names) {
 }
 
 function downloadStudentNames () {
-  apiFetchJson('/api/educators/searchbar_names_json').then(data => {
+  apiFetchJson('/api/educators/student_searchbar_json').then(data => {
     setupSearchBarAutocomplete(data);
 
     if (isSessionStorageSupported()) {

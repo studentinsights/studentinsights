@@ -35,8 +35,8 @@ Rails.application.routes.draw do
 
   get '/api/educators/view/:id' => 'educators#show'
   get '/api/educators/my_students_json' => 'educators#my_students_json'
-  get '/api/educators/searchbar_names_json' => 'educators#searchbar_names_json'
-  get '/students/names' => 'educators#searchbar_names_json' # deprecated
+  get '/api/educators/student_searchbar_json' => 'educators#student_searchbar_json'
+  get '/students/names' => 'educators#student_searchbar_json' # deprecated
   get '/api/schools/:id/courses' => 'schools#courses_json'
 
   # school leader dashboards

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_141724) do
+ActiveRecord::Schema.define(version: 2019_05_08_141307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -115,12 +115,8 @@ ActiveRecord::Schema.define(version: 2019_05_08_141724) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
-    t.text "iac_content_area"
-    t.text "iac_category"
-    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
-    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

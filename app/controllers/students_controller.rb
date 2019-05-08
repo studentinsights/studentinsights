@@ -1,8 +1,8 @@
-fclass StudentsController < ApplicationController
+class StudentsController < ApplicationController
   include ApplicationHelper
 
   before_action :authorize!
-  
+
   def photo
     student = Student.find(params[:id])
 
