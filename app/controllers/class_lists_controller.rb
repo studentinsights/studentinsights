@@ -32,7 +32,7 @@ class ClassListsController < ApplicationController
               only: [:id, :email, :full_name]
             },
             school: {
-              only: [:id, :name]
+              only: [:id, :local_id, :name]
             }
           }
         })
