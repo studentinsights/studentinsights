@@ -661,4 +661,98 @@ describe ClassListsController, :type => :controller do
       expect(response.status).to eq 403
     end
   end
+
+  describe '#student_photo' do
+    let!(:pals) { TestPals.create! }
+
+    def make_request(student_id)
+      class_list = create_class_list_from(pals.healey_sarah_teacher, {
+        grade_level_next_year: '6',
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours,
+      })
+      sign_in(pals.healey_sarah_teacher)
+      request.env['HTTPS'] = 'on'
+      get :student_photo, params: {
+        workspace_id: class_list.workspace_id,
+        student_id: student_id,
+      }
+    end
+
+    def create_student_photo(params = {})
+      StudentPhoto.create({
+        student_id: pals.healey_kindergarten_student.id,
+        file_digest: SecureRandom.hex,
+        file_size: 1000 + SecureRandom.random_number(100000),
+        s3_filename: SecureRandom.hex
+      }.merge(params))
+    end
+
+    class FakeAwsResponse
+      def body; self end
+
+      def read; 'eee' end
+    end
+
+    before do
+      allow_any_instance_of(
+        Aws::S3::Client
+      ).to receive(
+        :get_object
+      ).and_return FakeAwsResponse.new
+    end
+
+    context 'educator authorized for student' do
+      before { sign_in(pals.healey_vivian_teacher) }
+      let!(:student_photo) { create_student_photo }
+
+      it 'succeeds and sends the right response body down' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).to be_successful
+        expect(response.body).to eq 'eee'
+      end
+
+      context 'multiple photos' do
+        let!(:more_recent_student_photo) { create_student_photo }
+
+        it 'assigns the most recent photo' do
+          make_request(pals.healey_kindergarten_student.id)
+          expect(response).to be_successful
+          expect(assigns(:student_photo)).to eq(more_recent_student_photo)
+        end
+      end
+    end
+
+    context 'student has no photo' do
+      before { sign_in(pals.healey_vivian_teacher) }
+
+      it 'is not successful; sends an error' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).not_to be_successful
+        expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
+      end
+    end
+
+    context 'educator not authorized for student (wrong school)' do
+      before { sign_in(pals.shs_jodi) }
+      let!(:student_photo) { create_student_photo }
+
+      it 'redirects' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).not_to be_successful
+        expect(response).to redirect_to('/not_authorized')
+      end
+    end
+
+    context 'not signed in' do
+      let!(:student_photo) { create_student_photo }
+
+      it 'redirects' do
+        make_request(pals.healey_kindergarten_student.id)
+        expect(response).not_to be_successful
+        expect(response).to redirect_to('/educators/sign_in')
+      end
+    end
+  end
+
 end
