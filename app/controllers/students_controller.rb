@@ -75,7 +75,11 @@ class StudentsController < ApplicationController
     raise Exceptions::EducatorNotAuthorized unless current_educator.is_authorized_for_student(student)
   end
 
+  def s3
+    @client ||= MockAwsS3.create_real_or_mock
+  end
+
   def student_photo_sender
-    @student_photo_sender ||= StudentPhotoSender.new
+    @student_photo_sender ||= StudentPhotoSender.new(s3)
   end
 end

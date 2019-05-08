@@ -304,6 +304,6 @@ class ClassListsController < ApplicationController
   end
 
   def student_photo_sender
-    @student_photo_sender ||= StudentPhotoSender.new
+    @student_photo_sender ||= StudentPhotoSender.new(MockAwsS3.create_real_or_mock)
   end
 end
