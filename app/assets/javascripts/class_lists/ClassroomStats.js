@@ -16,6 +16,7 @@ import {
   female,
   nonBinary
 } from '../helpers/colors';
+import {previousGrade} from '../helpers/gradeText';
 import {studentsInRoom} from './studentIdsByRoomFunctions';
 import {
   DIVERSITY_GROUPS,
@@ -29,7 +30,10 @@ import {
   starBucket,
   HighlightKeys
 } from './studentFilters';
-
+import {
+  interpretFAndPEnglish,
+  classifyFAndPEnglish
+} from '../reading/readingData';
 
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
@@ -54,7 +58,7 @@ export default class ClassroomStats extends React.Component {
     const {rooms, gradeLevelNextYear} = this.props;
 
     const flags = equityCheckFlags(gradeLevelNextYear);
-    const {showDiscipline, showDiversity, showDibels, showStar} = flags;
+    const {showDiscipline, showDiversity, showDibels, showFandP, showStar} = flags;
     return (
       <div className="ClassroomStats" style={styles.root} onKeyPress={this.onKeyPress}>
         <div style={styles.overlayMask}>
@@ -79,6 +83,7 @@ export default class ClassroomStats extends React.Component {
                     {showDiscipline && <td style={styles.cell}>{this.renderDiscipline(studentsInRoom)}</td>}
                     {showDiversity && <td style={styles.cell}>{this.renderDiversityBreakdown(studentsInRoom)}</td>}
                     {showDibels && <td style={styles.cell}>{this.renderDibelsBreakdown(studentsInRoom)}</td>}
+                    {showFandP && <td style={styles.cell}>{this.renderFandPBreakdown(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderMath(studentsInRoom)}</td>}
                     {showStar && <td style={styles.cell}>{this.renderReading(studentsInRoom)}</td>}
                     <td style={styles.cell}>{studentsInRoom.length > 0 &&
@@ -191,6 +196,38 @@ export default class ClassroomStats extends React.Component {
         height={5}
         labelTop={5} />
     );
+  }
+
+  renderFandPBreakdown(studentsInRoom) {
+    const {gradeLevelNextYear} = this.props;
+    const benchmarkPeriodKey = 'winter';
+    const students = studentsInRoom;
+    const fAndPCounts = {
+      low: 0,
+      medium: 0,
+      high: 0
+    };
+    students.forEach(student => {
+      const isMissing = (
+        (!student.winter_reading_doc) ||
+        (!student.winter_reading_doc.f_and_p_english)
+      );
+      if (isMissing) return;
+
+      const grade = previousGrade(gradeLevelNextYear);
+      if (!grade) return;
+      const level = interpretFAndPEnglish(student.winter_reading_doc.f_and_p_english);
+      if (!level) return;
+      const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
+      if (!category) return;
+      fAndPCounts[category] = fAndPCounts[category] + 1;
+    });
+
+    return this.renderBreakdownBar([
+      { left: 0, width: fAndPCounts.high, color: high, key: 'high' },
+      { left: fAndPCounts.high, width: fAndPCounts.medium, color: medium, key: 'medium' },
+      { left: fAndPCounts.high + fAndPCounts.medium, width: fAndPCounts.low, color: low, key: 'low' }
+    ]);
   }
 
   renderMath(studentsInRoom) {
@@ -373,7 +410,13 @@ const styles = {
 
 
 export function equityChecks(flags = {}) {
-  const {showDiscipline, showDiversity, showDibels, showStar} = flags;
+  const {
+    showDiscipline,
+    showDiversity,
+    showDibels,
+    showFandP,
+    showStar
+  } = flags;
 
   return [{
     label: 'IEP or 504',
@@ -403,6 +446,10 @@ export function equityChecks(flags = {}) {
     label: 'Dibels CORE',
     columnHighlightKey: HighlightKeys.DIBELS,
     title: 'Students\' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red).'
+  }, showFandP && {
+    label: 'F&P Level, winter',
+    columnHighlightKey: HighlightKeys.F_AND_P_WINTER,
+    title: "Students' Fountass and Pinnell level from the winter benchmark, broken down into high (green), medium (orange) and low (red).\n\nKindergarten:\n  NR, AA, A (red)\n  B (orange)\n  C and above (green)\n\n1st grade:\n  D or below (red)\n  E or F (orange)\n  G or above (green)"
   }, showStar && {
     label: 'STAR Math',
     columnHighlightKey: HighlightKeys.STAR_MATH,
@@ -416,13 +463,15 @@ export function equityChecks(flags = {}) {
 
 // Show different academic indicators by grade level.  STAR starts in 2nd grade.
 export function equityCheckFlags(gradeLevelNextYear) {
-  const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
-  const showDibels = !showStar;
   const queryParams = qs.parse(window.location.search.slice(1));
+  const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
+  const showDibels = _.has(queryParams, 'dibels');
+  const showFandP = !showStar && !showDibels;
   const showDiscipline = _.has(queryParams, 'discipline');
   const showDiversity = !showDiscipline;
   return {
     showStar,
+    showFandP,
     showDibels,
     queryParams,
     showDiscipline,

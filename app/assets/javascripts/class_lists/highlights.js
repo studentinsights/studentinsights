@@ -22,7 +22,10 @@ import {
   genderColor,
   steelBlue
 } from '../helpers/colors';
-
+import {
+  interpretFAndPEnglish,
+  classifyFAndPEnglish
+} from '../reading/readingData';
 
 
 // For highlighting students based on their attributes.
@@ -45,6 +48,7 @@ const highlightFns = {
   [HighlightKeys.STAR_READING]: student => starStyles(student.most_recent_star_reading_percentile),
   [HighlightKeys.DIBELS]: student => dibelsStyles(student.latest_dibels),
   [HighlightKeys.DIVERSITY_GROUP]: student => diversityGroupStyles(student),
+  [HighlightKeys.F_AND_P_WINTER]: student => fAndPEnglishStyles(student),
   [HighlightKeys.GENDER]: student => {
     const backgroundColor = genderColor(student.gender);
     return {backgroundColor};
@@ -60,6 +64,7 @@ const valueFns = {
   [HighlightKeys.STAR_READING]: student => starBucket(student.most_recent_star_reading_percentile),
   [HighlightKeys.DIBELS]: student => student.latest_dibels ? student.latest_dibels.benchmark : 'none',
   [HighlightKeys.DIVERSITY_GROUP]: student => renderDiversityGroupName(student),
+  [HighlightKeys.F_AND_P_WINTER]: student => renderFAndPLevel(student),
   [HighlightKeys.GENDER]: student => student.gender
 };
 
@@ -88,6 +93,30 @@ function starStyles(maybePercentile) {
   const fraction = maybePercentile / 100;
   const backgroundColor = chroma(starScale(fraction)).alpha(0.5).css();
   return {backgroundColor};
+}
+
+function fAndPEnglishStyles(student) {
+  const {grade} = student;
+  if (!grade) return styles.none;
+  const maybeFAndPValue = student.winter_reading_doc ? student.winter_reading_doc.f_and_p_english : null;
+  if (!maybeFAndPValue) return styles.none;
+  const level = interpretFAndPEnglish(maybeFAndPValue);
+  if (!level) return null;
+  const category = classifyFAndPEnglish(level, grade, 'winter');
+  if (!category) return null;
+  const backgroundColor = {
+    high,
+    medium,
+    low
+  }[category];
+
+  return {backgroundColor};
+}
+
+function renderFAndPLevel(student) {
+  if (!student.winter_reading_doc) return null;
+  if (!student.winter_reading_doc.f_and_p_english) return null;
+  return student.winter_reading_doc.f_and_p_english;
 }
 
 function dibelsStyles(maybeLatestDibels) {

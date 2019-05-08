@@ -25,6 +25,8 @@ class FakeStudent
     'Mom called, did not leave a reason.'
   ]
 
+  F_AND_P_ENGLISH_LEVELS = ['NR','AA','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Z+']
+
   def self.create!(school, homeroom)
     FakeStudent.new(school, homeroom).create!
   end
@@ -49,6 +51,7 @@ class FakeStudent
       add_services
       add_mcas_assessments
       add_dibels_assessments
+      add_reading_benchmark_assessments
       add_access_assessments
       add_star_assessments
     end
@@ -230,6 +233,28 @@ class FakeStudent
     assessment_count.times do |index|
       generator = FakeDibelsResultGenerator.new(@student, options, index)
       DibelsResult.new(generator.next).save!
+    end
+  end
+
+  def add_reading_benchmark_assessments
+    periods = [:fall, :winter, :spring]
+    years = (0..2).map {|i| SchoolYear.to_school_year(DateTime.now) - i }.sort
+    missing_percentage = 0.20
+
+    years.each do |year|
+      periods.each do |period|
+        next if rand() < missing_percentage
+        ReadingBenchmarkDataPoint.create!({
+          student: @student,
+          educator: Educator.where(districtwide_access: true).sample,
+          benchmark_school_year: year,
+          benchmark_period_key: period,
+          benchmark_assessment_key: 'f_and_p_english',
+          json: {
+            value: F_AND_P_ENGLISH_LEVELS.sample
+          }
+        })
+      end
     end
   end
 

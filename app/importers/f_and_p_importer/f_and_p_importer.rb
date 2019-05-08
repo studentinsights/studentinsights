@@ -1,3 +1,4 @@
+# deprecated, see MegaReadingImporter and ReadingBenchmarkDataPoint
 # Used on the console to import data about F&P assessments.
 #
 # Usage:

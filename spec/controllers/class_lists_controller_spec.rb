@@ -314,6 +314,7 @@ describe ClassListsController, :type => :controller do
         'local_id',
         'first_name',
         'last_name',
+        'grade',
         'date_of_birth',
         'disability',
         'program_assigned',
@@ -329,6 +330,7 @@ describe ClassListsController, :type => :controller do
         'most_recent_star_reading_percentile',
         'latest_access_results',
         'latest_dibels',
+        'winter_reading_doc',
         'most_recent_school_year_discipline_incidents_count',
         'latest_note'
       ])

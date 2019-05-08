@@ -174,6 +174,7 @@ class ClassListQueries
         :local_id,
         :first_name,
         :last_name,
+        :grade,
         :date_of_birth,
         :disability,
         :program_assigned,
@@ -192,6 +193,7 @@ class ClassListQueries
         :latest_iep_document,
         :latest_access_results,
         :latest_dibels,
+        :winter_reading_doc,
         :most_recent_school_year_discipline_incidents_count
       ]
     })
