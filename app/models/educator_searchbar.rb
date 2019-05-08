@@ -1,7 +1,7 @@
 class EducatorSearchbar < ApplicationRecord
   belongs_to  :educator
   validates :educator, presence: true, uniqueness: true
-  validates :student_searchbar_json, presence: true
+  validate :validate_student_searchbar_json
 
   # Read the cached value, optionally computing if it's missing
   def self.student_searchbar_json_for(educator, options = {})
@@ -14,26 +14,31 @@ class EducatorSearchbar < ApplicationRecord
       EducatorSearchbar.update_student_searchbar_json!(educator)
     else
       Rollbar.info('EducatorSearchbar#student_searchbar_json_for compute_if_missing=false')
-      '[]'
+      []
     end
   end
 
   # Update
   def self.update_student_searchbar_json!(educator)
-    student_searchbar_json = EducatorSearchbar.names_for(educator).to_json
+    student_searchbar_json = EducatorSearchbar.names_for_json(educator)
     educator_searchbar = EducatorSearchbar.find_or_initialize_by(educator_id: educator.id)
     educator_searchbar.update!(student_searchbar_json: student_searchbar_json)
     student_searchbar_json
   end
 
   # Do the actual computation
-  def self.names_for(educator)
+  def self.names_for_json(educator)
     authorized_students = Authorizer.new(educator).authorized { Student.active.to_a }
     authorized_students.map do |student|
       {
         label: "#{student.first_name} #{student.last_name} - #{student.school.local_id} - #{student.grade}",
         id: student.id
-      }
+      }.as_json
     end
+  end
+
+  private
+  def validate_student_searchbar_json
+    errors.add(:student_searchbar_json, 'nil') if self.student_searchbar_json.nil?
   end
 end
