@@ -463,10 +463,10 @@ export function equityChecks(flags = {}) {
 
 // Show different academic indicators by grade level.  STAR starts in 2nd grade.
 export function equityCheckFlags(gradeLevelNextYear) {
+  const queryParams = qs.parse(window.location.search.slice(1));
   const showStar = (['1', '2'].indexOf(gradeLevelNextYear) === -1);
   const showDibels = _.has(queryParams, 'dibels');
   const showFandP = !showStar && !showDibels;
-  const queryParams = qs.parse(window.location.search.slice(1));
   const showDiscipline = _.has(queryParams, 'discipline');
   const showDiversity = !showDiscipline;
   return {
