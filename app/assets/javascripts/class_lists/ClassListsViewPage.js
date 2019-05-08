@@ -76,7 +76,7 @@ export class ClassListsViewPageView extends React.Component {
     const sortedWorkspaces = _.orderBy(workspaces, workspace => {
       const classList = workspace.class_list;
       return [
-        classList.school.name,
+        shortSchoolName(districtKey, classList.school.local_id),
         rankedByGradeLevel(classList.grade_level_next_year),
         classList.submitted
       ];
