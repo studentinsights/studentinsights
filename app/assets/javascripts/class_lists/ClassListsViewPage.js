@@ -110,7 +110,7 @@ export class ClassListsViewPageView extends React.Component {
                   {gradeText(classList.grade_level_next_year)}
                 </td>
                 <td style={cell}>
-                  {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text) !== -1
+                  {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text.toLowerCase()) !== -1
                     ? <span style={{color: '#aaa'}}>{classList.list_type_text}</span>
                     : classList.list_type_text
                   }
