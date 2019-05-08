@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_142316) do
+ActiveRecord::Schema.define(version: 2019_05_08_141724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -115,8 +115,12 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.integer "ed_plan_id", null: false
     t.text "iac_oid", null: false
     t.text "iac_sep_oid", null: false
+    t.text "iac_content_area"
+    t.text "iac_category"
+    t.text "iac_type"
     t.text "iac_description"
     t.text "iac_field"
+    t.text "iac_name"
     t.datetime "iac_last_modified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -170,6 +174,12 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.index ["educator_id"], name: "index_educator_multifactor_configs_on_educator_id", unique: true
     t.index ["rotp_secret"], name: "index_educator_multifactor_configs_on_rotp_secret", unique: true
     t.index ["sms_number"], name: "index_educator_multifactor_configs_on_sms_number", unique: true
+  end
+
+  create_table "educator_searchbars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "educator_id", null: false
+    t.json "student_searchbar_json", default: "[]", null: false
+    t.index ["educator_id"], name: "index_educator_searchbars_on_educator_id", unique: true
   end
 
   create_table "educator_section_assignments", force: :cascade do |t|
@@ -673,6 +683,7 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
   add_foreign_key "ed_plans", "students"
   add_foreign_key "educator_labels", "educators", name: "educator_labels_educator_id_fk"
   add_foreign_key "educator_multifactor_configs", "educators"
+  add_foreign_key "educator_searchbars", "educators"
   add_foreign_key "educator_section_assignments", "educators"
   add_foreign_key "educator_section_assignments", "sections"
   add_foreign_key "educators", "schools", name: "educators_school_id_fk"
