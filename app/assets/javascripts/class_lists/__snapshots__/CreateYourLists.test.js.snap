@@ -289,7 +289,17 @@ shown as purple"
                   "verticalAlign": "top",
                 }
               }
-              title="Students' latest DIBELS scores, broken down into Core (green), Strategic (orange) and Intensive (red)."
+              title="Students' Fountass and Pinnell level from the winter benchmark, broken down into high (green), medium (orange) and low (red).
+
+Kindergarten:
+  NR, AA, A (red)
+  B (orange)
+  C and above (green)
+
+1st grade:
+  D or below (red)
+  E or F (orange)
+  G or above (green)"
             >
               <div
                 className="Hover"
@@ -310,7 +320,7 @@ shown as purple"
                   }
                 />
               </div>
-              Dibels CORE
+              F&P Level, winter
             </th>
             <th
               style={

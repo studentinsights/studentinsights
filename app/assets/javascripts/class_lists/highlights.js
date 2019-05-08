@@ -97,9 +97,9 @@ function starStyles(maybePercentile) {
 
 function fAndPEnglishStyles(student) {
   const {grade} = student;
-  const maybeFAndPValue = student.winter_reading_doc.f_and_p_english;
-
-  if (!grade || !maybeFAndPValue) return styles.none;
+  if (!grade) return styles.none;
+  const maybeFAndPValue = student.winter_reading_doc ? student.winter_reading_doc.f_and_p_english : null;
+  if (!maybeFAndPValue) return styles.none;
   const level = interpretFAndPEnglish(maybeFAndPValue);
   if (!level) return null;
   const category = classifyFAndPEnglish(level, grade, 'winter');
@@ -114,8 +114,9 @@ function fAndPEnglishStyles(student) {
 }
 
 function renderFAndPLevel(student) {
-  const maybeFAndPValue = student.winter_reading_doc.f_and_p_english;
-  return (maybeFAndPValue) ? maybeFAndPValue : null;
+  if (!student.winter_reading_doc) return null;
+  if (!student.winter_reading_doc.f_and_p_english) return null;
+  return student.winter_reading_doc.f_and_p_english;
 }
 
 function dibelsStyles(maybeLatestDibels) {
