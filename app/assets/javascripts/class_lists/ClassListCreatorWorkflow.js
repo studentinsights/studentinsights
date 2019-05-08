@@ -235,6 +235,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
         gradeLevelNextYear={gradeLevelNextYear}
         studentIdsByRoom={resolveDriftForStudents(studentIdsByRoom, _.map(students, 'id'))}
         fetchProfile={studentId => fetchProfile(workspaceId, studentId)}
+        studentPhotoUrlFn={studentId => classListPhotoUrl(workspaceId, studentId)}
         isEditable={isEditable}
         isExpandedVertically={isExpandedVertically}
         onExpandVerticallyToggled={this.onExpandVerticallyToggled}
@@ -489,3 +490,9 @@ const styles = {
     marginTop: 20
   }
 };
+
+
+
+function classListPhotoUrl(workspaceId, studentId) {
+  return `/classlists/${workspaceId}/students/${studentId}/photo`;
+}

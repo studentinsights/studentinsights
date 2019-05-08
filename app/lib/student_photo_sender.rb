@@ -10,9 +10,16 @@ class StudentPhotoSender
 
     s3_filename = student_photo.s3_filename
     object = s3.get_object(key: s3_filename, bucket: ENV['AWS_S3_PHOTOS_BUCKET'])
-    [object.body.read, params]
+    bytes = object.body.read
+    options = {
+      filename: s3_filename,
+      type: 'image/jpeg'
+    }
+
+    [bytes, options]
   end
 
+  private
   def s3
     if EnvironmentVariable.is_true('USE_PLACEHOLDER_STUDENT_PHOTO')
       @client ||= MockAwsS3.with_student_photo_mocked

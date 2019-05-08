@@ -12,8 +12,8 @@ class StudentsController < ApplicationController
       return render json: { error: 'no photo' }, status: 404
     end
 
-    bytes, params = send_params
-    send_data bytes, params
+    bytes, options = send_params
+    send_data bytes, options
   end
 
   def latest_iep_document

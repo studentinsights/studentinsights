@@ -42,6 +42,6 @@ StudentPhotoCropped.contextTypes = {
 };
 StudentPhotoCropped.propTypes = {
   studentId: PropTypes.number.isRequired,
-  photoUrl: PropTypes.string.isRequired,
+  photoUrl: PropTypes.string,
   style: PropTypes.object,
 };

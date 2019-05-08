@@ -226,14 +226,14 @@ class ClassListsController < ApplicationController
     params.require(:student_id)
 
     # check valid
-    student = ensure_valid_student_for_class_list!(student_id, workspace_id)
-    send_params = student_photo_sender.send_photo_params(student)
+    student = ensure_valid_student_for_class_list!(params[:student_id], params[:workspace_id])
+    send_params = student_photo_sender.send_params(student)
     if send_params.nil?
       return render json: { error: 'no photo' }, status: 404
     end
 
-    bytes, params = send_params
-    send_data bytes, params
+    bytes, options = send_params
+    send_data bytes, options
   end
 
   private

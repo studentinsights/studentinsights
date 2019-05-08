@@ -72,7 +72,7 @@ export default class StudentCard extends React.Component {
   }
 
   renderStudentCard(student) {
-    const {isEditable, highlightKey, style} = this.props;
+    const {isEditable, studentPhotoUrl, highlightKey, style} = this.props;
     const cursor = (isEditable) ? 'pointer' : 'default';
     const highlightStyle = highlightStyleForKey(student, highlightKey);
     const noteIconEl = this.renderNoteIcon(student);
@@ -82,7 +82,7 @@ export default class StudentCard extends React.Component {
         <div style={styles.photoAndName}>
           <StudentPhotoCropped
             studentId={student.id}
-            photoUrl={classListPhotoUrl(student.id)}
+            photoUrl={studentPhotoUrl}
             style={styles.studentPhoto}
           />
           <div style={styles.name}>{student.last_name}, {student.first_name}</div>
@@ -128,6 +128,7 @@ StudentCard.contextTypes = {
 };
 StudentCard.propTypes = {
   student: PropTypes.object.isRequired,
+  studentPhotoUrl: PropTypes.string.isRequired,
   gradeLevelNextYear: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   fetchProfile: PropTypes.func.isRequired,
@@ -179,8 +180,3 @@ const styles = {
     zIndex: 20
   }
 };
-
-
-function classListPhotoUrl(studentId) {
-  return `/classlists/students/${studentId}/photo`;
-}
