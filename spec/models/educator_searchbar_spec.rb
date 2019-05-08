@@ -59,7 +59,6 @@ RSpec.describe EducatorSearchbar do
       expect(EducatorSearchbar.student_searchbar_json_for(educator, compute_if_missing: true)).to eq([
         { "id" => betsy.id, "label" => "Betsy Ramirez - Big River High - 3" }
       ])
-      expect(educator.student_searchbar_json).to eq(nil)
     end
   end
 end

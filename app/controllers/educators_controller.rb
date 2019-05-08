@@ -72,7 +72,7 @@ class EducatorsController < ApplicationController
 
   # Used by the search bar to query for student names
   def student_searchbar_json
-    EducatorSearchbar.student_searchbar_json_for(current_educator, {
+    json = EducatorSearchbar.student_searchbar_json_for(current_educator, {
       compute_if_missing: true
     })
     render json: json
