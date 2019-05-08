@@ -172,7 +172,7 @@ export default class ClassListCreatorWorkflow extends React.Component {
             value={authors}
             valueKey="id"
             labelKey="full_name"
-            options={educators}
+            options={_.sortBy(educators, 'full_name')}
             onChange={onEducatorsChanged}
             disabled={!isEditable}
           />
