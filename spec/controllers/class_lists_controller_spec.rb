@@ -664,14 +664,24 @@ describe ClassListsController, :type => :controller do
 
   describe '#student_photo' do
     let!(:pals) { TestPals.create! }
+    let!(:priya) do
+      Educator.create!(
+        login_name: 'priya',
+        email: "priya@#{email_domain}",
+        full_name: 'Teacher, Priya',
+        staff_type: nil,
+        school: pals.healey,
+        homeroom: nil
+      )
+    end
 
     def make_request(student_id)
-      class_list = create_class_list_from(pals.healey_sarah_teacher, {
-        grade_level_next_year: '6',
+      class_list = create_class_list_from(priya, {
+        grade_level_next_year: '1',
         created_at: time_now - 4.hours,
         updated_at: time_now - 4.hours,
       })
-      sign_in(pals.healey_sarah_teacher)
+      sign_in(priya)
       request.env['HTTPS'] = 'on'
       get :student_photo, params: {
         workspace_id: class_list.workspace_id,
