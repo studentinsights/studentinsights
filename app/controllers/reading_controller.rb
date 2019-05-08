@@ -63,9 +63,13 @@ class ReadingController < ApplicationController
   # Used by ReadingDebugPage
   def reading_debug_json
     students = authorized { Student.active }
-    students_json = students.as_json
+    reading_benchmark_data_points = ReadingBenchmarkDataPoint.all
+      .where(student_id: student_ids)
+      .order(updated_at: :asc)
+
     render json: {
-      students: students_json
+      students: students.as_json,
+      reading_benchmark_data_points: reading_benchmark_data_points.as_json
     }
   end
 
