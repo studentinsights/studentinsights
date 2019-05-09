@@ -56,8 +56,11 @@ Rails.application.routes.draw do
   post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
   get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
   get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
-  get '/api/class_lists/experimental_workspaces_with_equity_json' => 'class_lists#experimental_workspaces_with_equity_json'
-  get '/api/class_lists/experimental_schools_json' => 'class_lists#experimental_schools_json'
+
+  # equity
+  get '/api/equity/classlists_equity_index_json' => 'equity#classlists_equity_index_json'
+  get '/api/equity/stats_by_school_json' => 'equity#stats_by_school_json'
+
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
   get '/api/home/students_with_high_absences_json' => 'home#students_with_high_absences_json'
@@ -194,7 +197,7 @@ Rails.application.routes.draw do
 
   resource :equity, only: [] do
     get '/stats_by_school' => 'ui#ui'
-    get '/classlists_indexes' => 'ui#ui'
+    get '/classlists_index' => 'ui#ui'
     get '/schools/:school_id/explore' => 'ui#ui'
     get '/schools/:school_id/quilts' => 'ui#ui'
   end

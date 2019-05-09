@@ -10,7 +10,7 @@ import ExperimentalBanner from '../components/ExperimentalBanner';
 import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {fetchExperimentalWorkspacesWithEquity} from '../class_lists/api';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 
 
 // Experimental view for looking at equity in class lists
@@ -18,9 +18,11 @@ export default class ClassListsEquityIndexPage extends React.Component {
   render() {
     return (
       <div className="ClassListsEquityIndexPage">
+        <ExperimentalBanner />
+        <SectionHeading>Class List: Experimental Equity View</SectionHeading>
         <GenericLoader
           style={styles.root}
-          promiseFn={fetchExperimentalWorkspacesWithEquity}
+          promiseFn={() => apiFetchJson('/api/equity/classlists_equity_index_json')}
           render={json => (
             <ClassListsEquityIndexView
               dimensionKeys={json.dimension_keys}
@@ -35,13 +37,7 @@ ClassListsEquityIndexPage.propTypes = {};
 // View component
 export class ClassListsEquityIndexView extends React.Component {
   render() {
-    return (
-      <div>
-        <ExperimentalBanner />
-        <SectionHeading>Class List: Experimental Equity View</SectionHeading>
-        {this.renderTable()}
-      </div>
-    );
+    return this.renderTable();
   }
 
   renderTable() {

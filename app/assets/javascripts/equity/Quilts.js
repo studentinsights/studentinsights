@@ -47,7 +47,7 @@ export default class Quilts extends React.Component {
           {this.renderButton(null, { text: 'across all'})}
           <button
             style={{background: 'white', border: 'none', cursor: 'pointer', fontWeight: stableSorting ? 'bold' : 'normal'}}
-            onClick={e => this.setState({stableSorting: this.state.stableSorting})}>stable sorting</button>
+            onClick={e => this.setState({stableSorting: !this.state.stableSorting})}>stable sorting!</button>
         </div>
         {sortedStudents.map(student => {
           const intersection = intersectionFor(student);

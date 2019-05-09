@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
 import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ClassroomStats from '../class_lists/ClassroomStats';
-import {UNPLACED_ROOM_KEY} from '../class_lists/studentIdsByRoomFunctions';
 
 // Shows the class list equity dimensions, but grouped by school.
 export default class EquityStatsBySchoolPage extends React.Component {
@@ -28,9 +28,9 @@ export default class EquityStatsBySchoolPage extends React.Component {
     return (
       <div className="EquityStatsBySchoolPage">
         <ExperimentalBanner />
-        <SectionHeading>Across schools, {nowText}</SectionHeading>
+        <SectionHeading>K8 students grouped by schools, {nowText}</SectionHeading>
         <GenericLoader
-          promiseFn={() => apiFetchJson('/api/equity/equity_stats_by_school_json')}
+          promiseFn={() => apiFetchJson('/api/equity/stats_by_school_json')}
           render={json => this.renderJson(json)}
         />
       </div>
@@ -48,7 +48,7 @@ export default class EquityStatsBySchoolPage extends React.Component {
     });
     const rooms = _.compact(schoolIds.map(schoolId => {
       const roomIndex = schoolIds.indexOf(schoolId);
-      const roomKey = `room:${schoolId}`;
+      const roomKey = `room:${roomIndex}`;
       const studentsInRoom = studentIdsByRoom[roomKey] || [];
       if (studentsInRoom.length === 0) return null;
       return {
@@ -58,18 +58,24 @@ export default class EquityStatsBySchoolPage extends React.Component {
       };
     }));
 
+    console.log('studentIdsByRoom', studentIdsByRoom);
+    console.log('rooms', rooms);
     const {highlightKey} = this.state;
     return (
       <div style={{height: 600}}>
         <ClassroomStats
           students={students}
           gradeLevelNextYear={"8"} // suggests STAR, not F&P
-          rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
+          rooms={rooms}
           studentIdsByRoom={studentIdsByRoom}
           highlightKey={highlightKey}
           onCategorySelected={this.onCategorySelected}
         />
+        <div style={{margin: 20, fontSize: 14}}>{students.length} total students</div>
       </div>
     );
   }
 }
+EquityStatsBySchoolPage.contextTypes = {
+  nowFn: PropTypes.func.isRequired
+};

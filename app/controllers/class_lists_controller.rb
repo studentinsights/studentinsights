@@ -1,10 +1,6 @@
 class ClassListsController < ApplicationController
   before_action :ensure_feature_enabled_for_district!
 
-  def experimental_schools_json
-    render json: JSON.parse(IO.read('/Users/krobinson/Desktop/DANGER2/2019-05-09-experimental-schools/experimental_schools.json'))
-  end
-
   # For showing the list of all workspaces that the user can read
   def workspaces_json
     params.permit(:include_historical)
@@ -47,13 +43,6 @@ class ClassListsController < ApplicationController
       include_historical: include_historical,
       workspaces: workspaces_json
     }
-  end
-
-  def experimental_workspaces_with_equity_json
-    raise Exceptions::EducatorNotAuthorized unless current_educator.can_set_districtwide_access?
-
-    workspaces = queries.all_authorized_workspaces
-    render json: Herfindahl.new.with_dimensions_json(workspaces)
   end
 
   # For getting access to class list data after the year has passed,
