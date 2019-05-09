@@ -40,7 +40,7 @@ import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/Servic
 import EquityStatsBySchoolPage  from '../app/assets/javascripts/equity/EquityStatsBySchoolPage';
 import ExploreSchoolEquityPage from '../app/assets/javascripts/equity/ExploreSchoolEquityPage';
 import QuiltsPage from '../app/assets/javascripts/equity/QuiltsPage';
-import ClassListsEquityIndexesPage from '../app/assets/javascripts/equity/ClassListsEquityIndexesPage';
+import ClassListsEquityIndexPage from '../app/assets/javascripts/equity/ClassListsEquityIndexPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -109,7 +109,7 @@ export default class App extends React.Component {
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
         <Route exact path="/equity/schools/:id/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
         <Route exact path="/equity/schools/:id/quilts" render={this.renderQuiltsSchoolEquityPage.bind(this)}/>
-        <Route exact path="/equity/classlist_indexes" render={this.renderExperimentalClassListsEquityPage.bind(this)}/>
+        <Route exact path="/equity/classlist_index" render={this.renderClassListsEquityIndexPage.bind(this)}/>
         <Route exact path="/equity/stats_by_school" render={this.renderEquityStatsBySchoolPage.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
         <Route exact path="/district" render={this.renderDistrictOverviewPage.bind(this)}/>
@@ -205,8 +205,8 @@ export default class App extends React.Component {
     );
   }
 
-  renderExperimentalClassListsEquityPage(routeProps) {
-    return <ClassListsEquityPage />;
+  renderClassListsEquityIndexPage(routeProps) {
+    return <ClassListsEquityIndexPage />;
   }
 
   renderEquityStatsBySchoolPage(routeProps) {
