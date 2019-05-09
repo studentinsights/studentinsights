@@ -172,7 +172,6 @@ Rails.application.routes.draw do
     member do
       get '' => 'ui#ui'
       get '/new' => 'ui#ui'
-      get '/equity' => 'ui#ui'
       get '/schools' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
       get '/:workspace_id/text' => 'class_lists#text'
@@ -188,10 +187,15 @@ Rails.application.routes.draw do
       get 'tardies' => 'ui#ui'
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
-      get 'equity/explore' => 'ui#ui'
-      get 'equity/quilts' => 'ui#ui'
       get 'reading/:grade/entry' => 'ui#ui'
       get 'reading/:grade/groups' => 'ui#ui'
     end
+  end
+
+  resource :equity, only: [] do
+    get '/stats_by_school' => 'ui#ui'
+    get '/classlists_indexes' => 'ui#ui'
+    get '/schools/:school_id/explore' => 'ui#ui'
+    get '/schools/:school_id/quilts' => 'ui#ui'
   end
 end

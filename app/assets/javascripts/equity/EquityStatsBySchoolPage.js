@@ -2,14 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 import GenericLoader from '../components/GenericLoader';
 import SectionHeading from '../components/SectionHeading';
+import ExperimentalBanner from '../components/ExperimentalBanner';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import ClassroomStats from '../class_lists/ClassroomStats';
 import {UNPLACED_ROOM_KEY} from '../class_lists/studentIdsByRoomFunctions';
 
-// Show users their class lists.  More useful for principals, building admin,
-// or ELL/SPED teachers than classroom teachers (who are typically
-// making a single list).
-export default class ExperimentalClassListsSchoolsPage extends React.Component {
+// Shows the class list equity dimensions, but grouped by school.
+export default class EquityStatsBySchoolPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,13 +23,14 @@ export default class ExperimentalClassListsSchoolsPage extends React.Component {
   }
 
   render() {
-    console.log('render');
+    const {nowFn} = this.context;
+    const nowText = nowFn().format('M/D/YY');
     return (
-      <div className="ExperimentalClassListsSchoolsPage">
-        <SectionHeading>Across schools</SectionHeading>
+      <div className="EquityStatsBySchoolPage">
+        <ExperimentalBanner />
+        <SectionHeading>Across schools, {nowText}</SectionHeading>
         <GenericLoader
-          // style={styles.root}
-          promiseFn={() => apiFetchJson('/api/class_lists/experimental_schools_json')}
+          promiseFn={() => apiFetchJson('/api/equity/equity_stats_by_school_json')}
           render={json => this.renderJson(json)}
         />
       </div>
@@ -38,31 +38,32 @@ export default class ExperimentalClassListsSchoolsPage extends React.Component {
   }
 
   renderJson(json) {
-    console.log('renderJson', json);
     const students = json.students;
     const schoolIds = _.uniq(students.map(student => student.school_id)).sort();
-    const rooms = schoolIds.map(schoolId => {
-      const roomIndex = schoolIds.indexOf(schoolId);
-      return {
-        roomKey: `room:${schoolId}`,
-        roomName: schoolId,
-        roomIndex
-      };
-    });
-    const studentIdsByRoom = _.groupBy(students, student => {
+    const studentIdsByRoom = {};
+    students.forEach(student => {
       const roomIndex = schoolIds.indexOf(student.school_id);
-      return `room:${roomIndex}`;
+      const roomKey = `room:${roomIndex}`;
+      studentIdsByRoom[roomKey] = (studentIdsByRoom[roomKey] || []).concat(student.id);
     });
+    const rooms = _.compact(schoolIds.map(schoolId => {
+      const roomIndex = schoolIds.indexOf(schoolId);
+      const roomKey = `room:${schoolId}`;
+      const studentsInRoom = studentIdsByRoom[roomKey] || [];
+      if (studentsInRoom.length === 0) return null;
+      return {
+        roomKey,
+        roomIndex,
+        roomName: '<redacted>'
+      };
+    }));
 
-    console.log('schoolIds', schoolIds);
-    console.log('studentIdsByRoom', studentIdsByRoom);
-    debugger
     const {highlightKey} = this.state;
     return (
       <div style={{height: 600}}>
         <ClassroomStats
           students={students}
-          gradeLevelNextYear={"3"}
+          gradeLevelNextYear={"8"} // suggests STAR, not F&P
           rooms={rooms.filter(room => room.roomKey !== UNPLACED_ROOM_KEY)}
           studentIdsByRoom={studentIdsByRoom}
           highlightKey={highlightKey}

@@ -3,9 +3,10 @@ import React from 'react';
 import hash from 'object-hash';
 import _ from 'lodash';
 import d3 from 'd3';
+import {prettyEnglishProficiencyText} from '../helpers/language';
 import Bar from '../components/Bar';
 import SectionHeading from '../components/SectionHeading';
-import {prettyEnglishProficiencyText} from '../helpers/language';
+
 
 // Experimental
 export default class Quilts extends React.Component {

@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import fetchMock from 'fetch-mock/es5/client';
 import renderer from 'react-test-renderer';
-import ClassListsEquityPage, {ClassListsEquityPageView} from './ClassListsEquityPage';
-import experimental_workspaces_with_equity_json from './fixtures/experimental_workspaces_with_equity_json';
+import ClassListsEquityIndexPage, {ClassListsEquityIndexView} from './ClassListsEquityIndexPage';
+import experimental_workspaces_with_equity_json from './experimental_workspaces_with_equity_json.fixture';
 
 beforeEach(() => {
   fetchMock.reset();
@@ -21,7 +21,7 @@ export function testProps(props = {}) {
 it('renders without crashing', () => {
   const el = document.createElement('div');
   const props = testProps();
-  ReactDOM.render(<ClassListsEquityPage {...props} />, el);
+  ReactDOM.render(<ClassListsEquityIndexPage {...props} />, el);
 });
 
 
@@ -32,7 +32,7 @@ it('snapshots view', () => {
     classListsWithDimensions: json.class_lists_with_dimensions
   });
   const tree = renderer
-    .create(<ClassListsEquityPageView {...props} />)
+    .create(<ClassListsEquityIndexView {...props} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -10,19 +10,19 @@ import ExperimentalBanner from '../components/ExperimentalBanner';
 import tableStyles from '../components/tableStyles';
 import {gradeText} from '../helpers/gradeText';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {fetchExperimentalWorkspacesWithEquity} from './api';
+import {fetchExperimentalWorkspacesWithEquity} from '../class_lists/api';
 
 
 // Experimental view for looking at equity in class lists
-export default class ClassListsEquityPage extends React.Component {
+export default class ClassListsEquityIndexPage extends React.Component {
   render() {
     return (
-      <div className="ClassListsEquityPage">
+      <div className="ClassListsEquityIndexPage">
         <GenericLoader
           style={styles.root}
           promiseFn={fetchExperimentalWorkspacesWithEquity}
           render={json => (
-            <ClassListsEquityPageView
+            <ClassListsEquityIndexView
               dimensionKeys={json.dimension_keys}
               classListsWithDimensions={json.class_lists_with_dimensions} />
           )} />
@@ -30,10 +30,10 @@ export default class ClassListsEquityPage extends React.Component {
     );
   }
 }
-ClassListsEquityPage.propTypes = {};
+ClassListsEquityIndexPage.propTypes = {};
 
 // View component
-export class ClassListsEquityPageView extends React.Component {
+export class ClassListsEquityIndexView extends React.Component {
   render() {
     return (
       <div>
@@ -108,7 +108,7 @@ export class ClassListsEquityPageView extends React.Component {
     }}>{rounded}</span>;
   }
 }
-ClassListsEquityPageView.propTypes = {
+ClassListsEquityIndexView.propTypes = {
   dimensionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   classListsWithDimensions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
