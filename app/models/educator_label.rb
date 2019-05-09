@@ -31,7 +31,8 @@ class EducatorLabel < ApplicationRecord
         'can_upload_student_voice_surveys',
         'should_show_levels_shs_link',
         'enable_searching_notes',
-        'can_mark_notes_as_restricted'
+        'can_mark_notes_as_restricted',
+        'enable_counselor_notes_page'
       ]
     }
   }
