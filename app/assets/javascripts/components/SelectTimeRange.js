@@ -31,8 +31,8 @@ export default function SelectTimeRange(props) {
 }
 SelectTimeRange.propTypes = {
   timeRangeKey: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  timeRangeKeys: PropTypes.arrayOf(PropTypes.string)
+  timeRangeKeys: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func.isRequired
 };
 
 
@@ -52,12 +52,17 @@ export function momentRange(timeRangeKey, nowMoment) {
 // Translate to user-facing text
 export function timeRangeText(timeRangeKey) {
   return {
+    TIME_RANGE_7_DAYS_AGO: 'Last 7 days',
+    TIME_RANGE_30_DAYS_AGO: 'Last 30 days',
     TIME_RANGE_45_DAYS_AGO: 'Last 45 days',
     TIME_RANGE_90_DAYS_AGO: 'Last 90 days',
     TIME_RANGE_SCHOOL_YEAR: 'This school year',
     TIME_RANGE_FOUR_YEARS: 'Last four years'
   }[timeRangeKey];
 }
+
+export const TIME_RANGE_7_DAYS_AGO = 'TIME_RANGE_7_DAYS_AGO';
+export const TIME_RANGE_30_DAYS_AGO = 'TIME_RANGE_30_DAYS_AGO';
 export const TIME_RANGE_45_DAYS_AGO = 'TIME_RANGE_45_DAYS_AGO';
 export const TIME_RANGE_90_DAYS_AGO = 'TIME_RANGE_90_DAYS_AGO';
 export const TIME_RANGE_SCHOOL_YEAR = 'TIME_RANGE_SCHOOL_YEAR';

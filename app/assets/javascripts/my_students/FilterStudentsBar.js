@@ -5,9 +5,16 @@ import EscapeListener from '../components/EscapeListener';
 import FilterBar from '../components/FilterBar';
 import SelectHouse from '../components/SelectHouse';
 import SelectGrade from '../components/SelectGrade';
+import SelectTimeRange from '../components/SelectTimeRange';
 import SelectCounselor from '../components/SelectCounselor';
 import {ALL} from '../components/SimpleFilterSelect';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
+import {
+  TIME_RANGE_7_DAYS_AGO,
+  TIME_RANGE_30_DAYS_AGO,
+  TIME_RANGE_45_DAYS_AGO,
+  TIME_RANGE_90_DAYS_AGO
+} from '../components/SelectTimeRange'
 
 // Takes a list of students, uses them to find values to sort by,
 // and then renders a filtering bar for different dimensions, yielding
@@ -17,6 +24,7 @@ export default class FilterStudentsBar extends React.Component {
     super(props);
     this.state = initialState();
 
+    this.onTimeRangeChanged = this.onTimeRangeChanged.bind(this);
     this.onEscape = this.onEscape.bind(this);
     this.onSearchChanged = this.onSearchChanged.bind(this);
     this.onGradeChanged = this.onGradeChanged.bind(this);
@@ -55,6 +63,10 @@ export default class FilterStudentsBar extends React.Component {
 
   onCounselorChanged(counselor) {
     this.setState({counselor});
+  }
+
+  onTimeRangeChanged(timeRangeKey) {
+    this.setState({timeRangeKey});
   }
 
   render() {
@@ -112,17 +124,24 @@ export default class FilterStudentsBar extends React.Component {
         onChange={this.onHouseChanged} />
     );
   }
-  renderTimeRangeSelect() {
-    const {students, includeHouse} = this.props;
-    if (!includeHouse) return null;
 
-    const {house} = this.state;
-    const sortedHouses = _.sortBy(_.uniq(_.compact(students.map(student => student.house))));
+  renderTimeRangeSelect() {
+    const {students, includeTimeRange} = this.props;
+    if (!includeTimeRange) return null;
+
+    const {timeRangeKey} = this.state;
+    const timeRangeKeys = [
+      TIME_RANGE_7_DAYS_AGO,
+      TIME_RANGE_30_DAYS_AGO,
+      TIME_RANGE_45_DAYS_AGO,
+      TIME_RANGE_90_DAYS_AGO
+    ];
+    debugger
     return (
-      <SelectHouse
-        house={house}
-        houses={sortedHouses}
-        onChange={this.onHouseChanged} />
+      <SelectTimeRange
+        timeRangeKey={timeRangeKey}
+        timeRangeKeys={timeRangeKeys}
+        onChange={this.onTimeRangeChanged} />
     );
   }
 
@@ -142,6 +161,7 @@ export default class FilterStudentsBar extends React.Component {
 FilterStudentsBar.propTypes = {
   includeCounselor: PropTypes.bool.isRequired,
   includeHouse: PropTypes.bool.isRequired,
+  includeTimeRange: PropTypes.bool.isRequired,
   students: PropTypes.arrayOf(PropTypes.shape({
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
@@ -182,7 +202,8 @@ function initialState() {
     searchText: '',
     grade: ALL,
     house: ALL,
-    counselor: ALL
+    counselor: ALL,
+    timeRangeKey: TIME_RANGE_30_DAYS_AGO
   };
 }
 

@@ -103,6 +103,7 @@ export class CounselorNotesPageView extends React.Component {
           students={students}
           style={{...styles.flexVertical, marginLeft: 10, marginTop: 20}}
           includeHouse={supportsHouse(districtKey)}
+          includeTimeRange={true}
           includeCounselor={supportsCounselor(districtKey)}>
           {filteredStudents => this.renderTable(filteredStudents)}
         </FilterStudentsBar>
