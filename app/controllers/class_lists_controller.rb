@@ -190,10 +190,7 @@ class ClassListsController < ApplicationController
   end
 
   # Shows student profile information beyond what's used in the class list creating
-  # directly.
-  # Authorization is checked differently here, and is more permissive than the
-  # standard approach but with log trails to see how these queries fit within the class list
-  # creating process.
+  # directly.  Authorization is checked differently here.
   def profile_json
     params.require(:workspace_id)
     params.require(:student_id)
@@ -202,16 +199,8 @@ class ClassListsController < ApplicationController
     workspace_id = params[:workspace_id]
     student_id = params[:student_id].to_i
 
-    # Check that the educator is authorized to see the grade and school for this student
-    student = Student.find(student_id)
-    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(student.school_id, student.grade)
-
-    # Check that they gave a valid `workspace_id` and that it matches
-    # the school and grade level for the student they're asking about.
-    class_list = queries.read_authorized_class_list(workspace_id)
-    raise Exceptions::EducatorNotAuthorized if class_list.nil?
-    raise Exceptions::EducatorNotAuthorized if class_list.school_id != student.school_id
-    raise Exceptions::EducatorNotAuthorized if class_list.grade_level_next_year != GradeLevels.new.next(student.grade)
+    # Check that the educator is authorized using class lists rules
+    student = ensure_valid_student_for_class_list!(student_id, workspace_id)
 
     # Load feed cards just for this student
     time_now = time_now_or_param(params[:time_now])
@@ -224,9 +213,47 @@ class ClassListsController < ApplicationController
     }
   end
 
+  # Shows student photo.  Authorization is checked differently here.
+  def student_photo
+    params.require(:workspace_id)
+    params.require(:student_id)
+
+    # check valid
+    student = ensure_valid_student_for_class_list!(params[:student_id], params[:workspace_id])
+    send_params = student_photo_sender.send_params(student)
+    if send_params.nil?
+      return render json: { error: 'no photo' }, status: 404
+    end
+
+    bytes, options = send_params
+    send_data bytes, options
+  end
+
   private
   def queries
     @class_list_queries = ClassListQueries.new(current_educator)
+  end
+
+  # For individual student data, we have to use a separate
+  # system than the standard permission system to allow
+  # grade-level access.
+  #
+  # Authorization is checked differently here, and is more permissive than the
+  # standard approach but with log trails to see how these queries fit within the class list
+  # creating process.
+  def ensure_valid_student_for_class_list!(student_id, workspace_id)
+    # Check that the educator is authorized to see the grade and school for this student
+    student = Student.find(student_id)
+    raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(student.school_id, student.grade)
+
+    # Check that they gave a valid `workspace_id` and that it matches
+    # the school and grade level for the student they're asking about.
+    class_list = queries.read_authorized_class_list(workspace_id)
+    raise Exceptions::EducatorNotAuthorized if class_list.nil?
+    raise Exceptions::EducatorNotAuthorized if class_list.school_id != student.school_id
+    raise Exceptions::EducatorNotAuthorized if class_list.grade_level_next_year != GradeLevels.new.next(student.grade)
+
+    student
   end
 
   def educator_names(school_id)
@@ -267,5 +294,9 @@ class ClassListsController < ApplicationController
   def ensure_feature_enabled_for_district!
     is_enabled = PerDistrict.new.enabled_class_lists?
     raise Exceptions::EducatorNotAuthorized if !is_enabled && !is_authorization_override_enabled?
+  end
+
+  def student_photo_sender
+    @student_photo_sender ||= StudentPhotoSender.new(MockAwsS3.create_real_or_mock)
   end
 end

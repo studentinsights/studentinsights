@@ -178,6 +178,7 @@ Rails.application.routes.draw do
       get '/schools' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
       get '/:workspace_id/text' => 'class_lists#text'
+      get '/:workspace_id/students/:student_id/photo' => 'class_lists#student_photo'
     end
   end
 
