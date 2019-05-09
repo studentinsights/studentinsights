@@ -205,7 +205,7 @@ class Student < ApplicationRecord
   def winter_reading_doc(options = {})
     time_now = options.fetch(:time_now, Time.now)
     benchmark_school_year = SchoolYear.to_school_year(time_now)
-    self.reading_benchmark_data_points.as_student_doc_json(benchmark_school_year, :winter)
+    ReadingBenchmarkDataPoint.doc_for(self.id, benchmark_school_year, :winter)
   end
 
   def update_recent_student_assessments

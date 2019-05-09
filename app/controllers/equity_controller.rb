@@ -25,9 +25,6 @@ class EquityController < ApplicationController
         :gender,
         :most_recent_star_math_percentile,
         :most_recent_star_reading_percentile
-      ],
-      methods: [
-        :winter_reading_doc
       ]
     })
     render json: {
