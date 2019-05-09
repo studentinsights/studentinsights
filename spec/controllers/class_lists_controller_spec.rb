@@ -667,7 +667,7 @@ describe ClassListsController, :type => :controller do
     let!(:priya) do
       Educator.create!(
         login_name: 'priya',
-        email: "priya@#{email_domain}",
+        email: "priya@demo.studentinsights.org",
         full_name: 'Teacher, Priya',
         staff_type: nil,
         school: pals.healey,
