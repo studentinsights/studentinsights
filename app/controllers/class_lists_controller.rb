@@ -252,7 +252,7 @@ class ClassListsController < ApplicationController
     # Check that the educator is authorized to see the grade and school for this student
     student = Student.find(student_id)
     raise Exceptions::EducatorNotAuthorized unless queries.is_authorized_for_grade_level_now?(student.school_id, student.grade)
-
+    
     # Check that they gave a valid `workspace_id` and that it matches
     # the school and grade level for the student they're asking about.
     class_list = queries.read_authorized_class_list(workspace_id)

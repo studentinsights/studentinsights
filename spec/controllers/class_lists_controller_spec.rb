@@ -86,7 +86,8 @@ describe ClassListsController, :type => :controller do
             },
             "school"=>{
               "id"=>pals.healey.id,
-              "name"=>"Arthur D Healey"
+              "name"=>"Arthur D Healey",
+              "local_id"=>"HEA"
             }
           }
         }]
