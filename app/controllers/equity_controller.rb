@@ -54,10 +54,10 @@ class EquityController < ApplicationController
   def ensure_class_lists_are_enabled!
     is_enabled = PerDistrict.new.enabled_class_lists?
     is_override_set = current_educator.labels.include?('enable_class_lists_override')
-    is_enabled || is_override_set
+    raise Exceptions::EducatorNotAuthorized unless (is_enabled || is_override_set)
   end
 
   def ensure_authorized!
-    current_educator.labels.include?('enable_equity_experiments')
+    raise Exceptions::EducatorNotAuthorized unless current_educator.labels.include?('enable_equity_experiments')
   end
 end
