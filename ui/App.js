@@ -26,6 +26,7 @@ import QuiltsPage from '../app/assets/javascripts/class_lists/QuiltsPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
 import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
+import ExperimentalClassListsSchoolsPage  from '../app/assets/javascripts/class_lists/ExperimentalClassListsSchoolsPage';
 import DistrictOverviewPage from '../app/assets/javascripts/district_overview/DistrictOverviewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
@@ -108,6 +109,7 @@ export default class App extends React.Component {
         <Route exact path="/students/:id/v4" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
         <Route exact path="/classlists/equity" render={this.renderExperimentalClassListsEquityPage.bind(this)}/>
+        <Route exact path="/classlists/schools" render={this.renderExperimentalClassListsSchoolsPage.bind(this)}/>
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
@@ -206,6 +208,10 @@ export default class App extends React.Component {
 
   renderExperimentalClassListsEquityPage(routeProps) {
     return <ClassListsEquityPage />;
+  }
+
+  renderExperimentalClassListsSchoolsPage(routeProps) {
+    return <ExperimentalClassListsSchoolsPage />;
   }
 
   renderClassListCreatorEdit(routeProps) {
