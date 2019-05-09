@@ -31,11 +31,12 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
   }
   validates :json, presence: true
 
-  def self.doc_for(student_id, benchmark_school_year, benchmark_period_key)
-    data_points = ReadingBenchmarkDataPoint.where({
+  # intended for `student.reading_benchmark_data_points`,
+  # as a query performance optimization
+  def self.as_student_doc_json(benchmark_school_year, benchmark_period_key)
+    data_points = all.where({
       benchmark_school_year: benchmark_school_year,
-      benchmark_period_key: benchmark_period_key,
-      student_id: student_id
+      benchmark_period_key: benchmark_period_key
     }).order(updated_at: :asc)
     doc = data_points.reduce({}) do |map, data_point|
       map.merge({
@@ -43,6 +44,12 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
       })
     end
     doc.as_json
+  end
+
+  # deprecated, convenience only
+  def self.doc_for(student_id, benchmark_school_year, benchmark_period_key)
+    relation = ReadingBenchmarkDataPoint.where(student_id: student_id)
+    relation.doc_from_data_points(benchmark_school_year, benchmark_period_key)
   end
 
   def self.benchmark_period_key_at(time_now)
