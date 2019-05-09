@@ -38,6 +38,8 @@ export default class EquityStatsBySchoolPage extends React.Component {
   }
 
   renderJson(json) {
+    const {highlightKey} = this.state;
+    
     const students = json.students;
     const schoolIds = _.uniq(students.map(student => student.school_id)).sort();
     const studentIdsByRoom = {};
@@ -58,9 +60,6 @@ export default class EquityStatsBySchoolPage extends React.Component {
       };
     }));
 
-    console.log('studentIdsByRoom', studentIdsByRoom);
-    console.log('rooms', rooms);
-    const {highlightKey} = this.state;
     return (
       <div style={{height: 600}}>
         <ClassroomStats

@@ -23,7 +23,8 @@ describe DistrictController, :type => :controller do
         "current_educator" => {
           "id"=>pals.uri.id,
           "admin"=>true,
-          "can_set_districtwide_access"=>true
+          "can_set_districtwide_access"=>true,
+          "labels"=>['foo']
         },
        "schools" => [
           {"id"=>pals.healey.id, "name"=>pals.healey.name},

@@ -8,7 +8,7 @@ import experimental_workspaces_with_equity_json from './experimental_workspaces_
 beforeEach(() => {
   fetchMock.reset();
   fetchMock.restore();
-  fetchMock.get('express:/api/class_lists/experimental_workspaces_with_equity_json', experimental_workspaces_with_equity_json);
+  fetchMock.get('express:/api/equity/classlists_equity_index_json', experimental_workspaces_with_equity_json);
 });
 
 export function testProps(props = {}) {

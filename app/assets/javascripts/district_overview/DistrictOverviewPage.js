@@ -161,10 +161,10 @@ export class DistrictOverviewPageView extends React.Component {
     
     return (
       <div style={{marginTop: 40}}>
-        <SectionHeading>Equity</SectionHeading>
+        <SectionHeading>Equity experiments</SectionHeading>
         <ExperimentalBanner />
         <div style={{margin: 20}}>
-          <div style={styles.section}>Explore equity (experimental)</div>
+          <div style={styles.section}>Experimental homeroom breakdowns</div>
           <ul style={styles.plainList}>{schools.map(school => {
             return (
               <li key={school.id}>
