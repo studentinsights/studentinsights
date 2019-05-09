@@ -1,9 +1,7 @@
 class StudentsController < ApplicationController
   include ApplicationHelper
 
-  before_action :authorize!, except: [
-    :names
-  ]
+  before_action :authorize!
 
   def photo
     student = Student.find(params[:id])
@@ -55,17 +53,6 @@ class StudentsController < ApplicationController
       render json: serializer.serialize_service
     else
       render json: { errors: service.errors.full_messages }, status: 422
-    end
-  end
-
-  # Used by the search bar to query for student names
-  def names
-    cached_json_for_searchbar = current_educator.student_searchbar_json
-
-    if cached_json_for_searchbar
-      render json: cached_json_for_searchbar
-    else
-      render json: SearchbarHelper.names_for(current_educator)
     end
   end
 
