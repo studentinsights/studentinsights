@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_142316) do
+ActiveRecord::Schema.define(version: 2019_05_09_220552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -170,6 +170,12 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.index ["educator_id"], name: "index_educator_multifactor_configs_on_educator_id", unique: true
     t.index ["rotp_secret"], name: "index_educator_multifactor_configs_on_rotp_secret", unique: true
     t.index ["sms_number"], name: "index_educator_multifactor_configs_on_sms_number", unique: true
+  end
+
+  create_table "educator_searchbars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "educator_id", null: false
+    t.json "student_searchbar_json", default: "[]", null: false
+    t.index ["educator_id"], name: "index_educator_searchbars_on_educator_id", unique: true
   end
 
   create_table "educator_section_assignments", force: :cascade do |t|
@@ -430,6 +436,10 @@ ActiveRecord::Schema.define(version: 2019_04_30_142316) do
     t.integer "educator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["benchmark_assessment_key"], name: "index_reading_benchmark_data_points_on_benchmark_assessment_key"
+    t.index ["benchmark_school_year", "benchmark_period_key"], name: "index_reading_benchmark_data_points_on_year_and_period_keys"
+    t.index ["student_id"], name: "index_reading_benchmark_data_points_on_student_id"
+    t.index ["updated_at"], name: "index_reading_benchmark_data_points_on_updated_at", order: :desc
   end
 
   create_table "reading_grouping_snapshots", force: :cascade do |t|
