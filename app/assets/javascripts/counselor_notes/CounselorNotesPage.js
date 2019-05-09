@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import _ from 'lodash';
 import {AutoSizer, Column, Table, SortDirection} from 'react-virtualized';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
-import {maybeCapitalize} from '../helpers/pretty';
-import {supportsHouse, supportsCounselor, supportsSpedLiaison} from '../helpers/PerDistrict';
+import {supportsHouse, supportsCounselor} from '../helpers/PerDistrict';
 import {prettyProgramOrPlacementText} from '../helpers/specialEducation';
 import {updateGlobalStylesToTakeFullHeight} from '../helpers/globalStylingWorkarounds';
 import GenericLoader from '../components/GenericLoader';
@@ -62,6 +62,18 @@ export class CounselorNotesPageView extends React.Component {
     this.renderSchool = this.renderSchool.bind(this);
   }
 
+  // This is fake data for now.
+  studentsWithMeetings() {
+    const {students} = this.props;
+    return students.map(student => {
+      const nDaysAgo = _.sample(_.range(0, 120));
+      return {
+        ...student,
+        meetingMoment: moment.utc().subtract(nDaysAgo, 'days')
+      }
+    });
+  }
+
   orderedStudents(students) {
     const {sortBy, sortDirection} = this.state;
 
@@ -81,6 +93,13 @@ export class CounselorNotesPageView extends React.Component {
       : sortedRows;
   }
 
+  // Returns a number saying how many days ago
+  // the `meetingMoment` was.
+  howManyDaysAgo(meetingMoment) {
+    const {nowFn} = this.context;
+    return nowFn().clone().diff(meetingMoment, 'days');
+  }
+
   onTableSort({defaultSortDirection, event, sortBy, sortDirection}) {
     if (sortBy === this.state.sortBy) {
       const oppositeSortDirection = (this.state.sortDirection == SortDirection.DESC)
@@ -94,7 +113,7 @@ export class CounselorNotesPageView extends React.Component {
 
   render() {
     const {districtKey} = this.context;
-    const {students} = this.props;
+    const students = this.studentsWithMeetings();
 
     return (
       <div style={{...styles.flexVertical, margin: 10}}>
@@ -112,7 +131,6 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   renderTable(filteredStudents) {
-    const {districtKey} = this.context;
     const {sortDirection, sortBy} = this.state;
     const sortedStudents = this.orderedStudents(filteredStudents);
     const rowHeight = 60; // for two lines of student names
@@ -220,7 +238,8 @@ export class CounselorNotesPageView extends React.Component {
   }
 }
 CounselorNotesPageView.contextTypes = {
-  districtKey: PropTypes.string.isRequired
+  districtKey: PropTypes.string.isRequired,
+  nowFn: PropTypes.func.isRequired
 };
 CounselorNotesPageView.propTypes = {
   students: PropTypes.arrayOf(PropTypes.shape({
