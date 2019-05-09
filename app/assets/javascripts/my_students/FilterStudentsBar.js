@@ -136,7 +136,7 @@ export default class FilterStudentsBar extends React.Component {
       TIME_RANGE_45_DAYS_AGO,
       TIME_RANGE_90_DAYS_AGO
     ];
-    debugger
+    
     return (
       <SelectTimeRange
         timeRangeKey={timeRangeKey}

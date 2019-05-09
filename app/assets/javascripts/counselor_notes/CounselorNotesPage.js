@@ -60,17 +60,18 @@ export class CounselorNotesPageView extends React.Component {
     this.onTableSort = this.onTableSort.bind(this);
     this.renderName = this.renderName.bind(this);
     this.renderSchool = this.renderSchool.bind(this);
+    this.renderLastSeen = this.renderLastSeen.bind(this);
   }
 
   // This is fake data for now.
   studentsWithMeetings() {
     const {students} = this.props;
-    return students.map(student => {
-      const nDaysAgo = _.sample(_.range(0, 120));
+    return students.map((student, index) => {
+      const nDaysAgo = ((index % 5) * (Math.random() * 20));
       return {
         ...student,
-        meetingMoment: moment.utc().subtract(nDaysAgo, 'days')
-      }
+        meetingMoment: (Math.random() < 0.80) ? moment.utc().subtract(nDaysAgo, 'days') : null
+      };
     });
   }
 
@@ -80,9 +81,15 @@ export class CounselorNotesPageView extends React.Component {
     // map dataKey to an accessor/sort function
     const sortFns = {
       fallback(student) { return student[sortBy]; },
-      grade(student) { return rankedByGradeLevel(student.grade); },
-      school(student) { return student.school.name; },
-      name(student) { return `${student.last_name}, ${student.first_name}`; }
+      name(student) { return `${student.last_name}, ${student.first_name}`; },
+      lastseen: (student) => {
+        const lastSeenNumber = (student.meetingMoment === null)
+          ? 10000
+          : this.howManyDaysAgo(student.meetingMoment);
+
+        console.log(student.meetingMoment, lastSeenNumber);
+        return lastSeenNumber;
+      }
     };
     const sortFn = sortFns[sortBy] || sortFns.fallback;
     const sortedRows = _.sortBy(students, sortFn);
@@ -193,10 +200,20 @@ export class CounselorNotesPageView extends React.Component {
   }
 
   renderLastSeen(cellProps) {
+    const student = cellProps.rowData;
+    if (student.meetingMoment === null) return null;
+
+    const daysAgo = this.howManyDaysAgo(student.meetingMoment);
+    const opacity = computeOpacity(daysAgo);
+
     return (
       <div>
-        <div style={{height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#3177c9", borderRadius: "50%", display: "inline-block", float: "left"}}></div>
-        <div style={{fontSize: 14, float: "left", marginLeft: "15px"}}>30 days</div>
+        <div style={{opacity: opacity, height: "15px", width: "15px", marginTop: "3.5px", backgroundColor: "#1b82ea", borderRadius: "50%", display: "inline-block", float: "left"}}></div>
+        <div style={{fontSize: 14, float: "left", marginLeft: "15px"}}>
+          {daysAgo === 0
+            ? <div>Today</div>
+            : <div>{daysAgo} {(daysAgo === 1 ? 'day' : 'days')}</div>}
+        </div>
       </div>
     );
   }
@@ -275,3 +292,11 @@ const styles = {
     marginRight: 40
   }
 };
+
+function computeOpacity(daysAgo) {
+  if (daysAgo <= 7) return 1;
+  if (daysAgo <= 30) return .85;
+  if (daysAgo <= 45) return .50;
+  if (daysAgo <= 90) return .25;
+  return .10;
+}
