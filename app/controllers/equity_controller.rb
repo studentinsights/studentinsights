@@ -3,7 +3,7 @@ class EquityController < ApplicationController
 
   def stats_by_school_json
     grades = ['KF', '1', '2', '3', '4', '5', '6', '7', '8']
-    students = Authorizer.new(educator).authorized { Student.active.where(grade: grades).includes(:reading_benchmark_data_points) };nil
+    students = authorized { Student.active.where(grade: grades) }
     students_json = students.as_json({
       only: [
         :id,
