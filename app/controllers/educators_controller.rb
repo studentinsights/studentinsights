@@ -73,7 +73,7 @@ class EducatorsController < ApplicationController
   # Used by the search bar to query for student names
   def student_searchbar_json
     json = if EnvironmentVariable.is_true('USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL') then
-      current_educator.student_searchbar_json
+      current_educator.student_searchbar_json || EducatorSearchbar.names_for_json(current_educator)
     else
       EducatorSearchbar.student_searchbar_json_for(current_educator, {
         compute_if_missing: true
