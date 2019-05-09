@@ -271,3 +271,26 @@ export function enhancedStudentPhotoStyles(districtKey) {
 
   return {};
 }
+
+// For shorter names and prettier UI
+export function shortSchoolName(districtKey, schoolLocalId) {
+  if (districtKey !== SOMERVILLE) {
+    throw new Error(`unsupported districtKey: ${districtKey}`);
+  }
+
+  return {
+    BRN: 'Brown',
+    HEA: 'Healey',
+    KDY: 'Kennedy',
+    AFAS: 'Argenziano',
+    ESCS: 'East',
+    WSNS: 'West',
+    WHCS: 'Winter Hill',
+    NW: 'Next Wave',
+    SHS: 'Somerville High',
+    FC: 'Full Circle',
+    CAP: 'Capuano',
+    PIC: 'Parent PIC',
+    SPED: 'Special Education'
+  }[schoolLocalId] || 'Unknown school';
+}

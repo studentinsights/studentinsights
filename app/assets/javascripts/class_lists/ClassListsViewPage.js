@@ -9,11 +9,11 @@ import SectionHeading from '../components/SectionHeading';
 import SuccessLabel from '../components/SuccessLabel';
 import tableStyles from '../components/tableStyles';
 import {toMomentFromTimestamp} from '../helpers/toMoment';
+import {shortSchoolName} from '../helpers/PerDistrict';
 import {gradeText} from '../helpers/gradeText';
 import {rankedByGradeLevel} from '../helpers/SortHelpers';
 import IntroCopy from './IntroCopy';
 import {fetchAllWorkspaces} from './api';
-
 
 // Show users their class lists.  More useful for principals, building admin,
 // or ELL/SPED teachers than classroom teachers (who are typically
@@ -69,13 +69,14 @@ export class ClassListsViewPageView extends React.Component {
   }
 
   renderTable() {
+    const {districtKey} = this.context;
     const {workspaces, currentEducatorId} = this.props;
     if (workspaces.length === 0) return this.renderOverview();
 
     const sortedWorkspaces = _.orderBy(workspaces, workspace => {
       const classList = workspace.class_list;
       return [
-        classList.school.name,
+        shortSchoolName(districtKey, classList.school.local_id),
         rankedByGradeLevel(classList.grade_level_next_year),
         classList.submitted
       ];
@@ -105,12 +106,12 @@ export class ClassListsViewPageView extends React.Component {
               : {};
             return (
               <tr key={workspace.workspace_id}>
-                <td style={cell}>{classList.school.name}</td>
+                <td style={cell}>{shortSchoolName(districtKey, classList.school.local_id)}</td>
                 <td style={cell}>
                   {gradeText(classList.grade_level_next_year)}
                 </td>
                 <td style={cell}>
-                  {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text) !== -1
+                  {['homeroom', 'homerooms', '(default)'].indexOf(classList.list_type_text.toLowerCase()) !== -1
                     ? <span style={{color: '#aaa'}}>{classList.list_type_text}</span>
                     : classList.list_type_text
                   }
@@ -119,7 +120,7 @@ export class ClassListsViewPageView extends React.Component {
                   <Educator educator={classList.created_by_teacher_educator} style={educatorStyle} />
                 </td>
                 <td style={cell} title={`Revisions: ${workspace.revisions_count}`}>
-                  {createdAtMoment.format('dddd M/D, h:mma')}
+                  {createdAtMoment.format('ddd M/D, h:mma')}
                 </td>
                 <td style={cell}>
                   {classList.submitted 
@@ -165,6 +166,9 @@ export class ClassListsViewPageView extends React.Component {
     );
   }
 }
+ClassListsViewPageView.contextTypes = {
+  districtKey: PropTypes.string.isRequired
+};
 ClassListsViewPageView.propTypes = {
   currentEducatorId: PropTypes.number.isRequired,
   workspaces: PropTypes.arrayOf(PropTypes.shape({

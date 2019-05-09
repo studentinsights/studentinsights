@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import d3 from 'd3';
+import {colors} from '../helpers/Theme';
 import Bar from '../components/Bar';
 import BoxAndWhisker from '../components/BoxAndWhisker';
-import {colors} from '../helpers/Theme';
 
 
 // Allows selecting grade, and then shows a table for comparing different statistics across

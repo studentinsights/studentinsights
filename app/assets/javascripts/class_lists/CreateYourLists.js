@@ -126,17 +126,21 @@ export default class CreateYourListsView extends React.Component {
   }
 
   renderStudentCard(student, index) {
-    const {fetchProfile, gradeLevelNextYear, isEditable, styleStudentFn} = this.props;
+    const {fetchProfile, studentPhotoUrlFn, gradeLevelNextYear, isEditable, styleStudentFn} = this.props;
     const {highlightKey} = this.state;
-    return <StudentCard
-      key={student.id}
-      highlightKey={highlightKey}
-      style={styleStudentFn && styleStudentFn(student)}
-      student={student}
-      gradeLevelNextYear={gradeLevelNextYear}
-      index={index}
-      fetchProfile={fetchProfile}
-      isEditable={isEditable} />;
+    return (
+      <StudentCard
+        key={student.id}
+        highlightKey={highlightKey}
+        style={styleStudentFn && styleStudentFn(student)}
+        studentPhotoUrl={studentPhotoUrlFn(student.id)}
+        student={student}
+        gradeLevelNextYear={gradeLevelNextYear}
+        index={index}
+        fetchProfile={fetchProfile}
+        isEditable={isEditable}
+      />
+    );
   }
 }
 CreateYourListsView.propTypes = {
@@ -147,6 +151,7 @@ CreateYourListsView.propTypes = {
   students: PropTypes.array.isRequired,
   studentIdsByRoom: PropTypes.object.isRequired,
   fetchProfile: PropTypes.func.isRequired,
+  studentPhotoUrlFn: PropTypes.func.isRequired,
   styleStudentFn: PropTypes.func,
   onClassListsChanged: PropTypes.func.isRequired,
   onExpandVerticallyToggled: PropTypes.func.isRequired,
