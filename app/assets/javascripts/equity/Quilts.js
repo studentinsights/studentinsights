@@ -3,9 +3,10 @@ import React from 'react';
 import hash from 'object-hash';
 import _ from 'lodash';
 import d3 from 'd3';
+import {prettyEnglishProficiencyText} from '../helpers/language';
 import Bar from '../components/Bar';
 import SectionHeading from '../components/SectionHeading';
-import {prettyEnglishProficiencyText} from '../helpers/language';
+
 
 // Experimental
 export default class Quilts extends React.Component {
@@ -46,7 +47,7 @@ export default class Quilts extends React.Component {
           {this.renderButton(null, { text: 'across all'})}
           <button
             style={{background: 'white', border: 'none', cursor: 'pointer', fontWeight: stableSorting ? 'bold' : 'normal'}}
-            onClick={e => this.setState({stableSorting: this.state.stableSorting})}>stable sorting</button>
+            onClick={e => this.setState({stableSorting: !this.state.stableSorting})}>stable sorting!</button>
         </div>
         {sortedStudents.map(student => {
           const intersection = intersectionFor(student);

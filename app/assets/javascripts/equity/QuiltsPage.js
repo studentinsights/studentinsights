@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
 import ExperimentalBanner from '../components/ExperimentalBanner';
-import {apiFetchJson} from '../helpers/apiFetchJson';
 import Quilts from './Quilts';
 
 // This is an internal-only page for exploring equity in schools.

@@ -21,7 +21,8 @@ describe UiController, :type => :controller do
           "labels" => [
             'can_upload_student_voice_surveys',
             'should_show_levels_shs_link',
-            'enable_reading_benchmark_data_entry'
+            'enable_reading_benchmark_data_entry',
+            'enable_equity_experiments'
           ]
         }
       }.deep_stringify_keys)

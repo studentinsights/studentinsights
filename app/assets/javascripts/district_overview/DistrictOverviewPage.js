@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {apiFetchJson} from '../helpers/apiFetchJson';
 import GenericLoader from '../components/GenericLoader';
+import ExperimentalBanner from '../components/ExperimentalBanner';
 import SectionHeading from '../components/SectionHeading';
 import {Website, Email} from '../components/PublicLinks';
 import WorkBoard from '../components/WorkBoard';
@@ -45,7 +46,6 @@ export default class DistrictOverviewPage extends React.Component {
   }
 }
 
-
 export class DistrictOverviewPageView extends React.Component {
   render() {
     return (
@@ -54,6 +54,7 @@ export class DistrictOverviewPageView extends React.Component {
           <div style={styles.column}>{this.renderSchoolLinks()}</div>
           <div style={styles.column}>{this.renderProjectLeadLinks()}</div>
         </div>
+        {this.renderEquityLinks()}
         {this.renderWorkBoard()}
       </div>
     );
@@ -154,6 +155,45 @@ export class DistrictOverviewPageView extends React.Component {
     );
   }
 
+  renderEquityLinks() {
+    const {schools, currentEducator} = this.props;
+    if (currentEducator.labels.indexOf('enable_equity_experiments') === -1) return null;
+    
+    return (
+      <div style={{marginTop: 40}}>
+        <SectionHeading>Equity experiments</SectionHeading>
+        <ExperimentalBanner />
+        <div style={{margin: 20}}>
+          <div style={styles.section}>Experimental homeroom breakdowns</div>
+          <ul style={styles.plainList}>{schools.map(school => {
+            return (
+              <li key={school.id}>
+                <a href={`/equity/schools/${school.id}/explore`}>{school.name} explorer (experimental)</a>
+              </li>
+            );
+          })}</ul>
+          <div style={styles.section}>Quilts visualization of intersectional identities</div>
+          <ul style={styles.plainList}>{schools.map(school => {
+            return (
+              <li key={school.id}>
+                <a href={`/equity/schools/${school.id}/quilts`}>{school.name} quilts (experimental)</a>
+              </li>
+            );
+          })}</ul>
+          <div style={styles.section}>Other experiments</div>
+          <ul style={styles.plainList}>
+            <li><a href="/equity/classlists_index" style={styles.link}>
+              Class list diversity indexes (experimental)
+            </a></li>
+            <li><a href="/equity/stats_by_school" style={styles.link}>
+              Equity stats across K8 schools (experimental)
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
   renderWorkBoard() {
     const {showWorkBoard} = this.props;
     if (!showWorkBoard) return null;
@@ -178,7 +218,8 @@ DistrictOverviewPageView.propTypes = {
   showWorkBoard: PropTypes.bool.isRequired,
   currentEducator: PropTypes.shape({
     can_set_districtwide_access: PropTypes.bool.isRequired,
-    admin: PropTypes.bool.isRequired
+    admin: PropTypes.bool.isRequired,
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   schools: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
