@@ -635,34 +635,41 @@ describe ClassListsController, :type => :controller do
 
   describe '#student_photo' do
     let!(:pals) { TestPals.create! }
-    let!(:priya) do
+    let!(:priya_kindergarten_teacher) do
       Educator.create!(
         login_name: 'priya',
         email: "priya@demo.studentinsights.org",
         full_name: 'Teacher, Priya',
         staff_type: nil,
         school: pals.healey,
-        homeroom: nil
+        homeroom: Homeroom.create!({
+          name: 'HEA 007',
+          grade: 'KF',
+          school: pals.healey
+        })
       )
     end
 
-    def make_request(student_id)
-      class_list = create_class_list_from(priya, {
-        grade_level_next_year: '1',
-        created_at: time_now - 4.hours,
-        updated_at: time_now - 4.hours,
-      })
-      sign_in(priya)
+    def get_student_photo(student_id, workspace_id)
       request.env['HTTPS'] = 'on'
       get :student_photo, params: {
-        workspace_id: class_list.workspace_id,
+        workspace_id: workspace_id,
         student_id: student_id,
       }
     end
 
-    def create_student_photo(params = {})
+    def create_healey_first_grade_class_list(educator, params = {})
+      create_class_list_from(educator, {
+        grade_level_next_year: '1',
+        school_id: educator.school_id,
+        created_at: time_now - 4.hours,
+        updated_at: time_now - 4.hours
+      }.merge(params))
+    end
+
+    def create_student_photo(student_id, params = {})
       StudentPhoto.create({
-        student_id: pals.healey_kindergarten_student.id,
+        student_id: student_id,
         file_digest: SecureRandom.hex,
         file_size: 1000 + SecureRandom.random_number(100000),
         s3_filename: SecureRandom.hex
@@ -670,9 +677,13 @@ describe ClassListsController, :type => :controller do
     end
 
     class FakeAwsResponse
-      def body; self end
+      def body
+        self
+      end
 
-      def read; 'eee' end
+      def read
+        '<mock-bytes-for-photo>'
+      end
     end
 
     before do
@@ -683,57 +694,49 @@ describe ClassListsController, :type => :controller do
       ).and_return FakeAwsResponse.new
     end
 
-    context 'educator authorized for student' do
-      before { sign_in(pals.healey_vivian_teacher) }
-      let!(:student_photo) { create_student_photo }
+    it 'guards access for HS teacher as example' do
+      create_student_photo(pals.healey_kindergarten_student.id)
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
 
-      it 'succeeds and sends the right response body down' do
-        make_request(pals.healey_kindergarten_student.id)
-        expect(response).to be_successful
-        expect(response.body).to eq 'eee'
-      end
-
-      context 'multiple photos' do
-        let!(:more_recent_student_photo) { create_student_photo }
-
-        it 'assigns the most recent photo' do
-          make_request(pals.healey_kindergarten_student.id)
-          expect(response).to be_successful
-          expect(assigns(:student_photo)).to eq(more_recent_student_photo)
-        end
-      end
+      sign_in(pals.shs_jodi)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 403
+      expect(response.body).to eq '{"error":"unauthorized"}'
     end
 
-    context 'student has no photo' do
-      before { sign_in(pals.healey_vivian_teacher) }
+    it 'allows Vivian to access photos for students in her own homeroom like normal' do
+      create_student_photo(pals.healey_kindergarten_student.id)
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
 
-      it 'is not successful; sends an error' do
-        make_request(pals.healey_kindergarten_student.id)
-        expect(response).not_to be_successful
-        expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
-      end
+      sign_in(pals.healey_vivian_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 200
+      expect(response.body).to eq '<mock-bytes-for-photo>'
     end
 
-    context 'educator not authorized for student (wrong school)' do
-      before { sign_in(pals.shs_jodi) }
-      let!(:student_photo) { create_student_photo }
+    it 'is more permissive, and allows Priya to access photos for student in Vivian\'s homeroom, in same grade and school' do
+      create_student_photo(pals.healey_kindergarten_student.id)
+      class_list = create_healey_first_grade_class_list(priya_kindergarten_teacher)
 
-      it 'redirects' do
-        make_request(pals.healey_kindergarten_student.id)
-        expect(response).not_to be_successful
-        expect(response).to redirect_to('/not_authorized')
-      end
+      sign_in(priya_kindergarten_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 200
+      expect(response.body).to eq '<mock-bytes-for-photo>'
     end
 
-    context 'not signed in' do
-      let!(:student_photo) { create_student_photo }
+    it 'is sends an error when student has no photo' do
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
 
-      it 'redirects' do
-        make_request(pals.healey_kindergarten_student.id)
-        expect(response).not_to be_successful
-        expect(response).to redirect_to('/educators/sign_in')
-      end
+      sign_in(pals.healey_vivian_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 404
+      expect(JSON.parse(response.body)).to eq({"error" => "no photo"})
+    end
+
+    it 'guards when not signed in' do
+      class_list = create_healey_first_grade_class_list(pals.healey_vivian_teacher)
+      get_student_photo(pals.healey_kindergarten_student.id, class_list.workspace_id)
+      expect(response.status).to eq 401
     end
   end
-
 end
