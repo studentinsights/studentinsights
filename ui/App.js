@@ -21,11 +21,8 @@ import LevelsPage from '../app/assets/javascripts/levels/LevelsPage';
 import DashboardLoader from '../app/assets/javascripts/school_administrator_dashboard/DashboardLoader';
 import SchoolAbsencesPage from '../app/assets/javascripts/school_absences/SchoolAbsencesPage';
 import SchoolCoursesPage from '../app/assets/javascripts/school_courses/SchoolCoursesPage';
-import ExploreSchoolEquityPage from '../app/assets/javascripts/class_lists/ExploreSchoolEquityPage';
-import QuiltsPage from '../app/assets/javascripts/class_lists/QuiltsPage';
 import ClassListCreatorPage from '../app/assets/javascripts/class_lists/ClassListCreatorPage';
 import ClassListsViewPage from '../app/assets/javascripts/class_lists/ClassListsViewPage';
-import ClassListsEquityPage from '../app/assets/javascripts/class_lists/ClassListsEquityPage';
 import DistrictOverviewPage from '../app/assets/javascripts/district_overview/DistrictOverviewPage';
 import DistrictEnrollmentPage from '../app/assets/javascripts/district_enrollment/DistrictEnrollmentPage';
 import ImportRecordsPage from '../app/assets/javascripts/import_records/ImportRecordsPage';
@@ -40,7 +37,10 @@ import StudentProfilePage from '../app/assets/javascripts/student_profile/Studen
 import IsServiceWorking from '../app/assets/javascripts/service_types/IsServiceWorking';
 import LoginActivityPageContainer from '../app/assets/javascripts/login_activity/LoginActivityPageContainer';
 import ServiceUploadsPage from '../app/assets/javascripts/service_uploads/ServiceUploadsPage';
-
+import EquityStatsBySchoolPage  from '../app/assets/javascripts/equity/EquityStatsBySchoolPage';
+import ExploreSchoolEquityPage from '../app/assets/javascripts/equity/ExploreSchoolEquityPage';
+import QuiltsPage from '../app/assets/javascripts/equity/QuiltsPage';
+import ClassListsEquityIndexPage from '../app/assets/javascripts/equity/ClassListsEquityIndexPage';
 
 // This is the top-level component, only handling routing.
 // The core model is still "new page, new load," this just
@@ -97,8 +97,6 @@ export default class App extends React.Component {
         <Route exact path="/schools/:id_or_slug/absences" render={this.renderAbsencesPage.bind(this)}/>
         <Route exact path="/schools/:id/tardies" render={this.renderTardiesDashboard.bind(this)}/>
         <Route exact path="/schools/:id/discipline" render={this.renderDisciplineDashboard.bind(this)}/>
-        <Route exact path="/schools/:id/equity/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
-        <Route exact path="/schools/:id/equity/quilts" render={this.renderQuiltsSchoolEquityPage.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/entry" render={this.renderReadingEntryPage.bind(this)}/>
         <Route exact path="/schools/:slug/reading/:grade/groups" render={this.renderReadingGroupingPage.bind(this)}/>
         <Route exact path="/homerooms/:id_or_slug" render={this.renderHomeroomPage.bind(this)}/>
@@ -107,9 +105,12 @@ export default class App extends React.Component {
         <Route exact path="/students/:id/v3" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/students/:id/v4" render={this.renderStudentProfilePage.bind(this)}/>
         <Route exact path="/classlists" render={this.renderClassListsViewPage.bind(this)}/>
-        <Route exact path="/classlists/equity" render={this.renderExperimentalClassListsEquityPage.bind(this)}/>
         <Route exact path="/classlists/new" render={this.renderClassListCreatorNew.bind(this)}/>
         <Route exact path="/classlists/:workspace_id" render={this.renderClassListCreatorEdit.bind(this)}/>
+        <Route exact path="/equity/schools/:id/explore" render={this.renderExploreSchoolEquityPage.bind(this)}/>
+        <Route exact path="/equity/schools/:id/quilts" render={this.renderQuiltsSchoolEquityPage.bind(this)}/>
+        <Route exact path="/equity/classlists_index" render={this.renderClassListsEquityIndexPage.bind(this)}/>
+        <Route exact path="/equity/stats_by_school" render={this.renderEquityStatsBySchoolPage.bind(this)}/>
         <Route exact path="/district/enrollment" render={this.renderDistrictEnrollmentPage.bind(this)}/>
         <Route exact path="/district" render={this.renderDistrictOverviewPage.bind(this)}/>
         <Route exact path="/levels/:school_id" render={this.renderLevelsPage.bind(this)}/>
@@ -204,8 +205,12 @@ export default class App extends React.Component {
     );
   }
 
-  renderExperimentalClassListsEquityPage(routeProps) {
-    return <ClassListsEquityPage />;
+  renderClassListsEquityIndexPage(routeProps) {
+    return <ClassListsEquityIndexPage />;
+  }
+
+  renderEquityStatsBySchoolPage(routeProps) {
+    return <EquityStatsBySchoolPage />;
   }
 
   renderClassListCreatorEdit(routeProps) {

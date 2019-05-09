@@ -57,7 +57,10 @@ Rails.application.routes.draw do
   post '/api/class_lists/:workspace_id/principal_revised_class_list_json' => 'class_lists#principal_revised_class_list_json'
   get '/api/class_lists/:workspace_id/class_list_json' => 'class_lists#class_list_json'
   get '/api/class_lists/:workspace_id/students/:student_id/profile_json' => 'class_lists#profile_json'
-  get '/api/class_lists/experimental_workspaces_with_equity_json' => 'class_lists#experimental_workspaces_with_equity_json'
+
+  # equity
+  get '/api/equity/classlists_equity_index_json' => 'equity#classlists_equity_index_json'
+  get '/api/equity/stats_by_school_json' => 'equity#stats_by_school_json'
 
   # home feed
   get '/api/home/students_with_low_grades_json' => 'home#students_with_low_grades_json'
@@ -171,9 +174,10 @@ Rails.application.routes.draw do
     member do
       get '' => 'ui#ui'
       get '/new' => 'ui#ui'
-      get '/equity' => 'ui#ui'
+      get '/schools' => 'ui#ui'
       get '/:workspace_id' => 'ui#ui'
       get '/:workspace_id/text' => 'class_lists#text'
+      get '/:workspace_id/students/:student_id/photo' => 'class_lists#student_photo'
     end
   end
 
@@ -186,10 +190,15 @@ Rails.application.routes.draw do
       get 'tardies' => 'ui#ui'
       get 'discipline' => 'ui#ui'
       get 'courses' => 'ui#ui'
-      get 'equity/explore' => 'ui#ui'
-      get 'equity/quilts' => 'ui#ui'
       get 'reading/:grade/entry' => 'ui#ui'
       get 'reading/:grade/groups' => 'ui#ui'
     end
+  end
+
+  resource :equity, only: [] do
+    get '/stats_by_school' => 'ui#ui'
+    get '/classlists_index' => 'ui#ui'
+    get '/schools/:school_id/explore' => 'ui#ui'
+    get '/schools/:school_id/quilts' => 'ui#ui'
   end
 end

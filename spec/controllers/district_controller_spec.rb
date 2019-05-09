@@ -23,7 +23,13 @@ describe DistrictController, :type => :controller do
         "current_educator" => {
           "id"=>pals.uri.id,
           "admin"=>true,
-          "can_set_districtwide_access"=>true
+          "can_set_districtwide_access"=>true,
+          "labels"=>[
+            'can_upload_student_voice_surveys',
+            'should_show_levels_shs_link',
+            'enable_reading_benchmark_data_entry',
+            'enable_equity_experiments'
+          ]
         },
        "schools" => [
           {"id"=>pals.healey.id, "name"=>pals.healey.name},

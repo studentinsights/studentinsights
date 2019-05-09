@@ -18,6 +18,7 @@ export function testProps(props = {}) {
     students: students_for_grade_level_next_year_json.students,
     studentIdsByRoom: {},
     fetchProfile(studentId) { return Promise.resolve(profile_json); },
+    studentPhotoUrlFn(studentId) { return `/classlists/foo-workspace-id/students/${studentId}/photo`; },
     onClassListsChanged: jest.fn(),
     onExpandVerticallyToggled: jest.fn(),
     ...props
