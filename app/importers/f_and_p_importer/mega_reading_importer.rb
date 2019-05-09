@@ -15,6 +15,9 @@ class MegaReadingImporter
     @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
     @matcher = options.fetch(:matcher, ImportMatcher.new)
+    @header_rows_count = options.fetch(:header_rows_count, 1)
+
+    @fuzzy_student_matcher = FuzzyStudentMatcher.new
     reset_counters!
   end
 
@@ -33,6 +36,7 @@ class MegaReadingImporter
     log "matcher#stats: #{@matcher.stats}"
     log "MegaReadingImporter#stats: #{stats}"
 
+    # deprecated, use ReadingBenchmarkData model for F&P instead
     # write to database for F&P only
     # f_and_ps = nil
     # FAndPAssessment.transaction do
@@ -47,14 +51,16 @@ class MegaReadingImporter
   def reset_counters!
     @missing_data_point = 0
     @missing_data_point_because_student_moved_school = 0
-    @invalid_student_name = 0
+    @invalid_student_name_count = 0
+    @invalid_student_names_list = []
     @valid_data_points = 0
     @valid_student_name = 0
   end
 
   def stats
     {
-      invalid_student_name: @invalid_student_name,
+      invalid_student_name_count: @invalid_student_name_count,
+      invalid_student_names_list_size: @invalid_student_names_list.size,
       valid_student_name: @valid_student_name,
       missing_data_point: @missing_data_point,
       missing_data_point_because_student_moved_school: @missing_data_point_because_student_moved_school,
@@ -63,18 +69,26 @@ class MegaReadingImporter
   end
 
   def flat_map_rows(row, index)
-    # Infer student name
-    full_name = row['Name'].split(', ').reverse.join(' ')
-    student_id = guess_from_name(full_name)
-    if student_id.nil?
-      @invalid_student_name += 1
+    # Support multiple header rows to explain to users
+    # how to enter data, etc.
+    if (index + 1) < @header_rows_count
       return nil
     end
+
+    # match student
+    last_first_name = row['Name']
+    fuzzy_match = @fuzzy_student_matcher.match_from_last_first(last_first_name)
+    if fuzzy_match.nil?
+      @invalid_student_name_count += 1
+      @invalid_student_names_list << last_first_name
+      return nil
+    end
+    student_id = fuzzy_match[:student_id]
 
     @valid_student_name += 1
     shared = {
       student_id: student_id,
-      imported_by_educator_id: nil
+      imported_by_educator_id: @educator_id
     }
 
     # data points for each grade
@@ -87,69 +101,84 @@ class MegaReadingImporter
   end
 
   def data_points_for_kindergarten(shared, row)
-    import_data_points(shared, [
-      ['K', :fall, :dibels_fsf, row['fall K - FSF']],
-      ['K', :fall, :dibels_lnf, row['fall K - LNF']],
-      ['K', :winter, :dibels_fsf, row['winter K - FSF']],
-      ['K', :winter, :dibels_lnf, row['winter K - LNF']],
-      ['K', :winter, :dibels_psf, row['winter K - PSF']],
-      ['K', :winter, :dibels_nwf_cls, row['winter K - NWF CLS']],
-      ['K', :winter, :dibels_nwf_wwr, row['winter K - NWF WWR']],
-      ['K', :spring, :dibels_lnf, row['spring K - LNF']],
-      ['K', :spring, :dibels_psf, row['spring K - PSF']],
-      ['K', :spring, :dibels_nwf_cls, row['spring K - NWF CLS']],
-      ['K', :spring, :dibels_nwf_wwr, row['spring K - NWF WWR']]
+    import_data_points(shared, row, [
+      ['KF', :fall, :dibels_fsf, 'K / FALL / FSF'],
+      ['KF', :fall, :dibels_lnf, 'K / FALL / LNF'],
+      ['KF', :winter, :dibels_fsf, 'K / WINTER / FSF'],
+      ['KF', :winter, :dibels_lnf, 'K / WINTER / LNF'],
+      ['KF', :winter, :dibels_psf, 'K / WINTER / PSF'],
+      ['KF', :winter, :dibels_nwf_cls, 'K / WINTER / NWF CLS'],
+      ['KF', :winter, :dibels_nwf_wwr, 'K / WINTER / NWF WWR'],
+      ['KF', :winter, :f_and_p_english, 'K / WINTER / F&P Level English'],
+      ['KF', :winter, :instructional_needs, 'K / WINTER / Instructional needs'],
+      ['KF', :spring, :dibels_lnf, 'K / SPRING / LNF'],
+      ['KF', :spring, :dibels_psf, 'K / SPRING / PSF'],
+      ['KF', :spring, :dibels_nwf_cls, 'K / SPRING / NWF CLS'],
+      ['KF', :spring, :dibels_nwf_wwr, 'K / SPRING / NWF WWR']
     ])
   end
 
   def data_points_for_first(shared, row)
-    import_data_points(shared, [
-      ['1', :fall, :dibels_lnf, row['fall 1 LNF']],
-      ['1', :fall, :dibels_psf, row['fall 1 PSF']],
-      ['1', :fall, :dibels_nwf_cls, row['fall 1 NWF CLS']],
-      ['1', :fall, :dibels_nwf_wwr, row['fall 1 NWF WWR']],
-      ['1', :winter, :dibels_nwf_cls, row['winter1 NWF-CLS']],
-      ['1', :winter, :dibels_nwf_wwr, row['winter1 NWF-WWR']],
-      ['1', :winter, :dibels_dorf_wpm, row['winter1 DORF-WPM']],
-      ['1', :winter, :dibels_dorf_acc, row['winter1 DORF-acc']],
-      ['1', :spring, :dibels_nwf_cls, row['spring1 NWF-CLS']],
-      ['1', :spring, :dibels_nwf_wwr, row['spring1 NWF WWR']],
-      ['1', :spring, :dibels_dorf_wpm, row['spring1 DORF-WPM']],
-      ['1', :spring, :dibels_dorf_acc, row['spring1 DORF-acc']]
+    import_data_points(shared, row, [
+      ['1', :fall, :dibels_lnf, '1 / FALL / LNF'],
+      ['1', :fall, :dibels_psf, '1 / FALL / PSF'],
+      ['1', :fall, :dibels_nwf_cls, '1 / FALL / NWF CLS'],
+      ['1', :fall, :dibels_nwf_wwr, '1 / FALL / NWF WWR'],
+      ['1', :fall, :f_and_p_english, '1 / FALL / F&P Level English'],
+      ['1', :fall, :f_and_p_spanish, '1 / FALL / F&P Level Spanish'],
+      ['1', :fall, :instructional_needs, '1 / FALL / Instructional needs'],
+      ['1', :winter, :dibels_nwf_cls, '1 / WINTER / NWF CLS'],
+      ['1', :winter, :dibels_nwf_wwr, '1 / WINTER / NWF WWR'],
+      ['1', :winter, :dibels_dorf_wpm, '1 / WINTER / DORF WPM'],
+      ['1', :winter, :dibels_dorf_errors, '1 / WINTER / DORF Errors'],
+      ['1', :winter, :dibels_dorf_acc, '1 / WINTER / DORF ACC'],
+      ['1', :winter, :f_and_p_english, '1 / WINTER / F&P Level English'],
+      ['1', :winter, :f_and_p_spanish, '1 / WINTER / F&P Level Spanish'],
+      ['1', :winter, :instructional_needs, '1 / WINTER / Instructional needs'],
+      ['1', :spring, :dibels_nwf_cls, '1 / SPRING / NWF CLS'],
+      ['1', :spring, :dibels_nwf_wwr, '1 / SPRING / NWF WWR'],
+      ['1', :spring, :dibels_dorf_wpm, '1 / SPRING / DORF WPM'],
+      ['1', :spring, :dibels_dorf_errors, '1 / SPRING / DORF Errors'],
+      ['1', :spring, :dibels_dorf_acc, '1 / SPRING / DORF ACC'],
+      ['1', :spring, :f_and_p_english, '1 / SPRING / F&P Level English'],
+      ['1', :spring, :f_and_p_spanish, '1 / SPRING / F&P Level Spanish'],
+      ['1', :spring, :instructional_needs, '1 / SPRING / Instructional needs']
     ])
   end
 
   def data_points_for_second(shared, row)
-    import_data_points(shared, [
-      ['2', :fall, :dibels_nwf_cls, row['2fall NWF-CLS']],
-      ['2', :fall, :dibels_nwf_wwr, row['2 fall NWF-WWR']],
-      ['2', :fall, :dibels_dorf_wpm, row['2fall DORF WPM']],
-      ['2', :fall, :dibels_dorf_acc, row['2fall DORF-acc']],
-      ['2', :winter, :dibels_dorf_wpm, row['2 winter DORF WPM']],
-      ['2', :winter, :dibels_dorf_acc, row['2 winter DORF acc']],
-      ['2', :spring, :dibels_dorf_wpm, row['2spring DORF WPM']],
-      ['2', :spring, :dibels_dorf_acc, row['2spring DORF acc']]
+    import_data_points(shared, row, [
+      ['2', :fall, :dibels_nwf_cls, '2 / FALL / NWF CLS'],
+      ['2', :fall, :dibels_nwf_wwr, '2 / FALL / NWF WWR'],
+      ['2', :fall, :dibels_dorf_wpm, '2 / FALL / DORF WPM'],
+      ['2', :fall, :dibels_dorf_acc, '2 / FALL / DORF ACC'],
+      ['2', :winter, :dibels_dorf_wpm, '2 / WINTER / DORF WPM'],
+      ['2', :winter, :dibels_dorf_acc, '2 / WINTER / DORF ACC'],
+      ['2', :spring, :dibels_dorf_wpm, '2 / SPRING / DORF WPM'],
+      ['2', :spring, :dibels_dorf_acc, '2 / SPRING / DORF ACC']
     ])
   end
 
   def data_points_for_third(shared, row)
-    import_data_points(shared, [
-      ['3', :fall, :dibels_dorf_wpm, row['3fall DORF WPM']],
-      ['3', :fall, :dibels_dorf_acc, row['3fall DORF acc']],
+    import_data_points(shared, row, [
+      ['3', :fall, :dibels_dorf_wpm, '3 / FALL / DORF WPM'],
+      ['3', :fall, :dibels_dorf_acc, '3 / FALL / DORF ACC'],
     ])
   end
 
   # just sugar for unrolling these
-  def import_data_points(shared, tuples)
+  def import_data_points(shared, row, tuples)
     rows = []
     tuples.each do |tuple|
-      grade, assessment_period, assessment_key, data_point = tuple
+      grade, assessment_period, assessment_key, row_key = tuple
+      data_point = row[row_key]
       if data_point.nil? || ['?', 'n/a', 'absent'].include?(data_point.downcase)
         @missing_data_point +=1
         next
       end
 
-      if data_point.starts_with?('@')
+      # TODO(kr) remove?
+      if data_point.starts_with?('@') || data_point.downcase.include?('move')
         @missing_data_point_because_student_moved_school +=1
         next
       end
@@ -163,66 +192,6 @@ class MegaReadingImporter
       })
     end
     rows
-  end
-
-  def guess_from_name(full_name)
-    student = match_active_student_exactly(full_name)
-    return student.id if student.present?
-
-    fuzzy_matches = fuzzy_match_active_student_name(full_name)
-    return fuzzy_matches.first[:id] if fuzzy_matches.size == 1
-
-    nil
-  end
-
-  def match_active_student_exactly(full_name)
-    first_name, last_name = full_name.split(' ')
-    students = Student.active.where(first_name: first_name, last_name: last_name)
-    return students.first if students.size == 1
-    nil
-  end
-
-  # deprecated: See FuzzyStudentMatcher instead.
-  # Returns [{:id, :full_name, :distance}] for best few matches
-  #
-  # This is complicated and written in Arel since it needs to escape
-  # the argument to the levenshtein function and I couldn't figure how
-  # to do that kind of escaping within a `SELECT`
-  def fuzzy_match_any_student_name(full_name_text, options = {})
-    distance_threshold = options.fetch(:distance_threshold, 2)
-    limit = options.fetch(:limit, 3)
-    students = Arel::Table.new('students')
-    full_name = Arel::Nodes::NamedFunction.new('CONCAT', [
-      students[:first_name],
-      Arel::Nodes.build_quoted(' '),
-      students[:last_name]
-    ])
-    distance = Arel::Nodes::NamedFunction.new('LEVENSHTEIN', [
-      full_name,
-      Arel::Nodes.build_quoted(full_name_text)
-    ])
-    query = students.project(
-      students[:id],
-      full_name,
-      distance
-    ).order(distance).where(distance.lteq(distance_threshold)).take(limit)
-    ActiveRecord::Base.connection.execute(query.to_sql).to_a.map do |result|
-      {
-        id: result['id'],
-        full_name: result['concat'],
-        levenshtein: result['levenshtein']
-      }
-    end
-  end
-
-  # also check student is active
-  def fuzzy_match_active_student_name(full_name_text, options = {})
-    results = fuzzy_match_any_student_name(full_name_text, options)
-
-    active_student_ids = Student.active.where(id: results.pluck(:id)).pluck(:id)
-    results.select do |result|
-      active_student_ids.include?(result[:id])
-    end
   end
 
   def log(msg)

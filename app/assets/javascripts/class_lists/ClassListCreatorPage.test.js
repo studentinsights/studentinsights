@@ -5,6 +5,7 @@ import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
 import fetchMock from 'fetch-mock/es5/client';
 import {testTimeMoment, testContext, withDefaultNowContext} from '../testing/NowContainer';
+import PerDistrictContainer from '../components/PerDistrictContainer';
 import mockWithFixtures from './fixtures/mockWithFixtures';
 import ClassListCreatorPage from './ClassListCreatorPage';
 import class_list_json from './fixtures/class_list_json';
@@ -22,8 +23,17 @@ export function testProps(props) {
   };
 }
 
+function testEl(props) {
+  return withDefaultNowContext(
+    <PerDistrictContainer districtKey="somerville">
+      <ClassListCreatorPage {...props} />
+    </PerDistrictContainer>
+  );
+}
+
 function mountWithContext(props) {
-  return mount(<ClassListCreatorPage {...props} />, { context: testContext() });
+  const context = {...testContext(), districtKey: 'somerville'};
+  return mount(<ClassListCreatorPage {...props} />, {context});
 }
 
 function anyServerCallsIncludePath(string) {
@@ -47,7 +57,7 @@ it('renders without crashing on entrypoint', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists']}>
-      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
+      {testEl(props)}
     </MemoryRouter>
   , el);
 });
@@ -57,7 +67,7 @@ it('renders without crashing with balanceId', () => {
   const el = document.createElement('div');
   ReactDOM.render(
     <MemoryRouter initialEntries={['/classlists/foo-id']}>
-      {withDefaultNowContext(<ClassListCreatorPage {...props} />)}
+      {testEl(props)}
     </MemoryRouter>
   , el);
 });
@@ -67,6 +77,7 @@ it('integration test for state changes, server requests and autosave', done => {
   const wrapper = mountWithContext(props);
   wrapper.instance().onSchoolIdChanged(4);
   wrapper.instance().onGradeLevelNextYearChanged('6');
+  wrapper.instance().onListTypeTextChanged('homeroom lists');
   wrapper.instance().onStepChanged(2);
   wrapper.instance().onClassroomsCountIncremented(2);
 
@@ -75,6 +86,7 @@ it('integration test for state changes, server requests and autosave', done => {
   setTimeout(() => {
     expect(wrapper.state().schoolId).toEqual(4);
     expect(wrapper.state().gradeLevelNextYear).toEqual('6');
+    expect(wrapper.state().listTypeText).toEqual('homeroom lists');
     expect(wrapper.state().stepIndex).toEqual(2);
     expect(wrapper.state().students.length).toEqual(7);
     expect(Object.keys(wrapper.state().studentIdsByRoom)).toEqual([
@@ -224,7 +236,8 @@ it('#onFetchedClassList loads principal revisions', () => {
 it('#isRevisable', () => {
   function isRevisableForEducator(currentEducator, state = {}) {
     const props = testProps({currentEducator});
-    const wrapper = shallow(<ClassListCreatorPage {...props} />, {context: testContext()});
+    const context = {...testContext(), districtKey: 'somerville'};
+    const wrapper = shallow(<ClassListCreatorPage {...props} />, {context});
     wrapper.instance().setState(state);
     return wrapper.instance().isRevisable();
   }

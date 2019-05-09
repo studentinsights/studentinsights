@@ -33,7 +33,7 @@ it('renders without crashing', () => {
 });
 
 it('snapshots', () => {
-  const props = testProps();
+  const props = testProps({disableDraggingForSnapshotTest: true});
   const tree = renderer
     .create(testEl(props))
     .toJSON();

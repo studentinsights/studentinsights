@@ -202,6 +202,12 @@ class Student < ApplicationRecord
     latest_result_by_family_and_subject(["Next Gen MCAS", "MCAS"], "ELA") || MissingStudentAssessment.new
   end
 
+  def winter_reading_doc(options = {})
+    time_now = options.fetch(:time_now, Time.now)
+    benchmark_school_year = SchoolYear.to_school_year(time_now)
+    ReadingBenchmarkDataPoint.doc_for(self.id, benchmark_school_year, :winter)
+  end
+
   def update_recent_student_assessments
     update_attributes({
       most_recent_mcas_math_growth: latest_mcas_mathematics.growth_percentile,

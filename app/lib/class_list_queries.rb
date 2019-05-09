@@ -63,12 +63,12 @@ class ClassListQueries
 
   # What grade levels do we want to support creating class lists for?
   def supported_grade_levels_next_year
-    ['1','2','3','4','5','6']
+    ['KF', '1','2','3','4','5','6', '7', '8']
   end
 
   # What schools are supported?
   def supported_schools
-    @supported_schools ||= School.where(school_type: ['ESMS', 'ES', 'MS'])
+    @supported_schools ||= School.where(school_type: ['ECS', 'ESMS', 'ES', 'MS'])
   end
 
   # This is authorization-aware, and checks authorization for the grade level
@@ -92,8 +92,8 @@ class ClassListQueries
     end
   end
 
-  def all_authorized_workspaces
-    workspaces = ClassList.unsafe_all_workspaces_without_authorization_check
+  def all_authorized_workspaces(options = {})
+    workspaces = ClassList.unsafe_all_workspaces_without_authorization_check(options)
 
     # Authorization check
     workspaces.select do |workspace|
@@ -174,6 +174,7 @@ class ClassListQueries
         :local_id,
         :first_name,
         :last_name,
+        :grade,
         :date_of_birth,
         :disability,
         :program_assigned,
@@ -188,9 +189,11 @@ class ClassListQueries
         :most_recent_star_reading_percentile
       ],
       methods: [
+        :latest_note,
         :latest_iep_document,
         :latest_access_results,
         :latest_dibels,
+        :winter_reading_doc,
         :most_recent_school_year_discipline_incidents_count
       ]
     })

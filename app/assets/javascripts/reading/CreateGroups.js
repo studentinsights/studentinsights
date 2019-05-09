@@ -14,7 +14,7 @@ import {
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
   readDoc,
-  somervilleDibelsThresholdsFor
+  somervilleReadingThresholdsFor
 } from './readingData';
 import {
   reordered,
@@ -111,8 +111,19 @@ export default class CreateGroups extends React.Component {
   }
 
   renderDraggable(student, index) {
+    // disableDraggingForSnapshotTest is because of this error in the snapshot test,
+    // after upgrading from  react-beautiful-dnd 6 > 11.0.02:
+    // `Error: Uncaught [Error: Invariant failed: Drag handle could not obtain draggable ref]`
+    //
+    // This approach works around to disable the problem within `useFocusRetainer` and keep
+    // the major value in the test, which isn't about testing the Draggable interaction anway.
+    const {disableDraggingForSnapshotTest} = this.props;
     return (
-      <Draggable key={student.id} draggableId={`StudentCard:${student.id}`} index={index}>
+      <Draggable
+        key={student.id}
+        draggableId={`StudentCard:${student.id}`}
+        index={index}
+        isDragDisabled={disableDraggingForSnapshotTest}>
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
@@ -230,7 +241,8 @@ CreateGroups.propTypes = {
     id: PropTypes.number.isRequired,
     recorded_at: PropTypes.string.isRequired,
   })).isRequired,
-  useMockPhoto: PropTypes.bool
+  useMockPhoto: PropTypes.bool,
+  disableDraggingForSnapshotTest: PropTypes.bool
 };
 
 const PHOTO_MAX_WIDTH = 60;
@@ -441,7 +453,7 @@ renderDibelsBar.propTypes = {
 
 // Returns {coreCount, straetgi}
 function computeDibelsCounts(benchmarkAssessmentKey, grade, benchmarkPeriodKey, values) {
-  const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
   const initialCounts = {
     core: 0,
     strategic: 0,

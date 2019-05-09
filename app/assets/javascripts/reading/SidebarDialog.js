@@ -16,7 +16,7 @@ import {
   F_AND_P_ENGLISH,
   INSTRUCTIONAL_NEEDS,
   readDoc,
-  somervilleDibelsThresholdsFor,
+  somervilleReadingThresholdsFor,
   dibelsColor
 } from './readingData';
 
@@ -219,7 +219,7 @@ function renderDibels(benchmarkPeriodKey, grade, doc, studentId, benchmarkAssess
   const value = readDoc(doc, studentId, benchmarkAssessmentKey);
   if (!value) return none();
 
-  const thresholds = somervilleDibelsThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
+  const thresholds = somervilleReadingThresholdsFor(benchmarkAssessmentKey, grade, benchmarkPeriodKey);
   const color = dibelsColor(value, thresholds);
   return (
     <div style={{paddingLeft: 5}}>
