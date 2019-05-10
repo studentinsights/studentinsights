@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe MtssReferralImporter do
+RSpec.describe MtssReferralProcessor do
   let!(:pals) { TestPals.create! }
 
   describe 'integration test' do
     it 'works' do
       file_text = IO.read("#{Rails.root}/spec/importers/mtss_referral/mtss_referral_fixture.csv")
-      importer = MtssReferralImporter.new
+      importer = MtssReferralProcessor.new
       rows = importer.process(file_text)
       expect(rows).to contain_exactly(*[{
         :student_id=>pals.healey_kindergarten_student.id,
