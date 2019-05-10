@@ -22,6 +22,7 @@ class EducatorLabel < ApplicationRecord
         # reading
         'profile_enable_minimal_reading_data',
         'enable_reading_benchmark_data_entry',
+        'enable_reading_debug',
 
         # other
         'k8_counselor',

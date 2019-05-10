@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   put '/api/reading/update_data_point_json' => 'reading#update_data_point_json'
   get '/api/reading/teams_json' => 'reading#teams_json'
   post '/api/reading/grouping_snapshot_json/:grouping_workspace_id' => 'reading#grouping_snapshot_json'
+  get '/api/reading/reading_debug_json' => 'reading#reading_debug_json'
 
   # classroom list creator
   get '/api/class_lists/workspaces_json' => 'class_lists#workspaces_json'
@@ -192,6 +193,12 @@ Rails.application.routes.draw do
       get 'courses' => 'ui#ui'
       get 'reading/:grade/entry' => 'ui#ui'
       get 'reading/:grade/groups' => 'ui#ui'
+    end
+  end
+
+  resource :reading, only: [] do
+    member do
+      get '/debug' => 'ui#ui'
     end
   end
 

@@ -5,6 +5,7 @@ import qs from 'query-string';
 import Hover from '../components/Hover';
 import Stack from '../components/Stack';
 import DibelsBreakdownBar from '../components/DibelsBreakdownBar';
+import FountasAndPinellBreakdown from '../reading/FountasAndPinellBreakdown';
 import BreakdownBar from '../components/BreakdownBar';
 import {
   selection,
@@ -30,10 +31,6 @@ import {
   starBucket,
   HighlightKeys
 } from './studentFilters';
-import {
-  interpretFAndPEnglish,
-  classifyFAndPEnglish
-} from '../reading/readingData';
 
 // This component is written particularly for Somerville and it's likely this would require factoring out
 // into `PerDistrict` to respect the way this data is stored across districts.
@@ -200,34 +197,28 @@ export default class ClassroomStats extends React.Component {
 
   renderFandPBreakdown(studentsInRoom) {
     const {gradeLevelNextYear} = this.props;
-    const benchmarkPeriodKey = 'winter';
     const students = studentsInRoom;
-    const fAndPCounts = {
-      low: 0,
-      medium: 0,
-      high: 0
-    };
-    students.forEach(student => {
-      const isMissing = (
-        (!student.winter_reading_doc) ||
-        (!student.winter_reading_doc.f_and_p_english)
-      );
-      if (isMissing) return;
-
-      const grade = previousGrade(gradeLevelNextYear);
-      if (!grade) return;
-      const level = interpretFAndPEnglish(student.winter_reading_doc.f_and_p_english);
-      if (!level) return;
-      const category = classifyFAndPEnglish(level, grade, benchmarkPeriodKey);
-      if (!category) return;
-      fAndPCounts[category] = fAndPCounts[category] + 1;
+    const grade = previousGrade(gradeLevelNextYear);
+    if (!grade) return null;
+    
+    const fAndPValuesWithNulls = students.map(student => {
+      if (!student.winter_reading_doc) return null;
+      if (!student.winter_reading_doc.f_and_p_english) return null;
+      return student.winter_reading_doc.f_and_p_english;
     });
 
-    return this.renderBreakdownBar([
-      { left: 0, width: fAndPCounts.high, color: high, key: 'high' },
-      { left: fAndPCounts.high, width: fAndPCounts.medium, color: medium, key: 'medium' },
-      { left: fAndPCounts.high + fAndPCounts.medium, width: fAndPCounts.low, color: low, key: 'low' }
-    ]);
+    return (
+      <FountasAndPinellBreakdown
+        grade={grade}
+        benchmarkPeriodKey="winter"
+        fAndPValuesWithNulls={fAndPValuesWithNulls}
+        includeMissing={false}
+        style={styles.breakdownBar}
+        innerStyle={styles.breakdownBarInner}
+        height={5}
+        labelTop={5}
+      />
+    );
   }
 
   renderMath(studentsInRoom) {
