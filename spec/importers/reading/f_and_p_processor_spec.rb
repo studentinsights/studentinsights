@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe FAndPProcessor do
   def fixture_file_text
-    IO.read("#{Rails.root}/spec/importers/reading/f_and_p.csv")
+    IO.read("#{Rails.root}/spec/importers/reading/f_and_p_processor.csv")
   end
 
   describe 'integration test' do
