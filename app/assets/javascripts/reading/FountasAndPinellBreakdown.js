@@ -39,12 +39,14 @@ export default class FountasAndPinnellBreakdown extends React.Component {
     const missingItem = (includeMissing)
       ? { left: 0, width: fAndPCounts.missing, color: missing, key: 'missing' }
       : null;
-
+    const missingCountOrZero = (includeMissing)
+      ? fAndPCounts.missing
+      : 0;
     return _.compact([
       missingItem,
-      { left: fAndPCounts.missing, width: fAndPCounts.high, color: high, key: 'high' },
-      { left: fAndPCounts.missing + fAndPCounts.high, width: fAndPCounts.medium, color: medium, key: 'medium' },
-      { left: fAndPCounts.missing + fAndPCounts.high + fAndPCounts.medium, width: fAndPCounts.low, color: low, key: 'low' }
+      { left: missingCountOrZero, width: fAndPCounts.high, color: high, key: 'high' },
+      { left: missingCountOrZero + fAndPCounts.high, width: fAndPCounts.medium, color: medium, key: 'medium' },
+      { left: missingCountOrZero + fAndPCounts.high + fAndPCounts.medium, width: fAndPCounts.low, color: low, key: 'low' }
     ]);
   }
 
