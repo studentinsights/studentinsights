@@ -44,7 +44,7 @@ class ReadingBenchmarkDataPoint < ApplicationRecord
     end
     doc.as_json
   end
-  
+
   def self.benchmark_period_key_at(time_now)
     year = SchoolYear.to_school_year(time_now)
     fall_start = SchoolYear.first_day_of_school_for_year(year)
