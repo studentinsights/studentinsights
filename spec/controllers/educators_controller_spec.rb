@@ -150,47 +150,11 @@ describe EducatorsController, :type => :controller do
       end
     end
 
-    context 'admin educator logged in, cached student names on Educator record' do
-      before do
-        @USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL = ENV['USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL']
-        ENV['USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL'] = 'true'
-      end
-      after do
-        ENV['USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL'] = @USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL
-      end
-
-      let!(:educator) {
-        FactoryBot.create(
-          :educator, :admin,
-          school: school,
-          student_searchbar_json: "[{\"label\":\"Juan P - HEA - 5\",\"id\":\"700\"}]"
-        )
-      }
-      before { sign_in(educator) }
-
-      it 'returns an array of student labels and ids that match cached students on Educator record' do
-        make_request
-        expect(response).to be_successful
-        expect(JSON.parse(response.body)).to eq [
-          { "label" => "Juan P - HEA - 5", "id" => "700" }
-        ]
-      end
-    end
-
     context 'admin educator logged in, cached student names on EducatorSearchbar record' do
-      before do
-        @USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL = ENV['USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL']
-        ENV['USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL'] = 'false'
-      end
-      after do
-        ENV['USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL'] = @USE_SEARCHBAR_JSON_ON_EDUCATOR_MODEL
-      end
-
       let!(:educator) do
         FactoryBot.create(
           :educator, :admin,
-          school: school,
-          student_searchbar_json: nil
+          school: school
         )
       end
       let!(:educator_searchbar) do
