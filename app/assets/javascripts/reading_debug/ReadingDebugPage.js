@@ -90,11 +90,11 @@ export class ReadingDebugView extends React.Component {
     const grades = ['KF', '1', '2'];
     return (
       <div>
-        <Scatterplot
+        {/*<Scatterplot
           intervals={intervals}
           dataPoints={filteredDataPoints}
           studentsById={studentsById}
-        />
+        />*/}
         <table>
           <thead>
             <tr>
