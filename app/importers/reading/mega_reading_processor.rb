@@ -9,8 +9,8 @@
 # ...
 # EOD
 # educator = Educator.find_by_login_name('...')
-# output = MegaReadingImporter.new(educator.id).import(file_text);nil
-class MegaReadingImporter
+# output = MegaReadingProcessor.new(educator.id).import(file_text);nil
+class MegaReadingProcessor
   def initialize(educator_id, options = {})
     @educator_id = educator_id
     @log = options.fetch(:log, Rails.env.test? ? LogHelper::Redirect.instance.file : STDOUT)
@@ -34,7 +34,7 @@ class MegaReadingImporter
       @matcher.count_valid_row
     end
     log "matcher#stats: #{@matcher.stats}"
-    log "MegaReadingImporter#stats: #{stats}"
+    log "MegaReadingProcessor#stats: #{stats}"
 
     # deprecated, use ReadingBenchmarkData model for F&P instead
     # write to database for F&P only
@@ -196,6 +196,6 @@ class MegaReadingImporter
 
   def log(msg)
     text = if msg.class == String then msg else JSON.pretty_generate(msg) end
-    @log.puts "MegaReadingImporter: #{text}"
+    @log.puts "MegaReadingProcessor: #{text}"
   end
 end
